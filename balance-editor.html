@@ -1940,4 +1940,53 @@ ensureArrays();render();
 })();
 </script>
 
+<script id="weapon-basic-effect-editor">
+/* Editor support for weapon basic-attack element and next-round advance affix. */
+(function installWeaponBasicEffectEditor(){
+  if(!EXCLUSIVE_KEYS.includes('basicAdvanceNextRound'))EXCLUSIVE_KEYS.push('basicAdvanceNextRound');
+  EXCLUSIVE_LABELS.basicAdvanceNextRound='普攻後下回合前移（格）';
+  EXCLUSIVE_HELP.basicAdvanceNextRound='武器詞綴效果。角色完成普攻後，下一回合的初始行動順序往前指定格數；不增加額外行動次數。建議設為 1。';
+
+  // Match the test build defaults. physical/blank means neutral basic attacks.
+  const defaults=[
+    {job:0,form:1,element:'fire'},
+    {job:1,form:0,element:'fire'},
+    {job:1,form:1,element:'ice'},
+    {job:1,form:2,element:'wind'},
+    {job:2,form:2,element:'wind'},
+    {job:3,form:0,element:'light'}
+  ];
+  for(const x of defaults){const form=data.equipmentForms?.[x.job]?.[0]?.[x.form];if(form)form.element=x.element;}
+  for(const x of [{job:0,form:0},{job:1,form:2},{job:2,form:2},{job:3,form:2}]){
+    const form=data.equipmentForms?.[x.job]?.[0]?.[x.form];
+    if(form){form.exclusive??={};form.exclusive.basicAdvanceNextRound=1;}
+  }
+
+  const baseValidate=validateData;
+  validateData=function(){
+    const issues=baseValidate();
+    data.equipmentForms.forEach((jobs,job)=>jobs.forEach((forms,slot)=>forms.forEach((f,i)=>{
+      const v=f?.exclusive?.basicAdvanceNextRound;
+      if(v!==undefined&&(!Number.isInteger(v)||v<0||v>5))issues.push('裝備 '+job+'-'+slot+'-'+i+' 的「普攻後下回合前移」必須是 0～5 的整數。');
+      if(slot!==0&&v)issues.push('裝備 '+job+'-'+slot+'-'+i+' 的「普攻後下回合前移」只建議用於武器槽。');
+    })));
+    return issues;
+  };
+
+  const baseRenderEquipment=renderEquipment;
+  renderEquipment=function(){
+    baseRenderEquipment();
+    const app=document.getElementById('app'),e=data.equipmentForms?.[selected.equipClass]?.[selected.equipSlot]?.[selected.equip];
+    if(!app||!e)return;
+    const notice=app.querySelector('.notice');
+    if(notice)notice.insertAdjacentHTML('afterend','<div class="mini-note">普攻預設為無屬性。武器的「普攻屬性」可改成指定元素；「普攻後下回合前移（格）」是固定詞綴效果，設為 1 即代表普攻後下一回合往前一格。</div>');
+    const elementSelect=app.querySelector('select[data-key="element"]');
+    if(elementSelect&&selected.equipSlot!==0)elementSelect.disabled=true;
+  };
+
+  markDirty('已加入普攻屬性／下回合前移詞綴設定，尚未匯出');
+  render();
+})();
+</script>
+
 </html>
