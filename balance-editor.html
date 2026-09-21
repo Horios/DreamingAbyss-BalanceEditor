@@ -1906,118 +1906,175 @@ ensureArrays();render();
   render();
 })();
 </script>
-<style id="equipment-prefix-strength-editor-style">
-.power-prefix-grid,.power-series-grid{display:grid;gap:9px}.power-prefix-row{display:grid;grid-template-columns:115px minmax(120px,1fr) 72px 72px 72px 82px 86px 86px 86px 40px;gap:7px;align-items:end;padding:9px;border:1px solid var(--line);border-radius:8px;background:#151a20}.power-series-row{display:grid;grid-template-columns:145px minmax(150px,1fr) 110px 90px 90px 90px;gap:7px;align-items:end;padding:9px;border:1px solid var(--line);border-radius:8px;background:#151a20}.power-prefix-row label,.power-series-row label,.power-grade-grid label,.power-reroll-grid label{font-size:11px;color:var(--muted)}.power-prefix-row input,.power-grade-grid input,.power-reroll-grid input,.power-reroll-grid textarea{margin-top:4px}.power-grade-grid{display:grid;grid-template-columns:62px 110px repeat(3,minmax(105px,1fr));gap:7px;align-items:end}.power-grade-head{color:var(--muted);font-size:11px;padding:0 4px}.power-grade-row{display:contents}.power-reroll-grid{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:9px}.power-reroll-grid .full{grid-column:1/-1}.power-preview{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:8px;margin:10px 0}.power-preview>div{padding:10px;border:1px solid var(--line);border-radius:7px;background:#151a20}.power-preview b{display:block;font-size:18px;margin-top:4px}@media(max-width:1150px){.power-prefix-row{grid-template-columns:repeat(4,minmax(100px,1fr))}.power-prefix-row .power-delete{grid-column:4}.power-series-row{grid-template-columns:repeat(3,minmax(120px,1fr))}.power-grade-grid{grid-template-columns:55px 100px repeat(3,minmax(90px,1fr))}}@media(max-width:760px){.power-prefix-row,.power-series-row,.power-grade-grid,.power-reroll-grid,.power-preview{display:grid;grid-template-columns:1fr 1fr}.power-grade-head{display:none}.power-grade-row{display:contents}.power-reroll-grid .full{grid-column:1/-1}}
+<style id="equipment-identity-editor-style">
+.identity-grid{display:grid;gap:9px}
+.identity-affix-row{display:grid;grid-template-columns:120px minmax(110px,.8fr) 70px 70px 80px minmax(170px,1fr) minmax(130px,.8fr) 40px;gap:7px;align-items:end;padding:9px;border:1px solid var(--line);border-radius:8px;background:#151a20}
+.identity-affix-row label,.boss-effect-row label,.power-grade-grid label,.power-reroll-grid label{font-size:11px;color:var(--muted)}
+.identity-slots{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:36px}.identity-slots label{display:flex;gap:3px;align-items:center;margin:0}.identity-slots input{width:auto}
+.boss-profile-grid{display:grid;grid-template-columns:repeat(2,minmax(320px,1fr));gap:9px}
+.boss-profile{border:1px solid var(--line);border-radius:8px;background:#151a20;padding:9px}
+.boss-profile-head{display:grid;grid-template-columns:145px minmax(160px,1fr) 120px;gap:7px;align-items:end;margin-bottom:8px}
+.boss-effect-row{display:grid;grid-template-columns:42px minmax(190px,1fr) minmax(150px,.8fr);gap:7px;align-items:end;margin-top:6px}
+.power-grade-grid{display:grid;grid-template-columns:62px 110px repeat(3,minmax(105px,1fr));gap:7px;align-items:end}.power-grade-head{color:var(--muted);font-size:11px;padding:0 4px}.power-grade-row{display:contents}
+.power-reroll-grid{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:9px}.power-reroll-grid .full{grid-column:1/-1}
+.power-preview{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:8px;margin:10px 0}.power-preview>div{padding:10px;border:1px solid var(--line);border-radius:7px;background:#151a20}.power-preview b{display:block;font-size:18px;margin-top:4px}
+.identity-effect-note{margin:7px 0 0;color:var(--muted);font-size:11px}
+@media(max-width:1150px){.identity-affix-row{grid-template-columns:repeat(4,minmax(120px,1fr))}.boss-profile-grid{grid-template-columns:1fr}.boss-profile-head{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:760px){.identity-affix-row,.boss-profile-head,.boss-effect-row,.power-grade-grid,.power-reroll-grid,.power-preview{display:grid;grid-template-columns:1fr 1fr}.power-grade-head{display:none}.power-grade-row{display:contents}.power-reroll-grid .full{grid-column:1/-1}}
 </style>
-<script id="equipment-prefix-strength-editor">
+<script id="equipment-identity-editor-v2">
 (()=>{
   const POWER_ITEM_TYPE='gearTierReroll',POWER_ITEM_ID='power_tier_reroll';
-  const LEGACY_PREFIX_NAMES=['旅人','礦紋','暮影','霜刻','熔火','星隕','翠影','深淵','幽冥','極夜','煉獄','天隕'];
-  const PREFIX_IDS=['traveler','oremark','twilight','frostcarved','molten','starfall','verdant','abyss','nether','evernight','inferno','skyfall'];
+  const VALID_ELEMENTS=['fire','ice','wind','light','shadow'];
+  const REGULAR_EFFECT_KEYS=['basicElement','basicAdvanceNextRound','attackPct','crit','critDamage','pierce','lifesteal','evasion','elementBonus','allCooldownReduction','dropRateBonus'];
+  const BASE_EFFECT_KEYS=['gearAtkPct','gearHpPct','gearDefPct','attackPct','crit','critDamage','pierce','lifesteal','evasion','elementBonus'];
+  const BOSS_EFFECT_KEYS=[...new Set([...REGULAR_EFFECT_KEYS,...BASE_EFFECT_KEYS,'bossDamagePct'])];
+  const EFFECT_LABELS={
+    basicElement:'普通攻擊屬性',basicAdvanceNextRound:'普攻後下回合前移',gearAtkPct:'此裝備基礎攻擊 %',gearHpPct:'此裝備基礎生命 %',gearDefPct:'此裝備基礎防禦 %',
+    attackPct:'角色攻擊力 %',crit:'暴擊率 %',critDamage:'暴擊傷害 %',pierce:'防禦穿透 %',lifesteal:'生命竊取 %',evasion:'閃避率 %',elementBonus:'全屬性增傷 %',
+    allCooldownReduction:'全主動／輔助技能冷卻（回合）',dropRateBonus:'掉寶率 %',bossDamagePct:'對 BOSS 傷害 %'
+  };
   const LEGACY_BOSS_SERIES=['古木誓約','礦脈共鳴','暮沼咒印','永凍之誓','熔核意志','隕星遺產'];
   const PARALLEL_BOSS_SERIES=['赤楓炎靈','潮汐巨像','白骨巫后','雷鳴獸王','聖所守護者','幽冥觀測者'];
-  const makeSeries=(group,names,high=false)=>names.map((name,i)=>({id:`${group}_${high?'high':'low'}_${i}`,group,family:i,high,name:(high?(group==='legacy'?'覺醒・':'上古・'):'')+name,atkUnits:(high?6:0)+i,hpUnits:(high?6:0)+i,defUnits:(high?6:0)+i}));
-  const DEFAULT_SERIES_PREFIXES=[...makeSeries('legacy',LEGACY_BOSS_SERIES,false),...makeSeries('legacy',LEGACY_BOSS_SERIES,true),...makeSeries('parallel',PARALLEL_BOSS_SERIES,false),...makeSeries('parallel',PARALLEL_BOSS_SERIES,true)];
-  const POWER_DEFAULT={prefixes:LEGACY_PREFIX_NAMES.map((name,i)=>({id:PREFIX_IDS[i],name,legacyTier:i+1,tierMin:i+1,tierMax:i+1,weight:1,atkUnits:i,hpUnits:i,defUnits:i})),seriesPrefixes:DEFAULT_SERIES_PREFIXES,strength:{multipliers:[1,1.06,1.12,1.19,1.25,1.31,1.37,1.43,1.49,1.55],weightsByDifficulty:[[70,20,8,2,0,0,0,0,0,0],[0,0,5,20,55,15,5,0,0,0],[0,0,0,0,0,2,5,10,23,60]]},rerollItem:{id:POWER_ITEM_ID,name:'強度重鑄石',description:'重新抽選一件裝備的 T1～T10 強度階級；抽選分布依該裝備原始掉落難度決定。',cost:0,sellPrice:80,shopEnabled:false,shopChance:.06,shopPrice:650,dropRuleInitialized:false}};
+  const fx=(key,value)=>({key,value});
+  const DEFAULT_PREFIXES=[
+    {id:'redmaple',name:'赤楓',tierMin:1,tierMax:12,weight:1,slots:[0],effect:fx('basicElement','fire')},
+    {id:'frostcarved',name:'霜刻',tierMin:1,tierMax:12,weight:1,slots:[0],effect:fx('basicElement','ice')},
+    {id:'verdant',name:'翠影',tierMin:1,tierMax:12,weight:1,slots:[0],effect:fx('basicElement','wind')},
+    {id:'radiant',name:'聖輝',tierMin:1,tierMax:12,weight:1,slots:[0],effect:fx('basicElement','light')},
+    {id:'nether',name:'幽冥',tierMin:1,tierMax:12,weight:1,slots:[0],effect:fx('basicElement','shadow')},
+    {id:'piercing',name:'穿甲',tierMin:2,tierMax:12,weight:1,slots:[0,2],effect:fx('pierce',6)},
+    {id:'bloodbound',name:'血契',tierMin:3,tierMax:12,weight:.8,slots:[0],effect:fx('lifesteal',3)},
+    {id:'starfall',name:'星隕',tierMin:3,tierMax:12,weight:.9,slots:[0,2],effect:fx('critDamage',12)},
+    {id:'echoing',name:'回響',tierMin:4,tierMax:12,weight:.65,slots:[0,1,2],effect:fx('allCooldownReduction',1)},
+    {id:'seeker',name:'尋珍',tierMin:4,tierMax:12,weight:.7,slots:[0,1,2],effect:fx('dropRateBonus',8)},
+    {id:'arcane',name:'秘能',tierMin:5,tierMax:12,weight:.7,slots:[0,1,2],effect:fx('elementBonus',8)},
+    {id:'keen',name:'銳眼',tierMin:5,tierMax:12,weight:.7,slots:[0,2],effect:fx('crit',5)}
+  ];
+  const DEFAULT_SUFFIXES=[
+    {id:'traveler',name:'旅人',tierMin:1,tierMax:12,weight:1,slots:[0],effect:fx('basicAdvanceNextRound',1)},
+    {id:'vanguard',name:'先鋒',tierMin:1,tierMax:12,weight:1,slots:[0,1,2],effect:fx('attackPct',4)},
+    {id:'swift',name:'迅捷',tierMin:1,tierMax:12,weight:1,slots:[0,1,2],effect:fx('evasion',5)},
+    {id:'eagleeye',name:'鷹眼',tierMin:2,tierMax:12,weight:1,slots:[0,2],effect:fx('crit',4)},
+    {id:'breaker',name:'破城',tierMin:2,tierMax:12,weight:.9,slots:[0,2],effect:fx('pierce',6)},
+    {id:'leeching',name:'汲血',tierMin:3,tierMax:12,weight:.75,slots:[0],effect:fx('lifesteal',3)},
+    {id:'resonant',name:'共鳴',tierMin:3,tierMax:12,weight:.75,slots:[0,1,2],effect:fx('elementBonus',7)},
+    {id:'quickcast',name:'疾詠',tierMin:4,tierMax:12,weight:.6,slots:[0,1,2],effect:fx('allCooldownReduction',1)},
+    {id:'hunter',name:'獵手',tierMin:4,tierMax:12,weight:.7,slots:[0,1,2],effect:fx('dropRateBonus',7)},
+    {id:'fury',name:'狂擊',tierMin:5,tierMax:12,weight:.7,slots:[0,2],effect:fx('critDamage',12)},
+    {id:'assault',name:'強襲',tierMin:5,tierMax:12,weight:.65,slots:[0,1,2],effect:fx('attackPct',5)},
+    {id:'phantom',name:'幻步',tierMin:5,tierMax:12,weight:.65,slots:[0,1,2],effect:fx('evasion',6)}
+  ];
+  const FAMILY_BOSS_EFFECTS=[
+    [fx('gearHpPct',12),fx('lifesteal',4),fx('bossDamagePct',8)],
+    [fx('gearDefPct',12),fx('pierce',8),fx('allCooldownReduction',1)],
+    [fx('gearAtkPct',10),fx('basicElement','shadow'),fx('evasion',6)],
+    [fx('gearDefPct',10),fx('basicElement','ice'),fx('critDamage',18)],
+    [fx('gearAtkPct',12),fx('basicElement','fire'),fx('elementBonus',10)],
+    [fx('gearAtkPct',15),fx('crit',7),fx('bossDamagePct',12)]
+  ];
   const clone=v=>structuredClone(v);
+  function boostedEffect(effect,high,parallel){const out=clone(effect);if(typeof out.value==='number'){if(out.key==='allCooldownReduction')out.value=Math.min(2,out.value+(high?1:0));else out.value=Number((out.value*(high?1.35:1)*(parallel?1.08:1)).toFixed(2));}return out;}
+  function makeBossProfiles(group,names,high=false){return names.map((baseName,family)=>({id:group+'_'+(high?'high':'low')+'_'+family,group,family,high,name:(high?(group==='legacy'?'覺醒・':'上古・'):'')+baseName,effects:FAMILY_BOSS_EFFECTS[family].map(e=>boostedEffect(e,high,group==='parallel'))}));}
+  const DEFAULT_BOSS_AFFIXES=[...makeBossProfiles('legacy',LEGACY_BOSS_SERIES,false),...makeBossProfiles('legacy',LEGACY_BOSS_SERIES,true),...makeBossProfiles('parallel',PARALLEL_BOSS_SERIES,false),...makeBossProfiles('parallel',PARALLEL_BOSS_SERIES,true)];
+  const POWER_DEFAULT={schemaVersion:2,prefixes:DEFAULT_PREFIXES,suffixes:DEFAULT_SUFFIXES,bossAffixes:DEFAULT_BOSS_AFFIXES,strength:{multipliers:[1,1.06,1.12,1.19,1.25,1.31,1.37,1.43,1.49,1.55],weightsByDifficulty:[[70,20,8,2,0,0,0,0,0,0],[0,0,5,20,55,15,5,0,0,0],[0,0,0,0,0,2,5,10,23,60]]},rerollItem:{id:POWER_ITEM_ID,name:'強度重鑄石',description:'重新抽選一件裝備的 T1～T10 強度階級；抽選分布依該裝備原始掉落難度決定。',cost:0,sellPrice:80,shopEnabled:false,shopChance:.06,shopPrice:650,dropRuleInitialized:false}};
+
   function n(v,d,min=-Infinity,max=Infinity){v=Number(v);return Number.isFinite(v)?Math.max(min,Math.min(max,v)):d;}
-  function normalizePower(src){src=src&&typeof src==='object'&&!Array.isArray(src)?src:{};const out=clone(POWER_DEFAULT),rows=Array.isArray(src.prefixes)?src.prefixes:out.prefixes,seen=new Set();out.prefixes=rows.map((x,i)=>{x=x&&typeof x==='object'?x:{};let id=typeof x.id==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(x.id)?x.id:(PREFIX_IDS[i]||('prefix_'+(i+1)));if(seen.has(id))id=id+'_'+(i+1);seen.add(id);const legacyTier=Math.max(1,Math.min(12,Math.round(n(x.legacyTier,i+1,1,12)))),tierMin=Math.max(1,Math.min(12,Math.round(n(x.tierMin,legacyTier,1,12)))),tierMax=Math.max(tierMin,Math.min(12,Math.round(n(x.tierMax,legacyTier,tierMin,12))));return {id,name:typeof x.name==='string'&&x.name.trim()?x.name.trim():(LEGACY_PREFIX_NAMES[i]||'自訂'),legacyTier,tierMin,tierMax,weight:n(x.weight,1,0,1e6),atkUnits:n(x.atkUnits,legacyTier-1,-1000,1000),hpUnits:n(x.hpUnits,legacyTier-1,-1000,1000),defUnits:n(x.defUnits,legacyTier-1,-1000,1000)};});if(!out.prefixes.length)out.prefixes=clone(POWER_DEFAULT.prefixes);const seriesRows=Array.isArray(src.seriesPrefixes)?src.seriesPrefixes:out.seriesPrefixes;out.seriesPrefixes=DEFAULT_SERIES_PREFIXES.map(def=>{const x=seriesRows.find(row=>row&&row.id===def.id)||def;return {...def,name:typeof x.name==='string'&&x.name.trim()?x.name.trim():def.name,atkUnits:n(x.atkUnits,def.atkUnits,-1000,1000),hpUnits:n(x.hpUnits,def.hpUnits,-1000,1000),defUnits:n(x.defUnits,def.defUnits,-1000,1000)};});const st=src.strength||{};out.strength.multipliers=Array.from({length:10},(_,i)=>n(st.multipliers?.[i],POWER_DEFAULT.strength.multipliers[i],.01,100));out.strength.weightsByDifficulty=Array.from({length:3},(_,d)=>Array.from({length:10},(_,i)=>n(st.weightsByDifficulty?.[d]?.[i],POWER_DEFAULT.strength.weightsByDifficulty[d][i],0,1e9)));const r=src.rerollItem||{};out.rerollItem={id:POWER_ITEM_ID,name:typeof r.name==='string'&&r.name.trim()?r.name.trim():POWER_DEFAULT.rerollItem.name,description:typeof r.description==='string'?r.description:POWER_DEFAULT.rerollItem.description,cost:0,sellPrice:n(r.sellPrice,80,0,1e9),shopEnabled:false,shopChance:n(r.shopChance,.06,0,1),shopPrice:Math.round(n(r.shopPrice,650,1,1e9)),dropRuleInitialized:!!r.dropRuleInitialized};return out;}
+  function normalizeSlots(v,def=[0,1,2]){const out=Array.isArray(v)?[...new Set(v.map(Number).filter(x=>Number.isInteger(x)&&x>=0&&x<=2))]:clone(def);return out.length?out:clone(def);}
+  function normalizeEffect(src,allowed,def){const fallback=clone(def),set=new Set(allowed);if(!src||typeof src!=='object'||Array.isArray(src)||!set.has(src.key))return fallback;const key=src.key;if(key==='basicElement')return {key,value:VALID_ELEMENTS.includes(src.value)?src.value:fallback.value};let min=-100,max=500;if(key==='basicAdvanceNextRound'){min=1;max=5;}if(key==='allCooldownReduction'){min=0;max=5;}if(key==='dropRateBonus'||key==='bossDamagePct'){min=0;max=500;}return {key,value:n(src.value,fallback.value,min,max)};}
+  function normalizeAffixRows(rows,defaults){if(!Array.isArray(rows)||!rows.some(x=>x&&x.effect))return clone(defaults);const seen=new Set(),out=[];for(let i=0;i<rows.length;i++){const x=rows[i]&&typeof rows[i]==='object'?rows[i]:{},d=defaults[i%defaults.length];let id=typeof x.id==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(x.id)?x.id:d.id+'_'+(i+1);if(seen.has(id))id=id+'_'+(i+1);seen.add(id);const tierMin=Math.max(1,Math.min(12,Math.round(n(x.tierMin,d.tierMin,1,12)))),tierMax=Math.max(tierMin,Math.min(12,Math.round(n(x.tierMax,d.tierMax,tierMin,12))));out.push({id,name:typeof x.name==='string'&&x.name.trim()?x.name.trim():d.name,tierMin,tierMax,weight:n(x.weight,d.weight,0,1e6),slots:normalizeSlots(x.slots,d.slots),effect:normalizeEffect(x.effect,REGULAR_EFFECT_KEYS,d.effect)});}return out.length?out:clone(defaults);}
+  function normalizeBossAffixes(rows,legacySeries){const byId=new Map((Array.isArray(rows)?rows:[]).filter(Boolean).map(x=>[x.id,x])),legacyById=new Map((Array.isArray(legacySeries)?legacySeries:[]).filter(Boolean).map(x=>[x.id,x]));return DEFAULT_BOSS_AFFIXES.map(def=>{const x=byId.get(def.id)||{},legacy=legacyById.get(def.id)||{},name=typeof x.name==='string'&&x.name.trim()?x.name.trim():typeof legacy.name==='string'&&legacy.name.trim()?legacy.name.trim():def.name,src=Array.isArray(x.effects)?x.effects:[],effects=Array.from({length:3},(_,i)=>normalizeEffect(src[i],BOSS_EFFECT_KEYS,def.effects[i])),used=new Set();for(let i=0;i<effects.length;i++){if(used.has(effects[i].key)){const replacement=def.effects.find(d=>!used.has(d.key))||DEFAULT_BOSS_AFFIXES[0].effects.find(d=>!used.has(d.key));if(replacement)effects[i]=clone(replacement);}used.add(effects[i].key);}return {...def,name,effects};});}
+  function normalizePower(src){src=src&&typeof src==='object'&&!Array.isArray(src)?src:{};const out=clone(POWER_DEFAULT);out.prefixes=normalizeAffixRows(src.prefixes,DEFAULT_PREFIXES);out.suffixes=normalizeAffixRows(src.suffixes,DEFAULT_SUFFIXES);out.bossAffixes=normalizeBossAffixes(src.bossAffixes,src.seriesPrefixes);const st=src.strength||{};out.strength.multipliers=Array.from({length:10},(_,i)=>n(st.multipliers?.[i],POWER_DEFAULT.strength.multipliers[i],.01,100));out.strength.weightsByDifficulty=Array.from({length:3},(_,d)=>Array.from({length:10},(_,i)=>n(st.weightsByDifficulty?.[d]?.[i],POWER_DEFAULT.strength.weightsByDifficulty[d][i],0,1e9)));const r=src.rerollItem||{};out.rerollItem={id:POWER_ITEM_ID,name:typeof r.name==='string'&&r.name.trim()?r.name.trim():POWER_DEFAULT.rerollItem.name,description:typeof r.description==='string'?r.description:POWER_DEFAULT.rerollItem.description,cost:0,sellPrice:n(r.sellPrice,80,0,1e9),shopEnabled:false,shopChance:n(r.shopChance,.06,0,1),shopPrice:Math.round(n(r.shopPrice,650,1,1e9)),dropRuleInitialized:!!r.dropRuleInitialized};return out;}
+
+  function normalizeBaseForms(){for(const jobs of data.equipmentForms||[])for(const forms of jobs||[])for(const form of forms||[]){delete form.element;if(form.exclusive&&Object.prototype.hasOwnProperty.call(form.exclusive,'basicAdvanceNextRound'))delete form.exclusive.basicAdvanceNextRound;if(form.exclusive&&Object.keys(form.exclusive).length===0)delete form.exclusive;}const broad=data.equipmentForms?.[0]?.[0]?.[0];if(broad){broad.exclusive??={};if(!Number.isFinite(broad.exclusive.gearAtkPct)||Math.abs(Number(broad.exclusive.gearAtkPct)-20)<.001)broad.exclusive.gearAtkPct=5;}}
+
   function specialItem(){const r=data.equipmentPowerSystem.rerollItem;return {id:POWER_ITEM_ID,type:POWER_ITEM_TYPE,cost:0,sellPrice:r.sellPrice,duration:0,name:r.name,description:r.description,shopEnabled:false};}
   function ensureSpecialItem(){const item=specialItem(),i=data.items.findIndex(x=>x?.id===POWER_ITEM_ID||x?.type===POWER_ITEM_TYPE);if(i<0)data.items.push(item);else data.items[i]=Object.assign(data.items[i],item);}
   function ensureDropRule(){const r=data.equipmentPowerSystem.rerollItem;if(r.dropRuleInitialized)return;const drops=data.balanceSettings?.drops?.entries,cat=data.balanceSettings?.monsters?.catalog||[];if(Array.isArray(drops)&&!drops.some(x=>x?.type==='item'&&x?.key===POWER_ITEM_ID))drops.push({id:'power_tier_reroll_drop',name:r.name,enabled:true,type:'item',key:POWER_ITEM_ID,kinds:['elite','boss','final'],chanceByDifficulty:[.002,.01,.03],quantityMin:1,quantityMax:1,sources:cat.filter(x=>x?.enabled!==false).map(x=>x.id).filter(Boolean)});r.dropRuleInitialized=true;}
-  let skipPowerEnsure=false;const powerEnsureBase=ensureArrays;ensureArrays=function(){const out=powerEnsureBase();if(skipPowerEnsure)return out;data.equipmentPowerSystem=normalizePower(data.equipmentPowerSystem);ensureSpecialItem();ensureDropRule();return out;};ensureArrays();
-  if(!SECTION_META.some(([id])=>id==='equipmentPower')){const i=SECTION_META.findIndex(([id])=>id==='equipment');SECTION_META.splice(i<0?SECTION_META.length:i+1,0,['equipmentPower','冠名／強度']);}
-  const powerCountBase=count;count=function(section){if(section==='equipmentPower')return `${data.equipmentPowerSystem?.prefixes?.length||0}+${data.equipmentPowerSystem?.seriesPrefixes?.length||0}+10`;return powerCountBase(section);};
 
-  function bindNum(selector,callback){document.querySelectorAll(selector).forEach(el=>el.onchange=()=>{callback(el);markDirty();});}
-  function uniquePrefixId(){const used=new Set(data.equipmentPowerSystem.prefixes.map(x=>x.id));let i=1,id;do{id='custom_prefix_'+i++;}while(used.has(id));return id;}
-  globalThis.addEquipmentPrefix=function(){const p=data.equipmentPowerSystem.prefixes,tier=Math.max(1,Math.min(12,p.length+1));p.push({id:uniquePrefixId(),name:'自訂冠名',legacyTier:tier,tierMin:tier,tierMax:tier,weight:1,atkUnits:0,hpUnits:0,defUnits:0});markDirty();render();};
-  globalThis.deleteEquipmentPrefix=function(i){const p=data.equipmentPowerSystem.prefixes;if(p.length<=1)return alert('至少保留 1 個冠名詞綴。');if(confirmDelete(`刪除冠名「${p[i]?.name||p[i]?.id}」？舊裝備若使用此 ID，遊戲會依原階級回退到可用冠名。`)){p.splice(i,1);markDirty();render();}};
+  let skipIdentityEnsure=false;const identityEnsureBase=ensureArrays;
+  ensureArrays=function(){const out=identityEnsureBase();if(skipIdentityEnsure)return out;data.equipmentPowerSystem=normalizePower(data.equipmentPowerSystem);normalizeBaseForms();ensureSpecialItem();ensureDropRule();return out;};
+  ensureArrays();
+
+  const existingMeta=SECTION_META.find(x=>x[0]==='equipmentPower');
+  if(existingMeta)existingMeta[1]='前綴／後綴／T級';else{const i=SECTION_META.findIndex(([id])=>id==='equipment');SECTION_META.splice(i<0?SECTION_META.length:i+1,0,['equipmentPower','前綴／後綴／T級']);}
+  const identityCountBase=count;count=function(section){if(section==='equipmentPower')return (data.equipmentPowerSystem?.prefixes?.length||0)+'+'+(data.equipmentPowerSystem?.suffixes?.length||0)+'+'+(data.equipmentPowerSystem?.bossAffixes?.length||0);return identityCountBase(section);};
+
+  function effectOptions(keys,current){return keys.map(key=>'<option value="'+key+'" '+(current===key?'selected':'')+'>'+esc(EFFECT_LABELS[key]||key)+'</option>').join('');}
+  function effectValueControl(effect,cls,attrs=''){if(effect.key==='basicElement')return '<select class="'+cls+'" '+attrs+'>'+VALID_ELEMENTS.map(x=>'<option value="'+x+'" '+(effect.value===x?'selected':'')+'>'+x+'</option>').join('')+'</select>';const step=['basicAdvanceNextRound','allCooldownReduction'].includes(effect.key)?'1':'0.01';return '<input class="'+cls+'" '+attrs+' type="number" step="'+step+'" value="'+effect.value+'">';}
+  function defaultValueForKey(key){if(key==='basicElement')return 'fire';if(key==='basicAdvanceNextRound'||key==='allCooldownReduction')return 1;if(key==='lifesteal')return 3;if(key==='crit'||key==='attackPct'||key==='evasion')return 5;if(key==='bossDamagePct')return 10;return 8;}
+  function slotChecks(x,prefix,i){return '<div class="identity-slots">'+['武器','護甲','飾品'].map((name,slot)=>'<label><input type="checkbox" class="'+prefix+'-slot" data-i="'+i+'" data-slot="'+slot+'" '+(x.slots.includes(slot)?'checked':'')+'>'+name+'</label>').join('')+'</div>';}
+  function affixRow(x,i,kind){const cls=kind==='prefix'?'prefix':'suffix';return '<div class="identity-affix-row" data-'+cls+'="'+i+'"><label>ID<input class="'+cls+'-text" data-k="id" value="'+esc(x.id)+'"></label><label>'+(kind==='prefix'?'前綴':'後綴')+'名稱<input class="'+cls+'-text" data-k="name" value="'+esc(x.name)+'"></label><label>最低階<input class="'+cls+'-num" data-k="tierMin" type="number" min="1" max="12" step="1" value="'+x.tierMin+'"></label><label>最高階<input class="'+cls+'-num" data-k="tierMax" type="number" min="1" max="12" step="1" value="'+x.tierMax+'"></label><label>權重<input class="'+cls+'-num" data-k="weight" type="number" min="0" step="0.01" value="'+x.weight+'"></label><label>適用部位'+slotChecks(x,cls,i)+'</label><label>效果<select class="'+cls+'-effect-key" data-i="'+i+'">'+effectOptions(REGULAR_EFFECT_KEYS,x.effect.key)+'</select></label><label>效果值'+effectValueControl(x.effect,cls+'-effect-value','data-i="'+i+'"')+'</label><button class="danger" onclick="deleteIdentityAffix(\''+kind+'\','+i+')">×</button></div>';}
+  function bossProfileCard(x,i){const scope=x.group==='parallel'?(x.high?'上古支線 BOSS':'支線 BOSS'):(x.high?'覺醒 BOSS':'原始 BOSS');return '<div class="boss-profile" data-boss="'+i+'"><div class="boss-profile-head"><label>ID<input value="'+esc(x.id)+'" readonly></label><label>專屬名稱<input class="boss-name" data-i="'+i+'" value="'+esc(x.name)+'"></label><label>套用範圍<input value="'+scope+'" readonly></label></div>'+x.effects.map((effect,j)=>'<div class="boss-effect-row"><b>#'+(j+1)+'</b><label>屬性<select class="boss-effect-key" data-i="'+i+'" data-j="'+j+'">'+effectOptions(BOSS_EFFECT_KEYS,effect.key)+'</select></label><label>值'+effectValueControl(effect,'boss-effect-value','data-i="'+i+'" data-j="'+j+'"')+'</label></div>').join('')+'</div>';}
+
+  function bindIdentityRows(){
+    for(const kind of ['prefix','suffix']){
+      const rows=data.equipmentPowerSystem[kind+'es'];
+      document.querySelectorAll('[data-'+kind+']').forEach(row=>{const x=rows[Number(row.dataset[kind])];row.querySelectorAll('.'+kind+'-text,.'+kind+'-num').forEach(el=>el.onchange=()=>{x[el.dataset.k]=el.classList.contains(kind+'-num')?Number(el.value):el.value;markDirty();});});
+      document.querySelectorAll('.'+kind+'-slot').forEach(el=>el.onchange=()=>{const x=rows[Number(el.dataset.i)],slot=Number(el.dataset.slot),set=new Set(x.slots);if(el.checked)set.add(slot);else set.delete(slot);x.slots=[...set].sort();markDirty();});
+      document.querySelectorAll('.'+kind+'-effect-key').forEach(el=>el.onchange=()=>{const x=rows[Number(el.dataset.i)];x.effect={key:el.value,value:defaultValueForKey(el.value)};markDirty();render();});
+      document.querySelectorAll('.'+kind+'-effect-value').forEach(el=>el.onchange=()=>{const x=rows[Number(el.dataset.i)];x.effect.value=x.effect.key==='basicElement'?el.value:Number(el.value);markDirty();});
+    }
+    document.querySelectorAll('.boss-name').forEach(el=>el.onchange=()=>{data.equipmentPowerSystem.bossAffixes[Number(el.dataset.i)].name=el.value;markDirty();});
+    document.querySelectorAll('.boss-effect-key').forEach(el=>el.onchange=()=>{const x=data.equipmentPowerSystem.bossAffixes[Number(el.dataset.i)];x.effects[Number(el.dataset.j)]={key:el.value,value:defaultValueForKey(el.value)};markDirty();render();});
+    document.querySelectorAll('.boss-effect-value').forEach(el=>el.onchange=()=>{const e=data.equipmentPowerSystem.bossAffixes[Number(el.dataset.i)].effects[Number(el.dataset.j)];e.value=e.key==='basicElement'?el.value:Number(el.value);markDirty();});
+  }
+
+  function uniqueId(kind){const rows=data.equipmentPowerSystem[kind+'es'],used=new Set(rows.map(x=>x.id));let i=1,id;do{id='custom_'+kind+'_'+i++;}while(used.has(id));return id;}
+  globalThis.addIdentityAffix=function(kind){if(!['prefix','suffix'].includes(kind))return;const rows=data.equipmentPowerSystem[kind+'es'],base=kind==='prefix'?DEFAULT_PREFIXES[0]:DEFAULT_SUFFIXES[0];rows.push({id:uniqueId(kind),name:kind==='prefix'?'自訂前綴':'自訂後綴',tierMin:1,tierMax:12,weight:1,slots:[0,1,2],effect:clone(base.effect)});markDirty();render();};
+  globalThis.deleteIdentityAffix=function(kind,i){if(!['prefix','suffix'].includes(kind))return;const rows=data.equipmentPowerSystem[kind+'es'];if(rows.length<=1)return alert('至少保留 1 個'+(kind==='prefix'?'前綴':'後綴')+'。');if(confirmDelete('刪除「'+(rows[i]?.name||rows[i]?.id)+'」？舊裝備使用此 ID 時會回退到可用詞綴。')){rows.splice(i,1);markDirty();render();}};
   globalThis.gotoPowerDropRule=function(){currentSection='world';render();setTimeout(()=>document.getElementById('addDropRule')?.scrollIntoView({block:'center'}),0);};
+  globalThis.gotoEquipmentBaseEditor=function(){currentSection='equipment';render();};
+
   function renderEquipmentPower(){
     ensureArrays();const p=data.equipmentPowerSystem,r=p.rerollItem;
-    const prefixRows=p.prefixes.map((x,i)=>`<div class="power-prefix-row" data-prefix="${i}"><label>ID<input class="prefix-text" data-k="id" value="${esc(x.id)}"></label><label>冠名<input class="prefix-text" data-k="name" value="${esc(x.name)}"></label><label>舊階對應<input class="prefix-num" data-k="legacyTier" type="number" min="1" max="12" step="1" value="${x.legacyTier}"></label><label>最低階<input class="prefix-num" data-k="tierMin" type="number" min="1" max="12" step="1" value="${x.tierMin}"></label><label>最高階<input class="prefix-num" data-k="tierMax" type="number" min="1" max="12" step="1" value="${x.tierMax}"></label><label>抽選權重<input class="prefix-num" data-k="weight" type="number" min="0" step="0.01" value="${x.weight}"></label><label>攻擊單位<input class="prefix-num" data-k="atkUnits" type="number" step="0.01" value="${x.atkUnits}"></label><label>生命單位<input class="prefix-num" data-k="hpUnits" type="number" step="0.01" value="${x.hpUnits}"></label><label>防禦單位<input class="prefix-num" data-k="defUnits" type="number" step="0.01" value="${x.defUnits}"></label><button class="danger power-delete" onclick="deleteEquipmentPrefix(${i})">×</button></div>`).join('');
-    const seriesRows=p.seriesPrefixes.map((x,i)=>`<div class="power-series-row" data-series="${i}"><label>ID<input value="${esc(x.id)}" readonly></label><label>系列冠名<input class="series-text" data-k="name" value="${esc(x.name)}"></label><label>套用範圍<input value="${x.group==='parallel'?(x.high?'上古支線 BOSS':'支線 BOSS'):(x.high?'覺醒 BOSS':'原始 BOSS')}" readonly></label><label>攻擊單位<input class="series-num" data-k="atkUnits" type="number" step="0.01" value="${x.atkUnits}"></label><label>生命單位<input class="series-num" data-k="hpUnits" type="number" step="0.01" value="${x.hpUnits}"></label><label>防禦單位<input class="series-num" data-k="defUnits" type="number" step="0.01" value="${x.defUnits}"></label></div>`).join('');
-    const gradeRows=Array.from({length:10},(_,i)=>`<div class="power-grade-row"><div><b>T${i+1}</b></div><label>能力倍率<input class="grade-mult" data-t="${i}" type="number" min="0.01" step="0.01" value="${p.strength.multipliers[i]}"></label>${['普通','困難','地獄'].map((name,d)=>`<label>${name}權重<input class="grade-weight" data-t="${i}" data-d="${d}" type="number" min="0" step="1" value="${p.strength.weightsByDifficulty[d][i]}"></label>`).join('')}</div>`).join('');
-    document.getElementById('app').innerHTML=sectionHead('裝備冠名／強度階級','把一般冠名與 BOSS／特殊系列名稱都拆成可綁定數值的來源；T1～T10 仍只顯示於裝備詳細，不加入裝備名稱。','<button class="primary" onclick="addEquipmentPrefix()">新增一般冠名</button>')+
-      `<div class="notice"><b>目前數值拆分：</b>一般裝備＝本體 1 單位＋一般冠名；BOSS 專屬裝＝本體 1 單位＋系列冠名（含赤楓、覺醒、上古等），再乘 T 階級倍率，最後計算 +N 強化。預設單位承接舊版階級差，因此總基礎能力不變。</div>`+
-      card('一般冠名詞綴',`<p class="mini-note">「單位」會乘上 balanceSettings.equipment.baseStats 的每階基礎值。可修改冠名名稱、適用裝備階級範圍、抽選權重與三種基礎屬性。</p><div class="power-prefix-grid">${prefixRows}</div>`)+
-      card('BOSS／特殊系列冠名',`<p class="mini-note">這裡列出所有會出現在 BOSS 專屬裝備名稱、但不是「長劍／法杖／板甲」等基底裝備本體的系列名稱。已補入赤楓炎靈、潮汐巨像、白骨巫后、雷鳴獸王、聖所守護者、幽冥觀測者，以及其上古版本；原始六區與覺醒六區也一併納入。名稱與三種能力單位可直接修改。</p><div class="power-series-grid">${seriesRows}</div>`)+
-      card('T1～T10 強度階級',`<div class="power-preview"><div><span class="small">普通基準</span><b>T1 ≈ ×${p.strength.multipliers[0]}</b></div><div><span class="small">困難基準</span><b>T5 ≈ ×${p.strength.multipliers[4]}</b></div><div><span class="small">地獄基準</span><b>T10 ≈ ×${p.strength.multipliers[9]}</b></div></div><p class="mini-note">掉落時依難度使用對應權重抽 T 階級；重鑄也使用該裝備原始掉落難度的同一組權重。權重只看相對比例，可填 0 禁止該難度抽到某階。</p><div class="power-grade-grid"><div class="power-grade-head">階級</div><div class="power-grade-head">倍率</div><div class="power-grade-head">普通權重</div><div class="power-grade-head">困難權重</div><div class="power-grade-head">地獄權重</div>${gradeRows}</div>`)+
-      card('強度重鑄石',`<div class="power-reroll-grid"><label>道具 ID<input value="${POWER_ITEM_ID}" readonly></label><label>顯示名稱<input id="powerItemName" value="${esc(r.name)}"></label><label>賣價<input id="powerItemSell" type="number" min="0" step="1" value="${r.sellPrice}"></label><label>隨機商店出現率（0~1）<input id="powerShopChance" type="number" min="0" max="1" step="0.001" value="${r.shopChance}"></label><label>隨機商店價格<input id="powerShopPrice" type="number" min="1" step="1" value="${r.shopPrice}"></label><label class="full">道具說明<textarea id="powerItemDesc">${esc(r.description)}</textarea></label></div><div class="notice" style="margin-top:12px"><b>掉落來源：</b>已建立「強度重鑄石」item 掉落規則。請到「地圖與怪物 → 怪物掉落表」選擇可掉落怪物、遭遇種類，以及普通／困難／地獄機率。<button style="margin-left:8px" onclick="gotoPowerDropRule()">前往掉落表</button></div>`);
-    document.querySelectorAll('[data-prefix]').forEach(row=>{const x=p.prefixes[Number(row.dataset.prefix)];row.querySelectorAll('.prefix-text,.prefix-num').forEach(el=>el.onchange=()=>{x[el.dataset.k]=el.classList.contains('prefix-num')?Number(el.value):el.value;markDirty();});});
-    document.querySelectorAll('[data-series]').forEach(row=>{const x=p.seriesPrefixes[Number(row.dataset.series)];row.querySelectorAll('.series-text,.series-num').forEach(el=>el.onchange=()=>{x[el.dataset.k]=el.classList.contains('series-num')?Number(el.value):el.value;markDirty();});});
-    bindNum('.grade-mult',el=>p.strength.multipliers[Number(el.dataset.t)]=Number(el.value));bindNum('.grade-weight',el=>p.strength.weightsByDifficulty[Number(el.dataset.d)][Number(el.dataset.t)]=Number(el.value));
-    document.getElementById('powerItemName').onchange=e=>{r.name=e.target.value;ensureSpecialItem();const rule=data.balanceSettings?.drops?.entries?.find(x=>x.type==='item'&&x.key===POWER_ITEM_ID);if(rule)rule.name=r.name;markDirty();};
-    document.getElementById('powerItemSell').onchange=e=>{r.sellPrice=Number(e.target.value);ensureSpecialItem();markDirty();};document.getElementById('powerShopChance').onchange=e=>{r.shopChance=Number(e.target.value);markDirty();};document.getElementById('powerShopPrice').onchange=e=>{r.shopPrice=Number(e.target.value);markDirty();};document.getElementById('powerItemDesc').onchange=e=>{r.description=e.target.value;ensureSpecialItem();markDirty();};
-  }
-  const powerRenderBase=render;render=function(){if(currentSection==='equipmentPower'){ensureArrays();renderNav();renderEquipmentPower();return;}return powerRenderBase();};
-
-  // Keep the special reroll item out of the fixed 15-element-item editor, while retaining it in JSON/drop/shop references.
-  if(typeof renderItems==='function'){const powerItemsBase=renderItems;renderItems=function(){const all=data.items,keep=all.filter(x=>x?.type!==POWER_ITEM_TYPE&&x?.id!==POWER_ITEM_ID),prior=selected.item;data.items=keep;skipPowerEnsure=true;try{return powerItemsBase();}finally{skipPowerEnsure=false;data.items=all;selected.item=prior;}};}
-
-  const powerValidateBase=validateData;validateData=function(){
-    ensureArrays();const all=data.items,special=all.filter(x=>x?.type===POWER_ITEM_TYPE||x?.id===POWER_ITEM_ID),regular=all.filter(x=>x?.type!==POWER_ITEM_TYPE&&x?.id!==POWER_ITEM_ID);data.items=regular;skipPowerEnsure=true;let issues;try{issues=powerValidateBase();}finally{skipPowerEnsure=false;data.items=all;}
-    const specialDropIds=new Set((data.balanceSettings?.drops?.entries||[]).filter(x=>x?.type==='item'&&x?.key===POWER_ITEM_ID).map(x=>x.id));issues=issues.filter(msg=>![...specialDropIds].some(id=>msg===`掉落規則 ${id} 指定的商店道具不存在。`));
-    if(special.length!==1)issues.push('強度重鑄石必須且只能有 1 筆。');else{const x=special[0];if(x.id!==POWER_ITEM_ID||x.type!==POWER_ITEM_TYPE||typeof x.name!=='string'||!x.name.trim()||typeof x.description!=='string'||!Number.isFinite(x.sellPrice)||x.sellPrice<0||Number(x.duration)!==0)issues.push('強度重鑄石資料無效。');}
-    const p=data.equipmentPowerSystem;if(!Array.isArray(p.prefixes)||!p.prefixes.length)issues.push('至少需要 1 個裝備冠名詞綴。');const ids=new Set();for(const [i,x] of p.prefixes.entries()){if(typeof x.id!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(x.id)||ids.has(x.id))issues.push(`冠名詞綴第 ${i+1} 筆 ID 無效或重複。`);ids.add(x.id);if(typeof x.name!=='string'||!x.name.trim()||!Number.isInteger(x.legacyTier)||x.legacyTier<1||x.legacyTier>12||!Number.isInteger(x.tierMin)||!Number.isInteger(x.tierMax)||x.tierMin<1||x.tierMax>x.tierMin+11||x.tierMax>12||x.tierMax<x.tierMin||!Number.isFinite(x.weight)||x.weight<0||['atkUnits','hpUnits','defUnits'].some(k=>!Number.isFinite(x[k])))issues.push(`冠名詞綴 ${x.id||i+1} 數值無效。`);}
-    if(!Array.isArray(p.seriesPrefixes)||p.seriesPrefixes.length!==DEFAULT_SERIES_PREFIXES.length)issues.push('BOSS／特殊系列冠名資料不完整。');else for(const x of p.seriesPrefixes){if(typeof x.name!=='string'||!x.name.trim()||['atkUnits','hpUnits','defUnits'].some(k=>!Number.isFinite(x[k])))issues.push(`系列冠名 ${x.id||'未知'} 數值無效。`);}
-    if(!Array.isArray(p.strength.multipliers)||p.strength.multipliers.length!==10||p.strength.multipliers.some(x=>!Number.isFinite(x)||x<=0))issues.push('T1～T10 能力倍率必須各有 1 個大於 0 的數值。');for(let d=0;d<3;d++){const w=p.strength.weightsByDifficulty?.[d];if(!Array.isArray(w)||w.length!==10||w.some(x=>!Number.isFinite(x)||x<0)||w.reduce((a,b)=>a+b,0)<=0)issues.push(`${['普通','困難','地獄'][d]}的 T 階級權重必須有至少一個大於 0。`);}
-    if(!Number.isFinite(p.rerollItem.shopChance)||p.rerollItem.shopChance<0||p.rerollItem.shopChance>1||!Number.isFinite(p.rerollItem.shopPrice)||p.rerollItem.shopPrice<1)issues.push('強度重鑄石的商店出現率必須為 0~1，價格至少 1。');return [...new Set(issues)];
-  };
-  data.notes=[...new Set([...(data.notes||[]),'equipmentPowerSystem.prefixes：一般裝備冠名詞綴與對應基礎屬性單位。','equipmentPowerSystem.seriesPrefixes：BOSS／特殊系列冠名（含赤楓、覺醒、上古系列）與對應基礎屬性單位。','equipmentPowerSystem.strength：T1~T10 強度倍率及普通／困難／地獄抽選權重；T 階級不顯示在裝備名稱。','強度重鑄石使用 items 中 id=power_tier_reroll；掉落位置由 balanceSettings.drops.entries 的 item 規則指定，商店低機率由 equipmentPowerSystem.rerollItem.shopChance 控制。'])];
-  render();
-})();
-</script>
-
-<script id="weapon-basic-effect-editor">
-/* Editor support for weapon basic-attack element and next-round advance affix. */
-(function installWeaponBasicEffectEditor(){
-  if(!EXCLUSIVE_KEYS.includes('basicAdvanceNextRound'))EXCLUSIVE_KEYS.push('basicAdvanceNextRound');
-  EXCLUSIVE_LABELS.basicAdvanceNextRound='普攻後下回合前移（格）';
-  EXCLUSIVE_HELP.basicAdvanceNextRound='武器詞綴效果。角色完成普攻後，下一回合的初始行動順序往前指定格數；不增加額外行動次數。建議設為 1。';
-
-  // Match the test build defaults. physical/blank means neutral basic attacks.
-  const defaults=[
-    {job:0,form:1,element:'fire'},
-    {job:1,form:0,element:'fire'},
-    {job:1,form:1,element:'ice'},
-    {job:1,form:2,element:'wind'},
-    {job:2,form:2,element:'wind'},
-    {job:3,form:0,element:'light'}
-  ];
-  for(const x of defaults){const form=data.equipmentForms?.[x.job]?.[0]?.[x.form];if(form)form.element=x.element;}
-  for(const x of [{job:0,form:0},{job:1,form:2},{job:2,form:2},{job:3,form:2}]){
-    const form=data.equipmentForms?.[x.job]?.[0]?.[x.form];
-    if(form){form.exclusive??={};form.exclusive.basicAdvanceNextRound=1;}
+    const gradeRows=Array.from({length:10},(_,i)=>'<div class="power-grade-row"><div><b>T'+(i+1)+'</b></div><label>能力倍率<input class="grade-mult" data-t="'+i+'" type="number" min="0.01" step="0.01" value="'+p.strength.multipliers[i]+'"></label>'+['普通','困難','地獄'].map((name,d)=>'<label>'+name+'權重<input class="grade-weight" data-t="'+i+'" data-d="'+d+'" type="number" min="0" step="1" value="'+p.strength.weightsByDifficulty[d][i]+'"></label>').join('')+'</div>').join('');
+    document.getElementById('app').innerHTML=sectionHead('裝備前綴／後綴／BOSS 專屬','一般裝備名稱由「前綴＋後綴＋基底」組成；BOSS 裝備改用固定三條專屬詞綴。','<button class="primary" onclick="addIdentityAffix(\'prefix\')">新增前綴</button><button onclick="addIdentityAffix(\'suffix\')">新增後綴</button>')+
+      '<div class="notice"><b>數值規則：</b>一般裝備的 raw 攻擊／生命／防禦只由「基底裝備＋T1～T10」決定；前綴與後綴不提供 raw 基礎數值。既有 +N 強化仍是獨立強化層。BOSS 專屬裝備沒有前後綴與隨機洗鍊詞條，固定正好三條專屬屬性。</div>'+
+      card('前綴', '<p class="mini-note">每個前綴固定一條效果。例：赤楓＝普通攻擊改為火屬性。可限制適用部位與 T 階範圍。</p><div class="identity-grid">'+p.prefixes.map((x,i)=>affixRow(x,i,'prefix')).join('')+'</div>')+
+      card('後綴', '<p class="mini-note">每個後綴固定一條效果。例：旅人＝普攻後，下回合行動往前 1 格。</p><div class="identity-grid">'+p.suffixes.map((x,i)=>affixRow(x,i,'suffix')).join('')+'</div>')+
+      card('基底裝備', '<p class="mini-note">基底裝備的 raw 數值倍率與固定效果仍在「裝備變體」中編輯。普攻元素與「下回合前移」已移到前／後綴，不再由預設基底提供。闊刃劍預設基礎攻擊為 +5%。</p><div class="actions"><button onclick="gotoEquipmentBaseEditor()">前往裝備變體</button></div><p class="identity-effect-note">基底可用固定屬性：'+BASE_EFFECT_KEYS.map(k=>esc(EFFECT_LABELS[k])).join('、')+'</p>')+
+      card('BOSS 專屬詞綴', '<p class="mini-note">每個 BOSS 系列固定三條且不可增減。三條可從前綴／後綴／基底的全部屬性中選擇，並額外提供「對 BOSS 傷害」專屬屬性；同一件 BOSS 裝的三個屬性不得重複。</p><div class="boss-profile-grid">'+p.bossAffixes.map(bossProfileCard).join('')+'</div>')+
+      card('T1～T10 強度階級','<div class="power-preview"><div><span class="small">普通基準</span><b>T1 ≈ ×'+p.strength.multipliers[0]+'</b></div><div><span class="small">困難基準</span><b>T5 ≈ ×'+p.strength.multipliers[4]+'</b></div><div><span class="small">地獄基準</span><b>T10 ≈ ×'+p.strength.multipliers[9]+'</b></div></div><p class="mini-note">T 級影響基底 raw 攻擊／生命／防禦，名稱不顯示 T 級；掉落與重鑄均依來源難度使用對應權重。</p><div class="power-grade-grid"><div class="power-grade-head">階級</div><div class="power-grade-head">倍率</div><div class="power-grade-head">普通權重</div><div class="power-grade-head">困難權重</div><div class="power-grade-head">地獄權重</div>'+gradeRows+'</div>')+
+      card('強度重鑄石','<div class="power-reroll-grid"><label>道具 ID<input value="'+POWER_ITEM_ID+'" readonly></label><label>顯示名稱<input id="powerItemName" value="'+esc(r.name)+'"></label><label>賣價<input id="powerItemSell" type="number" min="0" step="1" value="'+r.sellPrice+'"></label><label>隨機商店出現率（0~1）<input id="powerShopChance" type="number" min="0" max="1" step="0.001" value="'+r.shopChance+'"></label><label>隨機商店價格<input id="powerShopPrice" type="number" min="1" step="1" value="'+r.shopPrice+'"></label><label class="full">道具說明<textarea id="powerItemDesc">'+esc(r.description)+'</textarea></label></div><div class="notice" style="margin-top:12px"><b>掉落來源：</b>由怪物掉落表中的 power_tier_reroll 規則控制。<button style="margin-left:8px" onclick="gotoPowerDropRule()">前往掉落表</button></div>');
+    bindIdentityRows();
+    document.querySelectorAll('.grade-mult').forEach(el=>el.onchange=()=>{p.strength.multipliers[Number(el.dataset.t)]=Number(el.value);markDirty();});
+    document.querySelectorAll('.grade-weight').forEach(el=>el.onchange=()=>{p.strength.weightsByDifficulty[Number(el.dataset.d)][Number(el.dataset.t)]=Number(el.value);markDirty();});
+    document.getElementById('powerItemName').onchange=ev=>{r.name=ev.target.value;ensureSpecialItem();const rule=data.balanceSettings?.drops?.entries?.find(x=>x.type==='item'&&x.key===POWER_ITEM_ID);if(rule)rule.name=r.name;markDirty();};
+    document.getElementById('powerItemSell').onchange=ev=>{r.sellPrice=Number(ev.target.value);ensureSpecialItem();markDirty();};
+    document.getElementById('powerShopChance').onchange=ev=>{r.shopChance=Number(ev.target.value);markDirty();};
+    document.getElementById('powerShopPrice').onchange=ev=>{r.shopPrice=Number(ev.target.value);markDirty();};
+    document.getElementById('powerItemDesc').onchange=ev=>{r.description=ev.target.value;ensureSpecialItem();markDirty();};
   }
 
-  const baseValidate=validateData;
+  const identityRenderBase=render;render=function(){if(currentSection==='equipmentPower'){ensureArrays();renderNav();renderEquipmentPower();return;}return identityRenderBase();};
+  const identityRenderEquipmentBase=renderEquipment;
+  renderEquipment=function(){identityRenderEquipmentBase();const app=document.getElementById('app');if(!app)return;const elementSelect=app.querySelector('select[data-key="element"]');if(elementSelect){elementSelect.disabled=true;elementSelect.title='普攻屬性已改由前綴／BOSS 專屬詞綴控制';}const notice=app.querySelector('.notice');if(notice)notice.insertAdjacentHTML('afterend','<div class="mini-note"><b>基底規則：</b>這裡負責基底 raw 數值與基底固定效果。預設普攻元素、普攻後前移已移到前／後綴系統。</div>');};
+
+  if(typeof renderItems==='function'){const identityItemsBase=renderItems;renderItems=function(){const all=data.items,keep=all.filter(x=>x?.type!==POWER_ITEM_TYPE&&x?.id!==POWER_ITEM_ID),prior=selected.item;data.items=keep;skipIdentityEnsure=true;try{return identityItemsBase();}finally{skipIdentityEnsure=false;data.items=all;selected.item=prior;}};}
+
+  const identityValidateBase=validateData;
   validateData=function(){
-    const issues=baseValidate();
-    data.equipmentForms.forEach((jobs,job)=>jobs.forEach((forms,slot)=>forms.forEach((f,i)=>{
-      const v=f?.exclusive?.basicAdvanceNextRound;
-      if(v!==undefined&&(!Number.isInteger(v)||v<0||v>5))issues.push('裝備 '+job+'-'+slot+'-'+i+' 的「普攻後下回合前移」必須是 0～5 的整數。');
-      if(slot!==0&&v)issues.push('裝備 '+job+'-'+slot+'-'+i+' 的「普攻後下回合前移」只建議用於武器槽。');
-    })));
-    return issues;
+    ensureArrays();const all=data.items,special=all.filter(x=>x?.type===POWER_ITEM_TYPE||x?.id===POWER_ITEM_ID),regular=all.filter(x=>x?.type!==POWER_ITEM_TYPE&&x?.id!==POWER_ITEM_ID);data.items=regular;skipIdentityEnsure=true;let issues;try{issues=identityValidateBase();}finally{skipIdentityEnsure=false;data.items=all;}
+    const specialDropIds=new Set((data.balanceSettings?.drops?.entries||[]).filter(x=>x?.type==='item'&&x?.key===POWER_ITEM_ID).map(x=>x.id));issues=issues.filter(msg=>![...specialDropIds].some(id=>msg==='掉落規則 '+id+' 指定的商店道具不存在。'));
+    if(special.length!==1)issues.push('強度重鑄石必須且只能有 1 筆。');
+    const p=data.equipmentPowerSystem,validateRows=(rows,label)=>{const ids=new Set();for(const [i,x] of rows.entries()){if(typeof x.id!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(x.id)||ids.has(x.id))issues.push(label+'第 '+(i+1)+' 筆 ID 無效或重複。');ids.add(x.id);if(typeof x.name!=='string'||!x.name.trim()||!Number.isInteger(x.tierMin)||!Number.isInteger(x.tierMax)||x.tierMin<1||x.tierMax>12||x.tierMax<x.tierMin||!Number.isFinite(x.weight)||x.weight<0||!Array.isArray(x.slots)||!x.slots.length||x.slots.some(s=>![0,1,2].includes(s))||!x.effect||!REGULAR_EFFECT_KEYS.includes(x.effect.key))issues.push(label+' '+(x.id||i+1)+' 資料無效。');if(x.effect?.key==='basicElement'&&!VALID_ELEMENTS.includes(x.effect.value))issues.push(label+' '+x.id+' 的元素無效。');}};
+    validateRows(p.prefixes,'前綴');validateRows(p.suffixes,'後綴');
+    if(!Array.isArray(p.bossAffixes)||p.bossAffixes.length!==DEFAULT_BOSS_AFFIXES.length)issues.push('BOSS 專屬詞綴資料不完整。');else for(const x of p.bossAffixes){const keys=(x.effects||[]).map(e=>e?.key);if(typeof x.name!=='string'||!x.name.trim()||!Array.isArray(x.effects)||x.effects.length!==3||new Set(keys).size!==3||keys.some(k=>!BOSS_EFFECT_KEYS.includes(k)))issues.push('BOSS 專屬詞綴 '+(x.id||'未知')+' 必須正好有三條互不重複的有效屬性。');for(const e of x.effects||[])if(e?.key==='basicElement'&&!VALID_ELEMENTS.includes(e.value))issues.push('BOSS 專屬詞綴 '+x.id+' 的元素無效。');}
+    if(!Array.isArray(p.strength.multipliers)||p.strength.multipliers.length!==10||p.strength.multipliers.some(x=>!Number.isFinite(x)||x<=0))issues.push('T1～T10 能力倍率必須各有 1 個大於 0 的數值。');
+    for(let d=0;d<3;d++){const w=p.strength.weightsByDifficulty?.[d];if(!Array.isArray(w)||w.length!==10||w.some(x=>!Number.isFinite(x)||x<0)||w.reduce((a,b)=>a+b,0)<=0)issues.push(['普通','困難','地獄'][d]+'的 T 階級權重必須有至少一個大於 0。');}
+    if(!Number.isFinite(p.rerollItem.shopChance)||p.rerollItem.shopChance<0||p.rerollItem.shopChance>1||!Number.isFinite(p.rerollItem.shopPrice)||p.rerollItem.shopPrice<1)issues.push('強度重鑄石的商店出現率必須為 0~1，價格至少 1。');
+    return [...new Set(issues)];
   };
 
-  const baseRenderEquipment=renderEquipment;
-  renderEquipment=function(){
-    baseRenderEquipment();
-    const app=document.getElementById('app'),e=data.equipmentForms?.[selected.equipClass]?.[selected.equipSlot]?.[selected.equip];
-    if(!app||!e)return;
-    const notice=app.querySelector('.notice');
-    if(notice)notice.insertAdjacentHTML('afterend','<div class="mini-note">普攻預設為無屬性。武器的「普攻屬性」可改成指定元素；「普攻後下回合前移（格）」是固定詞綴效果，設為 1 即代表普攻後下一回合往前一格。</div>');
-    const elementSelect=app.querySelector('select[data-key="element"]');
-    if(elementSelect&&selected.equipSlot!==0)elementSelect.disabled=true;
-  };
-
-  markDirty('已加入普攻屬性／下回合前移詞綴設定，尚未匯出');
+  data.notes=(data.notes||[]).filter(x=>!String(x).includes('equipmentPowerSystem.prefixes')&&!String(x).includes('seriesPrefixes')&&!String(x).includes('冠名詞綴'));
+  data.notes.push('equipmentPowerSystem schemaVersion=2：prefixes / suffixes 各固定一條效果；bossAffixes 每個 BOSS 系列固定三條專屬效果。','一般裝備 raw ATK/HP/DEF 由 equipmentForms 基底與 T 階級決定；前後綴不提供 raw 基礎數值。','BOSS 專屬裝備沒有前後綴與隨機洗鍊詞條；bossAffixes 三條可使用前綴／後綴／基底效果及 bossDamagePct。');
+  data.notes=[...new Set(data.notes)];
   render();
 })();
 </script>
+
+
 
 <style id="workspace-architecture-style">
 .workspace-topbar{gap:8px;flex-wrap:wrap}
