@@ -1769,7 +1769,7 @@ ensureArrays();render();
     const app=document.getElementById('app');
     const bindNum=(id,key)=>{const el=document.getElementById(id);el.onchange=()=>{s[key]=Math.max(key==='offerCount'?1:0,Math.floor(Number(el.value)||0));if(key==='offerCount')s[key]=Math.min(24,s[key]);markDirty();};};bindNum('shopOfferCount','offerCount');bindNum('shopRefreshBase','refreshBaseCost');bindNum('shopRefreshStep','refreshCostStep');
     app.querySelectorAll('[data-shop-rule]').forEach(box=>{const i=Number(box.dataset.shopRule),r=s.entries[i];box.querySelector('.shop-rule-enabled').onchange=e=>{r.enabled=e.target.checked;markDirty();};box.querySelectorAll('.shop-rule-input').forEach(el=>el.onchange=()=>{const k=el.dataset.k;if(['quantityMin','quantityMax','unitPrice','weight'].includes(k))r[k]=Number(el.value);else if(['quantityScalesWithTier','priceScalesWithTier'].includes(k))r[k]=el.value==='true';else r[k]=el.value;if(k==='quantityMin'||k==='quantityMax'){r.quantityMin=Math.max(1,Math.floor(r.quantityMin||1));r.quantityMax=Math.max(r.quantityMin,Math.floor(r.quantityMax||r.quantityMin));}markDirty();});});
-    app.querySelectorAll('[data-shop-item]').forEach(box=>{const i=Number(box.dataset.shopItem),item=items[i];box.querySelector('.shop-item-enabled').onchange=e=>{item.shopEnabled=e.target.checked;markDirty();renderNav();};box.querySelectorAll('.shop-item-input').forEach(el=>el.onchange=()=>{const k=el.dataset.k;item[k]=k==='cost'?Math.max(0,Number(el.value)||0):el.value;markDirty();});});
+    app.querySelectorAll('[data-shop-item]').forEach(box=>{const i=Number(box.dataset.shopItem),item=items[i];box.querySelector('.shop-item-enabled').onchange=e=>{item.shopEnabled=e.target.checked;markDirty();renderNav(true);};box.querySelectorAll('.shop-item-input').forEach(el=>el.onchange=()=>{const k=el.dataset.k;item[k]=k==='cost'?Math.max(0,Number(el.value)||0):el.value;markDirty();});});
   }
   const baseValidate=validateData;validateData=function(){const issues=baseValidate();ensureShopSettings();const s=data.shopSettings.randomOffers,ids=new Set();if(!Number.isInteger(s.offerCount)||s.offerCount<1||s.offerCount>24)issues.push('商店每批隨機商品數必須是 1~24 的整數。');if(!Number.isFinite(s.refreshBaseCost)||s.refreshBaseCost<0||!Number.isFinite(s.refreshCostStep)||s.refreshCostStep<0)issues.push('商店刷新起始價格與每次加價不可為負數。');for(const [i,r] of s.entries.entries()){if(typeof r.id!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(r.id)||ids.has(r.id))issues.push(`隨機商品規則 ${i+1} 的 ID 無效或重複。`);else ids.add(r.id);if(!TYPES.includes(r.type)||!Number.isInteger(r.quantityMin)||!Number.isInteger(r.quantityMax)||r.quantityMin<1||r.quantityMax<r.quantityMin||!Number.isFinite(r.unitPrice)||r.unitPrice<0||!Number.isFinite(r.weight)||r.weight<=0)issues.push(`隨機商品規則 ${r.id||i+1} 的數值無效。`);if(r.type==='gem'&&!['random','0','1','2'].includes(String(r.key)))issues.push(`隨機商品規則 ${r.id||i+1} 的寶石 key 必須是 random / 0 / 1 / 2。`);}for(const item of data.items||[])if(typeof item.shopEnabled!=='boolean')issues.push(`道具 ${item.id||'未知'} 的 shopEnabled 必須為 true / false。`);return [...new Set(issues)];};
   const baseRender=render;render=function(){if(currentSection==='shopSettings'){ensureArrays();renderShopSettings();renderNav(true);return;}return baseRender();};
@@ -2208,7 +2208,6 @@ ensureArrays();render();
   function persistWorkspace(reason='自動儲存'){
     clearTimeout(autosaveTimer);
     try{
-      ensureArrays();
       workspaceRevision++;
       workspaceSavedAt=new Date().toISOString();
       localStorage.setItem(EDITOR_WORKSPACE_KEY,JSON.stringify({data,revision:workspaceRevision,savedAt:workspaceSavedAt,source:workspaceSource}));
@@ -2345,15 +2344,16 @@ ensureArrays();render();
     const items=[...document.querySelectorAll(cfg[0])];if(items.length<4)return;
     const list=items[0].parentElement;if(!list||list.querySelector(':scope > .ux-toolbar'))return;
     const state=uxState.lists[currentSection]??={query:'',sort:'original'};
+    const searchText=new Map(items.map(el=>[el,textOf(el)]));
     const bar=makeToolbar({query:state.query,sort:true,count:items.length+' 筆'+cfg[1]});
     bar.querySelector('.ux-expand').remove();bar.querySelector('.ux-collapse').remove();
     list.prepend(bar);
     const q=bar.querySelector('.ux-query'),sort=bar.querySelector('.ux-sort');sort.value=state.sort;
     const apply=()=>{
       state.query=q.value;state.sort=sort.value;const needle=state.query.trim().toLocaleLowerCase();
-      const visible=items.filter(el=>{const show=!needle||textOf(el).includes(needle);el.hidden=!show;return show;});
+      const visible=items.filter(el=>{const show=!needle||searchText.get(el).includes(needle);el.hidden=!show;return show;});
       const order=[...visible];
-      if(state.sort!=='original')order.sort((a,b)=>natural(textOf(a),textOf(b))*(state.sort==='za'?-1:1));
+      if(state.sort!=='original')order.sort((a,b)=>natural(searchText.get(a),searchText.get(b))*(state.sort==='za'?-1:1));
       else order.sort((a,b)=>Number(a.dataset.skill??a.dataset.support??a.dataset.equip??a.dataset.item??a.dataset.potion??a.dataset.worldMap??0)-Number(b.dataset.skill??b.dataset.support??b.dataset.equip??b.dataset.item??b.dataset.potion??b.dataset.worldMap??0));
       order.forEach(el=>list.appendChild(el));
       bar.querySelector('.ux-count').textContent=visible.length+' / '+items.length+' 筆';
@@ -2364,16 +2364,18 @@ ensureArrays();render();
     const tree=document.querySelector('.balance-tree');if(!tree||tree.querySelector(':scope > .ux-toolbar'))return;
     const key=currentSection==='balanceSettings'?'balanceSettings':currentSection==='balance'?'balance':null;if(!key)return;
     const groups=[...tree.children].filter(x=>x.tagName==='DETAILS');if(!groups.length)return;
+    const groupText=new Map(groups.map(d=>[d,textOf(d.querySelector(':scope > summary'))]));
+    const rowText=new Map(groups.flatMap(d=>[...d.querySelectorAll('.pathrow')].map(row=>[row,textOf(row)])));
+    const customText=new Map(groups.map(d=>[d,[...d.querySelectorAll('.enemy-skill-card,[data-monster-row],[data-drop-row]')].map(textOf).join(' ')]));
     const bar=makeToolbar({query:uxState.trees[key]||'',sort:false,count:groups.length+' 組參數',placeholder:'搜尋中文名稱、JSON key 或說明'});
     tree.prepend(bar);const q=bar.querySelector('.ux-query');
     const apply=()=>{
       uxState.trees[key]=q.value;const needle=q.value.trim().toLocaleLowerCase();let shown=0;
       for(const d of groups){
-        const summary=d.querySelector(':scope > summary'),rows=[...d.querySelectorAll('.pathrow')],groupMatch=!needle||textOf(summary).includes(needle);
+        const rows=[...d.querySelectorAll('.pathrow')],groupMatch=!needle||groupText.get(d).includes(needle);
         let rowMatches=0;
-        for(const row of rows){const show=groupMatch||!needle||textOf(row).includes(needle);row.hidden=!show;if(show)rowMatches++;}
-        const customText=[...d.querySelectorAll('.enemy-skill-card,[data-monster-row],[data-drop-row]')].map(textOf).join(' ');
-        const customMatch=needle&&customText.includes(needle);
+        for(const row of rows){const show=groupMatch||!needle||rowText.get(row).includes(needle);row.hidden=!show;if(show)rowMatches++;}
+        const customMatch=needle&&customText.get(d).includes(needle);
         const show=!needle||groupMatch||rowMatches>0||customMatch;d.hidden=!show;if(show){shown++;if(needle)d.open=true;}
       }
       bar.querySelector('.ux-count').textContent=shown+' / '+groups.length+' 組';
@@ -2393,7 +2395,7 @@ ensureArrays();render();
       const cards=[...document.querySelectorAll(cfg.selector)];if(cards.length<2)continue;
       const container=cfg.container?document.querySelector(cfg.container):cards[0].parentElement;if(!container)continue;
       const token='data-ux-'+cfg.key.replace(/[A-Z]/g,m=>'-'+m.toLowerCase());if(container.hasAttribute(token))continue;container.setAttribute(token,'1');
-      const state=uxState.cards[cfg.key]??'';const bar=makeToolbar({query:state,sort:true,count:cards.length+' 筆'+cfg.label});
+      const state=uxState.cards[cfg.key]??'',searchText=new Map(cards.map(card=>[card,textOf(card)])),headText=new Map(cards.map(card=>[card,textOf(card.querySelector(cfg.head))]));const bar=makeToolbar({query:state,sort:true,count:cards.length+' 筆'+cfg.label});
       bar.classList.add('ux-card-toolbar');container.insertBefore(bar,cards[0]);
       const q=bar.querySelector('.ux-query'),sort=bar.querySelector('.ux-sort');
       for(const card of cards){
@@ -2404,8 +2406,8 @@ ensureArrays();render();
       }
       const apply=()=>{
         uxState.cards[cfg.key]=q.value;const needle=q.value.trim().toLocaleLowerCase(),visible=[];
-        cards.forEach(card=>{const show=!needle||textOf(card).includes(needle);card.hidden=!show;if(show)visible.push(card);});
-        const order=[...visible];if(sort.value!=='original')order.sort((a,b)=>natural(textOf(a.querySelector(cfg.head)),textOf(b.querySelector(cfg.head)))*(sort.value==='za'?-1:1));
+        cards.forEach(card=>{const show=!needle||searchText.get(card).includes(needle);card.hidden=!show;if(show)visible.push(card);});
+        const order=[...visible];if(sort.value!=='original')order.sort((a,b)=>natural(headText.get(a),headText.get(b))*(sort.value==='za'?-1:1));
         order.forEach(card=>container.appendChild(card));bar.querySelector('.ux-count').textContent=visible.length+' / '+cards.length+' 筆';
       };
       q.oninput=apply;sort.onchange=apply;
