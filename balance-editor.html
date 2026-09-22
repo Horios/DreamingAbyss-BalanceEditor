@@ -1876,6 +1876,118 @@ ensureArrays();render();
 })();
 </script>
 
+
+<script id="proc-skill-editor-v1">
+(()=>{
+  const PROC_ONLY_EFFECTS=['nextActiveDamage','advanceNextRound','shieldLowest'];
+  const PROC_EFFECT_LABELS={
+    nextActiveDamage:'下次主動技能增傷',
+    advanceNextRound:'下回合行動提前一格',
+    shieldLowest:'最低生命隊友護盾'
+  };
+  for(const key of PROC_ONLY_EFFECTS)if(!EFFECTS.includes(key))EFFECTS.push(key);
+  Object.assign(EFFECT_LABELS,PROC_EFFECT_LABELS);
+
+  function finite(v,fallback){v=Number(v);return Number.isFinite(v)?v:fallback;}
+  function legacyRates(){
+    const p=data.balanceSettings?.skills?.proc||{};
+    const per=Math.max(0,Math.min(1,finite(p.perSkillLevel,.025)));
+    const pre=Math.max(0,Math.min(1,finite(p.baseChance,.22)));
+    return {base:Math.min(1,pre+per),per};
+  }
+  function ensureProcSkillFields(sk){
+    if(!sk||sk.activation!=='proc')return;
+    const d=legacyRates();
+    if(!Number.isFinite(sk.procBaseChance))sk.procBaseChance=d.base;
+    if(!Number.isFinite(sk.procChancePerLevel))sk.procChancePerLevel=d.per;
+    sk.procBaseChance=Math.max(0,Math.min(1,Number(sk.procBaseChance)));
+    sk.procChancePerLevel=Math.max(0,Math.min(1,Number(sk.procChancePerLevel)));
+  }
+  const procEnsureArraysBase=ensureArrays;
+  ensureArrays=function(){
+    const out=procEnsureArraysBase();
+    for(const c of data.classes||[])for(const sk of c.skills||[])ensureProcSkillFields(sk);
+    return out;
+  };
+  ensureArrays();
+
+  function setFieldHelp(el,text){
+    const field=el?.closest('.field');if(!field)return;
+    let help=field.querySelector('.field-help');
+    if(!help){help=document.createElement('div');help.className='field-help';field.appendChild(help);}
+    help.textContent=text;
+  }
+  function procEffectHelp(sk){
+    if(sk.effect==='nextActiveDamage')return 'power 使用比例值；例如 0.25 = 基礎 +25% 下次主動技能傷害。技能等級、寶石與指定技能效果詞條仍會放大此比例。下一個主動技能施放後消耗；若該技能不是傷害／吸血技能，增傷不產生傷害但仍會被消耗。';
+    if(sk.effect==='advanceNextRound')return '觸發後使角色下一個戰鬥回合的行動順序提前 1 格。power 不參與此效果；同一次普攻若多個此類觸發技能同時成功，可累計前移格數。';
+    if(sk.effect==='shieldLowest')return 'power 為施放者攻擊力倍率；例如 0.8 = 產生攻擊力 80% 的純護盾，給生命比例最低的存活隊友。護盾沿用現有規則：不相加，只保留較高值。';
+    return 'damage／heal／shield／drain 沿用既有核心技能計算。';
+  }
+
+  const procRenderSkillsBase=renderSkills;
+  renderSkills=function(){
+    ensureArrays();
+    procRenderSkillsBase();
+    const c=data.classes[selected.skillClass],skills=c?.skills||[],sk=skills[selected.skill];
+    if(!sk)return;
+    const app=document.getElementById('app'),fields=app.querySelector('.fields');
+    const activation=app.querySelector('select[data-key="activation"]'),effect=app.querySelector('select[data-key="effect"]');
+    if(activation)setFieldHelp(activation,'主動技能裝入 2 個主動槽；普攻觸發技能裝入 2 個觸發槽。只有已配置的 proc 技能會在普通攻擊後判定。');
+    if(effect){
+      if(sk.activation!=='proc')for(const key of PROC_ONLY_EFFECTS)effect.querySelector('option[value="'+key+'"]')?.remove();
+      setFieldHelp(effect,sk.activation==='proc'?'proc 可使用一般傷害／治療／護盾／吸血，或三種觸發專屬效果。觸發專屬效果不能配置給 active 技能。':'active 技能使用一般傷害／治療／護盾／吸血效果。');
+    }
+    if(sk.activation==='proc'&&fields){
+      ensureProcSkillFields(sk);
+      fields.insertAdjacentHTML('beforeend',
+        inputField('Lv1 基礎觸發率','procBaseChance',sk.procBaseChance,'number','min=0 max=1 step=0.001',false,'0~1 小數。此值就是技能 Lv1 未計寶石／裝備詞條時的基礎機率；例如 0.245 = 24.5%。')+
+        inputField('每次升級增加觸發率','procChancePerLevel',sk.procChancePerLevel,'number','min=0 max=1 step=0.001',false,'0~1 小數。從 Lv2 起每提升 1 級加一次；例如 0.025 = 每級 +2.5 個百分點。')+
+        '<div class="field full"><label>觸發專屬效果規則</label><div class="field-help">'+esc(procEffectHelp(sk))+'</div></div>'
+      );
+      bindObjectFields(app,sk);
+      const power=app.querySelector('input[data-key="power"]');
+      if(power&&PROC_ONLY_EFFECTS.includes(sk.effect))setFieldHelp(power,procEffectHelp(sk));
+      const targets=app.querySelector('input[data-key="maxTargets"]');
+      if(targets&&PROC_ONLY_EFFECTS.includes(sk.effect))setFieldHelp(targets,'觸發專屬效果不使用 maxTargets；保留此欄是為了 JSON 結構相容。');
+    }
+    if(activation)activation.onchange=()=>{
+      sk.activation=activation.value;
+      if(sk.activation==='proc')ensureProcSkillFields(sk);
+      else if(PROC_ONLY_EFFECTS.includes(sk.effect))sk.effect='damage';
+      markDirty();render();
+    };
+    if(effect)effect.onchange=()=>{
+      sk.effect=effect.value;
+      markDirty();render();
+    };
+  };
+
+  const procValidateDataBase=validateData;
+  validateData=function(){
+    ensureArrays();
+    const issues=procValidateDataBase();
+    for(const [ci,c] of (data.classes||[]).entries())for(const [si,sk] of (c.skills||[]).entries()){
+      if(PROC_ONLY_EFFECTS.includes(sk.effect)&&sk.activation!=='proc')issues.push('角色 '+ci+' 技能 '+si+' 的觸發專屬效果只能用於 proc 技能。');
+      if(sk.activation==='proc'){
+        if(!Number.isFinite(sk.procBaseChance)||sk.procBaseChance<0||sk.procBaseChance>1)issues.push('角色 '+ci+' 技能 '+si+' 的 Lv1 基礎觸發率必須介於 0~1。');
+        if(!Number.isFinite(sk.procChancePerLevel)||sk.procChancePerLevel<0||sk.procChancePerLevel>1)issues.push('角色 '+ci+' 技能 '+si+' 的每級觸發率增量必須介於 0~1。');
+      }
+    }
+    return [...new Set(issues)];
+  };
+
+  data.notes=data.notes||[];
+  data.notes.push(
+    'proc 技能新增逐技能 procBaseChance（Lv1 基礎觸發率）與 procChancePerLevel（每次升級增加率）；舊資料會依原本全域公式換算，使既有 Lv1 實際機率不變。',
+    'proc 專屬效果：nextActiveDamage=下次主動技能增傷；advanceNextRound=下回合行動提前 1 格；shieldLowest=生命比例最低隊友獲得施放者攻擊力倍率護盾。',
+    '實際遊戲每名角色有 2 個普攻觸發槽；學會 proc 技能不等於自動啟用。'
+  );
+  data.notes=[...new Set(data.notes)];
+  ensureArrays();
+  render();
+})();
+</script>
+
 </body>
 
 <script id="verified-balance-contract-editor-filter">
