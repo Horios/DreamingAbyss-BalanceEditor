@@ -2398,12 +2398,13 @@ ensureArrays();render();
   if(importBtn)importBtn.onclick=()=>fileInput?.click();
   if(fileInput)fileInput.onchange=async ev=>{
     const file=ev.target.files?.[0];ev.target.value='';if(!file)return;
+    const previousData=data;
     try{
       const parsed=JSON.parse(await file.text());
       if(!parsed||parsed.schema!=='emberwild-balance-v1')throw Error('schema 必須是 emberwild-balance-v1');
       data=parsed;ensureArrays();workspaceSource=file.name;selected={class:0,skillClass:0,skill:0,supportClass:0,support:0,equipClass:0,equipSlot:0,equip:0,item:0,generic:{monsters:0,drops:0,enhancement:0}};
       persistWorkspace('已開啟 '+file.name);render();
-    }catch(err){alert('無法開啟平衡 JSON：'+err.message);}
+    }catch(err){data=previousData;alert('無法開啟平衡 JSON：'+err.message);}
   };
 
   function exportWorkspace(kind){
