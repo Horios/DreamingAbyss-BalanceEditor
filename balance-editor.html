@@ -2091,6 +2091,15 @@ ensureArrays();render();
     sk.defensePenetration=Number.isFinite(Number(sk.defensePenetration))?Math.max(0,Number(sk.defensePenetration)):0;
     sk.defenseIgnore=Number.isFinite(Number(sk.defenseIgnore))?Math.max(0,Math.min(1,Number(sk.defenseIgnore))):0;
   }
+  function normalizeSupportCombat(sk){
+    if(!sk||sk.kind!=="followup")return sk;
+    const baseCritDamage=Number(data.balanceSettings?.combat?.baseCritDamage??1.5);
+    sk.baseCritRate=Number.isFinite(Number(sk.baseCritRate))?Math.max(0,Math.min(1,Number(sk.baseCritRate))):0;
+    sk.baseCritDamage=Number.isFinite(Number(sk.baseCritDamage))?Math.max(1,Number(sk.baseCritDamage)):Math.max(1,Number.isFinite(baseCritDamage)?baseCritDamage:1.5);
+    sk.defensePenetration=Number.isFinite(Number(sk.defensePenetration))?Math.max(0,Number(sk.defensePenetration)):0;
+    sk.defenseIgnore=Number.isFinite(Number(sk.defenseIgnore))?Math.max(0,Math.min(1,Number(sk.defenseIgnore))):0;
+    return sk;
+  }
   function normalizeItem(item){
     item.statEffects=item.statEffects&&typeof item.statEffects==="object"&&!Array.isArray(item.statEffects)?item.statEffects:{};
     for(const [key] of ITEM_STATS){const n=Number(item.statEffects[key]);if(!Number.isFinite(n)||n===0)delete item.statEffects[key];else item.statEffects[key]=n;}
@@ -2113,6 +2122,7 @@ ensureArrays();render();
       data.balance.affixes??={};data.balance.affixes.extendedValues??={};data.balance.affixes.extendedValues.defenseIgnore??={normal:0,fine:4,rare:8,legendary:12};
     }
     data.classes.forEach(c=>(c.skills||[]).forEach(normalizeSkill));
+    for(const list of data.supportSkills||[])for(const sk of list||[])normalizeSupportCombat(sk);
     for(const item of data.items||[])normalizeItem(item);
     return fresh;
   }
@@ -2171,7 +2181,23 @@ ensureArrays();render();
   const compressionRenderSkillsBase=renderSkills;
   renderSkills=function(){
     compressionRenderSkillsBase();
-    if(selected.skillTab==="support")return;
+    if(selected.skillTab==="support"){
+      const sk=data.supportSkills?.[selected.supportClass]?.[selected.support],app=document.getElementById("app");
+      if(!sk||!app)return;
+      const kindField=app.querySelector('[data-key="kind"]');
+      if(kindField)kindField.onchange=()=>{sk.kind=kindField.value;normalizeSupportCombat(sk);markDirty();render();};
+      if(sk.kind!=="followup")return;
+      normalizeSupportCombat(sk);
+      app.insertAdjacentHTML("beforeend",card("輔助追打戰鬥判定",'<p class="mini-note">只套用於 followup 追打。dotAttack / dotMaxHp 維持固定傷害，不暴擊也不計算防禦，因此不顯示這組欄位。</p><div class="fields">'+
+        inputField("追打基礎暴擊率","baseCritRate",sk.baseCritRate,"number","min=0 max=1 step=0.001",false,"額外疊加角色暴擊率；0.05 = +5 個百分點。")+
+        inputField("追打基礎暴擊傷害","baseCritDamage",sk.baseCritDamage,"number","min=1 step=0.01",false,"1.5 = 150%；角色與裝備增加的暴傷仍會疊加。")+
+        inputField("追打固定防禦穿透","defensePenetration",sk.defensePenetration,"number","min=0 step=0.1",false,"加在角色／裝備固定防禦穿透上；防禦無視先計算。")+
+        inputField("追打防禦無視","defenseIgnore",sk.defenseIgnore,"number","min=0 max=1 step=0.001",false,"額外百分比防禦無視；0.1 = 10%。")+
+      '</div>'));
+      const box=app.lastElementChild;
+      box.querySelectorAll("[data-key]").forEach(el=>el.onchange=()=>{sk[el.dataset.key]=Number(el.value);normalizeSupportCombat(sk);markDirty();render();});
+      return;
+    }
     const cls=data.classes[selected.skillClass],sk=cls?.skills?.[selected.skill];if(!sk)return;normalizeSkill(sk);
     const app=document.getElementById("app");
     app.insertAdjacentHTML("beforeend",card("技能個別戰鬥判定",'<div class="fields">'+
@@ -2208,6 +2234,13 @@ ensureArrays();render();
       if(!Number.isFinite(sk.baseCritDamage)||sk.baseCritDamage<1)issues.push("技能 "+job+"-"+i+" 基礎暴擊傷害必須至少 1。");
       if(!Number.isFinite(sk.defensePenetration)||sk.defensePenetration<0)issues.push("技能 "+job+"-"+i+" 固定防禦穿透必須為非負數。");
       if(!Number.isFinite(sk.defenseIgnore)||sk.defenseIgnore<0||sk.defenseIgnore>1)issues.push("技能 "+job+"-"+i+" 防禦無視必須介於 0~1。");
+    }
+    for(const [job,list] of (data.supportSkills||[]).entries())for(const [i,sk] of (list||[]).entries()){
+      if(sk?.kind!=="followup")continue;normalizeSupportCombat(sk);
+      if(!Number.isFinite(sk.baseCritRate)||sk.baseCritRate<0||sk.baseCritRate>1)issues.push("輔助追打 "+job+"-"+i+" 基礎暴擊率必須介於 0~1。");
+      if(!Number.isFinite(sk.baseCritDamage)||sk.baseCritDamage<1)issues.push("輔助追打 "+job+"-"+i+" 基礎暴擊傷害必須至少 1。");
+      if(!Number.isFinite(sk.defensePenetration)||sk.defensePenetration<0)issues.push("輔助追打 "+job+"-"+i+" 固定防禦穿透必須為非負數。");
+      if(!Number.isFinite(sk.defenseIgnore)||sk.defenseIgnore<0||sk.defenseIgnore>1)issues.push("輔助追打 "+job+"-"+i+" 防禦無視必須介於 0~1。");
     }
     for(const item of data.items||[]){normalizeItem(item);for(const [k,v] of Object.entries(item.statEffects))if(!Number.isFinite(v))issues.push("道具 "+item.id+" 的暫時能力 "+k+" 無效。");}
     return [...new Set(issues)];
