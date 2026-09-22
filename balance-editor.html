@@ -486,7 +486,6 @@ function markDirty(msg="尚未匯出"){
   dirty=true;
   const el=document.getElementById("status");
   el.className="status unsaved"; el.textContent=msg;
-  renderNav();
 }
 function markSaved(msg="已匯出"){
   dirty=false;
@@ -576,7 +575,6 @@ function bindObjectFields(container,obj){
       else if(el.dataset.bool==="1" || (el.tagName==="SELECT" && (el.value==="true"||el.value==="false"))) obj[k]=el.value==="true";
       else obj[k]=el.value;
       markDirty();
-      renderNav();
     };
   });
 }
@@ -1258,7 +1256,7 @@ function renderUIText(){
   document.getElementById('resetUIText').onclick=()=>{if(confirmDelete('確定恢復所有介面文字預設值？')){data.uiText=structuredClone(UI_TEXT_DEFAULTS);markDirty();render();}};
 }
 const uiTextEditorRenderBase=render;
-render=function(){if(currentSection==='uiText'){ensureArrays();renderNav();renderUIText();return;}return uiTextEditorRenderBase();};
+render=function(){if(currentSection==='uiText'){renderUIText();renderNav(true);return;}return uiTextEditorRenderBase();};
 const uiTextValidateDataBase=validateData;
 validateData=function(){const issues=uiTextValidateDataBase();ensureArrays();for(const [k,v] of Object.entries(data.uiText)){if(typeof v!=='string')issues.push(`介面文字 ${k} 必須是文字。`);else if(v.length>4000)issues.push(`介面文字 ${k} 超過 4000 字元。`);}return issues;};
 ensureArrays();render();
@@ -1494,7 +1492,7 @@ ensureArrays();render();
     app.querySelectorAll('.setting-val').forEach(el=>el.onchange=()=>{const local=el.dataset.path.replace(/^balanceSettings\./,''),old=getByPath(data.balanceSettings,local);try{let v=typeof old==='number'?Number(el.value):typeof old==='boolean'?el.value==='true':el.value;if(typeof old==='number'&&!Number.isFinite(v))throw Error('必須輸入有效數字');setByPath(data.balanceSettings,local,v);markDirty();}catch(e){alert('格式錯誤：'+e.message);render();}});bindEnemySkillEditor();
   }
 
-  const worldRenderBase=render;render=function(){ensureArrays();if(currentSection==='world'){renderNav();renderWorld();return;}worldRenderBase();};
+  const worldRenderBase=render;render=function(){if(currentSection==='world'){renderWorld();renderNav(true);return;}return worldRenderBase();};
   const worldSettingsBase=renderBalanceSettings;renderBalanceSettings=function(){worldSettingsBase();const app=document.getElementById('app');app.querySelectorAll('.balance-tree>details').forEach(d=>{const key=d.querySelector('summary .field-key')?.textContent||'';if(key.includes('balanceSettings.monsters')||key.includes('balanceSettings.maps'))d.remove();});const desc=app.querySelector('.section-head p');if(desc)desc.textContent='修改成長、裝備、掉落、販售與其他全域數值；地圖與怪物請使用獨立的「地圖與怪物」頁。';};
 
   const worldValidateBase=validateData;
@@ -1725,7 +1723,7 @@ ensureArrays();render();
   };
 
   const baseRender=render;
-  render=function(){ensureArrays();if(currentSection==='potions'){renderNav();renderHealingPotions();return;}return baseRender();};
+  render=function(){if(currentSection==='potions'){renderHealingPotions();renderNav(true);return;}return baseRender();};
 
   data.notes=[...new Set([...(data.notes||[]),'items 中 type=healPotion 為治療藥水；healFraction 使用 0~1 比例，cooldown 使用回合。治療藥水沒有手動使用按鈕，只會依角色自動喝藥設定觸發。'])];
   markDirty('已加入可自訂治療藥水頁面；尚未匯出');
@@ -1769,12 +1767,12 @@ ensureArrays();render();
     const fixed=items.map((item,i)=>{const heal=item.type==='healPotion';return `<div class="shop-fixed-card" data-shop-item="${i}"><div class="shop-fixed-head"><strong>${esc(item.name||item.id)}</strong><span class="badge">${heal?'治療藥水':TYPE_LABEL[item.type]||item.type}</span><label class="shop-enabled"><input class="shop-item-enabled" type="checkbox" ${item.shopEnabled!==false?'checked':''}>商店上架</label></div><div class="shop-fixed-meta"><code>${esc(item.id)}</code>${heal?` · 回復 ${Math.round((Number(item.healFraction)||0)*10000)/100}% · 冷卻 ${esc(item.cooldown??0)} 回合`:` · ${esc(ELEMENT_LABELS[item.element]||item.element||'')}`}</div><div class="shop-fixed-fields"><label>顯示名稱<input class="shop-item-input" data-k="name" value="${esc(item.name||'')}"></label><label>購買價格<input class="shop-item-input" data-k="cost" type="number" min="0" step="1" value="${esc(item.cost??0)}"></label><label class="desc">商店／背包說明<textarea class="shop-item-input" data-k="description">${esc(item.description||'')}</textarea></label></div></div>`;}).join('');
     document.getElementById('app').innerHTML=sectionHead('商店設定','控制隨機商品、刷新價格，以及所有藥水／消耗道具是否上架、售價與說明文字。遊戲中的手動使用已統一移到背包。','<button class="primary" onclick="addShopRandomRule()">新增隨機商品規則</button>')+`<div class="shop-settings-layout"><div class="notice"><b>刷新價格：</b>第 1 次刷新使用「起始價格」，之後每刷新一次增加「每次加價」；玩家本機日期跨到 0 點後，當日刷新次數歸零。隨機商品會顯示在商店最上方。</div>${card('隨機商店整體設定',`<div class="shop-general-grid"><label>每批商品數<input id="shopOfferCount" type="number" min="1" max="24" step="1" value="${esc(s.offerCount)}"></label><label>刷新起始價格<input id="shopRefreshBase" type="number" min="0" step="1" value="${esc(s.refreshBaseCost)}"></label><label>每次刷新加價<input id="shopRefreshStep" type="number" min="0" step="1" value="${esc(s.refreshCostStep)}"></label></div><p class="shop-settings-note">範例：100 / +50 時，當日刷新價格依序為 100、150、200、250……；隔日 0 點重新從 100 開始。</p>`)}${card('隨機商品規則',`<div class="shop-random-grid">${rules}</div>`,'<span class="badge">'+s.entries.length+'</span>')}${card('固定藥水／消耗道具',`<p class="shop-settings-note">這裡直接修改 <code>items</code> 同一份資料，因此名稱、價格與說明也會同步到「元素消耗道具／治療藥水」頁。取消「商店上架」只影響商店，不會刪除玩家既有庫存。</p><div class="shop-fixed-grid">${fixed}</div>`,'<span class="badge">'+items.length+'</span>')}</div>`;
     const app=document.getElementById('app');
-    const bindNum=(id,key)=>{const el=document.getElementById(id);el.onchange=()=>{s[key]=Math.max(key==='offerCount'?1:0,Math.floor(Number(el.value)||0));if(key==='offerCount')s[key]=Math.min(24,s[key]);markDirty();renderNav();};};bindNum('shopOfferCount','offerCount');bindNum('shopRefreshBase','refreshBaseCost');bindNum('shopRefreshStep','refreshCostStep');
-    app.querySelectorAll('[data-shop-rule]').forEach(box=>{const i=Number(box.dataset.shopRule),r=s.entries[i];box.querySelector('.shop-rule-enabled').onchange=e=>{r.enabled=e.target.checked;markDirty();renderNav();};box.querySelectorAll('.shop-rule-input').forEach(el=>el.onchange=()=>{const k=el.dataset.k;if(['quantityMin','quantityMax','unitPrice','weight'].includes(k))r[k]=Number(el.value);else if(['quantityScalesWithTier','priceScalesWithTier'].includes(k))r[k]=el.value==='true';else r[k]=el.value;if(k==='quantityMin'||k==='quantityMax'){r.quantityMin=Math.max(1,Math.floor(r.quantityMin||1));r.quantityMax=Math.max(r.quantityMin,Math.floor(r.quantityMax||r.quantityMin));}markDirty();renderNav();});});
-    app.querySelectorAll('[data-shop-item]').forEach(box=>{const i=Number(box.dataset.shopItem),item=items[i];box.querySelector('.shop-item-enabled').onchange=e=>{item.shopEnabled=e.target.checked;markDirty();renderNav();};box.querySelectorAll('.shop-item-input').forEach(el=>el.onchange=()=>{const k=el.dataset.k;item[k]=k==='cost'?Math.max(0,Number(el.value)||0):el.value;markDirty();renderNav();});});
+    const bindNum=(id,key)=>{const el=document.getElementById(id);el.onchange=()=>{s[key]=Math.max(key==='offerCount'?1:0,Math.floor(Number(el.value)||0));if(key==='offerCount')s[key]=Math.min(24,s[key]);markDirty();};};bindNum('shopOfferCount','offerCount');bindNum('shopRefreshBase','refreshBaseCost');bindNum('shopRefreshStep','refreshCostStep');
+    app.querySelectorAll('[data-shop-rule]').forEach(box=>{const i=Number(box.dataset.shopRule),r=s.entries[i];box.querySelector('.shop-rule-enabled').onchange=e=>{r.enabled=e.target.checked;markDirty();};box.querySelectorAll('.shop-rule-input').forEach(el=>el.onchange=()=>{const k=el.dataset.k;if(['quantityMin','quantityMax','unitPrice','weight'].includes(k))r[k]=Number(el.value);else if(['quantityScalesWithTier','priceScalesWithTier'].includes(k))r[k]=el.value==='true';else r[k]=el.value;if(k==='quantityMin'||k==='quantityMax'){r.quantityMin=Math.max(1,Math.floor(r.quantityMin||1));r.quantityMax=Math.max(r.quantityMin,Math.floor(r.quantityMax||r.quantityMin));}markDirty();});});
+    app.querySelectorAll('[data-shop-item]').forEach(box=>{const i=Number(box.dataset.shopItem),item=items[i];box.querySelector('.shop-item-enabled').onchange=e=>{item.shopEnabled=e.target.checked;markDirty();renderNav();};box.querySelectorAll('.shop-item-input').forEach(el=>el.onchange=()=>{const k=el.dataset.k;item[k]=k==='cost'?Math.max(0,Number(el.value)||0):el.value;markDirty();});});
   }
   const baseValidate=validateData;validateData=function(){const issues=baseValidate();ensureShopSettings();const s=data.shopSettings.randomOffers,ids=new Set();if(!Number.isInteger(s.offerCount)||s.offerCount<1||s.offerCount>24)issues.push('商店每批隨機商品數必須是 1~24 的整數。');if(!Number.isFinite(s.refreshBaseCost)||s.refreshBaseCost<0||!Number.isFinite(s.refreshCostStep)||s.refreshCostStep<0)issues.push('商店刷新起始價格與每次加價不可為負數。');for(const [i,r] of s.entries.entries()){if(typeof r.id!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(r.id)||ids.has(r.id))issues.push(`隨機商品規則 ${i+1} 的 ID 無效或重複。`);else ids.add(r.id);if(!TYPES.includes(r.type)||!Number.isInteger(r.quantityMin)||!Number.isInteger(r.quantityMax)||r.quantityMin<1||r.quantityMax<r.quantityMin||!Number.isFinite(r.unitPrice)||r.unitPrice<0||!Number.isFinite(r.weight)||r.weight<=0)issues.push(`隨機商品規則 ${r.id||i+1} 的數值無效。`);if(r.type==='gem'&&!['random','0','1','2'].includes(String(r.key)))issues.push(`隨機商品規則 ${r.id||i+1} 的寶石 key 必須是 random / 0 / 1 / 2。`);}for(const item of data.items||[])if(typeof item.shopEnabled!=='boolean')issues.push(`道具 ${item.id||'未知'} 的 shopEnabled 必須為 true / false。`);return [...new Set(issues)];};
-  const baseRender=render;render=function(){ensureArrays();if(currentSection==='shopSettings'){renderNav();renderShopSettings();return;}return baseRender();};
+  const baseRender=render;render=function(){if(currentSection==='shopSettings'){ensureArrays();renderShopSettings();renderNav(true);return;}return baseRender();};
   data.notes=[...new Set([...(data.notes||[]),'shopSettings.randomOffers 控制商店頂端隨機商品、刷新起始價格與每次刷新加價。刷新次數依玩家本機日期於每日 0 點重置。','items[].shopEnabled 控制固定消耗品是否在商店上架；description 為商店與背包顯示說明。'])];
   render();
 })();
@@ -2139,7 +2137,7 @@ ensureArrays();render();
     document.getElementById('powerItemDesc').onchange=ev=>{r.description=ev.target.value;ensureSpecialItem();markDirty();};
   }
 
-  const identityRenderBase=render;render=function(){if(currentSection==='equipmentPower'){ensureArrays();renderNav();renderEquipmentPower();return;}return identityRenderBase();};
+  const identityRenderBase=render;render=function(){if(currentSection==='equipmentPower'){renderEquipmentPower();renderNav(true);return;}return identityRenderBase();};
   const identityRenderEquipmentBase=renderEquipment;
   renderEquipment=function(){identityRenderEquipmentBase();const app=document.getElementById('app');if(!app)return;const elementSelect=app.querySelector('select[data-key="element"]');if(elementSelect){elementSelect.disabled=true;elementSelect.title='普攻屬性已改由前綴／BOSS 專屬詞綴控制';}const notice=app.querySelector('.notice');if(notice)notice.insertAdjacentHTML('afterend','<div class="mini-note"><b>基底規則：</b>這裡負責基底 raw 數值與基底固定效果。預設普攻元素、普攻後前移已移到前／後綴系統。</div>');};
 
