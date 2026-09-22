@@ -268,11 +268,11 @@ function settingMeta(path){
     "skills.core.maxLevel":["核心技能最高等級","技能可升到的最終上限。"],
     "skills.core.initialCap":["初始技能等級上限","低等級角色一開始可升到的技能等級。"],
     "skills.core.capLevelsPerStep":["技能上限提升所需角色等級","角色每增加這麼多級，技能等級上限 +1。"],
-    "skills.core.effectPerExtraLevel":["核心技能每級效果增量","技能 Lv.1 以上每級增加的倍率；0.4 = 每級 +40%。"],
+    "skills.core.effectPerExtraLevel":["核心技能每級效果增量（舊版預設）","舊 JSON 沒有逐技能 powerPerLevel 時使用；新設定請直接到各核心技能調整。"],
     "skills.proc.baseChance":["舊版觸發率預設起點","僅供沒有逐技能 procBaseChance 的舊 JSON 換算使用；新設定請直接到各觸發技能調整。"],
     "skills.proc.perSkillLevel":["舊版每級觸發率預設","僅供沒有逐技能 procChancePerLevel 的舊 JSON 換算使用；新設定請直接到各觸發技能調整。"],
     "skills.support.maxLevel":["輔助技能最高等級","輔助技能可升級上限。"],
-    "skills.support.effectPerExtraLevel":["輔助技能每級效果增量","Lv.1 以上每級增加基礎效果比例。"],
+    "skills.support.effectPerExtraLevel":["輔助技能每級效果增量（舊版預設）","舊 JSON 沒有逐技能 effectPerLevel 時使用；新設定請直接到各輔助技能調整。"],
     "skills.gems.craftDust":["製作技能寶石粉塵成本","製作一顆技能寶石消耗的粉塵。"],
     "skills.gems.effectMultiplier":["赤焰石技能倍率","鑲嵌赤焰石後技能效果倍率。"],
     "skills.gems.cooldownReduction":["疾風石主動冷卻減少","主動技能減少的冷卻回合。"],
@@ -560,14 +560,23 @@ function ensureArrays(){
     return x;
   });
   for(let ci=0;ci<data.classes.length;ci++){
-    for(const sk of data.classes[ci]?.skills||[]){ensureProcSkillFields(sk);ensureSkillPrerequisites(sk);}
-    for(const sk of data.supportSkills[ci]||[])ensureSkillPrerequisites(sk);
+    const corePerLevelDefault=Number(data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18);
+    const supportPerLevelDefault=Number(data.balanceSettings?.skills?.support?.effectPerExtraLevel??.2);
+    for(const sk of data.classes[ci]?.skills||[]){
+      if(!Number.isFinite(sk.powerPerLevel))sk.powerPerLevel=Number.isFinite(corePerLevelDefault)?corePerLevelDefault:.18;
+      ensureProcSkillFields(sk);ensureSkillPrerequisites(sk);
+    }
+    for(const sk of data.supportSkills[ci]||[]){
+      if(!Number.isFinite(sk.effectPerLevel))sk.effectPerLevel=Number.isFinite(supportPerLevelDefault)?supportPerLevelDefault:.2;
+      ensureSkillPrerequisites(sk);
+    }
   }
 }
 if(!Array.isArray(data.notes))data.notes=[];
 for(const note of [
   'proc 技能使用 2 個普攻觸發槽；學會技能不等於自動啟用。',
   'procBaseChance 為 Lv1 基礎觸發率，procChancePerLevel 為每次升級增加率；舊 JSON 會依原全域公式換算。',
+  '核心技能 powerPerLevel 與輔助技能 effectPerLevel 可個別設定每提升 1 級增加的基礎效果比例；舊 JSON 缺少欄位時才沿用 balanceSettings 的全域預設。',
   'proc 專屬效果：nextActiveDamage=下次主動技能增傷；advanceNextRound=下回合行動提前 1 格；shieldLowest=最低生命比例隊友獲得攻擊力倍率護盾。','核心與輔助技能皆可設定最多 3 個前置技能；前置可選主動、觸發或輔助技能，且全部達到各自需求等級後才能學習／升級。'
 ])if(!data.notes.includes(note))data.notes.push(note);
 
@@ -763,6 +772,7 @@ function renderSkills(){
       prerequisiteFields+
       inputField("基礎冷卻回合","cooldown",sk.cooldown??0,"number","min=0 step=1",false,skillMode==="active"?"主動技能實際冷卻 = 此值 − 寶石 − 冷卻詞條，但不低於全域最低冷卻。":"proc 技能不使用冷卻值；此欄保留資料結構相容。")+
       inputField("基礎效果倍率","power",sk.power??1,"number","min=0 step=0.01",false,powerHelp)+
+      inputField("每級增加倍率","powerPerLevel",sk.powerPerLevel??data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,"number","min=0 step=0.001",false,"從 Lv2 起每提升 1 級套用一次；0.18 = 每級在基礎效果上 +18%。此值只影響本技能。")+
       inputField("最大攻擊目標數","maxTargets",sk.maxTargets??1,"number","min=1 step=1",false,procOnly?"觸發專屬效果不使用 maxTargets；保留此欄只為 JSON 結構相容。":"傷害／吸血技能 >1 時隨機抽不重複存活敵人；99 以上在套用時會轉成全部存活敵人。治療固定找最低生命比例隊友，護盾固定自己。")+
       (skillMode==="proc"?inputField("Lv1 基礎觸發率","procBaseChance",sk.procBaseChance,"number","min=0 max=1 step=0.001",false,"0~1 小數。這是 Lv1 未計寶石／裝備詞條時的基礎機率；例如 0.245 = 24.5%。")+inputField("每次升級增加觸發率","procChancePerLevel",sk.procChancePerLevel,"number","min=0 max=1 step=0.001",false,"0~1 小數。從 Lv2 起每提升 1 級加一次；例如 0.025 = 每級 +2.5 個百分點。"):"")+
       boolField("需要完成二轉","requiresAdvanced",!!sk.requiresAdvanced,"為是時，未二轉不能學習／使用此技能。")+
@@ -784,7 +794,7 @@ function renderSkills(){
   const add=document.getElementById("addSkill");
   if(add)add.onclick=()=>{
     if(!c)return;
-    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",activation:skillMode,requiredLevel:1,prerequisites:[],cooldown:skillMode==="active"?3:0,power:1,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
+    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",activation:skillMode,requiredLevel:1,prerequisites:[],cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
     if(skillMode==="proc")ensureProcSkillFields(next);
     skills.push(next);selected.skill=skills.length-1;markDirty();render();
   };
@@ -1298,7 +1308,7 @@ renderBalanceSettings=function(){
 };
 
 const actionTurnValidateDataBase=validateData;
-validateData=function(){const issues=actionTurnValidateDataBase();ensureArrays();const s=data.balanceSettings.monsters.skillSystem?.assignChance||{};for(const k of ['normal','elite','boss','final'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>1)issues.push(`敵人技能配置機率 monsters.skillSystem.assignChance.${k} 必須為 0~1。`);const ids=new Set();for(const [i,sk] of data.balanceSettings.monsters.skills.entries()){if(!sk.id||ids.has(sk.id))issues.push(`敵人技能第 ${i+1} 筆 ID 空白或重複。`);ids.add(sk.id);if(!sk.name)issues.push(`敵人技能 ${sk.id||i+1} 缺少名稱。`);if(!Number.isFinite(sk.weight)||sk.weight<=0)issues.push(`敵人技能 ${sk.id||i+1} 抽取權重必須 > 0。`);if(!Number.isFinite(sk.cooldownMin)||!Number.isFinite(sk.cooldownMax)||sk.cooldownMin<0||sk.cooldownMax<sk.cooldownMin)issues.push(`敵人技能 ${sk.id||i+1} 冷卻範圍無效。`);if(!Number.isFinite(sk.power)||sk.power<0)issues.push(`敵人技能 ${sk.id||i+1} 傷害倍率無效。`);}return issues;};
+validateData=function(){const issues=actionTurnValidateDataBase();ensureArrays();const s=data.balanceSettings.monsters.skillSystem?.assignChance||{};for(const k of ['normal','elite','boss','final'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>1)issues.push(`敵人技能配置機率 monsters.skillSystem.assignChance.${k} 必須為 0~1。`);const ids=new Set();for(const [i,sk] of data.balanceSettings.monsters.skills.entries()){if(!sk.id||ids.has(sk.id))issues.push(`敵人技能第 ${i+1} 筆 ID 空白或重複。`);ids.add(sk.id);if(!sk.name)issues.push(`敵人技能 ${sk.id||i+1} 缺少名稱。`);if(!Number.isFinite(sk.weight)||sk.weight<=0)issues.push(`敵人技能 ${sk.id||i+1} 抽取權重必須 > 0。`);if(!Number.isFinite(sk.cooldownMin)||!Number.isFinite(sk.cooldownMax)||sk.cooldownMin<0||sk.cooldownMax<sk.cooldownMin)issues.push(`敵人技能 ${sk.id||i+1} 冷卻範圍無效。`);if(!Number.isFinite(sk.powerPerLevel)||sk.powerPerLevel<0)issues.push(`角色 ${ci} 核心技能 ${si} 的每級增加倍率必須是非負數。`);if(!Number.isFinite(sk.power)||sk.power<0)issues.push(`敵人技能 ${sk.id||i+1} 傷害倍率無效。`);}return issues;};
 
 ensureArrays();
 render();
@@ -1958,7 +1968,7 @@ ensureArrays();render();
     if(sk.kind==='dotAttack')return `0~1 小數。目標每次自身行動前，直接受到「施放者攻擊力 × 此比例」固定傷害；不吃防禦、抗性、增傷、減傷、暴擊或屬性克制。`;
     if(sk.kind==='dotMaxHp')return `0~1 小數。目標每次自身行動前，直接受到「目標最大生命 × 此比例」固定傷害；不吃防禦、抗性、增傷、減傷、暴擊或屬性克制。`;
     if(sk.kind==='damageAmp')return `0~1 小數。目標受到攻擊時，只把該次攻擊傷害提高此比例；例如 0.20 = 該次傷害 +20%。`;
-    return `使用 0~1 小數，例如 0.18 = 18%。目前值約 ${percentPreview(sk.value)}；技能升級每級再增加基礎效果的 20%。`;
+    return `使用 0~1 小數，例如 0.18 = 18%。目前值約 ${percentPreview(sk.value)}；技能升級幅度由本技能的 effectPerLevel 決定。`;
   }
   function elementHelp(sk){
     if(sk.kind==='followup')return '追打的實際傷害屬性，可設定無／火／冰／風／光／暗。會依屬性克制計算，並同時受到目標防禦與減傷影響。';
@@ -1973,7 +1983,7 @@ ensureArrays();render();
     const sk=normalizeSupportMechanic(group[selected.support]);
     document.getElementById('app').innerHTML=
       sectionHead('輔助技能','每職業固定三個輔助技能。此頁除了原本 BUFF／DEBUFF，也可直接設定追打、兩種固定傷害 DOT 與受擊增傷。')+
-      `<div class="notice">每級輔助技能會把基礎效果乘上 1 + (技能等級−1)×20%；最高 5 級。第 3 個輔助技能（索引 2）另外固定要求二轉。</div>`+
+      `<div class="notice">每個輔助技能都可獨立設定每級效果增幅；計算為基礎效果 × [1 + (技能等級−1) × 本技能每級增加倍率]。最高 5 級。第 3 個輔助技能（索引 2）另外固定要求二轉。</div>`+
       `<div class="support-mechanic-note"><b>DEBUFF 傷害規則：</b>追打＝目標受到攻擊後，額外受到施放者攻擊力 × value 的獨立屬性傷害，會套用目標防禦、element 屬性克制與目標減傷；DOT＝目標自身行動前直接扣固定傷害，兩種 DOT 都完全不吃增傷／減傷／防禦／抗性／暴擊／屬性克制；額外增傷＝只放大觸發它的那次攻擊。</div>`+
       `<div class="oknotice">持續時間＝全隊戰鬥回合；冷卻＝施放者自身行動回合。DOT 的傷害觸發點則是「受到 DEBUFF 的目標自身行動前」。</div>`+
       `<div class="toolbar"><label style="margin:0">角色</label><select id="supportClassSel">${data.classes.map((x,i)=>`<option value="${i}" ${i===selected.supportClass?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div>`+
@@ -1985,6 +1995,7 @@ ensureArrays();render();
         ${selectField('效果類型／DEBUFF 機制','kind',sk.kind||'attack',SUPPORT_KINDS,false,'followup、dotAttack、dotMaxHp、damageAmp 為新增機制；舊 vulnerable 只為舊 JSON 相容，載入後會自動轉換。',SUPPORT_KIND_LABELS)}
         ${selectField('技能／追打屬性','element',sk.element||'physical',ELEMENTS,false,elementHelp(sk),ELEMENT_LABELS)}
         ${inputField('基礎效果比例','value',sk.value??0,'number','min=0 step=0.001',false,valueHelp(sk))}
+        ${inputField('每級增加倍率','effectPerLevel',sk.effectPerLevel??data.balanceSettings?.skills?.support?.effectPerExtraLevel??.2,'number','min=0 step=0.001',false,'從 Lv2 起每提升 1 級套用一次；0.20 = 每級在基礎效果上 +20%。此值只影響本技能。')}
         ${inputField('持續時間（戰鬥回合）','duration',sk.duration??0,'number','min=0 step=1',false,'BUFF／DEBUFF 依全隊戰鬥回合計時。DOT 只有在效果仍有效時，才會於目標自身行動前觸發。')}
         ${inputField('冷卻時間（自身行動回合）','cooldown',sk.cooldown??0,'number','min=0 step=1',false,'只有施放者自己的行動回合會扣除冷卻；其他角色、敵人與戰鬥倍速都不會額外推進。')}
         ${inputField('需求等級','level',sk.level??1,'number','min=1 step=1',false,'達到此角色等級後才能學習；索引 2 的第三個輔助技能另外固定要求二轉。')}
@@ -2009,6 +2020,7 @@ ensureArrays();render();
         if(!SUPPORT_KINDS.includes(sk.kind))issues.push(`角色 ${ci} 輔助技能 ${si} 的效果類型無效。`);
         if(!ELEMENTS.includes(sk.element))issues.push(`角色 ${ci} 輔助技能 ${si} 的屬性無效。`);
         if(!Number.isFinite(sk.value)||sk.value<0)issues.push(`角色 ${ci} 輔助技能 ${si} 的基礎效果比例必須是非負數。`);
+        if(!Number.isFinite(sk.effectPerLevel)||sk.effectPerLevel<0)issues.push(`角色 ${ci} 輔助技能 ${si} 的每級增加倍率必須是非負數。`);
         if(['followup','dotAttack','dotMaxHp','damageAmp'].includes(sk.kind)&&!['enemy','enemies'].includes(sk.target))issues.push(`角色 ${ci} 輔助技能 ${si} 使用傷害型 DEBUFF 時，目標應為 enemy 或 enemies。`);
       }
       return [...new Set(issues)];
