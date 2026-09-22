@@ -559,6 +559,17 @@ function ensureArrays(){
     while(x.length<3) x.push([]);
     return x;
   });
+  const allWearableJobs=data.classes.map((_,i)=>i);
+  data.equipmentForms.forEach((slots,ci)=>slots.forEach((forms,slot)=>{
+    if(!Array.isArray(forms))return;
+    for(const form of forms){
+      if(!form||typeof form!=="object")continue;
+      const fallback=slot===1?[...allWearableJobs]:[ci];
+      const raw=Array.isArray(form.wearableJobs)?form.wearableJobs:fallback;
+      const jobs=[...new Set(raw.map(Number).filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length))];
+      form.wearableJobs=jobs.length?jobs:fallback;
+    }
+  }));
   for(let ci=0;ci<data.classes.length;ci++){
     const corePerLevelDefault=Number(data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18);
     const supportPerLevelDefault=Number(data.balanceSettings?.skills?.support?.effectPerExtraLevel??.2);
@@ -840,6 +851,8 @@ function renderEquipment(){
   const slot=classSlots[selected.equipSlot] || [];
   selected.equip=Math.min(selected.equip,Math.max(0,slot.length-1));
   const e=slot[selected.equip];
+  const wearableJobs=e&&Array.isArray(e.wearableJobs)?e.wearableJobs:[];
+  const allJobsSelected=!!e&&wearableJobs.length===data.classes.length;
   document.getElementById("app").innerHTML =
     sectionHead("裝備變體","對應 equipmentForms。每個職業必須固定有 3 個部位群組，而且每個部位至少保留 1 種裝備變體。",
       `<button id="addEquip" ${c?"":"disabled"}>新增裝備變體</button>${e?`<button id="dupEquip">複製變體</button><button id="delEquip" class="danger" ${slot.length<=1?"disabled":""}>刪除變體</button>`:""}`)+
@@ -850,6 +863,7 @@ function renderEquipment(){
     (e?card("裝備資料",`<div class="fields">
       ${inputField("裝備 ID（識別用）","id",e.id||"","text","",false,"套用到遊戲時會移除 id；實際裝備變體依職業／部位／陣列索引對應。",true)}
       ${inputField("裝備變體名稱","name",e.name||"","text","",false,"取代該職業該部位的基礎裝備名稱顯示。")}
+      <div class="field full"><label>可穿戴職業</label><div class="identity-slots equipment-wearable-jobs"><label><input id="equipWearAll" type="checkbox" ${allJobsSelected?"checked":""}>全職業</label>${data.classes.map((x,i)=>`<label><input type="checkbox" data-wearable-job="${i}" ${wearableJobs.includes(i)?"checked":""}>${esc(x.name)}</label>`).join("")}</div><div class="field-help">逐件設定可穿戴職業；勾選「全職業」會一次選取全部職業。至少保留 1 個可穿戴職業。</div></div>
       <div class="field"><label>${fieldTitle("普攻屬性","element",false)}</label><select data-key="element"><option value="" ${!e.element?"selected":""}>未指定／無屬性</option>${ELEMENTS.map(x=>`<option value="${x}" ${e.element===x?"selected":""}>${esc(ELEMENT_LABELS[x])}</option>`).join("")}</select><div class="field-help">只有裝備在武器槽（slot 0）時，這個 element 會成為普通攻擊屬性；消耗品附魔可暫時覆蓋。技能屬性不受武器影響。</div></div>
       <div class="field full"><label>${fieldTitle("專屬固定屬性","exclusive",false)}</label><div class="field-help" style="margin-bottom:8px">這些效果固定在裝備變體上，不屬於可洗鍊詞條；數值允許 -100 ~ 500。</div><div id="exclusiveRows"></div><button id="addExclusive" class="small">新增專屬屬性</button></div>
     </div>`):card("裝備資料",`<div class="empty">請新增或選擇裝備</div>`))+`</div>`;
@@ -861,6 +875,18 @@ function renderEquipment(){
     bindObjectFields(app,e);
     const elementSelect=app.querySelector('select[data-key="element"]');
     if(elementSelect)elementSelect.onchange=()=>{if(elementSelect.value==="")delete e.element;else e.element=elementSelect.value;markDirty();};
+    const wearAll=app.querySelector("#equipWearAll");
+    if(wearAll)wearAll.onchange=()=>{
+      e.wearableJobs=wearAll.checked?data.classes.map((_,i)=>i):[selected.equipClass];
+      markDirty();renderEquipment();
+    };
+    app.querySelectorAll("[data-wearable-job]").forEach(el=>el.onchange=()=>{
+      const job=Number(el.dataset.wearableJob),current=new Set(Array.isArray(e.wearableJobs)?e.wearableJobs:[]);
+      if(el.checked)current.add(job);else current.delete(job);
+      if(!current.size){el.checked=true;return alert("至少保留 1 個可穿戴職業。");}
+      e.wearableJobs=[...current].filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length).sort((a,b)=>a-b);
+      markDirty();renderEquipment();
+    });
     if(!e.exclusive || typeof e.exclusive!=="object" || Array.isArray(e.exclusive))e.exclusive={};
     renderExclusiveRows(e);
     document.getElementById("addExclusive").onclick=()=>{
@@ -870,7 +896,7 @@ function renderEquipment(){
   }
   document.getElementById("addEquip").onclick=()=>{
     if(!c)return; const i=slot.length;
-    slot.push({id:`job${selected.equipClass}-slot${selected.equipSlot}-form${i}`,name:"新裝備",exclusive:{}});
+    slot.push({id:`job${selected.equipClass}-slot${selected.equipSlot}-form${i}`,name:"新裝備",wearableJobs:selected.equipSlot===1?data.classes.map((_,job)=>job):[selected.equipClass],exclusive:{}});
     selected.equip=slot.length-1;markDirty();render();
   };
   if(e){
@@ -1155,7 +1181,7 @@ function validateData(){
   }
   data.equipmentForms.forEach((jobs,job)=>{
     if(!Array.isArray(jobs)||jobs.length!==3){issues.push(`角色 ${job} 的裝備必須固定 3 個部位群組。`);return;}
-    jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||forms.length<1)issues.push(`角色 ${job} 的「${SLOT_NAMES[slot]}」至少要有 1 種裝備變體。`);(forms||[]).forEach((f,i)=>{if(f.element!==undefined&&f.element!==""&&!ELEMENTS.includes(f.element))issues.push(`裝備 ${job}-${slot}-${i} 的元素無效。`);if(f.exclusive)for(const [k,v] of Object.entries(f.exclusive))if(!EXCLUSIVE_KEYS.includes(k)||!Number.isFinite(v)||v<-100||v>500)issues.push(`裝備 ${job}-${slot}-${i} 的專屬屬性 ${k} 無效或超出 -100~500。`);});});
+    jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||forms.length<1)issues.push(`角色 ${job} 的「${SLOT_NAMES[slot]}」至少要有 1 種裝備變體。`);(forms||[]).forEach((f,i)=>{if(f.element!==undefined&&f.element!==""&&!ELEMENTS.includes(f.element))issues.push(`裝備 ${job}-${slot}-${i} 的元素無效。`);if(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=data.classes.length))issues.push(`裝備 ${job}-${slot}-${i} 的可穿戴職業設定無效。`);if(f.exclusive)for(const [k,v] of Object.entries(f.exclusive))if(!EXCLUSIVE_KEYS.includes(k)||!Number.isFinite(v)||v<-100||v>500)issues.push(`裝備 ${job}-${slot}-${i} 的專屬屬性 ${k} 無效或超出 -100~500。`);});});
   });
   if(data.items.length!==EXPECTED_ITEM_COUNT)issues.push(`商店道具必須固定 ${EXPECTED_ITEM_COUNT} 筆；目前是 ${data.items.length} 筆。`);
   const originalItems=ORIGINAL_DATA.items||[];
