@@ -214,23 +214,47 @@ function fixedEffectDefault(key){
   if(["basicAdvanceNextRound","allCooldownReduction","skillCooldownReduction"].includes(key))return 1;
   return 0;
 }
+function equipmentFixedSkillJobs(form){
+  const jobs=Array.isArray(form?.wearableJobs)?[...new Set(form.wearableJobs.map(Number).filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length))]:[];
+  return jobs.length?jobs:data.classes.map((_,i)=>i);
+}
+function equipmentFixedSkillCount(form){
+  return equipmentFixedSkillJobs(form).reduce((max,job)=>Math.max(max,(data.classes[job]?.skills||[]).length),0);
+}
+function equipmentFixedSkillLabel(form,index){
+  const names=[...new Set(equipmentFixedSkillJobs(form).map(job=>data.classes[job]?.skills?.[index]?.name).filter(Boolean))];
+  return `核心技能 ${index+1}${names.length?" · "+names.join("／"):""}`;
+}
 function normalizeEquipmentFixedEffects(form){
   if(!form||typeof form!=="object")return;
   let rows=Array.isArray(form.fixedEffects)?form.fixedEffects.map(x=>x&&typeof x==="object"?{...x}:null).filter(Boolean):[];
-  if(!rows.length&&form.exclusive&&typeof form.exclusive==="object"&&!Array.isArray(form.exclusive)){
-    rows=Object.entries(form.exclusive).map(([key,value])=>({key,value}));
+  if(!rows.length){
+    const legacy=[];
+    const ex=form.exclusive&&typeof form.exclusive==="object"&&!Array.isArray(form.exclusive)?{...form.exclusive}:{};
+    const pct=value=>Number(((Number(value)-1)*100).toFixed(2));
+    if(Number.isFinite(form.atk)&&form.atk!==1)ex.gearAtkPct=(ex.gearAtkPct||0)+pct(form.atk);
+    if(Number.isFinite(form.hp)&&form.hp!==1)ex.gearHpPct=(ex.gearHpPct||0)+pct(form.hp);
+    if(Number.isFinite(form.def)&&form.def!==1)ex.gearDefPct=(ex.gearDefPct||0)+pct(form.def);
+    for(const key of ["crit","critDamage","pierce","lifesteal","evasion","elementBonus","defenseIgnore"])if(Number.isFinite(form[key])&&form[key]!==0)ex[key]=(ex[key]||0)+form[key];
+    let manaAttack=0;
+    if(Number.isFinite(form.mp)&&form.mp>0)manaAttack+=Math.max(1,Math.round(form.mp/15));
+    if(Number.isFinite(form.mpRegen)&&form.mpRegen>0)manaAttack+=Math.max(1,Math.round(form.mpRegen));
+    if(manaAttack)ex.attackPct=(ex.attackPct||0)+manaAttack;
+    for(const [key,value] of Object.entries(ex))legacy.push({key,value});
+    if(ELEMENTS.includes(form.element)&&form.element!=="physical")legacy.push({key:"basicElement",value:form.element});
+    rows=legacy;
   }
   rows=rows.filter(x=>EQUIPMENT_FIXED_EFFECT_KEYS.includes(x.key)).slice(0,5).map(x=>{
     const out={key:x.key,value:x.key==="basicElement"?(ELEMENTS.includes(x.value)?x.value:"physical"):Number.isFinite(Number(x.value))?Number(x.value):fixedEffectDefault(x.key)};
     const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[x.key];
     if(def?.target==="element")out.element=ELEMENTS.includes(x.element)&&x.element!=="physical"?x.element:"fire";
     if(def?.target==="race")out.race=Object.prototype.hasOwnProperty.call(EQUIPMENT_FIXED_RACES,x.race)?x.race:"beast";
-    if(def?.target==="skill")out.skill=Math.max(0,Math.min(5,Number.isInteger(Number(x.skill))?Number(x.skill):0));
+    if(def?.target==="skill")out.skill=Math.max(0,Number.isInteger(Number(x.skill))?Number(x.skill):0);
     return out;
   });
   if(!rows.length)rows=[{key:"flatAttack",value:0}];
   form.fixedEffects=rows;
-  delete form.exclusive;delete form.element;
+  for(const key of ["atk","hp","def","mp","mpRegen","crit","critDamage","pierce","lifesteal","evasion","elementBonus","defenseIgnore","exclusive","element"])delete form[key];
 }
 const EXPECTED_CLASS_COUNT = 4;
 const EXPECTED_SUPPORT_PER_CLASS = 3;
@@ -982,10 +1006,11 @@ function renderEquipment(){
 function renderFixedEffectRows(e){
   normalizeEquipmentFixedEffects(e);
   const host=document.getElementById("fixedEffectRows");
-  const skillOptions=Array.from({length:6},(_,i)=>`<option value="${i}">核心技能 ${i+1}</option>`).join("");
+  const skillCount=equipmentFixedSkillCount(e);
   host.innerHTML=e.fixedEffects.map((fx,i)=>{
     const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key]||EQUIPMENT_FIXED_EFFECT_DEFS[0];
-    const target=def.target==="element"?`<select class="fixed-target">${ELEMENTS.filter(x=>x!=="physical").map(x=>`<option value="${x}" ${fx.element===x?"selected":""}>${esc(ELEMENT_LABELS[x]||x)}</option>`).join("")}</select>`:def.target==="race"?`<select class="fixed-target">${Object.entries(EQUIPMENT_FIXED_RACES).map(([k,n])=>`<option value="${k}" ${fx.race===k?"selected":""}>${n}</option>`).join("")}</select>`:def.target==="skill"?`<select class="fixed-target">${skillOptions.replace(`value="${fx.skill}"`,`value="${fx.skill}" selected`)}</select>`:`<span class="fixed-target-placeholder"></span>`;
+    const skillOptions=Array.from({length:skillCount},(_,skill)=>`<option value="${skill}" ${Number(fx.skill)===skill?"selected":""}>${esc(equipmentFixedSkillLabel(e,skill))}</option>`).join("")+(Number.isInteger(fx.skill)&&fx.skill>=skillCount?`<option value="${fx.skill}" selected>核心技能 ${fx.skill+1}（目前不存在）</option>`:"");
+    const target=def.target==="element"?`<select class="fixed-target">${ELEMENTS.filter(x=>x!=="physical").map(x=>`<option value="${x}" ${fx.element===x?"selected":""}>${esc(ELEMENT_LABELS[x]||x)}</option>`).join("")}</select>`:def.target==="race"?`<select class="fixed-target">${Object.entries(EQUIPMENT_FIXED_RACES).map(([k,n])=>`<option value="${k}" ${fx.race===k?"selected":""}>${n}</option>`).join("")}</select>`:def.target==="skill"?`<select class="fixed-target">${skillOptions}</select>`:`<span class="fixed-target-placeholder"></span>`;
     const value=fx.key==="basicElement"?`<select class="fixed-value">${ELEMENTS.map(x=>`<option value="${x}" ${fx.value===x?"selected":""}>${esc(ELEMENT_LABELS[x]||x)}</option>`).join("")}</select>`:`<input class="fixed-value" type="number" step="${["basicAdvanceNextRound","allCooldownReduction","skillCooldownReduction"].includes(fx.key)?"1":"0.01"}" value="${esc(fx.value)}">`;
     return `<div class="kvrow fixed-effect-row" data-i="${i}"><select class="fixed-key">${EQUIPMENT_FIXED_EFFECT_DEFS.map(x=>`<option value="${x.key}" ${x.key===fx.key?"selected":""}>${esc(x.label)}</option>`).join("")}</select>${target}${value}<span class="pill">${esc(def.unit)}</span><button class="small danger fixed-del" ${e.fixedEffects.length<=1?"disabled":""}>×</button><div class="field-help" style="grid-column:1/-1">${esc(def.help)} <span class="field-key">JSON：fixedEffects[${i}].${esc(fx.key)}</span></div></div>`;
   }).join("");
@@ -1255,7 +1280,7 @@ function validateData(){
   data.equipmentForms.forEach((jobs,job)=>{
     const global=job===data.classes.length,label=global?"全職業":`角色 ${job}`;
     if(!Array.isArray(jobs)||jobs.length!==4){issues.push(`${label}的裝備必須固定 4 個部位群組。`);return;}
-    jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||(!global&&forms.length<1))issues.push(`${label}的「${SLOT_NAMES[slot]}」至少要有 1 種裝備變體。`);(forms||[]).forEach((f,i)=>{normalizeEquipmentFixedEffects(f);if(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=data.classes.length))issues.push(`裝備 ${job}-${slot}-${i} 的可穿戴職業設定無效。`);if(!Array.isArray(f.fixedEffects)||f.fixedEffects.length<1||f.fixedEffects.length>5)issues.push(`裝備 ${job}-${slot}-${i} 的固定屬性必須為 1～5 條。`);for(const [j,fx] of (f.fixedEffects||[]).entries()){const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx?.key];if(!def)issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條固定屬性無效。`);else if(fx.key==="basicElement"){if(!ELEMENTS.includes(fx.value))issues.push(`裝備 ${job}-${slot}-${i} 的普通攻擊屬性無效。`);}else if(!Number.isFinite(fx.value))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條固定屬性數值無效。`);if(def?.target==="element"&&(!ELEMENTS.includes(fx.element)||fx.element==="physical"))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條元素目標無效。`);if(def?.target==="race"&&!Object.prototype.hasOwnProperty.call(EQUIPMENT_FIXED_RACES,fx.race))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條種族目標無效。`);if(def?.target==="skill"&&(!Number.isInteger(fx.skill)||fx.skill<0||fx.skill>5))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條技能目標無效。`);}});});
+    jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||(!global&&forms.length<1))issues.push(`${label}的「${SLOT_NAMES[slot]}」至少要有 1 種裝備變體。`);(forms||[]).forEach((f,i)=>{normalizeEquipmentFixedEffects(f);if(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=data.classes.length))issues.push(`裝備 ${job}-${slot}-${i} 的可穿戴職業設定無效。`);if(!Array.isArray(f.fixedEffects)||f.fixedEffects.length<1||f.fixedEffects.length>5)issues.push(`裝備 ${job}-${slot}-${i} 的固定屬性必須為 1～5 條。`);for(const [j,fx] of (f.fixedEffects||[]).entries()){const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx?.key];if(!def)issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條固定屬性無效。`);else if(fx.key==="basicElement"){if(!ELEMENTS.includes(fx.value))issues.push(`裝備 ${job}-${slot}-${i} 的普通攻擊屬性無效。`);}else if(!Number.isFinite(fx.value))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條固定屬性數值無效。`);if(def?.target==="element"&&(!ELEMENTS.includes(fx.element)||fx.element==="physical"))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條元素目標無效。`);if(def?.target==="race"&&!Object.prototype.hasOwnProperty.call(EQUIPMENT_FIXED_RACES,fx.race))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條種族目標無效。`);if(def?.target==="skill"){const skillCount=equipmentFixedSkillCount(f);if(!Number.isInteger(fx.skill)||fx.skill<0||fx.skill>=skillCount)issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條技能目標無效。`);}}});});
   });
   if(data.items.length!==EXPECTED_ITEM_COUNT)issues.push(`商店道具必須固定 ${EXPECTED_ITEM_COUNT} 筆；目前是 ${data.items.length} 筆。`);
   const originalItems=ORIGINAL_DATA.items||[];
