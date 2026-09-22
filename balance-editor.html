@@ -220,7 +220,6 @@ function normalizeEquipmentFixedEffects(form){
   if(!rows.length&&form.exclusive&&typeof form.exclusive==="object"&&!Array.isArray(form.exclusive)){
     rows=Object.entries(form.exclusive).map(([key,value])=>({key,value}));
   }
-  if(!rows.length&&form.element)rows.push({key:"basicElement",value:form.element});
   rows=rows.filter(x=>EQUIPMENT_FIXED_EFFECT_KEYS.includes(x.key)).slice(0,5).map(x=>{
     const out={key:x.key,value:x.key==="basicElement"?(ELEMENTS.includes(x.value)?x.value:"physical"):Number.isFinite(Number(x.value))?Number(x.value):fixedEffectDefault(x.key)};
     const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[x.key];
@@ -2445,7 +2444,7 @@ ensureArrays();render();
   const VALID_ELEMENTS=['fire','ice','wind','light','shadow'];
   const REGULAR_EFFECT_KEYS=['basicElement','basicAdvanceNextRound','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','allCooldownReduction','dropRateBonus'];
   const BASE_EFFECT_KEYS=[...EQUIPMENT_FIXED_EFFECT_KEYS];
-  const BOSS_EFFECT_KEYS=[...new Set([...REGULAR_EFFECT_KEYS,...BASE_EFFECT_KEYS,'bossDamagePct'])];
+  const BOSS_EFFECT_KEYS=[...new Set([...REGULAR_EFFECT_KEYS,'gearAtkPct','gearHpPct','gearDefPct','bossDamagePct'])];
   const EFFECT_LABELS={
     basicElement:'普通攻擊屬性',basicAdvanceNextRound:'普攻後下回合前移',gearAtkPct:'此裝備基礎攻擊 %',gearHpPct:'此裝備基礎生命 %',gearDefPct:'此裝備基礎防禦 %',
     attackPct:'角色攻擊力 %',crit:'暴擊率 %',critDamage:'暴擊傷害 %',pierce:'防禦穿透（固定）',defenseIgnore:'防禦無視 %',lifesteal:'生命竊取 %',evasion:'閃避率 %',elementBonus:'全屬性增傷 %',
@@ -2505,7 +2504,7 @@ ensureArrays();render();
   function normalizeBossAffixes(rows,legacySeries){const byId=new Map((Array.isArray(rows)?rows:[]).filter(Boolean).map(x=>[x.id,x])),legacyById=new Map((Array.isArray(legacySeries)?legacySeries:[]).filter(Boolean).map(x=>[x.id,x]));return DEFAULT_BOSS_AFFIXES.map(def=>{const x=byId.get(def.id)||{},legacy=legacyById.get(def.id)||{},name=typeof x.name==='string'&&x.name.trim()?x.name.trim():typeof legacy.name==='string'&&legacy.name.trim()?legacy.name.trim():def.name,src=Array.isArray(x.effects)?x.effects:[],effects=Array.from({length:3},(_,i)=>normalizeEffect(src[i],BOSS_EFFECT_KEYS,def.effects[i])),used=new Set();for(let i=0;i<effects.length;i++){if(used.has(effects[i].key)){const replacement=def.effects.find(d=>!used.has(d.key))||DEFAULT_BOSS_AFFIXES[0].effects.find(d=>!used.has(d.key));if(replacement)effects[i]=clone(replacement);}used.add(effects[i].key);}return {...def,name,effects};});}
   function normalizePower(src){src=src&&typeof src==='object'&&!Array.isArray(src)?src:{};const legacySlots=Number(src.schemaVersion||0)<4,out=clone(POWER_DEFAULT);out.schemaVersion=4;out.prefixes=normalizeAffixRows(src.prefixes,DEFAULT_PREFIXES,legacySlots);out.suffixes=normalizeAffixRows(src.suffixes,DEFAULT_SUFFIXES,legacySlots);out.bossAffixes=normalizeBossAffixes(src.bossAffixes,src.seriesPrefixes);const st=src.strength||{};out.strength.multipliers=Array.from({length:10},(_,i)=>n(st.multipliers?.[i],POWER_DEFAULT.strength.multipliers[i],.01,100));out.strength.weightsByDifficulty=Array.from({length:3},(_,d)=>Array.from({length:10},(_,i)=>n(st.weightsByDifficulty?.[d]?.[i],POWER_DEFAULT.strength.weightsByDifficulty[d][i],0,1e9)));const r=src.rerollItem||{};out.rerollItem={id:POWER_ITEM_ID,name:typeof r.name==='string'&&r.name.trim()?r.name.trim():POWER_DEFAULT.rerollItem.name,description:typeof r.description==='string'?r.description:POWER_DEFAULT.rerollItem.description,cost:0,sellPrice:n(r.sellPrice,80,0,1e9),shopEnabled:false,shopChance:n(r.shopChance,.06,0,1),shopPrice:Math.round(n(r.shopPrice,650,1,1e9)),dropRuleInitialized:!!r.dropRuleInitialized};return out;}
 
-  function normalizeBaseForms(){for(const jobs of data.equipmentForms||[])for(const forms of jobs||[])for(const form of forms||[])normalizeEquipmentFixedEffects(form);}
+  function normalizeBaseForms(){for(const jobs of data.equipmentForms||[])for(const forms of jobs||[])for(const form of forms||[])normalizeEquipmentFixedEffects(form);const broad=data.equipmentForms?.[0]?.[0]?.[0];if(broad){const hit=broad.fixedEffects?.find(e=>e.key==='gearAtkPct');if(hit&&Math.abs(Number(hit.value)-20)<.001)hit.value=5;}}
 
   function specialItem(){const r=data.equipmentPowerSystem.rerollItem;return {id:POWER_ITEM_ID,type:POWER_ITEM_TYPE,cost:0,sellPrice:r.sellPrice,duration:0,name:r.name,description:r.description,shopEnabled:false};}
   function ensureSpecialItem(){const item=specialItem(),i=data.items.findIndex(x=>x?.id===POWER_ITEM_ID||x?.type===POWER_ITEM_TYPE);if(i<0)data.items.push(item);else data.items[i]=Object.assign(data.items[i],item);}
