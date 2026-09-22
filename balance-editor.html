@@ -177,7 +177,7 @@ const EFFECTS = ["damage","heal","shield","drain","nextActiveDamage","advanceNex
 const SUPPORT_TARGETS = ["allies","enemy","enemies","weakest"];
 const SUPPORT_KINDS = ["attack","critical","fracture","guard","power","regen","vulnerable","weaken"];
 const ITEM_TYPES = ["imbue","ward","elementTonic"];
-const SLOT_NAMES = ["武器","護甲","副手／飾品"];
+const SLOT_NAMES = ["武器","護甲","副手","飾品"];
 const EXCLUSIVE_KEYS = ["gearAtkPct","gearHpPct","gearDefPct","attackPct","crit","critDamage","pierce","defenseIgnore","lifesteal","evasion","elementBonus"];
 const EXPECTED_CLASS_COUNT = 4;
 const EXPECTED_SUPPORT_PER_CLASS = 3;
@@ -546,6 +546,29 @@ function bindPrerequisiteFields(app,sk){
     rows[slot].level=Number(el.value);markDirty();
   });
 }
+function normalizeEquipmentFormsSchema(){
+  if(!Array.isArray(data.equipmentForms))data.equipmentForms=[];
+  const classCount=data.classes.length;
+  while(data.equipmentForms.length<classCount)data.equipmentForms.push([[],[],[],[]]);
+  for(let ci=0;ci<classCount;ci++){
+    let slots=Array.isArray(data.equipmentForms[ci])?data.equipmentForms[ci]:[];
+    if(slots.length===3){
+      const mixed=Array.isArray(slots[2])?slots[2]:[],offhand=mixed.length?[mixed[0]]:[],accessories=mixed.slice(1);
+      if(!accessories.length&&mixed[0])accessories.push(structuredClone(mixed[0]));
+      slots=[Array.isArray(slots[0])?slots[0]:[],Array.isArray(slots[1])?slots[1]:[],offhand,accessories];
+    }
+    while(slots.length<4)slots.push([]);
+    data.equipmentForms[ci]=slots.slice(0,4);
+  }
+  let globalSlots=Array.isArray(data.equipmentForms[classCount])?data.equipmentForms[classCount]:[[],[],[],[]];
+  if(globalSlots.length===3){
+    const mixed=Array.isArray(globalSlots[2])?globalSlots[2]:[];
+    globalSlots=[Array.isArray(globalSlots[0])?globalSlots[0]:[],Array.isArray(globalSlots[1])?globalSlots[1]:[],mixed.length?[mixed[0]]:[],mixed.slice(1)];
+  }
+  while(globalSlots.length<4)globalSlots.push([]);
+  data.equipmentForms[classCount]=globalSlots.slice(0,4);
+  data.equipmentForms.length=classCount+1;
+}
 function ensureArrays(){
   data.balanceSettings=deepFillDefaults(BALANCE_SETTINGS_DEFAULTS,data.balanceSettings);
   if(!Array.isArray(data.classes)) data.classes=[];
@@ -553,18 +576,13 @@ function ensureArrays(){
   if(!Array.isArray(data.equipmentForms)) data.equipmentForms=[];
   if(!Array.isArray(data.items)) data.items=[];
   while(data.supportSkills.length < data.classes.length) data.supportSkills.push([]);
-  while(data.equipmentForms.length < data.classes.length) data.equipmentForms.push([[],[],[]]);
-  data.equipmentForms = data.equipmentForms.map(x => {
-    if(!Array.isArray(x)) x=[];
-    while(x.length<3) x.push([]);
-    return x;
-  });
+  normalizeEquipmentFormsSchema();
   const allWearableJobs=data.classes.map((_,i)=>i);
   data.equipmentForms.forEach((slots,ci)=>slots.forEach((forms,slot)=>{
     if(!Array.isArray(forms))return;
     for(const form of forms){
       if(!form||typeof form!=="object")continue;
-      const fallback=slot===1?[...allWearableJobs]:[ci];
+      const fallback=ci>=data.classes.length||slot===1?[...allWearableJobs]:[ci];
       const raw=Array.isArray(form.wearableJobs)?form.wearableJobs:fallback;
       const jobs=[...new Set(raw.map(Number).filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length))];
       form.wearableJobs=jobs.length?jobs:fallback;
@@ -845,21 +863,22 @@ function renderSupport(){
 }
 
 function renderEquipment(){
-  selected.equipClass=Math.min(selected.equipClass,Math.max(0,data.classes.length-1));
-  const c=data.classes[selected.equipClass];
-  const classSlots=data.equipmentForms[selected.equipClass] || [[],[],[]];
+  selected.equipClass=Math.min(selected.equipClass,Math.max(0,data.classes.length));
+  const isGlobalClass=selected.equipClass===data.classes.length;
+  const c=isGlobalClass?{name:"全職業"}:data.classes[selected.equipClass];
+  const classSlots=data.equipmentForms[selected.equipClass] || [[],[],[],[]];
   const slot=classSlots[selected.equipSlot] || [];
   selected.equip=Math.min(selected.equip,Math.max(0,slot.length-1));
   const e=slot[selected.equip];
   const wearableJobs=e&&Array.isArray(e.wearableJobs)?e.wearableJobs:[];
   const allJobsSelected=!!e&&wearableJobs.length===data.classes.length;
   document.getElementById("app").innerHTML =
-    sectionHead("裝備變體","對應 equipmentForms。每個職業必須固定有 3 個部位群組，而且每個部位至少保留 1 種裝備變體。",
-      `<button id="addEquip" ${c?"":"disabled"}>新增裝備變體</button>${e?`<button id="dupEquip">複製變體</button><button id="delEquip" class="danger" ${slot.length<=1?"disabled":""}>刪除變體</button>`:""}`)+
+    sectionHead("裝備變體","對應 equipmentForms。職業裝備分為武器、護甲、副手、飾品 4 類；另可在「全職業」類別建立共用基底。",
+      `<button id="addEquip" ${c?"":"disabled"}>新增裝備變體</button>${e?`<button id="dupEquip">複製變體</button><button id="delEquip" class="danger" ${!isGlobalClass&&slot.length<=1?"disabled":""}>刪除變體</button>`:""}`)+
     `<div class="notice">裝備變體索引會存進既有裝備的 <span class="code">form</span>。刪除或重排變體，可能讓舊存檔中的既有裝備改成另一個外型／專屬效果。</div>`+
-    `<div class="toolbar"><label style="margin:0">角色</label><select id="equipClassSel">${data.classes.map((x,i)=>`<option value="${i}" ${i===selected.equipClass?"selected":""}>${esc(x.name)}</option>`).join("")}</select>
+    `<div class="toolbar"><label style="margin:0">類別</label><select id="equipClassSel">${data.classes.map((x,i)=>`<option value="${i}" ${i===selected.equipClass?"selected":""}>${esc(x.name)}</option>`).join("")}<option value="${data.classes.length}" ${isGlobalClass?"selected":""}>全職業</option></select>
       <div class="tabs">${SLOT_NAMES.map((n,i)=>`<button class="${i===selected.equipSlot?"primary":""}" data-slot="${i}">${n}</button>`).join("")}</div></div>`+
-    `<div class="grid2"><div class="card"><div class="list">${slot.map((x,i)=>`<div class="listitem ${i===selected.equip?"active":""}" data-equip="${i}"><div class="title">${esc(x.name||"(未命名裝備)")}</div><div class="sub">變體 ${i+1}${x.element?" · "+esc(ELEMENT_LABELS[x.element]||x.element):""}</div></div>`).join("")||`<div class="empty">此部位不能為空，否則遊戲匯入會失敗。</div>`}</div></div>`+
+    `<div class="grid2"><div class="card"><div class="list">${slot.map((x,i)=>`<div class="listitem ${i===selected.equip?"active":""}" data-equip="${i}"><div class="title">${esc(x.name||"(未命名裝備)")}</div><div class="sub">變體 ${i+1}${x.element?" · "+esc(ELEMENT_LABELS[x.element]||x.element):""}</div></div>`).join("")||`<div class="empty">${isGlobalClass?"尚未建立此類全職業裝備。":"此部位不能為空，否則遊戲匯入會失敗。"}</div>`}</div></div>`+
     (e?card("裝備資料",`<div class="fields">
       ${inputField("裝備 ID（識別用）","id",e.id||"","text","",false,"套用到遊戲時會移除 id；實際裝備變體依職業／部位／陣列索引對應。",true)}
       ${inputField("裝備變體名稱","name",e.name||"","text","",false,"取代該職業該部位的基礎裝備名稱顯示。")}
@@ -877,7 +896,7 @@ function renderEquipment(){
     if(elementSelect)elementSelect.onchange=()=>{if(elementSelect.value==="")delete e.element;else e.element=elementSelect.value;markDirty();};
     const wearAll=app.querySelector("#equipWearAll");
     if(wearAll)wearAll.onchange=()=>{
-      e.wearableJobs=wearAll.checked?data.classes.map((_,i)=>i):[selected.equipClass];
+      if(wearAll.checked)e.wearableJobs=data.classes.map((_,i)=>i);
       markDirty();renderEquipment();
     };
     app.querySelectorAll("[data-wearable-job]").forEach(el=>el.onchange=()=>{
@@ -895,13 +914,13 @@ function renderEquipment(){
     };
   }
   document.getElementById("addEquip").onclick=()=>{
-    if(!c)return; const i=slot.length;
-    slot.push({id:`job${selected.equipClass}-slot${selected.equipSlot}-form${i}`,name:"新裝備",wearableJobs:selected.equipSlot===1?data.classes.map((_,job)=>job):[selected.equipClass],exclusive:{}});
+    if(!c)return; const i=slot.length,allJobs=data.classes.map((_,job)=>job),prefix=isGlobalClass?"all":`job${selected.equipClass}`;
+    slot.push({id:`${prefix}-slot${selected.equipSlot}-form${i}`,name:"新裝備",wearableJobs:isGlobalClass||selected.equipSlot===1?allJobs:[selected.equipClass],exclusive:{}});
     selected.equip=slot.length-1;markDirty();render();
   };
   if(e){
-    document.getElementById("dupEquip").onclick=()=>{const copy=structuredClone(e);copy.id=`job${selected.equipClass}-slot${selected.equipSlot}-form${slot.length}`;copy.name=(copy.name||"裝備")+" 複製";slot.push(copy);selected.equip=slot.length-1;markDirty();render();};
-    document.getElementById("delEquip").onclick=()=>{if(slot.length<=1)return alert("每個部位至少必須保留 1 種裝備變體。");if(confirmDelete(`刪除裝備「${e.name}」？既有存檔的 form 索引可能因此改變。`)){slot.splice(selected.equip,1);selected.equip=Math.max(0,selected.equip-1);markDirty();render();}};
+    document.getElementById("dupEquip").onclick=()=>{const copy=structuredClone(e),prefix=isGlobalClass?"all":`job${selected.equipClass}`;copy.id=`${prefix}-slot${selected.equipSlot}-form${slot.length}`;copy.name=(copy.name||"裝備")+" 複製";slot.push(copy);selected.equip=slot.length-1;markDirty();render();};
+    document.getElementById("delEquip").onclick=()=>{if(!isGlobalClass&&slot.length<=1)return alert("每個職業的每個部位至少必須保留 1 種裝備變體。");if(confirmDelete(`刪除裝備「${e.name}」？既有存檔的 form 索引可能因此改變。`)){slot.splice(selected.equip,1);selected.equip=Math.max(0,selected.equip-1);markDirty();render();}};
   }
 }
 
@@ -1137,7 +1156,7 @@ function validateData(){
   const coreSkillMax=Math.max(1,Math.floor(data.balanceSettings?.skills?.core?.maxLevel||10));
   if(data.schema!=="emberwild-balance-v1")issues.push("schema 必須是 emberwild-balance-v1，否則遊戲直接拒絕匯入。");
   if(data.classes.length!==EXPECTED_CLASS_COUNT)issues.push(`目前 HTML 固定要求 ${EXPECTED_CLASS_COUNT} 個角色，現在是 ${data.classes.length} 個。`);
-  if(data.equipmentForms.length!==EXPECTED_CLASS_COUNT)issues.push(`equipmentForms 必須有 ${EXPECTED_CLASS_COUNT} 個職業群組。`);
+  if(data.equipmentForms.length!==EXPECTED_CLASS_COUNT+1)issues.push(`equipmentForms 必須有 ${EXPECTED_CLASS_COUNT} 個職業群組加 1 個全職業群組。`);
   if(data.supportSkills.length!==EXPECTED_CLASS_COUNT)issues.push(`supportSkills 建議維持 ${EXPECTED_CLASS_COUNT} 個職業群組；少或多都可能使輔助技能不同步。`);
   const supportSkillMax=Math.max(1,Math.floor(data.balanceSettings?.skills?.support?.maxLevel||5));
   data.classes.forEach((c,ci)=>{
@@ -1180,8 +1199,9 @@ function validateData(){
     for(const owner of owners)if(visit(owner.type,owner.index,new Set()))issues.push('角色 '+ci+' '+(owner.type==="support"?"輔助":"核心")+'技能 '+owner.index+' 的前置技能形成循環依賴。');
   }
   data.equipmentForms.forEach((jobs,job)=>{
-    if(!Array.isArray(jobs)||jobs.length!==3){issues.push(`角色 ${job} 的裝備必須固定 3 個部位群組。`);return;}
-    jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||forms.length<1)issues.push(`角色 ${job} 的「${SLOT_NAMES[slot]}」至少要有 1 種裝備變體。`);(forms||[]).forEach((f,i)=>{if(f.element!==undefined&&f.element!==""&&!ELEMENTS.includes(f.element))issues.push(`裝備 ${job}-${slot}-${i} 的元素無效。`);if(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=data.classes.length))issues.push(`裝備 ${job}-${slot}-${i} 的可穿戴職業設定無效。`);if(f.exclusive)for(const [k,v] of Object.entries(f.exclusive))if(!EXCLUSIVE_KEYS.includes(k)||!Number.isFinite(v)||v<-100||v>500)issues.push(`裝備 ${job}-${slot}-${i} 的專屬屬性 ${k} 無效或超出 -100~500。`);});});
+    const global=job===data.classes.length,label=global?"全職業":`角色 ${job}`;
+    if(!Array.isArray(jobs)||jobs.length!==4){issues.push(`${label}的裝備必須固定 4 個部位群組。`);return;}
+    jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||(!global&&forms.length<1))issues.push(`${label}的「${SLOT_NAMES[slot]}」至少要有 1 種裝備變體。`);(forms||[]).forEach((f,i)=>{if(f.element!==undefined&&f.element!==""&&!ELEMENTS.includes(f.element))issues.push(`裝備 ${job}-${slot}-${i} 的元素無效。`);if(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=data.classes.length))issues.push(`裝備 ${job}-${slot}-${i} 的可穿戴職業設定無效。`);if(f.exclusive)for(const [k,v] of Object.entries(f.exclusive))if(!EXCLUSIVE_KEYS.includes(k)||!Number.isFinite(v)||v<-100||v>500)issues.push(`裝備 ${job}-${slot}-${i} 的專屬屬性 ${k} 無效或超出 -100~500。`);});});
   });
   if(data.items.length!==EXPECTED_ITEM_COUNT)issues.push(`商店道具必須固定 ${EXPECTED_ITEM_COUNT} 筆；目前是 ${data.items.length} 筆。`);
   const originalItems=ORIGINAL_DATA.items||[];
@@ -2419,16 +2439,16 @@ ensureArrays();render();
   function boostedEffect(effect,high,parallel){const out=clone(effect);if(typeof out.value==='number'){if(out.key==='allCooldownReduction')out.value=Math.min(2,out.value+(high?1:0));else out.value=Number((out.value*(high?1.35:1)*(parallel?1.08:1)).toFixed(2));}return out;}
   function makeBossProfiles(group,names,high=false){return names.map((baseName,family)=>({id:group+'_'+(high?'high':'low')+'_'+family,group,family,high,name:(high?(group==='legacy'?'覺醒・':'上古・'):'')+baseName,effects:FAMILY_BOSS_EFFECTS[family].map(e=>boostedEffect(e,high,group==='parallel'))}));}
   const DEFAULT_BOSS_AFFIXES=[...makeBossProfiles('legacy',LEGACY_BOSS_SERIES,false),...makeBossProfiles('legacy',LEGACY_BOSS_SERIES,true),...makeBossProfiles('parallel',PARALLEL_BOSS_SERIES,false),...makeBossProfiles('parallel',PARALLEL_BOSS_SERIES,true)];
-  const POWER_DEFAULT={schemaVersion:3,prefixes:DEFAULT_PREFIXES,suffixes:DEFAULT_SUFFIXES,bossAffixes:DEFAULT_BOSS_AFFIXES,strength:{multipliers:[1,1.06,1.12,1.19,1.25,1.31,1.37,1.43,1.49,1.55],weightsByDifficulty:[[70,20,8,2,0,0,0,0,0,0],[0,0,5,20,55,15,5,0,0,0],[0,0,0,0,0,2,5,10,23,60]]},rerollItem:{id:POWER_ITEM_ID,name:'強度重鑄石',description:'重新抽選一件裝備的 T1～T10 強度階級；抽選分布依該裝備原始掉落難度決定。',cost:0,sellPrice:80,shopEnabled:false,shopChance:.06,shopPrice:650,dropRuleInitialized:false}};
+  const POWER_DEFAULT={schemaVersion:4,prefixes:DEFAULT_PREFIXES,suffixes:DEFAULT_SUFFIXES,bossAffixes:DEFAULT_BOSS_AFFIXES,strength:{multipliers:[1,1.06,1.12,1.19,1.25,1.31,1.37,1.43,1.49,1.55],weightsByDifficulty:[[70,20,8,2,0,0,0,0,0,0],[0,0,5,20,55,15,5,0,0,0],[0,0,0,0,0,2,5,10,23,60]]},rerollItem:{id:POWER_ITEM_ID,name:'強度重鑄石',description:'重新抽選一件裝備的 T1～T10 強度階級；抽選分布依該裝備原始掉落難度決定。',cost:0,sellPrice:80,shopEnabled:false,shopChance:.06,shopPrice:650,dropRuleInitialized:false}};
 
   function n(v,d,min=-Infinity,max=Infinity){v=Number(v);return Number.isFinite(v)?Math.max(min,Math.min(max,v)):d;}
-  function normalizeSlots(v,def=[0,1,2]){const out=Array.isArray(v)?[...new Set(v.map(Number).filter(x=>Number.isInteger(x)&&x>=0&&x<=2))]:clone(def);return out.length?out:clone(def);}
+  function normalizeSlots(v,def=[0,1,2,3],legacy=false){const out=Array.isArray(v)?[...new Set(v.map(Number).filter(x=>Number.isInteger(x)&&x>=0&&x<=3))]:clone(def);if(legacy&&out.includes(2)&&!out.includes(3))out.push(3);return out.length?out:clone(def);}
   function normalizeEffect(src,allowed,def){const fallback=clone(def),set=new Set(allowed);if(!src||typeof src!=='object'||Array.isArray(src)||!set.has(src.key))return fallback;const key=src.key;if(key==='basicElement')return {key,value:VALID_ELEMENTS.includes(src.value)?src.value:fallback.value};let min=-100,max=500;if(key==='basicAdvanceNextRound'){min=1;max=5;}if(key==='allCooldownReduction'){min=0;max=5;}if(key==='dropRateBonus'||key==='bossDamagePct'){min=0;max=500;}return {key,value:n(src.value,fallback.value,min,max)};}
   function normalizeAffixChances(src,legacyWeight,tierMin,tierMax){const fallback=n(legacyWeight,0,0,100),has=Array.isArray(src);return Array.from({length:10},(_,i)=>{const tier=i+1,def=tier>=tierMin&&tier<=tierMax?fallback:0;return n(has?src[i]:def,def,0,100);});}
   function affixChanceAtTier(x,tier){if(!x||tier<1||tier>10)return 0;const v=Array.isArray(x.chanceByTier)?x.chanceByTier[tier-1]:x.weight;return n(v,0,0,100);}
-  function normalizeAffixRows(rows,defaults){if(!Array.isArray(rows)||!rows.some(x=>x&&x.effect))rows=clone(defaults);const seen=new Set(),out=[];for(let i=0;i<rows.length;i++){const x=rows[i]&&typeof rows[i]==='object'?rows[i]:{},d=defaults[i%defaults.length];let id=typeof x.id==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(x.id)?x.id:d.id+'_'+(i+1);if(seen.has(id))id=id+'_'+(i+1);seen.add(id);const tierMin=Math.max(1,Math.min(10,Math.round(n(x.tierMin,d.tierMin,1,10)))),tierMax=Math.max(tierMin,Math.min(10,Math.round(n(x.tierMax,d.tierMax,tierMin,10)))),weight=n(x.weight,d.weight,0,100),chanceByTier=normalizeAffixChances(x.chanceByTier,weight,tierMin,tierMax);out.push({id,name:typeof x.name==='string'&&x.name.trim()?x.name.trim():d.name,tierMin,tierMax,weight,chanceByTier,slots:normalizeSlots(x.slots,d.slots),effect:normalizeEffect(x.effect,REGULAR_EFFECT_KEYS,d.effect)});}return out.length?out:clone(defaults);}
+  function normalizeAffixRows(rows,defaults,legacySlots=false){if(!Array.isArray(rows)||!rows.some(x=>x&&x.effect))rows=clone(defaults);const seen=new Set(),out=[];for(let i=0;i<rows.length;i++){const x=rows[i]&&typeof rows[i]==='object'?rows[i]:{},d=defaults[i%defaults.length];let id=typeof x.id==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(x.id)?x.id:d.id+'_'+(i+1);if(seen.has(id))id=id+'_'+(i+1);seen.add(id);const tierMin=Math.max(1,Math.min(10,Math.round(n(x.tierMin,d.tierMin,1,10)))),tierMax=Math.max(tierMin,Math.min(10,Math.round(n(x.tierMax,d.tierMax,tierMin,10)))),weight=n(x.weight,d.weight,0,100),chanceByTier=normalizeAffixChances(x.chanceByTier,weight,tierMin,tierMax);out.push({id,name:typeof x.name==='string'&&x.name.trim()?x.name.trim():d.name,tierMin,tierMax,weight,chanceByTier,slots:normalizeSlots(x.slots,d.slots,legacySlots),effect:normalizeEffect(x.effect,REGULAR_EFFECT_KEYS,d.effect)});}return out.length?out:clone(defaults);}
   function normalizeBossAffixes(rows,legacySeries){const byId=new Map((Array.isArray(rows)?rows:[]).filter(Boolean).map(x=>[x.id,x])),legacyById=new Map((Array.isArray(legacySeries)?legacySeries:[]).filter(Boolean).map(x=>[x.id,x]));return DEFAULT_BOSS_AFFIXES.map(def=>{const x=byId.get(def.id)||{},legacy=legacyById.get(def.id)||{},name=typeof x.name==='string'&&x.name.trim()?x.name.trim():typeof legacy.name==='string'&&legacy.name.trim()?legacy.name.trim():def.name,src=Array.isArray(x.effects)?x.effects:[],effects=Array.from({length:3},(_,i)=>normalizeEffect(src[i],BOSS_EFFECT_KEYS,def.effects[i])),used=new Set();for(let i=0;i<effects.length;i++){if(used.has(effects[i].key)){const replacement=def.effects.find(d=>!used.has(d.key))||DEFAULT_BOSS_AFFIXES[0].effects.find(d=>!used.has(d.key));if(replacement)effects[i]=clone(replacement);}used.add(effects[i].key);}return {...def,name,effects};});}
-  function normalizePower(src){src=src&&typeof src==='object'&&!Array.isArray(src)?src:{};const out=clone(POWER_DEFAULT);out.prefixes=normalizeAffixRows(src.prefixes,DEFAULT_PREFIXES);out.suffixes=normalizeAffixRows(src.suffixes,DEFAULT_SUFFIXES);out.bossAffixes=normalizeBossAffixes(src.bossAffixes,src.seriesPrefixes);const st=src.strength||{};out.strength.multipliers=Array.from({length:10},(_,i)=>n(st.multipliers?.[i],POWER_DEFAULT.strength.multipliers[i],.01,100));out.strength.weightsByDifficulty=Array.from({length:3},(_,d)=>Array.from({length:10},(_,i)=>n(st.weightsByDifficulty?.[d]?.[i],POWER_DEFAULT.strength.weightsByDifficulty[d][i],0,1e9)));const r=src.rerollItem||{};out.rerollItem={id:POWER_ITEM_ID,name:typeof r.name==='string'&&r.name.trim()?r.name.trim():POWER_DEFAULT.rerollItem.name,description:typeof r.description==='string'?r.description:POWER_DEFAULT.rerollItem.description,cost:0,sellPrice:n(r.sellPrice,80,0,1e9),shopEnabled:false,shopChance:n(r.shopChance,.06,0,1),shopPrice:Math.round(n(r.shopPrice,650,1,1e9)),dropRuleInitialized:!!r.dropRuleInitialized};return out;}
+  function normalizePower(src){src=src&&typeof src==='object'&&!Array.isArray(src)?src:{};const legacySlots=Number(src.schemaVersion||0)<4,out=clone(POWER_DEFAULT);out.schemaVersion=4;out.prefixes=normalizeAffixRows(src.prefixes,DEFAULT_PREFIXES,legacySlots);out.suffixes=normalizeAffixRows(src.suffixes,DEFAULT_SUFFIXES,legacySlots);out.bossAffixes=normalizeBossAffixes(src.bossAffixes,src.seriesPrefixes);const st=src.strength||{};out.strength.multipliers=Array.from({length:10},(_,i)=>n(st.multipliers?.[i],POWER_DEFAULT.strength.multipliers[i],.01,100));out.strength.weightsByDifficulty=Array.from({length:3},(_,d)=>Array.from({length:10},(_,i)=>n(st.weightsByDifficulty?.[d]?.[i],POWER_DEFAULT.strength.weightsByDifficulty[d][i],0,1e9)));const r=src.rerollItem||{};out.rerollItem={id:POWER_ITEM_ID,name:typeof r.name==='string'&&r.name.trim()?r.name.trim():POWER_DEFAULT.rerollItem.name,description:typeof r.description==='string'?r.description:POWER_DEFAULT.rerollItem.description,cost:0,sellPrice:n(r.sellPrice,80,0,1e9),shopEnabled:false,shopChance:n(r.shopChance,.06,0,1),shopPrice:Math.round(n(r.shopPrice,650,1,1e9)),dropRuleInitialized:!!r.dropRuleInitialized};return out;}
 
   function normalizeBaseForms(){for(const jobs of data.equipmentForms||[])for(const forms of jobs||[])for(const form of forms||[]){delete form.element;if(form.exclusive&&Object.prototype.hasOwnProperty.call(form.exclusive,'basicAdvanceNextRound'))delete form.exclusive.basicAdvanceNextRound;if(form.exclusive&&Object.keys(form.exclusive).length===0)delete form.exclusive;}const broad=data.equipmentForms?.[0]?.[0]?.[0];if(broad){broad.exclusive??={};if(!Number.isFinite(broad.exclusive.gearAtkPct)||Math.abs(Number(broad.exclusive.gearAtkPct)-20)<.001)broad.exclusive.gearAtkPct=5;}}
 
@@ -2448,13 +2468,13 @@ ensureArrays();render();
   function effectOptions(keys,current){return keys.map(key=>'<option value="'+key+'" '+(current===key?'selected':'')+'>'+esc(EFFECT_LABELS[key]||key)+'</option>').join('');}
   function effectValueControl(effect,cls,attrs=''){if(effect.key==='basicElement')return '<select class="'+cls+'" '+attrs+'>'+VALID_ELEMENTS.map(x=>'<option value="'+x+'" '+(effect.value===x?'selected':'')+'>'+x+'</option>').join('')+'</select>';const step=['basicAdvanceNextRound','allCooldownReduction'].includes(effect.key)?'1':'0.01';return '<input class="'+cls+'" '+attrs+' type="number" step="'+step+'" value="'+effect.value+'">';}
   function defaultValueForKey(key){if(key==='basicElement')return 'fire';if(key==='basicAdvanceNextRound'||key==='allCooldownReduction')return 1;if(key==='pierce')return 3;if(key==='defenseIgnore')return 5;if(key==='lifesteal')return 3;if(key==='crit'||key==='attackPct'||key==='evasion')return 5;if(key==='bossDamagePct')return 10;return 8;}
-  function slotChecks(x,prefix,i){return '<div class="identity-slots">'+['武器','護甲','飾品'].map((name,slot)=>'<label><input type="checkbox" class="'+prefix+'-slot" data-i="'+i+'" data-slot="'+slot+'" '+(x.slots.includes(slot)?'checked':'')+'>'+name+'</label>').join('')+'</div>';}
+  function slotChecks(x,prefix,i){return '<div class="identity-slots">'+['武器','護甲','副手','飾品'].map((name,slot)=>'<label><input type="checkbox" class="'+prefix+'-slot" data-i="'+i+'" data-slot="'+slot+'" '+(x.slots.includes(slot)?'checked':'')+'>'+name+'</label>').join('')+'</div>';}
   function affixTierChanceInputs(x,i,cls){return '<div class="affix-tier-chances">'+Array.from({length:10},(_,t)=>{const tier=t+1,active=tier>=x.tierMin&&tier<=x.tierMax;return '<label class="'+(active?'':'inactive')+'">T'+tier+' (%)<input class="'+cls+'-tier-chance" data-i="'+i+'" data-tier="'+tier+'" type="number" min="0" max="100" step="0.01" value="'+affixChanceText(affixChanceAtTier(x,tier))+'" '+(active?'':'disabled')+'></label>';}).join('')+'</div>';}
   function affixSummary(x){const slots=x.slots.map(s=>IDENTITY_SLOT_NAMES[s]).join('、'),effect=EFFECT_LABELS[x.effect.key]||x.effect.key;return '<span><span class="identity-affix-summary-name">'+esc(x.name)+'</span><span class="identity-affix-summary-id"> · '+esc(x.id)+'</span></span><span class="identity-affix-summary-meta">T'+x.tierMin+'～T'+x.tierMax+'</span><span class="identity-affix-summary-meta">'+esc(slots)+'</span><span class="identity-affix-summary-effect">'+esc(effect)+'</span>'; }
   function affixRow(x,i,kind){const cls=kind==='prefix'?'prefix':'suffix';return '<details class="identity-affix-card" data-'+cls+'="'+i+'"><summary>'+affixSummary(x)+'</summary><div class="identity-affix-row"><label>ID<input class="'+cls+'-text" data-k="id" value="'+esc(x.id)+'"></label><label>'+(kind==='prefix'?'前綴':'後綴')+'名稱<input class="'+cls+'-text" data-k="name" value="'+esc(x.name)+'"></label><label>生成階級下限<input class="'+cls+'-range" data-k="tierMin" type="number" min="1" max="10" step="1" value="'+x.tierMin+'" title="只限制詞綴首次生成時可進入候選池的最低階級（T1～T10）"></label><label>生成階級上限<input class="'+cls+'-range" data-k="tierMax" type="number" min="1" max="10" step="1" value="'+x.tierMax+'" title="只限制詞綴首次生成時可進入候選池的最高階級（T1～T10）"></label><label>適用部位'+slotChecks(x,cls,i)+'</label><label>效果<select class="'+cls+'-effect-key" data-i="'+i+'">'+effectOptions(REGULAR_EFFECT_KEYS,x.effect.key)+'</select></label><label>效果值'+effectValueControl(x.effect,cls+'-effect-value','data-i="'+i+'"')+'</label><button class="danger" onclick="deleteIdentityAffix(\''+kind+'\','+i+')">×</button>'+affixTierChanceInputs(x,i,cls)+'</div></details>';}
   function affixFilterBarHTML(kind,total){const s=identityViewState[kind],label=kind==='prefix'?'前綴':'後綴';return '<div class="identity-filterbar" data-affix-toolbar="'+kind+'"><label>搜尋<input class="affix-filter-query" placeholder="名稱或 ID" value="'+esc(s.query)+'"></label><label>部位<select class="affix-filter-slot"><option value="all">全部部位</option>'+IDENTITY_SLOT_NAMES.map((name,i)=>'<option value="'+i+'" '+(String(s.slot)===String(i)?'selected':'')+'>'+name+'</option>').join('')+'</select></label><label>T 級<select class="affix-filter-tier"><option value="all">全部 T 級</option>'+Array.from({length:10},(_,i)=>'<option value="'+(i+1)+'" '+(String(s.tier)===String(i+1)?'selected':'')+'>T'+(i+1)+'</option>').join('')+'</select></label><label>排序<select class="affix-filter-sort"><option value="name" '+(s.sort==='name'?'selected':'')+'>名稱</option><option value="tier" '+(s.sort==='tier'?'selected':'')+'>最低 T 級</option><option value="effect" '+(s.sort==='effect'?'selected':'')+'>效果</option><option value="id" '+(s.sort==='id'?'selected':'')+'>ID</option></select></label><button type="button" class="small affix-expand-all">全部展開</button><button type="button" class="small affix-collapse-all">全部收合</button><span class="identity-filter-count" data-affix-count="'+kind+'">'+total+' 筆'+label+'</span></div>';}
   function bossProfileCard(x,i){const scope=x.group==='parallel'?(x.high?'上古支線 BOSS':'支線 BOSS'):(x.high?'覺醒 BOSS':'原始 BOSS');return '<div class="boss-profile" data-boss="'+i+'"><div class="boss-profile-head"><label>ID<input value="'+esc(x.id)+'" readonly></label><label>專屬名稱<input class="boss-name" data-i="'+i+'" value="'+esc(x.name)+'"></label><label>套用範圍<input value="'+scope+'" readonly></label></div>'+x.effects.map((effect,j)=>'<div class="boss-effect-row"><b>#'+(j+1)+'</b><label>屬性<select class="boss-effect-key" data-i="'+i+'" data-j="'+j+'">'+effectOptions(BOSS_EFFECT_KEYS,effect.key)+'</select></label><label>值'+effectValueControl(effect,'boss-effect-value','data-i="'+i+'" data-j="'+j+'"')+'</label></div>').join('')+'</div>';}
-  const IDENTITY_SLOT_NAMES=['武器','護甲','飾品'];
+  const IDENTITY_SLOT_NAMES=['武器','護甲','副手','飾品'];
   function affixChanceText(value){const n=Number(value)||0;return Number.isInteger(n)?String(n):String(Number(n.toFixed(4)));}
   function affixPoolSummary(rows,tier,slot,label){
     const list=rows.filter(x=>tier>=x.tierMin&&tier<=x.tierMax&&x.slots.includes(slot)&&affixChanceAtTier(x,tier)>0);
@@ -2466,7 +2486,7 @@ ensureArrays();render();
   function affixProbabilitySummaryHTML(){
     const p=data.equipmentPowerSystem,rows=[];
     rows.push('<div class="affix-probability-cell affix-probability-head">T級</div><div class="affix-probability-cell affix-probability-head">部位</div><div class="affix-probability-cell affix-probability-head">可能前綴</div><div class="affix-probability-cell affix-probability-head">前綴池</div><div class="affix-probability-cell affix-probability-head">可能後綴</div><div class="affix-probability-cell affix-probability-head">後綴池</div>');
-    for(let tier=1;tier<=10;tier++)for(let slot=0;slot<3;slot++){
+    for(let tier=1;tier<=10;tier++)for(let slot=0;slot<4;slot++){
       const pre=affixPoolSummary(p.prefixes,tier,slot,'前綴'),suf=affixPoolSummary(p.suffixes,tier,slot,'後綴');
       const names=x=>x.list.length?x.list.map(a=>esc(a.name)+' '+affixChanceText(affixChanceAtTier(a,tier))+'%').join('、'):'無';
       rows.push('<div class="affix-probability-cell"><b>T'+tier+'</b></div><div class="affix-probability-cell">'+IDENTITY_SLOT_NAMES[slot]+'</div><div class="affix-probability-cell affix-probability-list">'+names(pre)+'</div><div class="affix-probability-cell affix-probability-pool '+pre.state+'"><b>'+affixChanceText(pre.total)+'%</b><span>'+pre.status+'</span></div><div class="affix-probability-cell affix-probability-list">'+names(suf)+'</div><div class="affix-probability-cell affix-probability-pool '+suf.state+'"><b>'+affixChanceText(suf.total)+'%</b><span>'+suf.status+'</span></div>');
@@ -2569,9 +2589,9 @@ ensureArrays();render();
     ensureArrays();const all=data.items,special=all.filter(x=>x?.type===POWER_ITEM_TYPE||x?.id===POWER_ITEM_ID),regular=all.filter(x=>x?.type!==POWER_ITEM_TYPE&&x?.id!==POWER_ITEM_ID);data.items=regular;skipIdentityEnsure=true;let issues;try{issues=identityValidateBase();}finally{skipIdentityEnsure=false;data.items=all;}
     const specialDropIds=new Set((data.balanceSettings?.drops?.entries||[]).filter(x=>x?.type==='item'&&x?.key===POWER_ITEM_ID).map(x=>x.id));issues=issues.filter(msg=>![...specialDropIds].some(id=>msg==='掉落規則 '+id+' 指定的商店道具不存在。'));
     if(special.length!==1)issues.push('強度重鑄石必須且只能有 1 筆。');
-    const p=data.equipmentPowerSystem,validateRows=(rows,label)=>{const ids=new Set();for(const [i,x] of rows.entries()){if(typeof x.id!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(x.id)||ids.has(x.id))issues.push(label+'第 '+(i+1)+' 筆 ID 無效或重複。');ids.add(x.id);if(typeof x.name!=='string'||!x.name.trim()||!Number.isInteger(x.tierMin)||!Number.isInteger(x.tierMax)||x.tierMin<1||x.tierMax>10||x.tierMax<x.tierMin||!Array.isArray(x.chanceByTier)||x.chanceByTier.length!==10||x.chanceByTier.some(v=>!Number.isFinite(v)||v<0||v>100)||!Array.isArray(x.slots)||!x.slots.length||x.slots.some(s=>![0,1,2].includes(s))||!x.effect||!REGULAR_EFFECT_KEYS.includes(x.effect.key))issues.push(label+' '+(x.id||i+1)+' 資料無效。');if(x.effect?.key==='basicElement'&&!VALID_ELEMENTS.includes(x.effect.value))issues.push(label+' '+x.id+' 的元素無效。');}};
+    const p=data.equipmentPowerSystem,validateRows=(rows,label)=>{const ids=new Set();for(const [i,x] of rows.entries()){if(typeof x.id!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(x.id)||ids.has(x.id))issues.push(label+'第 '+(i+1)+' 筆 ID 無效或重複。');ids.add(x.id);if(typeof x.name!=='string'||!x.name.trim()||!Number.isInteger(x.tierMin)||!Number.isInteger(x.tierMax)||x.tierMin<1||x.tierMax>10||x.tierMax<x.tierMin||!Array.isArray(x.chanceByTier)||x.chanceByTier.length!==10||x.chanceByTier.some(v=>!Number.isFinite(v)||v<0||v>100)||!Array.isArray(x.slots)||!x.slots.length||x.slots.some(s=>![0,1,2,3].includes(s))||!x.effect||!REGULAR_EFFECT_KEYS.includes(x.effect.key))issues.push(label+' '+(x.id||i+1)+' 資料無效。');if(x.effect?.key==='basicElement'&&!VALID_ELEMENTS.includes(x.effect.value))issues.push(label+' '+x.id+' 的元素無效。');}};
     validateRows(p.prefixes,'前綴');validateRows(p.suffixes,'後綴');
-    const validatePools=(rows,label)=>{for(let tier=1;tier<=10;tier++)for(let slot=0;slot<3;slot++){const total=rows.filter(x=>tier>=x.tierMin&&tier<=x.tierMax&&x.slots.includes(slot)).reduce((sum,x)=>sum+affixChanceAtTier(x,tier),0);if(total>100+1e-9)issues.push(label+' T'+tier+' '+IDENTITY_SLOT_NAMES[slot]+'機率合計 '+affixChanceText(total)+'%，超過 100%。');}};
+    const validatePools=(rows,label)=>{for(let tier=1;tier<=10;tier++)for(let slot=0;slot<4;slot++){const total=rows.filter(x=>tier>=x.tierMin&&tier<=x.tierMax&&x.slots.includes(slot)).reduce((sum,x)=>sum+affixChanceAtTier(x,tier),0);if(total>100+1e-9)issues.push(label+' T'+tier+' '+IDENTITY_SLOT_NAMES[slot]+'機率合計 '+affixChanceText(total)+'%，超過 100%。');}};
     validatePools(p.prefixes,'前綴');validatePools(p.suffixes,'後綴');
     if(!Array.isArray(p.bossAffixes)||p.bossAffixes.length!==DEFAULT_BOSS_AFFIXES.length)issues.push('BOSS 專屬詞綴資料不完整。');else for(const x of p.bossAffixes){const keys=(x.effects||[]).map(e=>e?.key);if(typeof x.name!=='string'||!x.name.trim()||!Array.isArray(x.effects)||x.effects.length!==3||new Set(keys).size!==3||keys.some(k=>!BOSS_EFFECT_KEYS.includes(k)))issues.push('BOSS 專屬詞綴 '+(x.id||'未知')+' 必須正好有三條互不重複的有效屬性。');for(const e of x.effects||[])if(e?.key==='basicElement'&&!VALID_ELEMENTS.includes(e.value))issues.push('BOSS 專屬詞綴 '+x.id+' 的元素無效。');}
     if(!Array.isArray(p.strength.multipliers)||p.strength.multipliers.length!==10||p.strength.multipliers.some(x=>!Number.isFinite(x)||x<=0))issues.push('T1～T10 能力倍率必須各有 1 個大於 0 的數值。');
@@ -2581,7 +2601,7 @@ ensureArrays();render();
   };
 
   data.notes=(data.notes||[]).filter(x=>!String(x).includes('equipmentPowerSystem.prefixes')&&!String(x).includes('seriesPrefixes')&&!String(x).includes('冠名詞綴'));
-  data.notes.push('equipmentPowerSystem schemaVersion=3：prefixes / suffixes 各固定一條效果；chanceByTier[0..9] 分別代表 T1～T10 的實際百分比機率；舊版 weight 會自動轉入有效 T 級。','同一 T 級與部位的前綴／後綴機率池各自以 100% 為上限；不足 100% 的剩餘機率代表無前綴／無後綴。','一般裝備 raw ATK/HP/DEF 由 equipmentForms 基底與 T 階級決定；前後綴不提供 raw 基礎數值。','BOSS 專屬裝備沒有前後綴與隨機洗鍊詞條；bossAffixes 三條可使用前綴／後綴／基底效果及 bossDamagePct。');
+  data.notes.push('equipmentPowerSystem schemaVersion=4：prefixes / suffixes 各固定一條效果；chanceByTier[0..9] 分別代表 T1～T10 的實際百分比機率；舊版 weight 會自動轉入有效 T 級。','同一 T 級與部位的前綴／後綴機率池各自以 100% 為上限；不足 100% 的剩餘機率代表無前綴／無後綴。','一般裝備 raw ATK/HP/DEF 由 equipmentForms 基底與 T 階級決定；前後綴不提供 raw 基礎數值。','BOSS 專屬裝備沒有前後綴與隨機洗鍊詞條；bossAffixes 三條可使用前綴／後綴／基底效果及 bossDamagePct。');
   data.notes=[...new Set(data.notes)];
   render();
 })();
