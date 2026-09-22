@@ -1308,7 +1308,7 @@ renderBalanceSettings=function(){
 };
 
 const actionTurnValidateDataBase=validateData;
-validateData=function(){const issues=actionTurnValidateDataBase();ensureArrays();const s=data.balanceSettings.monsters.skillSystem?.assignChance||{};for(const k of ['normal','elite','boss','final'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>1)issues.push(`敵人技能配置機率 monsters.skillSystem.assignChance.${k} 必須為 0~1。`);const ids=new Set();for(const [i,sk] of data.balanceSettings.monsters.skills.entries()){if(!sk.id||ids.has(sk.id))issues.push(`敵人技能第 ${i+1} 筆 ID 空白或重複。`);ids.add(sk.id);if(!sk.name)issues.push(`敵人技能 ${sk.id||i+1} 缺少名稱。`);if(!Number.isFinite(sk.weight)||sk.weight<=0)issues.push(`敵人技能 ${sk.id||i+1} 抽取權重必須 > 0。`);if(!Number.isFinite(sk.cooldownMin)||!Number.isFinite(sk.cooldownMax)||sk.cooldownMin<0||sk.cooldownMax<sk.cooldownMin)issues.push(`敵人技能 ${sk.id||i+1} 冷卻範圍無效。`);if(!Number.isFinite(sk.powerPerLevel)||sk.powerPerLevel<0)issues.push(`角色 ${ci} 核心技能 ${si} 的每級增加倍率必須是非負數。`);if(!Number.isFinite(sk.power)||sk.power<0)issues.push(`敵人技能 ${sk.id||i+1} 傷害倍率無效。`);}return issues;};
+validateData=function(){const issues=actionTurnValidateDataBase();ensureArrays();const s=data.balanceSettings.monsters.skillSystem?.assignChance||{};for(const k of ['normal','elite','boss','final'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>1)issues.push(`敵人技能配置機率 monsters.skillSystem.assignChance.${k} 必須為 0~1。`);const ids=new Set();for(const [i,sk] of data.balanceSettings.monsters.skills.entries()){if(!sk.id||ids.has(sk.id))issues.push(`敵人技能第 ${i+1} 筆 ID 空白或重複。`);ids.add(sk.id);if(!sk.name)issues.push(`敵人技能 ${sk.id||i+1} 缺少名稱。`);if(!Number.isFinite(sk.weight)||sk.weight<=0)issues.push(`敵人技能 ${sk.id||i+1} 抽取權重必須 > 0。`);if(!Number.isFinite(sk.cooldownMin)||!Number.isFinite(sk.cooldownMax)||sk.cooldownMin<0||sk.cooldownMax<sk.cooldownMin)issues.push(`敵人技能 ${sk.id||i+1} 冷卻範圍無效。`);if(!Number.isFinite(sk.power)||sk.power<0)issues.push(`敵人技能 ${sk.id||i+1} 傷害倍率無效。`);}return issues;};
 
 ensureArrays();
 render();
@@ -2242,6 +2242,7 @@ ensureArrays();render();
     if(!Number.isFinite(caps.pierce)||caps.pierce<0)issues.push("固定防禦穿透上限必須為非負有限數。");
     if(!Number.isFinite(caps.defenseIgnore)||caps.defenseIgnore<0||caps.defenseIgnore>1)issues.push("防禦無視上限必須介於 0~1。");
     for(const [job,c] of (data.classes||[]).entries())for(const [i,sk] of (c.skills||[]).entries()){
+      if(!Number.isFinite(sk.powerPerLevel)||sk.powerPerLevel<0)issues.push("技能 "+job+"-"+i+" 每級增加倍率必須為非負數。");
       if(!Number.isFinite(sk.baseCritRate)||sk.baseCritRate<0||sk.baseCritRate>1)issues.push("技能 "+job+"-"+i+" 基礎暴擊率必須介於 0~1。");
       if(!Number.isFinite(sk.baseCritDamage)||sk.baseCritDamage<1)issues.push("技能 "+job+"-"+i+" 基礎暴擊傷害必須至少 1。");
       if(!Number.isFinite(sk.defensePenetration)||sk.defensePenetration<0)issues.push("技能 "+job+"-"+i+" 固定防禦穿透必須為非負數。");
