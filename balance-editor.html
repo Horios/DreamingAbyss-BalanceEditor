@@ -507,8 +507,8 @@ function ensureArrays(){
     return x;
   });
 }
-function count(section){
-  ensureArrays();
+function count(section,normalized=false){
+  if(!normalized) ensureArrays();
   if(section==="classes") return data.classes.length;
   if(section==="skills") return data.classes.reduce((n,c)=>n+(Array.isArray(c.skills)?c.skills.length:0),0);
   if(section==="support") return data.supportSkills.reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);
@@ -517,17 +517,21 @@ function count(section){
   if(section==="balanceSettings") return flattenSettingLeaves(data.balanceSettings).length;
   return "";
 }
-function renderNav(){
+function renderNav(normalized=false){
+  if(!normalized)ensureArrays();
   const nav=document.getElementById("nav");
-  nav.innerHTML=SECTION_META.map(([id,label])=>`
+  nav.innerHTML=SECTION_META.map(([id,label])=>{
+    const n=count(id,true);
+    return `
     <button class="navbtn ${currentSection===id?"active":""}" data-sec="${id}">
-      <span>${label}</span>${count(id)!==""?`<span class="badge">${count(id)}</span>`:""}
-    </button>`).join("");
+      <span>${label}</span>${n!==""?`<span class="badge">${n}</span>`:""}
+    </button>`;
+  }).join("");
   nav.querySelectorAll("[data-sec]").forEach(b=>b.onclick=()=>{currentSection=b.dataset.sec; render();});
 }
 function render(){
   ensureArrays();
-  renderNav();
+  renderNav(true);
   const app=document.getElementById("app");
   const renderers={
     overview:renderOverview,classes:renderClasses,skills:renderSkills,support:renderSupport,
@@ -2050,7 +2054,14 @@ ensureArrays();render();
     }
     return '<div id="affixProbabilitySummary" class="affix-probability-table">'+rows.join('')+'</div>';
   }
-  function refreshAffixProbabilitySummary(){const old=document.getElementById('affixProbabilitySummary');if(old)old.outerHTML=affixProbabilitySummaryHTML();}
+  let affixSummaryFrame=0;
+  function refreshAffixProbabilitySummary(){
+    if(affixSummaryFrame)return;
+    affixSummaryFrame=requestAnimationFrame(()=>{
+      affixSummaryFrame=0;
+      const old=document.getElementById('affixProbabilitySummary');if(old)old.outerHTML=affixProbabilitySummaryHTML();
+    });
+  }
 
   function applyAffixView(kind){
     const s=identityViewState[kind],rows=data.equipmentPowerSystem[kind+'es'],grid=document.querySelector('[data-affix-grid="'+kind+'"]');
@@ -2219,10 +2230,13 @@ ensureArrays();render();
     dirty=true;
     const s=document.getElementById('status');
     if(s){s.className='status unsaved';s.textContent=reason+' · 等待自動儲存';}
-    autosaveTimer=setTimeout(()=>persistWorkspace('已自動儲存'),180);
+    autosaveTimer=setTimeout(()=>{
+      const save=()=>persistWorkspace('已自動儲存');
+      if(typeof requestIdleCallback==='function')requestIdleCallback(save,{timeout:1200});else setTimeout(save,0);
+    },500);
   }
 
-  markDirty=function(msg='已修改'){scheduleWorkspaceSave(msg);renderNav();};
+  markDirty=function(msg='已修改'){scheduleWorkspaceSave(msg);};
   markSaved=function(msg='已匯出'){persistWorkspace(msg);};
 
   const cache=document.getElementById('cacheBtn');
