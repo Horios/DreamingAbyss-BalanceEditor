@@ -162,8 +162,7 @@ let dirty = false;
 const SECTION_META = [
   ["overview","總覽"],
   ["classes","角色"],
-  ["skills","主動／觸發技能"],
-  ["support","輔助技能"],
+  ["skills","技能"],
   ["equipment","裝備"],
   ["items","商店道具"],
   ["balanceSettings","平衡設定"],
@@ -530,8 +529,7 @@ for(const note of [
 function count(section,normalized=false){
   if(!normalized) ensureArrays();
   if(section==="classes") return data.classes.length;
-  if(section==="skills") return data.classes.reduce((n,c)=>n+(Array.isArray(c.skills)?c.skills.length:0),0);
-  if(section==="support") return data.supportSkills.reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);
+  if(section==="skills") return data.classes.reduce((n,c)=>n+(Array.isArray(c.skills)?c.skills.length:0),0)+data.supportSkills.reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);
   if(section==="equipment") return data.equipmentForms.reduce((n,c)=>n+c.reduce((m,s)=>m+(Array.isArray(s)?s.length:0),0),0);
   if(section==="items") return data.items.length;
   if(section==="balanceSettings") return flattenSettingLeaves(data.balanceSettings).length;
@@ -554,7 +552,7 @@ function render(){
   renderNav(true);
   const app=document.getElementById("app");
   const renderers={
-    overview:renderOverview,classes:renderClasses,skills:renderSkills,support:renderSupport,
+    overview:renderOverview,classes:renderClasses,skills:renderSkills,
     equipment:renderEquipment,items:renderItems,balanceSettings:renderBalanceSettings,
     balance:renderBalance,raw:renderRaw
   };
@@ -658,53 +656,93 @@ function renderClasses(){
   if(c) bindObjectFields(app,c);
 }
 
+
+function skillWorkspaceToolbar(activeTab){
+  const tabs=[["active","主動技能"],["proc","普攻觸發技能"],["support","輔助技能"]];
+  return '<div class="toolbar skill-workspace-toolbar"><label style="margin:0">角色</label><select id="skillClassSel">'+
+    data.classes.map((x,i)=>'<option value="'+i+'" '+(i===selected.skillClass?'selected':'')+'>'+esc(x.name)+'</option>').join('')+
+    '</select><div class="tabs">'+tabs.map(([id,label])=>'<button type="button" class="'+(activeTab===id?'primary':'')+'" data-skill-tab="'+id+'">'+label+'</button>').join('')+'</div></div>';
+}
+function bindSkillWorkspaceToolbar(){
+  const sel=document.getElementById("skillClassSel");
+  if(sel)sel.onchange=()=>{selected.skillClass=Number(sel.value);selected.supportClass=selected.skillClass;selected.skill=0;selected.support=0;render();};
+  document.querySelectorAll("[data-skill-tab]").forEach(b=>b.onclick=()=>{selected.skillTab=b.dataset.skillTab;selected.supportClass=selected.skillClass;selected.skill=0;selected.support=0;render();});
+}
+
 function renderSkills(){
+  ensureArrays();
+  selected.skillTab=["active","proc","support"].includes(selected.skillTab)?selected.skillTab:"active";
   selected.skillClass=Math.min(selected.skillClass,Math.max(0,data.classes.length-1));
-  const c=data.classes[selected.skillClass];
-  const skills=c && Array.isArray(c.skills)?c.skills:(c?(c.skills=[]):[]);
-  selected.skill=Math.min(selected.skill,Math.max(0,skills.length-1));
-  const sk=skills[selected.skill];if(sk)ensureProcSkillFields(sk);
-  const procOnly=sk&&PROC_ONLY_EFFECTS.has(sk.effect),effectOptions=sk?.activation==="proc"?EFFECTS:EFFECTS.filter(x=>!PROC_ONLY_EFFECTS.has(x));
-  const effectHelp=sk?.activation==="proc"?"proc 可使用一般傷害／治療／護盾／吸血，或三種觸發專屬效果。觸發專屬效果不能配置給 active 技能。":"active 技能使用一般傷害／治療／護盾／吸血效果。";
+  selected.supportClass=selected.skillClass;
+
+  if(selected.skillTab==="support"){
+    renderSupport();
+    const app=document.getElementById("app"),head=app.querySelector(".section-head"),oldToolbar=app.querySelector(".toolbar");
+    if(head){
+      const title=head.querySelector("h1"),desc=head.querySelector("p");
+      if(title)title.textContent="技能";
+      if(desc)desc.textContent="選擇職業後，分別調整主動技能、普攻觸發技能與輔助技能。";
+    }
+    if(oldToolbar)oldToolbar.remove();
+    if(head)head.insertAdjacentHTML("afterend",skillWorkspaceToolbar("support"));
+    bindSkillWorkspaceToolbar();
+    return;
+  }
+
+  const skillMode=selected.skillTab,c=data.classes[selected.skillClass];
+  const skills=c&&Array.isArray(c.skills)?c.skills:(c?(c.skills=[]):[]);
+  const visible=skills.map((sk,i)=>({sk,i})).filter(x=>x.sk.activation===skillMode);
+  if(!visible.some(x=>x.i===selected.skill))selected.skill=visible.length?visible[0].i:-1;
+  const sk=selected.skill>=0?skills[selected.skill]:null;
+  if(sk)ensureProcSkillFields(sk);
+  const procOnly=sk&&PROC_ONLY_EFFECTS.has(sk.effect),effectOptions=skillMode==="proc"?EFFECTS:EFFECTS.filter(x=>!PROC_ONLY_EFFECTS.has(x));
+  const effectHelp=skillMode==="proc"?"proc 可使用一般傷害／治療／護盾／吸血，或三種觸發專屬效果。觸發專屬效果不能配置給 active 技能。":"active 技能使用一般傷害／治療／護盾／吸血效果。";
   const powerHelp=sk?.effect==="nextActiveDamage"?"0.25 = 基礎 +25% 下次主動技能傷害；技能等級、寶石與指定技能效果詞條仍會放大此比例。":sk?.effect==="advanceNextRound"?"此效果固定前移 1 格，不使用 power；保留欄位只為 JSON 結構相容。":sk?.effect==="shieldLowest"?"以施放者攻擊力為基準；0.8 = 產生攻擊力 80% 的純護盾，給生命比例最低的存活隊友。":'最終技能量先以「角色攻擊力 × 此倍率」為基礎，再乘技能等級、寶石、指定技能效果詞條與輔助技能 power。1 = 100% 攻擊力。';
+
   document.getElementById("app").innerHTML =
-    sectionHead("核心技能","對應 classes[].skills。主動技能與普攻觸發技能都各自使用 2 個配置槽；遊戲支援增減技能，但既有存檔仍以陣列索引保存，請避免在正式存檔中任意重排。",
-      `<button id="addSkill" ${c?"":"disabled"}>新增技能</button>${sk?`<button id="dupSkill">複製技能</button><button id="delSkill" class="danger">刪除技能</button>`:""}`)+
-    `<div class="notice">目前隨機「指定技能」詞條仍有部分程式使用 <span class="code">rand(6)</span>，因此新增第 7 個以上技能雖可載入與使用，但不會被那些隨機技能詞條正常選中。</div>`+
-    `<div class="toolbar"><label style="margin:0">角色</label><select id="skillClassSel">${data.classes.map((x,i)=>`<option value="${i}" ${i===selected.skillClass?"selected":""}>${esc(x.name)}</option>`).join("")}</select></div>`+
-    `<div class="grid2"><div class="card"><div class="list">${skills.map((x,i)=>`<div class="listitem ${i===selected.skill?"active":""}" data-skill="${i}"><div class="title">${esc(x.name||"(未命名技能)")}</div><div class="sub">${esc(ACTIVATION_LABELS[x.activation]||x.activation)} · ${esc(EFFECT_LABELS[x.effect]||x.effect)} · LV.${esc(x.requiredLevel)}</div></div>`).join("")||`<div class="empty">這個角色目前沒有技能；遊戲要求至少 1 個。</div>`}</div></div>`+
-    (sk?card("技能資料",`<div class="fields">
-      ${inputField("技能 ID（識別用）","id",sk.id||"","text","",false,"套用時不使用此 id；匯出遊戲設定時會依 job / skill 索引重新建立。",true)}
-      ${inputField("技能名稱","name",sk.name||"","text","",false,"戰鬥紀錄與技能頁顯示名稱。")}
-      ${selectField("發動方式","activation",sk.activation||"active",ACTIVATIONS,false,"主動技能裝入 2 個主動槽；普攻觸發技能裝入 2 個觸發槽。只有已配置的 proc 技能會在普通攻擊後判定。",ACTIVATION_LABELS)}
-      ${selectField("主要效果","effect",sk.effect||"damage",effectOptions,false,effectHelp,EFFECT_LABELS)}
-      ${selectField("技能屬性","element",sk.element||"physical",ELEMENTS,false,"傷害類技能會參與元素剋制與元素增傷；治療／護盾仍保留屬性標示。",ELEMENT_LABELS)}
-      ${inputField("需求等級","requiredLevel",sk.requiredLevel??1,"number","min=1 step=1",false,"角色等級達到此值才能學習；必須為整數且至少 1。")}
-      ${inputField("基礎冷卻回合","cooldown",sk.cooldown??0,"number","min=0 step=1",false,"主動技能實際冷卻 = 此值 − 寶石 − 冷卻詞條，但不低於全域最低冷卻。proc 技能不使用冷卻值。")}
-      ${inputField("基礎效果倍率","power",sk.power??1,"number","min=0 step=0.01",false,powerHelp)}
-      ${inputField("最大攻擊目標數","maxTargets",sk.maxTargets??1,"number","min=1 step=1",false,procOnly?"觸發專屬效果不使用 maxTargets；保留此欄只為 JSON 結構相容。":"傷害／吸血技能 >1 時隨機抽不重複存活敵人；99 以上在套用時會轉成全部存活敵人。治療固定找最低生命比例隊友，護盾固定自己。")}
-      ${sk.activation==="proc"?inputField("Lv1 基礎觸發率","procBaseChance",sk.procBaseChance,"number","min=0 max=1 step=0.001",false,"0~1 小數。這是 Lv1 未計寶石／裝備詞條時的基礎機率；例如 0.245 = 24.5%。")+inputField("每次升級增加觸發率","procChancePerLevel",sk.procChancePerLevel,"number","min=0 max=1 step=0.001",false,"0~1 小數。從 Lv2 起每提升 1 級加一次；例如 0.025 = 每級 +2.5 個百分點。"):""}
-      ${boolField("需要完成二轉","requiresAdvanced",!!sk.requiresAdvanced,"為是時，未二轉不能學習／使用此技能。")}
-      ${textareaField("技能風味說明","description",sk.description||"","完全手寫，只負責畫面文字；倍率、目標、冷卻與觸發率的詳細說明由結構化參數自動生成。")}
-    </div>`):card("技能資料",`<div class="empty">請新增或選擇技能</div>`))+`</div>`;
+    sectionHead("技能","選擇職業後，分別調整主動技能、普攻觸發技能與輔助技能。",
+      '<button id="addSkill" '+(c?"":"disabled")+'>新增'+(skillMode==="proc"?"觸發":"主動")+'技能</button>'+(sk?'<button id="dupSkill">複製技能</button><button id="delSkill" class="danger">刪除技能</button>':""))+
+    '<div class="notice">主動技能與普攻觸發技能分開編輯，但仍共用 classes[].skills 陣列索引。既有存檔以索引保存技能等級與寶石，正式資料請避免任意重排。</div>'+
+    skillWorkspaceToolbar(skillMode)+
+    '<div class="grid2"><div class="card"><div class="list">'+
+      (visible.map(({sk:x,i})=>'<div class="listitem '+(i===selected.skill?"active":"")+'" data-skill="'+i+'"><div class="title">'+esc(x.name||"(未命名技能)")+'</div><div class="sub">'+esc(ACTIVATION_LABELS[x.activation]||x.activation)+' · '+esc(EFFECT_LABELS[x.effect]||x.effect)+' · LV.'+esc(x.requiredLevel)+'</div></div>').join("")||'<div class="empty">此分頁目前沒有技能，可直接新增。</div>')+
+    '</div></div>'+
+    (sk?card("技能資料",'<div class="fields">'+
+      inputField("技能 ID（識別用）","id",sk.id||"","text","",false,"套用時不使用此 id；匯出遊戲設定時會依 job / skill 索引重新建立。",true)+
+      inputField("技能名稱","name",sk.name||"","text","",false,"戰鬥紀錄與技能頁顯示名稱。")+
+      selectField("發動方式","activation",sk.activation||skillMode,ACTIVATIONS,false,"切換發動方式後，技能會移到另一個小分頁。",ACTIVATION_LABELS)+
+      selectField("主要效果","effect",sk.effect||"damage",effectOptions,false,effectHelp,EFFECT_LABELS)+
+      selectField("技能屬性","element",sk.element||"physical",ELEMENTS,false,"傷害類技能會參與元素剋制與元素增傷；治療／護盾仍保留屬性標示。",ELEMENT_LABELS)+
+      inputField("需求等級","requiredLevel",sk.requiredLevel??1,"number","min=1 step=1",false,"角色等級達到此值才能學習；必須為整數且至少 1。")+
+      inputField("基礎冷卻回合","cooldown",sk.cooldown??0,"number","min=0 step=1",false,skillMode==="active"?"主動技能實際冷卻 = 此值 − 寶石 − 冷卻詞條，但不低於全域最低冷卻。":"proc 技能不使用冷卻值；此欄保留資料結構相容。")+
+      inputField("基礎效果倍率","power",sk.power??1,"number","min=0 step=0.01",false,powerHelp)+
+      inputField("最大攻擊目標數","maxTargets",sk.maxTargets??1,"number","min=1 step=1",false,procOnly?"觸發專屬效果不使用 maxTargets；保留此欄只為 JSON 結構相容。":"傷害／吸血技能 >1 時隨機抽不重複存活敵人；99 以上在套用時會轉成全部存活敵人。治療固定找最低生命比例隊友，護盾固定自己。")+
+      (skillMode==="proc"?inputField("Lv1 基礎觸發率","procBaseChance",sk.procBaseChance,"number","min=0 max=1 step=0.001",false,"0~1 小數。這是 Lv1 未計寶石／裝備詞條時的基礎機率；例如 0.245 = 24.5%。")+inputField("每次升級增加觸發率","procChancePerLevel",sk.procChancePerLevel,"number","min=0 max=1 step=0.001",false,"0~1 小數。從 Lv2 起每提升 1 級加一次；例如 0.025 = 每級 +2.5 個百分點。"):"")+
+      boolField("需要完成二轉","requiresAdvanced",!!sk.requiresAdvanced,"為是時，未二轉不能學習／使用此技能。")+
+      textareaField("技能風味說明","description",sk.description||"","完全手寫，只負責畫面文字；倍率、目標、冷卻與觸發率的詳細說明由結構化參數自動生成。")+
+    '</div>'):card("技能資料",'<div class="empty">此分頁目前沒有技能。</div>'))+
+    '</div>';
+
   const app=document.getElementById("app");
-  const sel=document.getElementById("skillClassSel"); if(sel) sel.onchange=()=>{selected.skillClass=Number(sel.value);selected.skill=0;render();};
+  bindSkillWorkspaceToolbar();
   app.querySelectorAll("[data-skill]").forEach(x=>x.onclick=()=>{selected.skill=Number(x.dataset.skill);render();});
   if(sk){
     bindObjectFields(app,sk);
     const activation=app.querySelector('[data-key="activation"]');
-    if(activation)activation.onchange=()=>{sk.activation=activation.value;if(sk.activation==="proc")ensureProcSkillFields(sk);else if(PROC_ONLY_EFFECTS.has(sk.effect))sk.effect="damage";markDirty();render();};
+    if(activation)activation.onchange=()=>{sk.activation=activation.value;if(sk.activation==="proc")ensureProcSkillFields(sk);else if(PROC_ONLY_EFFECTS.has(sk.effect))sk.effect="damage";selected.skillTab=sk.activation;markDirty();render();};
     const effect=app.querySelector('[data-key="effect"]');
     if(effect)effect.onchange=()=>{sk.effect=effect.value;markDirty();render();};
   }
-  document.getElementById("addSkill").onclick=()=>{
-    if(!c)return; const idx=skills.length;
-    skills.push({id:`job${selected.skillClass}-skill${idx}`,name:"新技能",activation:"active",requiredLevel:1,cooldown:3,power:1,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""});
-    selected.skill=skills.length-1; markDirty();render();
+  const add=document.getElementById("addSkill");
+  if(add)add.onclick=()=>{
+    if(!c)return;
+    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",activation:skillMode,requiredLevel:1,cooldown:skillMode==="active"?3:0,power:1,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
+    if(skillMode==="proc")ensureProcSkillFields(next);
+    skills.push(next);selected.skill=skills.length-1;markDirty();render();
   };
   if(sk){
-    document.getElementById("dupSkill").onclick=()=>{const copy=structuredClone(sk);copy.id=`job${selected.skillClass}-skill${skills.length}`;copy.name=(copy.name||"技能")+" 複製";skills.push(copy);selected.skill=skills.length-1;markDirty();render();};
-    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete(`刪除技能「${sk.name}」？既有存檔後方技能索引會前移。`)){skills.splice(selected.skill,1);selected.skill=Math.max(0,selected.skill-1);markDirty();render();}};
+    document.getElementById("dupSkill").onclick=()=>{const copy=structuredClone(sk);copy.id='job'+selected.skillClass+'-skill'+skills.length;copy.name=(copy.name||"技能")+" 複製";skills.push(copy);selected.skill=skills.length-1;markDirty();render();};
+    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete('刪除技能「'+sk.name+'」？既有存檔後方技能索引會前移。')){skills.splice(selected.skill,1);selected.skill=-1;markDirty();render();}};
   }
 }
 function renderSupport(){
