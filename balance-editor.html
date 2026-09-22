@@ -504,6 +504,14 @@ function ensureProcSkillFields(sk){
   sk.procBaseChance=Math.max(0,Math.min(1,Number(sk.procBaseChance)));
   sk.procChancePerLevel=Math.max(0,Math.min(1,Number(sk.procChancePerLevel)));
 }
+function ensureSkillPrerequisites(sk){
+  if(!sk||typeof sk!=="object")return [];
+  if(!Array.isArray(sk.prerequisites)){
+    sk.prerequisites=Number.isInteger(sk.prerequisiteSkill)?[{skill:sk.prerequisiteSkill,level:Number.isInteger(sk.prerequisiteLevel)&&sk.prerequisiteLevel>0?sk.prerequisiteLevel:1}]:[];
+  }
+  delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;
+  return sk.prerequisites;
+}
 function ensureArrays(){
   data.balanceSettings=deepFillDefaults(BALANCE_SETTINGS_DEFAULTS,data.balanceSettings);
   if(!Array.isArray(data.classes)) data.classes=[];
@@ -519,15 +527,14 @@ function ensureArrays(){
   });
   for(const c of data.classes)for(const sk of c?.skills||[]){
     ensureProcSkillFields(sk);
-    if(sk.prerequisiteSkill===undefined)sk.prerequisiteSkill=null;
-    if(sk.prerequisiteLevel===undefined)sk.prerequisiteLevel=1;
+    ensureSkillPrerequisites(sk);
   }
 }
 if(!Array.isArray(data.notes))data.notes=[];
 for(const note of [
   'proc 技能使用 2 個普攻觸發槽；學會技能不等於自動啟用。',
   'procBaseChance 為 Lv1 基礎觸發率，procChancePerLevel 為每次升級增加率；舊 JSON 會依原全域公式換算。',
-  'proc 專屬效果：nextActiveDamage=下次主動技能增傷；advanceNextRound=下回合行動提前 1 格；shieldLowest=最低生命比例隊友獲得攻擊力倍率護盾。'
+  'proc 專屬效果：nextActiveDamage=下次主動技能增傷；advanceNextRound=下回合行動提前 1 格；shieldLowest=最低生命比例隊友獲得攻擊力倍率護盾。','核心技能可設定最多 3 個前置技能；所有前置技能都達到各自需求等級後才能學習／升級。'
 ])if(!data.notes.includes(note))data.notes.push(note);
 
 function count(section,normalized=false){
@@ -699,8 +706,13 @@ function renderSkills(){
   if(!visible.some(x=>x.i===selected.skill))selected.skill=visible.length?visible[0].i:-1;
   const sk=selected.skill>=0?skills[selected.skill]:null;
   if(sk)ensureProcSkillFields(sk);
-  const prerequisiteOptions=[{value:"",label:"無前置技能"},...skills.map((x,i)=>({value:String(i),label:(x?.name||"技能 "+(i+1))+"（Lv."+((x?.requiredLevel??1))+ "）"})).filter((_,i)=>i!==selected.skill)];
-  const prerequisiteValue=Number.isInteger(sk?.prerequisiteSkill)?String(sk.prerequisiteSkill):"";
+  const prerequisites=sk?ensureSkillPrerequisites(sk):[];
+  const prerequisiteFields=Array.from({length:3},(_,slot)=>{
+    const req=prerequisites[slot]||null,value=Number.isInteger(req?.skill)?String(req.skill):"",level=Number.isInteger(req?.level)&&req.level>0?req.level:1;
+    const used=new Set(prerequisites.map((x,i)=>i===slot?null:x?.skill).filter(Number.isInteger));
+    const opts=[{value:"",label:"無"},...skills.map((x,i)=>({i,value:String(i),label:x?.name||"技能 "+(i+1)})).filter(x=>x.i!==selected.skill&&(!used.has(x.i)||x.i===req?.skill))];
+    return `<div class="field"><label>前置技能 ${slot+1}</label><select data-prerequisite-skill="${slot}">${opts.map(x=>`<option value="${esc(x.value)}" ${String(x.value)===value?"selected":""}>${esc(x.label)}</option>`).join("")}</select><div class="field-help">可留空；同一技能不可重複選擇。</div></div><div class="field"><label>前置 ${slot+1} 需求等級</label><input data-prerequisite-level="${slot}" type="number" min="1" step="1" value="${esc(level)}" ${value===""?"disabled":""}><div class="field-help">該前置技能至少需達到此等級。</div></div>`;
+  }).join("");
   const procOnly=sk&&PROC_ONLY_EFFECTS.has(sk.effect),effectOptions=skillMode==="proc"?EFFECTS:EFFECTS.filter(x=>!PROC_ONLY_EFFECTS.has(x));
   const effectHelp=skillMode==="proc"?"proc 可使用一般傷害／治療／護盾／吸血，或三種觸發專屬效果。觸發專屬效果不能配置給 active 技能。":"active 技能使用一般傷害／治療／護盾／吸血效果。";
   const powerHelp=sk?.effect==="nextActiveDamage"?"0.25 = 基礎 +25% 下次主動技能傷害；技能等級、寶石與指定技能效果詞條仍會放大此比例。":sk?.effect==="advanceNextRound"?"此效果固定前移 1 格，不使用 power；保留欄位只為 JSON 結構相容。":sk?.effect==="shieldLowest"?"以施放者攻擊力為基準；0.8 = 產生攻擊力 80% 的純護盾，給生命比例最低的存活隊友。":'最終技能量先以「角色攻擊力 × 此倍率」為基礎，再乘技能等級、寶石、指定技能效果詞條與輔助技能 power。1 = 100% 攻擊力。';
@@ -720,8 +732,7 @@ function renderSkills(){
       selectField("主要效果","effect",sk.effect||"damage",effectOptions,false,effectHelp,EFFECT_LABELS)+
       selectField("技能屬性","element",sk.element||"physical",ELEMENTS,false,"傷害類技能會參與元素剋制與元素增傷；治療／護盾仍保留屬性標示。",ELEMENT_LABELS)+
       inputField("需求等級","requiredLevel",sk.requiredLevel??1,"number","min=1 step=1",false,"角色等級達到此值才能學習；必須為整數且至少 1。")+
-      selectField("前置技能","prerequisiteSkill",prerequisiteValue,prerequisiteOptions,false,"可選擇同職業其他核心技能；達到指定技能等級後才可學習／升級本技能。")+
-      inputField("前置技能需求等級","prerequisiteLevel",sk.prerequisiteLevel??1,"number","min=1 step=1 "+(prerequisiteValue===""?"disabled":""),false,"前置技能必須至少達到此等級。未設定前置技能時此欄不生效。")+
+      prerequisiteFields+
       inputField("基礎冷卻回合","cooldown",sk.cooldown??0,"number","min=0 step=1",false,skillMode==="active"?"主動技能實際冷卻 = 此值 − 寶石 − 冷卻詞條，但不低於全域最低冷卻。":"proc 技能不使用冷卻值；此欄保留資料結構相容。")+
       inputField("基礎效果倍率","power",sk.power??1,"number","min=0 step=0.01",false,powerHelp)+
       inputField("最大攻擊目標數","maxTargets",sk.maxTargets??1,"number","min=1 step=1",false,procOnly?"觸發專屬效果不使用 maxTargets；保留此欄只為 JSON 結構相容。":"傷害／吸血技能 >1 時隨機抽不重複存活敵人；99 以上在套用時會轉成全部存活敵人。治療固定找最低生命比例隊友，護盾固定自己。")+
@@ -736,12 +747,17 @@ function renderSkills(){
   app.querySelectorAll("[data-skill]").forEach(x=>x.onclick=()=>{selected.skill=Number(x.dataset.skill);render();});
   if(sk){
     bindObjectFields(app,sk);
-    const prerequisiteSkill=app.querySelector('[data-key="prerequisiteSkill"]');
-    if(prerequisiteSkill)prerequisiteSkill.onchange=()=>{
-      sk.prerequisiteSkill=prerequisiteSkill.value===""?null:Number(prerequisiteSkill.value);
-      if(sk.prerequisiteSkill===null)sk.prerequisiteLevel=1;
-      markDirty();render();
-    };
+    app.querySelectorAll("[data-prerequisite-skill]").forEach(el=>el.onchange=()=>{
+      const slot=Number(el.dataset.prerequisiteSkill),rows=[...ensureSkillPrerequisites(sk)];
+      if(el.value===""){if(slot<rows.length)rows.splice(slot,1);}
+      else{const next={skill:Number(el.value),level:slot<rows.length&&Number.isInteger(rows[slot]?.level)&&rows[slot].level>0?rows[slot].level:1};if(slot<rows.length)rows[slot]=next;else rows.push(next);}
+      sk.prerequisites=rows;markDirty();render();
+    });
+    app.querySelectorAll("[data-prerequisite-level]").forEach(el=>el.onchange=()=>{
+      const slot=Number(el.dataset.prerequisiteLevel),rows=ensureSkillPrerequisites(sk);
+      if(slot>=rows.length)return;
+      rows[slot].level=Number(el.value);markDirty();
+    });
     const activation=app.querySelector('[data-key="activation"]');
     if(activation)activation.onchange=()=>{sk.activation=activation.value;if(sk.activation==="proc")ensureProcSkillFields(sk);else if(PROC_ONLY_EFFECTS.has(sk.effect))sk.effect="damage";selected.skillTab=sk.activation;markDirty();render();};
     const effect=app.querySelector('[data-key="effect"]');
@@ -750,13 +766,13 @@ function renderSkills(){
   const add=document.getElementById("addSkill");
   if(add)add.onclick=()=>{
     if(!c)return;
-    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",activation:skillMode,requiredLevel:1,prerequisiteSkill:null,prerequisiteLevel:1,cooldown:skillMode==="active"?3:0,power:1,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
+    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",activation:skillMode,requiredLevel:1,prerequisites:[],cooldown:skillMode==="active"?3:0,power:1,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
     if(skillMode==="proc")ensureProcSkillFields(next);
     skills.push(next);selected.skill=skills.length-1;markDirty();render();
   };
   if(sk){
     document.getElementById("dupSkill").onclick=()=>{const copy=structuredClone(sk);copy.id='job'+selected.skillClass+'-skill'+skills.length;copy.name=(copy.name||"技能")+" 複製";skills.push(copy);selected.skill=skills.length-1;markDirty();render();};
-    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete('刪除技能「'+sk.name+'」？既有存檔後方技能索引會前移。')){const removed=selected.skill;skills.splice(removed,1);for(const other of skills){if(other.prerequisiteSkill===removed){other.prerequisiteSkill=null;other.prerequisiteLevel=1;}else if(Number.isInteger(other.prerequisiteSkill)&&other.prerequisiteSkill>removed)other.prerequisiteSkill--;}selected.skill=-1;markDirty();render();}};
+    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete('刪除技能「'+sk.name+'」？既有存檔後方技能索引會前移。')){const removed=selected.skill;skills.splice(removed,1);for(const other of skills){other.prerequisites=ensureSkillPrerequisites(other).filter(req=>req?.skill!==removed).map(req=>({skill:Number.isInteger(req?.skill)&&req.skill>removed?req.skill-1:req.skill,level:req?.level}));}selected.skill=-1;markDirty();render();}};
   }
 }
 function renderSupport(){
@@ -1077,17 +1093,22 @@ function validateData(){
       if(PROC_ONLY_EFFECTS.has(sk.effect)&&sk.activation!=="proc")issues.push(`角色 ${ci} 技能 ${si} 的觸發專屬效果只能用於 proc 技能。`);
       if(sk.activation==="proc"&&(!Number.isFinite(sk.procBaseChance)||sk.procBaseChance<0||sk.procBaseChance>1||!Number.isFinite(sk.procChancePerLevel)||sk.procChancePerLevel<0||sk.procChancePerLevel>1))issues.push(`角色 ${ci} 技能 ${si} 的逐技能觸發率必須介於 0~1。`);
       if(!Number.isInteger(sk.requiredLevel)||sk.requiredLevel<1)issues.push(`角色 ${ci} 技能 ${si} 的需求等級必須是至少 1 的整數。`);
-      if(sk.prerequisiteSkill!==null&&sk.prerequisiteSkill!==undefined){
-        if(!Number.isInteger(sk.prerequisiteSkill)||sk.prerequisiteSkill<0||sk.prerequisiteSkill>=c.skills.length||sk.prerequisiteSkill===si)issues.push(`角色 ${ci} 技能 ${si} 的前置技能索引無效或指向自己。`);
-        if(!Number.isInteger(sk.prerequisiteLevel)||sk.prerequisiteLevel<1||sk.prerequisiteLevel>coreSkillMax)issues.push(`角色 ${ci} 技能 ${si} 的前置技能需求等級必須為 1~${coreSkillMax} 的整數。`);
-        const seen=new Set([si]);let cursor=sk.prerequisiteSkill;
-        while(Number.isInteger(cursor)&&cursor>=0&&cursor<c.skills.length){
-          if(seen.has(cursor)){issues.push(`角色 ${ci} 技能 ${si} 的前置技能形成循環依賴。`);break;}
-          seen.add(cursor);
-          const next=c.skills[cursor]?.prerequisiteSkill;
-          cursor=Number.isInteger(next)?next:null;
-        }
+      const reqs=ensureSkillPrerequisites(sk);
+      if(reqs.length>3)issues.push(`角色 ${ci} 技能 ${si} 最多只能設定 3 個前置技能。`);
+      const reqSkills=new Set();
+      for(const req of reqs){
+        if(!req||!Number.isInteger(req.skill)||req.skill<0||req.skill>=c.skills.length||req.skill===si)issues.push(`角色 ${ci} 技能 ${si} 的前置技能索引無效或指向自己。`);
+        else if(reqSkills.has(req.skill))issues.push(`角色 ${ci} 技能 ${si} 重複設定相同前置技能。`);
+        else reqSkills.add(req.skill);
+        if(!Number.isInteger(req?.level)||req.level<1||req.level>coreSkillMax)issues.push(`角色 ${ci} 技能 ${si} 的前置技能需求等級必須為 1~${coreSkillMax} 的整數。`);
       }
+      const visit=(node,path)=>{
+        if(path.has(node))return true;
+        const nextPath=new Set(path);nextPath.add(node);
+        for(const req of ensureSkillPrerequisites(c.skills[node]))if(Number.isInteger(req?.skill)&&req.skill>=0&&req.skill<c.skills.length&&visit(req.skill,nextPath))return true;
+        return false;
+      };
+      if(visit(si,new Set()))issues.push(`角色 ${ci} 技能 ${si} 的前置技能形成循環依賴。`);
       if(!Number.isFinite(sk.cooldown)||sk.cooldown<0||!Number.isFinite(sk.power)||sk.power<0||!Number.isFinite(sk.maxTargets)||sk.maxTargets<1)issues.push(`角色 ${ci} 技能 ${si} 的冷卻、倍率或目標數無效。`);
     });
   });
