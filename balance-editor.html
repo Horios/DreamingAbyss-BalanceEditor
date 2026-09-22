@@ -179,6 +179,60 @@ const SUPPORT_KINDS = ["attack","critical","fracture","guard","power","regen","v
 const ITEM_TYPES = ["imbue","ward","elementTonic"];
 const SLOT_NAMES = ["武器","護甲","副手","飾品"];
 const EXCLUSIVE_KEYS = ["gearAtkPct","gearHpPct","gearDefPct","attackPct","crit","critDamage","pierce","defenseIgnore","lifesteal","evasion","elementBonus"];
+const EQUIPMENT_FIXED_EFFECT_DEFS=[
+  {key:"flatAttack",label:"固定攻擊",unit:"固定",help:"直接增加角色攻擊力，不受裝備 T 級倍率影響。"},
+  {key:"flatHp",label:"固定生命",unit:"固定",help:"直接增加角色最大生命，不受裝備 T 級倍率影響。"},
+  {key:"flatDefense",label:"固定防禦",unit:"固定",help:"直接增加角色防禦力，不受裝備 T 級倍率影響。"},
+  {key:"gearAtkPct",label:"此裝備基礎攻擊 %",unit:"%",help:"只提高這件裝備的基礎攻擊。"},
+  {key:"gearHpPct",label:"此裝備基礎生命 %",unit:"%",help:"只提高這件裝備的基礎生命。"},
+  {key:"gearDefPct",label:"此裝備基礎防禦 %",unit:"%",help:"只提高這件裝備的基礎防禦。"},
+  {key:"attackPct",label:"角色總攻擊力 %",unit:"%",help:"固定攻擊與裝備攻擊加總後再乘算。"},
+  {key:"crit",label:"暴擊率 %",unit:"%",help:"增加角色暴擊率百分點。"},
+  {key:"critDamage",label:"暴擊傷害 %",unit:"%",help:"增加角色暴擊傷害百分點。"},
+  {key:"pierce",label:"防禦穿透",unit:"固定",help:"在百分比防禦無視後，直接扣除敵方防禦。"},
+  {key:"defenseIgnore",label:"防禦無視 %",unit:"%",help:"先按百分比降低敵方防禦。"},
+  {key:"lifesteal",label:"生命竊取 %",unit:"%",help:"依實際傷害回復生命。"},
+  {key:"evasion",label:"閃避率 %",unit:"%",help:"增加閃避率百分點。"},
+  {key:"elementBonus",label:"全屬性增傷 %",unit:"%",help:"增加火／冰／風／光／暗傷害。"},
+  {key:"bossDamagePct",label:"BOSS 傷害 %",unit:"%",help:"對 BOSS／最終首領造成額外傷害。"},
+  {key:"speed",label:"速度",unit:"固定",help:"直接增加角色最終速度。"},
+  {key:"allCooldownReduction",label:"全主動／輔助技能冷卻",unit:"回合",help:"所有有冷卻的主動與輔助技能減少指定回合。"},
+  {key:"dropRateBonus",label:"掉寶率 %",unit:"%",help:"提高裝備者提供的掉寶率加成。"},
+  {key:"basicAdvanceNextRound",label:"普攻後下回合前移",unit:"格",help:"普通攻擊後，下回合行動往前移指定格數。"},
+  {key:"basicElement",label:"普通攻擊屬性",unit:"屬性",help:"把普通攻擊改為指定元素。"},
+  {key:"elementDamagePct",label:"指定屬性傷害 %",unit:"%",target:"element",help:"提高指定元素造成的傷害。"},
+  {key:"elementResistPct",label:"指定屬性抗性 %",unit:"%",target:"element",help:"降低受到的指定元素傷害。"},
+  {key:"raceDamagePct",label:"指定種族增傷 %",unit:"%",target:"race",help:"提高對指定種族造成的傷害。"},
+  {key:"skillEffectPct",label:"指定核心技能效果 %",unit:"%",target:"skill",help:"提高裝備者指定序號核心技能的效果。"},
+  {key:"skillCooldownReduction",label:"指定核心技能冷卻／觸發",unit:"回合",target:"skill",help:"主動技能減少冷卻；觸發技能沿用現有每點轉換觸發率規則。"}
+];
+const EQUIPMENT_FIXED_EFFECT_KEYS=EQUIPMENT_FIXED_EFFECT_DEFS.map(x=>x.key);
+const EQUIPMENT_FIXED_EFFECT_BY_KEY=Object.fromEntries(EQUIPMENT_FIXED_EFFECT_DEFS.map(x=>[x.key,x]));
+const EQUIPMENT_FIXED_RACES={beast:"野獸",plant:"植物",undead:"不死",construct:"構裝",demon:"惡魔",spirit:"精靈"};
+function fixedEffectDefault(key){
+  if(key==="basicElement")return "physical";
+  if(["basicAdvanceNextRound","allCooldownReduction","skillCooldownReduction"].includes(key))return 1;
+  return 0;
+}
+function normalizeEquipmentFixedEffects(form){
+  if(!form||typeof form!=="object")return;
+  let rows=Array.isArray(form.fixedEffects)?form.fixedEffects.map(x=>x&&typeof x==="object"?{...x}:null).filter(Boolean):[];
+  if(!rows.length&&form.exclusive&&typeof form.exclusive==="object"&&!Array.isArray(form.exclusive)){
+    rows=Object.entries(form.exclusive).map(([key,value])=>({key,value}));
+  }
+  if(!rows.length&&form.element)rows.push({key:"basicElement",value:form.element});
+  rows=rows.filter(x=>EQUIPMENT_FIXED_EFFECT_KEYS.includes(x.key)).slice(0,5).map(x=>{
+    const out={key:x.key,value:x.key==="basicElement"?(ELEMENTS.includes(x.value)?x.value:"physical"):Number.isFinite(Number(x.value))?Number(x.value):fixedEffectDefault(x.key)};
+    const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[x.key];
+    if(def?.target==="element")out.element=ELEMENTS.includes(x.element)&&x.element!=="physical"?x.element:"fire";
+    if(def?.target==="race")out.race=Object.prototype.hasOwnProperty.call(EQUIPMENT_FIXED_RACES,x.race)?x.race:"beast";
+    if(def?.target==="skill")out.skill=Math.max(0,Math.min(5,Number.isInteger(Number(x.skill))?Number(x.skill):0));
+    return out;
+  });
+  if(!rows.length)rows=[{key:"flatAttack",value:0}];
+  form.fixedEffects=rows;
+  delete form.exclusive;delete form.element;
+}
 const EXPECTED_CLASS_COUNT = 4;
 const EXPECTED_SUPPORT_PER_CLASS = 3;
 const EXPECTED_ITEM_COUNT = 15;
@@ -590,6 +644,7 @@ function ensureArrays(){
       const raw=Array.isArray(form.wearableJobs)?form.wearableJobs:fallback;
       const jobs=[...new Set(raw.map(Number).filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length))];
       form.wearableJobs=jobs.length?jobs:fallback;
+      normalizeEquipmentFixedEffects(form);
     }
   }));
   for(let ci=0;ci<data.classes.length;ci++){
@@ -887,8 +942,7 @@ function renderEquipment(){
       ${inputField("裝備 ID（識別用）","id",e.id||"","text","",false,"套用到遊戲時會移除 id；實際裝備變體依職業／部位／陣列索引對應。",true)}
       ${inputField("裝備變體名稱","name",e.name||"","text","",false,"取代該職業該部位的基礎裝備名稱顯示。")}
       <div class="field full"><label>可穿戴職業</label><div class="identity-slots equipment-wearable-jobs"><label><input id="equipWearAll" type="checkbox" ${allJobsSelected?"checked":""}>全職業</label>${data.classes.map((x,i)=>`<label><input type="checkbox" data-wearable-job="${i}" ${wearableJobs.includes(i)?"checked":""}>${esc(x.name)}</label>`).join("")}</div><div class="field-help">逐件設定可穿戴職業；勾選「全職業」會一次選取全部職業。至少保留 1 個可穿戴職業。</div></div>
-      <div class="field"><label>${fieldTitle("普攻屬性","element",false)}</label><select data-key="element"><option value="" ${!e.element?"selected":""}>未指定／無屬性</option>${ELEMENTS.map(x=>`<option value="${x}" ${e.element===x?"selected":""}>${esc(ELEMENT_LABELS[x])}</option>`).join("")}</select><div class="field-help">只有裝備在武器槽（slot 0）時，這個 element 會成為普通攻擊屬性；消耗品附魔可暫時覆蓋。技能屬性不受武器影響。</div></div>
-      <div class="field full"><label>${fieldTitle("專屬固定屬性","exclusive",false)}</label><div class="field-help" style="margin-bottom:8px">這些效果固定在裝備變體上，不屬於可洗鍊詞條；數值允許 -100 ~ 500。</div><div id="exclusiveRows"></div><button id="addExclusive" class="small">新增專屬屬性</button></div>
+      <div class="field full"><label>${fieldTitle("固定屬性","fixedEffects",false)}</label><div class="field-help" style="margin-bottom:8px">每件裝備固定 1～5 條屬性。現在先開放所有裝備相關屬性，不限制武器／護甲／副手／飾品可選範圍；後續可再加入部位限制。</div><div id="fixedEffectRows"></div><button id="addFixedEffect" class="small">新增固定屬性</button></div>
     </div>`):card("裝備資料",`<div class="empty">請新增或選擇裝備</div>`))+`</div>`;
   const app=document.getElementById("app");
   const csel=document.getElementById("equipClassSel"); if(csel)csel.onchange=()=>{selected.equipClass=Number(csel.value);selected.equip=0;render();};
@@ -896,8 +950,7 @@ function renderEquipment(){
   app.querySelectorAll("[data-equip]").forEach(x=>x.onclick=()=>{selected.equip=Number(x.dataset.equip);render();});
   if(e){
     bindObjectFields(app,e);
-    const elementSelect=app.querySelector('select[data-key="element"]');
-    if(elementSelect)elementSelect.onchange=()=>{if(elementSelect.value==="")delete e.element;else e.element=elementSelect.value;markDirty();};
+    normalizeEquipmentFixedEffects(e);
     const wearAll=app.querySelector("#equipWearAll");
     if(wearAll)wearAll.onchange=()=>{
       if(wearAll.checked)e.wearableJobs=data.classes.map((_,i)=>i);
@@ -910,16 +963,15 @@ function renderEquipment(){
       e.wearableJobs=[...current].filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length).sort((a,b)=>a-b);
       markDirty();renderEquipment();
     });
-    if(!e.exclusive || typeof e.exclusive!=="object" || Array.isArray(e.exclusive))e.exclusive={};
-    renderExclusiveRows(e);
-    document.getElementById("addExclusive").onclick=()=>{
-      let k=EXCLUSIVE_KEYS.find(k=>!(k in e.exclusive)); if(!k)return alert("所有可用的專屬屬性都已存在。");
-      e.exclusive[k]=0;markDirty();renderEquipment();
+    renderFixedEffectRows(e);
+    document.getElementById("addFixedEffect").onclick=()=>{
+      if(e.fixedEffects.length>=5)return alert("每件裝備最多 5 條固定屬性。");
+      e.fixedEffects.push({key:"flatAttack",value:0});markDirty();renderEquipment();
     };
   }
   document.getElementById("addEquip").onclick=()=>{
     if(!c)return; const i=slot.length,allJobs=data.classes.map((_,job)=>job),prefix=isGlobalClass?"all":`job${selected.equipClass}`;
-    slot.push({id:`${prefix}-slot${selected.equipSlot}-form${i}`,name:"新裝備",wearableJobs:isGlobalClass||selected.equipSlot===1?allJobs:[selected.equipClass],exclusive:{}});
+    slot.push({id:`${prefix}-slot${selected.equipSlot}-form${i}`,name:"新裝備",wearableJobs:isGlobalClass||selected.equipSlot===1?allJobs:[selected.equipClass],fixedEffects:[{key:"flatAttack",value:0}]});
     selected.equip=slot.length-1;markDirty();render();
   };
   if(e){
@@ -928,23 +980,22 @@ function renderEquipment(){
   }
 }
 
-function renderExclusiveRows(e){
-  const host=document.getElementById("exclusiveRows");
-  host.innerHTML=Object.entries(e.exclusive).map(([k,v],i)=>`<div class="kvrow" data-row="${i}">
-    <select class="ex-key">${[...new Set([...EXCLUSIVE_KEYS,k])].map(x=>`<option value="${esc(x)}" ${x===k?"selected":""}>${esc(EXCLUSIVE_LABELS[x]||x)}</option>`).join("")}</select>
-    <input class="ex-val" type="number" min="-100" max="500" step="0.01" value="${esc(v)}">
-    <span class="pill">${k==="pierce"?"固定":"%"}</span><button class="small danger ex-del">×</button>
-    <div class="field-help" style="grid-column:1/-1">${esc(EXCLUSIVE_HELP[k]||"")} <span class="field-key">JSON：${esc(k)}</span></div>
-  </div>`).join("") || `<div class="mini-note" style="margin-bottom:8px">尚無專屬固定屬性。</div>`;
-  [...host.querySelectorAll(".kvrow")].forEach((row,i)=>{
-    const oldKey=Object.keys(e.exclusive)[i], keySel=row.querySelector(".ex-key"), val=row.querySelector(".ex-val");
-    keySel.onchange=()=>{
-      const newKey=keySel.value;
-      if(newKey!==oldKey && newKey in e.exclusive){alert("這個屬性已存在。");keySel.value=oldKey;return;}
-      const value=e.exclusive[oldKey]; delete e.exclusive[oldKey]; e.exclusive[newKey]=value; markDirty();renderEquipment();
-    };
-    val.onchange=()=>{e.exclusive[oldKey]=Number(val.value);markDirty();};
-    row.querySelector(".ex-del").onclick=()=>{delete e.exclusive[oldKey];markDirty();renderEquipment();};
+function renderFixedEffectRows(e){
+  normalizeEquipmentFixedEffects(e);
+  const host=document.getElementById("fixedEffectRows");
+  const skillOptions=Array.from({length:6},(_,i)=>`<option value="${i}">核心技能 ${i+1}</option>`).join("");
+  host.innerHTML=e.fixedEffects.map((fx,i)=>{
+    const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key]||EQUIPMENT_FIXED_EFFECT_DEFS[0];
+    const target=def.target==="element"?`<select class="fixed-target">${ELEMENTS.filter(x=>x!=="physical").map(x=>`<option value="${x}" ${fx.element===x?"selected":""}>${esc(ELEMENT_LABELS[x]||x)}</option>`).join("")}</select>`:def.target==="race"?`<select class="fixed-target">${Object.entries(EQUIPMENT_FIXED_RACES).map(([k,n])=>`<option value="${k}" ${fx.race===k?"selected":""}>${n}</option>`).join("")}</select>`:def.target==="skill"?`<select class="fixed-target">${skillOptions.replace(`value="${fx.skill}"`,`value="${fx.skill}" selected`)}</select>`:"";
+    const value=fx.key==="basicElement"?`<select class="fixed-value">${ELEMENTS.map(x=>`<option value="${x}" ${fx.value===x?"selected":""}>${esc(ELEMENT_LABELS[x]||x)}</option>`).join("")}</select>`:`<input class="fixed-value" type="number" step="${["basicAdvanceNextRound","allCooldownReduction","skillCooldownReduction"].includes(fx.key)?"1":"0.01"}" value="${esc(fx.value)}">`;
+    return `<div class="kvrow fixed-effect-row" data-i="${i}"><select class="fixed-key">${EQUIPMENT_FIXED_EFFECT_DEFS.map(x=>`<option value="${x.key}" ${x.key===fx.key?"selected":""}>${esc(x.label)}</option>`).join("")}</select>${target}${value}<span class="pill">${esc(def.unit)}</span><button class="small danger fixed-del" ${e.fixedEffects.length<=1?"disabled":""}>×</button><div class="field-help" style="grid-column:1/-1">${esc(def.help)} <span class="field-key">JSON：fixedEffects[${i}].${esc(fx.key)}</span></div></div>`;
+  }).join("");
+  host.querySelectorAll(".fixed-effect-row").forEach(row=>{
+    const i=Number(row.dataset.i),fx=e.fixedEffects[i],keySel=row.querySelector(".fixed-key"),target=row.querySelector(".fixed-target"),value=row.querySelector(".fixed-value");
+    keySel.onchange=()=>{fx.key=keySel.value;fx.value=fixedEffectDefault(fx.key);delete fx.element;delete fx.race;delete fx.skill;const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key];if(def?.target==="element")fx.element="fire";if(def?.target==="race")fx.race="beast";if(def?.target==="skill")fx.skill=0;markDirty();renderEquipment();};
+    if(target)target.onchange=()=>{const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key];if(def?.target==="element")fx.element=target.value;else if(def?.target==="race")fx.race=target.value;else if(def?.target==="skill")fx.skill=Number(target.value);markDirty();};
+    value.onchange=()=>{fx.value=fx.key==="basicElement"?value.value:Number(value.value);markDirty();};
+    row.querySelector(".fixed-del").onclick=()=>{if(e.fixedEffects.length<=1)return;e.fixedEffects.splice(i,1);markDirty();renderEquipment();};
   });
 }
 
@@ -1205,7 +1256,7 @@ function validateData(){
   data.equipmentForms.forEach((jobs,job)=>{
     const global=job===data.classes.length,label=global?"全職業":`角色 ${job}`;
     if(!Array.isArray(jobs)||jobs.length!==4){issues.push(`${label}的裝備必須固定 4 個部位群組。`);return;}
-    jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||(!global&&forms.length<1))issues.push(`${label}的「${SLOT_NAMES[slot]}」至少要有 1 種裝備變體。`);(forms||[]).forEach((f,i)=>{if(f.element!==undefined&&f.element!==""&&!ELEMENTS.includes(f.element))issues.push(`裝備 ${job}-${slot}-${i} 的元素無效。`);if(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=data.classes.length))issues.push(`裝備 ${job}-${slot}-${i} 的可穿戴職業設定無效。`);if(f.exclusive)for(const [k,v] of Object.entries(f.exclusive))if(!EXCLUSIVE_KEYS.includes(k)||!Number.isFinite(v)||v<-100||v>500)issues.push(`裝備 ${job}-${slot}-${i} 的專屬屬性 ${k} 無效或超出 -100~500。`);});});
+    jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||(!global&&forms.length<1))issues.push(`${label}的「${SLOT_NAMES[slot]}」至少要有 1 種裝備變體。`);(forms||[]).forEach((f,i)=>{normalizeEquipmentFixedEffects(f);if(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=data.classes.length))issues.push(`裝備 ${job}-${slot}-${i} 的可穿戴職業設定無效。`);if(!Array.isArray(f.fixedEffects)||f.fixedEffects.length<1||f.fixedEffects.length>5)issues.push(`裝備 ${job}-${slot}-${i} 的固定屬性必須為 1～5 條。`);for(const [j,fx] of (f.fixedEffects||[]).entries()){const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx?.key];if(!def)issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條固定屬性無效。`);else if(fx.key==="basicElement"){if(!ELEMENTS.includes(fx.value))issues.push(`裝備 ${job}-${slot}-${i} 的普通攻擊屬性無效。`);}else if(!Number.isFinite(fx.value))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條固定屬性數值無效。`);if(def?.target==="element"&&(!ELEMENTS.includes(fx.element)||fx.element==="physical"))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條元素目標無效。`);if(def?.target==="race"&&!Object.prototype.hasOwnProperty.call(EQUIPMENT_FIXED_RACES,fx.race))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條種族目標無效。`);if(def?.target==="skill"&&(!Number.isInteger(fx.skill)||fx.skill<0||fx.skill>5))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條技能目標無效。`);}});});
   });
   if(data.items.length!==EXPECTED_ITEM_COUNT)issues.push(`商店道具必須固定 ${EXPECTED_ITEM_COUNT} 筆；目前是 ${data.items.length} 筆。`);
   const originalItems=ORIGINAL_DATA.items||[];
@@ -2393,7 +2444,7 @@ ensureArrays();render();
   const POWER_ITEM_TYPE='gearTierReroll',POWER_ITEM_ID='power_tier_reroll';
   const VALID_ELEMENTS=['fire','ice','wind','light','shadow'];
   const REGULAR_EFFECT_KEYS=['basicElement','basicAdvanceNextRound','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','allCooldownReduction','dropRateBonus'];
-  const BASE_EFFECT_KEYS=['gearAtkPct','gearHpPct','gearDefPct','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus'];
+  const BASE_EFFECT_KEYS=[...EQUIPMENT_FIXED_EFFECT_KEYS];
   const BOSS_EFFECT_KEYS=[...new Set([...REGULAR_EFFECT_KEYS,...BASE_EFFECT_KEYS,'bossDamagePct'])];
   const EFFECT_LABELS={
     basicElement:'普通攻擊屬性',basicAdvanceNextRound:'普攻後下回合前移',gearAtkPct:'此裝備基礎攻擊 %',gearHpPct:'此裝備基礎生命 %',gearDefPct:'此裝備基礎防禦 %',
@@ -2454,7 +2505,7 @@ ensureArrays();render();
   function normalizeBossAffixes(rows,legacySeries){const byId=new Map((Array.isArray(rows)?rows:[]).filter(Boolean).map(x=>[x.id,x])),legacyById=new Map((Array.isArray(legacySeries)?legacySeries:[]).filter(Boolean).map(x=>[x.id,x]));return DEFAULT_BOSS_AFFIXES.map(def=>{const x=byId.get(def.id)||{},legacy=legacyById.get(def.id)||{},name=typeof x.name==='string'&&x.name.trim()?x.name.trim():typeof legacy.name==='string'&&legacy.name.trim()?legacy.name.trim():def.name,src=Array.isArray(x.effects)?x.effects:[],effects=Array.from({length:3},(_,i)=>normalizeEffect(src[i],BOSS_EFFECT_KEYS,def.effects[i])),used=new Set();for(let i=0;i<effects.length;i++){if(used.has(effects[i].key)){const replacement=def.effects.find(d=>!used.has(d.key))||DEFAULT_BOSS_AFFIXES[0].effects.find(d=>!used.has(d.key));if(replacement)effects[i]=clone(replacement);}used.add(effects[i].key);}return {...def,name,effects};});}
   function normalizePower(src){src=src&&typeof src==='object'&&!Array.isArray(src)?src:{};const legacySlots=Number(src.schemaVersion||0)<4,out=clone(POWER_DEFAULT);out.schemaVersion=4;out.prefixes=normalizeAffixRows(src.prefixes,DEFAULT_PREFIXES,legacySlots);out.suffixes=normalizeAffixRows(src.suffixes,DEFAULT_SUFFIXES,legacySlots);out.bossAffixes=normalizeBossAffixes(src.bossAffixes,src.seriesPrefixes);const st=src.strength||{};out.strength.multipliers=Array.from({length:10},(_,i)=>n(st.multipliers?.[i],POWER_DEFAULT.strength.multipliers[i],.01,100));out.strength.weightsByDifficulty=Array.from({length:3},(_,d)=>Array.from({length:10},(_,i)=>n(st.weightsByDifficulty?.[d]?.[i],POWER_DEFAULT.strength.weightsByDifficulty[d][i],0,1e9)));const r=src.rerollItem||{};out.rerollItem={id:POWER_ITEM_ID,name:typeof r.name==='string'&&r.name.trim()?r.name.trim():POWER_DEFAULT.rerollItem.name,description:typeof r.description==='string'?r.description:POWER_DEFAULT.rerollItem.description,cost:0,sellPrice:n(r.sellPrice,80,0,1e9),shopEnabled:false,shopChance:n(r.shopChance,.06,0,1),shopPrice:Math.round(n(r.shopPrice,650,1,1e9)),dropRuleInitialized:!!r.dropRuleInitialized};return out;}
 
-  function normalizeBaseForms(){for(const jobs of data.equipmentForms||[])for(const forms of jobs||[])for(const form of forms||[]){delete form.element;if(form.exclusive&&Object.prototype.hasOwnProperty.call(form.exclusive,'basicAdvanceNextRound'))delete form.exclusive.basicAdvanceNextRound;if(form.exclusive&&Object.keys(form.exclusive).length===0)delete form.exclusive;}const broad=data.equipmentForms?.[0]?.[0]?.[0];if(broad){broad.exclusive??={};if(!Number.isFinite(broad.exclusive.gearAtkPct)||Math.abs(Number(broad.exclusive.gearAtkPct)-20)<.001)broad.exclusive.gearAtkPct=5;}}
+  function normalizeBaseForms(){for(const jobs of data.equipmentForms||[])for(const forms of jobs||[])for(const form of forms||[])normalizeEquipmentFixedEffects(form);}
 
   function specialItem(){const r=data.equipmentPowerSystem.rerollItem;return {id:POWER_ITEM_ID,type:POWER_ITEM_TYPE,cost:0,sellPrice:r.sellPrice,duration:0,name:r.name,description:r.description,shopEnabled:false};}
   function ensureSpecialItem(){const item=specialItem(),i=data.items.findIndex(x=>x?.id===POWER_ITEM_ID||x?.type===POWER_ITEM_TYPE);if(i<0)data.items.push(item);else data.items[i]=Object.assign(data.items[i],item);}
@@ -2567,7 +2618,7 @@ ensureArrays();render();
       card('T1～T10 詞綴機率總覽','<p class="mini-note">依 T 級與裝備部位列出目前所有可能生成的前綴／後綴與機率合計。黃色代表未滿 100%（剩餘機率為無詞綴），紅色代表超過 100%。</p>'+affixProbabilitySummaryHTML())+
       card('前綴', '<p class="mini-note">每個前綴固定一條效果。預設收合顯示摘要；展開後編輯 T1～T10 個別機率與其他設定。</p>'+affixFilterBarHTML('prefix',p.prefixes.length)+'<div class="identity-grid" data-affix-grid="prefix">'+p.prefixes.map((x,i)=>affixRow(x,i,'prefix')).join('')+'</div>')+
       card('後綴', '<p class="mini-note">每個後綴固定一條效果。可依名稱／ID、部位、T 級篩選，並依名稱、最低 T 級、效果或 ID 排序。</p>'+affixFilterBarHTML('suffix',p.suffixes.length)+'<div class="identity-grid" data-affix-grid="suffix">'+p.suffixes.map((x,i)=>affixRow(x,i,'suffix')).join('')+'</div>')+
-      card('基底裝備', '<p class="mini-note">基底裝備的 raw 數值倍率與固定效果仍在「裝備變體」中編輯。普攻元素與「下回合前移」已移到前／後綴，不再由預設基底提供。闊刃劍預設基礎攻擊為 +5%。</p><div class="actions"><button onclick="gotoEquipmentBaseEditor()">前往裝備變體</button></div><p class="identity-effect-note">基底可用固定屬性：'+BASE_EFFECT_KEYS.map(k=>esc(EFFECT_LABELS[k])).join('、')+'</p>')+
+      card('基底裝備', '<p class="mini-note">每件基底裝備可直接設定 1～5 條固定屬性；目前不限制各部位可選屬性範圍。</p><div class="actions"><button onclick="gotoEquipmentBaseEditor()">前往裝備變體</button></div><p class="identity-effect-note">基底固定屬性選項已開放完整裝備屬性池。</p>')+
       card('BOSS 專屬詞綴', '<p class="mini-note">每個 BOSS 系列固定三條且不可增減。三條可從前綴／後綴／基底的全部屬性中選擇，並額外提供「對 BOSS 傷害」專屬屬性；同一件 BOSS 裝的三個屬性不得重複。</p><div class="boss-profile-grid">'+p.bossAffixes.map(bossProfileCard).join('')+'</div>')+
       card('T1～T10 強度階級','<div class="power-preview"><div><span class="small">普通基準</span><b>T1 ≈ ×'+p.strength.multipliers[0]+'</b></div><div><span class="small">困難基準</span><b>T5 ≈ ×'+p.strength.multipliers[4]+'</b></div><div><span class="small">地獄基準</span><b>T10 ≈ ×'+p.strength.multipliers[9]+'</b></div></div><p class="mini-note">T 級影響基底 raw 攻擊／生命／防禦，名稱不顯示 T 級；掉落與重鑄均依來源難度使用對應權重。</p><div class="power-grade-grid"><div class="power-grade-head">階級</div><div class="power-grade-head">倍率</div><div class="power-grade-head">普通權重</div><div class="power-grade-head">困難權重</div><div class="power-grade-head">地獄權重</div>'+gradeRows+'</div>')+
       card('強度重鑄石','<div class="power-reroll-grid"><label>道具 ID<input value="'+POWER_ITEM_ID+'" readonly></label><label>顯示名稱<input id="powerItemName" value="'+esc(r.name)+'"></label><label>賣價<input id="powerItemSell" type="number" min="0" step="1" value="'+r.sellPrice+'"></label><label>隨機商店出現率（0~1）<input id="powerShopChance" type="number" min="0" max="1" step="0.001" value="'+r.shopChance+'"></label><label>隨機商店價格<input id="powerShopPrice" type="number" min="1" step="1" value="'+r.shopPrice+'"></label><label class="full">道具說明<textarea id="powerItemDesc">'+esc(r.description)+'</textarea></label></div><div class="notice" style="margin-top:12px"><b>掉落來源：</b>由怪物掉落表中的 power_tier_reroll 規則控制。<button style="margin-left:8px" onclick="gotoPowerDropRule()">前往掉落表</button></div>');
@@ -2584,7 +2635,7 @@ ensureArrays();render();
 
   const identityRenderBase=render;render=function(){if(currentSection==='equipmentPower'){renderEquipmentPower();renderNav(true);return;}return identityRenderBase();};
   const identityRenderEquipmentBase=renderEquipment;
-  renderEquipment=function(){identityRenderEquipmentBase();const app=document.getElementById('app');if(!app)return;const elementSelect=app.querySelector('select[data-key="element"]');if(elementSelect){elementSelect.disabled=true;elementSelect.title='普攻屬性已改由前綴／BOSS 專屬詞綴控制';}const notice=app.querySelector('.notice');if(notice)notice.insertAdjacentHTML('afterend','<div class="mini-note"><b>基底規則：</b>這裡負責基底 raw 數值與基底固定效果。預設普攻元素、普攻後前移已移到前／後綴系統。</div>');};
+  renderEquipment=function(){identityRenderEquipmentBase();const app=document.getElementById('app');if(!app)return;const notice=app.querySelector('.notice');if(notice)notice.insertAdjacentHTML('afterend','<div class="mini-note"><b>基底規則：</b>每件裝備可設定 1～5 條固定屬性；目前所有裝備屬性皆可選，尚未依部位限制。</div>');};
 
   if(typeof renderItems==='function'){const identityItemsBase=renderItems;renderItems=function(){const all=data.items,keep=all.filter(x=>x?.type!==POWER_ITEM_TYPE&&x?.id!==POWER_ITEM_ID),prior=selected.item;data.items=keep;skipIdentityEnsure=true;try{return identityItemsBase();}finally{skipIdentityEnsure=false;data.items=all;selected.item=prior;}};}
 
