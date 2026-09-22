@@ -2296,4 +2296,119 @@ ensureArrays();render();
 })();
 </script>
 
+<style id="balance-editor-ux-style">
+.ux-toolbar{display:flex;gap:7px;align-items:end;flex-wrap:wrap;padding:8px 10px;border-bottom:1px solid var(--line);background:#14191f}
+.ux-toolbar label{margin:0;min-width:150px}.ux-toolbar label.ux-search{flex:1;min-width:190px}.ux-toolbar input,.ux-toolbar select{padding:6px 7px}
+.ux-toolbar .ux-count{margin-left:auto;align-self:center;color:var(--muted);font-size:11px;white-space:nowrap}
+.balance-tree>.ux-toolbar{border:1px solid var(--line);border-radius:8px;margin:0 0 9px}
+.ux-card-toolbar{border:1px solid var(--line);border-radius:8px;margin:8px 0;background:#14191f}
+.ux-card-collapsed .enemy-skill-fields,.ux-card-collapsed.md-card>.md-fields,.ux-card-collapsed .shop-rule-fields,.ux-card-collapsed .shop-rule-actions,.ux-card-collapsed .shop-fixed-meta,.ux-card-collapsed .shop-fixed-fields,.ux-card-collapsed.world-monster-card>.world-fields,.ux-card-collapsed.world-monster-card>.world-danger-note{display:none!important}
+.ux-card-collapsed.enemy-skill-card,.ux-card-collapsed.shop-rule-card,.ux-card-collapsed.shop-fixed-card,.ux-card-collapsed.world-monster-card{padding-bottom:8px}
+.ux-toggle-card{white-space:nowrap}
+.ux-empty{padding:12px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:7px;margin:8px 0}
+@media(max-width:760px){.ux-toolbar{display:grid;grid-template-columns:1fr 1fr}.ux-toolbar label.ux-search{grid-column:1/-1}.ux-toolbar .ux-count{margin-left:0}}
+</style>
+<script id="balance-editor-ux-extension">
+(()=>{
+  const uxState={
+    lists:{},
+    trees:{balanceSettings:'',balance:''},
+    cards:{enemySkills:'',monsters:'',drops:'',shopRules:'',shopItems:'',worldMonsters:''}
+  };
+  const textOf=el=>(el?.textContent||'').trim().toLocaleLowerCase();
+  const natural=(a,b)=>String(a).localeCompare(String(b),'zh-Hant',{numeric:true,sensitivity:'base'});
+  function makeToolbar({query='',sort=false,count='',placeholder='搜尋名稱、ID 或說明'}={}){
+    const bar=document.createElement('div');bar.className='ux-toolbar';
+    bar.innerHTML='<label class="ux-search">搜尋<input class="ux-query" placeholder="'+placeholder.replace(/"/g,'&quot;')+'" value="'+String(query).replace(/"/g,'&quot;')+'"></label>'+
+      (sort?'<label>排序<select class="ux-sort"><option value="original">原始順序</option><option value="az">名稱 A→Z</option><option value="za">名稱 Z→A</option></select></label>':'')+
+      '<button type="button" class="small ux-expand">全部展開</button><button type="button" class="small ux-collapse">全部收合</button><span class="ux-count">'+count+'</span>';
+    return bar;
+  }
+  function enhanceList(){
+    const cfg={
+      skills:['[data-skill]','技能'],support:['[data-support]','輔助技能'],equipment:['[data-equip]','裝備變體'],
+      items:['[data-item]','道具'],potions:['[data-potion]','藥水'],world:['[data-world-map]','地圖']
+    }[currentSection];
+    if(!cfg)return;
+    const items=[...document.querySelectorAll(cfg[0])];if(items.length<4)return;
+    const list=items[0].parentElement;if(!list||list.querySelector(':scope > .ux-toolbar'))return;
+    const state=uxState.lists[currentSection]??={query:'',sort:'original'};
+    const bar=makeToolbar({query:state.query,sort:true,count:items.length+' 筆'+cfg[1]});
+    bar.querySelector('.ux-expand').remove();bar.querySelector('.ux-collapse').remove();
+    list.prepend(bar);
+    const q=bar.querySelector('.ux-query'),sort=bar.querySelector('.ux-sort');sort.value=state.sort;
+    const apply=()=>{
+      state.query=q.value;state.sort=sort.value;const needle=state.query.trim().toLocaleLowerCase();
+      const visible=items.filter(el=>{const show=!needle||textOf(el).includes(needle);el.hidden=!show;return show;});
+      const order=[...visible];
+      if(state.sort!=='original')order.sort((a,b)=>natural(textOf(a),textOf(b))*(state.sort==='za'?-1:1));
+      else order.sort((a,b)=>Number(a.dataset.skill??a.dataset.support??a.dataset.equip??a.dataset.item??a.dataset.potion??a.dataset.worldMap??0)-Number(b.dataset.skill??b.dataset.support??b.dataset.equip??b.dataset.item??b.dataset.potion??b.dataset.worldMap??0));
+      order.forEach(el=>list.appendChild(el));
+      bar.querySelector('.ux-count').textContent=visible.length+' / '+items.length+' 筆';
+    };
+    q.oninput=apply;sort.onchange=apply;apply();
+  }
+  function enhanceTree(){
+    const tree=document.querySelector('.balance-tree');if(!tree||tree.querySelector(':scope > .ux-toolbar'))return;
+    const key=currentSection==='balanceSettings'?'balanceSettings':currentSection==='balance'?'balance':null;if(!key)return;
+    const groups=[...tree.children].filter(x=>x.tagName==='DETAILS');if(!groups.length)return;
+    const bar=makeToolbar({query:uxState.trees[key]||'',sort:false,count:groups.length+' 組參數',placeholder:'搜尋中文名稱、JSON key 或說明'});
+    tree.prepend(bar);const q=bar.querySelector('.ux-query');
+    const apply=()=>{
+      uxState.trees[key]=q.value;const needle=q.value.trim().toLocaleLowerCase();let shown=0;
+      for(const d of groups){
+        const summary=d.querySelector(':scope > summary'),rows=[...d.querySelectorAll('.pathrow')],groupMatch=!needle||textOf(summary).includes(needle);
+        let rowMatches=0;
+        for(const row of rows){const show=groupMatch||!needle||textOf(row).includes(needle);row.hidden=!show;if(show)rowMatches++;}
+        const customText=[...d.querySelectorAll('.enemy-skill-card,[data-monster-row],[data-drop-row]')].map(textOf).join(' ');
+        const customMatch=needle&&customText.includes(needle);
+        const show=!needle||groupMatch||rowMatches>0||customMatch;d.hidden=!show;if(show){shown++;if(needle)d.open=true;}
+      }
+      bar.querySelector('.ux-count').textContent=shown+' / '+groups.length+' 組';
+    };
+    q.oninput=apply;bar.querySelector('.ux-expand').onclick=()=>groups.filter(x=>!x.hidden).forEach(x=>x.open=true);bar.querySelector('.ux-collapse').onclick=()=>groups.forEach(x=>x.open=false);apply();
+  }
+  const cardGroups=[
+    {key:'enemySkills',selector:'.enemy-skill-card',head:'.enemy-skill-card-head',container:'.enemy-skill-editor',label:'敵人技能'},
+    {key:'monsters',selector:'[data-monster-row]',head:':scope > .row',label:'怪物'},
+    {key:'drops',selector:'[data-drop-row]',head:':scope > .row',label:'掉落規則'},
+    {key:'shopRules',selector:'.shop-rule-card',head:'.shop-rule-head',container:'.shop-random-grid',label:'隨機商品'},
+    {key:'shopItems',selector:'.shop-fixed-card',head:'.shop-fixed-head',container:'.shop-fixed-grid',label:'固定商品'},
+    {key:'worldMonsters',selector:'.world-monster-card',head:'.world-monster-head',container:'.world-monsters',label:'怪物'}
+  ];
+  function enhanceCards(){
+    for(const cfg of cardGroups){
+      const cards=[...document.querySelectorAll(cfg.selector)];if(cards.length<2)continue;
+      const container=cfg.container?document.querySelector(cfg.container):cards[0].parentElement;if(!container)continue;
+      const token='ux-'+cfg.key;if(container.dataset[token])continue;container.dataset[token]='1';
+      const state=uxState.cards[cfg.key]??'';const bar=makeToolbar({query:state,sort:true,count:cards.length+' 筆'+cfg.label});
+      bar.classList.add('ux-card-toolbar');container.parentElement?.insertBefore(bar,container);
+      const q=bar.querySelector('.ux-query'),sort=bar.querySelector('.ux-sort');
+      for(const card of cards){
+        const head=card.querySelector(cfg.head);if(!head)continue;
+        const btn=document.createElement('button');btn.type='button';btn.className='small ux-toggle-card';btn.textContent='收合';
+        btn.onclick=e=>{e.preventDefault();e.stopPropagation();card.classList.toggle('ux-card-collapsed');btn.textContent=card.classList.contains('ux-card-collapsed')?'展開':'收合';};
+        head.appendChild(btn);
+      }
+      const apply=()=>{
+        uxState.cards[cfg.key]=q.value;const needle=q.value.trim().toLocaleLowerCase(),visible=[];
+        cards.forEach(card=>{const show=!needle||textOf(card).includes(needle);card.hidden=!show;if(show)visible.push(card);});
+        const order=[...visible];if(sort.value!=='original')order.sort((a,b)=>natural(textOf(a.querySelector(cfg.head)),textOf(b.querySelector(cfg.head)))*(sort.value==='za'?-1:1));
+        order.forEach(card=>container.appendChild(card));bar.querySelector('.ux-count').textContent=visible.length+' / '+cards.length+' 筆';
+      };
+      q.oninput=apply;sort.onchange=apply;
+      bar.querySelector('.ux-expand').onclick=()=>cards.filter(x=>!x.hidden).forEach(card=>{card.classList.remove('ux-card-collapsed');const b=card.querySelector('.ux-toggle-card');if(b)b.textContent='收合';});
+      bar.querySelector('.ux-collapse').onclick=()=>cards.forEach(card=>{card.classList.add('ux-card-collapsed');const b=card.querySelector('.ux-toggle-card');if(b)b.textContent='展開';});
+      apply();
+    }
+  }
+  function enhance(){
+    enhanceList();enhanceTree();enhanceCards();
+  }
+  const baseRender=render;
+  render=function(){const out=baseRender();queueMicrotask(enhance);return out;};
+  queueMicrotask(enhance);
+})();
+</script>
+
 </html>
