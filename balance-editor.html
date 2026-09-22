@@ -165,6 +165,7 @@ const SECTION_META = [
   ["skills","技能"],
   ["equipment","裝備"],
   ["items","商店道具"],
+  ["damageFormula","傷害公式"],
   ["balanceSettings","平衡設定"],
   ["balance","詞條／元素設定"],
   ["raw","原始 JSON"]
@@ -177,7 +178,7 @@ const SUPPORT_TARGETS = ["allies","enemy","enemies","weakest"];
 const SUPPORT_KINDS = ["attack","critical","fracture","guard","power","regen","vulnerable","weaken"];
 const ITEM_TYPES = ["imbue","ward","elementTonic"];
 const SLOT_NAMES = ["武器","護甲","副手／飾品"];
-const EXCLUSIVE_KEYS = ["gearAtkPct","gearHpPct","gearDefPct","attackPct","crit","critDamage","pierce","lifesteal","evasion","elementBonus"];
+const EXCLUSIVE_KEYS = ["gearAtkPct","gearHpPct","gearDefPct","attackPct","crit","critDamage","pierce","defenseIgnore","lifesteal","evasion","elementBonus"];
 const EXPECTED_CLASS_COUNT = 4;
 const EXPECTED_SUPPORT_PER_CLASS = 3;
 const EXPECTED_ITEM_COUNT = 15;
@@ -201,7 +202,7 @@ const ITEM_TYPE_LABELS={imbue:"武器屬性附魔",ward:"屬性抗性藥水",ele
 const QUALITY_LABELS={normal:"普通",fine:"精良",rare:"稀有",legendary:"傳說"};
 const EXCLUSIVE_LABELS={
   gearAtkPct:"此裝備基礎攻擊 %", gearHpPct:"此裝備基礎生命 %", gearDefPct:"此裝備基礎防禦 %",
-  attackPct:"角色總攻擊力 %", crit:"暴擊率 %", critDamage:"暴擊傷害 %", pierce:"防禦穿透 %",
+  attackPct:"角色總攻擊力 %", crit:"暴擊率 %", critDamage:"暴擊傷害 %", pierce:"防禦穿透（固定）", defenseIgnore:"防禦無視 %",
   lifesteal:"生命竊取 %", evasion:"閃避率 %", elementBonus:"全元素傷害 %"
 };
 const EXCLUSIVE_HELP={
@@ -211,7 +212,8 @@ const EXCLUSIVE_HELP={
   attackPct:"所有裝備與固定攻擊加總後，再乘算角色總攻擊力；多個來源先相加百分比。",
   crit:"直接增加最終暴擊率，最後受 balance.combat.statCaps.crit 上限限制。",
   critDamage:"加在基礎 150% 暴擊傷害上，目前沒有獨立上限。",
-  pierce:"降低敵人計算傷害時使用的防禦，最後受穿透上限限制。",
+  pierce:"最後直接扣除敵人的固定防禦值；百分比防禦無視會先計算。",
+  defenseIgnore:"按百分比降低敵人剩餘防禦；先於固定防禦穿透計算。",
   lifesteal:"依實際造成傷害回復本人生命，最後受吸血上限限制。",
   evasion:"敵方普攻命中前判定閃避，最後受閃避上限限制。",
   elementBonus:"增加火／冰／風／光／暗傷害；無屬性 physical 不吃此加成。"
@@ -451,7 +453,8 @@ function balanceMeta(path){
     "balance.combat.elementMultipliers.strong":["剋制傷害倍率","火→風、風→冰、冰→火，以及光暗互剋時，攻方剋制守方使用。"],
     "balance.combat.elementMultipliers.weak":["被剋制傷害倍率","攻方屬性被守方剋制時使用。"],
     "balance.combat.statCaps.crit":["最終暴擊率上限","角色裝備、輔助技能等加總後的暴擊率上限；目前 procChance() 也共用這個值作為觸發技能機率上限。0.85 = 85%。"],
-    "balance.combat.statCaps.pierce":["最終防禦穿透上限","0.65 = 最多穿透 65% 防禦。"],
+    "balance.combat.statCaps.pierce":["固定防禦穿透上限","最終直接扣除的固定防禦值上限。"],
+    "balance.combat.statCaps.defenseIgnore":["防禦無視上限","百分比防禦無視上限；0.75 = 最多無視 75% 防禦。"],
     "balance.combat.statCaps.evasion":["最終閃避率上限","0.45 = 最多 45% 閃避率。"],
     "balance.combat.statCaps.lifesteal":["最終生命竊取上限","0.25 = 最多依實際傷害吸取 25% 生命。"],
     "balance.combat.minimumActiveCooldown":["主動技能最低冷卻","技能原始冷卻扣除寶石與冷卻詞條後，不能低於此回合數。"],
@@ -871,7 +874,7 @@ function renderExclusiveRows(e){
   host.innerHTML=Object.entries(e.exclusive).map(([k,v],i)=>`<div class="kvrow" data-row="${i}">
     <select class="ex-key">${[...new Set([...EXCLUSIVE_KEYS,k])].map(x=>`<option value="${esc(x)}" ${x===k?"selected":""}>${esc(EXCLUSIVE_LABELS[x]||x)}</option>`).join("")}</select>
     <input class="ex-val" type="number" min="-100" max="500" step="0.01" value="${esc(v)}">
-    <span class="pill">%</span><button class="small danger ex-del">×</button>
+    <span class="pill">${k==="pierce"?"固定":"%"}</span><button class="small danger ex-del">×</button>
     <div class="field-help" style="grid-column:1/-1">${esc(EXCLUSIVE_HELP[k]||"")} <span class="field-key">JSON：${esc(k)}</span></div>
   </div>`).join("") || `<div class="mini-note" style="margin-bottom:8px">尚無專屬固定屬性。</div>`;
   [...host.querySelectorAll(".kvrow")].forEach((row,i)=>{
@@ -1163,7 +1166,7 @@ function validateData(){
     if(vals.some(v=>v<0||v>1)||Math.abs(sum-1)>1e-9)issues.push(`詞條品質機率四項必須介於 0~1 且合計 1；目前合計 ${sum}。`);
   }
   for(const k of ["skillSpecialChance","skillEffectShare","extendedPoolChance"]){const v=data.balance?.affixes?.[k];if(Number.isFinite(v)&&(v<0||v>1))issues.push(`${k} 必須介於 0~1。`);}
-  const caps=data.balance?.combat?.statCaps||{};for(const [k,v] of Object.entries(caps))if(!Number.isFinite(v)||v<0||v>1)issues.push(`最終上限 ${k} 必須介於 0~1。`);
+  const caps=data.balance?.combat?.statCaps||{};for(const [k,v] of Object.entries(caps)){const max=k==="pierce"?10000:1;if(!Number.isFinite(v)||v<0||v>max)issues.push(`最終上限 ${k} 必須介於 0~${max}。`);}
   return issues;
 }
 
@@ -2022,6 +2025,206 @@ ensureArrays();render();
 
 
 
+
+<script id="numeric-compression-editor-v1">
+(()=>{
+  const VERSION=1;
+  const ITEM_STATS=[
+    ['hp','生命（固定）','固定增加最大生命。'],
+    ['attack','攻擊（固定）','固定增加角色攻擊力。'],
+    ['defense','防禦（固定）','固定增加角色防禦力。'],
+    ['attackPct','總攻擊 %','在固定攻擊加總後乘算。'],
+    ['critRate','暴擊率 %','直接增加角色暴擊率百分點。'],
+    ['critDamage','暴擊傷害 %','增加角色暴擊傷害百分點。'],
+    ['defensePenetration','防禦穿透（固定）','百分比防禦無視後，再直接扣除此固定防禦值。'],
+    ['defenseIgnore','防禦無視 %','先按百分比降低敵人防禦，再計算固定防禦穿透。'],
+    ['lifesteal','生命竊取 %','依實際傷害回復生命。'],
+    ['evasion','閃避率 %','增加閃避率百分點。'],
+    ['elementBonus','全屬性增傷 %','增加非 physical 的元素傷害。'],
+    ['bossDamage','BOSS 傷害 %','對 BOSS／最終首領增傷。'],
+    ['speed','速度（固定）','固定增加行動速度。']
+  ];
+
+  function ensureCompressionSettings(s){
+    if(!s||typeof s!=="object")return;
+    s.meta??={};s.meta.numericCompressionVersion=VERSION;
+    s.progression??={};s.progression.statsPerLevel??={};s.progression.statsPerPoint??={};s.progression.advance??={};
+    Object.assign(s.progression.statsPerLevel,{hp:.9,attack:.18,defense:.1});
+    Object.assign(s.progression.statsPerPoint,{hp:.55,attack:.1,defense:.06});
+    Object.assign(s.progression.advance,{hpMultiplier:1.12,attackMultiplier:1.15,defenseMultiplier:1.12});
+    s.skills??={};s.skills.core??={};s.skills.gems??={};s.skills.core.effectPerExtraLevel=.18;
+    Object.assign(s.skills.gems,{effectMultiplier:1.10,hybridMultiplier:1.05,hybridActiveHealAttack:.10});
+    s.equipment??={};s.equipment.baseStats??={};s.equipment.enhance??={};s.equipment.boss??={};s.equipment.difficultyAffix??={};
+    Object.assign(s.equipment.baseStats,{weaponAttackPerTier:.7,armorHpPerTier:2.2,armorDefensePerTier:.45,accessoryAttackPerTier:.3,accessoryHpPerTier:.8});
+    s.equipment.enhance.statPerLevel=.06;s.equipment.boss.powerByDifficulty=[1,1.15,1.3];
+    Object.assign(s.equipment.difficultyAffix,{baseAttackPerTier:.6,baseHpPerTier:2.2,defenseBasePerTier:.5,defensePerRankPerTier:.2,critBase:2,critPerRank:2});
+    s.monsters??={};s.monsters.normal??={};s.monsters.kindMultipliers??={};s.monsters.finalBoss??={};s.monsters.awakened??={};
+    Object.assign(s.monsters.normal,{hpBase:4,hpPerLevel:3,hpQuadratic:.08,attackBase:1.6,attackPerLevel:.55,defensePerLevel:.55});
+    Object.assign(s.monsters.kindMultipliers,{bossHp:2.4,eliteHp:1.45,bossAttack:1.3,eliteAttack:1.15,eliteDefense:1.1,bossDefense:1.2});
+    Object.assign(s.monsters.finalBoss,{level:40,hp:7800,attack:48,defense:30});
+    Object.assign(s.monsters.awakened,{threshold:30,hpBaseMultiplier:1.5,hpPerLevel:.04,attackBaseMultiplier:1.4,attackPerLevel:.03,defenseMultiplier:1.25});
+    if(Array.isArray(s.difficulty?.modes)&&s.difficulty.modes.length>=3){
+      Object.assign(s.difficulty.modes[0],{hp:1,attack:1,defense:1});
+      Object.assign(s.difficulty.modes[1],{hp:1.55,attack:1.25,defense:1.15});
+      Object.assign(s.difficulty.modes[2],{hp:2.25,attack:1.55,defense:1.3});
+    }
+    s.combat??={};s.combat.damageFormula??={};Object.assign(s.combat.damageFormula,{attackCoefficient:1,defenseCoefficient:.55,minimumDamage:1});s.combat.defenseEffectiveness=s.combat.damageFormula.defenseCoefficient;
+  }
+  function ensureCompressionBalance(b){
+    if(!b||typeof b!=="object")return;
+    b.combat??={};b.combat.statCaps??={};Object.assign(b.combat.statCaps,{crit:.75,pierce:30,defenseIgnore:.75,evasion:.35,lifesteal:.2});
+    b.affixes??={};b.affixes.extendedValues??={};
+    b.affixes.extendedValues.defenseIgnore??={normal:0,fine:4,rare:8,legendary:12};
+    if(b.affixes.extendedValues.pierce)Object.assign(b.affixes.extendedValues.pierce,{normal:1,fine:2,rare:4,legendary:6});
+    if(b.affixes.extendedValues.critDamage)Object.assign(b.affixes.extendedValues.critDamage,{normal:4,fine:8,rare:12,legendary:16});
+    if(b.affixes.extendedValues.attackPercent)Object.assign(b.affixes.extendedValues.attackPercent,{normal:0,fine:0,rare:2,legendary:4});
+    if(b.affixes.baseValues){
+      if(b.affixes.baseValues.attackPerTier)Object.assign(b.affixes.baseValues.attackPerTier,{min:0,max:1});
+      if(b.affixes.baseValues.hpPerTier)Object.assign(b.affixes.baseValues.hpPerTier,{min:1,max:3});
+      if(b.affixes.baseValues.defensePerTier)Object.assign(b.affixes.baseValues.defensePerTier,{min:0,max:1});
+      if(b.affixes.baseValues.critPercent)Object.assign(b.affixes.baseValues.critPercent,{min:2,max:4,cap:12});
+    }
+  }
+  function normalizeSkill(sk){
+    sk.baseCritRate=Number.isFinite(Number(sk.baseCritRate))?Math.max(0,Math.min(1,Number(sk.baseCritRate))):0;
+    sk.baseCritDamage=Number.isFinite(Number(sk.baseCritDamage))?Math.max(1,Number(sk.baseCritDamage)):1.5;
+    sk.defensePenetration=Number.isFinite(Number(sk.defensePenetration))?Math.max(0,Number(sk.defensePenetration)):0;
+    sk.defenseIgnore=Number.isFinite(Number(sk.defenseIgnore))?Math.max(0,Math.min(1,Number(sk.defenseIgnore))):0;
+  }
+  function normalizeItem(item){
+    item.statEffects=item.statEffects&&typeof item.statEffects==="object"&&!Array.isArray(item.statEffects)?item.statEffects:{};
+    for(const [key] of ITEM_STATS){const n=Number(item.statEffects[key]);if(!Number.isFinite(n)||n===0)delete item.statEffects[key];else item.statEffects[key]=n;}
+  }
+  function migrateData(){
+    ensureArrays();
+    const fresh=(data.balanceSettings?.meta?.numericCompressionVersion||0)<VERSION;
+    data.balanceSettings??={};data.balance??={};
+    if(fresh){
+      ensureCompressionSettings(data.balanceSettings);ensureCompressionBalance(data.balance);
+      const bases=[[15,3,2],[10,4,1],[11,4,1],[12,3,2]],powers=[[1.35,.9,.65,.4,2.05,.8],[1.55,.9,.8,.45,2.6,1.15],[1.45,.8,.75,.95,2.15,.55],[1.4,1,.7,.65,2,.9]];
+      data.classes.forEach((cls,job)=>{const v=bases[job]||[12,3,1];cls.hp=v[0];cls.atk=v[1];cls.def=v[2];(cls.skills||[]).forEach((sk,i)=>{if(Number.isFinite(powers[job]?.[i]))sk.power=powers[job][i];});});
+      if(data.equipmentPowerSystem?.strength?.multipliers)data.equipmentPowerSystem.strength.multipliers=[1,1.04,1.08,1.12,1.16,1.20,1.24,1.28,1.32,1.36];
+      for(const list of [data.equipmentPowerSystem?.prefixes,data.equipmentPowerSystem?.suffixes])for(const x of list||[])if(x?.effect?.key==="pierce")x.effect.value=Math.max(1,Number((Number(x.effect.value||0)*.6).toFixed(2)));
+      for(const x of data.equipmentPowerSystem?.bossAffixes||[])for(const e of x.effects||[])if(e?.key==="pierce")e.value=Math.max(1,Number((Number(e.value||0)*.6).toFixed(2)));
+    }else{
+      data.balanceSettings.meta??={};data.balanceSettings.meta.numericCompressionVersion=VERSION;
+      data.balanceSettings.combat??={};data.balanceSettings.combat.damageFormula??={attackCoefficient:1,defenseCoefficient:.55,minimumDamage:1};
+      data.balance.combat??={};data.balance.combat.statCaps??={};data.balance.combat.statCaps.defenseIgnore??=.75;
+      data.balance.affixes??={};data.balance.affixes.extendedValues??={};data.balance.affixes.extendedValues.defenseIgnore??={normal:0,fine:4,rare:8,legendary:12};
+    }
+    data.classes.forEach(c=>(c.skills||[]).forEach(normalizeSkill));
+    for(const item of data.items||[])normalizeItem(item);
+    return fresh;
+  }
+  ensureCompressionSettings(BALANCE_SETTINGS_DEFAULTS);
+  EXCLUSIVE_LABELS.defenseIgnore="防禦無視 %";EXCLUSIVE_HELP.defenseIgnore="按百分比降低敵人防禦，先計算防禦無視，再扣固定防禦穿透。";
+  if(!EXCLUSIVE_KEYS.includes("defenseIgnore"))EXCLUSIVE_KEYS.push("defenseIgnore");
+
+  const compressionSettingMetaBase=settingMeta;
+  settingMeta=function(path){
+    const p=path.replace(/^balanceSettings\./,"");
+    const special={
+      "combat.damageFormula.attackCoefficient":{label:"攻擊係數",help:"攻擊量先乘此係數。1 = 不變。"},
+      "combat.damageFormula.defenseCoefficient":{label:"防禦係數",help:"完成防禦降低、百分比無視與固定穿透後，剩餘防禦乘此係數再從攻擊量扣除。"},
+      "combat.damageFormula.minimumDamage":{label:"最低傷害",help:"最終傷害在屬性、種族等倍率前後皆不低於此值。"}
+    };
+    return special[p]||compressionSettingMetaBase(path);
+  };
+  const compressionBalanceMetaBase=balanceMeta;
+  balanceMeta=function(path){
+    if(path==="balance.combat.statCaps.pierce")return {label:"固定防禦穿透上限",help:"固定扣除防禦力的上限，例如 30 代表最多穿透 30 點防禦。"};
+    if(path==="balance.combat.statCaps.defenseIgnore")return {label:"百分比防禦無視上限",help:"0~1 小數；0.75 = 最多無視 75% 防禦。此步驟先於固定防禦穿透。"};
+    if(/^balance\.affixes\.extendedValues\.defenseIgnore\./.test(path))return {label:"防禦無視詞條 %",help:"此品質隨機詞條提供的防禦無視百分點。"};
+    if(/^balance\.affixes\.extendedValues\.pierce\./.test(path))return {label:"固定防禦穿透詞條",help:"此品質隨機詞條提供的固定防禦穿透點數。"};
+    return compressionBalanceMetaBase(path);
+  };
+
+  function renderDamageFormula(){
+    const s=data.balanceSettings,b=data.balance;s.combat??={};s.combat.damageFormula??={attackCoefficient:1,defenseCoefficient:.55,minimumDamage:1};b.combat??={};b.combat.statCaps??={defenseIgnore:.75,pierce:30};
+    const f=s.combat.damageFormula,caps=b.combat.statCaps;
+    document.getElementById("app").innerHTML=
+      sectionHead("傷害公式","集中調整攻防公式與暴擊／防禦相關上限。")+
+      '<div class="notice"><b>計算順序：</b>攻擊量 → 敵方防禦降低（破甲） → <b>百分比防禦無視</b> → <b>固定防禦穿透</b> → 防禦係數 → 暴擊 → 屬性／種族／承傷倍率。防禦無視一定先於防禦穿透。</div>'+
+      card("核心公式",'<div class="fields">'+
+        inputField("攻擊係數","attackCoefficient",f.attackCoefficient,"number","min=0 step=0.01",false,"攻擊量乘數。")+
+        inputField("防禦係數","defenseCoefficient",f.defenseCoefficient,"number","min=0 step=0.01",false,"有效防禦乘此值後從攻擊量扣除。")+
+        inputField("最低傷害","minimumDamage",f.minimumDamage,"number","min=0 step=0.01",false,"至少造成的傷害。")+
+        inputField("全域基礎暴擊傷害","baseCritDamage",s.combat.baseCritDamage??1.5,"number","min=1 step=0.01",false,"1.5 = 150%；技能可以另外設定自身基礎暴傷。")+
+      '</div><p class="mini-note">有效防禦 = max(0, 敵方防禦 × (1 − 破甲) × (1 − 防禦無視) − 固定防禦穿透)<br>基礎傷害 = max(最低傷害, 攻擊量 × 攻擊係數 − 有效防禦 × 防禦係數)</p>')+
+      card("戰鬥上限",'<div class="fields">'+
+        inputField("暴擊率上限","crit",caps.crit??.75,"number","min=0 max=1 step=0.01",false,"0.75 = 75%。")+
+        inputField("固定防禦穿透上限","pierce",caps.pierce??30,"number","min=0 step=1",false,"單位為固定防禦點數。")+
+        inputField("防禦無視上限","defenseIgnore",caps.defenseIgnore??.75,"number","min=0 max=1 step=0.01",false,"0.75 = 75%。")+
+        inputField("閃避率上限","evasion",caps.evasion??.35,"number","min=0 max=1 step=0.01",false,"0.35 = 35%。")+
+        inputField("生命竊取上限","lifesteal",caps.lifesteal??.2,"number","min=0 max=1 step=0.01",false,"0.2 = 20%。")+
+      '</div>');
+    const app=document.getElementById("app");
+    app.querySelectorAll('[data-key]').forEach(el=>el.onchange=()=>{
+      const key=el.dataset.key,value=Number(el.value);
+      if(["attackCoefficient","defenseCoefficient","minimumDamage"].includes(key))f[key]=value;
+      else if(key==="baseCritDamage")s.combat.baseCritDamage=value;
+      else caps[key]=value;
+      markDirty();render();
+    });
+  }
+
+  const compressionRenderSkillsBase=renderSkills;
+  renderSkills=function(){
+    compressionRenderSkillsBase();
+    if(selected.skillTab==="support")return;
+    const cls=data.classes[selected.skillClass],sk=cls?.skills?.[selected.skill];if(!sk)return;normalizeSkill(sk);
+    const app=document.getElementById("app");
+    app.insertAdjacentHTML("beforeend",card("技能個別戰鬥判定",'<div class="fields">'+
+      inputField("技能基礎暴擊率","baseCritRate",sk.baseCritRate,"number","min=0 max=1 step=0.001",false,"額外疊加在角色暴擊率上；0.05 = +5 個百分點。")+
+      inputField("技能基礎暴擊傷害","baseCritDamage",sk.baseCritDamage,"number","min=1 step=0.01",false,"技能自身的基礎暴傷；1.5 = 150%。角色裝備增加的暴傷仍會疊加。")+
+      inputField("技能固定防禦穿透","defensePenetration",sk.defensePenetration,"number","min=0 step=0.1",false,"加在角色／裝備固定防禦穿透上。")+
+      inputField("技能防禦無視","defenseIgnore",sk.defenseIgnore,"number","min=0 max=1 step=0.001",false,"額外百分比防禦無視；0.1 = 10%。先算無視，再算固定穿透。")+
+    '</div>'));
+    const box=app.lastElementChild;
+    box.querySelectorAll("[data-key]").forEach(el=>el.onchange=()=>{sk[el.dataset.key]=Number(el.value);normalizeSkill(sk);markDirty();render();});
+  };
+
+  const compressionRenderItemsBase=renderItems;
+  renderItems=function(){
+    compressionRenderItemsBase();
+    const item=data.items?.[selected.item];if(!item)return;normalizeItem(item);
+    const app=document.getElementById("app");
+    const fields=ITEM_STATS.map(([key,label,help])=>inputField(label,key,item.statEffects[key]??0,"number","step=0.01",false,help)).join("");
+    app.insertAdjacentHTML("beforeend",card("暫時能力效果",'<p class="mini-note">以下能力在道具原本的持續回合內套用到使用者。填 0 代表不提供該效果；同類道具覆蓋時會一併覆蓋。</p><div class="fields">'+fields+'</div>'));
+    const box=app.lastElementChild;
+    box.querySelectorAll("[data-key]").forEach(el=>el.onchange=()=>{const key=el.dataset.key,n=Number(el.value);if(!Number.isFinite(n)||n===0)delete item.statEffects[key];else item.statEffects[key]=n;markDirty();render();});
+    const head=app.querySelector(".section-head p");if(head)head.textContent="元素補給品可同時設定價格、持續回合與暫時主屬性／衍生副屬性效果。";
+    const notice=app.querySelector(".notice");if(notice)notice.innerHTML="<b>效果組成：</b>既有附魔／抗性／元素增幅效果仍保留；下方可額外設定固定生命、攻防、暴率、暴傷、防穿、防無等暫時能力。";
+  };
+
+  const compressionValidateDataBase=validateData;
+  validateData=function(){
+    let issues=compressionValidateDataBase().filter(x=>!/^最終上限 pierce 必須介於 0~1/.test(x));
+    const caps=data.balance?.combat?.statCaps||{};
+    if(!Number.isFinite(caps.pierce)||caps.pierce<0)issues.push("固定防禦穿透上限必須為非負有限數。");
+    if(!Number.isFinite(caps.defenseIgnore)||caps.defenseIgnore<0||caps.defenseIgnore>1)issues.push("防禦無視上限必須介於 0~1。");
+    for(const [job,c] of (data.classes||[]).entries())for(const [i,sk] of (c.skills||[]).entries()){
+      if(!Number.isFinite(sk.baseCritRate)||sk.baseCritRate<0||sk.baseCritRate>1)issues.push("技能 "+job+"-"+i+" 基礎暴擊率必須介於 0~1。");
+      if(!Number.isFinite(sk.baseCritDamage)||sk.baseCritDamage<1)issues.push("技能 "+job+"-"+i+" 基礎暴擊傷害必須至少 1。");
+      if(!Number.isFinite(sk.defensePenetration)||sk.defensePenetration<0)issues.push("技能 "+job+"-"+i+" 固定防禦穿透必須為非負數。");
+      if(!Number.isFinite(sk.defenseIgnore)||sk.defenseIgnore<0||sk.defenseIgnore>1)issues.push("技能 "+job+"-"+i+" 防禦無視必須介於 0~1。");
+    }
+    for(const item of data.items||[]){normalizeItem(item);for(const [k,v] of Object.entries(item.statEffects))if(!Number.isFinite(v))issues.push("道具 "+item.id+" 的暫時能力 "+k+" 無效。");}
+    return [...new Set(issues)];
+  };
+
+  const compressionRenderBase=render;
+  render=function(){
+    const migrated=migrateData();if(migrated)dirty=true;
+    if(currentSection==="damageFormula"){renderNav(true);renderDamageFormula();return;}
+    return compressionRenderBase();
+  };
+
+  migrateData();
+  render();
+})();
+</script>
+
 </body>
 
 <script id="verified-balance-contract-editor-filter">
@@ -2093,12 +2296,12 @@ ensureArrays();render();
 (()=>{
   const POWER_ITEM_TYPE='gearTierReroll',POWER_ITEM_ID='power_tier_reroll';
   const VALID_ELEMENTS=['fire','ice','wind','light','shadow'];
-  const REGULAR_EFFECT_KEYS=['basicElement','basicAdvanceNextRound','attackPct','crit','critDamage','pierce','lifesteal','evasion','elementBonus','allCooldownReduction','dropRateBonus'];
-  const BASE_EFFECT_KEYS=['gearAtkPct','gearHpPct','gearDefPct','attackPct','crit','critDamage','pierce','lifesteal','evasion','elementBonus'];
+  const REGULAR_EFFECT_KEYS=['basicElement','basicAdvanceNextRound','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','allCooldownReduction','dropRateBonus'];
+  const BASE_EFFECT_KEYS=['gearAtkPct','gearHpPct','gearDefPct','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus'];
   const BOSS_EFFECT_KEYS=[...new Set([...REGULAR_EFFECT_KEYS,...BASE_EFFECT_KEYS,'bossDamagePct'])];
   const EFFECT_LABELS={
     basicElement:'普通攻擊屬性',basicAdvanceNextRound:'普攻後下回合前移',gearAtkPct:'此裝備基礎攻擊 %',gearHpPct:'此裝備基礎生命 %',gearDefPct:'此裝備基礎防禦 %',
-    attackPct:'角色攻擊力 %',crit:'暴擊率 %',critDamage:'暴擊傷害 %',pierce:'防禦穿透 %',lifesteal:'生命竊取 %',evasion:'閃避率 %',elementBonus:'全屬性增傷 %',
+    attackPct:'角色攻擊力 %',crit:'暴擊率 %',critDamage:'暴擊傷害 %',pierce:'防禦穿透（固定）',defenseIgnore:'防禦無視 %',lifesteal:'生命竊取 %',evasion:'閃避率 %',elementBonus:'全屬性增傷 %',
     allCooldownReduction:'全主動／輔助技能冷卻（回合）',dropRateBonus:'掉寶率 %',bossDamagePct:'對 BOSS 傷害 %'
   };
   const LEGACY_BOSS_SERIES=['古木誓約','礦脈共鳴','暮沼咒印','永凍之誓','熔核意志','隕星遺產'];
@@ -2172,7 +2375,7 @@ ensureArrays();render();
   const identityViewState={prefix:{query:'',slot:'all',tier:'all',sort:'name'},suffix:{query:'',slot:'all',tier:'all',sort:'name'}};
   function effectOptions(keys,current){return keys.map(key=>'<option value="'+key+'" '+(current===key?'selected':'')+'>'+esc(EFFECT_LABELS[key]||key)+'</option>').join('');}
   function effectValueControl(effect,cls,attrs=''){if(effect.key==='basicElement')return '<select class="'+cls+'" '+attrs+'>'+VALID_ELEMENTS.map(x=>'<option value="'+x+'" '+(effect.value===x?'selected':'')+'>'+x+'</option>').join('')+'</select>';const step=['basicAdvanceNextRound','allCooldownReduction'].includes(effect.key)?'1':'0.01';return '<input class="'+cls+'" '+attrs+' type="number" step="'+step+'" value="'+effect.value+'">';}
-  function defaultValueForKey(key){if(key==='basicElement')return 'fire';if(key==='basicAdvanceNextRound'||key==='allCooldownReduction')return 1;if(key==='lifesteal')return 3;if(key==='crit'||key==='attackPct'||key==='evasion')return 5;if(key==='bossDamagePct')return 10;return 8;}
+  function defaultValueForKey(key){if(key==='basicElement')return 'fire';if(key==='basicAdvanceNextRound'||key==='allCooldownReduction')return 1;if(key==='pierce')return 3;if(key==='defenseIgnore')return 5;if(key==='lifesteal')return 3;if(key==='crit'||key==='attackPct'||key==='evasion')return 5;if(key==='bossDamagePct')return 10;return 8;}
   function slotChecks(x,prefix,i){return '<div class="identity-slots">'+['武器','護甲','飾品'].map((name,slot)=>'<label><input type="checkbox" class="'+prefix+'-slot" data-i="'+i+'" data-slot="'+slot+'" '+(x.slots.includes(slot)?'checked':'')+'>'+name+'</label>').join('')+'</div>';}
   function affixTierChanceInputs(x,i,cls){return '<div class="affix-tier-chances">'+Array.from({length:10},(_,t)=>{const tier=t+1,active=tier>=x.tierMin&&tier<=x.tierMax;return '<label class="'+(active?'':'inactive')+'">T'+tier+' (%)<input class="'+cls+'-tier-chance" data-i="'+i+'" data-tier="'+tier+'" type="number" min="0" max="100" step="0.01" value="'+affixChanceText(affixChanceAtTier(x,tier))+'" '+(active?'':'disabled')+'></label>';}).join('')+'</div>';}
   function affixSummary(x){const slots=x.slots.map(s=>IDENTITY_SLOT_NAMES[s]).join('、'),effect=EFFECT_LABELS[x.effect.key]||x.effect.key;return '<span><span class="identity-affix-summary-name">'+esc(x.name)+'</span><span class="identity-affix-summary-id"> · '+esc(x.id)+'</span></span><span class="identity-affix-summary-meta">T'+x.tierMin+'～T'+x.tierMax+'</span><span class="identity-affix-summary-meta">'+esc(slots)+'</span><span class="identity-affix-summary-effect">'+esc(effect)+'</span>'; }
