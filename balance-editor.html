@@ -1245,7 +1245,7 @@ const uiTextEnsureArraysBase=ensureArrays;
 ensureArrays=function(){uiTextEnsureArraysBase();data.uiText=normalizeEditorUIText(data.uiText);};
 if(!SECTION_META.some(([id])=>id==='uiText')){const i=SECTION_META.findIndex(([id])=>id==='balanceSettings');SECTION_META.splice(i<0?SECTION_META.length:i,0,['uiText','介面文字']);}
 const uiTextCountBase=count;
-count=function(section){if(section==='uiText')return Object.keys(UI_TEXT_DEFAULTS).length;return uiTextCountBase(section);};
+count=function(section,normalized=false){if(section==='uiText')return Object.keys(UI_TEXT_DEFAULTS).length;return uiTextCountBase(section,normalized);};
 function renderUIText(){
   ensureArrays();const u=data.uiText;
   document.getElementById('app').innerHTML=sectionHead('介面文字','修改遊戲頁首與建立角色主畫面的固定文案。這些欄位只改顯示文字，不改遊戲規則。','<button id="resetUIText">恢復預設文字</button>')+
@@ -1433,7 +1433,7 @@ ensureArrays();render();
     if(!data.balanceSettings.maps.catalog.some(m=>m.progressionGate)&&data.balanceSettings.maps.catalog[LEGACY_GATE_INDEX]?.mapType==='final')data.balanceSettings.maps.catalog[LEGACY_GATE_INDEX].progressionGate=true;
     data.balanceSettings.maps.levelRanges=data.balanceSettings.maps.catalog.map(m=>({min:m.min,max:m.max}));data.balanceSettings.monsters.catalog=(data.balanceSettings.monsters.catalog||[]).map(m=>normalizeMonsterEditorRow(m));MAP_NAMES.splice(0,MAP_NAMES.length,...data.balanceSettings.maps.catalog.map(m=>m.name));selected.worldMap=Math.max(0,Math.min(selected.worldMap,Math.max(0,data.balanceSettings.maps.catalog.length-1)));
   };
-  const worldCountBase=count;count=function(section){if(section==='world'){ensureArrays();return `${data.balanceSettings.maps.catalog.length}/${data.balanceSettings.monsters.catalog.length}`;}return worldCountBase(section);};
+  const worldCountBase=count;count=function(section,normalized=false){if(section==='world'){if(!normalized)ensureArrays();return `${data.balanceSettings.maps.catalog.length}/${data.balanceSettings.monsters.catalog.length}`;}return worldCountBase(section,normalized);};
   monsterOptions=function(selectedIds){ensureArrays();return data.balanceSettings.monsters.catalog.map(m=>`<option value="${esc(m.id)}" ${selectedIds?.includes(m.id)?'selected':''}>${esc(MAP_NAMES[m.mapIndex]||('地圖 '+(m.mapIndex+1)))}｜${esc(m.name)}｜${esc(m.id)}</option>`).join('');};
 
   function uniqueId(prefix,rows){const ids=new Set(rows.map(x=>x.id));let n=rows.length+1,id=prefix+n;while(ids.has(id))id=prefix+(++n);return id;}
@@ -1677,7 +1677,7 @@ ensureArrays();render();
   if(!SECTION_META.some(x=>x[0]==='potions')){const i=SECTION_META.findIndex(x=>x[0]==='balanceSettings');SECTION_META.splice(i<0?SECTION_META.length:i,0,['potions','治療藥水']);}
 
   const baseCount=count;
-  count=function(section){if(section==='items'){ensureArrays();return data.items.filter(x=>!isHeal(x)).length;}if(section==='potions'){ensureArrays();return data.items.filter(isHeal).length;}return baseCount(section);};
+  count=function(section,normalized=false){if(section==='items'){if(!normalized)ensureArrays();return data.items.filter(x=>!isHeal(x)).length;}if(section==='potions'){if(!normalized)ensureArrays();return data.items.filter(isHeal).length;}return baseCount(section,normalized);};
 
   const baseValidate=validateData;
   validateData=function(){
@@ -1758,7 +1758,7 @@ ensureArrays();render();
   }
   const baseEnsure=ensureArrays;ensureArrays=function(){const out=baseEnsure();ensureShopSettings();return out;};ensureShopSettings();
   if(!SECTION_META.some(x=>x[0]==='shopSettings')){const i=SECTION_META.findIndex(x=>x[0]==='items');SECTION_META.splice(i<0?SECTION_META.length:i,0,['shopSettings','商店設定']);}
-  const baseCount=count;count=function(section){if(section==='shopSettings'){ensureShopSettings();return data.shopSettings.randomOffers.entries.length+(data.items||[]).filter(x=>x.shopEnabled!==false).length;}return baseCount(section);};
+  const baseCount=count;count=function(section,normalized=false){if(section==='shopSettings'){if(!normalized)ensureShopSettings();return data.shopSettings.randomOffers.entries.length+(data.items||[]).filter(x=>x.shopEnabled!==false).length;}return baseCount(section,normalized);};
 
   function uniqueRuleId(){const used=new Set(data.shopSettings.randomOffers.entries.map(x=>x.id));let n=1,id;do{id='random_offer_'+n++;}while(used.has(id));return id;}
   globalThis.addShopRandomRule=function(){ensureShopSettings();data.shopSettings.randomOffers.entries.push(normalizeRule({id:uniqueRuleId(),enabled:true,type:'material',key:'region',name:'地區素材',description:'從目前探索區域隨機挑選素材。',quantityMin:1,quantityMax:3,unitPrice:60,weight:1,priceScalesWithTier:true},data.shopSettings.randomOffers.entries.length));markDirty('已新增隨機商品規則，尚未匯出');render();};
@@ -2023,7 +2023,7 @@ ensureArrays();render();
 
   const existingMeta=SECTION_META.find(x=>x[0]==='equipmentPower');
   if(existingMeta)existingMeta[1]='前綴／後綴／T級';else{const i=SECTION_META.findIndex(([id])=>id==='equipment');SECTION_META.splice(i<0?SECTION_META.length:i+1,0,['equipmentPower','前綴／後綴／T級']);}
-  const identityCountBase=count;count=function(section){if(section==='equipmentPower')return (data.equipmentPowerSystem?.prefixes?.length||0)+'+'+(data.equipmentPowerSystem?.suffixes?.length||0)+'+'+(data.equipmentPowerSystem?.bossAffixes?.length||0);return identityCountBase(section);};
+  const identityCountBase=count;count=function(section,normalized=false){if(section==='equipmentPower')return (data.equipmentPowerSystem?.prefixes?.length||0)+'+'+(data.equipmentPowerSystem?.suffixes?.length||0)+'+'+(data.equipmentPowerSystem?.bossAffixes?.length||0);return identityCountBase(section,normalized);};
 
   const identityViewState={prefix:{query:'',slot:'all',tier:'all',sort:'name'},suffix:{query:'',slot:'all',tier:'all',sort:'name'}};
   function effectOptions(keys,current){return keys.map(key=>'<option value="'+key+'" '+(current===key?'selected':'')+'>'+esc(EFFECT_LABELS[key]||key)+'</option>').join('');}
