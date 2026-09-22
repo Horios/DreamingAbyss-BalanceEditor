@@ -2380,9 +2380,9 @@ ensureArrays();render();
     for(const cfg of cardGroups){
       const cards=[...document.querySelectorAll(cfg.selector)];if(cards.length<2)continue;
       const container=cfg.container?document.querySelector(cfg.container):cards[0].parentElement;if(!container)continue;
-      const token='ux-'+cfg.key;if(container.dataset[token])continue;container.dataset[token]='1';
+      const token='data-ux-'+cfg.key.replace(/[A-Z]/g,m=>'-'+m.toLowerCase());if(container.hasAttribute(token))continue;container.setAttribute(token,'1');
       const state=uxState.cards[cfg.key]??'';const bar=makeToolbar({query:state,sort:true,count:cards.length+' 筆'+cfg.label});
-      bar.classList.add('ux-card-toolbar');container.parentElement?.insertBefore(bar,container);
+      bar.classList.add('ux-card-toolbar');container.insertBefore(bar,cards[0]);
       const q=bar.querySelector('.ux-query'),sort=bar.querySelector('.ux-sort');
       for(const card of cards){
         const head=card.querySelector(cfg.head);if(!head)continue;
