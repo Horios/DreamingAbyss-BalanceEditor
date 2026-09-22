@@ -699,7 +699,7 @@ function renderSkills(){
   if(!visible.some(x=>x.i===selected.skill))selected.skill=visible.length?visible[0].i:-1;
   const sk=selected.skill>=0?skills[selected.skill]:null;
   if(sk)ensureProcSkillFields(sk);
-  const prerequisiteOptions=[{value:"",label:"無前置技能"},...skills.map((x,i)=>({value:String(i),label:(x?.name||"技能 "+(i+1))+"（Lv."+((x?.requiredLevel??1))+ "）"})).filter((_,i)=>i!==selected.skill+1)];
+  const prerequisiteOptions=[{value:"",label:"無前置技能"},...skills.map((x,i)=>({value:String(i),label:(x?.name||"技能 "+(i+1))+"（Lv."+((x?.requiredLevel??1))+ "）"})).filter((_,i)=>i!==selected.skill)];
   const prerequisiteValue=Number.isInteger(sk?.prerequisiteSkill)?String(sk.prerequisiteSkill):"";
   const procOnly=sk&&PROC_ONLY_EFFECTS.has(sk.effect),effectOptions=skillMode==="proc"?EFFECTS:EFFECTS.filter(x=>!PROC_ONLY_EFFECTS.has(x));
   const effectHelp=skillMode==="proc"?"proc 可使用一般傷害／治療／護盾／吸血，或三種觸發專屬效果。觸發專屬效果不能配置給 active 技能。":"active 技能使用一般傷害／治療／護盾／吸血效果。";
