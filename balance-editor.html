@@ -3074,8 +3074,8 @@ const masteryRenderEquipmentBase=renderEquipment;renderEquipment=function(){
   document.getElementById('weaponTypeSelect').onchange=ev=>{if(ev.target.value)e.weaponType=ev.target.value;else delete e.weaponType;markDirty();};
 };
 const masteryRenderSettingsBase=renderBalanceSettings;renderBalanceSettings=function(){
-  ensureArrays();masteryRenderSettingsBase();const hidden=['balanceSettings.progression.starting.skillPoints','balanceSettings.progression.levelRewards.skillPoints','balanceSettings.quests.tutorial.skillLevelRequirement','balanceSettings.skills.core.maxLevel','balanceSettings.skills.core.initialCap','balanceSettings.skills.core.capLevelsPerStep','balanceSettings.skills.core.effectPerExtraLevel','balanceSettings.skills.proc.perSkillLevel','balanceSettings.skills.support.maxLevel','balanceSettings.skills.support.effectPerExtraLevel'];
-  const app=document.getElementById('app');for(const path of hidden)app.querySelector(`[data-path="${path}"]`)?.closest('.pathrow')?.remove();const head=app.querySelector('.section-head p');if(head)head.textContent='修改角色成長、精通 XP 曲線、裝備、掉落、販售與其他全域數值；技能點與技能等級舊欄位只保留相容資料，不在正常 UI 顯示。';
+  ensureArrays();masteryRenderSettingsBase();const hidden=['balanceSettings.progression.statsPerLevel.hp','balanceSettings.progression.statsPerLevel.attack','balanceSettings.progression.statsPerLevel.defense','balanceSettings.progression.starting.skillPoints','balanceSettings.progression.levelRewards.skillPoints','balanceSettings.quests.tutorial.skillLevelRequirement','balanceSettings.skills.core.maxLevel','balanceSettings.skills.core.initialCap','balanceSettings.skills.core.capLevelsPerStep','balanceSettings.skills.core.effectPerExtraLevel','balanceSettings.skills.proc.perSkillLevel','balanceSettings.skills.support.maxLevel','balanceSettings.skills.support.effectPerExtraLevel'];
+  const app=document.getElementById('app');for(const path of hidden)app.querySelector(`[data-path="${path}"]`)?.closest('.pathrow')?.remove();const head=app.querySelector('.section-head p');if(head)head.textContent='修改角色成長、精通 XP 曲線、裝備、掉落、販售與其他全域數值；舊版共用每級成長、技能點與技能等級欄位只保留相容資料，不在正常 UI 顯示。';
 };
 const masteryValidateBase=validateData;validateData=function(){
   ensureArrays();let issues=masteryValidateBase().filter(x=>!/powerPerLevel|procChancePerLevel|effectPerLevel|每級增加倍率|技能最高等級|輔助技能最高等級/.test(x));const s=data.balanceSettings?.skills?.mastery||{},masteryMax=Math.max(1,Math.floor(Number(s.maxLevel)||1));
@@ -3533,7 +3533,7 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
   function preview(){
     const g=group(),s=data.balanceSettings||{};
     if(g==='progression'){
-      const p=s.progression||{},classes=data.classes||[],ci=Math.min(uxState.previewClass,Math.max(0,classes.length-1)),cls=classes[ci]||{},growth=p.statsPerLevel||{},adv=p.advance||{},caps=p.levelCaps||{};
+      const p=s.progression||{},classes=data.classes||[],ci=Math.min(uxState.previewClass,Math.max(0,classes.length-1)),cls=classes[ci]||{},growth=cls.growthPerLevel||{},adv=p.advance||{},caps=p.levelCaps||{};
       uxState.previewClass=ci;
       const levels=[1,Number(adv.level)||1,Number(caps.beforeClear)||1,Number(caps.afterClear)||1].filter((v,i,a)=>v>0&&a.indexOf(v)===i).sort((a,b)=>a-b);
       const stat=(base,step,l,m)=>{let v=Number(base||0)+Math.max(0,l-1)*Number(step||0);if(l>=Number(adv.level||Infinity))v*=Number(m||1);return num(v,2);};
