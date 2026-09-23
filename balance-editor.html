@@ -3497,4 +3497,178 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
 })();
 </script>
 
+<style id="balance-experience-v1-style">
+.balance-ux-strip{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:9px 11px;border:1px solid var(--line);background:#151a20;border-radius:9px;margin:-4px 0 12px}
+.balance-ux-strip>strong{font-size:12px;margin-right:2px}.balance-ux-strip button{padding:5px 8px;font-size:12px}
+.balance-ux-preview{margin-bottom:12px;border:1px solid #3b4756;background:#161c23;border-radius:10px;overflow:hidden}
+.balance-ux-preview-head{display:flex;gap:10px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line)}
+.balance-ux-preview-head strong{margin-right:auto}.balance-ux-preview-head select{width:auto;min-width:130px;padding:5px 7px}
+.balance-ux-preview-body{padding:11px 12px}.balance-ux-metrics{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:8px}
+.balance-ux-metric{border:1px solid var(--line);background:#11161b;border-radius:8px;padding:9px}.balance-ux-metric b{display:block;font-size:16px;margin-top:3px}.balance-ux-metric span{font-size:11px;color:var(--muted)}
+.balance-ux-table{width:100%;border-collapse:collapse;font-size:12px}.balance-ux-table th,.balance-ux-table td{border-bottom:1px solid var(--line);padding:6px 7px;text-align:right}.balance-ux-table th:first-child,.balance-ux-table td:first-child{text-align:left}.balance-ux-table th{color:var(--muted);font-weight:600}
+.pathrow.balance-ux-changed,.field.balance-ux-changed{border-left:3px solid var(--warn);padding-left:7px;background:rgba(246,200,95,.045)}.balance-ux-change-tag{display:inline-flex;margin-left:6px;padding:1px 5px;border:1px solid #7a642c;border-radius:999px;color:var(--warn);font-size:10px;font-weight:500}
+.balance-ux-flash{animation:balanceUxFlash 1.7s ease-out}@keyframes balanceUxFlash{0%,35%{box-shadow:0 0 0 2px var(--accent);background:#1b2a3d}100%{box-shadow:none}}
+.balance-ux-modal{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;padding:24px}.balance-ux-modal[hidden]{display:none}
+.balance-ux-panel{width:min(980px,96vw);max-height:86vh;display:flex;flex-direction:column;background:var(--panel);border:1px solid #4a5665;border-radius:12px;box-shadow:var(--shadow)}
+.balance-ux-panel-head{display:flex;gap:8px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}.balance-ux-panel-head strong{margin-right:auto}
+.balance-ux-diff-list{padding:10px 14px 14px;overflow:auto;display:grid;gap:7px}.balance-ux-diff{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,1.4fr) auto;gap:9px;align-items:center;border:1px solid var(--line);background:#14191f;border-radius:8px;padding:8px 9px}
+.balance-ux-diff code{font-size:10px;color:#8fa0b3;overflow-wrap:anywhere}.balance-ux-diff-values{font-size:12px;overflow-wrap:anywhere}.balance-ux-old{color:var(--muted)}.balance-ux-new{color:var(--text)}
+#balanceUxDiffBtn.has-changes{border-color:#7a642c;color:#f4d47a}
+@media(max-width:900px){.balance-ux-metrics{grid-template-columns:repeat(2,1fr)}.balance-ux-diff{grid-template-columns:1fr}.balance-ux-diff button{justify-self:start}}
+</style>
+<script id="balance-experience-v1">
+(()=>{
+  let baseline=structuredClone(data);
+  const uxState={previewClass:0};
+  const pct=v=>Number.isFinite(Number(v))?(Math.round(Number(v)*10000)/100)+'%':'—';
+  const num=(v,d=2)=>Number.isFinite(Number(v))?String(Math.round(Number(v)*10**d)/10**d):'—';
+  const getPath=(obj,path)=>String(path||'').split('.').filter(Boolean).reduce((cur,key)=>cur==null?undefined:cur[key],obj);
+  const same=(a,b)=>Object.is(a,b)||(typeof a==='number'&&typeof b==='number'&&Number.isNaN(a)&&Number.isNaN(b));
+  const short=v=>{const s=v===undefined?'（不存在）':typeof v==='object'?JSON.stringify(v):String(v);return esc(s.length>120?s.slice(0,117)+'…':s);};
+  const metric=(label,value,sub='')=>'<div class="balance-ux-metric"><span>'+esc(label)+'</span><b>'+esc(value)+'</b>'+(sub?'<span>'+esc(sub)+'</span>':'')+'</div>';
+  const table=(headers,rows)=>'<table class="balance-ux-table"><thead><tr>'+headers.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(x=>'<td>'+esc(x)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+  const frame=(title,body,control='')=>'<section class="balance-ux-preview" id="balanceUxPreview"><div class="balance-ux-preview-head"><strong>'+esc(title)+'</strong><span class="mini-note">唯讀預覽，不寫入 JSON</span>'+control+'</div><div class="balance-ux-preview-body">'+body+'</div></section>';
+  const group=()=>typeof currentSection==='string'&&currentSection.startsWith('balanceSettings:')?currentSection.slice('balanceSettings:'.length):null;
+
+  function preview(){
+    const g=group(),s=data.balanceSettings||{};
+    if(g==='progression'){
+      const p=s.progression||{},classes=data.classes||[],ci=Math.min(uxState.previewClass,Math.max(0,classes.length-1)),cls=classes[ci]||{},growth=p.statsPerLevel||{},adv=p.advance||{},caps=p.levelCaps||{};
+      uxState.previewClass=ci;
+      const levels=[1,Number(adv.level)||1,Number(caps.beforeClear)||1,Number(caps.afterClear)||1].filter((v,i,a)=>v>0&&a.indexOf(v)===i).sort((a,b)=>a-b);
+      const stat=(base,step,l,m)=>{let v=Number(base||0)+Math.max(0,l-1)*Number(step||0);if(l>=Number(adv.level||Infinity))v*=Number(m||1);return num(v,2);};
+      const rows=levels.map(l=>['LV '+l,stat(cls.hp,growth.hp,l,adv.hpMultiplier),stat(cls.atk,growth.attack,l,adv.attackMultiplier),stat(cls.def,growth.defense,l,adv.defenseMultiplier)]);
+      const control='<label style="margin:0">角色 <select id="balanceUxPreviewClass">'+classes.map((x,i)=>'<option value="'+i+'" '+(i===ci?'selected':'')+'>'+esc(x.name||('角色 '+(i+1)))+'</option>').join('')+'</select></label>';
+      return frame('角色自然成長預覽',table(['等級','生命','攻擊','防禦'],rows)+'<p class="mini-note">依角色基礎值、每級自然成長與二轉倍率計算；未計能力點、裝備、BUFF。</p>',control);
+    }
+    if(g==='skills'){
+      const m=s.skills?.mastery||{},x=s.skills?.gems||{};let gated=0,training=0;
+      for(const cls of data.classes||[])for(const sk of cls.skills||[]){if(sk.mastery)training++;if(sk.requiredMastery)gated++;}
+      return frame('技能／精通摘要','<div class="balance-ux-metrics">'+
+        metric('精通最高等級',num(m.maxLevel,0),'二轉需求 '+num(m.advanceRequiredLevel,0))+metric('技能使用精通 XP',num(m.skillUseXp,2),'普攻 '+num(m.basicAttackXp,2))+
+        metric('角色 EXP 需求倍率','×'+num(m.characterXpMultiplier,2),pct((Number(m.characterXpMultiplier)||1)-1)+' 額外需求')+metric('培養／需求精通技能',training+' / '+gated,'目前核心技能')+
+        metric('赤焰石','×'+num(x.effectMultiplier,2),pct((Number(x.effectMultiplier)||1)-1))+metric('疾風石','-'+num(x.cooldownReduction,0)+' 回合','proc +'+pct(x.cooldownProcBonus))+
+        metric('共鳴石','×'+num(x.hybridMultiplier,2),pct((Number(x.hybridMultiplier)||1)-1))+metric('共鳴回血',pct(x.hybridActiveHealAttack),'依攻擊力')+'</div>');
+    }
+    if(g==='equipment'){
+      const e=s.equipment||{},b=e.baseStats||{},r=e.requiredLevel||{},h=e.enhance||{},tiers=[1,5,10];
+      const rows=tiers.map(t=>['T'+t,num(Number(r.base||1)+(t-1)*Number(r.perTier||0),0),num(t*Number(b.weaponAttackPerTier||0),2),num(t*Number(b.armorHpPerTier||0),2),num(t*Number(b.armorDefensePerTier||0),2),num(t*Number(b.offhandAttackPerTier??b.accessoryAttackPerTier??0),2),num(t*Number(b.accessoryAttackPerTier||0),2)]);
+      const maxEnh=Number(h.maxLevel||0),enhMult=1+maxEnh*Number(h.statPerLevel||0);
+      return frame('裝備階級預覽',table(['階級','需求 LV','武器攻','護甲 HP','護甲防','副手攻','飾品攻'],rows)+'<div class="balance-ux-metrics" style="margin-top:9px">'+metric('最大強化','+'+num(maxEnh,0),'基礎能力 ×'+num(enhMult,2))+metric('同職掉落率',pct(e.lootOwnerSameJobChance))+'</div>');
+    }
+    if(g==='difficulty'){
+      const modes=s.difficulty?.modes||[],names=['普通','困難','地獄'];
+      return frame('難度倍率對照',table(['難度','HP','攻擊','防禦','金幣／EXP','鍛鐵','BOSS裝'],modes.map((m,i)=>[names[i]||('難度 '+i),'×'+num(m.hp,2),'×'+num(m.attack,2),'×'+num(m.defense,2),'×'+num(m.reward,2),'×'+num(m.ore,2),pct(m.bossGearChance)])));
+    }
+    if(g==='rewards'){
+      const r=s.rewards||{},k=r.kindMultiplier||{};
+      return frame('獎勵結構摘要','<div class="balance-ux-metrics">'+metric('金幣公式',num(r.gold?.base,2)+' + LV×'+num(r.gold?.perLevel,2),'未套遭遇倍率')+metric('經驗公式',num(r.xp?.base,2)+' + LV×'+num(r.xp?.perLevel,2),'未套遭遇倍率')+
+        metric('遭遇倍率','一般 ×'+num(k.normal,2),'菁英 ×'+num(k.elite,2)+' / BOSS ×'+num(k.boss,2))+metric('藥水掉落',pct(r.potionDropChance),'勝利回血 '+pct(r.postVictoryHeal))+
+        metric('光輝：一般／菁英',pct(r.radiant?.normalElite))+metric('光輝：BOSS／終局',pct(r.radiant?.bossFinal))+metric('以太：菁英起始',pct(r.ether?.eliteBase),'每階 +'+pct(r.ether?.elitePerTier))+metric('以太：菁英上限',pct(r.ether?.eliteCap),'BOSS 重複 '+pct(r.ether?.bossRepeat))+'</div>');
+    }
+    if(g==='combat'){
+      const c=s.combat||{},f=c.damageFormula||{},ac=Number(f.attackCoefficient??1),dc=Number(f.defenseCoefficient??c.defenseEffectiveness??0),min=Number(f.minimumDamage??1),base=Math.max(min,10*ac-5*dc),pace=c.pacing||{};
+      return frame('戰鬥節奏／傷害示例','<div class="balance-ux-metrics">'+metric('攻10 vs 防5',num(base,2),'未計元素、暴擊、穿透')+metric('同傷害暴擊',num(base*Number(c.baseCritDamage??1.5),2),'基礎暴傷 ×'+num(c.baseCritDamage??1.5,2))+
+        metric('最低回合時間',num((Number(pace.roundMinimumMs)||0)/1000,2)+' 秒')+metric('行動間隔',num((Number(pace.actionIntervalMs)||0)/1000,2)+' 秒')+metric('自動喝藥門檻',pct(c.autoPotionThreshold))+metric('敗北金幣損失',pct(c.defeatGoldLoss))+metric('隊伍人數',num(c.groupSize?.min,0)+'～'+num(c.groupSize?.max,0))+metric('越級傷害／級','+'+pct(c.levelGapDamagePerLevel))+'</div>');
+    }
+    if(g==='quests'){
+      const q=s.quests||{},side=q.side||[],board=q.board||{},market=q.market||{},pot=q.potion||{},unit=Number(pot.buyQuantity)>0?Number(pot.buyCost)/Number(pot.buyQuantity):0;
+      return frame('任務／商店摘要','<div class="balance-ux-metrics">'+metric('教學擊殺需求',num(q.tutorial?.killRequirement,0),'獎勵 '+num(q.tutorial?.rewardGold,0)+' 金')+metric('一次性支線',side.length+' 組','總金幣 '+num(side.reduce((a,x)=>a+Number(x.gold||0),0),0))+
+        metric('委託刷新',num(board.refreshMinutes,0)+' 分鐘','每階刷新 '+num(board.refreshGoldPerTier,0)+' 金')+metric('商店商品數',num(market.offerCount,0),'刷新 '+num(market.refreshCost,0)+' 金')+metric('藥水補給',num(pot.buyQuantity,0)+' 瓶 / '+num(pot.buyCost,0)+' 金','每瓶 '+num(unit,2)+' 金')+'</div>');
+    }
+    if(g==='drops'){
+      const list=s.drops?.entries||[],names=['普通','困難','地獄'],byType={};for(const x of list)byType[x.type]=(byType[x.type]||0)+1;
+      const rows=names.map((name,d)=>{const vals=list.filter(x=>x.enabled!==false).map(x=>Number(x.chanceByDifficulty?.[d])).filter(Number.isFinite),avg=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0,max=vals.length?Math.max(...vals):0;return [name,vals.length,pct(avg),pct(max)];});
+      return frame('掉落表摘要','<div class="balance-ux-metrics">'+metric('掉落規則',String(list.length),'啟用 '+list.filter(x=>x.enabled!==false).length)+metric('一般裝備',String(byType.gear||0))+metric('技能寶石',String(byType.gem||0))+metric('材料類',String((byType.material||0)+(byType.sourceMaterial||0)))+'</div>'+table(['難度','啟用規則','平均基礎率','最高基礎率'],rows)+'<p class="mini-note">平均值只用於觀察分布，不代表單次擊殺總掉落率。</p>');
+    }
+    if(g==='economy'){
+      const e=s.economy||{},rows=e.materialPrices||[],prices=rows.map(x=>Number(x.sellPrice)).filter(Number.isFinite).sort((a,b)=>a-b),med=prices.length?prices[Math.floor((prices.length-1)/2)]:0;
+      return frame('販售價摘要','<div class="balance-ux-metrics">'+metric('裝備賣價',Array.isArray(e.equipmentSellPriceByQuality)?e.equipmentSellPriceByQuality.join(' / '):'—','普通 / 精良 / 稀有 / 傳說')+metric('材料覆寫',String(rows.length),'預設 '+num(e.materialDefaultSellPrice,0)+' 金')+metric('材料中位賣價',num(med,0)+' 金',prices.length?'最低 '+num(prices[0],0)+' / 最高 '+num(prices.at(-1),0):'')+metric('治療藥水賣價',num(e.potionSellPrice,0)+' 金')+'</div>');
+    }
+    if(currentSection==='damageFormula'){
+      const c=s.combat||{},f=c.damageFormula||{},base=Math.max(Number(f.minimumDamage??1),10*Number(f.attackCoefficient??1)-5*Number(f.defenseCoefficient??c.defenseEffectiveness??0));
+      return frame('公式快速驗算','<div class="balance-ux-metrics">'+metric('攻10 vs 防5',num(base,2),'未計無視／穿透／暴擊')+metric('暴擊後',num(base*Number(c.baseCritDamage??1.5),2),'基礎暴傷')+'</div>');
+    }
+    if(currentSection==='balance'){
+      const e=data.balance?.combat?.elementMultipliers||{};
+      return frame('元素倍率快速對照','<div class="balance-ux-metrics">'+metric('無剋制','×'+num(e.neutral,2))+metric('同屬性','×'+num(e.same,2))+metric('剋制','×'+num(e.strong,2))+metric('被剋制','×'+num(e.weak,2))+'</div>');
+    }
+    return '';
+  }
+
+  const relations={
+    classes:[['技能','skills'],['角色成長設定','balanceSettings:progression']],skills:[['技能／精通設定','balanceSettings:skills'],['角色成長設定','balanceSettings:progression'],['前綴／後綴／T級','equipmentPower'],['詞條池','affixPools']],
+    equipment:[['裝備設定','balanceSettings:equipment'],['前綴／後綴／T級','equipmentPower'],['詞條池','affixPools'],['販售價','balanceSettings:economy']],items:[['商店設定','shopSettings'],['任務／商店設定','balanceSettings:quests'],['販售價','balanceSettings:economy']],
+    potions:[['商店設定','shopSettings'],['戰鬥設定','balanceSettings:combat']],shopSettings:[['任務／商店設定','balanceSettings:quests'],['販售價','balanceSettings:economy'],['商店道具','items']],
+    world:[['難度設定','balanceSettings:difficulty'],['戰鬥獎勵','balanceSettings:rewards'],['掉落設定','balanceSettings:drops']],damageFormula:[['戰鬥全域設定','balanceSettings:combat'],['詞條／元素設定','balance']],
+    equipmentPower:[['裝備設定','balanceSettings:equipment'],['詞條池','affixPools'],['掉落設定','balanceSettings:drops']],affixPools:[['前綴／後綴／T級','equipmentPower'],['詞條／元素設定','balance']],balance:[['傷害公式','damageFormula'],['詞條池','affixPools']]
+  };
+  const groupRelations={
+    progression:[['角色','classes'],['技能','skills'],['地圖與怪物','world']],skills:[['技能','skills'],['前綴／後綴／T級','equipmentPower'],['詞條池','affixPools']],
+    equipment:[['裝備','equipment'],['前綴／後綴／T級','equipmentPower'],['詞條池','affixPools'],['販售價','balanceSettings:economy']],difficulty:[['地圖與怪物','world'],['戰鬥獎勵','balanceSettings:rewards'],['掉落設定','balanceSettings:drops']],
+    rewards:[['難度設定','balanceSettings:difficulty'],['掉落設定','balanceSettings:drops'],['地圖與怪物','world']],combat:[['傷害公式','damageFormula'],['詞條／元素設定','balance'],['治療藥水','potions']],
+    quests:[['商店設定','shopSettings'],['商店道具','items'],['販售價','balanceSettings:economy']],drops:[['地圖與怪物','world'],['戰鬥獎勵','balanceSettings:rewards'],['販售價','balanceSettings:economy']],economy:[['商店設定','shopSettings'],['商店道具','items'],['裝備設定','balanceSettings:equipment']]
+  };
+  function relationHTML(){const items=group()?groupRelations[group()]:(relations[currentSection]||[]);return items?.length?'<div class="balance-ux-strip" id="balanceUxRelations"><strong>關聯頁面</strong>'+items.map(([label,sec])=>'<button type="button" data-ux-section="'+esc(sec)+'">'+esc(label)+'</button>').join('')+'</div>':'';}
+
+  function sectionForPath(path){
+    if(/^balanceSettings\.(maps|monsters)\b/.test(path))return 'world';
+    const m=path.match(/^balanceSettings\.([^.]+)/);if(m)return 'balanceSettings:'+m[1];
+    if(/^balance\.affixes\.poolBySlotRank\b/.test(path))return 'affixPools';if(/^balance\./.test(path))return 'balance';
+    if(/^supportSkills\./.test(path)||/^classes\.\d+\.skills\./.test(path))return 'skills';if(/^classes\./.test(path))return 'classes';
+    if(/^equipmentForms\./.test(path))return 'equipment';if(/^equipmentPowerSystem\./.test(path))return 'equipmentPower';if(/^items\./.test(path))return 'items';if(/^shopSettings\./.test(path))return 'shopSettings';if(/^uiText\./.test(path))return 'uiText';return 'raw';
+  }
+  function prepare(path,sec){
+    let m;if((m=path.match(/^classes\.(\d+)\.skills\.(\d+)/))){selected.skillClass=Number(m[1]);selected.supportClass=Number(m[1]);selected.skill=Number(m[2]);selected.skillTab=data.classes?.[selected.skillClass]?.skills?.[selected.skill]?.activation||'active';}
+    else if((m=path.match(/^classes\.(\d+)/)))selected.class=Number(m[1]);
+    else if((m=path.match(/^supportSkills\.(\d+)\.(\d+)/))){selected.skillClass=Number(m[1]);selected.supportClass=Number(m[1]);selected.support=Number(m[2]);selected.skillTab='support';}
+    else if((m=path.match(/^equipmentForms\.(\d+)\.(\d+)\.(\d+)/))){selected.equipClass=Number(m[1]);selected.equipSlot=Number(m[2]);selected.equip=Number(m[3]);}
+    else if(sec==='world'&&(m=path.match(/^balanceSettings\.monsters\.catalog\.(\d+)/))){const monster=data.balanceSettings?.monsters?.catalog?.[Number(m[1])];if(monster)selected.worldMap=Number(monster.mapIndex)||0;}
+  }
+  function jump(sec,path=''){
+    if(path)prepare(path,sec);currentSection=sec;render();
+    requestAnimationFrame(()=>{let target=null;if(path){try{target=document.querySelector('[data-path="'+CSS.escape(path)+'"]');}catch{}let m;if(!target&&(m=path.match(/^balanceSettings\.drops\.entries\.(\d+)/)))target=document.querySelector('[data-drop-row="'+m[1]+'"]');if(!target&&(m=path.match(/^balanceSettings\.economy\.materialPrices\.(\d+)/)))target=document.querySelector('[data-economy-material="'+m[1]+'"]');}
+      if(target){const row=target.closest('.pathrow,[data-drop-row],[data-economy-material],.card')||target;row.scrollIntoView({behavior:'smooth',block:'center'});row.classList.add('balance-ux-flash');setTimeout(()=>row.classList.remove('balance-ux-flash'),1800);}});
+  }
+
+  function genericPair(el){
+    const key=el.dataset.key;if(!key)return null;let cur=null,base=null;
+    if(currentSection==='classes'){cur=data.classes?.[selected.class];base=baseline.classes?.[selected.class];}
+    else if(currentSection==='skills'){if(selected.skillTab==='support'){cur=data.supportSkills?.[selected.supportClass]?.[selected.support];base=baseline.supportSkills?.[selected.supportClass]?.[selected.support];}else{cur=data.classes?.[selected.skillClass]?.skills?.[selected.skill];base=baseline.classes?.[selected.skillClass]?.skills?.[selected.skill];}}
+    else if(currentSection==='equipment'){cur=data.equipmentForms?.[selected.equipClass]?.[selected.equipSlot]?.[selected.equip];base=baseline.equipmentForms?.[selected.equipClass]?.[selected.equipSlot]?.[selected.equip];}
+    else if(currentSection==='uiText'){cur=data.uiText;base=baseline.uiText;}
+    return cur&&base?[base[key],cur[key]]:null;
+  }
+  function markChanges(){
+    const app=document.getElementById('app');if(!app)return;app.querySelectorAll('.balance-ux-change-tag').forEach(x=>x.remove());app.querySelectorAll('.balance-ux-changed').forEach(x=>x.classList.remove('balance-ux-changed'));
+    const mark=(el,yes)=>{if(!yes)return;const row=el.closest('.pathrow,.field');if(!row)return;row.classList.add('balance-ux-changed');const title=row.querySelector('.path strong,label');if(title)title.insertAdjacentHTML('beforeend','<span class="balance-ux-change-tag">已修改</span>');};
+    app.querySelectorAll('.setting-val[data-path],.bal-val[data-path]').forEach(el=>mark(el,!same(getPath(baseline,el.dataset.path),getPath(data,el.dataset.path))));
+    app.querySelectorAll('[data-key]').forEach(el=>{if(el.dataset.path)return;const p=genericPair(el);if(p)mark(el,!same(p[0],p[1]));});
+  }
+
+  function diffs(a,b,path='',out=[],limit=500){
+    if(out.length>=limit||same(a,b))return out;const primitive=v=>v===null||typeof v!=='object';
+    if(primitive(a)||primitive(b)||Array.isArray(a)!==Array.isArray(b)){out.push({path:path||'(root)',old:a,new:b});return out;}
+    if(Array.isArray(a)&&Array.isArray(b)){if(a.every(primitive)&&b.every(primitive)){if(JSON.stringify(a)!==JSON.stringify(b))out.push({path:path||'(array)',old:a,new:b});return out;}for(let i=0,n=Math.max(a.length,b.length);i<n&&out.length<limit;i++)diffs(a[i],b[i],path?path+'.'+i:String(i),out,limit);return out;}
+    for(const k of new Set([...Object.keys(a||{}),...Object.keys(b||{})])){if(out.length>=limit)break;diffs(a?.[k],b?.[k],path?path+'.'+k:k,out,limit);}return out;
+  }
+  function showDiffs(){
+    const modal=document.getElementById('balanceUxModal'),list=modal.querySelector('.balance-ux-diff-list'),count=modal.querySelector('#balanceUxDiffCount'),rows=diffs(baseline,data,'',[],500);count.textContent=rows.length+(rows.length>=500?'＋':'')+' 項';
+    list.innerHTML=rows.length?rows.map(d=>'<div class="balance-ux-diff"><code>'+esc(d.path)+'</code><div class="balance-ux-diff-values"><span class="balance-ux-old">'+short(d.old)+'</span> → <span class="balance-ux-new">'+short(d.new)+'</span></div><button type="button" class="small" data-diff-path="'+esc(d.path)+'" data-diff-sec="'+esc(sectionForPath(d.path))+'">前往</button></div>').join(''):'<div class="oknotice">目前資料與本次比較基準相同。</div>';
+    list.querySelectorAll('[data-diff-path]').forEach(b=>b.onclick=()=>{modal.hidden=true;jump(b.dataset.diffSec,b.dataset.diffPath);});
+  }
+  function ensureUI(){
+    if(!document.getElementById('balanceUxDiffBtn')){const b=document.createElement('button');b.id='balanceUxDiffBtn';b.type='button';b.textContent='本次變更';const top=document.querySelector('.topbar'),before=document.getElementById('exportBtn');if(top)top.insertBefore(b,before||null);b.onclick=()=>{showDiffs();document.getElementById('balanceUxModal').hidden=false;};}
+    if(!document.getElementById('balanceUxModal')){document.body.insertAdjacentHTML('beforeend','<div class="balance-ux-modal" id="balanceUxModal" hidden><div class="balance-ux-panel"><div class="balance-ux-panel-head"><strong>本次修改差異</strong><span class="pill" id="balanceUxDiffCount">0 項</span><button type="button" id="balanceUxSetBaseline">將目前設為比較基準</button><button type="button" id="balanceUxClose">關閉</button></div><div class="balance-ux-diff-list"></div></div></div>');
+      const modal=document.getElementById('balanceUxModal');document.getElementById('balanceUxClose').onclick=()=>modal.hidden=true;modal.onclick=e=>{if(e.target===modal)modal.hidden=true;};document.getElementById('balanceUxSetBaseline').onclick=()=>{baseline=structuredClone(data);document.getElementById('balanceUxDiffBtn')?.classList.remove('has-changes');showDiffs();markChanges();};}
+  }
+  function bindUX(){document.querySelectorAll('[data-ux-section]').forEach(b=>b.onclick=()=>jump(b.dataset.uxSection));const sel=document.getElementById('balanceUxPreviewClass');if(sel)sel.onchange=()=>{uxState.previewClass=Number(sel.value)||0;refreshPreview();};}
+  function refreshPreview(){const old=document.getElementById('balanceUxPreview'),html=preview();if(old&&html){old.outerHTML=html;bindUX();}}
+  function enhance(){ensureUI();const app=document.getElementById('app'),head=app?.querySelector('.section-head');if(!app||!head)return;if(!document.getElementById('balanceUxRelations')){const h=relationHTML();if(h)head.insertAdjacentHTML('afterend',h);}const p=preview();if(p&&!document.getElementById('balanceUxPreview')){const rel=document.getElementById('balanceUxRelations');(rel||head).insertAdjacentHTML('afterend',p);}bindUX();markChanges();}
+
+  const dirtyBase=markDirty;markDirty=function(...args){const out=dirtyBase(...args);document.getElementById('balanceUxDiffBtn')?.classList.add('has-changes');queueMicrotask(()=>{markChanges();refreshPreview();});return out;};
+  const renderBase=render;render=function(){const out=renderBase();queueMicrotask(enhance);return out;};
+  queueMicrotask(enhance);
+})();
+</script>
 </html>
