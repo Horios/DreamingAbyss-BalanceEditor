@@ -2351,6 +2351,127 @@ ensureArrays();requestEditorInitialRender();
 })();
 </script>
 
+
+<script id="control-status-editor-v1">
+
+(function installControlStatusEditor(){
+  const CONTROL_EFFECTS=['polymorph','freeze','frost','rage','summonMorphTrap','summonFreezeTrap','fear','tauntRage'];
+  const CONTROL_LABELS={polymorph:'變形',freeze:'冰凍',frost:'結霜',rage:'狂暴',summonMorphTrap:'召喚變形陷阱',summonFreezeTrap:'召喚冰凍陷阱',fear:'畏懼',tauntRage:'嘲諷／狂暴'};
+  for(const id of CONTROL_EFFECTS)if(!EFFECTS.includes(id))EFFECTS.push(id);
+  Object.assign(EFFECT_LABELS,CONTROL_LABELS);
+  const DEFAULTS=[
+    {job:0,controlId:'warrior-taunt',name:'嘲諷',activation:'active',requiredLevel:9,cooldown:6,power:0,effect:'tauntRage',element:'physical',maxTargets:1,requiresAdvanced:false,description:'挑釁敵方攻擊力最高者，使其陷入狂暴並優先攻擊戰士。',duration:3,bossDuration:1,basicAttackBonus:.20},
+    {job:1,controlId:'mage-polymorph',name:'變形術',activation:'active',requiredLevel:12,cooldown:7,power:1.0,effect:'polymorph',element:'physical',maxTargets:1,requiresAdvanced:false,description:'將敵人變形並賦予護盾；護盾存在期間無法行動，護盾被打破時立即解除。對 BOSS 無效。',duration:3,bossDuration:0},
+    {job:1,controlId:'mage-frost-nova',name:'冰霜新星',activation:'active',requiredLevel:8,cooldown:6,power:0,effect:'frost',element:'ice',maxTargets:99,requiresAdvanced:false,description:'使全部存活敵人結霜，降低速度。',slowPct:.30},
+    {job:1,controlId:'mage-ice-arrow',name:'寒冰箭',activation:'active',requiredLevel:5,cooldown:5,power:0,effect:'freeze',element:'ice',maxTargets:1,requiresAdvanced:false,description:'凍結一名敵人，使其無法行動。',duration:2,bossDuration:1},
+    {job:2,controlId:'archer-freeze-trap',name:'冰凍陷阱',activation:'active',requiredLevel:8,cooldown:6,power:0,effect:'summonFreezeTrap',element:'ice',maxTargets:1,requiresAdvanced:false,description:'召喚 2 點生命的冰凍陷阱。每次受擊固定失去 1 點生命，並使敵方全體結霜；已結霜者改為冰凍 1 回合。',trapHp:2,slowPct:.30},
+    {job:2,controlId:'archer-morph-trap',name:'變形陷阱',activation:'active',requiredLevel:12,cooldown:7,power:1.0,effect:'summonMorphTrap',element:'physical',maxTargets:1,requiresAdvanced:false,description:'召喚 1 點生命的變形陷阱。陷阱被擊破時，使攻擊者進入變形狀態。',trapHp:1,duration:3,bossDuration:0},
+    {job:3,controlId:'priest-implant-fear',name:'植入恐怖',activation:'active',requiredLevel:10,cooldown:6,power:0,effect:'fear',element:'shadow',maxTargets:1,requiresAdvanced:false,description:'植入恐怖，使敵人傷害降低並有機率無法行動。BOSS 的失去行動機率降低。',duration:3,damageReduction:.20,skipChance:.30,bossSkipChance:.15}
+  ];
+  function clamp01(v,d){v=Number(v);return Number.isFinite(v)?Math.max(0,Math.min(1,v)):d;}
+  function int0(v,d){v=Number(v);return Number.isFinite(v)?Math.max(0,Math.round(v)):d;}
+  function normalize(sk){
+    if(!sk||!CONTROL_EFFECTS.includes(sk.effect))return sk;
+    sk.duration=int0(sk.duration,sk.effect==='freeze'?2:3);
+    sk.bossDuration=int0(sk.bossDuration,sk.effect==='freeze'||sk.effect==='rage'||sk.effect==='tauntRage'?1:sk.effect==='polymorph'?0:sk.duration);
+    sk.slowPct=clamp01(sk.slowPct,.30);
+    sk.basicAttackBonus=clamp01(sk.basicAttackBonus,.20);
+    sk.skipChance=clamp01(sk.skipChance,.30);
+    sk.bossSkipChance=clamp01(sk.bossSkipChance,.15);
+    sk.damageReduction=clamp01(sk.damageReduction,.20);
+    sk.trapHp=Math.max(1,int0(sk.trapHp,sk.effect==='summonFreezeTrap'?2:1));
+    sk.powerPerLevel=0;
+    return sk;
+  }
+  function ensureRows(obj){
+    let changed=false;if(!obj?.classes)return changed;
+    for(const row of DEFAULTS){
+      const list=obj.classes[row.job]?.skills;if(!Array.isArray(list))continue;
+      let idx=list.findIndex(sk=>sk?.controlId===row.controlId);
+      if(idx<0)idx=list.findIndex(sk=>sk?.name===row.name);
+      if(idx<0){
+        const next={id:'job'+row.job+'-skill'+list.length,powerPerLevel:0,mastery:null,requiredMastery:null,requiredMasteryLevel:0,weaponTypes:[],...row};
+        list.push(normalize(next));changed=true;
+      }else{
+        const sk=list[idx];if(!sk.controlId)sk.controlId=row.controlId;
+        normalize(sk);
+      }
+    }
+    for(const c of obj.classes)for(const sk of c.skills||[])normalize(sk);
+    return changed;
+  }
+  ensureRows(ORIGINAL_DATA);const added=ensureRows(data);
+
+  const controlEnsureBase=ensureArrays;
+  ensureArrays=function(){const out=controlEnsureBase();ensureRows(data);return out??data;};
+
+  function controlFields(sk){
+    const e=sk.effect,parts=[];
+    if(e==='polymorph'){
+      parts.push(inputField('變形持續回合','duration',sk.duration??3,'number','min=1 step=1',false,'以目標自己的行動回合計數；護盾先被打破時會立即解除。'));
+      parts.push('<div class="field"><label>變形護盾倍率</label><input value="'+esc(sk.power??1)+'" readonly><div class="field-help">沿用上方「基礎效果倍率」：護盾＝施放者攻擊力 × power。BOSS 固定免疫。</div></div>');
+    }else if(e==='freeze'){
+      parts.push(inputField('一般冰凍回合','duration',sk.duration??2,'number','min=1 step=1',false,'一般／菁英敵人無法行動的自身回合數。'));
+      parts.push(inputField('BOSS 冰凍回合','bossDuration',sk.bossDuration??1,'number','min=0 step=1',false,'BOSS／終局首領的冰凍回合；0 表示不生效。'));
+    }else if(e==='frost'){
+      parts.push(inputField('結霜速度降低','slowPct',sk.slowPct??.30,'number','min=0 max=1 step=0.01',false,'0.30 = 速度降低 30%。目前結霜持續至遭遇結束，或被冰凍陷阱轉為冰凍。'));
+    }else if(e==='rage'||e==='tauntRage'){
+      parts.push(inputField('一般狂暴回合','duration',sk.duration??3,'number','min=1 step=1',false,'狂暴期間無法使用技能。'));
+      parts.push(inputField('BOSS 狂暴回合','bossDuration',sk.bossDuration??1,'number','min=0 step=1',false,'BOSS／終局首領使用此回合數。'));
+      parts.push(inputField('普通攻擊增傷','basicAttackBonus',sk.basicAttackBonus??.20,'number','min=0 max=1 step=0.01',false,'0.20 = 普通攻擊傷害 +20%。'));
+      if(e==='tauntRage')parts.push('<div class="notice">嘲諷會選擇目前存活敵人中攻擊力最高者施加狂暴；狂暴期間其普通攻擊優先鎖定戰士。</div>');
+    }else if(e==='summonMorphTrap'){
+      parts.push(inputField('陷阱生命','trapHp',sk.trapHp??1,'number','min=1 step=1',false,'規格預設為 1；被擊破時才觸發變形。'));
+      parts.push(inputField('變形持續回合','duration',sk.duration??3,'number','min=1 step=1',false,'陷阱死亡後施加給攻擊者。BOSS 固定免疫。'));
+      parts.push('<div class="field"><label>變形護盾倍率</label><input value="'+esc(sk.power??1)+'" readonly><div class="field-help">沿用上方「基礎效果倍率」作為變形護盾倍率。</div></div>');
+    }else if(e==='summonFreezeTrap'){
+      parts.push(inputField('陷阱生命','trapHp',sk.trapHp??2,'number','min=1 step=1',false,'每次被普通攻擊固定只失去 1 點生命。規格預設為 2。'));
+      parts.push(inputField('結霜速度降低','slowPct',sk.slowPct??.30,'number','min=0 max=1 step=0.01',false,'每次陷阱受擊時對敵方全體判定；已結霜者改為冰凍 1 回合。'));
+    }else if(e==='fear'){
+      parts.push(inputField('畏懼持續回合','duration',sk.duration??3,'number','min=1 step=1',false,'以目標自己的行動回合計數。'));
+      parts.push(inputField('傷害降低','damageReduction',sk.damageReduction??.20,'number','min=0 max=1 step=0.01',false,'0.20 = 造成傷害降低 20%；BOSS 目前也使用相同傷害降低。'));
+      parts.push(inputField('一般不行動機率','skipChance',sk.skipChance??.30,'number','min=0 max=1 step=0.01',false,'0.30 = 每個自身回合有 30% 機率不行動。'));
+      parts.push(inputField('BOSS 不行動機率','bossSkipChance',sk.bossSkipChance??.15,'number','min=0 max=1 step=0.01',false,'BOSS 效果降低使用此機率；預設為一般的一半。'));
+    }
+    return parts.join('');
+  }
+
+  const controlRenderSkillsBase=renderSkills;
+  renderSkills=function(){
+    controlRenderSkillsBase();
+    if(selected.skillTab==='support')return;
+    const cls=data.classes?.[selected.skillClass],sk=selected.skill>=0?cls?.skills?.[selected.skill]:null;
+    if(!sk||!CONTROL_EFFECTS.includes(sk.effect))return;
+    normalize(sk);
+    const app=document.getElementById('app'),grid=app.querySelector('.grid2');if(!grid)return;
+    const box=document.createElement('div');box.className='card';box.id='control-mechanic-card';
+    box.innerHTML='<h2>控制／召喚機制</h2><div class="fields">'+controlFields(sk)+'</div>';
+    grid.insertAdjacentElement('afterend',box);bindObjectFields(box,sk);
+  };
+
+  const controlValidateBase=validateData;
+  validateData=function(){
+    const issues=controlValidateBase();ensureRows(data);
+    data.classes.forEach((c,job)=>(c.skills||[]).forEach((sk,i)=>{
+      if(!CONTROL_EFFECTS.includes(sk.effect))return;
+      normalize(sk);
+      const nums=['duration','bossDuration','slowPct','basicAttackBonus','skipChance','bossSkipChance','damageReduction','trapHp'];
+      for(const k of nums)if(!Number.isFinite(Number(sk[k])))issues.push('角色 '+job+' 技能 '+i+' 的控制參數 '+k+' 無效。');
+      for(const k of ['slowPct','basicAttackBonus','skipChance','bossSkipChance','damageReduction'])if(Number(sk[k])<0||Number(sk[k])>1)issues.push('角色 '+job+' 技能 '+i+' 的 '+k+' 必須介於 0～1。');
+      if(Number(sk.duration)<0||Number(sk.bossDuration)<0||Number(sk.trapHp)<1)issues.push('角色 '+job+' 技能 '+i+' 的控制回合／陷阱生命無效。');
+    }));
+    return [...new Set(issues)];
+  };
+
+  if(!document.getElementById('control-editor-style')){
+    const st=document.createElement('style');st.id='control-editor-style';st.textContent='#control-mechanic-card{margin-top:14px}#control-mechanic-card .notice{grid-column:1/-1;margin:0}';document.head.appendChild(st);
+  }
+  globalThis.__EMBERWILD_CONTROL_EDITOR={effects:[...CONTROL_EFFECTS],ensure:()=>{ensureRows(data);render();}};
+  if(added)markDirty('已加入控制狀態、陷阱與新職業技能資料');
+  render();
+})();
+
+</script>
 </body>
 
 <script id="verified-balance-contract-editor-filter">
