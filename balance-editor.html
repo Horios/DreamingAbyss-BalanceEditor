@@ -2946,4 +2946,134 @@ ensureArrays();render();
 })();
 </script>
 
+
+<style id="mastery-overhaul-editor-style">
+.mastery-editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.mastery-editor-weapons{display:flex;gap:8px;flex-wrap:wrap;padding:8px;border:1px solid var(--line);border-radius:6px}
+.mastery-editor-weapons label{display:flex;align-items:center;gap:5px;margin:0}
+@media(max-width:760px){.mastery-editor-grid{grid-template-columns:1fr}}
+</style>
+<script id="mastery-overhaul-editor-v1">
+(()=>{
+const clone=v=>structuredClone(v);
+const WEAPON_TYPE_LABELS={sword:'劍',axe:'斧',hammer:'槌',bow:'弓',crossbow:'弩',staff:'法杖',grimoire:'法書',prayerBook:'祈禱書',holyStaff:'聖杖'};
+const WEAPON_TYPES=Object.keys(WEAPON_TYPE_LABELS),WEAPON_TYPE_SET=new Set(WEAPON_TYPES);
+const MASTERY_BY_JOB=[['sword','axe','hammer'],['fire','ice','wind','shadow'],['bow','crossbow'],['light','shadow']];
+const MASTERY_LABELS={sword:'劍',axe:'斧',hammer:'槌',bow:'弓',crossbow:'弩',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'};
+const JOB_WEAPONS=[['sword','axe','hammer'],['staff','grimoire'],['bow','crossbow'],['prayerBook','holyStaff']];
+const LEGACY_WEAPON_BY_NAME={'闊刃劍':'sword','穿甲槍':'sword','汲血斧':'axe','狙擊長弓':'bow','穿雲弩':'crossbow','風羽短弓':'bow','炎晶杖':'staff','霜紋杖':'staff','疾風法器':'grimoire','晨光權杖':'holyStaff','淨化槌':'holyStaff','祈禱法杖':'holyStaff'};
+const OLD_LEVELS=[1,4,7,11,15,20],NEW_LEVELS=[1,3,5,6,8,10],OLD_SUPPORT=[1,7,15],NEW_SUPPORT=[1,4,8];
+const CORE_PLAN=[
+[{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:0,weaponTypes:['sword'],prerequisites:[]},{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:1,weaponTypes:['sword'],prerequisites:[]},{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:2,weaponTypes:['sword'],prerequisites:[{type:'core',skill:0}]},{mastery:'axe',requiredMastery:'axe',requiredMasteryLevel:2,weaponTypes:['axe'],prerequisites:[{type:'core',skill:0}]},{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:4,weaponTypes:['sword'],prerequisites:[{type:'core',skill:2}]},{mastery:'axe',requiredMastery:'axe',requiredMasteryLevel:4,weaponTypes:['axe'],prerequisites:[{type:'core',skill:3}]}],
+[{mastery:'fire',requiredMastery:'fire',requiredMasteryLevel:0,weaponTypes:['staff','grimoire'],prerequisites:[]},{mastery:'ice',requiredMastery:'ice',requiredMasteryLevel:1,weaponTypes:['staff','grimoire'],prerequisites:[]},{mastery:'fire',requiredMastery:'fire',requiredMasteryLevel:2,weaponTypes:['staff','grimoire'],prerequisites:[{type:'core',skill:0}]},{mastery:'ice',requiredMastery:'ice',requiredMasteryLevel:2,weaponTypes:['staff','grimoire'],prerequisites:[{type:'core',skill:1}]},{mastery:'fire',requiredMastery:'fire',requiredMasteryLevel:4,weaponTypes:['staff','grimoire'],prerequisites:[{type:'core',skill:2}]},{mastery:'ice',requiredMastery:'ice',requiredMasteryLevel:4,weaponTypes:['staff','grimoire'],prerequisites:[{type:'core',skill:3}]}],
+[{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:0,weaponTypes:['bow'],prerequisites:[]},{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:1,weaponTypes:['bow'],prerequisites:[]},{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:2,weaponTypes:['bow'],prerequisites:[{type:'core',skill:0}]},{mastery:'crossbow',requiredMastery:'crossbow',requiredMasteryLevel:2,weaponTypes:['crossbow'],prerequisites:[{type:'core',skill:0}]},{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:4,weaponTypes:['bow'],prerequisites:[{type:'core',skill:2}]},{mastery:'crossbow',requiredMastery:'crossbow',requiredMasteryLevel:4,weaponTypes:['crossbow'],prerequisites:[{type:'core',skill:3}]}],
+[{mastery:'light',requiredMastery:'light',requiredMasteryLevel:0,weaponTypes:['prayerBook','holyStaff'],prerequisites:[]},{mastery:'light',requiredMastery:'light',requiredMasteryLevel:1,weaponTypes:['prayerBook','holyStaff'],prerequisites:[{type:'core',skill:0}]},{mastery:'shadow',requiredMastery:'shadow',requiredMasteryLevel:1,weaponTypes:['prayerBook','holyStaff'],prerequisites:[]},{mastery:'shadow',requiredMastery:'shadow',requiredMasteryLevel:2,weaponTypes:['prayerBook','holyStaff'],prerequisites:[{type:'core',skill:2}]},{mastery:'light',requiredMastery:'light',requiredMasteryLevel:4,weaponTypes:['prayerBook','holyStaff'],prerequisites:[{type:'core',skill:1}]},{mastery:'shadow',requiredMastery:'shadow',requiredMasteryLevel:4,weaponTypes:['prayerBook','holyStaff'],prerequisites:[{type:'core',skill:3}]}]
+];
+const SUPPORT_PLAN=[[{},{},{}],[{mastery:'fire'},{mastery:'ice'},{mastery:'wind'}],[{},{},{}],[{mastery:'light'},{mastery:'light'},{mastery:'shadow'}]];
+const MASTERY_DEFAULTS={xpBase:8,xpLinear:5,xpQuadratic:1,skillUseXp:2,basicAttackXp:1,maxLevel:30,advanceRequiredLevel:4,characterXpMultiplier:1.35};
+
+function normalizePrerequisites(sk){
+  if(!sk||typeof sk!=='object')return [];
+  const src=Array.isArray(sk.prerequisites)?sk.prerequisites:(Number.isInteger(sk.prerequisiteSkill)?[{type:'core',skill:sk.prerequisiteSkill}]:[]);
+  const out=[],seen=new Set();
+  for(const req of src.slice(0,3)){const type=req?.type==='support'?'support':'core',skill=Number(req?.skill),key=type+':'+skill;if(Number.isInteger(skill)&&skill>=0&&!seen.has(key)){seen.add(key);out.push({type,skill,level:1});}}
+  sk.prerequisites=out;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;return out;
+}
+function ensureSettings(obj){
+  obj.balanceSettings??={};obj.balanceSettings.progression??={};obj.balanceSettings.progression.starting??={};obj.balanceSettings.progression.levelRewards??={};
+  obj.balanceSettings.progression.starting.skillPoints=0;obj.balanceSettings.progression.levelRewards.skillPoints=0;
+  obj.balanceSettings.skills??={};obj.balanceSettings.skills.mastery??={};
+  const m=obj.balanceSettings.skills.mastery;
+  for(const [k,v] of Object.entries(MASTERY_DEFAULTS))if(!Number.isFinite(Number(m[k])))m[k]=v;
+  m.xpBase=Math.max(1,Number(m.xpBase));m.xpLinear=Math.max(0,Number(m.xpLinear));m.xpQuadratic=Math.max(0,Number(m.xpQuadratic));m.skillUseXp=Math.max(0,Number(m.skillUseXp));m.basicAttackXp=Math.max(0,Number(m.basicAttackXp));m.maxLevel=Math.max(1,Math.floor(Number(m.maxLevel)));m.advanceRequiredLevel=Math.max(0,Math.floor(Number(m.advanceRequiredLevel)));m.characterXpMultiplier=Math.max(1,Number(m.characterXpMultiplier));
+}
+function migrateOverhaul(obj){
+  if(!obj||typeof obj!=='object')return obj;ensureSettings(obj);obj.balanceSettings.meta??={};const already=Number(obj.balanceSettings.meta.masteryOverhaulVersion)>=1;
+  obj.masteryTypes=MASTERY_BY_JOB.map((types,job)=>({job,types:[...types]}));
+  for(let job=0;job<(obj.classes||[]).length;job++){
+    const skills=obj.classes[job]?.skills||[],defaultPattern=skills.length>=6&&skills.slice(0,6).every((sk,i)=>Number(sk.requiredLevel)===OLD_LEVELS[i]);
+    for(let i=0;i<skills.length;i++){const sk=skills[i],plan=CORE_PLAN[job]?.[i]||{},valid=new Set(MASTERY_BY_JOB[job]||[]);
+      if(!already&&defaultPattern&&i<NEW_LEVELS.length)sk.requiredLevel=NEW_LEVELS[i];
+      if(sk.mastery===undefined)sk.mastery=plan.mastery??null;if(sk.requiredMastery===undefined)sk.requiredMastery=plan.requiredMastery??null;if(!Number.isInteger(sk.requiredMasteryLevel))sk.requiredMasteryLevel=plan.requiredMasteryLevel??0;
+      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=clone(plan.weaponTypes||[]);sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));
+      if(!already&&plan.prerequisites)sk.prerequisites=clone(plan.prerequisites);normalizePrerequisites(sk);sk.powerPerLevel=0;
+      if(sk.activation==='proc'){ensureProcSkillFields(sk);sk.procChancePerLevel=0;}
+      if(sk.mastery!==null&&!valid.has(sk.mastery))sk.mastery=plan.mastery??null;if(sk.requiredMastery!==null&&!valid.has(sk.requiredMastery))sk.requiredMastery=plan.requiredMastery??null;
+    }
+    const supports=obj.supportSkills?.[job]||[],supportPattern=supports.length===3&&supports.every((sk,i)=>Number(sk.level)===OLD_SUPPORT[i]);
+    for(let i=0;i<supports.length;i++){const sk=supports[i],plan=SUPPORT_PLAN[job]?.[i]||{},valid=new Set(MASTERY_BY_JOB[job]||[]);
+      if(!already&&supportPattern)sk.level=NEW_SUPPORT[i];if(sk.mastery===undefined)sk.mastery=plan.mastery??null;if(sk.requiredMastery===undefined)sk.requiredMastery=null;if(!Number.isInteger(sk.requiredMasteryLevel))sk.requiredMasteryLevel=0;
+      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=[];sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));normalizePrerequisites(sk);sk.effectPerLevel=0;
+      if(sk.mastery!==null&&!valid.has(sk.mastery))sk.mastery=plan.mastery??null;if(sk.requiredMastery!==null&&!valid.has(sk.requiredMastery))sk.requiredMastery=null;
+    }
+  }
+  if(Array.isArray(obj.equipmentForms))obj.equipmentForms.forEach((slots,job)=>{for(const form of slots?.[0]||[])if(!WEAPON_TYPE_SET.has(form.weaponType)&&LEGACY_WEAPON_BY_NAME[form.name])form.weaponType=LEGACY_WEAPON_BY_NAME[form.name];for(let slot=1;slot<(slots?.length||0);slot++)for(const form of slots[slot]||[])delete form.weaponType;});
+  obj.balanceSettings.meta.masteryOverhaulVersion=1;return obj;
+}
+
+BALANCE_SETTINGS_DEFAULTS.skills??={};BALANCE_SETTINGS_DEFAULTS.skills.mastery=clone(MASTERY_DEFAULTS);
+BALANCE_SETTINGS_DEFAULTS.progression.starting.skillPoints=0;BALANCE_SETTINGS_DEFAULTS.progression.levelRewards.skillPoints=0;
+migrateOverhaul(ORIGINAL_DATA);
+const masteryEnsureArraysBase=ensureArrays;ensureArrays=function(){masteryEnsureArraysBase();migrateOverhaul(data);return data;};ensureArrays();
+
+const masterySettingMetaBase=settingMeta;settingMeta=function(path){
+  const p=path.replace(/^balanceSettings\./,''),map={
+    'skills.mastery.xpBase':['精通升級基礎 XP','精通 Lv0→1 的基本需求。'],'skills.mastery.xpLinear':['精通 XP 線性成長','每提高一級額外增加的需求量。'],'skills.mastery.xpQuadratic':['精通 XP 平方成長','高精通等級的額外需求成長。'],'skills.mastery.skillUseXp':['技能使用精通 XP','成功使用帶 mastery 的技能時取得的精通 XP。'],'skills.mastery.basicAttackXp':['武器普攻精通 XP','戰士／弓箭手使用對應武器普攻時取得的精通 XP。'],'skills.mastery.maxLevel':['精通最高等級','精通顯示等級上限。'],'skills.mastery.advanceRequiredLevel':['二轉精通需求','任一本職主要精通達此等級即可滿足二轉條件。'],'skills.mastery.characterXpMultiplier':['角色升級需求倍率','第一次大修額外套用到角色 EXP 需求；1.35 = 原需求 ×1.35。']};
+  return map[p]?{label:map[p][0],help:map[p][1]}:masterySettingMetaBase(path);
+};
+function masteryOptions(job,value){return [['','無'],...(MASTERY_BY_JOB[job]||[]).map(k=>[k,(MASTERY_LABELS[k]||k)+'精通'])].map(([v,label])=>`<option value="${esc(v)}" ${String(value??'')===v?'selected':''}>${esc(label)}</option>`).join('');}
+function masteryEditorCard(job,sk){
+  const allowed=JOB_WEAPONS[job]||WEAPON_TYPES,selectedWeapons=new Set(sk.weaponTypes||[]);
+  return card('精通與武器條件',`<div class="mastery-editor-grid"><div class="field"><label>使用時培養精通</label><select id="skillMastery">${masteryOptions(job,sk.mastery)}</select><div class="field-help">成功使用技能後增加此精通 XP；無代表不提供精通。</div></div><div class="field"><label>學習需求精通</label><select id="skillRequiredMastery">${masteryOptions(job,sk.requiredMastery)}</select><div class="field-help">與角色等級、前置技能共同判斷。</div></div><div class="field"><label>需求精通等級</label><input id="skillRequiredMasteryLevel" type="number" min="0" step="1" value="${esc(sk.requiredMasteryLevel??0)}"></div><div class="field"><label>允許使用武器</label><div class="mastery-editor-weapons">${allowed.map(k=>`<label><input type="checkbox" data-skill-weapon="${k}" ${selectedWeapons.has(k)?'checked':''}>${esc(WEAPON_TYPE_LABELS[k])}</label>`).join('')}</div><div class="field-help">空白代表不限制武器；weaponType 與 mastery 是不同概念。</div></div></div>`);
+}
+function bindMasteryCard(sk){
+  const m=document.getElementById('skillMastery'),r=document.getElementById('skillRequiredMastery'),lv=document.getElementById('skillRequiredMasteryLevel');
+  if(m)m.onchange=()=>{sk.mastery=m.value||null;markDirty();};if(r)r.onchange=()=>{sk.requiredMastery=r.value||null;markDirty();};if(lv)lv.onchange=()=>{sk.requiredMasteryLevel=Math.max(0,Math.floor(Number(lv.value)||0));markDirty();};
+  document.querySelectorAll('[data-skill-weapon]').forEach(el=>el.onchange=()=>{const set=new Set(sk.weaponTypes||[]);if(el.checked)set.add(el.dataset.skillWeapon);else set.delete(el.dataset.skillWeapon);sk.weaponTypes=[...set];markDirty();});
+}
+const masteryRenderSkillsBase=renderSkills;renderSkills=function(){
+  ensureArrays();masteryRenderSkillsBase();const app=document.getElementById('app');if(!app)return;const support=selected.skillTab==='support',job=support?selected.supportClass:selected.skillClass,sk=support?data.supportSkills?.[job]?.[selected.support]:data.classes?.[job]?.skills?.[selected.skill];if(!sk)return;
+  for(const key of ['powerPerLevel','procChancePerLevel','effectPerLevel'])app.querySelector(`[data-key="${key}"]`)?.closest('.field')?.remove();
+  app.querySelectorAll('[data-prerequisite-level]').forEach(el=>el.closest('.field')?.remove());app.querySelectorAll('[data-prerequisite-skill]').forEach(el=>{const help=el.parentElement?.querySelector('.field-help');if(help)help.textContent='只判斷是否已學會，不再要求前置技能等級。';});
+  const notice=[...app.querySelectorAll('.notice')].find(x=>/技能等級|每級輔助技能|最高 5 級/.test(x.textContent));if(notice)notice.innerHTML='<b>技能學習制：</b>技能只有未學／已學兩種狀態；學會後立即取得完整效果。前置技能只判斷是否已學會。';
+  const procBase=app.querySelector('[data-key="procBaseChance"]')?.closest('.field')?.querySelector('label');if(procBase)procBase.textContent='基礎觸發率';
+  app.insertAdjacentHTML('beforeend',masteryEditorCard(job,sk));bindMasteryCard(sk);
+};
+const masteryRenderEquipmentBase=renderEquipment;renderEquipment=function(){
+  ensureArrays();masteryRenderEquipmentBase();if(selected.equipSlot!==0)return;const e=data.equipmentForms?.[selected.equipClass]?.[0]?.[selected.equip];if(!e)return;const app=document.getElementById('app');
+  app.insertAdjacentHTML('beforeend',card('武器類型',`<div class="fields"><div class="field"><label>weaponType</label><select id="weaponTypeSelect"><option value="">未設定</option>${WEAPON_TYPES.map(k=>`<option value="${k}" ${e.weaponType===k?'selected':''}>${esc(WEAPON_TYPE_LABELS[k])} · ${k}</option>`).join('')}</select><div class="field-help">遊戲只讀 weaponType；缺少類型會在相容性檢查警告。</div></div></div>`));
+  document.getElementById('weaponTypeSelect').onchange=ev=>{if(ev.target.value)e.weaponType=ev.target.value;else delete e.weaponType;markDirty();};
+};
+const masteryRenderSettingsBase=renderBalanceSettings;renderBalanceSettings=function(){
+  ensureArrays();masteryRenderSettingsBase();const hidden=['balanceSettings.progression.starting.skillPoints','balanceSettings.progression.levelRewards.skillPoints','balanceSettings.skills.core.maxLevel','balanceSettings.skills.core.initialCap','balanceSettings.skills.core.capLevelsPerStep','balanceSettings.skills.core.effectPerExtraLevel','balanceSettings.skills.proc.perSkillLevel','balanceSettings.skills.support.maxLevel','balanceSettings.skills.support.effectPerExtraLevel'];
+  const app=document.getElementById('app');for(const path of hidden)app.querySelector(`[data-path="${path}"]`)?.closest('.pathrow')?.remove();const head=app.querySelector('.section-head p');if(head)head.textContent='修改角色成長、精通 XP 曲線、裝備、掉落、販售與其他全域數值；技能點與技能等級舊欄位只保留相容資料，不在正常 UI 顯示。';
+};
+const masteryValidateBase=validateData;validateData=function(){
+  ensureArrays();let issues=masteryValidateBase().filter(x=>!/powerPerLevel|procChancePerLevel|effectPerLevel|每級增加倍率|技能最高等級|輔助技能最高等級/.test(x));const s=data.balanceSettings?.skills?.mastery||{};
+  for(const key of ['xpBase','xpLinear','xpQuadratic','skillUseXp','basicAttackXp','maxLevel','advanceRequiredLevel','characterXpMultiplier'])if(!Number.isFinite(Number(s[key]))||Number(s[key])<0)issues.push(`精通設定 skills.mastery.${key} 無效。`);if(Number(s.xpBase)<1||Number(s.maxLevel)<1||Number(s.characterXpMultiplier)<1)issues.push('精通基礎 XP、最高等級與角色 EXP 倍率必須至少為 1。');
+  for(let job=0;job<(data.classes||[]).length;job++){const valid=new Set(MASTERY_BY_JOB[job]||[]);
+    for(const [i,sk] of (data.classes[job].skills||[]).entries()){if(sk.mastery!=null&&!valid.has(sk.mastery))issues.push(`技能 ${job}-${i} 的 mastery 不存在。`);if(sk.requiredMastery!=null&&!valid.has(sk.requiredMastery))issues.push(`技能 ${job}-${i} 的 requiredMastery 不存在。`);if(!Number.isInteger(sk.requiredMasteryLevel)||sk.requiredMasteryLevel<0)issues.push(`技能 ${job}-${i} 的 requiredMasteryLevel 必須是非負整數。`);if(!Array.isArray(sk.weaponTypes)||sk.weaponTypes.some(x=>!WEAPON_TYPE_SET.has(x)))issues.push(`技能 ${job}-${i} 含不存在的 weaponType。`);}
+    for(const [i,sk] of (data.supportSkills?.[job]||[]).entries()){if(sk.mastery!=null&&!valid.has(sk.mastery))issues.push(`輔助技能 ${job}-${i} 的 mastery 不存在。`);if(sk.requiredMastery!=null&&!valid.has(sk.requiredMastery))issues.push(`輔助技能 ${job}-${i} 的 requiredMastery 不存在。`);if(!Number.isInteger(sk.requiredMasteryLevel)||sk.requiredMasteryLevel<0)issues.push(`輔助技能 ${job}-${i} 的 requiredMasteryLevel 必須是非負整數。`);if(!Array.isArray(sk.weaponTypes)||sk.weaponTypes.some(x=>!WEAPON_TYPE_SET.has(x)))issues.push(`輔助技能 ${job}-${i} 含不存在的 weaponType。`);}
+  }
+  for(let job=0;job<(data.equipmentForms||[]).length;job++)for(const [i,form] of (data.equipmentForms[job]?.[0]||[]).entries()){if(!form.weaponType)issues.push(`武器 ${job}-0-${i}「${form.name||'未命名'}」缺少 weaponType。`);else if(!WEAPON_TYPE_SET.has(form.weaponType))issues.push(`武器 ${job}-0-${i}「${form.name||'未命名'}」使用不存在的 weaponType：${form.weaponType}。`);}
+  return [...new Set(issues)];
+};
+function cleanMasteryExport(){
+  ensureArrays();const out=clone(data);migrateOverhaul(out);
+  for(const cls of out.classes||[])for(const sk of cls.skills||[]){delete sk.powerPerLevel;if(sk.activation==='proc')delete sk.procChancePerLevel;sk.prerequisites=(sk.prerequisites||[]).map(req=>({type:req.type==='support'?'support':'core',skill:req.skill}));}
+  for(const list of out.supportSkills||[])for(const sk of list||[]){delete sk.effectPerLevel;sk.prerequisites=(sk.prerequisites||[]).map(req=>({type:req.type==='support'?'support':'core',skill:req.skill}));}
+  if(out.balanceSettings?.skills?.core){delete out.balanceSettings.skills.core.maxLevel;delete out.balanceSettings.skills.core.initialCap;delete out.balanceSettings.skills.core.capLevelsPerStep;delete out.balanceSettings.skills.core.effectPerExtraLevel;}if(out.balanceSettings?.skills?.proc)delete out.balanceSettings.skills.proc.perSkillLevel;if(out.balanceSettings?.skills?.support){delete out.balanceSettings.skills.support.maxLevel;delete out.balanceSettings.skills.support.effectPerExtraLevel;}
+  out.notes=[...(out.notes||[]).filter(x=>!/powerPerLevel|procChancePerLevel|effectPerLevel|技能等級|每級/i.test(String(x))),'第一次大修：技能只有未學／已學；技能點與技能等級舊欄位不再參與正式計算。','mastery / requiredMastery / requiredMasteryLevel / weaponTypes 已加入技能 schema；prerequisites 只判斷是否已學會。','武器使用穩定 weaponType；weaponType 與 mastery 為獨立概念。'];return out;
+}
+function exportMasteryWorkspace(kind){
+  ensureArrays();const issues=validateData();if(kind==='release'&&issues.length){alert('正式實裝 JSON 必須先通過相容性檢查。目前仍有 '+issues.length+' 個提醒：\n\n'+issues.slice(0,12).join('\n'));currentSection='overview';render();return;}if(kind==='test'&&issues.length&&!confirm('目前有 '+issues.length+' 個資料提醒。仍要匯出測試 JSON 嗎？\n\n'+issues.slice(0,8).join('\n')))return;
+  const now=new Date(),stamp=now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'-'+String(now.getHours()).padStart(2,'0')+String(now.getMinutes()).padStart(2,'0'),filename=kind==='release'?`emberwild-balance-release-${stamp}.json`:'emberwild-balance-test.json';
+  downloadText(filename,JSON.stringify(cleanMasteryExport(),null,2),'application/json;charset=utf-8');markSaved((kind==='release'?'已匯出正式 JSON':'已匯出測試 JSON')+' · '+filename);
+}
+const exportBtn=document.getElementById('exportBtn'),releaseBtn=document.getElementById('releaseBtn');if(exportBtn){exportBtn.textContent='匯出測試 JSON';exportBtn.onclick=()=>exportMasteryWorkspace('test');}if(releaseBtn)releaseBtn.onclick=()=>exportMasteryWorkspace('release');
+migrateOverhaul(data);markDirty('已套用第一次大修資料 migration');render();
+globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),masteryTypes:clone(MASTERY_BY_JOB),migrate:()=>{migrateOverhaul(data);render();},cleanExport:cleanMasteryExport};
+})();
+</script>
+
 </html>
