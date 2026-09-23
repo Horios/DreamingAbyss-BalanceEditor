@@ -687,7 +687,7 @@ if(!Array.isArray(data.notes))data.notes=[];
 for(const note of [
   'proc 技能使用 2 個普攻觸發槽；學會技能不等於自動啟用。',
   'procBaseChance 為 Lv1 基礎觸發率，procChancePerLevel 為每次升級增加率；舊 JSON 會依原全域公式換算。',
-  '核心技能 powerPerLevel 與輔助技能 effectPerLevel 可個別設定每提升 1 級增加的基礎效果比例；舊 JSON 缺少欄位時才沿用 balanceSettings 的全域預設。',
+  '核心技能 powerPerLevel 與輔助技能 effectPerLevel 為每級直接加到基礎效果的倍率；實際效果 = 基礎效果 + 技能等級 × 每級倍率。舊 JSON 缺少欄位時才沿用 balanceSettings 的全域預設。',
   'proc 專屬效果：nextActiveDamage=下次主動技能增傷；advanceNextRound=下回合行動提前 1 格；shieldLowest=最低生命比例隊友獲得攻擊力倍率護盾。','核心與輔助技能皆可設定最多 3 個前置技能；前置可選主動、觸發或輔助技能，且全部達到各自需求等級後才能學習／升級。'
 ])if(!data.notes.includes(note))data.notes.push(note);
 
@@ -883,7 +883,7 @@ function renderSkills(){
       prerequisiteFields+
       inputField("基礎冷卻回合","cooldown",sk.cooldown??0,"number","min=0 step=1",false,skillMode==="active"?"主動技能實際冷卻 = 此值 − 寶石 − 冷卻詞條，但不低於全域最低冷卻。":"proc 技能不使用冷卻值；此欄保留資料結構相容。")+
       inputField("基礎效果倍率","power",sk.power??1,"number","min=0 step=0.01",false,powerHelp)+
-      inputField("每級增加倍率","powerPerLevel",sk.powerPerLevel??data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,"number","min=0 step=0.001",false,"從 Lv2 起每提升 1 級套用一次；0.18 = 每級在基礎效果上 +18%。此值只影響本技能。")+
+      inputField("每級增加倍率","powerPerLevel",sk.powerPerLevel??data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,"number","min=0 step=0.001",false,"每級直接加到基礎效果；實際倍率 = 基礎倍率 + 技能等級 × 每級倍率。例如基礎 2.00、每級 0.10，Lv1 = 2.10、Lv2 = 2.20。此值只影響本技能。")+
       inputField("最大攻擊目標數","maxTargets",sk.maxTargets??1,"number","min=1 step=1",false,procOnly?"觸發專屬效果不使用 maxTargets；保留此欄只為 JSON 結構相容。":"傷害／吸血技能 >1 時隨機抽不重複存活敵人；99 以上在套用時會轉成全部存活敵人。治療固定找最低生命比例隊友，護盾固定自己。")+
       (skillMode==="proc"?inputField("Lv1 基礎觸發率","procBaseChance",sk.procBaseChance,"number","min=0 max=1 step=0.001",false,"0~1 小數。這是 Lv1 未計寶石／裝備詞條時的基礎機率；例如 0.245 = 24.5%。")+inputField("每次升級增加觸發率","procChancePerLevel",sk.procChancePerLevel,"number","min=0 max=1 step=0.001",false,"0~1 小數。從 Lv2 起每提升 1 級加一次；例如 0.025 = 每級 +2.5 個百分點。"):"")+
       boolField("需要完成二轉","requiresAdvanced",!!sk.requiresAdvanced,"為是時，未二轉不能學習／使用此技能。")+
@@ -2120,7 +2120,7 @@ ensureArrays();render();
         ${selectField('效果類型／DEBUFF 機制','kind',sk.kind||'attack',SUPPORT_KINDS,false,'followup、dotAttack、dotMaxHp、damageAmp 為新增機制；舊 vulnerable 只為舊 JSON 相容，載入後會自動轉換。',SUPPORT_KIND_LABELS)}
         ${selectField('技能／追打屬性','element',sk.element||'physical',ELEMENTS,false,elementHelp(sk),ELEMENT_LABELS)}
         ${inputField('基礎效果比例','value',sk.value??0,'number','min=0 step=0.001',false,valueHelp(sk))}
-        ${inputField('每級增加倍率','effectPerLevel',sk.effectPerLevel??data.balanceSettings?.skills?.support?.effectPerExtraLevel??.2,'number','min=0 step=0.001',false,'從 Lv2 起每提升 1 級套用一次；0.20 = 每級在基礎效果上 +20%。此值只影響本技能。')}
+        ${inputField('每級增加倍率','effectPerLevel',sk.effectPerLevel??data.balanceSettings?.skills?.support?.effectPerExtraLevel??.2,'number','min=0 step=0.001',false,'每級直接加到基礎效果；實際效果 = 基礎效果 + 技能等級 × 每級倍率。例如基礎 0.20、每級 0.02，Lv1 = 0.22、Lv2 = 0.24。此值只影響本技能。')}
         ${inputField('持續時間（戰鬥回合）','duration',sk.duration??0,'number','min=0 step=1',false,'BUFF／DEBUFF 依全隊戰鬥回合計時。DOT 只有在效果仍有效時，才會於目標自身行動前觸發。')}
         ${inputField('冷卻時間（自身行動回合）','cooldown',sk.cooldown??0,'number','min=0 step=1',false,'只有施放者自己的行動回合會扣除冷卻；其他角色、敵人與戰鬥倍速都不會額外推進。')}
         ${inputField('需求等級','level',sk.level??1,'number','min=1 step=1',false,'達到此角色等級後才能學習；索引 2 的第三個輔助技能另外固定要求二轉。')}
