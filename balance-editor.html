@@ -602,45 +602,6 @@ function ensureProcSkillFields(sk){
   sk.procBaseChance=Math.max(0,Math.min(1,Number(sk.procBaseChance)));
   sk.procChancePerLevel=Math.max(0,Math.min(1,Number(sk.procChancePerLevel)));
 }
-function ensureSkillPrerequisites(sk){
-  if(!sk||typeof sk!=="object")return [];
-  if(!Array.isArray(sk.prerequisites)){
-    sk.prerequisites=Number.isInteger(sk.prerequisiteSkill)?[{type:"core",skill:sk.prerequisiteSkill,level:Number.isInteger(sk.prerequisiteLevel)&&sk.prerequisiteLevel>0?sk.prerequisiteLevel:1}]:[];
-  }
-  sk.prerequisites=sk.prerequisites.map(req=>({type:req?.type==="support"?"support":"core",skill:req?.skill,level:req?.level}));
-  delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;
-  return sk.prerequisites;
-}
-function prerequisiteRefKey(req){return (req?.type==="support"?"support":"core")+":"+req?.skill;}
-function prerequisiteFieldsHTML(job,ownerType,ownerIndex,sk){
-  const prerequisites=ensureSkillPrerequisites(sk),core=data.classes[job]?.skills||[],support=data.supportSkills[job]||[];
-  const candidates=[
-    ...core.map((x,i)=>({type:"core",index:i,value:"core:"+i,label:(x.activation==="proc"?"觸發":"主動")+"｜"+(x.name||"技能 "+(i+1))})),
-    ...support.map((x,i)=>({type:"support",index:i,value:"support:"+i,label:"輔助｜"+(x.name||"技能 "+(i+1))}))
-  ];
-  return Array.from({length:3},(_,slot)=>{
-    const req=prerequisites[slot]||null,value=req&&Number.isInteger(req.skill)?prerequisiteRefKey(req):"",level=Number.isInteger(req?.level)&&req.level>0?req.level:1;
-    const used=new Set(prerequisites.map((x,i)=>i===slot?null:prerequisiteRefKey(x)).filter(Boolean));
-    const opts=[{value:"",label:"無"},...candidates.filter(x=>!(x.type===ownerType&&x.index===ownerIndex)&&(!used.has(x.value)||x.value===value))];
-    return '<div class="field"><label>前置技能 '+(slot+1)+'</label><select data-prerequisite-skill="'+slot+'">'+opts.map(x=>'<option value="'+esc(x.value)+'" '+(String(x.value)===value?'selected':'')+'>'+esc(x.label)+'</option>').join('')+'</select><div class="field-help">可選主動、觸發或輔助技能；同一技能不可重複。</div></div><div class="field"><label>前置 '+(slot+1)+' 需求等級</label><input data-prerequisite-level="'+slot+'" type="number" min="1" step="1" value="'+esc(level)+'" '+(value===""?'disabled':'')+'><div class="field-help">該前置技能至少需達到此等級。</div></div>';
-  }).join("");
-}
-function bindPrerequisiteFields(app,sk){
-  app.querySelectorAll("[data-prerequisite-skill]").forEach(el=>el.onchange=()=>{
-    const slot=Number(el.dataset.prerequisiteSkill),rows=[...ensureSkillPrerequisites(sk)];
-    if(el.value===""){if(slot<rows.length)rows.splice(slot,1);}
-    else{
-      const parts=el.value.split(":"),next={type:parts[0]==="support"?"support":"core",skill:Number(parts[1]),level:slot<rows.length&&Number.isInteger(rows[slot]?.level)&&rows[slot].level>0?rows[slot].level:1};
-      if(slot<rows.length)rows[slot]=next;else rows.push(next);
-    }
-    sk.prerequisites=rows;markDirty();render();
-  });
-  app.querySelectorAll("[data-prerequisite-level]").forEach(el=>el.onchange=()=>{
-    const slot=Number(el.dataset.prerequisiteLevel),rows=ensureSkillPrerequisites(sk);
-    if(slot>=rows.length)return;
-    rows[slot].level=Number(el.value);markDirty();
-  });
-}
 function normalizeEquipmentFormsSchema(){
   if(!Array.isArray(data.equipmentForms))data.equipmentForms=[];
   const classCount=data.classes.length;
@@ -689,11 +650,10 @@ function ensureArrays(){
     const supportPerLevelDefault=Number(data.balanceSettings?.skills?.support?.effectPerExtraLevel??.2);
     for(const sk of data.classes[ci]?.skills||[]){
       if(!Number.isFinite(sk.powerPerLevel))sk.powerPerLevel=Number.isFinite(corePerLevelDefault)?corePerLevelDefault:.18;
-      ensureProcSkillFields(sk);ensureSkillPrerequisites(sk);
+      ensureProcSkillFields(sk);
     }
     for(const sk of data.supportSkills[ci]||[]){
       if(!Number.isFinite(sk.effectPerLevel))sk.effectPerLevel=Number.isFinite(supportPerLevelDefault)?supportPerLevelDefault:.2;
-      ensureSkillPrerequisites(sk);
     }
   }
 }
@@ -702,7 +662,7 @@ for(const note of [
   'proc 技能使用 2 個普攻觸發槽；學會技能不等於自動啟用。',
   'procBaseChance 為 Lv1 基礎觸發率，procChancePerLevel 為每次升級增加率；舊 JSON 會依原全域公式換算。',
   '核心技能 powerPerLevel 與輔助技能 effectPerLevel 為每次升級直接加到基礎效果的倍率；基礎效果即 Lv1 數值，實際效果 = 基礎效果 + (技能等級 - 1) × 每級倍率。舊 JSON 缺少欄位時才沿用 balanceSettings 的全域預設。',
-  'proc 專屬效果：nextActiveDamage=下次主動技能增傷；advanceNextRound=下回合行動提前 1 格；shieldLowest=最低生命比例隊友獲得攻擊力倍率護盾。','核心與輔助技能皆可設定最多 3 個前置技能；前置可選主動、觸發或輔助技能，且全部達到各自需求等級後才能學習／升級。'
+  'proc 專屬效果：nextActiveDamage=下次主動技能增傷；advanceNextRound=下回合行動提前 1 格；shieldLowest=最低生命比例隊友獲得攻擊力倍率護盾。'
 ])if(!data.notes.includes(note))data.notes.push(note);
 
 function count(section,normalized=false){
@@ -874,7 +834,6 @@ function renderSkills(){
   if(!visible.some(x=>x.i===selected.skill))selected.skill=visible.length?visible[0].i:-1;
   const sk=selected.skill>=0?skills[selected.skill]:null;
   if(sk)ensureProcSkillFields(sk);
-  const prerequisiteFields=sk?prerequisiteFieldsHTML(selected.skillClass,"core",selected.skill,sk):"";
   const procOnly=sk&&PROC_ONLY_EFFECTS.has(sk.effect),effectOptions=skillMode==="proc"?EFFECTS:EFFECTS.filter(x=>!PROC_ONLY_EFFECTS.has(x));
   const effectHelp=skillMode==="proc"?"proc 可使用一般傷害／治療／護盾／吸血，或三種觸發專屬效果。觸發專屬效果不能配置給 active 技能。":"active 技能使用一般傷害／治療／護盾／吸血效果。";
   const powerHelp=sk?.effect==="nextActiveDamage"?"0.25 = 基礎 +25% 下次主動技能傷害；技能等級、寶石與指定技能效果詞條仍會放大此比例。":sk?.effect==="advanceNextRound"?"此效果固定前移 1 格，不使用 power；保留欄位只為 JSON 結構相容。":sk?.effect==="shieldLowest"?"以施放者攻擊力為基準；0.8 = 產生攻擊力 80% 的純護盾，給生命比例最低的存活隊友。":'最終技能量先以「角色攻擊力 × 此倍率」為基礎，再乘技能等級、寶石、指定技能效果詞條與輔助技能 power。1 = 100% 攻擊力。';
@@ -894,7 +853,6 @@ function renderSkills(){
       selectField("主要效果","effect",sk.effect||"damage",effectOptions,false,effectHelp,EFFECT_LABELS)+
       selectField("技能屬性","element",sk.element||"physical",ELEMENTS,false,"傷害類技能會參與元素剋制與元素增傷；治療／護盾仍保留屬性標示。",ELEMENT_LABELS)+
       inputField("需求等級","requiredLevel",sk.requiredLevel??1,"number","min=1 step=1",false,"角色等級達到此值才能學習；必須為整數且至少 1。")+
-      prerequisiteFields+
       inputField("基礎冷卻回合","cooldown",sk.cooldown??0,"number","min=0 step=1",false,skillMode==="active"?"主動技能實際冷卻 = 此值 − 寶石 − 冷卻詞條，但不低於全域最低冷卻。":"proc 技能不使用冷卻值；此欄保留資料結構相容。")+
       inputField("基礎效果倍率","power",sk.power??1,"number","min=0 step=0.01",false,powerHelp)+
       inputField("每級增加倍率","powerPerLevel",sk.powerPerLevel??data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,"number","min=0 step=0.001",false,"基礎倍率即 Lv1 倍率；實際倍率 = 基礎倍率 + (技能等級 - 1) × 每級倍率。例如基礎 2.00、每級 0.10，Lv1 = 2.00、Lv2 = 2.10。此值只影響本技能。")+
@@ -910,7 +868,6 @@ function renderSkills(){
   app.querySelectorAll("[data-skill]").forEach(x=>x.onclick=()=>{selected.skill=Number(x.dataset.skill);render();});
   if(sk){
     bindObjectFields(app,sk);
-    bindPrerequisiteFields(app,sk);
     const activation=app.querySelector('[data-key="activation"]');
     if(activation)activation.onchange=()=>{sk.activation=activation.value;if(sk.activation==="proc")ensureProcSkillFields(sk);else if(PROC_ONLY_EFFECTS.has(sk.effect))sk.effect="damage";selected.skillTab=sk.activation;markDirty();render();};
     const effect=app.querySelector('[data-key="effect"]');
@@ -919,13 +876,13 @@ function renderSkills(){
   const add=document.getElementById("addSkill");
   if(add)add.onclick=()=>{
     if(!c)return;
-    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",activation:skillMode,requiredLevel:1,prerequisites:[],cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
+    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",activation:skillMode,requiredLevel:1,cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
     if(skillMode==="proc")ensureProcSkillFields(next);
     skills.push(next);selected.skill=skills.length-1;markDirty();render();
   };
   if(sk){
     document.getElementById("dupSkill").onclick=()=>{const copy=structuredClone(sk);copy.id='job'+selected.skillClass+'-skill'+skills.length;copy.name=(copy.name||"技能")+" 複製";skills.push(copy);selected.skill=skills.length-1;markDirty();render();};
-    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete('刪除技能「'+sk.name+'」？既有存檔後方技能索引會前移。')){const removed=selected.skill;skills.splice(removed,1);for(const other of [...skills,...(data.supportSkills[selected.skillClass]||[])]){other.prerequisites=ensureSkillPrerequisites(other).filter(req=>!(req?.type!=="support"&&req?.skill===removed)).map(req=>req?.type==="support"?req:{type:"core",skill:Number.isInteger(req?.skill)&&req.skill>removed?req.skill-1:req.skill,level:req?.level});}selected.skill=-1;markDirty();render();}};
+    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete('刪除技能「'+sk.name+'」？既有存檔後方技能索引會前移。')){const removed=selected.skill;skills.splice(removed,1);selected.skill=-1;markDirty();render();}};
   }
 }
 function renderSupport(){
@@ -933,7 +890,6 @@ function renderSupport(){
   const group=data.supportSkills[selected.supportClass] || [];
   selected.support=Math.min(selected.support,Math.max(0,group.length-1));
   const sk=group[selected.support], c=data.classes[selected.supportClass];
-  const prerequisiteFields=sk?prerequisiteFieldsHTML(selected.supportClass,"support",selected.support,sk):"";
   document.getElementById("app").innerHTML =
     sectionHead("輔助技能","實際遊戲的 supportLevels 固定 3 格、supportSlots 只允許索引 0~2，因此每職業固定三個輔助技能；這裡只允許修改內容，不提供增刪。")+
     `<div class="notice">每級輔助技能會把基礎效果乘上 1 + (技能等級−1)×20%；最高 5 級。第 3 個輔助技能（索引 2）在 HTML 中額外寫死為需要二轉。</div><div class="oknotice">計時已統一：持續時間＝全隊戰鬥回合；冷卻＝施放者自身行動回合。所有數值都可在本頁直接調整。</div>`+
@@ -949,13 +905,12 @@ function renderSupport(){
       ${inputField("持續時間（戰鬥回合）","duration",sk.duration??0,"number","min=0 step=1",false,"BUFF／DEBUFF 以全隊戰鬥回合計時；暫停、對話框時不推進。regen 在持續期間每戰鬥回合按最大生命比例回復。")}
       ${inputField("冷卻時間（自身行動回合）","cooldown",sk.cooldown??0,"number","min=0 step=1",false,"只有施放者自己的行動回合會扣除冷卻；其他角色、敵人與戰鬥倍速都不會額外推進。")}
       ${inputField("需求等級","level",sk.level??1,"number","min=1 step=1",false,"達到此角色等級後才能學習；索引 2 的第三個輔助技能另外固定要求二轉。")}
-      ${prerequisiteFields}
       ${textareaField("技能風味說明","description",sk.description||"","完全手寫，只負責顯示文字，不參與效果計算。")}
     </div>`):card("輔助技能資料",`<div class="empty">每個職業應有 3 個輔助技能；目前 JSON 結構不完整。</div>`))+`</div>`;
   const app=document.getElementById("app");
   const sel=document.getElementById("supportClassSel"); if(sel) sel.onchange=()=>{selected.supportClass=Number(sel.value);selected.support=0;render();};
   app.querySelectorAll("[data-support]").forEach(x=>x.onclick=()=>{selected.support=Number(x.dataset.support);render();});
-  if(sk){bindObjectFields(app,sk);bindPrerequisiteFields(app,sk);}
+  if(sk){bindObjectFields(app,sk);}
 }
 
 function renderEquipment(){
@@ -1266,31 +1221,6 @@ function validateData(){
     });
   });
   data.supportSkills.forEach((g,ci)=>{if(!Array.isArray(g)||g.length!==EXPECTED_SUPPORT_PER_CLASS)issues.push('角色 '+ci+' 應維持 '+EXPECTED_SUPPORT_PER_CLASS+' 個輔助技能；遊戲存檔 supportLevels 固定長度為 3。');});
-  for(let ci=0;ci<data.classes.length;ci++){
-    const core=data.classes[ci]?.skills||[],support=data.supportSkills[ci]||[],owners=[...core.map((sk,index)=>({type:"core",index,sk})),...support.map((sk,index)=>({type:"support",index,sk}))];
-    const listFor=type=>type==="support"?support:core;
-    for(const owner of owners){
-      const reqs=ensureSkillPrerequisites(owner.sk);
-      if(reqs.length>3)issues.push('角色 '+ci+' '+(owner.type==="support"?"輔助":"核心")+'技能 '+owner.index+' 最多只能設定 3 個前置技能。');
-      const seen=new Set();
-      for(const req of reqs){
-        const type=req?.type==="support"?"support":"core",list=listFor(type),key=type+":"+req?.skill,max=type==="support"?supportSkillMax:coreSkillMax;
-        if(!req||!Number.isInteger(req.skill)||req.skill<0||req.skill>=list.length||(type===owner.type&&req.skill===owner.index))issues.push('角色 '+ci+' '+(owner.type==="support"?"輔助":"核心")+'技能 '+owner.index+' 的前置技能索引無效或指向自己。');
-        else if(seen.has(key))issues.push('角色 '+ci+' '+(owner.type==="support"?"輔助":"核心")+'技能 '+owner.index+' 重複設定相同前置技能。');
-        else seen.add(key);
-        if(!Number.isInteger(req?.level)||req.level<1||req.level>max)issues.push('角色 '+ci+' '+(owner.type==="support"?"輔助":"核心")+'技能 '+owner.index+' 的前置技能需求等級必須為 1~'+max+' 的整數。');
-      }
-    }
-    const getNode=(type,index)=>{const list=listFor(type);return Number.isInteger(index)&&index>=0&&index<list.length?list[index]:null;};
-    const visit=(type,index,path)=>{
-      const key=type+":"+index;if(path.has(key))return true;
-      const node=getNode(type,index);if(!node)return false;
-      const nextPath=new Set(path);nextPath.add(key);
-      for(const req of ensureSkillPrerequisites(node)){const nextType=req?.type==="support"?"support":"core";if(getNode(nextType,req?.skill)&&visit(nextType,req.skill,nextPath))return true;}
-      return false;
-    };
-    for(const owner of owners)if(visit(owner.type,owner.index,new Set()))issues.push('角色 '+ci+' '+(owner.type==="support"?"輔助":"核心")+'技能 '+owner.index+' 的前置技能形成循環依賴。');
-  }
   data.equipmentForms.forEach((jobs,job)=>{
     const global=job===data.classes.length,label=global?"全職業":`角色 ${job}`;
     if(!Array.isArray(jobs)||jobs.length!==4){issues.push(`${label}的裝備必須固定 4 個部位群組。`);return;}
@@ -2989,21 +2919,14 @@ const JOB_WEAPONS=[['sword','axe','hammer'],['staff','grimoire'],['bow','crossbo
 const LEGACY_WEAPON_BY_NAME={'闊刃劍':'sword','穿甲槍':'sword','汲血斧':'axe','狙擊長弓':'bow','穿雲弩':'crossbow','風羽短弓':'bow','炎晶杖':'staff','霜紋杖':'staff','疾風法器':'grimoire','晨光權杖':'holyStaff','淨化槌':'holyStaff','祈禱法杖':'holyStaff'};
 const OLD_LEVELS=[1,4,7,11,15,20],NEW_LEVELS=[1,3,5,7,15,20],OLD_SUPPORT=[1,7,15],NEW_SUPPORT=[1,4,15];
 const CORE_PLAN=[
-[{mastery:'sword',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['sword'],prerequisites:[]},{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:1,weaponTypes:['sword'],prerequisites:[]},{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:2,weaponTypes:['sword'],prerequisites:[{type:'core',skill:0}]},{mastery:'axe',requiredMastery:'axe',requiredMasteryLevel:2,weaponTypes:['axe'],prerequisites:[{type:'core',skill:0}]},{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:4,weaponTypes:['sword'],prerequisites:[{type:'core',skill:2}]},{mastery:'axe',requiredMastery:'axe',requiredMasteryLevel:4,weaponTypes:['axe'],prerequisites:[{type:'core',skill:3}]}],
-[{mastery:'fire',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['staff','grimoire'],prerequisites:[]},{mastery:'ice',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['staff','grimoire'],prerequisites:[]},{mastery:'fire',requiredMastery:'fire',requiredMasteryLevel:2,weaponTypes:['staff','grimoire'],prerequisites:[{type:'core',skill:0}]},{mastery:'shadow',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['staff','grimoire'],prerequisites:[]},{mastery:'fire',requiredMastery:'fire',requiredMasteryLevel:4,weaponTypes:['staff','grimoire'],prerequisites:[{type:'core',skill:2}]},{mastery:'wind',requiredMastery:'wind',requiredMasteryLevel:4,weaponTypes:['staff','grimoire'],prerequisites:[{type:'support',skill:0}]}],
-[{mastery:'bow',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['bow'],prerequisites:[]},{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:1,weaponTypes:['bow'],prerequisites:[]},{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:2,weaponTypes:['bow'],prerequisites:[{type:'core',skill:0}]},{mastery:'crossbow',requiredMastery:'crossbow',requiredMasteryLevel:2,weaponTypes:['crossbow'],prerequisites:[{type:'core',skill:0}]},{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:4,weaponTypes:['bow'],prerequisites:[{type:'core',skill:2}]},{mastery:'crossbow',requiredMastery:'crossbow',requiredMasteryLevel:4,weaponTypes:['crossbow'],prerequisites:[{type:'core',skill:3}]}],
-[{mastery:'light',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['prayerBook','holyStaff'],prerequisites:[]},{mastery:'light',requiredMastery:'light',requiredMasteryLevel:1,weaponTypes:['prayerBook','holyStaff'],prerequisites:[{type:'core',skill:0}]},{mastery:'shadow',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['prayerBook','holyStaff'],prerequisites:[]},{mastery:'shadow',requiredMastery:'shadow',requiredMasteryLevel:2,weaponTypes:['prayerBook','holyStaff'],prerequisites:[{type:'core',skill:2}]},{mastery:'light',requiredMastery:'light',requiredMasteryLevel:4,weaponTypes:['prayerBook','holyStaff'],prerequisites:[{type:'core',skill:1}]},{mastery:'shadow',requiredMastery:'shadow',requiredMasteryLevel:4,weaponTypes:['prayerBook','holyStaff'],prerequisites:[{type:'core',skill:3}]}]
+[{mastery:'sword',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['sword']},{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:1,weaponTypes:['sword']},{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:2,weaponTypes:['sword']},{mastery:'axe',requiredMastery:'axe',requiredMasteryLevel:2,weaponTypes:['axe']},{mastery:'sword',requiredMastery:'sword',requiredMasteryLevel:4,weaponTypes:['sword']},{mastery:'axe',requiredMastery:'axe',requiredMasteryLevel:4,weaponTypes:['axe']}],
+[{mastery:'fire',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['staff','grimoire']},{mastery:'ice',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['staff','grimoire']},{mastery:'fire',requiredMastery:'fire',requiredMasteryLevel:2,weaponTypes:['staff','grimoire']},{mastery:'shadow',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['staff','grimoire']},{mastery:'fire',requiredMastery:'fire',requiredMasteryLevel:4,weaponTypes:['staff','grimoire']},{mastery:'wind',requiredMastery:'wind',requiredMasteryLevel:4,weaponTypes:['staff','grimoire']}],
+[{mastery:'bow',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['bow']},{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:1,weaponTypes:['bow']},{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:2,weaponTypes:['bow']},{mastery:'crossbow',requiredMastery:'crossbow',requiredMasteryLevel:2,weaponTypes:['crossbow']},{mastery:'bow',requiredMastery:'bow',requiredMasteryLevel:4,weaponTypes:['bow']},{mastery:'crossbow',requiredMastery:'crossbow',requiredMasteryLevel:4,weaponTypes:['crossbow']}],
+[{mastery:'light',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['prayerBook','holyStaff']},{mastery:'light',requiredMastery:'light',requiredMasteryLevel:1,weaponTypes:['prayerBook','holyStaff']},{mastery:'shadow',requiredMastery:null,requiredMasteryLevel:0,weaponTypes:['prayerBook','holyStaff']},{mastery:'shadow',requiredMastery:'shadow',requiredMasteryLevel:2,weaponTypes:['prayerBook','holyStaff']},{mastery:'light',requiredMastery:'light',requiredMasteryLevel:4,weaponTypes:['prayerBook','holyStaff']},{mastery:'shadow',requiredMastery:'shadow',requiredMasteryLevel:4,weaponTypes:['prayerBook','holyStaff']}]
 ];
 const SUPPORT_PLAN=[[{},{},{}],[{mastery:'wind'},{mastery:'ice'},{mastery:'fire'}],[{},{},{}],[{mastery:'light'},{mastery:'light'},{mastery:'light'}]];
 const MASTERY_DEFAULTS={xpBase:8,xpLinear:5,xpQuadratic:1,skillUseXp:2,basicAttackXp:1,maxLevel:30,advanceRequiredLevel:4,characterXpMultiplier:1.35};
 
-function normalizePrerequisites(sk){
-  if(!sk||typeof sk!=='object')return [];
-  const src=Array.isArray(sk.prerequisites)?sk.prerequisites:(Number.isInteger(sk.prerequisiteSkill)?[{type:'core',skill:sk.prerequisiteSkill}]:[]);
-  const out=[],seen=new Set();
-  for(const req of src.slice(0,3)){const type=req?.type==='support'?'support':'core',skill=Number(req?.skill),key=type+':'+skill;if(Number.isInteger(skill)&&skill>=0&&!seen.has(key)){seen.add(key);out.push({type,skill,level:1});}}
-  sk.prerequisites=out;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;return out;
-}
 function ensureSettings(obj){
   obj.balanceSettings??={};obj.balanceSettings.progression??={};obj.balanceSettings.progression.starting??={};obj.balanceSettings.progression.levelRewards??={};
   obj.balanceSettings.progression.starting.skillPoints=0;obj.balanceSettings.progression.levelRewards.skillPoints=0;
@@ -3023,14 +2946,14 @@ function migrateOverhaul(obj){
       if(!already&&job===3&&[2,3].includes(i)&&sk.element==='light')sk.element='shadow';
       if(sk.mastery===undefined)sk.mastery=plan.mastery??null;if(sk.requiredMastery===undefined)sk.requiredMastery=plan.requiredMastery??null;if(!Number.isInteger(sk.requiredMasteryLevel))sk.requiredMasteryLevel=plan.requiredMasteryLevel??0;
       if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=clone(plan.weaponTypes||[]);sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));
-      if(!already&&plan.prerequisites)sk.prerequisites=clone(plan.prerequisites);normalizePrerequisites(sk);sk.powerPerLevel=0;
+      delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.powerPerLevel=0;
       if(sk.activation==='proc'){ensureProcSkillFields(sk);sk.procChancePerLevel=0;}
       if(sk.mastery!==null&&!valid.has(sk.mastery))sk.mastery=plan.mastery??null;if(sk.requiredMastery!==null&&!valid.has(sk.requiredMastery))sk.requiredMastery=plan.requiredMastery??null;
     }
     const supports=obj.supportSkills?.[job]||[],supportPattern=supports.length===3&&supports.every((sk,i)=>Number(sk.level)===OLD_SUPPORT[i]);
     for(let i=0;i<supports.length;i++){const sk=supports[i],plan=SUPPORT_PLAN[job]?.[i]||{},valid=new Set(MASTERY_BY_JOB[job]||[]);
       if(!already&&supportPattern)sk.level=NEW_SUPPORT[i];if(sk.mastery===undefined)sk.mastery=plan.mastery??null;if(sk.requiredMastery===undefined)sk.requiredMastery=null;if(!Number.isInteger(sk.requiredMasteryLevel))sk.requiredMasteryLevel=0;
-      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=[];sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));normalizePrerequisites(sk);sk.effectPerLevel=0;
+      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=[];sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.effectPerLevel=0;
       if(sk.mastery!==null&&!valid.has(sk.mastery))sk.mastery=plan.mastery??null;if(sk.requiredMastery!==null&&!valid.has(sk.requiredMastery))sk.requiredMastery=null;
     }
   }
@@ -3061,7 +2984,6 @@ function bindMasteryCard(sk){
 const masteryRenderSkillsBase=renderSkills;renderSkills=function(){
   ensureArrays();masteryRenderSkillsBase();const app=document.getElementById('app');if(!app)return;const support=selected.skillTab==='support',job=support?selected.supportClass:selected.skillClass,sk=support?data.supportSkills?.[job]?.[selected.support]:data.classes?.[job]?.skills?.[selected.skill];if(!sk)return;
   for(const key of ['powerPerLevel','procChancePerLevel','effectPerLevel'])app.querySelector(`[data-key="${key}"]`)?.closest('.field')?.remove();
-  app.querySelectorAll('[data-prerequisite-level],[data-prerequisite-skill]').forEach(el=>el.closest('.field')?.remove());
   [...app.querySelectorAll('.notice')].filter(x=>/技能等級|每級輔助技能|最高 5 級|索引保存技能等級/.test(x.textContent)).forEach(notice=>notice.innerHTML='<b>技能學習制：</b>技能只有未學／已學兩種狀態；學會後立即取得完整效果。學習條件使用角色等級、精通要求與既有武器限制。');
   const powerHelp=app.querySelector('[data-key="power"]')?.closest('.field')?.querySelector('.field-help');if(powerHelp)powerHelp.textContent='學會後直接使用此完整基礎倍率；寶石、裝備詞條與其他外部效果仍可增強技能。';
   const valueHelp=app.querySelector('[data-key="value"]')?.closest('.field')?.querySelector('.field-help');if(valueHelp&&support)valueHelp.textContent='使用 0~1 小數，例如 0.18 = 18%。學會後直接使用此完整效果，不再隨技能等級成長。';
