@@ -159,6 +159,20 @@ let selected = {
 };
 let dirty = false;
 
+// Coalesce startup rendering. This file is assembled from many extension scripts;
+// rendering after each extension caused the whole editor DOM to be rebuilt repeatedly.
+let editorInitialRenderRequested = false;
+function requestEditorInitialRender(){
+  if(editorInitialRenderRequested)return;
+  editorInitialRenderRequested=true;
+  const run=()=>{
+    editorInitialRenderRequested=false;
+    render();
+  };
+  if(document.readyState==="loading")window.addEventListener("DOMContentLoaded",run,{once:true});
+  else requestAnimationFrame(run);
+}
+
 const SECTION_META = [
   ["overview","總覽"],
   ["classes","角色"],
@@ -1336,7 +1350,7 @@ document.getElementById("restoreBtn").onclick=()=>{
   try{data=JSON.parse(s);ensureArrays();markDirty("已還原瀏覽器草稿，尚未匯出");render();}catch(e){alert("草稿損壞："+e.message)}
 };
 window.addEventListener("beforeunload",e=>{if(dirty){e.preventDefault();e.returnValue="";}});
-render();
+requestEditorInitialRender();
 </script>
 <style id="enemy-skill-editor-style">
 .enemy-skill-editor{display:grid;gap:10px;margin-top:10px}.enemy-skill-card{border:1px solid var(--line);background:#151a20;border-radius:8px;padding:10px}.enemy-skill-card-head{display:flex;align-items:center;gap:8px;margin-bottom:9px}.enemy-skill-card-head strong{margin-right:auto}.enemy-skill-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.enemy-skill-fields .full{grid-column:1/-1}.enemy-skill-fields label{font-size:11px;color:var(--muted)}.enemy-skill-note{font-size:11px;color:var(--muted);line-height:1.5}.enemy-skill-actions{display:flex;gap:6px;margin-top:9px}@media(max-width:900px){.enemy-skill-fields{grid-template-columns:1fr}}
@@ -1436,7 +1450,7 @@ const actionTurnValidateDataBase=validateData;
 validateData=function(){const issues=actionTurnValidateDataBase();ensureArrays();const s=data.balanceSettings.monsters.skillSystem?.assignChance||{};for(const k of ['normal','elite','boss','final'])if(!Number.isFinite(s[k])||s[k]<0||s[k]>1)issues.push(`敵人技能配置機率 monsters.skillSystem.assignChance.${k} 必須為 0~1。`);const ids=new Set();for(const [i,sk] of data.balanceSettings.monsters.skills.entries()){if(!sk.id||ids.has(sk.id))issues.push(`敵人技能第 ${i+1} 筆 ID 空白或重複。`);ids.add(sk.id);if(!sk.name)issues.push(`敵人技能 ${sk.id||i+1} 缺少名稱。`);if(!Number.isFinite(sk.weight)||sk.weight<=0)issues.push(`敵人技能 ${sk.id||i+1} 抽取權重必須 > 0。`);if(!Number.isFinite(sk.cooldownMin)||!Number.isFinite(sk.cooldownMax)||sk.cooldownMin<0||sk.cooldownMax<sk.cooldownMin)issues.push(`敵人技能 ${sk.id||i+1} 冷卻範圍無效。`);if(!Number.isFinite(sk.power)||sk.power<0)issues.push(`敵人技能 ${sk.id||i+1} 傷害倍率無效。`);}return issues;};
 
 ensureArrays();
-render();
+requestEditorInitialRender();
 </script>
 <script id="monster-drop-editor-defaults">
 BALANCE_SETTINGS_DEFAULTS.monsters.catalog ??= [{"id":"map0_mob0","name":"苔原史萊姆","mapIndex":0,"kind":"normal","material":"黏稠凝膠","element":"wind","race":"spirit","maxDrops":99},{"id":"map0_mob1","name":"林間野狼","mapIndex":0,"kind":"normal","material":"完整狼牙","element":"wind","race":"beast","maxDrops":99},{"id":"map0_mob2","name":"迷路樹精","mapIndex":0,"kind":"normal","material":"活性樹芯","element":"wind","race":"plant","maxDrops":99},{"id":"map0_boss","name":"古木守望者","mapIndex":0,"kind":"boss","material":"古木年輪","element":"wind","race":"plant","maxDrops":99},{"id":"map1_mob0","name":"洞穴蝙蝠","mapIndex":1,"kind":"normal","material":"薄翼膜","element":"physical","race":"beast","maxDrops":99},{"id":"map1_mob1","name":"岩背蜥蜴","mapIndex":1,"kind":"normal","material":"堅硬石鱗","element":"physical","race":"beast","maxDrops":99},{"id":"map1_mob2","name":"礦坑魔偶","mapIndex":1,"kind":"normal","material":"魔偶齒輪","element":"physical","race":"construct","maxDrops":99},{"id":"map1_boss","name":"礦脈巨人","mapIndex":1,"kind":"boss","material":"礦脈之心","element":"physical","race":"construct","maxDrops":99},{"id":"map2_mob0","name":"劇毒蛙","mapIndex":2,"kind":"normal","material":"劇毒腺體","element":"shadow","race":"beast","maxDrops":99},{"id":"map2_mob1","name":"幽光飛蛾","mapIndex":2,"kind":"normal","material":"微光鱗粉","element":"shadow","race":"spirit","maxDrops":99},{"id":"map2_mob2","name":"沼地亡魂","mapIndex":2,"kind":"normal","material":"怨念碎片","element":"shadow","race":"undead","maxDrops":99},{"id":"map2_boss","name":"泥沼女巫","mapIndex":2,"kind":"boss","material":"女巫符印","element":"shadow","race":"undead","maxDrops":99},{"id":"map3_mob0","name":"霜牙雪狼","mapIndex":3,"kind":"normal","material":"霜牙","element":"ice","race":"beast","maxDrops":99},{"id":"map3_mob1","name":"冰晶妖精","mapIndex":3,"kind":"normal","material":"冰晶翅片","element":"ice","race":"spirit","maxDrops":99},{"id":"map3_mob2","name":"雪原巨熊","mapIndex":3,"kind":"normal","material":"厚暖熊皮","element":"ice","race":"beast","maxDrops":99},{"id":"map3_boss","name":"凜冬巨獸","mapIndex":3,"kind":"boss","material":"永凍結晶","element":"ice","race":"beast","maxDrops":99},{"id":"map4_mob0","name":"熔岩蟲","mapIndex":4,"kind":"normal","material":"灼熱甲殼","element":"fire","race":"beast","maxDrops":99},{"id":"map4_mob1","name":"火羽渡鴉","mapIndex":4,"kind":"normal","material":"不熄火羽","element":"fire","race":"beast","maxDrops":99},{"id":"map4_mob2","name":"失控鎧甲","mapIndex":4,"kind":"normal","material":"焦黑鋼片","element":"fire","race":"construct","maxDrops":99},{"id":"map4_boss","name":"熔爐暴君","mapIndex":4,"kind":"boss","material":"熔核","element":"fire","race":"demon","maxDrops":99},{"id":"map5_mob0","name":"虛空獵犬","mapIndex":5,"kind":"normal","material":"虛空尖牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map5_mob1","name":"星塵水母","mapIndex":5,"kind":"normal","material":"星塵觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map5_mob2","name":"墜星魔像","mapIndex":5,"kind":"normal","material":"隕鐵核心","element":"shadow","race":"construct","maxDrops":99},{"id":"map5_boss","name":"星隕監視者","mapIndex":5,"kind":"boss","material":"星隕稜鏡","element":"shadow","race":"construct","maxDrops":99},{"id":"map6_boss","name":"噬日者・厄爾","mapIndex":6,"kind":"final","material":"日蝕王冠","element":"shadow","race":"demon","maxDrops":99},{"id":"map7_mob0","name":"覺醒・苔原史萊姆","mapIndex":7,"kind":"normal","material":"覺醒黏稠凝膠","element":"wind","race":"spirit","maxDrops":99},{"id":"map7_mob1","name":"覺醒・林間野狼","mapIndex":7,"kind":"normal","material":"覺醒完整狼牙","element":"wind","race":"beast","maxDrops":99},{"id":"map7_mob2","name":"覺醒・迷路樹精","mapIndex":7,"kind":"normal","material":"覺醒活性樹芯","element":"wind","race":"plant","maxDrops":99},{"id":"map7_boss","name":"覺醒・古木守望者","mapIndex":7,"kind":"boss","material":"覺醒古木年輪","element":"wind","race":"plant","maxDrops":99},{"id":"map8_mob0","name":"覺醒・洞穴蝙蝠","mapIndex":8,"kind":"normal","material":"覺醒薄翼膜","element":"physical","race":"beast","maxDrops":99},{"id":"map8_mob1","name":"覺醒・岩背蜥蜴","mapIndex":8,"kind":"normal","material":"覺醒堅硬石鱗","element":"physical","race":"beast","maxDrops":99},{"id":"map8_mob2","name":"覺醒・礦坑魔偶","mapIndex":8,"kind":"normal","material":"覺醒魔偶齒輪","element":"physical","race":"construct","maxDrops":99},{"id":"map8_boss","name":"覺醒・礦脈巨人","mapIndex":8,"kind":"boss","material":"覺醒礦脈之心","element":"physical","race":"construct","maxDrops":99},{"id":"map9_mob0","name":"覺醒・劇毒蛙","mapIndex":9,"kind":"normal","material":"覺醒劇毒腺體","element":"shadow","race":"beast","maxDrops":99},{"id":"map9_mob1","name":"覺醒・幽光飛蛾","mapIndex":9,"kind":"normal","material":"覺醒微光鱗粉","element":"shadow","race":"spirit","maxDrops":99},{"id":"map9_mob2","name":"覺醒・沼地亡魂","mapIndex":9,"kind":"normal","material":"覺醒怨念碎片","element":"shadow","race":"undead","maxDrops":99},{"id":"map9_boss","name":"覺醒・泥沼女巫","mapIndex":9,"kind":"boss","material":"覺醒女巫符印","element":"shadow","race":"undead","maxDrops":99},{"id":"map10_mob0","name":"覺醒・霜牙雪狼","mapIndex":10,"kind":"normal","material":"覺醒霜牙","element":"ice","race":"beast","maxDrops":99},{"id":"map10_mob1","name":"覺醒・冰晶妖精","mapIndex":10,"kind":"normal","material":"覺醒冰晶翅片","element":"ice","race":"spirit","maxDrops":99},{"id":"map10_mob2","name":"覺醒・雪原巨熊","mapIndex":10,"kind":"normal","material":"覺醒厚暖熊皮","element":"ice","race":"beast","maxDrops":99},{"id":"map10_boss","name":"覺醒・凜冬巨獸","mapIndex":10,"kind":"boss","material":"覺醒永凍結晶","element":"ice","race":"beast","maxDrops":99},{"id":"map11_mob0","name":"覺醒・熔岩蟲","mapIndex":11,"kind":"normal","material":"覺醒灼熱甲殼","element":"fire","race":"beast","maxDrops":99},{"id":"map11_mob1","name":"覺醒・火羽渡鴉","mapIndex":11,"kind":"normal","material":"覺醒不熄火羽","element":"fire","race":"beast","maxDrops":99},{"id":"map11_mob2","name":"覺醒・失控鎧甲","mapIndex":11,"kind":"normal","material":"覺醒焦黑鋼片","element":"fire","race":"construct","maxDrops":99},{"id":"map11_boss","name":"覺醒・熔爐暴君","mapIndex":11,"kind":"boss","material":"覺醒熔核","element":"fire","race":"demon","maxDrops":99},{"id":"map12_mob0","name":"覺醒・虛空獵犬","mapIndex":12,"kind":"normal","material":"覺醒虛空尖牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map12_mob1","name":"覺醒・星塵水母","mapIndex":12,"kind":"normal","material":"覺醒星塵觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map12_mob2","name":"覺醒・墜星魔像","mapIndex":12,"kind":"normal","material":"覺醒隕鐵核心","element":"shadow","race":"construct","maxDrops":99},{"id":"map12_boss","name":"覺醒・星隕監視者","mapIndex":12,"kind":"boss","material":"覺醒星隕稜鏡","element":"shadow","race":"construct","maxDrops":99},{"id":"map13_mob0","name":"燼翼火蛾","mapIndex":13,"kind":"normal","material":"燼翼粉","element":"fire","race":"spirit","maxDrops":99},{"id":"map13_mob1","name":"赤鬃山狼","mapIndex":13,"kind":"normal","material":"赤鬃毛皮","element":"fire","race":"beast","maxDrops":99},{"id":"map13_mob2","name":"焦根樹人","mapIndex":13,"kind":"normal","material":"焦根木髓","element":"fire","race":"plant","maxDrops":99},{"id":"map13_mob3","name":"炭殼魔偶","mapIndex":13,"kind":"normal","material":"炭殼碎片","element":"fire","race":"construct","maxDrops":99},{"id":"map13_boss","name":"赤楓炎靈","mapIndex":13,"kind":"boss","material":"炎靈心木","element":"fire","race":"spirit","maxDrops":99},{"id":"map14_mob0","name":"潮影蝙蝠","mapIndex":14,"kind":"normal","material":"潮影翼膜","element":"ice","race":"beast","maxDrops":99},{"id":"map14_mob1","name":"寒潮蜥蜴","mapIndex":14,"kind":"normal","material":"寒潮腺體","element":"ice","race":"beast","maxDrops":99},{"id":"map14_mob2","name":"海霧幽魂","mapIndex":14,"kind":"normal","material":"海霧結珠","element":"ice","race":"undead","maxDrops":99},{"id":"map14_mob3","name":"鹽晶魔像","mapIndex":14,"kind":"normal","material":"鹽晶塊","element":"ice","race":"construct","maxDrops":99},{"id":"map14_boss","name":"潮汐巨像","mapIndex":14,"kind":"boss","material":"深潮齒輪","element":"ice","race":"construct","maxDrops":99},{"id":"map15_mob0","name":"墓園亡魂","mapIndex":15,"kind":"normal","material":"亡者殘響","element":"shadow","race":"undead","maxDrops":99},{"id":"map15_mob1","name":"噬骨獵犬","mapIndex":15,"kind":"normal","material":"噬骨獠牙","element":"shadow","race":"beast","maxDrops":99},{"id":"map15_mob2","name":"墓火飛蛾","mapIndex":15,"kind":"normal","material":"墓火鱗片","element":"shadow","race":"spirit","maxDrops":99},{"id":"map15_mob3","name":"腐枝守衛","mapIndex":15,"kind":"normal","material":"腐枝黑核","element":"shadow","race":"plant","maxDrops":99},{"id":"map15_boss","name":"白骨巫后","mapIndex":15,"kind":"boss","material":"巫后骨印","element":"shadow","race":"undead","maxDrops":99},{"id":"map16_mob0","name":"雷牙蒼狼","mapIndex":16,"kind":"normal","material":"雷牙","element":"wind","race":"beast","maxDrops":99},{"id":"map16_mob1","name":"風暴妖精","mapIndex":16,"kind":"normal","material":"風暴晶羽","element":"wind","race":"spirit","maxDrops":99},{"id":"map16_mob2","name":"雷殼魔偶","mapIndex":16,"kind":"normal","material":"雷殼銅片","element":"wind","race":"construct","maxDrops":99},{"id":"map16_mob3","name":"高地巨熊","mapIndex":16,"kind":"normal","material":"高地熊膽","element":"wind","race":"beast","maxDrops":99},{"id":"map16_boss","name":"雷鳴獸王","mapIndex":16,"kind":"boss","material":"獸王雷角","element":"wind","race":"beast","maxDrops":99},{"id":"map17_mob0","name":"聖樹幼靈","mapIndex":17,"kind":"normal","material":"聖樹芽核","element":"light","race":"plant","maxDrops":99},{"id":"map17_mob1","name":"晶光妖精","mapIndex":17,"kind":"normal","material":"晶光翼","element":"light","race":"spirit","maxDrops":99},{"id":"map17_mob2","name":"聖羽渡鴉","mapIndex":17,"kind":"normal","material":"聖羽","element":"light","race":"beast","maxDrops":99},{"id":"map17_mob3","name":"失序聖鎧","mapIndex":17,"kind":"normal","material":"聖鎧殘片","element":"light","race":"construct","maxDrops":99},{"id":"map17_boss","name":"聖所守護者","mapIndex":17,"kind":"boss","material":"聖所徽核","element":"light","race":"construct","maxDrops":99},{"id":"map18_mob0","name":"冥界獵犬","mapIndex":18,"kind":"normal","material":"冥犬黑牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map18_mob1","name":"幽影水母","mapIndex":18,"kind":"normal","material":"幽影觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map18_mob2","name":"黑曜魔像","mapIndex":18,"kind":"normal","material":"黑曜脊核","element":"shadow","race":"construct","maxDrops":99},{"id":"map18_mob3","name":"游蕩冤魂","mapIndex":18,"kind":"normal","material":"邊境魂塵","element":"shadow","race":"undead","maxDrops":99},{"id":"map18_boss","name":"幽冥觀測者","mapIndex":18,"kind":"boss","material":"冥視之瞳","element":"shadow","race":"demon","maxDrops":99},{"id":"map19_mob0","name":"上古・燼翼火蛾","mapIndex":19,"kind":"normal","material":"上古燼翼粉","element":"fire","race":"spirit","maxDrops":99},{"id":"map19_mob1","name":"上古・赤鬃山狼","mapIndex":19,"kind":"normal","material":"上古赤鬃毛皮","element":"fire","race":"beast","maxDrops":99},{"id":"map19_mob2","name":"上古・焦根樹人","mapIndex":19,"kind":"normal","material":"上古焦根木髓","element":"fire","race":"plant","maxDrops":99},{"id":"map19_mob3","name":"上古・炭殼魔偶","mapIndex":19,"kind":"normal","material":"上古炭殼碎片","element":"fire","race":"construct","maxDrops":99},{"id":"map19_boss","name":"上古・赤楓炎靈","mapIndex":19,"kind":"boss","material":"上古炎靈心木","element":"fire","race":"spirit","maxDrops":99},{"id":"map20_mob0","name":"上古・潮影蝙蝠","mapIndex":20,"kind":"normal","material":"上古潮影翼膜","element":"ice","race":"beast","maxDrops":99},{"id":"map20_mob1","name":"上古・寒潮蜥蜴","mapIndex":20,"kind":"normal","material":"上古寒潮腺體","element":"ice","race":"beast","maxDrops":99},{"id":"map20_mob2","name":"上古・海霧幽魂","mapIndex":20,"kind":"normal","material":"上古海霧結珠","element":"ice","race":"undead","maxDrops":99},{"id":"map20_mob3","name":"上古・鹽晶魔像","mapIndex":20,"kind":"normal","material":"上古鹽晶塊","element":"ice","race":"construct","maxDrops":99},{"id":"map20_boss","name":"上古・潮汐巨像","mapIndex":20,"kind":"boss","material":"上古深潮齒輪","element":"ice","race":"construct","maxDrops":99},{"id":"map21_mob0","name":"上古・墓園亡魂","mapIndex":21,"kind":"normal","material":"上古亡者殘響","element":"shadow","race":"undead","maxDrops":99},{"id":"map21_mob1","name":"上古・噬骨獵犬","mapIndex":21,"kind":"normal","material":"上古噬骨獠牙","element":"shadow","race":"beast","maxDrops":99},{"id":"map21_mob2","name":"上古・墓火飛蛾","mapIndex":21,"kind":"normal","material":"上古墓火鱗片","element":"shadow","race":"spirit","maxDrops":99},{"id":"map21_mob3","name":"上古・腐枝守衛","mapIndex":21,"kind":"normal","material":"上古腐枝黑核","element":"shadow","race":"plant","maxDrops":99},{"id":"map21_boss","name":"上古・白骨巫后","mapIndex":21,"kind":"boss","material":"上古巫后骨印","element":"shadow","race":"undead","maxDrops":99},{"id":"map22_mob0","name":"上古・雷牙蒼狼","mapIndex":22,"kind":"normal","material":"上古雷牙","element":"wind","race":"beast","maxDrops":99},{"id":"map22_mob1","name":"上古・風暴妖精","mapIndex":22,"kind":"normal","material":"上古風暴晶羽","element":"wind","race":"spirit","maxDrops":99},{"id":"map22_mob2","name":"上古・雷殼魔偶","mapIndex":22,"kind":"normal","material":"上古雷殼銅片","element":"wind","race":"construct","maxDrops":99},{"id":"map22_mob3","name":"上古・高地巨熊","mapIndex":22,"kind":"normal","material":"上古高地熊膽","element":"wind","race":"beast","maxDrops":99},{"id":"map22_boss","name":"上古・雷鳴獸王","mapIndex":22,"kind":"boss","material":"上古獸王雷角","element":"wind","race":"beast","maxDrops":99},{"id":"map23_mob0","name":"上古・聖樹幼靈","mapIndex":23,"kind":"normal","material":"上古聖樹芽核","element":"light","race":"plant","maxDrops":99},{"id":"map23_mob1","name":"上古・晶光妖精","mapIndex":23,"kind":"normal","material":"上古晶光翼","element":"light","race":"spirit","maxDrops":99},{"id":"map23_mob2","name":"上古・聖羽渡鴉","mapIndex":23,"kind":"normal","material":"上古聖羽","element":"light","race":"beast","maxDrops":99},{"id":"map23_mob3","name":"上古・失序聖鎧","mapIndex":23,"kind":"normal","material":"上古聖鎧殘片","element":"light","race":"construct","maxDrops":99},{"id":"map23_boss","name":"上古・聖所守護者","mapIndex":23,"kind":"boss","material":"上古聖所徽核","element":"light","race":"construct","maxDrops":99},{"id":"map24_mob0","name":"上古・冥界獵犬","mapIndex":24,"kind":"normal","material":"上古冥犬黑牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map24_mob1","name":"上古・幽影水母","mapIndex":24,"kind":"normal","material":"上古幽影觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map24_mob2","name":"上古・黑曜魔像","mapIndex":24,"kind":"normal","material":"上古黑曜脊核","element":"shadow","race":"construct","maxDrops":99},{"id":"map24_mob3","name":"上古・游蕩冤魂","mapIndex":24,"kind":"normal","material":"上古邊境魂塵","element":"shadow","race":"undead","maxDrops":99},{"id":"map24_boss","name":"上古・幽冥觀測者","mapIndex":24,"kind":"boss","material":"上古冥視之瞳","element":"shadow","race":"demon","maxDrops":99}];
@@ -1469,7 +1483,7 @@ const monsterDropEnsureArraysBase=ensureArrays;ensureArrays=function(){monsterDr
 const monsterDropRenderSettingsBase=renderBalanceSettings;
 renderBalanceSettings=function(){ensureArrays();const groups=Object.entries(data.balanceSettings);document.getElementById('app').innerHTML=sectionHead('平衡設定','修改遊戲平衡數值、怪物設計與逐怪掉落表。',`<button id="resetSettings">恢復此頁預設值</button>`)+`<div class="notice"><b>掉寶率：</b>每條掉落規則都有普通／困難／地獄三個基礎機率。裝備「掉寶率」詞條以全隊加總後乘算，例如 20% × (1 + 50%) = 30%，最終不超過 100%。</div><div class="balance-tree">${groups.map(([g,obj])=>{let view=obj;if(g==='monsters')view=Object.fromEntries(Object.entries(obj).filter(([k])=>!['skills','catalog'].includes(k)));if(g==='drops')view=Object.fromEntries(Object.entries(obj).filter(([k])=>k!=='entries'));return `<details ${['progression','equipment','monsters','drops'].includes(g)?'open':''}><summary>${esc(SETTING_GROUP_NAMES[g]||({drops:'掉落設定'}[g])||g)} <span class="field-key" style="display:inline;margin-left:6px">balanceSettings.${esc(g)}</span></summary><div class="inside">${flattenSettingLeaves(view,g).map(([p,v])=>settingRow('balanceSettings.'+p,v)).join('')}${g==='monsters'?enemySkillEditorHTML()+monsterCatalogEditorHTML():g==='drops'?dropTableEditorHTML():''}</div></details>`;}).join('')}</div>`;const app=document.getElementById('app');app.querySelectorAll('.setting-val').forEach(el=>el.onchange=()=>{const full=el.dataset.path,local=full.replace(/^balanceSettings\./,''),old=getByPath(data.balanceSettings,local);try{let v=typeof old==='number'?Number(el.value):typeof old==='boolean'?el.value==='true':el.value;if(typeof old==='number'&&!Number.isFinite(v))throw Error('必須輸入有效數字');setByPath(data.balanceSettings,local,v);markDirty();}catch(e){alert('格式錯誤：'+e.message);render();}});bindEnemySkillEditor();bindMonsterDropEditors();document.getElementById('resetSettings').onclick=()=>{if(confirmDelete('確定恢復平衡設定預設值？')){data.balanceSettings=structuredClone(BALANCE_SETTINGS_DEFAULTS);markDirty();render();}};};
 const monsterDropValidateBase=validateData;validateData=function(){const issues=monsterDropValidateBase();ensureArrays();const cat=data.balanceSettings.monsters.catalog,ids=new Set(),maps=new Map();cat.forEach((m,i)=>{if(!m.id||ids.has(m.id))issues.push(`怪物第 ${i+1} 筆 ID 空白或重複。`);ids.add(m.id);if(!Number.isInteger(m.maxDrops)||m.maxDrops<0||m.maxDrops>100)issues.push(`怪物 ${m.id||i+1} 最大掉落物數必須是 0~100 整數。`);const key=m.mapIndex+':'+m.kind;maps.set(key,(maps.get(key)||0)+1);});for(let mi=0;mi<MAP_NAMES.length;mi++){const key=mi+':'+(mi===6?'final':'boss');if((maps.get(key)||0)!==1)issues.push(`${MAP_NAMES[mi]} 必須恰好有一個${mi===6?'最終首領':'地圖首領'}。`);}const dids=new Set();for(const [i,d] of data.balanceSettings.drops.entries.entries()){if(!d.id||dids.has(d.id))issues.push(`掉落規則第 ${i+1} 筆 ID 空白或重複。`);dids.add(d.id);if(!Array.isArray(d.chanceByDifficulty)||d.chanceByDifficulty.length!==3||d.chanceByDifficulty.some(v=>!Number.isFinite(v)||v<0||v>1))issues.push(`掉落規則 ${d.id||i+1} 三種難度機率都必須為 0~1。`);if(!Array.isArray(d.sources)||!d.sources.length||d.sources.some(x=>!ids.has(x)))issues.push(`掉落規則 ${d.id||i+1} 必須至少指定一個有效怪物來源。`);if(!Array.isArray(d.kinds)||!d.kinds.length)issues.push(`掉落規則 ${d.id||i+1} 必須至少指定一種遭遇種類。`);}return issues;};
-ensureArrays();render();
+ensureArrays();requestEditorInitialRender();
 </script>
 <script>
 /* Update 16: editor validation parity with game monster/drop schema. */
@@ -1541,7 +1555,7 @@ const uiTextEditorRenderBase=render;
 render=function(){if(currentSection==='uiText'){renderUIText();renderNav(true);return;}return uiTextEditorRenderBase();};
 const uiTextValidateDataBase=validateData;
 validateData=function(){const issues=uiTextValidateDataBase();ensureArrays();for(const [k,v] of Object.entries(data.uiText)){if(typeof v!=='string')issues.push(`介面文字 ${k} 必須是文字。`);else if(v.length>4000)issues.push(`介面文字 ${k} 超過 4000 字元。`);}return issues;};
-ensureArrays();render();
+ensureArrays();requestEditorInitialRender();
 </script>
 <style id="economy-editor-style">
 .economy-price-grid{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px;margin-bottom:12px}
@@ -1654,7 +1668,7 @@ ensureArrays();render();
 
   const worldOverviewBase=renderOverview;
   renderOverview=function(){worldOverviewBase();const notes=[...document.querySelectorAll('.notice')];const stale=notes.find(n=>n.textContent.includes('怪物、掉落、強化仍寫死'));if(stale)stale.innerHTML='<b>重要：</b>目前遊戲會實際讀取 <span class="code">balance / balanceSettings / classes / supportSkills / equipmentForms / items</span>。地圖與怪物已資料化至 <span class="code">balanceSettings.maps.catalog</span> 與 <span class="code">balanceSettings.monsters.catalog</span>，可在「地圖與怪物」頁新增與分配。';};
-  ensureArrays();render();
+  ensureArrays();requestEditorInitialRender();
 })();
 </script>
 <style id="world-map-monster-editor-style">
@@ -1786,7 +1800,7 @@ ensureArrays();render();
     for(let mi=0;mi<maps.length;mi++){const final=maps[mi].mapType==='final',expected=final?'final':'boss',boss=cat.filter(m=>m.mapIndex===mi&&m.kind===expected),normal=cat.filter(m=>m.mapIndex===mi&&m.kind==='normal'&&m.enabled!==false);if(boss.length!==1)issues.push(`${maps[mi].name} 必須恰好有 1 筆${final?'最終首領':'BOSS'}資料。`);if(!final&&!normal.length)issues.push(`${maps[mi].name} 至少需要 1 隻啟用中的普通怪物。`);if(final){const total=(boss.length?1:0)+normal.reduce((sum,m)=>sum+(Number(m.stageCount)||0),0);if(total<1||total>20)issues.push(`${maps[mi].name} 的終局關卡總敵人數必須為 1～20 隻。`);}}
     return [...new Set(issues)];
   };
-  ensureArrays();render();
+  ensureArrays();requestEditorInitialRender();
 })();
 </script>
 <script id="manual-boss-challenge-editor">
@@ -1895,7 +1909,7 @@ ensureArrays();render();
     return [...new Set(issues)];
   };
 
-  ensureArrays();render();
+  ensureArrays();requestEditorInitialRender();
 })();
 </script>
 
@@ -1922,7 +1936,7 @@ ensureArrays();render();
   render=function(){turnRenderBase();if(currentSection==='support'){const head=document.querySelector('.section-head p');if(head)head.textContent='輔助技能持續時間以戰鬥回合計算；冷卻以施放者自身行動回合計算。';}if(currentSection==='items'){const head=document.querySelector('.section-head p');if(head)head.textContent='消耗品效果持續時間以角色出戰的戰鬥回合計算；暫停、候補與關閉頁面不會扣減。';}};
   /* Rebind raw/import paths indirectly through ensureArrays; normalize the currently loaded data now. */
   markDirty('已將 BUFF／DEBUFF 與消耗品持續時間統一為回合制；尚未匯出');
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 
@@ -2009,7 +2023,7 @@ ensureArrays();render();
 
   data.notes=[...new Set([...(data.notes||[]),'items 中 type=healPotion 為治療藥水；healFraction 使用 0~1 比例，cooldown 使用回合。治療藥水沒有手動使用按鈕，只會依角色自動喝藥設定觸發。'])];
   markDirty('已加入可自訂治療藥水頁面；尚未匯出');
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 
@@ -2056,7 +2070,7 @@ ensureArrays();render();
   const baseValidate=validateData;validateData=function(){const issues=baseValidate();ensureShopSettings();const s=data.shopSettings.randomOffers,ids=new Set();if(!Number.isInteger(s.offerCount)||s.offerCount<1||s.offerCount>24)issues.push('商店每批隨機商品數必須是 1~24 的整數。');if(!Number.isFinite(s.refreshBaseCost)||s.refreshBaseCost<0||!Number.isFinite(s.refreshCostStep)||s.refreshCostStep<0)issues.push('商店刷新起始價格與每次加價不可為負數。');for(const [i,r] of s.entries.entries()){if(typeof r.id!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(r.id)||ids.has(r.id))issues.push(`隨機商品規則 ${i+1} 的 ID 無效或重複。`);else ids.add(r.id);if(!TYPES.includes(r.type)||!Number.isInteger(r.quantityMin)||!Number.isInteger(r.quantityMax)||r.quantityMin<1||r.quantityMax<r.quantityMin||!Number.isFinite(r.unitPrice)||r.unitPrice<0||!Number.isFinite(r.weight)||r.weight<=0)issues.push(`隨機商品規則 ${r.id||i+1} 的數值無效。`);if(r.type==='gem'&&!['random','0','1','2'].includes(String(r.key)))issues.push(`隨機商品規則 ${r.id||i+1} 的寶石 key 必須是 random / 0 / 1 / 2。`);}for(const item of data.items||[])if(typeof item.shopEnabled!=='boolean')issues.push(`道具 ${item.id||'未知'} 的 shopEnabled 必須為 true / false。`);return [...new Set(issues)];};
   const baseRender=render;render=function(){if(currentSection==='shopSettings'){ensureArrays();renderShopSettings();renderNav(true);return;}return baseRender();};
   data.notes=[...new Set([...(data.notes||[]),'shopSettings.randomOffers 控制商店頂端隨機商品、刷新起始價格與每次刷新加價。刷新次數依玩家本機日期於每日 0 點重置。','items[].shopEnabled 控制固定消耗品是否在商店上架；description 為商店與背包顯示說明。'])];
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 
@@ -2156,7 +2170,7 @@ ensureArrays();render();
     '輔助 DEBUFF 新機制：followup=受擊時以施放者攻擊力%造成可設定屬性的追打，會套用防禦、屬性克制與目標減傷；dotAttack=目標行動前受到施放者攻擊力%的固定傷害；dotMaxHp=目標行動前受到自身最大生命%的固定傷害；damageAmp=受到攻擊時該次傷害增加%。',
     'dotAttack / dotMaxHp 為直接固定傷害，不受防禦、抗性、增傷、減傷、暴擊、屬性克制影響。followup 為獨立追打，會受到防禦、屬性克制與目標減傷影響，但不暴擊，也不再次套用 damageAmp / vulnerable。'])];
   markDirty('已加入追打、DOT 與額外增傷 DEBUFF 機制；尚未匯出');
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 
@@ -2392,7 +2406,7 @@ ensureArrays();render();
   };
 
   migrateData();
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 
@@ -2425,7 +2439,7 @@ ensureArrays();render();
     if(p==='progression.starting.potions')return {label:'新帳號起始標準治療藥水',help:'建立新隊伍時的舊制起始數量會遷移到目前的標準治療藥水共用庫存。'};
     return baseSettingMeta(path);
   };
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 <style id="equipment-identity-editor-style">
@@ -2682,7 +2696,7 @@ ensureArrays();render();
   data.notes=(data.notes||[]).filter(x=>!String(x).includes('equipmentPowerSystem.prefixes')&&!String(x).includes('seriesPrefixes')&&!String(x).includes('冠名詞綴'));
   data.notes.push('equipmentPowerSystem schemaVersion=4：prefixes / suffixes 各固定一條效果；chanceByTier[0..9] 分別代表 T1～T10 的實際百分比機率；舊版 weight 會自動轉入有效 T 級。','同一 T 級與部位的前綴／後綴機率池各自以 100% 為上限；不足 100% 的剩餘機率代表無前綴／無後綴。','一般裝備 raw ATK/HP/DEF 由 equipmentForms 基底與 T 階級決定；前後綴不提供 raw 基礎數值。','BOSS 專屬裝備沒有前後綴與隨機洗鍊詞條；bossAffixes 三條可使用前綴／後綴／基底效果及 bossDamagePct。');
   data.notes=[...new Set(data.notes)];
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 
@@ -2824,7 +2838,7 @@ ensureArrays();render();
   // replacement data to the local workspace automatically.
   ensureArrays();
   persistWorkspace(META.savedAt?'已載入本機自動草稿':'已建立本機工作區');
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 
@@ -3344,7 +3358,7 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
     if(currentSection==='affixPools'){renderNav(true);renderAffixPools();return;}
     return affixPoolRenderBase();
   };
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 
@@ -3443,7 +3457,7 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
   };
 
   if(currentSection==='balanceSettings')currentSection=pages[0]?.[0]||'overview';
-  render();
+  requestEditorInitialRender();
 })();
 </script>
 
