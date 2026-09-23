@@ -2242,8 +2242,8 @@ ensureArrays();render();
     for(const [key] of ITEM_STATS){const n=Number(item.statEffects[key]);if(!Number.isFinite(n)||n===0)delete item.statEffects[key];else item.statEffects[key]=n;}
   }
   function migrateData(){
-    ensureArrays();
     const fresh=(data.balanceSettings?.meta?.numericCompressionVersion||0)<VERSION;
+    ensureArrays();
     data.balanceSettings??={};data.balance??={};
     if(fresh){
       ensureCompressionSettings(data.balanceSettings);ensureCompressionBalance(data.balance);
