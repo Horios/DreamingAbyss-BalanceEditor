@@ -3671,4 +3671,87 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
   queueMicrotask(enhance);
 })();
 </script>
+<style id="per-class-growth-settings-v1-style">
+.class-growth-editor{margin-bottom:12px}.class-growth-grid{display:grid;grid-template-columns:repeat(5,minmax(115px,1fr));gap:9px}
+.class-growth-grid .field{min-width:0}.class-growth-note{margin-top:9px}
+@media(max-width:1000px){.class-growth-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+<script id="per-class-growth-settings-v1">
+(()=>{
+  const FIELDS=[
+    ['hp','生命值',1],['atk','攻擊力',.1],['def','防禦力',.1],['crit','爆擊率',.001],['critDamage','爆擊傷害',.01]
+  ];
+  const legacyGrowth=()=>({
+    hp:Number(data.balanceSettings?.progression?.statsPerLevel?.hp??.9),
+    atk:Number(data.balanceSettings?.progression?.statsPerLevel?.attack??.18),
+    def:Number(data.balanceSettings?.progression?.statsPerLevel?.defense??.1),
+    crit:0,
+    critDamage:0
+  });
+  const legacyInitial=(c,job)=>({
+    hp:Number(c?.hp??0),atk:Number(c?.atk??0),def:Number(c?.def??0),
+    crit:Number(job===2?(data.balanceSettings?.progression?.baseCrit?.archer??.17):(data.balanceSettings?.progression?.baseCrit?.default??.07)),
+    critDamage:Number(data.balanceSettings?.combat?.baseCritDamage??1.5)
+  });
+  function ensureClassStats(){
+    const g=legacyGrowth();
+    (data.classes||[]).forEach((c,job)=>{
+      c.initialStats??=legacyInitial(c,job);
+      c.growthPerLevel??={...g};
+      for(const [key] of FIELDS){
+        if(!Number.isFinite(Number(c.initialStats[key])))c.initialStats[key]=legacyInitial(c,job)[key];
+        if(!Number.isFinite(Number(c.growthPerLevel[key])))c.growthPerLevel[key]=g[key];
+      }
+      // Keep legacy class base fields synchronized for old importers and tools.
+      c.hp=Number(c.initialStats.hp);c.atk=Number(c.initialStats.atk);c.def=Number(c.initialStats.def);
+    });
+  }
+  ensureClassStats();
+
+  const ensureBase=ensureArrays;
+  ensureArrays=function(){const out=ensureBase();ensureClassStats();return out;};
+
+  const renderBase=renderClasses;
+  renderClasses=function(){
+    ensureClassStats();renderBase();
+    const app=document.getElementById('app'),c=data.classes?.[selected.class];if(!app||!c)return;
+    const grid=app.querySelector('.grid2');if(!grid)return;
+    // Hide legacy duplicate HP/ATK/DEF controls; their values remain synchronized for compatibility.
+    for(const key of ['hp','atk','def'])app.querySelector('[data-key="'+key+'"]')?.closest('.field')?.classList.add('hidden');
+    const pctHelp='0.07 = 7%；1.5 = 150%。成長值為每升 1 級直接增加的數值。';
+    const field=(group,key,label,step,value)=>{
+      const percent=key==='crit'||key==='critDamage';
+      return '<div class="field"><label>'+esc(label)+(percent?'（小數）':'')+'</label><input type="number" data-class-stat-group="'+group+'" data-class-stat-key="'+key+'" value="'+esc(value)+'" step="'+step+'" min="0"><div class="field-help">'+(group==='initial'?(percent?pctHelp:'角色 LV1、未計裝備與能力點時的初始值。'):(percent?pctHelp:'每升 1 級增加；不含能力點、裝備與二轉倍率。'))+'</div></div>';
+    };
+    const card=document.createElement('section');card.className='card class-growth-editor';
+    card.innerHTML='<div class="card-h"><strong>職業初始與成長值</strong><span class="pill">各職業獨立</span></div><div class="card-b">'+
+      '<div class="mini-note">此處為角色自然屬性。最終值 = 初始值 + (等級 − 1) × 每級成長，再疊加能力點、二轉、裝備與其他效果。</div>'+
+      '<h3>初始值</h3><div class="class-growth-grid">'+FIELDS.map(([k,l,s])=>field('initial',k,l,s,c.initialStats[k])).join('')+'</div>'+
+      '<h3>每級成長</h3><div class="class-growth-grid">'+FIELDS.map(([k,l,s])=>field('growth',k,l,s,c.growthPerLevel[k])).join('')+'</div>'+
+      '<div class="notice class-growth-note">舊版共用的「每級自然成長」與「基礎爆擊」仍保留在 JSON 作向下相容；遊戲新版會優先使用此職業自己的設定。</div></div>';
+    grid.before(card);
+    card.querySelectorAll('[data-class-stat-group]').forEach(el=>el.onchange=()=>{
+      const target=el.dataset.classStatGroup==='initial'?c.initialStats:c.growthPerLevel,key=el.dataset.classStatKey;
+      target[key]=Math.max(0,Number(el.value)||0);
+      if(el.dataset.classStatGroup==='initial'&&['hp','atk','def'].includes(key))c[key]=target[key];
+      markDirty();
+    });
+  };
+
+  const validateBase=validateData;
+  validateData=function(){
+    const issues=validateBase();ensureClassStats();
+    data.classes.forEach((c,job)=>{
+      for(const [key,label] of FIELDS){
+        const a=Number(c.initialStats?.[key]),g=Number(c.growthPerLevel?.[key]);
+        if(!Number.isFinite(a)||a<0)issues.push('角色 '+job+' 的初始'+label+'不可小於 0。');
+        if(!Number.isFinite(g)||g<0)issues.push('角色 '+job+' 的每級'+label+'成長不可小於 0。');
+      }
+      if(Number(c.initialStats.hp)<=0)issues.push('角色 '+job+' 的初始生命必須大於 0。');
+      if(Number(c.initialStats.atk)<=0)issues.push('角色 '+job+' 的初始攻擊必須大於 0。');
+    });
+    return issues;
+  };
+})();
+</script>
 </html>
