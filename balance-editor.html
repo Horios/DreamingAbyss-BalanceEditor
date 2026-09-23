@@ -3797,4 +3797,155 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
   };
 })();
 </script>
+
+<style id="status-maker-editor-style">
+.status-maker-layout{display:grid;grid-template-columns:minmax(220px,.55fr) minmax(0,1.45fr);gap:12px}.status-maker-tags{display:flex;flex-wrap:wrap;gap:7px}.status-maker-tags label{display:flex;align-items:center;gap:5px;padding:7px 9px;border:1px solid var(--line);border-radius:7px;background:#151a20}.status-maker-tags input{width:auto}.status-maker-block{border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:10px;background:#151a20}.status-maker-row{display:grid;grid-template-columns:minmax(130px,1fr) minmax(105px,.7fr) minmax(105px,.7fr) minmax(125px,.8fr) minmax(105px,.7fr) auto;gap:7px;align-items:end;margin-top:7px}.status-maker-row label{font-size:11px;color:var(--muted)}.status-maker-row input,.status-maker-row select{width:100%;min-width:0}.status-maker-preview{white-space:pre-wrap;line-height:1.7;background:#10151b;border:1px solid var(--line);border-radius:7px;padding:10px;margin-top:10px}.status-maker-control-grid{display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:8px;margin-top:8px}.status-maker-list .listitem .sub{overflow-wrap:anywhere}.status-maker-limit{font-size:11px;color:var(--muted);margin-left:7px}@media(max-width:900px){.status-maker-layout{grid-template-columns:1fr}.status-maker-row{grid-template-columns:1fr 1fr}.status-maker-control-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.status-maker-row,.status-maker-control-grid{grid-template-columns:1fr}}
+</style>
+<script id="status-maker-editor-v1">
+(()=>{
+/* STATUS_PURE_START */
+const STATUS_SCHEMA_VERSION=1;
+const STATUS_TAGS=['periodic','control','modifier','instant'];
+const STATUS_MODIFIER_KINDS=['attack','critical','guard','fracture','power','weaken','vulnerable','damageAmp','regen'];
+const STATUS_CONTROL_KINDS=['polymorph','freeze','frost','rage','fear','tauntRage'];
+const STATUS_PERIODIC_KINDS=['damage','heal'];
+const STATUS_BASIS=['fixed','casterAttack','casterMaxHp','casterCurrentHp','casterMissingHp','casterDefense','casterShield','casterLevel','targetAttack','targetMaxHp','targetCurrentHp','targetMissingHp','targetDefense','targetShield','targetLevel'];
+const STATUS_DAMAGE_RESOLUTIONS=['fixed','defended','elemental','true'];
+const STATUS_HEAL_RESOLUTIONS=['heal','overflowShield'];
+const STATUS_ELEMENTS=['physical','fire','ice','wind','light','shadow'];
+function statusNum(v,fallback=0){v=Number(v);return Number.isFinite(v)?v:fallback;}
+function statusInt(v,fallback=0,min=0,max=99){return Math.max(min,Math.min(max,Math.round(statusNum(v,fallback))));}
+function statusClamp01(v,fallback=0){return Math.max(0,Math.min(1,statusNum(v,fallback)));}
+function normalizeStatusDefinition(raw,index=0){
+  raw=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
+  const tags=[...new Set((Array.isArray(raw.tags)?raw.tags:[]).filter(x=>STATUS_TAGS.includes(x)))];
+  const modifiers=tags.includes('modifier')?(Array.isArray(raw.modifiers)?raw.modifiers:[]).slice(0,3).map(x=>({kind:STATUS_MODIFIER_KINDS.includes(x?.kind)?x.kind:'attack',value:statusNum(x?.value,0)})):[];
+  let control=null;
+  if(tags.includes('control')&&raw.control&&STATUS_CONTROL_KINDS.includes(raw.control.kind)){
+    control={
+      kind:raw.control.kind,
+      bossDuration:statusInt(raw.control.bossDuration,Math.min(statusInt(raw.duration,1,1,99),1),0,99),
+      slowPct:statusClamp01(raw.control.slowPct,.30),
+      basicAttackBonus:statusClamp01(raw.control.basicAttackBonus,.20),
+      damageReduction:statusClamp01(raw.control.damageReduction,.20),
+      skipChance:statusClamp01(raw.control.skipChance,.30),
+      bossSkipChance:statusClamp01(raw.control.bossSkipChance,.15)
+    };
+  }
+  const periodic=tags.includes('periodic')?(Array.isArray(raw.periodic)?raw.periodic:[]).slice(0,3).map(x=>{
+    const kind=STATUS_PERIODIC_KINDS.includes(x?.kind)?x.kind:'damage';
+    const allowed=kind==='heal'?STATUS_HEAL_RESOLUTIONS:STATUS_DAMAGE_RESOLUTIONS;
+    return {kind,basis:STATUS_BASIS.includes(x?.basis)?x.basis:'casterAttack',coefficient:Math.max(0,statusNum(x?.coefficient,0)),resolution:allowed.includes(x?.resolution)?x.resolution:allowed[0],element:STATUS_ELEMENTS.includes(x?.element)?x.element:'physical'};
+  }):[];
+  return {id:String(raw.id||('status-'+(index+1))).trim()||('status-'+(index+1)),name:String(raw.name||'未命名狀態').trim()||'未命名狀態',tags,duration:statusInt(raw.duration,1,1,99),modifiers,control,periodic};
+}
+function validateStatusDefinition(raw){
+  const s=normalizeStatusDefinition(raw),issues=[];
+  if(!s.id)issues.push('缺少狀態 ID');
+  if(!s.name)issues.push('缺少狀態名稱');
+  if(!Number.isInteger(s.duration)||s.duration<1||s.duration>99)issues.push('持續回合必須介於 1～99');
+  if(s.modifiers.length>3)issues.push('增減益最多三種');
+  if(s.periodic.length>3)issues.push('持續傷害／恢復最多三種');
+  if(s.control&&!STATUS_CONTROL_KINDS.includes(s.control.kind))issues.push('控制類型無效');
+  for(const fx of s.periodic){if(!STATUS_BASIS.includes(fx.basis)||fx.coefficient<0)issues.push('持續效果係數設定無效');}
+  return issues;
+}
+function statusPureSelfTest(){
+  const samples=[
+    {id:'cap-test',name:'上限測試',tags:['modifier','control','periodic','instant'],duration:150,modifiers:[{kind:'attack',value:.1},{kind:'guard',value:.2},{kind:'critical',value:.3},{kind:'power',value:.4}],control:{kind:'freeze',bossDuration:2},periodic:[{kind:'damage',basis:'casterAttack',coefficient:.2,resolution:'fixed'},{kind:'damage',basis:'targetMaxHp',coefficient:.05,resolution:'elemental',element:'fire'},{kind:'heal',basis:'targetMissingHp',coefficient:.3,resolution:'overflowShield'},{kind:'heal',basis:'fixed',coefficient:5,resolution:'heal'}]},
+    {id:'dot',name:'灼燒',tags:['periodic'],duration:3,periodic:[{kind:'damage',basis:'casterAttack',coefficient:.25,resolution:'defended',element:'fire'}]},
+    {id:'hot',name:'再生',tags:['periodic','instant'],duration:4,periodic:[{kind:'heal',basis:'targetMaxHp',coefficient:.05,resolution:'heal'}]},
+    {id:'cc',name:'冰封',tags:['control'],duration:2,control:{kind:'freeze',bossDuration:1}}
+  ];
+  const normalized=samples.map(normalizeStatusDefinition),issues=normalized.flatMap(validateStatusDefinition);
+  return {schema:STATUS_SCHEMA_VERSION,ok:issues.length===0&&normalized[0].duration===99&&normalized[0].modifiers.length===3&&normalized[0].periodic.length===3,issues,summary:normalized.map(s=>({id:s.id,duration:s.duration,tags:s.tags,modifiers:s.modifiers.length,control:s.control?.kind||null,periodic:s.periodic.length}))};
+}
+/* STATUS_PURE_END */
+
+const STATUS_TAG_LABELS={periodic:'持續傷害／回血',control:'控制',modifier:'增減益效果',instant:'立即行動'};
+const STATUS_MODIFIER_LABELS={attack:'攻擊力提升',critical:'暴擊率提升',guard:'受到傷害降低',fracture:'防禦降低／破甲',power:'技能效果提升',weaken:'攻擊力降低',vulnerable:'承受傷害增加（舊通用）',damageAmp:'承受傷害增加',regen:'每戰鬥回合最大生命恢復'};
+const STATUS_CONTROL_LABELS={polymorph:'變形',freeze:'冰凍',frost:'結霜／速度降低',rage:'狂暴',fear:'畏懼',tauntRage:'嘲諷／狂暴'};
+const STATUS_BASIS_LABELS={fixed:'固定數值',casterAttack:'施法者攻擊力',casterMaxHp:'施法者最大生命',casterCurrentHp:'施法者當前生命',casterMissingHp:'施法者已損生命',casterDefense:'施法者防禦',casterShield:'施法者護盾',casterLevel:'施法者等級',targetAttack:'目標攻擊力',targetMaxHp:'目標最大生命',targetCurrentHp:'目標當前生命',targetMissingHp:'目標已損生命',targetDefense:'目標防禦',targetShield:'目標護盾',targetLevel:'目標等級'};
+const STATUS_RESOLUTION_LABELS={fixed:'固定傷害（忽略防禦與增減傷；護盾仍可吸收）',defended:'防禦影響傷害（套防禦、破甲、防無、防穿與承傷增幅）',elemental:'完整元素傷害（防禦＋元素剋制／抗性／元素增傷）',true:'真實傷害（直接扣生命，略過防禦與護盾）',heal:'一般恢復（不超過最大生命）',overflowShield:'溢出恢復轉護盾'};
+const STATUS_ELEMENT_LABELS={physical:'無屬性',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'};
+const STATUS_TARGETS=['enemy','enemies','self','weakest','allies'];
+const STATUS_TARGET_LABELS={enemy:'目前敵人',enemies:'敵方全體',self:'自己',weakest:'生命比例最低隊友',allies:'我方全體'};
+let selectedStatusIndex=0;
+const deepCloneStatus=v=>JSON.parse(JSON.stringify(v));
+function statusList(){data.statusDefinitions=Array.isArray(data.statusDefinitions)?data.statusDefinitions:[];data.statusDefinitions=data.statusDefinitions.map((x,i)=>normalizeStatusDefinition(x,i));return data.statusDefinitions;}
+function nextStatusId(){const used=new Set(statusList().map(x=>x.id));let n=1;while(used.has('status-'+n))n++;return 'status-'+n;}
+function labelOptions(list,labels,value){return list.map(x=>'<option value="'+esc(x)+'" '+(x===value?'selected':'')+'>'+esc(labels[x]||x)+'</option>').join('');}
+function statusPreview(s){
+  const bits=['持續 '+s.duration+' 回合'];
+  if(s.modifiers.length)bits.push('增減益：'+s.modifiers.map(x=>(STATUS_MODIFIER_LABELS[x.kind]||x.kind)+' '+Number((x.value*100).toFixed(3))+'%').join(' + '));
+  if(s.control)bits.push('控制：'+(STATUS_CONTROL_LABELS[s.control.kind]||s.control.kind));
+  if(s.periodic.length)bits.push('持續效果：'+s.periodic.map(x=>{const basis=STATUS_BASIS_LABELS[x.basis]||x.basis,res=STATUS_RESOLUTION_LABELS[x.resolution]||x.resolution,el=x.resolution==='elemental'?'／'+(STATUS_ELEMENT_LABELS[x.element]||x.element):'';return (x.kind==='heal'?'恢復 ':'傷害 ')+basis+' × '+x.coefficient+' → '+res+el;}).join(' + '));
+  if(s.tags.includes('instant'))bits.push('立即行動：套用瞬間額外結算 periodic 1 次（不消耗後續持續結算）');
+  return bits.join('\n');
+}
+function controlFieldsHtml(s){const c=s.control;if(!c)return '';
+  let extra='';
+  if(['freeze','rage','tauntRage'].includes(c.kind))extra+='<label>BOSS 控制回合<input data-status-control-num="bossDuration" type="number" min="0" max="99" step="1" value="'+esc(c.bossDuration)+'"></label>';
+  if(c.kind==='frost')extra+='<label>速度降低<input data-status-control-num="slowPct" type="number" min="0" max="1" step="0.01" value="'+esc(c.slowPct)+'"></label>';
+  if(['rage','tauntRage'].includes(c.kind))extra+='<label>普通攻擊增傷<input data-status-control-num="basicAttackBonus" type="number" min="0" max="1" step="0.01" value="'+esc(c.basicAttackBonus)+'"></label>';
+  if(c.kind==='fear')extra+='<label>傷害降低<input data-status-control-num="damageReduction" type="number" min="0" max="1" step="0.01" value="'+esc(c.damageReduction)+'"></label><label>一般不行動率<input data-status-control-num="skipChance" type="number" min="0" max="1" step="0.01" value="'+esc(c.skipChance)+'"></label><label>BOSS 不行動率<input data-status-control-num="bossSkipChance" type="number" min="0" max="1" step="0.01" value="'+esc(c.bossSkipChance)+'"></label>';
+  if(c.kind==='polymorph')extra+='<div class="mini-note">沿用遊戲規則：BOSS 對變形免疫；護盾倍率由施放者攻擊力 100% 建立，自訂狀態結束不會繞過既有的護盾破裂提前解除規則。</div>';
+  return '<div class="status-maker-control-grid"><label>控制類型<select id="statusControlKind">'+labelOptions(STATUS_CONTROL_KINDS,STATUS_CONTROL_LABELS,c.kind)+'</select></label>'+extra+'</div>';
+}
+function modifierRowsHtml(s){return s.modifiers.map((m,i)=>'<div class="status-maker-row" data-status-mod-row="'+i+'"><label>效果<select data-status-mod-kind>'+labelOptions(STATUS_MODIFIER_KINDS,STATUS_MODIFIER_LABELS,m.kind)+'</select></label><label>數值<input data-status-mod-value type="number" step="0.001" value="'+esc(m.value)+'"></label><div class="mini-note">0.20 = 20%</div><div></div><div></div><button type="button" class="danger" data-status-mod-del="'+i+'">刪除</button></div>').join('');}
+function periodicRowsHtml(s){return s.periodic.map((fx,i)=>{const resolutions=fx.kind==='heal'?STATUS_HEAL_RESOLUTIONS:STATUS_DAMAGE_RESOLUTIONS;return '<div class="status-maker-row" data-status-periodic-row="'+i+'"><label>類型<select data-status-periodic-kind>'+labelOptions(STATUS_PERIODIC_KINDS,{damage:'持續傷害',heal:'持續恢復'},fx.kind)+'</select></label><label>係數基準<select data-status-periodic-basis>'+labelOptions(STATUS_BASIS,STATUS_BASIS_LABELS,fx.basis)+'</select></label><label>係數<input data-status-periodic-coefficient type="number" min="0" step="0.001" value="'+esc(fx.coefficient)+'"></label><label>結算方式<select data-status-periodic-resolution>'+labelOptions(resolutions,STATUS_RESOLUTION_LABELS,fx.resolution)+'</select></label><label>元素<select data-status-periodic-element '+(fx.resolution==='elemental'?'':'disabled')+'>'+labelOptions(STATUS_ELEMENTS,STATUS_ELEMENT_LABELS,fx.element)+'</select></label><button type="button" class="danger" data-status-periodic-del="'+i+'">刪除</button></div>';}).join('');}
+function renderStatuses(){
+  const list=statusList();selectedStatusIndex=Math.max(0,Math.min(selectedStatusIndex,list.length-1));const s=list[selectedStatusIndex]||null,app=document.getElementById('app');
+  app.innerHTML=sectionHead('狀態製作器','建立可重用的狀態，再到「技能」把主要效果設為「套用自訂狀態」。','<button id="addStatus">新增狀態</button>'+(s?'<button id="dupStatus">複製</button><button id="delStatus" class="danger">刪除</button>':''))+
+    '<div class="notice"><b>結構：</b>每個狀態最多 3 個增減益、1 個控制、3 個持續傷害／恢復；持續 1～99 回合。係數可以直接使用固定值、施法者／目標的攻擊、最大／當前／已損生命、防禦、護盾或等級。固定值時「係數」本身就是數值。</div>'+
+    '<div class="status-maker-layout"><div class="card status-maker-list"><div class="list">'+(list.map((x,i)=>'<div class="listitem '+(i===selectedStatusIndex?'active':'')+'" data-status-index="'+i+'"><div class="title">'+esc(x.name)+'</div><div class="sub">'+esc(x.id)+' · '+x.duration+' 回合 · '+x.tags.map(t=>STATUS_TAG_LABELS[t]).join('／')+'</div></div>').join('')||'<div class="empty">尚未建立狀態。</div>')+'</div></div>'+
+    (s?'<div><div class="card"><div class="card-h"><strong>狀態本體</strong><span class="pill">'+esc(s.id)+'</span></div><div class="card-b"><div class="fields">'+
+      '<div class="field"><label>狀態名稱</label><input id="statusName" value="'+esc(s.name)+'"></div><div class="field"><label>持續回合</label><input id="statusDuration" type="number" min="1" max="99" step="1" value="'+s.duration+'"><div class="field-help">最高 99。增減益依戰鬥回合存在；嵌入既有控制時仍沿用該控制本身的 BOSS／目標行動規則。</div></div></div>'+
+      '<div class="field full"><label>狀態標籤（可複選）</label><div class="status-maker-tags">'+STATUS_TAGS.map(t=>'<label><input type="checkbox" data-status-tag="'+t+'" '+(s.tags.includes(t)?'checked':'')+'>'+STATUS_TAG_LABELS[t]+'</label>').join('')+'</div></div>'+
+      (s.tags.includes('modifier')?'<div class="status-maker-block"><div class="row"><b>增減益效果</b><span class="status-maker-limit">'+s.modifiers.length+' / 3</span><button id="addStatusModifier" '+(s.modifiers.length>=3?'disabled':'')+'>新增效果</button></div>'+modifierRowsHtml(s)+'</div>':'')+
+      (s.tags.includes('control')?'<div class="status-maker-block"><b>控制（最多一種）</b>'+controlFieldsHtml(s)+'</div>':'')+
+      (s.tags.includes('periodic')?'<div class="status-maker-block"><div class="row"><b>持續傷害／恢復</b><span class="status-maker-limit">'+s.periodic.length+' / 3</span><button id="addStatusPeriodic" '+(s.periodic.length>=3?'disabled':'')+'>新增持續效果</button></div><div class="mini-note">傷害可選固定、防禦影響、完整元素或真實傷害；恢復可選一般恢復或溢出轉護盾。元素欄只有「完整元素傷害」會生效。</div>'+periodicRowsHtml(s)+'</div>':'')+
+      '<div class="status-maker-preview"><b>效果預覽</b>\n'+esc(statusPreview(s))+'</div></div></div>':'<div class="card"><div class="empty">按「新增狀態」開始建立。</div></div>')+'</div>';
+  app.querySelectorAll('[data-status-index]').forEach(el=>el.onclick=()=>{selectedStatusIndex=Number(el.dataset.statusIndex);render();});
+  document.getElementById('addStatus').onclick=()=>{const id=nextStatusId();list.push(normalizeStatusDefinition({id,name:'新狀態',tags:[],duration:3},list.length));selectedStatusIndex=list.length-1;markDirty('已新增狀態');render();};
+  if(!s)return;
+  document.getElementById('dupStatus').onclick=()=>{const copy=deepCloneStatus(s);copy.id=nextStatusId();copy.name=s.name+' 複製';list.push(normalizeStatusDefinition(copy,list.length));selectedStatusIndex=list.length-1;markDirty('已複製狀態');render();};
+  document.getElementById('delStatus').onclick=()=>{const used=(data.classes||[]).some(c=>(c.skills||[]).some(sk=>sk.effect==='applyStatus'&&sk.statusId===s.id));if(used)return alert('仍有技能引用此狀態。請先更換或移除技能的狀態引用。');if(confirmDelete('刪除狀態「'+s.name+'」？')){list.splice(selectedStatusIndex,1);selectedStatusIndex=Math.max(0,selectedStatusIndex-1);markDirty('已刪除狀態');render();}};
+  document.getElementById('statusName').onchange=e=>{s.name=e.target.value.trim()||'未命名狀態';markDirty();render();};
+  document.getElementById('statusDuration').onchange=e=>{s.duration=statusInt(e.target.value,s.duration,1,99);if(s.control&&!Number.isFinite(s.control.bossDuration))s.control.bossDuration=Math.min(s.duration,1);markDirty();render();};
+  app.querySelectorAll('[data-status-tag]').forEach(el=>el.onchange=()=>{const tag=el.dataset.statusTag,set=new Set(s.tags);el.checked?set.add(tag):set.delete(tag);s.tags=STATUS_TAGS.filter(x=>set.has(x));if(tag==='modifier'&&el.checked&&!s.modifiers.length)s.modifiers=[{kind:'attack',value:.1}];if(tag==='control'&&el.checked&&!s.control)s.control={kind:'freeze',bossDuration:Math.min(s.duration,1),slowPct:.3,basicAttackBonus:.2,damageReduction:.2,skipChance:.3,bossSkipChance:.15};if(tag==='periodic'&&el.checked&&!s.periodic.length)s.periodic=[{kind:'damage',basis:'casterAttack',coefficient:.2,resolution:'fixed',element:'physical'}];Object.assign(s,normalizeStatusDefinition(s,selectedStatusIndex));markDirty();render();});
+  document.getElementById('addStatusModifier')?.addEventListener('click',()=>{if(s.modifiers.length<3){s.modifiers.push({kind:'attack',value:.1});markDirty();render();}});
+  app.querySelectorAll('[data-status-mod-row]').forEach(row=>{const i=Number(row.dataset.statusModRow);row.querySelector('[data-status-mod-kind]').onchange=e=>{s.modifiers[i].kind=e.target.value;markDirty();render();};row.querySelector('[data-status-mod-value]').onchange=e=>{s.modifiers[i].value=statusNum(e.target.value,0);markDirty();render();};});
+  app.querySelectorAll('[data-status-mod-del]').forEach(b=>b.onclick=()=>{s.modifiers.splice(Number(b.dataset.statusModDel),1);markDirty();render();});
+  const ck=document.getElementById('statusControlKind');if(ck)ck.onchange=e=>{s.control.kind=e.target.value;Object.assign(s,normalizeStatusDefinition(s,selectedStatusIndex));markDirty();render();};
+  app.querySelectorAll('[data-status-control-num]').forEach(el=>el.onchange=()=>{const k=el.dataset.statusControlNum;s.control[k]=k==='bossDuration'?statusInt(el.value,s.control[k],0,99):statusClamp01(el.value,s.control[k]);markDirty();render();});
+  document.getElementById('addStatusPeriodic')?.addEventListener('click',()=>{if(s.periodic.length<3){s.periodic.push({kind:'damage',basis:'casterAttack',coefficient:.2,resolution:'fixed',element:'physical'});markDirty();render();}});
+  app.querySelectorAll('[data-status-periodic-row]').forEach(row=>{const i=Number(row.dataset.statusPeriodicRow),fx=s.periodic[i];row.querySelector('[data-status-periodic-kind]').onchange=e=>{fx.kind=e.target.value;fx.resolution=fx.kind==='heal'?'heal':'fixed';markDirty();render();};row.querySelector('[data-status-periodic-basis]').onchange=e=>{fx.basis=e.target.value;markDirty();render();};row.querySelector('[data-status-periodic-coefficient]').onchange=e=>{fx.coefficient=Math.max(0,statusNum(e.target.value,0));markDirty();render();};row.querySelector('[data-status-periodic-resolution]').onchange=e=>{fx.resolution=e.target.value;markDirty();render();};row.querySelector('[data-status-periodic-element]').onchange=e=>{fx.element=e.target.value;markDirty();render();};});
+  app.querySelectorAll('[data-status-periodic-del]').forEach(b=>b.onclick=()=>{s.periodic.splice(Number(b.dataset.statusPeriodicDel),1);markDirty();render();});
+}
+
+// Keep status definitions in the same workspace JSON as the rest of the balance data.
+const statusEnsureArraysBase=ensureArrays;
+ensureArrays=function(){const out=statusEnsureArraysBase();statusList();return out;};
+if(!SECTION_META.some(x=>x[0]==='statuses')){const rawIndex=SECTION_META.findIndex(x=>x[0]==='raw');SECTION_META.splice(rawIndex<0?SECTION_META.length:rawIndex,0,['statuses','狀態製作器']);}
+if(!EFFECTS.includes('applyStatus'))EFFECTS.push('applyStatus');
+Object.assign(EFFECT_LABELS,{applyStatus:'套用自訂狀態'});
+const statusCountBase=count;
+count=function(section,normalized=false){if(section==='statuses'){if(!normalized)ensureArrays();return statusList().length;}return statusCountBase(section,normalized);};
+const statusRenderBase=render;
+render=function(){if(currentSection==='statuses'){ensureArrays();renderNav(true);renderStatuses();return;}return statusRenderBase();};
+
+const statusValidateDataBase=validateData;
+validateData=function(){const issues=statusValidateDataBase(),defs=statusList(),ids=new Set();defs.forEach((s,i)=>{for(const x of validateStatusDefinition(s))issues.push('狀態 '+(i+1)+'：'+x);if(ids.has(s.id))issues.push('狀態 ID 重複：'+s.id);ids.add(s.id);});(data.classes||[]).forEach((c,job)=>(c.skills||[]).forEach((sk,i)=>{if(sk.effect!=='applyStatus')return;if(!ids.has(String(sk.statusId||'')))issues.push('角色 '+job+' 技能 '+i+' 引用不存在的狀態。');if(!STATUS_TARGETS.includes(sk.statusTarget||'enemy'))issues.push('角色 '+job+' 技能 '+i+' 的狀態目標無效。');}));return [...new Set(issues)];};
+
+const statusRenderSkillsBase=renderSkills;
+renderSkills=function(){statusRenderSkillsBase();if(selected.skillTab==='support')return;const sk=data.classes?.[selected.skillClass]?.skills?.[selected.skill];if(!sk||sk.effect!=='applyStatus')return;const defs=statusList(),app=document.getElementById('app'),grid=app.querySelector('.grid2');if(!grid)return;const box=document.createElement('div');box.className='card';box.id='status-skill-link-card';box.innerHTML='<div class="card-h"><strong>自訂狀態套用</strong></div><div class="card-b"><div class="fields"><div class="field"><label>套用狀態</label><select id="skillStatusId"><option value="">請選擇</option>'+defs.map(d=>'<option value="'+esc(d.id)+'" '+(sk.statusId===d.id?'selected':'')+'>'+esc(d.name)+' · '+esc(d.id)+'</option>').join('')+'</select><div class="field-help">狀態本體只維護一份；技能以 statusId 引用。</div></div><div class="field"><label>套用目標</label><select id="skillStatusTarget">'+labelOptions(STATUS_TARGETS,STATUS_TARGET_LABELS,STATUS_TARGETS.includes(sk.statusTarget)?sk.statusTarget:'enemy')+'</select><div class="field-help">敵方全體與我方全體會對目前全部存活單位各套用一份狀態。</div></div></div><div class="mini-note">此效果不使用上方「基礎效果倍率」作為狀態倍率；狀態內各係數直接由狀態製作器控制。技能冷卻、觸發率、前置條件、寶石與精通仍照原技能系統運作。</div></div>';grid.insertAdjacentElement('afterend',box);document.getElementById('skillStatusId').onchange=e=>{sk.statusId=e.target.value;markDirty();};document.getElementById('skillStatusTarget').onchange=e=>{sk.statusTarget=e.target.value;markDirty();};};
+
+const statusRenderOverviewBase=renderOverview;
+renderOverview=function(){statusRenderOverviewBase();const app=document.getElementById('app');if(!app)return;const stats=app.querySelector('.statgrid');if(stats)stats.insertAdjacentHTML('beforeend','<div class="card stat"><div class="n">'+statusList().length+'</div><div class="l">自訂狀態</div></div>');const notice=[...app.querySelectorAll('.notice')].find(x=>x.textContent.includes('真正會讀取')||x.textContent.includes('測試設定真正會讀取'));if(notice)notice.innerHTML='<b>重要：</b>這份 HTML 的測試設定會讀取 <span class="code">balanceSettings / balance / classes / supportSkills / equipmentForms / items / statusDefinitions</span>。自訂狀態需由技能 effect=applyStatus 引用才會在戰鬥中生效。';};
+
+globalThis.__EMBERWILD_STATUS_EDITOR_TEST_API={schema:STATUS_SCHEMA_VERSION,normalize:normalizeStatusDefinition,validate:validateStatusDefinition,selfTest:statusPureSelfTest,get definitions(){return deepCloneStatus(statusList());}};
+requestEditorInitialRender();
+})();
+</script>
 </html>
