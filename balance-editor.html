@@ -3348,4 +3348,103 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
 })();
 </script>
 
+<script id="split-balance-settings-pages">
+/* Split the oversized balanceSettings editor into one navigation page per top-level group.
+   Existing data structures, editors and import/export behavior remain unchanged. */
+(()=>{
+  const PREFIX='balanceSettings:';
+  const EXCLUDED_GROUPS=new Set(['maps','monsters']);
+  const LABEL_OVERRIDES={
+    progression:'角色成長設定',
+    skills:'技能／精通設定',
+    equipment:'裝備／強化／分解',
+    difficulty:'難度設定',
+    rewards:'戰鬥獎勵設定',
+    combat:'戰鬥全域設定',
+    quests:'任務／委託／商店',
+    drops:'掉落設定',
+    economy:'販售與物品價值'
+  };
+  const groupLabel=group=>LABEL_OVERRIDES[group]||SETTING_GROUP_NAMES[group]||group;
+
+  ensureArrays();
+  const groups=Object.keys(data.balanceSettings||{}).filter(group=>!EXCLUDED_GROUPS.has(group));
+  const pages=groups.map(group=>[PREFIX+group,groupLabel(group)]);
+  const oldIndex=SECTION_META.findIndex(([id])=>id==='balanceSettings');
+  if(oldIndex>=0)SECTION_META.splice(oldIndex,1,...pages);
+  else{
+    const rawIndex=SECTION_META.findIndex(([id])=>id==='raw');
+    SECTION_META.splice(rawIndex<0?SECTION_META.length:rawIndex,0,...pages);
+  }
+
+  const splitSettingsCountBase=count;
+  count=function(section,normalized=false){
+    if(typeof section==='string'&&section.startsWith(PREFIX)){
+      if(!normalized)ensureArrays();
+      const group=section.slice(PREFIX.length),obj=data.balanceSettings?.[group];
+      if(!obj||typeof obj!=='object')return '';
+      return flattenSettingLeaves(obj,group,[]).length;
+    }
+    return splitSettingsCountBase(section,normalized);
+  };
+
+  const splitSettingsRenderBase=renderBalanceSettings;
+  renderBalanceSettings=function(){
+    const group=typeof currentSection==='string'&&currentSection.startsWith(PREFIX)
+      ?currentSection.slice(PREFIX.length)
+      :null;
+    if(!group)return splitSettingsRenderBase();
+
+    ensureArrays();
+    splitSettingsRenderBase();
+
+    const app=document.getElementById('app');
+    const targetPath='balanceSettings.'+group;
+    let target=null;
+    app.querySelectorAll('.balance-tree>details').forEach(detail=>{
+      const key=detail.querySelector('summary .field-key')?.textContent?.trim()||'';
+      if(key===targetPath){target=detail;detail.open=true;}
+      else detail.remove();
+    });
+
+    const title=groupLabel(group);
+    const head=app.querySelector('.section-head');
+    const h1=head?.querySelector('h1');
+    const desc=head?.querySelector('p');
+    if(h1)h1.textContent=title;
+    if(desc)desc.textContent='僅顯示 '+targetPath+'；其他平衡類別已拆到左側的獨立頁面。';
+
+    const reset=app.querySelector('#resetSettings');
+    if(reset){
+      reset.textContent='恢復此頁預設值';
+      reset.onclick=()=>{
+        if(!Object.prototype.hasOwnProperty.call(BALANCE_SETTINGS_DEFAULTS,group))return;
+        if(!confirmDelete('確定將「'+title+'」恢復為目前修改版遊戲的預設值？其他平衡頁面不受影響。'))return;
+        data.balanceSettings[group]=structuredClone(BALANCE_SETTINGS_DEFAULTS[group]);
+        ensureArrays();markDirty();render();
+      };
+    }
+
+    if(!target){
+      const tree=app.querySelector('.balance-tree');
+      if(tree)tree.innerHTML='<div class="empty">目前沒有可編輯的 '+esc(targetPath)+' 設定。</div>';
+    }
+  };
+
+  const splitSettingsMainRenderBase=render;
+  render=function(){
+    if(typeof currentSection==='string'&&currentSection.startsWith(PREFIX)){
+      ensureArrays();
+      renderNav(true);
+      renderBalanceSettings();
+      return;
+    }
+    return splitSettingsMainRenderBase();
+  };
+
+  if(currentSection==='balanceSettings')currentSection=pages[0]?.[0]||'overview';
+  render();
+})();
+</script>
+
 </html>
