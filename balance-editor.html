@@ -3806,7 +3806,7 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
 /* STATUS_PURE_START */
 const STATUS_SCHEMA_VERSION=1;
 const STATUS_TAGS=['periodic','control','modifier','instant'];
-const STATUS_MODIFIER_KINDS=['attack','critical','guard','fracture','power','weaken','vulnerable','damageAmp','regen'];
+const STATUS_MODIFIER_KINDS=['attack','critical','guard','fracture','power','weaken','vulnerable','damageAmp','regen','followup'];
 const STATUS_CONTROL_KINDS=['polymorph','freeze','frost','rage','fear','tauntRage'];
 const STATUS_PERIODIC_KINDS=['damage','heal'];
 const STATUS_BASIS=['fixed','casterAttack','casterMaxHp','casterCurrentHp','casterMissingHp','casterDefense','casterShield','casterLevel','targetAttack','targetMaxHp','targetCurrentHp','targetMissingHp','targetDefense','targetShield','targetLevel'];
@@ -3819,7 +3819,7 @@ function statusClamp01(v,fallback=0){return Math.max(0,Math.min(1,statusNum(v,fa
 function normalizeStatusDefinition(raw,index=0){
   raw=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
   const tags=[...new Set((Array.isArray(raw.tags)?raw.tags:[]).filter(x=>STATUS_TAGS.includes(x)))];
-  const modifiers=tags.includes('modifier')?(Array.isArray(raw.modifiers)?raw.modifiers:[]).slice(0,3).map(x=>({kind:STATUS_MODIFIER_KINDS.includes(x?.kind)?x.kind:'attack',value:statusNum(x?.value,0)})):[];
+  const modifiers=tags.includes('modifier')?(Array.isArray(raw.modifiers)?raw.modifiers:[]).slice(0,3).map(x=>({kind:STATUS_MODIFIER_KINDS.includes(x?.kind)?x.kind:'attack',value:statusNum(x?.value,0),element:STATUS_ELEMENTS.includes(x?.element)?x.element:'physical'})):[];
   let control=null;
   if(tags.includes('control')&&raw.control&&STATUS_CONTROL_KINDS.includes(raw.control.kind)){
     control={
@@ -3863,7 +3863,7 @@ function statusPureSelfTest(){
 /* STATUS_PURE_END */
 
 const STATUS_TAG_LABELS={periodic:'持續傷害／回血',control:'控制',modifier:'增減益效果',instant:'立即行動'};
-const STATUS_MODIFIER_LABELS={attack:'攻擊力提升',critical:'暴擊率提升',guard:'受到傷害降低',fracture:'防禦降低／破甲',power:'技能效果提升',weaken:'攻擊力降低',vulnerable:'承受傷害增加（舊通用）',damageAmp:'承受傷害增加',regen:'每戰鬥回合最大生命恢復'};
+const STATUS_MODIFIER_LABELS={attack:'攻擊力提升',critical:'暴擊率提升',guard:'受到傷害降低',fracture:'防禦降低／破甲',power:'技能效果提升',weaken:'攻擊力降低',vulnerable:'承受傷害增加（舊通用）',damageAmp:'承受傷害增加',regen:'每戰鬥回合最大生命恢復',followup:'受擊追打（施法者攻擊倍率；敵方目標）'};
 const STATUS_CONTROL_LABELS={polymorph:'變形',freeze:'冰凍',frost:'結霜／速度降低',rage:'狂暴',fear:'畏懼',tauntRage:'嘲諷／狂暴'};
 const STATUS_BASIS_LABELS={fixed:'固定數值',casterAttack:'施法者攻擊力',casterMaxHp:'施法者最大生命',casterCurrentHp:'施法者當前生命',casterMissingHp:'施法者已損生命',casterDefense:'施法者防禦',casterShield:'施法者護盾',casterLevel:'施法者等級',targetAttack:'目標攻擊力',targetMaxHp:'目標最大生命',targetCurrentHp:'目標當前生命',targetMissingHp:'目標已損生命',targetDefense:'目標防禦',targetShield:'目標護盾',targetLevel:'目標等級'};
 const STATUS_RESOLUTION_LABELS={fixed:'固定傷害（忽略防禦與增減傷；護盾仍可吸收）',defended:'防禦影響傷害（套防禦、破甲、防無、防穿與承傷增幅）',elemental:'完整元素傷害（防禦＋元素剋制／抗性／元素增傷）',true:'真實傷害（直接扣生命，略過防禦與護盾）',heal:'一般恢復（不超過最大生命）',overflowShield:'溢出恢復轉護盾'};
@@ -3892,7 +3892,7 @@ function controlFieldsHtml(s){const c=s.control;if(!c)return '';
   if(c.kind==='polymorph')extra+='<div class="mini-note">沿用遊戲規則：BOSS 對變形免疫；護盾倍率由施放者攻擊力 100% 建立，自訂狀態結束不會繞過既有的護盾破裂提前解除規則。</div>';
   return '<div class="status-maker-control-grid"><label>控制類型<select id="statusControlKind">'+labelOptions(STATUS_CONTROL_KINDS,STATUS_CONTROL_LABELS,c.kind)+'</select></label>'+extra+'</div>';
 }
-function modifierRowsHtml(s){return s.modifiers.map((m,i)=>'<div class="status-maker-row" data-status-mod-row="'+i+'"><label>效果<select data-status-mod-kind>'+labelOptions(STATUS_MODIFIER_KINDS,STATUS_MODIFIER_LABELS,m.kind)+'</select></label><label>數值<input data-status-mod-value type="number" step="0.001" value="'+esc(m.value)+'"></label><div class="mini-note">0.20 = 20%</div><div></div><div></div><button type="button" class="danger" data-status-mod-del="'+i+'">刪除</button></div>').join('');}
+function modifierRowsHtml(s){return s.modifiers.map((m,i)=>'<div class="status-maker-row" data-status-mod-row="'+i+'"><label>效果<select data-status-mod-kind>'+labelOptions(STATUS_MODIFIER_KINDS,STATUS_MODIFIER_LABELS,m.kind)+'</select></label><label>數值<input data-status-mod-value type="number" step="0.001" value="'+esc(m.value)+'"></label>'+(m.kind==='followup'?'<label>追打元素<select data-status-mod-element>'+labelOptions(STATUS_ELEMENTS,STATUS_ELEMENT_LABELS,m.element||'physical')+'</select></label>':'<div class="mini-note">0.20 = 20%</div>')+'<div></div><div></div><button type="button" class="danger" data-status-mod-del="'+i+'">刪除</button></div>').join('');}
 function periodicRowsHtml(s){return s.periodic.map((fx,i)=>{const resolutions=fx.kind==='heal'?STATUS_HEAL_RESOLUTIONS:STATUS_DAMAGE_RESOLUTIONS;return '<div class="status-maker-row" data-status-periodic-row="'+i+'"><label>類型<select data-status-periodic-kind>'+labelOptions(STATUS_PERIODIC_KINDS,{damage:'持續傷害',heal:'持續恢復'},fx.kind)+'</select></label><label>係數基準<select data-status-periodic-basis>'+labelOptions(STATUS_BASIS,STATUS_BASIS_LABELS,fx.basis)+'</select></label><label>係數<input data-status-periodic-coefficient type="number" min="0" step="0.001" value="'+esc(fx.coefficient)+'"></label><label>結算方式<select data-status-periodic-resolution>'+labelOptions(resolutions,STATUS_RESOLUTION_LABELS,fx.resolution)+'</select></label><label>元素<select data-status-periodic-element '+(fx.resolution==='elemental'?'':'disabled')+'>'+labelOptions(STATUS_ELEMENTS,STATUS_ELEMENT_LABELS,fx.element)+'</select></label><button type="button" class="danger" data-status-periodic-del="'+i+'">刪除</button></div>';}).join('');}
 function renderStatuses(){
   const list=statusList();selectedStatusIndex=Math.max(0,Math.min(selectedStatusIndex,list.length-1));const s=list[selectedStatusIndex]||null,app=document.getElementById('app');
@@ -3900,8 +3900,9 @@ function renderStatuses(){
     '<div class="notice"><b>結構：</b>每個狀態最多 3 個增減益、1 個控制、3 個持續傷害／恢復；持續 1～99 回合。係數可以直接使用固定值、施法者／目標的攻擊、最大／當前／已損生命、防禦、護盾或等級。固定值時「係數」本身就是數值。</div>'+
     '<div class="status-maker-layout"><div class="card status-maker-list"><div class="list">'+(list.map((x,i)=>'<div class="listitem '+(i===selectedStatusIndex?'active':'')+'" data-status-index="'+i+'"><div class="title">'+esc(x.name)+'</div><div class="sub">'+esc(x.id)+' · '+x.duration+' 回合 · '+x.tags.map(t=>STATUS_TAG_LABELS[t]).join('／')+'</div></div>').join('')||'<div class="empty">尚未建立狀態。</div>')+'</div></div>'+
     (s?'<div><div class="card"><div class="card-h"><strong>狀態本體</strong><span class="pill">'+esc(s.id)+'</span></div><div class="card-b"><div class="fields">'+
-      '<div class="field"><label>狀態名稱</label><input id="statusName" value="'+esc(s.name)+'"></div><div class="field"><label>持續回合</label><input id="statusDuration" type="number" min="1" max="99" step="1" value="'+s.duration+'"><div class="field-help">最高 99。增減益依戰鬥回合存在；嵌入既有控制時仍沿用該控制本身的 BOSS／目標行動規則。</div></div></div>'+
+      '<div class="field full"><label>狀態名稱</label><input id="statusName" value="'+esc(s.name)+'"></div></div>'+
       '<div class="field full"><label>狀態標籤（可複選）</label><div class="status-maker-tags">'+STATUS_TAGS.map(t=>'<label><input type="checkbox" data-status-tag="'+t+'" '+(s.tags.includes(t)?'checked':'')+'>'+STATUS_TAG_LABELS[t]+'</label>').join('')+'</div></div>'+
+      '<div class="fields"><div class="field"><label>持續回合</label><input id="statusDuration" type="number" min="1" max="99" step="1" value="'+s.duration+'"><div class="field-help">最高 99。增減益依戰鬥回合存在；嵌入既有控制時仍沿用該控制本身的 BOSS／目標行動規則。</div></div></div>'+
       (s.tags.includes('modifier')?'<div class="status-maker-block"><div class="row"><b>增減益效果</b><span class="status-maker-limit">'+s.modifiers.length+' / 3</span><button id="addStatusModifier" '+(s.modifiers.length>=3?'disabled':'')+'>新增效果</button></div>'+modifierRowsHtml(s)+'</div>':'')+
       (s.tags.includes('control')?'<div class="status-maker-block"><b>控制（最多一種）</b>'+controlFieldsHtml(s)+'</div>':'')+
       (s.tags.includes('periodic')?'<div class="status-maker-block"><div class="row"><b>持續傷害／恢復</b><span class="status-maker-limit">'+s.periodic.length+' / 3</span><button id="addStatusPeriodic" '+(s.periodic.length>=3?'disabled':'')+'>新增持續效果</button></div><div class="mini-note">傷害可選固定、防禦影響、完整元素或真實傷害；恢復可選一般恢復或溢出轉護盾。元素欄只有「完整元素傷害」會生效。</div>'+periodicRowsHtml(s)+'</div>':'')+
@@ -3915,7 +3916,7 @@ function renderStatuses(){
   document.getElementById('statusDuration').onchange=e=>{s.duration=statusInt(e.target.value,s.duration,1,99);if(s.control&&!Number.isFinite(s.control.bossDuration))s.control.bossDuration=Math.min(s.duration,1);markDirty();render();};
   app.querySelectorAll('[data-status-tag]').forEach(el=>el.onchange=()=>{const tag=el.dataset.statusTag,set=new Set(s.tags);el.checked?set.add(tag):set.delete(tag);s.tags=STATUS_TAGS.filter(x=>set.has(x));if(tag==='modifier'&&el.checked&&!s.modifiers.length)s.modifiers=[{kind:'attack',value:.1}];if(tag==='control'&&el.checked&&!s.control)s.control={kind:'freeze',bossDuration:Math.min(s.duration,1),slowPct:.3,basicAttackBonus:.2,damageReduction:.2,skipChance:.3,bossSkipChance:.15};if(tag==='periodic'&&el.checked&&!s.periodic.length)s.periodic=[{kind:'damage',basis:'casterAttack',coefficient:.2,resolution:'fixed',element:'physical'}];Object.assign(s,normalizeStatusDefinition(s,selectedStatusIndex));markDirty();render();});
   document.getElementById('addStatusModifier')?.addEventListener('click',()=>{if(s.modifiers.length<3){s.modifiers.push({kind:'attack',value:.1});markDirty();render();}});
-  app.querySelectorAll('[data-status-mod-row]').forEach(row=>{const i=Number(row.dataset.statusModRow);row.querySelector('[data-status-mod-kind]').onchange=e=>{s.modifiers[i].kind=e.target.value;markDirty();render();};row.querySelector('[data-status-mod-value]').onchange=e=>{s.modifiers[i].value=statusNum(e.target.value,0);markDirty();render();};});
+  app.querySelectorAll('[data-status-mod-row]').forEach(row=>{const i=Number(row.dataset.statusModRow);row.querySelector('[data-status-mod-kind]').onchange=e=>{s.modifiers[i].kind=e.target.value;if(s.modifiers[i].kind==='followup'&&!STATUS_ELEMENTS.includes(s.modifiers[i].element))s.modifiers[i].element='physical';markDirty();render();};row.querySelector('[data-status-mod-value]').onchange=e=>{s.modifiers[i].value=statusNum(e.target.value,0);markDirty();render();};const element=row.querySelector('[data-status-mod-element]');if(element)element.onchange=e=>{s.modifiers[i].element=e.target.value;markDirty();render();};});
   app.querySelectorAll('[data-status-mod-del]').forEach(b=>b.onclick=()=>{s.modifiers.splice(Number(b.dataset.statusModDel),1);markDirty();render();});
   const ck=document.getElementById('statusControlKind');if(ck)ck.onchange=e=>{s.control.kind=e.target.value;Object.assign(s,normalizeStatusDefinition(s,selectedStatusIndex));markDirty();render();};
   app.querySelectorAll('[data-status-control-num]').forEach(el=>el.onchange=()=>{const k=el.dataset.statusControlNum;s.control[k]=k==='bossDuration'?statusInt(el.value,s.control[k],0,99):statusClamp01(el.value,s.control[k]);markDirty();render();});
