@@ -804,6 +804,16 @@ function normalizeSkillUsageScope(sk){
   sk.usageScope=SKILL_USAGE_SCOPES.includes(sk.usageScope)?sk.usageScope:"character";
   return sk.usageScope;
 }
+function uniqueCoreSkillId(job){
+  const ids=new Set((data.classes||[]).flatMap(c=>(c.skills||[]).map(sk=>sk?.id).filter(Boolean)));
+  let n=(data.classes?.[job]?.skills||[]).length,id='job'+job+'-skill'+n;
+  while(ids.has(id))id='job'+job+'-skill'+(++n);
+  return id;
+}
+function removeMonsterSkillReferences(skillId){
+  if(!skillId)return;
+  for(const m of data.balanceSettings?.monsters?.catalog||[])m.skillAssignments=(m.skillAssignments||[]).filter(a=>a?.skillId!==skillId);
+}
 function skillWorkspaceToolbar(activeTab){
   const tabs=[["active","主動技能"],["proc","普攻觸發技能"],["support","輔助技能"]];
   const scope=activeTab==="support"?"":'<label style="margin:0">用途</label><select id="skillScopeFilter"><option value="all" '+(selected.skillScopeFilter==="all"?"selected":"")+'>全部</option>'+SKILL_USAGE_SCOPES.map(v=>'<option value="'+v+'" '+(selected.skillScopeFilter===v?"selected":"")+'>'+SKILL_USAGE_SCOPE_LABELS[v]+'</option>').join("")+'</select>';
@@ -859,7 +869,7 @@ function renderSkills(){
       (visible.map(({sk:x,i})=>'<div class="listitem '+(i===selected.skill?"active":"")+'" data-skill="'+i+'"><div class="title">'+esc(x.name||"(未命名技能)")+'</div><div class="sub">'+esc(SKILL_USAGE_SCOPE_LABELS[normalizeSkillUsageScope(x)]||"人物")+' · '+esc(ACTIVATION_LABELS[x.activation]||x.activation)+' · '+esc(EFFECT_LABELS[x.effect]||x.effect)+' · LV.'+esc(x.requiredLevel)+'</div></div>').join("")||'<div class="empty">此分頁目前沒有技能，可直接新增。</div>')+
     '</div></div>'+
     (sk?card("技能資料",'<div class="fields">'+
-      inputField("技能 ID（識別用）","id",sk.id||"","text","",false,"套用時不使用此 id；匯出遊戲設定時會依 job / skill 索引重新建立。",true)+
+      inputField("技能 ID（共用識別）","id",sk.id||"","text","",false,"怪物技能指派會直接引用此 ID。建立後應保持穩定，且所有核心技能之間不可重複。",true)+
       inputField("技能名稱","name",sk.name||"","text","",false,"戰鬥紀錄與技能頁顯示名稱。")+
       selectField("用途分類","usageScope",normalizeSkillUsageScope(sk),SKILL_USAGE_SCOPES,false,"人物：只供角色使用；怪物：普通怪；菁英：菁英怪；BOSS：地圖 BOSS 與終局首領；共用：人物與所有怪物皆可使用。",SKILL_USAGE_SCOPE_LABELS)+
       selectField("發動方式","activation",sk.activation||skillMode,ACTIVATIONS,false,"切換發動方式後，技能會移到另一個小分頁。",ACTIVATION_LABELS)+
@@ -891,13 +901,13 @@ function renderSkills(){
   const add=document.getElementById("addSkill");
   if(add)add.onclick=()=>{
     if(!c)return;
-    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",usageScope:"character",activation:skillMode,requiredLevel:1,cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
+    const next={id:uniqueCoreSkillId(selected.skillClass),name:"新技能",usageScope:"character",activation:skillMode,requiredLevel:1,cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
     if(skillMode==="proc")ensureProcSkillFields(next);
     skills.push(next);selected.skill=skills.length-1;markDirty();render();
   };
   if(sk){
-    document.getElementById("dupSkill").onclick=()=>{const copy=structuredClone(sk);copy.id='job'+selected.skillClass+'-skill'+skills.length;copy.name=(copy.name||"技能")+" 複製";skills.push(copy);selected.skill=skills.length-1;markDirty();render();};
-    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete('刪除技能「'+sk.name+'」？既有存檔後方技能索引會前移。')){const removed=selected.skill;skills.splice(removed,1);selected.skill=-1;markDirty();render();}};
+    document.getElementById("dupSkill").onclick=()=>{const copy=structuredClone(sk);copy.id=uniqueCoreSkillId(selected.skillClass);copy.name=(copy.name||"技能")+" 複製";skills.push(copy);selected.skill=skills.length-1;markDirty();render();};
+    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete('刪除技能「'+sk.name+'」？既有存檔後方技能索引會前移；引用此技能的怪物指派也會一併移除。')){const removed=selected.skill,removedId=sk.id;skills.splice(removed,1);removeMonsterSkillReferences(removedId);selected.skill=-1;markDirty();render();}};
   }
 }
 function renderSupport(){
@@ -1300,11 +1310,11 @@ requestEditorInitialRender();
 
 
 <script id="action-turn-editor-extension">
-let allowSharedMonsterSkillAssignments=false;
 function sanitizeLegacyMonsterSkillData(root){
   const monsters=root?.balanceSettings?.monsters??root?.monsters;if(!monsters)return root;
+  const hadLegacyPool=Array.isArray(monsters.skills)||monsters.skillSystem!==undefined;
   delete monsters.skills;delete monsters.skillSystem;
-  if(!allowSharedMonsterSkillAssignments)for(const row of monsters.catalog||[])if(row&&typeof row==='object')delete row.skillAssignments;
+  if(hadLegacyPool)for(const row of monsters.catalog||[])if(row&&typeof row==='object')delete row.skillAssignments;
   return root;
 }
 sanitizeLegacyMonsterSkillData(data);sanitizeLegacyMonsterSkillData(BALANCE_SETTINGS_DEFAULTS);
@@ -1649,7 +1659,6 @@ ensureArrays();requestEditorInitialRender();
   function mapOptions(current){return data.balanceSettings.maps.catalog.map((m,i)=>`<option value="${i}" ${i===current?'selected':''}>${i}｜${esc(m.name)}</option>`).join('');}
   function mapKindLabel(m,i){return m.mapType==='final'?(m.progressionGate?'終局地圖／等級突破':'終局地圖'):i<LEGACY_GATE_INDEX?'主線區域':'追加區域';}
   function monsterKindLabel(m){return m.kind==='final'?'最終首領':m.kind==='boss'?'BOSS':'普通怪';}
-  allowSharedMonsterSkillAssignments=true;
   const MONSTER_SHARED_SKILL_EFFECTS_EDITOR=new Set(['damage','heal','shield','drain','nextActiveDamage','advanceNextRound','shieldLowest','applyStatus']);
   function sharedCoreSkillEditorPool(){
     const out=[];for(let job=0;job<(data.classes||[]).length;job++)for(let index=0;index<(data.classes[job]?.skills||[]).length;index++){
@@ -2340,7 +2349,16 @@ ensureArrays();requestEditorInitialRender();
   };
 
   const skillScopeValidateBase=validateData;
-  validateData=function(){const issues=skillScopeValidateBase();for(const [job,c] of (data.classes||[]).entries())for(const [i,sk] of (c.skills||[]).entries())if(!SKILL_USAGE_SCOPES.includes(sk.usageScope))issues.push(`技能 ${job}-${i} 用途分類無效。`);return [...new Set(issues)];};
+  validateData=function(){
+    const issues=skillScopeValidateBase(),ids=new Set();
+    for(const [job,c] of (data.classes||[]).entries())for(const [i,sk] of (c.skills||[]).entries()){
+      if(!SKILL_USAGE_SCOPES.includes(sk.usageScope))issues.push(`技能 ${job}-${i} 用途分類無效。`);
+      if(typeof sk.id!=='string'||!sk.id.trim())issues.push(`技能 ${job}-${i} 缺少共用技能 ID。`);
+      else if(ids.has(sk.id))issues.push(`核心技能 ID 重複：${sk.id}。`);
+      else ids.add(sk.id);
+    }
+    return [...new Set(issues)];
+  };
 
   const compressionValidateDataBase=validateData;
   validateData=function(){
