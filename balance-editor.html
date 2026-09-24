@@ -176,7 +176,7 @@ function requestEditorInitialRender(){
 const SECTION_META = [
   ["overview","總覽"],
   ["classes","角色"],
-  ["skills","技能"],
+  ["skills","技能池"],
   ["equipment","裝備"],
   ["items","商店道具"],
   ["damageFormula","傷害公式"],
@@ -650,6 +650,7 @@ function ensureArrays(){
     const supportPerLevelDefault=Number(data.balanceSettings?.skills?.support?.effectPerExtraLevel??.2);
     for(const sk of data.classes[ci]?.skills||[]){
       if(!Number.isFinite(sk.powerPerLevel))sk.powerPerLevel=Number.isFinite(corePerLevelDefault)?corePerLevelDefault:.18;
+      normalizeSkillUsageScope(sk);
       ensureProcSkillFields(sk);
     }
     for(const sk of data.supportSkills[ci]||[]){
@@ -796,21 +797,32 @@ function renderClasses(){
 }
 
 
+const SKILL_USAGE_SCOPES=["character","monster","elite","boss","shared"];
+const SKILL_USAGE_SCOPE_LABELS={character:"人物",monster:"怪物",elite:"菁英",boss:"BOSS",shared:"共用"};
+function normalizeSkillUsageScope(sk){
+  if(!sk||typeof sk!=="object")return "character";
+  sk.usageScope=SKILL_USAGE_SCOPES.includes(sk.usageScope)?sk.usageScope:"character";
+  return sk.usageScope;
+}
 function skillWorkspaceToolbar(activeTab){
   const tabs=[["active","主動技能"],["proc","普攻觸發技能"],["support","輔助技能"]];
+  const scope=activeTab==="support"?"":'<label style="margin:0">用途</label><select id="skillScopeFilter"><option value="all" '+(selected.skillScopeFilter==="all"?"selected":"")+'>全部</option>'+SKILL_USAGE_SCOPES.map(v=>'<option value="'+v+'" '+(selected.skillScopeFilter===v?"selected":"")+'>'+SKILL_USAGE_SCOPE_LABELS[v]+'</option>').join("")+'</select>';
   return '<div class="toolbar skill-workspace-toolbar"><label style="margin:0">角色</label><select id="skillClassSel">'+
     data.classes.map((x,i)=>'<option value="'+i+'" '+(i===selected.skillClass?'selected':'')+'>'+esc(x.name)+'</option>').join('')+
-    '</select><div class="tabs">'+tabs.map(([id,label])=>'<button type="button" class="'+(activeTab===id?'primary':'')+'" data-skill-tab="'+id+'">'+label+'</button>').join('')+'</div></div>';
+    '</select>'+scope+'<div class="tabs">'+tabs.map(([id,label])=>'<button type="button" class="'+(activeTab===id?'primary':'')+'" data-skill-tab="'+id+'">'+label+'</button>').join('')+'</div></div>';
 }
 function bindSkillWorkspaceToolbar(){
   const sel=document.getElementById("skillClassSel");
   if(sel)sel.onchange=()=>{selected.skillClass=Number(sel.value);selected.supportClass=selected.skillClass;selected.skill=0;selected.support=0;render();};
+  const scope=document.getElementById("skillScopeFilter");
+  if(scope)scope.onchange=()=>{selected.skillScopeFilter=scope.value;selected.skill=-1;render();};
   document.querySelectorAll("[data-skill-tab]").forEach(b=>b.onclick=()=>{selected.skillTab=b.dataset.skillTab;selected.supportClass=selected.skillClass;selected.skill=0;selected.support=0;render();});
 }
 
 function renderSkills(){
   ensureArrays();
   selected.skillTab=["active","proc","support"].includes(selected.skillTab)?selected.skillTab:"active";
+  selected.skillScopeFilter=["all",...SKILL_USAGE_SCOPES].includes(selected.skillScopeFilter)?selected.skillScopeFilter:"all";
   selected.skillClass=Math.min(selected.skillClass,Math.max(0,data.classes.length-1));
   selected.supportClass=selected.skillClass;
 
@@ -819,8 +831,8 @@ function renderSkills(){
     const app=document.getElementById("app"),head=app.querySelector(".section-head"),oldToolbar=app.querySelector(".toolbar");
     if(head){
       const title=head.querySelector("h1"),desc=head.querySelector("p");
-      if(title)title.textContent="技能";
-      if(desc)desc.textContent="選擇職業後，分別調整主動技能、普攻觸發技能與輔助技能。";
+      if(title)title.textContent="技能池";
+      if(desc)desc.textContent="核心技能可依用途分類給人物、普通怪、菁英、BOSS 或共用；輔助技能仍為人物專用。";
     }
     if(oldToolbar)oldToolbar.remove();
     if(head)head.insertAdjacentHTML("afterend",skillWorkspaceToolbar("support"));
@@ -830,7 +842,7 @@ function renderSkills(){
 
   const skillMode=selected.skillTab,c=data.classes[selected.skillClass];
   const skills=c&&Array.isArray(c.skills)?c.skills:(c?(c.skills=[]):[]);
-  const visible=skills.map((sk,i)=>({sk,i})).filter(x=>x.sk.activation===skillMode);
+  const visible=skills.map((sk,i)=>({sk,i})).filter(x=>x.sk.activation===skillMode&&(selected.skillScopeFilter==="all"||normalizeSkillUsageScope(x.sk)===selected.skillScopeFilter));
   if(!visible.some(x=>x.i===selected.skill))selected.skill=visible.length?visible[0].i:-1;
   const sk=selected.skill>=0?skills[selected.skill]:null;
   if(sk)ensureProcSkillFields(sk);
@@ -839,16 +851,17 @@ function renderSkills(){
   const powerHelp=sk?.effect==="nextActiveDamage"?"0.25 = 基礎 +25% 下次主動技能傷害；技能等級、寶石與指定技能效果詞條仍會放大此比例。":sk?.effect==="advanceNextRound"?"此效果固定前移 1 格，不使用 power；保留欄位只為 JSON 結構相容。":sk?.effect==="shieldLowest"?"以施放者攻擊力為基準；0.8 = 產生攻擊力 80% 的純護盾，給生命比例最低的存活隊友。":'最終技能量先以「角色攻擊力 × 此倍率」為基礎，再乘技能等級、寶石、指定技能效果詞條與輔助技能 power。1 = 100% 攻擊力。';
 
   document.getElementById("app").innerHTML =
-    sectionHead("技能","選擇職業後，分別調整主動技能、普攻觸發技能與輔助技能。",
+    sectionHead("技能池","核心技能共用同一份定義，可分類給人物、普通怪、菁英、BOSS 或共用；輔助技能仍為人物專用。",
       '<button id="addSkill" '+(c?"":"disabled")+'>新增'+(skillMode==="proc"?"觸發":"主動")+'技能</button>'+(sk?'<button id="dupSkill">複製技能</button><button id="delSkill" class="danger">刪除技能</button>':""))+
-    '<div class="notice">主動技能與普攻觸發技能分開編輯，但仍共用 classes[].skills 陣列索引。既有存檔以索引保存技能等級與寶石，正式資料請避免任意重排。</div>'+
+    '<div class="notice">主動技能與普攻觸發技能仍共用 classes[].skills 陣列索引；「用途分類」決定人物或哪類怪物可使用同一技能定義。既有存檔以索引保存技能等級與寶石，正式資料請避免任意重排。</div>'+
     skillWorkspaceToolbar(skillMode)+
     '<div class="grid2"><div class="card"><div class="list">'+
-      (visible.map(({sk:x,i})=>'<div class="listitem '+(i===selected.skill?"active":"")+'" data-skill="'+i+'"><div class="title">'+esc(x.name||"(未命名技能)")+'</div><div class="sub">'+esc(ACTIVATION_LABELS[x.activation]||x.activation)+' · '+esc(EFFECT_LABELS[x.effect]||x.effect)+' · LV.'+esc(x.requiredLevel)+'</div></div>').join("")||'<div class="empty">此分頁目前沒有技能，可直接新增。</div>')+
+      (visible.map(({sk:x,i})=>'<div class="listitem '+(i===selected.skill?"active":"")+'" data-skill="'+i+'"><div class="title">'+esc(x.name||"(未命名技能)")+'</div><div class="sub">'+esc(SKILL_USAGE_SCOPE_LABELS[normalizeSkillUsageScope(x)]||"人物")+' · '+esc(ACTIVATION_LABELS[x.activation]||x.activation)+' · '+esc(EFFECT_LABELS[x.effect]||x.effect)+' · LV.'+esc(x.requiredLevel)+'</div></div>').join("")||'<div class="empty">此分頁目前沒有技能，可直接新增。</div>')+
     '</div></div>'+
     (sk?card("技能資料",'<div class="fields">'+
       inputField("技能 ID（識別用）","id",sk.id||"","text","",false,"套用時不使用此 id；匯出遊戲設定時會依 job / skill 索引重新建立。",true)+
       inputField("技能名稱","name",sk.name||"","text","",false,"戰鬥紀錄與技能頁顯示名稱。")+
+      selectField("用途分類","usageScope",normalizeSkillUsageScope(sk),SKILL_USAGE_SCOPES,false,"人物：只供角色使用；怪物：普通怪；菁英：菁英怪；BOSS：地圖 BOSS 與終局首領；共用：人物與所有怪物皆可使用。",SKILL_USAGE_SCOPE_LABELS)+
       selectField("發動方式","activation",sk.activation||skillMode,ACTIVATIONS,false,"切換發動方式後，技能會移到另一個小分頁。",ACTIVATION_LABELS)+
       selectField("主要效果","effect",sk.effect||"damage",effectOptions,false,effectHelp,EFFECT_LABELS)+
       selectField("技能屬性","element",sk.element||"physical",ELEMENTS,false,"傷害類技能會參與元素剋制與元素增傷；治療／護盾仍保留屬性標示。",ELEMENT_LABELS)+
@@ -868,6 +881,8 @@ function renderSkills(){
   app.querySelectorAll("[data-skill]").forEach(x=>x.onclick=()=>{selected.skill=Number(x.dataset.skill);render();});
   if(sk){
     bindObjectFields(app,sk);
+    const usageScope=app.querySelector('[data-key="usageScope"]');
+    if(usageScope)usageScope.onchange=()=>{sk.usageScope=usageScope.value;normalizeSkillUsageScope(sk);markDirty();render();};
     const activation=app.querySelector('[data-key="activation"]');
     if(activation)activation.onchange=()=>{sk.activation=activation.value;if(sk.activation==="proc")ensureProcSkillFields(sk);else if(PROC_ONLY_EFFECTS.has(sk.effect))sk.effect="damage";selected.skillTab=sk.activation;markDirty();render();};
     const effect=app.querySelector('[data-key="effect"]');
@@ -876,7 +891,7 @@ function renderSkills(){
   const add=document.getElementById("addSkill");
   if(add)add.onclick=()=>{
     if(!c)return;
-    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",activation:skillMode,requiredLevel:1,cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
+    const idx=skills.length,next={id:'job'+selected.skillClass+'-skill'+idx,name:"新技能",usageScope:"character",activation:skillMode,requiredLevel:1,cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
     if(skillMode==="proc")ensureProcSkillFields(next);
     skills.push(next);selected.skill=skills.length-1;markDirty();render();
   };
@@ -1638,12 +1653,18 @@ ensureArrays();requestEditorInitialRender();
   const MONSTER_SHARED_SKILL_EFFECTS_EDITOR=new Set(['damage','heal','shield','drain','nextActiveDamage','advanceNextRound','shieldLowest','applyStatus']);
   function sharedCoreSkillEditorPool(){
     const out=[];for(let job=0;job<(data.classes||[]).length;job++)for(let index=0;index<(data.classes[job]?.skills||[]).length;index++){
-      const sk=data.classes[job].skills[index],id=sk.id||`job${job}-core${index}`;out.push({id,job,index,name:sk.name||id,effect:sk.effect||'',activation:sk.activation||'active',supported:MONSTER_SHARED_SKILL_EFFECTS_EDITOR.has(sk.effect)});
+      const sk=data.classes[job].skills[index],id=sk.id||`job${job}-core${index}`,usageScope=normalizeSkillUsageScope(sk);out.push({id,job,index,name:sk.name||id,effect:sk.effect||'',activation:sk.activation||'active',usageScope,supported:MONSTER_SHARED_SKILL_EFFECTS_EDITOR.has(sk.effect)});
     }return out;
+  }
+  function scopeAllowsMonsterRow(scope,kind){
+    if(scope==='shared')return true;
+    if(kind==='normal')return scope==='monster'||scope==='elite';
+    if(kind==='boss'||kind==='final')return scope==='boss';
+    return false;
   }
   function monsterSharedSkillAssignmentsHTML(m){
     const pool=sharedCoreSkillEditorPool(),rows=(m.skillAssignments||[]).map((a,i)=>{
-      const current=pool.find(x=>x.id===a.skillId),options=pool.map(sk=>`<option value="${esc(sk.id)}" ${sk.id===a.skillId?'selected':''} ${!sk.supported&&sk.id!==a.skillId?'disabled':''}>${esc(data.classes[sk.job]?.name||('職業 '+sk.job))}｜${esc(sk.name)}｜${esc(sk.activation==='proc'?'普攻觸發':'主動')}${sk.supported?'':'｜人物專用效果'}</option>`).join('');
+      const current=pool.find(x=>x.id===a.skillId),options=pool.map(sk=>{const allowed=sk.supported&&scopeAllowsMonsterRow(sk.usageScope,m.kind);return `<option value="${esc(sk.id)}" ${sk.id===a.skillId?'selected':''} ${!allowed&&sk.id!==a.skillId?'disabled':''}>${esc(SKILL_USAGE_SCOPE_LABELS[sk.usageScope]||sk.usageScope)}｜${esc(data.classes[sk.job]?.name||('職業 '+sk.job))}｜${esc(sk.name)}｜${esc(sk.activation==='proc'?'普攻觸發':'主動')}${sk.supported?'':'｜目前人物專用效果'}</option>`;}).join('');
       return `<div class="monster-shared-skill-row" data-monster-shared-skill-row="${i}"><select class="monster-shared-skill-select">${options}${!current?`<option value="${esc(a.skillId)}" selected>不存在的技能｜${esc(a.skillId)}</option>`:''}</select><button class="small danger monster-shared-skill-remove">移除</button></div>`;
     }).join('');
     return `<details class="monster-shared-skills"><summary>共用人物技能（${(m.skillAssignments||[]).length}）</summary><div class="mini-note">这里只保存人物核心技能 ID，不複製倍率、冷卻或效果。主動技能依列表順序優先施放；Proc 技能在怪物普攻後判定。</div><div class="monster-shared-skill-rows">${rows||'<div class="mini-note">目前只會普通攻擊。</div>'}</div><button class="small monster-shared-skill-add">新增技能</button></details>`;
@@ -1723,7 +1744,7 @@ ensureArrays();requestEditorInitialRender();
       row.querySelector('.monster-shared-skill-remove').onclick=()=>{m.skillAssignments.splice(slot,1);markDirty();render();};
     });
     const addShared=card.querySelector('.monster-shared-skill-add');if(addShared)addShared.onclick=()=>{
-      const used=new Set((m.skillAssignments||[]).map(a=>a.skillId)),pick=sharedCoreSkillEditorPool().find(sk=>sk.supported&&!used.has(sk.id));
+      const used=new Set((m.skillAssignments||[]).map(a=>a.skillId)),pick=sharedCoreSkillEditorPool().find(sk=>sk.supported&&scopeAllowsMonsterRow(sk.usageScope,m.kind)&&!used.has(sk.id));
       if(!pick)return alert('沒有其他目前可供怪物使用的人物核心技能。');
       m.skillAssignments.push({skillId:pick.id});markDirty();render();
     };
@@ -1740,7 +1761,7 @@ ensureArrays();requestEditorInitialRender();
     const mids=new Set();for(const [i,m] of maps.entries()){if(!m.id||!/^[a-zA-Z0-9_-]{1,100}$/.test(m.id)||mids.has(m.id))issues.push(`地圖第 ${i+1} 筆 ID 必須為英數、底線或連字號且不可重複。`);mids.add(m.id);if(!m.name?.trim()||!Number.isFinite(m.min)||!Number.isFinite(m.max)||m.min<1||m.max<m.min)issues.push(`地圖 ${m.id||i+1} 名稱或等級範圍無效。`);if(!Number.isInteger(m.family)||m.family<0||m.family>5)issues.push(`地圖 ${m.id||i+1} 區域家族必須為 0~5。`);if(!['normal','final'].includes(m.mapType))issues.push(`地圖 ${m.name} 類型必須是 normal 或 final。`);if(m.mapType==='normal'&&(!Number.isFinite(m.eliteChance)||m.eliteChance<0||m.eliteChance>1||!Number.isFinite(m.bossChance)||m.bossChance<0||m.bossChance>1||m.eliteChance+m.bossChance>1))issues.push(`地圖 ${m.name} 的菁英／BOSS 遭遇率必須各為 0~1，且合計不可超過 1。`);}
     const gates=maps.filter(m=>m.progressionGate===true);if(gates.length!==1||gates[0].mapType!=='final')issues.push('必須恰好有 1 張終局地圖設定為等級突破關卡。');
     const sharedSkillPool=sharedCoreSkillEditorPool(),sharedSkillIds=new Set(sharedSkillPool.map(x=>x.id));
-    for(const [i,m] of cat.entries()){const seenAssigned=new Set();for(const a of m.skillAssignments||[]){if(!sharedSkillIds.has(a.skillId))issues.push(`怪物 ${m.id||i+1} 引用不存在的人物技能 ${a.skillId}。`);if(seenAssigned.has(a.skillId))issues.push(`怪物 ${m.id||i+1} 重複指定技能 ${a.skillId}。`);seenAssigned.add(a.skillId);const def=sharedSkillPool.find(x=>x.id===a.skillId);if(def&&!def.supported)issues.push(`怪物 ${m.id||i+1} 指定了目前不支援怪物施放的效果：${def.name}。`);}if(!Number.isInteger(m.mapIndex)||m.mapIndex<0||m.mapIndex>=maps.length)issues.push(`怪物 ${m.id||i+1} 指向不存在的地圖。`);if(typeof m.enabled!=='boolean'||typeof m.eliteEnabled!=='boolean'||!Number.isFinite(m.spawnWeight)||m.spawnWeight<=0||!Number.isFinite(m.hpMultiplier)||m.hpMultiplier<=0||!Number.isFinite(m.attackMultiplier)||m.attackMultiplier<=0||!Number.isFinite(m.defenseMultiplier)||m.defenseMultiplier<=0)issues.push(`怪物 ${m.id||i+1} 的啟用狀態、權重或能力倍率無效。`);if(!Number.isInteger(m.stageCount)||m.stageCount<1||m.stageCount>20||!Number.isInteger(m.stageOrder)||m.stageOrder<0||m.stageOrder>999||typeof m.stageElite!=='boolean')issues.push(`怪物 ${m.id||i+1} 的終局關卡數量／型態／隊列順序無效。`);const expected=maps[m.mapIndex]?.mapType==='final'?'final':'boss';if(m.kind!=='normal'&&m.kind!==expected)issues.push(`怪物 ${m.id||i+1} 類型與地圖類型不相容。`);}
+    for(const [i,m] of cat.entries()){const seenAssigned=new Set();for(const a of m.skillAssignments||[]){if(!sharedSkillIds.has(a.skillId))issues.push(`怪物 ${m.id||i+1} 引用不存在的人物技能 ${a.skillId}。`);if(seenAssigned.has(a.skillId))issues.push(`怪物 ${m.id||i+1} 重複指定技能 ${a.skillId}。`);seenAssigned.add(a.skillId);const def=sharedSkillPool.find(x=>x.id===a.skillId);if(def&&!def.supported)issues.push(`怪物 ${m.id||i+1} 指定了目前不支援怪物施放的效果：${def.name}。`);if(def&&!scopeAllowsMonsterRow(def.usageScope,m.kind))issues.push(`怪物 ${m.id||i+1} 指定了用途分類不相容的技能：${def.name}（${SKILL_USAGE_SCOPE_LABELS[def.usageScope]||def.usageScope}）。`);}if(!Number.isInteger(m.mapIndex)||m.mapIndex<0||m.mapIndex>=maps.length)issues.push(`怪物 ${m.id||i+1} 指向不存在的地圖。`);if(typeof m.enabled!=='boolean'||typeof m.eliteEnabled!=='boolean'||!Number.isFinite(m.spawnWeight)||m.spawnWeight<=0||!Number.isFinite(m.hpMultiplier)||m.hpMultiplier<=0||!Number.isFinite(m.attackMultiplier)||m.attackMultiplier<=0||!Number.isFinite(m.defenseMultiplier)||m.defenseMultiplier<=0)issues.push(`怪物 ${m.id||i+1} 的啟用狀態、權重或能力倍率無效。`);if(!Number.isInteger(m.stageCount)||m.stageCount<1||m.stageCount>20||!Number.isInteger(m.stageOrder)||m.stageOrder<0||m.stageOrder>999||typeof m.stageElite!=='boolean')issues.push(`怪物 ${m.id||i+1} 的終局關卡數量／型態／隊列順序無效。`);const expected=maps[m.mapIndex]?.mapType==='final'?'final':'boss';if(m.kind!=='normal'&&m.kind!==expected)issues.push(`怪物 ${m.id||i+1} 類型與地圖類型不相容。`);}
     for(let mi=0;mi<maps.length;mi++){const final=maps[mi].mapType==='final',expected=final?'final':'boss',boss=cat.filter(m=>m.mapIndex===mi&&m.kind===expected),normal=cat.filter(m=>m.mapIndex===mi&&m.kind==='normal'&&m.enabled!==false);if(boss.length!==1)issues.push(`${maps[mi].name} 必須恰好有 1 筆${final?'最終首領':'BOSS'}資料。`);if(!final&&!normal.length)issues.push(`${maps[mi].name} 至少需要 1 隻啟用中的普通怪物。`);if(final){const total=(boss.length?1:0)+normal.reduce((sum,m)=>sum+(Number(m.stageCount)||0),0);if(total<1||total>20)issues.push(`${maps[mi].name} 的終局關卡總敵人數必須為 1～20 隻。`);}}
     return [...new Set(issues)];
   };
@@ -2317,6 +2338,9 @@ ensureArrays();requestEditorInitialRender();
     const head=app.querySelector(".section-head p");if(head)head.textContent="元素補給品可同時設定價格、持續回合與暫時主屬性／衍生副屬性效果。";
     const notice=app.querySelector(".notice");if(notice)notice.innerHTML="<b>效果組成：</b>既有附魔／抗性／元素增幅效果仍保留；下方可額外設定固定生命、攻防、暴率、暴傷、防穿、防無等暫時能力。";
   };
+
+  const skillScopeValidateBase=validateData;
+  validateData=function(){const issues=skillScopeValidateBase();for(const [job,c] of (data.classes||[]).entries())for(const [i,sk] of (c.skills||[]).entries())if(!SKILL_USAGE_SCOPES.includes(sk.usageScope))issues.push(`技能 ${job}-${i} 用途分類無效。`);return [...new Set(issues)];};
 
   const compressionValidateDataBase=validateData;
   validateData=function(){
