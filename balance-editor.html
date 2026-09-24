@@ -1584,7 +1584,26 @@ ensureArrays();requestEditorInitialRender();
       bossEnabled:final?true:(typeof src.bossEnabled==='boolean'?src.bossEnabled:def.bossEnabled!==false),bossChance:final?1:(Number.isFinite(src.bossChance)?src.bossChance:Number(def.bossChance??.05))
     };
   }
+  const MONSTER_COMBAT_STAT_DEFAULTS_EDITOR={
+    crit:0,critDamage:1.5,pierce:0,defenseIgnore:0,lifesteal:0,evasion:0,elementBonus:0,bossDamage:0,speedBonus:0,
+    elementDamage:{physical:0,fire:0,ice:0,wind:0,light:0,shadow:0},
+    raceDamage:{beast:0,plant:0,undead:0,construct:0,demon:0,spirit:0},
+    resist:{physical:0,fire:0,ice:0,wind:0,light:0,shadow:0}
+  };
+  function normalizeMonsterCombatStatsEditor(raw){
+    const src=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{},out={};
+    for(const key of ['crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage','speedBonus']){
+      const fallback=MONSTER_COMBAT_STAT_DEFAULTS_EDITOR[key],v=Number(src[key]);out[key]=Number.isFinite(v)?v:fallback;
+    }
+    out.crit=Math.max(0,out.crit);out.critDamage=Math.max(1,out.critDamage);out.pierce=Math.max(0,out.pierce);
+    out.defenseIgnore=Math.max(0,Math.min(1,out.defenseIgnore));out.lifesteal=Math.max(0,out.lifesteal);out.evasion=Math.max(0,Math.min(1,out.evasion));
+    for(const group of ['elementDamage','raceDamage','resist']){
+      out[group]={};for(const [key,fallback] of Object.entries(MONSTER_COMBAT_STAT_DEFAULTS_EDITOR[group])){const v=Number(src[group]?.[key]);out[group][key]=Number.isFinite(v)?v:fallback;}
+    }
+    return out;
+  }
   function normalizeMonsterEditorRow(m){
+    m.combatStats=normalizeMonsterCombatStatsEditor(m.combatStats);
     m.enabled=m.kind==='normal'?m.enabled!==false:true;m.eliteEnabled=m.kind==='normal'?m.eliteEnabled!==false:false;
     if(!Number.isFinite(m.spawnWeight)||m.spawnWeight<=0)m.spawnWeight=1;if(!Number.isFinite(m.hpMultiplier)||m.hpMultiplier<=0)m.hpMultiplier=1;if(!Number.isFinite(m.attackMultiplier)||m.attackMultiplier<=0)m.attackMultiplier=1;if(!Number.isFinite(m.defenseMultiplier)||m.defenseMultiplier<=0)m.defenseMultiplier=1;
     if(!Number.isInteger(m.stageCount)||m.stageCount<1)m.stageCount=1;if(!Number.isInteger(m.stageOrder)||m.stageOrder<0)m.stageOrder=m.kind==='normal'?10:100;m.stageElite=m.kind==='normal'&&m.stageElite===true;
@@ -1613,6 +1632,19 @@ ensureArrays();requestEditorInitialRender();
   function mapOptions(current){return data.balanceSettings.maps.catalog.map((m,i)=>`<option value="${i}" ${i===current?'selected':''}>${i}｜${esc(m.name)}</option>`).join('');}
   function mapKindLabel(m,i){return m.mapType==='final'?(m.progressionGate?'終局地圖／等級突破':'終局地圖'):i<LEGACY_GATE_INDEX?'主線區域':'追加區域';}
   function monsterKindLabel(m){return m.kind==='final'?'最終首領':m.kind==='boss'?'BOSS':'普通怪';}
+  function monsterCombatStatsEditorHTML(m){
+    const s=m.combatStats||normalizeMonsterCombatStatsEditor(null);
+    const scalar=[
+      ['crit','暴擊率（0~1）',.01],['critDamage','暴擊傷害倍率',.05],['pierce','防禦穿透',1],['defenseIgnore','防禦無視（0~1）',.01],
+      ['lifesteal','生命竊取（0~1）',.01],['evasion','閃避率（0~1）',.01],['elementBonus','全屬性增傷',.01],['bossDamage','BOSS 增傷',.01],['speedBonus','速度加成',1]
+    ].map(([k,l,step])=>`<label>${l}<input class="world-monster-combat-field" data-stat-path="${k}" type="number" step="${step}" value="${esc(s[k])}"></label>`).join('');
+    const elementNames={physical:'無屬性',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'};
+    const raceNames={beast:'野獸',plant:'植物',undead:'不死',construct:'構裝',demon:'惡魔',spirit:'精靈'};
+    const elementDamage=Object.keys(elementNames).map(k=>`<label>${elementNames[k]}增傷<input class="world-monster-combat-field" data-stat-path="elementDamage.${k}" type="number" step="0.01" value="${esc(s.elementDamage[k])}"></label>`).join('');
+    const resist=Object.keys(elementNames).map(k=>`<label>${elementNames[k]}抗性<input class="world-monster-combat-field" data-stat-path="resist.${k}" type="number" step="0.01" value="${esc(s.resist[k])}"></label>`).join('');
+    const raceDamage=Object.keys(raceNames).map(k=>`<label>對${raceNames[k]}增傷<input class="world-monster-combat-field" data-stat-path="raceDamage.${k}" type="number" step="0.01" value="${esc(s.raceDamage[k])}"></label>`).join('');
+    return `<details class="monster-combat-stats"><summary>進階戰鬥屬性（目前預設為中性值）</summary><div class="world-fields">${scalar}${elementDamage}${resist}${raceDamage}</div><p class="mini-note">0 代表不加成；倍率型基準使用 1 倍。暴擊傷害預設 1.5 倍，因暴擊率預設 0，所以不改變現有怪物傷害。</p></details>`;
+  }
   function monsterFields(m,i){
     const isNormal=m.kind==='normal',isFinal=m.kind==='final',isBoss=!isNormal,finalMap=isFinalMapRow(data.balanceSettings.maps.catalog[m.mapIndex]);
     return `<article class="world-monster-card ${m.enabled===false?'disabled-row':''}" data-world-monster="${i}"><div class="world-monster-head"><strong>${esc(m.name||'未命名怪物')}</strong><span class="pill">${monsterKindLabel(m)}</span><span class="pill">${m.enabled===false?'停用':'啟用'}</span><button class="small world-monster-copy" ${isBoss?'disabled':''}>複製</button><button class="small danger world-monster-delete" ${isFinal?'disabled':''}>刪除</button></div><div class="world-fields">
@@ -1624,7 +1656,7 @@ ensureArrays();requestEditorInitialRender();
       ${finalMap?`<label>關卡數量<input class="world-monster-field" data-key="stageCount" type="number" min="1" max="20" step="1" value="${isBoss?1:esc(m.stageCount)}" ${isBoss?'disabled':''}></label><label>關卡型態<select class="world-monster-field" data-key="stageElite" ${isBoss?'disabled':''}><option value="false" ${!m.stageElite?'selected':''}>普通</option><option value="true" ${m.stageElite?'selected':''}>菁英</option></select></label><label>隊列順序<input class="world-monster-field" data-key="stageOrder" type="number" min="0" max="999" step="1" value="${esc(m.stageOrder)}"></label>`:''}
       <label>生命倍率<input class="world-monster-field" data-key="hpMultiplier" type="number" min="0.01" step="0.05" value="${esc(m.hpMultiplier)}"></label><label>攻擊倍率<input class="world-monster-field" data-key="attackMultiplier" type="number" min="0.01" step="0.05" value="${esc(m.attackMultiplier)}"></label><label>防禦倍率<input class="world-monster-field" data-key="defenseMultiplier" type="number" min="0.01" step="0.05" value="${esc(m.defenseMultiplier)}"></label>
       <label>主要素材<input class="world-monster-field" data-key="material" value="${esc(m.material)}"></label><label>元素<select class="world-monster-field" data-key="element">${ELEMENTS.map(v=>`<option value="${v}" ${m.element===v?'selected':''}>${esc(ELEMENT_LABELS[v]||v)}</option>`).join('')}</select></label><label>種族<select class="world-monster-field" data-key="race">${Object.entries(RACE_LABELS).map(([v,l])=>`<option value="${v}" ${m.race===v?'selected':''}>${l}</option>`).join('')}</select></label>
-    </div>${isBoss?`<div class="world-danger-note">${isFinal?'最終首領':'BOSS'}固定綁定此地圖。${isFinal?'終局關卡必須有 1 名最終首領；可另外配置普通／菁英小怪。':'遭遇是否啟用與出現率請在上方地圖設定控制。'}</div>`:''}${isNormal&&finalMap?'<div class="world-danger-note">終局關卡會依「關卡數量」固定生成此怪；可切換普通／菁英，隊列順序越小越先被集火。</div>':''}</article>`;
+    </div>${monsterCombatStatsEditorHTML(m)}${isBoss?`<div class="world-danger-note">${isFinal?'最終首領':'BOSS'}固定綁定此地圖。${isFinal?'終局關卡必須有 1 名最終首領；可另外配置普通／菁英小怪。':'遭遇是否啟用與出現率請在上方地圖設定控制。'}</div>`:''}${isNormal&&finalMap?'<div class="world-danger-note">終局關卡會依「關卡數量」固定生成此怪；可切換普通／菁英，隊列順序越小越先被集火。</div>':''}</article>`;
   }
   function rewriteDropKindsForBoss(monsterId,fromKind,toKind){for(const d of data.balanceSettings.drops.entries||[]){if(!(d.sources||[]).includes(monsterId))continue;d.kinds=[...new Set((d.kinds||[]).map(k=>k===fromKind?toKind:k))];}}
   function ensureBossMonster(mapIndex){
@@ -1663,7 +1695,11 @@ ensureArrays();requestEditorInitialRender();
       `<section class="card world-global" style="margin-top:14px"><div class="card-h"><strong>怪物共用平衡</strong></div><div class="card-b"><p class="mini-note">一般地圖使用普通怪基礎公式與菁英／BOSS 倍率。終局地圖中的最終首領使用「終局首領能力」作為基礎；關卡小怪仍使用普通怪公式，可個別指定為普通或菁英。隊列順序只影響畫面排列與玩家集火順序，不影響速度行動序。</p>${flattenSettingLeaves(globalMonster,'monsters').map(([p,v])=>settingRow('balanceSettings.'+p,v)).join('')}</div></section>`;
     const app=document.getElementById('app');app.querySelectorAll('[data-world-map]').forEach(el=>el.onclick=()=>{selected.worldMap=Number(el.dataset.worldMap);render();});app.querySelector('#worldAddMap').onclick=()=>addMap('normal');app.querySelector('#worldAddFinalMap').onclick=()=>addMap('final');const del=app.querySelector('#worldDeleteMap');if(del)del.onclick=()=>deleteMap(mi);const addM=app.querySelector('#worldAddMonster');if(addM)addM.onclick=()=>addNormalMonster(mi);const addB=app.querySelector('#worldAddBoss');if(addB)addB.onclick=()=>{ensureBossMonster(mi);markDirty();render();};
     app.querySelectorAll('.world-map-field').forEach(el=>el.onchange=()=>{const k=el.dataset.key;if(k==='mapType'){setMapType(mi,el.value);data.balanceSettings.maps.levelRanges=maps.map(m=>({min:m.min,max:m.max}));markDirty();render();return;}let v;if(['min','max','family'].includes(k))v=Number(el.value);else if(['eliteChance','bossChance'].includes(k))v=Number(el.value);else if(['parallel','eliteEnabled','bossEnabled'].includes(k))v=el.value==='true';else v=el.value;if(final&&['eliteEnabled','eliteChance','bossEnabled','bossChance'].includes(k))return;map[k]=v;if(k==='name')MAP_NAMES[mi]=v;if(k==='min'||k==='max')data.balanceSettings.maps.levelRanges[mi]={min:map.min,max:map.max};markDirty();if(['name','min','max','eliteEnabled','eliteChance','bossEnabled','bossChance'].includes(k))render();});
-    app.querySelectorAll('[data-world-monster]').forEach(card=>{const i=Number(card.dataset.worldMonster),m=monsters[i];card.querySelectorAll('.world-monster-field').forEach(el=>el.onchange=()=>{const k=el.dataset.key,oldId=m.id;let v;if(['mapIndex','maxDrops','stageCount','stageOrder'].includes(k))v=Number(el.value);else if(['spawnWeight','hpMultiplier','attackMultiplier','defenseMultiplier'].includes(k))v=Number(el.value);else if(['enabled','eliteEnabled','stageElite'].includes(k))v=el.value==='true';else v=el.value;m[k]=v;if(k==='id'&&oldId!==v)for(const d of data.balanceSettings.drops.entries)d.sources=(d.sources||[]).map(id=>id===oldId?v:id);if(k==='mapIndex')selected.worldMap=v;markDirty();if(['id','name','mapIndex','enabled','stageCount','stageElite','stageOrder'].includes(k))render();});const cp=card.querySelector('.world-monster-copy');if(cp&&!cp.disabled)cp.onclick=()=>{const c=normalizeMonsterEditorRow(structuredClone(m));c.id=uniqueId((m.id||'monster')+'_copy_',monsters);c.name=(m.name||'怪物')+' 複製';c.kind='normal';c.enabled=true;c.eliteEnabled=true;monsters.splice(i+1,0,c);markDirty();render();};const de=card.querySelector('.world-monster-delete');if(de&&!de.disabled)de.onclick=()=>{if(m.kind!=='normal'){const count=monsters.filter(x=>x.mapIndex===m.mapIndex&&x.kind===m.kind).length;if(count<=1&&!confirmDelete('這是此地圖唯一的首領資料。刪除後 JSON 會暫時無法通過遊戲驗證，直到補建首領。仍要刪除？'))return;}else if(!confirmDelete(`刪除怪物「${m.name}」？`))return;monsters.splice(i,1);for(const d of data.balanceSettings.drops.entries)d.sources=(d.sources||[]).filter(id=>id!==m.id);markDirty();render();};});
+    app.querySelectorAll('[data-world-monster]').forEach(card=>{const i=Number(card.dataset.worldMonster),m=monsters[i];card.querySelectorAll('.world-monster-field').forEach(el=>el.onchange=()=>{const k=el.dataset.key,oldId=m.id;let v;if(['mapIndex','maxDrops','stageCount','stageOrder'].includes(k))v=Number(el.value);else if(['spawnWeight','hpMultiplier','attackMultiplier','defenseMultiplier'].includes(k))v=Number(el.value);else if(['enabled','eliteEnabled','stageElite'].includes(k))v=el.value==='true';else v=el.value;m[k]=v;if(k==='id'&&oldId!==v)for(const d of data.balanceSettings.drops.entries)d.sources=(d.sources||[]).map(id=>id===oldId?v:id);if(k==='mapIndex')selected.worldMap=v;markDirty();if(['id','name','mapIndex','enabled','stageCount','stageElite','stageOrder'].includes(k))render();});card.querySelectorAll('.world-monster-combat-field').forEach(el=>el.onchange=()=>{
+      const path=String(el.dataset.statPath||'').split('.').filter(Boolean);if(!path.length)return;
+      let target=m.combatStats;for(let p=0;p<path.length-1;p++){target[path[p]]??={};target=target[path[p]];}
+      target[path.at(-1)]=Number(el.value);m.combatStats=normalizeMonsterCombatStatsEditor(m.combatStats);markDirty();
+    });const cp=card.querySelector('.world-monster-copy');if(cp&&!cp.disabled)cp.onclick=()=>{const c=normalizeMonsterEditorRow(structuredClone(m));c.id=uniqueId((m.id||'monster')+'_copy_',monsters);c.name=(m.name||'怪物')+' 複製';c.kind='normal';c.enabled=true;c.eliteEnabled=true;monsters.splice(i+1,0,c);markDirty();render();};const de=card.querySelector('.world-monster-delete');if(de&&!de.disabled)de.onclick=()=>{if(m.kind!=='normal'){const count=monsters.filter(x=>x.mapIndex===m.mapIndex&&x.kind===m.kind).length;if(count<=1&&!confirmDelete('這是此地圖唯一的首領資料。刪除後 JSON 會暫時無法通過遊戲驗證，直到補建首領。仍要刪除？'))return;}else if(!confirmDelete(`刪除怪物「${m.name}」？`))return;monsters.splice(i,1);for(const d of data.balanceSettings.drops.entries)d.sources=(d.sources||[]).filter(id=>id!==m.id);markDirty();render();};});
     app.querySelectorAll('.setting-val').forEach(el=>el.onchange=()=>{const local=el.dataset.path.replace(/^balanceSettings\./,''),old=getByPath(data.balanceSettings,local);try{let v=typeof old==='number'?Number(el.value):typeof old==='boolean'?el.value==='true':el.value;if(typeof old==='number'&&!Number.isFinite(v))throw Error('必須輸入有效數字');setByPath(data.balanceSettings,local,v);markDirty();}catch(e){alert('格式錯誤：'+e.message);render();}});
   }
 
