@@ -1604,6 +1604,8 @@ ensureArrays();requestEditorInitialRender();
   }
   function normalizeMonsterEditorRow(m){
     m.combatStats=normalizeMonsterCombatStatsEditor(m.combatStats);
+    const rawSkillAssignments=Array.isArray(m.skillAssignments)?m.skillAssignments:[],seenSkillIds=new Set();m.skillAssignments=[];
+    for(const a of rawSkillAssignments){const skillId=typeof a==='string'?a:(typeof a?.skillId==='string'?a.skillId:'');if(!skillId||seenSkillIds.has(skillId))continue;seenSkillIds.add(skillId);m.skillAssignments.push({skillId});}
     m.enabled=m.kind==='normal'?m.enabled!==false:true;m.eliteEnabled=m.kind==='normal'?m.eliteEnabled!==false:false;
     if(!Number.isFinite(m.spawnWeight)||m.spawnWeight<=0)m.spawnWeight=1;if(!Number.isFinite(m.hpMultiplier)||m.hpMultiplier<=0)m.hpMultiplier=1;if(!Number.isFinite(m.attackMultiplier)||m.attackMultiplier<=0)m.attackMultiplier=1;if(!Number.isFinite(m.defenseMultiplier)||m.defenseMultiplier<=0)m.defenseMultiplier=1;
     if(!Number.isInteger(m.stageCount)||m.stageCount<1)m.stageCount=1;if(!Number.isInteger(m.stageOrder)||m.stageOrder<0)m.stageOrder=m.kind==='normal'?10:100;m.stageElite=m.kind==='normal'&&m.stageElite===true;
@@ -1614,7 +1616,7 @@ ensureArrays();requestEditorInitialRender();
   SETTING_GROUP_NAMES.maps='地圖';SETTING_GROUP_NAMES.monsters='怪物';if(!SECTION_META.some(([id])=>id==='world')){const i=SECTION_META.findIndex(([id])=>id==='balanceSettings');SECTION_META.splice(i<0?SECTION_META.length:i,0,['world','地圖與怪物']);}selected.worldMap=Number.isInteger(selected.worldMap)?selected.worldMap:0;
 
   deepFillDefaults=function deepFillDefaultsWorldEditor(def,src,path=''){
-    if(Array.isArray(def)){const dynamic=['maps.catalog','monsters.catalog','drops.entries','economy.materialPrices','equipment.salvage.extraRewards'].includes(path)||/^(drops\.entries\.\d+\.(sources|kinds))$/.test(path);if(dynamic){if(!Array.isArray(src))return structuredClone(def);if(!def.length||/\.(sources|kinds)$/.test(path))return structuredClone(src);const template=def[0];return src.map((v,i)=>deepFillDefaultsWorldEditor(def[i]===undefined?template:def[i],v,path+'.'+i));}return def.map((v,i)=>deepFillDefaultsWorldEditor(v,Array.isArray(src)?src[i]:undefined,path?path+'.'+i:String(i)));}
+    if(Array.isArray(def)){const monsterSkills=/^monsters\.catalog\.\d+\.skillAssignments$/.test(path),dynamic=['maps.catalog','monsters.catalog','drops.entries','economy.materialPrices','equipment.salvage.extraRewards'].includes(path)||monsterSkills||/^(drops\.entries\.\d+\.(sources|kinds))$/.test(path);if(dynamic){if(!Array.isArray(src))return structuredClone(def);if(monsterSkills||!def.length||/\.(sources|kinds)$/.test(path))return structuredClone(src);const template=def[0];return src.map((v,i)=>deepFillDefaultsWorldEditor(def[i]===undefined?template:def[i],v,path+'.'+i));}return def.map((v,i)=>deepFillDefaultsWorldEditor(v,Array.isArray(src)?src[i]:undefined,path?path+'.'+i:String(i)));}
     if(def&&typeof def==='object'){const out=src&&typeof src==='object'&&!Array.isArray(src)?structuredClone(src):{};for(const [k,v] of Object.entries(def)){const next=path?path+'.'+k:k;out[k]=deepFillDefaultsWorldEditor(v,src&&typeof src==='object'?src[k]:undefined,next);}return out;}if(typeof def==='number')return typeof src==='number'&&Number.isFinite(src)?src:def;return typeof src===typeof def?src:def;
   };
 
@@ -1632,6 +1634,21 @@ ensureArrays();requestEditorInitialRender();
   function mapOptions(current){return data.balanceSettings.maps.catalog.map((m,i)=>`<option value="${i}" ${i===current?'selected':''}>${i}｜${esc(m.name)}</option>`).join('');}
   function mapKindLabel(m,i){return m.mapType==='final'?(m.progressionGate?'終局地圖／等級突破':'終局地圖'):i<LEGACY_GATE_INDEX?'主線區域':'追加區域';}
   function monsterKindLabel(m){return m.kind==='final'?'最終首領':m.kind==='boss'?'BOSS':'普通怪';}
+  allowSharedMonsterSkillAssignments=true;
+  const MONSTER_SHARED_SKILL_EFFECTS_EDITOR=new Set(['damage','heal','shield','drain','nextActiveDamage','advanceNextRound','shieldLowest','applyStatus']);
+  function sharedCoreSkillEditorPool(){
+    const out=[];for(let job=0;job<(data.classes||[]).length;job++)for(let index=0;index<(data.classes[job]?.skills||[]).length;index++){
+      const sk=data.classes[job].skills[index],id=sk.id||`job${job}-core${index}`;out.push({id,job,index,name:sk.name||id,effect:sk.effect||'',activation:sk.activation||'active',supported:MONSTER_SHARED_SKILL_EFFECTS_EDITOR.has(sk.effect)});
+    }return out;
+  }
+  function monsterSharedSkillAssignmentsHTML(m){
+    const pool=sharedCoreSkillEditorPool(),rows=(m.skillAssignments||[]).map((a,i)=>{
+      const current=pool.find(x=>x.id===a.skillId),options=pool.map(sk=>`<option value="${esc(sk.id)}" ${sk.id===a.skillId?'selected':''} ${!sk.supported&&sk.id!==a.skillId?'disabled':''}>${esc(data.classes[sk.job]?.name||('職業 '+sk.job))}｜${esc(sk.name)}｜${esc(sk.activation==='proc'?'普攻觸發':'主動')}${sk.supported?'':'｜人物專用效果'}</option>`).join('');
+      return `<div class="monster-shared-skill-row" data-monster-shared-skill-row="${i}"><select class="monster-shared-skill-select">${options}${!current?`<option value="${esc(a.skillId)}" selected>不存在的技能｜${esc(a.skillId)}</option>`:''}</select><button class="small danger monster-shared-skill-remove">移除</button></div>`;
+    }).join('');
+    return `<details class="monster-shared-skills"><summary>共用人物技能（${(m.skillAssignments||[]).length}）</summary><div class="mini-note">这里只保存人物核心技能 ID，不複製倍率、冷卻或效果。主動技能依列表順序優先施放；Proc 技能在怪物普攻後判定。</div><div class="monster-shared-skill-rows">${rows||'<div class="mini-note">目前只會普通攻擊。</div>'}</div><button class="small monster-shared-skill-add">新增技能</button></details>`;
+  }
+
   function monsterCombatStatsEditorHTML(m){
     const s=m.combatStats||normalizeMonsterCombatStatsEditor(null);
     const scalar=[
@@ -1656,7 +1673,7 @@ ensureArrays();requestEditorInitialRender();
       ${finalMap?`<label>關卡數量<input class="world-monster-field" data-key="stageCount" type="number" min="1" max="20" step="1" value="${isBoss?1:esc(m.stageCount)}" ${isBoss?'disabled':''}></label><label>關卡型態<select class="world-monster-field" data-key="stageElite" ${isBoss?'disabled':''}><option value="false" ${!m.stageElite?'selected':''}>普通</option><option value="true" ${m.stageElite?'selected':''}>菁英</option></select></label><label>隊列順序<input class="world-monster-field" data-key="stageOrder" type="number" min="0" max="999" step="1" value="${esc(m.stageOrder)}"></label>`:''}
       <label>生命倍率<input class="world-monster-field" data-key="hpMultiplier" type="number" min="0.01" step="0.05" value="${esc(m.hpMultiplier)}"></label><label>攻擊倍率<input class="world-monster-field" data-key="attackMultiplier" type="number" min="0.01" step="0.05" value="${esc(m.attackMultiplier)}"></label><label>防禦倍率<input class="world-monster-field" data-key="defenseMultiplier" type="number" min="0.01" step="0.05" value="${esc(m.defenseMultiplier)}"></label>
       <label>主要素材<input class="world-monster-field" data-key="material" value="${esc(m.material)}"></label><label>元素<select class="world-monster-field" data-key="element">${ELEMENTS.map(v=>`<option value="${v}" ${m.element===v?'selected':''}>${esc(ELEMENT_LABELS[v]||v)}</option>`).join('')}</select></label><label>種族<select class="world-monster-field" data-key="race">${Object.entries(RACE_LABELS).map(([v,l])=>`<option value="${v}" ${m.race===v?'selected':''}>${l}</option>`).join('')}</select></label>
-    </div>${monsterCombatStatsEditorHTML(m)}${isBoss?`<div class="world-danger-note">${isFinal?'最終首領':'BOSS'}固定綁定此地圖。${isFinal?'終局關卡必須有 1 名最終首領；可另外配置普通／菁英小怪。':'遭遇是否啟用與出現率請在上方地圖設定控制。'}</div>`:''}${isNormal&&finalMap?'<div class="world-danger-note">終局關卡會依「關卡數量」固定生成此怪；可切換普通／菁英，隊列順序越小越先被集火。</div>':''}</article>`;
+    </div>${monsterCombatStatsEditorHTML(m)}${monsterSharedSkillAssignmentsHTML(m)}${isBoss?`<div class="world-danger-note">${isFinal?'最終首領':'BOSS'}固定綁定此地圖。${isFinal?'終局關卡必須有 1 名最終首領；可另外配置普通／菁英小怪。':'遭遇是否啟用與出現率請在上方地圖設定控制。'}</div>`:''}${isNormal&&finalMap?'<div class="world-danger-note">終局關卡會依「關卡數量」固定生成此怪；可切換普通／菁英，隊列順序越小越先被集火。</div>':''}</article>`;
   }
   function rewriteDropKindsForBoss(monsterId,fromKind,toKind){for(const d of data.balanceSettings.drops.entries||[]){if(!(d.sources||[]).includes(monsterId))continue;d.kinds=[...new Set((d.kinds||[]).map(k=>k===fromKind?toKind:k))];}}
   function ensureBossMonster(mapIndex){
@@ -1699,7 +1716,18 @@ ensureArrays();requestEditorInitialRender();
       const path=String(el.dataset.statPath||'').split('.').filter(Boolean);if(!path.length)return;
       let target=m.combatStats;for(let p=0;p<path.length-1;p++){target[path[p]]??={};target=target[path[p]];}
       target[path.at(-1)]=Number(el.value);m.combatStats=normalizeMonsterCombatStatsEditor(m.combatStats);markDirty();
-    });const cp=card.querySelector('.world-monster-copy');if(cp&&!cp.disabled)cp.onclick=()=>{const c=normalizeMonsterEditorRow(structuredClone(m));c.id=uniqueId((m.id||'monster')+'_copy_',monsters);c.name=(m.name||'怪物')+' 複製';c.kind='normal';c.enabled=true;c.eliteEnabled=true;monsters.splice(i+1,0,c);markDirty();render();};const de=card.querySelector('.world-monster-delete');if(de&&!de.disabled)de.onclick=()=>{if(m.kind!=='normal'){const count=monsters.filter(x=>x.mapIndex===m.mapIndex&&x.kind===m.kind).length;if(count<=1&&!confirmDelete('這是此地圖唯一的首領資料。刪除後 JSON 會暫時無法通過遊戲驗證，直到補建首領。仍要刪除？'))return;}else if(!confirmDelete(`刪除怪物「${m.name}」？`))return;monsters.splice(i,1);for(const d of data.balanceSettings.drops.entries)d.sources=(d.sources||[]).filter(id=>id!==m.id);markDirty();render();};});
+    });
+    card.querySelectorAll('[data-monster-shared-skill-row]').forEach(row=>{
+      const slot=Number(row.dataset.monsterSharedSkillRow),a=m.skillAssignments[slot];
+      row.querySelector('.monster-shared-skill-select').onchange=e=>{a.skillId=e.target.value;markDirty();};
+      row.querySelector('.monster-shared-skill-remove').onclick=()=>{m.skillAssignments.splice(slot,1);markDirty();render();};
+    });
+    const addShared=card.querySelector('.monster-shared-skill-add');if(addShared)addShared.onclick=()=>{
+      const used=new Set((m.skillAssignments||[]).map(a=>a.skillId)),pick=sharedCoreSkillEditorPool().find(sk=>sk.supported&&!used.has(sk.id));
+      if(!pick)return alert('沒有其他目前可供怪物使用的人物核心技能。');
+      m.skillAssignments.push({skillId:pick.id});markDirty();render();
+    };
+    const cp=card.querySelector('.world-monster-copy');if(cp&&!cp.disabled)cp.onclick=()=>{const c=normalizeMonsterEditorRow(structuredClone(m));c.id=uniqueId((m.id||'monster')+'_copy_',monsters);c.name=(m.name||'怪物')+' 複製';c.kind='normal';c.enabled=true;c.eliteEnabled=true;monsters.splice(i+1,0,c);markDirty();render();};const de=card.querySelector('.world-monster-delete');if(de&&!de.disabled)de.onclick=()=>{if(m.kind!=='normal'){const count=monsters.filter(x=>x.mapIndex===m.mapIndex&&x.kind===m.kind).length;if(count<=1&&!confirmDelete('這是此地圖唯一的首領資料。刪除後 JSON 會暫時無法通過遊戲驗證，直到補建首領。仍要刪除？'))return;}else if(!confirmDelete(`刪除怪物「${m.name}」？`))return;monsters.splice(i,1);for(const d of data.balanceSettings.drops.entries)d.sources=(d.sources||[]).filter(id=>id!==m.id);markDirty();render();};});
     app.querySelectorAll('.setting-val').forEach(el=>el.onchange=()=>{const local=el.dataset.path.replace(/^balanceSettings\./,''),old=getByPath(data.balanceSettings,local);try{let v=typeof old==='number'?Number(el.value):typeof old==='boolean'?el.value==='true':el.value;if(typeof old==='number'&&!Number.isFinite(v))throw Error('必須輸入有效數字');setByPath(data.balanceSettings,local,v);markDirty();}catch(e){alert('格式錯誤：'+e.message);render();}});
   }
 
@@ -1711,7 +1739,8 @@ ensureArrays();requestEditorInitialRender();
     let issues=worldValidateBase().filter(x=>!/必須恰好有一個(?:最終首領|地圖首領)/.test(x)&&!x.includes('類型與地圖不相容：終焉王座使用最終首領'));ensureArrays();const maps=data.balanceSettings.maps.catalog,cat=data.balanceSettings.monsters.catalog;
     const mids=new Set();for(const [i,m] of maps.entries()){if(!m.id||!/^[a-zA-Z0-9_-]{1,100}$/.test(m.id)||mids.has(m.id))issues.push(`地圖第 ${i+1} 筆 ID 必須為英數、底線或連字號且不可重複。`);mids.add(m.id);if(!m.name?.trim()||!Number.isFinite(m.min)||!Number.isFinite(m.max)||m.min<1||m.max<m.min)issues.push(`地圖 ${m.id||i+1} 名稱或等級範圍無效。`);if(!Number.isInteger(m.family)||m.family<0||m.family>5)issues.push(`地圖 ${m.id||i+1} 區域家族必須為 0~5。`);if(!['normal','final'].includes(m.mapType))issues.push(`地圖 ${m.name} 類型必須是 normal 或 final。`);if(m.mapType==='normal'&&(!Number.isFinite(m.eliteChance)||m.eliteChance<0||m.eliteChance>1||!Number.isFinite(m.bossChance)||m.bossChance<0||m.bossChance>1||m.eliteChance+m.bossChance>1))issues.push(`地圖 ${m.name} 的菁英／BOSS 遭遇率必須各為 0~1，且合計不可超過 1。`);}
     const gates=maps.filter(m=>m.progressionGate===true);if(gates.length!==1||gates[0].mapType!=='final')issues.push('必須恰好有 1 張終局地圖設定為等級突破關卡。');
-    for(const [i,m] of cat.entries()){if(!Number.isInteger(m.mapIndex)||m.mapIndex<0||m.mapIndex>=maps.length)issues.push(`怪物 ${m.id||i+1} 指向不存在的地圖。`);if(typeof m.enabled!=='boolean'||typeof m.eliteEnabled!=='boolean'||!Number.isFinite(m.spawnWeight)||m.spawnWeight<=0||!Number.isFinite(m.hpMultiplier)||m.hpMultiplier<=0||!Number.isFinite(m.attackMultiplier)||m.attackMultiplier<=0||!Number.isFinite(m.defenseMultiplier)||m.defenseMultiplier<=0)issues.push(`怪物 ${m.id||i+1} 的啟用狀態、權重或能力倍率無效。`);if(!Number.isInteger(m.stageCount)||m.stageCount<1||m.stageCount>20||!Number.isInteger(m.stageOrder)||m.stageOrder<0||m.stageOrder>999||typeof m.stageElite!=='boolean')issues.push(`怪物 ${m.id||i+1} 的終局關卡數量／型態／隊列順序無效。`);const expected=maps[m.mapIndex]?.mapType==='final'?'final':'boss';if(m.kind!=='normal'&&m.kind!==expected)issues.push(`怪物 ${m.id||i+1} 類型與地圖類型不相容。`);}
+    const sharedSkillPool=sharedCoreSkillEditorPool(),sharedSkillIds=new Set(sharedSkillPool.map(x=>x.id));
+    for(const [i,m] of cat.entries()){const seenAssigned=new Set();for(const a of m.skillAssignments||[]){if(!sharedSkillIds.has(a.skillId))issues.push(`怪物 ${m.id||i+1} 引用不存在的人物技能 ${a.skillId}。`);if(seenAssigned.has(a.skillId))issues.push(`怪物 ${m.id||i+1} 重複指定技能 ${a.skillId}。`);seenAssigned.add(a.skillId);const def=sharedSkillPool.find(x=>x.id===a.skillId);if(def&&!def.supported)issues.push(`怪物 ${m.id||i+1} 指定了目前不支援怪物施放的效果：${def.name}。`);}if(!Number.isInteger(m.mapIndex)||m.mapIndex<0||m.mapIndex>=maps.length)issues.push(`怪物 ${m.id||i+1} 指向不存在的地圖。`);if(typeof m.enabled!=='boolean'||typeof m.eliteEnabled!=='boolean'||!Number.isFinite(m.spawnWeight)||m.spawnWeight<=0||!Number.isFinite(m.hpMultiplier)||m.hpMultiplier<=0||!Number.isFinite(m.attackMultiplier)||m.attackMultiplier<=0||!Number.isFinite(m.defenseMultiplier)||m.defenseMultiplier<=0)issues.push(`怪物 ${m.id||i+1} 的啟用狀態、權重或能力倍率無效。`);if(!Number.isInteger(m.stageCount)||m.stageCount<1||m.stageCount>20||!Number.isInteger(m.stageOrder)||m.stageOrder<0||m.stageOrder>999||typeof m.stageElite!=='boolean')issues.push(`怪物 ${m.id||i+1} 的終局關卡數量／型態／隊列順序無效。`);const expected=maps[m.mapIndex]?.mapType==='final'?'final':'boss';if(m.kind!=='normal'&&m.kind!==expected)issues.push(`怪物 ${m.id||i+1} 類型與地圖類型不相容。`);}
     for(let mi=0;mi<maps.length;mi++){const final=maps[mi].mapType==='final',expected=final?'final':'boss',boss=cat.filter(m=>m.mapIndex===mi&&m.kind===expected),normal=cat.filter(m=>m.mapIndex===mi&&m.kind==='normal'&&m.enabled!==false);if(boss.length!==1)issues.push(`${maps[mi].name} 必須恰好有 1 筆${final?'最終首領':'BOSS'}資料。`);if(!final&&!normal.length)issues.push(`${maps[mi].name} 至少需要 1 隻啟用中的普通怪物。`);if(final){const total=(boss.length?1:0)+normal.reduce((sum,m)=>sum+(Number(m.stageCount)||0),0);if(total<1||total>20)issues.push(`${maps[mi].name} 的終局關卡總敵人數必須為 1～20 隻。`);}}
     return [...new Set(issues)];
   };
