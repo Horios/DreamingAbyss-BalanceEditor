@@ -3799,7 +3799,7 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
 </script>
 
 <style id="status-maker-editor-style">
-.status-maker-layout{display:grid;grid-template-columns:minmax(220px,.55fr) minmax(0,1.45fr);gap:12px}.status-maker-tags{display:flex;flex-wrap:wrap;gap:7px}.status-maker-tags label{display:flex;align-items:center;gap:5px;padding:7px 9px;border:1px solid var(--line);border-radius:7px;background:#151a20}.status-maker-tags input{width:auto}.status-maker-block{border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:10px;background:#151a20}.status-maker-row{display:grid;grid-template-columns:minmax(130px,1fr) minmax(105px,.7fr) minmax(105px,.7fr) minmax(125px,.8fr) minmax(105px,.7fr) auto;gap:7px;align-items:end;margin-top:7px}.status-maker-row label{font-size:11px;color:var(--muted)}.status-maker-row input,.status-maker-row select{width:100%;min-width:0}.status-maker-preview{white-space:pre-wrap;line-height:1.7;background:#10151b;border:1px solid var(--line);border-radius:7px;padding:10px;margin-top:10px}.status-maker-control-grid{display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:8px;margin-top:8px}.status-maker-list .listitem .sub{overflow-wrap:anywhere}.status-maker-limit{font-size:11px;color:var(--muted);margin-left:7px}@media(max-width:900px){.status-maker-layout{grid-template-columns:1fr}.status-maker-row{grid-template-columns:1fr 1fr}.status-maker-control-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.status-maker-row,.status-maker-control-grid{grid-template-columns:1fr}}
+.status-maker-layout{display:grid;grid-template-columns:minmax(220px,.55fr) minmax(0,1.45fr);gap:12px}.status-maker-tags{display:flex;flex-wrap:wrap;gap:7px}.status-maker-tags label{display:flex;align-items:center;gap:5px;padding:7px 9px;border:1px solid var(--line);border-radius:7px;background:#151a20}.status-maker-tags input{width:auto}.status-maker-block{border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:10px;background:#151a20}.status-maker-row{display:grid;grid-template-columns:minmax(130px,1fr) minmax(105px,.7fr) minmax(105px,.7fr) minmax(125px,.8fr) minmax(105px,.7fr) auto;gap:7px;align-items:end;margin-top:7px}.status-maker-row label{font-size:11px;color:var(--muted)}.status-maker-row input,.status-maker-row select{width:100%;min-width:0}.status-maker-preview{white-space:pre-wrap;line-height:1.7;background:#10151b;border:1px solid var(--line);border-radius:7px;padding:10px;margin-top:10px}.status-maker-control-grid{display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:8px;margin-top:8px}.status-maker-list .listitem .sub{overflow-wrap:anywhere}.status-maker-limit{font-size:11px;color:var(--muted);margin-left:7px}.status-maker-row-help{grid-column:1/-1;padding:7px 9px;border-left:2px solid var(--line);background:#10151b;line-height:1.55;color:var(--muted)}.status-maker-guide{margin:10px 0}.status-maker-guide summary{cursor:pointer;font-weight:700}.status-maker-guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.status-maker-guide-item{border:1px solid var(--line);border-radius:7px;padding:9px;background:#151a20}.status-maker-guide-item b{display:block;margin-bottom:4px}.status-maker-guide-item p{margin:0;font-size:11px;line-height:1.6}.status-maker-guide-wide{grid-column:1/-1}@media(max-width:760px){.status-maker-guide-grid{grid-template-columns:1fr}.status-maker-guide-wide{grid-column:auto}}@media(max-width:900px){.status-maker-layout{grid-template-columns:1fr}.status-maker-row{grid-template-columns:1fr 1fr}.status-maker-control-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.status-maker-row,.status-maker-control-grid{grid-template-columns:1fr}}
 </style>
 <script id="status-maker-editor-v1">
 (()=>{
@@ -3866,15 +3866,60 @@ const STATUS_TAG_LABELS={periodic:'持續傷害／回血',control:'控制',modif
 const STATUS_MODIFIER_LABELS={attack:'攻擊力提升',critical:'暴擊率提升',guard:'受到傷害降低',fracture:'防禦降低／破甲',power:'技能效果提升',weaken:'攻擊力降低',vulnerable:'承受傷害增加（舊通用）',damageAmp:'承受傷害增加',regen:'每戰鬥回合最大生命恢復',followup:'受擊追打（施法者攻擊倍率；敵方目標）'};
 const STATUS_CONTROL_LABELS={polymorph:'變形',freeze:'冰凍',frost:'結霜／速度降低',rage:'狂暴',fear:'畏懼',tauntRage:'嘲諷／狂暴'};
 const STATUS_BASIS_LABELS={fixed:'固定數值',casterAttack:'施法者攻擊力',casterMaxHp:'施法者最大生命',casterCurrentHp:'施法者當前生命',casterMissingHp:'施法者已損生命',casterDefense:'施法者防禦',casterShield:'施法者護盾',casterLevel:'施法者等級',targetAttack:'目標攻擊力',targetMaxHp:'目標最大生命',targetCurrentHp:'目標當前生命',targetMissingHp:'目標已損生命',targetDefense:'目標防禦',targetShield:'目標護盾',targetLevel:'目標等級'};
-const STATUS_RESOLUTION_LABELS={fixed:'固定傷害（忽略防禦與增減傷；護盾仍可吸收）',defended:'防禦影響傷害（套防禦、破甲、防無、防穿與承傷增幅）',elemental:'完整元素傷害（防禦＋元素剋制／抗性／元素增傷）',true:'真實傷害（直接扣生命，略過防禦與護盾）',heal:'一般恢復（不超過最大生命）',overflowShield:'溢出恢復轉護盾'};
+const STATUS_RESOLUTION_LABELS={fixed:'固定傷害（不吃防禦／傷害倍率；護盾可吸收）',defended:'防禦型傷害（依目標方套防禦相關修正）',elemental:'元素傷害（防禦後再套元素修正）',true:'真實傷害（直接扣生命；略過護盾）',heal:'一般恢復（不超過最大生命）',overflowShield:'溢出恢復轉護盾（取較高護盾）'};
 const STATUS_ELEMENT_LABELS={physical:'無屬性',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'};
+const STATUS_RESOLUTION_DETAILS={
+  fixed:'原始值直接取整數成為傷害；不使用攻擊係數、最低傷害、防禦、破甲、防禦無視、防禦穿透、guard、承傷增加、元素剋制／抗性／元素增傷、種族增傷、暴擊、BOSS 增傷或吸血。一般護盾與變形護盾會先吸收；不會觸發受擊追打。',
+  defended:'會使用攻擊係數、防禦係數與最低傷害，但不暴擊、不吸血、不套元素修正，也不觸發受擊追打。目標為敵方時：防禦 → 破甲 → 施法者角色本身的防禦無視 → 固定防禦穿透 → 承傷增加；目標為我方時：使用我方防禦後再套受到傷害降低（guard），不讀施法者的防無／防穿。最後仍由一般護盾或變形護盾吸收。',
+  elemental:'先走「防禦型傷害」流程，再追加元素修正。對敵方：套元素剋制、施法者目前的指定元素增傷／全元素增傷與種族增傷；對我方：套目標的對應元素抗性。仍不暴擊、不吸血、不吃技能個別暴率／暴傷／防無／防穿，也不觸發受擊追打；護盾仍可吸收。',
+  true:'原始值直接取整數並扣生命；不使用攻擊係數或最低傷害，略過防禦、破甲、防無、防穿、guard、承傷增加、元素剋制／抗性／增傷、暴擊與吸血。一般護盾與變形護盾都不會吸收，也不會被消耗；不觸發受擊追打。',
+  heal:'原始值取整後直接恢復生命，最高到最大生命；不讀防禦、傷害倍率、元素、暴擊或護盾。若有「立即行動」標籤，套用當下先額外結算一次，之後仍保留完整持續次數。',
+  overflowShield:'先照一般恢復補到最大生命；超出的部分轉為普通護盾，但不是相加，而是「現有護盾」與「本次溢出量」取較高值。敵方目前沒有通用普通護盾流程，因此此類效果只允許套用自己／隊友。'
+};
+const STATUS_MODIFIER_DETAILS={
+  attack:'只允許我方目標。加入目前攻擊力百分比乘區，與其他 attack 效果相加後一起計算；會影響以施法者／目標攻擊力為係數基準的後續狀態 Tick。',
+  critical:'只允許我方目標。直接增加角色暴擊率，仍受全域暴擊率上限限制；不會讓固定／防禦型／元素／真實持續傷害暴擊。',
+  guard:'只允許我方目標。降低一般敵方攻擊／技能，以及對我方的「防禦型／元素」自訂持續傷害；固定傷害與真實傷害不吃 guard。',
+  fracture:'只允許敵方目標。先按比例降低敵方防禦，再計算防禦無視與固定防禦穿透；會影響一般玩家傷害、受擊追打與對敵方的防禦型／元素持續傷害。',
+  power:'只允許我方目標。提高核心技能的效果倍率；不提高普通攻擊、自訂持續傷害或受擊追打。',
+  weaken:'只允許敵方目標。降低敵人一般攻擊／敵人技能使用的攻擊力；不改寫敵人資料本身的 atk，因此「目標攻擊力」係數仍讀原本 atk。',
+  vulnerable:'只允許敵方目標。舊版通用承傷增加，相容性保留；目前會與 damageAmp 相加後套到一般玩家命中與對敵方的防禦型／元素持續傷害。固定／真實傷害與受擊追打不吃此效果。',
+  damageAmp:'只允許敵方目標。增加一般玩家命中，以及對敵方的防禦型／元素持續傷害；固定／真實傷害與受擊追打不吃。與舊 vulnerable 同時存在時會相加。',
+  regen:'只允許我方目標。每個戰鬥回合開始依「最大生命 × 效果值」恢復；不溢出成護盾，也不因「立即行動」標籤在套用當下額外觸發。',
+  followup:'只允許敵方目標。敵人被一般玩家 resolveHit 命中後追加一次「施法者目前攻擊力 × 效果值」傷害；會吃敵方防禦、破甲、施法者角色防無／防穿，可依施法者暴擊率暴擊，套元素剋制，且護盾可吸收。它不吃 damageAmp／vulnerable、角色元素增傷／種族增傷，不吸血，也不會被持續傷害或另一段追打再次觸發。'
+};
+const STATUS_CONTROL_DETAILS={
+  polymorph:'只允許敵方。一般敵人進入變形後無法行動，並建立「施法者目前攻擊力 100%」的變形護盾；一般攻擊與非真實持續傷害先打護盾，護盾破裂立即解除。真實傷害可直接穿過護盾且不消耗護盾。BOSS 完全免疫變形。',
+  freeze:'只允許敵方。目標在自己的行動時無法行動，持續時間以目標自己的行動次數計；一般敵人使用狀態持續回合，BOSS 使用「BOSS 控制回合」，設 0 等於 BOSS 不生效。',
+  frost:'只允許敵方。降低速度，持續時間依自訂狀態的戰鬥回合；多個自訂結霜同時存在時取最高緩速，不相加，最高實際緩速 95%。自訂結霜目前不會被既有冰凍陷阱轉成冰凍。',
+  rage:'只允許敵方。持續期間敵人不能使用技能，只能普通攻擊，且普通攻擊按設定增傷；一般敵人依自己的行動次數計時，BOSS 使用「BOSS 控制回合」。',
+  fear:'只允許敵方。持續期間降低敵人造成的傷害，並在每次自己的行動判定是否跳過行動；BOSS 使用獨立的較低不行動率，但傷害降低比例相同。',
+  tauntRage:'只允許敵方。效果等同狂暴，並讓該目標的普通攻擊優先鎖定施法者所屬職業。自訂狀態會作用在技能實際選到的目標，不會另外自動改選「攻擊力最高敵人」。'
+};
+const STATUS_BASIS_DETAILS={
+  fixed:'固定數值：係數本身就是每次結算的原始點數。',
+  casterAttack:'施法者攻擊力：我方施法者讀目前 battleStats.atk，因此會包含當下攻擊提升；再乘係數。',
+  casterMaxHp:'施法者最大生命：讀施法者目前最大生命，再乘係數。',
+  casterCurrentHp:'施法者當前生命：每次結算當下重新讀取，不鎖定施放瞬間數值。',
+  casterMissingHp:'施法者已損生命：每次結算以「最大生命－當前生命」重新計算。',
+  casterDefense:'施法者防禦：我方施法者讀目前 battleStats.def，再乘係數。',
+  casterShield:'施法者護盾：讀普通 shield 欄位；變形護盾是獨立控制資料，不算在此係數。',
+  casterLevel:'施法者等級：以目前等級直接乘係數。',
+  targetAttack:'目標攻擊力：我方目標讀 battleStats.atk；敵方讀原始 atk，因此 weaken 不會降低此係數基準。',
+  targetMaxHp:'目標最大生命：每次結算讀目前最大生命，再乘係數。',
+  targetCurrentHp:'目標當前生命：每次結算當下重新讀取，會隨前一段傷害／恢復改變。',
+  targetMissingHp:'目標已損生命：每次結算依當下缺血量重新計算。',
+  targetDefense:'目標防禦：我方讀 battleStats.def；敵方讀原始 def（破甲／防無／防穿屬於後續傷害結算，不會先改寫此係數基準）。',
+  targetShield:'目標護盾：讀普通 shield 欄位；敵方變形護盾不屬於這個欄位。',
+  targetLevel:'目標等級：以目前等級直接乘係數。'
+};
 const STATUS_TARGETS=['enemy','enemies','self','weakest','allies'];
 const STATUS_TARGET_LABELS={enemy:'目前敵人',enemies:'敵方全體',self:'自己',weakest:'生命比例最低隊友',allies:'我方全體'};
 const STATUS_HERO_ONLY_MODIFIERS=new Set(['attack','critical','guard','power','regen']);
 const STATUS_ENEMY_ONLY_MODIFIERS=new Set(['fracture','weaken','vulnerable','damageAmp','followup']);
 function statusAllowedTargetsForDefinition(def){
   if(!def)return STATUS_TARGETS.slice();
-  const heroOnly=def.modifiers.some(m=>STATUS_HERO_ONLY_MODIFIERS.has(m.kind)),enemyOnly=!!def.control||def.modifiers.some(m=>STATUS_ENEMY_ONLY_MODIFIERS.has(m.kind));
+  const heroOnly=def.modifiers.some(m=>STATUS_HERO_ONLY_MODIFIERS.has(m.kind))||def.periodic.some(fx=>fx.kind==='heal'&&fx.resolution==='overflowShield'),enemyOnly=!!def.control||def.modifiers.some(m=>STATUS_ENEMY_ONLY_MODIFIERS.has(m.kind));
   if(heroOnly&&enemyOnly)return [];
   if(heroOnly)return ['self','weakest','allies'];
   if(enemyOnly)return ['enemy','enemies'];
@@ -3885,6 +3930,18 @@ const deepCloneStatus=v=>JSON.parse(JSON.stringify(v));
 function statusList(){data.statusDefinitions=Array.isArray(data.statusDefinitions)?data.statusDefinitions:[];data.statusDefinitions=data.statusDefinitions.map((x,i)=>normalizeStatusDefinition(x,i));return data.statusDefinitions;}
 function nextStatusId(){const used=new Set(statusList().map(x=>x.id));let n=1;while(used.has('status-'+n))n++;return 'status-'+n;}
 function labelOptions(list,labels,value){return list.map(x=>'<option value="'+esc(x)+'" '+(x===value?'selected':'')+'>'+esc(labels[x]||x)+'</option>').join('');}
+function statusPeriodicRuleText(fx){return (STATUS_BASIS_DETAILS[fx.basis]||'')+' '+(STATUS_RESOLUTION_DETAILS[fx.resolution]||'');}
+function statusModifierRuleText(m){return STATUS_MODIFIER_DETAILS[m.kind]||'';}
+function statusControlRuleText(c){return c?STATUS_CONTROL_DETAILS[c.kind]||'':'';}
+function statusRuleGuideHtml(){
+  const resolutionOrder=['fixed','defended','elemental','true','heal','overflowShield'];
+  return '<details class="card status-maker-guide"><summary>完整判定規則：傷害／恢復、增減益與控制</summary><div class="status-maker-guide-grid">'+
+    '<div class="status-maker-guide-item status-maker-guide-wide"><b>共同規則</b><p>持續效果每個戰鬥回合最多結算一次；「立即行動」只是在套用瞬間額外結算一次，不會少掉後續完整持續次數。同一狀態由同一施法者重新套到同一目標時刷新，不疊成兩份。除受擊追打外，自訂持續傷害不視為一般命中，因此不觸發 on-hit／受擊追打。</p></div>'+
+    resolutionOrder.map(k=>'<div class="status-maker-guide-item"><b>'+esc(STATUS_RESOLUTION_LABELS[k])+'</b><p>'+esc(STATUS_RESOLUTION_DETAILS[k])+'</p></div>').join('')+
+    '<div class="status-maker-guide-item status-maker-guide-wide"><b>增減益</b><p>'+Object.keys(STATUS_MODIFIER_LABELS).map(k=>(STATUS_MODIFIER_LABELS[k]||k)+'：'+(STATUS_MODIFIER_DETAILS[k]||'')).join('　').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</p></div>'+
+    '<div class="status-maker-guide-item status-maker-guide-wide"><b>控制</b><p>'+Object.keys(STATUS_CONTROL_LABELS).map(k=>(STATUS_CONTROL_LABELS[k]||k)+'：'+(STATUS_CONTROL_DETAILS[k]||'')).join('　').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</p></div>'+
+  '</div></details>';
+}
 function statusPreview(s){
   const bits=['持續 '+s.duration+' 回合'];
   if(s.modifiers.length)bits.push('增減益：'+s.modifiers.map(x=>(STATUS_MODIFIER_LABELS[x.kind]||x.kind)+' '+Number((x.value*100).toFixed(3))+'%').join(' + '));
@@ -3900,15 +3957,15 @@ function controlFieldsHtml(s){const c=s.control;if(!c)return '';
   if(c.kind==='frost')extra+='<label>速度降低<input data-status-control-num="slowPct" type="number" min="0" max="1" step="0.01" value="'+esc(c.slowPct)+'"></label>';
   if(['rage','tauntRage'].includes(c.kind))extra+='<label>普通攻擊增傷<input data-status-control-num="basicAttackBonus" type="number" min="0" max="1" step="0.01" value="'+esc(c.basicAttackBonus)+'"></label>';
   if(c.kind==='fear')extra+='<label>傷害降低<input data-status-control-num="damageReduction" type="number" min="0" max="1" step="0.01" value="'+esc(c.damageReduction)+'"></label><label>一般不行動率<input data-status-control-num="skipChance" type="number" min="0" max="1" step="0.01" value="'+esc(c.skipChance)+'"></label><label>BOSS 不行動率<input data-status-control-num="bossSkipChance" type="number" min="0" max="1" step="0.01" value="'+esc(c.bossSkipChance)+'"></label>';
-  if(c.kind==='polymorph')extra+='<div class="mini-note">沿用遊戲規則：BOSS 對變形免疫；護盾倍率由施放者攻擊力 100% 建立，自訂狀態結束不會繞過既有的護盾破裂提前解除規則。</div>';
-  return '<div class="status-maker-control-grid"><label>控制類型<select id="statusControlKind">'+labelOptions(STATUS_CONTROL_KINDS,STATUS_CONTROL_LABELS,c.kind)+'</select></label>'+extra+'</div>';
+  return '<div class="status-maker-control-grid"><label>控制類型<select id="statusControlKind">'+labelOptions(STATUS_CONTROL_KINDS,STATUS_CONTROL_LABELS,c.kind)+'</select></label>'+extra+'<div class="mini-note status-maker-row-help">'+esc(statusControlRuleText(c))+'</div></div>';
 }
-function modifierRowsHtml(s){return s.modifiers.map((m,i)=>'<div class="status-maker-row" data-status-mod-row="'+i+'"><label>效果<select data-status-mod-kind>'+labelOptions(STATUS_MODIFIER_KINDS,STATUS_MODIFIER_LABELS,m.kind)+'</select></label><label>數值<input data-status-mod-value type="number" step="0.001" value="'+esc(m.value)+'"></label>'+(m.kind==='followup'?'<label>追打元素<select data-status-mod-element>'+labelOptions(STATUS_ELEMENTS,STATUS_ELEMENT_LABELS,m.element||'physical')+'</select></label>':'<div class="mini-note">0.20 = 20%</div>')+'<div></div><div></div><button type="button" class="danger" data-status-mod-del="'+i+'">刪除</button></div>').join('');}
-function periodicRowsHtml(s){return s.periodic.map((fx,i)=>{const resolutions=fx.kind==='heal'?STATUS_HEAL_RESOLUTIONS:STATUS_DAMAGE_RESOLUTIONS;return '<div class="status-maker-row" data-status-periodic-row="'+i+'"><label>類型<select data-status-periodic-kind>'+labelOptions(STATUS_PERIODIC_KINDS,{damage:'持續傷害',heal:'持續恢復'},fx.kind)+'</select></label><label>係數基準<select data-status-periodic-basis>'+labelOptions(STATUS_BASIS,STATUS_BASIS_LABELS,fx.basis)+'</select></label><label>係數<input data-status-periodic-coefficient type="number" min="0" step="0.001" value="'+esc(fx.coefficient)+'"></label><label>結算方式<select data-status-periodic-resolution>'+labelOptions(resolutions,STATUS_RESOLUTION_LABELS,fx.resolution)+'</select></label><label>元素<select data-status-periodic-element '+(fx.resolution==='elemental'?'':'disabled')+'>'+labelOptions(STATUS_ELEMENTS,STATUS_ELEMENT_LABELS,fx.element)+'</select></label><button type="button" class="danger" data-status-periodic-del="'+i+'">刪除</button></div>';}).join('');}
+function modifierRowsHtml(s){return s.modifiers.map((m,i)=>'<div class="status-maker-row" data-status-mod-row="'+i+'"><label>效果<select data-status-mod-kind>'+labelOptions(STATUS_MODIFIER_KINDS,STATUS_MODIFIER_LABELS,m.kind)+'</select></label><label>數值<input data-status-mod-value type="number" step="0.001" value="'+esc(m.value)+'"></label>'+(m.kind==='followup'?'<label>追打元素<select data-status-mod-element>'+labelOptions(STATUS_ELEMENTS,STATUS_ELEMENT_LABELS,m.element||'physical')+'</select></label>':'<div class="mini-note">0.20 = 20%</div>')+'<div></div><div></div><button type="button" class="danger" data-status-mod-del="'+i+'">刪除</button><div class="mini-note status-maker-row-help">'+esc(statusModifierRuleText(m))+'</div></div>').join('');}
+function periodicRowsHtml(s){return s.periodic.map((fx,i)=>{const resolutions=fx.kind==='heal'?STATUS_HEAL_RESOLUTIONS:STATUS_DAMAGE_RESOLUTIONS;return '<div class="status-maker-row" data-status-periodic-row="'+i+'"><label>類型<select data-status-periodic-kind>'+labelOptions(STATUS_PERIODIC_KINDS,{damage:'持續傷害',heal:'持續恢復'},fx.kind)+'</select></label><label>係數基準<select data-status-periodic-basis>'+labelOptions(STATUS_BASIS,STATUS_BASIS_LABELS,fx.basis)+'</select></label><label>係數<input data-status-periodic-coefficient type="number" min="0" step="0.001" value="'+esc(fx.coefficient)+'"></label><label>結算方式<select data-status-periodic-resolution>'+labelOptions(resolutions,STATUS_RESOLUTION_LABELS,fx.resolution)+'</select></label><label>元素<select data-status-periodic-element '+(fx.resolution==='elemental'?'':'disabled')+'>'+labelOptions(STATUS_ELEMENTS,STATUS_ELEMENT_LABELS,fx.element)+'</select></label><button type="button" class="danger" data-status-periodic-del="'+i+'">刪除</button><div class="mini-note status-maker-row-help">'+esc(statusPeriodicRuleText(fx))+'</div></div>';}).join('');}
 function renderStatuses(){
   const list=statusList();selectedStatusIndex=Math.max(0,Math.min(selectedStatusIndex,list.length-1));const s=list[selectedStatusIndex]||null,app=document.getElementById('app');
   app.innerHTML=sectionHead('狀態製作器','建立可重用的狀態，再到「技能」把主要效果設為「套用自訂狀態」。','<button id="addStatus">新增狀態</button>'+(s?'<button id="dupStatus">複製</button><button id="delStatus" class="danger">刪除</button>':''))+
     '<div class="notice"><b>結構：</b>每個狀態最多 3 個增減益、1 個控制、3 個持續傷害／恢復；持續 1～99 回合。係數可以直接使用固定值、施法者／目標的攻擊、最大／當前／已損生命、防禦、護盾或等級。固定值時「係數」本身就是數值。</div>'+
+    statusRuleGuideHtml()+
     '<div class="status-maker-layout"><div class="card status-maker-list"><div class="list">'+(list.map((x,i)=>'<div class="listitem '+(i===selectedStatusIndex?'active':'')+'" data-status-index="'+i+'"><div class="title">'+esc(x.name)+'</div><div class="sub">'+esc(x.id)+' · '+x.duration+' 回合 · '+x.tags.map(t=>STATUS_TAG_LABELS[t]).join('／')+'</div></div>').join('')||'<div class="empty">尚未建立狀態。</div>')+'</div></div>'+
     (s?'<div><div class="card"><div class="card-h"><strong>狀態本體</strong><span class="pill">'+esc(s.id)+'</span></div><div class="card-b"><div class="fields">'+
       '<div class="field full"><label>狀態名稱</label><input id="statusName" value="'+esc(s.name)+'"></div></div>'+
