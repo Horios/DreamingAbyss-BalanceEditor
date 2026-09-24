@@ -4017,4 +4017,188 @@ globalThis.__EMBERWILD_STATUS_EDITOR_TEST_API={schema:STATUS_SCHEMA_VERSION,norm
 requestEditorInitialRender();
 })();
 </script>
+
+<style id="monster-skill-pool-editor-style-v1">
+.monster-skill-assignment-box{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.monster-skill-assignment-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.monster-skill-assignment-head strong{margin-right:auto}
+.monster-skill-assignment-row{display:grid;grid-template-columns:minmax(180px,1fr) 150px auto;gap:8px;align-items:end;margin-top:7px}
+.monster-skill-assignment-row label{font-size:11px;color:var(--muted)}
+@media(max-width:900px){.monster-skill-assignment-row{grid-template-columns:1fr}}
+</style>
+<script id="monster-skill-pool-editor-v1">
+(function installMonsterSkillPoolEditor(){
+  function normalizeMonsterSkillEditor(sk){
+    if(!sk||typeof sk!=='object')return sk;
+    sk.enabled=sk.enabled!==false;
+    sk.requiredLevel=Math.max(1,Math.floor(Number.isFinite(Number(sk.requiredLevel))?Number(sk.requiredLevel):(Number(sk.minLevel)||1)));
+    sk.minLevel=sk.requiredLevel;
+    sk.effect=['damage','heal','drain'].includes(sk.effect)?sk.effect:'damage';
+    sk.power=Math.max(0,Number(sk.power)||0);
+    const cd=Number.isFinite(Number(sk.cooldown))?Number(sk.cooldown):(Number.isFinite(Number(sk.cooldownMin))?Number(sk.cooldownMin):0);
+    sk.cooldown=Math.max(0,Math.floor(cd));sk.cooldownMin=sk.cooldown;sk.cooldownMax=sk.cooldown;
+    sk.element=(sk.element==='inherit'||ELEMENTS.includes(sk.element))?sk.element:'inherit';
+    sk.target=['random','weakest'].includes(sk.target)?sk.target:'random';
+    sk.maxTargets=Math.max(1,Math.floor(Number(sk.maxTargets)||1));
+    sk.description=typeof sk.description==='string'?sk.description:'';
+    sk.weight=Number.isFinite(Number(sk.weight))&&Number(sk.weight)>0?Number(sk.weight):1;
+    sk.kind=['all','normal','elite','boss','final'].includes(sk.kind)?sk.kind:'all';
+    sk.race=['all','beast','plant','undead','construct','demon','spirit'].includes(sk.race)?sk.race:'all';
+    return sk;
+  }
+  function defaultMonsterSkillAssignments(m){
+    if(m?.kind==='normal')return [{skillId:'heavy_strike',chance:.30},{skillId:'feral_rush',chance:.65}];
+    if(m?.kind==='boss')return [{skillId:'boss_crush',chance:1}];
+    if(m?.kind==='final')return [{skillId:'heavy_strike',chance:1}];
+    return [];
+  }
+  function normalizeMonsterAssignments(m){
+    const raw=Array.isArray(m?.skillAssignments)?m.skillAssignments:defaultMonsterSkillAssignments(m),seen=new Set(),out=[];
+    for(const a of raw){
+      if(!a||typeof a.skillId!=='string'||!a.skillId.trim()||seen.has(a.skillId))continue;
+      const chance=Number(a.chance);if(!Number.isFinite(chance))continue;
+      seen.add(a.skillId);out.push({skillId:a.skillId.trim(),chance:Math.max(0,Math.min(1,chance))});
+      if(m.kind==='normal'&&out.length>=2)break;
+    }
+    m.skillAssignments=out;return m;
+  }
+  function ensureMonsterSkillEditorData(){
+    data.balanceSettings??={};data.balanceSettings.monsters??={};data.balanceSettings.monsters.skills??=[];
+    for(const sk of data.balanceSettings.monsters.skills)normalizeMonsterSkillEditor(sk);
+    for(const m of data.balanceSettings.monsters.catalog||[])normalizeMonsterAssignments(m);
+  }
+  for(const sk of BALANCE_SETTINGS_DEFAULTS.monsters.skills||[])normalizeMonsterSkillEditor(sk);
+  for(const m of BALANCE_SETTINGS_DEFAULTS.monsters.catalog||[])normalizeMonsterAssignments(m);
+
+  const monsterSkillEnsureBase=ensureArrays;
+  ensureArrays=function(){monsterSkillEnsureBase();ensureMonsterSkillEditorData();};
+
+  if(!SECTION_META.some(x=>x[0]==='monsterSkills')){
+    const at=Math.max(0,SECTION_META.findIndex(x=>x[0]==='equipment'));
+    SECTION_META.splice(at,0,['monsterSkills','怪物技能']);
+  }
+  const monsterSkillCountBase=count;
+  count=function(section,normalized=false){
+    if(section==='monsterSkills'){if(!normalized)ensureArrays();return data.balanceSettings?.monsters?.skills?.length||0;}
+    return monsterSkillCountBase(section,normalized);
+  };
+
+  function renderMonsterSkills(){
+    ensureArrays();
+    selected.monsterSkill=Math.max(0,Math.min(Number(selected.monsterSkill)||0,Math.max(0,data.balanceSettings.monsters.skills.length-1)));
+    const list=data.balanceSettings.monsters.skills,sk=list[selected.monsterSkill]||null;
+    document.getElementById('app').innerHTML=
+      sectionHead('怪物技能','建立可重複使用的怪物技能池。技能本身只描述效果；哪些怪物可能取得該技能與出現機率，請到「地圖與怪物」逐隻設定。',
+        '<button id="addMonsterPoolSkill">新增技能</button>'+(sk?'<button id="dupMonsterPoolSkill">複製技能</button><button id="delMonsterPoolSkill" class="danger">刪除技能</button>':''))+
+      '<div class="notice">普通怪物每個品種最多可指定 2 種候選技能；每個候選技能在生成個體時獨立依自己的機率判定。若同一個體同時取得兩招，單次行動最多施放一招，依怪物設定順序優先使用已就緒技能。</div>'+
+      '<div class="grid2"><div class="card"><div class="list">'+
+      (list.map((x,i)=>'<div class="listitem '+(i===selected.monsterSkill?'active':'')+'" data-monster-pool-skill="'+i+'"><div class="title">'+esc(x.name||'(未命名技能)')+'</div><div class="sub">'+esc(({damage:'傷害',heal:'治療',drain:'吸血'})[x.effect]||x.effect)+' · LV.'+esc(x.requiredLevel)+' · 冷卻 '+esc(x.cooldown)+'</div></div>').join('')||'<div class="empty">技能池目前為空。</div>')+
+      '</div></div>'+
+      (sk?card('怪物技能資料','<div class="fields">'+
+        inputField('技能 ID','id',sk.id||'','text','',false,'怪物設定以此 ID 連結技能；修改 ID 會同步更新所有怪物引用。')+
+        inputField('技能名稱','name',sk.name||'','text','',false,'戰鬥畫面與戰報顯示名稱。')+
+        boolField('啟用','enabled',!!sk.enabled,'停用後，即使怪物有指定也不會取得此技能。')+
+        selectField('主要效果','effect',sk.effect,['damage','heal','drain'],false,'傷害：攻擊玩家；治療：回復自身；吸血：造成傷害後依實際生命傷害回復自身。',{damage:'傷害',heal:'治療',drain:'傷害／吸血'})+
+        selectField('技能屬性','element',sk.element,['inherit',...ELEMENTS],false,'沿用怪物屬性時，傷害元素跟隨該怪物。',{inherit:'沿用怪物屬性',physical:'無屬性',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'})+
+        inputField('需求怪物等級','requiredLevel',sk.requiredLevel,'number','min=1 step=1',false,'怪物實際等級低於此值時，即使抽中也不會取得技能。')+
+        inputField('基礎冷卻回合','cooldown',sk.cooldown,'number','min=0 step=1',false,'只在該敵人自己的行動時遞減。0 表示每次輪到它行動都可施放。')+
+        inputField('基礎效果倍率','power',sk.power,'number','min=0 step=0.01',false,'以怪物攻擊力乘上此倍率計算傷害／治療。1 = 100%。')+
+        inputField('最大目標數','maxTargets',sk.maxTargets,'number','min=1 step=1',false,'傷害／吸血技能最多影響多少名存活隊員；治療固定作用於自己。')+
+        selectField('攻擊目標','target',sk.target,['random','weakest'],false,'多目標時會依此規則選出不重複目標。',{random:'隨機存活隊員',weakest:'生命比例最低優先'})+
+        selectField('遭遇類型限制','kind',sk.kind,['all','normal','elite','boss','final'],false,'額外限制技能可出現在哪種遭遇；通常使用「全部遭遇」，再由每隻怪的技能設定控制。',{all:'全部遭遇',normal:'普通怪',elite:'菁英怪',boss:'地圖 BOSS',final:'終局 BOSS'})+
+        selectField('種族限制','race',sk.race,['all','beast','plant','undead','construct','demon','spirit'],false,'額外限制可使用此技能的種族；通常使用「全部種族」。',{all:'全部種族',beast:'野獸',plant:'植物',undead:'不死',construct:'構裝',demon:'惡魔',spirit:'精靈'})+
+        textareaField('技能說明','description',sk.description||'','純顯示與設計備註，不參與戰鬥計算。')+
+      '</div>'):card('怪物技能資料','<div class="empty">請新增或選擇技能。</div>'))+'</div>';
+    const app=document.getElementById('app');
+    app.querySelectorAll('[data-monster-pool-skill]').forEach(el=>el.onclick=()=>{selected.monsterSkill=Number(el.dataset.monsterPoolSkill);render();});
+    if(sk){
+      bindObjectFields(app,sk);
+      app.querySelectorAll('[data-key]').forEach(el=>{
+        const base=el.onchange;
+        el.onchange=()=>{
+          const beforeId=sk.id;base?.();
+          if(el.dataset.key==='id'&&beforeId!==sk.id){
+            for(const m of data.balanceSettings.monsters.catalog||[])for(const a of m.skillAssignments||[])if(a.skillId===beforeId)a.skillId=sk.id;
+            markDirty();render();return;
+          }
+          if(el.dataset.key==='requiredLevel'){sk.requiredLevel=Math.max(1,Math.floor(Number(sk.requiredLevel)||1));sk.minLevel=sk.requiredLevel;}
+          if(el.dataset.key==='cooldown'){sk.cooldown=Math.max(0,Math.floor(Number(sk.cooldown)||0));sk.cooldownMin=sk.cooldown;sk.cooldownMax=sk.cooldown;}
+          if(['effect','name'].includes(el.dataset.key))render();
+        };
+      });
+      document.getElementById('dupMonsterPoolSkill').onclick=()=>{const cp=structuredClone(sk),ids=new Set(list.map(x=>x.id));let base=(cp.id||'monster_skill')+'_copy',id=base,n=2;while(ids.has(id))id=base+(n++);cp.id=id;cp.name=(cp.name||'怪物技能')+' 複製';list.push(cp);selected.monsterSkill=list.length-1;markDirty();render();};
+      document.getElementById('delMonsterPoolSkill').onclick=()=>{if(!confirmDelete('刪除怪物技能「'+(sk.name||sk.id)+'」？所有怪物對此技能的引用也會移除。'))return;const id=sk.id;list.splice(selected.monsterSkill,1);for(const m of data.balanceSettings.monsters.catalog||[])m.skillAssignments=(m.skillAssignments||[]).filter(a=>a.skillId!==id);selected.monsterSkill=Math.max(0,selected.monsterSkill-1);markDirty();render();};
+    }
+    document.getElementById('addMonsterPoolSkill').onclick=()=>{const ids=new Set(list.map(x=>x.id));let n=list.length+1,id='monster_skill_'+n;while(ids.has(id))id='monster_skill_'+(++n);list.push({id,name:'新怪物技能',enabled:true,weight:1,requiredLevel:1,minLevel:1,effect:'damage',power:1,cooldown:3,cooldownMin:3,cooldownMax:3,element:'inherit',target:'random',maxTargets:1,kind:'all',race:'all',description:''});selected.monsterSkill=list.length-1;markDirty();render();};
+  }
+
+  function skillAssignmentOptions(selectedId){
+    return '<option value="">未設定</option>'+(data.balanceSettings.monsters.skills||[]).map(sk=>'<option value="'+esc(sk.id)+'" '+(sk.id===selectedId?'selected':'')+'>'+esc(sk.name)+'｜'+esc(sk.id)+'</option>').join('');
+  }
+  function injectMonsterSkillAssignments(){
+    if(currentSection!=='world')return;
+    ensureMonsterSkillEditorData();
+    document.querySelectorAll('[data-world-monster]').forEach(card=>{
+      const i=Number(card.dataset.worldMonster),m=data.balanceSettings.monsters.catalog?.[i];if(!m||card.querySelector('.monster-skill-assignment-box'))return;
+      normalizeMonsterAssignments(m);
+      const limit=m.kind==='normal'?2:99;
+      const rows=m.skillAssignments.map((a,slot)=>'<div class="monster-skill-assignment-row" data-monster-skill-slot="'+slot+'"><label>技能<select class="monster-assignment-skill">'+skillAssignmentOptions(a.skillId)+'</select></label><label>個體出現機率<input class="monster-assignment-chance" type="number" min="0" max="1" step="0.01" value="'+esc(a.chance)+'"></label><button class="small danger monster-assignment-remove">移除</button></div>').join('');
+      card.insertAdjacentHTML('beforeend','<div class="monster-skill-assignment-box"><div class="monster-skill-assignment-head"><strong>個體技能</strong><span class="mini-note">'+(m.kind==='normal'?'普通怪最多 2 種':'可設定多種')+'；每項機率獨立判定</span><button class="small monster-assignment-add" '+(m.skillAssignments.length>=limit?'disabled':'')+'>新增技能</button></div>'+rows+(rows?'':'<div class="mini-note">目前不會隨機取得任何怪物技能。</div>')+'</div>');
+      card.querySelectorAll('[data-monster-skill-slot]').forEach(row=>{
+        const slot=Number(row.dataset.monsterSkillSlot),a=m.skillAssignments[slot];
+        row.querySelector('.monster-assignment-skill').onchange=e=>{a.skillId=e.target.value;markDirty();};
+        row.querySelector('.monster-assignment-chance').onchange=e=>{a.chance=Math.max(0,Math.min(1,Number(e.target.value)||0));markDirty();};
+        row.querySelector('.monster-assignment-remove').onclick=()=>{m.skillAssignments.splice(slot,1);markDirty();render();};
+      });
+      const add=card.querySelector('.monster-assignment-add');if(add)add.onclick=()=>{
+        if(m.kind==='normal'&&m.skillAssignments.length>=2)return alert('每隻普通怪物最多設定 2 種技能。');
+        const used=new Set(m.skillAssignments.map(a=>a.skillId)),pick=(data.balanceSettings.monsters.skills||[]).find(sk=>!used.has(sk.id));
+        if(!pick)return alert('沒有其他可加入的怪物技能。');
+        m.skillAssignments.push({skillId:pick.id,chance:1});markDirty();render();
+      };
+    });
+  }
+
+  enemySkillEditorHTML=function(){return '<div class="notice">怪物技能池已移至左側「怪物技能」頁；每隻怪物的技能與出現機率請直接在本頁怪物卡片設定。</div>';};
+  bindEnemySkillEditor=function(){};
+
+  const monsterSkillRenderBase=render;
+  render=function(){
+    if(currentSection==='monsterSkills'){renderMonsterSkills();renderNav(true);return;}
+    const result=monsterSkillRenderBase();
+    injectMonsterSkillAssignments();
+    return result;
+  };
+
+  const monsterSkillValidateBase=validateData;
+  validateData=function(){
+    const issues=monsterSkillValidateBase();ensureArrays();
+    const skills=data.balanceSettings.monsters.skills||[],ids=new Set();
+    for(const [i,sk] of skills.entries()){
+      normalizeMonsterSkillEditor(sk);
+      if(!sk.id||ids.has(sk.id))issues.push('怪物技能第 '+(i+1)+' 筆 ID 空白或重複。');
+      ids.add(sk.id);
+      if(!sk.name?.trim())issues.push('怪物技能 '+(sk.id||i+1)+' 名稱不可空白。');
+      if(!['damage','heal','drain'].includes(sk.effect))issues.push('怪物技能 '+(sk.id||i+1)+' 效果類型無效。');
+      if(!Number.isFinite(sk.power)||sk.power<0||!Number.isInteger(sk.cooldown)||sk.cooldown<0||!Number.isInteger(sk.maxTargets)||sk.maxTargets<1)issues.push('怪物技能 '+(sk.id||i+1)+' 倍率、冷卻或目標數無效。');
+    }
+    for(const m of data.balanceSettings.monsters.catalog||[]){
+      normalizeMonsterAssignments(m);
+      if(m.kind==='normal'&&m.skillAssignments.length>2)issues.push('普通怪物 '+m.name+' 最多只能設定 2 種技能。');
+      const seen=new Set();
+      for(const a of m.skillAssignments){
+        if(!ids.has(a.skillId))issues.push('怪物 '+m.name+' 引用不存在的技能 '+a.skillId+'。');
+        if(seen.has(a.skillId))issues.push('怪物 '+m.name+' 重複設定技能 '+a.skillId+'。');
+        seen.add(a.skillId);
+        if(!Number.isFinite(a.chance)||a.chance<0||a.chance>1)issues.push('怪物 '+m.name+' 的技能機率必須介於 0~1。');
+      }
+    }
+    return [...new Set(issues)];
+  };
+
+  ensureArrays();
+  requestEditorInitialRender();
+})();
+</script>
+
 </html>
