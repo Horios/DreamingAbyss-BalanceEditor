@@ -2544,11 +2544,7 @@ ensureArrays();requestEditorInitialRender();
       for(let form=0;form<list.length;form++){
         const item=list[form];
         if(!item||!starterPackWearableJobs(item,group,slot).includes(job))continue;
-        rows.push({
-          ref:{group,slot,form},
-          item,
-          source:group===data.classes.length?'全職業':(data.classes[group]?.name||`角色 ${group}`)
-        });
+        rows.push({ref:{group,slot,form},item,source:group===data.classes.length?'全職業':(data.classes[group]?.name||`角色 ${group}`)});
       }
     }
     rows.sort((a,b)=>{
@@ -2563,8 +2559,7 @@ ensureArrays();requestEditorInitialRender();
   }
 
   function starterBaseForm(job,entry){
-    const slot=Number(entry?.slot);
-    return starterPackCandidates(job,slot).find(x=>sameStarterPackRef(entry,x.ref))?.item||null;
+    return starterPackCandidates(job,Number(entry?.slot)).find(x=>sameStarterPackRef(entry,x.ref))?.item||null;
   }
 
   function starterPackDefaultEntry(job,slot,position){
@@ -2576,7 +2571,8 @@ ensureArrays();requestEditorInitialRender();
   function ensureStarterEffectShape(effect,job,growth=false){
     const defs=growth?STARTER_GROWTH_EFFECT_DEFS:EQUIPMENT_FIXED_EFFECT_DEFS;
     const allowed=new Set(defs.map(x=>x.key));
-    if(!effect||typeof effect!=='object'||!allowed.has(effect.key))effect={key:defs[0].key,value:fixedEffectDefault(defs[0].key)};
+    if(!effect||typeof effect!=='object')effect={key:defs[0].key,value:fixedEffectDefault(defs[0].key)};
+    if(!allowed.has(effect.key))return effect;
     const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[effect.key]||defs[0];
     if(effect.key==='basicElement')effect.value=ELEMENTS.includes(effect.value)?effect.value:'physical';
     else effect.value=Number.isFinite(Number(effect.value))?Number(effect.value):0;
@@ -2593,24 +2589,22 @@ ensureArrays();requestEditorInitialRender();
     const slot=STARTER_PACK_SLOTS[position],fallback=starterPackDefaultEntry(job,slot,position);
     if(!fallback)return raw||null;
     const entry=raw&&typeof raw==='object'?raw:{};
-    const validRef=starterPackCandidates(job,slot).some(x=>sameStarterPackRef(entry,x.ref));
-    const ref=validRef?{group:Number(entry.group),slot:Number(entry.slot),form:Number(entry.form)}:structuredClone(fallback);
+    const hasRef=Number.isInteger(Number(entry.group))&&Number.isInteger(Number(entry.slot))&&Number.isInteger(Number(entry.form));
+    const ref=hasRef?{group:Number(entry.group),slot:Number(entry.slot),form:Number(entry.form)}:structuredClone(fallback);
     const enhanceMax=Math.max(0,Math.floor(data.balanceSettings?.equipment?.enhance?.maxLevel||10));
-    ref.powerTier=Number.isInteger(Number(entry.powerTier))?Math.max(1,Math.min(10,Number(entry.powerTier))):1;
-    ref.plus=Number.isInteger(Number(entry.plus))?Math.max(0,Math.min(enhanceMax,Number(entry.plus))):0;
-    if(Array.isArray(entry.fixedEffects)&&entry.fixedEffects.length){
-      ref.fixedEffects=entry.fixedEffects.slice(0,5).map(x=>ensureStarterEffectShape(structuredClone(x),job,false));
-    }else ref.fixedEffects=null;
+    ref.powerTier=Number.isInteger(Number(entry.powerTier))?Number(entry.powerTier):1;
+    ref.plus=Number.isInteger(Number(entry.plus))?Number(entry.plus):0;
+    if(Array.isArray(entry.fixedEffects)&&entry.fixedEffects.length)ref.fixedEffects=entry.fixedEffects.slice(0,5).map(x=>ensureStarterEffectShape(structuredClone(x),job,false));
+    else ref.fixedEffects=null;
     const maxLevel=Math.max(1,Math.floor(data.balanceSettings?.progression?.levelCaps?.afterClear||60)),g=entry.growth&&typeof entry.growth==='object'?entry.growth:{};
     ref.growth={
       enabled:!!g.enabled,
-      startLevel:Number.isInteger(Number(g.startLevel))?Math.max(1,Math.min(maxLevel,Number(g.startLevel))):1,
-      maxLevel:Number.isInteger(Number(g.maxLevel))?Math.max(1,Math.min(maxLevel,Number(g.maxLevel))):maxLevel,
-      levelsPerTier:Number.isInteger(Number(g.levelsPerTier))?Math.max(0,Math.min(maxLevel,Number(g.levelsPerTier))):0,
-      maxPowerTier:Number.isInteger(Number(g.maxPowerTier))?Math.max(ref.powerTier,Math.min(10,Number(g.maxPowerTier))):10,
+      startLevel:Number.isInteger(Number(g.startLevel))?Number(g.startLevel):1,
+      maxLevel:Number.isInteger(Number(g.maxLevel))?Number(g.maxLevel):maxLevel,
+      levelsPerTier:Number.isInteger(Number(g.levelsPerTier))?Number(g.levelsPerTier):0,
+      maxPowerTier:Number.isInteger(Number(g.maxPowerTier))?Number(g.maxPowerTier):10,
       effects:Array.isArray(g.effects)?g.effects.slice(0,5).map(x=>ensureStarterEffectShape(structuredClone(x),job,true)):[]
     };
-    if(ref.growth.maxLevel<ref.growth.startLevel)ref.growth.maxLevel=ref.growth.startLevel;
     return ref;
   }
 
@@ -2618,20 +2612,14 @@ ensureArrays();requestEditorInitialRender();
     if(!Array.isArray(data.starterPacks))data.starterPacks=[];
     for(let job=0;job<data.classes.length;job++){
       if(!Array.isArray(data.starterPacks[job]))data.starterPacks[job]=[];
-      for(let position=0;position<5;position++){
-        data.starterPacks[job][position]=normalizeStarterEntryEditor(data.starterPacks[job][position],job,position);
-      }
+      for(let position=0;position<5;position++)data.starterPacks[job][position]=normalizeStarterEntryEditor(data.starterPacks[job][position],job,position);
       data.starterPacks[job].length=5;
     }
     data.starterPacks.length=data.classes.length;
   }
 
   const starterEnsureBase=ensureArrays;
-  ensureArrays=function(){
-    const result=starterEnsureBase();
-    ensureStarterPackData();
-    return result;
-  };
+  ensureArrays=function(){const result=starterEnsureBase();ensureStarterPackData();return result;};
 
   if(!SECTION_META.some(([id])=>id==='starterPacks')){
     const equipmentIndex=SECTION_META.findIndex(([id])=>id==='equipment');
@@ -2640,16 +2628,12 @@ ensureArrays();requestEditorInitialRender();
 
   const starterCountBase=count;
   count=function(section,...args){
-    if(section==='starterPacks'){
-      ensureStarterPackData();
-      return data.starterPacks.length;
-    }
+    if(section==='starterPacks'){ensureStarterPackData();return data.starterPacks.length;}
     return starterCountBase(section,...args);
   };
 
   function starterSkillOptions(job,selected){
-    const list=data.classes[job]?.skills||[];
-    return list.map((sk,i)=>`<option value="${i}" ${Number(selected)===i?'selected':''}>${i+1}. ${esc(sk.name||`核心技能 ${i+1}`)}</option>`).join('');
+    return (data.classes[job]?.skills||[]).map((sk,i)=>`<option value="${i}" ${Number(selected)===i?'selected':''}>${i+1}. ${esc(sk.name||`核心技能 ${i+1}`)}</option>`).join('');
   }
 
   function starterEffectRowsHTML(effects,job,{growth=false}={}){
@@ -2657,7 +2641,7 @@ ensureArrays();requestEditorInitialRender();
     if(!effects.length)return `<div class="empty">${growth?'尚未設定每級成長屬性。':'至少需要 1 條自訂固定屬性。'}</div>`;
     return effects.map((fx,i)=>{
       ensureStarterEffectShape(fx,job,growth);
-      const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key]||defs[0];
+      const validKey=defs.some(x=>x.key===fx.key),def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key]||defs[0];
       const target=def.target==='element'
         ?`<select class="starter-fx-target">${ELEMENTS.filter(x=>x!=='physical').map(x=>`<option value="${x}" ${fx.element===x?'selected':''}>${esc(ELEMENT_LABELS[x]||x)}</option>`).join('')}</select>`
         :def.target==='race'
@@ -2668,8 +2652,9 @@ ensureArrays();requestEditorInitialRender();
       const value=fx.key==='basicElement'
         ?`<select class="starter-fx-value">${ELEMENTS.map(x=>`<option value="${x}" ${fx.value===x?'selected':''}>${esc(ELEMENT_LABELS[x]||x)}</option>`).join('')}</select>`
         :`<input class="starter-fx-value" type="number" step="${['basicAdvanceNextRound','allCooldownReduction','skillCooldownReduction'].includes(fx.key)?'1':'0.01'}" value="${esc(fx.value)}">`;
+      const invalidOption=!validKey?`<option value="${esc(fx.key||'')}" selected>⚠ 無效：${esc(fx.key||'(空白)')}</option>`:'';
       return `<div class="kvrow fixed-effect-row starter-effect-row" data-index="${i}">
-        <select class="starter-fx-key">${defs.map(x=>`<option value="${x.key}" ${x.key===fx.key?'selected':''}>${esc(x.label)}</option>`).join('')}</select>
+        <select class="starter-fx-key">${invalidOption}${defs.map(x=>`<option value="${x.key}" ${x.key===fx.key?'selected':''}>${esc(x.label)}</option>`).join('')}</select>
         ${target}${value}<span class="pill">${esc(growth?'每級 '+def.unit:def.unit)}</span>
         <button class="small danger starter-fx-del">×</button>
         <div class="field-help" style="grid-column:1/-1">${growth?'角色每成長 1 級，就增加這個數值；超過成長上限後停止。':esc(def.help)}</div>
@@ -2687,7 +2672,7 @@ ensureArrays();requestEditorInitialRender();
         if(def?.target==='element')fx.element='fire';
         if(def?.target==='race')fx.race='beast';
         if(def?.target==='skill')fx.skill=0;
-        onChange();
+        markDirty();onChange();
       };
       if(target)target.onchange=()=>{
         const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key];
@@ -2696,10 +2681,7 @@ ensureArrays();requestEditorInitialRender();
         else if(def?.target==='skill')fx.skill=Number(target.value);
         markDirty();
       };
-      if(value)value.onchange=()=>{
-        fx.value=fx.key==='basicElement'?value.value:Number(value.value);
-        markDirty();
-      };
+      if(value)value.onchange=()=>{fx.value=fx.key==='basicElement'?value.value:Number(value.value);markDirty();};
       row.querySelector('.starter-fx-del').onclick=()=>{
         if(!growth&&effects.length<=1)return alert('自訂固定屬性至少保留 1 條。');
         effects.splice(i,1);markDirty();onChange();
@@ -2708,9 +2690,7 @@ ensureArrays();requestEditorInitialRender();
     const add=host.parentElement?.querySelector(growth?'[data-add-growth-effect]':'[data-add-fixed-effect]');
     if(add)add.onclick=()=>{
       if(effects.length>=5)return alert('最多 5 條屬性。');
-      const def=defs[0];
-      effects.push({key:def.key,value:fixedEffectDefault(def.key)});
-      markDirty();onChange();
+      const def=defs[0];effects.push({key:def.key,value:fixedEffectDefault(def.key)});markDirty();onChange();
     };
   }
 
@@ -2719,8 +2699,8 @@ ensureArrays();requestEditorInitialRender();
     starterPackPosition=Math.max(0,Math.min(4,starterPackPosition));
     const job=starterPackClass,position=starterPackPosition,c=data.classes[job],entry=data.starterPacks[job][position],slot=STARTER_PACK_SLOTS[position];
     const candidates=starterPackCandidates(job,slot),base=starterBaseForm(job,entry),enhanceMax=Math.max(0,Math.floor(data.balanceSettings?.equipment?.enhance?.maxLevel||10));
-    const custom=Array.isArray(entry.fixedEffects),growth=entry.growth;
-    const baseOption=candidates.map(x=>`<option value="${x.ref.group}:${x.ref.slot}:${x.ref.form}" ${sameStarterPackRef(entry,x.ref)?'selected':''}>${esc(x.source)}｜${esc(x.item.name||'(未命名裝備)')}</option>`).join('');
+    const custom=Array.isArray(entry.fixedEffects),growth=entry.growth,currentRefValid=candidates.some(x=>sameStarterPackRef(entry,x.ref));
+    const baseOption=(!currentRefValid?`<option value="" selected>⚠ 目前基底裝備引用無效，請重新選擇</option>`:'')+candidates.map(x=>`<option value="${x.ref.group}:${x.ref.slot}:${x.ref.form}" ${sameStarterPackRef(entry,x.ref)?'selected':''}>${esc(x.source)}｜${esc(x.item.name||'(未命名裝備)')}</option>`).join('');
     const growthLevels=Math.max(0,growth.maxLevel-growth.startLevel),finalTier=growth.enabled&&growth.levelsPerTier>0?Math.min(growth.maxPowerTier,entry.powerTier+Math.floor(growthLevels/growth.levelsPerTier)):entry.powerTier;
 
     document.getElementById('app').innerHTML=
@@ -2753,23 +2733,19 @@ ensureArrays();requestEditorInitialRender();
     app.querySelectorAll('[data-starter-class]').forEach(button=>button.onclick=()=>{starterPackClass=Number(button.dataset.starterClass);starterPackPosition=0;render();});
     app.querySelectorAll('[data-starter-position]').forEach(button=>button.onclick=()=>{starterPackPosition=Number(button.dataset.starterPosition);render();});
     document.getElementById('starterBase').onchange=ev=>{
+      if(!ev.target.value)return;
       const [group,newSlot,form]=ev.target.value.split(':').map(Number);
-      Object.assign(entry,{group,slot:newSlot,form});
-      markDirty();render();
+      Object.assign(entry,{group,slot:newSlot,form});markDirty();render();
     };
     const power=app.querySelector('[data-key="powerTier"]'),plus=app.querySelector('[data-key="plus"]');
     power.onchange=()=>{entry.powerTier=Math.max(1,Math.min(10,Math.round(Number(power.value)||1)));if(entry.growth.maxPowerTier<entry.powerTier)entry.growth.maxPowerTier=entry.powerTier;markDirty();render();};
     plus.onchange=()=>{entry.plus=Math.max(0,Math.min(enhanceMax,Math.round(Number(plus.value)||0)));markDirty();};
     document.getElementById('starterFixedMode').onchange=ev=>{
-      if(ev.target.value==='custom'){
-        entry.fixedEffects=structuredClone(base?.fixedEffects?.length?base.fixedEffects:[{key:'flatAttack',value:0}]).slice(0,5).map(x=>ensureStarterEffectShape(x,job,false));
-      }else entry.fixedEffects=null;
+      if(ev.target.value==='custom')entry.fixedEffects=structuredClone(base?.fixedEffects?.length?base.fixedEffects:[{key:'flatAttack',value:0}]).slice(0,5).map(x=>ensureStarterEffectShape(x,job,false));
+      else entry.fixedEffects=null;
       markDirty();render();
     };
-    if(custom){
-      const fixedHost=document.getElementById('starterFixedRows');
-      bindStarterEffects(fixedHost,entry.fixedEffects,job,{onChange:render});
-    }
+    if(custom)bindStarterEffects(document.getElementById('starterFixedRows'),entry.fixedEffects,job,{onChange:render});
     document.getElementById('starterGrowthEnabled').onchange=ev=>{growth.enabled=ev.target.value==='true';markDirty();render();};
     if(growth.enabled){
       for(const key of ['startLevel','maxLevel','levelsPerTier','maxPowerTier']){
@@ -2784,37 +2760,24 @@ ensureArrays();requestEditorInitialRender();
           markDirty();render();
         };
       }
-      const growthHost=document.getElementById('starterGrowthRows');
-      bindStarterEffects(growthHost,growth.effects,job,{growth:true,onChange:render});
+      bindStarterEffects(document.getElementById('starterGrowthRows'),growth.effects,job,{growth:true,onChange:render});
     }
   }
 
   const starterRenderBase=render;
   render=function(){
-    if(currentSection==='starterPacks'){
-      ensureArrays();
-      renderNav(true);
-      renderStarterPacks();
-      return;
-    }
+    if(currentSection==='starterPacks'){ensureArrays();renderNav(true);renderStarterPacks();return;}
     return starterRenderBase();
   };
 
   const starterValidateBase=validateData;
   validateData=function(){
-    const issues=starterValidateBase();
-    ensureStarterPackData();
+    const issues=starterValidateBase();ensureStarterPackData();
     const maxLevel=Math.max(1,Math.floor(data.balanceSettings?.progression?.levelCaps?.afterClear||60));
     const enhanceMax=Math.max(0,Math.floor(data.balanceSettings?.equipment?.enhance?.maxLevel||10));
-    if(!Array.isArray(data.starterPacks)||data.starterPacks.length!==data.classes.length){
-      issues.push(`starterPacks 必須有 ${data.classes.length} 個職業設定。`);
-      return issues;
-    }
+    if(!Array.isArray(data.starterPacks)||data.starterPacks.length!==data.classes.length){issues.push(`starterPacks 必須有 ${data.classes.length} 個職業設定。`);return issues;}
     data.starterPacks.forEach((row,job)=>{
-      if(!Array.isArray(row)||row.length!==5){
-        issues.push(`${data.classes[job]?.name||'角色 '+job}的新手禮包必須剛好 5 件裝備。`);
-        return;
-      }
+      if(!Array.isArray(row)||row.length!==5){issues.push(`${data.classes[job]?.name||'角色 '+job}的新手禮包必須剛好 5 件裝備。`);return;}
       row.forEach((entry,position)=>{
         const expectedSlot=STARTER_PACK_SLOTS[position],label=`${data.classes[job]?.name||'角色 '+job}新手禮包「${STARTER_PACK_LABELS[position]}」`;
         if(!starterPackCandidates(job,expectedSlot).some(x=>sameStarterPackRef(entry,x.ref)))issues.push(`${label}的基底裝備引用無效。`);
