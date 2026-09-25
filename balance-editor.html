@@ -2516,6 +2516,157 @@ ensureArrays();requestEditorInitialRender();
 })();
 
 </script>
+
+<script id="starter-pack-editor-extension">
+(function starterPackEditorExtension(){
+  const STARTER_PACK_SLOTS=[0,1,2,3,3];
+  const STARTER_PACK_LABELS=['武器','護甲','副手','飾品 1','飾品 2'];
+  let starterPackClass=0;
+
+  function starterPackWearableJobs(form,group,slot){
+    const all=data.classes.map((_,i)=>i);
+    const fallback=group>=data.classes.length||slot===1?all:[group];
+    const raw=Array.isArray(form?.wearableJobs)?form.wearableJobs:fallback;
+    return [...new Set(raw.map(Number).filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length))];
+  }
+
+  function starterPackCandidates(job,slot){
+    const rows=[];
+    for(let group=0;group<data.equipmentForms.length;group++){
+      const list=data.equipmentForms?.[group]?.[slot];
+      if(!Array.isArray(list))continue;
+      for(let form=0;form<list.length;form++){
+        const item=list[form];
+        if(!item||!starterPackWearableJobs(item,group,slot).includes(job))continue;
+        rows.push({
+          ref:{group,slot,form},
+          item,
+          source:group===data.classes.length?'全職業':(data.classes[group]?.name||`角色 ${group}`)
+        });
+      }
+    }
+    rows.sort((a,b)=>{
+      const priority=x=>x.ref.group===job?0:x.ref.group===data.classes.length?1:2;
+      return priority(a)-priority(b)||a.ref.group-b.ref.group||a.ref.form-b.ref.form;
+    });
+    return rows;
+  }
+
+  function starterPackDefaultRow(job){
+    return STARTER_PACK_SLOTS.map((slot,position)=>{
+      const rows=starterPackCandidates(job,slot);
+      if(!rows.length)return null;
+      return structuredClone((position===4?(rows[1]||rows[0]):rows[0]).ref);
+    });
+  }
+
+  function ensureStarterPackData(){
+    if(!Array.isArray(data.starterPacks)){
+      data.starterPacks=data.classes.map((_,job)=>starterPackDefaultRow(job));
+    }
+  }
+
+  const starterEnsureBase=ensureArrays;
+  ensureArrays=function(){
+    const result=starterEnsureBase();
+    ensureStarterPackData();
+    return result;
+  };
+
+  if(!SECTION_META.some(([id])=>id==='starterPacks')){
+    const equipmentIndex=SECTION_META.findIndex(([id])=>id==='equipment');
+    SECTION_META.splice(equipmentIndex>=0?equipmentIndex+1:SECTION_META.length,0,['starterPacks','新手禮包']);
+  }
+
+  const starterCountBase=count;
+  count=function(section,...args){
+    if(section==='starterPacks'){
+      ensureStarterPackData();
+      return Array.isArray(data.starterPacks)?data.starterPacks.length:0;
+    }
+    return starterCountBase(section,...args);
+  };
+
+  function sameStarterPackRef(a,b){
+    return Number(a?.group)===b.group&&Number(a?.slot)===b.slot&&Number(a?.form)===b.form;
+  }
+
+  function renderStarterPacks(){
+    starterPackClass=Math.max(0,Math.min(data.classes.length-1,starterPackClass));
+    const job=starterPackClass,c=data.classes[job],row=Array.isArray(data.starterPacks?.[job])?data.starterPacks[job]:[];
+    const fields=STARTER_PACK_SLOTS.map((slot,position)=>{
+      const candidates=starterPackCandidates(job,slot),current=row[position];
+      const currentValid=candidates.some(x=>sameStarterPackRef(current,x.ref));
+      const options=[
+        ...(!currentValid?[`<option value="" selected>⚠ 目前設定無效，請重新選擇</option>`]:[]),
+        ...candidates.map(x=>`<option value="${x.ref.group}:${x.ref.slot}:${x.ref.form}" ${sameStarterPackRef(current,x.ref)?'selected':''}>${esc(x.source)}｜${esc(x.item.name||'(未命名裝備)')}</option>`)
+      ].join('');
+      const selected=candidates.find(x=>sameStarterPackRef(current,x.ref));
+      const detail=selected
+        ?`來源：${esc(selected.source)} · 裝備 ID：${esc(selected.item.id||'未設定')} · 固定屬性 ${(selected.item.fixedEffects||[]).length} 條`
+        :candidates.length?'請重新選擇有效裝備。':'目前沒有此職業可穿戴的裝備可供選擇。';
+      return `<div class="field full"><label>${STARTER_PACK_LABELS[position]}</label><select data-starter-position="${position}" ${candidates.length?'':'disabled'}>${options||'<option>沒有可用裝備</option>'}</select><div class="field-help">${detail}</div></div>`;
+    }).join('');
+
+    document.getElementById('app').innerHTML=
+      sectionHead('初始職業新手禮包','玩家建立第一名角色時，依所選初始職業取得並自動穿戴的整套裝備。每個職業可獨立設定。')+
+      `<div class="notice">禮包固定包含 5 件：武器、護甲、副手、飾品 1、飾品 2。只發給最初建立的職業；之後招募的角色不會取得。遊戲端會以 T1、無隨機前綴／後綴、無隨機詞條建立，確保拿到的就是這裡指定的基底裝備。飾品 1、2 可選同一變體，會生成兩件獨立裝備。</div>`+
+      `<div class="tabs" style="margin-bottom:12px">${data.classes.map((x,i)=>`<button data-starter-class="${i}" class="${i===job?'primary':''}">${esc(x.name)}</button>`).join('')}</div>`+
+      card(`${esc(c?.name||'未知職業')}專屬禮包`,`<div class="fields">${fields}</div>`);
+
+    const app=document.getElementById('app');
+    app.querySelectorAll('[data-starter-class]').forEach(button=>button.onclick=()=>{
+      starterPackClass=Number(button.dataset.starterClass);
+      render();
+    });
+    app.querySelectorAll('[data-starter-position]').forEach(select=>select.onchange=()=>{
+      if(!select.value)return;
+      const position=Number(select.dataset.starterPosition);
+      const [group,slot,form]=select.value.split(':').map(Number);
+      if(!Array.isArray(data.starterPacks))data.starterPacks=[];
+      if(!Array.isArray(data.starterPacks[job]))data.starterPacks[job]=Array(5).fill(null);
+      data.starterPacks[job][position]={group,slot,form};
+      markDirty();
+      render();
+    });
+  }
+
+  const starterRenderBase=render;
+  render=function(){
+    if(currentSection==='starterPacks'){
+      ensureArrays();
+      renderNav(true);
+      renderStarterPacks();
+      return;
+    }
+    return starterRenderBase();
+  };
+
+  const starterValidateBase=validateData;
+  validateData=function(){
+    const issues=starterValidateBase();
+    ensureStarterPackData();
+    if(!Array.isArray(data.starterPacks)||data.starterPacks.length!==data.classes.length){
+      issues.push(`starterPacks 必須有 ${data.classes.length} 個職業設定。`);
+      return issues;
+    }
+    data.starterPacks.forEach((row,job)=>{
+      if(!Array.isArray(row)||row.length!==5){
+        issues.push(`${data.classes[job]?.name||'角色 '+job}的新手禮包必須剛好 5 件裝備。`);
+        return;
+      }
+      row.forEach((ref,position)=>{
+        const expectedSlot=STARTER_PACK_SLOTS[position];
+        const valid=Number.isInteger(Number(ref?.group))&&Number.isInteger(Number(ref?.slot))&&Number.isInteger(Number(ref?.form))&&Number(ref.slot)===expectedSlot&&starterPackCandidates(job,expectedSlot).some(x=>sameStarterPackRef(ref,x.ref));
+        if(!valid)issues.push(`${data.classes[job]?.name||'角色 '+job}新手禮包的「${STARTER_PACK_LABELS[position]}」引用無效。`);
+      });
+    });
+    return issues;
+  };
+
+  ensureArrays();
+})();
+</script>
 </body>
 
 <script id="verified-balance-contract-editor-filter">
