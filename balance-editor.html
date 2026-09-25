@@ -2522,11 +2522,34 @@ ensureArrays();requestEditorInitialRender();
   const STARTER_PACK_SLOTS=[0,1,2,3,3];
   const STARTER_PACK_LABELS=['武器','護甲','副手','飾品 1','飾品 2'];
   const STARTER_GROWTH_EFFECT_DEFS=EQUIPMENT_FIXED_EFFECT_DEFS.filter(x=>x.key!=='basicElement');
+  const STARTER_AFFIX_RANKS=['普通','精良','稀有','傳說'];
+  const STARTER_AFFIX_TYPES=[
+    {type:0,label:'固定攻擊',unit:'固定'},
+    {type:1,label:'固定生命',unit:'固定'},
+    {type:2,label:'固定防禦',unit:'固定'},
+    {type:3,label:'暴擊率',unit:'%'},
+    {type:4,label:'指定核心技能效果',unit:'%'},
+    {type:5,label:'指定核心技能冷卻／觸發率',unit:'回合／點'},
+    {type:6,label:'暴擊傷害',unit:'%'},
+    {type:7,label:'防禦穿透',unit:'固定值'},
+    {type:8,label:'生命竊取',unit:'%'},
+    {type:9,label:'閃避率',unit:'%'},
+    {type:12,label:'指定屬性傷害',unit:'%'},
+    {type:13,label:'指定種族增傷',unit:'%'},
+    {type:14,label:'指定屬性抗性',unit:'%'},
+    {type:15,label:'總攻擊力',unit:'%'},
+    {type:16,label:'全主動／輔助技能冷卻',unit:'回合'},
+    {type:17,label:'掉寶率',unit:'%'},
+    {type:18,label:'防禦無視',unit:'%'}
+  ];
+  const STARTER_AFFIX_BY_TYPE=Object.fromEntries(STARTER_AFFIX_TYPES.map(x=>[x.type,x]));
+  const STARTER_ELEMENTS={fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'};
+  const STARTER_RACES={beast:'野獸',plant:'植物',undead:'不死',construct:'構裝',demon:'惡魔',spirit:'精靈'};
   let starterPackClass=0,starterPackPosition=0;
 
   function starterGrowthDefault(){
     const maxLevel=Math.max(1,Math.floor(data.balanceSettings?.progression?.levelCaps?.afterClear||60));
-    return {enabled:false,startLevel:1,maxLevel,levelsPerTier:0,maxPowerTier:10,effects:[]};
+    return {enabled:false,startLevel:1,maxLevel,effects:[]};
   }
 
   function starterPackWearableJobs(form,group,slot){
@@ -2562,10 +2585,31 @@ ensureArrays();requestEditorInitialRender();
     return starterPackCandidates(job,Number(entry?.slot)).find(x=>sameStarterPackRef(entry,x.ref))?.item||null;
   }
 
+  function starterNamedRows(kind,slot){
+    const rows=data.equipmentPowerSystem?.[kind==='prefix'?'prefixes':'suffixes'];
+    return Array.isArray(rows)?rows.filter(x=>Array.isArray(x?.slots)&&x.slots.includes(slot)):[];
+  }
+
+  function starterNamedOptions(kind,slot,current){
+    const rows=starterNamedRows(kind,slot),valid=!current||rows.some(x=>x.id===current);
+    return (!valid?`<option value="${esc(current)}" selected>⚠ 無效：${esc(current)}</option>`:'')+
+      `<option value="" ${!current?'selected':''}>無${kind==='prefix'?'前綴':'後綴'}</option>`+
+      rows.map(x=>`<option value="${esc(x.id)}" ${x.id===current?'selected':''}>${esc(x.name||x.id)}</option>`).join('');
+  }
+
   function starterPackDefaultEntry(job,slot,position){
     const rows=starterPackCandidates(job,slot);
     if(!rows.length)return null;
-    return {...structuredClone((position===4?(rows[1]||rows[0]):rows[0]).ref),powerTier:1,plus:0,fixedEffects:null,growth:starterGrowthDefault()};
+    return {
+      ...structuredClone((position===4?(rows[1]||rows[0]):rows[0]).ref),
+      powerTier:1,
+      plus:0,
+      fixedEffects:null,
+      prefixId:'',
+      suffixId:'',
+      affixes:[null,null],
+      growth:starterGrowthDefault()
+    };
   }
 
   function ensureStarterEffectShape(effect,job,growth=false){
@@ -2585,24 +2629,51 @@ ensureArrays();requestEditorInitialRender();
     return effect;
   }
 
+  function starterAffixPool(slot,rank){
+    const rows=data.balance?.affixes?.poolBySlotRank?.[slot]?.[rank];
+    return Array.isArray(rows)?rows:[];
+  }
+
+  function starterAffixDefault(job,slot,rank=0){
+    const row=starterAffixPool(slot,rank)[0];
+    if(!row)return null;
+    const out={type:Number(row.type),rank,value:Number(row.min)||1};
+    if(out.type===4||out.type===5)out.skill=Number.isInteger(Number(row.skill))&&Number(row.skill)>=0?Number(row.skill):0;
+    if(out.type===12||out.type===14)out.element='fire';
+    if(out.type===13)out.race='beast';
+    return out;
+  }
+
+  function normalizeStarterAffixEditor(raw,job,slot){
+    if(raw===undefined||raw===null)return null;
+    if(!raw||typeof raw!=='object')return raw;
+    const out={type:Number(raw.type),rank:Number(raw.rank),value:Number(raw.value)};
+    if(raw.skill!==undefined)out.skill=Number(raw.skill);
+    if(raw.element!==undefined)out.element=raw.element;
+    if(raw.race!==undefined)out.race=raw.race;
+    return out;
+  }
+
   function normalizeStarterEntryEditor(raw,job,position){
     const slot=STARTER_PACK_SLOTS[position],fallback=starterPackDefaultEntry(job,slot,position);
     if(!fallback)return raw||null;
     const entry=raw&&typeof raw==='object'?raw:{};
     const hasRef=Number.isInteger(Number(entry.group))&&Number.isInteger(Number(entry.slot))&&Number.isInteger(Number(entry.form));
     const ref=hasRef?{group:Number(entry.group),slot:Number(entry.slot),form:Number(entry.form)}:structuredClone(fallback);
-    const enhanceMax=Math.max(0,Math.floor(data.balanceSettings?.equipment?.enhance?.maxLevel||10));
     ref.powerTier=Number.isInteger(Number(entry.powerTier))?Number(entry.powerTier):1;
     ref.plus=Number.isInteger(Number(entry.plus))?Number(entry.plus):0;
     if(Array.isArray(entry.fixedEffects)&&entry.fixedEffects.length)ref.fixedEffects=entry.fixedEffects.slice(0,5).map(x=>ensureStarterEffectShape(structuredClone(x),job,false));
     else ref.fixedEffects=null;
+    ref.prefixId=typeof entry.prefixId==='string'?entry.prefixId:'';
+    ref.suffixId=typeof entry.suffixId==='string'?entry.suffixId:'';
+    const affixes=Array.isArray(entry.affixes)?entry.affixes.slice(0,2):[];
+    while(affixes.length<2)affixes.push(null);
+    ref.affixes=affixes.map(x=>normalizeStarterAffixEditor(x,job,slot));
     const maxLevel=Math.max(1,Math.floor(data.balanceSettings?.progression?.levelCaps?.afterClear||60)),g=entry.growth&&typeof entry.growth==='object'?entry.growth:{};
     ref.growth={
       enabled:!!g.enabled,
       startLevel:Number.isInteger(Number(g.startLevel))?Number(g.startLevel):1,
       maxLevel:Number.isInteger(Number(g.maxLevel))?Number(g.maxLevel):maxLevel,
-      levelsPerTier:Number.isInteger(Number(g.levelsPerTier))?Number(g.levelsPerTier):0,
-      maxPowerTier:Number.isInteger(Number(g.maxPowerTier))?Number(g.maxPowerTier):10,
       effects:Array.isArray(g.effects)?g.effects.slice(0,5).map(x=>ensureStarterEffectShape(structuredClone(x),job,true)):[]
     };
     return ref;
@@ -2694,6 +2765,86 @@ ensureArrays();requestEditorInitialRender();
     };
   }
 
+  function starterAffixTypeOptions(slot,rank,currentType){
+    const pool=starterAffixPool(slot,rank),valid=pool.some(x=>Number(x.type)===Number(currentType));
+    const invalid=currentType!==undefined&&currentType!==null&&!valid?`<option value="${esc(currentType)}" selected>⚠ 無效 type ${esc(currentType)}</option>`:'';
+    return invalid+pool.map(row=>{
+      const def=STARTER_AFFIX_BY_TYPE[Number(row.type)]||{label:'type '+row.type};
+      return `<option value="${row.type}" ${Number(currentType)===Number(row.type)?'selected':''}>${esc(def.label)}</option>`;
+    }).join('');
+  }
+
+  function starterAffixTargetHTML(affix,job){
+    if(!affix)return '';
+    if(affix.type===4||affix.type===5)return `<label>指定技能<select class="starter-affix-target">${starterSkillOptions(job,affix.skill)}</select></label>`;
+    if(affix.type===12||affix.type===14)return `<label>指定屬性<select class="starter-affix-target">${Object.entries(STARTER_ELEMENTS).map(([k,n])=>`<option value="${k}" ${affix.element===k?'selected':''}>${n}</option>`).join('')}</select></label>`;
+    if(affix.type===13)return `<label>指定種族<select class="starter-affix-target">${Object.entries(STARTER_RACES).map(([k,n])=>`<option value="${k}" ${affix.race===k?'selected':''}>${n}</option>`).join('')}</select></label>`;
+    return '';
+  }
+
+  function starterAffixCardHTML(entry,index,job,slot){
+    const affix=entry.affixes[index];
+    if(!affix)return `<div class="card"><div class="card-h"><strong>固定詞綴 ${index+1}</strong></div><div class="card-b"><label>狀態<select class="starter-affix-enabled" data-index="${index}"><option value="off" selected>無詞綴</option><option value="on">指定詞綴</option></select></label></div></div>`;
+    const def=STARTER_AFFIX_BY_TYPE[affix.type]||{label:'未知詞綴',unit:''};
+    const poolRow=starterAffixPool(slot,affix.rank).find(x=>Number(x.type)===Number(affix.type));
+    const range=poolRow?`${poolRow.min}～${poolRow.max}${[0,1,2].includes(affix.type)?'（裝備階級 ×1）':''}`:'目前品質池沒有此詞綴';
+    return `<div class="card"><div class="card-h"><strong>固定詞綴 ${index+1}</strong><span class="pill">${esc(def.label)}</span></div><div class="card-b"><div class="fields">
+      <div class="field"><label>狀態</label><select class="starter-affix-enabled" data-index="${index}"><option value="off">無詞綴</option><option value="on" selected>指定詞綴</option></select></div>
+      <div class="field"><label>品質</label><select class="starter-affix-rank" data-index="${index}">${STARTER_AFFIX_RANKS.map((n,i)=>`<option value="${i}" ${affix.rank===i?'selected':''}>${n}</option>`).join('')}</select></div>
+      <div class="field full"><label>詞綴種類</label><select class="starter-affix-type" data-index="${index}">${starterAffixTypeOptions(slot,affix.rank,affix.type)}</select><div class="field-help">目前詞條池數值範圍：${esc(range)}。這裡指定的是新手裝最終固定值，不會再隨機洗鍊。</div></div>
+      <div class="field"><label>固定數值</label><input class="starter-affix-value" data-index="${index}" type="number" min="0" step="1" value="${esc(affix.value)}"><div class="field-help">${esc(def.unit||'')}</div></div>
+      ${starterAffixTargetHTML(affix,job)}
+    </div></div></div>`;
+  }
+
+  function resetStarterAffixForRank(entry,index,job,slot,rank,preferredType=null){
+    const pool=starterAffixPool(slot,rank);
+    const row=pool.find(x=>Number(x.type)===Number(preferredType))||pool[0];
+    if(!row){entry.affixes[index]=null;return;}
+    const next={type:Number(row.type),rank,value:Number(row.min)||1};
+    if(next.type===4||next.type===5)next.skill=Number.isInteger(Number(row.skill))&&Number(row.skill)>=0?Number(row.skill):0;
+    if(next.type===12||next.type===14)next.element='fire';
+    if(next.type===13)next.race='beast';
+    entry.affixes[index]=next;
+  }
+
+  function bindStarterAffixCards(app,entry,job,slot){
+    app.querySelectorAll('.starter-affix-enabled').forEach(el=>el.onchange=()=>{
+      const i=Number(el.dataset.index);
+      if(el.value==='off')entry.affixes[i]=null;
+      else if(!entry.affixes[i])resetStarterAffixForRank(entry,i,job,slot,0);
+      markDirty();render();
+    });
+    app.querySelectorAll('.starter-affix-rank').forEach(el=>el.onchange=()=>{
+      const i=Number(el.dataset.index),old=entry.affixes[i];
+      resetStarterAffixForRank(entry,i,job,slot,Number(el.value),old?.type);
+      markDirty();render();
+    });
+    app.querySelectorAll('.starter-affix-type').forEach(el=>el.onchange=()=>{
+      const i=Number(el.dataset.index),a=entry.affixes[i],rank=a?.rank??0,pool=starterAffixPool(slot,rank),row=pool.find(x=>Number(x.type)===Number(el.value));
+      if(!a||!row)return;
+      const next={type:Number(row.type),rank,value:Number(row.min)||1};
+      if(next.type===4||next.type===5)next.skill=Number.isInteger(Number(row.skill))&&Number(row.skill)>=0?Number(row.skill):0;
+      if(next.type===12||next.type===14)next.element='fire';
+      if(next.type===13)next.race='beast';
+      entry.affixes[i]=next;markDirty();render();
+    });
+    app.querySelectorAll('.starter-affix-value').forEach(el=>el.onchange=()=>{
+      const i=Number(el.dataset.index),a=entry.affixes[i];if(!a)return;
+      a.value=Math.max(0,Number(el.value)||0);markDirty();
+    });
+    app.querySelectorAll('.starter-affix-target').forEach(el=>{
+      const card=el.closest('.card'),enabled=card?.querySelector('.starter-affix-enabled'),i=Number(enabled?.dataset.index),a=entry.affixes[i];
+      if(!a)return;
+      el.onchange=()=>{
+        if(a.type===4||a.type===5)a.skill=Number(el.value);
+        else if(a.type===12||a.type===14)a.element=el.value;
+        else if(a.type===13)a.race=el.value;
+        markDirty();
+      };
+    });
+  }
+
   function renderStarterPacks(){
     starterPackClass=Math.max(0,Math.min(data.classes.length-1,starterPackClass));
     starterPackPosition=Math.max(0,Math.min(4,starterPackPosition));
@@ -2701,32 +2852,34 @@ ensureArrays();requestEditorInitialRender();
     const candidates=starterPackCandidates(job,slot),base=starterBaseForm(job,entry),enhanceMax=Math.max(0,Math.floor(data.balanceSettings?.equipment?.enhance?.maxLevel||10));
     const custom=Array.isArray(entry.fixedEffects),growth=entry.growth,currentRefValid=candidates.some(x=>sameStarterPackRef(entry,x.ref));
     const baseOption=(!currentRefValid?`<option value="" selected>⚠ 目前基底裝備引用無效，請重新選擇</option>`:'')+candidates.map(x=>`<option value="${x.ref.group}:${x.ref.slot}:${x.ref.form}" ${sameStarterPackRef(entry,x.ref)?'selected':''}>${esc(x.source)}｜${esc(x.item.name||'(未命名裝備)')}</option>`).join('');
-    const growthLevels=Math.max(0,growth.maxLevel-growth.startLevel),finalTier=growth.enabled&&growth.levelsPerTier>0?Math.min(growth.maxPowerTier,entry.powerTier+Math.floor(growthLevels/growth.levelsPerTier)):entry.powerTier;
 
     document.getElementById('app').innerHTML=
-      sectionHead('初始職業新手禮包','每個職業可分別指定整套新手裝，並微調單件裝備的初始強度、固定屬性與角色等級成長。')+
-      `<div class="notice">禮包仍只發給最初建立的角色。每件裝備可以直接沿用基底屬性，也可以複製後獨立微調；成長裝備可隨角色等級提高 T 階，並讓指定固定屬性逐級成長。這些設定只影響新手禮包生成的那件裝備，不會改動一般掉落的同名基底裝備。</div>`+
+      sectionHead('初始職業新手禮包','每個職業可分別指定整套新手裝，以及單件裝備的固定屬性、前後綴、兩條固定詞綴與每級成長。')+
+      `<div class="notice"><b>新手裝固定規則：</b>玩家取得後不可強化、不可洗鍊、不可使用強度重鑄石，也不會隨角色等級提升 T 階。T 階只使用這裡設定的固定值；角色等級成長只作用於「每級成長屬性」。前綴、後綴與兩條詞綴也會固定，不再隨機。</div>`+
       `<div class="tabs" style="margin-bottom:10px">${data.classes.map((x,i)=>`<button data-starter-class="${i}" class="${i===job?'primary':''}">${esc(x.name)}</button>`).join('')}</div>`+
       `<div class="tabs" style="margin-bottom:14px">${STARTER_PACK_LABELS.map((x,i)=>`<button data-starter-position="${i}" class="${i===position?'primary':''}">${esc(x)}</button>`).join('')}</div>`+
       card(`${esc(c?.name||'未知職業')} · ${STARTER_PACK_LABELS[position]}`,`
         <div class="fields">
           <div class="field full"><label>基底裝備</label><select id="starterBase">${baseOption}</select><div class="field-help">只列出目前可由此職業穿戴的既有基底裝備。</div></div>
-          ${inputField('初始強度階級 T','powerTier',entry.powerTier,'number','min=1 max=10 step=1',false,'新角色取得時的 T1～T10 強度。')}
-          ${inputField('初始強化值 +','plus',entry.plus,'number',`min=0 max=${enhanceMax} step=1`,false,`新角色取得時直接為 +0～+${enhanceMax}。之後仍可照一般規則強化。`)}
+          ${inputField('固定強度階級 T','powerTier',entry.powerTier,'number','min=1 max=10 step=1',false,'此 T 階在取得後固定，不會隨角色等級成長，也不能重鑄。')}
+          ${inputField('初始強化值 +','plus',entry.plus,'number',`min=0 max=${enhanceMax} step=1`,false,'可由設計器預先指定；玩家取得後不能再強化。')}
+          <div class="field"><label>固定前綴</label><select id="starterPrefix">${starterNamedOptions('prefix',slot,entry.prefixId)}</select><div class="field-help">直接指定既有前綴；不受掉落機率與 T 級生成條件影響。</div></div>
+          <div class="field"><label>固定後綴</label><select id="starterSuffix">${starterNamedOptions('suffix',slot,entry.suffixId)}</select><div class="field-help">直接指定既有後綴；不受掉落機率與 T 級生成條件影響。</div></div>
           <div class="field full"><label>固定屬性來源</label><select id="starterFixedMode"><option value="inherit" ${!custom?'selected':''}>沿用基底裝備</option><option value="custom" ${custom?'selected':''}>此新手裝獨立自訂</option></select><div class="field-help">${custom?'目前這件新手裝使用自己的固定屬性，不受基底裝備之後修改影響。':`目前沿用「${esc(base?.name||'基底裝備')}」的固定屬性。`}</div></div>
         </div>
         ${custom?`<div class="hr"></div><div class="field full"><label>自訂固定屬性</label><div id="starterFixedRows">${starterEffectRowsHTML(entry.fixedEffects,job)}</div><button class="small" data-add-fixed-effect>新增固定屬性</button></div>`:''}
         <div class="hr"></div>
+        <h3>固定詞綴</h3>
+        <div class="grid2">${starterAffixCardHTML(entry,0,job,slot)}${starterAffixCardHTML(entry,1,job,slot)}</div>
+        <div class="hr"></div>
         <div class="fields">
-          <div class="field full"><label>成長裝備</label><select id="starterGrowthEnabled"><option value="false" ${!growth.enabled?'selected':''}>否</option><option value="true" ${growth.enabled?'selected':''}>是</option></select><div class="field-help">開啟後，裝備會依持有角色目前等級即時計算成長；成長資料會寫入這件新手裝的存檔。</div></div>
+          <div class="field full"><label>每級屬性成長</label><select id="starterGrowthEnabled"><option value="false" ${!growth.enabled?'selected':''}>關閉</option><option value="true" ${growth.enabled?'selected':''}>開啟</option></select><div class="field-help">只增加下方指定屬性；不會改變 T 階、強化值、前後綴或兩條詞綴。</div></div>
           ${growth.enabled?`
-          ${inputField('開始成長等級','startLevel',growth.startLevel,'number','min=1 step=1',false,'角色到此等級後才開始累積成長；此等級本身仍是 0 級成長。')}
-          ${inputField('停止成長等級','maxLevel',growth.maxLevel,'number','min=1 step=1',false,'超過此等級後不再增加 T 階或每級屬性。')}
-          ${inputField('每幾級提升 1 T','levelsPerTier',growth.levelsPerTier,'number','min=0 step=1',false,'0 表示不做 T 階成長，只使用下方每級屬性成長。')}
-          ${inputField('最高 T 階','maxPowerTier',growth.maxPowerTier,'number','min=1 max=10 step=1',false,`目前設定最終約 T${finalTier}；不會超過此值。`)}
+          ${inputField('開始成長等級','startLevel',growth.startLevel,'number','min=1 step=1',false,'角色到此等級後開始累積；例如開始等級 1，升到 LV2 時取得第 1 級成長。')}
+          ${inputField('停止成長等級','maxLevel',growth.maxLevel,'number','min=1 step=1',false,'超過此等級後不再增加每級屬性。')}
           `:''}
         </div>
-        ${growth.enabled?`<div class="field full"><label>每級成長屬性</label><div class="field-help" style="margin-bottom:8px">可設定 0～5 條。數值會乘上「已成長等級」後附加到這件裝備，例如攻擊力 0.5%／級、固定攻擊 1／級、指定技能效果 1%／級。</div><div id="starterGrowthRows">${starterEffectRowsHTML(growth.effects,job,{growth:true})}</div><button class="small" data-add-growth-effect>新增每級成長屬性</button></div>`:''}
+        ${growth.enabled?`<div class="field full"><label>每級成長屬性</label><div class="field-help" style="margin-bottom:8px">可設定 0～5 條。裝備詳細頁會另外以摺疊欄顯示這些新手裝專屬成長。</div><div id="starterGrowthRows">${starterEffectRowsHTML(growth.effects,job,{growth:true})}</div><button class="small" data-add-growth-effect>新增每級成長屬性</button></div>`:''}
       `);
 
     const app=document.getElementById('app');
@@ -2738,24 +2891,25 @@ ensureArrays();requestEditorInitialRender();
       Object.assign(entry,{group,slot:newSlot,form});markDirty();render();
     };
     const power=app.querySelector('[data-key="powerTier"]'),plus=app.querySelector('[data-key="plus"]');
-    power.onchange=()=>{entry.powerTier=Math.max(1,Math.min(10,Math.round(Number(power.value)||1)));if(entry.growth.maxPowerTier<entry.powerTier)entry.growth.maxPowerTier=entry.powerTier;markDirty();render();};
+    power.onchange=()=>{entry.powerTier=Math.max(1,Math.min(10,Math.round(Number(power.value)||1)));markDirty();};
     plus.onchange=()=>{entry.plus=Math.max(0,Math.min(enhanceMax,Math.round(Number(plus.value)||0)));markDirty();};
+    document.getElementById('starterPrefix').onchange=ev=>{entry.prefixId=ev.target.value;markDirty();};
+    document.getElementById('starterSuffix').onchange=ev=>{entry.suffixId=ev.target.value;markDirty();};
     document.getElementById('starterFixedMode').onchange=ev=>{
       if(ev.target.value==='custom')entry.fixedEffects=structuredClone(base?.fixedEffects?.length?base.fixedEffects:[{key:'flatAttack',value:0}]).slice(0,5).map(x=>ensureStarterEffectShape(x,job,false));
       else entry.fixedEffects=null;
       markDirty();render();
     };
     if(custom)bindStarterEffects(document.getElementById('starterFixedRows'),entry.fixedEffects,job,{onChange:render});
+    bindStarterAffixCards(app,entry,job,slot);
     document.getElementById('starterGrowthEnabled').onchange=ev=>{growth.enabled=ev.target.value==='true';markDirty();render();};
     if(growth.enabled){
-      for(const key of ['startLevel','maxLevel','levelsPerTier','maxPowerTier']){
+      for(const key of ['startLevel','maxLevel']){
         const el=app.querySelector(`[data-key="${key}"]`);
         el.onchange=()=>{
           const maxLevel=Math.max(1,Math.floor(data.balanceSettings?.progression?.levelCaps?.afterClear||60));
           if(key==='startLevel')growth.startLevel=Math.max(1,Math.min(maxLevel,Math.round(Number(el.value)||1)));
           if(key==='maxLevel')growth.maxLevel=Math.max(growth.startLevel,Math.min(maxLevel,Math.round(Number(el.value)||growth.startLevel)));
-          if(key==='levelsPerTier')growth.levelsPerTier=Math.max(0,Math.min(maxLevel,Math.round(Number(el.value)||0)));
-          if(key==='maxPowerTier')growth.maxPowerTier=Math.max(entry.powerTier,Math.min(10,Math.round(Number(el.value)||entry.powerTier)));
           if(growth.maxLevel<growth.startLevel)growth.maxLevel=growth.startLevel;
           markDirty();render();
         };
@@ -2770,6 +2924,23 @@ ensureArrays();requestEditorInitialRender();
     return starterRenderBase();
   };
 
+  function validNamedAffix(kind,slot,id){
+    if(!id)return true;
+    return starterNamedRows(kind,slot).some(x=>x.id===id);
+  }
+
+  function validateStarterAffix(issues,affix,job,slot,label,index){
+    if(affix===null)return;
+    if(!affix||typeof affix!=='object'){issues.push(`${label}的固定詞綴 ${index+1} 資料無效。`);return;}
+    if(!Number.isInteger(affix.rank)||affix.rank<0||affix.rank>3){issues.push(`${label}固定詞綴 ${index+1} 的品質無效。`);return;}
+    if(!Number.isInteger(affix.type)||!STARTER_AFFIX_BY_TYPE[affix.type])issues.push(`${label}固定詞綴 ${index+1} 的種類無效。`);
+    if(!starterAffixPool(slot,affix.rank).some(x=>Number(x.type)===Number(affix.type)))issues.push(`${label}固定詞綴 ${index+1} 不存在於目前「部位 × 品質」詞條池。`);
+    if(!Number.isFinite(Number(affix.value))||Number(affix.value)<0||Number(affix.value)>10000)issues.push(`${label}固定詞綴 ${index+1} 的數值無效。`);
+    if([4,5].includes(affix.type)&&(!Number.isInteger(affix.skill)||affix.skill<0||affix.skill>=(data.classes[job]?.skills?.length||0)))issues.push(`${label}固定詞綴 ${index+1} 的指定技能無效。`);
+    if([12,14].includes(affix.type)&&!Object.prototype.hasOwnProperty.call(STARTER_ELEMENTS,affix.element))issues.push(`${label}固定詞綴 ${index+1} 的指定屬性無效。`);
+    if(affix.type===13&&!Object.prototype.hasOwnProperty.call(STARTER_RACES,affix.race))issues.push(`${label}固定詞綴 ${index+1} 的指定種族無效。`);
+  }
+
   const starterValidateBase=validateData;
   validateData=function(){
     const issues=starterValidateBase();ensureStarterPackData();
@@ -2781,8 +2952,12 @@ ensureArrays();requestEditorInitialRender();
       row.forEach((entry,position)=>{
         const expectedSlot=STARTER_PACK_SLOTS[position],label=`${data.classes[job]?.name||'角色 '+job}新手禮包「${STARTER_PACK_LABELS[position]}」`;
         if(!starterPackCandidates(job,expectedSlot).some(x=>sameStarterPackRef(entry,x.ref)))issues.push(`${label}的基底裝備引用無效。`);
-        if(!Number.isInteger(entry.powerTier)||entry.powerTier<1||entry.powerTier>10)issues.push(`${label}的初始 T 階必須為 1～10。`);
+        if(!Number.isInteger(entry.powerTier)||entry.powerTier<1||entry.powerTier>10)issues.push(`${label}的固定 T 階必須為 1～10。`);
         if(!Number.isInteger(entry.plus)||entry.plus<0||entry.plus>enhanceMax)issues.push(`${label}的初始強化值必須為 0～${enhanceMax}。`);
+        if(!validNamedAffix('prefix',expectedSlot,entry.prefixId))issues.push(`${label}的固定前綴無效或不適用此部位。`);
+        if(!validNamedAffix('suffix',expectedSlot,entry.suffixId))issues.push(`${label}的固定後綴無效或不適用此部位。`);
+        if(!Array.isArray(entry.affixes)||entry.affixes.length!==2)issues.push(`${label}必須保留兩個固定詞綴欄位。`);
+        else entry.affixes.forEach((a,i)=>validateStarterAffix(issues,a,job,expectedSlot,label,i));
         if(entry.fixedEffects!==null&&(!Array.isArray(entry.fixedEffects)||entry.fixedEffects.length<1||entry.fixedEffects.length>5))issues.push(`${label}的自訂固定屬性必須為 1～5 條。`);
         for(const fx of entry.fixedEffects||[]){
           const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx?.key];
@@ -2791,11 +2966,9 @@ ensureArrays();requestEditorInitialRender();
           if(def?.target==='skill'&&(!Number.isInteger(fx.skill)||fx.skill<0||fx.skill>=(data.classes[job]?.skills?.length||0)))issues.push(`${label}指定技能屬性無效。`);
         }
         const g=entry.growth;
-        if(!g||typeof g!=='object')issues.push(`${label}缺少成長設定。`);
+        if(!g||typeof g!=='object')issues.push(`${label}缺少每級成長設定。`);
         else{
           if(!Number.isInteger(g.startLevel)||g.startLevel<1||g.startLevel>maxLevel||!Number.isInteger(g.maxLevel)||g.maxLevel<g.startLevel||g.maxLevel>maxLevel)issues.push(`${label}的成長等級範圍無效。`);
-          if(!Number.isInteger(g.levelsPerTier)||g.levelsPerTier<0||g.levelsPerTier>maxLevel)issues.push(`${label}的 T 階成長間隔無效。`);
-          if(!Number.isInteger(g.maxPowerTier)||g.maxPowerTier<entry.powerTier||g.maxPowerTier>10)issues.push(`${label}的最高 T 階無效。`);
           if(!Array.isArray(g.effects)||g.effects.length>5)issues.push(`${label}的每級成長屬性最多 5 條。`);
           for(const fx of g.effects||[]){
             const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx?.key];
@@ -2806,7 +2979,7 @@ ensureArrays();requestEditorInitialRender();
         }
       });
     });
-    return issues;
+    return [...new Set(issues)];
   };
 
   ensureArrays();
