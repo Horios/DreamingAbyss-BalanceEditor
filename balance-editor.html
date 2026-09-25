@@ -552,7 +552,7 @@ function balanceMeta(path){
     "balance.combat.statCaps.defenseIgnore":["防禦無視上限","百分比防禦無視上限；0.75 = 最多無視 75% 防禦。"],
     "balance.combat.statCaps.evasion":["最終閃避率上限","0.45 = 最多 45% 閃避率。"],
     "balance.combat.statCaps.lifesteal":["最終生命竊取上限","0.25 = 最多依實際傷害吸取 25% 生命。"],
-    "balance.combat.minimumActiveCooldown":["主動技能最低冷卻","技能原始冷卻扣除寶石與冷卻詞條後，不能低於此回合數。"],
+    "balance.combat.minimumActiveCooldown":["主動技能最低冷卻","技能原始冷卻扣除寶石與冷卻詞條後的下限；預設為 1。冷卻 N 代表施放後完整經過 N 次自身行動才可再次施放。"],
     "balance.affixes.skillSpecialChance":["精良以上轉成技能詞條的機率","每條詞條先抽品質；精良以上才會用這個機率改抽「技能效果／冷卻或觸發率」類。0.4 = 40%。"],
     "balance.affixes.skillEffectShare":["技能詞條中抽到技能效果的比例","進入技能詞條池後，這個比例抽技能效果；剩餘比例抽冷卻減少／觸發率增加。"],
     "balance.affixes.extendedPoolChance":["替換成擴充詞條的機率","前一步產生詞條後，每一條再獨立判定是否整條替換成暴傷、穿透、吸血、閃避、屬傷、種族增傷、抗性或攻擊力%。"],
@@ -1318,18 +1318,29 @@ function sanitizeLegacyMonsterSkillData(root){
   return root;
 }
 sanitizeLegacyMonsterSkillData(data);sanitizeLegacyMonsterSkillData(BALANCE_SETTINGS_DEFAULTS);
+function migrateActiveCooldownFloorEditor(root){
+  if(!root||typeof root!=='object')return root;
+  root.balance??={};root.balance.combat??={};root.balanceSettings??={};root.balanceSettings.meta??={};
+  if(Number(root.balanceSettings.meta.activeCooldownFloorVersion||0)<1){
+    if(Number(root.balance.combat.minimumActiveCooldown)===2)root.balance.combat.minimumActiveCooldown=1;
+    root.balanceSettings.meta.activeCooldownFloorVersion=1;
+  }
+  return root;
+}
+migrateActiveCooldownFloorEditor(ORIGINAL_DATA);migrateActiveCooldownFloorEditor(data);
 const legacyMonsterPoolEnsureBase=ensureArrays;
 ensureArrays=function(){const out=legacyMonsterPoolEnsureBase();sanitizeLegacyMonsterSkillData(data);return out;};
 const actionTurnEnsureArraysBase=ensureArrays;
 ensureArrays=function(){
   actionTurnEnsureArraysBase();
+  migrateActiveCooldownFloorEditor(data);
   data.balance??={};data.balance.affixes??={};data.balance.affixes.extendedValues??={};
   data.balance.affixes.extendedValues.allCooldownReduction=deepFillDefaults({normal:0,fine:0,rare:1,legendary:2},data.balance.affixes.extendedValues.allCooldownReduction);
 };
 const actionTurnSettingMetaBase=settingMeta;
 settingMeta=function(path){
   const p=path.replace(/^balanceSettings\./,'');
-  if(p==='skills.gems.cooldownReduction')return {label:'疾風石主動冷卻減少',help:'主動技能減少的角色自身行動回合；不會因其他單位行動或戰鬥倍速額外推進。'};
+  if(p==='skills.gems.cooldownReduction')return {label:'疾風石主動冷卻減少',help:'主動技能減少的角色自身行動回合；預設最低可降到 1。冷卻 1 代表施放後完整經過 1 次自身行動，之後才能再次施放。'};
   return actionTurnSettingMetaBase(path);
 };
 const actionTurnBalanceMetaBase=balanceMeta;
@@ -1338,7 +1349,7 @@ balanceMeta=function(path){
   if(m){const q={normal:'普通',fine:'精良',rare:'稀有',legendary:'傳說'};return {label:`${q[m[1]]}全技能冷卻減少`,help:'新詞條 type 16 的數值，單位為角色自身行動回合。只影響主動與輔助技能；0 表示此品質不進入候選池。'};}
   m=path.match(/^balance\.affixes\.cooldownReduction\.(normal|fine|rare|legendary)$/);
   if(m){const q={normal:'普通',fine:'精良',rare:'稀有',legendary:'傳說'};return {label:`${q[m[1]]}指定技能冷卻減少`,help:'若詞條指定主動技能，直接減少該技能的角色自身行動回合；若指定 proc 技能，則轉為觸發率增加。'};}
-  if(path==='balance.combat.minimumActiveCooldown')return {label:'主動技能最低冷卻',help:'所有寶石與冷卻詞條扣除後，主動技能仍不能低於此「角色自身行動回合」數。'};
+  if(path==='balance.combat.minimumActiveCooldown')return {label:'主動技能最低冷卻',help:'所有寶石與冷卻詞條扣除後的下限；目前預設為 1。冷卻 N 代表施放後要完整經過 N 次角色自身行動才可再次施放。'};
   return actionTurnBalanceMetaBase(path);
 };
 ensureArrays();
