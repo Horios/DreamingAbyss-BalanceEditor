@@ -901,7 +901,7 @@ function renderSkills(){
   const add=document.getElementById("addSkill");
   if(add)add.onclick=()=>{
     if(!c)return;
-    const next={id:uniqueCoreSkillId(selected.skillClass),name:"新技能",usageScope:"character",activation:skillMode,requiredLevel:1,cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,description:""};
+    const next={id:uniqueCoreSkillId(selected.skillClass),name:"新技能",usageScope:"character",activation:skillMode,requiredLevel:1,cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,iconType:"auto",description:""};
     if(skillMode==="proc")ensureProcSkillFields(next);
     skills.push(next);selected.skill=skills.length-1;markDirty();render();
   };
@@ -3549,6 +3549,9 @@ const WEAPON_TYPE_LABELS={sword:'劍',axe:'斧',hammer:'槌',bow:'弓',crossbow:
 const WEAPON_TYPES=Object.keys(WEAPON_TYPE_LABELS),WEAPON_TYPE_SET=new Set(WEAPON_TYPES);
 const MASTERY_BY_JOB=[['sword','axe','hammer'],['fire','ice','wind','shadow'],['bow','crossbow'],['light','shadow']];
 const MASTERY_LABELS={sword:'劍',axe:'斧',hammer:'槌',bow:'弓',crossbow:'弩',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'};
+const SKILL_ICON_TYPES=['auto','sword','axe','hammer','bow','crossbow','shield','heal','fire','ice','wind','light','shadow','magic','buff','debuff','drain','trigger'];
+const SKILL_ICON_TYPE_SET=new Set(SKILL_ICON_TYPES);
+const SKILL_ICON_LABELS={auto:'自動判斷',sword:'劍',axe:'斧',hammer:'槌',bow:'弓',crossbow:'弩',shield:'盾牌',heal:'治療',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗',magic:'魔法',buff:'強化',debuff:'弱化',drain:'吸取',trigger:'觸發'};
 const JOB_WEAPONS=[['sword','axe','hammer'],['staff','grimoire'],['bow','crossbow'],['prayerBook','holyStaff']];
 const LEGACY_WEAPON_BY_NAME={'闊刃劍':'sword','穿甲槍':'sword','汲血斧':'axe','狙擊長弓':'bow','穿雲弩':'crossbow','風羽短弓':'bow','炎晶杖':'staff','霜紋杖':'staff','疾風法器':'grimoire','晨光權杖':'holyStaff','淨化槌':'holyStaff','祈禱法杖':'holyStaff'};
 const OLD_LEVELS=[1,4,7,11,15,20],NEW_LEVELS=[1,3,5,7,15,20],OLD_SUPPORT=[1,7,15],NEW_SUPPORT=[1,4,15];
@@ -3579,7 +3582,7 @@ function migrateOverhaul(obj){
       if(!already&&defaultPattern&&i<NEW_LEVELS.length)sk.requiredLevel=NEW_LEVELS[i];
       if(!already&&job===3&&[2,3].includes(i)&&sk.element==='light')sk.element='shadow';
       if(sk.mastery===undefined)sk.mastery=plan.mastery??null;if(sk.requiredMastery===undefined)sk.requiredMastery=plan.requiredMastery??null;if(!Number.isInteger(sk.requiredMasteryLevel))sk.requiredMasteryLevel=plan.requiredMasteryLevel??0;
-      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=clone(plan.weaponTypes||[]);sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));
+      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=clone(plan.weaponTypes||[]);sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));if(!SKILL_ICON_TYPE_SET.has(sk.iconType))sk.iconType='auto';
       delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.powerPerLevel=0;
       if(sk.activation==='proc'){ensureProcSkillFields(sk);sk.procChancePerLevel=0;}
       if(sk.mastery!==null&&!valid.has(sk.mastery))sk.mastery=plan.mastery??null;if(sk.requiredMastery!==null&&!valid.has(sk.requiredMastery))sk.requiredMastery=plan.requiredMastery??null;
@@ -3587,7 +3590,7 @@ function migrateOverhaul(obj){
     const supports=obj.supportSkills?.[job]||[],supportPattern=supports.length===3&&supports.every((sk,i)=>Number(sk.level)===OLD_SUPPORT[i]);
     for(let i=0;i<supports.length;i++){const sk=supports[i],plan=SUPPORT_PLAN[job]?.[i]||{},valid=new Set(MASTERY_BY_JOB[job]||[]);
       if(!already&&supportPattern)sk.level=NEW_SUPPORT[i];if(sk.mastery===undefined)sk.mastery=plan.mastery??null;if(sk.requiredMastery===undefined)sk.requiredMastery=null;if(!Number.isInteger(sk.requiredMasteryLevel))sk.requiredMasteryLevel=0;
-      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=[];sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.effectPerLevel=0;
+      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=[];sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));if(!SKILL_ICON_TYPE_SET.has(sk.iconType))sk.iconType='auto';delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.effectPerLevel=0;
       if(sk.mastery!==null&&!valid.has(sk.mastery))sk.mastery=plan.mastery??null;if(sk.requiredMastery!==null&&!valid.has(sk.requiredMastery))sk.requiredMastery=null;
     }
   }
@@ -3610,6 +3613,11 @@ function masteryEditorCard(job,sk){
   const allowed=JOB_WEAPONS[job]||WEAPON_TYPES,selectedWeapons=new Set(sk.weaponTypes||[]);
   return card('精通與武器條件',`<div class="mastery-editor-grid"><div class="field"><label>使用時培養精通</label><select id="skillMastery">${masteryOptions(job,sk.mastery)}</select><div class="field-help">成功使用技能後增加此精通 XP；無代表不提供精通。</div></div><div class="field"><label>學習需求精通</label><select id="skillRequiredMastery">${masteryOptions(job,sk.requiredMastery)}</select><div class="field-help">與角色等級共同判斷；選「無」時精通等級要求固定為 0。</div></div><div class="field"><label>需求精通等級</label><input id="skillRequiredMasteryLevel" type="number" min="0" max="100" step="1" value="${esc(sk.requiredMasteryLevel??0)}"><div class="field-help">可設定 0～100 的整數。</div></div><div class="field"><label>允許使用武器</label><div class="mastery-editor-weapons">${allowed.map(k=>`<label><input type="checkbox" data-skill-weapon="${k}" ${selectedWeapons.has(k)?'checked':''}>${esc(WEAPON_TYPE_LABELS[k])}</label>`).join('')}</div><div class="field-help">空白代表不限制武器；weaponType 與 mastery 是不同概念。</div></div></div>`);
 }
+function skillIconEditorCard(sk){
+  const options=SKILL_ICON_TYPES.map(k=>`<option value="${k}" ${sk.iconType===k?'selected':''}>${esc(SKILL_ICON_LABELS[k]||k)}</option>`).join('');
+  return card('技能圖示',`<div class="fields"><div class="field"><label>圖示種類</label><select id="skillIconType">${options}</select><div class="field-help">「自動判斷」會依技能效果、元素與精通類型選擇圖案；也可以固定指定劍、盾牌或元素等圖示。</div></div></div>`);
+}
+function bindSkillIconCard(sk){const el=document.getElementById('skillIconType');if(el)el.onchange=()=>{sk.iconType=SKILL_ICON_TYPE_SET.has(el.value)?el.value:'auto';markDirty();};}
 function bindMasteryCard(sk){
   const m=document.getElementById('skillMastery'),r=document.getElementById('skillRequiredMastery'),lv=document.getElementById('skillRequiredMasteryLevel');
   if(m)m.onchange=()=>{sk.mastery=m.value||null;markDirty();};if(r)r.onchange=()=>{sk.requiredMastery=r.value||null;if(!sk.requiredMastery){sk.requiredMasteryLevel=0;if(lv)lv.value='0';}markDirty();};if(lv)lv.onchange=()=>{sk.requiredMasteryLevel=Math.max(0,Math.min(100,Math.floor(Number(lv.value)||0)));lv.value=String(sk.requiredMasteryLevel);markDirty();};
@@ -3622,7 +3630,7 @@ const masteryRenderSkillsBase=renderSkills;renderSkills=function(){
   const powerHelp=app.querySelector('[data-key="power"]')?.closest('.field')?.querySelector('.field-help');if(powerHelp)powerHelp.textContent='學會後直接使用此完整基礎倍率；寶石、裝備詞條與其他外部效果仍可增強技能。';
   const valueHelp=app.querySelector('[data-key="value"]')?.closest('.field')?.querySelector('.field-help');if(valueHelp&&support)valueHelp.textContent='使用 0~1 小數，例如 0.18 = 18%。學會後直接使用此完整效果，不再隨技能等級成長。';
   const procBase=app.querySelector('[data-key="procBaseChance"]')?.closest('.field')?.querySelector('label');if(procBase)procBase.textContent='基礎觸發率';
-  app.insertAdjacentHTML('beforeend',masteryEditorCard(job,sk));bindMasteryCard(sk);
+  app.insertAdjacentHTML('beforeend',masteryEditorCard(job,sk)+skillIconEditorCard(sk));bindMasteryCard(sk);bindSkillIconCard(sk);
 };
 const masteryRenderEquipmentBase=renderEquipment;renderEquipment=function(){
   ensureArrays();masteryRenderEquipmentBase();if(selected.equipSlot!==0)return;const e=data.equipmentForms?.[selected.equipClass]?.[0]?.[selected.equip];if(!e)return;const app=document.getElementById('app');
@@ -3648,7 +3656,7 @@ function cleanMasteryExport(){
   for(const cls of out.classes||[])for(const sk of cls.skills||[]){delete sk.powerPerLevel;if(sk.activation==='proc')delete sk.procChancePerLevel;delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.requiredMasteryLevel=Math.max(0,Math.min(100,Math.floor(Number(sk.requiredMasteryLevel)||0)));}
   for(const list of out.supportSkills||[])for(const sk of list||[]){delete sk.effectPerLevel;delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.requiredMasteryLevel=Math.max(0,Math.min(100,Math.floor(Number(sk.requiredMasteryLevel)||0)));}
   if(out.balanceSettings?.skills?.core){delete out.balanceSettings.skills.core.maxLevel;delete out.balanceSettings.skills.core.initialCap;delete out.balanceSettings.skills.core.capLevelsPerStep;delete out.balanceSettings.skills.core.effectPerExtraLevel;}if(out.balanceSettings?.skills?.proc)delete out.balanceSettings.skills.proc.perSkillLevel;if(out.balanceSettings?.skills?.support){delete out.balanceSettings.skills.support.maxLevel;delete out.balanceSettings.skills.support.effectPerExtraLevel;}
-  out.notes=[...(out.notes||[]).filter(x=>!/powerPerLevel|procChancePerLevel|effectPerLevel|技能等級|每級|prerequisite|前置/i.test(String(x))),'第一次大修：技能只有未學／已學；技能點與技能等級舊欄位不再參與正式計算。','mastery / requiredMastery / requiredMasteryLevel / weaponTypes 為技能培養、學習與武器條件；requiredMasteryLevel 限制為 0～100。','武器使用穩定 weaponType；weaponType 與 mastery 為獨立概念。'];return out;
+  out.notes=[...(out.notes||[]).filter(x=>!/powerPerLevel|procChancePerLevel|effectPerLevel|技能等級|每級|prerequisite|前置/i.test(String(x))),'第一次大修：技能只有未學／已學；技能點與技能等級舊欄位不再參與正式計算。','mastery / requiredMastery / requiredMasteryLevel / weaponTypes 為技能培養、學習與武器條件；requiredMasteryLevel 限制為 0～100。','iconType 控制技能頁小圖示；auto 會依效果、元素與精通自動判斷。','武器使用穩定 weaponType；weaponType 與 mastery 為獨立概念。'];return out;
 }
 function exportMasteryWorkspace(kind){
   ensureArrays();const issues=validateData();if(kind==='release'&&issues.length){alert('正式實裝 JSON 必須先通過相容性檢查。目前仍有 '+issues.length+' 個提醒：\n\n'+issues.slice(0,12).join('\n'));currentSection='overview';render();return;}if(kind==='test'&&issues.length&&!confirm('目前有 '+issues.length+' 個資料提醒。仍要匯出測試 JSON 嗎？\n\n'+issues.slice(0,8).join('\n')))return;
