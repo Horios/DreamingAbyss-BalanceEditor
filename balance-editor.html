@@ -2521,7 +2521,13 @@ ensureArrays();requestEditorInitialRender();
 (function starterPackEditorExtension(){
   const STARTER_PACK_SLOTS=[0,1,2,3,3];
   const STARTER_PACK_LABELS=['武器','護甲','副手','飾品 1','飾品 2'];
-  let starterPackClass=0;
+  const STARTER_GROWTH_EFFECT_DEFS=EQUIPMENT_FIXED_EFFECT_DEFS.filter(x=>x.key!=='basicElement');
+  let starterPackClass=0,starterPackPosition=0;
+
+  function starterGrowthDefault(){
+    const maxLevel=Math.max(1,Math.floor(data.balanceSettings?.progression?.levelCaps?.afterClear||60));
+    return {enabled:false,startLevel:1,maxLevel,levelsPerTier:0,maxPowerTier:10,effects:[]};
+  }
 
   function starterPackWearableJobs(form,group,slot){
     const all=data.classes.map((_,i)=>i);
@@ -2552,18 +2558,72 @@ ensureArrays();requestEditorInitialRender();
     return rows;
   }
 
-  function starterPackDefaultRow(job){
-    return STARTER_PACK_SLOTS.map((slot,position)=>{
-      const rows=starterPackCandidates(job,slot);
-      if(!rows.length)return null;
-      return structuredClone((position===4?(rows[1]||rows[0]):rows[0]).ref);
-    });
+  function sameStarterPackRef(a,b){
+    return Number(a?.group)===b.group&&Number(a?.slot)===b.slot&&Number(a?.form)===b.form;
+  }
+
+  function starterBaseForm(job,entry){
+    const slot=Number(entry?.slot);
+    return starterPackCandidates(job,slot).find(x=>sameStarterPackRef(entry,x.ref))?.item||null;
+  }
+
+  function starterPackDefaultEntry(job,slot,position){
+    const rows=starterPackCandidates(job,slot);
+    if(!rows.length)return null;
+    return {...structuredClone((position===4?(rows[1]||rows[0]):rows[0]).ref),powerTier:1,plus:0,fixedEffects:null,growth:starterGrowthDefault()};
+  }
+
+  function ensureStarterEffectShape(effect,job,growth=false){
+    const defs=growth?STARTER_GROWTH_EFFECT_DEFS:EQUIPMENT_FIXED_EFFECT_DEFS;
+    const allowed=new Set(defs.map(x=>x.key));
+    if(!effect||typeof effect!=='object'||!allowed.has(effect.key))effect={key:defs[0].key,value:fixedEffectDefault(defs[0].key)};
+    const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[effect.key]||defs[0];
+    if(effect.key==='basicElement')effect.value=ELEMENTS.includes(effect.value)?effect.value:'physical';
+    else effect.value=Number.isFinite(Number(effect.value))?Number(effect.value):0;
+    if(def.target==='element')effect.element=ELEMENTS.includes(effect.element)&&effect.element!=='physical'?effect.element:'fire';else delete effect.element;
+    if(def.target==='race')effect.race=Object.prototype.hasOwnProperty.call(EQUIPMENT_FIXED_RACES,effect.race)?effect.race:'beast';else delete effect.race;
+    if(def.target==='skill'){
+      const count=data.classes[job]?.skills?.length||0;
+      effect.skill=Math.max(0,Math.min(Math.max(0,count-1),Number.isInteger(Number(effect.skill))?Number(effect.skill):0));
+    }else delete effect.skill;
+    return effect;
+  }
+
+  function normalizeStarterEntryEditor(raw,job,position){
+    const slot=STARTER_PACK_SLOTS[position],fallback=starterPackDefaultEntry(job,slot,position);
+    if(!fallback)return raw||null;
+    const entry=raw&&typeof raw==='object'?raw:{};
+    const validRef=starterPackCandidates(job,slot).some(x=>sameStarterPackRef(entry,x.ref));
+    const ref=validRef?{group:Number(entry.group),slot:Number(entry.slot),form:Number(entry.form)}:structuredClone(fallback);
+    const enhanceMax=Math.max(0,Math.floor(data.balanceSettings?.equipment?.enhance?.maxLevel||10));
+    ref.powerTier=Number.isInteger(Number(entry.powerTier))?Math.max(1,Math.min(10,Number(entry.powerTier))):1;
+    ref.plus=Number.isInteger(Number(entry.plus))?Math.max(0,Math.min(enhanceMax,Number(entry.plus))):0;
+    if(Array.isArray(entry.fixedEffects)&&entry.fixedEffects.length){
+      ref.fixedEffects=entry.fixedEffects.slice(0,5).map(x=>ensureStarterEffectShape(structuredClone(x),job,false));
+    }else ref.fixedEffects=null;
+    const maxLevel=Math.max(1,Math.floor(data.balanceSettings?.progression?.levelCaps?.afterClear||60)),g=entry.growth&&typeof entry.growth==='object'?entry.growth:{};
+    ref.growth={
+      enabled:!!g.enabled,
+      startLevel:Number.isInteger(Number(g.startLevel))?Math.max(1,Math.min(maxLevel,Number(g.startLevel))):1,
+      maxLevel:Number.isInteger(Number(g.maxLevel))?Math.max(1,Math.min(maxLevel,Number(g.maxLevel))):maxLevel,
+      levelsPerTier:Number.isInteger(Number(g.levelsPerTier))?Math.max(0,Math.min(maxLevel,Number(g.levelsPerTier))):0,
+      maxPowerTier:Number.isInteger(Number(g.maxPowerTier))?Math.max(ref.powerTier,Math.min(10,Number(g.maxPowerTier))):10,
+      effects:Array.isArray(g.effects)?g.effects.slice(0,5).map(x=>ensureStarterEffectShape(structuredClone(x),job,true)):[]
+    };
+    if(ref.growth.maxLevel<ref.growth.startLevel)ref.growth.maxLevel=ref.growth.startLevel;
+    return ref;
   }
 
   function ensureStarterPackData(){
-    if(!Array.isArray(data.starterPacks)){
-      data.starterPacks=data.classes.map((_,job)=>starterPackDefaultRow(job));
+    if(!Array.isArray(data.starterPacks))data.starterPacks=[];
+    for(let job=0;job<data.classes.length;job++){
+      if(!Array.isArray(data.starterPacks[job]))data.starterPacks[job]=[];
+      for(let position=0;position<5;position++){
+        data.starterPacks[job][position]=normalizeStarterEntryEditor(data.starterPacks[job][position],job,position);
+      }
+      data.starterPacks[job].length=5;
     }
+    data.starterPacks.length=data.classes.length;
   }
 
   const starterEnsureBase=ensureArrays;
@@ -2582,53 +2642,151 @@ ensureArrays();requestEditorInitialRender();
   count=function(section,...args){
     if(section==='starterPacks'){
       ensureStarterPackData();
-      return Array.isArray(data.starterPacks)?data.starterPacks.length:0;
+      return data.starterPacks.length;
     }
     return starterCountBase(section,...args);
   };
 
-  function sameStarterPackRef(a,b){
-    return Number(a?.group)===b.group&&Number(a?.slot)===b.slot&&Number(a?.form)===b.form;
+  function starterSkillOptions(job,selected){
+    const list=data.classes[job]?.skills||[];
+    return list.map((sk,i)=>`<option value="${i}" ${Number(selected)===i?'selected':''}>${i+1}. ${esc(sk.name||`核心技能 ${i+1}`)}</option>`).join('');
+  }
+
+  function starterEffectRowsHTML(effects,job,{growth=false}={}){
+    const defs=growth?STARTER_GROWTH_EFFECT_DEFS:EQUIPMENT_FIXED_EFFECT_DEFS;
+    if(!effects.length)return `<div class="empty">${growth?'尚未設定每級成長屬性。':'至少需要 1 條自訂固定屬性。'}</div>`;
+    return effects.map((fx,i)=>{
+      ensureStarterEffectShape(fx,job,growth);
+      const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key]||defs[0];
+      const target=def.target==='element'
+        ?`<select class="starter-fx-target">${ELEMENTS.filter(x=>x!=='physical').map(x=>`<option value="${x}" ${fx.element===x?'selected':''}>${esc(ELEMENT_LABELS[x]||x)}</option>`).join('')}</select>`
+        :def.target==='race'
+          ?`<select class="starter-fx-target">${Object.entries(EQUIPMENT_FIXED_RACES).map(([k,n])=>`<option value="${k}" ${fx.race===k?'selected':''}>${esc(n)}</option>`).join('')}</select>`
+          :def.target==='skill'
+            ?`<select class="starter-fx-target">${starterSkillOptions(job,fx.skill)}</select>`
+            :`<span class="fixed-target-placeholder"></span>`;
+      const value=fx.key==='basicElement'
+        ?`<select class="starter-fx-value">${ELEMENTS.map(x=>`<option value="${x}" ${fx.value===x?'selected':''}>${esc(ELEMENT_LABELS[x]||x)}</option>`).join('')}</select>`
+        :`<input class="starter-fx-value" type="number" step="${['basicAdvanceNextRound','allCooldownReduction','skillCooldownReduction'].includes(fx.key)?'1':'0.01'}" value="${esc(fx.value)}">`;
+      return `<div class="kvrow fixed-effect-row starter-effect-row" data-index="${i}">
+        <select class="starter-fx-key">${defs.map(x=>`<option value="${x.key}" ${x.key===fx.key?'selected':''}>${esc(x.label)}</option>`).join('')}</select>
+        ${target}${value}<span class="pill">${esc(growth?'每級 '+def.unit:def.unit)}</span>
+        <button class="small danger starter-fx-del">×</button>
+        <div class="field-help" style="grid-column:1/-1">${growth?'角色每成長 1 級，就增加這個數值；超過成長上限後停止。':esc(def.help)}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function bindStarterEffects(host,effects,job,{growth=false,onChange}={}){
+    const defs=growth?STARTER_GROWTH_EFFECT_DEFS:EQUIPMENT_FIXED_EFFECT_DEFS;
+    host.querySelectorAll('.starter-effect-row').forEach(row=>{
+      const i=Number(row.dataset.index),fx=effects[i],key=row.querySelector('.starter-fx-key'),target=row.querySelector('.starter-fx-target'),value=row.querySelector('.starter-fx-value');
+      key.onchange=()=>{
+        fx.key=key.value;fx.value=fixedEffectDefault(fx.key);delete fx.element;delete fx.race;delete fx.skill;
+        const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key];
+        if(def?.target==='element')fx.element='fire';
+        if(def?.target==='race')fx.race='beast';
+        if(def?.target==='skill')fx.skill=0;
+        onChange();
+      };
+      if(target)target.onchange=()=>{
+        const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx.key];
+        if(def?.target==='element')fx.element=target.value;
+        else if(def?.target==='race')fx.race=target.value;
+        else if(def?.target==='skill')fx.skill=Number(target.value);
+        markDirty();
+      };
+      if(value)value.onchange=()=>{
+        fx.value=fx.key==='basicElement'?value.value:Number(value.value);
+        markDirty();
+      };
+      row.querySelector('.starter-fx-del').onclick=()=>{
+        if(!growth&&effects.length<=1)return alert('自訂固定屬性至少保留 1 條。');
+        effects.splice(i,1);markDirty();onChange();
+      };
+    });
+    const add=host.parentElement?.querySelector(growth?'[data-add-growth-effect]':'[data-add-fixed-effect]');
+    if(add)add.onclick=()=>{
+      if(effects.length>=5)return alert('最多 5 條屬性。');
+      const def=defs[0];
+      effects.push({key:def.key,value:fixedEffectDefault(def.key)});
+      markDirty();onChange();
+    };
   }
 
   function renderStarterPacks(){
     starterPackClass=Math.max(0,Math.min(data.classes.length-1,starterPackClass));
-    const job=starterPackClass,c=data.classes[job],row=Array.isArray(data.starterPacks?.[job])?data.starterPacks[job]:[];
-    const fields=STARTER_PACK_SLOTS.map((slot,position)=>{
-      const candidates=starterPackCandidates(job,slot),current=row[position];
-      const currentValid=candidates.some(x=>sameStarterPackRef(current,x.ref));
-      const options=[
-        ...(!currentValid?[`<option value="" selected>⚠ 目前設定無效，請重新選擇</option>`]:[]),
-        ...candidates.map(x=>`<option value="${x.ref.group}:${x.ref.slot}:${x.ref.form}" ${sameStarterPackRef(current,x.ref)?'selected':''}>${esc(x.source)}｜${esc(x.item.name||'(未命名裝備)')}</option>`)
-      ].join('');
-      const selected=candidates.find(x=>sameStarterPackRef(current,x.ref));
-      const detail=selected
-        ?`來源：${esc(selected.source)} · 裝備 ID：${esc(selected.item.id||'未設定')} · 固定屬性 ${(selected.item.fixedEffects||[]).length} 條`
-        :candidates.length?'請重新選擇有效裝備。':'目前沒有此職業可穿戴的裝備可供選擇。';
-      return `<div class="field full"><label>${STARTER_PACK_LABELS[position]}</label><select data-starter-position="${position}" ${candidates.length?'':'disabled'}>${options||'<option>沒有可用裝備</option>'}</select><div class="field-help">${detail}</div></div>`;
-    }).join('');
+    starterPackPosition=Math.max(0,Math.min(4,starterPackPosition));
+    const job=starterPackClass,position=starterPackPosition,c=data.classes[job],entry=data.starterPacks[job][position],slot=STARTER_PACK_SLOTS[position];
+    const candidates=starterPackCandidates(job,slot),base=starterBaseForm(job,entry),enhanceMax=Math.max(0,Math.floor(data.balanceSettings?.equipment?.enhance?.maxLevel||10));
+    const custom=Array.isArray(entry.fixedEffects),growth=entry.growth;
+    const baseOption=candidates.map(x=>`<option value="${x.ref.group}:${x.ref.slot}:${x.ref.form}" ${sameStarterPackRef(entry,x.ref)?'selected':''}>${esc(x.source)}｜${esc(x.item.name||'(未命名裝備)')}</option>`).join('');
+    const growthLevels=Math.max(0,growth.maxLevel-growth.startLevel),finalTier=growth.enabled&&growth.levelsPerTier>0?Math.min(growth.maxPowerTier,entry.powerTier+Math.floor(growthLevels/growth.levelsPerTier)):entry.powerTier;
 
     document.getElementById('app').innerHTML=
-      sectionHead('初始職業新手禮包','玩家建立第一名角色時，依所選初始職業取得並自動穿戴的整套裝備。每個職業可獨立設定。')+
-      `<div class="notice">禮包固定包含 5 件：武器、護甲、副手、飾品 1、飾品 2。只發給最初建立的職業；之後招募的角色不會取得。遊戲端會以 T1、無隨機前綴／後綴、無隨機詞條建立，確保拿到的就是這裡指定的基底裝備。飾品 1、2 可選同一變體，會生成兩件獨立裝備。</div>`+
-      `<div class="tabs" style="margin-bottom:12px">${data.classes.map((x,i)=>`<button data-starter-class="${i}" class="${i===job?'primary':''}">${esc(x.name)}</button>`).join('')}</div>`+
-      card(`${esc(c?.name||'未知職業')}專屬禮包`,`<div class="fields">${fields}</div>`);
+      sectionHead('初始職業新手禮包','每個職業可分別指定整套新手裝，並微調單件裝備的初始強度、固定屬性與角色等級成長。')+
+      `<div class="notice">禮包仍只發給最初建立的角色。每件裝備可以直接沿用基底屬性，也可以複製後獨立微調；成長裝備可隨角色等級提高 T 階，並讓指定固定屬性逐級成長。這些設定只影響新手禮包生成的那件裝備，不會改動一般掉落的同名基底裝備。</div>`+
+      `<div class="tabs" style="margin-bottom:10px">${data.classes.map((x,i)=>`<button data-starter-class="${i}" class="${i===job?'primary':''}">${esc(x.name)}</button>`).join('')}</div>`+
+      `<div class="tabs" style="margin-bottom:14px">${STARTER_PACK_LABELS.map((x,i)=>`<button data-starter-position="${i}" class="${i===position?'primary':''}">${esc(x)}</button>`).join('')}</div>`+
+      card(`${esc(c?.name||'未知職業')} · ${STARTER_PACK_LABELS[position]}`,`
+        <div class="fields">
+          <div class="field full"><label>基底裝備</label><select id="starterBase">${baseOption}</select><div class="field-help">只列出目前可由此職業穿戴的既有基底裝備。</div></div>
+          ${inputField('初始強度階級 T','powerTier',entry.powerTier,'number','min=1 max=10 step=1',false,'新角色取得時的 T1～T10 強度。')}
+          ${inputField('初始強化值 +','plus',entry.plus,'number',`min=0 max=${enhanceMax} step=1`,false,`新角色取得時直接為 +0～+${enhanceMax}。之後仍可照一般規則強化。`)}
+          <div class="field full"><label>固定屬性來源</label><select id="starterFixedMode"><option value="inherit" ${!custom?'selected':''}>沿用基底裝備</option><option value="custom" ${custom?'selected':''}>此新手裝獨立自訂</option></select><div class="field-help">${custom?'目前這件新手裝使用自己的固定屬性，不受基底裝備之後修改影響。':`目前沿用「${esc(base?.name||'基底裝備')}」的固定屬性。`}</div></div>
+        </div>
+        ${custom?`<div class="hr"></div><div class="field full"><label>自訂固定屬性</label><div id="starterFixedRows">${starterEffectRowsHTML(entry.fixedEffects,job)}</div><button class="small" data-add-fixed-effect>新增固定屬性</button></div>`:''}
+        <div class="hr"></div>
+        <div class="fields">
+          <div class="field full"><label>成長裝備</label><select id="starterGrowthEnabled"><option value="false" ${!growth.enabled?'selected':''}>否</option><option value="true" ${growth.enabled?'selected':''}>是</option></select><div class="field-help">開啟後，裝備會依持有角色目前等級即時計算成長；成長資料會寫入這件新手裝的存檔。</div></div>
+          ${growth.enabled?`
+          ${inputField('開始成長等級','startLevel',growth.startLevel,'number','min=1 step=1',false,'角色到此等級後才開始累積成長；此等級本身仍是 0 級成長。')}
+          ${inputField('停止成長等級','maxLevel',growth.maxLevel,'number','min=1 step=1',false,'超過此等級後不再增加 T 階或每級屬性。')}
+          ${inputField('每幾級提升 1 T','levelsPerTier',growth.levelsPerTier,'number','min=0 step=1',false,'0 表示不做 T 階成長，只使用下方每級屬性成長。')}
+          ${inputField('最高 T 階','maxPowerTier',growth.maxPowerTier,'number','min=1 max=10 step=1',false,`目前設定最終約 T${finalTier}；不會超過此值。`)}
+          `:''}
+        </div>
+        ${growth.enabled?`<div class="field full"><label>每級成長屬性</label><div class="field-help" style="margin-bottom:8px">可設定 0～5 條。數值會乘上「已成長等級」後附加到這件裝備，例如攻擊力 0.5%／級、固定攻擊 1／級、指定技能效果 1%／級。</div><div id="starterGrowthRows">${starterEffectRowsHTML(growth.effects,job,{growth:true})}</div><button class="small" data-add-growth-effect>新增每級成長屬性</button></div>`:''}
+      `);
 
     const app=document.getElementById('app');
-    app.querySelectorAll('[data-starter-class]').forEach(button=>button.onclick=()=>{
-      starterPackClass=Number(button.dataset.starterClass);
-      render();
-    });
-    app.querySelectorAll('[data-starter-position]').forEach(select=>select.onchange=()=>{
-      if(!select.value)return;
-      const position=Number(select.dataset.starterPosition);
-      const [group,slot,form]=select.value.split(':').map(Number);
-      if(!Array.isArray(data.starterPacks))data.starterPacks=[];
-      if(!Array.isArray(data.starterPacks[job]))data.starterPacks[job]=Array(5).fill(null);
-      data.starterPacks[job][position]={group,slot,form};
-      markDirty();
-      render();
-    });
+    app.querySelectorAll('[data-starter-class]').forEach(button=>button.onclick=()=>{starterPackClass=Number(button.dataset.starterClass);starterPackPosition=0;render();});
+    app.querySelectorAll('[data-starter-position]').forEach(button=>button.onclick=()=>{starterPackPosition=Number(button.dataset.starterPosition);render();});
+    document.getElementById('starterBase').onchange=ev=>{
+      const [group,newSlot,form]=ev.target.value.split(':').map(Number);
+      Object.assign(entry,{group,slot:newSlot,form});
+      markDirty();render();
+    };
+    const power=app.querySelector('[data-key="powerTier"]'),plus=app.querySelector('[data-key="plus"]');
+    power.onchange=()=>{entry.powerTier=Math.max(1,Math.min(10,Math.round(Number(power.value)||1)));if(entry.growth.maxPowerTier<entry.powerTier)entry.growth.maxPowerTier=entry.powerTier;markDirty();render();};
+    plus.onchange=()=>{entry.plus=Math.max(0,Math.min(enhanceMax,Math.round(Number(plus.value)||0)));markDirty();};
+    document.getElementById('starterFixedMode').onchange=ev=>{
+      if(ev.target.value==='custom'){
+        entry.fixedEffects=structuredClone(base?.fixedEffects?.length?base.fixedEffects:[{key:'flatAttack',value:0}]).slice(0,5).map(x=>ensureStarterEffectShape(x,job,false));
+      }else entry.fixedEffects=null;
+      markDirty();render();
+    };
+    if(custom){
+      const fixedHost=document.getElementById('starterFixedRows');
+      bindStarterEffects(fixedHost,entry.fixedEffects,job,{onChange:render});
+    }
+    document.getElementById('starterGrowthEnabled').onchange=ev=>{growth.enabled=ev.target.value==='true';markDirty();render();};
+    if(growth.enabled){
+      for(const key of ['startLevel','maxLevel','levelsPerTier','maxPowerTier']){
+        const el=app.querySelector(`[data-key="${key}"]`);
+        el.onchange=()=>{
+          const maxLevel=Math.max(1,Math.floor(data.balanceSettings?.progression?.levelCaps?.afterClear||60));
+          if(key==='startLevel')growth.startLevel=Math.max(1,Math.min(maxLevel,Math.round(Number(el.value)||1)));
+          if(key==='maxLevel')growth.maxLevel=Math.max(growth.startLevel,Math.min(maxLevel,Math.round(Number(el.value)||growth.startLevel)));
+          if(key==='levelsPerTier')growth.levelsPerTier=Math.max(0,Math.min(maxLevel,Math.round(Number(el.value)||0)));
+          if(key==='maxPowerTier')growth.maxPowerTier=Math.max(entry.powerTier,Math.min(10,Math.round(Number(el.value)||entry.powerTier)));
+          if(growth.maxLevel<growth.startLevel)growth.maxLevel=growth.startLevel;
+          markDirty();render();
+        };
+      }
+      const growthHost=document.getElementById('starterGrowthRows');
+      bindStarterEffects(growthHost,growth.effects,job,{growth:true,onChange:render});
+    }
   }
 
   const starterRenderBase=render;
@@ -2646,6 +2804,8 @@ ensureArrays();requestEditorInitialRender();
   validateData=function(){
     const issues=starterValidateBase();
     ensureStarterPackData();
+    const maxLevel=Math.max(1,Math.floor(data.balanceSettings?.progression?.levelCaps?.afterClear||60));
+    const enhanceMax=Math.max(0,Math.floor(data.balanceSettings?.equipment?.enhance?.maxLevel||10));
     if(!Array.isArray(data.starterPacks)||data.starterPacks.length!==data.classes.length){
       issues.push(`starterPacks 必須有 ${data.classes.length} 個職業設定。`);
       return issues;
@@ -2655,10 +2815,32 @@ ensureArrays();requestEditorInitialRender();
         issues.push(`${data.classes[job]?.name||'角色 '+job}的新手禮包必須剛好 5 件裝備。`);
         return;
       }
-      row.forEach((ref,position)=>{
-        const expectedSlot=STARTER_PACK_SLOTS[position];
-        const valid=Number.isInteger(Number(ref?.group))&&Number.isInteger(Number(ref?.slot))&&Number.isInteger(Number(ref?.form))&&Number(ref.slot)===expectedSlot&&starterPackCandidates(job,expectedSlot).some(x=>sameStarterPackRef(ref,x.ref));
-        if(!valid)issues.push(`${data.classes[job]?.name||'角色 '+job}新手禮包的「${STARTER_PACK_LABELS[position]}」引用無效。`);
+      row.forEach((entry,position)=>{
+        const expectedSlot=STARTER_PACK_SLOTS[position],label=`${data.classes[job]?.name||'角色 '+job}新手禮包「${STARTER_PACK_LABELS[position]}」`;
+        if(!starterPackCandidates(job,expectedSlot).some(x=>sameStarterPackRef(entry,x.ref)))issues.push(`${label}的基底裝備引用無效。`);
+        if(!Number.isInteger(entry.powerTier)||entry.powerTier<1||entry.powerTier>10)issues.push(`${label}的初始 T 階必須為 1～10。`);
+        if(!Number.isInteger(entry.plus)||entry.plus<0||entry.plus>enhanceMax)issues.push(`${label}的初始強化值必須為 0～${enhanceMax}。`);
+        if(entry.fixedEffects!==null&&(!Array.isArray(entry.fixedEffects)||entry.fixedEffects.length<1||entry.fixedEffects.length>5))issues.push(`${label}的自訂固定屬性必須為 1～5 條。`);
+        for(const fx of entry.fixedEffects||[]){
+          const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx?.key];
+          if(!def)issues.push(`${label}含有無效固定屬性。`);
+          else if(fx.key!=='basicElement'&&!Number.isFinite(Number(fx.value)))issues.push(`${label}固定屬性數值無效。`);
+          if(def?.target==='skill'&&(!Number.isInteger(fx.skill)||fx.skill<0||fx.skill>=(data.classes[job]?.skills?.length||0)))issues.push(`${label}指定技能屬性無效。`);
+        }
+        const g=entry.growth;
+        if(!g||typeof g!=='object')issues.push(`${label}缺少成長設定。`);
+        else{
+          if(!Number.isInteger(g.startLevel)||g.startLevel<1||g.startLevel>maxLevel||!Number.isInteger(g.maxLevel)||g.maxLevel<g.startLevel||g.maxLevel>maxLevel)issues.push(`${label}的成長等級範圍無效。`);
+          if(!Number.isInteger(g.levelsPerTier)||g.levelsPerTier<0||g.levelsPerTier>maxLevel)issues.push(`${label}的 T 階成長間隔無效。`);
+          if(!Number.isInteger(g.maxPowerTier)||g.maxPowerTier<entry.powerTier||g.maxPowerTier>10)issues.push(`${label}的最高 T 階無效。`);
+          if(!Array.isArray(g.effects)||g.effects.length>5)issues.push(`${label}的每級成長屬性最多 5 條。`);
+          for(const fx of g.effects||[]){
+            const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx?.key];
+            if(!def||fx.key==='basicElement')issues.push(`${label}含有不支援的每級成長屬性。`);
+            else if(!Number.isFinite(Number(fx.value)))issues.push(`${label}每級成長屬性數值無效。`);
+            if(def?.target==='skill'&&(!Number.isInteger(fx.skill)||fx.skill<0||fx.skill>=(data.classes[job]?.skills?.length||0)))issues.push(`${label}每級成長的指定技能無效。`);
+          }
+        }
       });
     });
     return issues;
