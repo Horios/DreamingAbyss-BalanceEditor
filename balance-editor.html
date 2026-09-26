@@ -4557,6 +4557,17 @@ requestEditorInitialRender();
 /* Shared text rarity effects; mirrored in the balance editor. */
 .text-rarity-name{vertical-align:baseline}
 .text-rarity-name.tr-frame{position:relative;display:inline-block;padding:2px 6px;border:1px solid var(--tr-border,transparent);border-radius:6px;background-color:var(--tr-bg,transparent)}
+.inventory-list-item.tr-rarity-row{background-color:var(--tr-row-bg)!important}
+.inventory-list-item.tr-rarity-row:hover{background-image:linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08))}
+.inventory-list-item.tr-rarity-row.selected{background-image:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12))}
+.inventory-list-item .text-rarity-name.tr-frame,.inventory-detail-heading .text-rarity-name.tr-frame{background-color:transparent}
+.tr-preview-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%}
+.tr-preview-section{min-width:0;border:1px solid #3a4952;border-radius:6px;padding:8px}
+.tr-preview-section>.small{display:block;margin-bottom:8px}
+.tr-preview-row,.tr-preview-detail{min-height:48px;padding:8px}
+.tr-preview-row{display:flex;justify-content:space-between;align-items:center;gap:8px;background-color:var(--tr-row-bg,transparent)}
+.tr-preview-pair .text-rarity-name.tr-frame{background-color:transparent}
+@media(max-width:600px){.tr-preview-pair{grid-template-columns:1fr}}
 .text-rarity-name .tr-motion{display:inline-block;vertical-align:baseline}
 .text-rarity-name .tr-text.tr-custom-color{color:var(--tr-color)!important;-webkit-text-fill-color:var(--tr-color)!important;background-clip:border-box!important;-webkit-background-clip:border-box!important}
 .text-rarity-name .effect-rainbow.tr-custom-color:not([class*="tr-fill-"]){background-image:none!important}
@@ -4734,13 +4745,16 @@ requestEditorInitialRender();
     if(data!==sourceData){sourceData=data;selectedId='';draft=null;}
     const list=styles();if(selectedId&&!list.some(x=>x.id===selectedId)){selectedId='';draft=null;}
     if(!draft&&list.length){selectedId=list[0].id;draft=structuredClone(list[0]);}
-    document.getElementById('app').innerHTML=sectionHead('文字稀有度設計器','建立文字特效後，可在每件裝備與道具的設計欄位選擇套用。沒有選擇的顏色與特效沿用原有外觀。若選兩種彩色填色，以文字特效 1 優先。','<button id="addRarity">新增新文字特效</button>')+
-      `<div class="rarity-layout"><div class="card card-b rarity-list">${list.map(x=>`<button data-rarity="${esc(x.id)}" class="${selectedId===x.id?'primary':''}">${esc(x.name)}</button>`).join('')||'<div class="empty">尚無特效</div>'}</div><div class="card card-b">${draft?`<div class="rarity-form"><label>特效命名<input id="rarityName" maxlength="60" value="${esc(draft.name)}"></label><div></div>${colorField('textColor','文字底色（字色）','#e8edf0')}${effectField('textEffect1','文字特效 1',TEXT_FX)}${effectField('textEffect2','文字特效 2',TEXT_FX)}${colorField('blockColor','區塊底色','#263f55')}${effectField('blockEffect','區塊特效',BLOCK_FX)}${colorField('borderColor','外框顏色','#8ecaff')}${effectField('borderEffect','外框特效',BORDER_FX)}<div id="rarityPreview" class="rarity-preview"></div><div class="rarity-actions"><button id="saveRarity" class="primary">儲存</button>${list.some(x=>x.id===draft.id)?'<button id="deleteRarity" class="danger">刪除</button>':''}</div></div>`:'<div class="empty">點選「新增新文字特效」開始設計。</div>'}</div></div>`;
+    document.getElementById('app').innerHTML=sectionHead('文字稀有度設計器','建立文字特效後，可在每件裝備與道具的設計欄位選擇套用。沒有選擇的顏色與特效沿用原有外觀。區塊底色會填滿裝備列表整列，右側詳細不顯示底色。若選兩種彩色填色，以文字特效 1 優先。','<button id="addRarity">新增新文字特效</button>')+
+      `<div class="rarity-layout"><div class="card card-b rarity-list">${list.map(x=>`<button data-rarity="${esc(x.id)}" class="${selectedId===x.id?'primary':''}">${esc(x.name)}</button>`).join('')||'<div class="empty">尚無特效</div>'}</div><div class="card card-b">${draft?`<div class="rarity-form"><label>特效命名<input id="rarityName" maxlength="60" value="${esc(draft.name)}"></label><div></div>${colorField('textColor','文字顏色','#e8edf0')}${effectField('textEffect1','文字特效 1',TEXT_FX)}${effectField('textEffect2','文字特效 2',TEXT_FX)}${colorField('blockColor','區塊底色（裝備列表整列）','#263f55')}${effectField('blockEffect','區塊特效',BLOCK_FX)}${colorField('borderColor','外框顏色','#8ecaff')}${effectField('borderEffect','外框特效',BORDER_FX)}<div id="rarityPreview" class="rarity-preview"></div><div class="rarity-actions"><button id="saveRarity" class="primary">儲存</button>${list.some(x=>x.id===draft.id)?'<button id="deleteRarity" class="danger">刪除</button>':''}</div></div>`:'<div class="empty">點選「新增新文字特效」開始設計。</div>'}</div></div>`;
     const app=document.getElementById('app');
     document.getElementById('addRarity').onclick=()=>{let id;do{id='rarity_'+Math.random().toString(36).slice(2,10);}while(styles().some(x=>x.id===id));selectedId='';draft=empty(id);renderDesigner();};
     app.querySelectorAll('[data-rarity]').forEach(el=>el.onclick=()=>{selectedId=el.dataset.rarity;draft=structuredClone(styles().find(x=>x.id===selectedId));renderDesigner();});
     if(!draft)return;
-    const refresh=()=>{document.getElementById('rarityPreview').innerHTML=sample(draft.name||'預覽文字',draft)+'<span class="small">裝備／道具名稱預覽</span>';};refresh();
+    const refresh=()=>{
+      const name=sample(draft.name||'預覽文字',draft),bg=color(draft.blockColor);
+      document.getElementById('rarityPreview').innerHTML=`<div class="tr-preview-pair"><div class="tr-preview-section"><span class="small">左側裝備列表</span><div class="tr-preview-row"${bg?` style="--tr-row-bg:${bg}"`:''}>${name}<span class="small">普通</span></div></div><div class="tr-preview-section"><span class="small">右側裝備詳細</span><div class="tr-preview-detail">${name}</div></div></div>`;
+    };refresh();
     document.getElementById('rarityName').oninput=e=>{draft.name=e.target.value;refresh();};
     app.querySelectorAll('[data-effect]').forEach(el=>el.onchange=()=>{draft[el.dataset.effect]=el.value;refresh();});
     app.querySelectorAll('[data-color-on]').forEach(el=>el.onchange=()=>{const key=el.dataset.colorOn,input=app.querySelector(`[data-color="${key}"]`);input.disabled=!el.checked;draft[key]=el.checked?input.value:'';refresh();});
