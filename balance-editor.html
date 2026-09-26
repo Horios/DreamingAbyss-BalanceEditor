@@ -4554,18 +4554,72 @@ requestEditorInitialRender();
 
 
 <style id="text-rarity-shared-style">
+/* Shared text rarity effects; mirrored in the balance editor. */
 .text-rarity-name{vertical-align:baseline}
-.text-rarity-name.tr-custom-color{color:var(--tr-color)!important;-webkit-text-fill-color:var(--tr-color)!important;background-clip:border-box!important;-webkit-background-clip:border-box!important}
-.enhanced-name.effect-rainbow.tr-custom-color:not(.tr-block-gradient):not(.tr-block-stripes){background-image:none!important}
-.text-rarity-name.tr-text-effect{text-shadow:var(--tr-shadow)!important}
-.text-rarity-name.tr-frame{display:inline-block;padding:2px 6px;border:1px solid var(--tr-border,transparent);border-radius:6px;background-color:var(--tr-bg,transparent)}
+.text-rarity-name.tr-frame{position:relative;display:inline-block;padding:2px 6px;border:1px solid var(--tr-border,transparent);border-radius:6px;background-color:var(--tr-bg,transparent)}
+.text-rarity-name .tr-motion{display:inline-block;vertical-align:baseline}
+.text-rarity-name .tr-text.tr-custom-color{color:var(--tr-color)!important;-webkit-text-fill-color:var(--tr-color)!important;background-clip:border-box!important;-webkit-background-clip:border-box!important}
+.text-rarity-name .effect-rainbow.tr-custom-color:not([class*="tr-fill-"]){background-image:none!important}
+.text-rarity-name .tr-text-effect{text-shadow:var(--tr-shadow)!important}
+.text-rarity-name .tr-text[class*="tr-fill-"]{color:var(--tr-color,#d5e9ff)!important}
+.text-rarity-name .tr-fill-gold{color:var(--tr-color,#fbd078)!important}
+.text-rarity-name .tr-fill-silver{color:var(--tr-color,#d5e5ee)!important}
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+  .text-rarity-name .tr-text[class*="tr-fill-"]{background-size:100% 100%!important;background-clip:text!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important}
+  .text-rarity-name .tr-text.tr-fill-flow,.text-rarity-name .tr-text.tr-fill-aurora,.text-rarity-name .tr-text.tr-fill-holo,.text-rarity-name .tr-text.tr-fill-shimmer{background-size:250% 100%!important}
+  .text-rarity-name .tr-fill-rainbow{background-image:linear-gradient(100deg,#ff777b,#ffd86d,#a0f5a1,#7bdcff,#c6a4ff,#ff86d6)!important}
+  .text-rarity-name .tr-fill-flow{background-image:linear-gradient(100deg,#ff81b5,#ffdf78,#7ff4d4,#80b9ff,#d792ff,#ff81b5)!important;animation:tr-text-flow 4s linear infinite}
+  .text-rarity-name .tr-fill-aurora{background-image:linear-gradient(115deg,#4ae8b2,#9ae7f8,#b288ff,#67f3c8,#4ae8b2)!important;animation:tr-text-flow 6s ease-in-out infinite alternate}
+  .text-rarity-name .tr-fill-gold{background-image:linear-gradient(110deg,#9b5b19,#ffe8a0,#fff4d5,#b46d22,#fbd078)!important}
+  .text-rarity-name .tr-fill-silver{background-image:linear-gradient(110deg,#718798,#effaff,#a6bccb,#fff,#758a99)!important}
+  .text-rarity-name .tr-fill-holo{background-image:linear-gradient(115deg,#94fff1,#f6b9ff,#9bc7ff,#f1f7bd,#94fff1)!important;animation:tr-text-flow 5s linear infinite}
+  .text-rarity-name .tr-fill-shimmer{background-image:linear-gradient(105deg,var(--tr-color,#b9dcff) 30%,#fff 48%,var(--tr-color,#b9dcff) 65%)!important;animation:tr-text-flow 3s ease-in-out infinite}
+}
 .text-rarity-name.tr-block-gradient{background-image:linear-gradient(120deg,transparent,rgba(255,255,255,.2),transparent)}
 .text-rarity-name.tr-block-stripes{background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(255,255,255,.12) 5px 9px)}
-.text-rarity-name.tr-block-inset{box-shadow:inset 0 1px 8px rgba(255,255,255,.26)}
+.text-rarity-name.tr-block-inset::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 1px 8px rgba(255,255,255,.26)}
+.text-rarity-name.tr-block-glass{background-image:linear-gradient(150deg,rgba(255,255,255,.28),rgba(255,255,255,.04) 45%,rgba(255,255,255,.14))}.text-rarity-name.tr-block-glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 1px 1px rgba(255,255,255,.45)}
+.text-rarity-name.tr-block-grid{background-image:linear-gradient(rgba(105,225,255,.19) 1px,transparent 1px),linear-gradient(90deg,rgba(105,225,255,.19) 1px,transparent 1px);background-size:12px 12px}
+.text-rarity-name.tr-block-scanlines{background-image:repeating-linear-gradient(0deg,transparent 0 4px,rgba(126,222,255,.19) 4px 5px);background-size:100% 12px}
+.text-rarity-name.tr-block-dots{background-image:radial-gradient(rgba(255,255,255,.27) 1px,transparent 1.5px);background-size:9px 9px}
+.text-rarity-name.tr-block-carbon{background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.23) 0 3px,transparent 3px 7px),repeating-linear-gradient(-45deg,rgba(255,255,255,.12) 0 2px,transparent 2px 7px)}
+.text-rarity-name.tr-block-aurora{background-image:linear-gradient(110deg,rgba(60,225,193,.35),rgba(112,114,255,.3),rgba(232,94,222,.33),rgba(60,225,193,.35));background-size:250% 100%}
+.text-rarity-name.tr-block-shimmer{background-image:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.33) 48%,transparent 70%);background-size:250% 100%}
+.text-rarity-name.tr-block-spotlight{background-image:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.32),transparent 70%)}
+.text-rarity-name.tr-block-checker{background-image:linear-gradient(45deg,rgba(255,255,255,.14) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.14) 75%),linear-gradient(45deg,rgba(255,255,255,.14) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.14) 75%);background-size:12px 12px;background-position:0 0,6px 6px}
 .text-rarity-name.tr-border-glow{border-color:var(--tr-border,currentColor);box-shadow:0 0 9px var(--tr-border,currentColor)}
 .text-rarity-name.tr-border-dashed{border-style:dashed;border-color:var(--tr-border,currentColor)}
 .text-rarity-name.tr-border-double{border-width:3px;border-style:double;border-color:var(--tr-border,currentColor)}
-
+.text-rarity-name.tr-border-dotted{border-style:dotted;border-width:2px;border-color:var(--tr-border,currentColor)}
+.text-rarity-name.tr-border-groove{border-style:groove;border-width:3px;border-color:var(--tr-border,currentColor)}
+.text-rarity-name.tr-border-inset{border-style:inset;border-width:3px;border-color:var(--tr-border,currentColor)}
+.text-rarity-name.tr-border-neon{border-color:var(--tr-border,#70f0ff);box-shadow:0 0 4px var(--tr-border,#70f0ff),0 0 12px var(--tr-border,#70f0ff),inset 0 0 5px var(--tr-border,#70f0ff)}
+.text-rarity-name.tr-border-rainbow{border-color:#ff82a5}
+.text-rarity-name.tr-border-pulse{border-color:var(--tr-border,currentColor)}
+.text-rarity-name.tr-border-electric{border-color:var(--tr-border,#79dfff)}
+.text-rarity-name.tr-border-march{border-color:transparent}
+.text-rarity-name.tr-border-march::after{content:"";position:absolute;inset:-2px;border-radius:inherit;pointer-events:none;background:linear-gradient(90deg,var(--tr-border,currentColor) 50%,transparent 0) top/10px 2px repeat-x,linear-gradient(90deg,var(--tr-border,currentColor) 50%,transparent 0) bottom/10px 2px repeat-x,linear-gradient(0deg,var(--tr-border,currentColor) 50%,transparent 0) left/2px 10px repeat-y,linear-gradient(0deg,var(--tr-border,currentColor) 50%,transparent 0) right/2px 10px repeat-y;animation:tr-border-march 1s linear infinite}
+.text-rarity-name .tr-motion-blink{animation:tr-blink 1.8s steps(1,end) infinite}
+.text-rarity-name .tr-motion-flicker{animation:tr-flicker 3s steps(1,end) infinite}
+.text-rarity-name .tr-motion-pulse{animation:tr-pulse 2s ease-in-out infinite}
+.text-rarity-name .tr-motion-glitch{animation:tr-glitch 2.8s steps(1,end) infinite}
+.text-rarity-name .tr-motion-jitter{animation:tr-jitter .42s steps(1,end) infinite}
+.text-rarity-name .tr-motion-float{animation:tr-float 2.7s ease-in-out infinite}
+@keyframes tr-text-flow{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes tr-block-flow{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes tr-block-scan{to{background-position:0 12px}}
+@keyframes tr-blink{0%,49%,100%{opacity:1}50%,59%{opacity:.14}}
+@keyframes tr-flicker{0%,17%,20%,56%,59%,100%{opacity:1}18%,58%{opacity:.25}19%,57%{opacity:.55}}
+@keyframes tr-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.65)}}
+@keyframes tr-glitch{0%,91%,95%,100%{transform:none;clip-path:none}92%{transform:translate(2px,-1px) skew(-5deg);clip-path:inset(0 0 45% 0)}93%{transform:translate(-2px,1px);clip-path:inset(45% 0 0 0)}94%{transform:translate(1px,0);clip-path:none}}
+@keyframes tr-jitter{0%,75%,100%{transform:none}25%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}}
+@keyframes tr-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes tr-border-rainbow{0%,100%{border-color:#ff82a5;box-shadow:0 0 7px #ff82a5}25%{border-color:#ffe576;box-shadow:0 0 7px #ffe576}50%{border-color:#78e9b8;box-shadow:0 0 7px #78e9b8}75%{border-color:#91aaff;box-shadow:0 0 7px #91aaff}}
+@keyframes tr-border-pulse{0%,100%{box-shadow:0 0 2px var(--tr-border,currentColor)}50%{box-shadow:0 0 14px 3px var(--tr-border,currentColor)}}
+@keyframes tr-border-electric{0%,89%,94%,100%{box-shadow:0 0 3px var(--tr-border,#79dfff)}90%,93%{box-shadow:2px -1px 8px var(--tr-border,#79dfff),-2px 1px 7px #ff7edb}91%,92%{box-shadow:-2px 1px 12px var(--tr-border,#79dfff),2px -1px 5px #ff7edb}}
+@keyframes tr-border-march{to{background-position:10px 0,-10px 100%,0 -10px,100% 10px}}
+@media(prefers-reduced-motion:reduce){.text-rarity-name,.text-rarity-name .tr-motion,.text-rarity-name .tr-text,.text-rarity-name::after{animation:none!important}}
+@media(forced-colors:active){.text-rarity-name .tr-text[class*="tr-fill-"]{background:none!important;color:CanvasText!important;-webkit-text-fill-color:CanvasText!important}.text-rarity-name.tr-frame{border-color:CanvasText}.text-rarity-name.tr-border-march::after{display:none}}
 </style>
 <style id="text-rarity-editor-style">
 .rarity-layout{display:grid;grid-template-columns:minmax(190px,280px) minmax(0,1fr);gap:14px}
@@ -4587,10 +4641,33 @@ requestEditorInitialRender();
 </style>
 <script id="text-rarity-editor-system">
 (()=>{
-  const TEXT_FX={glow:'光暈',shadow:'深色陰影',light:'浮雕高光',crisp:'細描邊'};
-  const BLOCK_FX={gradient:'漸層反光',stripes:'斜紋',inset:'內側微光'};
-  const BORDER_FX={glow:'外框光暈',dashed:'虛線',double:'雙線'};
-  const SHADOW={glow:'0 0 7px currentColor, 0 0 14px currentColor',shadow:'2px 2px 3px #000',light:'-1px -1px 1px #fff8, 1px 1px 2px #000',crisp:'1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000'};
+  const TEXT_FX={
+    glow:'光暈',shadow:'深色陰影',light:'浮雕高光',crisp:'細描邊',
+    neon:'霓虹光',fire:'火焰光',ice:'冰霜光',chromatic:'紅藍色差',
+    rainbow:'彩虹文字',flow:'彩色流光',aurora:'極光流動',gold:'金屬金',silver:'金屬銀',holo:'全息幻彩',shimmer:'文字掃光',
+    blink:'閃爍',flicker:'燈管閃動',pulse:'呼吸亮度',glitch:'科技故障',jitter:'微抖動',float:'上下浮動'
+  };
+  const BLOCK_FX={
+    gradient:'漸層反光',stripes:'斜紋',inset:'內側微光',glass:'玻璃質感',
+    grid:'科技網格',scanlines:'掃描線',dots:'點陣',carbon:'碳纖紋',
+    aurora:'極光流動',shimmer:'流光掃過',spotlight:'聚光',checker:'棋盤格'
+  };
+  const BORDER_FX={
+    glow:'外框光暈',dashed:'虛線',double:'雙線',dotted:'點線',groove:'凹槽',
+    inset:'內凹',neon:'霓虹外框',rainbow:'彩虹循環',pulse:'光暈脈動',electric:'電流閃動',march:'行進虛線'
+  };
+  const SHADOW={
+    glow:'0 0 7px currentColor, 0 0 14px currentColor',shadow:'2px 2px 3px #000',
+    light:'-1px -1px 1px #fff8, 1px 1px 2px #000',crisp:'1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000',
+    neon:'0 0 3px currentColor, 0 0 10px #80ecff, 0 0 18px currentColor',
+    fire:'0 0 5px #ffc45e, 0 0 11px #ff651e, 0 0 18px #e72d1e',
+    ice:'0 0 5px #e6ffff, 0 0 12px #6de2ff, 0 0 19px #4d91ff',
+    chromatic:'-2px 0 #ff5a86, 2px 0 #62eaff',glitch:'-2px 0 #ff5a86, 2px 0 #62eaff'
+  };
+  const FILLS=new Set(['rainbow','flow','aurora','gold','silver','holo','shimmer']);
+  const MOTIONS=new Set(['blink','flicker','pulse','glitch','jitter','float']);
+  const BLOCK_ANIMATION={scanlines:'tr-block-scan 3s linear infinite',aurora:'tr-block-flow 6s ease-in-out infinite alternate',shimmer:'tr-block-flow 3s ease-in-out infinite'};
+  const BORDER_ANIMATION={rainbow:'tr-border-rainbow 4s linear infinite',pulse:'tr-border-pulse 2s ease-in-out infinite',electric:'tr-border-electric 2.3s steps(1,end) infinite'};
   const COLORS=['textColor','blockColor','borderColor'];
   const EFFECTS={textEffect1:TEXT_FX,textEffect2:TEXT_FX,blockEffect:BLOCK_FX,borderEffect:BORDER_FX};
   let selectedId='',draft=null,sourceData=data;
@@ -4598,16 +4675,25 @@ requestEditorInitialRender();
   const styles=()=>Array.isArray(data.textStyles)?data.textStyles:[];
   const color=value=>typeof value==='string'&&/^#[0-9a-f]{6}$/i.test(value)?value:'';
   function presentation(style){
-    if(!style)return {classes:'',attrs:''};
+    if(!style)return {classes:'',attrs:'',textClasses:'',motionClasses:[]};
     const tc=color(style.textColor),bg=color(style.blockColor),border=color(style.borderColor);
-    const shadows=[style.textEffect1,style.textEffect2].filter(x=>Object.hasOwn(SHADOW,x)).map(x=>SHADOW[x]);
+    const effects=[style.textEffect1,style.textEffect2];
+    const shadows=effects.filter(x=>Object.hasOwn(SHADOW,x)).map(x=>SHADOW[x]);
+    const fill=effects.find(x=>FILLS.has(x))||'';
+    const motionClasses=effects.filter(x=>MOTIONS.has(x)).map(x=>'tr-motion-'+x);
     const block=Object.hasOwn(BLOCK_FX,style.blockEffect)?style.blockEffect:'';
     const edge=Object.hasOwn(BORDER_FX,style.borderEffect)?style.borderEffect:'';
-    const classes=['text-rarity-name',tc?'tr-custom-color':'',bg||border||block||edge?'tr-frame':'',block?'tr-block-'+block:'',edge?'tr-border-'+edge:'',shadows.length?'tr-text-effect':''].filter(Boolean).join(' ');
-    const vars=[tc&&`--tr-color:${tc}`,bg&&`--tr-bg:${bg}`,border&&`--tr-border:${border}`,shadows.length&&`--tr-shadow:${shadows.join(',')}`].filter(Boolean).join(';');
-    return {classes,attrs:vars?` style="${vars}"`:''};
+    const classes=['text-rarity-name',bg||border||block||edge?'tr-frame':'',block?'tr-block-'+block:'',edge?'tr-border-'+edge:''].filter(Boolean).join(' ');
+    const textClasses=['tr-text',tc?'tr-custom-color':'',fill?'tr-fill-'+fill:'',shadows.length?'tr-text-effect':''].filter(Boolean).join(' ');
+    const animations=[BLOCK_ANIMATION[block],BORDER_ANIMATION[edge]].filter(Boolean);
+    const vars=[tc&&`--tr-color:${tc}`,bg&&`--tr-bg:${bg}`,border&&`--tr-border:${border}`,shadows.length&&`--tr-shadow:${shadows.join(',')}`,animations.length&&`animation:${animations.join(',')}`].filter(Boolean).join(';');
+    return {classes,attrs:vars?` style="${vars}"`:'',textClasses,motionClasses};
   }
-  function sample(label,style){if(!style)return esc(label);const {classes,attrs}=presentation(style);return `<span class="${classes}"${attrs}>${esc(label)}</span>`;}
+  function frameHTML(content,style){
+    const {classes,attrs,motionClasses}=presentation(style);
+    return `<span class="${classes}"${attrs}>${motionClasses.map(x=>`<span class="tr-motion ${x}">`).join('')}${content}${'</span>'.repeat(motionClasses.length)}</span>`;
+  }
+  function sample(label,style){if(!style)return esc(label);const {textClasses}=presentation(style);return frameHTML(`<span class="${textClasses}">${esc(label)}</span>`,style);}
   function options(value){return '<option value="">預設外觀</option>'+styles().map(x=>`<option value="${esc(x.id)}" ${x.id===value?'selected':''}>${esc(x.name)}</option>`).join('');}
   function assignedCount(id){let n=0;for(const jobs of data.equipmentForms||[])for(const forms of jobs||[])for(const x of forms||[])if(x.textStyleId===id)n++;for(const x of data.equipmentPowerSystem?.bossAffixes||[])if(x.textStyleId===id)n++;if(data.equipmentPowerSystem?.rerollItem?.textStyleId===id)n++;for(const x of data.items||[])if(x.id!=='power_tier_reroll'&&x.textStyleId===id)n++;return n;}
   function assignment(obj,label,host){
@@ -4648,7 +4734,7 @@ requestEditorInitialRender();
     if(data!==sourceData){sourceData=data;selectedId='';draft=null;}
     const list=styles();if(selectedId&&!list.some(x=>x.id===selectedId)){selectedId='';draft=null;}
     if(!draft&&list.length){selectedId=list[0].id;draft=structuredClone(list[0]);}
-    document.getElementById('app').innerHTML=sectionHead('文字稀有度設計器','建立文字特效後，可在每件裝備與道具的設計欄位選擇套用。沒有選擇的顏色與特效沿用原有外觀。','<button id="addRarity">新增新文字特效</button>')+
+    document.getElementById('app').innerHTML=sectionHead('文字稀有度設計器','建立文字特效後，可在每件裝備與道具的設計欄位選擇套用。沒有選擇的顏色與特效沿用原有外觀。若選兩種彩色填色，以文字特效 1 優先。','<button id="addRarity">新增新文字特效</button>')+
       `<div class="rarity-layout"><div class="card card-b rarity-list">${list.map(x=>`<button data-rarity="${esc(x.id)}" class="${selectedId===x.id?'primary':''}">${esc(x.name)}</button>`).join('')||'<div class="empty">尚無特效</div>'}</div><div class="card card-b">${draft?`<div class="rarity-form"><label>特效命名<input id="rarityName" maxlength="60" value="${esc(draft.name)}"></label><div></div>${colorField('textColor','文字底色（字色）','#e8edf0')}${effectField('textEffect1','文字特效 1',TEXT_FX)}${effectField('textEffect2','文字特效 2',TEXT_FX)}${colorField('blockColor','區塊底色','#263f55')}${effectField('blockEffect','區塊特效',BLOCK_FX)}${colorField('borderColor','外框顏色','#8ecaff')}${effectField('borderEffect','外框特效',BORDER_FX)}<div id="rarityPreview" class="rarity-preview"></div><div class="rarity-actions"><button id="saveRarity" class="primary">儲存</button>${list.some(x=>x.id===draft.id)?'<button id="deleteRarity" class="danger">刪除</button>':''}</div></div>`:'<div class="empty">點選「新增新文字特效」開始設計。</div>'}</div></div>`;
     const app=document.getElementById('app');
     document.getElementById('addRarity').onclick=()=>{let id;do{id='rarity_'+Math.random().toString(36).slice(2,10);}while(styles().some(x=>x.id===id));selectedId='';draft=empty(id);renderDesigner();};
