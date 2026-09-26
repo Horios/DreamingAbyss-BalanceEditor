@@ -3126,12 +3126,12 @@ ensureArrays();requestEditorInitialRender();
   function normalizeAffixChances(src,legacyWeight,tierMin,tierMax){const fallback=n(legacyWeight,0,0,100),has=Array.isArray(src);return Array.from({length:10},(_,i)=>{const tier=i+1,def=tier>=tierMin&&tier<=tierMax?fallback:0;return n(has?src[i]:def,def,0,100);});}
   function affixChanceAtTier(x,tier){if(!x||tier<1||tier>10)return 0;const v=Array.isArray(x.chanceByTier)?x.chanceByTier[tier-1]:x.weight;return n(v,0,0,100);}
   function normalizeAffixRows(rows,defaults,legacySlots=false){if(!Array.isArray(rows)||!rows.some(x=>x&&x.effect))rows=clone(defaults);const seen=new Set(),out=[];for(let i=0;i<rows.length;i++){const x=rows[i]&&typeof rows[i]==='object'?rows[i]:{},d=defaults[i%defaults.length];let id=typeof x.id==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(x.id)?x.id:d.id+'_'+(i+1);if(seen.has(id))id=id+'_'+(i+1);seen.add(id);const tierMin=Math.max(1,Math.min(10,Math.round(n(x.tierMin,d.tierMin,1,10)))),tierMax=Math.max(tierMin,Math.min(10,Math.round(n(x.tierMax,d.tierMax,tierMin,10)))),weight=n(x.weight,d.weight,0,100),chanceByTier=normalizeAffixChances(x.chanceByTier,weight,tierMin,tierMax);out.push({id,name:typeof x.name==='string'&&x.name.trim()?x.name.trim():d.name,tierMin,tierMax,weight,chanceByTier,slots:normalizeSlots(x.slots,d.slots,legacySlots),effect:normalizeEffect(x.effect,REGULAR_EFFECT_KEYS,d.effect)});}return out.length?out:clone(defaults);}
-  function normalizeBossAffixes(rows,legacySeries){const byId=new Map((Array.isArray(rows)?rows:[]).filter(Boolean).map(x=>[x.id,x])),legacyById=new Map((Array.isArray(legacySeries)?legacySeries:[]).filter(Boolean).map(x=>[x.id,x]));return DEFAULT_BOSS_AFFIXES.map(def=>{const x=byId.get(def.id)||{},legacy=legacyById.get(def.id)||{},name=typeof x.name==='string'&&x.name.trim()?x.name.trim():typeof legacy.name==='string'&&legacy.name.trim()?legacy.name.trim():def.name,src=Array.isArray(x.effects)?x.effects:[],effects=Array.from({length:3},(_,i)=>normalizeEffect(src[i],BOSS_EFFECT_KEYS,def.effects[i])),used=new Set();for(let i=0;i<effects.length;i++){if(used.has(effects[i].key)){const replacement=def.effects.find(d=>!used.has(d.key))||DEFAULT_BOSS_AFFIXES[0].effects.find(d=>!used.has(d.key));if(replacement)effects[i]=clone(replacement);}used.add(effects[i].key);}return {...def,name,effects};});}
-  function normalizePower(src){src=src&&typeof src==='object'&&!Array.isArray(src)?src:{};const legacySlots=Number(src.schemaVersion||0)<4,out=clone(POWER_DEFAULT);out.schemaVersion=4;out.prefixes=normalizeAffixRows(src.prefixes,DEFAULT_PREFIXES,legacySlots);out.suffixes=normalizeAffixRows(src.suffixes,DEFAULT_SUFFIXES,legacySlots);out.bossAffixes=normalizeBossAffixes(src.bossAffixes,src.seriesPrefixes);const st=src.strength||{};out.strength.multipliers=Array.from({length:10},(_,i)=>n(st.multipliers?.[i],POWER_DEFAULT.strength.multipliers[i],.01,100));out.strength.weightsByDifficulty=Array.from({length:3},(_,d)=>Array.from({length:10},(_,i)=>n(st.weightsByDifficulty?.[d]?.[i],POWER_DEFAULT.strength.weightsByDifficulty[d][i],0,1e9)));const r=src.rerollItem||{};out.rerollItem={id:POWER_ITEM_ID,name:typeof r.name==='string'&&r.name.trim()?r.name.trim():POWER_DEFAULT.rerollItem.name,description:typeof r.description==='string'?r.description:POWER_DEFAULT.rerollItem.description,cost:0,sellPrice:n(r.sellPrice,80,0,1e9),shopEnabled:false,shopChance:n(r.shopChance,.06,0,1),shopPrice:Math.round(n(r.shopPrice,650,1,1e9)),dropRuleInitialized:!!r.dropRuleInitialized};return out;}
+  function normalizeBossAffixes(rows,legacySeries){const byId=new Map((Array.isArray(rows)?rows:[]).filter(Boolean).map(x=>[x.id,x])),legacyById=new Map((Array.isArray(legacySeries)?legacySeries:[]).filter(Boolean).map(x=>[x.id,x]));return DEFAULT_BOSS_AFFIXES.map(def=>{const x=byId.get(def.id)||{},legacy=legacyById.get(def.id)||{},name=typeof x.name==='string'&&x.name.trim()?x.name.trim():typeof legacy.name==='string'&&legacy.name.trim()?legacy.name.trim():def.name,src=Array.isArray(x.effects)?x.effects:[],effects=Array.from({length:3},(_,i)=>normalizeEffect(src[i],BOSS_EFFECT_KEYS,def.effects[i])),used=new Set();for(let i=0;i<effects.length;i++){if(used.has(effects[i].key)){const replacement=def.effects.find(d=>!used.has(d.key))||DEFAULT_BOSS_AFFIXES[0].effects.find(d=>!used.has(d.key));if(replacement)effects[i]=clone(replacement);}used.add(effects[i].key);}return {...def,name,effects,textStyleId:typeof x.textStyleId==='string'?x.textStyleId:''};});}
+  function normalizePower(src){src=src&&typeof src==='object'&&!Array.isArray(src)?src:{};const legacySlots=Number(src.schemaVersion||0)<4,out=clone(POWER_DEFAULT);out.schemaVersion=4;out.prefixes=normalizeAffixRows(src.prefixes,DEFAULT_PREFIXES,legacySlots);out.suffixes=normalizeAffixRows(src.suffixes,DEFAULT_SUFFIXES,legacySlots);out.bossAffixes=normalizeBossAffixes(src.bossAffixes,src.seriesPrefixes);const st=src.strength||{};out.strength.multipliers=Array.from({length:10},(_,i)=>n(st.multipliers?.[i],POWER_DEFAULT.strength.multipliers[i],.01,100));out.strength.weightsByDifficulty=Array.from({length:3},(_,d)=>Array.from({length:10},(_,i)=>n(st.weightsByDifficulty?.[d]?.[i],POWER_DEFAULT.strength.weightsByDifficulty[d][i],0,1e9)));const r=src.rerollItem||{};out.rerollItem={id:POWER_ITEM_ID,name:typeof r.name==='string'&&r.name.trim()?r.name.trim():POWER_DEFAULT.rerollItem.name,description:typeof r.description==='string'?r.description:POWER_DEFAULT.rerollItem.description,cost:0,sellPrice:n(r.sellPrice,80,0,1e9),shopEnabled:false,shopChance:n(r.shopChance,.06,0,1),shopPrice:Math.round(n(r.shopPrice,650,1,1e9)),dropRuleInitialized:!!r.dropRuleInitialized,textStyleId:typeof r.textStyleId==='string'?r.textStyleId:''};return out;}
 
   function normalizeBaseForms(){for(const jobs of data.equipmentForms||[])for(const forms of jobs||[])for(const form of forms||[])normalizeEquipmentFixedEffects(form);const broad=data.equipmentForms?.[0]?.[0]?.[0];if(broad){const hit=broad.fixedEffects?.find(e=>e.key==='gearAtkPct');if(hit&&Math.abs(Number(hit.value)-20)<.001)hit.value=5;}}
 
-  function specialItem(){const r=data.equipmentPowerSystem.rerollItem;return {id:POWER_ITEM_ID,type:POWER_ITEM_TYPE,cost:0,sellPrice:r.sellPrice,duration:0,name:r.name,description:r.description,shopEnabled:false};}
+  function specialItem(){const r=data.equipmentPowerSystem.rerollItem;return {id:POWER_ITEM_ID,type:POWER_ITEM_TYPE,cost:0,sellPrice:r.sellPrice,duration:0,name:r.name,description:r.description,shopEnabled:false,textStyleId:r.textStyleId||''};}
   function ensureSpecialItem(){const item=specialItem(),i=data.items.findIndex(x=>x?.id===POWER_ITEM_ID||x?.type===POWER_ITEM_TYPE);if(i<0)data.items.push(item);else data.items[i]=Object.assign(data.items[i],item);}
   function ensureDropRule(){const r=data.equipmentPowerSystem.rerollItem;if(r.dropRuleInitialized)return;const drops=data.balanceSettings?.drops?.entries,cat=data.balanceSettings?.monsters?.catalog||[];if(Array.isArray(drops)&&!drops.some(x=>x?.type==='item'&&x?.key===POWER_ITEM_ID))drops.push({id:'power_tier_reroll_drop',name:r.name,enabled:true,type:'item',key:POWER_ITEM_ID,kinds:['elite','boss','final'],chanceByDifficulty:[.002,.01,.03],quantityMin:1,quantityMax:1,sources:cat.filter(x=>x?.enabled!==false).map(x=>x.id).filter(Boolean)});r.dropRuleInitialized=true;}
 
@@ -4552,5 +4552,145 @@ requestEditorInitialRender();
 
 
 
+
+<style id="text-rarity-shared-style">
+.text-rarity-name{vertical-align:baseline}
+.text-rarity-name.tr-custom-color{color:var(--tr-color)!important;-webkit-text-fill-color:var(--tr-color)!important;background-clip:border-box!important;-webkit-background-clip:border-box!important}
+.enhanced-name.effect-rainbow.tr-custom-color:not(.tr-block-gradient):not(.tr-block-stripes){background-image:none!important}
+.text-rarity-name.tr-text-effect{text-shadow:var(--tr-shadow)!important}
+.text-rarity-name.tr-frame{display:inline-block;padding:2px 6px;border:1px solid var(--tr-border,transparent);border-radius:6px;background-color:var(--tr-bg,transparent)}
+.text-rarity-name.tr-block-gradient{background-image:linear-gradient(120deg,transparent,rgba(255,255,255,.2),transparent)}
+.text-rarity-name.tr-block-stripes{background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(255,255,255,.12) 5px 9px)}
+.text-rarity-name.tr-block-inset{box-shadow:inset 0 1px 8px rgba(255,255,255,.26)}
+.text-rarity-name.tr-border-glow{border-color:var(--tr-border,currentColor);box-shadow:0 0 9px var(--tr-border,currentColor)}
+.text-rarity-name.tr-border-dashed{border-style:dashed;border-color:var(--tr-border,currentColor)}
+.text-rarity-name.tr-border-double{border-width:3px;border-style:double;border-color:var(--tr-border,currentColor)}
+
+</style>
+<style id="text-rarity-editor-style">
+.rarity-layout{display:grid;grid-template-columns:minmax(190px,280px) minmax(0,1fr);gap:14px}
+.rarity-list{display:grid;align-content:start;gap:6px;max-height:70vh;overflow:auto}
+.rarity-list button{text-align:left}
+.rarity-form{display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:12px}
+.rarity-form>label{font-size:13px;color:var(--text);margin:0}
+.rarity-form input,.rarity-form select{margin-top:5px}
+.rarity-color-control{display:flex;align-items:center;gap:10px;margin-top:6px}
+.rarity-color-control input[type=checkbox]{width:auto;margin:0}
+.rarity-color-control input[type=color]{width:80px;height:36px;padding:2px;margin:0}
+.rarity-preview{grid-column:1/-1;min-height:100px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding:14px;background:#101419;border:1px solid var(--line);border-radius:8px}
+.rarity-preview span.small{color:var(--muted);font-size:12px}
+.rarity-actions{grid-column:1/-1;display:flex;gap:8px}
+.rarity-assignment{margin-top:12px}
+.rarity-assignment select{margin-top:5px}
+.rarity-assignment .rarity-example{margin-top:9px;min-height:34px}
+@media(max-width:900px){.rarity-layout{grid-template-columns:1fr}.rarity-list{max-height:160px}.rarity-form{grid-template-columns:1fr}}
+</style>
+<script id="text-rarity-editor-system">
+(()=>{
+  const TEXT_FX={glow:'光暈',shadow:'深色陰影',light:'浮雕高光',crisp:'細描邊'};
+  const BLOCK_FX={gradient:'漸層反光',stripes:'斜紋',inset:'內側微光'};
+  const BORDER_FX={glow:'外框光暈',dashed:'虛線',double:'雙線'};
+  const SHADOW={glow:'0 0 7px currentColor, 0 0 14px currentColor',shadow:'2px 2px 3px #000',light:'-1px -1px 1px #fff8, 1px 1px 2px #000',crisp:'1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000'};
+  const COLORS=['textColor','blockColor','borderColor'];
+  const EFFECTS={textEffect1:TEXT_FX,textEffect2:TEXT_FX,blockEffect:BLOCK_FX,borderEffect:BORDER_FX};
+  let selectedId='',draft=null;
+  const empty=id=>({id,name:'',textColor:'',textEffect1:'',textEffect2:'',blockColor:'',blockEffect:'',borderColor:'',borderEffect:''});
+  const styles=()=>Array.isArray(data.textStyles)?data.textStyles:[];
+  const color=value=>typeof value==='string'&&/^#[0-9a-f]{6}$/i.test(value)?value:'';
+  function presentation(style){
+    if(!style)return {classes:'',attrs:''};
+    const tc=color(style.textColor),bg=color(style.blockColor),border=color(style.borderColor);
+    const shadows=[style.textEffect1,style.textEffect2].filter(x=>Object.hasOwn(SHADOW,x)).map(x=>SHADOW[x]);
+    const block=Object.hasOwn(BLOCK_FX,style.blockEffect)?style.blockEffect:'';
+    const edge=Object.hasOwn(BORDER_FX,style.borderEffect)?style.borderEffect:'';
+    const classes=['text-rarity-name',tc?'tr-custom-color':'',bg||border||block||edge?'tr-frame':'',block?'tr-block-'+block:'',edge?'tr-border-'+edge:'',shadows.length?'tr-text-effect':''].filter(Boolean).join(' ');
+    const vars=[tc&&`--tr-color:${tc}`,bg&&`--tr-bg:${bg}`,border&&`--tr-border:${border}`,shadows.length&&`--tr-shadow:${shadows.join(',')}`].filter(Boolean).join(';');
+    return {classes,attrs:vars?` style="${vars}"`:''};
+  }
+  function sample(label,style){if(!style)return esc(label);const {classes,attrs}=presentation(style);return `<span class="${classes}"${attrs}>${esc(label)}</span>`;}
+  function options(value){return '<option value="">預設外觀</option>'+styles().map(x=>`<option value="${esc(x.id)}" ${x.id===value?'selected':''}>${esc(x.name)}</option>`).join('');}
+  function assignedCount(id){let n=0;for(const jobs of data.equipmentForms||[])for(const forms of jobs||[])for(const x of forms||[])if(x.textStyleId===id)n++;for(const x of data.equipmentPowerSystem?.bossAffixes||[])if(x.textStyleId===id)n++;if(data.equipmentPowerSystem?.rerollItem?.textStyleId===id)n++;for(const x of data.items||[])if(x.id!=='power_tier_reroll'&&x.textStyleId===id)n++;return n;}
+  function assignment(obj,label,host){
+    if(!obj||!host)return;
+    const box=document.createElement('div');box.className='field full rarity-assignment';
+    box.innerHTML=`<label>文字稀有度 · ${esc(label)}</label><select>${options(obj.textStyleId||'')}</select><div class="field-help">選用已儲存的文字特效；預設外觀保留原本的品質顏色。</div><div class="rarity-example">${sample(obj.name||label,styles().find(x=>x.id===obj.textStyleId))}</div>`;
+    host.appendChild(box);
+    box.querySelector('select').onchange=ev=>{obj.textStyleId=ev.target.value;markDirty();box.querySelector('.rarity-example').innerHTML=sample(obj.name||label,styles().find(x=>x.id===obj.textStyleId));};
+  }
+  const baseEnsure=ensureArrays;
+  ensureArrays=function(){const out=baseEnsure();if(!Array.isArray(data.textStyles))data.textStyles=[];return out;};
+  ensureArrays();
+  if(!SECTION_META.some(([id])=>id==='textRarity')){const i=SECTION_META.findIndex(([id])=>id==='equipment');SECTION_META.splice(i<0?SECTION_META.length:i,0,['textRarity','文字稀有度設計器']);}
+  const baseCount=count;
+  count=function(section,normalized=false){if(section==='textRarity')return styles().length;return baseCount(section,normalized);};
+  const baseValidate=validateData;
+  validateData=function(){
+    const issues=baseValidate(),ids=new Set();
+    if(styles().length>200)issues.push('文字稀有度最多 200 組。');
+    for(const [i,x] of styles().entries()){
+      if(!x||typeof x.id!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(x.id)||ids.has(x.id)||typeof x.name!=='string'||!x.name.trim()||x.name.length>60)issues.push(`文字稀有度第 ${i+1} 筆 ID 或名稱無效／重複。`);
+      if(x?.id)ids.add(x.id);
+      for(const key of COLORS)if(x?.[key]!==undefined&&x[key]!==''&&!color(x[key]))issues.push(`文字稀有度 ${x?.id||i+1} 的 ${key} 無效。`);
+      for(const [key,choices] of Object.entries(EFFECTS))if(x?.[key]!==undefined&&x[key]!==''&&!Object.hasOwn(choices,x[key]))issues.push(`文字稀有度 ${x?.id||i+1} 的 ${key} 無效。`);
+    }
+    const check=(x,name)=>{if(x?.textStyleId!==undefined&&(typeof x.textStyleId!=='string'||x.textStyleId&&!ids.has(x.textStyleId)))issues.push(name+' 指向不存在的文字稀有度。');};
+    for(const [job,jobs] of (data.equipmentForms||[]).entries())for(const [slot,forms] of (jobs||[]).entries())for(const [i,x] of (forms||[]).entries())check(x,`裝備 ${job}-${slot}-${i}`);
+    for(const x of data.equipmentPowerSystem?.bossAffixes||[])check(x,'BOSS 裝備 '+x.id);
+    check(data.equipmentPowerSystem?.rerollItem,'強度重鑄石');
+    for(const x of data.items||[])check(x,'道具 '+x.id);
+    return [...new Set(issues)];
+  };
+
+  const choice=(choices,value)=>'<option value="">無特效</option>'+Object.entries(choices).map(([id,label])=>`<option value="${id}" ${value===id?'selected':''}>${label}</option>`).join('');
+  const colorField=(key,label,defaultColor)=>`<label>${label}<span class="rarity-color-control"><input type="checkbox" data-color-on="${key}" ${draft[key]?'checked':''}> 自訂 <input type="color" data-color="${key}" value="${draft[key]||defaultColor}" ${draft[key]?'':'disabled'}></span></label>`;
+  const effectField=(key,label,choices)=>`<label>${label}<select data-effect="${key}">${choice(choices,draft[key])}</select></label>`;
+  function renderDesigner(){
+    const list=styles();if(selectedId&&!list.some(x=>x.id===selectedId)){selectedId='';draft=null;}
+    if(!draft&&list.length){selectedId=list[0].id;draft=structuredClone(list[0]);}
+    document.getElementById('app').innerHTML=sectionHead('文字稀有度設計器','建立文字特效後，可在每件裝備與道具的設計欄位選擇套用。沒有選擇的顏色與特效沿用原有外觀。','<button id="addRarity">新增新文字特效</button>')+
+      `<div class="rarity-layout"><div class="card card-b rarity-list">${list.map(x=>`<button data-rarity="${esc(x.id)}" class="${selectedId===x.id?'primary':''}">${esc(x.name)}</button>`).join('')||'<div class="empty">尚無特效</div>'}</div><div class="card card-b">${draft?`<div class="rarity-form"><label>特效命名<input id="rarityName" maxlength="60" value="${esc(draft.name)}"></label><div></div>${colorField('textColor','文字底色（字色）','#e8edf0')}${effectField('textEffect1','文字特效 1',TEXT_FX)}${effectField('textEffect2','文字特效 2',TEXT_FX)}${colorField('blockColor','區塊底色','#263f55')}${effectField('blockEffect','區塊特效',BLOCK_FX)}${colorField('borderColor','外框顏色','#8ecaff')}${effectField('borderEffect','外框特效',BORDER_FX)}<div id="rarityPreview" class="rarity-preview"></div><div class="rarity-actions"><button id="saveRarity" class="primary">儲存</button>${list.some(x=>x.id===draft.id)?'<button id="deleteRarity" class="danger">刪除</button>':''}</div></div>`:'<div class="empty">點選「新增新文字特效」開始設計。</div>'}</div></div>`;
+    const app=document.getElementById('app');
+    document.getElementById('addRarity').onclick=()=>{let id;do{id='rarity_'+Math.random().toString(36).slice(2,10);}while(styles().some(x=>x.id===id));selectedId='';draft=empty(id);renderDesigner();};
+    app.querySelectorAll('[data-rarity]').forEach(el=>el.onclick=()=>{selectedId=el.dataset.rarity;draft=structuredClone(styles().find(x=>x.id===selectedId));renderDesigner();});
+    if(!draft)return;
+    const refresh=()=>{document.getElementById('rarityPreview').innerHTML=sample(draft.name||'預覽文字',draft)+'<span class="small">裝備／道具名稱預覽</span>';};refresh();
+    document.getElementById('rarityName').oninput=e=>{draft.name=e.target.value;refresh();};
+    app.querySelectorAll('[data-effect]').forEach(el=>el.onchange=()=>{draft[el.dataset.effect]=el.value;refresh();});
+    app.querySelectorAll('[data-color-on]').forEach(el=>el.onchange=()=>{const key=el.dataset.colorOn,input=app.querySelector(`[data-color="${key}"]`);input.disabled=!el.checked;draft[key]=el.checked?input.value:'';refresh();});
+    app.querySelectorAll('[data-color]').forEach(el=>el.oninput=()=>{draft[el.dataset.color]=el.value;refresh();});
+    document.getElementById('saveRarity').onclick=()=>{
+      if(!draft.name.trim())return alert('請先輸入特效名稱。');
+      const next={...draft,name:draft.name.trim()},index=styles().findIndex(x=>x.id===next.id);
+      if(index<0)styles().push(next);else styles()[index]=next;
+      selectedId=next.id;markDirty('文字稀有度已修改');document.getElementById('cacheBtn').click();render();
+    };
+    const del=document.getElementById('deleteRarity');if(del)del.onclick=()=>{
+      const used=assignedCount(draft.id);if(used)return alert(`已有 ${used} 件裝備／道具套用，請先移除引用。`);
+      if(!confirmDelete(`刪除文字特效「${draft.name}」？`))return;
+      data.textStyles=styles().filter(x=>x.id!==draft.id);selectedId='';draft=null;markDirty();render();
+    };
+  }
+  const renderBase=render;
+  render=function(){
+    if(currentSection==='textRarity'){ensureArrays();renderNav(true);renderDesigner();return;}
+    const out=renderBase();
+    if(currentSection==='potions'){
+      const obj=data.items?.filter(x=>x?.type==='healPotion')[selected.potion];
+      assignment(obj,'治療藥水',document.querySelector('#app .grid2 > div:nth-child(2) .fields'));
+    }else if(currentSection==='equipmentPower'){
+      for(const row of document.querySelectorAll('#app .boss-profile[data-boss]'))assignment(data.equipmentPowerSystem.bossAffixes[Number(row.dataset.boss)],'BOSS 專屬裝備',row.querySelector('.boss-profile-head'));
+      const r=data.equipmentPowerSystem?.rerollItem;
+      assignment(r,'強度重鑄石',document.querySelector('#app .power-reroll-grid'));
+      document.querySelector('#app .power-reroll-grid .rarity-assignment select')?.addEventListener('change',()=>{const item=data.items.find(x=>x?.id==='power_tier_reroll');if(item)item.textStyleId=r.textStyleId;});
+    }
+    return out;
+  };
+  const equipmentBase=renderEquipment;
+  renderEquipment=function(){const out=equipmentBase();const e=data.equipmentForms?.[selected.equipClass]?.[selected.equipSlot]?.[selected.equip];assignment(e,'裝備變體',document.querySelector('#app .grid2 > .card:nth-child(2) .fields'));return out;};
+  const itemsBase=renderItems;
+  renderItems=function(){const out=itemsBase();const regular=data.items.filter(x=>x?.type!=='healPotion'&&x?.id!=='power_tier_reroll'),item=regular[selected.item];assignment(item,'消耗道具',document.querySelector('#app .grid2 > .card:nth-child(2) .fields'));return out;};
+  requestEditorInitialRender();
+})();
+</script>
 
 </html>
