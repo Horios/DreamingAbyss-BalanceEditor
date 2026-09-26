@@ -4556,11 +4556,10 @@ requestEditorInitialRender();
 <style id="text-rarity-shared-style">
 /* Shared text rarity effects; mirrored in the balance editor. */
 .text-rarity-name{vertical-align:baseline}
-.text-rarity-name.tr-frame{position:relative;display:inline-block;padding:2px 6px;border:1px solid var(--tr-border,transparent);border-radius:6px;background-color:var(--tr-bg,transparent)}
-.inventory-list-item.tr-rarity-row{background-color:var(--tr-row-bg)!important}
-.inventory-list-item.tr-rarity-row:hover{background-image:linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08))}
-.inventory-list-item.tr-rarity-row.selected{background-image:linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12))}
-.inventory-list-item .text-rarity-name.tr-frame,.inventory-detail-heading .text-rarity-name.tr-frame{background-color:transparent}
+.text-rarity-name.tr-frame{position:relative;display:inline-block;padding:2px 6px;border:1px solid var(--tr-border,transparent);border-radius:6px}
+.tr-rarity-row{position:relative;background-color:var(--tr-row-bg,transparent)!important}
+.tr-preview-row.tr-rarity-row:hover{filter:brightness(1.08)}
+.tr-preview-row.tr-rarity-row.selected{filter:brightness(1.12)}
 .tr-preview-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%}
 .tr-preview-section{min-width:0;border:1px solid #3a4952;border-radius:6px;padding:8px}
 .tr-preview-section>.small{display:block;margin-bottom:8px}
@@ -4586,18 +4585,18 @@ requestEditorInitialRender();
   .text-rarity-name .tr-fill-holo{background-image:linear-gradient(115deg,#94fff1,#f6b9ff,#9bc7ff,#f1f7bd,#94fff1)!important;animation:tr-text-flow 5s linear infinite}
   .text-rarity-name .tr-fill-shimmer{background-image:linear-gradient(105deg,var(--tr-color,#b9dcff) 30%,#fff 48%,var(--tr-color,#b9dcff) 65%)!important;animation:tr-text-flow 3s ease-in-out infinite}
 }
-.text-rarity-name.tr-block-gradient{background-image:linear-gradient(120deg,transparent,rgba(255,255,255,.2),transparent)}
-.text-rarity-name.tr-block-stripes{background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(255,255,255,.12) 5px 9px)}
-.text-rarity-name.tr-block-inset::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 1px 8px rgba(255,255,255,.26)}
-.text-rarity-name.tr-block-glass{background-image:linear-gradient(150deg,rgba(255,255,255,.28),rgba(255,255,255,.04) 45%,rgba(255,255,255,.14))}.text-rarity-name.tr-block-glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 1px 1px rgba(255,255,255,.45)}
-.text-rarity-name.tr-block-grid{background-image:linear-gradient(rgba(105,225,255,.19) 1px,transparent 1px),linear-gradient(90deg,rgba(105,225,255,.19) 1px,transparent 1px);background-size:12px 12px}
-.text-rarity-name.tr-block-scanlines{background-image:repeating-linear-gradient(0deg,transparent 0 4px,rgba(126,222,255,.19) 4px 5px);background-size:100% 12px}
-.text-rarity-name.tr-block-dots{background-image:radial-gradient(rgba(255,255,255,.27) 1px,transparent 1.5px);background-size:9px 9px}
-.text-rarity-name.tr-block-carbon{background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.23) 0 3px,transparent 3px 7px),repeating-linear-gradient(-45deg,rgba(255,255,255,.12) 0 2px,transparent 2px 7px)}
-.text-rarity-name.tr-block-aurora{background-image:linear-gradient(110deg,rgba(60,225,193,.35),rgba(112,114,255,.3),rgba(232,94,222,.33),rgba(60,225,193,.35));background-size:250% 100%}
-.text-rarity-name.tr-block-shimmer{background-image:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.33) 48%,transparent 70%);background-size:250% 100%}
-.text-rarity-name.tr-block-spotlight{background-image:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.32),transparent 70%)}
-.text-rarity-name.tr-block-checker{background-image:linear-gradient(45deg,rgba(255,255,255,.14) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.14) 75%),linear-gradient(45deg,rgba(255,255,255,.14) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.14) 75%);background-size:12px 12px;background-position:0 0,6px 6px}
+.tr-rarity-row.tr-block-gradient{background-image:linear-gradient(120deg,transparent,rgba(255,255,255,.2),transparent)}
+.tr-rarity-row.tr-block-stripes{background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(255,255,255,.12) 5px 9px)}
+.tr-rarity-row.tr-block-inset::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 1px 8px rgba(255,255,255,.26)}
+.tr-rarity-row.tr-block-glass{background-image:linear-gradient(150deg,rgba(255,255,255,.28),rgba(255,255,255,.04) 45%,rgba(255,255,255,.14))}.tr-rarity-row.tr-block-glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 1px 1px rgba(255,255,255,.45)}
+.tr-rarity-row.tr-block-grid{background-image:linear-gradient(rgba(105,225,255,.19) 1px,transparent 1px),linear-gradient(90deg,rgba(105,225,255,.19) 1px,transparent 1px);background-size:12px 12px}
+.tr-rarity-row.tr-block-scanlines{background-image:repeating-linear-gradient(0deg,transparent 0 4px,rgba(126,222,255,.19) 4px 5px);background-size:100% 12px}
+.tr-rarity-row.tr-block-dots{background-image:radial-gradient(rgba(255,255,255,.27) 1px,transparent 1.5px);background-size:9px 9px}
+.tr-rarity-row.tr-block-carbon{background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.23) 0 3px,transparent 3px 7px),repeating-linear-gradient(-45deg,rgba(255,255,255,.12) 0 2px,transparent 2px 7px)}
+.tr-rarity-row.tr-block-aurora{background-image:linear-gradient(110deg,rgba(60,225,193,.35),rgba(112,114,255,.3),rgba(232,94,222,.33),rgba(60,225,193,.35));background-size:250% 100%}
+.tr-rarity-row.tr-block-shimmer{background-image:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.33) 48%,transparent 70%);background-size:250% 100%}
+.tr-rarity-row.tr-block-spotlight{background-image:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.32),transparent 70%)}
+.tr-rarity-row.tr-block-checker{background-image:linear-gradient(45deg,rgba(255,255,255,.14) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.14) 75%),linear-gradient(45deg,rgba(255,255,255,.14) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.14) 75%);background-size:12px 12px;background-position:0 0,6px 6px}
 .text-rarity-name.tr-border-glow{border-color:var(--tr-border,currentColor);box-shadow:0 0 9px var(--tr-border,currentColor)}
 .text-rarity-name.tr-border-dashed{border-style:dashed;border-color:var(--tr-border,currentColor)}
 .text-rarity-name.tr-border-double{border-width:3px;border-style:double;border-color:var(--tr-border,currentColor)}
@@ -4629,7 +4628,7 @@ requestEditorInitialRender();
 @keyframes tr-border-pulse{0%,100%{box-shadow:0 0 2px var(--tr-border,currentColor)}50%{box-shadow:0 0 14px 3px var(--tr-border,currentColor)}}
 @keyframes tr-border-electric{0%,89%,94%,100%{box-shadow:0 0 3px var(--tr-border,#79dfff)}90%,93%{box-shadow:2px -1px 8px var(--tr-border,#79dfff),-2px 1px 7px #ff7edb}91%,92%{box-shadow:-2px 1px 12px var(--tr-border,#79dfff),2px -1px 5px #ff7edb}}
 @keyframes tr-border-march{to{background-position:10px 0,-10px 100%,0 -10px,100% 10px}}
-@media(prefers-reduced-motion:reduce){.text-rarity-name,.text-rarity-name .tr-motion,.text-rarity-name .tr-text,.text-rarity-name::after{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.tr-rarity-row,.text-rarity-name,.text-rarity-name .tr-motion,.text-rarity-name .tr-text,.text-rarity-name::after{animation:none!important}}
 @media(forced-colors:active){.text-rarity-name .tr-text[class*="tr-fill-"]{background:none!important;color:CanvasText!important;-webkit-text-fill-color:CanvasText!important}.text-rarity-name.tr-frame{border-color:CanvasText}.text-rarity-name.tr-border-march::after{display:none}}
 </style>
 <style id="text-rarity-editor-style">
@@ -4694,11 +4693,19 @@ requestEditorInitialRender();
     const motionClasses=effects.filter(x=>MOTIONS.has(x)).map(x=>'tr-motion-'+x);
     const block=Object.hasOwn(BLOCK_FX,style.blockEffect)?style.blockEffect:'';
     const edge=Object.hasOwn(BORDER_FX,style.borderEffect)?style.borderEffect:'';
-    const classes=['text-rarity-name',bg||border||block||edge?'tr-frame':'',block?'tr-block-'+block:'',edge?'tr-border-'+edge:''].filter(Boolean).join(' ');
+    const classes=['text-rarity-name',border||edge?'tr-frame':'',edge?'tr-border-'+edge:''].filter(Boolean).join(' ');
     const textClasses=['tr-text',tc?'tr-custom-color':'',fill?'tr-fill-'+fill:'',shadows.length?'tr-text-effect':''].filter(Boolean).join(' ');
-    const animations=[BLOCK_ANIMATION[block],BORDER_ANIMATION[edge]].filter(Boolean);
-    const vars=[tc&&`--tr-color:${tc}`,bg&&`--tr-bg:${bg}`,border&&`--tr-border:${border}`,shadows.length&&`--tr-shadow:${shadows.join(',')}`,animations.length&&`animation:${animations.join(',')}`].filter(Boolean).join(';');
+    const animations=[BORDER_ANIMATION[edge]].filter(Boolean);
+    const vars=[tc&&`--tr-color:${tc}`,border&&`--tr-border:${border}`,shadows.length&&`--tr-shadow:${shadows.join(',')}`,animations.length&&`animation:${animations.join(',')}`].filter(Boolean).join(';');
     return {classes,attrs:vars?` style="${vars}"`:'',textClasses,motionClasses};
+  }
+  function rowPresentation(style){
+    if(!style)return {classes:'',attrs:''};
+    const bg=color(style.blockColor),block=Object.hasOwn(BLOCK_FX,style.blockEffect)?style.blockEffect:'';
+    const animation=BLOCK_ANIMATION[block]||'';
+    const classes=['tr-rarity-row',block?'tr-block-'+block:''].filter(Boolean).join(' ');
+    const vars=[bg&&`--tr-row-bg:${bg}`,animation&&`animation:${animation}`].filter(Boolean).join(';');
+    return {classes,attrs:vars?` style="${vars}"`:''};
   }
   function frameHTML(content,style){
     const {classes,attrs,motionClasses}=presentation(style);
@@ -4745,15 +4752,15 @@ requestEditorInitialRender();
     if(data!==sourceData){sourceData=data;selectedId='';draft=null;}
     const list=styles();if(selectedId&&!list.some(x=>x.id===selectedId)){selectedId='';draft=null;}
     if(!draft&&list.length){selectedId=list[0].id;draft=structuredClone(list[0]);}
-    document.getElementById('app').innerHTML=sectionHead('文字稀有度設計器','建立文字特效後，可在每件裝備與道具的設計欄位選擇套用。沒有選擇的顏色與特效沿用原有外觀。區塊底色會填滿裝備列表整列，右側詳細不顯示底色。若選兩種彩色填色，以文字特效 1 優先。','<button id="addRarity">新增新文字特效</button>')+
-      `<div class="rarity-layout"><div class="card card-b rarity-list">${list.map(x=>`<button data-rarity="${esc(x.id)}" class="${selectedId===x.id?'primary':''}">${esc(x.name)}</button>`).join('')||'<div class="empty">尚無特效</div>'}</div><div class="card card-b">${draft?`<div class="rarity-form"><label>特效命名<input id="rarityName" maxlength="60" value="${esc(draft.name)}"></label><div></div>${colorField('textColor','文字顏色','#e8edf0')}${effectField('textEffect1','文字特效 1',TEXT_FX)}${effectField('textEffect2','文字特效 2',TEXT_FX)}${colorField('blockColor','區塊底色（裝備列表整列）','#263f55')}${effectField('blockEffect','區塊特效',BLOCK_FX)}${colorField('borderColor','外框顏色','#8ecaff')}${effectField('borderEffect','外框特效',BORDER_FX)}<div id="rarityPreview" class="rarity-preview"></div><div class="rarity-actions"><button id="saveRarity" class="primary">儲存</button>${list.some(x=>x.id===draft.id)?'<button id="deleteRarity" class="danger">刪除</button>':''}</div></div>`:'<div class="empty">點選「新增新文字特效」開始設計。</div>'}</div></div>`;
+    document.getElementById('app').innerHTML=sectionHead('文字稀有度設計器','建立文字特效後，可在每件裝備與道具的設計欄位選擇套用。裝備區塊背景色與背景特效會套用到裝備列表的整個區塊，右側詳細頁不套用；文字外框則只包住名稱。未選擇的欄位沿用原有外觀。若選兩種彩色填色，以文字特效 1 優先。','<button id="addRarity">新增新文字特效</button>')+
+      `<div class="rarity-layout"><div class="card card-b rarity-list">${list.map(x=>`<button data-rarity="${esc(x.id)}" class="${selectedId===x.id?'primary':''}">${esc(x.name)}</button>`).join('')||'<div class="empty">尚無特效</div>'}</div><div class="card card-b">${draft?`<div class="rarity-form"><label>特效命名<input id="rarityName" maxlength="60" value="${esc(draft.name)}"></label><div></div>${colorField('textColor','文字顏色','#e8edf0')}${effectField('textEffect1','文字特效 1',TEXT_FX)}${effectField('textEffect2','文字特效 2',TEXT_FX)}${colorField('blockColor','裝備區塊背景色','#263f55')}${effectField('blockEffect','裝備區塊背景特效',BLOCK_FX)}${colorField('borderColor','文字外框顏色','#8ecaff')}${effectField('borderEffect','文字外框特效',BORDER_FX)}<div id="rarityPreview" class="rarity-preview"></div><div class="rarity-actions"><button id="saveRarity" class="primary">儲存</button>${list.some(x=>x.id===draft.id)?'<button id="deleteRarity" class="danger">刪除</button>':''}</div></div>`:'<div class="empty">點選「新增新文字特效」開始設計。</div>'}</div></div>`;
     const app=document.getElementById('app');
     document.getElementById('addRarity').onclick=()=>{let id;do{id='rarity_'+Math.random().toString(36).slice(2,10);}while(styles().some(x=>x.id===id));selectedId='';draft=empty(id);renderDesigner();};
     app.querySelectorAll('[data-rarity]').forEach(el=>el.onclick=()=>{selectedId=el.dataset.rarity;draft=structuredClone(styles().find(x=>x.id===selectedId));renderDesigner();});
     if(!draft)return;
     const refresh=()=>{
-      const name=sample(draft.name||'預覽文字',draft),bg=color(draft.blockColor);
-      document.getElementById('rarityPreview').innerHTML=`<div class="tr-preview-pair"><div class="tr-preview-section"><span class="small">左側裝備列表</span><div class="tr-preview-row"${bg?` style="--tr-row-bg:${bg}"`:''}>${name}<span class="small">普通</span></div></div><div class="tr-preview-section"><span class="small">右側裝備詳細</span><div class="tr-preview-detail">${name}</div></div></div>`;
+      const name=sample(draft.name||'預覽文字',draft),row=rowPresentation(draft);
+      document.getElementById('rarityPreview').innerHTML=`<div class="tr-preview-pair"><div class="tr-preview-section"><span class="small">左側裝備列表</span><div class="tr-preview-row ${row.classes}"${row.attrs}>${name}<span class="small">普通</span></div></div><div class="tr-preview-section"><span class="small">右側裝備詳細</span><div class="tr-preview-detail">${name}</div></div></div>`;
     };refresh();
     document.getElementById('rarityName').oninput=e=>{draft.name=e.target.value;refresh();};
     app.querySelectorAll('[data-effect]').forEach(el=>el.onchange=()=>{draft[el.dataset.effect]=el.value;refresh();});
