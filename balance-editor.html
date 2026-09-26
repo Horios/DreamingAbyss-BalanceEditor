@@ -4593,7 +4593,7 @@ requestEditorInitialRender();
   const SHADOW={glow:'0 0 7px currentColor, 0 0 14px currentColor',shadow:'2px 2px 3px #000',light:'-1px -1px 1px #fff8, 1px 1px 2px #000',crisp:'1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000'};
   const COLORS=['textColor','blockColor','borderColor'];
   const EFFECTS={textEffect1:TEXT_FX,textEffect2:TEXT_FX,blockEffect:BLOCK_FX,borderEffect:BORDER_FX};
-  let selectedId='',draft=null;
+  let selectedId='',draft=null,sourceData=data;
   const empty=id=>({id,name:'',textColor:'',textEffect1:'',textEffect2:'',blockColor:'',blockEffect:'',borderColor:'',borderEffect:''});
   const styles=()=>Array.isArray(data.textStyles)?data.textStyles:[];
   const color=value=>typeof value==='string'&&/^#[0-9a-f]{6}$/i.test(value)?value:'';
@@ -4645,6 +4645,7 @@ requestEditorInitialRender();
   const colorField=(key,label,defaultColor)=>`<label>${label}<span class="rarity-color-control"><input type="checkbox" data-color-on="${key}" ${draft[key]?'checked':''}> 自訂 <input type="color" data-color="${key}" value="${draft[key]||defaultColor}" ${draft[key]?'':'disabled'}></span></label>`;
   const effectField=(key,label,choices)=>`<label>${label}<select data-effect="${key}">${choice(choices,draft[key])}</select></label>`;
   function renderDesigner(){
+    if(data!==sourceData){sourceData=data;selectedId='';draft=null;}
     const list=styles();if(selectedId&&!list.some(x=>x.id===selectedId)){selectedId='';draft=null;}
     if(!draft&&list.length){selectedId=list[0].id;draft=structuredClone(list[0]);}
     document.getElementById('app').innerHTML=sectionHead('文字稀有度設計器','建立文字特效後，可在每件裝備與道具的設計欄位選擇套用。沒有選擇的顏色與特效沿用原有外觀。','<button id="addRarity">新增新文字特效</button>')+
