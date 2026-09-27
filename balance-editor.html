@@ -4668,6 +4668,22 @@ requestEditorInitialRender();
 .text-rarity-name.tr-border-electric{border-color:var(--tr-border,#79dfff)}
 .text-rarity-name.tr-border-march{border-color:transparent}
 .text-rarity-name.tr-border-march::after{content:"";position:absolute;inset:-2px;border-radius:inherit;pointer-events:none;background:linear-gradient(90deg,var(--tr-border,currentColor) 50%,transparent 0) top/10px 2px repeat-x,linear-gradient(90deg,var(--tr-border,currentColor) 50%,transparent 0) bottom/10px 2px repeat-x,linear-gradient(0deg,var(--tr-border,currentColor) 50%,transparent 0) left/2px 10px repeat-y,linear-gradient(0deg,var(--tr-border,currentColor) 50%,transparent 0) right/2px 10px repeat-y;animation:tr-border-march 1s linear infinite}
+
+/* Restored from the earlier Emberwild HTML text-effect showcase. */
+.text-rarity-name .tr-text.tr-special-alphaDemo{opacity:.62}
+.text-rarity-name .tr-text.tr-special-warmGradientDemo{color:transparent!important;-webkit-text-fill-color:transparent!important;background:linear-gradient(90deg,#ffd86f,#ff9f43,#ff5f6d)!important;-webkit-background-clip:text!important;background-clip:text!important}
+.text-rarity-name .tr-text.tr-special-movingRainbowDemo{color:transparent!important;-webkit-text-fill-color:transparent!important;background:linear-gradient(90deg,#ff5f6d,#ffc371,#fff36d,#68e08b,#66c7ff,#a78bfa,#ff78c8,#ff5f6d)!important;background-size:250% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;animation:tr-demo-move-gradient 3s linear infinite}
+.text-rarity-name .tr-text.tr-special-multiGlowDemo{color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 0 3px #fff,0 0 8px #a78bfa,0 0 18px #66c7ff,0 0 28px rgba(255,120,200,.55)!important}
+.text-rarity-name .tr-text.tr-special-breatheGoldDemo{color:#ffd86f!important;-webkit-text-fill-color:#ffd86f!important;animation:tr-demo-breathe 1.8s ease-in-out infinite alternate}
+.text-rarity-name .tr-text.tr-special-goldShineDemo{color:transparent!important;-webkit-text-fill-color:transparent!important;background:linear-gradient(110deg,#d8b45b 0%,#d8b45b 38%,#fff8cf 47%,#fff 50%,#fff8cf 53%,#d8b45b 62%,#d8b45b 100%)!important;background-size:250% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;animation:tr-demo-shine 2.5s linear infinite}
+.text-rarity-name .tr-text.tr-special-strokeShadowDemo{color:#f3c969!important;-webkit-text-fill-color:#f3c969!important;-webkit-text-stroke:1px #4d3210;paint-order:stroke fill;text-shadow:0 2px 3px #000!important}
+.text-rarity-name .tr-text.tr-special-ultimateDemo{color:transparent!important;-webkit-text-fill-color:transparent!important;background:linear-gradient(90deg,#ff6978,#ffd36b,#83ef9b,#67d8ff,#a58cff,#ff82cf,#ff6978)!important;background-size:260% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;animation:tr-demo-move-gradient 2.7s linear infinite,tr-demo-ultimate-pulse 1.8s ease-in-out infinite alternate;filter:drop-shadow(0 0 4px rgba(150,200,255,.45))}
+.text-rarity-name .tr-text.tr-special-maxEnhanceDemo{color:transparent!important;-webkit-text-fill-color:transparent!important;background:linear-gradient(90deg,#ff6978,#ffd36b,#83ef9b,#67d8ff,#a58cff,#ff82cf,#ff6978)!important;background-size:250% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;animation:tr-demo-move-gradient 3s linear infinite;filter:drop-shadow(0 0 3px rgba(190,180,255,.55))}
+@keyframes tr-demo-move-gradient{to{background-position:250% 0}}
+@keyframes tr-demo-breathe{from{opacity:.55;text-shadow:0 0 2px rgba(255,216,111,.15)}to{opacity:1;text-shadow:0 0 16px rgba(255,216,111,.75)}}
+@keyframes tr-demo-shine{to{background-position:-250% 0}}
+@keyframes tr-demo-ultimate-pulse{to{filter:drop-shadow(0 0 9px rgba(210,170,255,.8))}}
+
 .text-rarity-name .tr-motion-blink{animation:tr-blink 1.8s steps(1,end) infinite}
 .text-rarity-name .tr-motion-flicker{animation:tr-flicker 3s steps(1,end) infinite}
 .text-rarity-name .tr-motion-pulse{animation:tr-pulse 2s ease-in-out infinite}
@@ -4748,6 +4764,9 @@ requestEditorInitialRender();
     neon:'霓虹光',fire:'火焰光',ice:'冰霜光',chromatic:'紅藍色差',toxicGlow:'毒液光',voidGlow:'虛空光',holyGlow:'聖光',bloodGlow:'血色光',electricGlow:'電弧光',
     rainbow:'彩虹文字',flow:'彩色流光',aurora:'極光流動',gold:'金屬金',silver:'金屬銀',bronze:'青銅',copper:'紅銅',roseGold:'玫瑰金',chrome:'鉻金屬',holo:'全息幻彩',shimmer:'文字掃光',
     obsidian:'黑曜石',magma:'熔岩',frost:'冰晶',electric:'電流',toxic:'毒液',void:'虛空',sunset:'夕照',ocean:'海洋',forest:'翠綠',ruby:'紅寶石',sapphire:'藍寶石',emerald:'翡翠',candy:'糖果彩',plasma:'電漿',cosmic:'星雲',
+    alphaDemo:'展示・半透明',warmGradientDemo:'展示・暖色漸層',movingRainbowDemo:'展示・動態彩虹',
+    multiGlowDemo:'展示・多層光暈',breatheGoldDemo:'展示・金色呼吸光',goldShineDemo:'展示・黃金掃光',
+    strokeShadowDemo:'展示・描邊＋陰影',ultimateDemo:'展示・終極彩光',maxEnhanceDemo:'展示・滿強化彩字',
     blink:'閃爍',flicker:'燈管閃動',pulse:'呼吸亮度',glitch:'科技故障',jitter:'微抖動',float:'上下浮動',shake:'震動',bounce:'彈跳',sway:'左右搖擺',swing:'鐘擺',tilt:'傾斜擺動',zoom:'縮放呼吸',heartbeat:'心跳',hue:'色相循環',blur:'失焦脈動',stretch:'水平伸縮',flip:'翻轉'
   };
   const BLOCK_FX={
@@ -4809,6 +4828,7 @@ requestEditorInitialRender();
   };
   const FILLS=new Set(['rainbow','flow','aurora','gold','silver','bronze','copper','roseGold','chrome','holo','shimmer','obsidian','magma','frost','electric','toxic','void','sunset','ocean','forest','ruby','sapphire','emerald','candy','plasma','cosmic']);
   const MOTIONS=new Set(['blink','flicker','pulse','glitch','jitter','float','shake','bounce','sway','swing','tilt','zoom','heartbeat','hue','blur','stretch','flip']);
+  const SPECIALS=new Set(['alphaDemo','warmGradientDemo','movingRainbowDemo','multiGlowDemo','breatheGoldDemo','goldShineDemo','strokeShadowDemo','ultimateDemo','maxEnhanceDemo']);
   const BLOCK_ANIMATION={scanlines:'tr-block-scan 3s linear infinite',aurora:'tr-block-flow 6s ease-in-out infinite alternate',shimmer:'tr-block-flow 3s ease-in-out infinite',diagonal:'tr-block-drift 4s linear infinite',stars:'tr-block-stars 14s linear infinite',sparkle:'tr-block-sparkle 2.6s ease-in-out infinite',prism:'tr-block-flow 6s linear infinite',rainbow:'tr-block-flow 7s linear infinite',holo:'tr-block-flow 5s linear infinite',magma:'tr-block-lava 6s ease-in-out infinite',ocean:'tr-block-wave 6s linear infinite',toxic:'tr-block-drift 7s linear infinite',void:'tr-block-breathe 5s ease-in-out infinite',plasma:'tr-block-flow 5s ease-in-out infinite alternate',electric:'tr-block-electric 1.7s linear infinite',matrix:'tr-block-matrix 2.8s linear infinite',glitch:'tr-block-glitch 2.4s steps(1,end) infinite',pulse:'tr-block-breathe 2.8s ease-in-out infinite',movingStripes:'tr-block-drift 2.5s linear infinite',waves:'tr-block-wave 4.5s linear infinite',noise:'tr-block-drift 18s linear infinite',mesh:'tr-block-flow 8s ease-in-out infinite alternate',emerald:'tr-block-flow 6s linear infinite',blood:'tr-block-breathe 4s ease-in-out infinite',holy:'tr-block-breathe 3.5s ease-in-out infinite',shadow:'tr-block-flow 8s ease-in-out infinite alternate'};
   const BORDER_ANIMATION={rainbow:'tr-border-rainbow 4s linear infinite',pulse:'tr-border-pulse 2s ease-in-out infinite',electric:'tr-border-electric 2.3s steps(1,end) infinite'};
   const COLORS=['textColor','blockColor','borderColor'];
@@ -4824,10 +4844,11 @@ requestEditorInitialRender();
     const shadows=effects.filter(x=>Object.hasOwn(SHADOW,x)).map(x=>SHADOW[x]);
     const fill=effects.find(x=>FILLS.has(x))||'';
     const motionClasses=effects.filter(x=>MOTIONS.has(x)).map(x=>'tr-motion-'+x);
+    const specialClasses=effects.filter(x=>SPECIALS.has(x)).map(x=>'tr-special-'+x);
     const block=Object.hasOwn(BLOCK_FX,style.blockEffect)?style.blockEffect:'';
     const edge=Object.hasOwn(BORDER_FX,style.borderEffect)?style.borderEffect:'';
     const classes=['text-rarity-name',border||edge?'tr-frame':'',edge?'tr-border-'+edge:''].filter(Boolean).join(' ');
-    const textClasses=['tr-text',tc?'tr-custom-color':'',fill?'tr-fill-'+fill:'',shadows.length?'tr-text-effect':''].filter(Boolean).join(' ');
+    const textClasses=['tr-text',tc?'tr-custom-color':'',fill?'tr-fill-'+fill:'',shadows.length?'tr-text-effect':'',...specialClasses].filter(Boolean).join(' ');
     const animations=[BORDER_ANIMATION[edge]].filter(Boolean);
     const vars=[tc&&`--tr-color:${tc}`,border&&`--tr-border:${border}`,shadows.length&&`--tr-shadow:${shadows.join(',')}`,animations.length&&`animation:${animations.join(',')}`].filter(Boolean).join(';');
     return {classes,attrs:vars?` style="${vars}"`:'',textClasses,motionClasses};
