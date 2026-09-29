@@ -3594,23 +3594,79 @@ ensureArrays();requestEditorInitialRender();
   const colors={steel:'#cdd8df',ember:'#f2a47f',blood:'#e98184',frost:'#a9dcf4',wind:'#a9dfd6',light:'#f0d893',shadow:'#c9adea',arcane:'#d0c6f1',aim:'#dbc69e',neutral:'#d8ded5'};
   const toneByKey=Object.fromEntries(Object.entries(tones).flatMap(([tone,keys])=>keys.map(key=>[key,tone])));
   const keys=Object.keys(paths);
+  const shapeKinds=['icon','line','rect','ellipse','arc','polygon'];
   const bound=(n,min,max,fallback)=>Number.isFinite(n)?Math.max(min,Math.min(max,n)):fallback;
+  const num=(v,fallback=0)=>Number.isFinite(Number(v))?Number(v):fallback;
+  const toneColor=(tone,fallbackKey='magic')=>colors[tone]||colors[toneByKey[fallbackKey]]||colors.neutral;
+  const escAttr=v=>String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  function normalizeLayer(layer){
+    if(!layer||typeof layer!=='object')return null;
+    if(!layer.kind&&layer.icon)layer.kind='icon';
+    if(!shapeKinds.includes(layer.kind||''))layer.kind='icon';
+    if(layer.kind==='icon'){
+      return {kind:'icon',icon:Object.hasOwn(paths,layer.icon)?layer.icon:'magic',x:bound(num(layer.x),-24,24,0),y:bound(num(layer.y),-24,24,0),scale:bound(num(layer.scale,1),.25,2.5,1),rotation:bound(num(layer.rotation),-180,180,0),tone:layer.tone&&Object.hasOwn(colors,layer.tone)?layer.tone:undefined};
+    }
+    if(layer.kind==='line'){
+      return {kind:'line',x:bound(num(layer.x),-24,24,0),y:bound(num(layer.y),-24,24,0),length:bound(num(layer.length,18),2,64,18),rotation:bound(num(layer.rotation),-180,180,0),strokeWidth:bound(num(layer.strokeWidth,2.7),.4,10,2.7),tone:layer.tone&&Object.hasOwn(colors,layer.tone)?layer.tone:'neutral'};
+    }
+    if(layer.kind==='rect'){
+      return {kind:'rect',x:bound(num(layer.x),-24,24,0),y:bound(num(layer.y),-24,24,0),w:bound(num(layer.w,16),1,64,16),h:bound(num(layer.h,16),1,64,16),radius:bound(num(layer.radius),0,24,0),rotation:bound(num(layer.rotation),-180,180,0),strokeWidth:bound(num(layer.strokeWidth,2.4),.4,10,2.4),strokeTone:layer.strokeTone&&Object.hasOwn(colors,layer.strokeTone)?layer.strokeTone:'neutral',filled:!!layer.filled,fillTone:layer.fillTone&&Object.hasOwn(colors,layer.fillTone)?layer.fillTone:(!!layer.filled?'neutral':'')};
+    }
+    if(layer.kind==='ellipse'){
+      return {kind:'ellipse',x:bound(num(layer.x),-24,24,0),y:bound(num(layer.y),-24,24,0),rx:bound(num(layer.rx,8),.5,32,8),ry:bound(num(layer.ry,8),.5,32,8),rotation:bound(num(layer.rotation),-180,180,0),strokeWidth:bound(num(layer.strokeWidth,2.4),.4,10,2.4),strokeTone:layer.strokeTone&&Object.hasOwn(colors,layer.strokeTone)?layer.strokeTone:'neutral',filled:!!layer.filled,fillTone:layer.fillTone&&Object.hasOwn(colors,layer.fillTone)?layer.fillTone:(!!layer.filled?'neutral':'')};
+    }
+    if(layer.kind==='arc'){
+      return {kind:'arc',x:bound(num(layer.x),-24,24,0),y:bound(num(layer.y),-24,24,0),r:bound(num(layer.r,10),.5,32,10),start:bound(num(layer.start,-110),-360,360,-110),end:bound(num(layer.end,110),-360,360,110),rotation:bound(num(layer.rotation),-180,180,0),strokeWidth:bound(num(layer.strokeWidth,2.4),.4,10,2.4),tone:layer.tone&&Object.hasOwn(colors,layer.tone)?layer.tone:'neutral'};
+    }
+    const points=String(layer.points||'-6,-10 8,0 -6,10').trim().replace(/[^0-9, .\-]/g,'').replace(/\s+/g,' ');
+    return {kind:'polygon',x:bound(num(layer.x),-24,24,0),y:bound(num(layer.y),-24,24,0),points:points||'-6,-10 8,0 -6,10',scale:bound(num(layer.scale,1),.2,4,1),rotation:bound(num(layer.rotation),-180,180,0),strokeWidth:bound(num(layer.strokeWidth,2.4),.4,10,2.4),strokeTone:layer.strokeTone&&Object.hasOwn(colors,layer.strokeTone)?layer.strokeTone:'neutral',filled:!!layer.filled,fillTone:layer.fillTone&&Object.hasOwn(colors,layer.fillTone)?layer.fillTone:(!!layer.filled?'neutral':'')};
+  }
+  function polygonBounds(points){
+    const nums=String(points||'').trim().split(/\s+/).map(pair=>pair.split(',').map(Number)).filter(pair=>pair.length===2&&pair.every(Number.isFinite));
+    if(!nums.length)return {x:-8,y:-8,w:16,h:16};
+    const xs=nums.map(([x])=>x),ys=nums.map(([,y])=>y),minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+    return {x:minX,y:minY,w:maxX-minX||1,h:maxY-minY||1};
+  }
+  function arcPath(r,start,end){
+    const s=(start-90)*Math.PI/180,e=(end-90)*Math.PI/180;
+    const sx=(Math.cos(s)*r).toFixed(2),sy=(Math.sin(s)*r).toFixed(2),ex=(Math.cos(e)*r).toFixed(2),ey=(Math.sin(e)*r).toFixed(2);
+    let delta=((end-start)%360+360)%360;if(delta>359.5)delta=359.5;
+    const large=delta>180?1:0,sweep=delta>=0?1:0;
+    return `M ${sx} ${sy} A ${r} ${r} 0 ${large} ${sweep} ${ex} ${ey}`;
+  }
+  function layerBounds(layer){
+    const L=normalizeLayer(layer);if(!L)return {x:4,y:4,w:40,h:40};
+    if(L.kind==='icon')return {x:4,y:4,w:40,h:40};
+    if(L.kind==='line')return {x:24+L.x-L.length/2,y:24+L.y-L.strokeWidth,w:L.length,h:L.strokeWidth*2};
+    if(L.kind==='rect')return {x:24+L.x-L.w/2,y:24+L.y-L.h/2,w:L.w,h:L.h};
+    if(L.kind==='ellipse')return {x:24+L.x-L.rx,y:24+L.y-L.ry,w:L.rx*2,h:L.ry*2};
+    if(L.kind==='arc')return {x:24+L.x-L.r,y:24+L.y-L.r,w:L.r*2,h:L.r*2};
+    const b=polygonBounds(L.points);return {x:24+L.x+b.x*L.scale,y:24+L.y+b.y*L.scale,w:b.w*L.scale,h:b.h*L.scale};
+  }
+  function layerMarkup(rawLayer){
+    const layer=normalizeLayer(rawLayer);if(!layer)return '';
+    if(layer.kind==='icon'){
+      const color=toneColor(layer.tone,layer.icon);
+      return `<g transform="translate(${layer.x} ${layer.y}) translate(24 24) rotate(${layer.rotation}) scale(${layer.scale}) translate(-24 -24)" color="${color}" stroke="currentColor">${paths[layer.icon]}</g>`;
+    }
+    if(layer.kind==='line')return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})" color="${toneColor(layer.tone)}"><line x1="${-layer.length/2}" y1="0" x2="${layer.length/2}" y2="0" stroke="currentColor" stroke-width="${layer.strokeWidth}" stroke-linecap="round"/></g>`;
+    if(layer.kind==='rect')return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})"><rect x="${-layer.w/2}" y="${-layer.h/2}" width="${layer.w}" height="${layer.h}" rx="${layer.radius}" fill="${layer.filled?toneColor(layer.fillTone||layer.strokeTone):'none'}" stroke="${toneColor(layer.strokeTone)}" stroke-width="${layer.strokeWidth}"/></g>`;
+    if(layer.kind==='ellipse')return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})"><ellipse cx="0" cy="0" rx="${layer.rx}" ry="${layer.ry}" fill="${layer.filled?toneColor(layer.fillTone||layer.strokeTone):'none'}" stroke="${toneColor(layer.strokeTone)}" stroke-width="${layer.strokeWidth}"/></g>`;
+    if(layer.kind==='arc')return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})" color="${toneColor(layer.tone)}"><path d="${arcPath(layer.r,layer.start,layer.end)}" fill="none" stroke="currentColor" stroke-width="${layer.strokeWidth}"/></g>`;
+    return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation}) scale(${layer.scale})"><polygon points="${escAttr(layer.points)}" fill="${layer.filled?toneColor(layer.fillTone||layer.strokeTone):'none'}" stroke="${toneColor(layer.strokeTone)}" stroke-width="${layer.strokeWidth}" stroke-linejoin="round" stroke-linecap="round"/></g>`;
+  }
   function markupFor(type,definitions=[]){
     if(Object.hasOwn(paths,type))return paths[type];
     if(typeof type!=='string'||!type.startsWith('custom:'))return paths.magic;
     const icon=definitions.find(item=>item?.id===type.slice(7));
     if(!icon||!Array.isArray(icon.layers))return paths.magic;
-    return icon.layers.slice(0,8).map(layer=>{
-      if(!Object.hasOwn(paths,layer.icon))return '';
-      const x=bound(layer.x,-24,24,0),y=bound(layer.y,-24,24,0),scale=bound(layer.scale,.25,2.5,1);
-      const color=colors[layer.tone]||colors[toneByKey[layer.icon]]||colors.neutral;
-      return `<g transform="translate(${x} ${y}) translate(24 24) scale(${scale}) translate(-24 -24)" color="${color}" stroke="currentColor">${paths[layer.icon]}</g>`;
-    }).join('')||paths.magic;
+    return icon.layers.slice(0,8).map(layerMarkup).join('')||paths.magic;
   }
   function svgFor(type,definitions=[]){return `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">${markupFor(type,definitions)}</svg>`;}
-  globalThis.__EMBERWILD_SKILL_ICONS=Object.freeze({paths:Object.freeze(paths),labels:Object.freeze(labels),keys:Object.freeze(keys),tones:Object.freeze(tones),colors:Object.freeze(colors),toneByKey:Object.freeze(toneByKey),markupFor,svgFor});
+  globalThis.__EMBERWILD_SKILL_ICONS=Object.freeze({paths:Object.freeze(paths),labels:Object.freeze(labels),keys:Object.freeze(keys),tones:Object.freeze(tones),colors:Object.freeze(colors),toneByKey:Object.freeze(toneByKey),shapeKinds:Object.freeze(shapeKinds),normalizeLayer,layerBounds,layerMarkup,markupFor,svgFor});
 })();
 </script>
+
 <script id="mastery-overhaul-editor-v1">
 (()=>{
 const clone=v=>structuredClone(v);
@@ -5214,14 +5270,53 @@ requestEditorInitialRender();
 </style>
 <script id="skill-icon-maker-v1">
 (()=>{
-  const ICONS=globalThis.__EMBERWILD_SKILL_ICONS,keys=new Set(ICONS.keys),toneKeys=Object.keys(ICONS.colors);
+  const ICONS=globalThis.__EMBERWILD_SKILL_ICONS,keys=new Set(ICONS.keys),toneKeys=Object.keys(ICONS.colors),shapeKinds=new Set(ICONS.shapeKinds||['icon','line','rect','ellipse','arc','polygon']);
   const insertAt=SECTION_META.findIndex(([id])=>id==='skills');
   SECTION_META.splice(insertAt+1,0,['iconMaker','圖示製作器']);
   let iconId='',selectedLayer=0;
   const originalEnsure=ensureArrays;
-  ensureArrays=function(){originalEnsure();if(data.skillIcons===undefined)data.skillIcons=[];};
+  const TONE_LABELS={steel:'金屬',ember:'火',blood:'血液',frost:'冰',wind:'風',light:'光',shadow:'暗',arcane:'魔法',aim:'弓箭',neutral:'中性'};
+  const KIND_LABELS={icon:'內建圖示',line:'直線',rect:'矩形',ellipse:'橢圓',arc:'圓弧',polygon:'多邊形'};
+  function normalizeLayer(layer){return ICONS.normalizeLayer?ICONS.normalizeLayer(layer):layer;}
+  function normalizeIcon(icon){if(!icon||typeof icon!=='object')return {id:'icon_0',name:'新圖示',layers:[normalizeLayer({kind:'icon',icon:'sword'})]};icon.id=String(icon.id||'').slice(0,40);icon.name=String(icon.name||'新圖示').slice(0,40);icon.layers=(Array.isArray(icon.layers)?icon.layers:[{kind:'icon',icon:'sword'}]).slice(0,8).map(normalizeLayer).filter(Boolean);if(!icon.layers.length)icon.layers=[normalizeLayer({kind:'icon',icon:'sword'})];return icon;}
+  ensureArrays=function(){originalEnsure();if(data.skillIcons===undefined)data.skillIcons=[];data.skillIcons=data.skillIcons.map(normalizeIcon);};
   function definitions(){return Array.isArray(data.skillIcons)?data.skillIcons:[];}
   const clamp=(n,min,max,fallback)=>Number.isFinite(n)?Math.max(min,Math.min(max,n)):fallback;
+  const escHtml=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  function emptyLayer(kind='icon',seed={}){
+    const base={
+      icon:{kind:'icon',icon:'sword',x:0,y:0,scale:1,rotation:0},
+      line:{kind:'line',x:0,y:0,length:18,rotation:0,strokeWidth:2.7,tone:'neutral'},
+      rect:{kind:'rect',x:0,y:0,w:16,h:16,radius:2,rotation:0,strokeWidth:2.4,strokeTone:'neutral',filled:false,fillTone:'neutral'},
+      ellipse:{kind:'ellipse',x:0,y:0,rx:8,ry:8,rotation:0,strokeWidth:2.4,strokeTone:'neutral',filled:false,fillTone:'neutral'},
+      arc:{kind:'arc',x:0,y:0,r:10,start:-120,end:120,rotation:0,strokeWidth:2.4,tone:'neutral'},
+      polygon:{kind:'polygon',x:0,y:0,points:'-6,-10 8,0 -6,10',scale:1,rotation:0,strokeWidth:2.4,strokeTone:'neutral',filled:true,fillTone:'neutral'}
+    };
+    return normalizeLayer({...base[kind],...seed});
+  }
+  function editablePreset(key){
+    const name=(ICONS.labels[key]||key)+' 範本';
+    if(key==='sword')return {name,layers:[
+      emptyLayer('polygon',{points:'0,-18 4,-13 2,9 0,18 -2,9 -4,-13',x:0,y:-2,rotation:-25,strokeTone:'steel',filled:true,fillTone:'steel',strokeWidth:1.3}),
+      emptyLayer('line',{x:0,y:12,length:10,rotation:65,strokeWidth:2.5,tone:'steel'}),
+      emptyLayer('line',{x:-4,y:17,length:7,rotation:-25,strokeWidth:2.3,tone:'steel'})
+    ]};
+    if(key==='axe')return {name,layers:[
+      emptyLayer('line',{x:-1,y:2,length:30,rotation:18,strokeWidth:3.1,tone:'steel'}),
+      emptyLayer('polygon',{points:'-8,-8 4,-11 9,-4 8,3 2,8 -6,7 -10,0',x:7,y:-8,rotation:16,strokeTone:'steel',filled:true,fillTone:'steel',strokeWidth:1.4}),
+      emptyLayer('line',{x:-7,y:16,length:6,rotation:18,strokeWidth:2.2,tone:'steel'})
+    ]};
+    if(key==='hammer')return {name,layers:[
+      emptyLayer('rect',{x:0,y:-10,w:25,h:12,radius:1,strokeTone:'steel',filled:false,strokeWidth:2.4}),
+      emptyLayer('line',{x:0,y:10,length:24,rotation:90,strokeWidth:3,tone:'steel'}),
+      emptyLayer('line',{x:0,y:20,length:7,rotation:0,strokeWidth:2.2,tone:'steel'})
+    ]};
+    if(key==='fire')return {name,layers:[
+      emptyLayer('polygon',{points:'0,-18 7,-8 10,1 7,11 0,18 -6,11 -10,2 -6,-8',x:0,y:0,rotation:0,strokeTone:'ember',filled:true,fillTone:'ember',strokeWidth:1.4}),
+      emptyLayer('polygon',{points:'0,-10 5,-3 4,5 0,11 -4,5 -5,-3',x:2,y:6,rotation:-10,strokeTone:'ember',filled:false,fillTone:'ember',strokeWidth:1.5})
+    ]};
+    return {name:(ICONS.labels[key]||key)+' 副本',layers:[emptyLayer('icon',{icon:key})]};
+  }
   function verifyIconDefinitions(value){
     const issues=[];
     if(!Array.isArray(value)||value.length>100)return ['自訂技能圖示必須是最多 100 筆的陣列。'];
@@ -5229,8 +5324,9 @@ requestEditorInitialRender();
     value.forEach((icon,i)=>{
       if(!icon||!/^[-_a-z0-9]{1,40}$/.test(icon.id||'')||seen.has(icon.id)||typeof icon.name!=='string'||!icon.name.trim()||icon.name.length>40||!Array.isArray(icon.layers)||!icon.layers.length||icon.layers.length>8){issues.push(`自訂技能圖示 ${i+1} 的 ID、名稱或圖層數量無效。`);return;}
       seen.add(icon.id);
-      icon.layers.forEach((layer,j)=>{
-        if(!layer||!keys.has(layer.icon)||!Number.isFinite(layer.x)||layer.x<-24||layer.x>24||!Number.isFinite(layer.y)||layer.y<-24||layer.y>24||!Number.isFinite(layer.scale)||layer.scale<.25||layer.scale>2.5||layer.tone!==undefined&&!toneKeys.includes(layer.tone))issues.push(`自訂技能圖示「${icon.name}」第 ${j+1} 個圖層無效。`);
+      icon.layers.forEach((rawLayer,j)=>{
+        const layer=normalizeLayer(rawLayer);
+        if(!layer||!shapeKinds.has(layer.kind||''))issues.push(`自訂技能圖示「${icon.name}」第 ${j+1} 個圖層類型無效。`);
       });
     });
     for(const [job,cls] of (data.classes||[]).entries())for(const [i,sk] of (cls.skills||[]).entries())if(typeof sk.iconType==='string'&&sk.iconType.startsWith('custom:')&&!seen.has(sk.iconType.slice(7)))issues.push(`技能 ${job}-${i} 引用了不存在的圖示。`);
@@ -5240,46 +5336,80 @@ requestEditorInitialRender();
   const originalValidate=validateData;
   validateData=function(){return [...originalValidate(),...verifyIconDefinitions(data.skillIcons)];};
   function nextId(){let n=1;while(definitions().some(icon=>icon.id==='icon_'+n))n++;return 'icon_'+n;}
-  function newIcon(example=false){
+  function createIcon(payload){
     if(definitions().length>=100)return alert('最多可建立 100 個自訂圖示。');
     if(!Array.isArray(data.skillIcons))data.skillIcons=[];
-    const id=nextId();data.skillIcons.push({id,name:example?'劍與血滴':'新圖示',layers:example?[{icon:'sword',x:-5,y:-4,scale:.8},{icon:'blood',x:14,y:13,scale:.48,tone:'blood'}]:[{icon:'sword',x:0,y:0,scale:1}]});
+    const id=nextId();
+    data.skillIcons.push(normalizeIcon({id,name:payload?.name||'新圖示',layers:payload?.layers||[emptyLayer('icon',{icon:'sword'})]}));
     iconId=id;selectedLayer=0;markDirty();render();
   }
+  function newIcon(example=false){
+    createIcon(example?{name:'劍與血滴',layers:[emptyLayer('icon',{icon:'sword',x:-5,y:-4,scale:.8}),emptyLayer('icon',{icon:'blood',x:14,y:13,scale:.48,tone:'blood'})]}:null);
+  }
+  function importBuiltInPreset(key,editable=false){createIcon(editable?editablePreset(key):{name:(ICONS.labels[key]||key)+' 副本',layers:[emptyLayer('icon',{icon:key})]});}
   const layerOptions=selected=>ICONS.keys.map(key=>`<option value="${key}" ${selected===key?'selected':''}>${esc(ICONS.labels[key])}</option>`).join('');
-  const toneOptions=selected=>[['','符號預設色'],...toneKeys.map(key=>[key,{steel:'金屬',ember:'火',blood:'血液',frost:'冰',wind:'風',light:'光',shadow:'暗',arcane:'魔法',aim:'弓箭',neutral:'中性'}[key]||key])].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join('');
+  const toneOptions=(selected,allowBlank=false)=>[(allowBlank?['','無 / 預設']:null),...toneKeys.map(key=>[key,TONE_LABELS[key]||key])].filter(Boolean).map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join('');
+  const kindOptions=selected=>Object.entries(KIND_LABELS).map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join('');
+  function shapePreview(kind){
+    const map={line:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3"><line x1="10" y1="24" x2="38" y2="24"/></svg>',rect:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3"><rect x="10" y="12" width="28" height="24" rx="3"/></svg>',ellipse:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3"><ellipse cx="24" cy="24" rx="14" ry="10"/></svg>',arc:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3"><path d="M10 30A16 16 0 0 1 38 30"/></svg>',polygon:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3"><polygon points="14,10 36,24 14,38"/></svg>'};
+    return map[kind]||'';
+  }
+  function field(label,html,wide=false){return `<label class="${wide?'wide':''}">${label}${html}</label>`;}
+  function renderLayerFields(layer,i){
+    layer=normalizeLayer(layer);
+    const commonPos=field('水平 X',`<input type="number" min="-24" max="24" step="0.5" data-layer-field="x" data-index="${i}" value="${escHtml(layer.x)}">`)+field('垂直 Y',`<input type="number" min="-24" max="24" step="0.5" data-layer-field="y" data-index="${i}" value="${escHtml(layer.y)}">`);
+    if(layer.kind==='icon')return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+field('圖案',`<select data-layer-field="icon" data-index="${i}">${layerOptions(layer.icon)}</select>`)+commonPos+field('比例',`<input type="number" min="0.25" max="2.5" step="0.05" data-layer-field="scale" data-index="${i}" value="${escHtml(layer.scale)}">`)+field('旋轉',`<input type="number" min="-180" max="180" step="1" data-layer-field="rotation" data-index="${i}" value="${escHtml(layer.rotation||0)}">`)+field('色調',`<select data-layer-field="tone" data-index="${i}">${toneOptions(layer.tone||'',true)}</select>`);
+    if(layer.kind==='line')return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+commonPos+field('長度',`<input type="number" min="2" max="64" step="0.5" data-layer-field="length" data-index="${i}" value="${escHtml(layer.length)}">`)+field('旋轉',`<input type="number" min="-180" max="180" step="1" data-layer-field="rotation" data-index="${i}" value="${escHtml(layer.rotation)}">`)+field('線粗',`<input type="number" min="0.4" max="10" step="0.1" data-layer-field="strokeWidth" data-index="${i}" value="${escHtml(layer.strokeWidth)}">`)+field('色調',`<select data-layer-field="tone" data-index="${i}">${toneOptions(layer.tone||'neutral')}</select>`);
+    if(layer.kind==='rect')return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+commonPos+field('寬度',`<input type="number" min="1" max="64" step="0.5" data-layer-field="w" data-index="${i}" value="${escHtml(layer.w)}">`)+field('高度',`<input type="number" min="1" max="64" step="0.5" data-layer-field="h" data-index="${i}" value="${escHtml(layer.h)}">`)+field('圓角',`<input type="number" min="0" max="24" step="0.5" data-layer-field="radius" data-index="${i}" value="${escHtml(layer.radius)}">`)+field('旋轉',`<input type="number" min="-180" max="180" step="1" data-layer-field="rotation" data-index="${i}" value="${escHtml(layer.rotation)}">`)+field('線粗',`<input type="number" min="0.4" max="10" step="0.1" data-layer-field="strokeWidth" data-index="${i}" value="${escHtml(layer.strokeWidth)}">`)+field('描邊色',`<select data-layer-field="strokeTone" data-index="${i}">${toneOptions(layer.strokeTone||'neutral')}</select>`)+field('填色',`<input type="checkbox" data-layer-field="filled" data-index="${i}" ${layer.filled?'checked':''}>`)+field('填滿色',`<select data-layer-field="fillTone" data-index="${i}">${toneOptions(layer.fillTone||layer.strokeTone||'neutral')}</select>`);
+    if(layer.kind==='ellipse')return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+commonPos+field('半徑 X',`<input type="number" min="0.5" max="32" step="0.5" data-layer-field="rx" data-index="${i}" value="${escHtml(layer.rx)}">`)+field('半徑 Y',`<input type="number" min="0.5" max="32" step="0.5" data-layer-field="ry" data-index="${i}" value="${escHtml(layer.ry)}">`)+field('旋轉',`<input type="number" min="-180" max="180" step="1" data-layer-field="rotation" data-index="${i}" value="${escHtml(layer.rotation)}">`)+field('線粗',`<input type="number" min="0.4" max="10" step="0.1" data-layer-field="strokeWidth" data-index="${i}" value="${escHtml(layer.strokeWidth)}">`)+field('描邊色',`<select data-layer-field="strokeTone" data-index="${i}">${toneOptions(layer.strokeTone||'neutral')}</select>`)+field('填色',`<input type="checkbox" data-layer-field="filled" data-index="${i}" ${layer.filled?'checked':''}>`)+field('填滿色',`<select data-layer-field="fillTone" data-index="${i}">${toneOptions(layer.fillTone||layer.strokeTone||'neutral')}</select>`);
+    if(layer.kind==='arc')return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+commonPos+field('半徑',`<input type="number" min="0.5" max="32" step="0.5" data-layer-field="r" data-index="${i}" value="${escHtml(layer.r)}">`)+field('起始角',`<input type="number" min="-360" max="360" step="1" data-layer-field="start" data-index="${i}" value="${escHtml(layer.start)}">`)+field('結束角',`<input type="number" min="-360" max="360" step="1" data-layer-field="end" data-index="${i}" value="${escHtml(layer.end)}">`)+field('旋轉',`<input type="number" min="-180" max="180" step="1" data-layer-field="rotation" data-index="${i}" value="${escHtml(layer.rotation)}">`)+field('線粗',`<input type="number" min="0.4" max="10" step="0.1" data-layer-field="strokeWidth" data-index="${i}" value="${escHtml(layer.strokeWidth)}">`)+field('色調',`<select data-layer-field="tone" data-index="${i}">${toneOptions(layer.tone||'neutral')}</select>`);
+    return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+commonPos+field('比例',`<input type="number" min="0.2" max="4" step="0.05" data-layer-field="scale" data-index="${i}" value="${escHtml(layer.scale)}">`)+field('旋轉',`<input type="number" min="-180" max="180" step="1" data-layer-field="rotation" data-index="${i}" value="${escHtml(layer.rotation)}">`)+field('線粗',`<input type="number" min="0.4" max="10" step="0.1" data-layer-field="strokeWidth" data-index="${i}" value="${escHtml(layer.strokeWidth)}">`)+field('描邊色',`<select data-layer-field="strokeTone" data-index="${i}">${toneOptions(layer.strokeTone||'neutral')}</select>`)+field('填色',`<input type="checkbox" data-layer-field="filled" data-index="${i}" ${layer.filled?'checked':''}>`)+field('填滿色',`<select data-layer-field="fillTone" data-index="${i}">${toneOptions(layer.fillTone||layer.strokeTone||'neutral')}</select>`)+field('點位',`<input type="text" data-layer-field="points" data-index="${i}" value="${escHtml(layer.points)}">`,true);
+  }
   function renderIconMaker(){
     const list=definitions();if(!list.some(icon=>icon.id===iconId))iconId=list[0]?.id||'';
     const icon=list.find(item=>item.id===iconId),app=document.getElementById('app');
-    app.innerHTML=sectionHead('圖示製作器','從下方圖庫加入符號，拖曳畫布中的目前圖層，或輸入位置與比例。圖示會隨平衡 JSON 一起匯出。',`<button id="iconMakerNew">新增空白圖示</button><button id="iconMakerExample">新增範例：劍＋血滴</button>${window.__SKILL_ICON_RETURN?'<button id="iconMakerReturn">返回技能</button>':''}`)+
-      `<div class="icon-maker-layout"><div class="card"><div class="card-h"><strong>自製圖示 · ${list.length}/100</strong></div><div class="icon-maker-list">${list.map(item=>`<button type="button" data-icon-id="${esc(item.id)}" class="${item.id===iconId?'active':''}">${ICONS.svgFor('custom:'+item.id,list)}<span>${esc(item.name)}<br><small class="icon-maker-muted">${esc(item.id)}</small></span></button>`).join('')||'<p class="empty">尚未製作圖示。可先新增劍＋血滴範例。</p>'}</div></div><div class="icon-maker-main">`+
-      (icon?`${card('編輯 · '+esc(icon.name),`<label for="iconMakerName">圖示名稱</label><input id="iconMakerName" maxlength="40" value="${esc(icon.name)}"><div class="icon-maker-actions"><button id="iconMakerDuplicate">複製</button><button id="iconMakerDelete" class="danger">刪除圖示</button>${window.__SKILL_ICON_RETURN?'<button class="primary" id="iconMakerApply">套用至目前技能</button>':''}</div><div class="icon-maker-top"><div class="icon-maker-preview-box"><strong>即時預覽</strong><div id="iconMakerPreview" class="icon-maker-preview"></div><p class="icon-maker-muted">先選圖層，再於畫布拖曳；位置範圍 ±24，等比例縮放 25%～250%。</p></div><div><strong>圖層 · ${icon.layers.length}/8</strong><p class="icon-maker-muted">清單由後到前；可調整順序並為每層選色。</p>${icon.layers.map((layer,i)=>`<div class="icon-maker-layer ${i===selectedLayer?'active':''}" data-layer-row="${i}"><div class="icon-maker-layer-head"><strong>第 ${i+1} 層 · ${esc(ICONS.labels[layer.icon]||layer.icon)}</strong><button type="button" data-layer-move="-1" data-index="${i}" ${i===0?'disabled':''}>↑</button><button type="button" data-layer-move="1" data-index="${i}" ${i===icon.layers.length-1?'disabled':''}>↓</button><button type="button" class="danger" data-layer-delete="${i}" ${icon.layers.length===1?'disabled':''}>刪</button></div><div class="icon-maker-layer-fields"><label>圖案<select data-layer-field="icon" data-index="${i}">${layerOptions(layer.icon)}</select></label><label>水平 X<input type="number" min="-24" max="24" step="0.5" data-layer-field="x" data-index="${i}" value="${esc(layer.x)}"></label><label>垂直 Y<input type="number" min="-24" max="24" step="0.5" data-layer-field="y" data-index="${i}" value="${esc(layer.y)}"></label><label>比例<input type="number" min="0.25" max="2.5" step="0.05" data-layer-field="scale" data-index="${i}" value="${esc(layer.scale)}"></label><label>色調<select data-layer-field="tone" data-index="${i}">${toneOptions(layer.tone||'')}</select></label></div></div>`).join('')}</div></div>`)}<div class="card"><div class="card-h"><strong>可用圖示 · ${ICONS.keys.length}</strong></div><div class="card-b"><p class="icon-maker-muted">點擊加入目前圖示，包含武器、元素、弓弩、箭矢、神聖與通用符號。</p><div class="icon-maker-palette">${ICONS.keys.map(key=>`<button type="button" data-add-layer="${key}" title="加入${esc(ICONS.labels[key])}">${ICONS.svgFor(key)}<span>${esc(ICONS.labels[key])}</span></button>`).join('')}</div></div></div>`:'<div class="card"><div class="empty">請新增圖示開始製作。</div></div>')+'</div></div>';
+    const builtInOptions=ICONS.keys.map(key=>`<option value="${key}">${esc(ICONS.labels[key])}</option>`).join('');
+    app.innerHTML=sectionHead('圖示製作器','可新增直線、矩形、橢圓、圓弧、多邊形等基本圖層，也可將內建圖示複製成可編輯副本。圖示會隨平衡 JSON 一起匯出。',`<button id="iconMakerNew">新增空白圖示</button><button id="iconMakerExample">新增範例：劍＋血滴</button>${window.__SKILL_ICON_RETURN?'<button id="iconMakerReturn">返回技能</button>':''}`)+
+      `<div class="icon-maker-layout"><div class="card"><div class="card-h"><strong>自製圖示 · ${list.length}/100</strong></div><div class="card-b"><div class="icon-maker-actions"><select id="iconMakerBuiltInSeed">${builtInOptions}</select><button id="iconMakerImportBuiltin">複製內建圖示</button><button id="iconMakerEditableBuiltin">建立可編輯範本</button></div><p class="icon-maker-muted">複製內建圖示會保留原圖；建立可編輯範本可直接從基本圖形開始修改，例如劍、斧、槌、火。</p></div><div class="icon-maker-list">${list.map(item=>`<button type="button" data-icon-id="${esc(item.id)}" class="${item.id===iconId?'active':''}">${ICONS.svgFor('custom:'+item.id,list)}<span>${esc(item.name)}<br><small class="icon-maker-muted">${esc(item.id)}</small></span></button>`).join('')||'<p class="empty">尚未製作圖示。可先新增範例或複製內建圖示。</p>'}</div></div><div class="icon-maker-main">`+
+      (icon?`${card('編輯 · '+esc(icon.name),`<label for="iconMakerName">圖示名稱</label><input id="iconMakerName" maxlength="40" value="${esc(icon.name)}"><div class="icon-maker-actions"><button id="iconMakerDuplicate">複製</button><button id="iconMakerDelete" class="danger">刪除圖示</button>${window.__SKILL_ICON_RETURN?'<button class="primary" id="iconMakerApply">套用至目前技能</button>':''}</div><div class="icon-maker-top"><div class="icon-maker-preview-box"><strong>即時預覽</strong><div id="iconMakerPreview" class="icon-maker-preview"></div><p class="icon-maker-muted">先選圖層，再於畫布拖曳位置。內建圖示支援位置、比例、旋轉；基本圖形支援填色與描邊。</p></div><div><strong>圖層 · ${icon.layers.length}/8</strong><p class="icon-maker-muted">由後到前繪製。可切換圖層類型，將內建圖示替換成直線、矩形、圓弧等基本圖形。</p>${icon.layers.map((rawLayer,i)=>{const layer=normalizeLayer(rawLayer);return `<div class="icon-maker-layer ${i===selectedLayer?'active':''}" data-layer-row="${i}"><div class="icon-maker-layer-head"><strong>第 ${i+1} 層 · ${esc(KIND_LABELS[layer.kind]||layer.kind)}${layer.kind==='icon'?' / '+esc(ICONS.labels[layer.icon]||layer.icon):''}</strong><button type="button" data-layer-move="-1" data-index="${i}" ${i===0?'disabled':''}>↑</button><button type="button" data-layer-move="1" data-index="${i}" ${i===icon.layers.length-1?'disabled':''}>↓</button><button type="button" class="danger" data-layer-delete="${i}" ${icon.layers.length===1?'disabled':''}>刪</button></div><div class="icon-maker-layer-fields">${renderLayerFields(layer,i)}</div></div>`;}).join('')}</div></div>`)}<div class="card"><div class="card-h"><strong>可用圖層</strong></div><div class="card-b"><p class="icon-maker-muted">先加入基本圖形快速調整輪廓，再視需要疊上現有圖示。</p><div class="icon-maker-palette">${['line','rect','ellipse','arc','polygon'].map(kind=>`<button type="button" data-add-shape="${kind}" title="加入${KIND_LABELS[kind]}">${shapePreview(kind)}<span>${KIND_LABELS[kind]}</span></button>`).join('')}${ICONS.keys.map(key=>`<button type="button" data-add-layer="${key}" title="加入${esc(ICONS.labels[key])}">${ICONS.svgFor(key)}<span>${esc(ICONS.labels[key])}</span></button>`).join('')}</div></div></div>`:'<div class="card"><div class="empty">請新增圖示開始製作。</div></div>')+'</div></div>';
     document.getElementById('iconMakerNew').onclick=()=>newIcon(false);
     document.getElementById('iconMakerExample').onclick=()=>newIcon(true);
     document.getElementById('iconMakerReturn')?.addEventListener('click',()=>{window.__SKILL_ICON_RETURN=false;currentSection='skills';render();});
+    document.getElementById('iconMakerImportBuiltin').onclick=()=>importBuiltInPreset(document.getElementById('iconMakerBuiltInSeed').value,false);
+    document.getElementById('iconMakerEditableBuiltin').onclick=()=>importBuiltInPreset(document.getElementById('iconMakerBuiltInSeed').value,true);
     app.querySelectorAll('[data-icon-id]').forEach(button=>button.onclick=()=>{iconId=button.dataset.iconId;selectedLayer=0;render();});
     if(!icon)return;
     selectedLayer=clamp(selectedLayer,0,icon.layers.length-1,0);
     document.getElementById('iconMakerName').oninput=e=>{icon.name=e.target.value;markDirty();};
-    document.getElementById('iconMakerDuplicate').onclick=()=>{if(list.length>=100)return alert('最多可建立 100 個自訂圖示。');const copy=structuredClone(icon);copy.id=nextId();copy.name=(copy.name+' 複製').slice(0,40);list.push(copy);iconId=copy.id;markDirty();render();};
+    document.getElementById('iconMakerDuplicate').onclick=()=>{if(list.length>=100)return alert('最多可建立 100 個自訂圖示。');const copy=structuredClone(icon);copy.id=nextId();copy.name=(copy.name+' 複製').slice(0,40);list.push(normalizeIcon(copy));iconId=copy.id;markDirty();render();};
     document.getElementById('iconMakerDelete').onclick=()=>{if(!confirmDelete(`刪除「${icon.name}」？使用此圖示的技能會改為自動判斷。`))return;for(const cls of data.classes||[])for(const sk of cls.skills||[])if(sk.iconType==='custom:'+icon.id)sk.iconType='auto';for(const group of data.supportSkills||[])for(const sk of group||[])if(sk.iconType==='custom:'+icon.id)sk.iconType='auto';data.skillIcons=list.filter(item=>item.id!==icon.id);iconId='';markDirty();render();};
     document.getElementById('iconMakerApply')?.addEventListener('click',()=>{const support=selected.skillTab==='support',job=support?selected.supportClass:selected.skillClass,sk=support?data.supportSkills?.[job]?.[selected.support]:data.classes?.[job]?.skills?.[selected.skill];if(!sk)return alert('目前沒有選取技能。');sk.iconType='custom:'+icon.id;window.__SKILL_ICON_RETURN=false;currentSection='skills';markDirty();render();});
     app.querySelectorAll('[data-layer-row]').forEach(row=>row.onclick=e=>{if(e.target.closest('input,select,button'))return;selectedLayer=Number(row.dataset.layerRow);app.querySelectorAll('[data-layer-row]').forEach(el=>el.classList.toggle('active',Number(el.dataset.layerRow)===selectedLayer));drawPreview();});
-    app.querySelectorAll('[data-layer-field]').forEach(input=>input.onchange=()=>{const i=Number(input.dataset.index),field=input.dataset.layerField,layer=icon.layers[i];selectedLayer=i;if(field==='icon'){if(keys.has(input.value))layer.icon=input.value;}else if(field==='tone'){if(input.value)layer.tone=input.value;else delete layer.tone;}else{const bounds=field==='scale'?[.25,2.5]:[-24,24];layer[field]=clamp(Number(input.value),...bounds,layer[field]);input.value=String(layer[field]);}markDirty();render();});
+    app.querySelectorAll('[data-layer-field]').forEach(input=>input.onchange=()=>{const i=Number(input.dataset.index),field=input.dataset.layerField,layer=normalizeLayer(icon.layers[i]);selectedLayer=i;
+      if(field==='kind')icon.layers[i]=emptyLayer(input.value,{x:layer.x||0,y:layer.y||0,tone:layer.tone,strokeTone:layer.strokeTone,fillTone:layer.fillTone});
+      else if(field==='icon'){if(keys.has(input.value))layer.icon=input.value,icon.layers[i]=normalizeLayer(layer);}
+      else if(field==='tone'||field==='strokeTone'||field==='fillTone'){layer[field]=input.value||undefined;icon.layers[i]=normalizeLayer(layer);}
+      else if(field==='filled'){layer.filled=!!input.checked;icon.layers[i]=normalizeLayer(layer);}
+      else if(field==='points'){layer.points=input.value;icon.layers[i]=normalizeLayer(layer);}
+      else {layer[field]=Number(input.value);icon.layers[i]=normalizeLayer(layer);input.value=String(icon.layers[i][field]);}
+      markDirty();render();
+    });
     app.querySelectorAll('[data-layer-move]').forEach(button=>button.onclick=()=>{const i=Number(button.dataset.index),j=i+Number(button.dataset.layerMove);[icon.layers[i],icon.layers[j]]=[icon.layers[j],icon.layers[i]];selectedLayer=j;markDirty();render();});
     app.querySelectorAll('[data-layer-delete]').forEach(button=>button.onclick=()=>{icon.layers.splice(Number(button.dataset.layerDelete),1);selectedLayer=Math.min(selectedLayer,icon.layers.length-1);markDirty();render();});
-    app.querySelectorAll('[data-add-layer]').forEach(button=>button.onclick=()=>{if(icon.layers.length>=8)return alert('每個圖示最多 8 層。');icon.layers.push({icon:button.dataset.addLayer,x:icon.layers.length?8:0,y:icon.layers.length?8:0,scale:icon.layers.length?0.7:1});selectedLayer=icon.layers.length-1;markDirty();render();});
+    app.querySelectorAll('[data-add-layer]').forEach(button=>button.onclick=()=>{if(icon.layers.length>=8)return alert('每個圖示最多 8 層。');icon.layers.push(emptyLayer('icon',{icon:button.dataset.addLayer,x:icon.layers.length?8:0,y:icon.layers.length?8:0,scale:icon.layers.length?0.7:1}));selectedLayer=icon.layers.length-1;markDirty();render();});
+    app.querySelectorAll('[data-add-shape]').forEach(button=>button.onclick=()=>{if(icon.layers.length>=8)return alert('每個圖示最多 8 層。');icon.layers.push(emptyLayer(button.dataset.addShape,{x:icon.layers.length?6:0,y:icon.layers.length?6:0}));selectedLayer=icon.layers.length-1;markDirty();render();});
     const preview=document.getElementById('iconMakerPreview');
     function drawPreview(){
-      const layer=icon.layers[selectedLayer],x=clamp(layer.x,-24,24,0),y=clamp(layer.y,-24,24,0),scale=clamp(layer.scale,.25,2.5,1);
-      preview.innerHTML=`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" aria-label="${esc(icon.name)}預覽"><path d="M24 0v48M0 24h48" stroke="#ffffff24" stroke-width=".3"/>${ICONS.markupFor('custom:'+icon.id,list)}<rect x="4" y="4" width="40" height="40" transform="translate(${x} ${y}) translate(24 24) scale(${scale}) translate(-24 -24)" stroke="#78a9ff" stroke-width=".6" stroke-dasharray="1.2 1.2" pointer-events="none"/></svg>`;
+      const layer=normalizeLayer(icon.layers[selectedLayer]),box=ICONS.layerBounds?ICONS.layerBounds(layer):{x:4,y:4,w:40,h:40};
+      preview.innerHTML=`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" aria-label="${esc(icon.name)}預覽"><path d="M24 0v48M0 24h48" stroke="#ffffff24" stroke-width=".3"/>${ICONS.markupFor('custom:'+icon.id,list)}<rect x="${box.x}" y="${box.y}" width="${Math.max(1,box.w)}" height="${Math.max(1,box.h)}" stroke="#78a9ff" stroke-width=".6" stroke-dasharray="1.2 1.2" fill="none" pointer-events="none"/></svg>`;
     }
     drawPreview();
-    preview.onpointerdown=e=>{if(e.button!==0)return;const layer=icon.layers[selectedLayer],rect=preview.getBoundingClientRect(),start={x:e.clientX,y:e.clientY,lx:layer.x,ly:layer.y};preview.setPointerCapture(e.pointerId);preview.onpointermove=move=>{layer.x=Number(clamp(start.lx+(move.clientX-start.x)*48/rect.width,-24,24,0).toFixed(1));layer.y=Number(clamp(start.ly+(move.clientY-start.y)*48/rect.height,-24,24,0).toFixed(1));app.querySelector(`[data-layer-field="x"][data-index="${selectedLayer}"]`).value=layer.x;app.querySelector(`[data-layer-field="y"][data-index="${selectedLayer}"]`).value=layer.y;drawPreview();};preview.onpointerup=preview.onpointercancel=()=>{preview.onpointermove=null;preview.onpointerup=null;preview.onpointercancel=null;markDirty();};};
+    preview.onpointerdown=e=>{if(e.button!==0)return;const layer=normalizeLayer(icon.layers[selectedLayer]),rect=preview.getBoundingClientRect(),start={x:e.clientX,y:e.clientY,lx:Number(layer.x)||0,ly:Number(layer.y)||0};preview.setPointerCapture(e.pointerId);preview.onpointermove=move=>{layer.x=Number(clamp(start.lx+(move.clientX-start.x)*48/rect.width,-24,24,0).toFixed(1));layer.y=Number(clamp(start.ly+(move.clientY-start.y)*48/rect.height,-24,24,0).toFixed(1));icon.layers[selectedLayer]=normalizeLayer(layer);const xInput=app.querySelector(`[data-layer-field="x"][data-index="${selectedLayer}"]`),yInput=app.querySelector(`[data-layer-field="y"][data-index="${selectedLayer}"]`);if(xInput)xInput.value=layer.x;if(yInput)yInput.value=layer.y;drawPreview();};preview.onpointerup=preview.onpointercancel=()=>{preview.onpointermove=null;preview.onpointerup=null;preview.onpointercancel=null;markDirty();};};
   }
   const previousRender=render;
   render=function(){if(currentSection==='iconMaker'){ensureArrays();renderNav(true);renderIconMaker();return;}return previousRender();};
   requestEditorInitialRender();
 })();
 </script>
+
 </html>
