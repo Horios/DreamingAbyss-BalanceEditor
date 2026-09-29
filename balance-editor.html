@@ -3553,6 +3553,61 @@ ensureArrays();requestEditorInitialRender();
 .mastery-editor-weapons label{display:flex;align-items:center;gap:5px;margin:0}
 @media(max-width:760px){.mastery-editor-grid{grid-template-columns:1fr}}
 </style>
+<script id="skill-icon-library-v1">
+// Shared by the game and the standalone balance editor. Keep the embedded copy in
+// balance-editor.html identical when changing this library.
+(()=>{
+  const paths={
+    sword:'<path d="M36 6l6 6-19 19-6-6L36 6zM17 25l6 6M13 29l6 6M16 32 8 8m-11-5-5 5m-2 2 5-5"/>',
+    axe:'<path d="M15 42 28 8m-17 34h8"/><path d="M28 8c6 0 10 2 14 6l-4 13c-6 0-10-2-14-6z" fill="currentColor" stroke="none"/>',
+    hammer:'<path d="M7 9h34v12H7zM15 9v12m18-12v12M24 21v22m-4 0h8"/>',
+    bow:'<path d="M12 5c21 10 21 28 0 38M12 5v38M10 24h31m-7-6 7 6-7 6"/>',
+    crossbow:'<path d="M6 22h35l-6-5m6 5-6 5M35 6c10 9 10 27 0 36M35 6v36M12 26v13h12V26m-6 0v13"/>',
+    staff:'<path d="M23 17v26m-5 0h10M24 5l6 6-6 6-6-6zM13 11h5m12 0h5"/>',
+    shield:'<path d="M24 5l15 6v12c0 9-6 16-15 20C15 39 9 32 9 23V11zM24 12v23"/>',
+    heal:'<path d="M24 41C16 35 8 28 8 19c0-7 9-11 16-4 7-7 16-3 16 4 0 9-8 16-16 22zM24 20v11m-5-5.5h10"/>',
+    fire:'<path d="M25 5c2 8-3 11-2 17 3-3 5-5 9-7 4 6 8 11 8 18 0 7-7 11-16 11S8 40 8 33c0-7 5-12 11-19 0 5 2 8 4 10M24 40c-4-3-3-7 1-12 0 4 5 5 5 9 0 3-3 5-6 3z"/>',
+    ice:'<path d="M24 5v38M8 15l32 18M40 15 8 33M19 10l5 5 5-5m-10 28 5-5 5 5M9 22l7 1-2-7m25 10-7-1 2 7m0-16-2 7 7-1M14 32l2-7-7 1"/>',
+    wind:'<path d="M6 17h23c7 0 7-9 1-9-3 0-5 2-5 4M6 24h35M6 31h22c7 0 7 9 1 9-3 0-5-2-5-4"/>',
+    light:'<circle cx="24" cy="24" r="8"/><path d="M24 4v9m0 22v9M4 24h9m22 0h9M10 10l7 7m14 14 7 7m0-28-7 7M17 31l-7 7"/>',
+    shadow:'<path d="M35 37A17 17 0 1 1 28 6c-7 6-9 16-4 23 3 5 7 7 11 8zM34 9v7m-3-4h6"/>',
+    magic:'<circle cx="24" cy="24" r="18"/><path d="M24 9l5 10 10 5-10 5-5 10-5-10-10-5 10-5z"/>',
+    buff:'<path d="M24 40V11m-10 11 10-11 10 11M10 40h28"/>',
+    debuff:'<path d="M24 8v29m-10-11 10 11 10-11M10 8h28"/>',
+    drain:'<path d="M24 5C20 12 11 23 11 31a13 13 0 0 0 26 0C37 23 28 12 24 5zM17 30c0 5 3 8 8 8"/>',
+    trigger:'<path d="M28 5 11 27h12l-3 16 17-23H25z"/>',
+    blood:'<path d="M24 5C19 14 11 23 11 31a13 13 0 0 0 26 0C37 23 29 14 24 5z" fill="currentColor" stroke="none"/><path d="M17 31c0 4 2 7 6 8"/>',
+    arrow:'<path d="M5 24h37m-9-9 9 9-9 9M10 20v8"/>',
+    pierce:'<circle cx="23" cy="24" r="12"/><path d="M4 24h40m-8-8 8 8-8 8"/>',
+    volley:'<path d="M6 12h35m-8-6 8 6-8 6M6 24h35m-8-6 8 6-8 6M6 36h35m-8-6 8 6-8 6"/>',
+    eagleEye:'<path d="M5 24c5-8 12-12 19-12s14 4 19 12c-5 8-12 12-19 12S10 32 5 24z"/><circle cx="24" cy="24" r="6"/><circle cx="24" cy="24" r="2" fill="currentColor" stroke="none"/>',
+    trap:'<path d="M7 17c7-11 27-11 34 0M7 31c7 11 27 11 34 0M7 17l6 8 5-9 6 9 6-9 5 9 6-8M7 31l6-8 5 9 6-9 6 9 5-9 6 8M7 17v14m34-14v14"/>',
+    holy:'<path d="M24 5v38M12 18h24M20 5h8M20 43h8M8 8l3 3m29-3-3 3"/>',
+    swordBlood:'<g transform="translate(-4 -5) scale(.82)"><path d="M36 6l6 6-19 19-6-6L36 6zM17 25l6 6M13 29l6 6M16 32l8 8m-11-5-5 5"/></g><g transform="translate(17 21) scale(.65)" color="#e98184" stroke="currentColor"><path d="M24 5C19 14 11 23 11 31a13 13 0 0 0 26 0C37 23 29 14 24 5z" fill="currentColor" stroke="none"/></g>',
+    axeBlood:'<g transform="translate(-4 -5) scale(.82)"><path d="M15 42 28 8m-17 34h8"/><path d="M28 8c6 0 10 2 14 6l-4 13c-6 0-10-2-14-6z" fill="currentColor" stroke="none"/></g><g transform="translate(17 21) scale(.65)" color="#e98184" stroke="currentColor"><path d="M24 5C19 14 11 23 11 31a13 13 0 0 0 26 0C37 23 29 14 24 5z" fill="currentColor" stroke="none"/></g>'
+  };
+  const labels={sword:'劍',axe:'斧',hammer:'槌',bow:'弓',crossbow:'弩',staff:'法杖',shield:'盾牌',heal:'治療',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗',magic:'魔法',buff:'強化',debuff:'弱化',drain:'吸取',trigger:'觸發',blood:'血滴',arrow:'箭矢',pierce:'穿透',volley:'連射',eagleEye:'鷹眼',trap:'陷阱',holy:'神聖',swordBlood:'劍＋血滴',axeBlood:'斧＋血滴'};
+  const tones={steel:['sword','axe','hammer','staff','shield','swordBlood','axeBlood'],ember:['fire'],blood:['blood'],frost:['ice'],wind:['wind'],light:['light','heal','holy'],shadow:['shadow','drain'],arcane:['magic','trigger'],aim:['bow','crossbow','arrow','pierce','volley','eagleEye','trap'],neutral:['buff','debuff']};
+  const colors={steel:'#cdd8df',ember:'#f2a47f',blood:'#e98184',frost:'#a9dcf4',wind:'#a9dfd6',light:'#f0d893',shadow:'#c9adea',arcane:'#d0c6f1',aim:'#dbc69e',neutral:'#d8ded5'};
+  const toneByKey=Object.fromEntries(Object.entries(tones).flatMap(([tone,keys])=>keys.map(key=>[key,tone])));
+  const keys=Object.keys(paths);
+  const bound=(n,min,max,fallback)=>Number.isFinite(n)?Math.max(min,Math.min(max,n)):fallback;
+  function markupFor(type,definitions=[]){
+    if(Object.hasOwn(paths,type))return paths[type];
+    if(typeof type!=='string'||!type.startsWith('custom:'))return paths.magic;
+    const icon=definitions.find(item=>item?.id===type.slice(7));
+    if(!icon||!Array.isArray(icon.layers))return paths.magic;
+    return icon.layers.slice(0,8).map(layer=>{
+      if(!Object.hasOwn(paths,layer.icon))return '';
+      const x=bound(layer.x,-24,24,0),y=bound(layer.y,-24,24,0),scale=bound(layer.scale,.25,2.5,1);
+      const color=colors[layer.tone]||colors[toneByKey[layer.icon]]||colors.neutral;
+      return `<g transform="translate(${x} ${y}) translate(24 24) scale(${scale}) translate(-24 -24)" color="${color}" stroke="currentColor">${paths[layer.icon]}</g>`;
+    }).join('')||paths.magic;
+  }
+  function svgFor(type,definitions=[]){return `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">${markupFor(type,definitions)}</svg>`;}
+  globalThis.__EMBERWILD_SKILL_ICONS=Object.freeze({paths:Object.freeze(paths),labels:Object.freeze(labels),keys:Object.freeze(keys),tones:Object.freeze(tones),colors:Object.freeze(colors),toneByKey:Object.freeze(toneByKey),markupFor,svgFor});
+})();
+</script>
 <script id="mastery-overhaul-editor-v1">
 (()=>{
 const clone=v=>structuredClone(v);
@@ -3560,9 +3615,29 @@ const WEAPON_TYPE_LABELS={sword:'劍',axe:'斧',hammer:'槌',bow:'弓',crossbow:
 const WEAPON_TYPES=Object.keys(WEAPON_TYPE_LABELS),WEAPON_TYPE_SET=new Set(WEAPON_TYPES);
 const MASTERY_BY_JOB=[['sword','axe','hammer'],['fire','ice','wind','shadow'],['bow','crossbow'],['light','shadow']];
 const MASTERY_LABELS={sword:'劍',axe:'斧',hammer:'槌',bow:'弓',crossbow:'弩',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'};
-const SKILL_ICON_TYPES=['auto','sword','axe','hammer','bow','crossbow','shield','heal','fire','ice','wind','light','shadow','magic','buff','debuff','drain','trigger'];
+const ICONS=globalThis.__EMBERWILD_SKILL_ICONS;
+const SKILL_ICON_TYPES=['auto',...ICONS.keys];
 const SKILL_ICON_TYPE_SET=new Set(SKILL_ICON_TYPES);
-const SKILL_ICON_LABELS={auto:'自動判斷',sword:'劍',axe:'斧',hammer:'槌',bow:'弓',crossbow:'弩',shield:'盾牌',heal:'治療',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗',magic:'魔法',buff:'強化',debuff:'弱化',drain:'吸取',trigger:'觸發'};
+const SKILL_ICON_LABELS={auto:'自動判斷',...ICONS.labels};
+const validSkillIconType=(value,obj=data)=>SKILL_ICON_TYPE_SET.has(value)||typeof value==='string'&&value.startsWith('custom:')&&Array.isArray(obj.skillIcons)&&obj.skillIcons.some(icon=>icon?.id===value.slice(7));
+const AUTO_CORE_ICON={
+  '裂地斬':'sword','堅毅壁壘':'shield','反擊之刃':'sword','浴血重擊':'axeBlood','聖鋼裁決':'sword','不屈戰意':'shield',
+  '火焰箭':'fire','冰霜護幕':'ice','餘燼爆發':'fire','奧術汲取':'shadow','隕星墜落':'fire','魔力迴響':'wind',
+  '穿透箭':'pierce','林間休憩':'eagleEye','連射':'volley','獵手印記':'trap','疾風箭雨':'volley','生命之箭':'pierce',
+  '聖光審判':'light','治癒禱言':'heal','懲戒':'shadow','生命泉源':'heal','黎明聖印':'light','神聖庇護':'light'
+};
+const AUTO_SUPPORT_ICON={'戰吼':'sword','守護誓言':'shield','破甲怒吼':'axe','奧術共鳴':'magic','時間凝滯':'ice','元素灼印':'fire','鷹眼指引':'eagleEye','獵手標記':'trap','風行庇佑':'eagleEye','晨光祝福':'light','聖光庇護':'light','光明祈願':'light'};
+function previewSkillIcon(sk){
+  if(sk.iconType&&sk.iconType!=='auto')return validSkillIconType(sk.iconType)?sk.iconType:'magic';
+  const job=selected.skillTab==='support'?selected.supportClass:selected.skillClass;
+  if(selected.skillTab==='support')return AUTO_SUPPORT_ICON[sk.name]||(job===2?['fracture','vulnerable','weaken'].includes(sk.kind)?'trap':'eagleEye':job===0?sk.kind==='guard'?'shield':'sword':['fire','ice','wind','light','shadow'].includes(sk.element)?sk.element:sk.kind==='regen'?'heal':sk.kind==='guard'?'shield':'magic');
+  if(AUTO_CORE_ICON[sk.name])return AUTO_CORE_ICON[sk.name];
+  if(job===0){const weapon=['sword','axe','hammer'].includes(sk.mastery)?sk.mastery:'sword';return ['shield','shieldLowest'].includes(sk.effect)?'shield':sk.effect==='drain'?weapon==='axe'?'axeBlood':'swordBlood':weapon;}
+  if(job===2)return sk.activation==='proc'?'volley':'pierce';
+  if(sk.effect==='heal')return 'heal';
+  if(['fire','ice','wind','light','shadow'].includes(sk.element))return sk.element;
+  return sk.effect==='drain'?'blood':'magic';
+}
 const JOB_WEAPONS=[['sword','axe','hammer'],['staff','grimoire'],['bow','crossbow'],['prayerBook','holyStaff']];
 const LEGACY_WEAPON_BY_NAME={'闊刃劍':'sword','穿甲槍':'sword','汲血斧':'axe','狙擊長弓':'bow','穿雲弩':'crossbow','風羽短弓':'bow','炎晶杖':'staff','霜紋杖':'staff','疾風法器':'grimoire','晨光權杖':'holyStaff','淨化槌':'holyStaff','祈禱法杖':'holyStaff'};
 const OLD_LEVELS=[1,4,7,11,15,20],NEW_LEVELS=[1,3,5,7,15,20],OLD_SUPPORT=[1,7,15],NEW_SUPPORT=[1,4,15];
@@ -3593,7 +3668,7 @@ function migrateOverhaul(obj){
       if(!already&&defaultPattern&&i<NEW_LEVELS.length)sk.requiredLevel=NEW_LEVELS[i];
       if(!already&&job===3&&[2,3].includes(i)&&sk.element==='light')sk.element='shadow';
       if(sk.mastery===undefined)sk.mastery=plan.mastery??null;if(sk.requiredMastery===undefined)sk.requiredMastery=plan.requiredMastery??null;if(!Number.isInteger(sk.requiredMasteryLevel))sk.requiredMasteryLevel=plan.requiredMasteryLevel??0;
-      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=clone(plan.weaponTypes||[]);sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));if(!SKILL_ICON_TYPE_SET.has(sk.iconType))sk.iconType='auto';
+      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=clone(plan.weaponTypes||[]);sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));if(!validSkillIconType(sk.iconType,obj))sk.iconType='auto';
       delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.powerPerLevel=0;
       if(sk.activation==='proc'){ensureProcSkillFields(sk);sk.procChancePerLevel=0;}
       if(sk.mastery!==null&&!valid.has(sk.mastery))sk.mastery=plan.mastery??null;if(sk.requiredMastery!==null&&!valid.has(sk.requiredMastery))sk.requiredMastery=plan.requiredMastery??null;
@@ -3601,7 +3676,7 @@ function migrateOverhaul(obj){
     const supports=obj.supportSkills?.[job]||[],supportPattern=supports.length===3&&supports.every((sk,i)=>Number(sk.level)===OLD_SUPPORT[i]);
     for(let i=0;i<supports.length;i++){const sk=supports[i],plan=SUPPORT_PLAN[job]?.[i]||{},valid=new Set(MASTERY_BY_JOB[job]||[]);
       if(!already&&supportPattern)sk.level=NEW_SUPPORT[i];if(sk.mastery===undefined)sk.mastery=plan.mastery??null;if(sk.requiredMastery===undefined)sk.requiredMastery=null;if(!Number.isInteger(sk.requiredMasteryLevel))sk.requiredMasteryLevel=0;
-      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=[];sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));if(!SKILL_ICON_TYPE_SET.has(sk.iconType))sk.iconType='auto';delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.effectPerLevel=0;
+      if(!Array.isArray(sk.weaponTypes))sk.weaponTypes=[];sk.weaponTypes=sk.weaponTypes.filter(x=>WEAPON_TYPE_SET.has(x));if(!validSkillIconType(sk.iconType,obj))sk.iconType='auto';delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.effectPerLevel=0;
       if(sk.mastery!==null&&!valid.has(sk.mastery))sk.mastery=plan.mastery??null;if(sk.requiredMastery!==null&&!valid.has(sk.requiredMastery))sk.requiredMastery=null;
     }
   }
@@ -3625,10 +3700,16 @@ function masteryEditorCard(job,sk){
   return card('精通與武器條件',`<div class="mastery-editor-grid"><div class="field"><label>使用時培養精通</label><select id="skillMastery">${masteryOptions(job,sk.mastery)}</select><div class="field-help">成功使用技能後增加此精通 XP；無代表不提供精通。</div></div><div class="field"><label>學習需求精通</label><select id="skillRequiredMastery">${masteryOptions(job,sk.requiredMastery)}</select><div class="field-help">與角色等級共同判斷；選「無」時精通等級要求固定為 0。</div></div><div class="field"><label>需求精通等級</label><input id="skillRequiredMasteryLevel" type="number" min="0" max="100" step="1" value="${esc(sk.requiredMasteryLevel??0)}"><div class="field-help">可設定 0～100 的整數。</div></div><div class="field"><label>允許使用武器</label><div class="mastery-editor-weapons">${allowed.map(k=>`<label><input type="checkbox" data-skill-weapon="${k}" ${selectedWeapons.has(k)?'checked':''}>${esc(WEAPON_TYPE_LABELS[k])}</label>`).join('')}</div><div class="field-help">空白代表不限制武器；weaponType 與 mastery 是不同概念。</div></div></div>`);
 }
 function skillIconEditorCard(sk){
-  const options=SKILL_ICON_TYPES.map(k=>`<option value="${k}" ${sk.iconType===k?'selected':''}>${esc(SKILL_ICON_LABELS[k]||k)}</option>`).join('');
-  return card('技能圖示',`<div class="fields"><div class="field"><label>圖示種類</label><select id="skillIconType">${options}</select><div class="field-help">「自動判斷」會依技能效果、元素與精通類型選擇圖案；也可以固定指定劍、盾牌或元素等圖示。</div></div></div>`);
+  const definitions=Array.isArray(data.skillIcons)?data.skillIcons:[];
+  const builtIn=SKILL_ICON_TYPES.map(k=>`<option value="${k}" ${sk.iconType===k?'selected':''}>${esc(SKILL_ICON_LABELS[k]||k)}</option>`).join('');
+  const custom=definitions.map(icon=>`<option value="custom:${esc(icon.id)}" ${sk.iconType==='custom:'+icon.id?'selected':''}>自製 · ${esc(icon.name)}</option>`).join('');
+  const selected=previewSkillIcon(sk);
+  return card('技能圖示',`<div class="skill-icon-picker"><div id="skillIconPreview" class="skill-icon-picker-preview">${ICONS.svgFor(selected,definitions)}</div><div class="field"><label for="skillIconType">選擇圖示</label><select id="skillIconType">${builtIn}${custom}</select><div class="field-help">可選通用符號，也可在圖示製作器中組合。自動判斷會依職業、效果與元素選圖。</div><button type="button" id="openSkillIconMaker">開啟圖示製作器</button></div></div>`);
 }
-function bindSkillIconCard(sk){const el=document.getElementById('skillIconType');if(el)el.onchange=()=>{sk.iconType=SKILL_ICON_TYPE_SET.has(el.value)?el.value:'auto';markDirty();};}
+function bindSkillIconCard(sk){
+  const el=document.getElementById('skillIconType');if(el)el.onchange=()=>{sk.iconType=validSkillIconType(el.value)?el.value:'auto';document.getElementById('skillIconPreview').innerHTML=ICONS.svgFor(previewSkillIcon(sk),Array.isArray(data.skillIcons)?data.skillIcons:[]);markDirty();};
+  document.getElementById('openSkillIconMaker')?.addEventListener('click',()=>{window.__SKILL_ICON_RETURN=true;currentSection='iconMaker';render();});
+}
 function bindMasteryCard(sk){
   const m=document.getElementById('skillMastery'),r=document.getElementById('skillRequiredMastery'),lv=document.getElementById('skillRequiredMasteryLevel');
   if(m)m.onchange=()=>{sk.mastery=m.value||null;markDirty();};if(r)r.onchange=()=>{sk.requiredMastery=r.value||null;if(!sk.requiredMastery){sk.requiredMasteryLevel=0;if(lv)lv.value='0';}markDirty();};if(lv)lv.onchange=()=>{sk.requiredMasteryLevel=Math.max(0,Math.min(100,Math.floor(Number(lv.value)||0)));lv.value=String(sk.requiredMasteryLevel);markDirty();};
@@ -5120,6 +5201,81 @@ requestEditorInitialRender();
   }
   const baseRender=render;
   render=function(){if(currentSection==='companions'){ensureArrays();renderNav(true);renderCompanions();return;}return baseRender();};
+  requestEditorInitialRender();
+})();
+</script>
+<style id="skill-icon-maker-style">
+.skill-icon-picker{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.skill-icon-picker-preview{width:82px;height:82px;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;background:#222b30;flex:none}.skill-icon-picker-preview svg{width:58px;height:58px;color:#e5e7df}.skill-icon-picker .field{flex:1;min-width:220px}.skill-icon-picker .field button{margin-top:9px}
+.icon-maker-layout{display:grid;grid-template-columns:minmax(180px,230px) minmax(260px,1fr);gap:14px}.icon-maker-list{max-height:72vh;overflow:auto}.icon-maker-list button{width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;display:flex;gap:10px;align-items:center;text-align:left;background:transparent}.icon-maker-list button.active{background:#253143}.icon-maker-list svg{width:33px;height:33px;flex:none;color:#e3d9bd}.icon-maker-main{min-width:0}.icon-maker-top{display:grid;grid-template-columns:minmax(240px,330px) minmax(280px,1fr);gap:14px}.icon-maker-preview-box{text-align:center}.icon-maker-preview{width:min(100%,280px);aspect-ratio:1;touch-action:none;cursor:grab;background-color:#1c2529;background-image:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:12.5% 12.5%;border:1px solid #526171;border-radius:12px;margin:10px auto}.icon-maker-preview:active{cursor:grabbing}.icon-maker-preview svg{width:100%;height:100%;display:block}.icon-maker-layer{padding:10px;border:1px solid var(--line);border-radius:8px;margin:8px 0;background:var(--panel2)}.icon-maker-layer.active{border-color:var(--accent)}.icon-maker-layer-head{display:flex;align-items:center;gap:8px}.icon-maker-layer-head strong{flex:1}.icon-maker-layer-head button{padding:4px 8px}.icon-maker-layer-fields{display:grid;grid-template-columns:repeat(4,minmax(72px,1fr));gap:7px;margin-top:8px}.icon-maker-layer-fields label{min-width:0}.icon-maker-palette{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:7px}.icon-maker-palette button{display:grid;place-items:center;gap:4px;min-height:82px;font-size:12px}.icon-maker-palette svg{width:35px;height:35px;color:#e1d5b8}.icon-maker-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}.icon-maker-muted{color:var(--muted);font-size:12px;line-height:1.5}
+@media(max-width:1050px){.icon-maker-top{grid-template-columns:1fr}.icon-maker-layer-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:720px){.icon-maker-layout{grid-template-columns:1fr}.icon-maker-list{max-height:180px}.icon-maker-layer-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+<script id="skill-icon-maker-v1">
+(()=>{
+  const ICONS=globalThis.__EMBERWILD_SKILL_ICONS,keys=new Set(ICONS.keys),toneKeys=Object.keys(ICONS.colors);
+  const insertAt=SECTION_META.findIndex(([id])=>id==='skills');
+  SECTION_META.splice(insertAt+1,0,['iconMaker','圖示製作器']);
+  let iconId='',selectedLayer=0;
+  const originalEnsure=ensureArrays;
+  ensureArrays=function(){originalEnsure();if(data.skillIcons===undefined)data.skillIcons=[];};
+  function definitions(){return Array.isArray(data.skillIcons)?data.skillIcons:[];}
+  const clamp=(n,min,max,fallback)=>Number.isFinite(n)?Math.max(min,Math.min(max,n)):fallback;
+  function verifyIconDefinitions(value){
+    const issues=[];
+    if(!Array.isArray(value)||value.length>100)return ['自訂技能圖示必須是最多 100 筆的陣列。'];
+    const seen=new Set();
+    value.forEach((icon,i)=>{
+      if(!icon||!/^[-_a-z0-9]{1,40}$/.test(icon.id||'')||seen.has(icon.id)||typeof icon.name!=='string'||!icon.name.trim()||icon.name.length>40||!Array.isArray(icon.layers)||!icon.layers.length||icon.layers.length>8){issues.push(`自訂技能圖示 ${i+1} 的 ID、名稱或圖層數量無效。`);return;}
+      seen.add(icon.id);
+      icon.layers.forEach((layer,j)=>{
+        if(!layer||!keys.has(layer.icon)||!Number.isFinite(layer.x)||layer.x<-24||layer.x>24||!Number.isFinite(layer.y)||layer.y<-24||layer.y>24||!Number.isFinite(layer.scale)||layer.scale<.25||layer.scale>2.5||layer.tone!==undefined&&!toneKeys.includes(layer.tone))issues.push(`自訂技能圖示「${icon.name}」第 ${j+1} 個圖層無效。`);
+      });
+    });
+    for(const [job,cls] of (data.classes||[]).entries())for(const [i,sk] of (cls.skills||[]).entries())if(typeof sk.iconType==='string'&&sk.iconType.startsWith('custom:')&&!seen.has(sk.iconType.slice(7)))issues.push(`技能 ${job}-${i} 引用了不存在的圖示。`);
+    for(const [job,list] of (data.supportSkills||[]).entries())for(const [i,sk] of (list||[]).entries())if(typeof sk.iconType==='string'&&sk.iconType.startsWith('custom:')&&!seen.has(sk.iconType.slice(7)))issues.push(`輔助技能 ${job}-${i} 引用了不存在的圖示。`);
+    return issues;
+  }
+  const originalValidate=validateData;
+  validateData=function(){return [...originalValidate(),...verifyIconDefinitions(data.skillIcons)];};
+  function nextId(){let n=1;while(definitions().some(icon=>icon.id==='icon_'+n))n++;return 'icon_'+n;}
+  function newIcon(example=false){
+    if(definitions().length>=100)return alert('最多可建立 100 個自訂圖示。');
+    if(!Array.isArray(data.skillIcons))data.skillIcons=[];
+    const id=nextId();data.skillIcons.push({id,name:example?'劍與血滴':'新圖示',layers:example?[{icon:'sword',x:-5,y:-4,scale:.8},{icon:'blood',x:14,y:13,scale:.48,tone:'blood'}]:[{icon:'sword',x:0,y:0,scale:1}]});
+    iconId=id;selectedLayer=0;markDirty();render();
+  }
+  const layerOptions=selected=>ICONS.keys.map(key=>`<option value="${key}" ${selected===key?'selected':''}>${esc(ICONS.labels[key])}</option>`).join('');
+  const toneOptions=selected=>[['','符號預設色'],...toneKeys.map(key=>[key,{steel:'金屬',ember:'火',blood:'血液',frost:'冰',wind:'風',light:'光',shadow:'暗',arcane:'魔法',aim:'弓箭',neutral:'中性'}[key]||key])].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join('');
+  function renderIconMaker(){
+    const list=definitions();if(!list.some(icon=>icon.id===iconId))iconId=list[0]?.id||'';
+    const icon=list.find(item=>item.id===iconId),app=document.getElementById('app');
+    app.innerHTML=sectionHead('圖示製作器','從下方圖庫加入符號，拖曳畫布中的目前圖層，或輸入位置與比例。圖示會隨平衡 JSON 一起匯出。',`<button id="iconMakerNew">新增空白圖示</button><button id="iconMakerExample">新增範例：劍＋血滴</button>${window.__SKILL_ICON_RETURN?'<button id="iconMakerReturn">返回技能</button>':''}`)+
+      `<div class="icon-maker-layout"><div class="card"><div class="card-h"><strong>自製圖示 · ${list.length}/100</strong></div><div class="icon-maker-list">${list.map(item=>`<button type="button" data-icon-id="${esc(item.id)}" class="${item.id===iconId?'active':''}">${ICONS.svgFor('custom:'+item.id,list)}<span>${esc(item.name)}<br><small class="icon-maker-muted">${esc(item.id)}</small></span></button>`).join('')||'<p class="empty">尚未製作圖示。可先新增劍＋血滴範例。</p>'}</div></div><div class="icon-maker-main">`+
+      (icon?`${card('編輯 · '+esc(icon.name),`<label for="iconMakerName">圖示名稱</label><input id="iconMakerName" maxlength="40" value="${esc(icon.name)}"><div class="icon-maker-actions"><button id="iconMakerDuplicate">複製</button><button id="iconMakerDelete" class="danger">刪除圖示</button>${window.__SKILL_ICON_RETURN?'<button class="primary" id="iconMakerApply">套用至目前技能</button>':''}</div><div class="icon-maker-top"><div class="icon-maker-preview-box"><strong>即時預覽</strong><div id="iconMakerPreview" class="icon-maker-preview"></div><p class="icon-maker-muted">先選圖層，再於畫布拖曳；位置範圍 ±24，等比例縮放 25%～250%。</p></div><div><strong>圖層 · ${icon.layers.length}/8</strong><p class="icon-maker-muted">清單由後到前；可調整順序並為每層選色。</p>${icon.layers.map((layer,i)=>`<div class="icon-maker-layer ${i===selectedLayer?'active':''}" data-layer-row="${i}"><div class="icon-maker-layer-head"><strong>第 ${i+1} 層 · ${esc(ICONS.labels[layer.icon]||layer.icon)}</strong><button type="button" data-layer-move="-1" data-index="${i}" ${i===0?'disabled':''}>↑</button><button type="button" data-layer-move="1" data-index="${i}" ${i===icon.layers.length-1?'disabled':''}>↓</button><button type="button" class="danger" data-layer-delete="${i}" ${icon.layers.length===1?'disabled':''}>刪</button></div><div class="icon-maker-layer-fields"><label>圖案<select data-layer-field="icon" data-index="${i}">${layerOptions(layer.icon)}</select></label><label>水平 X<input type="number" min="-24" max="24" step="0.5" data-layer-field="x" data-index="${i}" value="${esc(layer.x)}"></label><label>垂直 Y<input type="number" min="-24" max="24" step="0.5" data-layer-field="y" data-index="${i}" value="${esc(layer.y)}"></label><label>比例<input type="number" min="0.25" max="2.5" step="0.05" data-layer-field="scale" data-index="${i}" value="${esc(layer.scale)}"></label><label>色調<select data-layer-field="tone" data-index="${i}">${toneOptions(layer.tone||'')}</select></label></div></div>`).join('')}</div></div>`)}<div class="card"><div class="card-h"><strong>可用圖示 · ${ICONS.keys.length}</strong></div><div class="card-b"><p class="icon-maker-muted">點擊加入目前圖示，包含武器、元素、弓弩、箭矢、神聖與通用符號。</p><div class="icon-maker-palette">${ICONS.keys.map(key=>`<button type="button" data-add-layer="${key}" title="加入${esc(ICONS.labels[key])}">${ICONS.svgFor(key)}<span>${esc(ICONS.labels[key])}</span></button>`).join('')}</div></div></div>`:'<div class="card"><div class="empty">請新增圖示開始製作。</div></div>')+'</div></div>';
+    document.getElementById('iconMakerNew').onclick=()=>newIcon(false);
+    document.getElementById('iconMakerExample').onclick=()=>newIcon(true);
+    document.getElementById('iconMakerReturn')?.addEventListener('click',()=>{window.__SKILL_ICON_RETURN=false;currentSection='skills';render();});
+    app.querySelectorAll('[data-icon-id]').forEach(button=>button.onclick=()=>{iconId=button.dataset.iconId;selectedLayer=0;render();});
+    if(!icon)return;
+    selectedLayer=clamp(selectedLayer,0,icon.layers.length-1,0);
+    document.getElementById('iconMakerName').oninput=e=>{icon.name=e.target.value;markDirty();};
+    document.getElementById('iconMakerDuplicate').onclick=()=>{if(list.length>=100)return alert('最多可建立 100 個自訂圖示。');const copy=structuredClone(icon);copy.id=nextId();copy.name=(copy.name+' 複製').slice(0,40);list.push(copy);iconId=copy.id;markDirty();render();};
+    document.getElementById('iconMakerDelete').onclick=()=>{if(!confirmDelete(`刪除「${icon.name}」？使用此圖示的技能會改為自動判斷。`))return;for(const cls of data.classes||[])for(const sk of cls.skills||[])if(sk.iconType==='custom:'+icon.id)sk.iconType='auto';for(const group of data.supportSkills||[])for(const sk of group||[])if(sk.iconType==='custom:'+icon.id)sk.iconType='auto';data.skillIcons=list.filter(item=>item.id!==icon.id);iconId='';markDirty();render();};
+    document.getElementById('iconMakerApply')?.addEventListener('click',()=>{const support=selected.skillTab==='support',job=support?selected.supportClass:selected.skillClass,sk=support?data.supportSkills?.[job]?.[selected.support]:data.classes?.[job]?.skills?.[selected.skill];if(!sk)return alert('目前沒有選取技能。');sk.iconType='custom:'+icon.id;window.__SKILL_ICON_RETURN=false;currentSection='skills';markDirty();render();});
+    app.querySelectorAll('[data-layer-row]').forEach(row=>row.onclick=e=>{if(e.target.closest('input,select,button'))return;selectedLayer=Number(row.dataset.layerRow);app.querySelectorAll('[data-layer-row]').forEach(el=>el.classList.toggle('active',Number(el.dataset.layerRow)===selectedLayer));drawPreview();});
+    app.querySelectorAll('[data-layer-field]').forEach(input=>input.onchange=()=>{const i=Number(input.dataset.index),field=input.dataset.layerField,layer=icon.layers[i];selectedLayer=i;if(field==='icon'){if(keys.has(input.value))layer.icon=input.value;}else if(field==='tone'){if(input.value)layer.tone=input.value;else delete layer.tone;}else{const bounds=field==='scale'?[.25,2.5]:[-24,24];layer[field]=clamp(Number(input.value),...bounds,layer[field]);input.value=String(layer[field]);}markDirty();render();});
+    app.querySelectorAll('[data-layer-move]').forEach(button=>button.onclick=()=>{const i=Number(button.dataset.index),j=i+Number(button.dataset.layerMove);[icon.layers[i],icon.layers[j]]=[icon.layers[j],icon.layers[i]];selectedLayer=j;markDirty();render();});
+    app.querySelectorAll('[data-layer-delete]').forEach(button=>button.onclick=()=>{icon.layers.splice(Number(button.dataset.layerDelete),1);selectedLayer=Math.min(selectedLayer,icon.layers.length-1);markDirty();render();});
+    app.querySelectorAll('[data-add-layer]').forEach(button=>button.onclick=()=>{if(icon.layers.length>=8)return alert('每個圖示最多 8 層。');icon.layers.push({icon:button.dataset.addLayer,x:icon.layers.length?8:0,y:icon.layers.length?8:0,scale:icon.layers.length?0.7:1});selectedLayer=icon.layers.length-1;markDirty();render();});
+    const preview=document.getElementById('iconMakerPreview');
+    function drawPreview(){
+      const layer=icon.layers[selectedLayer],x=clamp(layer.x,-24,24,0),y=clamp(layer.y,-24,24,0),scale=clamp(layer.scale,.25,2.5,1);
+      preview.innerHTML=`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" aria-label="${esc(icon.name)}預覽"><path d="M24 0v48M0 24h48" stroke="#ffffff24" stroke-width=".3"/>${ICONS.markupFor('custom:'+icon.id,list)}<rect x="4" y="4" width="40" height="40" transform="translate(${x} ${y}) translate(24 24) scale(${scale}) translate(-24 -24)" stroke="#78a9ff" stroke-width=".6" stroke-dasharray="1.2 1.2" pointer-events="none"/></svg>`;
+    }
+    drawPreview();
+    preview.onpointerdown=e=>{if(e.button!==0)return;const layer=icon.layers[selectedLayer],rect=preview.getBoundingClientRect(),start={x:e.clientX,y:e.clientY,lx:layer.x,ly:layer.y};preview.setPointerCapture(e.pointerId);preview.onpointermove=move=>{layer.x=Number(clamp(start.lx+(move.clientX-start.x)*48/rect.width,-24,24,0).toFixed(1));layer.y=Number(clamp(start.ly+(move.clientY-start.y)*48/rect.height,-24,24,0).toFixed(1));app.querySelector(`[data-layer-field="x"][data-index="${selectedLayer}"]`).value=layer.x;app.querySelector(`[data-layer-field="y"][data-index="${selectedLayer}"]`).value=layer.y;drawPreview();};preview.onpointerup=preview.onpointercancel=()=>{preview.onpointermove=null;preview.onpointerup=null;preview.onpointercancel=null;markDirty();};};
+  }
+  const previousRender=render;
+  render=function(){if(currentSection==='iconMaker'){ensureArrays();renderNav(true);renderIconMaker();return;}return previousRender();};
   requestEditorInitialRender();
 })();
 </script>
