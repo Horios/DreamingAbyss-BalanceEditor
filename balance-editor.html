@@ -1739,14 +1739,14 @@ ensureArrays();requestEditorInitialRender();
   function renderWorld(){
     ensureArrays();const maps=data.balanceSettings.maps.catalog,monsters=data.balanceSettings.monsters.catalog,mi=selected.worldMap,map=maps[mi],assigned=monsters.map((m,i)=>({m,i})).filter(x=>x.m.mapIndex===mi),normalCount=assigned.filter(x=>x.m.kind==='normal').length,final=map&&isFinalMapRow(map),bossKind=final?'final':'boss',boss=assigned.find(x=>x.m.kind===bossKind);const globalMonster=structuredClone(data.balanceSettings.monsters);delete globalMonster.catalog;
     document.getElementById('app').innerHTML=`<div class="section-head"><div><h1>地圖與怪物</h1><p>建立地圖、分配怪物，並自由配置終局首領關卡。終焉王座是預設等級突破關卡；後續終局地圖不會再次解鎖等級上限。</p></div><div class="section-actions"><button id="worldAddMap">新增一般地圖</button><button id="worldAddFinalMap" class="primary">新增終局地圖</button></div></div>`+
-      `<div class="notice"><b>地圖類型：</b>一般地圖會依機率生成普通／菁英／BOSS；終局地圖改為固定關卡編成：必須有 1 名最終首領，並可加入任意普通／菁英小怪、設定數量與隊列順序。索引 6 的終焉王座固定為終局地圖且是等級突破關卡。</div><div class="world-layout"><div class="card"><div class="card-h"><strong>地圖清單</strong><span class="badge">${maps.length}</span></div><div class="world-list">${maps.map((m,i)=>{const rows=monsters.filter(x=>x.mapIndex===i),n=rows.filter(x=>x.kind==='normal'&&x.enabled!==false).length,b=rows.find(x=>x.kind===(isFinalMapRow(m)?'final':'boss'));return `<button class="world-map-item ${i===mi?'active':''}" data-world-map="${i}"><strong>${i}｜${esc(m.name)}</strong><small>LV ${m.min}–${m.max} · ${isFinalMapRow(m)?'終局關卡 '+((b?1:0)+rows.filter(x=>x.kind==='normal'&&x.enabled!==false).reduce((sum,x)=>sum+(Number(x.stageCount)||1),0))+' 隻':'普通怪 '+n+' · BOSS '+(b?'1':'0')}</small><span class="pill">${mapKindLabel(m,i)}</span>${!isFinalMapRow(m)?`<span class="pill">菁英 ${m.eliteEnabled?Math.round(m.eliteChance*10000)/100+'%':'關'}</span><span class="pill">BOSS ${m.bossEnabled?Math.round(m.bossChance*10000)/100+'%':'關'}</span>`:''}</button>`;}).join('')}</div></div><div>${map?`<section class="card"><div class="card-h"><strong>地圖設定｜${esc(map.name)}</strong>${mi>LEGACY_GATE_INDEX?'<button id="worldDeleteMap" class="small danger">刪除地圖</button>':''}</div><div class="card-b"><div class="world-fields">
+      `<div class="notice"><b>地圖類型：</b>一般探索只會依機率生成普通／菁英；擊殺累積 BOSS 進度後，可消耗挑戰次數手動進入 BOSS 關卡。終局地圖使用固定關卡編成：必須有 1 名最終首領，並可加入任意普通／菁英小怪、設定數量與隊列順序。索引 6 的終焉王座固定為終局地圖且是等級突破關卡。</div><div class="world-layout"><div class="card"><div class="card-h"><strong>地圖清單</strong><span class="badge">${maps.length}</span></div><div class="world-list">${maps.map((m,i)=>{const rows=monsters.filter(x=>x.mapIndex===i),n=rows.filter(x=>x.kind==='normal'&&x.enabled!==false).length,b=rows.find(x=>x.kind===(isFinalMapRow(m)?'final':'boss'));return `<button class="world-map-item ${i===mi?'active':''}" data-world-map="${i}"><strong>${i}｜${esc(m.name)}</strong><small>LV ${m.min}–${m.max} · ${isFinalMapRow(m)?'終局關卡 '+((b?1:0)+rows.filter(x=>x.kind==='normal'&&x.enabled!==false).reduce((sum,x)=>sum+(Number(x.stageCount)||1),0))+' 隻':'普通怪 '+n+' · BOSS '+(b?'1':'0')}</small><span class="pill">${mapKindLabel(m,i)}</span>${!isFinalMapRow(m)?`<span class="pill">菁英 ${m.eliteEnabled?Math.round(m.eliteChance*10000)/100+'%':'關'}</span><span class="pill">BOSS ${m.bossEnabled?Math.round(m.bossChance*10000)/100+'%':'關'}</span>`:''}</button>`;}).join('')}</div></div><div>${map?`<section class="card"><div class="card-h"><strong>地圖設定｜${esc(map.name)}</strong>${mi>LEGACY_GATE_INDEX?'<button id="worldDeleteMap" class="small danger">刪除地圖</button>':''}</div><div class="card-b"><div class="world-fields">
         <label>地圖 ID<input class="world-map-field" data-key="id" value="${esc(map.id)}"></label><label>顯示名稱<input class="world-map-field" data-key="name" value="${esc(map.name)}"></label>
         <label>地圖類型<select class="world-map-field" data-key="mapType" ${mi<=LEGACY_GATE_INDEX?'disabled':''}><option value="normal" ${map.mapType==='normal'?'selected':''}>一般地圖</option><option value="final" ${map.mapType==='final'?'selected':''}>終局地圖（自訂首領關卡）</option></select></label><label>等級突破關卡<input value="${map.progressionGate?'是':'否'}" readonly></label>
         <label>最低等級<input class="world-map-field" data-key="min" type="number" min="1" step="1" value="${esc(map.min)}"></label><label>最高等級${final&&!map.progressionGate?'（同時作為終局首領等級）':''}<input class="world-map-field" data-key="max" type="number" min="1" step="1" value="${esc(map.max)}"></label>
         <label>區域家族<select class="world-map-field" data-key="family">${[0,1,2,3,4,5].map(v=>`<option value="${v}" ${map.family===v?'selected':''}>${v}｜${['林地／風','礦坑／物理','沼澤／暗','山脊／冰','熔火／火','星隕／暗'][v]}</option>`).join('')}</select></label><label>圖示文字<input class="world-map-field" data-key="icon" value="${esc(map.icon)}"></label>
         <label>介面色碼<input class="world-map-field" data-key="color" value="${esc(map.color)}"></label><label>平行／追加區域<select class="world-map-field" data-key="parallel"><option value="true" ${map.parallel?'selected':''}>是</option><option value="false" ${!map.parallel?'selected':''}>否</option></select></label>
         <label>啟用菁英<select class="world-map-field" data-key="eliteEnabled" ${final?'disabled':''}><option value="true" ${map.eliteEnabled?'selected':''}>是</option><option value="false" ${!map.eliteEnabled?'selected':''}>否</option></select></label><label>菁英遭遇率（0~1）<input class="world-map-field" data-key="eliteChance" type="number" min="0" max="1" step="0.001" value="${esc(map.eliteChance)}" ${final?'disabled':''}></label>
-        <label>啟用 BOSS<select class="world-map-field" data-key="bossEnabled" ${final?'disabled':''}><option value="true" ${map.bossEnabled?'selected':''}>是</option><option value="false" ${!map.bossEnabled?'selected':''}>否</option></select></label><label>BOSS 遭遇率（0~1）<input class="world-map-field" data-key="bossChance" type="number" min="0" max="1" step="0.001" value="${esc(map.bossChance)}" ${final?'disabled':''}></label>
+        <label>啟用 BOSS<select class="world-map-field" data-key="bossEnabled" ${final?'disabled':''}><option value="true" ${map.bossEnabled?'selected':''}>是</option><option value="false" ${!map.bossEnabled?'selected':''}>否</option></select></label>${final?'<label>終局固定關卡<input value="1 名最終首領與設定的隨從" readonly></label>':''}
       </div><div class="world-map-summary"><span class="pill">地圖類型 ${final?'終局':'一般'}</span><span class="pill">${final?'關卡小怪 '+assigned.filter(x=>x.m.kind==='normal'&&x.m.enabled!==false).reduce((sum,x)=>sum+(Number(x.m.stageCount)||1),0)+' 隻':'普通怪資料 '+normalCount}</span><span class="pill">${final?'最終首領':'BOSS'}資料 ${boss?'1':'0'}</span></div></div></section>
       <section class="card" style="margin-top:14px"><div class="card-h"><strong>${final?'終局關卡編成':'此地圖的怪物'}</strong><button id="worldAddMonster" class="small primary">${final?'新增關卡小怪':'新增普通怪'}</button>${boss?'':'<button id="worldAddBoss" class="small">補建首領</button>'}</div><div class="card-b world-monsters">${assigned.map(x=>monsterFields(x.m,x.i)).join('')||'<div class="empty">此地圖沒有怪物資料。</div>'}</div></section>`:''}</div></div>`+
       `<section class="card world-global" style="margin-top:14px"><div class="card-h"><strong>怪物共用平衡</strong></div><div class="card-b"><p class="mini-note">一般地圖使用普通怪基礎公式與菁英／BOSS 倍率。終局地圖中的最終首領使用「終局首領能力」作為基礎；關卡小怪仍使用普通怪公式，可個別指定為普通或菁英。隊列順序只影響畫面排列與玩家集火順序，不影響速度行動序。</p>${flattenSettingLeaves(globalMonster,'monsters').map(([p,v])=>settingRow('balanceSettings.'+p,v)).join('')}</div></section>`;
@@ -1804,10 +1804,12 @@ ensureArrays();requestEditorInitialRender();
   }
   BALANCE_SETTINGS_DEFAULTS.monsters.catalog=(BALANCE_SETTINGS_DEFAULTS.monsters.catalog||[]).map(m=>normalizeBossStageEditorRow(m));
   for(const m of BALANCE_SETTINGS_DEFAULTS.maps?.catalog||[])if(m?.mapType!=='final')m.bossChance=0;
+  BALANCE_SETTINGS_DEFAULTS.monsters.encounter.bossChance=0;
 
   const bossEditorEnsureBase=ensureArrays;
   ensureArrays=function(){
     bossEditorEnsureBase();
+    data.balanceSettings.monsters.encounter.bossChance=0;
     data.balanceSettings.monsters.bossMeter={...structuredClone(bossDefaults),...(data.balanceSettings.monsters.bossMeter||{})};
     data.balanceSettings.monsters.catalog=(data.balanceSettings.monsters.catalog||[]).map(m=>normalizeBossStageEditorRow(m));
     for(const m of data.balanceSettings.maps?.catalog||[])if(m?.mapType!=='final')m.bossChance=0;
@@ -2191,7 +2193,7 @@ ensureArrays();requestEditorInitialRender();
     Object.assign(s.skills.gems,{effectMultiplier:1.10,hybridMultiplier:1.05,hybridActiveHealAttack:.10});
     s.equipment??={};s.equipment.baseStats??={};s.equipment.enhance??={};s.equipment.boss??={};s.equipment.difficultyAffix??={};
     Object.assign(s.equipment.baseStats,{weaponAttackPerTier:.7,armorHpPerTier:2.2,armorDefensePerTier:.45,offhandAttackPerTier:.3,offhandHpPerTier:.8,accessoryAttackPerTier:.3,accessoryHpPerTier:.8});
-    s.equipment.enhance.statPerLevel=.06;s.equipment.boss.powerByDifficulty=[1,1.15,1.3];
+    s.equipment.enhance.statPerLevel=.06;
     Object.assign(s.equipment.difficultyAffix,{baseAttackPerTier:.6,baseHpPerTier:2.2,defenseBasePerTier:.5,defensePerRankPerTier:.2,critBase:2,critPerRank:2});
     s.monsters??={};s.monsters.normal??={};s.monsters.kindMultipliers??={};s.monsters.finalBoss??={};s.monsters.awakened??={};
     Object.assign(s.monsters.normal,{hpBase:4,hpPerLevel:3,hpQuadratic:.08,attackBase:1.6,attackPerLevel:.55,defensePerLevel:.55});
@@ -3010,7 +3012,9 @@ ensureArrays();requestEditorInitialRender();
     /^difficulty\.materialChance(?:\.|$)/.test(p) ||
     /^difficulty\.modes\.\d+\.(?:equipmentChance|gemChance|bossGearChance|legendaryGearChance)(?:\.|$)/.test(p) ||
     p==='rewards.potionDropChance' ||
-    /^rewards\.radiant(?:\.|$)/.test(p);
+    /^rewards\.radiant(?:\.|$)/.test(p) ||
+    /^equipment\.boss\.(?:powerByDifficulty|skillEffectByDifficulty)(?:\.|$)/.test(p) ||
+    /^equipment\.difficultyAffix\.(?:baseAttackPerTier|baseHpPerTier|defenseBasePerTier|defensePerRankPerTier|critBase|critPerRank|skillChance)$/.test(p);
   flattenSettingLeaves=function(v,path='',out=[]){
     if(Array.isArray(v)){v.forEach((x,i)=>flattenSettingLeaves(x,path?path+'.'+i:String(i),out));return out;}
     if(v&&typeof v==='object'){for(const [k,x] of Object.entries(v))flattenSettingLeaves(x,path?path+'.'+k:k,out);return out;}
@@ -3020,10 +3024,26 @@ ensureArrays();requestEditorInitialRender();
   const baseSettingMeta=settingMeta;
   settingMeta=function(path){
     const p=String(path).replace(/^balanceSettings\./,'');
+    if(hiddenSettingPath(p))return {label:'舊版相容設定（deprecated）',help:'僅保留舊 JSON 相容；不控制新版遊戲。掉落請用掉落表，詞條請用詞條池，BOSS 能力請用專屬三詞綴與 T 級，遭遇請用 BOSS 進度。'};
+    if(p==='progression.statsPerLevel'||/^progression\.statsPerLevel\./.test(p))return {label:'舊版共用成長 fallback',help:'新版優先使用各職業 classes[].growthPerLevel；此處只供缺少職業獨立成長的舊資料回退。'};
+    if(/^equipment\.boss\.affixRankByDifficulty\./.test(p))return {label:(MODE_NAMES[Number(p.split('.').pop())]||'難度')+'－BOSS 裝顯示品質',help:'0=普通、1=精良、2=稀有、3=傳說；只決定 bossQualityRank／品質顯示，實際能力由專屬三詞綴與 T 級控制。'};
     if(p==='monsters.encounter.eliteChance')return {label:'新增一般地圖預設菁英率',help:'只作為新增一般地圖時的預設值；既有地圖請在「地圖與怪物」頁直接修改 eliteChance。'};
     if(p==='combat.autoPotionThreshold')return {label:'角色自動喝藥預設門檻',help:'新角色或尚未建立個人門檻時使用的預設比例；角色之後可在戰鬥頁各自設定 HP 百分比。'};
     if(p==='progression.starting.potions')return {label:'新帳號起始標準治療藥水',help:'建立新隊伍時的舊制起始數量會遷移到目前的標準治療藥水共用庫存。'};
     return baseSettingMeta(path);
+  };
+  const sourceContractEnsureBase=ensureArrays;
+  ensureArrays=function(){
+    const result=sourceContractEnsureBase(),legacy={};
+    const add=(paths,replacement,note='僅保留舊 JSON 相容，不參與最終遊戲計算。')=>{
+      for(const path of paths)legacy['balanceSettings.'+path]={status:'deprecated',replacement,note};
+    };
+    add(['difficulty.modes[].equipmentChance','difficulty.modes[].gemChance','difficulty.modes[].bossGearChance','difficulty.modes[].legendaryGearChance','difficulty.materialChance','rewards.potionDropChance','rewards.radiant.normalElite','rewards.radiant.bossFinal'],'balanceSettings.drops.entries');
+    add(['equipment.difficultyAffix.baseAttackPerTier','equipment.difficultyAffix.baseHpPerTier','equipment.difficultyAffix.defenseBasePerTier','equipment.difficultyAffix.defensePerRankPerTier','equipment.difficultyAffix.critBase','equipment.difficultyAffix.critPerRank','equipment.difficultyAffix.skillChance'],'balance.affixes.poolBySlotRank');
+    add(['equipment.boss.powerByDifficulty','equipment.boss.skillEffectByDifficulty'],'equipmentPowerSystem.bossAffixes / equipmentPowerSystem.strength');
+    add(['monsters.encounter.bossChance','maps.catalog[].bossChance'],'balanceSettings.monsters.bossMeter','一般地圖固定視為 0；BOSS 由進度與手動挑戰生成。終局地圖仍使用固定關卡規則。');
+    data._reference??={};data._reference.legacySettings=legacy;
+    return result;
   };
   requestEditorInitialRender();
 })();
@@ -4248,13 +4268,13 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
   function preview(){
     const g=group(),s=data.balanceSettings||{};
     if(g==='progression'){
-      const p=s.progression||{},classes=data.classes||[],ci=Math.min(uxState.previewClass,Math.max(0,classes.length-1)),cls=classes[ci]||{},growth=cls.growthPerLevel||{},adv=p.advance||{},caps=p.levelCaps||{};
+      const p=s.progression||{},classes=data.classes||[],ci=Math.min(uxState.previewClass,Math.max(0,classes.length-1)),cls=classes[ci]||{},initial=cls.initialStats||cls,growth=cls.growthPerLevel||{},adv=p.advance||{},caps=p.levelCaps||{};
       uxState.previewClass=ci;
       const levels=[1,Number(adv.level)||1,Number(caps.beforeClear)||1,Number(caps.afterClear)||1].filter((v,i,a)=>v>0&&a.indexOf(v)===i).sort((a,b)=>a-b);
       const stat=(base,step,l,m)=>{let v=Number(base||0)+Math.max(0,l-1)*Number(step||0);if(l>=Number(adv.level||Infinity))v*=Number(m||1);return num(v,2);};
-      const rows=levels.map(l=>['LV '+l,stat(cls.hp,growth.hp,l,adv.hpMultiplier),stat(cls.atk,growth.attack,l,adv.attackMultiplier),stat(cls.def,growth.defense,l,adv.defenseMultiplier)]);
+      const rows=levels.map(l=>['LV '+l,stat(initial.hp,growth.hp,l,adv.hpMultiplier),stat(initial.atk,growth.atk,l,adv.attackMultiplier),stat(initial.def,growth.def,l,adv.defenseMultiplier)]);
       const control='<label style="margin:0">角色 <select id="balanceUxPreviewClass">'+classes.map((x,i)=>'<option value="'+i+'" '+(i===ci?'selected':'')+'>'+esc(x.name||('角色 '+(i+1)))+'</option>').join('')+'</select></label>';
-      return frame('角色自然成長預覽',table(['等級','生命','攻擊','防禦'],rows)+'<p class="mini-note">依角色基礎值、每級自然成長與二轉倍率計算；未計能力點、裝備、BUFF。</p>',control);
+      return frame('角色自然成長預覽',table(['等級','生命','攻擊','防禦'],rows)+'<p class="mini-note">依各職業 initialStats、growthPerLevel 與二轉倍率計算；未計能力點、裝備、BUFF。</p>',control);
     }
     if(g==='skills'){
       const m=s.skills?.mastery||{},x=s.skills?.gems||{};let gated=0,training=0;
@@ -4273,13 +4293,13 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
     }
     if(g==='difficulty'){
       const modes=s.difficulty?.modes||[],names=['普通','困難','地獄'];
-      return frame('難度倍率對照',table(['難度','HP','攻擊','防禦','金幣／EXP','鍛鐵','BOSS裝'],modes.map((m,i)=>[names[i]||('難度 '+i),'×'+num(m.hp,2),'×'+num(m.attack,2),'×'+num(m.defense,2),'×'+num(m.reward,2),'×'+num(m.ore,2),pct(m.bossGearChance)])));
+      return frame('難度倍率對照',table(['難度','HP','攻擊','防禦','金幣／EXP','鍛鐵'],modes.map((m,i)=>[names[i]||('難度 '+i),'×'+num(m.hp,2),'×'+num(m.attack,2),'×'+num(m.defense,2),'×'+num(m.reward,2),'×'+num(m.ore,2)]))+'<p class="mini-note">所有物品掉落機率由「掉落設定」的 drops.entries 控制。</p>');
     }
     if(g==='rewards'){
       const r=s.rewards||{},k=r.kindMultiplier||{};
       return frame('獎勵結構摘要','<div class="balance-ux-metrics">'+metric('金幣公式',num(r.gold?.base,2)+' + LV×'+num(r.gold?.perLevel,2),'未套遭遇倍率')+metric('經驗公式',num(r.xp?.base,2)+' + LV×'+num(r.xp?.perLevel,2),'未套遭遇倍率')+
-        metric('遭遇倍率','一般 ×'+num(k.normal,2),'菁英 ×'+num(k.elite,2)+' / BOSS ×'+num(k.boss,2))+metric('藥水掉落',pct(r.potionDropChance),'勝利回血 '+pct(r.postVictoryHeal))+
-        metric('光輝：一般／菁英',pct(r.radiant?.normalElite))+metric('光輝：BOSS／終局',pct(r.radiant?.bossFinal))+metric('以太：菁英起始',pct(r.ether?.eliteBase),'每階 +'+pct(r.ether?.elitePerTier))+metric('以太：菁英上限',pct(r.ether?.eliteCap),'BOSS 重複 '+pct(r.ether?.bossRepeat))+'</div>');
+        metric('遭遇倍率','一般 ×'+num(k.normal,2),'菁英 ×'+num(k.elite,2)+' / BOSS ×'+num(k.boss,2))+metric('勝利回血',pct(r.postVictoryHeal))+
+        metric('以太：菁英起始',pct(r.ether?.eliteBase),'每階 +'+pct(r.ether?.elitePerTier))+metric('以太：菁英上限',pct(r.ether?.eliteCap),'BOSS 重複 '+pct(r.ether?.bossRepeat))+'</div><p class="mini-note">藥水、光輝碎塊與其他物品掉落由「掉落設定」的 drops.entries 控制。</p>');
     }
     if(g==='combat'){
       const c=s.combat||{},f=c.damageFormula||{},ac=Number(f.attackCoefficient??1),dc=Number(f.defenseCoefficient??c.defenseEffectiveness??0),min=Number(f.minimumDamage??1),base=Math.max(min,10*ac-5*dc),pace=c.pacing||{};
