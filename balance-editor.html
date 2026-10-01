@@ -5518,16 +5518,72 @@ requestEditorInitialRender();
 .companion-priority button{flex:none}
 @media(max-width:850px){.companion-layout,.companion-fields{grid-template-columns:1fr}}
 </style>
-<script>
-/* Companion templates share the same JSON and local workspace as every other editor. */
-(()=>{
-  const defaults=[
+<script id="companion-model-v1">
+/* Shared game/editor contract. Ratings classify design; budgets only emit warnings. */
+(function(root,factory){const node=typeof module==='object'&&module.exports,api=factory(node?require('../balance/progression-model.js'):root.EmberwildProgression);if(node)module.exports=api;else root.EmberwildCompanions=api;})(globalThis,function(Progression){
+  const ratings=['D','C','B','A','S','SS','SSS'],statKeys=['hp','atk','def','crit','critDamage','speed'];
+  const copy=x=>JSON.parse(JSON.stringify(x));
+  const defaultPlans=[
     {id:10,job:0,role:'攻擊戰士',description:'劍術輸出、戰吼與破甲；優先提升攻擊。',names:['洛恩','雷昂','凱斯','艾伯'],points:[0,0,1],core:[0,2,4],active:[4,0],proc:[2],support:[0,2],weapon:'sword'},
     {id:11,job:0,role:'保護戰士',description:'堅毅壁壘、守護誓言與嘲諷；優先提升防禦與生命。',names:['維恩','瑟琳','賽德','塔莉'],points:[2,1,2],core:[0,1,2,6],active:[6,1,0],proc:[2],support:[1],weapon:'sword'},
     {id:12,job:1,role:'法師',description:'火焰箭、餘燼爆發與奧術共鳴；優先提升攻擊。',names:['伊瑟','梅洛','席昂','菲娜'],points:[0,0,1],core:[0,2,4],active:[4,0],proc:[2],support:[0,1],weapon:'staff'},
     {id:13,job:3,role:'祭司',description:'治癒禱言、晨光祝福與聖光庇護；偏重續航。',names:['艾琳','露薇','諾雅','米菈'],points:[1,1,0],core:[0,1,3,5],active:[1,0],proc:[3,5],support:[0,1],weapon:'holyStaff'},
     {id:14,job:2,role:'弓箭手',description:'穿透箭、連射與鷹眼指引；優先提升攻擊。',names:['希雅','凜羽','緹亞','菲爾'],points:[0,0,1],core:[0,2,4],active:[4,0],proc:[2],support:[0,1],weapon:'bow'}
-  ];
+  ].map(p=>({...p,rating:'D'}));
+  function definition(plan,classes,settings){
+    const cls=classes[plan.job],speed=settings?.combat?.speed||{},per=settings?.progression?.statsPerLevel||{};
+    return {initialStats:{hp:cls.hp,atk:cls.atk,def:cls.def,crit:plan.job===2?(settings?.progression?.baseCrit?.archer??.17):(settings?.progression?.baseCrit?.default??.07),critDamage:settings?.combat?.baseCritDamage??1.5,...cls.initialStats,speed:cls.initialStats?.speed??(speed.heroBase||[102,108,116,96])[plan.job]+(speed.heroPerLevel??.5),...plan.initialStats},growthPerLevel:{hp:per.hp??4,atk:per.attack??1,def:per.defense??1,crit:0,critDamage:0,...cls.growthPerLevel,speed:cls.growthPerLevel?.speed??speed.heroPerLevel??.5,...plan.growthPerLevel},growthSteps:copy(plan.growthSteps??cls.growthSteps??[])};
+  }
+  function validatePlanStats(p){
+    if(p.rating!==undefined&&!ratings.includes(p.rating))throw Error('夥伴評級無效：'+p.id);
+    for(const field of ['initialStats','growthPerLevel'])if(p[field]!==undefined){
+      const values=p[field];if(!values||typeof values!=='object'||Array.isArray(values)||Object.entries(values).some(([k,v])=>!statKeys.includes(k)||!Number.isFinite(v)||v<0)||field==='initialStats'&&['hp','atk'].some(k=>values[k]!==undefined&&values[k]<=0))throw Error('夥伴初始／成長資料無效：'+p.id);
+    }
+    if(p.growthSteps!==undefined&&(!Array.isArray(p.growthSteps)||p.growthSteps.length>12||p.growthSteps.some(s=>!s||!Number.isInteger(s.every)||s.every<1||s.every>60||['hp','atk','def'].some(k=>!Number.isInteger(s[k])||s[k]<0))))throw Error('夥伴階梯成長無效：'+p.id);
+    return {...copy(p),rating:p.rating??'D'};
+  }
+  function totals(plan,classes,settings,weights){
+    const def=definition(plan,classes,settings),base={...def.initialStats,...Progression.naturalStats(def,1)},last=Progression.naturalStats(def,60),growth={...def.growthPerLevel},levels=59;
+    for(const key of ['hp','atk','def'])growth[key]=(last[key]-base[key])/levels;
+    const starting=settings?.progression?.starting?.abilityPoints??0,startCount=Math.max(0,Math.round(starting)),count=Math.max(0,Math.round(starting+levels*(settings?.progression?.levelRewards?.abilityPoints??3))),points=[0,0,0],cycle=plan.points||[0,1,2];
+    for(let n=startCount;n<count;n++)points[cycle[n%cycle.length]]++;
+    const per=settings?.progression?.statsPerPoint||{hp:3,attack:1,defense:1};
+    growth.atk+=points[0]*(per.attack??1)/levels;growth.hp+=points[1]*(per.hp??3)/levels;growth.def+=points[2]*(per.defense??1)/levels;
+    const sum=v=>statKeys.reduce((n,k)=>n+(v[k]||0)*(weights[k]||0),0);
+    return {base:sum(base),growth:sum(growth),baseStats:base,effectiveGrowth:growth,rawBase:base.hp+base.atk+base.def,rawGrowth:growth.hp+growth.atk+growth.def};
+  }
+  function defaults(classes,settings){
+    const per=settings?.progression?.statsPerPoint||{},weights={hp:1/(per.hp||3),atk:1/(per.attack||1),def:1/(per.defense||1),crit:100,critDamage:10,speed:.1};
+    const rows=defaultPlans.map(p=>totals(p,classes,settings,weights)),range=key=>({min:Math.floor(Math.min(...rows.map(r=>r[key]))*100)/100,max:Math.ceil(Math.max(...rows.map(r=>r[key]))*100)/100}),base=range('base'),growth=range('growth');
+    const gap=key=>Math.ceil((Math.max(...rows.map(r=>r[key]))/Math.min(...rows.map(r=>r[key]))-1)*100);
+    return {activeLimit:6,ratings:{weights,maxBaseGapPercent:gap('base'),maxGrowthGapPercent:gap('growth'),ranges:Object.fromEntries(ratings.map(r=>[r,{base:copy(base),growth:copy(growth)}]))}};
+  }
+  function normalizeSettings(raw,classes,settings){
+    const out=defaults(classes,settings);if(raw===undefined)return out;
+    if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('夥伴平衡設定無效');
+    out.activeLimit=raw.activeLimit??out.activeLimit;
+    if(!Number.isInteger(out.activeLimit)||out.activeLimit<3||out.activeLimit>512)throw Error('現役上限需為 3～512 人');
+    const r=raw.ratings||{};Object.assign(out.ratings.weights,r.weights||{});
+    for(const k of statKeys)if(!Number.isFinite(out.ratings.weights[k])||out.ratings.weights[k]<0)throw Error('夥伴總量權重無效');
+    for(const k of ['maxBaseGapPercent','maxGrowthGapPercent']){out.ratings[k]=r[k]??out.ratings[k];if(!Number.isFinite(out.ratings[k])||out.ratings[k]<0)throw Error('夥伴評級最大差距無效');}
+    for(const grade of ratings)for(const metric of ['base','growth']){Object.assign(out.ratings.ranges[grade][metric],r.ranges?.[grade]?.[metric]||{});const v=out.ratings.ranges[grade][metric];if(!Number.isFinite(v.min)||!Number.isFinite(v.max)||v.min<0||v.max<v.min)throw Error('夥伴評級建議範圍無效：'+grade);}
+    return out;
+  }
+  function warnings(plans,classes,settings,config){
+    const rows=plans.map(p=>({p,...totals(p,classes,settings,config.ratings.weights)})),out=[];
+    for(const row of rows){const grade=row.p.rating||'D',range=config.ratings.ranges[grade];for(const metric of ['base','growth'])if(row[metric]<range[metric].min-1e-8||row[metric]>range[metric].max+1e-8)out.push({id:row.p.id,message:`此角色的${metric==='base'?'總基礎數值':'總成長量'}超出目前 ${grade} 評級建議範圍。`});
+      for(const metric of ['base','growth']){const others=rows.filter(r=>(r.p.rating||'D')!==grade);if(!others.length)continue;const min=Math.min(...others.map(r=>r[metric])),limit=config.ratings[metric==='base'?'maxBaseGapPercent':'maxGrowthGapPercent'];if(row[metric]>min*(1+limit/100)+1e-8)out.push({id:row.p.id,message:`此角色的${metric==='base'?'總基礎數值':'總成長量'}與其他評級的差距超出設定的 ${limit}%。`});}
+    }
+    return out;
+  }
+  return {ratings,statKeys,defaultPlans,definition,validatePlanStats,totals,defaults,normalizeSettings,warnings};
+});
+
+</script>
+<script>
+/* Companion templates share the same JSON and local workspace as every other editor. */
+(()=>{
+  const defaults=EmberwildCompanions.defaultPlans;
   const baseEnsure=ensureArrays;
   ensureArrays=function(){baseEnsure();if(data.companions===undefined)data.companions=structuredClone(defaults);};
   const pos=SECTION_META.findIndex(([id])=>id==='classes');
@@ -5541,11 +5597,11 @@ requestEditorInitialRender();
   const weaponForms=p=>[...new Set((data.equipmentForms?.[p.job]?.[0]||[]).map(f=>f.weaponType).filter(Boolean))];
   function validateCompanions(){
     const issues=[],list=data.companions;
-    if(!Array.isArray(list)||list.length<5||list.length>64)return ['companions 必須有 5～64 位夥伴。'];
+    if(!Array.isArray(list)||list.length>512)return ['companions 最多可有 512 位夥伴。'];
     const ids=new Set();
     for(const p of list){
       const label='夥伴 '+(p?.id??'?');
-      if(!Number.isInteger(p?.id)||p.id<10||p.id>999||ids.has(p.id)){issues.push(label+' 的 ID 無效或重複。');continue;}ids.add(p.id);
+      if(!Number.isInteger(p?.id)||p.id<10||p.id>1000000000||ids.has(p.id)){issues.push(label+' 的 ID 無效或重複。');continue;}ids.add(p.id);
       if(!Number.isInteger(p.job)||p.job<0||p.job>=data.classes.length){issues.push(label+' 的職業無效。');continue;}
       if(typeof p.role!=='string'||!p.role.trim()||p.role.length>40||typeof p.description!=='string'||p.description.length>200||typeof p.weapon!=='string'||p.weapon.length>80)issues.push(label+' 的定位、說明或武器無效。');
       if(!Array.isArray(p.names)||!p.names.length||p.names.length>30||p.names.some(n=>typeof n!=='string'||!n.trim()||n!==n.trim()||Array.from(n).length>20||/[\u0000-\u001f\u007f]/.test(n)))issues.push(label+' 需要 1～30 個有效名字，每個最多 20 字。');
@@ -5557,22 +5613,21 @@ requestEditorInitialRender();
       }
       if(p.weapon&&weaponForms(p).length&&!weaponForms(p).includes(p.weapon))issues.push(label+' 的起始武器類型不存在。');
     }
-    for(let id=10;id<=14;id++)if(!ids.has(id))issues.push('初始五位夥伴的 ID 10～14 必須保留。');
     return issues;
   }
   const baseValidate=validateData;
   validateData=function(){return [...baseValidate(),...validateCompanions()];};
   function renderCompanions(){
     const app=document.getElementById('app'),list=Array.isArray(data.companions)?data.companions:[];
-    if(!list.length){app.innerHTML=sectionHead('夥伴角色','目前 JSON 的 companions 格式錯誤。請在原始 JSON 修正。');return;}
+    if(!list.length){app.innerHTML=sectionHead('夥伴角色','尚未定義夥伴。','<button id="firstCompanion">新增角色</button>');document.getElementById('firstCompanion').onclick=()=>{data.companions=[structuredClone(defaults[0])];selectedId=data.companions[0].id;markDirty();render();};return;}
     let p=list.find(x=>x?.id===selectedId)||list[0];selectedId=p.id;
     const skills=coreSkills(p),support=supports(p),weaponTypes=weaponForms(p);
     const options=(indices,selected)=>indices.map(i=>`<option value="${i}" ${i===selected?'selected':''}>${i} · ${esc(skills[i]?.name||'技能')}</option>`).join('');
     const priority=(key,title,type)=>`<div class="card"><div class="card-h"><strong>${title}</strong><button type="button" data-add-priority="${key}">新增順位</button></div><div class="card-b"><p class="mini-note">依序取前兩個已學會的技能配置；可以排入備用技能，等級不足時略過。</p>${p[key].map((value,i)=>`<div class="companion-priority" data-priority="${key}" data-index="${i}"><select>${options(skills.map((s,n)=>kind(s)===type?n:null).filter(n=>n!==null),value)}</select><button type="button" data-move="-1" ${i===0?'disabled':''}>↑</button><button type="button" data-move="1" ${i===p[key].length-1?'disabled':''}>↓</button><button type="button" data-remove>刪除</button></div>`).join('')||'<p class="mini-note">未安排技能。</p>'}</div></div>`;
-    app.innerHTML=sectionHead('夥伴角色','編輯固定走向、隨機名字池、配點與技能；新角色會出現在遊戲的隊伍編成。','<button id="addCompanion">新增角色</button>')+
+    app.innerHTML=sectionHead('夥伴角色','編輯定位、評級、成長與技能；新夥伴取得後加入玩家名冊。','<button id="addCompanion">新增角色</button>')+
       '<div class="notice">名字在玩家創角時各抽一次並存入該欄位存檔；招募不會重新抽名，遊戲內可改名。新建的夥伴使用獨立 ID，但共用四個職業的技能與裝備池。</div>'+
       `<div class="companion-layout"><div class="card"><div class="list">${list.map(x=>`<button type="button" class="listitem ${x.id===p.id?'active':''}" data-companion="${x.id}"><span class="title">${esc(x.role||'未命名夥伴')}</span><span class="sub">ID ${x.id} · ${esc(data.classes[x.job]?.name||'未知職業')} · ${esc((x.names||[]).join('、'))}</span></button>`).join('')}</div></div><div>`+
-      `<div class="card"><div class="card-h"><strong>${esc(p.role)} · ID ${p.id}</strong><span><button id="duplicateCompanion">複製</button> ${p.id>14?'<button class="danger" id="deleteCompanion">刪除</button>':''}</span></div><div class="card-b companion-fields">`+
+      `<div class="card"><div class="card-h"><strong>${esc(p.role)} · ID ${p.id}</strong><span><button id="duplicateCompanion">複製</button> <button class="danger" id="deleteCompanion">刪除</button></span></div><div class="card-b companion-fields">`+
       `<label>角色定位<input id="companionRole" maxlength="40" value="${esc(p.role)}"></label><label>基礎職業<select id="companionJob">${data.classes.map((c,i)=>`<option value="${i}" ${p.job===i?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>`+
       `<label class="full">定位說明<textarea id="companionDescription" rows="2" maxlength="200">${esc(p.description)}</textarea></label>`+
       `<label class="full">隨機名字池（每行一個，最多 30 個）<textarea id="companionNames" rows="4">${esc(p.names.join('\n'))}</textarea></label>`+
@@ -5593,10 +5648,10 @@ requestEditorInitialRender();
     app.querySelectorAll('[data-companion-support]').forEach(el=>el.onchange=()=>{const i=Number(el.dataset.companionSupport);p.support=el.checked?[...p.support,i].sort((a,b)=>a-b):p.support.filter(x=>x!==i);markDirty();render();});
     app.querySelectorAll('[data-priority]').forEach(row=>{const key=row.dataset.priority,i=Number(row.dataset.index);row.querySelector('select').onchange=e=>{const n=Number(e.target.value);p[key][i]=n;if(!p.core.includes(n))p.core.push(n);p.core.sort((a,b)=>a-b);markDirty();render();};row.querySelector('[data-remove]').onclick=()=>{p[key].splice(i,1);markDirty();render();};row.querySelectorAll('[data-move]').forEach(button=>button.onclick=()=>{const j=i+Number(button.dataset.move);[p[key][i],p[key][j]]=[p[key][j],p[key][i]];markDirty();render();});});
     app.querySelectorAll('[data-add-priority]').forEach(button=>button.onclick=()=>{const key=button.dataset.addPriority,type=key==='active'?'active':'proc';const i=skills.findIndex((s,n)=>kind(s)===type&&!p[key].includes(n));if(i<0)return alert('沒有可新增的技能。');p[key].push(i);if(!p.core.includes(i))p.core.push(i);p.core.sort((a,b)=>a-b);markDirty();render();});
-    const nextId=()=>Math.max(14,...list.map(x=>x.id))+1;
-    document.getElementById('addCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');const id=nextId(),job=0,first=data.classes[job]?.skills?.findIndex(sk=>sk.activation==='active');list.push({id,job,role:'新夥伴',description:'請填寫戰鬥定位。',names:['新夥伴'+id],points:[0,0,1],core:first>=0?[first]:[],active:first>=0?[first]:[],proc:[],support:[],weapon:weaponForms({job})[0]||''});selectedId=id;markDirty();render();};
-    document.getElementById('duplicateCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');const clone=structuredClone(p);clone.id=nextId();clone.role+=' 複製';list.push(clone);selectedId=clone.id;markDirty();render();};
-    document.getElementById('deleteCompanion')?.addEventListener('click',()=>{if(confirmDelete('刪除夥伴「'+p.role+'」？既有存檔會保留創角時建立的夥伴，新存檔不再顯示。')){data.companions=list.filter(x=>x.id!==p.id);selectedId=10;markDirty();render();}});
+    const nextId=()=>Math.max(9,...list.map(x=>x.id))+1;
+    document.getElementById('addCompanion').onclick=()=>{if(list.length>=512||nextId()>1000000000)return alert('夥伴已達上限。');const id=nextId(),job=0,first=data.classes[job]?.skills?.findIndex(sk=>sk.activation==='active');list.push({id,job,role:'新夥伴',description:'請填寫戰鬥定位。',names:['新夥伴'+id],points:[0,0,1],core:first>=0?[first]:[],active:first>=0?[first]:[],proc:[],support:[],weapon:weaponForms({job})[0]||''});selectedId=id;markDirty();render();};
+    document.getElementById('duplicateCompanion').onclick=()=>{if(list.length>=512||nextId()>1000000000)return alert('夥伴已達上限。');const clone=structuredClone(p);clone.id=nextId();clone.role+=' 複製';list.push(clone);clone.core=clone.core.filter(i=>!skills[i].partnerId);clone.active=clone.active.filter(i=>clone.core.includes(i));clone.proc=clone.proc.filter(i=>clone.core.includes(i));clone.support=clone.support.filter(i=>!support[i].partnerId);selectedId=clone.id;markDirty();render();};
+    document.getElementById('deleteCompanion')?.addEventListener('click',()=>{if(confirmDelete('刪除夥伴「'+p.role+'」？既有存檔會保留創角時建立的夥伴，新存檔不再顯示。')){for(const c of data.classes)for(const sk of c.skills)if(sk.partnerId===p.id)sk.partnerId=null;for(const row of data.supportSkills)for(const sk of row)if(sk.partnerId===p.id)sk.partnerId=null;data.companions=list.filter(x=>x.id!==p.id);selectedId=data.companions[0]?.id;markDirty();render();}});
   }
   const baseRender=render;
   render=function(){if(currentSection==='companions'){ensureArrays();renderNav(true);renderCompanions();return;}return baseRender();};
@@ -6008,4 +6063,43 @@ requestEditorInitialRender();
   requestEditorInitialRender();
 })();
 
+</script>
+
+<script id="companion-roster-editor-v1">
+(()=>{
+  const M=EmberwildCompanions,labels={hp:'HP',atk:'攻擊',def:'防禦',crit:'暴擊率（0～1）',critDamage:'暴擊傷害倍率',speed:'速度'};
+  const ensureBase=ensureArrays;
+  ensureArrays=function(){const out=ensureBase();data.companionSettings??=M.defaults(data.classes,data.balanceSettings);for(const p of data.companions||[])p.rating??='D';return out;};
+  const pos=SECTION_META.findIndex(([id])=>id==='companions');SECTION_META.splice(pos+1,0,['companionBalance','夥伴評級平衡']);
+  globalThis.companionBalanceWarnings=function(){try{return M.warnings(data.companions,data.classes,data.balanceSettings,M.normalizeSettings(data.companionSettings,data.classes,data.balanceSettings));}catch{return [];}};
+  const validateBase=validateData;
+  validateData=function(){const issues=validateBase();try{M.normalizeSettings(data.companionSettings,data.classes,data.balanceSettings);}catch(e){issues.push(e.message);}for(const p of data.companions||[])try{M.validatePlanStats(p);}catch(e){issues.push(e.message);}for(let j=0;j<data.classes.length;j++)for(const sk of [...data.classes[j].skills,...data.supportSkills[j]])if(sk.partnerId!=null&&!data.companions.some(p=>p.id===sk.partnerId&&p.job===j))issues.push('技能指定夥伴不存在或職業不符：'+sk.name);return issues;};
+  function ratingFields(){
+    const app=document.getElementById('app'),id=Number(app.querySelector('[data-companion].active')?.dataset.companion),p=data.companions.find(x=>x.id===id),fields=app.querySelector('.companion-fields');if(!p||!fields)return;
+    const def=M.definition(p,data.classes,data.balanceSettings),totals=M.totals(p,data.classes,data.balanceSettings,data.companionSettings.ratings.weights),warnings=companionBalanceWarnings().filter(x=>x.id===id),block=document.createElement('div');block.className='full';
+    const stats=(field,title)=>`<section class="card"><div class="card-h"><strong>${title}</strong><label><input type="checkbox" data-partner-override="${field}" ${p[field]!==undefined?'checked':''}>使用夥伴獨立數值</label></div><div class="card-b companion-fields">${M.statKeys.map(k=>`<label>${labels[k]}<input type="number" min="0" step="any" data-partner-stat="${field}" data-stat-key="${k}" value="${def[field][k]??0}" ${p[field]===undefined?'disabled':''}></label>`).join('')}</div></section>`;
+    block.innerHTML=`<label>夥伴評級<select id="companionRating">${M.ratings.map(r=>`<option ${p.rating===r?'selected':''}>${r}</option>`).join('')}</select></label><p class="mini-note">評級是設計分類，不會隨升級、裝備或改名提升；各評級均可有專屬技能。</p><p>總基礎數值：${totals.rawBase.toFixed(2)}（HP＋攻擊＋防禦） · 總成長量：${totals.rawGrowth.toFixed(3)}／級<br>加權基礎總量：${totals.base.toFixed(3)} · 加權總成長：${totals.growth.toFixed(3)}／級</p><p class="mini-note">成長以 LV1→60 的平均值計算，包含階梯與循環配點；加權量另包含暴擊、暴傷與速度，權重可在夥伴評級平衡頁修改。未啟用獨立數值時沿用職業。</p><div class="companion-budget-warnings" role="status">${warnings.map(x=>`<p class="notice">${esc(x.message)}</p>`).join('')}</div>${stats('initialStats','初始能力')}${stats('growthPerLevel','每級成長')}<section class="card"><div class="card-h"><strong>整數階梯成長</strong><label><input type="checkbox" id="partnerOwnSteps" ${p.growthSteps!==undefined?'checked':''}>使用夥伴獨立階梯</label></div><div class="card-b">${def.growthSteps.map((s,i)=>`<div class="companion-fields" data-partner-step-row="${i}">${['every','hp','atk','def'].map(k=>`<label>${k==='every'?'間隔級數':labels[k]}<input type="number" min="${k==='every'?1:0}" step="1" value="${s[k]}" data-partner-step="${i}" data-step-key="${k}" ${p.growthSteps===undefined?'disabled':''}></label>`).join('')}${p.growthSteps!==undefined?`<button data-partner-step-delete="${i}">刪除</button>`:''}</div>`).join('')}${p.growthSteps!==undefined?'<button id="partnerAddStep">新增階梯</button>':'<p class="mini-note">沿用職業階梯成長。</p>'}</div></section>`;
+    fields.append(block);
+    block.querySelector('#companionRating').onchange=e=>{p.rating=e.target.value;markDirty();render();};
+    block.querySelectorAll('[data-partner-override]').forEach(el=>el.onchange=()=>{const field=el.dataset.partnerOverride;if(el.checked)p[field]=structuredClone(def[field]);else delete p[field];markDirty();render();});
+    block.querySelectorAll('[data-partner-stat]').forEach(el=>el.onchange=()=>{p[el.dataset.partnerStat][el.dataset.statKey]=Number(el.value);markDirty();render();});
+    block.querySelector('#partnerOwnSteps').onchange=e=>{if(e.target.checked)p.growthSteps=structuredClone(def.growthSteps);else delete p.growthSteps;markDirty();render();};
+    block.querySelectorAll('[data-partner-step]').forEach(el=>el.onchange=()=>{p.growthSteps[Number(el.dataset.partnerStep)][el.dataset.stepKey]=Number(el.value);markDirty();render();});
+    block.querySelectorAll('[data-partner-step-delete]').forEach(el=>el.onclick=()=>{p.growthSteps.splice(Number(el.dataset.partnerStepDelete),1);markDirty();render();});
+    block.querySelector('#partnerAddStep')?.addEventListener('click',()=>{if(p.growthSteps.length>=12)return;p.growthSteps.push({every:3,hp:0,atk:1,def:0});markDirty();render();});
+  }
+  function skillPartnerField(){
+    const app=document.getElementById('app'),support=selected.skillTab==='support',job=support?selected.supportClass:selected.skillClass,sk=support?data.supportSkills[job]?.[selected.support]:data.classes[job]?.skills[selected.skill],fields=app.querySelector('.fields');if(!sk||!fields)return;
+    const block=document.createElement('div');block.className='field';block.innerHTML=`<label for="skillPartnerId">指定夥伴</label><select id="skillPartnerId"><option value="" ${sk.partnerId==null?'selected':''}>通用（沿用職業／技能條件）</option>${data.companions.filter(p=>p.job===job).map(p=>`<option value="${p.id}" ${sk.partnerId===p.id?'selected':''}>${esc(p.role)} · ${esc(p.names.join('／'))} · ID ${p.id}</option>`).join('')}</select><p class="mini-note">指定後只有此定義 ID 的夥伴可學習、配置與施放；改名不影響限制。清單隨夥伴定義更新。</p>`;
+    fields.prepend(block);block.querySelector('select').onchange=e=>{sk.partnerId=e.target.value===''?null:Number(e.target.value);markDirty();render();};
+  }
+  function balancePage(){
+    const c=data.companionSettings,r=c.ratings,app=document.getElementById('app'),input=(label,path,value)=>`<label>${label}<input type="number" min="0" step="any" data-partner-setting="${path}" value="${value}"></label>`;
+    app.innerHTML=sectionHead('夥伴評級平衡','總量與差距只產生設計警告，不修改角色數值，也不阻止匯出。')+`<div class="card"><div class="card-b companion-fields">${input('現役上限（至少 3 人）','activeLimit',c.activeLimit)}${input('不同評級最大總基礎差距 %','ratings.maxBaseGapPercent',r.maxBaseGapPercent)}${input('D～SSS 最大總成長差距 %','ratings.maxGrowthGapPercent',r.maxGrowthGapPercent)}</div></div><p class="mini-note">預設差距由現有五種夥伴、實際職業初始數值、LV1→60 成長、循環配點與階梯計算得出。HP／攻防以能力點收益換算；暴擊、暴傷、速度權重供設計比較使用，不影響戰鬥。</p><div class="card"><div class="card-h"><strong>總量權重</strong></div><div class="card-b companion-fields">${M.statKeys.map(k=>input(labels[k],`ratings.weights.${k}`,r.weights[k])).join('')}</div></div><table><thead><tr><th>評級</th><th>基礎總量下限</th><th>基礎總量上限</th><th>總成長下限</th><th>總成長上限</th></tr></thead><tbody>${M.ratings.map(grade=>`<tr><th>${grade}</th>${['base','growth'].flatMap(metric=>['min','max'].map(k=>`<td>${input('',`ratings.ranges.${grade}.${metric}.${k}`,r.ranges[grade][metric][k])}</td>`)).join('')}</tr>`).join('')}</tbody></table><p class="mini-note">各評級起始使用相同建議範圍，不要求單項能力隨評級升高。專精角色可以重新分配成長。</p><div class="companion-budget-warnings">${companionBalanceWarnings().map(x=>`<p class="notice">ID ${x.id}：${esc(x.message)}</p>`).join('')||'<p>目前沒有數值差距警告。</p>'}</div>`;
+    app.querySelectorAll('[data-partner-setting]').forEach(el=>el.onchange=()=>{const keys=el.dataset.partnerSetting.split('.'),last=keys.pop();let target=c;for(const k of keys)target=target[k];target[last]=Number(el.value);markDirty();render();});
+  }
+  const renderBase=render;
+  render=function(){ensureArrays();if(currentSection==='companionBalance'){renderNav(true);balancePage();return;}const out=renderBase();if(currentSection==='companions')ratingFields();if(currentSection==='skills')skillPartnerField();return out;};
+  requestEditorInitialRender();
+})();
 </script>
