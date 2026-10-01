@@ -2331,51 +2331,7 @@ ensureArrays();requestEditorInitialRender();
 </script>
 
 
-<style id="shop-settings-editor-style">
-.shop-settings-layout{display:grid;gap:12px}.shop-general-grid{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:9px}.shop-random-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.shop-rule-card,.shop-fixed-card{border:1px solid var(--line);background:#151a20;border-radius:8px;padding:10px}.shop-rule-head,.shop-fixed-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}.shop-rule-head strong,.shop-fixed-head strong{margin-right:auto}.shop-rule-fields{display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:8px}.shop-rule-fields label,.shop-fixed-fields label{font-size:11px;color:var(--muted)}.shop-rule-fields textarea{min-height:64px}.shop-rule-fields .full{grid-column:1/-1}.shop-fixed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.shop-fixed-fields{display:grid;grid-template-columns:100px 110px minmax(0,1fr);gap:8px;align-items:end}.shop-fixed-fields .desc{grid-column:1/-1}.shop-fixed-meta{font-size:11px;color:var(--muted);line-height:1.5}.shop-enabled{display:flex;align-items:center;gap:5px!important}.shop-enabled input{width:auto}.shop-settings-note{font-size:12px;color:var(--muted);line-height:1.6}.shop-rule-actions{display:flex;justify-content:flex-end;margin-top:8px}@media(max-width:1000px){.shop-random-grid,.shop-fixed-grid{grid-template-columns:1fr}.shop-rule-fields{grid-template-columns:repeat(2,minmax(120px,1fr))}.shop-general-grid{grid-template-columns:1fr 1fr}}@media(max-width:650px){.shop-general-grid,.shop-rule-fields,.shop-fixed-fields{grid-template-columns:1fr}.shop-rule-fields .full,.shop-fixed-fields .desc{grid-column:auto}}
-</style>
-<script id="shop-settings-editor-extension">
-/* Update 32 editor: random shop rules + fixed-item shop availability/descriptions. */
-(function installShopSettingsEditor(){
-  const clone=v=>structuredClone(v);
-  const DEFAULT_SHOP_SETTINGS={randomOffers:{offerCount:6,refreshBaseCost:100,refreshCostStep:50,entries:[
-    {id:'ore',enabled:true,type:'ore',key:'',name:'鍛鐵',description:'裝備強化常用素材。',quantityMin:8,quantityMax:20,unitPrice:12,weight:1,quantityScalesWithTier:true,priceScalesWithTier:false},
-    {id:'dust',enabled:true,type:'dust',key:'',name:'粉塵',description:'裝備洗鍊與寶石相關用途的基礎素材。',quantityMin:3,quantityMax:8,unitPrice:25,weight:1,quantityScalesWithTier:false,priceScalesWithTier:false},
-    {id:'gem',enabled:true,type:'gem',key:'random',name:'隨機技能寶石',description:'隨機出現一種技能寶石。',quantityMin:1,quantityMax:2,unitPrice:180,weight:.7,quantityScalesWithTier:false,priceScalesWithTier:false},
-    {id:'region_material',enabled:true,type:'material',key:'region',name:'地區素材',description:'從目前探索區域的怪物素材中隨機挑選。',quantityMin:3,quantityMax:6,unitPrice:60,weight:1.3,quantityScalesWithTier:false,priceScalesWithTier:true}
-  ]}};
-  const TYPES=['ore','dust','gem','material'],TYPE_LABEL={ore:'鍛鐵',dust:'粉塵',gem:'技能寶石',material:'素材'};
-  function normalizeRule(x,i){const type=TYPES.includes(x?.type)?x.type:'material';return {id:typeof x?.id==='string'&&x.id.trim()?x.id.trim():'rule_'+i,enabled:x?.enabled!==false,type,key:typeof x?.key==='string'?x.key:(type==='gem'?'random':type==='material'?'region':''),name:typeof x?.name==='string'?x.name:'',description:typeof x?.description==='string'?x.description:'',quantityMin:Number.isFinite(x?.quantityMin)?Math.max(1,Math.floor(x.quantityMin)):1,quantityMax:Number.isFinite(x?.quantityMax)?Math.max(1,Math.floor(x.quantityMax)):1,unitPrice:Number.isFinite(x?.unitPrice)?Math.max(0,Math.round(x.unitPrice)):1,weight:Number.isFinite(x?.weight)&&x.weight>0?x.weight:1,quantityScalesWithTier:!!x?.quantityScalesWithTier,priceScalesWithTier:!!x?.priceScalesWithTier};}
-  function ensureShopSettings(){
-    const raw=data.shopSettings?.randomOffers||{},def=DEFAULT_SHOP_SETTINGS.randomOffers,entries=Array.isArray(raw.entries)&&raw.entries.length?raw.entries:def.entries;
-    data.shopSettings={randomOffers:{offerCount:Number.isFinite(raw.offerCount)?Math.max(1,Math.min(24,Math.floor(raw.offerCount))):def.offerCount,refreshBaseCost:Number.isFinite(raw.refreshBaseCost)?Math.max(0,Math.round(raw.refreshBaseCost)):def.refreshBaseCost,refreshCostStep:Number.isFinite(raw.refreshCostStep)?Math.max(0,Math.round(raw.refreshCostStep)):def.refreshCostStep,entries:entries.map(normalizeRule)}};
-    for(const r of data.shopSettings.randomOffers.entries)if(r.quantityMax<r.quantityMin)r.quantityMax=r.quantityMin;
-    for(const item of data.items||[])if(typeof item.shopEnabled!=='boolean')item.shopEnabled=true;
-    selected.shopRule??=0;
-  }
-  const baseEnsure=ensureArrays;ensureArrays=function(){const out=baseEnsure();ensureShopSettings();return out;};ensureShopSettings();
-  if(!SECTION_META.some(x=>x[0]==='shopSettings')){const i=SECTION_META.findIndex(x=>x[0]==='items');SECTION_META.splice(i<0?SECTION_META.length:i,0,['shopSettings','商店設定']);}
-  const baseCount=count;count=function(section,normalized=false){if(section==='shopSettings'){if(!normalized)ensureShopSettings();return data.shopSettings.randomOffers.entries.length+(data.items||[]).filter(x=>x.shopEnabled!==false).length;}return baseCount(section,normalized);};
 
-  function uniqueRuleId(){const used=new Set(data.shopSettings.randomOffers.entries.map(x=>x.id));let n=1,id;do{id='random_offer_'+n++;}while(used.has(id));return id;}
-  globalThis.addShopRandomRule=function(){ensureShopSettings();data.shopSettings.randomOffers.entries.push(normalizeRule({id:uniqueRuleId(),enabled:true,type:'material',key:'region',name:'地區素材',description:'從目前探索區域隨機挑選素材。',quantityMin:1,quantityMax:3,unitPrice:60,weight:1,priceScalesWithTier:true},data.shopSettings.randomOffers.entries.length));markDirty('已新增隨機商品規則，尚未匯出');render();};
-  globalThis.deleteShopRandomRule=function(i){ensureShopSettings();const rows=data.shopSettings.randomOffers.entries;if(rows.length<=1)return alert('至少保留 1 條隨機商品規則。');if(!rows[i]||!confirmDelete(`刪除隨機商品規則「${rows[i].name||rows[i].id}」？`))return;rows.splice(i,1);markDirty();render();};
-  function renderShopSettings(){
-    ensureShopSettings();const s=data.shopSettings.randomOffers,items=data.items||[];
-    const rules=s.entries.map((r,i)=>`<div class="shop-rule-card" data-shop-rule="${i}"><div class="shop-rule-head"><strong>${esc(r.name||r.id)}</strong><span class="badge">${esc(TYPE_LABEL[r.type]||r.type)}</span><label class="shop-enabled"><input class="shop-rule-enabled" type="checkbox" ${r.enabled?'checked':''}>啟用</label></div><div class="shop-rule-fields"><label>規則 ID<input class="shop-rule-input" data-k="id" value="${esc(r.id)}"></label><label>商品類型<select class="shop-rule-input" data-k="type">${TYPES.map(t=>`<option value="${t}" ${r.type===t?'selected':''}>${TYPE_LABEL[t]}</option>`).join('')}</select></label><label>key<input class="shop-rule-input" data-k="key" value="${esc(r.key)}"><span class="field-help">素材用 region＝目前地區隨機素材；寶石用 random＝隨機種類。</span></label><label>顯示名稱<input class="shop-rule-input" data-k="name" value="${esc(r.name)}"></label><label>最小數量<input class="shop-rule-input" data-k="quantityMin" type="number" min="1" step="1" value="${esc(r.quantityMin)}"></label><label>最大數量<input class="shop-rule-input" data-k="quantityMax" type="number" min="1" step="1" value="${esc(r.quantityMax)}"></label><label>單價<input class="shop-rule-input" data-k="unitPrice" type="number" min="0" step="1" value="${esc(r.unitPrice)}"></label><label>抽選權重<input class="shop-rule-input" data-k="weight" type="number" min="0.01" step="0.01" value="${esc(r.weight)}"></label><label>數量隨地區階級倍增<select class="shop-rule-input" data-k="quantityScalesWithTier"><option value="false" ${!r.quantityScalesWithTier?'selected':''}>否</option><option value="true" ${r.quantityScalesWithTier?'selected':''}>是</option></select></label><label>單價隨地區階級倍增<select class="shop-rule-input" data-k="priceScalesWithTier"><option value="false" ${!r.priceScalesWithTier?'selected':''}>否</option><option value="true" ${r.priceScalesWithTier?'selected':''}>是</option></select></label><label class="full">商店說明<textarea class="shop-rule-input" data-k="description">${esc(r.description)}</textarea></label></div><div class="shop-rule-actions"><button class="danger" onclick="deleteShopRandomRule(${i})" ${s.entries.length<=1?'disabled':''}>刪除規則</button></div></div>`).join('');
-    const fixed=items.map((item,i)=>{const heal=item.type==='healPotion';return `<div class="shop-fixed-card" data-shop-item="${i}"><div class="shop-fixed-head"><strong>${esc(item.name||item.id)}</strong><span class="badge">${heal?'治療藥水':TYPE_LABEL[item.type]||item.type}</span><label class="shop-enabled"><input class="shop-item-enabled" type="checkbox" ${item.shopEnabled!==false?'checked':''}>商店上架</label></div><div class="shop-fixed-meta"><code>${esc(item.id)}</code>${heal?` · 回復 ${Math.round((Number(item.healFraction)||0)*10000)/100}% · 冷卻 ${esc(item.cooldown??0)} 回合`:` · ${esc(ELEMENT_LABELS[item.element]||item.element||'')}`}</div><div class="shop-fixed-fields"><label>顯示名稱<input class="shop-item-input" data-k="name" value="${esc(item.name||'')}"></label><label>購買價格<input class="shop-item-input" data-k="cost" type="number" min="0" step="1" value="${esc(item.cost??0)}"></label><label class="desc">商店／背包說明<textarea class="shop-item-input" data-k="description">${esc(item.description||'')}</textarea></label></div></div>`;}).join('');
-    document.getElementById('app').innerHTML=sectionHead('商店設定','控制隨機商品、刷新價格，以及所有藥水／消耗道具是否上架、售價與說明文字。遊戲中的手動使用已統一移到背包。','<button class="primary" onclick="addShopRandomRule()">新增隨機商品規則</button>')+`<div class="shop-settings-layout"><div class="notice"><b>刷新價格：</b>第 1 次刷新使用「起始價格」，之後每刷新一次增加「每次加價」；玩家本機日期跨到 0 點後，當日刷新次數歸零。隨機商品會顯示在商店最上方。</div>${card('隨機商店整體設定',`<div class="shop-general-grid"><label>每批商品數<input id="shopOfferCount" type="number" min="1" max="24" step="1" value="${esc(s.offerCount)}"></label><label>刷新起始價格<input id="shopRefreshBase" type="number" min="0" step="1" value="${esc(s.refreshBaseCost)}"></label><label>每次刷新加價<input id="shopRefreshStep" type="number" min="0" step="1" value="${esc(s.refreshCostStep)}"></label></div><p class="shop-settings-note">範例：100 / +50 時，當日刷新價格依序為 100、150、200、250……；隔日 0 點重新從 100 開始。</p>`)}${card('隨機商品規則',`<div class="shop-random-grid">${rules}</div>`,'<span class="badge">'+s.entries.length+'</span>')}${card('固定藥水／消耗道具',`<p class="shop-settings-note">這裡直接修改 <code>items</code> 同一份資料，因此名稱、價格與說明也會同步到「元素消耗道具／治療藥水」頁。取消「商店上架」只影響商店，不會刪除玩家既有庫存。</p><div class="shop-fixed-grid">${fixed}</div>`,'<span class="badge">'+items.length+'</span>')}</div>`;
-    const app=document.getElementById('app');
-    const bindNum=(id,key)=>{const el=document.getElementById(id);el.onchange=()=>{s[key]=Math.max(key==='offerCount'?1:0,Math.floor(Number(el.value)||0));if(key==='offerCount')s[key]=Math.min(24,s[key]);markDirty();};};bindNum('shopOfferCount','offerCount');bindNum('shopRefreshBase','refreshBaseCost');bindNum('shopRefreshStep','refreshCostStep');
-    app.querySelectorAll('[data-shop-rule]').forEach(box=>{const i=Number(box.dataset.shopRule),r=s.entries[i];box.querySelector('.shop-rule-enabled').onchange=e=>{r.enabled=e.target.checked;markDirty();};box.querySelectorAll('.shop-rule-input').forEach(el=>el.onchange=()=>{const k=el.dataset.k;if(['quantityMin','quantityMax','unitPrice','weight'].includes(k))r[k]=Number(el.value);else if(['quantityScalesWithTier','priceScalesWithTier'].includes(k))r[k]=el.value==='true';else r[k]=el.value;if(k==='quantityMin'||k==='quantityMax'){r.quantityMin=Math.max(1,Math.floor(r.quantityMin||1));r.quantityMax=Math.max(r.quantityMin,Math.floor(r.quantityMax||r.quantityMin));}markDirty();});});
-    app.querySelectorAll('[data-shop-item]').forEach(box=>{const i=Number(box.dataset.shopItem),item=items[i];box.querySelector('.shop-item-enabled').onchange=e=>{item.shopEnabled=e.target.checked;markDirty();renderNav(true);};box.querySelectorAll('.shop-item-input').forEach(el=>el.onchange=()=>{const k=el.dataset.k;item[k]=k==='cost'?Math.max(0,Number(el.value)||0):el.value;markDirty();});});
-  }
-  const baseValidate=validateData;validateData=function(){const issues=baseValidate();ensureShopSettings();const s=data.shopSettings.randomOffers,ids=new Set();if(!Number.isInteger(s.offerCount)||s.offerCount<1||s.offerCount>24)issues.push('商店每批隨機商品數必須是 1~24 的整數。');if(!Number.isFinite(s.refreshBaseCost)||s.refreshBaseCost<0||!Number.isFinite(s.refreshCostStep)||s.refreshCostStep<0)issues.push('商店刷新起始價格與每次加價不可為負數。');for(const [i,r] of s.entries.entries()){if(typeof r.id!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(r.id)||ids.has(r.id))issues.push(`隨機商品規則 ${i+1} 的 ID 無效或重複。`);else ids.add(r.id);if(!TYPES.includes(r.type)||!Number.isInteger(r.quantityMin)||!Number.isInteger(r.quantityMax)||r.quantityMin<1||r.quantityMax<r.quantityMin||!Number.isFinite(r.unitPrice)||r.unitPrice<0||!Number.isFinite(r.weight)||r.weight<=0)issues.push(`隨機商品規則 ${r.id||i+1} 的數值無效。`);if(r.type==='gem'&&!['random','0','1','2'].includes(String(r.key)))issues.push(`隨機商品規則 ${r.id||i+1} 的寶石 key 必須是 random / 0 / 1 / 2。`);}for(const item of data.items||[])if(typeof item.shopEnabled!=='boolean')issues.push(`道具 ${item.id||'未知'} 的 shopEnabled 必須為 true / false。`);return [...new Set(issues)];};
-  const baseRender=render;render=function(){if(currentSection==='shopSettings'){ensureArrays();renderShopSettings();renderNav(true);return;}return baseRender();};
-  data.notes=[...new Set([...(data.notes||[]),'shopSettings.randomOffers 控制商店頂端隨機商品、刷新起始價格與每次刷新加價。刷新次數依玩家本機日期於每日 0 點重置。','items[].shopEnabled 控制固定消耗品是否在商店上架；description 為商店與背包顯示說明。'])];
-  requestEditorInitialRender();
-})();
-</script>
 
 
 <style id="support-debuff-editor-style">
@@ -3568,15 +3524,13 @@ ensureArrays();requestEditorInitialRender();
       card('基底裝備', '<p class="mini-note">每件基底裝備可直接設定 1～5 條固定屬性；目前不限制各部位可選屬性範圍。</p><div class="actions"><button onclick="gotoEquipmentBaseEditor()">前往裝備變體</button></div><p class="identity-effect-note">基底固定屬性選項已開放完整裝備屬性池。</p>')+
       card('BOSS 專屬詞綴', '<p class="mini-note">每個 BOSS 系列固定三條且不可增減。三條可從前綴／後綴／基底的全部屬性中選擇，並額外提供「對 BOSS 傷害」專屬屬性；同一件 BOSS 裝的三個屬性不得重複。</p><div class="boss-profile-grid">'+p.bossAffixes.map(bossProfileCard).join('')+'</div>')+
       card('T1～T10 強度階級','<div class="power-preview"><div><span class="small">普通基準</span><b>T1 ≈ ×'+p.strength.multipliers[0]+'</b></div><div><span class="small">困難基準</span><b>T5 ≈ ×'+p.strength.multipliers[4]+'</b></div><div><span class="small">地獄基準</span><b>T10 ≈ ×'+p.strength.multipliers[9]+'</b></div></div><p class="mini-note">T 級影響基底 raw 攻擊／生命／防禦，名稱不顯示 T 級；掉落與重鑄均依來源難度使用對應權重。</p><div class="power-grade-grid"><div class="power-grade-head">階級</div><div class="power-grade-head">倍率</div><div class="power-grade-head">普通權重</div><div class="power-grade-head">困難權重</div><div class="power-grade-head">地獄權重</div>'+gradeRows+'</div>')+
-      card('強度重鑄石','<div class="power-reroll-grid"><label>道具 ID<input value="'+POWER_ITEM_ID+'" readonly></label><label>顯示名稱<input id="powerItemName" value="'+esc(r.name)+'"></label><label>賣價<input id="powerItemSell" type="number" min="0" step="1" value="'+r.sellPrice+'"></label><label>隨機商店出現率（0~1）<input id="powerShopChance" type="number" min="0" max="1" step="0.001" value="'+r.shopChance+'"></label><label>隨機商店價格<input id="powerShopPrice" type="number" min="1" step="1" value="'+r.shopPrice+'"></label><label class="full">道具說明<textarea id="powerItemDesc">'+esc(r.description)+'</textarea></label></div><div class="notice" style="margin-top:12px"><b>掉落來源：</b>由怪物掉落表中的 power_tier_reroll 規則控制。<button style="margin-left:8px" onclick="gotoPowerDropRule()">前往掉落表</button></div>');
+      card('強度重鑄石','<div class="power-reroll-grid"><label>道具 ID<input value="'+POWER_ITEM_ID+'" readonly></label><label>顯示名稱<input id="powerItemName" value="'+esc(r.name)+'"></label><label>賣價<input id="powerItemSell" type="number" min="0" step="1" value="'+r.sellPrice+'"></label><label class="full">道具說明<textarea id="powerItemDesc">'+esc(r.description)+'</textarea></label></div><div class="notice" style="margin-top:12px"><b>商店來源：</b>在「商店」分頁編輯重鑄石的商品規則。<br><b>掉落來源：</b>由怪物掉落表中的 power_tier_reroll 規則控制。<button style="margin-left:8px" onclick="gotoPowerDropRule()">前往掉落表</button></div>');
     bindIdentityRows();
     bindAffixToolbars();
     document.querySelectorAll('.grade-mult').forEach(el=>el.onchange=()=>{p.strength.multipliers[Number(el.dataset.t)]=Number(el.value);markDirty();});
     document.querySelectorAll('.grade-weight').forEach(el=>el.onchange=()=>{p.strength.weightsByDifficulty[Number(el.dataset.d)][Number(el.dataset.t)]=Number(el.value);markDirty();});
     document.getElementById('powerItemName').onchange=ev=>{r.name=ev.target.value;ensureSpecialItem();const rule=data.balanceSettings?.drops?.entries?.find(x=>x.type==='item'&&x.key===POWER_ITEM_ID);if(rule)rule.name=r.name;markDirty();};
     document.getElementById('powerItemSell').onchange=ev=>{r.sellPrice=Number(ev.target.value);ensureSpecialItem();markDirty();};
-    document.getElementById('powerShopChance').onchange=ev=>{r.shopChance=Number(ev.target.value);markDirty();};
-    document.getElementById('powerShopPrice').onchange=ev=>{r.shopPrice=Number(ev.target.value);markDirty();};
     document.getElementById('powerItemDesc').onchange=ev=>{r.description=ev.target.value;ensureSpecialItem();markDirty();};
   }
 
@@ -5766,4 +5720,175 @@ requestEditorInitialRender();
   };
   ensureArrays();requestEditorInitialRender();
 })();
+</script>
+
+<script id="shop-catalog-v2">
+/* Shared by the game and the balance editor. Pools reference items without deleting inventory definitions. */
+(function(root){
+  'use strict';
+  const TYPES=['ore','dust','gem','material','item'];
+  const copy=value=>JSON.parse(JSON.stringify(value));
+  const own=(value,key)=>Object.prototype.hasOwnProperty.call(value||{},key);
+  const field=(value,key,fallback)=>own(value,key)?value[key]:fallback;
+  const DEFAULT_RANDOM={offerCount:6,refreshBaseCost:100,refreshCostStep:50,entries:[
+    {id:'ore',enabled:true,type:'ore',key:'',name:'鍛鐵',description:'裝備強化常用的金屬素材。',quantityMin:8,quantityMax:20,unitPrice:12,weight:1,quantityScalesWithTier:true,priceScalesWithTier:false},
+    {id:'dust',enabled:true,type:'dust',key:'',name:'粉塵',description:'由裝備分解取得的細碎素材。',quantityMin:3,quantityMax:8,unitPrice:25,weight:1,quantityScalesWithTier:false,priceScalesWithTier:false},
+    {id:'gem',enabled:true,type:'gem',key:'random',name:'技能寶石',description:'可鑲嵌於技能插槽，強化技能的寶石。',quantityMin:1,quantityMax:2,unitPrice:180,weight:.7,quantityScalesWithTier:false,priceScalesWithTier:false},
+    {id:'region_material',enabled:true,type:'material',key:'region',name:'地區素材',description:'探索途中收集的製作素材。',quantityMin:3,quantityMax:6,unitPrice:60,weight:1.3,quantityScalesWithTier:false,priceScalesWithTier:true}
+  ]};
+  const LEGACY_DESCRIPTIONS=new Set(['裝備強化常用素材。','裝備洗鍊與寶石相關用途的基礎素材。','隨機出現一種技能寶石。','從目前探索區域的怪物素材中隨機挑選。','從目前探索區域隨機挑選素材。','本批隨機商品。']);
+  function normalizeRule(src,index,random){
+    if(!src||typeof src!=='object'||Array.isArray(src))throw Error('商店商品規則格式無效：'+index);
+    const type=field(src,'type','material');
+    const out={
+      id:field(src,'id',(random?'random_':'fixed_')+index),enabled:field(src,'enabled',true),type,
+      key:field(src,'key',type==='gem'?(random?'random':'0'):type==='material'?(random?'region':'素材'):''),
+      name:field(src,'name',''),description:field(src,'description',''),
+      unitPrice:field(src,'unitPrice',type==='item'?null:1)
+    };
+    if(LEGACY_DESCRIPTIONS.has(out.description))out.description=DEFAULT_RANDOM.entries.find(x=>x.type===type)?.description||'';
+    if(out.name==='隨機技能寶石')out.name='技能寶石';
+    if(random)Object.assign(out,{
+      quantityMin:field(src,'quantityMin',1),quantityMax:field(src,'quantityMax',1),
+      weight:field(src,'weight',1),selection:field(src,'selection','weighted'),chance:field(src,'chance',1),
+      quantityScalesWithTier:field(src,'quantityScalesWithTier',false),priceScalesWithTier:field(src,'priceScalesWithTier',false)
+    });
+    else out.quantity=field(src,'quantity',1);
+    return out;
+  }
+  function normalize(input,{items=[],rerollItem=null}={}){
+    if(input!==undefined&&(!input||typeof input!=='object'||Array.isArray(input)))throw Error('商店設定格式無效');
+    const src=input||{},random=field(src,'randomOffers',{}),fixed=field(src,'fixedOffers',{});
+    if(own(src,'schemaVersion')&&![1,2].includes(src.schemaVersion))throw Error('商店設定版本不支援');
+    if(!random||typeof random!=='object'||Array.isArray(random)||!fixed||typeof fixed!=='object'||Array.isArray(fixed))throw Error('商店商品池格式無效');
+    const rawRandom=own(random,'entries')?random.entries:copy(DEFAULT_RANDOM.entries);
+    const rawFixed=own(fixed,'entries')?fixed.entries:items.filter(x=>x.shopEnabled!==false).map(x=>({id:x.id,type:'item',key:x.id,enabled:true,quantity:1,unitPrice:null}));
+    if(!Array.isArray(rawRandom)||!Array.isArray(rawFixed))throw Error('商店商品池必須是陣列');
+    const entries=rawRandom.map((x,i)=>normalizeRule(x,i,true));
+    // Old reroll stones were appended outside the shop pool. Preserve their chance once during migration.
+    if(src.schemaVersion!==2&&rerollItem&&items.some(x=>x.id===rerollItem.id)&&Number(rerollItem.shopChance)>0&&!entries.some(x=>x.type==='item'&&x.key===rerollItem.id)){
+      const used=new Set(entries.map(x=>x.id));let id='power_tier_reroll',suffix=1;while(used.has(id))id='power_tier_reroll_'+suffix++;
+      entries.push(normalizeRule({id,type:'item',key:rerollItem.id,quantityMin:1,quantityMax:1,unitPrice:rerollItem.shopPrice??650,selection:'extra',chance:rerollItem.shopChance},entries.length,true));
+    }
+    return {schemaVersion:2,randomOffers:{
+      offerCount:field(random,'offerCount',DEFAULT_RANDOM.offerCount),
+      refreshBaseCost:field(random,'refreshBaseCost',DEFAULT_RANDOM.refreshBaseCost),
+      refreshCostStep:field(random,'refreshCostStep',DEFAULT_RANDOM.refreshCostStep),entries
+    },fixedOffers:{entries:rawFixed.map((x,i)=>normalizeRule(x,i,false))}};
+  }
+  const integer=(n,min,max)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
+  const number=(n,min,max)=>Number.isFinite(n)&&n>=min&&n<=max;
+  function validate(input,options={}){
+    const cfg=normalize(input,options),random=cfg.randomOffers,items=new Set((options.items||[]).map(x=>x.id));
+    if(!integer(random.offerCount,1,24)||!integer(random.refreshBaseCost,0,1e9)||!integer(random.refreshCostStep,0,1e9))throw Error('商店批次數或刷新價格無效');
+    const weighted=random.entries.some(x=>x.enabled&&x.selection==='weighted')?random.offerCount:0;
+    if(weighted+random.entries.filter(x=>x.enabled&&x.selection==='extra'&&x.chance>0).length>100)throw Error('每批隨機商品與追加商品合計最多 100 筆');
+    for(const [pool,rows] of [['random',random.entries],['fixed',cfg.fixedOffers.entries]]){
+      if(rows.length>200)throw Error('每個商店商品池最多 200 筆');
+      const ids=new Set();
+      for(const rule of rows){
+        const label=(pool==='random'?'隨機':'固定')+'商品規則：'+String(rule.id);
+        if(typeof rule.id!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(rule.id)||ids.has(rule.id))throw Error(label+'，ID 無效或重複');
+        ids.add(rule.id);
+        if(typeof rule.enabled!=='boolean'||!TYPES.includes(rule.type)||typeof rule.key!=='string'||typeof rule.name!=='string'||typeof rule.description!=='string')throw Error(label+'，基本資料無效');
+        if(rule.unitPrice!==null&&!integer(rule.unitPrice,0,1e9)||rule.unitPrice===null&&rule.type!=='item')throw Error(label+'，單價無效');
+        if(rule.type==='item'&&!items.has(rule.key))throw Error(label+'，找不到道具 '+rule.key);
+        if(rule.type==='gem'&&!(pool==='random'?['random','0','1','2']:['0','1','2']).includes(rule.key))throw Error(label+'，寶石種類無效');
+        if(rule.type==='material'&&(!rule.key.trim()||rule.key.length>80||/[<>]/.test(rule.key)||['__proto__','constructor','prototype'].includes(rule.key)||pool==='fixed'&&rule.key==='region'))throw Error(label+'，素材名稱無效');
+        if(['ore','dust'].includes(rule.type)&&rule.key!=='')throw Error(label+'，此商品不使用 key');
+        if(pool==='random'){
+          if(!integer(rule.quantityMin,1,999)||!integer(rule.quantityMax,rule.quantityMin,999)||!number(rule.weight,Number.MIN_VALUE,1e6)||!['weighted','extra'].includes(rule.selection)||!number(rule.chance,0,1)||typeof rule.quantityScalesWithTier!=='boolean'||typeof rule.priceScalesWithTier!=='boolean')throw Error(label+'，抽選或數量設定無效');
+        }else if(!integer(rule.quantity,1,10000))throw Error(label+'，數量無效');
+      }
+    }
+    return cfg;
+  }
+  function fixedItemIds(cfg){return new Set(cfg.fixedOffers.entries.filter(x=>x.enabled&&x.type==='item').map(x=>x.key));}
+  root.EmberwildShopCatalog=Object.freeze({TYPES,DEFAULT_RANDOM,normalize,normalizeRule,validate,fixedItemIds,LEGACY_DESCRIPTIONS});
+})(globalThis);
+
+</script>
+<style id="shop-settings-editor-style">
+.shop-general-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.shop-pool-tabs{display:flex;gap:8px;margin:14px 0}.shop-editor-layout{display:grid;grid-template-columns:minmax(200px,270px) minmax(0,1fr);gap:14px;align-items:start}.shop-pool-list{overflow:auto;max-height:70vh}.shop-pool-row{display:block;width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;text-align:left;background:transparent;padding:11px 12px}.shop-pool-row.active{background:#253143}.shop-pool-row>b{display:block;font-size:13px}.shop-pool-row>span{display:block;font-size:11px;color:var(--muted);margin-top:4px}.shop-editor-detail{min-width:0;display:grid;gap:12px}.shop-rule-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.shop-rule-fields .full{grid-column:1/-1}.shop-rule-fields label{min-width:0}.shop-rule-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:14px}.shop-rule-toolbar label{display:flex;gap:6px;align-items:center;margin-right:auto}.shop-rule-toolbar input[type=checkbox]{width:auto}.shop-effect-preview{padding:10px 12px;margin-top:14px;line-height:1.6;border:1px solid var(--line);background:#151a20;font-size:12px;overflow-wrap:anywhere}.shop-editor-note,.shop-field-note{color:var(--muted);font-size:12px;line-height:1.6}.shop-editor-note{margin:12px 0 0}.shop-field-note{align-self:center}@media(max-width:850px){.shop-editor-layout{grid-template-columns:1fr}.shop-pool-list{max-height:260px}}@media(max-width:600px){.shop-general-grid,.shop-rule-fields{grid-template-columns:1fr}.shop-rule-fields .full{grid-column:auto}.shop-pool-tabs{flex-wrap:wrap}}
+
+</style>
+<script id="shop-settings-editor-extension">
+/* One effective shop source, shared normalization with the game, and editable random/fixed pools. */
+(function(){
+  const catalog=globalThis.EmberwildShopCatalog;
+  const TYPE_LABEL={ore:'鍛鐵',dust:'粉塵',gem:'技能寶石',material:'素材',item:'消耗道具'};
+  const options=()=>({items:data.items||[],rerollItem:data.equipmentPowerSystem?.rerollItem});
+  function ensureShopSettings(){data.shopSettings=catalog.normalize(data.shopSettings,options());selected.shopPool??='random';selected.shopRandom??=0;selected.shopFixed??=0;}
+  const baseEnsure=ensureArrays;ensureArrays=function(){const out=baseEnsure();ensureShopSettings();return out;};ensureShopSettings();
+  const meta=SECTION_META.find(x=>x[0]==='shopSettings');if(meta)meta[1]='商店';else SECTION_META.splice(Math.max(0,SECTION_META.findIndex(x=>x[0]==='items')),0,['shopSettings','商店']);
+  const baseCount=count;count=function(section,normalized=false){if(section==='shopSettings'){if(!normalized)ensureShopSettings();return data.shopSettings.randomOffers.entries.length+data.shopSettings.fixedOffers.entries.length;}return baseCount(section,normalized);};
+  const rows=pool=>pool==='random'?data.shopSettings.randomOffers.entries:data.shopSettings.fixedOffers.entries;
+  const selectionKey=pool=>pool==='random'?'shopRandom':'shopFixed';
+  const itemFor=rule=>rule?.type==='item'?data.items.find(x=>x.id===rule.key):null;
+  const ruleName=rule=>rule.name||itemFor(rule)?.name||(rule.type==='gem'&&['0','1','2'].includes(rule.key)?['赤焰石','疾風石','共鳴石'][Number(rule.key)]:rule.type==='material'&&rule.key!=='region'?rule.key:TYPE_LABEL[rule.type]);
+  function uniqueId(pool){const used=new Set(rows(pool).map(x=>x.id));let n=1;while(used.has(pool+'_offer_'+n))n++;return pool+'_offer_'+n;}
+  function add(pool){ensureArrays();const key=data.items.find(x=>x.shopEnabled!==false)?.id||data.items[0]?.id;if(!key)return alert('請先建立道具資料');const list=rows(pool);list.push(catalog.normalizeRule({id:uniqueId(pool),type:'item',key},list.length,pool==='random'));selected.shopPool=pool;selected[selectionKey(pool)]=list.length-1;markDirty();render();}
+  globalThis.addShopRandomRule=()=>add('random');globalThis.addShopFixedRule=()=>add('fixed');
+  globalThis.deleteShopRule=function(pool,index){const list=rows(pool);if(!list[index]||!confirmDelete('移除商店商品「'+ruleName(list[index])+'」？'))return;list.splice(index,1);selected[selectionKey(pool)]=Math.max(0,index-1);markDirty();render();};
+  globalThis.deleteShopRandomRule=index=>deleteShopRule('random',index);
+  function effect(rule){
+    const item=itemFor(rule),pct=n=>Math.round((Number(n)||0)*10000)/100;
+    if(item){
+      const element=ELEMENT_LABELS[item.element]||item.element;
+      let text=item.type==='healPotion'?`恢復最大生命 ${pct(item.healFraction)}% · 冷卻 ${item.cooldown} 回合`:item.type==='imbue'?`普通攻擊轉為${element}屬性`:item.type==='ward'?`${element}屬性傷害減少 ${pct(data.balanceSettings.combat.supply.wardResistance)}%`:item.type==='elementTonic'?`${element}屬性傷害增加 ${pct(data.balanceSettings.combat.supply.elementTonicDamage)}%`:'依裝備原始掉落難度重抽基底評級，在裝備強化頁使用。';
+      if(item.duration)text+=' · 持續 '+item.duration+' 戰鬥回合';
+      if(Object.keys(item.statEffects||{}).length)text+=' · 附加能力依道具的能力設定生效';
+      return text;
+    }
+    return rule.type==='ore'?'用於裝備強化與升階。':rule.type==='dust'?'用於裝備洗鍊與寶石合成。':rule.type==='gem'?'鑲嵌於技能插槽，強化對應技能效果。':'存入材料庫，可依製作配方或委託需求消耗。';
+  }
+  const field=(label,key,value,type='text',extra='',help='')=>`<label>${label}<input data-shop-field="${key}" type="${type}" value="${esc(value??'')}" ${extra}>${help?'<span class="field-help">'+help+'</span>':''}</label>`;
+  const select=(label,key,value,pairs)=>`<label>${label}<select data-shop-field="${key}">${pairs.map(([v,n])=>`<option value="${esc(v)}" ${String(value)===String(v)?'selected':''}>${esc(n)}</option>`).join('')}</select></label>`;
+  function keyField(rule,pool){
+    if(rule.type==='item')return select('道具','key',rule.key,data.items.map(x=>[x.id,x.name+' · '+x.id]));
+    if(rule.type==='gem')return select('寶石種類','key',rule.key,[...(pool==='random'?[['random','任一技能寶石']]:[]),['0','赤焰石'],['1','疾風石'],['2','共鳴石']]);
+    if(rule.type==='material')return field('素材名稱','key',rule.key,'text','list="shop-material-keys"',pool==='random'?'region 代表目前探索地區的素材；也可指定素材名稱。':'指定素材名稱。');
+    return '<div class="shop-field-note">此商品直接加入共用'+TYPE_LABEL[rule.type]+'庫存。</div>';
+  }
+  function sourceEditor(rule){
+    const item=itemFor(rule);if(!item)return '';
+    const power=item.id==='power_tier_reroll';
+    const source=(label,key,value,type='text',extra='')=>`<label>${label}<input data-shop-item-field="${key}" type="${type}" value="${esc(value??'')}" ${extra}></label>`;
+    return card('道具本身的資料',`<p class="shop-editor-note">這裡修改同一份道具資料，會同步到背包和其他設計器分頁。</p><div class="shop-rule-fields">${source('道具名稱','name',item.name)}${power?'':source('道具基本單價','cost',item.cost,'number','min="0" step="1"')}${item.type==='healPotion'?source('生命恢復比例（0～1）','healFraction',item.healFraction,'number','min="0.01" max="1" step="0.01"')+source('自動使用冷卻（回合）','cooldown',item.cooldown,'number','min="0" max="99" step="1"'):power?'':source('持續戰鬥回合','duration',item.duration,'number','min="1" step="1"')}<label class="full">道具說明<textarea data-shop-item-field="description">${esc(item.description||'')}</textarea></label></div>`);
+  }
+  function renderShopSettings(){
+    ensureShopSettings();const pool=selected.shopPool,list=rows(pool),index=Math.min(selected[selectionKey(pool)],Math.max(0,list.length-1));selected[selectionKey(pool)]=index;const rule=list[index],random=pool==='random',s=data.shopSettings.randomOffers;
+    const listHTML=list.map((r,i)=>`<button class="shop-pool-row ${i===index?'active':''}" data-shop-select="${i}"><b>${esc(ruleName(r))}</b><span>${esc(TYPE_LABEL[r.type])} · ${r.enabled?'啟用':'停用'} · ${random?r.quantityMin+'～'+r.quantityMax:r.quantity} 個${random&&r.selection==='extra'?' · 追加 '+Math.round(r.chance*10000)/100+'%':''}</span></button>`).join('')||'<div class="empty">商品池目前為空。點選新增商品即可加入。</div>';
+    let form='';
+    if(rule){
+      const item=itemFor(rule),description=rule.description||item?.description||'留空時使用道具或素材的預設說明。';
+      form=card('商品設定',`<div class="shop-rule-toolbar"><label><input id="shopRuleEnabled" type="checkbox" ${rule.enabled?'checked':''}>啟用商品</label><button id="shopRuleDuplicate">複製</button><button class="danger" id="shopRuleDelete">移除商品</button></div><div class="shop-rule-fields">${field('商品規則 ID','id',rule.id)}${select('商品類型','type',rule.type,catalog.TYPES.map(x=>[x,TYPE_LABEL[x]]))}${keyField(rule,pool)}${field('商店顯示名稱','name',rule.name,'text','','留空時沿用道具名稱。')}${field('單價','unitPrice',rule.unitPrice,'number','min="0" step="1"',rule.type==='item'?'留空時沿用道具的基本單價。':'每個素材或寶石的售價。')}${random?field('最小數量','quantityMin',rule.quantityMin,'number','min="1" max="999" step="1"')+field('最大數量','quantityMax',rule.quantityMax,'number','min="1" max="999" step="1"')+select('出現方式','selection',rule.selection,[['weighted','依權重抽選'],['extra','每批額外判定']])+(rule.selection==='extra'?field('每批出現率（%）','chance',rule.chance*100,'number','min="0" max="100" step="0.01"'):field('抽選權重','weight',rule.weight,'number','min="0.01" step="0.01"'))+select('數量隨地區階級倍增','quantityScalesWithTier',rule.quantityScalesWithTier,[[false,'否'],[true,'是']])+select('單價隨地區階級倍增','priceScalesWithTier',rule.priceScalesWithTier,[[false,'否'],[true,'是']]):field('每份數量','quantity',rule.quantity,'number','min="1" max="10000" step="1"')}<label class="full">商店說明<textarea data-shop-field="description">${esc(rule.description)}</textarea><span class="field-help">留空時沿用道具本身的說明。</span></label></div><div class="shop-effect-preview"><div><b>說明：</b>${esc(description)}</div><div><b>效果：</b>${esc(effect(rule))}</div></div>`)+sourceEditor(rule);
+    }else form=card('商品設定','<div class="empty">目前沒有商品，請新增商品。</div>');
+    document.getElementById('app').innerHTML=sectionHead('商店','加入、編輯或移除隨機與固定商品；效果由實際道具能力產生。','<button class="primary" onclick="addShopRandomRule()">新增隨機商品</button><button class="primary" onclick="addShopFixedRule()">新增固定商品</button>')+card('隨機商店與刷新',`<div class="shop-general-grid">${[['shopOfferCount','每批抽選商品數',s.offerCount],['shopRefreshBase','刷新起始價格',s.refreshBaseCost],['shopRefreshStep','每次刷新加價',s.refreshCostStep]].map(([id,label,value])=>`<label>${label}<input id="${id}" type="number" min="${id==='shopOfferCount'?1:0}" ${id==='shopOfferCount'?'max="24"':''} step="1" value="${value}"></label>`).join('')}</div><p class="shop-editor-note">追加商品獨立依出現率判定。每日 0 點重置刷新價格；任一商品池可以清空，移除上架商品會保留玩家已有庫存。</p>`)+`<div class="shop-pool-tabs"><button data-shop-pool="random" class="${random?'primary':''}">隨機商品池 · ${rows('random').length}</button><button data-shop-pool="fixed" class="${!random?'primary':''}">固定商品池 · ${rows('fixed').length}</button></div><datalist id="shop-material-keys">${(typeof knownMaterialKeysFrom==='function'?knownMaterialKeysFrom():[]).map(k=>'<option value="'+esc(k)+'">').join('')}</datalist><div class="shop-editor-layout"><div class="card shop-pool-list">${listHTML}</div><div class="shop-editor-detail">${form}</div></div>`;
+    const app=document.getElementById('app');
+    for(const [id,key] of [['shopOfferCount','offerCount'],['shopRefreshBase','refreshBaseCost'],['shopRefreshStep','refreshCostStep']])document.getElementById(id).onchange=ev=>{data.shopSettings.randomOffers[key]=Number(ev.target.value);markDirty();};
+    app.querySelectorAll('[data-shop-pool]').forEach(el=>el.onclick=()=>{selected.shopPool=el.dataset.shopPool;render();});
+    app.querySelectorAll('[data-shop-select]').forEach(el=>el.onclick=()=>{selected[selectionKey(pool)]=Number(el.dataset.shopSelect);render();});
+    if(!rule)return;
+    document.getElementById('shopRuleEnabled').onchange=ev=>{rows(pool)[index].enabled=ev.target.checked;markDirty();render();};
+    document.getElementById('shopRuleDelete').onclick=()=>deleteShopRule(pool,index);
+    document.getElementById('shopRuleDuplicate').onclick=()=>{const copy=structuredClone(rows(pool)[index]);copy.id=uniqueId(pool);rows(pool).push(copy);selected[selectionKey(pool)]=rows(pool).length-1;markDirty();render();};
+    app.querySelectorAll('[data-shop-field]').forEach(el=>el.onchange=()=>{
+      const r=rows(pool)[index],key=el.dataset.shopField;
+      if(['quantityMin','quantityMax','quantity','weight','unitPrice','chance'].includes(key))r[key]=key==='unitPrice'&&el.value.trim()===''?null:Number(el.value)/(key==='chance'?100:1);
+      else if(['quantityScalesWithTier','priceScalesWithTier'].includes(key))r[key]=el.value==='true';else r[key]=el.value;
+      if(key==='type'){r.key=r.type==='item'?data.items[0]?.id||'':r.type==='gem'?(random?'random':'0'):r.type==='material'?(random?'region':'素材'):'';r.unitPrice=r.type==='item'?null:1;r.name='';r.description='';}
+      if(key==='key'&&r.type==='item'&&r.key==='power_tier_reroll'&&r.unitPrice===null)r.unitPrice=650;
+      markDirty();render();
+    });
+    app.querySelectorAll('[data-shop-item-field]').forEach(el=>el.onchange=()=>{const live=itemFor(rows(pool)[index]),key=el.dataset.shopItemField;if(!live)return;live[key]=el.type==='number'?Number(el.value):el.value;if(live.id==='power_tier_reroll'&&['name','description'].includes(key))data.equipmentPowerSystem.rerollItem[key]=live[key];markDirty();render();});
+  }
+  const baseValidate=validateData;validateData=function(){const issues=baseValidate();try{catalog.validate(data.shopSettings,options());}catch(e){issues.push(e.message);}return [...new Set(issues)];};
+  const baseRender=render;render=function(){if(currentSection==='shopSettings'){ensureArrays();renderShopSettings();renderNav(true);return;}return baseRender();};
+  data.notes=(data.notes||[]).filter(x=>!String(x).startsWith('shopSettings.')&&!String(x).startsWith('items[].shopEnabled'));
+  data.notes.push('shopSettings.schemaVersion=2；randomOffers.entries 與 fixedOffers.entries 為商店有效商品池。空陣列表示不上架，移除商品不刪除道具庫存。','randomOffers.entries：selection=weighted 使用抽選權重；selection=extra 使用每批出現率，重鑄石也由此控制。','商品 type=item 的 key 引用 items[].id；unitPrice=null 沿用道具基本單價。名稱、說明留空時沿用道具資料。','items[].shopEnabled 與 equipmentPowerSystem.rerollItem.shopChance/shopPrice 僅供舊資料遷移，新版商店以 shopSettings 為準。');
+  globalThis.__EMBERWILD_SHOP_EDITOR={render:renderShopSettings};
+  requestEditorInitialRender();
+})();
+
 </script>
