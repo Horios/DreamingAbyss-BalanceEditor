@@ -119,6 +119,68 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
 <aside class="sidebar" id="nav"></aside>
 <main class="main" id="app"></main>
 </div>
+<script id="timed-boost-schema-v1">
+/* Shared real-time consumable contract. Percentages are source contributions, not multipliers. */
+(function(root){
+  'use strict';
+  const TYPE='timedBoost',KINDS=['speed4','exp','drop'];
+  const LABELS={speed4:'4× 解鎖',exp:'經驗值',drop:'掉寶率'};
+  const copy=v=>JSON.parse(JSON.stringify(v));
+  const isItem=item=>item?.type===TYPE;
+  function itemName(kind,percent,minutes){return kind==='speed4'?'四倍速解鎖券'+minutes+'分鐘':LABELS[kind]+'＋'+percent+'％ '+minutes+'分鐘';}
+  const DEFAULT_ITEMS=[
+    {id:'speed4_30m',type:TYPE,boostType:'speed4',bonusPercent:0,durationMinutes:30,duration:0,cost:1200,sellPrice:300,shopEnabled:false,name:itemName('speed4',0,30),description:'暫時開放四倍速探索，可自由切換戰鬥倍速。'},
+    {id:'exp_100_30m',type:TYPE,boostType:'exp',bonusPercent:100,durationMinutes:30,duration:0,cost:600,sellPrice:150,shopEnabled:false,name:itemName('exp',100,30),description:'暫時增加出戰角色取得的經驗值。'},
+    {id:'drop_50_30m',type:TYPE,boostType:'drop',bonusPercent:50,durationMinutes:30,duration:0,cost:600,sellPrice:150,shopEnabled:false,name:itemName('drop',50,30),description:'暫時提高物品掉落機率。'}
+  ];
+  const DEFAULT_RULES=DEFAULT_ITEMS.map((item,i)=>({id:item.id,enabled:true,type:'item',key:item.id,name:'',description:'',quantityMin:1,quantityMax:1,unitPrice:null,weight:i===0?.15:.35,selection:'weighted',chance:1,quantityScalesWithTier:false,priceScalesWithTier:false}));
+  function migrateConfig(cfg){
+    cfg.timeUnits??={};
+    if(cfg.balanceSettings?.combat?.pacing)cfg.balanceSettings.combat.pacing.rates=[1,2,4];
+    if(cfg.timeUnits.timedBoostDuration!=='realMinutes'){
+      cfg.items??=[];
+      if(!cfg.items.some(isItem)){
+        cfg.items.push(...copy(DEFAULT_ITEMS));
+        const rows=cfg.shopSettings?.randomOffers?.entries;
+        // Explicitly empty pools stay empty; otherwise extend old catalogs once.
+        if(Array.isArray(rows)&&rows.length)for(const rule of DEFAULT_RULES)if(!rows.some(x=>x.type==='item'&&x.key===rule.key)){
+          let id=rule.id,n=1;while(rows.some(x=>x.id===id))id=rule.id+'_'+n++;
+          const index=rows.findIndex(x=>x.selection==='extra');
+          rows.splice(index<0?rows.length:index,0,{...copy(rule),id});
+        }
+      }
+      cfg.timeUnits.timedBoostDuration='realMinutes';
+    }
+    return cfg;
+  }
+  function validateItem(item){
+    const id=item?.id||'未知';
+    if(!isItem(item)||typeof item.id!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(item.id)||typeof item.name!=='string'||!item.name.trim()||typeof item.description!=='string'||!KINDS.includes(item.boostType))throw Error('限時增益道具資料無效：'+id);
+    if(!Number.isSafeInteger(item.durationMinutes)||item.durationMinutes<=0||!Number.isSafeInteger(Date.now()+item.durationMinutes*60000))throw Error('限時增益分鐘必須為有效正整數：'+id);
+    if(item.boostType==='speed4'?item.bonusPercent!==0:!Number.isSafeInteger(item.bonusPercent)||item.bonusPercent<=0)throw Error('限時增益百分比必須為正整數；4× 解鎖為 0：'+id);
+    if(item.duration!==0||!Number.isSafeInteger(item.cost)||item.cost<0||item.sellPrice!==undefined&&(!Number.isSafeInteger(item.sellPrice)||item.sellPrice<0)||item.element!==undefined&&item.element!==null&&item.element!=='')throw Error('限時增益價格或時間單位無效：'+id);
+    return item;
+  }
+  function active(party,now=Date.now()){return (party?.timedBoosts||[]).filter(b=>b.expiresAt>now);}
+  function bonus(party,kind,now=Date.now()){return active(party,now).filter(b=>b.boostType===kind).reduce((sum,b)=>sum+b.bonusPercent,0);}
+  function unlocked(party,now=Date.now()){return active(party,now).some(b=>b.boostType==='speed4');}
+  function validateState(data){
+    const rows=data?.timedBoosts??[],names=new Set();
+    if(!Array.isArray(rows)||rows.length>200)throw Error('限時增益存檔無效');
+    for(const b of rows){
+      validateItem({id:b?.itemId,type:TYPE,name:b?.name,description:'',boostType:b?.boostType,bonusPercent:b?.bonusPercent,durationMinutes:b?.durationMinutes,duration:0,cost:0});
+      if(!Number.isSafeInteger(b.expiresAt)||b.expiresAt<0||names.has(b.name))throw Error('限時增益到期時間或同名來源無效');
+      names.add(b.name);
+    }
+    const raw=data?.combatSession??{},idleTimeMs=raw.idleTimeMs??0,speed=raw.speed??1,reportPaused=raw.reportPaused??false,filter=raw.filter??'all';
+    if(!Number.isSafeInteger(idleTimeMs)||idleTimeMs<0||![1,2,4].includes(speed)||typeof reportPaused!=='boolean'||!['all','playerDamage','enemyDamage','exp','item'].includes(filter))throw Error('掛機時間／倍速／戰報存檔無效');
+    const timedBoosts=copy(active({timedBoosts:rows}));
+    return {timedBoosts,combatSession:{idleTimeMs,speed:speed===4&&!unlocked({timedBoosts})?2:speed,reportPaused,filter}};
+  }
+  root.EmberwildTimedBoosts=Object.freeze({TYPE,KINDS,LABELS,DEFAULT_ITEMS,DEFAULT_RULES,isItem,itemName,migrateConfig,validateItem,active,bonus,unlocked,validateState});
+})(globalThis);
+
+</script>
 <script id="progression-model-v2">
 /* LV1–60 progression formulas. This same source is embedded in the standalone balance editor. */
 (function(root,factory){
@@ -1568,9 +1630,10 @@ function validateData(){
     if(!Array.isArray(jobs)||jobs.length!==4){issues.push(`${label}的裝備必須固定 4 個部位群組。`);return;}
     jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||(!global&&forms.length<1))issues.push(`${label}的「${SLOT_NAMES[slot]}」至少要有 1 種裝備變體。`);(forms||[]).forEach((f,i)=>{normalizeEquipmentFixedEffects(f);if(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=data.classes.length))issues.push(`裝備 ${job}-${slot}-${i} 的可穿戴職業設定無效。`);if(!Array.isArray(f.fixedEffects)||f.fixedEffects.length<1||f.fixedEffects.length>5)issues.push(`裝備 ${job}-${slot}-${i} 的固定屬性必須為 1～5 條。`);for(const [j,fx] of (f.fixedEffects||[]).entries()){const def=EQUIPMENT_FIXED_EFFECT_BY_KEY[fx?.key];if(!def)issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條固定屬性無效。`);else if(fx.key==="basicElement"){if(!ELEMENTS.includes(fx.value))issues.push(`裝備 ${job}-${slot}-${i} 的普通攻擊屬性無效。`);}else if(!Number.isFinite(fx.value))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條固定屬性數值無效。`);if(def?.target==="element"&&(!ELEMENTS.includes(fx.element)||fx.element==="physical"))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條元素目標無效。`);if(def?.target==="race"&&!Object.prototype.hasOwnProperty.call(EQUIPMENT_FIXED_RACES,fx.race))issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條種族目標無效。`);if(def?.target==="skill"){const skillCount=equipmentFixedSkillCount(f);if(!Number.isInteger(fx.skill)||fx.skill<0||fx.skill>=skillCount)issues.push(`裝備 ${job}-${slot}-${i} 第 ${j+1} 條技能目標無效。`);}}});});
   });
-  if(data.items.length!==EXPECTED_ITEM_COUNT)issues.push(`商店道具必須固定 ${EXPECTED_ITEM_COUNT} 筆；目前是 ${data.items.length} 筆。`);
+  const fixedItems=data.items.filter(x=>!EmberwildTimedBoosts.isItem(x));
+  if(fixedItems.length!==EXPECTED_ITEM_COUNT)issues.push(`固定元素道具必須維持 ${EXPECTED_ITEM_COUNT} 筆；目前是 ${fixedItems.length} 筆。`);
   const originalItems=ORIGINAL_DATA.items||[];
-  data.items.forEach((x,i)=>{const base=originalItems.find(v=>v.id===x.id);if(!base)issues.push(`道具 ${i} 的 id「${x.id}」不是 HTML 內建固定道具。`);else if(x.type!==base.type||x.element!==base.element)issues.push(`道具 ${x.id} 的 type / element 不可改，否則遊戲匯入失敗。`);if(!Number.isFinite(x.cost)||x.cost<0||!Number.isInteger(x.duration)||x.duration<0)issues.push(`道具 ${x.id} 的價格必須非負，持續回合必須是非負整數。`);});
+  fixedItems.forEach((x,i)=>{const base=originalItems.find(v=>v.id===x.id);if(!base)issues.push(`道具 ${i} 的 id「${x.id}」不是 HTML 內建固定道具。`);else if(x.type!==base.type||x.element!==base.element)issues.push(`道具 ${x.id} 的 type / element 不可改，否則遊戲匯入失敗。`);if(!Number.isFinite(x.cost)||x.cost<0||!Number.isInteger(x.duration)||x.duration<0)issues.push(`道具 ${x.id} 的價格必須非負，持續回合必須是非負整數。`);});
   const bs=data.balanceSettings;
   if(!bs||typeof bs!=="object")issues.push("缺少 balanceSettings；修改版遊戲會使用內建預設值，但建議由本編輯器補齊後再匯出。");
   else{
@@ -2223,7 +2286,7 @@ ensureArrays();requestEditorInitialRender();
   function normalizeTurnUnitsInPlace(obj){
     if(!obj||typeof obj!=='object')return obj;
     const legacyItems=obj?.timeUnits?.itemDuration!=='battleRounds',refSec=roundReferenceMs(obj)/1000;
-    if(Array.isArray(obj.items)&&legacyItems)for(const item of obj.items)if(Number.isFinite(item.duration))item.duration=Math.max(1,Math.ceil(Math.max(0,item.duration)/refSec));
+    if(Array.isArray(obj.items)&&legacyItems)for(const item of obj.items)if(!EmberwildTimedBoosts.isItem(item)&&Number.isFinite(item.duration))item.duration=Math.max(1,Math.ceil(Math.max(0,item.duration)/refSec));
     obj.timeUnits={...(obj.timeUnits||{}),...TIME_UNITS};
     if(obj._reference?.units){obj._reference.units.duration='BUFF／DEBUFF 為戰鬥回合；消耗品為角色出戰回合';obj._reference.units.cooldown='技能冷卻為施放者自身行動回合';}
     obj.notes=[...new Set([...(obj.notes||[]).filter(x=>!String(x).includes('BUFF／DEBUFF 與消耗品持續時間統一為回合制')),'supportSkills[].duration 單位為戰鬥回合；其數值原本實際就是依 partyClock 回合推進，因此舊數值直接保留。','items[].duration 單位為角色出戰的戰鬥回合；舊版現實秒會依 1× 每回合最短時間換算為回合後匯入。'])];
@@ -3267,6 +3330,7 @@ ensureArrays();requestEditorInitialRender();
   const hiddenSettingPath=p=>
     /^quests\.market(?:\.|$)/.test(p) ||
     /^quests\.potion(?:\.|$)/.test(p) ||
+    /^combat\.pacing\.rates(?:\.|$)/.test(p) ||
     p==='monsters.encounter.bossChance' ||
     /^difficulty\.materialChance(?:\.|$)/.test(p) ||
     /^difficulty\.modes\.\d+\.(?:equipmentChance|gemChance|bossGearChance|legendaryGearChance)(?:\.|$)/.test(p) ||
@@ -5734,7 +5798,8 @@ requestEditorInitialRender();
     {id:'ore',enabled:true,type:'ore',key:'',name:'鍛鐵',description:'裝備強化常用的金屬素材。',quantityMin:8,quantityMax:20,unitPrice:12,weight:1,quantityScalesWithTier:true,priceScalesWithTier:false},
     {id:'dust',enabled:true,type:'dust',key:'',name:'粉塵',description:'由裝備分解取得的細碎素材。',quantityMin:3,quantityMax:8,unitPrice:25,weight:1,quantityScalesWithTier:false,priceScalesWithTier:false},
     {id:'gem',enabled:true,type:'gem',key:'random',name:'技能寶石',description:'可鑲嵌於技能插槽，強化技能的寶石。',quantityMin:1,quantityMax:2,unitPrice:180,weight:.7,quantityScalesWithTier:false,priceScalesWithTier:false},
-    {id:'region_material',enabled:true,type:'material',key:'region',name:'地區素材',description:'探索途中收集的製作素材。',quantityMin:3,quantityMax:6,unitPrice:60,weight:1.3,quantityScalesWithTier:false,priceScalesWithTier:true}
+    {id:'region_material',enabled:true,type:'material',key:'region',name:'地區素材',description:'探索途中收集的製作素材。',quantityMin:3,quantityMax:6,unitPrice:60,weight:1.3,quantityScalesWithTier:false,priceScalesWithTier:true},
+    ...EmberwildTimedBoosts.DEFAULT_RULES.map(copy)
   ]};
   const LEGACY_DESCRIPTIONS=new Set(['裝備強化常用素材。','裝備洗鍊與寶石相關用途的基礎素材。','隨機出現一種技能寶石。','從目前探索區域的怪物素材中隨機挑選。','從目前探索區域隨機挑選素材。','本批隨機商品。']);
   function normalizeRule(src,index,random){
@@ -5835,7 +5900,7 @@ requestEditorInitialRender();
     const item=itemFor(rule),pct=n=>Math.round((Number(n)||0)*10000)/100;
     if(item){
       const element=ELEMENT_LABELS[item.element]||item.element;
-      let text=item.type==='healPotion'?`恢復最大生命 ${pct(item.healFraction)}% · 冷卻 ${item.cooldown} 回合`:item.type==='imbue'?`普通攻擊轉為${element}屬性`:item.type==='ward'?`${element}屬性傷害減少 ${pct(data.balanceSettings.combat.supply.wardResistance)}%`:item.type==='elementTonic'?`${element}屬性傷害增加 ${pct(data.balanceSettings.combat.supply.elementTonicDamage)}%`:'依裝備原始掉落難度重抽基底評級，在裝備強化頁使用。';
+      let text=EmberwildTimedBoosts.isItem(item)?(item.boostType==='speed4'?'解鎖 4× 戰鬥倍速':EmberwildTimedBoosts.LABELS[item.boostType]+'＋'+item.bonusPercent+'%')+' · 持續 '+item.durationMinutes+' 分鐘（現實時間）':item.type==='healPotion'?`恢復最大生命 ${pct(item.healFraction)}% · 冷卻 ${item.cooldown} 回合`:item.type==='imbue'?`普通攻擊轉為${element}屬性`:item.type==='ward'?`${element}屬性傷害減少 ${pct(data.balanceSettings.combat.supply.wardResistance)}%`:item.type==='elementTonic'?`${element}屬性傷害增加 ${pct(data.balanceSettings.combat.supply.elementTonicDamage)}%`:'依裝備原始掉落難度重抽基底評級，在裝備強化頁使用。';
       if(item.duration)text+=' · 持續 '+item.duration+' 戰鬥回合';
       if(Object.keys(item.statEffects||{}).length)text+=' · 附加能力依道具的能力設定生效';
       return text;
@@ -5854,7 +5919,7 @@ requestEditorInitialRender();
     const item=itemFor(rule);if(!item)return '';
     const power=item.id==='power_tier_reroll';
     const source=(label,key,value,type='text',extra='')=>`<label>${label}<input data-shop-item-field="${key}" type="${type}" value="${esc(value??'')}" ${extra}></label>`;
-    return card('道具本身的資料',`<p class="shop-editor-note">這裡修改同一份道具資料，會同步到背包和其他設計器分頁。</p><div class="shop-rule-fields">${source('道具名稱','name',item.name)}${power?'':source('道具基本單價','cost',item.cost,'number','min="0" step="1"')}${item.type==='healPotion'?source('生命恢復比例（0～1）','healFraction',item.healFraction,'number','min="0.01" max="1" step="0.01"')+source('自動使用冷卻（回合）','cooldown',item.cooldown,'number','min="0" max="99" step="1"'):power?'':source('持續戰鬥回合','duration',item.duration,'number','min="1" step="1"')}<label class="full">道具說明<textarea data-shop-item-field="description">${esc(item.description||'')}</textarea></label></div>`);
+    return card('道具本身的資料',`<p class="shop-editor-note">這裡修改同一份道具資料，會同步到背包和其他設計器分頁。</p><div class="shop-rule-fields">${source('道具名稱','name',item.name)}${power?'':source('道具基本單價','cost',item.cost,'number','min="0" step="1"')}${item.type==='healPotion'?source('生命恢復比例（0～1）','healFraction',item.healFraction,'number','min="0.01" max="1" step="0.01"')+source('自動使用冷卻（回合）','cooldown',item.cooldown,'number','min="0" max="99" step="1"'):power?'':EmberwildTimedBoosts.isItem(item)?source('增益百分比 X%','bonusPercent',item.bonusPercent,'number',item.boostType==='speed4'?'disabled':'min="1" step="1"')+source('持續時間 X 分鐘','durationMinutes',item.durationMinutes,'number','min="1" step="1"'):source('持續戰鬥回合','duration',item.duration,'number','min="1" step="1"')}<label class="full">道具說明<textarea data-shop-item-field="description">${esc(item.description||'')}</textarea></label></div>`);
   }
   function renderShopSettings(){
     ensureShopSettings();const pool=selected.shopPool,list=rows(pool),index=Math.min(selected[selectionKey(pool)],Math.max(0,list.length-1));selected[selectionKey(pool)]=index;const rule=list[index],random=pool==='random',s=data.shopSettings.randomOffers;
@@ -5888,6 +5953,58 @@ requestEditorInitialRender();
   data.notes=(data.notes||[]).filter(x=>!String(x).startsWith('shopSettings.')&&!String(x).startsWith('items[].shopEnabled'));
   data.notes.push('shopSettings.schemaVersion=2；randomOffers.entries 與 fixedOffers.entries 為商店有效商品池。空陣列表示不上架，移除商品不刪除道具庫存。','randomOffers.entries：selection=weighted 使用抽選權重；selection=extra 使用每批出現率，重鑄石也由此控制。','商品 type=item 的 key 引用 items[].id；unitPrice=null 沿用道具基本單價。名稱、說明留空時沿用道具資料。','items[].shopEnabled 與 equipmentPowerSystem.rerollItem.shopChance/shopPrice 僅供舊資料遷移，新版商店以 shopSettings 為準。');
   globalThis.__EMBERWILD_SHOP_EDITOR={render:renderShopSettings};
+  requestEditorInitialRender();
+})();
+
+</script>
+
+
+<script id="timed-boost-editor-v1">
+/* Real-time consumables share the game schema and reference the existing random shop pool. */
+(function installTimedBoostEditor(){
+  const api=EmberwildTimedBoosts,copy=v=>JSON.parse(JSON.stringify(v));
+  const ensureBase=ensureArrays;
+  ensureArrays=function(){const out=ensureBase();api.migrateConfig(data);return out;};
+  ensureArrays();selected.timedBoost??=0;selected.itemMode??='element';
+  const nav=SECTION_META.find(x=>x[0]==='items');if(nav)nav[1]='消耗道具';
+  function rows(){return data.items.filter(api.isItem);}
+  function modes(){return `<div class="shop-pool-tabs"><button onclick="selectItemMode('element')" class="${selected.itemMode==='element'?'primary':''}">元素道具</button><button onclick="selectItemMode('timed')" class="${selected.itemMode==='timed'?'primary':''}">限時增益道具</button></div>`;}
+  globalThis.selectItemMode=function(mode){selected.itemMode=mode==='timed'?'timed':'element';render();};
+  function ruleFor(item){return data.shopSettings.randomOffers.entries.find(x=>x.type==='item'&&x.key===item.id);}
+  function addRule(item){const list=data.shopSettings.randomOffers.entries;let id=item.id,n=1;while(list.some(x=>x.id===id))id=item.id+'_'+n++;list.push(EmberwildShopCatalog.normalizeRule({id,type:'item',key:item.id,weight:1,unitPrice:null},list.length,true));}
+  globalThis.addTimedBoost=function(clone=false){
+    ensureArrays();const source=clone?rows()[selected.timedBoost]:api.DEFAULT_ITEMS[1],item=copy(source||api.DEFAULT_ITEMS[1]),used=new Set(data.items.map(x=>x.id));let n=1;do{item.id='boost_custom_'+n++;}while(used.has(item.id));
+    if(clone)item.name+='（副本）';data.items.push(item);addRule(item);selected.timedBoost=rows().length-1;selected.itemMode='timed';markDirty();render();
+  };
+  function input(label,key,value,type='text',extra=''){return `<label>${label}<input data-boost-field="${key}" type="${type}" value="${esc(value??'')}" ${extra}></label>`;}
+  function renderTimedBoosts(){
+    ensureArrays();const list=rows();selected.timedBoost=Math.min(selected.timedBoost,Math.max(0,list.length-1));const item=list[selected.timedBoost],rule=item&&ruleFor(item);
+    const listHTML=list.map((x,i)=>`<button class="shop-pool-row ${i===selected.timedBoost?'active':''}" data-boost-select="${i}"><b>${esc(x.name)}</b><span>${esc(api.LABELS[x.boostType])} · ${x.boostType==='speed4'?'解鎖':('＋'+x.bonusPercent+'%')} · ${x.durationMinutes} 分鐘</span></button>`).join('')||'<div class="empty">尚無限時道具。</div>';
+    const form=item?card('限時增益資料',`<div class="shop-rule-fields">${input('道具 ID','id',item.id)}${input('道具名稱','name',item.name)}<label>增益類型<select data-boost-field="boostType">${api.KINDS.map(k=>`<option value="${k}" ${item.boostType===k?'selected':''}>${api.LABELS[k]}</option>`).join('')}</select></label>${input('增益百分比 X%','bonusPercent',item.bonusPercent,'number',`min="${item.boostType==='speed4'?0:1}" step="1" ${item.boostType==='speed4'?'disabled':''}`)}${input('持續時間 X 分鐘','durationMinutes',item.durationMinutes,'number','min="1" step="1"')}${input('道具基本單價','cost',item.cost,'number','min="0" step="1"')}${input('賣出單價','sellPrice',item.sellPrice,'number','min="0" step="1"')}<label class="full">道具說明<textarea data-boost-field="description">${esc(item.description)}</textarea></label></div><p class="shop-editor-note">同名效果重新刷新完整時間，不累積倍率或時間；不同名稱的經驗／掉寶來源各自加算。分鐘不受倍速、暫停或關閉頁面影響。</p><button onclick="addTimedBoost(true)">複製道具</button>`):'';
+    const ruleInput=(label,key,value,type='number',extra='')=>`<label>${label}<input data-boost-rule-field="${key}" type="${type}" value="${esc(value??'')}" ${extra}></label>`;
+    const pool=item?card('隨機商店供給',rule?`<div class="shop-rule-fields"><label>上架<select data-boost-rule-field="enabled"><option value="true" ${rule.enabled?'selected':''}>啟用</option><option value="false" ${!rule.enabled?'selected':''}>停用</option></select></label><label>出現方式<select data-boost-rule-field="selection"><option value="weighted" ${rule.selection==='weighted'?'selected':''}>參與商品池權重抽選</option><option value="extra" ${rule.selection==='extra'?'selected':''}>每批獨立機率追加</option></select></label>${ruleInput('出現權重','weight',rule.weight,'number','min="0.000001" step="0.01"')}${ruleInput('每批追加機率（0～1）','chance',rule.chance,'number','min="0" max="1" step="0.001"')}${ruleInput('最少數量','quantityMin',rule.quantityMin,'number','min="1" step="1"')}${ruleInput('最多數量','quantityMax',rule.quantityMax,'number','min="1" step="1"')}${ruleInput('商店單價（留空沿用道具單價）','unitPrice',rule.unitPrice,'number','min="0" step="1"')}</div><p class="shop-editor-note">直接編輯既有 shopSettings.randomOffers.entries。${rule.selection==='weighted'?'權重不是固定機率，實際選中比例為本商品權重／全部啟用商品權重。':'追加機率每批獨立判定一次，不受商品池權重影響。'}</p><button onclick="currentSection='shopSettings';render()">開啟完整商店設定</button>`:`<p>目前未加入隨機池。</p><button id="boostAddShopRule">加入隨機商品池</button>`):'';
+    document.getElementById('app').innerHTML=sectionHead('消耗道具','限時增益依現實分鐘計時；4×、經驗與掉寶是三個獨立效果。','<button class="primary" onclick="addTimedBoost()">新增限時道具</button>')+modes()+`<div class="shop-editor-layout"><div class="card shop-pool-list">${listHTML}</div><div class="shop-editor-detail">${form}${pool}</div></div>`;
+    const app=document.getElementById('app');app.querySelectorAll('[data-boost-select]').forEach(el=>el.onclick=()=>{selected.timedBoost=Number(el.dataset.boostSelect);render();});
+    app.querySelectorAll('[data-boost-field]').forEach(el=>el.onchange=()=>{
+      const oldId=item.id,oldName=api.itemName(item.boostType,item.bonusPercent,item.durationMinutes),key=el.dataset.boostField;item[key]=el.type==='number'?Number(el.value):el.value;
+      if(key==='boostType')item.bonusPercent=item.boostType==='speed4'?0:Math.max(1,item.bonusPercent||50);
+      if(['boostType','bonusPercent','durationMinutes'].includes(key)&&item.name===oldName)item.name=api.itemName(item.boostType,item.bonusPercent,item.durationMinutes);
+      if(key==='id')for(const pool of [data.shopSettings.randomOffers.entries,data.shopSettings.fixedOffers.entries])for(const r of pool)if(r.type==='item'&&r.key===oldId)r.key=item.id;
+      item.duration=0;markDirty();render();
+    });
+    app.querySelectorAll('[data-boost-rule-field]').forEach(el=>el.onchange=()=>{const key=el.dataset.boostRuleField;rule[key]=key==='enabled'?el.value==='true':key==='unitPrice'&&el.value===''?null:el.type==='number'?Number(el.value):el.value;markDirty();render();});
+    const add=app.querySelector('#boostAddShopRule');if(add)add.onclick=()=>{addRule(item);markDirty();render();};
+  }
+  const itemsBase=renderItems;
+  renderItems=function(){
+    if(selected.itemMode==='timed')return renderTimedBoosts();
+    const all=data.items;data.items=all.filter(x=>!api.isItem(x));try{itemsBase();}finally{data.items=all;}
+    const head=document.querySelector('#app .section-head');if(head)head.insertAdjacentHTML('afterend',modes());
+  };
+  const renderBase=render;
+  render=function(){const out=renderBase();if(currentSection==='items'&&selected.itemMode==='timed'){const text=document.querySelector('#app .section-head p');if(text)text.textContent='限時增益依現實分鐘計時；4×、經驗與掉寶是三個獨立效果。';}return out;};
+  const validateBase=validateData;
+  validateData=function(){const issues=validateBase(),ids=new Set();for(const item of data.items){if(ids.has(item.id))issues.push('道具 ID 重複：'+item.id);ids.add(item.id);if(api.isItem(item))try{api.validateItem(item);}catch(e){issues.push(e.message);}}return [...new Set(issues)];};
   requestEditorInitialRender();
 })();
 

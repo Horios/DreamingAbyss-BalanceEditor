@@ -4,6 +4,10 @@
 
 `balance-editor.html` 的 `progression-model-v2` script 必須與遊戲 `js/balance/progression-model.js` 保持完全一致。遊戲的瀏覽器整合測試會檢查文字一致、有效預設值、欄位修改、JSON 匯出／匯入及實際數值。
 
+`timed-boost-schema-v1` 同樣必須與遊戲 `js/items/timed-boosts.js` 完全一致。限時道具沿用 `items` 目錄，`type=timedBoost`、`boostType=speed4/exp/drop`、`bonusPercent` 為加算百分比、`durationMinutes` 為現實分鐘，`duration=0` 不參與既有回合遷移。百分比與分鐘可輸入正整數；4× 解鎖百分比固定為 0。不同名稱保留獨立來源，同名刷新完整時間。
+
+限時道具頁直接編輯既有 `shopSettings.randomOffers.entries` 的上架、權重／每批追加率、數量與單價，不使用第二套商品池。遊戲 `npm run test:boosts` 驗證設計器操作、實際下載 JSON、遊戲匯入生效及限時狀態保存。`timeUnits.timedBoostDuration=realMinutes` 標記完成舊資料遷移，避免再次補入已移除的道具；明確空商品池保持空白。
+
 新增的有效設定為：
 
 - `classes[].growthSteps`：每隔 every 級，額外增加整數 hp／atk／def；從 LV1 的零成長起算。
