@@ -127,6 +127,50 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
   const LABELS={speed4:'4× 解鎖',exp:'經驗值',drop:'掉寶率'};
   const copy=v=>JSON.parse(JSON.stringify(v));
   const isItem=item=>item?.type===TYPE;
+  const ELEMENTAL_TYPES=['ward','elementTonic'];
+  const isElementalItem=item=>ELEMENTAL_TYPES.includes(item?.type);
+  function expiryTime(minutes,now=Date.now()){
+    const duration=Math.round(minutes*60000),expiresAt=now+duration;
+    if(!Number.isFinite(minutes)||minutes<=0||!Number.isSafeInteger(duration)||duration<1||!Number.isSafeInteger(expiresAt)||expiresAt>8.64e15)throw Error('現實時間分鐘必須為有效正數');
+    return expiresAt;
+  }
+  const remainingMs=(buff,now=Date.now())=>Math.max(0,(buff?.expiresAt||0)-now);
+  function timeText(ms,hours=false){const sec=Math.max(0,Math.ceil(ms/1000)),h=Math.floor(sec/3600),m=Math.floor(sec/60)%60,s=sec%60;return (hours||h?String(h).padStart(2,'0')+':':'')+(hours||h?String(m).padStart(2,'0'):String(Math.floor(sec/60)).padStart(2,'0'))+':'+String(s).padStart(2,'0');}
+  const elementalPercent=(type,settings)=>100*(type==='ward'?(settings?.combat?.supply?.wardResistance??.25):(settings?.combat?.supply?.elementTonicDamage??.2));
+  function validateElementalItem(item){
+    if(!isElementalItem(item)||item.duration!==0||!Number.isFinite(item.effectPercent)||item.effectPercent<0||item.effectPercent>(item.type==='ward'?100:1e6))throw Error('屬性藥水效果百分比或時間單位無效：'+(item?.id||'未知'));
+    expiryTime(item.durationMinutes);return item;
+  }
+  function createElementalBuff(item,now=Date.now()){
+    validateElementalItem(item);
+    return {itemId:item.id,name:item.name,element:item.element,effectPercent:item.effectPercent,durationMinutes:item.durationMinutes,expiresAt:expiryTime(item.durationMinutes,now),until:0,statEffects:copy(item.statEffects||{})};
+  }
+  function migrateElementalConfig(cfg){
+    cfg.timeUnits??={};
+    if(cfg.timeUnits.elementPotionDuration!=='realMinutes'){
+      const unit=cfg.timeUnits.itemDuration==='battleRounds'?Math.max(1,Number(cfg.balanceSettings?.combat?.pacing?.roundMinimumMs)||6000):1000;
+      for(const item of cfg.items||[])if(isElementalItem(item)){
+        if(!Object.prototype.hasOwnProperty.call(item,'durationMinutes'))item.durationMinutes=Number(item.duration)>0?Number(item.duration)*unit/60000:5;
+        if(!Object.prototype.hasOwnProperty.call(item,'effectPercent'))item.effectPercent=elementalPercent(item.type,cfg.balanceSettings);
+        item.duration=0;
+      }
+      cfg.timeUnits.elementPotionDuration='realMinutes';
+    }
+    return cfg;
+  }
+  function migrateElementalBuff(buff,type,{item=null,settings=null,now=Date.now()}={}){
+    if(!buff)return null;
+    if(Object.prototype.hasOwnProperty.call(buff,'expiresAt')){
+      if(!Number.isSafeInteger(buff.expiresAt)||buff.expiresAt<0||buff.expiresAt>8.64e15)throw Error('屬性藥水到期時間無效');
+      validateElementalItem({...buff,type,duration:0});return remainingMs(buff,now)>0?copy(buff):null;
+    }
+    const roundMs=Math.max(1,Number(settings?.combat?.pacing?.roundMinimumMs)||6000);
+    const left=Number.isFinite(buff.remainingTurns)?Math.max(0,Math.ceil(buff.remainingTurns))*roundMs:Math.max(0,(Number(buff.until)||0)-now);
+    if(left<=0)return null;
+    const total=Number.isFinite(buff.totalTurns)?Math.max(left,Math.ceil(buff.totalTurns)*roundMs):left;
+    const out={...copy(buff),durationMinutes:total/60000,effectPercent:item?.effectPercent??elementalPercent(type,settings),expiresAt:now+left,until:0};
+    delete out.remainingTurns;delete out.totalTurns;validateElementalItem({...out,type,duration:0});return out;
+  }
   function itemName(kind,percent,minutes){return kind==='speed4'?'四倍速解鎖券'+minutes+'分鐘':LABELS[kind]+'＋'+percent+'％ '+minutes+'分鐘';}
   const DEFAULT_ITEMS=[
     {id:'speed4_30m',type:TYPE,boostType:'speed4',bonusPercent:0,durationMinutes:30,duration:0,cost:1200,sellPrice:300,shopEnabled:false,name:itemName('speed4',0,30),description:'暫時開放四倍速探索，可自由切換戰鬥倍速。'},
@@ -135,6 +179,7 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
   ];
   const DEFAULT_RULES=DEFAULT_ITEMS.map((item,i)=>({id:item.id,enabled:true,type:'item',key:item.id,name:'',description:'',quantityMin:1,quantityMax:1,unitPrice:null,weight:i===0?.15:.35,selection:'weighted',chance:1,quantityScalesWithTier:false,priceScalesWithTier:false}));
   function migrateConfig(cfg){
+    migrateElementalConfig(cfg);
     cfg.timeUnits??={};
     if(cfg.balanceSettings?.combat?.pacing)cfg.balanceSettings.combat.pacing.rates=[1,2,4];
     if(cfg.timeUnits.timedBoostDuration!=='realMinutes'){
@@ -156,12 +201,13 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
   function validateItem(item){
     const id=item?.id||'未知';
     if(!isItem(item)||typeof item.id!=='string'||!/^[A-Za-z0-9_-]{1,100}$/.test(item.id)||typeof item.name!=='string'||!item.name.trim()||typeof item.description!=='string'||!KINDS.includes(item.boostType))throw Error('限時增益道具資料無效：'+id);
-    if(!Number.isSafeInteger(item.durationMinutes)||item.durationMinutes<=0||!Number.isSafeInteger(Date.now()+item.durationMinutes*60000))throw Error('限時增益分鐘必須為有效正整數：'+id);
+    if(!Number.isSafeInteger(item.durationMinutes)||item.durationMinutes<=0)throw Error('限時增益分鐘必須為有效正整數：'+id);
+    expiryTime(item.durationMinutes);
     if(item.boostType==='speed4'?item.bonusPercent!==0:!Number.isSafeInteger(item.bonusPercent)||item.bonusPercent<=0)throw Error('限時增益百分比必須為正整數；4× 解鎖為 0：'+id);
     if(item.duration!==0||!Number.isSafeInteger(item.cost)||item.cost<0||item.sellPrice!==undefined&&(!Number.isSafeInteger(item.sellPrice)||item.sellPrice<0)||item.element!==undefined&&item.element!==null&&item.element!=='')throw Error('限時增益價格或時間單位無效：'+id);
     return item;
   }
-  function active(party,now=Date.now()){return (party?.timedBoosts||[]).filter(b=>b.expiresAt>now);}
+  function active(party,now=Date.now()){return (party?.timedBoosts||[]).filter(b=>remainingMs(b,now)>0);}
   function bonus(party,kind,now=Date.now()){return active(party,now).filter(b=>b.boostType===kind).reduce((sum,b)=>sum+b.bonusPercent,0);}
   function unlocked(party,now=Date.now()){return active(party,now).some(b=>b.boostType==='speed4');}
   function validateState(data){
@@ -177,7 +223,7 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
     const timedBoosts=copy(active({timedBoosts:rows}));
     return {timedBoosts,combatSession:{idleTimeMs,speed:speed===4&&!unlocked({timedBoosts})?2:speed,reportPaused,filter}};
   }
-  root.EmberwildTimedBoosts=Object.freeze({TYPE,KINDS,LABELS,DEFAULT_ITEMS,DEFAULT_RULES,isItem,itemName,migrateConfig,validateItem,active,bonus,unlocked,validateState});
+  root.EmberwildTimedBoosts=Object.freeze({TYPE,KINDS,LABELS,DEFAULT_ITEMS,DEFAULT_RULES,isItem,itemName,migrateConfig,validateItem,active,bonus,unlocked,validateState,ELEMENTAL_TYPES,isElementalItem,expiryTime,remainingMs,timeText,validateElementalItem,createElementalBuff,migrateElementalConfig,migrateElementalBuff});
 })(globalThis);
 
 </script>
@@ -861,8 +907,8 @@ function settingMeta(path){
     "combat.speed.difficultyBonus":["敵人每難度速度加成","難度索引每提高 1 級增加的速度。"],
     "combat.pacing.actionIntervalMs":["戰鬥動作間隔毫秒","每個角色／敵人動作之間最短等待時間；屬戰鬥節奏而非 UI 動畫。"],
     "combat.pacing.roundMinimumMs":["1× 每回合最短毫秒","一整回合最少耗時；倍速會按比例縮短。"],
-    "combat.supply.wardResistance":["抗性藥水減傷比例","對指定屬性額外增加的抗性。"],
-    "combat.supply.elementTonicDamage":["屬性增幅藥水傷害比例","指定屬性額外傷害比例。"],
+    "combat.supply.wardResistance":["舊版抗性藥水遷移值","只供缺少 effectPercent 的舊資料遷移；新版請到消耗道具設定每種藥水。"],
+    "combat.supply.elementTonicDamage":["舊版增幅藥水遷移值","只供缺少 effectPercent 的舊資料遷移；新版請到消耗道具設定每種藥水。"],
 
     "quests.repeat.required":["常駐募集素材需求","重複募集每次交付數量。"],
     "quests.repeat.goldPerTier":["常駐募集每階金幣","獎勵金幣 = 地區階級 × 此值。"],
@@ -1905,8 +1951,8 @@ ensureArrays();requestEditorInitialRender();
 
   renderItems=function(){
     ensureArrays();selected.item=Math.min(selected.item,Math.max(0,data.items.length-1));const item=data.items[selected.item];
-    document.getElementById('app').innerHTML=sectionHead('商店消耗道具','目前遊戲固定要求 15 個元素補給品，id / type / element 必須和內建結構一致；可修改名稱、買價、賣價、持續時間與手寫說明。')+
-      `<div class="notice">附魔的「改變普攻屬性」屬於固定機制；抗性強度由 <code>balanceSettings.combat.supply.wardResistance</code>、元素增幅強度由 <code>balanceSettings.combat.supply.elementTonicDamage</code> 控制。description 只改顯示文字。</div>`+
+    document.getElementById('app').innerHTML=sectionHead('商店消耗道具','15 個元素補給品保留在道具目錄；抗性與屬性增幅預設不上架，可各自設定效果強度與現實分鐘。附魔使用出戰回合。')+
+      `<div class="notice">抗性與屬性增幅由每個道具的 <code>effectPercent</code> 與 <code>durationMinutes</code> 控制。暫停、候補與關閉頁面仍會到期；同類覆蓋並刷新，不同類可同時生效。上架狀態在「商店」設定，description 只改顯示文字。</div>`+
       `<div class="grid2"><div class="card"><div class="list">${data.items.map((x,i)=>`<div class="listitem ${i===selected.item?'active':''}" data-item="${i}"><div class="title">${esc(x.name||'(未命名道具)')}</div><div class="sub">${esc(ITEM_TYPE_LABELS[x.type]||x.type)} · ${esc(ELEMENT_LABELS[x.element]||x.element)} · 買 ${esc(x.cost??0)}／賣 ${esc(x.sellPrice??0)} 金幣</div></div>`).join('')||'<div class="empty">缺少商店道具；目前遊戲要求固定 15 筆。</div>'}</div></div>`+
       (item?card('道具資料',`<div class="fields">
         ${inputField('道具 ID','id',item.id||'','text','',false,'匯入驗證會用 id 對照內建 15 個道具，不能修改。',true)}
@@ -1915,8 +1961,8 @@ ensureArrays();requestEditorInitialRender();
         ${selectField('指定屬性','element',item.element||'fire',ELEMENTS.filter(x=>x!=='physical'),false,'固定結構，不能改屬性。',ELEMENT_LABELS,true)}
         ${inputField('購買價格（金幣）','cost',item.cost??0,'number','min=0 step=1',false,'購買 1 個此消耗品所需金幣。')}
         ${inputField('賣出價格（金幣）','sellPrice',item.sellPrice??0,'number','min=0 step=1',false,'背包中販售 1 個此道具可取得的固定金幣。')}
-        ${inputField('效果持續時間（出戰回合）','duration',item.duration??0,'number','min=0 step=1',false,'只在該角色實際出戰的戰鬥回合扣減；暫停、候補或關閉頁面都不會消耗回合。')}
-        ${textareaField('道具風味說明','description',item.description||'','完全手寫，只改顯示文字；實際效果由 type / element / duration（出戰回合）與 balanceSettings 控制。')}
+        ${EmberwildTimedBoosts.isElementalItem(item)?inputField('效果強度（%）','effectPercent',item.effectPercent,'number',item.type==='ward'?'min=0 max=100 step=0.01':'min=0 max=1000000 step=0.01',false,item.type==='ward'?'指定屬性額外抗性百分比；實際減傷仍受角色抗性上限限制。':'指定屬性額外傷害百分比，與其他屬性增傷加算。')+inputField('效果持續時間（現實分鐘）','durationMinutes',item.durationMinutes,'number','min=0.001 step=0.01',false,'可輸入小數分鐘。暫停、候補或關閉頁面仍會到期；戰鬥倍速不影響時間。'):inputField('效果持續時間（出戰回合）','duration',item.duration??0,'number','min=0 step=1',false,'只在該角色實際出戰的戰鬥回合扣減；暫停、候補或關閉頁面都不會消耗回合。')}
+        ${textareaField('道具風味說明','description',item.description||'','完全手寫，只改顯示文字；實際效果由 type、element、effectPercent、durationMinutes（現實分鐘）／duration（附魔出戰回合）及下方暫時能力控制。')}
       </div>`):card('道具資料','<div class="empty">JSON 結構異常：沒有道具資料</div>'))+'</div>';
     const app=document.getElementById('app');app.querySelectorAll('[data-item]').forEach(x=>x.onclick=()=>{selected.item=Number(x.dataset.item);render();});if(item)bindObjectFields(app,item);
   };
@@ -2281,27 +2327,28 @@ ensureArrays();requestEditorInitialRender();
 
 <script id="turn-duration-editor-system">
 (function installTurnDurationEditorSystem(){
-  const TIME_UNITS={supportDuration:'battleRounds',itemDuration:'battleRounds'};
+  const TIME_UNITS={supportDuration:'battleRounds',itemDuration:'battleRounds',elementPotionDuration:'realMinutes'};
   function roundReferenceMs(obj){return Math.max(1,Number(obj?.balanceSettings?.combat?.pacing?.roundMinimumMs)||6000);}
   function normalizeTurnUnitsInPlace(obj){
     if(!obj||typeof obj!=='object')return obj;
+    EmberwildTimedBoosts.migrateElementalConfig(obj);
     const legacyItems=obj?.timeUnits?.itemDuration!=='battleRounds',refSec=roundReferenceMs(obj)/1000;
-    if(Array.isArray(obj.items)&&legacyItems)for(const item of obj.items)if(!EmberwildTimedBoosts.isItem(item)&&Number.isFinite(item.duration))item.duration=Math.max(1,Math.ceil(Math.max(0,item.duration)/refSec));
+    if(Array.isArray(obj.items)&&legacyItems)for(const item of obj.items)if(!EmberwildTimedBoosts.isItem(item)&&!EmberwildTimedBoosts.isElementalItem(item)&&Number.isFinite(item.duration))item.duration=Math.max(1,Math.ceil(Math.max(0,item.duration)/refSec));
     obj.timeUnits={...(obj.timeUnits||{}),...TIME_UNITS};
-    if(obj._reference?.units){obj._reference.units.duration='BUFF／DEBUFF 為戰鬥回合；消耗品為角色出戰回合';obj._reference.units.cooldown='技能冷卻為施放者自身行動回合';}
-    obj.notes=[...new Set([...(obj.notes||[]).filter(x=>!String(x).includes('BUFF／DEBUFF 與消耗品持續時間統一為回合制')),'supportSkills[].duration 單位為戰鬥回合；其數值原本實際就是依 partyClock 回合推進，因此舊數值直接保留。','items[].duration 單位為角色出戰的戰鬥回合；舊版現實秒會依 1× 每回合最短時間換算為回合後匯入。'])];
+    if(obj._reference?.units){obj._reference.units.duration='BUFF／DEBUFF 為戰鬥回合；附魔為角色出戰回合；抗性／屬性增幅為現實分鐘';obj._reference.units.cooldown='技能冷卻為施放者自身行動回合';}
+    obj.notes=[...new Set([...(obj.notes||[]).filter(x=>!String(x).includes('BUFF／DEBUFF 與消耗品持續時間統一為回合制')&&!String(x).startsWith('items[].duration 單位為')),'supportSkills[].duration 單位為戰鬥回合；其數值原本實際就是依 partyClock 回合推進，因此舊數值直接保留。','附魔 items[].duration 為角色出戰回合；ward / elementTonic 使用 durationMinutes（現實分鐘）與 effectPercent（百分比），duration=0。舊版依 1× 每回合最短時間遷移一次。'])];
     return obj;
   }
   globalThis.normalizeTurnUnitsInPlace=normalizeTurnUnitsInPlace;
   normalizeTurnUnitsInPlace(data);
   const turnEnsureArraysBase=ensureArrays;
-  ensureArrays=function(){const out=turnEnsureArraysBase();if(data?.timeUnits?.itemDuration!=='battleRounds'||data?.timeUnits?.supportDuration!=='battleRounds')normalizeTurnUnitsInPlace(data);return out;};
+  ensureArrays=function(){const out=turnEnsureArraysBase();if(data?.timeUnits?.itemDuration!=='battleRounds'||data?.timeUnits?.supportDuration!=='battleRounds'||data?.timeUnits?.elementPotionDuration!=='realMinutes')normalizeTurnUnitsInPlace(data);return out;};
   const turnValidateBase=validateData;
   validateData=function(){const issues=turnValidateBase();ensureArrays();for(const [ci,list] of (data.supportSkills||[]).entries())for(const [si,sk] of (list||[]).entries()){if(!Number.isInteger(sk.duration)||sk.duration<0)issues.push(`角色 ${ci} 輔助技能 ${si} 的持續回合必須是非負整數。`);if(!Number.isInteger(sk.cooldown)||sk.cooldown<0)issues.push(`角色 ${ci} 輔助技能 ${si} 的冷卻自身回合必須是非負整數。`);}for(const item of data.items||[])if(!Number.isInteger(item.duration)||item.duration<0)issues.push(`道具 ${item.id} 的持續出戰回合必須是非負整數。`);return [...new Set(issues)];};
   const turnRenderBase=render;
-  render=function(){turnRenderBase();if(currentSection==='support'){const head=document.querySelector('.section-head p');if(head)head.textContent='輔助技能持續時間以戰鬥回合計算；冷卻以施放者自身行動回合計算。';}if(currentSection==='items'){const head=document.querySelector('.section-head p');if(head)head.textContent='消耗品效果持續時間以角色出戰的戰鬥回合計算；暫停、候補與關閉頁面不會扣減。';}};
+  render=function(){turnRenderBase();if(currentSection==='support'){const head=document.querySelector('.section-head p');if(head)head.textContent='輔助技能持續時間以戰鬥回合計算；冷卻以施放者自身行動回合計算。';}if(currentSection==='items'){const head=document.querySelector('.section-head p');if(head)head.textContent='抗性與屬性增幅依現實分鐘到期，暫停、候補與關閉頁面仍會扣時；附魔只消耗出戰回合。';}};
   /* Rebind raw/import paths indirectly through ensureArrays; normalize the currently loaded data now. */
-  markDirty('已將 BUFF／DEBUFF 與消耗品持續時間統一為回合制；尚未匯出');
+  markDirty('已更新藥水的個別效果與現實分鐘設定；尚未匯出');
   requestEditorInitialRender();
 })();
 </script>
@@ -2674,11 +2721,11 @@ ensureArrays();requestEditorInitialRender();
     const item=data.items?.[selected.item];if(!item)return;normalizeItem(item);
     const app=document.getElementById("app");
     const fields=ITEM_STATS.map(([key,label,help])=>inputField(label,key,item.statEffects[key]??0,"number","step=0.01",false,help)).join("");
-    app.insertAdjacentHTML("beforeend",card("暫時能力效果",'<p class="mini-note">以下能力在道具原本的持續回合內套用到使用者。填 0 代表不提供該效果；同類道具覆蓋時會一併覆蓋。</p><div class="fields">'+fields+'</div>'));
+    app.insertAdjacentHTML("beforeend",card("暫時能力效果",'<p class="mini-note">以下能力在道具有效期間套用到使用者；抗性與增幅依現實時間，附魔依出戰回合。填 0 代表不提供該效果；同類道具覆蓋時會一併覆蓋。</p><div class="fields">'+fields+'</div>'));
     const box=app.lastElementChild;
     box.querySelectorAll("[data-key]").forEach(el=>el.onchange=()=>{const key=el.dataset.key,n=Number(el.value);if(!Number.isFinite(n)||n===0)delete item.statEffects[key];else item.statEffects[key]=n;markDirty();render();});
-    const head=app.querySelector(".section-head p");if(head)head.textContent="元素補給品可同時設定價格、持續回合與暫時主屬性／衍生副屬性效果。";
-    const notice=app.querySelector(".notice");if(notice)notice.innerHTML="<b>效果組成：</b>既有附魔／抗性／元素增幅效果仍保留；下方可額外設定固定生命、攻防、暴率、暴傷、防穿、防無等暫時能力。";
+    const head=app.querySelector(".section-head p");if(head)head.textContent="元素補給品可設定價格、個別效果強度、持續時間及暫時主屬性／衍生副屬性效果。抗性與增幅使用現實分鐘。";
+    const notice=app.querySelector(".notice");if(notice)notice.innerHTML="<b>效果組成：</b>抗性／元素增幅強度由上方百分比設定；下方可額外設定固定生命、攻防、暴率、暴傷、防穿、防無等暫時能力，與道具一起到期。";
   };
 
   const skillScopeValidateBase=validateData;
@@ -3331,6 +3378,7 @@ ensureArrays();requestEditorInitialRender();
     /^quests\.market(?:\.|$)/.test(p) ||
     /^quests\.potion(?:\.|$)/.test(p) ||
     /^combat\.pacing\.rates(?:\.|$)/.test(p) ||
+    /^combat\.supply\.(?:wardResistance|elementTonicDamage)$/.test(p) ||
     p==='monsters.encounter.bossChance' ||
     /^difficulty\.materialChance(?:\.|$)/.test(p) ||
     /^difficulty\.modes\.\d+\.(?:equipmentChance|gemChance|bossGearChance|legendaryGearChance)(?:\.|$)/.test(p) ||
@@ -5846,6 +5894,7 @@ requestEditorInitialRender();
 (function(root){
   'use strict';
   const TYPES=['ore','dust','gem','material','item'];
+  const DEFAULT_UNLISTED_TYPES=new Set(['ward','elementTonic']);
   const copy=value=>JSON.parse(JSON.stringify(value));
   const own=(value,key)=>Object.prototype.hasOwnProperty.call(value||{},key);
   const field=(value,key,fallback)=>own(value,key)?value[key]:fallback;
@@ -5879,22 +5928,28 @@ requestEditorInitialRender();
   function normalize(input,{items=[],rerollItem=null}={}){
     if(input!==undefined&&(!input||typeof input!=='object'||Array.isArray(input)))throw Error('商店設定格式無效');
     const src=input||{},random=field(src,'randomOffers',{}),fixed=field(src,'fixedOffers',{});
-    if(own(src,'schemaVersion')&&![1,2].includes(src.schemaVersion))throw Error('商店設定版本不支援');
+    if(own(src,'schemaVersion')&&![1,2,3].includes(src.schemaVersion))throw Error('商店設定版本不支援');
     if(!random||typeof random!=='object'||Array.isArray(random)||!fixed||typeof fixed!=='object'||Array.isArray(fixed))throw Error('商店商品池格式無效');
     const rawRandom=own(random,'entries')?random.entries:copy(DEFAULT_RANDOM.entries);
-    const rawFixed=own(fixed,'entries')?fixed.entries:items.filter(x=>x.shopEnabled!==false).map(x=>({id:x.id,type:'item',key:x.id,enabled:true,quantity:1,unitPrice:null}));
+    const rawFixed=own(fixed,'entries')?fixed.entries:items.filter(x=>x.shopEnabled!==false).map(x=>({id:x.id,type:'item',key:x.id,enabled:!DEFAULT_UNLISTED_TYPES.has(x.type),quantity:1,unitPrice:null}));
     if(!Array.isArray(rawRandom)||!Array.isArray(rawFixed))throw Error('商店商品池必須是陣列');
     const entries=rawRandom.map((x,i)=>normalizeRule(x,i,true));
     // Old reroll stones were appended outside the shop pool. Preserve their chance once during migration.
-    if(src.schemaVersion!==2&&rerollItem&&items.some(x=>x.id===rerollItem.id)&&Number(rerollItem.shopChance)>0&&!entries.some(x=>x.type==='item'&&x.key===rerollItem.id)){
+    if((src.schemaVersion??1)<2&&rerollItem&&items.some(x=>x.id===rerollItem.id)&&Number(rerollItem.shopChance)>0&&!entries.some(x=>x.type==='item'&&x.key===rerollItem.id)){
       const used=new Set(entries.map(x=>x.id));let id='power_tier_reroll',suffix=1;while(used.has(id))id='power_tier_reroll_'+suffix++;
       entries.push(normalizeRule({id,type:'item',key:rerollItem.id,quantityMin:1,quantityMax:1,unitPrice:rerollItem.shopPrice??650,selection:'extra',chance:rerollItem.shopChance},entries.length,true));
     }
-    return {schemaVersion:2,randomOffers:{
+    const fixedEntries=rawFixed.map((x,i)=>normalizeRule(x,i,false));
+    // Delist existing resistance/amplification offers once. Later explicit editor changes stay editable.
+    if((src.schemaVersion??1)<3){
+      const unlistedIds=new Set(items.filter(x=>DEFAULT_UNLISTED_TYPES.has(x.type)).map(x=>x.id));
+      for(const rule of [...entries,...fixedEntries])if(rule.enabled===true&&rule.type==='item'&&unlistedIds.has(rule.key))rule.enabled=false;
+    }
+    return {schemaVersion:3,randomOffers:{
       offerCount:field(random,'offerCount',DEFAULT_RANDOM.offerCount),
       refreshBaseCost:field(random,'refreshBaseCost',DEFAULT_RANDOM.refreshBaseCost),
       refreshCostStep:field(random,'refreshCostStep',DEFAULT_RANDOM.refreshCostStep),entries
-    },fixedOffers:{entries:rawFixed.map((x,i)=>normalizeRule(x,i,false))}};
+    },fixedOffers:{entries:fixedEntries}};
   }
   const integer=(n,min,max)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
   const number=(n,min,max)=>Number.isFinite(n)&&n>=min&&n<=max;
@@ -5938,7 +5993,7 @@ requestEditorInitialRender();
   const catalog=globalThis.EmberwildShopCatalog;
   const TYPE_LABEL={ore:'鍛鐵',dust:'粉塵',gem:'技能寶石',material:'素材',item:'消耗道具'};
   const options=()=>({items:data.items||[],rerollItem:data.equipmentPowerSystem?.rerollItem});
-  function ensureShopSettings(){data.shopSettings=catalog.normalize(data.shopSettings,options());selected.shopPool??='random';selected.shopRandom??=0;selected.shopFixed??=0;}
+  function ensureShopSettings(){data.shopSettings=catalog.normalize(data.shopSettings,options());const listed=catalog.fixedItemIds(data.shopSettings);for(const item of data.items||[])item.shopEnabled=listed.has(item.id);selected.shopPool??='random';selected.shopRandom??=0;selected.shopFixed??=0;}
   const baseEnsure=ensureArrays;ensureArrays=function(){const out=baseEnsure();ensureShopSettings();return out;};ensureShopSettings();
   const meta=SECTION_META.find(x=>x[0]==='shopSettings');if(meta)meta[1]='商店';else SECTION_META.splice(Math.max(0,SECTION_META.findIndex(x=>x[0]==='items')),0,['shopSettings','商店']);
   const baseCount=count;count=function(section,normalized=false){if(section==='shopSettings'){if(!normalized)ensureShopSettings();return data.shopSettings.randomOffers.entries.length+data.shopSettings.fixedOffers.entries.length;}return baseCount(section,normalized);};
@@ -5955,8 +6010,9 @@ requestEditorInitialRender();
     const item=itemFor(rule),pct=n=>Math.round((Number(n)||0)*10000)/100;
     if(item){
       const element=ELEMENT_LABELS[item.element]||item.element;
-      let text=EmberwildTimedBoosts.isItem(item)?(item.boostType==='speed4'?'解鎖 4× 戰鬥倍速':EmberwildTimedBoosts.LABELS[item.boostType]+'＋'+item.bonusPercent+'%')+' · 持續 '+item.durationMinutes+' 分鐘（現實時間）':item.type==='healPotion'?`恢復最大生命 ${pct(item.healFraction)}% · 冷卻 ${item.cooldown} 回合`:item.type==='imbue'?`普通攻擊轉為${element}屬性`:item.type==='ward'?`${element}屬性傷害減少 ${pct(data.balanceSettings.combat.supply.wardResistance)}%`:item.type==='elementTonic'?`${element}屬性傷害增加 ${pct(data.balanceSettings.combat.supply.elementTonicDamage)}%`:'依裝備原始掉落難度重抽基底評級，在裝備強化頁使用。';
-      if(item.duration)text+=' · 持續 '+item.duration+' 戰鬥回合';
+      let text=EmberwildTimedBoosts.isItem(item)?(item.boostType==='speed4'?'解鎖 4× 戰鬥倍速':EmberwildTimedBoosts.LABELS[item.boostType]+'＋'+item.bonusPercent+'%')+' · 持續 '+item.durationMinutes+' 分鐘（現實時間）':item.type==='healPotion'?`恢復最大生命 ${pct(item.healFraction)}% · 冷卻 ${item.cooldown} 回合`:item.type==='imbue'?`普通攻擊轉為${element}屬性`:item.type==='ward'?`${element}屬性傷害減少 ${item.effectPercent}%`:item.type==='elementTonic'?`${element}屬性傷害增加 ${item.effectPercent}%`:'依裝備原始掉落難度重抽基底評級，在裝備強化頁使用。';
+      if(EmberwildTimedBoosts.isElementalItem(item))text+=' · 持續 '+item.durationMinutes+' 分鐘（現實時間）';
+      else if(item.duration)text+=' · 持續 '+item.duration+' 戰鬥回合';
       if(Object.keys(item.statEffects||{}).length)text+=' · 附加能力依道具的能力設定生效';
       return text;
     }
@@ -5974,7 +6030,7 @@ requestEditorInitialRender();
     const item=itemFor(rule);if(!item)return '';
     const power=item.id==='power_tier_reroll';
     const source=(label,key,value,type='text',extra='')=>`<label>${label}<input data-shop-item-field="${key}" type="${type}" value="${esc(value??'')}" ${extra}></label>`;
-    return card('道具本身的資料',`<p class="shop-editor-note">這裡修改同一份道具資料，會同步到背包和其他設計器分頁。</p><div class="shop-rule-fields">${source('道具名稱','name',item.name)}${power?'':source('道具基本單價','cost',item.cost,'number','min="0" step="1"')}${item.type==='healPotion'?source('生命恢復比例（0～1）','healFraction',item.healFraction,'number','min="0.01" max="1" step="0.01"')+source('自動使用冷卻（回合）','cooldown',item.cooldown,'number','min="0" max="99" step="1"'):power?'':EmberwildTimedBoosts.isItem(item)?source('增益百分比 X%','bonusPercent',item.bonusPercent,'number',item.boostType==='speed4'?'disabled':'min="1" step="1"')+source('持續時間 X 分鐘','durationMinutes',item.durationMinutes,'number','min="1" step="1"'):source('持續戰鬥回合','duration',item.duration,'number','min="1" step="1"')}<label class="full">道具說明<textarea data-shop-item-field="description">${esc(item.description||'')}</textarea></label></div>`);
+    return card('道具本身的資料',`<p class="shop-editor-note">這裡修改同一份道具資料，會同步到背包和其他設計器分頁。</p><div class="shop-rule-fields">${source('道具名稱','name',item.name)}${power?'':source('道具基本單價','cost',item.cost,'number','min="0" step="1"')}${item.type==='healPotion'?source('生命恢復比例（0～1）','healFraction',item.healFraction,'number','min="0.01" max="1" step="0.01"')+source('自動使用冷卻（回合）','cooldown',item.cooldown,'number','min="0" max="99" step="1"'):power?'':EmberwildTimedBoosts.isItem(item)?source('增益百分比 X%','bonusPercent',item.bonusPercent,'number',item.boostType==='speed4'?'disabled':'min="1" step="1"')+source('持續時間 X 分鐘','durationMinutes',item.durationMinutes,'number','min="1" step="1"'):EmberwildTimedBoosts.isElementalItem(item)?source('效果強度（%）','effectPercent',item.effectPercent,'number',item.type==='ward'?'min="0" max="100" step="0.01"':'min="0" max="1000000" step="0.01"')+source('持續時間（現實分鐘）','durationMinutes',item.durationMinutes,'number','min="0.001" step="0.01"'):source('持續出戰回合','duration',item.duration,'number','min="1" step="1"')}<label class="full">道具說明<textarea data-shop-item-field="description">${esc(item.description||'')}</textarea></label></div>`);
   }
   function renderShopSettings(){
     ensureShopSettings();const pool=selected.shopPool,list=rows(pool),index=Math.min(selected[selectionKey(pool)],Math.max(0,list.length-1));selected[selectionKey(pool)]=index;const rule=list[index],random=pool==='random',s=data.shopSettings.randomOffers;
@@ -6006,7 +6062,7 @@ requestEditorInitialRender();
   const baseValidate=validateData;validateData=function(){const issues=baseValidate();try{catalog.validate(data.shopSettings,options());}catch(e){issues.push(e.message);}return [...new Set(issues)];};
   const baseRender=render;render=function(){if(currentSection==='shopSettings'){ensureArrays();renderShopSettings();renderNav(true);return;}return baseRender();};
   data.notes=(data.notes||[]).filter(x=>!String(x).startsWith('shopSettings.')&&!String(x).startsWith('items[].shopEnabled'));
-  data.notes.push('shopSettings.schemaVersion=2；randomOffers.entries 與 fixedOffers.entries 為商店有效商品池。空陣列表示不上架，移除商品不刪除道具庫存。','randomOffers.entries：selection=weighted 使用抽選權重；selection=extra 使用每批出現率，重鑄石也由此控制。','商品 type=item 的 key 引用 items[].id；unitPrice=null 沿用道具基本單價。名稱、說明留空時沿用道具資料。','items[].shopEnabled 與 equipmentPowerSystem.rerollItem.shopChance/shopPrice 僅供舊資料遷移，新版商店以 shopSettings 為準。');
+  data.notes.push('shopSettings.schemaVersion=3；randomOffers.entries 與 fixedOffers.entries 為商店有效商品池。舊版抗性／屬性增幅商品會自動下架。空陣列表示不上架，移除商品不刪除道具庫存。','randomOffers.entries：selection=weighted 使用抽選權重；selection=extra 使用每批出現率，重鑄石也由此控制。','商品 type=item 的 key 引用 items[].id；unitPrice=null 沿用道具基本單價。名稱、說明留空時沿用道具資料。','items[].shopEnabled 與 equipmentPowerSystem.rerollItem.shopChance/shopPrice 僅供舊資料遷移，新版商店以 shopSettings 為準。');
   globalThis.__EMBERWILD_SHOP_EDITOR={render:renderShopSettings};
   requestEditorInitialRender();
 })();
@@ -6059,7 +6115,7 @@ requestEditorInitialRender();
   const renderBase=render;
   render=function(){const out=renderBase();if(currentSection==='items'&&selected.itemMode==='timed'){const text=document.querySelector('#app .section-head p');if(text)text.textContent='限時增益依現實分鐘計時；4×、經驗與掉寶是三個獨立效果。';}return out;};
   const validateBase=validateData;
-  validateData=function(){const issues=validateBase(),ids=new Set();for(const item of data.items){if(ids.has(item.id))issues.push('道具 ID 重複：'+item.id);ids.add(item.id);if(api.isItem(item))try{api.validateItem(item);}catch(e){issues.push(e.message);}}return [...new Set(issues)];};
+  validateData=function(){const issues=validateBase(),ids=new Set();for(const item of data.items){if(ids.has(item.id))issues.push('道具 ID 重複：'+item.id);ids.add(item.id);if(api.isItem(item)||api.isElementalItem(item))try{api.isItem(item)?api.validateItem(item):api.validateElementalItem(item);}catch(e){issues.push(e.message);}}return [...new Set(issues)];};
   requestEditorInitialRender();
 })();
 

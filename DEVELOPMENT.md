@@ -8,6 +8,10 @@
 
 限時道具頁直接編輯既有 `shopSettings.randomOffers.entries` 的上架、權重／每批追加率、數量與單價，不使用第二套商品池。遊戲 `npm run test:boosts` 驗證設計器操作、實際下載 JSON、遊戲匯入生效及限時狀態保存。`timeUnits.timedBoostDuration=realMinutes` 標記完成舊資料遷移，避免再次補入已移除的道具；明確空商品池保持空白。
 
+屬性抗性 `ward` 與屬性增幅 `elementTonic` 同樣使用現實時間：每個道具獨立設定 `effectPercent`（百分比）與 `durationMinutes`（正數，可含小數），`duration=0`。使用時保存效果快照與 `expiresAt`，暫停、候補、離線都會到期，同類覆蓋並刷新。附加 `statEffects` 跟隨同一到期時間；附魔 `imbue` 保持出戰回合。`timeUnits.elementPotionDuration=realMinutes` 避免重複遷移，舊全域強度只供缺少欄位的舊資料使用。平衡器的消耗道具頁與商店來源編輯均使用上述欄位。
+
+`shop-catalog-v2` 的內容必須與遊戲 `js/items/shop-catalog.js` 完全相同（script ID 保持相容，內部 schemaVersion 為 3）。抗性／屬性增幅商品預設停用，舊固定與隨機商品池一次性遷移為下架，既有庫存與道具定義保留。新版本明確設定的商品池保持可編輯，空池不會被補回。遊戲 `npm run test:potions` 可在沒有 Chromium 時驗證共同契約及實際模組行為；瀏覽器操作仍由既有整合測試驗證。
+
 新增的有效設定為：
 
 - `classes[].growthSteps`：每隔 every 級，額外增加整數 hp／atk／def；從 LV1 的零成長起算。
