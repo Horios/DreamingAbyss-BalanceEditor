@@ -28,3 +28,11 @@
 夥伴 `initialStats`／`growthPerLevel` 支援 12 個實際能力鍵；`equipmentInternalized=1` 表示已包含一次性普通裝備內化預算，避免重複加入。新增 `companionTokens` 管理目錄、複合屬性、特殊事件／能力與獨立掉落。契約 `companion-token-model-v1` 必須與遊戲 `js/items/companion-token-model.js` 一致。機率／能力倍率採 0～1 比例，複合屬性中的百分比採百分數；立即效果 duration=0，BUFF duration≥1。每個編輯器選項皆有對應遊戲實作。
 
 遊戲 `npm run test:tokens` 執行真正 JSON 下載、匯入與效果一致性測試；完整結果及初始成長／十件信物／掉落／遷移說明見遊戲 `docs/COMPANION_TOKENS.md`。此版仍只提交 chatgpt-dev，不合併 main。
+
+## 獨立隊伍配置與永久解鎖
+
+`team-model-v1` 必須與遊戲 `js/character/team-model.js` 完全一致，可使用遊戲 `tools/sync-team-schema.cjs` 同步。新增 `teamSettings.maxPlans/defaultLearnCost`；AP／SP 仍編輯 `balanceSettings.progression.starting/levelRewards`。`meta.teamBuildVersion=1` 表示 SP 預算已完成一次性遷移，明確設定 0 會保留。
+
+每個核心與輔助技能的 `learnCost` 是本隊技能點成本，`unlockConditions.classMasteryLevel/quests/materials` 是全域永久條件。材料只付一次；既有等級、二轉、武器／元素精通門檻與曲線繼續使用原有效來源。編輯器正規化保留既有巢狀物件，避免事件引用失效。降低遊戲點數或刪除技能前需先調整已保存的方案，遊戲會拒絕會破壞現有配置／永久成果的 JSON。
+
+`npm run test:teams` 在遊戲 Repository 執行共用契約、實際遊戲模組與 Chromium 欄位／JSON 下載／匯入／重新整理測試。完整交付紀錄見公開遊戲 `docs/TEAM_BUILDS.md`。設計器保持私有，下載此分支 `balance-editor.html` 後在本機開啟；不新增公開 hosting，不合併 main。

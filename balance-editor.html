@@ -4100,7 +4100,7 @@ const MASTERY_DEFAULTS={xpBase:8,xpLinear:5,xpQuadratic:1,skillUseXp:2,basicAtta
 
 function ensureSettings(obj){
   obj.balanceSettings??={};obj.balanceSettings.progression??={};obj.balanceSettings.progression.starting??={};obj.balanceSettings.progression.levelRewards??={};
-  obj.balanceSettings.progression.starting.skillPoints=0;obj.balanceSettings.progression.levelRewards.skillPoints=0;
+  if(!obj.balanceSettings.meta?.teamBuildVersion){obj.balanceSettings.progression.starting.skillPoints=0;obj.balanceSettings.progression.levelRewards.skillPoints=0;}
   if(obj.balanceSettings.quests?.tutorial)obj.balanceSettings.quests.tutorial.skillLevelRequirement=1;
   obj.balanceSettings.skills??={};obj.balanceSettings.skills.mastery??={};
   const m=obj.balanceSettings.skills.mastery;
@@ -4178,7 +4178,7 @@ const masteryRenderEquipmentBase=renderEquipment;renderEquipment=function(){
   document.getElementById('weaponTypeSelect').onchange=ev=>{if(ev.target.value)e.weaponType=ev.target.value;else delete e.weaponType;markDirty();};
 };
 const masteryRenderSettingsBase=renderBalanceSettings;renderBalanceSettings=function(){
-  ensureArrays();masteryRenderSettingsBase();const hidden=['balanceSettings.progression.statsPerLevel.hp','balanceSettings.progression.statsPerLevel.attack','balanceSettings.progression.statsPerLevel.defense','balanceSettings.progression.baseCrit.default','balanceSettings.progression.baseCrit.archer','balanceSettings.progression.starting.skillPoints','balanceSettings.progression.levelRewards.skillPoints','balanceSettings.quests.tutorial.skillLevelRequirement','balanceSettings.skills.core.maxLevel','balanceSettings.skills.core.initialCap','balanceSettings.skills.core.capLevelsPerStep','balanceSettings.skills.core.effectPerExtraLevel','balanceSettings.skills.proc.perSkillLevel','balanceSettings.skills.support.maxLevel','balanceSettings.skills.support.effectPerExtraLevel'];
+  ensureArrays();masteryRenderSettingsBase();const hidden=['balanceSettings.progression.statsPerLevel.hp','balanceSettings.progression.statsPerLevel.attack','balanceSettings.progression.statsPerLevel.defense','balanceSettings.progression.baseCrit.default','balanceSettings.progression.baseCrit.archer','balanceSettings.quests.tutorial.skillLevelRequirement','balanceSettings.skills.core.maxLevel','balanceSettings.skills.core.initialCap','balanceSettings.skills.core.capLevelsPerStep','balanceSettings.skills.core.effectPerExtraLevel','balanceSettings.skills.proc.perSkillLevel','balanceSettings.skills.support.maxLevel','balanceSettings.skills.support.effectPerExtraLevel'];
   const app=document.getElementById('app');for(const path of hidden)app.querySelector(`[data-path="${path}"]`)?.closest('.pathrow')?.remove();const head=app.querySelector('.section-head p');if(head)head.textContent='修改角色成長、精通 XP 曲線、裝備、掉落、販售與其他全域數值；舊版共用每級成長、基礎爆擊率、技能點與技能等級欄位只保留相容資料，不在正常 UI 顯示。';
 };
 const masteryValidateBase=validateData;validateData=function(){
@@ -4196,7 +4196,7 @@ function cleanMasteryExport(){
   for(const cls of out.classes||[])for(const sk of cls.skills||[]){delete sk.powerPerLevel;if(sk.activation==='proc')delete sk.procChancePerLevel;delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.requiredMasteryLevel=Math.max(0,Math.min(100,Math.floor(Number(sk.requiredMasteryLevel)||0)));}
   for(const list of out.supportSkills||[])for(const sk of list||[]){delete sk.effectPerLevel;delete sk.prerequisites;delete sk.prerequisiteSkill;delete sk.prerequisiteLevel;sk.requiredMasteryLevel=Math.max(0,Math.min(100,Math.floor(Number(sk.requiredMasteryLevel)||0)));}
   if(out.balanceSettings?.skills?.core){delete out.balanceSettings.skills.core.maxLevel;delete out.balanceSettings.skills.core.initialCap;delete out.balanceSettings.skills.core.capLevelsPerStep;delete out.balanceSettings.skills.core.effectPerExtraLevel;}if(out.balanceSettings?.skills?.proc)delete out.balanceSettings.skills.proc.perSkillLevel;if(out.balanceSettings?.skills?.support){delete out.balanceSettings.skills.support.maxLevel;delete out.balanceSettings.skills.support.effectPerExtraLevel;}
-  out.notes=[...(out.notes||[]).filter(x=>!/powerPerLevel|procChancePerLevel|effectPerLevel|技能等級|每級|prerequisite|前置/i.test(String(x))),'第一次大修：技能只有未學／已學；技能點與技能等級舊欄位不再參與正式計算。','mastery / requiredMastery / requiredMasteryLevel / weaponTypes 為技能培養、學習與武器條件；requiredMasteryLevel 限制為 0～100。','iconType 控制技能頁小圖示；auto 會依效果、元素與精通自動判斷。','武器使用穩定 weaponType；weaponType 與 mastery 為獨立概念。'];return out;
+  out.notes=[...(out.notes||[]).filter(x=>!/powerPerLevel|procChancePerLevel|effectPerLevel|技能等級|每級|prerequisite|前置/i.test(String(x))),'永久解鎖全域共用；各隊伍投入技能點學習與裝配，技能效果不隨學習點數成長。','mastery / requiredMastery / requiredMasteryLevel / weaponTypes 為技能培養、學習與武器條件；requiredMasteryLevel 限制為 0～100。','iconType 控制技能頁小圖示；auto 會依效果、元素與精通自動判斷。','武器使用穩定 weaponType；weaponType 與 mastery 為獨立概念。'];return out;
 }
 function exportMasteryWorkspace(kind){
   ensureArrays();const issues=validateData();if(kind==='release'&&issues.length){alert('正式實裝 JSON 必須先通過相容性檢查。目前仍有 '+issues.length+' 個提醒：\n\n'+issues.slice(0,12).join('\n'));currentSection='overview';render();return;}if(kind==='test'&&issues.length&&!confirm('目前有 '+issues.length+' 個資料提醒。仍要匯出測試 JSON 嗎？\n\n'+issues.slice(0,8).join('\n')))return;
@@ -6379,6 +6379,133 @@ requestEditorInitialRender();
   const ELEMENT_LABELS={physical:'物理',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'},RACE_LABELS={beast:'野獸',plant:'植物',undead:'不死',construct:'構造',demon:'惡魔',spirit:'精靈'};
   const renderBase=render;
   render=function(){ensureArrays();if(currentSection==='companionTokens'){renderNav(true);renderTokens();return;}const out=renderBase();if(currentSection==='companions'){const el=document.getElementById('companionWeapon');if(el){const label=el.closest('label');label.firstChild.textContent='職業內建武器定位（技能條件）';}document.querySelector('.companion-fields')?.insertAdjacentHTML('afterbegin','<p class="full mini-note">夥伴不使用一般裝備；裝備內化已包含於獨立初始／成長數值。循環配點與二轉仍沿用既有流程，請勿再重複加回。特殊屬性支援固定值與零成長。</p>');}return out;};
+  requestEditorInitialRender();
+})();
+
+</script>
+
+<script id="team-model-v1">
+/* Shared, DOM-free contract. Embedded verbatim in the private balance editor. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.EmberwildTeams=api;})(globalThis,()=>{
+  'use strict';
+  const VERSION=1,copy=v=>JSON.parse(JSON.stringify(v));
+  const defaults={maxPlans:6,defaultLearnCost:1};
+  const object=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
+  const int=(v,min=0,max=1e12)=>Number.isSafeInteger(v)&&v>=min&&v<=max;
+  function settings(raw){const out={...defaults,...raw};if(!int(out.maxPlans,1,12)||!int(out.defaultLearnCost,0,10000))throw Error('隊伍數量或學習成本無效');return out;}
+  function rules(raw,defaultCost=1){
+    const r=raw||{},out={learnCost:r.learnCost??defaultCost,unlockConditions:copy(r.unlockConditions??{classMasteryLevel:0,quests:[],materials:[]})},u=out.unlockConditions;
+    if(!int(out.learnCost,0,10000)||!object(u)||!int(u.classMasteryLevel??0,0,100)||!Array.isArray(u.quests??[])||!Array.isArray(u.materials??[]))throw Error('技能學習或永久解鎖設定無效');
+    u.classMasteryLevel??=0;u.quests??=[];u.materials??=[];
+    const safe=s=>typeof s==='string'&&s.length>0&&s.length<=80&&!/[<>\u0000-\u001f]/.test(s)&&!['__proto__','constructor','prototype'].includes(s);
+    if(u.quests.length>32||new Set(u.quests).size!==u.quests.length||u.quests.some(s=>!safe(s))||u.materials.length>32||u.materials.some(m=>!object(m)||!safe(m.name)||!int(m.quantity,1,1e9))||new Set(u.materials.map(m=>m.name)).size!==u.materials.length)throw Error('技能永久任務或材料條件無效');
+    return out;
+  }
+  function normalizeDocument(input){
+    const d=copy(input);d.teamSettings=settings(d.teamSettings);d.balanceSettings??={};d.balanceSettings.meta??={};
+    // Restore the pre-mastery starting/per-level point rules once. A marked JSON
+    // may intentionally set either budget to zero; never overwrite it again.
+    const p=d.balanceSettings.progression??={};p.starting??={};p.levelRewards??={};
+    if(!d.balanceSettings.meta.teamBuildVersion){if(!p.starting.skillPoints)p.starting.skillPoints=2;if(!p.levelRewards.skillPoints)p.levelRewards.skillPoints=2;}
+    d.balanceSettings.meta.teamBuildVersion=VERSION;
+    for(const n of [p.starting.skillPoints,p.levelRewards.skillPoints,p.starting.abilityPoints??0,p.levelRewards.abilityPoints??3])if(!int(n,0,100000))throw Error('隊伍點數額度無效');
+    for(const cls of d.classes||[])for(const sk of cls.skills||[])Object.assign(sk,rules(sk,d.teamSettings.defaultLearnCost));
+    for(const list of d.supportSkills||[])for(const sk of list)Object.assign(sk,rules(sk,d.teamSettings.defaultLearnCost));
+    return d;
+  }
+  function budget(level,progression,permanent){return {ap:Math.round((progression.starting.abilityPoints||0)+(level-1)*(progression.levelRewards.abilityPoints||0))+(permanent.abilityCredit||0),sp:Math.round((progression.starting.skillPoints||0)+(level-1)*(progression.levelRewards.skillPoints||0))+(permanent.skillCredit||0)};}
+  const key=(job,kind,i)=>`${job}:${kind}:${i}`;
+  function blank(id,name,job=null,coreCount=0,supportCount=0){return {id,name,job,playerActive:true,stats:[0,0,0],skills:Array(coreCount).fill(0),supportLevels:Array(supportCount).fill(0),active:[null,null],procSlots:[null,null],supportSlots:[null,null],equipped:Array(5).fill(null),sockets:Array(coreCount).fill(null),companions:[],enlisted:[],tokens:{}};}
+  function spent(plan,classes,supports,cost=1){return plan.skills.reduce((n,v,i)=>n+(v?rules(classes[plan.job]?.skills[i],cost).learnCost:0),0)+plan.supportLevels.reduce((n,v,i)=>n+(v?rules(supports[plan.job]?.[i],cost).learnCost:0),0);}
+  function references(build,id){return build.plans.filter(p=>p.equipped.includes(id)||Object.values(p.tokens).includes(id)).map(p=>({id:p.id,name:p.name}));}
+  function clearReferences(build,ids){const set=new Set(ids);for(const p of build.plans){p.equipped=p.equipped.map(id=>set.has(id)?null:id);for(const k of Object.keys(p.tokens))if(set.has(p.tokens[k]))p.tokens[k]=null;}}
+  function prepareSave(input){
+    const d=copy(input),rows=d?.version===3?d.members:[d];if(!Array.isArray(rows))return d;
+    const ids=new Set(rows.flatMap(h=>Array.isArray(h?.bag)?h.bag.map(g=>g.id):[]));
+    for(const h of rows){if(Array.isArray(h?.equipped))h.equipped=h.equipped.map(id=>id!==null&&!ids.has(id)?null:id);if(h?.tokenId!==null&&h?.tokenId!==undefined&&!ids.has(h.tokenId))h.tokenId=null;}
+    return d;
+  }
+  function validate(build,{classes,supports,members,items,progression,level,config=defaults,wearable=()=>true}){
+    const b=copy(build),cfg=settings(config),fail=message=>{throw Error(message);},perm=b?.permanent;
+    if(b?.version!==VERSION||!int(b.serial,2,1e9)||!Array.isArray(b.plans)||!b.plans.length||b.plans.length>12||!object(perm)||!int(perm.playerKey,0,1e9)||!int(perm.abilityCredit)||!int(perm.skillCredit)||!object(perm.classes)||!object(perm.masteries)||!object(perm.unlocks)||!object(perm.payments)||!object(perm.gemInstances)||!int(perm.gemSerial,1,1e9))fail('永久養成或隊伍資料無效');
+    const skillKeys=new Set();classes.forEach((c,j)=>{c.skills.forEach((_,i)=>skillKeys.add(key(j,'core',i)));(supports[j]||[]).forEach((_,i)=>skillKeys.add(key(j,'support',i)));});
+    for(const [k,v] of Object.entries(perm.unlocks))if(!skillKeys.has(k)||v!==true)fail('永久技能解鎖無效');
+    for(const [k,v] of Object.entries(perm.payments))if(!skillKeys.has(k)||v!==true||!perm.unlocks[k])fail('技能材料消耗成果無效');
+    for(const [k,v] of Object.entries(perm.classes))if(!/^\d+$/.test(k)||!classes[Number(k)]||!object(v)||typeof v.activated!=='boolean'||typeof v.advanced!=='boolean'||!int(v.xp)||!v.activated&&(v.xp||v.advanced))fail('職業永久成長無效');
+    for(const [k,v] of Object.entries(perm.masteries))if(!/^[a-zA-Z][a-zA-Z0-9_-]{0,79}$/.test(k)||!int(v))fail('武器／元素精通無效');
+    for(const [k,v] of Object.entries(perm.gemInstances))if(!/^gem-\d+$/.test(k)||!int(v,0,2))fail('技能寶石實體無效');
+    if(Object.keys(perm.gemInstances).some(k=>Number(k.slice(4))>=perm.gemSerial))fail('技能寶石序號無效');
+    if(perm.playerKey!==(members[0].playerId??members[0].job))fail('主角永久識別不符');
+    const owned=new Map(items.map(g=>[g.id,g])),people=new Set(members.slice(1).map(h=>h.companionId??h.job)),ids=new Set(),totals=budget(level,progression,perm);
+    for(const p of b.plans){
+      if(!p||!/^team-\d+$/.test(p.id)||ids.has(p.id)||typeof p.name!=='string'||!p.name.trim()||Array.from(p.name).length>24||/[\u0000-\u001f]/.test(p.name)||p.job!==null&&(!int(p.job,0,classes.length-1)||!perm.classes[p.job]?.activated))fail('隊伍名稱或職業無效');ids.add(p.id);
+      const c=p.job===null?0:classes[p.job].skills.length,s=p.job===null?0:(supports[p.job]||[]).length;
+      if(!Array.isArray(p.stats)||p.stats.length!==3||p.stats.some(n=>!int(n,0,100000))||p.stats.reduce((a,v)=>a+v,0)>totals.ap||!Array.isArray(p.skills)||p.skills.length!==c||p.skills.some(n=>!int(n,0,1))||!Array.isArray(p.supportLevels)||p.supportLevels.length!==s||p.supportLevels.some(n=>!int(n,0,1))||spent(p,classes,supports,cfg.defaultLearnCost)>totals.sp)fail('隊伍配點超出額度');
+      for(const [kind,list] of [['core',p.skills],['support',p.supportLevels]])if(list.some((v,i)=>v&&!perm.unlocks[key(p.job,kind,i)]))fail('隊伍學習了尚未永久解鎖的技能');
+      for(const [field,list,type] of [['active',p.skills,'active'],['procSlots',p.skills,'proc'],['supportSlots',p.supportLevels,null]]){const slots=p[field];if(!Array.isArray(slots)||slots.length!==2||new Set(slots.filter(v=>v!==null)).size!==slots.filter(v=>v!==null).length||slots.some(i=>i!==null&&(!int(i,0,list.length-1)||!list[i]||type&&classes[p.job].skills[i].activation!==type)))fail('隊伍技能槽無效');}
+      p.playerActive??=true;
+      const activeCount=Number(p.playerActive)+(p.companions?.length||0);
+      if(typeof p.playerActive!=='boolean'||activeCount<1||activeCount>3||!Array.isArray(p.equipped)||p.equipped.length!==5||!object(p.tokens)||!Array.isArray(p.companions)||p.companions.length>3||!Array.isArray(p.enlisted)||p.enlisted.length>512||new Set(p.enlisted).size!==p.enlisted.length||new Set(p.companions).size!==p.companions.length||p.enlisted.some(k=>!people.has(k))||p.companions.some(k=>!p.enlisted.includes(k)))fail('隊伍編成無效');
+      p.equipped=p.equipped.map((id,i)=>{if(id===null)return null;if(typeof id!=='string')fail('装備 UID 無效');const g=owned.get(id);if(!g)return null;if(p.job===null||!wearable(g,p.job,i))fail('隊伍裝備不符職業或位置');return id;});
+      for(const [k,id] of Object.entries(p.tokens)){if(!people.has(Number(k))||id!==null&&typeof id!=='string')fail('隊伍信物引用無效');if(id!==null&&!owned.has(id))p.tokens[k]=null;else if(id!==null&&owned.get(id).type!=='companionToken')fail('隊伍信物類型無效');}
+      const used=[...p.equipped.filter(Boolean),...Object.values(p.tokens).filter(Boolean)];if(new Set(used).size!==used.length)fail('同一隊伍重複使用物品實體');
+      if(!Array.isArray(p.sockets)||p.sockets.length!==c||p.sockets.some((id,i)=>id!==null&&(!p.skills[i]||!Object.hasOwn(perm.gemInstances,id)))||new Set(p.sockets.filter(Boolean)).size!==p.sockets.filter(Boolean).length)fail('隊伍技能寶石引用無效');
+      if(p.job===null&&(p.stats.some(Boolean)||p.skills.some(Boolean)||p.equipped.some(Boolean)||p.companions.length||p.enlisted.length||Object.values(p.tokens).some(Boolean)))fail('空白隊伍含有配置');
+    }
+    if(!ids.has(b.activeId)||Number(b.plans.reduce((n,p)=>Math.max(n,Number(p.id.slice(5))),0))>=b.serial)fail('目前隊伍或序號無效');
+    const fields=Object.keys(blank('team-1','隊伍'));
+    b.plans=b.plans.map(p=>Object.fromEntries(fields.map(k=>[k,p[k]])));
+    return b;
+  }
+  return {VERSION,defaults,copy,settings,rules,normalizeDocument,budget,key,blank,spent,references,clearReferences,prepareSave,validate};
+});
+
+</script>
+<script id="team-editor-v1">
+/* Team allocations and permanent unlocks use the same contract as the game. */
+(()=>{
+  const M=EmberwildTeams,copy=M.copy;
+  const baseEnsure=ensureArrays;
+  ensureArrays=function(){
+    baseEnsure();const normalized=M.normalizeDocument(data);
+    data.teamSettings??={};Object.assign(data.teamSettings,normalized.teamSettings);
+    Object.assign(data.balanceSettings.meta,normalized.balanceSettings.meta);
+    for(const group of ['starting','levelRewards'])Object.assign(data.balanceSettings.progression[group],normalized.balanceSettings.progression[group]);
+    for(const [j,c] of data.classes.entries())c.skills.forEach((sk,i)=>Object.assign(sk,M.rules(normalized.classes[j].skills[i],data.teamSettings.defaultLearnCost)));
+    data.supportSkills.forEach((list,j)=>list.forEach((sk,i)=>Object.assign(sk,M.rules(normalized.supportSkills[j][i],data.teamSettings.defaultLearnCost))));
+    return data;
+  };
+  Object.assign(ORIGINAL_DATA,M.normalizeDocument(ORIGINAL_DATA));
+  BALANCE_SETTINGS_DEFAULTS.progression.starting.skillPoints=2;
+  BALANCE_SETTINGS_DEFAULTS.progression.levelRewards.skillPoints=2;
+  ensureArrays();
+  const baseValidate=validateData;
+  validateData=function(){const issues=baseValidate();try{M.normalizeDocument(data);}catch(e){issues.push(e.message);}return issues;};
+  SECTION_META.splice(SECTION_META.findIndex(([id])=>id==='skills')+1,0,['teamSettings','隊伍配置規則']);
+  function currentSkill(){return selected.skillTab==='support'?data.supportSkills?.[selected.supportClass]?.[selected.support]:data.classes?.[selected.skillClass]?.skills?.[selected.skill];}
+  function editSkill(fn){const sk=currentSkill();if(!sk)return;const before=copy(sk);try{fn(sk);Object.assign(sk,M.rules(sk,data.teamSettings.defaultLearnCost));markDirty();}catch(e){Object.assign(sk,before);alert(e.message);}}
+  const skillRenderBase=renderSkills;
+  renderSkills=function(){skillRenderBase();const sk=currentSkill();if(!sk)return;const r=M.rules(sk,data.teamSettings.defaultLearnCost),app=document.getElementById('app');
+    app.insertAdjacentHTML('beforeend',card('永久解鎖與本隊學習',`<p class="mini-note">角色等級、二轉、武器／元素精通門檻沿用上方設定；武器種類限制在施放時檢查。永久解鎖不因轉職或洗點消失，每隊另付技能點學習。</p><div class="fields"><label>本隊學習成本<input id="teamLearnCost" type="number" min="0" max="10000" step="1" value="${r.learnCost}"></label><label>永久職業精通門檻<input id="teamClassMastery" type="number" min="0" max="100" step="1" value="${r.unlockConditions.classMasteryLevel}"></label><label>永久任務條件（逗號分隔）<input id="teamUnlockQuests" value="${esc(r.unlockConditions.quests.join(','))}"></label></div><p class="mini-note">任務名稱對應已領取成果；tutorial 對應已完成新手流程。不填表示沒有額外任務。材料僅在首次按下永久解鎖時消耗。</p><div class="team-materials">${r.unlockConditions.materials.map((m,i)=>`<div class="fields"><label>材料<input data-team-material-name="${i}" value="${esc(m.name)}"></label><label>數量<input data-team-material-quantity="${i}" type="number" min="1" step="1" value="${m.quantity}"></label><button data-team-material-delete="${i}">刪除條件</button></div>`).join('')}</div><div class="fields"><label>新增材料名稱<input id="teamMaterialName"></label><label>數量<input id="teamMaterialQuantity" type="number" min="1" step="1" value="1"></label><button id="teamAddMaterial">新增一次性材料條件</button></div>`));
+    app.querySelector('#teamLearnCost').onchange=e=>editSkill(sk=>sk.learnCost=Number(e.target.value));
+    app.querySelector('#teamClassMastery').onchange=e=>editSkill(sk=>sk.unlockConditions.classMasteryLevel=Number(e.target.value));
+    app.querySelector('#teamUnlockQuests').onchange=e=>editSkill(sk=>sk.unlockConditions.quests=e.target.value.split(/[,，]/).map(s=>s.trim()).filter(Boolean));
+    app.querySelectorAll('[data-team-material-name]').forEach(el=>el.onchange=e=>editSkill(sk=>sk.unlockConditions.materials[Number(el.dataset.teamMaterialName)].name=e.target.value.trim()));
+    app.querySelectorAll('[data-team-material-quantity]').forEach(el=>el.onchange=e=>editSkill(sk=>sk.unlockConditions.materials[Number(el.dataset.teamMaterialQuantity)].quantity=Number(e.target.value)));
+    app.querySelectorAll('[data-team-material-delete]').forEach(el=>el.onclick=()=>{editSkill(sk=>sk.unlockConditions.materials.splice(Number(el.dataset.teamMaterialDelete),1));renderSkills();});
+    app.querySelector('#teamAddMaterial').onclick=()=>{const name=app.querySelector('#teamMaterialName').value.trim(),quantity=Number(app.querySelector('#teamMaterialQuantity').value);editSkill(sk=>sk.unlockConditions.materials.push({name,quantity}));renderSkills();};
+    app.querySelectorAll('.notice').forEach(el=>{if(el.textContent.includes('技能學習制'))el.textContent='技能永久解鎖由主角共用；學習與裝配由各隊伍獨立保存。技能效果不隨投入點數成長。';});
+  };
+  function teamSettingsPage(){ensureArrays();const p=data.balanceSettings.progression,t=data.teamSettings;
+    document.getElementById('app').innerHTML=card('隊伍配置規則',`<p>每個隊伍保存自己的職業、屬性與技能投入、技能槽、裝備與信物引用及上場夥伴。新增隊伍為空白；複製只複製配置。永久等級、解鎖、精通及物品共用。</p><div class="fields"><label>隊伍上限（1–12）<input data-team-setting="maxPlans" type="number" min="1" max="12" value="${t.maxPlans}"></label><label>缺少成本的舊技能預設學習點數<input data-team-setting="defaultLearnCost" type="number" min="0" max="10000" value="${t.defaultLearnCost}"></label></div><div class="fields">${[['starting','abilityPoints','起始能力點'],['levelRewards','abilityPoints','每級能力點'],['starting','skillPoints','起始技能點'],['levelRewards','skillPoints','每級技能點']].map(([group,k,label])=>`<label>${label}<input data-team-point-group="${group}" data-team-point-key="${k}" type="number" min="0" max="100000" value="${p[group][k]}"></label>`).join('')}</div><p class="mini-note">點數沿用 balanceSettings.progression，按全域等級計算每隊完整額度；創角免費技能與舊存檔額外點數以一次性永久額度保留。降低上限不刪除既有隊伍。各職業精通沿用既有 skills.mastery 經驗曲線與戰鬥取得量，沒有另一份曲線。</p>`);
+    document.querySelectorAll('[data-team-setting]').forEach(el=>el.onchange=e=>{const before=t[el.dataset.teamSetting];t[el.dataset.teamSetting]=Number(e.target.value);try{M.settings(t);markDirty();}catch(err){t[el.dataset.teamSetting]=before;alert(err.message);}});
+    document.querySelectorAll('[data-team-point-group]').forEach(el=>el.onchange=e=>{const group=el.dataset.teamPointGroup,k=el.dataset.teamPointKey,before=p[group][k];p[group][k]=Number(e.target.value);try{M.normalizeDocument(data);markDirty();}catch(err){p[group][k]=before;alert(err.message);}});
+  }
+  const renderBase=render;
+  render=function(){ensureArrays();if(currentSection==='teamSettings'){renderNav(true);teamSettingsPage();return;}return renderBase();};
+  const exportBase=globalThis.__EMBERWILD_MASTERY_EDITOR.cleanExport;
+  globalThis.__EMBERWILD_MASTERY_EDITOR.cleanExport=()=>M.normalizeDocument(exportBase());
+  globalThis.__EMBERWILD_TEAM_EDITOR={normalize:M.normalizeDocument,export:()=>M.normalizeDocument(exportBase())};
   requestEditorInitialRender();
 })();
 
