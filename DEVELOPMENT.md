@@ -22,3 +22,9 @@
 舊 JSON 未包含 EXP 專用倍率時，以原來的共用倍率補齊，保留自訂平衡的含義。共用 `progression.statsPerLevel` 只供缺少各職業成長的舊資料 fallback，設計器已隱藏；請編輯職業的獨立成長。
 
 完整數值表、三人隊模擬及測試說明位於遊戲 Repository 的 `docs/PROGRESSION_REDESIGN.md`。測試命令請參照遊戲 `tests/README.md`，並將本 Repository 的路徑交給 `EMBERWILD_BALANCE_ROOT`。
+
+## 夥伴內化成長與單一信物
+
+夥伴 `initialStats`／`growthPerLevel` 支援 12 個實際能力鍵；`equipmentInternalized=1` 表示已包含一次性普通裝備內化預算，避免重複加入。新增 `companionTokens` 管理目錄、複合屬性、特殊事件／能力與獨立掉落。契約 `companion-token-model-v1` 必須與遊戲 `js/items/companion-token-model.js` 一致。機率／能力倍率採 0～1 比例，複合屬性中的百分比採百分數；立即效果 duration=0，BUFF duration≥1。每個編輯器選項皆有對應遊戲實作。
+
+遊戲 `npm run test:tokens` 執行真正 JSON 下載、匯入與效果一致性測試；完整結果及初始成長／十件信物／掉落／遷移說明見遊戲 `docs/COMPANION_TOKENS.md`。此版仍只提交 chatgpt-dev，不合併 main。

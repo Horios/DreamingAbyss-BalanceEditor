@@ -5569,7 +5569,7 @@ requestEditorInitialRender();
 <script id="companion-model-v1">
 /* Shared game/editor contract. Ratings classify design; budgets only emit warnings. */
 (function(root,factory){const node=typeof module==='object'&&module.exports,api=factory(node?require('../balance/progression-model.js'):root.EmberwildProgression);if(node)module.exports=api;else root.EmberwildCompanions=api;})(globalThis,function(Progression){
-  const ratings=['D','C','B','A','S','SS','SSS'],statKeys=['hp','atk','def','crit','critDamage','speed'];
+  const ratings=['D','C','B','A','S','SS','SSS'],statKeys=['hp','atk','def','crit','critDamage','speed','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage'];
   const copy=x=>JSON.parse(JSON.stringify(x));
   const defaultPlans=[
     {id:10,job:0,role:'攻擊戰士',description:'劍術輸出、戰吼與破甲；優先提升攻擊。',names:['洛恩','雷昂','凱斯','艾伯'],points:[0,0,1],core:[0,2,4],active:[4,0],proc:[2],support:[0,2],weapon:'sword'},
@@ -5580,10 +5580,15 @@ requestEditorInitialRender();
   ].map(p=>({...p,rating:'D'}));
   function definition(plan,classes,settings){
     const cls=classes[plan.job],speed=settings?.combat?.speed||{},per=settings?.progression?.statsPerLevel||{};
-    return {initialStats:{hp:cls.hp,atk:cls.atk,def:cls.def,crit:plan.job===2?(settings?.progression?.baseCrit?.archer??.17):(settings?.progression?.baseCrit?.default??.07),critDamage:settings?.combat?.baseCritDamage??1.5,...cls.initialStats,speed:cls.initialStats?.speed??(speed.heroBase||[102,108,116,96])[plan.job]+(speed.heroPerLevel??.5),...plan.initialStats},growthPerLevel:{hp:per.hp??4,atk:per.attack??1,def:per.defense??1,crit:0,critDamage:0,...cls.growthPerLevel,speed:cls.growthPerLevel?.speed??speed.heroPerLevel??.5,...plan.growthPerLevel},growthSteps:copy(plan.growthSteps??cls.growthSteps??[])};
+    const out={initialStats:{...Object.fromEntries(statKeys.map(k=>[k,0])),hp:cls.hp,atk:cls.atk,def:cls.def,crit:plan.job===2?(settings?.progression?.baseCrit?.archer??.17):(settings?.progression?.baseCrit?.default??.07),critDamage:settings?.combat?.baseCritDamage??1.5,...cls.initialStats,speed:cls.initialStats?.speed??(speed.heroBase||[102,108,116,96])[plan.job]+(speed.heroPerLevel??.5),...plan.initialStats},growthPerLevel:{...Object.fromEntries(statKeys.map(k=>[k,0])),hp:per.hp??4,atk:per.attack??1,def:per.defense??1,...cls.growthPerLevel,speed:cls.growthPerLevel?.speed??speed.heroPerLevel??.5,...plan.growthPerLevel},growthSteps:copy(plan.growthSteps??cls.growthSteps??[])};
+    // Old definitions keep their custom growth and gain a conservative equipment
+    // budget once. Explicit v1 definitions contain that budget in their own fields.
+    if(plan.id!==undefined&&plan.equipmentInternalized!==1){const b=({10:[17,6,2,1.1,.65,.2],11:[21,5,3,1.5,.4,.35],12:[14,6,2,.85,.7,.18],13:[20,5,2,1.25,.5,.25],14:[15,6,2,.95,.65,.2]})[plan.id]||[17,6,2,1,.6,.2];['hp','atk','def'].forEach((k,i)=>{out.initialStats[k]+=b[i];out.growthPerLevel[k]+=b[i+3];});}
+    return out;
   }
   function validatePlanStats(p){
     if(p.rating!==undefined&&!ratings.includes(p.rating))throw Error('夥伴評級無效：'+p.id);
+    if(p.equipmentInternalized!==undefined&&p.equipmentInternalized!==1)throw Error('夥伴裝備內化版本無效：'+p.id);
     for(const field of ['initialStats','growthPerLevel'])if(p[field]!==undefined){
       const values=p[field];if(!values||typeof values!=='object'||Array.isArray(values)||Object.entries(values).some(([k,v])=>!statKeys.includes(k)||!Number.isFinite(v)||v<0)||field==='initialStats'&&['hp','atk'].some(k=>values[k]!==undefined&&values[k]<=0))throw Error('夥伴初始／成長資料無效：'+p.id);
     }
@@ -5601,7 +5606,7 @@ requestEditorInitialRender();
     return {base:sum(base),growth:sum(growth),baseStats:base,effectiveGrowth:growth,rawBase:base.hp+base.atk+base.def,rawGrowth:growth.hp+growth.atk+growth.def};
   }
   function defaults(classes,settings){
-    const per=settings?.progression?.statsPerPoint||{},weights={hp:1/(per.hp||3),atk:1/(per.attack||1),def:1/(per.defense||1),crit:100,critDamage:10,speed:.1};
+    const per=settings?.progression?.statsPerPoint||{},weights={...Object.fromEntries(statKeys.map(k=>[k,0])),hp:1/(per.hp||3),atk:1/(per.attack||1),def:1/(per.defense||1),crit:100,critDamage:10,speed:.1};
     const rows=defaultPlans.map(p=>totals(p,classes,settings,weights)),range=key=>({min:Math.floor(Math.min(...rows.map(r=>r[key]))*100)/100,max:Math.ceil(Math.max(...rows.map(r=>r[key]))*100)/100}),base=range('base'),growth=range('growth');
     const gap=key=>Math.ceil((Math.max(...rows.map(r=>r[key]))/Math.min(...rows.map(r=>r[key]))-1)*100);
     return {activeLimit:6,ratings:{weights,maxBaseGapPercent:gap('base'),maxGrowthGapPercent:gap('growth'),ranges:Object.fromEntries(ratings.map(r=>[r,{base:copy(base),growth:copy(growth)}]))}};
@@ -6123,7 +6128,7 @@ requestEditorInitialRender();
 
 <script id="companion-roster-editor-v1">
 (()=>{
-  const M=EmberwildCompanions,labels={hp:'HP',atk:'攻擊',def:'防禦',crit:'暴擊率（0～1）',critDamage:'暴擊傷害倍率',speed:'速度'};
+  const M=EmberwildCompanions,labels={hp:'HP',atk:'攻擊',def:'防禦',crit:'暴擊率（0～1）',critDamage:'暴擊傷害倍率',speed:'速度',pierce:'防禦穿透',defenseIgnore:'防禦無視（0～1）',lifesteal:'生命竊取（0～1）',evasion:'閃避（0～1）',elementBonus:'全屬性增傷（0～1）',bossDamage:'BOSS 增傷（0～1）'};
   const ensureBase=ensureArrays;
   ensureArrays=function(){const out=ensureBase();data.companionSettings??=M.defaults(data.classes,data.balanceSettings);for(const p of data.companions||[])p.rating??='D';return out;};
   const pos=SECTION_META.findIndex(([id])=>id==='companions');SECTION_META.splice(pos+1,0,['companionBalance','夥伴評級平衡']);
@@ -6250,4 +6255,131 @@ requestEditorInitialRender();
   };
   requestEditorInitialRender();
 })();
+</script>
+
+<script id="companion-token-model-v1">
+/* Shared token contract; loaded before save validation and embedded in the editor. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.EmberwildTokens=api;})(globalThis,function(){
+  'use strict';
+  const TYPE='companionToken',VERSION=1,copy=x=>JSON.parse(JSON.stringify(x));
+  const stats=['hp','atk','def','crit','critDamage','speed','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage'];
+  const effectKeys=['flatAttack','flatHp','flatDefense','attackPct','hpPct','defensePct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamagePct','speed','allCooldownReduction','dropRateBonus','basicAdvanceNextRound','basicElement','elementDamagePct','elementResistPct','raceDamagePct','skillEffectPct','skillCooldownReduction'];
+  const events=['battleStart','kill','receivedHit','basicHit','activeSkill','procSkill','skillCast','sameTarget','lowHealth','damage','round'];
+  const actions=['attack','guard','critical','power','heal','shield','extraDamage','damageBonus','healingBonus'];
+  const elements=['physical','fire','ice','wind','light','shadow'],races=['beast','plant','undead','construct','demon','spirit'];
+  const ability=(event,action,value,extra={})=>({event,action,value,chance:1,duration:2,cooldown:1,maxTriggers:0,threshold:0,...extra});
+  const token=(id,name,effects,ability)=>({id,name,description:name+'：所有夥伴通用的單一信物。',quality:1,effects,ability,drop:{enabled:true,weight:1,minLevel:1,maxLevel:60,maps:[],monsters:[],kinds:['normal','elite','boss','final']}});
+  const fx=(key,value)=>({key,value});
+  const defaults={schemaVersion:VERSION,qualityMultipliers:[1,1.12,1.25,1.4],drop:{enabled:true,chanceByDifficulty:[.008,.012,.016],qualityWeights:[65,25,9,1],minLevel:1,maxLevel:60,maps:[],monsters:[],kinds:['normal','elite','boss','final']},catalog:[
+    token('berserk','狂戰信物',[fx('flatAttack',2),fx('critDamage',5),fx('flatHp',6)],ability('kill','attack',.12)),
+    token('guardian','守護信物',[fx('flatHp',10),fx('flatDefense',2),fx('elementResistPct',3)],ability('receivedHit','guard',.10,{cooldown:2})),
+    token('pursuit','追擊信物',[fx('flatAttack',2),fx('speed',2),fx('crit',2)],ability('basicHit','extraDamage',.35,{chance:.18,duration:0})),
+    token('arcane','魔導信物',[fx('flatAttack',3),fx('pierce',1),fx('critDamage',3)],ability('activeSkill','damageBonus',.08,{duration:0,cooldown:0})),
+    token('echo','迴響信物',[fx('flatAttack',2),fx('speed',3),fx('flatHp',4)],ability('skillCast','power',.08,{cooldown:2})),
+    token('hunt','狩獵信物',[fx('flatAttack',2),fx('crit',2),fx('critDamage',5)],ability('sameTarget','damageBonus',.10,{threshold:3,duration:0,cooldown:0})),
+    token('prayer','祈禱信物',[fx('flatAttack',2),fx('flatHp',8),fx('flatDefense',1)],ability('activeSkill','healingBonus',.12,{duration:0,cooldown:0})),
+    token('revival','復甦信物',[fx('flatHp',12),fx('flatDefense',2),fx('evasion',1)],ability('lowHealth','shield',.18,{threshold:.3,maxTriggers:1,duration:0})),
+    token('plunder','掠奪信物',[fx('flatAttack',2),fx('flatHp',6),fx('speed',1)],ability('damage','heal',.04,{chance:.15,duration:0})),
+    token('endurance','持久信物',[fx('flatHp',10),fx('flatAttack',1),fx('flatDefense',1)],ability('round','attack',.10,{threshold:4,duration:3,maxTriggers:1}))
+  ]};
+  defaults.catalog[1].effects[2].element='physical';
+  function assert(ok,message){if(!ok)throw Error(message);}
+  const number=(n,lo=0,hi=1e6)=>typeof n==='number'&&Number.isFinite(n)&&n>=lo&&n<=hi;
+  const integer=(n,lo=0,hi=1e6)=>Number.isSafeInteger(n)&&n>=lo&&n<=hi;
+  const ident=s=>typeof s==='string'&&/^[a-zA-Z0-9_-]{1,100}$/.test(s);
+  function validateEffects(list){
+    assert(Array.isArray(list)&&list.length<=32,'信物複合屬性無效');
+    for(const e of list){assert(e&&effectKeys.includes(e.key)&&(e.key==='basicElement'?elements.includes(e.value):number(e.value)),'信物屬性無效');if(['elementDamagePct','elementResistPct'].includes(e.key))assert(elements.includes(e.element),'信物屬性元素無效');if(e.key==='raceDamagePct')assert(races.includes(e.race),'信物種族無效');if(['skillEffectPct','skillCooldownReduction'].includes(e.key))assert(integer(e.skill,0,63),'信物技能索引無效');}
+    return copy(list);
+  }
+  function validateAbility(a){
+    assert(a&&events.includes(a.event)&&actions.includes(a.action)&&number(a.value,0,10)&&number(a.chance,0,1)&&integer(a.duration,0,100)&&integer(a.cooldown,0,100)&&integer(a.maxTriggers,0,100)&&number(a.threshold,0,100),'信物特殊能力無效');
+    const allowed={battleStart:['attack','guard','critical','power','heal','shield'],kill:['attack','guard','critical','power','heal','shield'],receivedHit:['attack','guard','critical','power','heal','shield'],basicHit:['extraDamage','attack','critical','heal'],activeSkill:['damageBonus','healingBonus'],procSkill:['damageBonus','healingBonus'],skillCast:['attack','guard','critical','power','heal','shield'],sameTarget:['damageBonus'],lowHealth:['heal','shield','guard'],damage:['heal','shield'],round:['attack','guard','critical','power','heal','shield']};
+    assert(allowed[a.event].includes(a.action),'此信物事件不支援所選效果');
+    if(['attack','guard','critical','power'].includes(a.action))assert(a.duration>=1,'信物增益需要至少一回合');
+    else assert(a.duration===0,'立即信物效果的持續回合需為 0');
+    if(a.event==='lowHealth')assert(a.threshold>0&&a.threshold<=1,'低血量門檻需為 0～1');
+    if(['sameTarget','round'].includes(a.event))assert(integer(a.threshold,1,100),'攻擊次數／回合門檻需為正整數');
+    if(!['sameTarget','round','lowHealth'].includes(a.event))assert(a.threshold===0,'此信物事件不使用條件門檻');
+    return copy(a);
+  }
+  function validateDrop(d,global=false){
+    assert(d&&typeof d.enabled==='boolean'&&integer(d.minLevel,1,60)&&integer(d.maxLevel,d.minLevel,60)&&Array.isArray(d.maps)&&d.maps.every(x=>integer(x,0,999))&&Array.isArray(d.monsters)&&d.monsters.every(ident)&&Array.isArray(d.kinds)&&d.kinds.every(x=>['normal','elite','boss','final'].includes(x)),'信物掉落條件無效');
+    if(global){assert(Array.isArray(d.chanceByDifficulty)&&d.chanceByDifficulty.length===3&&d.chanceByDifficulty.every(x=>number(x,0,1))&&Array.isArray(d.qualityWeights)&&d.qualityWeights.length===4&&d.qualityWeights.every(x=>number(x))&&d.qualityWeights.some(x=>x>0),'信物掉落機率／品質權重無效');}else assert(number(d.weight),'信物掉落權重無效');
+    return copy(d);
+  }
+  function validateDefinition(d){assert(d&&ident(d.id)&&typeof d.name==='string'&&d.name.trim()&&d.name.length<=80&&!/[<>]/.test(d.name)&&typeof d.description==='string'&&d.description.length<=500&&integer(d.quality,0,3)&&(d.qualityFixed===undefined||typeof d.qualityFixed==='boolean'),'信物定義無效');return {...copy(d),effects:validateEffects(d.effects),ability:validateAbility(d.ability),drop:validateDrop(d.drop)};}
+  function normalize(raw){
+    if(raw===undefined)return copy(defaults);
+    assert(raw&&raw.schemaVersion===VERSION&&Array.isArray(raw.catalog)&&raw.catalog.length<=512&&Array.isArray(raw.qualityMultipliers)&&raw.qualityMultipliers.length===4&&raw.qualityMultipliers.every(x=>number(x,.01,10)),'信物設定無效');
+    const out={...copy(raw),catalog:raw.catalog.map(validateDefinition),drop:validateDrop(raw.drop,true)};
+    assert(new Set(out.catalog.map(x=>x.id)).size===out.catalog.length,'信物定義 ID 重複');return out;
+  }
+  const isToken=g=>g?.type===TYPE;
+  function validateItem(g,maxPlus=10){assert(isToken(g)&&ident(g.id)&&ident(g.tokenId)&&g.slot===4&&integer(g.job,0,0)&&integer(g.tier,1,12)&&integer(g.rar,0,3)&&integer(g.plus,0,maxPlus)&&typeof g.name==='string'&&g.name.length<=80&&!/[<>]/.test(g.name)&&Array.isArray(g.affix)&&g.affix.length===0&&(g.locked===undefined||typeof g.locked==='boolean'),'存檔信物無效');validateDefinition(g.snapshot);assert(g.snapshot.id===g.tokenId,'信物快照 ID 不符');assert(Array.isArray(g.qualityMultipliers)&&g.qualityMultipliers.length===4&&g.qualityMultipliers.every(x=>number(x,.01,10)),'信物品質快照無效');return g;}
+  function effectsFor(g,enhance=.05){const factor=g.qualityMultipliers[g.rar]*(1+g.plus*enhance);return g.snapshot.effects.map(e=>({...e,value:['basicElement','allCooldownReduction','skillCooldownReduction','basicAdvanceNextRound'].includes(e.key)?e.value:Number((e.value*factor).toFixed(6)),source:'token'}));}
+  function eligible(d,e){return d.enabled&&e.lv>=d.minLevel&&e.lv<=d.maxLevel&&(!d.maps.length||d.maps.includes(e.region))&&(!d.monsters.length||d.monsters.includes(e.monsterId))&&d.kinds.includes(e.kind);}
+  function weighted(list,weights,rng=Math.random){const sum=weights.reduce((a,b)=>a+b,0);if(sum<=0)return null;let v=rng()*sum;for(let i=0;i<list.length;i++){v-=weights[i];if(v<0)return list[i];}return list.at(-1);}
+  function prepareSave(raw,capacity){
+    if(raw?.version!==3)return raw;
+    const data=copy(raw);if(!Array.isArray(data.members))return data;
+    for(const h of data.members.slice(1))if(Array.isArray(h.equipped))h.equipped=h.equipped.map(()=>null);
+    if(data.companionEquipmentVersion===undefined){
+      // Worn gear already belongs to each old member's bag. Preserve its exact object
+      // and move only excess unowned entries to the existing persisted loot queue.
+      const keep=new Set(data.members[0]?.equipped?.filter(Boolean)||[]);let count=data.members.reduce((n,h)=>n+(h.bag?.length||0),0);
+      if(count>capacity){data.pendingGearLoot??=[];for(const h of [...data.members].reverse())if(Array.isArray(h.bag))h.bag=h.bag.filter(g=>{if(count>capacity&&!keep.has(g.id)&&g.id!==h.tokenId){data.pendingGearLoot.push(g);count--;return false;}return true;});}
+    }
+    data.companionEquipmentVersion=VERSION;return data;
+  }
+  return {TYPE,VERSION,stats,effectKeys,events,actions,defaults,copy,isToken,normalize,validateEffects,validateAbility,validateItem,effectsFor,eligible,weighted,prepareSave};
+});
+
+</script>
+<script id="companion-token-editor-v1">
+/* Companion token editor: every displayed option has a runtime implementation. */
+(()=>{
+  const M=EmberwildTokens,copy=M.copy;
+  const labels={flatAttack:'固定攻擊',flatHp:'固定 HP',flatDefense:'固定防禦',attackPct:'攻擊 %',hpPct:'HP %',defensePct:'防禦 %',crit:'暴擊百分點',critDamage:'暴傷百分點',pierce:'固定穿透',defenseIgnore:'防禦無視 %',lifesteal:'生命竊取 %',evasion:'閃避 %',elementBonus:'全屬性增傷 %',bossDamagePct:'BOSS 增傷 %',speed:'固定速度',allCooldownReduction:'全部技能減冷卻',dropRateBonus:'掉寶率 %',basicAdvanceNextRound:'普攻後行動提前',basicElement:'普攻屬性',elementDamagePct:'指定屬性增傷 %',elementResistPct:'指定屬性抗性 %',raceDamagePct:'指定種族增傷 %',skillEffectPct:'指定核心技能增幅 %',skillCooldownReduction:'指定核心技能減冷卻'};
+  const eventLabels={battleStart:'戰鬥開始',kill:'擊殺後',receivedHit:'受傷後',basicHit:'普攻命中',activeSkill:'主動技能',procSkill:'觸發技能',skillCast:'技能施放後',sameTarget:'連續普攻同目標',lowHealth:'低血量受擊',damage:'造成傷害',round:'持續戰鬥回合'};
+  const actionLabels={attack:'攻擊增益',guard:'減傷增益',critical:'暴擊增益',power:'技能威力增益',heal:'回復生命上限比例',shield:'生命上限比例護盾',extraDamage:'攻擊倍率追擊',damageBonus:'技能／普攻增傷',healingBonus:'治療／護盾增幅'};
+  const allowed={battleStart:['attack','guard','critical','power','heal','shield'],kill:['attack','guard','critical','power','heal','shield'],receivedHit:['attack','guard','critical','power','heal','shield'],basicHit:['extraDamage','attack','critical','heal'],activeSkill:['damageBonus','healingBonus'],procSkill:['damageBonus','healingBonus'],skillCast:['attack','guard','critical','power','heal','shield'],sameTarget:['damageBonus'],lowHealth:['heal','shield','guard'],damage:['heal','shield'],round:['attack','guard','critical','power','heal','shield']};
+  let selectedToken=0;
+  const ensureBase=ensureArrays;
+  ensureArrays=function(){const out=ensureBase();data.companionTokens??=M.normalize();for(const p of data.companions||[])if(p.equipmentInternalized!==1){const def=EmberwildCompanions.definition(p,data.classes,data.balanceSettings);Object.assign(p,def,{equipmentInternalized:1});}return out;};
+  SECTION_META.splice(SECTION_META.findIndex(([id])=>id==='companions')+1,0,['companionTokens','夥伴信物']);
+  const countBase=count;
+  count=function(section,normalized=false){return section==='companionTokens'?(data.companionTokens?.catalog?.length||0):countBase(section,normalized);};
+  const validateBase=validateData;
+  validateData=function(){const issues=validateBase();try{const cfg=M.normalize(data.companionTokens),maps=data.balanceSettings.maps.catalog,monsters=data.balanceSettings.monsters.catalog;for(const d of [cfg.drop,...cfg.catalog.map(x=>x.drop)])if(d.maps.some(i=>!maps[i])||d.monsters.some(id=>!monsters.some(m=>m.id===id)))issues.push('信物掉落指定了不存在的地圖或怪物。');}catch(e){issues.push(e.message);}return issues;};
+  const field=(label,path,value,type='number')=>`<label>${label}<input data-token-field="${path}" type="${type}" ${type==='number'?'min="0" step="any"':''} value="${esc(value)}"></label>`;
+  const select=(label,path,value,options)=>`<label>${label}<select data-token-field="${path}">${options.map(([v,t])=>`<option value="${v}" ${String(value)===String(v)?'selected':''}>${esc(t)}</option>`).join('')}</select></label>`;
+  function dropFields(d,prefix,global=false){return `<div class="companion-fields">${select('啟用掉落',prefix+'.enabled',d.enabled,[[true,'啟用'],[false,'停用']])}${field('最低怪物等級',prefix+'.minLevel',d.minLevel)}${field('最高怪物等級',prefix+'.maxLevel',d.maxLevel)}${global?d.chanceByDifficulty.map((n,i)=>field(['普通','困難','地獄'][i]+'機率（0～1）',prefix+'.chanceByDifficulty.'+i,n)).join('')+d.qualityWeights.map((n,i)=>field(['普通','精良','稀有','傳說'][i]+'品質權重',prefix+'.qualityWeights.'+i,n)).join(''):field('個別掉落權重',prefix+'.weight',d.weight)}${field('地圖索引（逗號分隔；空白＝全部）',prefix+'.maps',d.maps.join(','),'text')}${field('怪物 ID（逗號分隔；空白＝全部）',prefix+'.monsters',d.monsters.join(','),'text')}${field('遭遇種類（逗號分隔）',prefix+'.kinds',d.kinds.join(','),'text')}</div>`;}
+  function renderTokens(){
+    const cfg=data.companionTokens,list=cfg.catalog;selectedToken=Math.min(selectedToken,Math.max(0,list.length-1));const d=list[selectedToken],p='catalog.'+selectedToken;
+    let body='<p>沒有信物，請新增。</p>';
+    if(d){const a=d.ability;body=`<div class="actions"><button id="duplicateToken">複製信物</button><button id="deleteToken" class="danger">刪除信物</button></div><div class="companion-fields">${field('信物 ID',p+'.id',d.id,'text')}${field('名稱',p+'.name',d.name,'text')}${field('描述',p+'.description',d.description,'text')}${select('預設／固定品質',p+'.quality',d.quality,[[0,'普通'],[1,'精良'],[2,'稀有'],[3,'傳說']])}${select('掉落品質來源',p+'.qualityFixed',!!d.qualityFixed,[[false,'依全域品質權重'],[true,'使用此固定品質']])}</div><h3>複合屬性</h3><p class="mini-note">品質與強化乘算屬性數值；冷卻、行動提前與元素保持固定。百分比使用百分數，例 5 表示 5%。</p>${d.effects.map((e,i)=>`<div class="companion-fields" data-effect-row="${i}">${select('屬性',p+'.effects.'+i+'.key',e.key,M.effectKeys.map(k=>[k,labels[k]]))}${e.key==='basicElement'?select('元素',p+'.effects.'+i+'.value',e.value,Object.entries(ELEMENT_LABELS)):field('數值',p+'.effects.'+i+'.value',e.value)}${['elementDamagePct','elementResistPct'].includes(e.key)?select('元素',p+'.effects.'+i+'.element',e.element,Object.entries(ELEMENT_LABELS)):''}${e.key==='raceDamagePct'?select('種族',p+'.effects.'+i+'.race',e.race,Object.entries(RACE_LABELS)):''}${['skillEffectPct','skillCooldownReduction'].includes(e.key)?field('核心技能索引',p+'.effects.'+i+'.skill',e.skill):''}<button data-delete-effect="${i}">移除屬性</button></div>`).join('')}<button id="addTokenEffect">新增屬性</button><h3>主要特殊能力</h3><div class="companion-fields">${select('觸發事件',p+'.ability.event',a.event,M.events.map(k=>[k,eventLabels[k]]))}${select('能力類型',p+'.ability.action',a.action,allowed[a.event].map(k=>[k,actionLabels[k]]))}${field('能力倍率（0.1＝10%）',p+'.ability.value',a.value)}${field('觸發機率（0～1）',p+'.ability.chance',a.chance)}${['attack','guard','critical','power'].includes(a.action)?field('持續戰鬥回合',p+'.ability.duration',a.duration):''}${field('冷卻戰鬥回合',p+'.ability.cooldown',a.cooldown)}${field('每場觸發上限（0＝不限）',p+'.ability.maxTriggers',a.maxTriggers)}${['lowHealth','sameTarget','round'].includes(a.event)?field(a.event==='lowHealth'?'血量門檻比例':a.event==='sameTarget'?'連續普攻次數':'戰鬥回合門檻',p+'.ability.threshold',a.threshold):''}</div><p class="mini-note">增益使用既有 BUFF；追擊只追加一次既有傷害結算，不發動技能或遞迴信物效果。低血量需存活；持續回合與冷卻依完整戰鬥回合。技能增傷區分主動／觸發並包含合法的一層誘發；連擊僅計普通攻擊。</p><h3>個別掉落條件</h3>${dropFields(d.drop,p+'.drop')}`;}
+    document.getElementById('app').innerHTML=sectionHead('夥伴信物','夥伴可使用單一信物；主角不能使用。沿用共用背包與強化，新增獨立掉落判定。','<button id="newToken" class="primary">新增信物</button>')+card('全域掉落與品質',dropFields(cfg.drop,'drop',true)+`<h3>品質屬性倍率</h3><div class="companion-fields">${cfg.qualityMultipliers.map((v,i)=>field(['普通','精良','稀有','傳說'][i]+'倍率','qualityMultipliers.'+i,v)).join('')}</div><p class="mini-note">獨立掉落不占用一般物品 maxDrops 配額；maxDrops=0 的怪物仍禁止信物。最多每隻一件，使用現有全隊掉寶增益；地圖、怪物清單為空代表全部。</p>`)+`<div class="companion-layout"><div class="card"><div class="list">${list.map((t,i)=>`<button data-token-select="${i}" class="listitem ${i===selectedToken?'active':''}">${esc(t.name)} · ${esc(t.id)}</button>`).join('')}</div></div><div class="card"><div class="card-b">${body}</div></div></div>`;
+    const app=document.getElementById('app');app.querySelectorAll('[data-token-select]').forEach(el=>el.onclick=()=>{selectedToken=Number(el.dataset.tokenSelect);render();});
+    function unique(){let n=1;while(list.some(t=>t.id==='token_'+n))n++;return 'token_'+n;}
+    document.getElementById('newToken').onclick=()=>{const t=copy(M.defaults.catalog[0]);t.id=unique();t.name='新信物';list.push(t);selectedToken=list.length-1;markDirty();render();};
+    document.getElementById('duplicateToken')?.addEventListener('click',()=>{const t=copy(d);t.id=unique();t.name+=' 副本';list.push(t);selectedToken=list.length-1;markDirty();render();});
+    document.getElementById('deleteToken')?.addEventListener('click',()=>{list.splice(selectedToken,1);markDirty();render();});
+    document.getElementById('addTokenEffect')?.addEventListener('click',()=>{d.effects.push({key:'flatAttack',value:1});markDirty();render();});
+    app.querySelectorAll('[data-delete-effect]').forEach(el=>el.onclick=()=>{d.effects.splice(Number(el.dataset.deleteEffect),1);markDirty();render();});
+    app.querySelectorAll('[data-token-field]').forEach(el=>el.onchange=()=>{
+      const path=el.dataset.tokenField.split('.'),key=path.pop();let obj=cfg;for(const k of path)obj=obj[k];
+      obj[key]=['enabled','qualityFixed'].includes(key)?el.value==='true':['maps','monsters','kinds'].includes(key)?el.value.split(',').map(x=>x.trim()).filter(Boolean).map(x=>key==='maps'?Number(x):x):el.type==='number'||key==='quality'?Number(el.value):el.value;
+      if(key==='event'){obj.action=allowed[obj.event][0];obj.threshold=obj.event==='lowHealth'?.3:['sameTarget','round'].includes(obj.event)?3:0;obj.duration=['damageBonus','healingBonus','extraDamage','heal','shield'].includes(obj.action)?0:2;}
+      if(key==='action')obj.duration=['attack','guard','critical','power'].includes(obj.action)?2:0;
+      if(key==='key'){obj.value=obj.key==='basicElement'?'physical':1;delete obj.element;delete obj.race;delete obj.skill;if(['elementDamagePct','elementResistPct'].includes(obj.key))obj.element='fire';if(obj.key==='raceDamagePct')obj.race='beast';if(['skillEffectPct','skillCooldownReduction'].includes(obj.key))obj.skill=0;}
+      markDirty();render();
+    });
+  }
+  const ELEMENT_LABELS={physical:'物理',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'},RACE_LABELS={beast:'野獸',plant:'植物',undead:'不死',construct:'構造',demon:'惡魔',spirit:'精靈'};
+  const renderBase=render;
+  render=function(){ensureArrays();if(currentSection==='companionTokens'){renderNav(true);renderTokens();return;}const out=renderBase();if(currentSection==='companions'){const el=document.getElementById('companionWeapon');if(el){const label=el.closest('label');label.firstChild.textContent='職業內建武器定位（技能條件）';}document.querySelector('.companion-fields')?.insertAdjacentHTML('afterbegin','<p class="full mini-note">夥伴不使用一般裝備；裝備內化已包含於獨立初始／成長數值。循環配點與二轉仍沿用既有流程，請勿再重複加回。特殊屬性支援固定值與零成長。</p>');}return out;};
+  requestEditorInitialRender();
+})();
+
 </script>
