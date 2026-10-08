@@ -36,3 +36,11 @@
 每個核心與輔助技能的 `learnCost` 是本隊技能點成本，`unlockConditions.classMasteryLevel/quests/materials` 是全域永久條件。材料只付一次；既有等級、二轉、武器／元素精通門檻與曲線繼續使用原有效來源。編輯器正規化保留既有巢狀物件，避免事件引用失效。降低遊戲點數或刪除技能前需先調整已保存的方案，遊戲會拒絕會破壞現有配置／永久成果的 JSON。
 
 `npm run test:teams` 在遊戲 Repository 執行共用契約、實際遊戲模組與 Chromium 欄位／JSON 下載／匯入／重新整理測試。完整交付紀錄見公開遊戲 `docs/TEAM_BUILDS.md`。設計器保持私有，下載此分支 `balance-editor.html` 後在本機開啟；不新增公開 hosting，不合併 main。
+
+## Lucide 圖示製作器擴充
+
+沿用 `skillIcons`／`iconType=custom:<id>` 與原有圖層編輯器。Lucide 原名保存於 `layers[].icon=lucide:<name>`，明確清除為 `none`，整體外觀／動畫為可選 `appearance`，不保存 SVG HTML 或圖庫瀏覽狀態。原本內建圖示與基本圖形繼續可用。
+
+固定 `lucide-static@1.53.0` 的 1,869 個本地 SVG。`lucide-catalog-v1`、`skill-icon-library-v1`、`skill-icons-shared-style` 必須與公開遊戲的 `js/ui/lucide-catalog.js`、`js/ui/skill-icon-library.js`、`css/skill-icons.css` 完全一致；使用遊戲的 `tools/sync-icon-resources.cjs` 同步，勿建立另一份設定來源。完整 ISC／Feather MIT 授權包含於圖庫嵌入註解。
+
+圖標共用既有文字 CSS keyframes，只新增 SVG 旋轉；文字稀有度設計器及其共用 CSS 不改動。公開遊戲 `npm run test:icons` 執行契約、離線模式及 Chromium 實際設計、JSON 下載／匯入／重載與遊戲顯示。詳細使用、模型、授權、限制及修改檔案見遊戲 `docs/ICON_DESIGNER.md`。仍只提交 chatgpt-dev。
