@@ -31,6 +31,19 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
 .sidebar{border-right:1px solid var(--line);padding:12px;position:sticky;top:58px;height:calc(100vh - 58px);overflow:auto}
 .navbtn{display:flex;width:100%;align-items:center;justify-content:space-between;background:transparent;border-color:transparent;text-align:left;margin:2px 0}
 .navbtn.active{background:var(--panel2);border-color:var(--line)}
+.nav-group{margin:6px 0;border-top:1px solid var(--line);padding-top:6px}
+.nav-group summary{display:flex;align-items:center;gap:8px;padding:9px 8px;border-radius:8px;cursor:pointer;font-weight:650;list-style:none}
+.nav-group summary::-webkit-details-marker{display:none}
+.nav-group summary::before{content:"›";color:var(--muted);transition:transform .15s}
+.nav-group[open] summary::before{transform:rotate(90deg)}
+.nav-group summary:hover{background:var(--panel2)}
+.nav-group.has-active summary{color:var(--accent)}
+.nav-group summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.nav-group-count{margin-left:auto;font-size:11px;color:var(--muted);font-weight:400}
+.nav-group-items{padding-left:10px;margin-left:8px;border-left:1px solid var(--line)}
+.nav-group-items .navbtn{gap:6px;font-size:13px;padding:7px 8px}
+.nav-group-items .navbtn>span:first-child{min-width:0;overflow-wrap:anywhere}
+.nav-group-items .badge{flex-shrink:0}
 .badge{font-size:11px;color:var(--muted);padding:2px 6px;border:1px solid var(--line);border-radius:999px}
 .main{padding:18px;min-width:0}
 .section-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
@@ -93,8 +106,7 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
 .saved::before{content:"● ";color:var(--ok)}
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
-  .sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);display:flex;gap:4px;overflow:auto;white-space:nowrap}
-  .navbtn{width:auto}
+  .sidebar{position:static;height:auto;max-height:45vh;border-right:0;border-bottom:1px solid var(--line);overflow:auto}
   .grid2{grid-template-columns:1fr}
   .list{max-height:260px}
   .fields{grid-template-columns:1fr}
@@ -184,6 +196,15 @@ const SECTION_META = [
   ["balance","詞條／元素設定"],
   ["raw","原始 JSON"]
 ];
+const NAV_GROUPS = [
+  ["characters","角色與夥伴",["classes","companions","companionSkills","balanceSettings:progression"]],
+  ["skillsCombat","技能與戰鬥",["skills","passives","statuses","balanceSettings:skills","damageFormula","balanceSettings:combat"]],
+  ["equipment","裝備與詞條",["equipment","equipmentPower","affixPools","balance","balanceSettings:equipment"]],
+  ["worldRewards","世界與獎勵",["world","balanceSettings:difficulty","balanceSettings:rewards","balanceSettings:drops"]],
+  ["itemsEconomy","道具與經濟",["items","potions","starterPacks","shopSettings","balanceSettings:quests","balanceSettings:economy"]],
+  ["tools","介面與工具",["textRarity","iconMaker","uiText","balanceSettings:meta","raw"]]
+];
+const expandedNavGroups = new Set();
 
 const ELEMENTS = ["physical","fire","ice","wind","light","shadow"];
 const ACTIVATIONS = ["active","proc"];
@@ -678,14 +699,33 @@ function count(section,normalized=false){
 function renderNav(normalized=false){
   if(!normalized)ensureArrays();
   const nav=document.getElementById("nav");
-  nav.innerHTML=SECTION_META.map(([id,label])=>{
+  const scrollTop=nav.scrollTop;
+  nav.querySelectorAll("[data-nav-group]").forEach(group=>{
+    if(group.open)expandedNavGroups.add(group.dataset.navGroup);
+    else expandedNavGroups.delete(group.dataset.navGroup);
+  });
+  const pages=new Map(SECTION_META),assigned=new Set(["overview"]);
+  const button=([id,label])=>{
     const n=count(id,true);
     return `
-    <button class="navbtn ${currentSection===id?"active":""}" data-sec="${id}">
-      <span>${label}</span>${n!==""?`<span class="badge">${n}</span>`:""}
+    <button type="button" class="navbtn ${currentSection===id?"active":""}" data-sec="${esc(id)}" ${currentSection===id?'aria-current="page"':""}>
+      <span>${esc(label)}</span>${n!==""?`<span class="badge">${esc(n)}</span>`:""}
     </button>`;
+  };
+  const groups=NAV_GROUPS.map(([id,label,sections])=>({id,label,entries:sections.filter(sec=>pages.has(sec)).map(sec=>{assigned.add(sec);return [sec,pages.get(sec)];})}));
+  // Keep future extension pages reachable even before they receive a category.
+  groups.find(group=>group.id==="tools").entries.push(...SECTION_META.filter(([id])=>!assigned.has(id)));
+  nav.innerHTML=(pages.has("overview")?button(["overview",pages.get("overview")]):"")+groups.map(group=>{
+    if(!group.entries.length)return "";
+    const active=group.entries.some(([id])=>id===currentSection);
+    if(active)expandedNavGroups.add(group.id);
+    return `<details class="nav-group ${active?"has-active":""}" data-nav-group="${group.id}" ${expandedNavGroups.has(group.id)?"open":""}>
+      <summary><span>${esc(group.label)}</span><span class="nav-group-count">${group.entries.length} 項</span></summary>
+      <div class="nav-group-items">${group.entries.map(button).join("")}</div>
+    </details>`;
   }).join("");
   nav.querySelectorAll("[data-sec]").forEach(b=>b.onclick=()=>{currentSection=b.dataset.sec; render();});
+  nav.scrollTop=scrollTop;
 }
 function render(){
   ensureArrays();
