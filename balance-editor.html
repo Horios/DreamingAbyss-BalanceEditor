@@ -197,7 +197,7 @@ const SECTION_META = [
   ["raw","原始 JSON"]
 ];
 const NAV_GROUPS = [
-  ["characters","角色與夥伴",["classes","companions","companionSkills","balanceSettings:progression"]],
+  ["characters","角色與夥伴",["classes","companions","balanceSettings:progression"]],
   ["skillsCombat","技能與戰鬥",["skills","passives","statuses","balanceSettings:skills","damageFormula","balanceSettings:combat"]],
   ["equipment","裝備與詞條",["equipment","equipmentPower","affixPools","balance","balanceSettings:equipment"]],
   ["worldRewards","世界與獎勵",["world","balanceSettings:difficulty","balanceSettings:rewards","balanceSettings:drops"]],
@@ -5240,24 +5240,49 @@ requestEditorInitialRender();
 /* Ownership uses the existing skill pools and stable indices; migration only appends. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.EmberwildCompanionSkills=api;})(globalThis,function(){
   const copy=x=>JSON.parse(JSON.stringify(x));
-  function cloneSkills(doc,p){
+  function cloneSkills(doc,p,ownerId){
     const core=doc.classes[p.job].skills,support=doc.supportSkills[p.job],remap=new Map();
-    for(const i of p.core){const sk=core[i];if(!sk)throw Error('夥伴核心技能不存在：'+p.id);if(core.length>=64)throw Error('此職業核心技能最多 64 個');const next=copy(sk);next.id='partner'+p.id+'-core'+core.length;next.partnerId=p.id;next.usageScope='character';next.requiresAdvanced=false;next.mastery=null;next.requiredMastery=null;next.requiredMasteryLevel=0;remap.set(i,core.length);core.push(next);}
+    const indices=[...new Set([...p.core,...core.flatMap((sk,i)=>ownerId!==undefined&&sk.partnerId===ownerId?[i]:[])])];
+    for(const i of indices){const sk=core[i];if(!sk)throw Error('夥伴核心技能不存在：'+p.id);if(core.length>=64)throw Error('此職業核心技能最多 64 個');const next=copy(sk);next.id='partner'+p.id+'-core'+core.length;next.partnerId=p.id;next.usageScope='character';next.requiresAdvanced=false;next.mastery=null;next.requiredMastery=null;next.requiredMasteryLevel=0;remap.set(i,core.length);core.push(next);}
     for(const [old,index] of remap){const next=core[index];for(const target of next.induction?.targets||[])if(target.kind==='skill'){const match=[...remap].find(([source])=>core[source].id===target.skillId);if(match)target.skillId=core[match[1]].id;}}
     p.core=p.core.map(i=>remap.get(i));p.active=p.active.map(i=>remap.get(i));p.proc=p.proc.map(i=>remap.get(i));
-    p.support=p.support.map(i=>{const sk=support[i];if(!sk)throw Error('夥伴輔助技能不存在：'+p.id);if(support.length>=64)throw Error('此職業輔助技能最多 64 個');const next=copy(sk);next.id='partner'+p.id+'-support'+support.length;next.partnerId=p.id;next.mastery=null;next.requiredMastery=null;next.requiredMasteryLevel=0;support.push(next);return support.length-1;});
+    const supportMap=new Map(),supportIndices=[...new Set([...p.support,...support.flatMap((sk,i)=>ownerId!==undefined&&sk.partnerId===ownerId?[i]:[])])];
+    for(const i of supportIndices){const sk=support[i];if(!sk)throw Error('夥伴輔助技能不存在：'+p.id);if(support.length>=64)throw Error('此職業輔助技能最多 64 個');const next=copy(sk);next.id='partner'+p.id+'-support'+support.length;next.partnerId=p.id;next.mastery=null;next.requiredMastery=null;next.requiredMasteryLevel=0;supportMap.set(i,support.length);support.push(next);}p.support=p.support.map(i=>supportMap.get(i));
   }
-  function clonePassives(doc,p){
-    p.passives=(p.passives||[]).map(id=>{const d=doc.passiveDefinitions.find(x=>x.id===id);if(!d)throw Error('夥伴被動不存在：'+p.id);if(doc.passiveDefinitions.length>=512)throw Error('被動最多 512 個');const next=copy(d);let n=1;while(doc.passiveDefinitions.some(x=>x.id==='partner'+p.id+'-passive'+n))n++;next.id='partner'+p.id+'-passive'+n;next.partnerId=p.id;next.requiredLevel=d.requiredLevel??1;doc.passiveDefinitions.push(next);return next.id;});
+  function clonePassives(doc,p,ownerId){
+    const ids=[...new Set([...(p.passives||[]),...doc.passiveDefinitions.filter(d=>ownerId!==undefined&&d.partnerId===ownerId).map(d=>d.id)])],remap=new Map();
+    for(const id of ids){const d=doc.passiveDefinitions.find(x=>x.id===id);if(!d)throw Error('夥伴被動不存在：'+p.id);if(doc.passiveDefinitions.length>=512)throw Error('被動最多 512 個');const next=copy(d);let n=1;while(doc.passiveDefinitions.some(x=>x.id==='partner'+p.id+'-passive'+n))n++;next.id='partner'+p.id+'-passive'+n;next.partnerId=p.id;next.requiredLevel=d.requiredLevel??1;doc.passiveDefinitions.push(next);remap.set(id,next.id);}p.passives=(p.passives||[]).map(id=>remap.get(id));
   }
   function migrate(doc){
-    if(doc.companionSkillVersion===1)return doc;
-    if(doc.companionSkillVersion!==undefined)throw Error('夥伴技能版本無效');
-    for(const p of doc.companions||[]){cloneSkills(doc,p);clonePassives(doc,p);}
-    doc.companionSkillVersion=1;return doc;
+    if(doc.companionSkillVersion!==1){
+      if(doc.companionSkillVersion!==undefined)throw Error('夥伴技能版本無效');
+      for(const p of doc.companions||[]){
+        if(!(p.core||[]).every(i=>doc.classes[p.job].skills[i]?.partnerId===p.id)||!(p.support||[]).every(i=>doc.supportSkills[p.job][i]?.partnerId===p.id))cloneSkills(doc,p);
+        if(!(p.passives||[]).every(id=>doc.passiveDefinitions.find(d=>d.id===id)?.partnerId===p.id))clonePassives(doc,p);
+      }
+      doc.companionSkillVersion=1;
+    }
+    if(doc.companionNameVersion===1)return doc;
+    if(doc.companionNameVersion!==undefined)throw Error('夥伴名稱版本無效');
+    // Work on a copy so an oversized legacy name pool cannot leave a partial migration.
+    const next=copy(doc),list=[],used=new Set();let id=Math.max(14,...(next.companions||[]).map(p=>p.id))+1;
+    for(const p of next.companions||[]){
+      const names=p.name!==undefined?[p.name]:[...new Set(p.names||[])];
+      if(!names.length)throw Error('夥伴缺少角色名稱：'+p.id);
+      for(let n=0;n<names.length;n++){
+        const name=names[n];
+        if(typeof name!=='string'||!name.trim()||name!==name.trim()||Array.from(name).length>20||/[\u0000-\u001f\u007f]/.test(name)||used.has(name))throw Error('夥伴名稱無效或重複：'+name);
+        used.add(name);const person=n===0?p:copy(p);person.name=name;delete person.role;delete person.names;
+        if(n){person.statTemplateId=p.statTemplateId??p.id;person.id=id++;cloneSkills(next,person,p.id);clonePassives(next,person,p.id);}
+        list.push(person);if(list.length>512||person.id>1000000000)throw Error('拆分後夥伴數量或 ID 超過上限');
+      }
+    }
+    next.companions=list;next.companionNameVersion=1;Object.assign(doc,next);return doc;
   }
   function validate(doc){
     if(doc.companionSkillVersion!==1)throw Error('夥伴技能版本無效');
+    if(doc.companionNameVersion!==1)throw Error('夥伴名稱版本無效');
+    const names=new Set();for(const p of doc.companions||[]){if(typeof p.name!=='string'||!p.name.trim()||p.name!==p.name.trim()||Array.from(p.name).length>20||/[\u0000-\u001f\u007f]/.test(p.name)||names.has(p.name)||p.role!==undefined||p.names!==undefined)throw Error('夥伴角色名稱無效或重複：'+p.id);names.add(p.name);}
     for(let job=0;job<doc.classes.length;job++)for(const pool of [doc.classes[job].skills,doc.supportSkills[job]]){
       if(!Array.isArray(pool)||pool.length>64)throw Error('技能池最多 64 個');
       for(const sk of pool)if(sk.partnerId!=null&&(!Number.isInteger(sk.partnerId)||!doc.companions.some(p=>p.id===sk.partnerId&&p.job===job)))throw Error('技能指定夥伴不存在或職業不符：'+sk.name);
@@ -5357,11 +5382,11 @@ requestEditorInitialRender();
   const baseEnsure=ensureArrays;
   ensureArrays=function(){baseEnsure();if(data.companions===undefined)data.companions=structuredClone(defaults);if(data.passiveDefinitions===undefined)data.passiveDefinitions=EmberwildPassives.copy(EmberwildPassives.defaults);for(const p of data.companions||[]){if(p.passives===undefined)p.passives=EmberwildPassives.assignments(undefined,p.id);for(const key of ['mastery','masteries','masteryLevel','requiredMastery','requiredMasteryLevel'])delete p[key];}};
   const pos=SECTION_META.findIndex(([id])=>id==='classes');
-  SECTION_META.splice(pos+1,0,['companions','夥伴角色']);
+  SECTION_META.splice(pos+1,0,['companions','夥伴設計']);
   const baseCount=count;
   count=function(section,normalized=false){if(section==='companions'){if(!normalized)ensureArrays();return Array.isArray(data.companions)?data.companions.length:0;}return baseCount(section,normalized);};
   let selectedId=10;
-  globalThis.selectCompanionDesign=id=>{selectedId=id;currentSection='companions';render();};
+  globalThis.selectCompanionDesign=id=>{selectedId=id;selected.companionSkillOwner=id;selected.companionTab='profile';currentSection='companions';render();};
   const coreSkills=p=>data.classes?.[p.job]?.skills||[];
   const supports=p=>data.supportSkills?.[p.job]||[];
   const kind=sk=>sk?.activation;
@@ -5374,8 +5399,8 @@ requestEditorInitialRender();
       const label='夥伴 '+(p?.id??'?');
       if(!Number.isInteger(p?.id)||p.id<10||p.id>999||ids.has(p.id)){issues.push(label+' 的 ID 無效或重複。');continue;}ids.add(p.id);
       if(!Number.isInteger(p.job)||p.job<0||p.job>=data.classes.length){issues.push(label+' 的職業無效。');continue;}
-      if(typeof p.role!=='string'||!p.role.trim()||p.role.length>40||typeof p.description!=='string'||p.description.length>200||typeof p.weapon!=='string'||p.weapon.length>80)issues.push(label+' 的定位、說明或武器無效。');
-      if(!Array.isArray(p.names)||!p.names.length||p.names.length>30||p.names.some(n=>typeof n!=='string'||!n.trim()||n!==n.trim()||Array.from(n).length>20||/[\u0000-\u001f\u007f]/.test(n)))issues.push(label+' 需要 1～30 個有效名字，每個最多 20 字。');
+      if(typeof p.description!=='string'||p.description.length>200||typeof p.weapon!=='string'||p.weapon.length>80)issues.push(label+' 的說明或武器無效。');
+      if(typeof p.name!=='string'||!p.name.trim()||p.name!==p.name.trim()||Array.from(p.name).length>20||/[\u0000-\u001f\u007f]/.test(p.name)||list.some(x=>x!==p&&x.name===p.name))issues.push(label+' 需要唯一角色名稱，最多 20 字。');
       if(!Array.isArray(p.points)||!p.points.length||p.points.length>32||p.points.some(n=>!Number.isInteger(n)||n<0||n>2))issues.push(label+' 的循環配點只能填 0、1、2。');
       for(const key of ['core','active','proc','support'])if(!Array.isArray(p[key])||p[key].length>64||new Set(p[key]).size!==p[key].length||p[key].some(n=>!Number.isInteger(n)||n<0||n>63))issues.push(label+' 的 '+key+' 技能清單無效或重複。');
       if(Array.isArray(p.core)&&Array.isArray(p.active)&&Array.isArray(p.proc)&&Array.isArray(p.support)){
@@ -5391,18 +5416,18 @@ requestEditorInitialRender();
   validateData=function(){return [...baseValidate(),...validateCompanions()];};
   function renderCompanions(){
     const app=document.getElementById('app'),list=Array.isArray(data.companions)?data.companions:[];
-    if(!list.length){app.innerHTML=sectionHead('夥伴角色','目前 JSON 的 companions 格式錯誤。請在原始 JSON 修正。');return;}
-    let p=list.find(x=>x?.id===selectedId)||list[0];selectedId=p.id;
+    if(!list.length){app.innerHTML=sectionHead('夥伴設計','目前 JSON 的 companions 格式錯誤。請在原始 JSON 修正。');return;}
+    let p=list.find(x=>x?.id===(selected.companionSkillOwner??selectedId))||list[0];selectedId=p.id;selected.companionSkillOwner=p.id;
     const skills=coreSkills(p),support=supports(p),weaponTypes=weaponForms(p);
     const options=(indices,selected)=>indices.map(i=>`<option value="${i}" ${i===selected?'selected':''}>${i} · ${esc(skills[i]?.name||'技能')}</option>`).join('');
     const priority=(key,title,type)=>`<div class="card"><div class="card-h"><strong>${title}</strong><button type="button" data-add-priority="${key}">新增順位</button></div><div class="card-b"><p class="mini-note">達到需求角色等級後自動學會勾選技能，依序取前兩個已解鎖技能配置；不需要二轉與精通。</p>${p[key].map((value,i)=>`<div class="companion-priority" data-priority="${key}" data-index="${i}"><select>${options(skills.map((s,n)=>kind(s)===type&&s.partnerId===p.id?n:null).filter(n=>n!==null),value)}</select><button type="button" data-move="-1" ${i===0?'disabled':''}>↑</button><button type="button" data-move="1" ${i===p[key].length-1?'disabled':''}>↓</button><button type="button" data-remove>刪除</button></div>`).join('')||'<p class="mini-note">未安排技能。</p>'}</div></div>`;
-    app.innerHTML=sectionHead('夥伴角色','編輯固定走向、隨機名字池、配點與技能；新角色會出現在遊戲的隊伍編成。','<button id="addCompanion">新增角色</button>')+
-      '<div class="notice">名字在玩家創角時各抽一次並存入該欄位存檔；招募不會重新抽名，遊戲內可改名。每位夥伴使用獨立 ID 與專屬技能；主角技能不提供夥伴使用。</div>'+
-      `<div class="companion-layout"><div class="card"><div class="list">${list.map(x=>`<button type="button" class="listitem ${x.id===p.id?'active':''}" data-companion="${x.id}"><span class="title">${esc(x.role||'未命名夥伴')}</span><span class="sub">ID ${x.id} · ${esc(data.classes[x.job]?.name||'未知職業')} · ${esc((x.names||[]).join('、'))}</span></button>`).join('')}</div></div><div>`+
-      `<div class="card"><div class="card-h"><strong>${esc(p.role)} · ID ${p.id}</strong><span><button id="duplicateCompanion">複製</button> ${p.id>14?'<button class="danger" id="deleteCompanion">刪除</button>':''}</span></div><div class="card-b companion-fields">`+
-      `<label>角色定位<input id="companionRole" maxlength="40" value="${esc(p.role)}"></label><label>基礎職業<select id="companionJob">${data.classes.map((c,i)=>`<option value="${i}" ${p.job===i?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>`+
-      `<label class="full">定位說明<textarea id="companionDescription" rows="2" maxlength="200">${esc(p.description)}</textarea></label>`+
-      `<label class="full">隨機名字池（每行一個，最多 30 個）<textarea id="companionNames" rows="4">${esc(p.names.join('\n'))}</textarea></label>`+
+    app.innerHTML=sectionHead('夥伴設計','選擇角色名稱，在同一頁編輯角色資料與專屬技能。','<button id="addCompanion">新增角色</button>')+
+      companionDesignTabs(p)+
+      '<div class="notice">每個角色名稱對應獨立的技能池；新招募的夥伴使用設定名稱，遊戲內仍可改名。技能達到需求角色等級後解鎖。</div>'+
+      `<div class="companion-layout"><div class="card"><div class="list">${companionDesignList(p)}</div></div><div>`+
+      `<div class="card"><div class="card-h"><strong>${esc(p.name)}</strong><span><button id="duplicateCompanion">複製</button> ${p.id>14?'<button class="danger" id="deleteCompanion">刪除</button>':''}</span></div><div class="card-b companion-fields">`+
+      `<label>角色名稱<input id="companionName" maxlength="40" value="${esc(p.name)}"></label><label>基礎職業<select id="companionJob">${data.classes.map((c,i)=>`<option value="${i}" ${p.job===i?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>`+
+      `<label class="full">角色說明<textarea id="companionDescription" rows="2" maxlength="200">${esc(p.description)}</textarea></label>`+
       `<label>初始武器<select id="companionWeapon">${weaponTypes.map(w=>`<option value="${esc(w)}" ${p.weapon===w?'selected':''}>${esc((data.equipmentForms[p.job][0]||[]).find(f=>f.weaponType===w)?.name||w)} · ${esc(w)}</option>`).join('')}${p.weapon&&!weaponTypes.includes(p.weapon)?`<option value="${esc(p.weapon)}" selected>${esc(p.weapon)}（目前未找到）</option>`:''}</select></label>`+
       '<div class="full"><b>每級循環配點</b><p class="mini-note">0 為職業主屬、1 為體質、2 為韌性；依下列順序循環分配每個能力點。</p>'+p.points.map((n,i)=>`<div class="companion-priority" data-point="${i}"><select><option value="0" ${n===0?'selected':''}>主屬</option><option value="1" ${n===1?'selected':''}>體質</option><option value="2" ${n===2?'selected':''}>韌性</option></select><button type="button" data-point-remove ${p.points.length===1?'disabled':''}>刪除</button></div>`).join('')+'<button id="addCompanionPoint">新增配點順位</button></div>'+
       `<div class="full"><button type="button" id="openCompanionSkills">設計此夥伴的技能</button></div>`+
@@ -5411,10 +5436,10 @@ requestEditorInitialRender();
       `<div class="full"><b>常駐被動</b><div class="companion-choice">${(data.passiveDefinitions||[]).filter(d=>d.partnerId===p.id).map(d=>`<label><input type="checkbox" data-companion-passive="${esc(d.id)}" ${(p.passives||[]).includes(d.id)?'checked':''}> ${esc(d.name)} · ${d.kind==='debuff'?'DEBUFF':'BUFF'} · ${esc(EmberwildPassives.targets[d.target])}</label>`).join('')||'<p class="mini-note">請在此夥伴的技能頁新增被動。</p>'}</div><p class="mini-note">達到需求角色等級後生效，不占技能槽。自己效果常時生效；我方／敵方全體光環由上陣且存活的夥伴提供。</p><button type="button" id="openPassiveComposer">設計被動技能</button></div>`+
       `</div></div>${priority('active','主動技能優先順序','active')}${priority('proc','普攻觸發技能優先順序','proc')}</div></div>`;
     document.getElementById('openCompanionSkills').onclick=()=>openCompanionSkillPage(p.id);
-    app.querySelectorAll('[data-companion]').forEach(el=>el.onclick=()=>{selectedId=Number(el.dataset.companion);render();});
+    bindCompanionDesignTabs(p);
+    app.querySelectorAll('[data-companion]').forEach(el=>el.onclick=()=>selectCompanionDesign(Number(el.dataset.companion)));
     const change=(id,key,transform=x=>x)=>{document.getElementById(id).onchange=e=>{p[key]=transform(e.target.value);markDirty();render();};};
-    change('companionRole','role',s=>s.trim());change('companionDescription','description',s=>s.trim());
-    change('companionNames','names',s=>s.split(/\r?\n/).map(x=>x.trim()).filter(Boolean));
+    document.getElementById('companionName').onchange=e=>{const name=e.target.value.trim();if(!name||Array.from(name).length>20||/[\u0000-\u001f\u007f]/.test(name)||list.some(x=>x!==p&&x.name===name)){e.target.value=p.name;return alert('角色名稱不可空白或重複，最多 20 字。');}p.name=name;markDirty();render();};change('companionDescription','description',s=>s.trim());
     change('companionWeapon','weapon');
     document.getElementById('companionJob').onchange=e=>{removeCompanionOwnedSkills(p);p.job=Number(e.target.value);p.core=[];p.active=[];p.proc=[];p.support=[];p.weapon=weaponForms(p)[0]||'';markDirty();render();};
     app.querySelectorAll('[data-point]').forEach(row=>{const i=Number(row.dataset.point);row.querySelector('select').onchange=e=>{p.points[i]=Number(e.target.value);markDirty();};row.querySelector('[data-point-remove]').onclick=()=>{p.points.splice(i,1);markDirty();render();};});
@@ -5424,11 +5449,11 @@ requestEditorInitialRender();
     app.querySelectorAll('[data-priority]').forEach(row=>{const key=row.dataset.priority,i=Number(row.dataset.index);row.querySelector('select').onchange=e=>{const n=Number(e.target.value);p[key][i]=n;if(!p.core.includes(n))p.core.push(n);p.core.sort((a,b)=>a-b);markDirty();render();};row.querySelector('[data-remove]').onclick=()=>{p[key].splice(i,1);markDirty();render();};row.querySelectorAll('[data-move]').forEach(button=>button.onclick=()=>{const j=i+Number(button.dataset.move);[p[key][i],p[key][j]]=[p[key][j],p[key][i]];markDirty();render();});});
     app.querySelectorAll('[data-add-priority]').forEach(button=>button.onclick=()=>{const key=button.dataset.addPriority,type=key==='active'?'active':'proc';const i=skills.findIndex((s,n)=>kind(s)===type&&s.partnerId===p.id&&!p[key].includes(n));if(i<0)return alert('沒有可新增的技能。');p[key].push(i);if(!p.core.includes(i))p.core.push(i);p.core.sort((a,b)=>a-b);markDirty();render();});
     app.querySelectorAll('[data-companion-passive]').forEach(el=>el.onchange=()=>{const id=el.dataset.companionPassive;p.passives=el.checked?[...p.passives,id]:p.passives.filter(x=>x!==id);markDirty();render();});
-    document.getElementById('openPassiveComposer').onclick=()=>{selected.companionSkillOwner=p.id;selected.skillTab='passive';currentSection='companionSkills';render();};
+    document.getElementById('openPassiveComposer').onclick=()=>{openCompanionSkillPage(p.id,'passive');};
     const nextId=()=>Math.max(14,...list.map(x=>x.id))+1;
-    document.getElementById('addCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');const id=nextId(),job=0,first=data.classes[job]?.skills?.findIndex(sk=>sk.activation==='active');list.push({id,job,role:'新夥伴',description:'請填寫戰鬥定位。',names:['新夥伴'+id],points:[0,0,1],core:[],active:[],proc:[],support:[],passives:[],weapon:weaponForms({job})[0]||''});selectedId=id;markDirty();render();};
-    document.getElementById('duplicateCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');if(data.classes[p.job].skills.length+p.core.length>64||data.supportSkills[p.job].length+p.support.length>64||data.passiveDefinitions.length+p.passives.length>512)return alert('複製後技能或被動數量會超過上限。');const clone=structuredClone(p);clone.id=nextId();clone.role+=' 複製';EmberwildCompanionSkills.cloneSkills(data,clone);EmberwildCompanionSkills.clonePassives(data,clone);list.push(clone);selectedId=clone.id;markDirty();render();};
-    document.getElementById('deleteCompanion')?.addEventListener('click',()=>{if(confirmDelete('刪除夥伴「'+p.role+'」？既有存檔會保留創角時建立的夥伴，新存檔不再顯示。')){removeCompanionOwnedSkills(p);data.companions=list.filter(x=>x.id!==p.id);selectedId=10;markDirty();render();}});
+    document.getElementById('addCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');const id=nextId(),job=0,first=data.classes[job]?.skills?.findIndex(sk=>sk.activation==='active');list.push({id,job,name:uniqueCompanionName('新夥伴'+id),description:'',points:[0,0,1],core:[],active:[],proc:[],support:[],passives:[],weapon:weaponForms({job})[0]||''});selectedId=id;selected.companionSkillOwner=id;markDirty();render();};
+    document.getElementById('duplicateCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');if(data.classes[p.job].skills.length+data.classes[p.job].skills.filter(s=>s.partnerId===p.id).length>64||data.supportSkills[p.job].length+data.supportSkills[p.job].filter(s=>s.partnerId===p.id).length>64||data.passiveDefinitions.length+data.passiveDefinitions.filter(d=>d.partnerId===p.id).length>512)return alert('複製後技能或被動數量會超過上限。');const clone=structuredClone(p);clone.statTemplateId=p.statTemplateId??p.id;clone.id=nextId();clone.name=uniqueCompanionName(p.name+' 複製');EmberwildCompanionSkills.cloneSkills(data,clone,p.id);EmberwildCompanionSkills.clonePassives(data,clone,p.id);list.push(clone);selectedId=clone.id;selected.companionSkillOwner=clone.id;markDirty();render();};
+    document.getElementById('deleteCompanion')?.addEventListener('click',()=>{if(confirmDelete('刪除夥伴「'+p.name+'」？既有存檔會保留創角時建立的夥伴，新存檔不再顯示。')){removeCompanionOwnedSkills(p);data.companions=list.filter(x=>x.id!==p.id);selectedId=10;selected.companionSkillOwner=10;markDirty();render();}});
   }
   const baseRender=render;
   render=function(){if(currentSection==='companions'){ensureArrays();renderNav(true);renderCompanions();return;}return baseRender();};
@@ -5629,9 +5654,13 @@ requestEditorInitialRender();
 </script>
 
 <script id="companion-owned-skills-editor-v1">
-function companionSkillOwner(){return currentSection==='companionSkills'?(data.companions||[]).find(p=>p.id===selected.companionSkillOwner)||data.companions?.[0]:null;}
+function uniqueCompanionName(base){let name=Array.from(base).slice(0,20).join(''),n=2;while((data.companions||[]).some(p=>p.name===name)){const suffix=' '+n++;name=Array.from(base).slice(0,20-suffix.length).join('')+suffix;}return name;}
+function companionDesignList(p){return (data.companions||[]).map(x=>'<button type="button" class="listitem '+(x.id===p.id?'active':'')+'" data-companion="'+x.id+'"><span class="title">'+esc(x.name)+'</span></button>').join('');}
+function companionDesignTabs(p){return '<div class="toolbar"><div class="tabs">'+[['profile','角色資料'],['active','主動技能'],['proc','普攻觸發技能'],['support','輔助技能'],['passive','被動技能']].map(([id,label])=>'<button type="button" class="'+((selected.companionTab==='skills'?selected.skillTab:'profile')===id?'primary':'')+'" data-companion-tab="'+id+'">'+label+'</button>').join('')+'</div></div>';}
+function bindCompanionDesignTabs(p){document.getElementById('app').querySelectorAll('[data-companion-tab]').forEach(el=>el.onclick=()=>{if(el.dataset.companionTab==='profile')selectCompanionDesign(p.id);else openCompanionSkillPage(p.id,el.dataset.companionTab);});}
+function companionSkillOwner(){return (currentSection==='companionSkills'||currentSection==='companions'&&selected.companionTab==='skills')?(data.companions||[]).find(p=>p.id===selected.companionSkillOwner)||data.companions?.[0]:null;}
 function companionSkillVisible(sk){const p=companionSkillOwner();return p?sk.partnerId===p.id:sk.partnerId==null;}
-function openCompanionSkillPage(id){selected.companionSkillOwner=id;selected.skillTab='active';selected.skill=-1;selected.support=-1;selected.skillScopeFilter='all';currentSection='companionSkills';render();}
+function openCompanionSkillPage(id,tab='active'){selected.companionSkillOwner=id;selected.companionTab='skills';selected.skillTab=tab;selected.skill=-1;selected.support=-1;selected.skillScopeFilter='all';currentSection='companions';render();}
 function assignCompanionSkill(sk,kind,index){
   const p=companionSkillOwner();if(!p){delete sk.partnerId;return;}
   sk.partnerId=p.id;sk.mastery=null;sk.requiredMastery=null;sk.requiredMasteryLevel=0;sk.requiresAdvanced=false;
@@ -5652,12 +5681,12 @@ function removeCompanionOwnedSkills(p){
   ensureArrays=function(){baseEnsure();EmberwildCompanionSkills.migrate(data);};
   const baseValidate=validateData;
   validateData=function(){const issues=baseValidate();try{EmberwildCompanionSkills.validate(data);}catch(e){issues.push(e.message);}return issues;};
-  SECTION_META.splice(SECTION_META.findIndex(([id])=>id==='companions')+1,0,['companionSkills','夥伴技能']);
   const label=SECTION_META.find(([id])=>id==='skills');if(label)label[1]='主角技能';
   const baseCount=count;count=function(section,normalized=false){if(!normalized)ensureArrays();if(section==='companionSkills')return data.companions?.length||0;if(section==='skills')return data.classes.reduce((n,c)=>n+c.skills.filter(s=>s.partnerId==null).length,0)+data.supportSkills.reduce((n,pool)=>n+pool.filter(s=>s.partnerId==null).length,0);return baseCount(section,true);};
   const baseRender=render;
   render=function(){
-    if(currentSection!=='companionSkills')return baseRender();
+    if(currentSection==='companionSkills'){currentSection='companions';selected.companionTab='skills';}
+    if(currentSection!=='companions'||selected.companionTab!=='skills')return baseRender();
     ensureArrays();const p=companionSkillOwner();if(!p){document.getElementById('app').innerHTML=sectionHead('夥伴技能','請先建立夥伴。');return;}
     selected.companionSkillOwner=p.id;selected.skillClass=p.job;selected.supportClass=p.job;selected.skillScopeFilter='all';
     renderNav(true);
@@ -5668,13 +5697,10 @@ function removeCompanionOwnedSkills(p){
     app.querySelector('[data-key="usageScope"]')?.closest('.field')?.remove();
     app.querySelector('[data-key="requiresAdvanced"]')?.closest('.field')?.remove();
     for(const id of ['skillMastery','skillRequiredMastery','skillRequiredMasteryLevel'])document.getElementById(id)?.closest('.field')?.remove();
-    const head=app.querySelector('.section-head h1');if(head)head.textContent=p.role+' · 專屬技能';
+    const head=app.querySelector('.section-head h1');if(head)head.textContent=p.name+' · 專屬技能';
     const desc=app.querySelector('.section-head p');if(desc)desc.textContent='設計的技能直接歸屬於此夥伴；達到需求角色等級後自動解鎖，不需要精通與二轉。';
     const level=app.querySelector('[data-key="'+(support?'level':'requiredLevel')+'"]')?.closest('.field');
     if(level){const label=level.querySelector('label'),help=level.querySelector('.field-help');if(label)label.textContent='解鎖角色等級';if(help)help.textContent='夥伴達到此角色等級後自動學會；未達等級時不能配置或施放。';}
-    app.insertAdjacentHTML('afterbegin','<div class="toolbar"><label>夥伴</label><select id="companionSkillOwnerSelect">'+data.companions.map(x=>'<option value="'+x.id+'" '+(x.id===p.id?'selected':'')+'>'+esc(x.role)+' · ID '+x.id+'</option>').join('')+'</select><button id="backCompanionDesign">返回夥伴設計</button></div>');
-    document.getElementById('companionSkillOwnerSelect').onchange=e=>openCompanionSkillPage(Number(e.target.value));
-    document.getElementById('backCompanionDesign').onclick=()=>selectCompanionDesign(p.id);
     if(passive){
       app.insertAdjacentHTML('afterbegin',skillWorkspaceToolbar('passive'));bindSkillWorkspaceToolbar();
       const templates=data.passiveDefinitions.filter(d=>d.partnerId==null);
@@ -5689,6 +5715,11 @@ function removeCompanionOwnedSkills(p){
       if(sk){document.getElementById('duplicateCompanionSupport').onclick=()=>add({...sk,name:sk.name+' 複製'});document.getElementById('deleteCompanionSupport').onclick=()=>{if(!confirmDelete('刪除「'+sk.name+'」？'))return;remapCompanionSkillRemoval(p.job,'support',selected.support);pool.splice(selected.support,1);selected.support=-1;markDirty();render();};}
     }
     for(const id of ['addSkill','dupSkill']){const el=document.getElementById(id);if(el){const action=el.onclick;el.onclick=e=>{if(data.classes[p.job].skills.length>=64)return alert('此職業核心技能最多 64 個。');return action(e);};}}
+    app.querySelectorAll('.skill-workspace-toolbar').forEach(el=>el.remove());
+    const content=document.createElement('div');while(app.firstChild)content.appendChild(app.firstChild);
+    app.innerHTML=sectionHead('夥伴設計','選擇角色名稱，在同一頁編輯角色資料與專屬技能。')+companionDesignTabs(p)+'<div class="companion-layout"><div class="card"><div class="list">'+companionDesignList(p)+'</div></div><div id="companionSkillContent"></div></div>';
+    document.getElementById('companionSkillContent').appendChild(content);bindCompanionDesignTabs(p);
+    app.querySelectorAll('[data-companion]').forEach(el=>el.onclick=()=>openCompanionSkillPage(Number(el.dataset.companion),selected.skillTab));
   };
   globalThis.__EMBERWILD_COMPANION_SKILL_EDITOR={open:openCompanionSkillPage,owner:companionSkillOwner};
   ensureArrays();requestEditorInitialRender();
