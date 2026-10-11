@@ -898,7 +898,7 @@ function renderSkills(){
   const sk=selected.skill>=0?skills[selected.skill]:null;
   if(sk)ensureProcSkillFields(sk);
   const procOnly=sk&&PROC_ONLY_EFFECTS.has(sk.effect),effectOptions=skillMode==="proc"?EFFECTS:EFFECTS.filter(x=>!PROC_ONLY_EFFECTS.has(x));
-  const effectHelp=skillMode==="proc"?"proc 可使用一般傷害／治療／護盾／吸血，或三種觸發專屬效果。觸發專屬效果不能配置給 active 技能。":"active 技能使用一般傷害／治療／護盾／吸血效果。";
+  const effectHelp=skillMode==="proc"?"proc 可使用一般傷害／治療／護盾／吸血，或三種觸發專屬效果。觸發專屬效果不能配置給 active 技能。":"active 技能可使用傷害、治療、護盾、吸血、淨化、驅散、復活及既有控制效果。";
   const powerHelp=sk?.effect==="nextActiveDamage"?"0.25 = 基礎 +25% 下次主動技能傷害；技能等級、寶石與指定技能效果詞條仍會放大此比例。":sk?.effect==="advanceNextRound"?"此效果固定前移 1 格，不使用 power；保留欄位只為 JSON 結構相容。":sk?.effect==="shieldLowest"?"以施放者攻擊力為基準；0.8 = 產生攻擊力 80% 的純護盾，給生命比例最低的存活隊友。":'最終技能量先以「角色攻擊力 × 此倍率」為基礎，再乘技能等級、寶石、指定技能效果詞條與輔助技能 power。1 = 100% 攻擊力。';
 
   document.getElementById("app").innerHTML =
@@ -920,7 +920,7 @@ function renderSkills(){
       inputField("基礎冷卻回合","cooldown",sk.cooldown??0,"number","min=0 step=1",false,skillMode==="active"?"主動技能實際冷卻 = 此值 − 寶石 − 冷卻詞條，但不低於全域最低冷卻。":"proc 技能不使用冷卻值；此欄保留資料結構相容。")+
       inputField("基礎效果倍率","power",sk.power??1,"number","min=0 step=0.01",false,powerHelp)+
       inputField("每級增加倍率","powerPerLevel",sk.powerPerLevel??data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,"number","min=0 step=0.001",false,"基礎倍率即 Lv1 倍率；實際倍率 = 基礎倍率 + (技能等級 - 1) × 每級倍率。例如基礎 2.00、每級 0.10，Lv1 = 2.00、Lv2 = 2.10。此值只影響本技能。")+
-      inputField("最大攻擊目標數","maxTargets",sk.maxTargets??1,"number","min=1 step=1",false,procOnly?"觸發專屬效果不使用 maxTargets；保留此欄只為 JSON 結構相容。":"傷害／吸血技能 >1 時隨機抽不重複存活敵人；99 以上在套用時會轉成全部存活敵人。治療固定找最低生命比例隊友，護盾固定自己。")+
+      inputField("最大攻擊目標數","maxTargets",sk.maxTargets??1,"number","min=1 step=1",false,procOnly?"觸發專屬效果不使用 maxTargets；保留此欄只為 JSON 結構相容。":"傷害／吸血技能 >1 時隨機抽不重複存活敵人；99 以上在套用時會轉成全部存活敵人。預設治療找最低生命比例隊友、護盾給自己；可在共用技能效果改選目標。")+
       (skillMode==="proc"?inputField("Lv1 基礎觸發率","procBaseChance",sk.procBaseChance,"number","min=0 max=1 step=0.001",false,"0~1 小數。這是 Lv1 未計寶石／裝備詞條時的基礎機率；例如 0.245 = 24.5%。")+inputField("每次升級增加觸發率","procChancePerLevel",sk.procChancePerLevel,"number","min=0 max=1 step=0.001",false,"0~1 小數。從 Lv2 起每提升 1 級加一次；例如 0.025 = 每級 +2.5 個百分點。"):"")+
       boolField("需要完成二轉","requiresAdvanced",!!sk.requiresAdvanced,"為是時，未二轉不能學習／使用此技能。")+
       textareaField("技能風味說明","description",sk.description||"","完全手寫，只負責畫面文字；倍率、目標、冷卻與觸發率的詳細說明由結構化參數自動生成。")+
@@ -1711,7 +1711,7 @@ ensureArrays();requestEditorInitialRender();
   function mapOptions(current){return data.balanceSettings.maps.catalog.map((m,i)=>`<option value="${i}" ${i===current?'selected':''}>${i}｜${esc(m.name)}</option>`).join('');}
   function mapKindLabel(m,i){return m.mapType==='final'?(m.progressionGate?'終局地圖／等級突破':'終局地圖'):i<LEGACY_GATE_INDEX?'主線區域':'追加區域';}
   function monsterKindLabel(m){return m.kind==='final'?'最終首領':m.kind==='boss'?'BOSS':'普通怪';}
-  const MONSTER_SHARED_SKILL_EFFECTS_EDITOR=new Set(['damage','heal','shield','drain','nextActiveDamage','advanceNextRound','shieldLowest','applyStatus']);
+  const MONSTER_SHARED_SKILL_EFFECTS_EDITOR=new Set(['damage','heal','shield','drain','cleanse','dispel','revive','nextActiveDamage','advanceNextRound','shieldLowest','applyStatus']);
   function sharedCoreSkillEditorPool(){
     const out=[];for(let job=0;job<(data.classes||[]).length;job++)for(let index=0;index<(data.classes[job]?.skills||[]).length;index++){
       const sk=data.classes[job].skills[index],id=sk.id||`job${job}-core${index}`,usageScope=normalizeSkillUsageScope(sk);out.push({id,job,index,name:sk.name||id,effect:sk.effect||'',activation:sk.activation||'active',usageScope,supported:MONSTER_SHARED_SKILL_EFFECTS_EDITOR.has(sk.effect)});
@@ -4551,6 +4551,13 @@ const STATUS_ELEMENTS=['physical','fire','ice','wind','light','shadow'];
 function statusNum(v,fallback=0){v=Number(v);return Number.isFinite(v)?v:fallback;}
 function statusInt(v,fallback=0,min=0,max=99){return Math.max(min,Math.min(max,Math.round(statusNum(v,fallback))));}
 function statusClamp01(v,fallback=0){return Math.max(0,Math.min(1,statusNum(v,fallback)));}
+function statusPolarity(def){
+  if(['buff','debuff','neutral'].includes(def?.polarity))return def.polarity;
+  let good=false,bad=!!def?.control;
+  for(const m of def?.modifiers||[]){if(!m.value)continue;const negative=['fracture','weaken','vulnerable','damageAmp','followup'].includes(m.kind);if(negative===(m.value>0))bad=true;else good=true;}
+  for(const fx of def?.periodic||[]){if(!(fx.coefficient>0))continue;if(fx.kind==='heal')good=true;else bad=true;}
+  return good===bad?'neutral':good?'buff':'debuff';
+}
 function normalizeStatusDefinition(raw,index=0){
   raw=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
   const tags=[...new Set((Array.isArray(raw.tags)?raw.tags:[]).filter(x=>STATUS_TAGS.includes(x)))];
@@ -4572,7 +4579,7 @@ function normalizeStatusDefinition(raw,index=0){
     const allowed=kind==='heal'?STATUS_HEAL_RESOLUTIONS:STATUS_DAMAGE_RESOLUTIONS;
     return {kind,basis:STATUS_BASIS.includes(x?.basis)?x.basis:'casterAttack',coefficient:Math.max(0,statusNum(x?.coefficient,0)),resolution:allowed.includes(x?.resolution)?x.resolution:allowed[0],element:STATUS_ELEMENTS.includes(x?.element)?x.element:'physical'};
   }):[];
-  return {id:String(raw.id||('status-'+(index+1))).trim()||('status-'+(index+1)),name:String(raw.name||'未命名狀態').trim()||'未命名狀態',tags,duration:statusInt(raw.duration,1,1,99),modifiers,control,periodic};
+  return {polarity:['auto','buff','debuff','neutral'].includes(raw.polarity)?raw.polarity:'auto',dispellable:raw.dispellable!==false,id:String(raw.id||('status-'+(index+1))).trim()||('status-'+(index+1)),name:String(raw.name||'未命名狀態').trim()||'未命名狀態',tags,duration:statusInt(raw.duration,1,1,99),modifiers,control,periodic};
 }
 function validateStatusDefinition(raw){
   const s=normalizeStatusDefinition(raw),issues=[];
@@ -4712,6 +4719,7 @@ function renderStatuses(){
     '<div class="status-maker-layout"><div class="card status-maker-list"><div class="list">'+(list.map((x,i)=>'<div class="listitem '+(i===selectedStatusIndex?'active':'')+'" data-status-index="'+i+'"><div class="title">'+esc(x.name)+'</div><div class="sub">'+esc(x.id)+' · '+x.duration+' 回合 · '+x.tags.map(t=>STATUS_TAG_LABELS[t]).join('／')+'</div></div>').join('')||'<div class="empty">尚未建立狀態。</div>')+'</div></div>'+
     (s?'<div><div class="card"><div class="card-h"><strong>狀態本體</strong><span class="pill">'+esc(s.id)+'</span></div><div class="card-b"><div class="fields">'+
       '<div class="field full"><label>狀態名稱</label><input id="statusName" value="'+esc(s.name)+'"></div></div>'+
+      '<div class="fields"><div class="field"><label>解除分類</label><select id="statusPolarity">'+labelOptions(['auto','buff','debuff','neutral'],{auto:'自動判定',buff:'增益（可驅散）',debuff:'減益（可淨化）',neutral:'中性（不由淨化／驅散解除）'},s.polarity)+'</select><div class="field-help">自動判定依效果正負分類；混合正負為中性。</div></div><div class="field"><label>允許解除</label><input id="statusDispellable" type="checkbox" '+(s.dispellable?'checked':'')+'><div class="field-help">關閉後不能由淨化／驅散解除，仍正常到期。</div></div></div>'+
       '<div class="field full"><label>狀態標籤（可複選）</label><div class="status-maker-tags">'+STATUS_TAGS.map(t=>'<label><input type="checkbox" data-status-tag="'+t+'" '+(s.tags.includes(t)?'checked':'')+'>'+STATUS_TAG_LABELS[t]+'</label>').join('')+'</div></div>'+
       '<div class="fields"><div class="field"><label>持續回合</label><input id="statusDuration" type="number" min="1" max="99" step="1" value="'+s.duration+'"><div class="field-help">最高 99。增減益依戰鬥回合存在；嵌入既有控制時仍沿用該控制本身的 BOSS／目標行動規則。</div></div></div>'+
       (s.tags.includes('modifier')?'<div class="status-maker-block"><div class="row"><b>增減益效果</b><span class="status-maker-limit">'+s.modifiers.length+' / 3</span><button id="addStatusModifier" '+(s.modifiers.length>=3?'disabled':'')+'>新增效果</button></div>'+modifierRowsHtml(s)+'</div>':'')+
@@ -4722,7 +4730,9 @@ function renderStatuses(){
   document.getElementById('addStatus').onclick=()=>{const id=nextStatusId();list.push(normalizeStatusDefinition({id,name:'新狀態',tags:[],duration:3},list.length));selectedStatusIndex=list.length-1;markDirty('已新增狀態');render();};
   if(!s)return;
   document.getElementById('dupStatus').onclick=()=>{const copy=deepCloneStatus(s);copy.id=nextStatusId();copy.name=s.name+' 複製';list.push(normalizeStatusDefinition(copy,list.length));selectedStatusIndex=list.length-1;markDirty('已複製狀態');render();};
-  document.getElementById('delStatus').onclick=()=>{const used=(data.classes||[]).some(c=>(c.skills||[]).some(sk=>sk.effect==='applyStatus'&&sk.statusId===s.id));if(used)return alert('仍有技能引用此狀態。請先更換或移除技能的狀態引用。');if(confirmDelete('刪除狀態「'+s.name+'」？')){list.splice(selectedStatusIndex,1);selectedStatusIndex=Math.max(0,selectedStatusIndex-1);markDirty('已刪除狀態');render();}};
+  document.getElementById('delStatus').onclick=()=>{const used=(data.classes||[]).some(c=>(c.skills||[]).some(sk=>(sk.effect==='applyStatus'&&sk.statusId===s.id)||sk.onHitStatusId===s.id));if(used)return alert('仍有技能引用此狀態。請先更換或移除技能的狀態引用。');if(confirmDelete('刪除狀態「'+s.name+'」？')){list.splice(selectedStatusIndex,1);selectedStatusIndex=Math.max(0,selectedStatusIndex-1);markDirty('已刪除狀態');render();}};
+  document.getElementById('statusPolarity').onchange=e=>{s.polarity=e.target.value;markDirty();render();};
+  document.getElementById('statusDispellable').onchange=e=>{s.dispellable=e.target.checked;markDirty();render();};
   document.getElementById('statusName').onchange=e=>{s.name=e.target.value.trim()||'未命名狀態';markDirty();render();};
   document.getElementById('statusDuration').onchange=e=>{s.duration=statusInt(e.target.value,s.duration,1,99);if(s.control&&!Number.isFinite(s.control.bossDuration))s.control.bossDuration=Math.min(s.duration,1);markDirty();render();};
   app.querySelectorAll('[data-status-tag]').forEach(el=>el.onchange=()=>{const tag=el.dataset.statusTag,set=new Set(s.tags);el.checked?set.add(tag):set.delete(tag);s.tags=STATUS_TAGS.filter(x=>set.has(x));if(tag==='modifier'&&el.checked&&!s.modifiers.length)s.modifiers=[{kind:'attack',value:.1}];if(tag==='control'&&el.checked&&!s.control)s.control={kind:'freeze',bossDuration:Math.min(s.duration,1),slowPct:.3,basicAttackBonus:.2,damageReduction:.2,skipChance:.3,bossSkipChance:.15};if(tag==='periodic'&&el.checked&&!s.periodic.length)s.periodic=[{kind:'damage',basis:'casterAttack',coefficient:.2,resolution:'fixed',element:'physical'}];Object.assign(s,normalizeStatusDefinition(s,selectedStatusIndex));markDirty();render();});
@@ -4754,7 +4764,7 @@ const statusRenderSkillsBase=renderSkills;
 renderSkills=function(){statusRenderSkillsBase();if(selected.skillTab==='support')return;const sk=data.classes?.[selected.skillClass]?.skills?.[selected.skill];if(!sk||sk.effect!=='applyStatus')return;const defs=statusList(),selectedDef=defs.find(d=>d.id===sk.statusId)||null,allowedTargets=statusAllowedTargetsForDefinition(selectedDef),targetOptions=allowedTargets.length?labelOptions(allowedTargets,STATUS_TARGET_LABELS,allowedTargets.includes(sk.statusTarget)?sk.statusTarget:allowedTargets[0]):'<option value="">此狀態沒有相容的套用目標</option>',app=document.getElementById('app'),grid=app.querySelector('.grid2');if(!grid)return;const box=document.createElement('div');box.className='card';box.id='status-skill-link-card';box.innerHTML='<div class="card-h"><strong>自訂狀態套用</strong></div><div class="card-b"><div class="fields"><div class="field"><label>套用狀態</label><select id="skillStatusId"><option value="">請選擇</option>'+defs.map(d=>'<option value="'+esc(d.id)+'" '+(sk.statusId===d.id?'selected':'')+'>'+esc(d.name)+' · '+esc(d.id)+'</option>').join('')+'</select><div class="field-help">狀態本體只維護一份；技能以 statusId 引用。</div></div><div class="field"><label>套用目標</label><select id="skillStatusTarget">'+targetOptions+'</select><div class="field-help">敵方全體與我方全體會對目前全部存活單位各套用一份狀態。</div></div></div><div class="mini-note">此效果不使用上方「基礎效果倍率」作為狀態倍率；狀態內各係數直接由狀態製作器控制。技能冷卻、觸發率、前置條件、寶石與精通仍照原技能系統運作。</div></div>';grid.insertAdjacentElement('afterend',box);document.getElementById('skillStatusId').onchange=e=>{sk.statusId=e.target.value;const def=defs.find(d=>d.id===sk.statusId)||null,allowed=statusAllowedTargetsForDefinition(def);if(!allowed.includes(sk.statusTarget))sk.statusTarget=allowed[0]||'';markDirty();render();};document.getElementById('skillStatusTarget').onchange=e=>{sk.statusTarget=e.target.value;markDirty();};};
 
 const statusRenderOverviewBase=renderOverview;
-renderOverview=function(){statusRenderOverviewBase();const app=document.getElementById('app');if(!app)return;const stats=app.querySelector('.statgrid');if(stats)stats.insertAdjacentHTML('beforeend','<div class="card stat"><div class="n">'+statusList().length+'</div><div class="l">自訂狀態</div></div>');const notice=[...app.querySelectorAll('.notice')].find(x=>x.textContent.includes('真正會讀取')||x.textContent.includes('測試設定真正會讀取'));if(notice)notice.innerHTML='<b>重要：</b>這份 HTML 的測試設定會讀取 <span class="code">balanceSettings / balance / classes / supportSkills / equipmentForms / items / statusDefinitions</span>。自訂狀態需由技能 effect=applyStatus 引用才會在戰鬥中生效。';};
+renderOverview=function(){statusRenderOverviewBase();const app=document.getElementById('app');if(!app)return;const stats=app.querySelector('.statgrid');if(stats)stats.insertAdjacentHTML('beforeend','<div class="card stat"><div class="n">'+statusList().length+'</div><div class="l">自訂狀態</div></div>');const notice=[...app.querySelectorAll('.notice')].find(x=>x.textContent.includes('真正會讀取')||x.textContent.includes('測試設定真正會讀取'));if(notice)notice.innerHTML='<b>重要：</b>這份 HTML 的測試設定會讀取 <span class="code">balanceSettings / balance / classes / supportSkills / equipmentForms / items / statusDefinitions</span>。自訂狀態可由套用狀態技能或共用技能效果的附加狀態引用。';};
 
 globalThis.__EMBERWILD_STATUS_EDITOR_TEST_API={schema:STATUS_SCHEMA_VERSION,normalize:normalizeStatusDefinition,validate:validateStatusDefinition,selfTest:statusPureSelfTest,get definitions(){return deepCloneStatus(statusList());}};
 requestEditorInitialRender();
@@ -5726,4 +5736,77 @@ function removeCompanionOwnedSkills(p){
 })();
 </script>
 
+<script id="skill-effect-schema-v1">
+/* Optional common RPG effects; shared by the game and the balance editor. */
+(function(root){
+  'use strict';
+  const EFFECTS=['damage','drain','heal','shield','cleanse','dispel','revive'];
+  const KEYS=['target','hitCount','powerBasis','damageResolution','healResolution','drainRate','onHitStatusId','onHitStatusChance','dispelCount','reviveHpRatio'];
+  const BASIS=['fixed','casterAttack','casterDefense','casterMaxHp','casterCurrentHp','casterMissingHp','casterShield','casterLevel','targetAttack','targetDefense','targetMaxHp','targetCurrentHp','targetMissingHp','targetShield','targetLevel'];
+  const TARGETS={damage:['enemy','enemies'],drain:['enemy','enemies'],heal:['self','weakest','allies'],shield:['self','weakest','allies'],cleanse:['self','weakest','allies'],dispel:['enemy','enemies'],revive:['fallen','fallenAllies']};
+  const defaults=effect=>({target:effect==='heal'||effect==='cleanse'?'weakest':effect==='shield'?'self':effect==='revive'?'fallen':'enemy',hitCount:1,powerBasis:'casterAttack',damageResolution:'standard',healResolution:'heal',drainRate:1,onHitStatusId:'',onHitStatusChance:1,dispelCount:99,reviveHpRatio:.25});
+  function configured(sk){return EFFECTS.includes(sk?.effect)&&(['cleanse','dispel','revive'].includes(sk.effect)||KEYS.some(k=>sk[k]!==undefined));}
+  function validateSkill(sk,defs=[]){
+    const issues=[],d=defaults(sk?.effect),has=k=>sk?.[k]!==undefined,range=(k,min,max,int=false)=>{if(has(k)&&(!Number.isFinite(sk[k])||sk[k]<min||sk[k]>max||int&&!Number.isInteger(sk[k])))issues.push(k+' 必須介於 '+min+'～'+max+(int?'（整數）':''));};
+    if(!EFFECTS.includes(sk?.effect))return issues;
+    if(has('target')&&!TARGETS[sk.effect].includes(sk.target))issues.push('技能目標與主要效果不相容');
+    range('hitCount',1,20,true);range('drainRate',0,10);range('onHitStatusChance',0,1);range('dispelCount',1,99,true);range('reviveHpRatio',.001,1);
+    if(has('powerBasis')&&!BASIS.includes(sk.powerBasis))issues.push('技能計算基準無效');
+    if(has('damageResolution')&&!['standard','fixed','true'].includes(sk.damageResolution))issues.push('傷害結算方式無效');
+    if(has('healResolution')&&!['heal','overflowShield'].includes(sk.healResolution))issues.push('治療結算方式無效');
+    if(has('onHitStatusId')&&typeof sk.onHitStatusId!=='string')issues.push('附加狀態 ID 無效');
+    if(sk.onHitStatusId){
+      const def=defs.find(x=>x.id===sk.onHitStatusId),target=sk.target||d.target;
+      if(!def)issues.push('引用不存在的附加狀態');
+      if(!['damage','drain','heal','shield'].includes(sk.effect))issues.push('此主要效果不支援附加狀態');
+      if(def){
+        const positive=['attack','critical','guard','power','regen'],negative=['fracture','weaken','vulnerable','damageAmp','followup'];
+        const heroOnly=(def.modifiers||[]).some(m=>positive.includes(m.kind))||(def.periodic||[]).some(f=>f.resolution==='overflowShield'),enemyOnly=!!def.control||(def.modifiers||[]).some(m=>negative.includes(m.kind));
+        if(heroOnly&&['enemy','enemies'].includes(target)||enemyOnly&&['self','weakest','allies'].includes(target))issues.push('附加狀態與套用目標方向不相容');
+      }
+    }
+    return issues;
+  }
+  const api={EFFECTS,KEYS,BASIS,TARGETS,defaults,configured,validateSkill};
+  root.EmberwildSkillEffects=api;
+  if(typeof module==='object'&&module.exports)module.exports=api;
+})(globalThis);
+</script>
+<script id="common-skill-effect-editor-v1">
+/* Optional effect fields preserve the original path until explicitly configured. */
+(()=>{
+  const schema=EmberwildSkillEffects;
+  for(const id of schema.EFFECTS)if(!EFFECTS.includes(id))EFFECTS.push(id);
+  Object.assign(EFFECT_LABELS,{cleanse:'淨化減益',dispel:'驅散增益',revive:'復活'});
+  const targetLabels={self:'自己',weakest:'生命比例最低隊友',allies:'我方全體',enemy:'敵人（依最大目標數抽選）',enemies:'敵方全體',fallen:'陣亡隊友（依最大目標數）',fallenAllies:'全體陣亡隊友'};
+  const basisLabels={fixed:'固定點數',casterAttack:'施放者攻擊力',casterDefense:'施放者防禦',casterMaxHp:'施放者最大生命',casterCurrentHp:'施放者當前生命',casterMissingHp:'施放者已損生命',casterShield:'施放者護盾',casterLevel:'施放者等級',targetAttack:'目標攻擊力',targetDefense:'目標防禦',targetMaxHp:'目標最大生命',targetCurrentHp:'目標當前生命',targetMissingHp:'目標已損生命',targetShield:'目標護盾',targetLevel:'目標等級'};
+  const field=(label,key,html,help='')=>'<div class="field"><label>'+esc(label)+'</label>'+html+'<div class="field-help">'+esc(help)+'</div></div>';
+  const select=(label,key,value,choices,labels,help='')=>field(label,key,'<select data-common-effect="'+key+'">'+choices.map(v=>'<option value="'+esc(v)+'" '+(value===v?'selected':'')+'>'+esc(labels[v]??v)+'</option>').join('')+'</select>',help);
+  const number=(label,key,value,min,max,step,help)=>field(label,key,'<input data-common-effect="'+key+'" type="number" min="'+min+'" '+(max==null?'':'max="'+max+'"')+' step="'+step+'" value="'+esc(value)+'">',help);
+  const baseRender=renderSkills;
+  renderSkills=function(){
+    baseRender();if(['support','passive'].includes(selected.skillTab))return;
+    const sk=data.classes?.[selected.skillClass]?.skills?.[selected.skill];if(!schema.EFFECTS.includes(sk?.effect))return;
+    const defaults=schema.defaults(sk.effect),value=k=>sk[k]??defaults[k],damage=['damage','drain'].includes(sk.effect),amount=damage||['heal','shield'].includes(sk.effect),app=document.getElementById('app');
+    let html=select('作用目標','target',value('target'),schema.TARGETS[sk.effect],targetLabels,'隊友與陣亡隊友僅限目前上場單位；怪物技能以怪物為我方。');
+    if(amount)html+=select('效果計算基準','powerBasis',value('powerBasis'),schema.BASIS,basisLabels,'原始效果量＝此基準 × 技能倍率；固定點數以 1 為基準。仍套用技能等級、寶石與技能威力。');
+    if(damage)html+=number('每目標命中段數','hitCount',value('hitCount'),1,20,1,'每段使用完整技能倍率；逐段結算，目標死亡即停止。')+select('傷害結算方式','damageResolution',value('damageResolution'),['standard','fixed','true'],{standard:'一般傷害（防禦／暴擊／屬性）',fixed:'固定傷害（護盾可吸收）',true:'真實傷害（穿透護盾）'},'固定與真實傷害不使用防禦、暴擊或屬性修正。');
+    if(sk.effect==='drain')html+=number('傷害轉治療比例','drainRate',value('drainRate'),0,10,.01,'1＝實際生命傷害的 100%；另外受到施放者治療量加成。');
+    if(sk.effect==='heal')html+=select('治療結算方式','healResolution',value('healResolution'),['heal','overflowShield'],{heal:'一般治療',overflowShield:'溢出治療轉護盾'},'溢出護盾與現有護盾取較高值，不相加。');
+    if(['cleanse','dispel'].includes(sk.effect))html+=number('最多解除狀態數','dispelCount',value('dispelCount'),1,99,1,'淨化解除減益，驅散解除增益；只解除允許解除的狀態及輔助效果，不解除被動光環。');
+    if(sk.effect==='revive')html+=number('復活生命比例','reviveHpRatio',value('reviveHpRatio'),.001,1,.001,'0.25＝恢復最大生命 25%；無陣亡目標時不施放。');
+    if(amount){const defs=data.statusDefinitions||[],choices=['',...defs.map(d=>d.id)];if(sk.onHitStatusId&&!choices.includes(sk.onHitStatusId))choices.push(sk.onHitStatusId);html+=select('成功命中後附加狀態','onHitStatusId',value('onHitStatusId'),choices,Object.fromEntries([['','無'],...defs.map(d=>[d.id,d.name+' · '+d.id])]),'每次施放每目標最多判定一次；傷害閃避、死亡不附加。方向相容性由匯出檢查。')+number('附加狀態機率','onHitStatusChance',value('onHitStatusChance'),0,1,.001,'0＝不附加，1＝100%。');}
+    app.insertAdjacentHTML('beforeend',card('共用技能效果','<div class="fields">'+html+'</div><button type="button" id="resetCommonEffects">還原此技能的預設效果設定</button>'));
+    const box=app.lastElementChild;
+    box.querySelectorAll('[data-common-effect]').forEach(el=>el.onchange=()=>{const key=el.dataset.commonEffect;sk[key]=el.type==='number'?Number(el.value):el.value;markDirty();render();});
+    document.getElementById('resetCommonEffects').onclick=()=>{for(const k of schema.KEYS)delete sk[k];markDirty();render();};
+    const effect=app.querySelector('[data-key="effect"]');if(effect){const change=effect.onchange;effect.onchange=e=>{if(!schema.TARGETS[effect.value]?.includes(sk.target))delete sk.target;for(const k of ['onHitStatusId','onHitStatusChance'])if(!['damage','drain','heal','shield'].includes(effect.value))delete sk[k];change(e);};}
+  };
+  const baseValidate=validateData;
+  validateData=function(){const issues=baseValidate();for(const [job,c] of data.classes.entries())for(const [i,sk] of c.skills.entries())for(const issue of schema.validateSkill(sk,data.statusDefinitions||[]))issues.push('技能 '+job+'-'+i+'：'+issue);return [...new Set(issues)];};
+  requestEditorInitialRender();
+})();
+</script>
+
 </html>
+
