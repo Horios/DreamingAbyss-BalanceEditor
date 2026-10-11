@@ -1711,7 +1711,7 @@ ensureArrays();requestEditorInitialRender();
   function mapOptions(current){return data.balanceSettings.maps.catalog.map((m,i)=>`<option value="${i}" ${i===current?'selected':''}>${i}｜${esc(m.name)}</option>`).join('');}
   function mapKindLabel(m,i){return m.mapType==='final'?(m.progressionGate?'終局地圖／等級突破':'終局地圖'):i<LEGACY_GATE_INDEX?'主線區域':'追加區域';}
   function monsterKindLabel(m){return m.kind==='final'?'最終首領':m.kind==='boss'?'BOSS':'普通怪';}
-  const MONSTER_SHARED_SKILL_EFFECTS_EDITOR=new Set(['damage','heal','shield','drain','cleanse','dispel','revive','nextActiveDamage','advanceNextRound','shieldLowest','applyStatus']);
+  const MONSTER_SHARED_SKILL_EFFECTS_EDITOR=new Set(['damage','heal','shield','drain','cleanse','dispel','revive','induceSkill','nextActiveDamage','advanceNextRound','shieldLowest','applyStatus']);
   function sharedCoreSkillEditorPool(){
     const out=[];for(let job=0;job<(data.classes||[]).length;job++)for(let index=0;index<(data.classes[job]?.skills||[]).length;index++){
       const sk=data.classes[job].skills[index],id=sk.id||`job${job}-core${index}`,usageScope=normalizeSkillUsageScope(sk);out.push({id,job,index,name:sk.name||id,effect:sk.effect||'',activation:sk.activation||'active',usageScope,supported:MONSTER_SHARED_SKILL_EFFECTS_EDITOR.has(sk.effect)});
@@ -5788,6 +5788,8 @@ function removeCompanionOwnedSkills(p){
     baseRender();if(['support','passive'].includes(selected.skillTab))return;
     const sk=data.classes?.[selected.skillClass]?.skills?.[selected.skill];if(!schema.EFFECTS.includes(sk?.effect))return;
     const defaults=schema.defaults(sk.effect),value=k=>sk[k]??defaults[k],damage=['damage','drain'].includes(sk.effect),amount=damage||['heal','shield'].includes(sk.effect),app=document.getElementById('app');
+    const powerHelp=app.querySelector('[data-key="power"]')?.closest('.field')?.querySelector('.field-help');
+    if(powerHelp)powerHelp.textContent=amount?'原始效果量＝下方所選計算基準 × 此倍率，再套用既有技能威力修正。':'此效果不使用威力倍率，由下方解除數量或復活生命比例控制。';
     let html=select('作用目標','target',value('target'),schema.TARGETS[sk.effect],targetLabels,'隊友與陣亡隊友僅限目前上場單位；怪物技能以怪物為我方。');
     if(amount)html+=select('效果計算基準','powerBasis',value('powerBasis'),schema.BASIS,basisLabels,'原始效果量＝此基準 × 技能倍率；固定點數以 1 為基準。仍套用技能等級、寶石與技能威力。');
     if(damage)html+=number('每目標命中段數','hitCount',value('hitCount'),1,20,1,'每段使用完整技能倍率；逐段結算，目標死亡即停止。')+select('傷害結算方式','damageResolution',value('damageResolution'),['standard','fixed','true'],{standard:'一般傷害（防禦／暴擊／屬性）',fixed:'固定傷害（護盾可吸收）',true:'真實傷害（穿透護盾）'},'固定與真實傷害不使用防禦、暴擊或屬性修正。');
@@ -5804,6 +5806,81 @@ function removeCompanionOwnedSkills(p){
   };
   const baseValidate=validateData;
   validateData=function(){const issues=baseValidate();for(const [job,c] of data.classes.entries())for(const [i,sk] of c.skills.entries())for(const issue of schema.validateSkill(sk,data.statusDefinitions||[]))issues.push('技能 '+job+'-'+i+'：'+issue);return [...new Set(issues)];};
+  requestEditorInitialRender();
+})();
+</script>
+
+<script id="skill-induction-schema">
+/* Shared induction contract; embedded verbatim in the standalone balance editor. */
+(function(root){
+  'use strict';
+  const TAG='induce',EFFECT='induceSkill',MAX_TARGETS=2;
+  const tagged=sk=>Array.isArray(sk?.tags)&&sk.tags.includes(TAG);
+  const blocked=sk=>tagged(sk)||sk?.effect===EFFECT;
+  const idFor=(sk,job,index)=>sk?.id||`job${job}-core${index}`;
+  function validate(doc){
+    const issues=[],pool=new Map();
+    for(const [job,c] of (doc?.classes||[]).entries())for(const [index,sk] of (c.skills||[]).entries())pool.set(idFor(sk,job,index),{job,sk});
+    for(const [job,c] of (doc?.classes||[]).entries())for(const [index,sk] of (c.skills||[]).entries()){
+      const label=`技能 ${job}-${index}「${sk.name||''}」`;
+      if(sk.tags!==undefined&&(!Array.isArray(sk.tags)||sk.tags.some(x=>typeof x!=='string')||new Set(sk.tags).size!==sk.tags.length))issues.push(label+'：tags 必須是不重複的文字陣列');
+      if(sk.effect===EFFECT&&!tagged(sk))issues.push(label+'：誘發技能效果必須帶有誘發標籤');
+      if(!tagged(sk)&&sk.induction===undefined)continue;
+      if(!['active','proc'].includes(sk.activation))issues.push(label+'：誘發僅支援主動／觸發技能');
+      const config=sk.induction,targets=config?.targets;
+      if(!config||typeof config!=='object'||Array.isArray(config)||Object.keys(config).some(k=>k!=='targets'))issues.push(label+'：誘發設定只支援 targets，連鎖深度固定為一次');
+      if(!Array.isArray(targets)||targets.length>MAX_TARGETS||tagged(sk)&&!targets?.length){issues.push(label+'：誘發需設定 1～2 個目標');continue;}
+      const seen=new Set();
+      for(const target of targets){
+        if(!target||typeof target!=='object'||Array.isArray(target)){issues.push(label+'：誘發目標無效');continue;}
+        if(typeof target.chance!=='number'||!Number.isFinite(target.chance)||target.chance<0||target.chance>1)issues.push(label+'：誘發機率必須介於 0～1');
+        let key;
+        if(target.kind==='activeSlot'||target.kind==='procSlot'){
+          if(!Number.isInteger(target.slot)||target.slot<0||target.slot>1)issues.push(label+'：技能槽必須是 0 或 1');
+          key=target.kind+':'+target.slot;
+        }else if(target.kind==='skill'){
+          const row=pool.get(target.skillId);key='skill:'+target.skillId;
+          if(!row||row.job!==job)issues.push(label+'：指定誘發技能不存在或職業不符');
+          else if(blocked(row.sk))issues.push(label+'：不可誘發帶有誘發標籤／誘發效果的技能');
+        }else issues.push(label+'：誘發目標類型無效');
+        if(seen.has(key))issues.push(label+'：誘發目標不可重複');seen.add(key);
+      }
+    }
+    return issues;
+  }
+  const api={TAG,EFFECT,MAX_TARGETS,tagged,blocked,idFor,validate};
+  root.EmberwildInduction=api;
+  if(typeof module==='object'&&module.exports)module.exports=api;
+})(globalThis);
+</script>
+<script id="skill-induction-editor-v1">
+/* Use the runtime's existing one-hop induction contract in both character editors. */
+(()=>{
+  const api=EmberwildInduction;
+  if(!EFFECTS.includes(api.EFFECT))EFFECTS.push(api.EFFECT);
+  EFFECT_LABELS[api.EFFECT]='只誘發其他技能';
+  const enable=sk=>{sk.tags=[...new Set([...(sk.tags||[]),api.TAG])];if(!sk.induction?.targets?.length)sk.induction={targets:[{kind:'activeSlot',slot:0,chance:1}]};};
+  const candidates=(sk,job)=>data.classes[job].skills.filter(s=>s!==sk&&!api.blocked(s)&&(s.partnerId??null)===(sk.partnerId??null));
+  const options=(sk,job,value)=>{const pool=candidates(sk,job);return pool.map(s=>'<option value="'+esc(s.id)+'" '+(s.id===value?'selected':'')+'>'+esc(s.name)+' · '+esc(s.id)+'</option>').join('')+(value&&!pool.some(s=>s.id===value)?'<option value="'+esc(value)+'" selected>無效引用 · '+esc(value)+'</option>':'');};
+  const baseRender=renderSkills;
+  renderSkills=function(){
+    baseRender();if(['support','passive'].includes(selected.skillTab))return;
+    const job=selected.skillClass,sk=data.classes[job]?.skills?.[selected.skill];if(!sk)return;
+    const app=document.getElementById('app'),tagged=api.tagged(sk),targets=sk.induction?.targets||[];
+    app.insertAdjacentHTML('beforeend',card('技能誘發','<label><input type="checkbox" id="inductionEnabled" '+(tagged?'checked':'')+'>成功使用後誘發其他技能</label><p class="mini-note">最多 2 個目標，各自判定機率。只誘發一次，不可連鎖到誘發技能；保留被誘發技能的學習、解鎖等級、武器與用途限制。主動技能可在冷卻中被誘發，此次誘發不改寫冷卻。夥伴只可誘發自己的技能；怪物必須先指派被誘發技能，槽位依指派順序計算。</p>'+(tagged?targets.map((t,i)=>'<div class="fields" data-induction-row="'+i+'"><div class="field"><label>目標 '+(i+1)+'</label><select data-induction-kind><option value="activeSlot" '+(t.kind==='activeSlot'?'selected':'')+'>主動配置槽</option><option value="procSlot" '+(t.kind==='procSlot'?'selected':'')+'>觸發配置槽</option><option value="skill" '+(t.kind==='skill'?'selected':'')+'>指定技能</option></select></div><div class="field"><label>技能／槽位</label>'+(t.kind==='skill'?'<select data-induction-value>'+options(sk,job,t.skillId)+'</select>':'<select data-induction-value><option value="0" '+(t.slot===0?'selected':'')+'>第 1 格</option><option value="1" '+(t.slot===1?'selected':'')+'>第 2 格</option></select>')+'</div><div class="field"><label>誘發機率（0～1）</label><input data-induction-chance type="number" min="0" max="1" step="0.001" value="'+esc(t.chance)+'"><div class="field-help">0＝0%，1＝100%；不同槽若指到同一技能，只判定一次。</div></div><button type="button" data-induction-delete="'+i+'" '+(targets.length===1?'disabled':'')+'>移除目標</button></div>').join('')+'<button type="button" id="addInductionTarget" '+(targets.length>=api.MAX_TARGETS?'disabled':'')+'>新增誘發目標</button>':'')));
+    document.getElementById('inductionEnabled').onchange=e=>{if(e.target.checked)enable(sk);else{sk.tags=(sk.tags||[]).filter(t=>t!==api.TAG);delete sk.induction;if(sk.effect===api.EFFECT)sk.effect='damage';}markDirty();render();};
+    app.querySelectorAll('[data-induction-row]').forEach(row=>{
+      const i=Number(row.dataset.inductionRow),t=targets[i];
+      row.querySelector('[data-induction-kind]').onchange=e=>{const kind=e.target.value;targets[i]=kind==='skill'?{kind,skillId:candidates(sk,job)[0]?.id||'',chance:t.chance}:{kind,slot:0,chance:t.chance};markDirty();render();};
+      row.querySelector('[data-induction-value]').onchange=e=>{if(t.kind==='skill')t.skillId=e.target.value;else t.slot=Number(e.target.value);markDirty();};
+      row.querySelector('[data-induction-chance]').onchange=e=>{t.chance=Number(e.target.value);markDirty();};
+      row.querySelector('[data-induction-delete]').onclick=()=>{targets.splice(i,1);markDirty();render();};
+    });
+    const add=document.getElementById('addInductionTarget');if(add)add.onclick=()=>{if(targets.length<api.MAX_TARGETS){targets.push({kind:'procSlot',slot:0,chance:1});markDirty();render();}};
+    const effect=app.querySelector('[data-key="effect"]');if(effect){const change=effect.onchange;effect.onchange=e=>{if(effect.value===api.EFFECT)enable(sk);change(e);};}
+    const remove=document.getElementById('delSkill');if(remove){const action=remove.onclick;remove.onclick=e=>{if(data.classes.some(c=>c.skills.some(s=>s!==sk&&s.induction?.targets?.some(t=>t.kind==='skill'&&t.skillId===sk.id))))return alert('仍有技能誘發引用此技能。請先更換或移除誘發目標。');action(e);};}
+  };
+  const baseValidate=validateData;validateData=function(){return [...new Set([...baseValidate(),...api.validate(data)])];};
   requestEditorInitialRender();
 })();
 </script>
