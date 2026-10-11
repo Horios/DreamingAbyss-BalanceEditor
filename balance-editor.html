@@ -4662,7 +4662,15 @@ function statusAllowedTargetsForDefinition(def){
 }
 let selectedStatusIndex=0;
 const deepCloneStatus=v=>JSON.parse(JSON.stringify(v));
-function statusList(){data.statusDefinitions=Array.isArray(data.statusDefinitions)?data.statusDefinitions:[];data.statusDefinitions=data.statusDefinitions.map((x,i)=>normalizeStatusDefinition(x,i));return data.statusDefinitions;}
+function statusList(){
+  const list=data.statusDefinitions=Array.isArray(data.statusDefinitions)?data.statusDefinitions:[];
+  list.forEach((x,i)=>{
+    const normalized=normalizeStatusDefinition(x,i);
+    // Preserve references held by editor events when the definition is already normalized.
+    if(JSON.stringify(x)!==JSON.stringify(normalized))list[i]=normalized;
+  });
+  return list;
+}
 function nextStatusId(){const used=new Set(statusList().map(x=>x.id));let n=1;while(used.has('status-'+n))n++;return 'status-'+n;}
 function labelOptions(list,labels,value){return list.map(x=>'<option value="'+esc(x)+'" '+(x===value?'selected':'')+'>'+esc(labels[x]||x)+'</option>').join('');}
 function statusPeriodicRuleText(fx){return (STATUS_BASIS_DETAILS[fx.basis]||'')+' '+(STATUS_RESOLUTION_DETAILS[fx.resolution]||'');}
