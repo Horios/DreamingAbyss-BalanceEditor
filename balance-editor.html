@@ -815,8 +815,9 @@ function removeMonsterSkillReferences(skillId){
   for(const m of data.balanceSettings?.monsters?.catalog||[])m.skillAssignments=(m.skillAssignments||[]).filter(a=>a?.skillId!==skillId);
 }
 function skillWorkspaceToolbar(activeTab){
-  const tabs=[["active","主動技能"],["proc","普攻觸發技能"],["support","輔助技能"]];
+  const tabs=[["active","主動技能"],["proc","普攻觸發技能"],["support","輔助技能"],...(companionSkillOwner()?[["passive","被動技能"]]:[])];
   const scope=activeTab==="support"?"":'<label style="margin:0">用途</label><select id="skillScopeFilter"><option value="all" '+(selected.skillScopeFilter==="all"?"selected":"")+'>全部</option>'+SKILL_USAGE_SCOPES.map(v=>'<option value="'+v+'" '+(selected.skillScopeFilter===v?"selected":"")+'>'+SKILL_USAGE_SCOPE_LABELS[v]+'</option>').join("")+'</select>';
+  if(companionSkillOwner())return '<div class="toolbar skill-workspace-toolbar"><div class="tabs">'+tabs.map(([id,label])=>'<button type="button" class="'+(activeTab===id?'primary':'')+'" data-skill-tab="'+id+'">'+label+'</button>').join('')+'</div></div>';
   return '<div class="toolbar skill-workspace-toolbar"><label style="margin:0">角色</label><select id="skillClassSel">'+
     data.classes.map((x,i)=>'<option value="'+i+'" '+(i===selected.skillClass?'selected':'')+'>'+esc(x.name)+'</option>').join('')+
     '</select>'+scope+'<div class="tabs">'+tabs.map(([id,label])=>'<button type="button" class="'+(activeTab===id?'primary':'')+'" data-skill-tab="'+id+'">'+label+'</button>').join('')+'</div></div>';
@@ -841,8 +842,8 @@ function renderSkills(){
     const app=document.getElementById("app"),head=app.querySelector(".section-head"),oldToolbar=app.querySelector(".toolbar");
     if(head){
       const title=head.querySelector("h1"),desc=head.querySelector("p");
-      if(title)title.textContent="技能池";
-      if(desc)desc.textContent="核心技能可依用途分類給人物、普通怪、菁英、BOSS 或共用；輔助技能仍為人物專用。";
+      if(title)title.textContent="主角技能";
+      if(desc)desc.textContent="人物用途的技能僅供主角使用；怪物用途依原用途分類配置。夥伴技能在各自的專屬技能頁設計。";
     }
     if(oldToolbar)oldToolbar.remove();
     if(head)head.insertAdjacentHTML("afterend",skillWorkspaceToolbar("support"));
@@ -852,7 +853,7 @@ function renderSkills(){
 
   const skillMode=selected.skillTab,c=data.classes[selected.skillClass];
   const skills=c&&Array.isArray(c.skills)?c.skills:(c?(c.skills=[]):[]);
-  const visible=skills.map((sk,i)=>({sk,i})).filter(x=>x.sk.activation===skillMode&&(selected.skillScopeFilter==="all"||normalizeSkillUsageScope(x.sk)===selected.skillScopeFilter));
+  const visible=skills.map((sk,i)=>({sk,i})).filter(x=>x.sk.activation===skillMode&&companionSkillVisible(x.sk)&&(selected.skillScopeFilter==="all"||normalizeSkillUsageScope(x.sk)===selected.skillScopeFilter));
   if(!visible.some(x=>x.i===selected.skill))selected.skill=visible.length?visible[0].i:-1;
   const sk=selected.skill>=0?skills[selected.skill]:null;
   if(sk)ensureProcSkillFields(sk);
@@ -861,7 +862,7 @@ function renderSkills(){
   const powerHelp=sk?.effect==="nextActiveDamage"?"0.25 = 基礎 +25% 下次主動技能傷害；技能等級、寶石與指定技能效果詞條仍會放大此比例。":sk?.effect==="advanceNextRound"?"此效果固定前移 1 格，不使用 power；保留欄位只為 JSON 結構相容。":sk?.effect==="shieldLowest"?"以施放者攻擊力為基準；0.8 = 產生攻擊力 80% 的純護盾，給生命比例最低的存活隊友。":'最終技能量先以「角色攻擊力 × 此倍率」為基礎，再乘技能等級、寶石、指定技能效果詞條與輔助技能 power。1 = 100% 攻擊力。';
 
   document.getElementById("app").innerHTML =
-    sectionHead("技能池","核心技能共用同一份定義，可分類給人物、普通怪、菁英、BOSS 或共用；輔助技能仍為人物專用。",
+    sectionHead("主角技能","人物用途的技能僅供主角使用；怪物用途依原用途分類配置。夥伴技能在各自的專屬技能頁設計。",
       '<button id="addSkill" '+(c?"":"disabled")+'>新增'+(skillMode==="proc"?"觸發":"主動")+'技能</button>'+(sk?'<button id="dupSkill">複製技能</button><button id="delSkill" class="danger">刪除技能</button>':""))+
     '<div class="notice">主動技能與普攻觸發技能仍共用 classes[].skills 陣列索引；「用途分類」決定人物或哪類怪物可使用同一技能定義。既有存檔以索引保存技能等級與寶石，正式資料請避免任意重排。</div>'+
     skillWorkspaceToolbar(skillMode)+
@@ -894,7 +895,7 @@ function renderSkills(){
     const usageScope=app.querySelector('[data-key="usageScope"]');
     if(usageScope)usageScope.onchange=()=>{sk.usageScope=usageScope.value;normalizeSkillUsageScope(sk);markDirty();render();};
     const activation=app.querySelector('[data-key="activation"]');
-    if(activation)activation.onchange=()=>{sk.activation=activation.value;if(sk.activation==="proc")ensureProcSkillFields(sk);else if(PROC_ONLY_EFFECTS.has(sk.effect))sk.effect="damage";selected.skillTab=sk.activation;markDirty();render();};
+    if(activation)activation.onchange=()=>{sk.activation=activation.value;if(sk.activation==="proc")ensureProcSkillFields(sk);else if(PROC_ONLY_EFFECTS.has(sk.effect))sk.effect="damage";selected.skillTab=sk.activation;const owner=companionSkillOwner();if(owner){owner.active=owner.active.filter(i=>i!==selected.skill);owner.proc=owner.proc.filter(i=>i!==selected.skill);owner[sk.activation==='proc'?'proc':'active'].push(selected.skill);}markDirty();render();};
     const effect=app.querySelector('[data-key="effect"]');
     if(effect)effect.onchange=()=>{sk.effect=effect.value;markDirty();render();};
   }
@@ -903,23 +904,24 @@ function renderSkills(){
     if(!c)return;
     const next={id:uniqueCoreSkillId(selected.skillClass),name:"新技能",usageScope:"character",activation:skillMode,requiredLevel:1,cooldown:skillMode==="active"?3:0,power:1,powerPerLevel:data.balanceSettings?.skills?.core?.effectPerExtraLevel??.18,effect:"damage",element:"physical",maxTargets:1,requiresAdvanced:false,iconType:"auto",description:""};
     if(skillMode==="proc")ensureProcSkillFields(next);
-    skills.push(next);selected.skill=skills.length-1;markDirty();render();
+    assignCompanionSkill(next,"core",skills.length);skills.push(next);selected.skill=skills.length-1;markDirty();render();
   };
   if(sk){
-    document.getElementById("dupSkill").onclick=()=>{const copy=structuredClone(sk);copy.id=uniqueCoreSkillId(selected.skillClass);copy.name=(copy.name||"技能")+" 複製";skills.push(copy);selected.skill=skills.length-1;markDirty();render();};
-    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete('刪除技能「'+sk.name+'」？既有存檔後方技能索引會前移；引用此技能的怪物指派也會一併移除。')){const removed=selected.skill,removedId=sk.id;skills.splice(removed,1);removeMonsterSkillReferences(removedId);selected.skill=-1;markDirty();render();}};
+    document.getElementById("dupSkill").onclick=()=>{const copy=structuredClone(sk);copy.id=uniqueCoreSkillId(selected.skillClass);copy.name=(copy.name||"技能")+" 複製";assignCompanionSkill(copy,"core",skills.length);skills.push(copy);selected.skill=skills.length-1;markDirty();render();};
+    document.getElementById("delSkill").onclick=()=>{if(skills.length<=1)return alert("遊戲匯入規則要求每個職業至少保留 1 個核心技能。");if(confirmDelete('刪除技能「'+sk.name+'」？既有存檔後方技能索引會前移；引用此技能的怪物指派也會一併移除。')){const removed=selected.skill,removedId=sk.id;remapCompanionSkillRemoval(selected.skillClass,"core",removed);skills.splice(removed,1);removeMonsterSkillReferences(removedId);selected.skill=-1;markDirty();render();}};
   }
 }
 function renderSupport(){
   selected.supportClass=Math.min(selected.supportClass,Math.max(0,data.classes.length-1));
   const group=data.supportSkills[selected.supportClass] || [];
   selected.support=Math.min(selected.support,Math.max(0,group.length-1));
+  const visible=group.map((sk,i)=>({sk,i})).filter(x=>companionSkillVisible(x.sk));if(!visible.some(x=>x.i===selected.support))selected.support=visible[0]?.i??-1;
   const sk=group[selected.support], c=data.classes[selected.supportClass];
   document.getElementById("app").innerHTML =
     sectionHead("輔助技能","實際遊戲的 supportLevels 固定 3 格、supportSlots 只允許索引 0~2，因此每職業固定三個輔助技能；這裡只允許修改內容，不提供增刪。")+
     `<div class="notice">每級輔助技能會把基礎效果乘上 1 + (技能等級−1)×20%；最高 5 級。第 3 個輔助技能（索引 2）在 HTML 中額外寫死為需要二轉。</div><div class="oknotice">計時已統一：持續時間＝全隊戰鬥回合；冷卻＝施放者自身行動回合。所有數值都可在本頁直接調整。</div>`+
     `<div class="toolbar"><label style="margin:0">角色</label><select id="supportClassSel">${data.classes.map((x,i)=>`<option value="${i}" ${i===selected.supportClass?"selected":""}>${esc(x.name)}</option>`).join("")}</select></div>`+
-    `<div class="grid2"><div class="card"><div class="list">${group.map((x,i)=>`<div class="listitem ${i===selected.support?"active":""}" data-support="${i}"><div class="title">${esc(x.name||"(未命名)")}</div><div class="sub">${esc(SUPPORT_KIND_LABELS[x.kind]||x.kind)} · ${esc(SUPPORT_TARGET_LABELS[x.target]||x.target)} · 需求 LV.${esc(x.level)}</div></div>`).join("")||`<div class="empty">缺少輔助技能資料</div>`}</div></div>`+
+    `<div class="grid2"><div class="card"><div class="list">${group.map((x,i)=>companionSkillVisible(x)?`<div class="listitem ${i===selected.support?"active":""}" data-support="${i}"><div class="title">${esc(x.name||"(未命名)")}</div><div class="sub">${esc(SUPPORT_KIND_LABELS[x.kind]||x.kind)} · ${esc(SUPPORT_TARGET_LABELS[x.target]||x.target)} · 需求 LV.${esc(x.level)}</div></div>`:'').join("")||`<div class="empty">缺少輔助技能資料</div>`}</div></div>`+
     (sk?card("輔助技能資料",`<div class="fields">
       ${inputField("技能 ID（識別用）","id",sk.id||"","text","",false,"套用時會移除 id，執行階段以陣列索引識別；建議保持原值。",true)}
       ${inputField("技能名稱","name",sk.name||"","text","",false,"技能頁與戰鬥紀錄顯示名稱。")}
@@ -1245,7 +1247,7 @@ function validateData(){
       if(!Number.isFinite(sk.cooldown)||sk.cooldown<0||!Number.isFinite(sk.power)||sk.power<0||!Number.isFinite(sk.maxTargets)||sk.maxTargets<1)issues.push('角色 '+ci+' 技能 '+si+' 的冷卻、倍率或目標數無效。');
     });
   });
-  data.supportSkills.forEach((g,ci)=>{if(!Array.isArray(g)||g.length!==EXPECTED_SUPPORT_PER_CLASS)issues.push('角色 '+ci+' 應維持 '+EXPECTED_SUPPORT_PER_CLASS+' 個輔助技能；遊戲存檔 supportLevels 固定長度為 3。');});
+  data.supportSkills.forEach((g,ci)=>{if(!Array.isArray(g)||g.length<EXPECTED_SUPPORT_PER_CLASS||g.length>64)issues.push('角色 '+ci+' 的輔助技能池需為 3～64 個技能。');});
   data.equipmentForms.forEach((jobs,job)=>{
     const global=job===data.classes.length,label=global?"全職業":`角色 ${job}`;
     if(!Array.isArray(jobs)||jobs.length!==4){issues.push(`${label}的裝備必須固定 4 個部位群組。`);return;}
@@ -2105,14 +2107,15 @@ ensureArrays();requestEditorInitialRender();
     selected.supportClass=Math.min(selected.supportClass,Math.max(0,data.classes.length-1));
     const group=data.supportSkills[selected.supportClass]||[];
     selected.support=Math.min(selected.support,Math.max(0,group.length-1));
-    const sk=normalizeSupportMechanic(group[selected.support]);
+    const visible=group.map((sk,i)=>({sk,i})).filter(x=>companionSkillVisible(x.sk));if(!visible.some(x=>x.i===selected.support))selected.support=visible[0]?.i??-1;
+    const sk=group[selected.support]?normalizeSupportMechanic(group[selected.support]):null;
     document.getElementById('app').innerHTML=
       sectionHead('輔助技能','每職業固定三個輔助技能。此頁除了原本 BUFF／DEBUFF，也可直接設定追打、兩種固定傷害 DOT 與受擊增傷。')+
       `<div class="notice">每個輔助技能都可獨立設定每級效果增幅；計算為基礎效果 × [1 + (技能等級−1) × 本技能每級增加倍率]。最高 5 級。第 3 個輔助技能（索引 2）另外固定要求二轉。</div>`+
       `<div class="support-mechanic-note"><b>DEBUFF 傷害規則：</b>追打＝目標受到攻擊後，額外受到施放者攻擊力 × value 的獨立屬性傷害，會套用目標防禦、element 屬性克制與目標減傷；DOT＝目標自身行動前直接扣固定傷害，兩種 DOT 都完全不吃增傷／減傷／防禦／抗性／暴擊／屬性克制；額外增傷＝只放大觸發它的那次攻擊。</div>`+
       `<div class="oknotice">持續時間＝全隊戰鬥回合；冷卻＝施放者自身行動回合。DOT 的傷害觸發點則是「受到 DEBUFF 的目標自身行動前」。</div>`+
       `<div class="toolbar"><label style="margin:0">角色</label><select id="supportClassSel">${data.classes.map((x,i)=>`<option value="${i}" ${i===selected.supportClass?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div>`+
-      `<div class="grid2"><div class="card"><div class="list">${group.map((x,i)=>`<div class="listitem ${i===selected.support?'active':''}" data-support="${i}"><div class="title">${esc(x.name||'(未命名)')}</div><div class="sub">${esc(SUPPORT_KIND_LABELS[x.kind]||x.kind)} · ${esc(SUPPORT_TARGET_LABELS[x.target]||x.target)} · 需求 LV.${esc(x.level)}</div></div>`).join('')||'<div class="empty">缺少輔助技能資料</div>'}</div></div>`+
+      `<div class="grid2"><div class="card"><div class="list">${group.map((x,i)=>companionSkillVisible(x)?`<div class="listitem ${i===selected.support?'active':''}" data-support="${i}"><div class="title">${esc(x.name||'(未命名)')}</div><div class="sub">${esc(SUPPORT_KIND_LABELS[x.kind]||x.kind)} · ${esc(SUPPORT_TARGET_LABELS[x.target]||x.target)} · 需求 LV.${esc(x.level)}</div></div>`:'').join('')||'<div class="empty">缺少輔助技能資料</div>'}</div></div>`+
       (sk?card('輔助技能資料',`<div class="fields">
         ${inputField('技能 ID（識別用）','id',sk.id||'','text','',false,'套用時會移除 id，執行階段以陣列索引識別；建議保持原值。',true)}
         ${inputField('技能名稱','name',sk.name||'','text','',false,'技能頁與戰鬥紀錄顯示名稱。')}
@@ -5185,6 +5188,44 @@ requestEditorInitialRender();
 })();
 </script>
 
+<script id="companion-skill-model-v1">
+/* Ownership uses the existing skill pools and stable indices; migration only appends. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.EmberwildCompanionSkills=api;})(globalThis,function(){
+  const copy=x=>JSON.parse(JSON.stringify(x));
+  function cloneSkills(doc,p){
+    const core=doc.classes[p.job].skills,support=doc.supportSkills[p.job],remap=new Map();
+    for(const i of p.core){const sk=core[i];if(!sk)throw Error('夥伴核心技能不存在：'+p.id);if(core.length>=64)throw Error('此職業核心技能最多 64 個');const next=copy(sk);next.id='partner'+p.id+'-core'+core.length;next.partnerId=p.id;next.usageScope='character';next.requiresAdvanced=false;next.mastery=null;next.requiredMastery=null;next.requiredMasteryLevel=0;remap.set(i,core.length);core.push(next);}
+    for(const [old,index] of remap){const next=core[index];for(const target of next.induction?.targets||[])if(target.kind==='skill'){const match=[...remap].find(([source])=>core[source].id===target.skillId);if(match)target.skillId=core[match[1]].id;}}
+    p.core=p.core.map(i=>remap.get(i));p.active=p.active.map(i=>remap.get(i));p.proc=p.proc.map(i=>remap.get(i));
+    p.support=p.support.map(i=>{const sk=support[i];if(!sk)throw Error('夥伴輔助技能不存在：'+p.id);if(support.length>=64)throw Error('此職業輔助技能最多 64 個');const next=copy(sk);next.id='partner'+p.id+'-support'+support.length;next.partnerId=p.id;next.mastery=null;next.requiredMastery=null;next.requiredMasteryLevel=0;support.push(next);return support.length-1;});
+  }
+  function clonePassives(doc,p){
+    p.passives=(p.passives||[]).map(id=>{const d=doc.passiveDefinitions.find(x=>x.id===id);if(!d)throw Error('夥伴被動不存在：'+p.id);if(doc.passiveDefinitions.length>=512)throw Error('被動最多 512 個');const next=copy(d);let n=1;while(doc.passiveDefinitions.some(x=>x.id==='partner'+p.id+'-passive'+n))n++;next.id='partner'+p.id+'-passive'+n;next.partnerId=p.id;next.requiredLevel=d.requiredLevel??1;doc.passiveDefinitions.push(next);return next.id;});
+  }
+  function migrate(doc){
+    if(doc.companionSkillVersion===1)return doc;
+    if(doc.companionSkillVersion!==undefined)throw Error('夥伴技能版本無效');
+    for(const p of doc.companions||[]){cloneSkills(doc,p);clonePassives(doc,p);}
+    doc.companionSkillVersion=1;return doc;
+  }
+  function validate(doc){
+    if(doc.companionSkillVersion!==1)throw Error('夥伴技能版本無效');
+    for(let job=0;job<doc.classes.length;job++)for(const pool of [doc.classes[job].skills,doc.supportSkills[job]]){
+      if(!Array.isArray(pool)||pool.length>64)throw Error('技能池最多 64 個');
+      for(const sk of pool)if(sk.partnerId!=null&&(!Number.isInteger(sk.partnerId)||!doc.companions.some(p=>p.id===sk.partnerId&&p.job===job)))throw Error('技能指定夥伴不存在或職業不符：'+sk.name);
+    }
+    for(const c of doc.classes)for(const sk of c.skills)for(const t of sk.induction?.targets||[])if(t.kind==='skill'){const target=c.skills.find(s=>s.id===t.skillId);if(target&&(target.partnerId??null)!==(sk.partnerId??null))throw Error('誘發技能必須屬於同一角色：'+sk.name);}
+    for(const d of doc.passiveDefinitions||[])if(d.partnerId!=null&&(!Number.isInteger(d.partnerId)||!doc.companions.some(p=>p.id===d.partnerId)))throw Error('被動指定夥伴不存在：'+d.id);
+    for(const p of doc.companions||[]){
+      for(const id of p.passives||[])if(doc.passiveDefinitions.find(d=>d.id===id)?.partnerId!==p.id)throw Error('夥伴只能配置自己的被動：'+p.id);
+      for(const i of p.core||[])if(doc.classes[p.job].skills[i]?.partnerId!==p.id)throw Error('夥伴只能配置自己的核心技能：'+p.id);
+      for(const i of p.support||[])if(doc.supportSkills[p.job][i]?.partnerId!==p.id)throw Error('夥伴只能配置自己的輔助技能：'+p.id);
+    }
+    return doc;
+  }
+  return {copy,cloneSkills,clonePassives,migrate,validate};
+});
+</script>
 <script id="companion-passive-model-v1">
 /* Shared passive contract: permanent effects reuse existing stat and combat keys. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.EmberwildPassives=api;})(globalThis,function(){
@@ -5199,7 +5240,7 @@ requestEditorInitialRender();
     {id:'test-defense',name:'防禦強化（測試）',effects:[{key:'defensePct',value:10}]},
     {id:'test-health',name:'生命強化（測試）',effects:[{key:'hpPct',value:10}]},
     {id:'test-healing',name:'治療強化（測試）',effects:[{key:'healingPct',value:15}]}
-  ].map(d=>({...d,description:'取得時常駐生效，不占技能槽。',kind:'buff',target:'self'}));
+  ].map(d=>({...d,description:'取得時常駐生效，不占技能槽。',kind:'buff',target:'self',requiredLevel:1}));
   const defaultAssignments={10:['test-attack'],11:['test-defense','test-health'],12:['test-attack'],13:['test-healing'],14:['test-attack']};
   const ident=s=>typeof s==='string'&&/^[a-zA-Z0-9_-]{1,100}$/.test(s);
   function assert(ok,message){if(!ok)throw Error(message);}
@@ -5221,7 +5262,9 @@ requestEditorInitialRender();
         if(e.key==='raceDamagePct'){assert(races.includes(e.race),'被動種族無效：'+d.id);out.race=e.race;}
         return out;
       });
-      return {id:d.id,name:d.name.trim(),description:d.description??'',kind,target,effects};
+      const requiredLevel=d.requiredLevel??1;assert(Number.isSafeInteger(requiredLevel)&&requiredLevel>=1,'被動解鎖等級無效：'+d.id);
+      assert(d.partnerId==null||Number.isInteger(d.partnerId)&&d.partnerId>=10,'被動指定夥伴無效：'+d.id);
+      return {id:d.id,name:d.name.trim(),description:d.description??'',kind,target,effects,requiredLevel,...(d.partnerId!=null?{partnerId:d.partnerId}:{})};
     });
   }
   function assignments(raw,id){
@@ -5270,6 +5313,7 @@ requestEditorInitialRender();
   const baseCount=count;
   count=function(section,normalized=false){if(section==='companions'){if(!normalized)ensureArrays();return Array.isArray(data.companions)?data.companions.length:0;}return baseCount(section,normalized);};
   let selectedId=10;
+  globalThis.selectCompanionDesign=id=>{selectedId=id;currentSection='companions';render();};
   const coreSkills=p=>data.classes?.[p.job]?.skills||[];
   const supports=p=>data.supportSkills?.[p.job]||[];
   const kind=sk=>sk?.activation;
@@ -5303,9 +5347,9 @@ requestEditorInitialRender();
     let p=list.find(x=>x?.id===selectedId)||list[0];selectedId=p.id;
     const skills=coreSkills(p),support=supports(p),weaponTypes=weaponForms(p);
     const options=(indices,selected)=>indices.map(i=>`<option value="${i}" ${i===selected?'selected':''}>${i} · ${esc(skills[i]?.name||'技能')}</option>`).join('');
-    const priority=(key,title,type)=>`<div class="card"><div class="card-h"><strong>${title}</strong><button type="button" data-add-priority="${key}">新增順位</button></div><div class="card-b"><p class="mini-note">取得時即自帶全部勾選技能，依序取前兩個配置；沒有等級、二轉與精通限制。</p>${p[key].map((value,i)=>`<div class="companion-priority" data-priority="${key}" data-index="${i}"><select>${options(skills.map((s,n)=>kind(s)===type?n:null).filter(n=>n!==null),value)}</select><button type="button" data-move="-1" ${i===0?'disabled':''}>↑</button><button type="button" data-move="1" ${i===p[key].length-1?'disabled':''}>↓</button><button type="button" data-remove>刪除</button></div>`).join('')||'<p class="mini-note">未安排技能。</p>'}</div></div>`;
+    const priority=(key,title,type)=>`<div class="card"><div class="card-h"><strong>${title}</strong><button type="button" data-add-priority="${key}">新增順位</button></div><div class="card-b"><p class="mini-note">達到需求角色等級後自動學會勾選技能，依序取前兩個已解鎖技能配置；不需要二轉與精通。</p>${p[key].map((value,i)=>`<div class="companion-priority" data-priority="${key}" data-index="${i}"><select>${options(skills.map((s,n)=>kind(s)===type&&s.partnerId===p.id?n:null).filter(n=>n!==null),value)}</select><button type="button" data-move="-1" ${i===0?'disabled':''}>↑</button><button type="button" data-move="1" ${i===p[key].length-1?'disabled':''}>↓</button><button type="button" data-remove>刪除</button></div>`).join('')||'<p class="mini-note">未安排技能。</p>'}</div></div>`;
     app.innerHTML=sectionHead('夥伴角色','編輯固定走向、隨機名字池、配點與技能；新角色會出現在遊戲的隊伍編成。','<button id="addCompanion">新增角色</button>')+
-      '<div class="notice">名字在玩家創角時各抽一次並存入該欄位存檔；招募不會重新抽名，遊戲內可改名。新建的夥伴使用獨立 ID，但共用四個職業的技能與裝備池。</div>'+
+      '<div class="notice">名字在玩家創角時各抽一次並存入該欄位存檔；招募不會重新抽名，遊戲內可改名。每位夥伴使用獨立 ID 與專屬技能；主角技能不提供夥伴使用。</div>'+
       `<div class="companion-layout"><div class="card"><div class="list">${list.map(x=>`<button type="button" class="listitem ${x.id===p.id?'active':''}" data-companion="${x.id}"><span class="title">${esc(x.role||'未命名夥伴')}</span><span class="sub">ID ${x.id} · ${esc(data.classes[x.job]?.name||'未知職業')} · ${esc((x.names||[]).join('、'))}</span></button>`).join('')}</div></div><div>`+
       `<div class="card"><div class="card-h"><strong>${esc(p.role)} · ID ${p.id}</strong><span><button id="duplicateCompanion">複製</button> ${p.id>14?'<button class="danger" id="deleteCompanion">刪除</button>':''}</span></div><div class="card-b companion-fields">`+
       `<label>角色定位<input id="companionRole" maxlength="40" value="${esc(p.role)}"></label><label>基礎職業<select id="companionJob">${data.classes.map((c,i)=>`<option value="${i}" ${p.job===i?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>`+
@@ -5313,28 +5357,30 @@ requestEditorInitialRender();
       `<label class="full">隨機名字池（每行一個，最多 30 個）<textarea id="companionNames" rows="4">${esc(p.names.join('\n'))}</textarea></label>`+
       `<label>初始武器<select id="companionWeapon">${weaponTypes.map(w=>`<option value="${esc(w)}" ${p.weapon===w?'selected':''}>${esc((data.equipmentForms[p.job][0]||[]).find(f=>f.weaponType===w)?.name||w)} · ${esc(w)}</option>`).join('')}${p.weapon&&!weaponTypes.includes(p.weapon)?`<option value="${esc(p.weapon)}" selected>${esc(p.weapon)}（目前未找到）</option>`:''}</select></label>`+
       '<div class="full"><b>每級循環配點</b><p class="mini-note">0 為職業主屬、1 為體質、2 為韌性；依下列順序循環分配每個能力點。</p>'+p.points.map((n,i)=>`<div class="companion-priority" data-point="${i}"><select><option value="0" ${n===0?'selected':''}>主屬</option><option value="1" ${n===1?'selected':''}>體質</option><option value="2" ${n===2?'selected':''}>韌性</option></select><button type="button" data-point-remove ${p.points.length===1?'disabled':''}>刪除</button></div>`).join('')+'<button id="addCompanionPoint">新增配點順位</button></div>'+
-      `<div class="full"><b>取得時自帶的核心技能</b><div class="companion-choice">${skills.map((s,i)=>`<label><input type="checkbox" data-companion-core="${i}" ${p.core.includes(i)?'checked':''}> ${esc(s.name)}</label>`).join('')}</div></div>`+
-      `<div class="full"><b>取得時自帶的輔助技能</b><div class="companion-choice">${support.map((s,i)=>`<label><input type="checkbox" data-companion-support="${i}" ${p.support.includes(i)?'checked':''}> ${esc(s.name)}</label>`).join('')}</div><p class="mini-note">自帶技能依勾選順序取最後兩個放入輔助槽；所有自帶技能都沒有等級、二轉與精通限制。</p></div>`+
-      `<div class="full"><b>常駐被動</b><div class="companion-choice">${(data.passiveDefinitions||[]).map(d=>`<label><input type="checkbox" data-companion-passive="${esc(d.id)}" ${(p.passives||[]).includes(d.id)?'checked':''}> ${esc(d.name)} · ${d.kind==='debuff'?'DEBUFF':'BUFF'} · ${esc(EmberwildPassives.targets[d.target])}</label>`).join('')||'<p class="mini-note">請先在「被動組成器」新增被動。</p>'}</div><p class="mini-note">取得時自帶、不占技能槽。自己效果常時生效；我方／敵方全體光環由上陣且存活的夥伴提供。</p><button type="button" id="openPassiveComposer">被動組成器</button></div>`+
+      `<div class="full"><button type="button" id="openCompanionSkills">設計此夥伴的技能</button></div>`+
+      `<div class="full"><b>可解鎖的專屬核心技能</b><div class="companion-choice">${skills.map((s,i)=>s.partnerId===p.id?`<label><input type="checkbox" data-companion-core="${i}" ${p.core.includes(i)?'checked':''}> ${esc(s.name)}</label>`:'').join('')}</div></div>`+
+      `<div class="full"><b>可解鎖的專屬輔助技能</b><div class="companion-choice">${support.map((s,i)=>s.partnerId===p.id?`<label><input type="checkbox" data-companion-support="${i}" ${p.support.includes(i)?'checked':''}> ${esc(s.name)}</label>`:'').join('')}</div><p class="mini-note">已解鎖技能依勾選順序取最後兩個放入輔助槽；各技能的需求角色等級在專屬技能頁設定。</p></div>`+
+      `<div class="full"><b>常駐被動</b><div class="companion-choice">${(data.passiveDefinitions||[]).filter(d=>d.partnerId===p.id).map(d=>`<label><input type="checkbox" data-companion-passive="${esc(d.id)}" ${(p.passives||[]).includes(d.id)?'checked':''}> ${esc(d.name)} · ${d.kind==='debuff'?'DEBUFF':'BUFF'} · ${esc(EmberwildPassives.targets[d.target])}</label>`).join('')||'<p class="mini-note">請在此夥伴的技能頁新增被動。</p>'}</div><p class="mini-note">達到需求角色等級後生效，不占技能槽。自己效果常時生效；我方／敵方全體光環由上陣且存活的夥伴提供。</p><button type="button" id="openPassiveComposer">設計被動技能</button></div>`+
       `</div></div>${priority('active','主動技能優先順序','active')}${priority('proc','普攻觸發技能優先順序','proc')}</div></div>`;
+    document.getElementById('openCompanionSkills').onclick=()=>openCompanionSkillPage(p.id);
     app.querySelectorAll('[data-companion]').forEach(el=>el.onclick=()=>{selectedId=Number(el.dataset.companion);render();});
     const change=(id,key,transform=x=>x)=>{document.getElementById(id).onchange=e=>{p[key]=transform(e.target.value);markDirty();render();};};
     change('companionRole','role',s=>s.trim());change('companionDescription','description',s=>s.trim());
     change('companionNames','names',s=>s.split(/\r?\n/).map(x=>x.trim()).filter(Boolean));
     change('companionWeapon','weapon');
-    document.getElementById('companionJob').onchange=e=>{p.job=Number(e.target.value);p.core=[];p.active=[];p.proc=[];p.support=[];p.weapon=weaponForms(p)[0]||'';markDirty();render();};
+    document.getElementById('companionJob').onchange=e=>{removeCompanionOwnedSkills(p);p.job=Number(e.target.value);p.core=[];p.active=[];p.proc=[];p.support=[];p.weapon=weaponForms(p)[0]||'';markDirty();render();};
     app.querySelectorAll('[data-point]').forEach(row=>{const i=Number(row.dataset.point);row.querySelector('select').onchange=e=>{p.points[i]=Number(e.target.value);markDirty();};row.querySelector('[data-point-remove]').onclick=()=>{p.points.splice(i,1);markDirty();render();};});
     document.getElementById('addCompanionPoint').onclick=()=>{if(p.points.length>=32)return alert('配點順序最多 32 格。');p.points.push(0);markDirty();render();};
     app.querySelectorAll('[data-companion-core]').forEach(el=>el.onchange=()=>{const i=Number(el.dataset.companionCore);p.core=el.checked?[...p.core,i].sort((a,b)=>a-b):p.core.filter(x=>x!==i);if(!el.checked){p.active=p.active.filter(x=>x!==i);p.proc=p.proc.filter(x=>x!==i);}markDirty();render();});
     app.querySelectorAll('[data-companion-support]').forEach(el=>el.onchange=()=>{const i=Number(el.dataset.companionSupport);p.support=el.checked?[...p.support,i].sort((a,b)=>a-b):p.support.filter(x=>x!==i);markDirty();render();});
     app.querySelectorAll('[data-priority]').forEach(row=>{const key=row.dataset.priority,i=Number(row.dataset.index);row.querySelector('select').onchange=e=>{const n=Number(e.target.value);p[key][i]=n;if(!p.core.includes(n))p.core.push(n);p.core.sort((a,b)=>a-b);markDirty();render();};row.querySelector('[data-remove]').onclick=()=>{p[key].splice(i,1);markDirty();render();};row.querySelectorAll('[data-move]').forEach(button=>button.onclick=()=>{const j=i+Number(button.dataset.move);[p[key][i],p[key][j]]=[p[key][j],p[key][i]];markDirty();render();});});
-    app.querySelectorAll('[data-add-priority]').forEach(button=>button.onclick=()=>{const key=button.dataset.addPriority,type=key==='active'?'active':'proc';const i=skills.findIndex((s,n)=>kind(s)===type&&!p[key].includes(n));if(i<0)return alert('沒有可新增的技能。');p[key].push(i);if(!p.core.includes(i))p.core.push(i);p.core.sort((a,b)=>a-b);markDirty();render();});
+    app.querySelectorAll('[data-add-priority]').forEach(button=>button.onclick=()=>{const key=button.dataset.addPriority,type=key==='active'?'active':'proc';const i=skills.findIndex((s,n)=>kind(s)===type&&s.partnerId===p.id&&!p[key].includes(n));if(i<0)return alert('沒有可新增的技能。');p[key].push(i);if(!p.core.includes(i))p.core.push(i);p.core.sort((a,b)=>a-b);markDirty();render();});
     app.querySelectorAll('[data-companion-passive]').forEach(el=>el.onchange=()=>{const id=el.dataset.companionPassive;p.passives=el.checked?[...p.passives,id]:p.passives.filter(x=>x!==id);markDirty();render();});
-    document.getElementById('openPassiveComposer').onclick=()=>{currentSection='passives';render();};
+    document.getElementById('openPassiveComposer').onclick=()=>{selected.companionSkillOwner=p.id;selected.skillTab='passive';currentSection='companionSkills';render();};
     const nextId=()=>Math.max(14,...list.map(x=>x.id))+1;
-    document.getElementById('addCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');const id=nextId(),job=0,first=data.classes[job]?.skills?.findIndex(sk=>sk.activation==='active');list.push({id,job,role:'新夥伴',description:'請填寫戰鬥定位。',names:['新夥伴'+id],points:[0,0,1],core:first>=0?[first]:[],active:first>=0?[first]:[],proc:[],support:[],passives:[],weapon:weaponForms({job})[0]||''});selectedId=id;markDirty();render();};
-    document.getElementById('duplicateCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');const clone=structuredClone(p);clone.id=nextId();clone.role+=' 複製';list.push(clone);selectedId=clone.id;markDirty();render();};
-    document.getElementById('deleteCompanion')?.addEventListener('click',()=>{if(confirmDelete('刪除夥伴「'+p.role+'」？既有存檔會保留創角時建立的夥伴，新存檔不再顯示。')){data.companions=list.filter(x=>x.id!==p.id);selectedId=10;markDirty();render();}});
+    document.getElementById('addCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');const id=nextId(),job=0,first=data.classes[job]?.skills?.findIndex(sk=>sk.activation==='active');list.push({id,job,role:'新夥伴',description:'請填寫戰鬥定位。',names:['新夥伴'+id],points:[0,0,1],core:[],active:[],proc:[],support:[],passives:[],weapon:weaponForms({job})[0]||''});selectedId=id;markDirty();render();};
+    document.getElementById('duplicateCompanion').onclick=()=>{if(list.length>=64||nextId()>999)return alert('夥伴已達上限。');if(data.classes[p.job].skills.length+p.core.length>64||data.supportSkills[p.job].length+p.support.length>64||data.passiveDefinitions.length+p.passives.length>512)return alert('複製後技能或被動數量會超過上限。');const clone=structuredClone(p);clone.id=nextId();clone.role+=' 複製';EmberwildCompanionSkills.cloneSkills(data,clone);EmberwildCompanionSkills.clonePassives(data,clone);list.push(clone);selectedId=clone.id;markDirty();render();};
+    document.getElementById('deleteCompanion')?.addEventListener('click',()=>{if(confirmDelete('刪除夥伴「'+p.role+'」？既有存檔會保留創角時建立的夥伴，新存檔不再顯示。')){removeCompanionOwnedSkills(p);data.companions=list.filter(x=>x.id!==p.id);selectedId=10;markDirty();render();}});
   }
   const baseRender=render;
   render=function(){if(currentSection==='companions'){ensureArrays();renderNav(true);renderCompanions();return;}return baseRender();};
@@ -5506,30 +5552,98 @@ requestEditorInitialRender();
   };
   const nextId=()=>{let n=1;while(data.passiveDefinitions.some(d=>d.id==='passive-'+n))n++;return 'passive-'+n;};
   function renderPassives(){
-    const app=document.getElementById('app'),list=data.passiveDefinitions;
+    const app=document.getElementById('app'),list=data.passiveDefinitions.filter(companionSkillVisible);
     const d=list.find(x=>x.id===selectedPassiveId)||list[0];selectedPassiveId=d?.id||'';
     const options=(entries,value)=>Object.entries(entries).map(([key,label])=>`<option value="${esc(key)}" ${key===value?'selected':''}>${esc(label)}</option>`).join('');
     const keys=Object.fromEntries(Object.entries(M.labels).filter(([key])=>d?.target==='enemies'?M.enemyKeys.includes(key):!M.enemyKeys.includes(key)));
     const rows=d?.effects.map((e,i)=>`<div class="companion-priority" data-passive-effect-row="${i}"><label>效果<select data-passive-effect-key>${options(keys,e.key)}</select></label><label>數值<input data-passive-effect-value type="number" step="0.1" min="-1000000" max="1000000" value="${e.value}"></label>${['elementDamagePct','elementResistPct'].includes(e.key)?`<label>元素<select data-passive-effect-element>${options(Object.fromEntries(M.elements.map(k=>[k,({physical:'物理',fire:'火',ice:'冰',wind:'風',light:'光',shadow:'暗'})[k]])),e.element)}</select></label>`:e.key==='raceDamagePct'?`<label>種族<select data-passive-effect-race>${options(Object.fromEntries(M.races.map(k=>[k,({beast:'野獸',plant:'植物',undead:'不死',construct:'構裝體',demon:'惡魔',spirit:'靈體'})[k]])),e.race)}</select></label>`:''}<button type="button" data-passive-effect-delete ${d.effects.length===1?'disabled':''}>刪除</button></div>`).join('');
-    app.innerHTML=sectionHead('被動組成器','自訂常駐 BUFF／DEBUFF，組合屬性、技能效果與觸發率，再於「夥伴角色」勾選配置。','<button id="addPassive">新增被動</button>')+
-      '<div class="notice">被動取得後自帶，不需要學習、等級、精通、冷卻或持續時間。自己效果常時生效；我方／敵方全體光環由上陣且存活的夥伴提供。百分比欄填 10 表示 10%；固定值欄填實際數值。BUFF／DEBUFF 是名稱分類，實際增減依數值決定；自己／我方屬性填負數可設定代價，敵方降低效果填正數。治療量影響施放者的技能治療、再生與自我恢復，不影響藥水和護盾。</div>'+
-      `<div class="companion-layout"><div class="card"><div class="list">${list.map(x=>`<button class="listitem ${x.id===d?.id?'active':''}" data-passive-id="${esc(x.id)}"><span class="title">${esc(x.name)}</span><span class="sub">${x.kind==='debuff'?'DEBUFF':'BUFF'} · ${esc(M.targets[x.target])} · ${x.effects.length} 個效果</span></button>`).join('')||'<p class="mini-note">尚無被動，按「新增被動」建立。</p>'}</div></div>${d?`<div class="card"><div class="card-h"><strong>${esc(d.name)}</strong><div><button id="duplicatePassive">複製被動</button><button class="danger" id="deletePassive">刪除被動</button></div></div><div class="card-b companion-fields"><label>ID<input id="passiveId" maxlength="100" value="${esc(d.id)}"></label><label>BUFF／DEBUFF 名稱<input id="passiveName" maxlength="80" value="${esc(d.name)}"></label><label>分類<select id="passiveKind"><option value="buff" ${d.kind==='buff'?'selected':''}>BUFF</option><option value="debuff" ${d.kind==='debuff'?'selected':''}>DEBUFF</option></select></label><label>目標<select id="passiveTarget">${options(M.targets,d.target)}</select></label><label class="full">說明<textarea id="passiveDescription" rows="2" maxlength="500">${esc(d.description)}</textarea></label><div class="full"><b>常駐效果（${d.effects.length} / 32）</b>${rows}<button id="addPassiveEffect" ${d.effects.length>=32?'disabled':''}>新增效果</button></div><div class="full status-maker-preview"><b>效果預覽</b><p>${esc(d.effects.map(M.effectText).join('、'))}</p><p>配置夥伴：${esc((data.companions||[]).filter(p=>p.passives?.includes(d.id)).map(p=>p.role).join('、')||'尚未配置')}</p></div></div></div>`:'<div class="card"><p>按「新增被動」開始。</p></div>'}</div>`;
-    document.getElementById('addPassive').onclick=()=>{if(list.length>=512)return alert('被動最多 512 個。');const id=nextId();list.push({id,name:'新被動',description:'',kind:'buff',target:'self',effects:[{key:'attackPct',value:10}]});selectedPassiveId=id;markDirty();render();};
+    app.innerHTML=sectionHead('被動組成器','編輯常駐 BUFF／DEBUFF；夥伴專屬被動在各自的技能頁建立，這裡保留可複製的被動範本。','<button id="addPassive">新增被動</button>')+
+      '<div class="notice">被動達到需求角色等級後常駐生效，不需要精通、冷卻或持續時間。自己效果常時生效；我方／敵方全體光環由上陣且存活的夥伴提供。百分比欄填 10 表示 10%；固定值欄填實際數值。BUFF／DEBUFF 是名稱分類，實際增減依數值決定；自己／我方屬性填負數可設定代價，敵方降低效果填正數。治療量影響施放者的技能治療、再生與自我恢復，不影響藥水和護盾。</div>'+
+      `<div class="companion-layout"><div class="card"><div class="list">${list.map(x=>`<button class="listitem ${x.id===d?.id?'active':''}" data-passive-id="${esc(x.id)}"><span class="title">${esc(x.name)}</span><span class="sub">${x.kind==='debuff'?'DEBUFF':'BUFF'} · ${esc(M.targets[x.target])} · ${x.effects.length} 個效果</span></button>`).join('')||'<p class="mini-note">尚無被動，按「新增被動」建立。</p>'}</div></div>${d?`<div class="card"><div class="card-h"><strong>${esc(d.name)}</strong><div><button id="duplicatePassive">複製被動</button><button class="danger" id="deletePassive">刪除被動</button></div></div><div class="card-b companion-fields"><label>ID<input id="passiveId" maxlength="100" value="${esc(d.id)}"></label><label>需求角色等級<input id="passiveRequiredLevel" type="number" min="1" step="1" value="${d.requiredLevel??1}"></label><label>BUFF／DEBUFF 名稱<input id="passiveName" maxlength="80" value="${esc(d.name)}"></label><label>分類<select id="passiveKind"><option value="buff" ${d.kind==='buff'?'selected':''}>BUFF</option><option value="debuff" ${d.kind==='debuff'?'selected':''}>DEBUFF</option></select></label><label>目標<select id="passiveTarget">${options(M.targets,d.target)}</select></label><label class="full">說明<textarea id="passiveDescription" rows="2" maxlength="500">${esc(d.description)}</textarea></label><div class="full"><b>常駐效果（${d.effects.length} / 32）</b>${rows}<button id="addPassiveEffect" ${d.effects.length>=32?'disabled':''}>新增效果</button></div><div class="full status-maker-preview"><b>效果預覽</b><p>${esc(d.effects.map(M.effectText).join('、'))}</p><p>配置夥伴：${esc((data.companions||[]).filter(p=>p.passives?.includes(d.id)).map(p=>p.role).join('、')||'尚未配置')}</p></div></div></div>`:'<div class="card"><p>按「新增被動」開始。</p></div>'}</div>`;
+    document.getElementById('addPassive').onclick=()=>{if(data.passiveDefinitions.length>=512)return alert('被動最多 512 個。');const id=nextId();const next={id,name:'新被動',description:'',kind:'buff',target:'self',requiredLevel:1,effects:[{key:'attackPct',value:10}]};assignCompanionSkill(next,'passive');data.passiveDefinitions.push(next);selectedPassiveId=id;markDirty();render();};
     app.querySelectorAll('[data-passive-id]').forEach(el=>el.onclick=()=>{selectedPassiveId=el.dataset.passiveId;render();});
     if(!d)return;
-    document.getElementById('duplicatePassive').onclick=()=>{if(list.length>=512)return alert('被動最多 512 個。');const clone=M.copy(d);clone.id=nextId();clone.name+=' 複製';list.push(clone);selectedPassiveId=clone.id;markDirty();render();};
-    document.getElementById('deletePassive').onclick=()=>{const owners=(data.companions||[]).filter(p=>p.passives?.includes(d.id));if(!confirmDelete('刪除「'+d.name+'」？'+(owners.length?'會同時移除 '+owners.length+' 位夥伴的此被動配置。':'')))return;data.passiveDefinitions=list.filter(x=>x!==d);for(const p of owners)p.passives=p.passives.filter(id=>id!==d.id);selectedPassiveId='';markDirty();render();};
+    document.getElementById('duplicatePassive').onclick=()=>{if(data.passiveDefinitions.length>=512)return alert('被動最多 512 個。');const clone=M.copy(d);clone.id=nextId();clone.name+=' 複製';assignCompanionSkill(clone,'passive');data.passiveDefinitions.push(clone);selectedPassiveId=clone.id;markDirty();render();};
+    document.getElementById('deletePassive').onclick=()=>{const owners=(data.companions||[]).filter(p=>p.passives?.includes(d.id));if(!confirmDelete('刪除「'+d.name+'」？'+(owners.length?'會同時移除 '+owners.length+' 位夥伴的此被動配置。':'')))return;data.passiveDefinitions=data.passiveDefinitions.filter(x=>x!==d);for(const p of owners)p.passives=p.passives.filter(id=>id!==d.id);selectedPassiveId='';markDirty();render();};
     const field=(id,key)=>{document.getElementById(id).onchange=e=>{d[key]=e.target.value;markDirty();render();};};
+    document.getElementById('passiveRequiredLevel').onchange=e=>{const n=Number(e.target.value);if(!Number.isSafeInteger(n)||n<1){e.target.value=d.requiredLevel??1;return alert('需求角色等級必須是至少 1 的整數。');}d.requiredLevel=n;markDirty();render();};
     field('passiveName','name');field('passiveDescription','description');field('passiveKind','kind');
-    document.getElementById('passiveId').onchange=e=>{const id=e.target.value.trim(),old=d.id;if(!/^[a-zA-Z0-9_-]{1,100}$/.test(id)||list.some(x=>x!==d&&x.id===id)){e.target.value=old;return alert('ID 只能包含英文、數字、底線與連字號，且不可重複。');}d.id=id;for(const p of data.companions||[])p.passives=p.passives.map(x=>x===old?id:x);selectedPassiveId=id;markDirty();render();};
+    document.getElementById('passiveId').onchange=e=>{const id=e.target.value.trim(),old=d.id;if(!/^[a-zA-Z0-9_-]{1,100}$/.test(id)||data.passiveDefinitions.some(x=>x!==d&&x.id===id)){e.target.value=old;return alert('ID 只能包含英文、數字、底線與連字號，且不可重複。');}d.id=id;for(const p of data.companions||[])p.passives=p.passives.map(x=>x===old?id:x);selectedPassiveId=id;markDirty();render();};
     document.getElementById('passiveTarget').onchange=e=>{const target=e.target.value;if((target==='enemies')!==(d.target==='enemies')){if(!confirm('更換目標方向需要改用相容的效果，是否重設此被動的效果？'))return render();d.effects=[{key:target==='enemies'?'weaken':'attackPct',value:10}];}d.target=target;markDirty();render();};
     document.getElementById('addPassiveEffect').onclick=()=>{if(d.effects.length<32){d.effects.push({key:d.target==='enemies'?'weaken':'attackPct',value:10});markDirty();render();}};
     app.querySelectorAll('[data-passive-effect-row]').forEach(row=>{const i=Number(row.dataset.passiveEffectRow),fx=d.effects[i];row.querySelector('[data-passive-effect-key]').onchange=e=>{d.effects[i]={key:e.target.value,value:fx.value};if(['elementDamagePct','elementResistPct'].includes(e.target.value))d.effects[i].element='physical';if(e.target.value==='raceDamagePct')d.effects[i].race='beast';markDirty();render();};row.querySelector('[data-passive-effect-value]').onchange=e=>{const n=Number(e.target.value);if(!Number.isFinite(n)||Math.abs(n)>1e6){e.target.value=fx.value;return;}fx.value=n;markDirty();render();};for(const key of ['element','race']){const el=row.querySelector('[data-passive-effect-'+key+']');if(el)el.onchange=e=>{fx[key]=e.target.value;markDirty();render();};}row.querySelector('[data-passive-effect-delete]').onclick=()=>{if(d.effects.length>1){d.effects.splice(i,1);markDirty();render();}};});
   }
   const baseRender=render;
   render=function(){if(currentSection==='passives'){ensureArrays();renderNav(true);renderPassives();return;}return baseRender();};
-  globalThis.__EMBERWILD_PASSIVE_EDITOR_TEST_API={normalize:M.normalize,validate:()=>validateData(),get definitions(){return M.copy(data.passiveDefinitions);}};
+  globalThis.__EMBERWILD_PASSIVE_EDITOR_TEST_API={render:renderPassives,select:id=>{selectedPassiveId=id;},normalize:M.normalize,validate:()=>validateData(),get definitions(){return M.copy(data.passiveDefinitions);}};
   requestEditorInitialRender();
+})();
+</script>
+
+<script id="companion-owned-skills-editor-v1">
+function companionSkillOwner(){return currentSection==='companionSkills'?(data.companions||[]).find(p=>p.id===selected.companionSkillOwner)||data.companions?.[0]:null;}
+function companionSkillVisible(sk){const p=companionSkillOwner();return p?sk.partnerId===p.id:sk.partnerId==null;}
+function openCompanionSkillPage(id){selected.companionSkillOwner=id;selected.skillTab='active';selected.skill=-1;selected.support=-1;selected.skillScopeFilter='all';currentSection='companionSkills';render();}
+function assignCompanionSkill(sk,kind,index){
+  const p=companionSkillOwner();if(!p){delete sk.partnerId;return;}
+  sk.partnerId=p.id;sk.mastery=null;sk.requiredMastery=null;sk.requiredMasteryLevel=0;sk.requiresAdvanced=false;
+  if(kind==='passive'){p.passives.push(sk.id);return;}
+  if(kind==='support'){p.support.push(index);return;}
+  sk.usageScope='character';p.core.push(index);p[sk.activation==='proc'?'proc':'active'].push(index);
+}
+function remapCompanionSkillRemoval(job,kind,index){
+  const keys=kind==='core'?['core','active','proc']:['support'];
+  for(const p of data.companions||[])if(p.job===job)for(const key of keys)p[key]=p[key].filter(i=>i!==index).map(i=>i>index?i-1:i);
+}
+function removeCompanionOwnedSkills(p){
+  for(const [kind,pool] of [['core',data.classes[p.job].skills],['support',data.supportSkills[p.job]]])for(let i=pool.length-1;i>=0;i--)if(pool[i].partnerId===p.id){remapCompanionSkillRemoval(p.job,kind,i);if(kind==='core')removeMonsterSkillReferences(pool[i].id);pool.splice(i,1);}
+  data.passiveDefinitions=data.passiveDefinitions.filter(d=>d.partnerId!==p.id);p.passives=[];
+}
+(()=>{
+  const baseEnsure=ensureArrays;
+  ensureArrays=function(){baseEnsure();EmberwildCompanionSkills.migrate(data);};
+  const baseValidate=validateData;
+  validateData=function(){const issues=baseValidate();try{EmberwildCompanionSkills.validate(data);}catch(e){issues.push(e.message);}return issues;};
+  SECTION_META.splice(SECTION_META.findIndex(([id])=>id==='companions')+1,0,['companionSkills','夥伴技能']);
+  const label=SECTION_META.find(([id])=>id==='skills');if(label)label[1]='主角技能';
+  const baseCount=count;count=function(section,normalized=false){if(!normalized)ensureArrays();if(section==='companionSkills')return data.companions?.length||0;if(section==='skills')return data.classes.reduce((n,c)=>n+c.skills.filter(s=>s.partnerId==null).length,0)+data.supportSkills.reduce((n,pool)=>n+pool.filter(s=>s.partnerId==null).length,0);return baseCount(section,true);};
+  const baseRender=render;
+  render=function(){
+    if(currentSection!=='companionSkills')return baseRender();
+    ensureArrays();const p=companionSkillOwner();if(!p){document.getElementById('app').innerHTML=sectionHead('夥伴技能','請先建立夥伴。');return;}
+    selected.companionSkillOwner=p.id;selected.skillClass=p.job;selected.supportClass=p.job;selected.skillScopeFilter='all';
+    renderNav(true);
+    if(selected.skillTab==='passive')__EMBERWILD_PASSIVE_EDITOR_TEST_API.render();else renderSkills();
+    const app=document.getElementById('app'),support=selected.skillTab==='support',passive=selected.skillTab==='passive';
+    const sk=support?data.supportSkills[p.job][selected.support]:data.classes[p.job].skills[selected.skill];
+    for(const id of ['skillClassSel','skillScopeFilter']){const el=app.querySelector('#'+id);if(el?.previousElementSibling?.tagName==='LABEL')el.previousElementSibling.remove();el?.remove();}
+    app.querySelector('[data-key="usageScope"]')?.closest('.field')?.remove();
+    app.querySelector('[data-key="requiresAdvanced"]')?.closest('.field')?.remove();
+    for(const id of ['skillMastery','skillRequiredMastery','skillRequiredMasteryLevel'])document.getElementById(id)?.closest('.field')?.remove();
+    const head=app.querySelector('.section-head h1');if(head)head.textContent=p.role+' · 專屬技能';
+    const desc=app.querySelector('.section-head p');if(desc)desc.textContent='設計的技能直接歸屬於此夥伴；達到需求角色等級後自動解鎖，不需要精通與二轉。';
+    const level=app.querySelector('[data-key="'+(support?'level':'requiredLevel')+'"]')?.closest('.field');
+    if(level){const label=level.querySelector('label'),help=level.querySelector('.field-help');if(label)label.textContent='解鎖角色等級';if(help)help.textContent='夥伴達到此角色等級後自動學會；未達等級時不能配置或施放。';}
+    app.insertAdjacentHTML('afterbegin','<div class="toolbar"><label>夥伴</label><select id="companionSkillOwnerSelect">'+data.companions.map(x=>'<option value="'+x.id+'" '+(x.id===p.id?'selected':'')+'>'+esc(x.role)+' · ID '+x.id+'</option>').join('')+'</select><button id="backCompanionDesign">返回夥伴設計</button></div>');
+    document.getElementById('companionSkillOwnerSelect').onchange=e=>openCompanionSkillPage(Number(e.target.value));
+    document.getElementById('backCompanionDesign').onclick=()=>selectCompanionDesign(p.id);
+    if(passive){
+      app.insertAdjacentHTML('afterbegin',skillWorkspaceToolbar('passive'));bindSkillWorkspaceToolbar();
+      const templates=data.passiveDefinitions.filter(d=>d.partnerId==null);
+      app.insertAdjacentHTML('beforeend','<div class="toolbar"><label>被動範本</label><select id="companionPassiveTemplate">'+templates.map(d=>'<option value="'+esc(d.id)+'">'+esc(d.name)+'</option>').join('')+'</select><button id="copyCompanionPassiveTemplate" '+(templates.length?'':'disabled')+'>由範本新增</button></div>');
+      document.getElementById('copyCompanionPassiveTemplate').onclick=()=>{if(data.passiveDefinitions.length>=512)return alert('被動最多 512 個。');const source=templates.find(d=>d.id===document.getElementById('companionPassiveTemplate').value);if(!source)return;const next=EmberwildPassives.copy(source);let n=1;while(data.passiveDefinitions.some(d=>d.id==='partner'+p.id+'-passive'+n))n++;next.id='partner'+p.id+'-passive'+n;assignCompanionSkill(next,'passive');data.passiveDefinitions.push(next);__EMBERWILD_PASSIVE_EDITOR_TEST_API.select(next.id);markDirty();render();};
+    }
+    if(support){
+      app.insertAdjacentHTML('beforeend','<div class="toolbar"><button id="addCompanionSupport">新增輔助技能</button>'+(sk?'<button id="duplicateCompanionSupport">複製輔助技能</button><button id="deleteCompanionSupport" class="danger">刪除輔助技能</button>':'')+'</div>');
+      const pool=data.supportSkills[p.job];
+      const add=source=>{if(pool.length>=64)return alert('此職業輔助技能最多 64 個。');const next=structuredClone(source);let n=pool.length;while(pool.some(s=>s.id==='partner'+p.id+'-support'+n))n++;next.id='partner'+p.id+'-support'+n;assignCompanionSkill(next,'support',pool.length);pool.push(next);selected.support=pool.length-1;markDirty();render();};
+      document.getElementById('addCompanionSupport').onclick=()=>add({name:'新輔助技能',target:'allies',kind:'attack',element:'physical',value:.1,duration:3,cooldown:4,level:1,description:'',iconType:'auto',weaponTypes:[]});
+      if(sk){document.getElementById('duplicateCompanionSupport').onclick=()=>add({...sk,name:sk.name+' 複製'});document.getElementById('deleteCompanionSupport').onclick=()=>{if(!confirmDelete('刪除「'+sk.name+'」？'))return;remapCompanionSkillRemoval(p.job,'support',selected.support);pool.splice(selected.support,1);selected.support=-1;markDirty();render();};}
+    }
+    for(const id of ['addSkill','dupSkill']){const el=document.getElementById(id);if(el){const action=el.onclick;el.onclick=e=>{if(data.classes[p.job].skills.length>=64)return alert('此職業核心技能最多 64 個。');return action(e);};}}
+  };
+  globalThis.__EMBERWILD_COMPANION_SKILL_EDITOR={open:openCompanionSkillPage,owner:companionSkillOwner};
+  ensureArrays();requestEditorInitialRender();
 })();
 </script>
 
