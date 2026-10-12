@@ -3078,6 +3078,7 @@ ensureArrays();requestEditorInitialRender();
     const bind=(id,key,transform=Number)=>{const el=document.getElementById(id);if(!el)return;el.onchange=e=>{const next={...p.unlockCondition,[key]:transform(e.target.value)};try{p.unlockCondition=EmberwildCompanionSkills.unlockCondition({...p,unlockCondition:next},maps());markDirty();render();}catch(error){alert(error.message);render();}};};
     bind('companionUnlockMap','mapIndex');bind('companionUnlockCount','count');bind('companionUnlockChance','chance',v=>Number(v)/100);bind('companionUnlockPrice','price');
   };
+  render();
 })();
 </script>
 
