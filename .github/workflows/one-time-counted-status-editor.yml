@@ -38,6 +38,13 @@ jobs:
           node --check /tmp/status-maker-editor.js
       - name: Clone matching game branch
         run: git clone --depth 1 --branch chatgpt-dev https://github.com/Horios/Emberwild.git /tmp/Emberwild
+      - name: Inspect existing support skill schema
+        run: |
+          node - <<'NODE'
+          const {loadRuntime}=require('/tmp/Emberwild/tests/headless-runtime.cjs');
+          const r=loadRuntime(process.cwd(),'balance-editor.html');
+          console.log(r.run('JSON.stringify(data.supportSkills[3][0])'));
+          NODE
       - name: Run editor contract tests
         env:
           EMBERWILD_BALANCE_ROOT: ${{ github.workspace }}
@@ -55,4 +62,3 @@ jobs:
           git commit -m "feat: add counted status targeting and damage spread editor"
           git pull --rebase origin main
           git push origin HEAD:main
-# rerun after preserving the pre-existing skill-point export decorator across script load order
