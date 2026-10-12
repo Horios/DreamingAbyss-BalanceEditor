@@ -201,7 +201,7 @@ const NAV_GROUPS = [
   ["skillsCombat","技能與戰鬥",["skills","passives","statuses","balanceSettings:skills","damageFormula","balanceSettings:combat"]],
   ["equipment","裝備與詞條",["equipment","equipmentPower","affixPools","balance","balanceSettings:equipment"]],
   ["worldRewards","世界與獎勵",["world","balanceSettings:difficulty","balanceSettings:rewards","balanceSettings:drops"]],
-  ["itemsEconomy","道具與經濟",["items","potions","starterPacks","shopSettings","balanceSettings:quests","balanceSettings:economy"]],
+  ["itemsEconomy","道具與經濟",["items","potions","starterPacks","shopSettings","balanceSettings:quests","materialPrices","balanceSettings:economy"]],
   ["tools","介面與工具",["textRarity","iconMaker","uiText","balanceSettings:meta","raw"]]
 ];
 const expandedNavGroups = new Set();
@@ -1522,9 +1522,9 @@ ensureArrays();requestEditorInitialRender();
 (function installEconomyEditor(){
   const QUALITY_LABELS=['普通','精良','稀有','傳說'];
   const SALVAGE_REWARD_TYPES={ore:'鍛鐵',dust:'粉塵',material:'指定材料',potion:'治療藥水',item:'商店道具',gem:'技能寶石'};
-  const defaultMaterialPrice=k=>k==='鍛鐵'?2:k==='粉塵'?6:k==='以太鍛鐵'?100:k==='光輝碎塊'?120:k==='升級卷軸'?150:5;
+  const defaultMaterialPrice=k=>k==='紅色草'?1:['紅色草泥','小蟲'].includes(k)?3:['藥水瓶','清水'].includes(k)?1:k==='鍛鐵'?2:k==='粉塵'?6:k==='以太鍛鐵'?100:k==='光輝碎塊'?120:k==='升級卷軸'?150:5;
   function knownMaterialKeysFrom(obj=data){
-    const set=new Set(['鍛鐵','粉塵','以太鍛鐵','光輝碎塊','升級卷軸']);
+    const set=new Set(['鍛鐵','粉塵','以太鍛鐵','光輝碎塊','升級卷軸','紅色草','紅色草泥','小蟲','清水','藥水瓶']);
     for(const m of (obj?.balanceSettings?.monsters?.catalog||[]))if(m?.material)set.add(m.material);
     for(const d of (obj?.balanceSettings?.drops?.entries||[]))if(d?.type==='material'&&d.key)set.add(d.key);
     for(const r of (obj?.balanceSettings?.equipment?.salvage?.extraRewards||[]))if(r?.type==='material'&&r.key)set.add(r.key);
@@ -1584,9 +1584,19 @@ ensureArrays();requestEditorInitialRender();
   };
 
   function economyEditorHTML(){
-    const e=data.balanceSettings.economy,rows=e.materialPrices||[];
-    return `<section class="md-card"><h3>固定販售價格</h3><p class="mini-note">裝備以最高詞條品質決定固定賣價；材料可逐一覆寫，未列出的材料使用預設賣價。治療藥水與商店消耗道具各自有固定賣價。</p><div class="economy-price-grid">${QUALITY_LABELS.map((n,i)=>`<label>${n}裝備賣價<input class="economy-gear-price" data-q="${i}" type="number" min="0" step="1" value="${esc(e.equipmentSellPriceByQuality[i])}"></label>`).join('')}<label>未列出材料預設賣價<input id="economyMaterialDefault" type="number" min="0" step="1" value="${esc(e.materialDefaultSellPrice)}"></label><label>治療藥水賣價<input id="economyPotionPrice" type="number" min="0" step="1" value="${esc(e.potionSellPrice)}"></label></div><div class="row"><h3>材料賣價表</h3><button id="addMaterialPrice">新增材料價格</button></div><div class="economy-table">${rows.map((r,i)=>`<div class="economy-row" data-economy-material="${i}"><label>材料名稱<input class="economy-material-key" value="${esc(r.key)}"></label><label>固定賣價<input class="economy-material-price" type="number" min="0" step="1" value="${esc(r.sellPrice)}"></label><button class="danger economy-material-delete">×</button></div>`).join('')}</div></section>`;
+    const e=data.balanceSettings.economy;
+    return `<section class="md-card"><h3>固定販售價格</h3><p class="mini-note">裝備以最高詞條品質決定固定賣價；材料價格由「材料售價」頁集中管理。</p><div class="economy-price-grid">${QUALITY_LABELS.map((n,i)=>`<label>${n}裝備賣價<input class="economy-gear-price" data-q="${i}" type="number" min="0" step="1" value="${esc(e.equipmentSellPriceByQuality[i])}"></label>`).join('')}<label>治療藥水賣價<input id="economyPotionPrice" type="number" min="0" step="1" value="${esc(e.potionSellPrice)}"></label></div><button onclick="currentSection='materialPrices';render()">前往材料售價</button></section>`;
   }
+  function materialPriceEditorHTML(){
+    const e=data.balanceSettings.economy,rows=e.materialPrices||[];
+    return `<section class="md-card"><label>未列出材料預設售價（金幣／件）<input id="economyMaterialDefault" type="number" min="0" step="1" value="${esc(e.materialDefaultSellPrice)}"></label><div class="row"><h3>材料售價表</h3><button id="addMaterialPrice">新增材料價格</button></div><div class="economy-table">${rows.map((r,i)=>`<div class="economy-row" data-economy-material="${i}"><label>材料名稱<input class="economy-material-key" value="${esc(r.key)}"></label><label>售價（金幣／件）<input class="economy-material-price" type="number" min="0" step="1" value="${esc(r.sellPrice)}"></label><button class="danger economy-material-delete" aria-label="刪除 ${esc(r.key)} 售價">×</button></div>`).join('')}</div></section>`;
+  }
+  globalThis.renderMaterialPrices=function(){
+    ensureArrays();
+    document.getElementById('app').innerHTML=sectionHead('材料售價','生活技能、怪物掉落與分解材料的賣出價格；匯出 JSON 後匯入遊戲套用。','<button id="resetMaterialPrices">恢復材料售價預設值</button>')+`<div class="notice">預設售價：紅色草 1、紅色草泥 3、小蟲 3、清水 1、藥水瓶 1 金幣／件。清水和藥水瓶在商店的購買價仍各為 1 金幣。</div>`+materialPriceEditorHTML();
+    bindEconomyEditors();
+    document.getElementById('resetMaterialPrices').onclick=()=>{if(confirmDelete('確定恢復材料售價預設值？')){const e=data.balanceSettings.economy;e.materialDefaultSellPrice=BALANCE_SETTINGS_DEFAULTS.economy.materialDefaultSellPrice;e.materialPrices=knownMaterialKeysFrom().map(key=>({key,sellPrice:defaultMaterialPrice(key)}));markDirty();render();}};
+  };
   function salvageRewardEditorHTML(){
     const rows=data.balanceSettings.equipment.salvage.extraRewards||[],materials=knownMaterialKeysFrom();
     return `<section class="md-card"><div class="row"><div><h3>分解額外產物</h3><p class="mini-note">既有鍛鐵／粉塵公式仍由上方 salvage 數值控制；此表是依最高詞條品質額外追加的產物。可給材料、道具、寶石等。</p></div><button id="addSalvageReward">新增產物</button></div><datalist id="salvage-key-list">${materials.map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('')}${data.items.map(x=>`<option value="${esc(x.id)}">${esc(x.name||x.id)}</option>`).join('')}<option value="random">隨機寶石</option></datalist>${rows.map((r,i)=>`<div class="salvage-reward-row" data-salvage-reward="${i}"><label>裝備品質<select class="salvage-quality">${QUALITY_LABELS.map((n,q)=>`<option value="${q}" ${r.quality===q?'selected':''}>${n}</option>`).join('')}</select></label><label>產物類型<select class="salvage-type">${Object.entries(SALVAGE_REWARD_TYPES).map(([v,n])=>`<option value="${v}" ${r.type===v?'selected':''}>${n}</option>`).join('')}</select></label><label>材料／道具／寶石 key<input class="salvage-key" list="salvage-key-list" value="${esc(r.key??'')}"></label><label>數量<input class="salvage-qty" type="number" min="1" max="999" step="1" value="${esc(r.quantity??1)}"></label><button class="danger salvage-delete">×</button></div>`).join('')}</section>`;
@@ -1596,8 +1606,8 @@ ensureArrays();requestEditorInitialRender();
     app.querySelectorAll('.economy-gear-price').forEach(el=>el.onchange=()=>{data.balanceSettings.economy.equipmentSellPriceByQuality[Number(el.dataset.q)]=Number(el.value);markDirty();});
     const md=app.querySelector('#economyMaterialDefault');if(md)md.onchange=()=>{data.balanceSettings.economy.materialDefaultSellPrice=Number(md.value);markDirty();};
     const pp=app.querySelector('#economyPotionPrice');if(pp)pp.onchange=()=>{data.balanceSettings.economy.potionSellPrice=Number(pp.value);markDirty();};
-    app.querySelectorAll('[data-economy-material]').forEach(row=>{const i=Number(row.dataset.economyMaterial),obj=data.balanceSettings.economy.materialPrices[i];row.querySelector('.economy-material-key').onchange=e=>{obj.key=e.target.value.trim();markDirty();};row.querySelector('.economy-material-price').onchange=e=>{obj.sellPrice=Number(e.target.value);markDirty();};row.querySelector('.economy-material-delete').onclick=()=>{data.balanceSettings.economy.materialPrices.splice(i,1);markDirty();renderBalanceSettings();};});
-    const add=app.querySelector('#addMaterialPrice');if(add)add.onclick=()=>{data.balanceSettings.economy.materialPrices.push({key:'新材料',sellPrice:data.balanceSettings.economy.materialDefaultSellPrice});markDirty();renderBalanceSettings();};
+    app.querySelectorAll('[data-economy-material]').forEach(row=>{const i=Number(row.dataset.economyMaterial),obj=data.balanceSettings.economy.materialPrices[i];row.querySelector('.economy-material-key').onchange=e=>{obj.key=e.target.value.trim();markDirty();};row.querySelector('.economy-material-price').onchange=e=>{obj.sellPrice=Number(e.target.value);markDirty();};row.querySelector('.economy-material-delete').onclick=()=>{data.balanceSettings.economy.materialPrices.splice(i,1);markDirty();render();};});
+    const add=app.querySelector('#addMaterialPrice');if(add)add.onclick=()=>{data.balanceSettings.economy.materialPrices.push({key:'新材料',sellPrice:data.balanceSettings.economy.materialDefaultSellPrice});markDirty();render();};
     app.querySelectorAll('[data-salvage-reward]').forEach(row=>{const i=Number(row.dataset.salvageReward),obj=data.balanceSettings.equipment.salvage.extraRewards[i];row.querySelector('.salvage-quality').onchange=e=>{obj.quality=Number(e.target.value);markDirty();};row.querySelector('.salvage-type').onchange=e=>{obj.type=e.target.value;markDirty();};row.querySelector('.salvage-key').onchange=e=>{obj.key=e.target.value.trim();markDirty();};row.querySelector('.salvage-qty').onchange=e=>{obj.quantity=Number(e.target.value);markDirty();};row.querySelector('.salvage-delete').onclick=()=>{data.balanceSettings.equipment.salvage.extraRewards.splice(i,1);markDirty();renderBalanceSettings();};});
     const addS=app.querySelector('#addSalvageReward');if(addS)addS.onclick=()=>{data.balanceSettings.equipment.salvage.extraRewards.push({quality:0,type:'material',key:'鍛鐵',quantity:1});markDirty();renderBalanceSettings();};
   }
@@ -1607,7 +1617,7 @@ ensureArrays();requestEditorInitialRender();
     const requestedGroup=typeof currentSection==='string'&&currentSection.startsWith('balanceSettings:')?currentSection.slice('balanceSettings:'.length):null;
     const groups=Object.entries(data.balanceSettings).filter(([g])=>!requestedGroup||g===requestedGroup);
     document.getElementById('app').innerHTML=sectionHead('平衡設定','修改遊戲平衡數值、怪物設計、逐怪掉落表、販售價格與分解產物。','<button id="resetSettings">恢復此頁預設值</button>')+
-      `<div class="notice"><b>資料對應：</b>怪物實際掉落內容由「掉落設定」管理；材料賣價在「販售與物品價值」管理；商店消耗道具賣價在「商店道具」頁管理；裝備分解產物在「裝備／強化／分解」管理。這些欄位已與目前遊戲匯入格式對齊。</div><div class="balance-tree">${groups.map(([g,obj])=>{let view=obj;if(g==='monsters')view=Object.fromEntries(Object.entries(obj).filter(([k])=>!['skills','catalog'].includes(k)));if(g==='drops')view=Object.fromEntries(Object.entries(obj).filter(([k])=>k!=='entries'));if(g==='economy')view={};if(g==='equipment'){view=structuredClone(obj);if(view.salvage)delete view.salvage.extraRewards;}const extra=g==='monsters'?monsterCatalogEditorHTML():g==='drops'?`<p class="mini-note"><b>賣價：</b>指定材料請到「販售與物品價值」設定；商店道具請到「商店消耗道具」設定；裝備依品質使用裝備固定賣價。</p>`+dropTableEditorHTML():g==='economy'?economyEditorHTML():g==='equipment'?salvageRewardEditorHTML():'';return `<details ${['progression','equipment','monsters','drops','economy'].includes(g)?'open':''}><summary>${esc(SETTING_GROUP_NAMES[g]||({drops:'掉落設定'}[g])||g)} <span class="field-key" style="display:inline;margin-left:6px">balanceSettings.${esc(g)}</span></summary><div class="inside">${flattenSettingLeaves(view,g).map(([p,v])=>settingRow('balanceSettings.'+p,v)).join('')}${extra}</div></details>`;}).join('')}</div>`;
+      `<div class="notice"><b>資料對應：</b>怪物實際掉落內容由「掉落設定」管理；材料賣價在「材料售價」管理；商店消耗道具賣價在「商店道具」頁管理；裝備分解產物在「裝備／強化／分解」管理。這些欄位已與目前遊戲匯入格式對齊。</div><div class="balance-tree">${groups.map(([g,obj])=>{let view=obj;if(g==='monsters')view=Object.fromEntries(Object.entries(obj).filter(([k])=>!['skills','catalog'].includes(k)));if(g==='drops')view=Object.fromEntries(Object.entries(obj).filter(([k])=>k!=='entries'));if(g==='economy')view={};if(g==='equipment'){view=structuredClone(obj);if(view.salvage)delete view.salvage.extraRewards;}const extra=g==='monsters'?monsterCatalogEditorHTML():g==='drops'?`<p class="mini-note"><b>賣價：</b>指定材料請到「材料售價」設定；商店道具請到「商店消耗道具」設定；裝備依品質使用裝備固定賣價。</p>`+dropTableEditorHTML():g==='economy'?economyEditorHTML():g==='equipment'?salvageRewardEditorHTML():'';return `<details ${['progression','equipment','monsters','drops','economy'].includes(g)?'open':''}><summary>${esc(SETTING_GROUP_NAMES[g]||({drops:'掉落設定'}[g])||g)} <span class="field-key" style="display:inline;margin-left:6px">balanceSettings.${esc(g)}</span></summary><div class="inside">${flattenSettingLeaves(view,g).map(([p,v])=>settingRow('balanceSettings.'+p,v)).join('')}${extra}</div></details>`;}).join('')}</div>`;
     const app=document.getElementById('app');app.querySelectorAll('.setting-val').forEach(el=>el.onchange=()=>{const full=el.dataset.path,local=full.replace(/^balanceSettings\./,''),old=getByPath(data.balanceSettings,local);try{let v=typeof old==='number'?Number(el.value):typeof old==='boolean'?el.value==='true':el.value;if(typeof old==='number'&&!Number.isFinite(v))throw Error('必須輸入有效數字');setByPath(data.balanceSettings,local,v);markDirty();}catch(e){alert('格式錯誤：'+e.message);render();}});bindMonsterDropEditors();bindEconomyEditors();document.getElementById('resetSettings').onclick=()=>{if(confirmDelete('確定恢復平衡設定預設值？')){data.balanceSettings=structuredClone(BALANCE_SETTINGS_DEFAULTS);ensureArrays();markDirty();render();}};
   };
 
@@ -4390,6 +4400,7 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
   function relationHTML(){const items=group()?groupRelations[group()]:(relations[currentSection]||[]);return items?.length?'<div class="balance-ux-strip" id="balanceUxRelations"><strong>關聯頁面</strong>'+items.map(([label,sec])=>'<button type="button" data-ux-section="'+esc(sec)+'">'+esc(label)+'</button>').join('')+'</div>':'';}
 
   function sectionForPath(path){
+    if(/^balanceSettings\.economy\.(materialPrices|materialDefaultSellPrice)\b/.test(path))return 'materialPrices';
     if(/^balanceSettings\.(maps|monsters)\b/.test(path))return 'world';
     const m=path.match(/^balanceSettings\.([^.]+)/);if(m)return 'balanceSettings:'+m[1];
     if(/^balance\.affixes\.poolBySlotRank\b/.test(path))return 'affixPools';if(/^balance\./.test(path))return 'balance';
@@ -5905,6 +5916,17 @@ function removeCompanionOwnedSkills(p){
     const remove=document.getElementById('delSkill');if(remove){const action=remove.onclick;remove.onclick=e=>{if(data.classes.some(c=>c.skills.some(s=>s!==sk&&s.induction?.targets?.some(t=>t.kind==='skill'&&t.skillId===sk.id))))return alert('仍有技能誘發引用此技能。請先更換或移除誘發目標。');action(e);};}
   };
   const baseValidate=validateData;validateData=function(){return [...new Set([...baseValidate(),...api.validate(data)])];};
+  requestEditorInitialRender();
+})();
+</script>
+
+
+<script id="material-prices-page">
+(()=>{
+  SECTION_META.splice(SECTION_META.findIndex(([id])=>id==='balanceSettings:economy'),0,['materialPrices','材料售價']);
+  const baseRender=render,baseCount=count;
+  count=function(section,normalized=false){if(section!=='materialPrices')return baseCount(section,normalized);if(!normalized)ensureArrays();return data.balanceSettings.economy.materialPrices.length;};
+  render=function(...args){if(currentSection!=='materialPrices')return baseRender(...args);ensureArrays();renderNav(true);renderMaterialPrices();};
   requestEditorInitialRender();
 })();
 </script>
