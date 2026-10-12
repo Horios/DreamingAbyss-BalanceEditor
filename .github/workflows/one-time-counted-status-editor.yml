@@ -25,6 +25,7 @@ jobs:
           python3 .github/scripts/fix-skillpoint-export-order.py
           python3 .github/scripts/patch-counted-status-editor.py
           python3 .github/scripts/relocate-counted-status-editor.py
+          python3 .github/scripts/patch-pain-support-schema.py
       - name: Check status editor JavaScript syntax
         run: |
           python3 - <<'PY'
@@ -38,13 +39,6 @@ jobs:
           node --check /tmp/status-maker-editor.js
       - name: Clone matching game branch
         run: git clone --depth 1 --branch chatgpt-dev https://github.com/Horios/Emberwild.git /tmp/Emberwild
-      - name: Inspect existing support skill schema
-        run: |
-          node - <<'NODE'
-          const {loadRuntime}=require('/tmp/Emberwild/tests/headless-runtime.cjs');
-          const r=loadRuntime(process.cwd(),'balance-editor.html');
-          console.log(r.run('JSON.stringify(data.supportSkills[3][0])'));
-          NODE
       - name: Run editor contract tests
         env:
           EMBERWILD_BALANCE_ROOT: ${{ github.workspace }}
@@ -57,7 +51,7 @@ jobs:
         run: |
           git config user.name "ChatGPT"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm -f --ignore-unmatch .github/workflows/one-time-counted-status-editor.yml .github/workflows/inspect-balance-support.yml .github/workflows/inspect-status-extension.yml .github/balance-inspect.txt .github/scripts/patch-counted-status-editor.py .github/scripts/relocate-counted-status-editor.py .github/scripts/test-counted-status-editor.cjs .github/scripts/fix-skillpoint-export-order.py
+          git rm -f --ignore-unmatch .github/workflows/one-time-counted-status-editor.yml .github/workflows/inspect-balance-support.yml .github/workflows/inspect-status-extension.yml .github/balance-inspect.txt .github/scripts/patch-counted-status-editor.py .github/scripts/relocate-counted-status-editor.py .github/scripts/patch-pain-support-schema.py .github/scripts/test-counted-status-editor.cjs .github/scripts/fix-skillpoint-export-order.py
           git add balance-editor.html
           git commit -m "feat: add counted status targeting and damage spread editor"
           git pull --rebase origin main
