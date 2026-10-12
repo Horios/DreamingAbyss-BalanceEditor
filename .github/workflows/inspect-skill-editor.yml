@@ -1,0 +1,44 @@
+name: Inspect current skill editor integration points
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Capture snippets
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          text=Path('balance-editor.html').read_text(encoding='utf-8')
+          keys=['EmberwildTeams','teamSettings','defaultLearnCost','teamLearnCost','unlockConditions','cleanMasteryExport','renderSkills','const ORIGINAL_B64','skillPoints','<script']
+          out=[]
+          for key in keys:
+              out.append('\n===== '+key+' =====\n')
+              start=0;found=0
+              while True:
+                  i=text.find(key,start)
+                  if i<0 or found>=12: break
+                  out.append(text[max(0,i-1400):min(len(text),i+3200)])
+                  out.append('\n---\n')
+                  start=i+len(key);found+=1
+              if not found: out.append('(not found)\n')
+          Path('.github/skill-editor-inspect.txt').write_text(''.join(out),encoding='utf-8')
+          PY
+      - name: Save inspection
+        run: |
+          git config user.name "ChatGPT"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/inspect-skill-editor.yml
+          git add .github/skill-editor-inspect.txt
+          git commit -m "chore: capture current skill editor integration points"
+          git push origin HEAD:main
