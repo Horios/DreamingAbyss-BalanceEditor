@@ -197,7 +197,7 @@ const SECTION_META = [
   ["raw","原始 JSON"]
 ];
 const NAV_GROUPS = [
-  ["characters","角色與夥伴",["classes","companions","balanceSettings:progression"]],
+  ["characters","角色與夥伴",["classes","companions","companionUnlocks","balanceSettings:progression"]],
   ["skillsCombat","技能與戰鬥",["skills","passives","statuses","balanceSettings:skills","damageFormula","balanceSettings:combat"]],
   ["equipment","裝備與詞條",["equipment","equipmentPower","affixPools","balance","balanceSettings:equipment"]],
   ["worldRewards","世界與獎勵",["world","balanceSettings:difficulty","balanceSettings:rewards","balanceSettings:drops"]],
@@ -3051,6 +3051,36 @@ ensureArrays();requestEditorInitialRender();
   ensureArrays();
 })();
 </script>
+<script id="companion-unlocks-editor-v1">
+(()=>{
+  SECTION_META.splice(SECTION_META.findIndex(([id])=>id==='companions')+1,0,['companionUnlocks','夥伴解鎖條件']);
+  const baseCount=count;count=function(section,normalized=false){if(section==='companionUnlocks'){if(!normalized)ensureArrays();return data.companions?.length||0;}return baseCount(section,normalized);};
+  globalThis.selectCompanionUnlock=id=>{selected.companionUnlockOwner=id;currentSection='companionUnlocks';render();};
+  const maps=()=>data.balanceSettings?.maps?.catalog||[];
+  function conditionText(p){const c=p.unlockCondition,m=maps()[c.mapIndex]?.name||'指定地區';return c.type==='initial'?'初始開放':c.type==='region'?'開啟 '+m:c.type==='elite'?m+' · 菁英 '+c.count+' 隻':'商店招募券 · '+(c.chance*100).toFixed(2)+'% · '+c.price+' 金幣';}
+  const baseRender=render;
+  render=function(){
+    if(currentSection!=='companionUnlocks')return baseRender();ensureArrays();renderNav(true);
+    const list=data.companions||[],p=list.find(p=>p.id===selected.companionUnlockOwner)||list[0],app=document.getElementById('app');
+    if(!p){app.innerHTML=sectionHead('夥伴解鎖條件','請先新增夥伴。');return;}
+    selected.companionUnlockOwner=p.id;const c=p.unlockCondition;
+    app.innerHTML=sectionHead('夥伴解鎖條件','設定各夥伴的招募開放方式；是否已達成、菁英擊殺數和已解鎖名單保存在玩家個人存檔。')+
+      '<div class="notice">達成條件後開放招募，不會自動加入隊伍。已解鎖狀態永久保留；隱藏夥伴不會出現或刷新招募券。招募券購買後立即解鎖，不需另外使用。</div>'+
+      '<div class="companion-layout"><div class="card"><div class="list">'+list.map(x=>'<button class="listitem '+(x.id===p.id?'active':'')+'" data-unlock-companion="'+x.id+'"><span><span class="title">'+esc(x.name)+'</span><span class="sub" style="display:block">'+esc(conditionText(x))+'</span></span><span class="meta">'+esc(EmberwildCompanionSkills.availabilityLabels[x.availability])+'</span></button>').join('')+'</div></div><section class="card"><div class="card-h"><strong>'+esc(p.name)+'</strong><button id="unlockOpenProfile">角色設計</button></div><div class="card-b fields">'+
+      '<div class="field full"><label>解鎖方式</label><select id="companionUnlockType">'+Object.entries(EmberwildCompanionSkills.unlockTypes).map(([value,label])=>'<option value="'+value+'" '+(c.type===value?'selected':'')+'>'+label+'</option>').join('')+'</select></div>'+
+      (['region','elite'].includes(c.type)?'<div class="field full"><label>指定地區</label><select id="companionUnlockMap">'+maps().map((m,i)=>'<option value="'+i+'" '+(c.mapIndex===i?'selected':'')+'>'+esc(m.name)+'</option>').join('')+'</select><p class="field-help">開啟地區依主角的地圖進入門檻判定；已開啟地區不受隊伍配置影響。</p></div>':'')+
+      (c.type==='elite'?'<div class="field"><label>需要擊敗的菁英數量</label><input id="companionUnlockCount" type="number" min="1" max="1000000000" value="'+c.count+'"><p class="field-help">各難度合計；只計入指定地區的菁英，不含普通怪與首領。舊存檔無逐地區菁英紀錄，更新後從 0 開始。</p></div>':'')+
+      (c.type==='ticket'?'<div class="field"><label>每批出現機率（%）</label><input id="companionUnlockChance" type="number" min="0.01" max="100" step="0.01" value="'+(c.chance*100)+'"></div><div class="field"><label>招募券價格（金幣）</label><input id="companionUnlockPrice" type="number" min="0" max="1000000000" value="'+c.price+'"></div><div class="field full"><p class="field-help">隨機商品每批各判定一次，包含初次生成與付費刷新。購買後立即開放此夥伴招募，已解鎖後停止刷新。</p></div>':'')+
+      '<p class="mini-note field full">目前設定：'+esc(conditionText(p))+'</p></div></section></div>';
+    app.querySelectorAll('[data-unlock-companion]').forEach(el=>el.onclick=()=>selectCompanionUnlock(Number(el.dataset.unlockCompanion)));
+    document.getElementById('unlockOpenProfile').onclick=()=>selectCompanionDesign(p.id);
+    document.getElementById('companionUnlockType').onchange=e=>{p.unlockCondition=e.target.value==='initial'?{type:'initial'}:e.target.value==='ticket'?{type:'ticket',chance:.1,price:100}:{type:e.target.value,mapIndex:maps().length>1?1:0,...(e.target.value==='elite'?{count:50}:{})};markDirty();render();};
+    const bind=(id,key,transform=Number)=>{const el=document.getElementById(id);if(!el)return;el.onchange=e=>{const next={...p.unlockCondition,[key]:transform(e.target.value)};try{p.unlockCondition=EmberwildCompanionSkills.unlockCondition({...p,unlockCondition:next},maps());markDirty();render();}catch(error){alert(error.message);render();}};};
+    bind('companionUnlockMap','mapIndex');bind('companionUnlockCount','count');bind('companionUnlockChance','chance',v=>Number(v)/100);bind('companionUnlockPrice','price');
+  };
+})();
+</script>
+
 </body>
 
 <script id="verified-balance-contract-editor-filter">
@@ -5261,8 +5291,29 @@ requestEditorInitialRender();
 /* Ownership uses the existing skill pools and stable indices; migration only appends. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.EmberwildCompanionSkills=api;})(globalThis,function(){
   const copy=x=>JSON.parse(JSON.stringify(x));
-  const availabilityLabels={unlocked:'已解鎖',locked:'未解鎖',hidden:'隱藏'};
-  function availability(p){const value=p.availability??(p.id>=15&&p.id<=29?'hidden':'unlocked');if(!Object.hasOwn(availabilityLabels,value))throw Error('夥伴解鎖狀態無效：'+p.id);return value;}
+  const availabilityLabels={visible:'顯示',hidden:'隱藏'};
+  const unlockTypes={initial:'初始開放',region:'開啟指定地區',elite:'擊敗指定地區菁英',ticket:'商店隨機招募券'};
+  function availability(p){let value=p.availability??(p.id>=15&&p.id<=29?'hidden':'visible');if(['unlocked','locked'].includes(value))value='visible';if(!Object.hasOwn(availabilityLabels,value))throw Error('夥伴顯示狀態無效：'+p.id);return value;}
+  function unlockCondition(p,maps){
+    const c=p.unlockCondition??{type:p.availability==='locked'?'region':'initial',mapIndex:1};
+    if(!c||typeof c!=='object'||Array.isArray(c)||!Object.hasOwn(unlockTypes,c.type))throw Error('夥伴解鎖條件無效：'+p.id);
+    if(['region','elite'].includes(c.type)){
+      if(!Number.isInteger(c.mapIndex)||c.mapIndex<0||c.mapIndex>999||maps&&!maps[c.mapIndex])throw Error('夥伴解鎖地區無效：'+p.id);
+      if(c.type==='elite'&&(!Number.isSafeInteger(c.count)||c.count<1||c.count>1000000000))throw Error('夥伴菁英數量無效：'+p.id);
+      return {type:c.type,mapIndex:c.mapIndex,...(c.type==='elite'?{count:c.count}:{})};
+    }
+    if(c.type==='ticket'){
+      if(!Number.isFinite(c.chance)||c.chance<=0||c.chance>1||!Number.isSafeInteger(c.price)||c.price<0||c.price>1000000000)throw Error('夥伴招募券設定無效：'+p.id);
+      return {type:'ticket',chance:c.chance,price:c.price};
+    }
+    return {type:'initial'};
+  }
+  function normalizeUnlocks(doc){for(const p of doc.companions||[]){p.unlockCondition=unlockCondition(p,doc.balanceSettings?.maps?.catalog);p.availability=availability(p);}return doc;}
+  function validateUnlockProgress(raw){
+    if(raw===undefined)return {version:1,unlocked:[],regions:[],eliteKills:{}};
+    if(!raw||raw.version!==1||!Array.isArray(raw.unlocked)||raw.unlocked.length>512||new Set(raw.unlocked).size!==raw.unlocked.length||raw.unlocked.some(id=>!Number.isInteger(id)||id<10||id>1e9)||!Array.isArray(raw.regions)||raw.regions.length>1000||new Set(raw.regions).size!==raw.regions.length||raw.regions.some(i=>!Number.isInteger(i)||i<0||i>999)||!raw.eliteKills||typeof raw.eliteKills!=='object'||Array.isArray(raw.eliteKills)||Object.entries(raw.eliteKills).some(([key,n])=>! /^(0|[1-9]\d{0,2})$/.test(key)||!Number.isSafeInteger(n)||n<0||n>1e12))throw Error('夥伴解鎖進度無效');
+    return copy(raw);
+  }
   function cloneSkills(doc,p,ownerId){
     const core=doc.classes[p.job].skills,support=doc.supportSkills[p.job],remap=new Map();
     const indices=[...new Set([...p.core,...core.flatMap((sk,i)=>ownerId!==undefined&&sk.partnerId===ownerId?[i]:[])])];
@@ -5285,7 +5336,7 @@ requestEditorInitialRender();
       }
       doc.companionSkillVersion=1;
     }
-    if(doc.companionNameVersion===1)return doc;
+    if(doc.companionNameVersion===1)return normalizeUnlocks(doc);
     if(doc.companionNameVersion!==undefined)throw Error('夥伴名稱版本無效');
     // Work on a copy so an oversized legacy name pool cannot leave a partial migration.
     const next=copy(doc),list=[],used=new Set();let id=Math.max(14,...(next.companions||[]).map(p=>p.id))+1;
@@ -5300,12 +5351,12 @@ requestEditorInitialRender();
         list.push(person);if(list.length>512||person.id>1000000000)throw Error('拆分後夥伴數量或 ID 超過上限');
       }
     }
-    next.companions=list;next.companionNameVersion=1;Object.assign(doc,next);return doc;
+    next.companions=list;next.companionNameVersion=1;Object.assign(doc,next);return normalizeUnlocks(doc);
   }
   function validate(doc){
     if(doc.companionSkillVersion!==1)throw Error('夥伴技能版本無效');
     if(doc.companionNameVersion!==1)throw Error('夥伴名稱版本無效');
-    const names=new Set();for(const p of doc.companions||[]){availability(p);if(typeof p.name!=='string'||!p.name.trim()||p.name!==p.name.trim()||Array.from(p.name).length>20||/[\u0000-\u001f\u007f]/.test(p.name)||names.has(p.name)||p.role!==undefined||p.names!==undefined)throw Error('夥伴角色名稱無效或重複：'+p.id);names.add(p.name);}
+    const names=new Set();for(const p of doc.companions||[]){availability(p);unlockCondition(p,doc.balanceSettings?.maps?.catalog);if(typeof p.name!=='string'||!p.name.trim()||p.name!==p.name.trim()||Array.from(p.name).length>20||/[\u0000-\u001f\u007f]/.test(p.name)||names.has(p.name)||p.role!==undefined||p.names!==undefined)throw Error('夥伴角色名稱無效或重複：'+p.id);names.add(p.name);}
     for(let job=0;job<doc.classes.length;job++)for(const pool of [doc.classes[job].skills,doc.supportSkills[job]]){
       if(!Array.isArray(pool)||pool.length>64)throw Error('技能池最多 64 個');
       for(const sk of pool)if(sk.partnerId!=null&&(!Number.isInteger(sk.partnerId)||!doc.companions.some(p=>p.id===sk.partnerId&&p.job===job)))throw Error('技能指定夥伴不存在或職業不符：'+sk.name);
@@ -5334,13 +5385,13 @@ requestEditorInitialRender();
       const core=profile.names.map(name=>pool.findIndex(sk=>sk.partnerId===p.id&&sk.name===name));
       const passive=doc.passiveDefinitions.find(d=>d.partnerId===p.id&&d.effects.some(e=>e.key===profile.passive));
       if(core.some(i=>i<0)||!passive)throw Error('內建夥伴技能不存在：'+p.id);
-      p.core=core;p.active=core.filter(i=>pool[i].activation==='active');p.proc=core.filter(i=>pool[i].activation==='proc');p.support=[];p.passives=[passive.id];p.description=profile.description;p.availability=p.id>=10&&p.id<=14?'unlocked':'hidden';
+      p.core=core;p.active=core.filter(i=>pool[i].activation==='active');p.proc=core.filter(i=>pool[i].activation==='proc');p.support=[];p.passives=[passive.id];p.description=profile.description;p.availability=p.id>=10&&p.id<=14?'visible':'hidden';p.unlockCondition={type:'initial'};
       core.forEach((i,n)=>pool[i].requiredLevel=n?3:1);
       passive.requiredLevel=8;passive.name=({attackPct:'攻擊強化',defensePct:'防禦強化',healingPct:'治療強化'})[profile.passive];passive.description='達到解鎖等級且啟用時常駐生效，不占技能槽。';
     }
     return doc;
   }
-  return {copy,cloneSkills,clonePassives,migrate,validate,configureDefaults,availability,availabilityLabels};
+  return {copy,cloneSkills,clonePassives,migrate,validate,configureDefaults,availability,availabilityLabels,unlockCondition,unlockTypes,normalizeUnlocks,validateUnlockProgress};
 });
 </script>
 <script id="companion-passive-model-v1">
@@ -5398,6 +5449,7 @@ requestEditorInitialRender();
 </script>
 
 <style>
+.companion-layout .listitem{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;text-align:left;border-radius:0;border-width:0 0 1px;background:transparent;overflow-wrap:anywhere}.companion-layout .listitem .meta{flex-shrink:0;color:var(--muted);font-size:12px}.companion-layout .listitem.active{background:#253143}
 .companion-layout{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:14px}
 .companion-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .companion-fields label{display:block;font-size:12px;color:var(--muted)}
@@ -5467,11 +5519,11 @@ requestEditorInitialRender();
     const priority=(key,title,type)=>`<div class="card"><div class="card-h"><strong>${title}</strong><button type="button" data-add-priority="${key}">新增順位</button></div><div class="card-b"><p class="mini-note">達到需求角色等級後自動學會勾選技能，依序取前兩個已解鎖技能配置；不需要二轉與精通。</p>${p[key].map((value,i)=>`<div class="companion-priority" data-priority="${key}" data-index="${i}"><select>${options(skills.map((s,n)=>kind(s)===type&&s.partnerId===p.id?n:null).filter(n=>n!==null),value)}</select><button type="button" data-move="-1" ${i===0?'disabled':''}>↑</button><button type="button" data-move="1" ${i===p[key].length-1?'disabled':''}>↓</button><button type="button" data-remove>刪除</button></div>`).join('')||'<p class="mini-note">未安排技能。</p>'}</div></div>`;
     app.innerHTML=sectionHead('夥伴設計','選擇角色名稱，在同一頁編輯角色資料與專屬技能。','<button id="addCompanion">新增角色</button>')+
       companionDesignTabs(p)+
-      '<div class="notice">已解鎖：可招募；未解鎖：顯示但不可招募；隱藏：不出現在遊戲招募列表。每個角色名稱對應獨立技能池，技能依角色等級解鎖。</div>'+
+      '<div class="notice">顯示：出現在遊戲招募列表；隱藏：不出現在遊戲中。玩家是否已解鎖由個人存檔與解鎖條件決定。每個角色名稱對應獨立技能池，技能依角色等級解鎖。</div>'+
       `<div class="companion-layout"><div class="card"><div class="list">${companionDesignList(p)}</div></div><div>`+
       `<div class="card"><div class="card-h"><strong>${esc(p.name)}</strong><span><button id="duplicateCompanion">複製</button> ${p.id>14?'<button class="danger" id="deleteCompanion">刪除</button>':''}</span></div><div class="card-b companion-fields">`+
       `<label>角色名稱<input id="companionName" maxlength="40" value="${esc(p.name)}"></label><label>基礎職業<select id="companionJob">${data.classes.map((c,i)=>`<option value="${i}" ${p.job===i?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>`+
-      `<label>解鎖狀態<select id="companionAvailability">${Object.entries(EmberwildCompanionSkills.availabilityLabels).map(([value,label])=>`<option value="${value}" ${p.availability===value?'selected':''}>${label}</option>`).join('')}</select></label>`+
+      `<label>顯示狀態<select id="companionAvailability">${Object.entries(EmberwildCompanionSkills.availabilityLabels).map(([value,label])=>`<option value="${value}" ${p.availability===value?'selected':''}>${label}</option>`).join('')}</select></label>`+
       `<label class="full">角色說明<textarea id="companionDescription" rows="2" maxlength="200">${esc(p.description)}</textarea></label>`+
       `<label>初始武器<select id="companionWeapon">${weaponTypes.map(w=>`<option value="${esc(w)}" ${p.weapon===w?'selected':''}>${esc((data.equipmentForms[p.job][0]||[]).find(f=>f.weaponType===w)?.name||w)} · ${esc(w)}</option>`).join('')}${p.weapon&&!weaponTypes.includes(p.weapon)?`<option value="${esc(p.weapon)}" selected>${esc(p.weapon)}（目前未找到）</option>`:''}</select></label>`+
       '<div class="full"><b>每級循環配點</b><p class="mini-note">0 為職業主屬、1 為體質、2 為韌性；依下列順序循環分配每個能力點。</p>'+p.points.map((n,i)=>`<div class="companion-priority" data-point="${i}"><select><option value="0" ${n===0?'selected':''}>主屬</option><option value="1" ${n===1?'selected':''}>體質</option><option value="2" ${n===2?'selected':''}>韌性</option></select><button type="button" data-point-remove ${p.points.length===1?'disabled':''}>刪除</button></div>`).join('')+'<button id="addCompanionPoint">新增配點順位</button></div>'+
@@ -5723,7 +5775,7 @@ function removeCompanionOwnedSkills(p){
 }
 (()=>{
   const baseEnsure=ensureArrays;
-  ensureArrays=function(){const builtin=data.companions===undefined;baseEnsure();EmberwildCompanionSkills.migrate(data);if(builtin)EmberwildCompanionSkills.configureDefaults(data);for(const p of data.companions||[])p.availability??=EmberwildCompanionSkills.availability(p);};
+  ensureArrays=function(){const builtin=data.companions===undefined;baseEnsure();EmberwildCompanionSkills.migrate(data);if(builtin)EmberwildCompanionSkills.configureDefaults(data);for(const p of data.companions||[])p.availability=EmberwildCompanionSkills.availability(p);};
   const baseValidate=validateData;
   validateData=function(){const issues=baseValidate();try{EmberwildCompanionSkills.validate(data);}catch(e){issues.push(e.message);}return issues;};
   const label=SECTION_META.find(([id])=>id==='skills');if(label)label[1]='主角技能';
@@ -5932,5 +5984,6 @@ function removeCompanionOwnedSkills(p){
 </script>
 
 </html>
+
 
 
