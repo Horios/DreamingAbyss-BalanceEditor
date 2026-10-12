@@ -20,11 +20,10 @@ jobs:
           fetch-depth: 0
       - name: Rebase latest main
         run: git pull --rebase origin main
-      - name: Apply editor patch
-        run: python3 .github/scripts/patch-counted-status-editor.py
-      - name: Inspect export compatibility
+      - name: Apply minimal compatibility fix and editor patch
         run: |
-          grep -n -C 4 -E 'cleanMasteryExport|cleanExport|__EMBERWILD_MASTERY_EDITOR' balance-editor.html || true
+          python3 .github/scripts/fix-skillpoint-export-order.py
+          python3 .github/scripts/patch-counted-status-editor.py
       - name: Check appended JavaScript syntax
         run: |
           python3 - <<'PY'
@@ -50,7 +49,7 @@ jobs:
         run: |
           git config user.name "ChatGPT"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm -f --ignore-unmatch .github/workflows/one-time-counted-status-editor.yml .github/workflows/inspect-balance-support.yml .github/balance-inspect.txt .github/scripts/patch-counted-status-editor.py .github/scripts/test-counted-status-editor.cjs
+          git rm -f --ignore-unmatch .github/workflows/one-time-counted-status-editor.yml .github/workflows/inspect-balance-support.yml .github/balance-inspect.txt .github/scripts/patch-counted-status-editor.py .github/scripts/test-counted-status-editor.cjs .github/scripts/fix-skillpoint-export-order.py
           git add balance-editor.html
           git commit -m "feat: add counted status targeting and damage spread editor"
           git pull --rebase origin main
