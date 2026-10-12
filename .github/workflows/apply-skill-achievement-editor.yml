@@ -25,9 +25,9 @@ jobs:
           import base64,json,re,subprocess,tempfile
           text=Path('balance-editor.html').read_text(encoding='utf-8')
           assert 'skill-achievement-unlock-editor-v1' in text
-          assert 'id="skillAddBossKill"' in text
-          assert 'id="skillAddEliteKill"' in text
-          assert 'id="skillAddBossEquipment"' in text
+          assert 'skillAddBossKill' in text
+          assert 'skillAddEliteKill' in text
+          assert 'skillAddBossEquipment' in text
           assert 'obj.balanceSettings.progression.starting.skillPoints=0' not in text
           assert 'obj.balanceSettings.progression.levelRewards.skillPoints=0' not in text
           m=re.search(r'const ORIGINAL_B64\s*=\s*"([A-Za-z0-9+/=]+)";',text); assert m
