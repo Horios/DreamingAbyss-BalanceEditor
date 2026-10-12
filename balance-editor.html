@@ -3065,8 +3065,8 @@ ensureArrays();requestEditorInitialRender();
     const list=data.companions||[],p=list.find(p=>p.id===selected.companionUnlockOwner)||list[0],app=document.getElementById('app');if(!p){app.innerHTML=sectionHead('夥伴解鎖條件','請先新增夥伴。');return;}
     selected.companionUnlockOwner=p.id;const c=p.unlockCondition,entries=catalog(),selectedIds=c.achievementIds||[],byId=new Map(entries.map(x=>[x.id,x]));
     if(!maps()[mapFilter])mapFilter=0;
-    app.innerHTML=sectionHead('夥伴解鎖條件','綁定玩家成就，達成後自動發送指定夥伴招募券；進度、券庫存及通知保存在玩家個人存檔。')+
-      '<div class="notice">成就每 50 隻一階，最高 1000。綁定多項成就時，達成任一項即發券，每位夥伴只發一次。已達成成就可補發；隱藏夥伴不發券。券放入背包 → 道具，使用後開放招募。</div>'+
+    app.innerHTML=sectionHead('夥伴解鎖條件','綁定玩家成就，達成後寄送指定夥伴招募券獎勵郵件；進度、券庫存及信箱保存在玩家個人存檔。')+
+      '<div class="notice">成就每 50 隻一階，最高 1000。綁定多項成就時，達成任一項即寄信，每位夥伴只寄一次。已達成成就可補寄；隱藏夥伴不寄信。請到信箱領取附件，再到背包 → 道具使用券以開放招募。</div>'+
       '<div class="companion-layout"><div class="card"><div class="list">'+list.map(x=>'<button class="listitem '+(x.id===p.id?'active':'')+'" data-unlock-companion="'+x.id+'"><span><span class="title">'+esc(x.name)+'</span><span class="sub" style="display:block">'+esc(conditionText(x))+'</span></span><span class="meta">'+esc(EmberwildCompanionSkills.availabilityLabels[x.availability])+'</span></button>').join('')+'</div></div><section class="card"><div class="card-h"><strong>'+esc(p.name)+'</strong><button id="unlockOpenProfile">角色設計</button></div><div class="card-b fields">'+
       '<div class="field full"><label>解鎖方式</label><select id="companionUnlockType">'+Object.entries(EmberwildCompanionSkills.unlockTypes).map(([value,label])=>'<option value="'+value+'" '+(c.type===value?'selected':'')+'>'+label+'</option>').join('')+'</select></div>'+
       (c.type==='achievement'?'<div class="field full"><b>已綁定的成就（任一項達成即可）</b>'+selectedIds.map(id=>'<div class="inline" style="margin:8px 0"><span>'+esc(byId.get(id)?.name||id)+'</span><button class="small" data-remove-unlock-achievement="'+esc(id)+'" '+(selectedIds.length===1?'disabled':'')+'>移除</button></div>').join('')+'<div class="hr"></div><div class="fields"><div class="field"><label>篩選地區</label><select id="companionAchievementMap">'+maps().map((m,i)=>'<option value="'+i+'" '+(i===mapFilter?'selected':'')+'>'+esc(m.name)+'</option>').join('')+'</select></div><div class="field"><label>篩選類型</label><select id="companionAchievementKind">'+[['open','地區開放'],['elite','菁英擊殺'],['boss','BOSS 擊殺']].map(([id,name])=>'<option value="'+id+'" '+(id===kindFilter?'selected':'')+'>'+name+'</option>').join('')+'</select></div></div><div class="achievement-condition-choices">'+entries.filter(x=>x.mapIndex===mapFilter&&x.kind===kindFilter).map(x=>'<label class="inline" style="margin:10px 0"><input type="checkbox" style="width:auto" data-unlock-achievement="'+x.id+'" '+(selectedIds.includes(x.id)?'checked':'')+'> '+esc(x.name)+'</label>').join('')+'</div><p class="field-help">地區開放依主角進入門檻；擊殺各難度合計。終局首領計入 BOSS；未開啟菁英／BOSS 的地區不提供對應成就。</p></div>':'')+
@@ -5303,14 +5303,30 @@ requestEditorInitialRender();
       for(let n=STEP;n<=MAX;n+=STEP)out.push(row(kind,n));
     }return out;
   });}
-  function defaults(){return {version:1,eliteKills:{},bossKills:{},completed:[],rewardCompanions:[],tickets:{},notifications:[],noticeSerial:0};}
+  function defaults(){return {version:2,eliteKills:{},bossKills:{},completed:[],rewardCompanions:[],tickets:{}};}
   const counter=raw=>raw&&typeof raw==='object'&&!Array.isArray(raw)&&Object.keys(raw).length<=1000&&Object.entries(raw).every(([k,v])=>/^(0|[1-9]\d{0,2})$/.test(k)&&Number.isSafeInteger(v)&&v>=0&&v<=1e12);
   const partnerCounter=raw=>raw&&typeof raw==='object'&&!Array.isArray(raw)&&Object.keys(raw).length<=512&&Object.entries(raw).every(([k,v])=>/^[1-9]\d{1,9}$/.test(k)&&Number(k)<=1e9&&Number.isSafeInteger(v)&&v>=0&&v<=1e9);
   function validateState(raw){
     if(raw===undefined)return undefined;
     const fail=()=>{throw Error('成就與招募券存檔無效');};
-    if(!raw||raw.version!==1||!counter(raw.eliteKills)||!counter(raw.bossKills)||!Array.isArray(raw.completed)||raw.completed.length>41000||new Set(raw.completed).size!==raw.completed.length||raw.completed.some(x=>!parse(x))||!Array.isArray(raw.rewardCompanions)||raw.rewardCompanions.length>512||new Set(raw.rewardCompanions).size!==raw.rewardCompanions.length||raw.rewardCompanions.some(id=>!Number.isInteger(id)||id<10||id>1e9)||!partnerCounter(raw.tickets)||!Number.isSafeInteger(raw.noticeSerial)||raw.noticeSerial<0||raw.noticeSerial>1e12||!Array.isArray(raw.notifications)||raw.notifications.length>100)fail();
-    const ids=new Set();for(const n of raw.notifications){if(!n||!Number.isSafeInteger(n.id)||n.id<1||n.id>raw.noticeSerial||ids.has(n.id)||typeof n.title!=='string'||n.title.length>200||typeof n.text!=='string'||n.text.length>500||!Number.isSafeInteger(n.at)||n.at<0||typeof n.seen!=='boolean')fail();ids.add(n.id);}
+    if(!raw||![1,2].includes(raw.version)||!counter(raw.eliteKills)||!counter(raw.bossKills)||!Array.isArray(raw.completed)||raw.completed.length>41000||new Set(raw.completed).size!==raw.completed.length||raw.completed.some(x=>!parse(x))||!Array.isArray(raw.rewardCompanions)||raw.rewardCompanions.length>512||new Set(raw.rewardCompanions).size!==raw.rewardCompanions.length||raw.rewardCompanions.some(id=>!Number.isInteger(id)||id<10||id>1e9)||!partnerCounter(raw.tickets))fail();
+    if(raw.version===1){
+      if(!Number.isSafeInteger(raw.noticeSerial)||raw.noticeSerial<0||raw.noticeSerial>1e12||!Array.isArray(raw.notifications)||raw.notifications.length>100)fail();
+      const ids=new Set();for(const n of raw.notifications){if(!n||!Number.isSafeInteger(n.id)||n.id<1||n.id>raw.noticeSerial||ids.has(n.id)||typeof n.title!=='string'||n.title.length>200||typeof n.text!=='string'||n.text.length>500||!Number.isSafeInteger(n.at)||n.at<0||typeof n.seen!=='boolean')fail();ids.add(n.id);}
+    }
+    return {version:2,eliteKills:copy(raw.eliteKills),bossKills:copy(raw.bossKills),completed:[...raw.completed],rewardCompanions:[...raw.rewardCompanions],tickets:copy(raw.tickets)};
+  }
+  function mailboxDefaults(){return {version:1,serial:0,messages:[]};}
+  function validateMailbox(raw){
+    if(raw===undefined)return mailboxDefaults();
+    const fail=()=>{throw Error('信箱存檔無效');};
+    if(!raw||raw.version!==1||!Number.isSafeInteger(raw.serial)||raw.serial<0||raw.serial>1e12||!Array.isArray(raw.messages)||raw.messages.length>512)fail();
+    const ids=new Set(),keys=new Set();
+    for(const m of raw.messages){
+      if(!m||!Number.isSafeInteger(m.id)||m.id<1||m.id>raw.serial||ids.has(m.id)||typeof m.rewardKey!=='string'||!/^companion-[1-9]\d{1,9}$/.test(m.rewardKey)||keys.has(m.rewardKey)||typeof m.subject!=='string'||!m.subject.trim()||m.subject.length>100||typeof m.body!=='string'||m.body.length>1000||!Number.isSafeInteger(m.at)||m.at<0||typeof m.read!=='boolean'||typeof m.claimed!=='boolean'||m.claimed&&!m.read||!Array.isArray(m.attachments)||m.attachments.length!==1)fail();
+      const item=m.attachments[0];if(!item||item.type!=='companionTicket'||!Number.isInteger(item.companionId)||item.companionId<10||item.companionId>1e9||m.rewardKey!=='companion-'+item.companionId||!Number.isSafeInteger(item.quantity)||item.quantity<1||item.quantity>1e9||typeof item.name!=='string'||!item.name.trim()||item.name.length>100)fail();
+      ids.add(m.id);keys.add(m.rewardKey);
+    }
     return copy(raw);
   }
   function migrate(raw,legacy){return validateState(raw)??{...defaults(),eliteKills:copy(legacy?.eliteKills||{})};}
@@ -5319,7 +5335,7 @@ requestEditorInitialRender();
     if(maps){const valid=new Set(catalog(maps).map(x=>x.id));if(ids.some(id=>!valid.has(id)))throw Error('夥伴綁定成就不存在或無法達成');}
     return [...ids];
   }
-  return {STEP,MAX,id,parse,catalog,defaults,validateState,migrate,conditions};
+  return {STEP,MAX,id,parse,catalog,defaults,validateState,migrate,conditions,mailboxDefaults,validateMailbox};
 });
 </script>
 <script id="companion-skill-model-v1">
