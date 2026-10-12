@@ -55,3 +55,4 @@ jobs:
           git commit -m "feat: add counted status targeting and damage spread editor"
           git pull --rebase origin main
           git push origin HEAD:main
+# rerun after preserving the pre-existing skill-point export decorator across script load order
