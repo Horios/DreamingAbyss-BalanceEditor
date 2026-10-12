@@ -1,0 +1,54 @@
+name: One-time counted status editor implementation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/one-time-counted-status-editor.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-test-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Rebase latest main
+        run: git pull --rebase origin main
+      - name: Apply editor patch
+        run: python3 .github/scripts/patch-counted-status-editor.py
+      - name: Check appended JavaScript syntax
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          t=Path('balance-editor.html').read_text(encoding='utf-8')
+          a=t.index('<script id="counted-status-targeting-editor-extension">')
+          a=t.index('>',a)+1
+          b=t.index('</script>',a)
+          Path('/tmp/advanced-editor-extension.js').write_text(t[a:b],encoding='utf-8')
+          PY
+          node --check /tmp/advanced-editor-extension.js
+      - name: Clone matching game branch
+        run: git clone --depth 1 --branch chatgpt-dev https://github.com/Horios/Emberwild.git /tmp/Emberwild
+      - name: Run editor contract tests
+        env:
+          EMBERWILD_BALANCE_ROOT: ${{ github.workspace }}
+        run: node --test /tmp/Emberwild/tests/skill-effects-editor.test.cjs
+      - name: Run advanced editor integration test
+        env:
+          EMBERWILD_GAME_ROOT: /tmp/Emberwild
+        run: node .github/scripts/test-counted-status-editor.cjs
+      - name: Commit verified editor
+        run: |
+          git config user.name "ChatGPT"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f --ignore-unmatch .github/workflows/one-time-counted-status-editor.yml .github/workflows/inspect-balance-support.yml .github/balance-inspect.txt .github/scripts/patch-counted-status-editor.py .github/scripts/test-counted-status-editor.cjs
+          git add balance-editor.html
+          git commit -m "feat: add counted status targeting and damage spread editor"
+          git pull --rebase origin main
+          git push origin HEAD:main
