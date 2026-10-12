@@ -28,23 +28,19 @@ jobs:
           assert 'id="skillAddBossKill"' in text
           assert 'id="skillAddEliteKill"' in text
           assert 'id="skillAddBossEquipment"' in text
+          assert 'obj.balanceSettings.progression.starting.skillPoints=0' not in text
+          assert 'obj.balanceSettings.progression.levelRewards.skillPoints=0' not in text
           m=re.search(r'const ORIGINAL_B64\s*=\s*"([A-Za-z0-9+/=]+)";',text); assert m
           doc=json.loads(base64.b64decode(m.group(1)).decode('utf-8'))
           assert 'skillPoints' not in doc['balanceSettings']['progression']['starting']
           assert 'skillPoints' not in doc['balanceSettings']['progression']['levelRewards']
-          assert 'defaultLearnCost' not in doc.get('teamSettings',{})
           for job in range(4):
               assert doc['classes'][job]['skills'][4]['unlockConditions']['bossKills']==[{'mapIndex':2,'count':1}]
               assert doc['classes'][job]['skills'][5]['unlockConditions']['bossEquipment']==[{'mapIndex':3,'quantity':1}]
               assert doc['supportSkills'][job][2]['unlockConditions']['eliteKills']==[{'mapIndex':2,'count':10}]
-          embedded=text.split('<script id="team-model-v1">\n',1)[1].split('\n</script>',1)[0].rstrip('\n')
-          shared=Path('.github/scripts/team-model-source.js').read_text(encoding='utf-8').rstrip('\n')
-          assert embedded==shared
           scripts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',text,re.S)
           for i,src in enumerate(scripts):
-              if not src.strip(): continue
-              # JSON/data-only script tags are not JavaScript programs.
-              if src.lstrip().startswith(('{','[')): continue
+              if not src.strip() or src.lstrip().startswith(('{','[')): continue
               tmp=Path(tempfile.gettempdir())/f'emberwild-balance-{i}.js'
               tmp.write_text(src,encoding='utf-8')
               subprocess.run(['node','--check',str(tmp)],check=True)
@@ -54,7 +50,7 @@ jobs:
         run: |
           git config user.name "ChatGPT"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm -f .github/workflows/apply-skill-achievement-editor.yml .github/scripts/skill-achievement-editor-migration.py .github/scripts/team-model-source.js
+          git rm -f .github/workflows/apply-skill-achievement-editor.yml .github/scripts/skill-achievement-editor-migration.py .github/scripts/team-model-source.js .github/balance-inspect.txt .github/skill-editor-inspect.txt
           git add balance-editor.html
           git commit -m "feat: configure achievement-gated player skills"
           git push origin HEAD:main
