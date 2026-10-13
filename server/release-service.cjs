@@ -4,6 +4,12 @@ class ReleaseService{
  constructor({api,validate}){this.api=api;this.validateDocument=validate;this.base='/repos/Horios/Emberwild';this.tickets=new Map();}
  branch(value){if(!['main','chatgpt-dev'].includes(value))throw Error('僅允許 main／chatgpt-dev');return value;}
  async validate({data}){return {data:this.validateDocument(data),valid:true};}
+ async requireLifeRuntime(target,candidate){
+  if(target.branch!=='main'||candidate.lifeSkills?.gathering===undefined)return;
+  const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit);
+  if(source.type!=='file'||source.encoding!=='base64'||!/lifeProductsVersion\s*:\s*1\b/.test(Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8')))
+   throw Error('正式版程式尚未支援採集與煉金產物設定。請先將已測試的遊戲程式升級至 main，再發布這份平衡 JSON。');
+ }
  async snapshot({branch,ref}){
   branch=this.branch(branch);if(ref&&!/^[a-f0-9]{40}$/.test(ref))throw Error('commit SHA 格式錯誤');
   const head=await this.api(this.base+'/git/ref/heads/'+branch),commit=ref||head.object.sha;
@@ -33,6 +39,7 @@ class ReleaseService{
   if(target.commit!==expectedCommit)throw Object.assign(Error('線上版本已更新，請重新取得最新版並重新比較。'),{status:409});
   if(typeof message!=='string'||message.trim().length<4||message.length>300||/[\u0000-\u001f]/.test(message)||/^update(?: json)?$/i.test(message.trim()))throw Error('請輸入至少四個字的具體版本說明');
   const candidate=this.validateDocument(data),diff=D.diff(target.data,candidate);if(!diff.total)throw Error('沒有有效設定差異，禁止建立空白發布 commit');
+  await this.requireLifeRuntime(target,candidate);
   const ticket=crypto.randomBytes(32).toString('hex'),nextVersion=crypto.createHash('sha256').update(D.stable(candidate)).digest('hex').slice(0,12);
   for(const [id,t] of this.tickets)if(t.expires<Date.now())this.tickets.delete(id);
   this.tickets.set(ticket,{session,kind,restoreCommit,sourceCommit,target,candidate,message:message.trim(),diff,nextVersion,expires:Date.now()+600000});

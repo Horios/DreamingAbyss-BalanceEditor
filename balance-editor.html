@@ -3707,6 +3707,9 @@ ensureArrays();requestEditorInitialRender();
 
 
 
+
+
+
 </body>
 
 <script id="verified-balance-contract-editor-filter">
@@ -9406,6 +9409,55 @@ function removeCompanionOwnedSkills(p){
  const VERSION=1,SCHEMA='emberwild-balance-v1';
  const REQUIRED=['balance','classes','supportSkills','equipmentForms','items','balanceSettings','equipmentPowerSystem','statusDefinitions','companions','passiveDefinitions','companionSettings','shopSettings','companionTokens','teamSettings','lifeSkills'];
  const copy=x=>structuredClone(x),array=x=>Array.isArray(x)?x:[];
+ // Extend the existing lifeSkills document; legacy timings migrate once into each job.
+ function lifeDefaults(){return {materialBuyPrices:{'清水':1,'藥水瓶':1},gathering:[{id:'herb',name:'紅色草',periodMs:5000,chance:1,quantity:1,output:'紅色草',outputType:'material',bonusDrops:[{output:'小蟲',outputType:'material',quantity:1,chance:.05}]}],recipes:{process:{name:'加工紅色草',inputs:[['紅色草',1]],output:'紅色草泥',outputType:'material',periodMs:5000,chance:1,quantity:1},alchemy:{name:'煉製簡易治療藥水',inputs:[['紅色草泥',1],['清水',1],['藥水瓶',1]],output:'heal_small',outputType:'item',periodMs:5000,chance:1,quantity:1}}};}
+ function normalizeLife(life,items=[]){
+  const d=copy(life),ids=new Set(items.map(x=>x.id)),period=d.periodMs??5000;
+  if(d.gathering===undefined){d.gathering=lifeDefaults().gathering;d.gathering[0].periodMs=period;d.gathering[0].bonusDrops[0].chance=d.bugChance??.05;}
+  for(const r of Object.values(d.recipes||{})){r.periodMs??=period;r.chance??=1;r.quantity??=1;r.outputType??=ids.has(r.output)||r.output==='heal_small'?'item':'material';}
+  delete d.periodMs;delete d.bugChance;return d;
+ }
+ function lifeIssues(life,items=[]){
+  const errors=[],add=(p,r,o)=>errors.push(issue('lifeSkills.'+p,r,o)),ids=new Set(items.map(x=>x.id));
+  const name=x=>typeof x==='string'&&x.trim()===x&&x.length>0&&x.length<=80&&!['__proto__','constructor','prototype'].includes(x);
+  if(!life||typeof life!=='object'||Array.isArray(life)){add('','必須為物件');return errors;}
+  if(life.periodMs!==undefined&&(!Number.isSafeInteger(life.periodMs)||life.periodMs<50))add('periodMs','必須為至少 50 毫秒的安全整數');
+  if(life.bugChance!==undefined&&(!Number.isFinite(life.bugChance)||life.bugChance<0||life.bugChance>1))add('bugChance','必須介於 0～1');
+  for(const k of ['清水','藥水瓶'])if(!Number.isFinite(life.materialBuyPrices?.[k])||life.materialBuyPrices[k]<0)add('materialBuyPrices.'+k,'購買價格必須為非負數');
+  function product(r,p,legacy=false,bonus=false){
+   if(!r||typeof r!=='object'||Array.isArray(r)){add(p,'必須為物件');return;}
+   if(!bonus&&(!name(r.name)))add(p+'.name','名稱不可空白，最多 80 字',r);
+   if(!bonus&&!(legacy&&r.periodMs===undefined)&&(!Number.isSafeInteger(r.periodMs)||r.periodMs<50))add(p+'.periodMs','必須為至少 50 毫秒的安全整數',r);
+   if(!(legacy&&r.chance===undefined)&&(!Number.isFinite(r.chance)||r.chance<0||r.chance>1))add(p+'.chance','機率必須介於 0～1',r);
+   if(!(legacy&&r.quantity===undefined)&&(!Number.isSafeInteger(r.quantity)||r.quantity<1||r.quantity>1e9))add(p+'.quantity','產物數量必須為 1～1000000000 的整數',r);
+   const type=r.outputType??(legacy?(ids.has(r.output)?'item':'material'):undefined);
+   if(!['item','material'].includes(type))add(p+'.outputType','必須選擇材料或消耗道具',r);
+   if(!name(r.output)||type==='item'&&!ids.has(r.output))add(p+'.output','產物名稱無效或引用不存在的道具',r);
+  }
+  if(life.gathering!==undefined){
+   if(!Array.isArray(life.gathering))add('gathering','必須為陣列');
+   else for(const [i,r] of life.gathering.entries()){
+    const p='gathering.'+i;product(r,p);if(!r)continue;
+    if(typeof r.id!=='string'||!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(r.id)||!name(r.id))add(p+'.id','ID 無效',r);
+    if(r.bonusDrops!==undefined&&!Array.isArray(r.bonusDrops))add(p+'.bonusDrops','必須為陣列',r);
+    else for(const [j,b] of array(r.bonusDrops).entries())product(b,p+'.bonusDrops.'+j,false,true);
+   }
+  }
+  if(!life.recipes||typeof life.recipes!=='object'||Array.isArray(life.recipes))add('recipes','必須為配方物件');
+  else for(const [id,r] of Object.entries(life.recipes)){
+   const p='recipes.'+id;product(r,p,life.gathering===undefined);if(!r)continue;
+   if(!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(id)||!name(id))add(p,'配方 ID 無效',r);
+   if(!Array.isArray(r.inputs)||r.inputs.length<1||r.inputs.length>5){add(p+'.inputs','材料最少 1 種、最多 5 種',r);continue;}
+   const seen=new Set();for(const [i,row] of r.inputs.entries()){
+    if(!Array.isArray(row)||![2,3].includes(row.length)){add(p+'.inputs.'+i,'材料格式無效',r);continue;}
+    const [key,n,type='material']=row,identity=type+':'+key;
+    if(!name(key)||!['material','item'].includes(type)||type==='item'&&!ids.has(key))add(p+'.inputs.'+i,'材料名稱無效或引用不存在的道具',r);
+    if(!Number.isSafeInteger(n)||n<1||n>1e9)add(p+'.inputs.'+i,'材料數量必須為 1～1000000000 的整數',r);
+    if(seen.has(identity))add(p+'.inputs.'+i,'同一材料請合併數量，不可重複',r);seen.add(identity);
+   }
+  }
+  return errors;
+ }
  function issue(path,reason,object){path=path.replace(/^\$\./,'');if(path.includes('.quests.'))reason='委託／支線：'+reason;return {system:({textStyles:'文字稀有度',skillIcons:'技能圖示',classes:'職業',companions:'夥伴',companionSettings:'夥伴',teamSettings:'隊伍',statusDefinitions:'自訂狀態',passiveDefinitions:'被動',items:'道具',equipmentPowerSystem:'裝備',equipmentForms:'裝備',balanceSettings:'平衡設定',lifeSkills:'生活技能'})[path.split('.')[0]]||(path.includes('.quests.')?'委託／支線':path.split('.')[0]),object:object?.name||object?.title||object?.id||'',field:path,reason};}
  function inspect(d,{complete=true}={}){
   const errors=[],add=(p,r,o)=>errors.push(issue(p,r,o));
@@ -9461,17 +9513,13 @@ function removeCompanionOwnedSkills(p){
    for(const id of array(u.quests))if(!questIds.has(id))add('classes.'+job+'.skills.'+i+'.unlockConditions.quests','引用不存在的任務：'+id,skill);
    for(const key of ['bossKills','eliteKills','bossEquipment'])for(const row of array(u[key]))if(Number.isInteger(mapCount)&&(row.mapIndex<-1||row.mapIndex>=mapCount))add('classes.'+job+'.skills.'+i+'.unlockConditions.'+key,'引用不存在的地圖',skill);
   }
-  const life=d.lifeSkills;
-  if(life){if(!Number.isInteger(life.periodMs)||life.periodMs<50)add('lifeSkills.periodMs','必須為至少 50 毫秒的整數');if(!Number.isFinite(life.bugChance)||life.bugChance<0||life.bugChance>1)add('lifeSkills.bugChance','必須介於 0～1');
-   for(const k of ['清水','藥水瓶'])if(!Number.isFinite(life.materialBuyPrices?.[k])||life.materialBuyPrices[k]<0)add('lifeSkills.materialBuyPrices.'+k,'購買價格必須為非負數');
-   for(const k of ['process','alchemy']){const r=life.recipes?.[k],p='lifeSkills.recipes.'+k;if(!r||typeof r.name!=='string'||!r.name.trim()||typeof r.output!=='string'||!Array.isArray(r.inputs)||!r.inputs.length||r.inputs.some(x=>!Array.isArray(x)||x.length!==2||typeof x[0]!=='string'||!Number.isInteger(x[1])||x[1]<1))add(p,'配方名稱、成品或材料數量無效');}
-   if(life.recipes?.alchemy?.output!=='heal_small'||life.recipes?.process?.output!=='紅色草泥')add('lifeSkills.recipes','目前執行器只支援既有兩種成品');
-  }
+  if(d.lifeSkills!==undefined)errors.push(...lifeIssues(d.lifeSkills,array(d.items)));
   return errors;
  }
  function migrate(input,defaults){
   const errors=inspect(input,{complete:input?.schemaVersion!==undefined});if(errors.length)throw Object.assign(Error(errors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:errors});
   const d=copy(input);if(d.schemaVersion===undefined){if(!defaults)throw Error('舊 JSON 需要有效的遷移基準');for(const k of REQUIRED)if(d[k]===undefined)d[k]=copy(defaults[k]);d.schemaVersion=VERSION;}
+  d.lifeSkills=normalizeLife(d.lifeSkills,array(d.items));
   const full=inspect(d);if(full.length)throw Object.assign(Error(full.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:full});return d;
  }
  function validate(input,domainValidate,defaults){const d=migrate(input,defaults);
@@ -9479,16 +9527,15 @@ function removeCompanionOwnedSkills(p){
   function types(v,b,p){if(b===null||b===undefined||v===undefined)return;if(v===null){if(['mastery','requiredMastery','partnerId','unitPrice','control'].includes(p.split('.').at(-1)))return;typeErrors.push(issue(p,'此欄位不可為 null'));return;}if(Array.isArray(b)){if(!Array.isArray(v)){typeErrors.push(issue(p,'必須為陣列'));return;}for(let i=0;i<v.length;i++)types(v[i],b[i]??b[0],p+'.'+i);return;}if(typeof b==='object'){if(!v||typeof v!=='object'||Array.isArray(v)){typeErrors.push(issue(p,'必須為物件'));return;}for(const k of Object.keys(v))types(v[k],b[k],p+'.'+k);return;}if(!/\.(key|value)$/.test(p)&&typeof v!==typeof b)typeErrors.push(issue(p,'型別必須為 '+typeof b));}
   if(defaults)types(d,defaults,'$');if(typeErrors.length)throw Object.assign(Error(typeErrors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:typeErrors});
 if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Error(e.message),{issues:e.issues||[issue('domain',e.message)]});}}return d;}
- const api={VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
+ const api={VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
-
 </script>
 <script id="balance-document-editor-v1">
 (()=>{
  const M=EmberwildBalanceDocument;
  globalThis.__EMBERWILD_EQUIPMENT_IDENTITY={effectKeys:ORIGINAL_DATA._reference?.equipmentIdentity?.effects||[]};
- const lifeDefault={periodMs:5000,bugChance:.05,materialBuyPrices:{'清水':1,'藥水瓶':1},recipes:{process:{name:'加工紅色草',inputs:[['紅色草',1]],output:'紅色草泥'},alchemy:{name:'煉製簡易治療藥水',inputs:[['紅色草泥',1],['清水',1],['藥水瓶',1]],output:'heal_small'}}};
- ORIGINAL_DATA.schemaVersion=1;ORIGINAL_DATA.lifeSkills??=structuredClone(lifeDefault);data.schemaVersion??=1;data.lifeSkills??=structuredClone(lifeDefault);
+ const lifeDefault=M.lifeDefaults();
+ ORIGINAL_DATA.schemaVersion=1;ORIGINAL_DATA.lifeSkills=M.normalizeLife(ORIGINAL_DATA.lifeSkills||lifeDefault,ORIGINAL_DATA.items);data.schemaVersion??=1;data.lifeSkills=M.normalizeLife(data.lifeSkills||lifeDefault,data.items);
  function checked(input){const d=M.migrate(input,ORIGINAL_DATA),previous=data;try{data=d;const issues=validateData();if(issues.length)throw Error(issues.join('\n'));return structuredClone(data);}finally{data=previous;}}
  globalThis.__EMBERWILD_VALIDATE_DOCUMENT=checked;
  const file=document.getElementById('fileInput');
@@ -9630,5 +9677,63 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
    else E.state.status+=' 發布前會再由安全服務執行完整遊戲驗證。';
   });
  };
+})();
+</script>
+
+<style id="life-products-style">
+.life-design-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}.life-design-grid label,.life-input-row label{display:flex;flex-direction:column;gap:6px;min-width:0}.life-design-grid input,.life-design-grid select,.life-input-row input,.life-input-row select{width:100%;min-width:0;box-sizing:border-box}.life-input-row{display:grid;grid-template-columns:110px minmax(0,1fr) 110px auto;gap:10px;align-items:end;margin:10px 0}.life-input-row button{margin-bottom:2px}.life-design-summary{overflow-wrap:anywhere}.life-design-card{margin-bottom:16px}.life-design-card .card-b{min-width:0}.life-design-card .card-h{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between}@media(max-width:650px){.life-input-row{grid-template-columns:1fr 1fr}.life-design-grid{grid-template-columns:1fr}.life-design-card input,.life-design-card select{max-width:100%}}
+</style>
+<script id="life-products-editor">
+(()=>{
+ const M=EmberwildBalanceDocument,e=esc;
+ const sections=['gatheringProducts','alchemyRecipes'];
+ SECTION_META.push(['gatheringProducts','採集產物'],['alchemyRecipes','煉金產物']);
+ NAV_GROUPS.splice(NAV_GROUPS.findIndex(x=>x[0]==='itemsEconomy')+1,0,['lifeProducts','採集與煉金',sections]);
+ const baseEnsure=ensureArrays;ensureArrays=function(){const out=baseEnsure();data.lifeSkills??=M.lifeDefaults();if(data.lifeSkills.gathering===undefined)data.lifeSkills=M.normalizeLife(data.lifeSkills,data.items);return out;};
+ const entries=()=>currentSection==='gatheringProducts'?data.lifeSkills.gathering.map((r,i)=>[String(i),r]):Object.entries(data.lifeSkills.recipes);
+ const recipePage=()=>currentSection==='alchemyRecipes';
+ function materials(){return [...new Set([...(data.balanceSettings.economy.materialPrices||[]).map(x=>x.key),...data.lifeSkills.gathering.flatMap(r=>[r,...(r.bonusDrops||[])]).filter(r=>r.outputType==='material').map(r=>r.output),...Object.values(data.lifeSkills.recipes).flatMap(r=>[...(r.outputType==='material'?[r.output]:[]),...r.inputs.filter(x=>!x[2]||x[2]==='material').map(x=>x[0])])])];}
+ const kindOptions=type=>[['material','材料'],['item','消耗道具']].map(([k,n])=>`<option value="${k}" ${k===type?'selected':''}>${n}</option>`).join('');
+ const refName=(key,type)=>type==='item'?data.items.find(x=>x.id===key)?.name||key:key;
+ function refControl(attr,key,type){return type==='item'?`<select ${attr} aria-label="消耗道具">${!data.items.some(x=>x.id===key)?`<option value="${e(key)}">${e(key||'請選擇道具')}</option>`:''}${data.items.map(x=>`<option value="${e(x.id)}" ${x.id===key?'selected':''}>${e(x.name)} (${e(x.id)})</option>`).join('')}</select>`:`<input ${attr} aria-label="材料名稱" value="${e(key)}" list="lifeMaterialOptions" maxlength="80">`;}
+ const numeric=(label,key,value,extra)=>`<label>${label}<input data-life-field="${key}" type="number" value="${e(value)}" ${extra}></label>`;
+ function summary(r){return (recipePage()?r.inputs.map(([k,n,t])=>refName(k,t)+' ×'+n).join(' ＋ ')+'；':'')+(r.periodMs/1000)+' 秒，'+Number((r.chance*100).toFixed(6))+'% 機率獲得 '+refName(r.output,r.outputType)+' ×'+r.quantity;}
+ function productFields(r){return `<div class="life-design-grid"><label>名稱<input data-life-field="name" maxlength="80" value="${e(r.name)}"></label><label>ID<input data-life-field="id" maxlength="80" value="${e(r.id)}" pattern="[A-Za-z][A-Za-z0-9_-]*"></label>${numeric('每次秒數','seconds',r.periodMs/1000,'min="0.05" step="0.001"')}${numeric('成功機率（%）','percent',r.chance*100,'min="0" max="100" step="0.001"')}${numeric('產物數量','quantity',r.quantity,'min="1" max="1000000000" step="1"')}<label>產物類型<select data-life-field="outputType">${kindOptions(r.outputType)}</select></label><label>產物${refControl('data-life-field="output"',r.output,r.outputType)}</label></div>`;}
+ function inputRow(row,i){const [key,n,type='material']=row;return `<div class="life-input-row" data-life-input="${i}"><label>材料 ${i+1} 類型<select data-input-field="type">${kindOptions(type)}</select></label><label>消耗材料${refControl('data-input-field="key"',key,type)}</label><label>需求數量<input data-input-field="quantity" type="number" min="1" max="1000000000" step="1" value="${n}"></label><button data-remove-input="${i}" ${row.length<2?'disabled':''}>移除材料</button></div>`;}
+ function bonusRow(r,i){return `<div class="life-input-row" data-life-bonus="${i}"><label>額外產物類型<select data-bonus-field="outputType">${kindOptions(r.outputType)}</select></label><label>額外產物${refControl('data-bonus-field="output"',r.output,r.outputType)}</label><label>數量<input data-bonus-field="quantity" type="number" min="1" max="1000000000" step="1" value="${r.quantity}"></label><label>機率（%）<input data-bonus-field="percent" type="number" min="0" max="100" step="0.001" value="${r.chance*100}"></label><button data-remove-bonus="${i}">移除額外產物</button></div>`;}
+ function page(){
+  const app=document.getElementById('app'),isRecipe=recipePage();
+  app.innerHTML=sectionHead(isRecipe?'煉金產物設定器':'採集產物設定器',isRecipe?'每份配方消耗 1～5 種材料，可分別設定需求數量。每次完成消耗材料，失敗不產出；停止未完成的動作不消耗材料。':'每個採集項目獨立設定時間、機率、產物與數量。額外產物在每次採集結束時獨立判定，不受主要產物成功與否影響。','<button id="lifeAdd" class="primary">'+(isRecipe?'新增煉金配方':'新增採集項目')+'</button>')+
+  '<p class="mini-note">機率以 0～100% 輸入；秒數最少 0.05 秒。材料可輸入新名稱，消耗道具沿用「道具」頁已建立的道具；產物存入共用背包。加工與煉金仍共用一個製作動作。</p><datalist id="lifeMaterialOptions">'+materials().map(k=>`<option value="${e(k)}">`).join('')+'</datalist>'+
+  entries().map(([key,r])=>`<section class="card life-design-card" data-life-key="${e(key)}"><div class="card-h"><strong>${e(r.name)}</strong><button data-life-delete>刪除${isRecipe?'配方':'採集項目'}</button></div><div class="card-b">${productFields({...r,id:isRecipe?key:r.id})}${isRecipe?'<h3>消耗材料（'+r.inputs.length+'／5）</h3>'+r.inputs.map(inputRow).join('')+`<button data-add-input ${r.inputs.length>=5?'disabled':''}>新增消耗材料</button>`:'<h3>額外採集產物</h3>'+(r.bonusDrops||[]).map(bonusRow).join('')+'<button data-add-bonus>新增額外產物</button>'}<p class="life-design-summary">${e(summary(r))}</p></div></section>`).join('')+(entries().length?'':'<p class="empty">尚未設定產物，請按上方新增。</p>');
+  document.getElementById('lifeAdd').onclick=()=>{let n=1,id;const all=isRecipe?Object.keys(data.lifeSkills.recipes):data.lifeSkills.gathering.map(r=>r.id);do{id=(isRecipe?'recipe_':'gather_')+n++;}while(all.includes(id));const r={name:isRecipe?'新煉金配方':'新採集項目',periodMs:5000,chance:1,quantity:1,output:'新產物',outputType:'material'};if(isRecipe){r.inputs=[['紅色草',1]];data.lifeSkills.recipes[id]=r;}else{r.id=id;r.bonusDrops=[];data.lifeSkills.gathering.push(r);}markDirty();render();};
+  app.querySelectorAll('[data-life-key]').forEach(box=>{
+   const key=box.dataset.lifeKey,r=isRecipe?data.lifeSkills.recipes[key]:data.lifeSkills.gathering[Number(key)];
+   const changed=()=>{markDirty();box.querySelector('.life-design-summary').textContent=summary(r);};
+   box.querySelectorAll('[data-life-field]').forEach(el=>el.onchange=()=>{
+    const k=el.dataset.lifeField,v=el.value;
+    if(k==='id'){
+     const all=isRecipe?Object.keys(data.lifeSkills.recipes):data.lifeSkills.gathering.filter(x=>x!==r).map(x=>x.id);
+     if(!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(v)||['__proto__','constructor','prototype'].includes(v)||all.includes(v)&&v!==key){alert('ID 無效或重複');el.value=isRecipe?key:r.id;return;}
+     if(isRecipe){delete data.lifeSkills.recipes[key];data.lifeSkills.recipes[v]=r;}else r.id=v;markDirty();render();return;
+    }
+    if(k==='seconds')r.periodMs=Math.round(Number(v)*1000);else if(k==='percent')r.chance=Number(v)/100;else r[k]=el.type==='number'?Number(v):v;
+    if(k==='outputType'){r.output=v==='item'?data.items[0]?.id||'':'新產物';markDirty();render();}else changed();
+   });
+   box.querySelector('[data-life-delete]').onclick=()=>{if(!confirm('確定刪除「'+r.name+'」？'))return;if(isRecipe)delete data.lifeSkills.recipes[key];else data.lifeSkills.gathering.splice(Number(key),1);markDirty();render();};
+   if(isRecipe){
+    box.querySelector('[data-add-input]').onclick=()=>{if(r.inputs.length>=5)return;const names=materials();r.inputs.push([names.find(n=>!r.inputs.some(x=>x[0]===n&&(!x[2]||x[2]==='material')))||'新材料',1]);markDirty();render();};
+    box.querySelectorAll('[data-life-input]').forEach(row=>{const i=Number(row.dataset.lifeInput),input=r.inputs[i];row.querySelectorAll('[data-input-field]').forEach(el=>el.onchange=()=>{const k=el.dataset.inputField;if(k==='type'){input[2]=el.value;input[0]=el.value==='item'?data.items[0]?.id||'':'新材料';markDirty();render();}else{input[k==='key'?0:1]=k==='key'?el.value:Number(el.value);changed();}});const remove=row.querySelector('[data-remove-input]');remove.disabled=r.inputs.length<=1;remove.onclick=()=>{if(r.inputs.length<=1)return;r.inputs.splice(i,1);markDirty();render();};});
+   }else{
+    box.querySelector('[data-add-bonus]').onclick=()=>{(r.bonusDrops??=[]).push({output:'新額外產物',outputType:'material',chance:.05,quantity:1});markDirty();render();};
+    box.querySelectorAll('[data-life-bonus]').forEach(row=>{const i=Number(row.dataset.lifeBonus),drop=r.bonusDrops[i];row.querySelectorAll('[data-bonus-field]').forEach(el=>el.onchange=()=>{const k=el.dataset.bonusField;if(k==='percent')drop.chance=Number(el.value)/100;else drop[k]=el.type==='number'?Number(el.value):el.value;if(k==='outputType'){drop.output=el.value==='item'?data.items[0]?.id||'':'新額外產物';markDirty();render();}else changed();});row.querySelector('[data-remove-bonus]').onclick=()=>{r.bonusDrops.splice(i,1);markDirty();render();};});
+   }
+  });
+ }
+ const baseValidate=validateData;validateData=function(){return [...new Set([...baseValidate(),...M.lifeIssues(data.lifeSkills,data.items).map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason)])];};
+ const baseRender=render;render=function(...args){if(!sections.includes(currentSection))return baseRender(...args);ensureArrays();renderNav(true);page();};
+ const baseCount=count;count=function(section,normalized=false){if(!sections.includes(section))return baseCount(section,normalized);if(!normalized)ensureArrays();return section==='gatheringProducts'?data.lifeSkills.gathering.length:Object.keys(data.lifeSkills.recipes).length;};
+ const exportBase=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=()=>({...exportBase(),lifeSkills:M.normalizeLife(data.lifeSkills,data.items)});
+ ensureArrays();requestEditorInitialRender();
 })();
 </script>
