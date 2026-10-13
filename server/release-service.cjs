@@ -17,9 +17,13 @@ class ReleaseService{
   const [head,rows]=await Promise.all([this.api(this.base+'/git/ref/heads/'+branch),this.api(this.base+'/commits?sha='+branch+'&path=data%2Fbalance.json&per_page=20&page='+page)]);
   return {branch,head:head.object.sha,page,hasMore:rows.length===20,versions:rows.map((c,i)=>({commit:c.sha,message:c.commit.message,date:c.commit.committer.date,branch,current:page===1&&i===0,parent:c.parents[0]?.sha||null}))};
  }
- async prepare({kind='preview',branch,restoreCommit,expectedCommit,message,data},session){
-  if(!['preview','restore'].includes(kind))throw Error('不支援此發布類型');
-  const target=await this.snapshot({branch:kind==='preview'?'chatgpt-dev':this.branch(branch)});
+ async prepare({kind='preview',branch,restoreCommit,sourceCommit,expectedCommit,message,data},session){
+  if(!['preview','restore','promote'].includes(kind))throw Error('不支援此發布類型');
+  const target=await this.snapshot({branch:kind==='preview'?'chatgpt-dev':kind==='promote'?'main':this.branch(branch)});
+  if(kind==='promote'){
+   const source=await this.snapshot({branch:'chatgpt-dev'});if(source.commit!==sourceCommit)throw Object.assign(Error('測試版已更新，請重新取得並重新比較。'),{status:409});
+   data=source.data;
+  }
   if(kind==='restore'){
    if(!/^[a-f0-9]{40}$/.test(restoreCommit))throw Error('歷史 commit SHA 無效');
    const lineage=await this.api(this.base+'/compare/'+restoreCommit+'...'+target.commit);
@@ -31,8 +35,8 @@ class ReleaseService{
   const candidate=this.validateDocument(data),diff=D.diff(target.data,candidate);if(!diff.total)throw Error('沒有有效設定差異，禁止建立空白發布 commit');
   const ticket=crypto.randomBytes(32).toString('hex'),nextVersion=crypto.createHash('sha256').update(D.stable(candidate)).digest('hex').slice(0,12);
   for(const [id,t] of this.tickets)if(t.expires<Date.now())this.tickets.delete(id);
-  this.tickets.set(ticket,{session,kind,restoreCommit,target,candidate,message:message.trim(),diff,nextVersion,expires:Date.now()+600000});
-  return {ticket,branch:target.branch,currentVersion:target.commit,nextVersion,diff,message:message.trim()};
+  this.tickets.set(ticket,{session,kind,restoreCommit,sourceCommit,target,candidate,message:message.trim(),diff,nextVersion,expires:Date.now()+600000});
+  return {ticket,branch:target.branch,currentVersion:target.commit,nextVersion,diff,message:message.trim(),sourceCommit:kind==='promote'?sourceCommit:null};
  }
  async commit({ticket,confirmed,productionConfirmation},session){
   const t=this.tickets.get(ticket);if(!t||t.session!==session||t.expires<Date.now())throw Error('發布摘要已過期，請重新比較');
@@ -41,11 +45,14 @@ class ReleaseService{
   this.tickets.delete(ticket);
   const current=await this.snapshot({branch:t.target.branch});
   if(current.commit!==t.target.commit||current.blob!==t.target.blob)throw Object.assign(Error('線上版本已更新，請重新取得最新版並重新比較。'),{status:409});
+  if(t.kind==='promote'){
+   const source=await this.snapshot({branch:'chatgpt-dev'});if(source.commit!==t.sourceCommit||D.stable(source.data)!==D.stable(t.candidate))throw Object.assign(Error('測試版已更新，請重新取得並重新比較。'),{status:409});
+  }
   this.validateDocument(t.candidate);
   const base=await this.api(this.base+'/git/commits/'+current.commit);
   const blob=await this.api(this.base+'/git/blobs',{method:'POST',body:{encoding:'utf-8',content:JSON.stringify(t.candidate,null,2)+'\n'}});
   const tree=await this.api(this.base+'/git/trees',{method:'POST',body:{base_tree:base.tree.sha,tree:[{path:'data/balance.json',mode:'100644',type:'blob',sha:blob.sha}]}});
-  const commit=await this.api(this.base+'/git/commits',{method:'POST',body:{message:t.kind==='restore'?t.message:'balance: '+t.message,tree:tree.sha,parents:[current.commit]}});
+  const commit=await this.api(this.base+'/git/commits',{method:'POST',body:{message:t.kind==='restore'?t.message:'balance: '+t.message+(t.kind==='promote'?'\n\nSource-Test-Commit: '+t.sourceCommit:''),tree:tree.sha,parents:[current.commit]}});
   await this.api(this.base+'/git/refs/heads/'+current.branch,{method:'PATCH',body:{sha:commit.sha,force:false}});
   const checked=await this.snapshot({branch:current.branch});
   if(checked.blob!==blob.sha)throw Error('無法確認線上資料；請重新取得版本，勿重複提交');
@@ -55,6 +62,14 @@ class ReleaseService{
   branch=this.branch(branch);if(!/^[a-f0-9]{40}$/.test(commit))throw Error('commit SHA 無效');
   // Preview dispatch runs from main, so workflow head_sha alone cannot prove deployment.
   const prefix=branch==='main'?'':'preview/',url='https://horios.github.io/Emberwild/'+prefix;
+  const expected=await this.snapshot({branch,ref:commit});
+  try{
+   const response=await fetch(url+'data/build.json?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(10000)});
+   if(response.ok){const build=await response.json();if(build.branch===branch&&build.balanceBlob===expected.blob){
+    if(build.commit===commit)return {commit,branch,url,state:'部署成功'};
+    if(/^[a-f0-9]{40}$/.test(build.commit)){const lineage=await this.api(this.base+'/compare/'+commit+'...'+build.commit);if(lineage.status==='ahead')return {commit,branch,url,state:'部署成功（後續版本已包含本次資料）'};}
+   }}
+  }catch{}
   const runs=await this.api(this.base+'/actions/workflows/deploy-preview.yml/runs?per_page=20');
   const relevant=runs.workflow_runs.filter(r=>r.head_sha===commit);
   const r=relevant[0];return {commit,branch,url,state:r?.conclusion==='failure'?'部署失敗':r?.status==='in_progress'?'部署中':'等待部署',runUrl:r?.html_url||null};

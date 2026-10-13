@@ -9572,3 +9572,21 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  };
 })();
 </script>
+
+<script id="balance-release-promote-v1">
+(()=>{
+ const E=__EMBERWILD_RELEASE_EDITOR,previous=__EMBERWILD_RENDER_RELEASE_EXTRA;
+ __EMBERWILD_RENDER_RELEASE_EXTRA=()=>{
+  previous();const box=document.getElementById('release-promote-panel');
+  box.innerHTML=card('將目前測試版發布至正式版','<p style="color:#ee846f;font-weight:bold">你正在更新正式版遊戲資料。</p><p>來源固定為 GitHub 測試版 commit，正式版發布不使用未發布的本地草稿。</p><button id="releasePromote" style="border-color:#a44334;margin-top:12px">取得測試版並建立正式版摘要</button>');
+  document.getElementById('releasePromote').onclick=()=>E.action(async()=>{
+   const [source,target]=await Promise.all([E.api('snapshot',{branch:'chatgpt-dev'}),E.api('snapshot',{branch:'main'})]);
+   E.state.snapshots['chatgpt-dev']=source;E.state.snapshots.main=target;
+   E.state.prepared=await E.api('prepare',{kind:'promote',sourceCommit:source.commit,expectedCommit:target.commit,message:E.state.message});
+   E.state.status='測試版來源 commit：'+source.commit+'。請確認已完成測試後再發布。';
+  });
+  if(E.state.prepared?.sourceCommit)document.getElementById('release-final-warning').insertAdjacentHTML('afterbegin','<p>測試版來源：<code>'+esc(E.state.prepared.sourceCommit)+'</code></p>');
+  const commit=document.getElementById('releaseCommit'),confirm=document.getElementById('releaseProductionConfirm');if(confirm){commit.disabled=true;confirm.oninput=()=>{commit.disabled=confirm.value!=='正式版';};}
+ };
+})();
+</script>
