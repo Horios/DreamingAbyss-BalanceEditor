@@ -9498,3 +9498,62 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
 })(globalThis);
 
 </script>
+<script id="balance-release-ui-v1">
+/* All release operations live in this one editor section. */
+(()=>{
+ const D=EmberwildBalanceDiff,M=EmberwildBalanceDocument;
+ const state={target:'chatgpt-dev',snapshots:{},history:null,comparison:null,prepared:null,message:'',status:'',csrf:null,busy:false};
+ SECTION_META.push(['releases','發布管理']);NAV_GROUPS.push(['releases','發布管理',['releases']]);
+ const oldRender=render;
+ const e=esc;
+ const current=()=>__EMBERWILD_MASTERY_EDITOR.cleanExport();
+ function format(v){if(v===undefined)return '—';const out=typeof v==='string'?v:JSON.stringify(v);return e(out?.length>350?out.slice(0,350)+'…':out||'');}
+ function diffHTML(diff){if(!diff)return '';const groups=new Map();for(const r of diff.rows){const k=r.system+'：'+r.object;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r);}return '<p>共 '+diff.total+' 項；新增 '+diff.added+'、修改 '+diff.modified+'、刪除 '+diff.deleted+'</p>'+[...groups].map(([k,rows])=>'<details class="release-diff" open><summary>'+e(k)+'</summary>'+rows.map(r=>'<p><b>'+e(r.type)+' · '+e(r.field)+'</b><br><code>'+e(r.path)+'</code><br>'+format(r.before)+' → '+format(r.after)+'</p>').join('')+'</details>').join('');}
+ function status(){const d=current(),dev=state.snapshots['chatgpt-dev'],main=state.snapshots.main;if(dev&&!D.diff(dev.data,d).total)return '目前編輯內容與測試版一致';if(main&&!D.diff(main.data,d).total)return '目前編輯內容與正式版一致';return dev||main?'有未發布變更':'本地編輯資料；尚未取得線上版本';}
+ async function api(method,body){if(location.protocol==='file:'||location.hostname!=='127.0.0.1')throw Error('發布需從本機安全工作台開啟：http://127.0.0.1:4318。仍可下載 JSON 備份。');
+  if(!state.csrf){const r=await fetch('/api/session',{cache:'no-store'});const v=await r.json();if(!r.ok)throw Error(v.error);state.csrf=v.csrf;}
+  const response=await fetch('/api/'+method,{method:'POST',headers:{'Content-Type':'application/json','X-Emberwild-CSRF':state.csrf},body:JSON.stringify(body),cache:'no-store'}),result=await response.json();if(!response.ok)throw Object.assign(Error(result.error||'API 失敗'),{issues:result.issues});return result;
+ }
+ async function action(fn){if(state.busy)return;state.busy=true;try{await fn();}catch(err){state.status=err.message+(err.issues?.length?'\n'+err.issues.map(i=>[i.system,i.object,i.field,i.reason].join(' · ')).join('\n'):'');state.prepared=null;}finally{state.busy=false;render();}}
+ function download(doc,name='emberwild-balance-backup.json'){downloadText(name,JSON.stringify(doc,null,2),'application/json;charset=utf-8');}
+ function load(doc){if(!confirm('載入此版本將取代目前編輯內容。可先下載備份；確定載入？'))return;const checked=__EMBERWILD_VALIDATE_DOCUMENT(doc);data=checked;markDirty('已載入 GitHub 版本');document.getElementById('cacheBtn').click();state.prepared=null;}
+ function renderPage(){renderNav(true);
+  const snap=state.snapshots[state.target],prepared=state.prepared;
+  document.getElementById('app').innerHTML='<div class="section-head"><h1>發布管理</h1><p id="release-edit-status">'+e(status())+'</p></div>'+card('本地資料與線上版本','<p>比較與重新取得版本只更新快照，不會覆蓋本地編輯資料。</p><div class="toolbar"><button id="releaseValidate">JSON 驗證</button><button id="releaseBackup">下載 JSON 備份</button><button id="releaseFetch">取得線上版本</button><select id="releaseTarget"><option value="chatgpt-dev" '+(state.target==='chatgpt-dev'?'selected':'')+'>測試版 · chatgpt-dev</option><option value="main" '+(state.target==='main'?'selected':'')+'>正式版 · main</option></select><button id="releaseCompare">與編輯內容比較</button></div><p>目前比較版本：'+e(snap?.commit||'尚未取得')+'</p><button id="releaseLoad" '+(!snap?'disabled':'')+'>載入比較版本至編輯器</button>')+
+   card('差異比較',diffHTML(state.comparison)||'<p>取得目標版本後比較。</p>')+
+   card('發布至測試版','<label>版本說明<input id="releaseMessage" maxlength="300" placeholder="例如：調整採集材料售價與藥水成本" value="'+e(state.message)+'"></label><p>完整驗證 → 取得測試版 → 查看摘要 → 確認發布。</p><button id="releasePreview" '+(!state.snapshots['chatgpt-dev']?'disabled':'')+'>建立測試版發布摘要</button><button id="releasePreBackup">發布前下載備份</button>')+
+   '<div id="release-promote-panel"></div>'+ 
+   (prepared?card('發布前確認','<p>目標：'+(prepared.branch==='main'?'正式版':'測試版')+' · '+e(prepared.branch)+'</p><p>目前版本：'+e(prepared.currentVersion)+'<br>即將建立資料版本：'+e(prepared.nextVersion)+'（commit 於提交時建立）</p><p>'+e(prepared.message)+'</p>'+diffHTML(prepared.diff)+'<label><input type="checkbox" id="releaseConfirm">我已檢查完整差異與目標分支</label><div id="release-final-warning"></div><button id="releaseCommit">確認發布</button><button id="releaseCancel">取消</button>'):'')+
+   card('版本紀錄','<button id="releaseHistory">取得 '+e(state.target)+' 版本紀錄</button>'+ (state.history?.versions.map(v=>'<details><summary>'+e(v.date)+' · '+e(v.commit.slice(0,10))+' · '+e(v.message.split('\n')[0])+(v.current?' · 目前版本':'')+'</summary><p>'+e(v.branch)+'</p><div class="toolbar"><button data-release-version="'+v.commit+'" data-action="compare">與線上目前版本比較</button><button data-release-version="'+v.commit+'" data-action="local">與本地編輯比較</button><button data-release-version="'+v.commit+'" data-action="changes">查看此版本修改摘要</button><button data-release-version="'+v.commit+'" data-action="load">載入至編輯器</button><button data-release-version="'+v.commit+'" data-action="download">下載 JSON</button><button data-release-version="'+v.commit+'" data-action="restore">還原至此版本</button></div></details>').join('')||'')+(state.history?.hasMore?'<button id="releaseMore">更多歷史版本</button>':''))+
+   '<pre id="releaseStatus" role="status" style="white-space:pre-wrap">'+e(state.status)+'</pre>';
+  document.getElementById('releaseMessage').oninput=ev=>{state.message=ev.target.value;state.prepared=null;};
+  document.getElementById('releaseTarget').onchange=ev=>{state.target=ev.target.value;state.comparison=null;state.prepared=null;state.history=null;render();};
+  document.getElementById('releaseBackup').onclick=()=>download(current());document.getElementById('releasePreBackup').onclick=()=>download(current());
+  document.getElementById('releaseValidate').onclick=()=>action(async()=>{__EMBERWILD_VALIDATE_DOCUMENT(current());const v=await api('validate',{data:current()});state.status=v.valid?'JSON 驗證通過（設計器＋最終遊戲 validator）':'驗證失敗';});
+  document.getElementById('releaseFetch').onclick=()=>action(async()=>{state.snapshots[state.target]=await api('snapshot',{branch:state.target});state.prepared=null;state.status='已取得線上版本；本地資料保留。';});
+  document.getElementById('releaseCompare').onclick=()=>action(async()=>{if(!snap)throw Error('請先取得目標版本');state.comparison=D.diff(snap.data,current());});
+  document.getElementById('releaseLoad').onclick=()=>action(async()=>load(snap.data));
+  document.getElementById('releasePreview').onclick=()=>action(async()=>{const d=__EMBERWILD_VALIDATE_DOCUMENT(current());state.prepared=await api('prepare',{kind:'preview',data:d,message:state.message,expectedCommit:state.snapshots['chatgpt-dev'].commit});state.comparison=null;});
+  async function history(page=1){const next=await api('history',{branch:state.target,page});if(page>1)next.versions=[...state.history.versions,...next.versions];state.history=next;}
+  document.getElementById('releaseHistory').onclick=()=>action(()=>history());document.getElementById('releaseMore')?.addEventListener('click',()=>action(()=>history(state.history.page+1)));
+  document.querySelectorAll('[data-release-version]').forEach(button=>button.onclick=()=>action(async()=>{const sha=button.dataset.releaseVersion,kind=button.dataset.action,version=await api('snapshot',{branch:state.target,ref:sha});
+   if(kind==='download'){download(version.data,'emberwild-balance-'+sha.slice(0,12)+'.json');return;}
+   if(kind==='load'){load(version.data);return;}
+   if(kind==='restore'){if(!globalThis.__EMBERWILD_PREPARE_RESTORE)throw Error('版本還原功能尚未安裝');await __EMBERWILD_PREPARE_RESTORE(version);return;}
+   if(kind==='changes'){const parent=state.history.versions.find(v=>v.commit===sha)?.parent;if(!parent){state.comparison=D.diff({},version.data);return;}const old=await api('snapshot',{branch:state.target,ref:parent});state.comparison=D.diff(old.data,version.data);return;}
+   const base=kind==='local'?{data:current()}:await api('snapshot',{branch:state.target});state.comparison=D.diff(version.data,base.data);
+  }));
+  document.getElementById('releaseCancel')?.addEventListener('click',()=>{state.prepared=null;render();});
+  document.getElementById('releaseCommit')?.addEventListener('click',()=>action(async()=>{
+   if(!document.getElementById('releaseConfirm').checked)throw Error('請先勾選確認完整發布摘要');
+   const body={ticket:state.prepared.ticket,confirmed:true};if(state.prepared.branch==='main')body.productionConfirmation=document.getElementById('releaseProductionConfirm')?.value;
+   const out=await api('commit',body);state.status=out.message+'\ncommit：'+out.commit;state.lastCommit=out;state.prepared=null;state.snapshots[out.branch]=await api('snapshot',{branch:out.branch});
+  }));
+  if(state.lastCommit){document.getElementById('releaseStatus').insertAdjacentHTML('afterend','<button id="releaseDeployment">檢查部署狀態</button><a target="_blank" rel="noopener" href="https://horios.github.io/Emberwild/'+(state.lastCommit.branch==='main'?'':'preview/')+'">開啟'+(state.lastCommit.branch==='main'?'正式版':'測試版')+'</a>');document.getElementById('releaseDeployment').onclick=()=>action(async()=>{const out=await api('deployment',state.lastCommit);state.status=out.state+'\ncommit：'+out.commit;});}
+  if(state.busy)document.querySelectorAll('#app button').forEach(b=>b.disabled=true);
+ }
+ render=function(...args){if(currentSection==='releases'){renderPage();globalThis.__EMBERWILD_RENDER_RELEASE_EXTRA?.();return;}return oldRender(...args);};
+ globalThis.__EMBERWILD_RELEASE_EDITOR={state,api,action,download,load,current,diffHTML};
+})();
+
+</script>
