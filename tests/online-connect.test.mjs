@@ -20,3 +20,10 @@ test('transport failure preserves the same handshake for an explicit retry, incl
  const result=await connection.exchange(flow.state,'fixturecode12345');assert(result.installationUrl);assert.equal(conversions,2);
  const html=setupHTML({},'network failed',true);assert(html.includes('重試這次連線（不建立新 App）'));assert(html.includes('id="connect" disabled'));
 });
+
+test('default Cloudflare fetch keeps the global receiver when stored on a connection instance',async()=>{
+ const f=fixture(),previous=globalThis.fetch;
+ globalThis.fetch=async function(url,opts){assert.equal(this,globalThis,'Cloudflare native fetch requires its global receiver');return f.mock(url,opts);};
+ try{const connection=new GithubConnection(f.env,'owner',origin),flow=await connection.begin();await connection.exchange(flow.state,'fixturecode12345');await connection.verify();assert.equal((await connection.status()).connected,true);}
+ finally{globalThis.fetch=previous;}
+});

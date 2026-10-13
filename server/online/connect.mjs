@@ -8,7 +8,7 @@ export async function encryptCredentials(value,secret,owner){const iv=crypto.get
 export async function decryptCredentials(value,secret,owner){const [iv,data]=value.split('.');try{return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:parse64(iv),additionalData:connectEncoder.encode(owner)},await encryptionKey(secret),parse64(data))));}catch{throw new GithubError(503,'GitHub 連線憑證無法解密；請保留既有安全金鑰並檢查部署設定');}}
 export async function connectionConfig(env,user){if(!env.DB)return env;const row=await env.DB.prepare('SELECT credentials, ready FROM github_connection WHERE owner = ?').bind(user).first();if(!row?.ready)return env;return {...env,...await decryptCredentials(row.credentials,env.EMBERWILD_SESSION_SECRET,user)};}
 export class GithubConnection{
- constructor(env,user,origin,{fetchImpl=fetch}={}){this.env=env;this.db=env.DB;this.user=user;this.origin=origin;this.fetch=fetchImpl;}
+ constructor(env,user,origin,{fetchImpl=(...args)=>globalThis.fetch(...args)}={}){this.env=env;this.db=env.DB;this.user=user;this.origin=origin;this.fetch=fetchImpl;}
  async row(){return this.db.prepare('SELECT * FROM github_connection WHERE owner = ?').bind(this.user).first();}
  async status(){const row=await this.row();return {connected:Boolean(row?.ready),pending:Boolean(row&&!row.ready),slug:row?.slug||null,installationUrl:row?'https://github.com/apps/'+row.slug+'/installations/new':null};}
  async begin(){const existing=await this.row();if(existing)return {installationUrl:'https://github.com/apps/'+existing.slug+'/installations/new',connected:Boolean(existing.ready)};

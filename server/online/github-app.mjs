@@ -12,7 +12,7 @@ export async function makeAppJwt(env){
  let key;try{key=await crypto.subtle.importKey('pkcs8',pemBytes(env.EMBERWILD_GITHUB_PRIVATE_KEY),{name:'RSASSA-PKCS1-v1_5',hash:'SHA-256'},false,['sign']);}catch{throw new GithubError(503,'GitHub App 私鑰無法讀取；請檢查後端密鑰設定');}
  return data+'.'+b64url(new Uint8Array(await crypto.subtle.sign('RSASSA-PKCS1-v1_5',key,encoder.encode(data))));
 }
-export function createHostedGithubApp(env,{fetchImpl=fetch}={}){
+export function createHostedGithubApp(env,{fetchImpl=(...args)=>globalThis.fetch(...args)}={}){
  const configured=Boolean(env.EMBERWILD_GITHUB_APP_ID&&env.EMBERWILD_GITHUB_INSTALLATION_ID&&env.EMBERWILD_GITHUB_PRIVATE_KEY);
  let token=null,expires=0;
  async function request(path,{method='GET',body,auth}={}){
