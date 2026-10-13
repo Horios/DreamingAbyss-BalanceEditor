@@ -15,7 +15,16 @@ export function createWorker({githubFactory=createHostedGithubApp,validatorFacto
   const url=new URL(request.url);
   try{
    // Sites provides the owner-private access boundary and trusted identity headers.
-   if(request.method==='GET'&&url.pathname==='/api/health'){const schema=env.DB?await env.DB.prepare("SELECT COUNT(*) AS n FROM sqlite_master WHERE type = 'table' AND name IN ('release_tickets', 'github_connection', 'github_connect_flows')").bind().first():null;return json(200,{ok:true,repository:'Horios/Emberwild',validatorCommit,online:true,databaseReady:schema?.n===3,sessionSecretConfigured:Boolean(env.EMBERWILD_SESSION_SECRET&&env.EMBERWILD_SESSION_SECRET.length>=32)});}
+   if(request.method==='GET'&&url.pathname==='/api/health'){
+    const schema=env.DB?await env.DB.prepare("SELECT COUNT(*) AS n FROM sqlite_master WHERE type = 'table' AND name IN ('release_tickets', 'github_connection', 'github_connect_flows')").bind().first():null;
+    const health={ok:true,repository:'Horios/Emberwild',validatorCommit,online:true,databaseReady:schema?.n===3,sessionSecretConfigured:Boolean(env.EMBERWILD_SESSION_SECRET&&env.EMBERWILD_SESSION_SECRET.length>=32)};
+    if(url.searchParams.get('probe')==='github'){
+     health.runtime={abortTimeout:typeof AbortSignal?.timeout==='function'};
+     try{const remote=await fetch('https://api.github.com/rate_limit',{headers:{Accept:'application/vnd.github+json','User-Agent':'Emberwild-Online-Publisher'},signal:AbortSignal.timeout(10000)});const value=await remote.json();health.github={status:remote.status,remaining:value.resources?.core?.remaining,message:typeof value.message==='string'?value.message.slice(0,200):undefined};}
+     catch(error){health.github={errorName:error.name,error:String(error.message).replace(/https?:\/\/\S+/g,'[remote]').slice(0,200)};}
+    }
+    return json(200,health);
+   }
    const user=request.headers.get('oai-authenticated-user-id');
    if(!user)return url.pathname==='/'?Response.redirect(url.origin+'/signin-with-chatgpt?return_to=%2F',302):json(401,{error:'請先登入私人工作台'});
    if(env.EMBERWILD_ALLOWED_USER_ID&&user!==env.EMBERWILD_ALLOWED_USER_ID)return json(403,{error:'此帳號沒有發布權限'});
@@ -43,7 +52,7 @@ export function createWorker({githubFactory=createHostedGithubApp,validatorFacto
    const runtime=['validate','prepare','commit'].includes(method)?validatorFactory():null;
    const service=new ReleaseService({api,validate:input=>runtime.validate(input),ticketStore:env.DB?new D1TicketStore(env.DB):null});
    return json(200,await service[method](body,user));
-  }catch(err){if(url.pathname.startsWith('/api/github/'))return new Response(setupHTML({},err.message),{status:err.status>=400&&err.status<=599?err.status:400,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store'}});return json(err.status>=400&&err.status<=599?err.status:400,{error:err.message,issues:err.issues||[]});}
+  }catch(err){if(url.pathname.startsWith('/api/github/'))return new Response(setupHTML({},err.message,Boolean(err.retryable)),{status:err.status>=400&&err.status<=599?err.status:400,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store'}});return json(err.status>=400&&err.status<=599?err.status:400,{error:err.message,issues:err.issues||[]});}
  }
 };}
 export default createWorker();

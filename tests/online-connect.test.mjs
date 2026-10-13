@@ -7,3 +7,16 @@ test('manifest connection is user initiated, owner-bound and delivers credential
 test('forged, wrong-owner, expired and replayed connection states are rejected before exchange',async()=>{const f=fixture(),begun=await f.connection.begin();const other=new GithubConnection(f.env,'other',origin,{fetchImpl:f.mock});await assert.rejects(()=>other.exchange(begun.state,'fixturecode12345'),/不屬於/);assert.equal(f.calls.length,0);f.sql.prepare('UPDATE github_connect_flows SET expires = 0').run();await assert.rejects(()=>f.connection.exchange(begun.state,'fixturecode12345'),/過期/);const fresh=await f.connection.begin();await f.connection.exchange(fresh.state,'fixturecode12345');await assert.rejects(()=>f.connection.exchange(fresh.state,'fixturecode12345'),/已建立/);assert.equal(f.calls.filter(x=>x.url.includes('/conversions')).length,1);});
 test('wrong GitHub account or all-repository installation cannot enable publication',async()=>{const f=fixture(),begun=await f.connection.begin();f.config.account='other';await assert.rejects(()=>f.connection.exchange(begun.state,'fixturecode12345'),/Horios/);assert.equal(f.sql.prepare('SELECT COUNT(*) AS n FROM github_connection').get().n,0);const second=fixture(),flow=await second.connection.begin();await second.connection.exchange(flow.state,'fixturecode12345');second.config.selection='all';await assert.rejects(()=>second.connection.verify(),/安裝範圍/);assert.equal((await second.connection.status()).connected,false);});
 test('encrypted credentials authenticate their owner and reject tampering or a changed secret',async()=>{const value=await encryptCredentials({privateKey:'fixture-only'},secret,'u');assert.deepEqual(await decryptCredentials(value,secret,'u'),{privateKey:'fixture-only'});await assert.rejects(()=>decryptCredentials(value,secret,'other'),/無法解密/);await assert.rejects(()=>decryptCredentials(value,secret+'x','u'),/無法解密/);const bytes=value.split('.');bytes[1]='A'+bytes[1].slice(1);await assert.rejects(()=>decryptCredentials(bytes.join('.'),secret,'u'),/無法解密/);});
+
+test('transport failure preserves the same handshake for an explicit retry, including older failed flows',async()=>{
+ const f=fixture();let fail=true,conversions=0;
+ const connection=new GithubConnection(f.env,'owner',origin,{fetchImpl:async(url,opts)=>{
+  if(url.includes('/conversions')){conversions++;assert.equal(opts.body,'{}');assert.equal(opts.headers['Content-Type'],'application/json');if(fail){fail=false;throw new TypeError('Network connection lost.');}}
+  return f.mock(url,opts);
+ }});
+ const flow=await connection.begin();await assert.rejects(()=>connection.exchange(flow.state,'fixturecode12345'),err=>err.retryable===true&&!err.message.includes('逾時'));
+ assert.equal(f.sql.prepare('SELECT used FROM github_connect_flows WHERE state = ?').get(flow.state).used,0);
+ f.sql.prepare('UPDATE github_connect_flows SET used = 1 WHERE state = ?').run(flow.state);
+ const result=await connection.exchange(flow.state,'fixturecode12345');assert(result.installationUrl);assert.equal(conversions,2);
+ const html=setupHTML({},'network failed',true);assert(html.includes('重試這次連線（不建立新 App）'));assert(html.includes('id="connect" disabled'));
+});
