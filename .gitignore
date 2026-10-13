@@ -1,0 +1,4 @@
+*.pem
+.env
+app-settings.json
+node_modules/

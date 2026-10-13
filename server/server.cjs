@@ -1,5 +1,5 @@
 'use strict';
-const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
+const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),os=require('node:os');
 const {createGithubApp}=require('./github-app.cjs');
 function createServer({service,editorRoot=path.resolve(__dirname,'..'),port=4318}){
  const sessions=new Map(),origin='http://127.0.0.1:'+port;
@@ -28,7 +28,11 @@ function createServer({service,editorRoot=path.resolve(__dirname,'..'),port=4318
 if(require.main===module){
  const gameRoot=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(__dirname,'../../Emberwild'));
  const {ReleaseService}=require('./release-service.cjs');
- const api=createGithubApp({appId:process.env.EMBERWILD_GITHUB_APP_ID,installationId:process.env.EMBERWILD_GITHUB_INSTALLATION_ID,privateKeyPath:process.env.EMBERWILD_GITHUB_PRIVATE_KEY_PATH});
+ const configPath=process.env.EMBERWILD_RELEASE_CONFIG||path.join(os.homedir(),'.config','emberwild-release','app-settings.json');
+ const config=fs.existsSync(configPath)?JSON.parse(fs.readFileSync(configPath,'utf8')):{};
+ const privateKeyPath=process.env.EMBERWILD_GITHUB_PRIVATE_KEY_PATH||config.privateKeyPath;
+ if(privateKeyPath){const key=path.resolve(privateKeyPath);for(const repository of [gameRoot,path.resolve(__dirname,'..')])if(key.startsWith(repository+path.sep))throw Error('GitHub App 私鑰必須存放在 Repository 外部');}
+ const api=createGithubApp({appId:process.env.EMBERWILD_GITHUB_APP_ID||config.appId,installationId:process.env.EMBERWILD_GITHUB_INSTALLATION_ID||config.installationId,privateKeyPath});
  const {loadRuntime}=require(path.join(gameRoot,'tests/headless-runtime.cjs'));
  const runtime=loadRuntime(gameRoot);const validate=d=>{runtime.ctx.__candidate=d;return JSON.parse(runtime.run('JSON.stringify(EmberwildBalanceDocument.validate(__candidate,validateBalanceConfig,exportableBalance()))'));};
  const service=new ReleaseService({api,validate});const server=createServer({service});server.listen(4318,'127.0.0.1',()=>console.log('平衡工作台：http://127.0.0.1:4318（GitHub App 金鑰只由本機服務讀取）'));

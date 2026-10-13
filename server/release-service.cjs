@@ -53,6 +53,7 @@ class ReleaseService{
   const blob=await this.api(this.base+'/git/blobs',{method:'POST',body:{encoding:'utf-8',content:JSON.stringify(t.candidate,null,2)+'\n'}});
   const tree=await this.api(this.base+'/git/trees',{method:'POST',body:{base_tree:base.tree.sha,tree:[{path:'data/balance.json',mode:'100644',type:'blob',sha:blob.sha}]}});
   const commit=await this.api(this.base+'/git/commits',{method:'POST',body:{message:t.kind==='restore'?t.message:'balance: '+t.message+(t.kind==='promote'?'\n\nSource-Test-Commit: '+t.sourceCommit:''),tree:tree.sha,parents:[current.commit]}});
+  if(t.kind==='promote'){const source=await this.api(this.base+'/git/ref/heads/chatgpt-dev');if(source.object.sha!==t.sourceCommit)throw Object.assign(Error('測試版已更新，請重新取得並重新比較。'),{status:409});}
   await this.api(this.base+'/git/refs/heads/'+current.branch,{method:'PATCH',body:{sha:commit.sha,force:false}});
   const checked=await this.snapshot({branch:current.branch});
   if(checked.blob!==blob.sha)throw Error('無法確認線上資料；請重新取得版本，勿重複提交');
@@ -71,7 +72,7 @@ class ReleaseService{
    }}
   }catch{}
   const runs=await this.api(this.base+'/actions/workflows/deploy-preview.yml/runs?per_page=20');
-  const relevant=runs.workflow_runs.filter(r=>r.head_sha===commit);
+  const relevant=runs.workflow_runs.filter(r=>r.head_sha===commit||r.display_title?.includes(commit));
   const r=relevant[0];return {commit,branch,url,state:r?.conclusion==='failure'?'部署失敗':r?.status==='in_progress'?'部署中':'等待部署',runUrl:r?.html_url||null};
  }
 

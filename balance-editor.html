@@ -4149,6 +4149,7 @@ ensureArrays();requestEditorInitialRender();
     if(head?.nextSibling)app.insertBefore(box,head.nextSibling);else app.appendChild(box);
   };
 
+  globalThis.__EMBERWILD_WORKSPACE_IMPORT=(candidate,name)=>{data=candidate;workspaceSource=name;persistWorkspace('已開啟 '+name);render();};
   // Keep the existing overview reset button, but its markDirty now writes the
   // replacement data to the local workspace automatically.
   ensureArrays();
@@ -9404,8 +9405,8 @@ function removeCompanionOwnedSkills(p){
 (function(root){
  const VERSION=1,SCHEMA='emberwild-balance-v1';
  const REQUIRED=['balance','classes','supportSkills','equipmentForms','items','balanceSettings','equipmentPowerSystem','statusDefinitions','companions','passiveDefinitions','companionSettings','shopSettings','companionTokens','teamSettings','lifeSkills'];
- const copy=x=>structuredClone(x);
- function issue(path,reason,object){return {system:path.split('.')[0],object:object?.name||object?.title||object?.id||'',field:path,reason};}
+ const copy=x=>structuredClone(x),array=x=>Array.isArray(x)?x:[];
+ function issue(path,reason,object){path=path.replace(/^\$\./,'');if(path.includes('.quests.'))reason='委託／支線：'+reason;return {system:({textStyles:'文字稀有度',skillIcons:'技能圖示',classes:'職業',companions:'夥伴',companionSettings:'夥伴',teamSettings:'隊伍',statusDefinitions:'自訂狀態',passiveDefinitions:'被動',items:'道具',equipmentPowerSystem:'裝備',equipmentForms:'裝備',balanceSettings:'平衡設定',lifeSkills:'生活技能'})[path.split('.')[0]]||(path.includes('.quests.')?'委託／支線':path.split('.')[0]),object:object?.name||object?.title||object?.id||'',field:path,reason};}
  function inspect(d,{complete=true}={}){
   const errors=[],add=(p,r,o)=>errors.push(issue(p,r,o));
   if(!d||typeof d!=='object'||Array.isArray(d))return [issue('$','必須為 JSON 物件')];
@@ -9426,16 +9427,40 @@ function removeCompanionOwnedSkills(p){
    }
    for(const [k,v] of Object.entries(x)){
     const field=p?p+'.'+k:k;
+    if(['accessToken','personalAccessToken','githubToken','privateKey','clientSecret','password'].includes(k))add(field,'認證資料不得存入平衡 JSON',owner);
     if(['__proto__','constructor','prototype'].includes(k))add(field,'禁止的物件鍵',owner);
     if(typeof v==='number'&&nonnegative.test(k)&&v<0)add(field,'不得為負值',owner);
     const chanceMax=field.startsWith('balance.affixes.poolBySlotRank.')&&k==='chance'?100:1;
     if(chanceKey.test(k)&&typeof v==='number'&&(v<0||v>chanceMax))add(field,'機率必須介於 0～'+chanceMax,owner);
     if(k==='chanceByDifficulty'&&(!Array.isArray(v)||v.length!==3||v.some(n=>!Number.isFinite(n)||n<0||n>1)))add(field,'三個難度機率必須介於 0～1',owner);
     if(k==='chanceByTier'&&(!Array.isArray(v)||v.length!==10||v.some(n=>!Number.isFinite(n)||n<0||n>100)))add(field,'十階機率必須介於 0～100',owner);
-    if(enums[k]&&!enums[k].includes(v))add(field,'未知 enum：'+v,owner);
+    if(enums[k]&&!enums[k].includes(v))add(field,(k==='availability'?'顯示狀態無效；':'')+'未知 enum：'+v,owner);
     walk(v,field,owner);
    }
   }walk(d);
+  // Detect destructive sanitization using the existing final status normalizer.
+  // Its allowed enums are maintained by the status module, including late extensions.
+  if(typeof normalizeStatusDefinition==='function')for(const [i,row] of (Array.isArray(d.statusDefinitions)?d.statusDefinitions:[]).entries()){
+   const normalized=normalizeStatusDefinition(row,i);
+   function unchanged(raw,value,p){if(Array.isArray(raw)&&Array.isArray(value)){if(raw.length!==value.length)add(p,'超出允許數量或含有未知 enum',row);for(let n=0;n<Math.min(raw.length,value.length);n++)unchanged(raw[n],value[n],p+'.'+n);}else if(raw&&value&&typeof raw==='object'&&typeof value==='object'){for(const k of Object.keys(raw))if(value[k]!==undefined)unchanged(raw[k],value[k],p+'.'+k);}else if(raw!==value)add(p,'非法值會被正規化改寫；請修正後再發布',row);}
+   unchanged(row,normalized,'statusDefinitions.'+i);
+  }
+  const livePowerKeys=root.__EMBERWILD_EQUIPMENT_IDENTITY?.effectKeys;
+  if(livePowerKeys)for(const kind of ['prefixes','suffixes','bossAffixes'])for(const [i,row] of array(d.equipmentPowerSystem?.[kind]).entries()){
+   const allowed=kind==='bossAffixes'?livePowerKeys:livePowerKeys.filter(k=>!['gearAtkPct','bossDamagePct'].includes(k));
+   for(const effect of kind==='bossAffixes'?row.effects||[]:[row.effect])if(!effect||!allowed.includes(effect.key)||(effect.key==='basicElement'?!['physical','fire','ice','wind','light','shadow'].includes(effect.value):!Number.isFinite(effect.value)))add('equipmentPowerSystem.'+kind+'.'+i+'.effect','未知裝備效果或效果值型別錯誤',row);
+  }
+  const mapCount=d.balanceSettings?.maps?.catalog?.length,monsterIds=new Set(array(d.balanceSettings?.monsters?.catalog).map(x=>x.id)),itemIds=new Set(array(d.items).map(x=>x.id));
+  for(const [i,row] of array(d.balanceSettings?.drops?.entries).entries()){
+   if(row.type==='item'&&!itemIds.has(row.key))add('balanceSettings.drops.entries.'+i+'.key','引用不存在的道具',row);
+   if(Array.isArray(row.sources)&&row.sources.some(id=>!monsterIds.has(id)))add('balanceSettings.drops.entries.'+i+'.sources','引用不存在的怪物',row);
+  }
+  const side=array(d.balanceSettings?.quests?.design?.side||d.balanceSettings?.quests?.side),questIds=new Set(['tutorial',...side.map(x=>x.id)]);
+  for(const [job,c] of array(d.classes).entries())for(const [i,skill] of array(c?.skills).entries()){
+   const u=skill.unlockConditions;if(!u)continue;
+   for(const id of array(u.quests))if(!questIds.has(id))add('classes.'+job+'.skills.'+i+'.unlockConditions.quests','引用不存在的任務：'+id,skill);
+   for(const key of ['bossKills','eliteKills','bossEquipment'])for(const row of array(u[key]))if(Number.isInteger(mapCount)&&(row.mapIndex<-1||row.mapIndex>=mapCount))add('classes.'+job+'.skills.'+i+'.unlockConditions.'+key,'引用不存在的地圖',skill);
+  }
   const life=d.lifeSkills;
   if(life){if(!Number.isInteger(life.periodMs)||life.periodMs<50)add('lifeSkills.periodMs','必須為至少 50 毫秒的整數');if(!Number.isFinite(life.bugChance)||life.bugChance<0||life.bugChance>1)add('lifeSkills.bugChance','必須介於 0～1');
    for(const k of ['清水','藥水瓶'])if(!Number.isFinite(life.materialBuyPrices?.[k])||life.materialBuyPrices[k]<0)add('lifeSkills.materialBuyPrices.'+k,'購買價格必須為非負數');
@@ -9445,14 +9470,14 @@ function removeCompanionOwnedSkills(p){
   return errors;
  }
  function migrate(input,defaults){
-  const errors=inspect(input,{complete:input?.schemaVersion!==undefined});if(errors.length)throw Object.assign(Error(errors.map(x=>x.field+'：'+x.reason).join('\n')),{issues:errors});
+  const errors=inspect(input,{complete:input?.schemaVersion!==undefined});if(errors.length)throw Object.assign(Error(errors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:errors});
   const d=copy(input);if(d.schemaVersion===undefined){if(!defaults)throw Error('舊 JSON 需要有效的遷移基準');for(const k of REQUIRED)if(d[k]===undefined)d[k]=copy(defaults[k]);d.schemaVersion=VERSION;}
-  const full=inspect(d);if(full.length)throw Object.assign(Error(full.map(x=>x.field+'：'+x.reason).join('\n')),{issues:full});return d;
+  const full=inspect(d);if(full.length)throw Object.assign(Error(full.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:full});return d;
  }
  function validate(input,domainValidate,defaults){const d=migrate(input,defaults);
   const typeErrors=[];
-  function types(v,b,p){if(b===null||b===undefined||v===undefined)return;if(Array.isArray(b)){if(!Array.isArray(v)){typeErrors.push(issue(p,'必須為陣列'));return;}for(let i=0;i<v.length;i++)types(v[i],b[i]??b[0],p+'.'+i);return;}if(typeof b==='object'){if(!v||typeof v!=='object'||Array.isArray(v)){typeErrors.push(issue(p,'必須為物件'));return;}for(const k of Object.keys(v))types(v[k],b[k],p+'.'+k);return;}if(typeof v!==typeof b)typeErrors.push(issue(p,'型別必須為 '+typeof b));}
-  if(defaults)types(d,defaults,'$');if(typeErrors.length)throw Object.assign(Error(typeErrors.map(x=>x.field+'：'+x.reason).join('\n')),{issues:typeErrors});
+  function types(v,b,p){if(b===null||b===undefined||v===undefined)return;if(v===null){if(['mastery','requiredMastery','partnerId','unitPrice','control'].includes(p.split('.').at(-1)))return;typeErrors.push(issue(p,'此欄位不可為 null'));return;}if(Array.isArray(b)){if(!Array.isArray(v)){typeErrors.push(issue(p,'必須為陣列'));return;}for(let i=0;i<v.length;i++)types(v[i],b[i]??b[0],p+'.'+i);return;}if(typeof b==='object'){if(!v||typeof v!=='object'||Array.isArray(v)){typeErrors.push(issue(p,'必須為物件'));return;}for(const k of Object.keys(v))types(v[k],b[k],p+'.'+k);return;}if(!/\.(key|value)$/.test(p)&&typeof v!==typeof b)typeErrors.push(issue(p,'型別必須為 '+typeof b));}
+  if(defaults)types(d,defaults,'$');if(typeErrors.length)throw Object.assign(Error(typeErrors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:typeErrors});
 if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Error(e.message),{issues:e.issues||[issue('domain',e.message)]});}}return d;}
  const api={VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
@@ -9461,12 +9486,13 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
 <script id="balance-document-editor-v1">
 (()=>{
  const M=EmberwildBalanceDocument;
+ globalThis.__EMBERWILD_EQUIPMENT_IDENTITY={effectKeys:ORIGINAL_DATA._reference?.equipmentIdentity?.effects||[]};
  const lifeDefault={periodMs:5000,bugChance:.05,materialBuyPrices:{'清水':1,'藥水瓶':1},recipes:{process:{name:'加工紅色草',inputs:[['紅色草',1]],output:'紅色草泥'},alchemy:{name:'煉製簡易治療藥水',inputs:[['紅色草泥',1],['清水',1],['藥水瓶',1]],output:'heal_small'}}};
  ORIGINAL_DATA.schemaVersion=1;ORIGINAL_DATA.lifeSkills??=structuredClone(lifeDefault);data.schemaVersion??=1;data.lifeSkills??=structuredClone(lifeDefault);
  function checked(input){const d=M.migrate(input,ORIGINAL_DATA),previous=data;try{data=d;const issues=validateData();if(issues.length)throw Error(issues.join('\n'));return structuredClone(data);}finally{data=previous;}}
  globalThis.__EMBERWILD_VALIDATE_DOCUMENT=checked;
  const file=document.getElementById('fileInput');
- file.onchange=async ev=>{const f=ev.target.files?.[0];ev.target.value='';if(!f)return;try{if(f.size>4000000)throw Error('檔案過大');const candidate=checked(JSON.parse(await f.text()));data=candidate;markDirty('已匯入 '+f.name);document.getElementById('cacheBtn').click();render();}catch(e){alert('無法匯入平衡 JSON：'+e.message);}};
+ file.onchange=async ev=>{const f=ev.target.files?.[0];ev.target.value='';if(!f)return;try{if(f.size>4000000)throw Error('檔案過大');const candidate=checked(JSON.parse(await f.text()));__EMBERWILD_WORKSPACE_IMPORT(candidate,f.name);}catch(e){alert('無法匯入平衡 JSON：'+e.message);}};
  const exportBase=__EMBERWILD_MASTERY_EDITOR.cleanExport;
  __EMBERWILD_MASTERY_EDITOR.cleanExport=()=>({...exportBase(),schemaVersion:1,lifeSkills:structuredClone(data.lifeSkills)});
 })();
@@ -9506,13 +9532,13 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  SECTION_META.push(['releases','發布管理']);NAV_GROUPS.push(['releases','發布管理',['releases']]);
  const oldRender=render;
  const e=esc;
- const current=()=>__EMBERWILD_MASTERY_EDITOR.cleanExport();
+ const current=()=>structuredClone(data);
  function format(v){if(v===undefined)return '—';const out=typeof v==='string'?v:JSON.stringify(v);return e(out?.length>350?out.slice(0,350)+'…':out||'');}
  function diffHTML(diff){if(!diff)return '';const groups=new Map();for(const r of diff.rows){const k=r.system+'：'+r.object;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r);}return '<p>共 '+diff.total+' 項；新增 '+diff.added+'、修改 '+diff.modified+'、刪除 '+diff.deleted+'</p>'+[...groups].map(([k,rows])=>'<details class="release-diff" open><summary>'+e(k)+'</summary>'+rows.map(r=>'<p><b>'+e(r.type)+' · '+e(r.field)+'</b><br><code>'+e(r.path)+'</code><br>'+format(r.before)+' → '+format(r.after)+'</p>').join('')+'</details>').join('');}
  function status(){const d=current(),dev=state.snapshots['chatgpt-dev'],main=state.snapshots.main;if(dev&&!D.diff(dev.data,d).total)return '目前編輯內容與測試版一致';if(main&&!D.diff(main.data,d).total)return '目前編輯內容與正式版一致';return dev||main?'有未發布變更':'本地編輯資料；尚未取得線上版本';}
  async function api(method,body){if(location.protocol==='file:'||location.hostname!=='127.0.0.1')throw Error('發布需從本機安全工作台開啟：http://127.0.0.1:4318。仍可下載 JSON 備份。');
   if(!state.csrf){const r=await fetch('/api/session',{cache:'no-store'});const v=await r.json();if(!r.ok)throw Error(v.error);state.csrf=v.csrf;}
-  const response=await fetch('/api/'+method,{method:'POST',headers:{'Content-Type':'application/json','X-Emberwild-CSRF':state.csrf},body:JSON.stringify(body),cache:'no-store'}),result=await response.json();if(!response.ok)throw Object.assign(Error(result.error||'API 失敗'),{issues:result.issues});return result;
+  const response=await fetch('/api/'+method,{method:'POST',headers:{'Content-Type':'application/json','X-Emberwild-CSRF':state.csrf},body:JSON.stringify(body),cache:'no-store'}),result=await response.json();if(!response.ok)throw Object.assign(Error(result.error||'API 失敗'),{status:response.status,issues:result.issues});return result;
  }
  async function action(fn){if(state.busy)return;state.busy=true;try{await fn();}catch(err){state.status=err.message+(err.issues?.length?'\n'+err.issues.map(i=>[i.system,i.object,i.field,i.reason].join(' · ')).join('\n'):'');state.prepared=null;}finally{state.busy=false;render();}}
  function download(doc,name='emberwild-balance-backup.json'){downloadText(name,JSON.stringify(doc,null,2),'application/json;charset=utf-8');}
@@ -9524,10 +9550,10 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
    card('發布至測試版','<label>版本說明<input id="releaseMessage" maxlength="300" placeholder="例如：調整採集材料售價與藥水成本" value="'+e(state.message)+'"></label><p>完整驗證 → 取得測試版 → 查看摘要 → 確認發布。</p><button id="releasePreview" '+(!state.snapshots['chatgpt-dev']?'disabled':'')+'>建立測試版發布摘要</button><button id="releasePreBackup">發布前下載備份</button>')+
    '<div id="release-promote-panel"></div>'+ 
    (prepared?card('發布前確認','<p>目標：'+(prepared.branch==='main'?'正式版':'測試版')+' · '+e(prepared.branch)+'</p><p>目前版本：'+e(prepared.currentVersion)+'<br>即將建立資料版本：'+e(prepared.nextVersion)+'（commit 於提交時建立）</p><p>'+e(prepared.message)+'</p>'+diffHTML(prepared.diff)+'<label><input type="checkbox" id="releaseConfirm">我已檢查完整差異與目標分支</label><div id="release-final-warning"></div><button id="releaseCommit">確認發布</button><button id="releaseCancel">取消</button>'):'')+
-   card('版本紀錄','<button id="releaseHistory">取得 '+e(state.target)+' 版本紀錄</button>'+ (state.history?.versions.map(v=>'<details><summary>'+e(v.date)+' · '+e(v.commit.slice(0,10))+' · '+e(v.message.split('\n')[0])+(v.current?' · 目前版本':'')+'</summary><p>'+e(v.branch)+'</p><div class="toolbar"><button data-release-version="'+v.commit+'" data-action="compare">與線上目前版本比較</button><button data-release-version="'+v.commit+'" data-action="local">與本地編輯比較</button><button data-release-version="'+v.commit+'" data-action="changes">查看此版本修改摘要</button><button data-release-version="'+v.commit+'" data-action="load">載入至編輯器</button><button data-release-version="'+v.commit+'" data-action="download">下載 JSON</button><button data-release-version="'+v.commit+'" data-action="restore">還原至此版本</button></div></details>').join('')||'')+(state.history?.hasMore?'<button id="releaseMore">更多歷史版本</button>':''))+
+   card('版本紀錄','<button id="releaseHistory">取得 '+e(state.target)+' 版本紀錄</button>'+ (state.history?.versions.map(v=>'<details><summary>'+e(v.date)+' · '+e(v.commit.slice(0,10))+' · '+e(v.message.split('\n')[0])+(v.current?' · 目前版本':'')+'</summary><p>'+e(v.branch)+'</p><div class="toolbar"><button data-release-version="'+v.commit+'" data-action="compare">'+(state.historyReference?'與歷史比較基準比較':'與線上目前版本比較')+'</button><button data-release-version="'+v.commit+'" data-action="local">與本地編輯比較</button><button data-release-version="'+v.commit+'" data-action="reference">設為歷史比較基準</button><button data-release-version="'+v.commit+'" data-action="changes">查看此版本修改摘要</button><button data-release-version="'+v.commit+'" data-action="load">載入至編輯器</button><button data-release-version="'+v.commit+'" data-action="download">下載 JSON</button><button data-release-version="'+v.commit+'" data-action="restore">還原至此版本</button></div></details>').join('')||'')+(state.history?.hasMore?'<button id="releaseMore">更多歷史版本</button>':''))+
    '<pre id="releaseStatus" role="status" style="white-space:pre-wrap">'+e(state.status)+'</pre>';
   document.getElementById('releaseMessage').oninput=ev=>{state.message=ev.target.value;state.prepared=null;};
-  document.getElementById('releaseTarget').onchange=ev=>{state.target=ev.target.value;state.comparison=null;state.prepared=null;state.history=null;render();};
+  document.getElementById('releaseTarget').onchange=ev=>{state.target=ev.target.value;state.comparison=null;state.prepared=null;state.history=null;state.historyReference=null;render();};
   document.getElementById('releaseBackup').onclick=()=>download(current());document.getElementById('releasePreBackup').onclick=()=>download(current());
   document.getElementById('releaseValidate').onclick=()=>action(async()=>{__EMBERWILD_VALIDATE_DOCUMENT(current());const v=await api('validate',{data:current()});state.status=v.valid?'JSON 驗證通過（設計器＋最終遊戲 validator）':'驗證失敗';});
   document.getElementById('releaseFetch').onclick=()=>action(async()=>{state.snapshots[state.target]=await api('snapshot',{branch:state.target});state.prepared=null;state.status='已取得線上版本；本地資料保留。';});
@@ -9540,8 +9566,9 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
    if(kind==='download'){download(version.data,'emberwild-balance-'+sha.slice(0,12)+'.json');return;}
    if(kind==='load'){load(version.data);return;}
    if(kind==='restore'){if(!globalThis.__EMBERWILD_PREPARE_RESTORE)throw Error('版本還原功能尚未安裝');await __EMBERWILD_PREPARE_RESTORE(version);return;}
-   if(kind==='changes'){const parent=state.history.versions.find(v=>v.commit===sha)?.parent;if(!parent){state.comparison=D.diff({},version.data);return;}const old=await api('snapshot',{branch:state.target,ref:parent});state.comparison=D.diff(old.data,version.data);return;}
-   const base=kind==='local'?{data:current()}:await api('snapshot',{branch:state.target});state.comparison=D.diff(version.data,base.data);
+   if(kind==='reference'){state.historyReference=version;state.status='比較基準：'+sha;return;}
+   if(kind==='changes'){const parent=state.history.versions.find(v=>v.commit===sha)?.parent;if(!parent){state.comparison=D.diff({},version.data);return;}let old;try{old=await api('snapshot',{branch:state.target,ref:parent});}catch(err){if(err.status!==404)throw err;old={data:{}};}state.comparison=D.diff(old.data,version.data);return;}
+   const base=kind==='local'?{data:current()}:state.historyReference||await api('snapshot',{branch:state.target});state.comparison=D.diff(version.data,base.data);
   }));
   document.getElementById('releaseCancel')?.addEventListener('click',()=>{state.prepared=null;render();});
   document.getElementById('releaseCommit')?.addEventListener('click',()=>action(async()=>{
@@ -9587,6 +9614,21 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
   });
   if(E.state.prepared?.sourceCommit)document.getElementById('release-final-warning').insertAdjacentHTML('afterbegin','<p>測試版來源：<code>'+esc(E.state.prepared.sourceCommit)+'</code></p>');
   const commit=document.getElementById('releaseCommit'),confirm=document.getElementById('releaseProductionConfirm');if(confirm){commit.disabled=true;confirm.oninput=()=>{commit.disabled=confirm.value!=='正式版';};}
+ };
+})();
+</script>
+
+<script id="balance-release-final-guards">
+(()=>{
+ const E=__EMBERWILD_RELEASE_EDITOR,dirtyBase=markDirty;
+ markDirty=function(...args){E.state.prepared=null;return dirtyBase(...args);};
+ const rawBase=renderRaw;renderRaw=function(...args){const out=rawBase(...args);document.getElementById('applyRaw').onclick=()=>{try{const candidate=__EMBERWILD_VALIDATE_DOCUMENT(JSON.parse(document.getElementById('rawEditor').value));data=candidate;markDirty('原始 JSON 已驗證並套用');render();}catch(e){alert('JSON 驗證失敗：'+e.message);}};return out;};
+ const renderBase=__EMBERWILD_RENDER_RELEASE_EXTRA;__EMBERWILD_RENDER_RELEASE_EXTRA=()=>{
+  renderBase();const button=document.getElementById('releaseValidate');button.onclick=()=>E.action(async()=>{
+   __EMBERWILD_VALIDATE_DOCUMENT(E.current());E.state.status='設計器 JSON 驗證通過。';
+   if(location.hostname==='127.0.0.1'){await E.api('validate',{data:E.current()});E.state.status='JSON 驗證通過（設計器＋最終遊戲 validator）。';}
+   else E.state.status+=' 發布前會再由安全服務執行完整遊戲驗證。';
+  });
  };
 })();
 </script>
