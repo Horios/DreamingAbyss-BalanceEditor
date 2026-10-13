@@ -33,7 +33,7 @@ export class GithubConnection{
   if(!response.ok)throw new GithubError(response.status,'尚未確認 App 安裝到 Horios/Emberwild；請完成安裝後再檢查');const installation=await response.json();
   if(installation.account?.login!=='Horios'||String(installation.app_id)!==value.EMBERWILD_GITHUB_APP_ID||installation.repository_selection!=='selected'||installation.suspended_at||installation.permissions?.contents!=='write'||installation.permissions?.actions!=='read')throw new GithubError(403,'App 安裝範圍或權限不符。請只選 Emberwild，Contents 寫入、Actions 唯讀。');
   value.EMBERWILD_GITHUB_INSTALLATION_ID=String(installation.id);
-  const api=createHostedGithubApp(value,{fetchImpl:this.fetch});const repo=await api('/repos/Horios/Emberwild/');if(repo.full_name!=='Horios/Emberwild')throw new GithubError(403,'Repository 授權目標不符');
+  const api=createHostedGithubApp(value,{fetchImpl:this.fetch});const repo=await api('/repos/Horios/Emberwild');if(repo.full_name!=='Horios/Emberwild')throw new GithubError(403,'Repository 授權目標不符');
   await this.db.prepare('UPDATE github_connection SET credentials = ?, ready = 1, updated = ? WHERE owner = ?').bind(await encryptCredentials(value,this.env.EMBERWILD_SESSION_SECRET,this.user),Date.now(),this.user).run();return {connected:true,repository:'Horios/Emberwild'};
  }
 }
