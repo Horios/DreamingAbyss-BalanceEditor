@@ -1,0 +1,3 @@
+-- Schema authority: drizzle/0000_release_tickets.sql.
+-- Stores expiring reviewed submissions only; balance versions remain in GitHub.
+-- New changes must append a migration, never change an applied migration.

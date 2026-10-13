@@ -1,0 +1,12 @@
+const fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),out=path.join(root,'server/online');
+const doc=fs.readFileSync(path.join(root,'server/balance-diff.cjs'),'utf8');
+let service=fs.readFileSync(path.join(root,'server/release-service.cjs'),'utf8');
+service=service.replace("'use strict';\nconst crypto=require('node:crypto'),D=require('./balance-diff.cjs');", "import {randomToken,digest,decodeGitContent} from './github-app.mjs';\nconst root={};\n"+doc.replace(/\}\)\(globalThis\);\s*$/, '})(root);')+"\nconst D=root.EmberwildBalanceDiff;");
+service=service.replaceAll("Buffer.from(source.content.replace(/\\s/g,''),'base64').toString('utf8')",'decodeGitContent(source.content)').replaceAll("Buffer.from(f.content.replace(/\\s/g,''),'base64').toString('utf8')",'decodeGitContent(f.content)');
+service=service.replace("crypto.randomBytes(32).toString('hex')",'randomToken()').replace("crypto.createHash('sha256').update(D.stable(candidate)).digest('hex').slice(0,12)","(await digest(D.stable(candidate))).slice(0,12)");
+service=service.replace('module.exports={ReleaseService};','export {ReleaseService};');
+fs.writeFileSync(path.join(out,'release-service.mjs'),service);
+const provenance=JSON.parse(fs.readFileSync(path.join(out,'runtime-provenance.json')));
+fs.writeFileSync(path.join(out,'editor.mjs'),'export const editorHTML='+JSON.stringify(fs.readFileSync(path.join(root,'balance-editor.html'),'utf8'))+';\nexport const validatorCommit='+JSON.stringify(provenance.sourceCommit)+';\n');
+console.log('Built online release module and private editor HTML');

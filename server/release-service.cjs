@@ -1,7 +1,7 @@
 'use strict';
 const crypto=require('node:crypto'),D=require('./balance-diff.cjs');
 class ReleaseService{
- constructor({api,validate}){this.api=api;this.validateDocument=validate;this.base='/repos/Horios/Emberwild';this.tickets=new Map();}
+ constructor({api,validate,ticketStore=null}){this.api=api;this.validateDocument=validate;this.base='/repos/Horios/Emberwild';this.tickets=ticketStore||new Map();}
  branch(value){if(!['main','chatgpt-dev'].includes(value))throw Error('僅允許 main／chatgpt-dev');return value;}
  async validate({data}){return {data:this.validateDocument(data),valid:true};}
  async requireLifeRuntime(target,candidate){
@@ -41,21 +41,22 @@ class ReleaseService{
   const candidate=this.validateDocument(data),diff=D.diff(target.data,candidate);if(!diff.total)throw Error('沒有有效設定差異，禁止建立空白發布 commit');
   await this.requireLifeRuntime(target,candidate);
   const ticket=crypto.randomBytes(32).toString('hex'),nextVersion=crypto.createHash('sha256').update(D.stable(candidate)).digest('hex').slice(0,12);
-  for(const [id,t] of this.tickets)if(t.expires<Date.now())this.tickets.delete(id);
-  this.tickets.set(ticket,{session,kind,restoreCommit,sourceCommit,target,candidate,message:message.trim(),diff,nextVersion,expires:Date.now()+600000});
+  if(this.tickets.prune)await this.tickets.prune();else for(const [id,t] of this.tickets)if(t.expires<Date.now())this.tickets.delete(id);
+  await this.tickets.set(ticket,{session,kind,restoreCommit,sourceCommit,target,candidate,message:message.trim(),diff,nextVersion,expires:Date.now()+600000});
   return {ticket,branch:target.branch,currentVersion:target.commit,nextVersion,diff,message:message.trim(),sourceCommit:kind==='promote'?sourceCommit:null};
  }
  async commit({ticket,confirmed,productionConfirmation},session){
-  const t=this.tickets.get(ticket);if(!t||t.session!==session||t.expires<Date.now())throw Error('發布摘要已過期，請重新比較');
+  const t=await this.tickets.get(ticket);if(!t||t.session!==session||t.expires<Date.now())throw Error('發布摘要已過期，請重新比較');
   if(confirmed!==true)throw Error('必須確認完整發布摘要');
   if(t.target.branch==='main'&&productionConfirmation!=='正式版')throw Error('你正在更新正式版遊戲資料。請輸入「正式版」完成二次確認');
-  this.tickets.delete(ticket);
+  if(this.tickets.take){if(!await this.tickets.take(ticket,session))throw Error('發布摘要已使用或正在提交，請核對線上版本。');}else this.tickets.delete(ticket);
   const current=await this.snapshot({branch:t.target.branch});
   if(current.commit!==t.target.commit||current.blob!==t.target.blob)throw Object.assign(Error('線上版本已更新，請重新取得最新版並重新比較。'),{status:409});
   if(t.kind==='promote'){
    const source=await this.snapshot({branch:'chatgpt-dev'});if(source.commit!==t.sourceCommit||D.stable(source.data)!==D.stable(t.candidate))throw Object.assign(Error('測試版已更新，請重新取得並重新比較。'),{status:409});
   }
   this.validateDocument(t.candidate);
+  await this.requireLifeRuntime(current,t.candidate);
   const base=await this.api(this.base+'/git/commits/'+current.commit);
   const blob=await this.api(this.base+'/git/blobs',{method:'POST',body:{encoding:'utf-8',content:JSON.stringify(t.candidate,null,2)+'\n'}});
   const tree=await this.api(this.base+'/git/trees',{method:'POST',body:{base_tree:base.tree.sha,tree:[{path:'data/balance.json',mode:'100644',type:'blob',sha:blob.sha}]}});
@@ -63,7 +64,7 @@ class ReleaseService{
   if(t.kind==='promote'){const source=await this.api(this.base+'/git/ref/heads/chatgpt-dev');if(source.object.sha!==t.sourceCommit)throw Object.assign(Error('測試版已更新，請重新取得並重新比較。'),{status:409});}
   await this.api(this.base+'/git/refs/heads/'+current.branch,{method:'PATCH',body:{sha:commit.sha,force:false}});
   const checked=await this.snapshot({branch:current.branch});
-  if(checked.blob!==blob.sha)throw Error('無法確認線上資料；請重新取得版本，勿重複提交');
+  if(checked.blob!==blob.sha||checked.commit!==commit.sha)throw Error('無法確認線上資料；請重新取得版本，勿重複提交');
   return {commit:commit.sha,branch:current.branch,committed:true,deployment:'等待部署',message:'資料已提交，等待 GitHub Pages 部署。'};
  }
  async deployment({branch,commit}){

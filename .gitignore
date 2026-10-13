@@ -1,4 +1,11 @@
 *.pem
-.env
 app-settings.json
 node_modules/
+dist/
+worker/index.js
+server/online/editor.mjs
+server/online/release-service.mjs
+.sites-runtime/
+.wrangler/
+.env*
+!.env.example

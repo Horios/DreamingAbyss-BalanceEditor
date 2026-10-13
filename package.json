@@ -1,0 +1,10 @@
+{
+  "name": "emberwild-private-balance",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "test": "node scripts/build-online.cjs && node --test tests/*.test.mjs tests/*.test.cjs",
+    "validate": "node scripts/validate-artifact.mjs"
+  }
+}

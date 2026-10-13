@@ -3710,6 +3710,8 @@ ensureArrays();requestEditorInitialRender();
 
 
 
+
+
 </body>
 
 <script id="verified-balance-contract-editor-filter">
@@ -6965,7 +6967,25 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
 </style>
 <script id="balance-experience-v1">
 (()=>{
-  let baseline=structuredClone(data);
+  let baseline=null;
+  const onlineBaseline={branch:'chatgpt-dev',snapshot:null,error:'',loading:false};
+  globalThis.__EMBERWILD_ONLINE_BASELINE=onlineBaseline;
+  globalThis.__EMBERWILD_SET_ONLINE_BASELINE=snapshot=>{
+    onlineBaseline.snapshot=snapshot;
+    onlineBaseline.branch=snapshot?.branch||onlineBaseline.branch;
+    onlineBaseline.error='';
+    baseline=snapshot?__EMBERWILD_VALIDATE_DOCUMENT(snapshot.data):null;
+    markChanges();
+  };
+  async function refreshOnlineBaseline(){
+    const E=globalThis.__EMBERWILD_RELEASE_EDITOR;if(!E)return;
+    const requestedBranch=onlineBaseline.branch,requestId=(onlineBaseline.requestId||0)+1;onlineBaseline.requestId=requestId;
+    onlineBaseline.loading=true;onlineBaseline.error='';showDiffs();
+    try{const snapshot=await E.api('snapshot',{branch:requestedBranch});if(onlineBaseline.requestId!==requestId)return;E.state.snapshots[requestedBranch]=snapshot;E.state.target=onlineBaseline.branch;E.state.prepared=null;__EMBERWILD_SET_ONLINE_BASELINE(snapshot);}
+    catch(err){if(onlineBaseline.requestId===requestId)onlineBaseline.error=err.message;}
+    finally{if(onlineBaseline.requestId===requestId){onlineBaseline.loading=false;showDiffs();}}
+  }
+  globalThis.__EMBERWILD_REFRESH_ONLINE_BASELINE=refreshOnlineBaseline;
   const uxState={previewClass:0};
   const pct=v=>Number.isFinite(Number(v))?(Math.round(Number(v)*10000)/100)+'%':'—';
   const num=(v,d=2)=>Number.isFinite(Number(v))?String(Math.round(Number(v)*10**d)/10**d):'—';
@@ -7079,7 +7099,7 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
   }
 
   function genericPair(el){
-    const key=el.dataset.key;if(!key)return null;let cur=null,base=null;
+    const key=el.dataset.key;if(!key||!baseline)return null;let cur=null,base=null;
     if(currentSection==='classes'){cur=data.classes?.[selected.class];base=baseline.classes?.[selected.class];}
     else if(currentSection==='skills'){if(selected.skillTab==='support'){cur=data.supportSkills?.[selected.supportClass]?.[selected.support];base=baseline.supportSkills?.[selected.supportClass]?.[selected.support];}else{cur=data.classes?.[selected.skillClass]?.skills?.[selected.skill];base=baseline.classes?.[selected.skillClass]?.skills?.[selected.skill];}}
     else if(currentSection==='equipment'){cur=data.equipmentForms?.[selected.equipClass]?.[selected.equipSlot]?.[selected.equip];base=baseline.equipmentForms?.[selected.equipClass]?.[selected.equipSlot]?.[selected.equip];}
@@ -7089,25 +7109,29 @@ globalThis.__EMBERWILD_MASTERY_EDITOR={weaponTypes:clone(WEAPON_TYPE_LABELS),mas
   function markChanges(){
     const app=document.getElementById('app');if(!app)return;app.querySelectorAll('.balance-ux-change-tag').forEach(x=>x.remove());app.querySelectorAll('.balance-ux-changed').forEach(x=>x.classList.remove('balance-ux-changed'));
     const mark=(el,yes)=>{if(!yes)return;const row=el.closest('.pathrow,.field');if(!row)return;row.classList.add('balance-ux-changed');const title=row.querySelector('.path strong,label');if(title)title.insertAdjacentHTML('beforeend','<span class="balance-ux-change-tag">已修改</span>');};
+    if(!baseline)return;
     app.querySelectorAll('.setting-val[data-path],.bal-val[data-path]').forEach(el=>mark(el,!same(getPath(baseline,el.dataset.path),getPath(data,el.dataset.path))));
     app.querySelectorAll('[data-key]').forEach(el=>{if(el.dataset.path)return;const p=genericPair(el);if(p)mark(el,!same(p[0],p[1]));});
   }
 
-  function diffs(a,b,path='',out=[],limit=500){
-    if(out.length>=limit||same(a,b))return out;const primitive=v=>v===null||typeof v!=='object';
-    if(primitive(a)||primitive(b)||Array.isArray(a)!==Array.isArray(b)){out.push({path:path||'(root)',old:a,new:b});return out;}
-    if(Array.isArray(a)&&Array.isArray(b)){if(a.every(primitive)&&b.every(primitive)){if(JSON.stringify(a)!==JSON.stringify(b))out.push({path:path||'(array)',old:a,new:b});return out;}for(let i=0,n=Math.max(a.length,b.length);i<n&&out.length<limit;i++)diffs(a[i],b[i],path?path+'.'+i:String(i),out,limit);return out;}
-    for(const k of new Set([...Object.keys(a||{}),...Object.keys(b||{})])){if(out.length>=limit)break;diffs(a?.[k],b?.[k],path?path+'.'+k:k,out,limit);}return out;
-  }
   function showDiffs(){
-    const modal=document.getElementById('balanceUxModal'),list=modal.querySelector('.balance-ux-diff-list'),count=modal.querySelector('#balanceUxDiffCount'),rows=diffs(baseline,data,'',[],500);count.textContent=rows.length+(rows.length>=500?'＋':'')+' 項';
-    list.innerHTML=rows.length?rows.map(d=>'<div class="balance-ux-diff"><code>'+esc(d.path)+'</code><div class="balance-ux-diff-values"><span class="balance-ux-old">'+short(d.old)+'</span> → <span class="balance-ux-new">'+short(d.new)+'</span></div><button type="button" class="small" data-diff-path="'+esc(d.path)+'" data-diff-sec="'+esc(sectionForPath(d.path))+'">前往</button></div>').join(''):'<div class="oknotice">目前資料與本次比較基準相同。</div>';
-    list.querySelectorAll('[data-diff-path]').forEach(b=>b.onclick=()=>{modal.hidden=true;jump(b.dataset.diffSec,b.dataset.diffPath);});
+    const modal=document.getElementById('balanceUxModal');if(!modal)return;
+    const list=modal.querySelector('.balance-ux-diff-list'),count=modal.querySelector('#balanceUxDiffCount');if(!list||!count)return;
+    const target=document.getElementById('balanceUxTarget');if(target)target.value=onlineBaseline.branch;
+    const label=onlineBaseline.branch==='main'?'正式版':'測試版';
+    const header='<p>比較基準：'+label+' · '+esc(onlineBaseline.snapshot?.commit||'尚未取得')+'</p>';
+    if(onlineBaseline.loading){count.textContent='取得中';list.innerHTML=header+'<p>正在取得 GitHub 最新設定…</p>';return;}
+    if(onlineBaseline.error){count.textContent='無法確認';list.innerHTML=header+'<p role="alert">'+esc(onlineBaseline.error)+'。目前無法確認最新差異，請重新取得版本。</p>';return;}
+    if(!baseline){count.textContent='尚未取得';list.innerHTML=header+'<p>尚未取得線上設定；不以草稿或內建資料作為比較基準。</p>';return;}
+    try{const diff=EmberwildBalanceDiff.diff(onlineBaseline.snapshot.data,__EMBERWILD_RELEASE_EDITOR.current());count.textContent=diff.total+' 項';list.innerHTML=header+__EMBERWILD_RELEASE_EDITOR.diffHTML(diff);document.getElementById('balanceUxDiffBtn')?.classList.toggle('has-changes',diff.total>0);}
+    catch(err){count.textContent='驗證失敗';list.innerHTML=header+'<p role="alert">'+esc(err.message)+'</p>';}
   }
   function ensureUI(){
-    if(!document.getElementById('balanceUxDiffBtn')){const b=document.createElement('button');b.id='balanceUxDiffBtn';b.type='button';b.textContent='本次變更';const top=document.querySelector('.topbar'),before=document.getElementById('exportBtn');if(top)top.insertBefore(b,before||null);b.onclick=()=>{showDiffs();document.getElementById('balanceUxModal').hidden=false;};}
-    if(!document.getElementById('balanceUxModal')){document.body.insertAdjacentHTML('beforeend','<div class="balance-ux-modal" id="balanceUxModal" hidden><div class="balance-ux-panel"><div class="balance-ux-panel-head"><strong>本次修改差異</strong><span class="pill" id="balanceUxDiffCount">0 項</span><button type="button" id="balanceUxSetBaseline">將目前設為比較基準</button><button type="button" id="balanceUxClose">關閉</button></div><div class="balance-ux-diff-list"></div></div></div>');
-      const modal=document.getElementById('balanceUxModal');document.getElementById('balanceUxClose').onclick=()=>modal.hidden=true;modal.onclick=e=>{if(e.target===modal)modal.hidden=true;};document.getElementById('balanceUxSetBaseline').onclick=()=>{baseline=structuredClone(data);document.getElementById('balanceUxDiffBtn')?.classList.remove('has-changes');showDiffs();markChanges();};}
+    if(!document.getElementById('balanceUxDiffBtn')){const b=document.createElement('button');b.id='balanceUxDiffBtn';b.type='button';b.textContent='本次變更';const top=document.querySelector('.topbar'),before=document.getElementById('exportBtn');if(top)top.insertBefore(b,before||null);b.onclick=()=>{document.getElementById('balanceUxModal').hidden=false;void refreshOnlineBaseline();};}
+    if(!document.getElementById('balanceUxModal')){document.body.insertAdjacentHTML('beforeend','<div class="balance-ux-modal" id="balanceUxModal" hidden><div class="balance-ux-panel"><div class="balance-ux-panel-head"><strong>與線上版本比較</strong><span class="pill" id="balanceUxDiffCount">尚未取得</span><select id="balanceUxTarget"><option value="chatgpt-dev">測試版</option><option value="main">正式版</option></select><button type="button" id="balanceUxRefresh">重新取得最新設定</button><button type="button" id="balanceUxClose">關閉</button></div><div class="balance-ux-diff-list"></div></div></div>');
+      const modal=document.getElementById('balanceUxModal');document.getElementById('balanceUxClose').onclick=()=>modal.hidden=true;modal.onclick=e=>{if(e.target===modal)modal.hidden=true;};
+      document.getElementById('balanceUxTarget').onchange=ev=>{onlineBaseline.branch=ev.target.value;baseline=null;onlineBaseline.snapshot=null;void refreshOnlineBaseline();};
+      document.getElementById('balanceUxRefresh').onclick=()=>void refreshOnlineBaseline();}
   }
   function bindUX(){document.querySelectorAll('[data-ux-section]').forEach(b=>b.onclick=()=>jump(b.dataset.uxSection));const sel=document.getElementById('balanceUxPreviewClass');if(sel)sel.onchange=()=>{uxState.previewClass=Number(sel.value)||0;refreshPreview();};}
   function refreshPreview(){const old=document.getElementById('balanceUxPreview'),html=preview();if(old&&html){old.outerHTML=html;bindUX();}}
@@ -9579,12 +9603,12 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  SECTION_META.push(['releases','發布管理']);NAV_GROUPS.push(['releases','發布管理',['releases']]);
  const oldRender=render;
  const e=esc;
- const current=()=>structuredClone(data);
- function format(v){if(v===undefined)return '—';const out=typeof v==='string'?v:JSON.stringify(v);return e(out?.length>350?out.slice(0,350)+'…':out||'');}
+ const current=()=>structuredClone(__EMBERWILD_MASTERY_EDITOR.cleanExport());
+ function format(v){if(v===undefined)return '—';const out=typeof v==='string'?v:JSON.stringify(v,null,2);return e(out??'');}
  function diffHTML(diff){if(!diff)return '';const groups=new Map();for(const r of diff.rows){const k=r.system+'：'+r.object;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r);}return '<p>共 '+diff.total+' 項；新增 '+diff.added+'、修改 '+diff.modified+'、刪除 '+diff.deleted+'</p>'+[...groups].map(([k,rows])=>'<details class="release-diff" open><summary>'+e(k)+'</summary>'+rows.map(r=>'<p><b>'+e(r.type)+' · '+e(r.field)+'</b><br><code>'+e(r.path)+'</code><br>'+format(r.before)+' → '+format(r.after)+'</p>').join('')+'</details>').join('');}
  function status(){const d=current(),dev=state.snapshots['chatgpt-dev'],main=state.snapshots.main;if(dev&&!D.diff(dev.data,d).total)return '目前編輯內容與測試版一致';if(main&&!D.diff(main.data,d).total)return '目前編輯內容與正式版一致';return dev||main?'有未發布變更':'本地編輯資料；尚未取得線上版本';}
- async function api(method,body){if(location.protocol==='file:'||location.hostname!=='127.0.0.1')throw Error('發布需從本機安全工作台開啟：http://127.0.0.1:4318。仍可下載 JSON 備份。');
-  if(!state.csrf){const r=await fetch('/api/session',{cache:'no-store'});const v=await r.json();if(!r.ok)throw Error(v.error);state.csrf=v.csrf;}
+ async function api(method,body){if(location.protocol==='file:')throw Error('請從線上工作台或本機服務開啟；HTML 檔案仍可編輯及下載 JSON。');
+  if(!state.csrf){const r=await fetch('/api/session',{cache:'no-store'});const v=await r.json();if(!r.ok)throw Error(v.error);state.csrf=v.csrf;state.capabilities=v.capabilities||{publishing:true};}
   const response=await fetch('/api/'+method,{method:'POST',headers:{'Content-Type':'application/json','X-Emberwild-CSRF':state.csrf},body:JSON.stringify(body),cache:'no-store'}),result=await response.json();if(!response.ok)throw Object.assign(Error(result.error||'API 失敗'),{status:response.status,issues:result.issues});return result;
  }
  async function action(fn){if(state.busy)return;state.busy=true;try{await fn();}catch(err){state.status=err.message+(err.issues?.length?'\n'+err.issues.map(i=>[i.system,i.object,i.field,i.reason].join(' · ')).join('\n'):'');state.prepared=null;}finally{state.busy=false;render();}}
@@ -9600,13 +9624,13 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
    card('版本紀錄','<button id="releaseHistory">取得 '+e(state.target)+' 版本紀錄</button>'+ (state.history?.versions.map(v=>'<details><summary>'+e(v.date)+' · '+e(v.commit.slice(0,10))+' · '+e(v.message.split('\n')[0])+(v.current?' · 目前版本':'')+'</summary><p>'+e(v.branch)+'</p><div class="toolbar"><button data-release-version="'+v.commit+'" data-action="compare">'+(state.historyReference?'與歷史比較基準比較':'與線上目前版本比較')+'</button><button data-release-version="'+v.commit+'" data-action="local">與本地編輯比較</button><button data-release-version="'+v.commit+'" data-action="reference">設為歷史比較基準</button><button data-release-version="'+v.commit+'" data-action="changes">查看此版本修改摘要</button><button data-release-version="'+v.commit+'" data-action="load">載入至編輯器</button><button data-release-version="'+v.commit+'" data-action="download">下載 JSON</button><button data-release-version="'+v.commit+'" data-action="restore">還原至此版本</button></div></details>').join('')||'')+(state.history?.hasMore?'<button id="releaseMore">更多歷史版本</button>':''))+
    '<pre id="releaseStatus" role="status" style="white-space:pre-wrap">'+e(state.status)+'</pre>';
   document.getElementById('releaseMessage').oninput=ev=>{state.message=ev.target.value;state.prepared=null;};
-  document.getElementById('releaseTarget').onchange=ev=>{state.target=ev.target.value;state.comparison=null;state.prepared=null;state.history=null;state.historyReference=null;render();};
+  document.getElementById('releaseTarget').onchange=ev=>{state.target=ev.target.value;state.comparison=null;state.prepared=null;state.history=null;state.historyReference=null;__EMBERWILD_ONLINE_BASELINE.branch=state.target;__EMBERWILD_SET_ONLINE_BASELINE(state.snapshots[state.target]||null);render();};
   document.getElementById('releaseBackup').onclick=()=>download(current());document.getElementById('releasePreBackup').onclick=()=>download(current());
-  document.getElementById('releaseValidate').onclick=()=>action(async()=>{__EMBERWILD_VALIDATE_DOCUMENT(current());const v=await api('validate',{data:current()});state.status=v.valid?'JSON 驗證通過（設計器＋最終遊戲 validator）':'驗證失敗';});
-  document.getElementById('releaseFetch').onclick=()=>action(async()=>{state.snapshots[state.target]=await api('snapshot',{branch:state.target});state.prepared=null;state.status='已取得線上版本；本地資料保留。';});
-  document.getElementById('releaseCompare').onclick=()=>action(async()=>{if(!snap)throw Error('請先取得目標版本');state.comparison=D.diff(snap.data,current());});
+  document.getElementById('releaseValidate').onclick=()=>action(async()=>{__EMBERWILD_VALIDATE_DOCUMENT(current());const v=await api('validate',{data:current()});state.status=v.valid?'JSON 驗證通過（設計器＋遊戲發布驗證）':'驗證失敗';});
+  document.getElementById('releaseFetch').onclick=()=>action(async()=>{state.snapshots[state.target]=await api('snapshot',{branch:state.target});__EMBERWILD_SET_ONLINE_BASELINE(state.snapshots[state.target]);state.prepared=null;state.status='已取得線上版本；本地資料保留。';});
+  document.getElementById('releaseCompare').onclick=()=>action(async()=>{const latest=await api('snapshot',{branch:state.target});state.snapshots[state.target]=latest;__EMBERWILD_SET_ONLINE_BASELINE(latest);state.comparison=D.diff(latest.data,current());});
   document.getElementById('releaseLoad').onclick=()=>action(async()=>load(snap.data));
-  document.getElementById('releasePreview').onclick=()=>action(async()=>{const d=__EMBERWILD_VALIDATE_DOCUMENT(current());state.prepared=await api('prepare',{kind:'preview',data:d,message:state.message,expectedCommit:state.snapshots['chatgpt-dev'].commit});state.comparison=null;});
+  document.getElementById('releasePreview').onclick=()=>action(async()=>{__EMBERWILD_VALIDATE_DOCUMENT(current());const d=current(),latest=await api('snapshot',{branch:'chatgpt-dev'});state.snapshots['chatgpt-dev']=latest;__EMBERWILD_SET_ONLINE_BASELINE(latest);state.prepared=await api('prepare',{kind:'preview',data:d,message:state.message,expectedCommit:latest.commit});state.comparison=null;});
   async function history(page=1){const next=await api('history',{branch:state.target,page});if(page>1)next.versions=[...state.history.versions,...next.versions];state.history=next;}
   document.getElementById('releaseHistory').onclick=()=>action(()=>history());document.getElementById('releaseMore')?.addEventListener('click',()=>action(()=>history(state.history.page+1)));
   document.querySelectorAll('[data-release-version]').forEach(button=>button.onclick=()=>action(async()=>{const sha=button.dataset.releaseVersion,kind=button.dataset.action,version=await api('snapshot',{branch:state.target,ref:sha});
@@ -9621,7 +9645,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
   document.getElementById('releaseCommit')?.addEventListener('click',()=>action(async()=>{
    if(!document.getElementById('releaseConfirm').checked)throw Error('請先勾選確認完整發布摘要');
    const body={ticket:state.prepared.ticket,confirmed:true};if(state.prepared.branch==='main')body.productionConfirmation=document.getElementById('releaseProductionConfirm')?.value;
-   const out=await api('commit',body);state.status=out.message+'\ncommit：'+out.commit;state.lastCommit=out;state.prepared=null;state.snapshots[out.branch]=await api('snapshot',{branch:out.branch});
+   const out=await api('commit',body);state.status=out.message+'\ncommit：'+out.commit;state.lastCommit=out;state.prepared=null;state.snapshots[out.branch]=await api('snapshot',{branch:out.branch});__EMBERWILD_SET_ONLINE_BASELINE(state.snapshots[out.branch]);
   }));
   if(state.lastCommit){document.getElementById('releaseStatus').insertAdjacentHTML('afterend','<button id="releaseDeployment">檢查部署狀態</button><a target="_blank" rel="noopener" href="https://horios.github.io/Emberwild/'+(state.lastCommit.branch==='main'?'':'preview/')+'">開啟'+(state.lastCommit.branch==='main'?'正式版':'測試版')+'</a>');document.getElementById('releaseDeployment').onclick=()=>action(async()=>{const out=await api('deployment',state.lastCommit);state.status=out.state+'\ncommit：'+out.commit;});}
   if(state.busy)document.querySelectorAll('#app button').forEach(b=>b.disabled=true);
@@ -9673,7 +9697,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  const renderBase=__EMBERWILD_RENDER_RELEASE_EXTRA;__EMBERWILD_RENDER_RELEASE_EXTRA=()=>{
   renderBase();const button=document.getElementById('releaseValidate');button.onclick=()=>E.action(async()=>{
    __EMBERWILD_VALIDATE_DOCUMENT(E.current());E.state.status='設計器 JSON 驗證通過。';
-   if(location.hostname==='127.0.0.1'){await E.api('validate',{data:E.current()});E.state.status='JSON 驗證通過（設計器＋最終遊戲 validator）。';}
+   if(location.protocol==='http:'||location.protocol==='https:'){await E.api('validate',{data:E.current()});E.state.status='JSON 驗證通過（設計器＋遊戲發布驗證）。';}
    else E.state.status+=' 發布前會再由安全服務執行完整遊戲驗證。';
   });
  };
@@ -9735,5 +9759,27 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  const baseCount=count;count=function(section,normalized=false){if(!sections.includes(section))return baseCount(section,normalized);if(!normalized)ensureArrays();return section==='gatheringProducts'?data.lifeSkills.gathering.length:Object.keys(data.lifeSkills.recipes).length;};
  const exportBase=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=()=>({...exportBase(),lifeSkills:M.normalizeLife(data.lifeSkills,data.items)});
  ensureArrays();requestEditorInitialRender();
+})();
+</script>
+
+<script id="online-workspace-boot">
+(()=>{
+ const E=__EMBERWILD_RELEASE_EDITOR,renderBase=render;
+ function serviceNote(){const cap=E.state.capabilities;if(!cap)return '';return cap.publishing?'線上發布授權已設定。':'目前可編輯、比較與查看版本；上傳尚缺 GitHub App 授權。';}
+ render=function(...args){const out=renderBase(...args);if(currentSection==='releases'){
+   document.getElementById('release-edit-status')?.insertAdjacentHTML('afterend','<p id="release-service-status" role="status">'+esc(serviceNote())+' <a href="/setup" target="_top">GitHub 連線設定</a></p>');
+   if(E.state.capabilities?.publishing===false)for(const id of ['releasePreview','releasePromote','releaseCommit']){const el=document.getElementById(id);if(el)el.disabled=true;}
+ }return out;};
+ globalThis.__EMBERWILD_ONLINE_BOOT=async()=>{
+   if(location.protocol==='file:')return;
+   const bootBytes=JSON.stringify(data);
+   try{
+     const snapshot=await E.api('snapshot',{branch:'chatgpt-dev'});E.state.snapshots['chatgpt-dev']=snapshot;__EMBERWILD_SET_ONLINE_BASELINE(snapshot);
+     const meta=globalThis.__EMBERWILD_EDITOR_WORKSPACE_META;
+     if(meta?.revision===0&&meta?.source==='內建預設'&&JSON.stringify(data)===bootBytes){__EMBERWILD_WORKSPACE_IMPORT(__EMBERWILD_VALIDATE_DOCUMENT(snapshot.data),'GitHub 測試版 '+snapshot.commit.slice(0,10));}
+     E.state.status='比較基準已取得：測試版 '+snapshot.commit.slice(0,10)+'。'+serviceNote();render();
+   }catch(err){__EMBERWILD_ONLINE_BASELINE.error=err.message;E.state.status='無法取得線上比較基準：'+err.message;render();}
+ };
+ queueMicrotask(()=>void __EMBERWILD_ONLINE_BOOT());
 })();
 </script>
