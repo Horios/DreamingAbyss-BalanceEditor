@@ -9557,3 +9557,18 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
 })();
 
 </script>
+
+<script id="balance-release-restore-v1">
+(()=>{
+ const E=__EMBERWILD_RELEASE_EDITOR;
+ globalThis.__EMBERWILD_PREPARE_RESTORE=async version=>{
+  const current=await E.api('snapshot',{branch:version.branch});
+  E.state.snapshots[version.branch]=current;
+  E.state.prepared=await E.api('prepare',{kind:'restore',branch:version.branch,restoreCommit:version.commit,expectedCommit:current.commit});
+  E.state.status='將歷史 JSON 建立成新的 commit；既有 Git history 保留。';
+ };
+ globalThis.__EMBERWILD_RENDER_RELEASE_EXTRA=()=>{
+  if(E.state.prepared?.branch==='main')document.getElementById('release-final-warning').innerHTML='<p style="color:#ee846f;font-weight:bold">你正在更新正式版遊戲資料。</p><label>輸入「正式版」完成二次確認<input id="releaseProductionConfirm" autocomplete="off"></label>';
+ };
+})();
+</script>
