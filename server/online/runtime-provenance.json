@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "05fe8fa8e3b9b2e1ed597db6d2d31b27215e3cdc",
+  "sourceCommit": "9e659fcc9fdd7399c32d7208dbd41f97bcdf68cf",
   "files": [
     {
       "path": "js/balance/progression-model.js",
@@ -244,7 +244,7 @@
     },
     {
       "path": "js/items/shop-inventory.js?v=20261013-material-groups3",
-      "sha256": "43aaefb9860f7a676489015a2860886656aaccc97b451f04217f256aaf6faca0"
+      "sha256": "c6b01027e7ffbe7bd81cc80b03324de89ed5bd601a80c05e5405c38a0b6f51b0"
     },
     {
       "path": "js/ui/options.js?v=20261012-utility1",
@@ -268,7 +268,7 @@
     },
     {
       "path": "js/items/companion-tokens.js?v=20261013-inventory-rows2",
-      "sha256": "70219d9fd19e7237adf2d7b08708d5d6cb8bb7578e58a2eed5d74d72f014d1e5"
+      "sha256": "302ff6c24ee0e22b96b4b87324120dd40b6110f3ecc0eafbf6765bfb7c3a9169"
     },
     {
       "path": "js/character/team-runtime.js?v=20261013-team-actions1",
@@ -280,7 +280,7 @@
     },
     {
       "path": "js/ui/team-builds.js?v=20261013-team-actions1",
-      "sha256": "591f53cb813e1bf48af5175a9511317e5285b528861af7f4b105c0e3e1adce05"
+      "sha256": "38fd1d1c168a3f9d5726acc230be078f28ea6f9abe3fa9dc4f9f5aa3fc1c8927"
     },
     {
       "path": "js/equipment/boss-crafting.js",
@@ -299,8 +299,12 @@
       "sha256": "3dd49193c9289845dd713fe7f0a83faeca04b3f1b4c6c8b065ca191f8919bf10"
     },
     {
+      "path": "js/ui/inventory-icon-model.js?v=20261013-items1",
+      "sha256": "2db15d8b713b20d159a9a14f6a2a977059f2eb2bf5d414d8a77f44ae97130d1d"
+    },
+    {
       "path": "js/balance/balance-document.js?v=life-products-v1",
-      "sha256": "95309ba22bd05fd1d46c8f08282a93ec5317d0031831232ea0677bb57bf21b44"
+      "sha256": "0e5d5ff8b6657b4a682980c9a56e94303f31880632e39a45c86f340d862ba46e"
     },
     {
       "path": "js/items/life-skills.js?v=20261013-life-design",
@@ -308,7 +312,7 @@
     },
     {
       "path": "js/character/companion-unlocks.js?v=20261013-material-groups3",
-      "sha256": "94d126a304d0fd76c88887aaf66862a4a30e0cc31fe5bcd536d136ec1430e038"
+      "sha256": "1d3e057e93a61d69674d4656befea39278fd75b2bec14f343656dae270ec2364"
     },
     {
       "path": "js/world/quest-design-settings.js?v=20261012-quests2",
@@ -329,6 +333,10 @@
     {
       "path": "js/balance/published-runtime.js",
       "sha256": "406f402c0e46dd216633176ac2e5c51c477a3e8e5ad876bf5758d23d8e8ddb83"
+    },
+    {
+      "path": "js/ui/inventory-icons-runtime.js?v=20261013-items1",
+      "sha256": "28454d361bb4a8a2b2c5a44b47a27e737cccdf293509ddf505129b4ff65711b3"
     }
   ]
 }
