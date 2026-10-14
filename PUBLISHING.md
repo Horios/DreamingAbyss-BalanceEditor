@@ -60,3 +60,7 @@ App 尚未完成連結時，工作台可透過公開 GitHub API 讀取版本、�
 ## 驗證界線
 
 本機測試覆蓋登入／CSRF、草稿保留、線上基準切換、完整遊戲 validator、持久化摘要、重複點擊、衝突、正式來源固定、歷史還原，以及 App manifest、JWT、PEM、加密與安裝檢查。模擬 API 測試不代表實際 GitHub 已授權或發布。首次專用 App 仍須擁有者到 GitHub 完成確認；此後才可驗收真實上傳與 Pages 部署。
+
+## 全域道具管理器
+
+新增功能、分類、篩選排序及直接設定／精準跳轉方式見 `GLOBAL_ITEM_CATALOGUE.md`；設計基準見 `docs/item-catalogue-spec.md`。全域管理器沿用原資料與庫存識別；新增經濟設定發布前要求目標遊戲支援 `itemDetailsVersion:2`。本次對應遊戲測試版 f303e506，正式版保持原狀。

@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "61982b92850bc5ba5c1960c38287cefae0966b66",
+  "sourceCommit": "f303e506954149a9ad0d04b04d988cdd80bd101a",
   "files": [
     {
       "path": "js/balance/progression-model.js",
@@ -87,8 +87,8 @@
       "sha256": "d851e8e5509fd52813e7cc22b1eaf197809ec0f48e9215f1bb0db0ac74ab3a08"
     },
     {
-      "path": "js/equipment/economy-salvage.js?v=20261013-material-groups3",
-      "sha256": "4ca8bf919f37bff158eac5f4a31b11221bcbb6b284e2a3ace425b0a2a2b98488"
+      "path": "js/equipment/economy-salvage.js?v=20261014-catalogue2",
+      "sha256": "3eb11703397d6b4e1099770544fef5fa96a2e0de714cd705bf8c489492f0ec94"
     },
     {
       "path": "js/world/dynamic-world.js",
@@ -243,8 +243,8 @@
       "sha256": "14040a7da21a048e44c2488cbd49532cfc10a37c8f19e6252c582d9584a850ee"
     },
     {
-      "path": "js/items/shop-inventory.js?v=20261013-material-groups3",
-      "sha256": "c6b01027e7ffbe7bd81cc80b03324de89ed5bd601a80c05e5405c38a0b6f51b0"
+      "path": "js/items/shop-inventory.js?v=20261014-catalogue2",
+      "sha256": "49e9d9e74a18c9ad83f759af17a217d6f2a381d5969e9f24089f593a69cd1c81"
     },
     {
       "path": "js/ui/options.js?v=20261012-utility1",
@@ -303,16 +303,16 @@
       "sha256": "1bd26fb858cf44bcb0c6cf370dff0b152b2daa1df86f7b0021411cd755930398"
     },
     {
-      "path": "js/ui/inventory-icon-model.js?v=20261013-items1",
-      "sha256": "fcf929348a727a5d0e90f201e97318e8a00f8e3f9dc9ea4e6ec37a99a126f28d"
+      "path": "js/ui/inventory-icon-model.js?v=20261014-catalogue2",
+      "sha256": "aac5a158c93e53ab9e57b348a20dbe646571e8b982ac44b20fdc3658a708ee8c"
     },
     {
-      "path": "js/balance/balance-document.js?v=life-products-v1",
-      "sha256": "3b391a0cf0ee3e50604da40b43ad8e06b61e2c07c65f73c1febfdb3aac9d8cd9"
+      "path": "js/balance/balance-document.js?v=20261014-catalogue2",
+      "sha256": "e8f4cb199f7f1811079923b6506fd1cf17fac361a19edcca1be1062f57f3e5aa"
     },
     {
-      "path": "js/items/life-skills.js?v=20261013-life-design",
-      "sha256": "ba72492f51340b9d922c4aabe59052b385371ec098b344255143e158c4aba478"
+      "path": "js/items/life-skills.js?v=20261014-catalogue2",
+      "sha256": "48c07d065beff41e2cbdf8ccebcc1d75dbfc57b6e128332bcc0b29f43f453a75"
     },
     {
       "path": "js/character/companion-unlocks.js?v=20261013-material-groups3",
@@ -339,8 +339,8 @@
       "sha256": "406f402c0e46dd216633176ac2e5c51c477a3e8e5ad876bf5758d23d8e8ddb83"
     },
     {
-      "path": "js/ui/inventory-icons-runtime.js?v=20261013-items1",
-      "sha256": "ef060f1e9d1a93494d849f15e7b283357d16d4005ebe01cc86f7532ffa9dd74c"
+      "path": "js/ui/inventory-icons-runtime.js?v=20261014-catalogue2",
+      "sha256": "8d7497e1f5d24053438a4c4f19edaf8085546c669efd73b64395bb2c81684d68"
     }
   ]
 }

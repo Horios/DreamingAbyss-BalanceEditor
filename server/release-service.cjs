@@ -12,6 +12,8 @@ class ReleaseService{
   if(life&&!/lifeProductsVersion\s*:\s*1\b/.test(text))
    throw Error('正式版程式尚未支援採集與煉金產物設定。請先將已測試的遊戲程式升級至 main，再發布這份平衡 JSON。');
   if(palette&&!/iconColorTemplatesVersion\s*:\s*1\b/.test(text))throw Error('正式版程式尚未支援色彩模板。請先升級正式版程式，再發布這份平衡 JSON。');
+  if(Object.keys(candidate.lifeSkills?.materialBuyPrices||{}).some(k=>!['清水','藥水瓶'].includes(k))&&!/lifeShopMaterialsVersion\s*:\s*1/.test(text))throw Error('目標版本尚未支援自訂商店材料；請先升級遊戲程式。');
+  if((candidate.inventoryIcons||[]).some(r=>r.sellPrice!==undefined||r.saleEnabled!==undefined||r.salvageRewards!==undefined||r.displayName!==undefined)&&!/itemDetailsVersion\s*:\s*2/.test(text))throw Error('目標版本尚未支援全域道具個別售價；請先升級遊戲程式。');
   const iconVersion=Number(text.match(/inventoryIconsVersion\s*:\s*(\d+)/)?.[1]||0),needsV2=(candidate.inventoryIcons||[]).some(r=>r.color!==undefined||r.description!==undefined||r.kind==='equipment');
   if(icons&&(iconVersion<1||needsV2&&iconVersion<2))
    throw Error('正式版程式尚未支援道具圖示設定。請先將已測試的遊戲程式升級至 main，再發布這份平衡 JSON。');
