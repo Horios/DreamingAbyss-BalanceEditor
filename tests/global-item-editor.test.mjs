@@ -30,3 +30,5 @@ test('new materials have complete details and can be removed only without live r
 test('healing potion ability edits validate atomically and invalid values do not replace data or mark draft saved',()=>{
  const r=editor(),E=r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR;E.open('inventoryIcons','all','item:heal_small');fire(r,'managerHealFraction','0.4');fire(r,'managerCooldown','6');assert.equal(r.run('data.items.find(x=>x.id==="heal_small").healFraction'),.4);const before=r.run('JSON.stringify(data)');fire(r,'managerHealFraction','2');assert.equal(r.run('JSON.stringify(data)'),before);assert.deepEqual(r.errors,[]);
 });
+
+test("BOSS difficulty preview selects the actual quality and difficulty-specific crafting stock",()=>{const r=editor(),E=r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR;E.open("inventoryIcons","all","equipment:boss:0:0");fire(r,"cataloguePreviewMode","2");assert.equal(E.state.preview.mode,2);assert.equal(E.state.preview.quality,published.balanceSettings.equipment.boss.affixRankByDifficulty[2]);assert.match(r.elements.get("app").innerHTML,/目前選擇：地獄/);assert.match(r.elements.get("app").innerHTML,/【地獄】古木年輪/);assert.deepEqual(r.errors,[]);});
