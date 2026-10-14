@@ -11,7 +11,8 @@ class ReleaseService{
   const text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
   if(life&&!/lifeProductsVersion\s*:\s*1\b/.test(text))
    throw Error('正式版程式尚未支援採集與煉金產物設定。請先將已測試的遊戲程式升級至 main，再發布這份平衡 JSON。');
-  if(icons&&!/inventoryIconsVersion\s*:\s*1\b/.test(text))
+  const iconVersion=Number(text.match(/inventoryIconsVersion\s*:\s*(\d+)/)?.[1]||0),needsV2=(candidate.inventoryIcons||[]).some(r=>r.color!==undefined||r.description!==undefined||r.kind==='equipment');
+  if(icons&&(iconVersion<1||needsV2&&iconVersion<2))
    throw Error('正式版程式尚未支援道具圖示設定。請先將已測試的遊戲程式升級至 main，再發布這份平衡 JSON。');
  }
  async snapshot({branch,ref}){

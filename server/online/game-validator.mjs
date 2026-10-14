@@ -9944,12 +9944,12 @@ __EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;
   }
   function svgFor(type,definitions=[],options={}){
     const icon=typeof type==='string'&&type.startsWith('custom:')&&(Array.isArray(definitions)?definitions:[]).find(item=>item?.id===type.slice(7));
-    if(!icon?.appearance&&!isLucideReference(type)&&options.size===undefined)return `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">${markupFor(type,definitions)}</svg>`;
-    const a=normalizeAppearance(icon?.appearance??{strokeWidth:isLucideReference(type)||icon?.layers?.some(layer=>isLucideReference(layer.icon))?2:2.7}),effect=effects[a.effect],size=options.size===undefined?a.size:bound(num(options.size,34),8,128,34);
+    if(!icon?.appearance&&!isLucideReference(type)&&options.size===undefined&&!options.color)return `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">${markupFor(type,definitions)}</svg>`;
+    const a=normalizeAppearance({...icon?.appearance,...(!icon?.appearance?{strokeWidth:isLucideReference(type)||icon?.layers?.some(layer=>isLucideReference(layer.icon))?2:2.7}:{}),...(options.color?{color:options.color}:{})}),effect=effects[a.effect],size=options.size===undefined?a.size:bound(num(options.size,34),8,128,34);
     const style=`width:${size}px;height:${size}px;stroke-width:${a.strokeWidth};opacity:${a.opacity}${a.color?';color:'+a.color:''}`;
     const animation=options.animate!==false&&effect.keyframe?` style="--ew-icon-animation:${effect.keyframe} ${a.effectDuration}s ${a.effectTiming} infinite ${effect.direction||'normal'}"`:'';
     const glow=a.glowStrength?` style="filter:drop-shadow(0 0 ${a.glowStrength}px ${a.glowColor})"`:'';
-    return `<svg class="emberwild-icon" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="${a.strokeWidth}" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true" style="${style}"><g class="ew-icon-glow"${glow}><g transform="rotate(${a.rotation} 24 24)"><g class="ew-icon-motion"${animation}>${markupFor(type,definitions,icon?.appearance?a:undefined)}</g></g></g></svg>`;
+    return `<svg class="emberwild-icon" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="${a.strokeWidth}" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true" style="${style}"><g class="ew-icon-glow"${glow}><g transform="rotate(${a.rotation} 24 24)"><g class="ew-icon-motion"${animation}>${markupFor(type,definitions,icon?.appearance||options.color?a:undefined)}</g></g></g></svg>`;
   }
   globalThis.__EMBERWILD_SKILL_ICONS=Object.freeze({paths:Object.freeze(paths),labels:Object.freeze(labels),keys:Object.freeze(keys),tones:Object.freeze(tones),colors:Object.freeze(colors),toneByKey:Object.freeze(toneByKey),shapeKinds:Object.freeze(shapeKinds),normalizeLayer,layerBounds,layerMarkup,markupFor,svgFor,hasIcon,validReference,isLucideReference,normalizeAppearance,validAppearance,effects});
 })();
@@ -14871,17 +14871,20 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
 /* js/ui/inventory-icon-model.js?v=20261013-items1 */
 /* Shared display-only inventory icon contract. Uses the existing SVG library. */
 (function(root){
-  const kinds=['item','material','gem','token'],copy=x=>structuredClone(x);
+  const kinds=['equipment','item','material','gem','token'],copy=x=>structuredClone(x);
   const materialGlyphs={'鍛鐵':'anvil','粉塵':'sparkles','以太鍛鐵':'anvil','光輝碎塊':'sparkles','紅色草':'leaf','紅色草泥':'flask-conical','小蟲':'bug','清水':'droplet','藥水瓶':'flask-round','升級卷軸':'scroll-text'};
   const tokenGlyphs={berserk:'swords',guardian:'shield',pursuit:'crosshair',arcane:'wand-sparkles',echo:'audio-lines',hunt:'bow-arrow',prayer:'hand-heart',revival:'heart-pulse',plunder:'droplets',endurance:'hourglass'};
   function fallback(kind,key,item){
     if(kind==='material')return 'lucide:'+(materialGlyphs[key]||(/牙|骨/.test(key)?'bone':/翼|羽/.test(key)?'feather':/晶|石/.test(key)?'gem':/齒輪/.test(key)?'cog':'package'));
+    if(kind==='equipment')return 'lucide:'+({sword:'sword',axe:'axe',hammer:'hammer',bow:'bow-arrow',crossbow:'crosshair',staff:'wand-sparkles',grimoire:'book-open',prayerBook:'book-heart',holyStaff:'wand-sparkles'}[item?.weaponType]||['sword','shirt','shield','gem'][item?.slot??0]);
     if(kind==='gem')return 'lucide:gem';if(kind==='token')return 'lucide:'+(tokenGlyphs[key]||'medal');
     const type=item?.type||'',ticket=key==='level_scroll'||key.startsWith('companion-ticket-')||type==='levelScroll'||type==='timedBoost';
     return 'lucide:'+(ticket?'ticket':['healPotion','imbue','ward','elementTonic'].includes(type)?'flask-round':type==='gearTierReroll'?'sparkles':'package');
   }
   function entries(doc){
     const out=[],seen=new Set(),add=(kind,key,name,item)=>{key=String(key);const id=kind+':'+key;if(!key||seen.has(id))return;seen.add(id);out.push({id,kind,key,name:name||key,fallback:fallback(kind,key,item)});};
+    for(const [job,slots] of (doc.equipmentForms||[]).entries())for(const [slot,forms] of slots.entries())for(const [index,form] of forms.entries()){add('equipment','form:'+job+':'+slot+':'+index,form.name,{...form,slot});Object.assign(out.at(-1),{job,slot,index});}
+    for(const [region,map] of (doc.balanceSettings?.maps?.catalog||[]).entries())if(map.mapType!=='final'&&region!==6)for(const [job,cls] of (doc.classes||[]).entries()){const slot=[0,1,2,0,1,3][Math.max(0,Math.min(5,map.family??0))];add('equipment','boss:'+region+':'+job,map.name+' BOSS・'+cls.name+'・'+['武器','護甲','副手','飾品'][slot],{slot});Object.assign(out.at(-1),{job,slot,region});}
     for(const item of doc.items||[])add('item',item.id,item.name,item);add('item','level_scroll','升級卷軸');
     for(const p of doc.companions||[])if(p.unlockCondition?.type==='ticket')add('item','companion-ticket-'+p.id,p.name+'招募券');
     for(const key of ['鍛鐵','粉塵','以太鍛鐵','光輝碎塊','紅色草','紅色草泥','小蟲','清水','藥水瓶'])add('material',key,key);
@@ -14906,13 +14909,15 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
       if(!r||!kinds.includes(r.kind)||typeof r.key!=='string'||!r.key.trim()||r.key.length>100||['__proto__','constructor','prototype'].includes(r.key)){errors.push('道具圖示第 '+(i+1)+' 筆種類或名稱無效');continue;}
       const id=r.kind+':'+r.key;if(seen.has(id))errors.push('道具圖示重複：'+id);seen.add(id);
       if(r.kind!=='material'&&!known.has(id))errors.push('道具圖示引用不存在的道具：'+id);
+      if(r.color!==undefined&&(typeof r.color!=='string'||!/^#[0-9a-fA-F]{6}$/.test(r.color)))errors.push('道具圖示顏色必須是 #RRGGBB：'+id);
+      if(r.description!==undefined&&(typeof r.description!=='string'||r.description.length>2000))errors.push('道具圖示說明必須是最多 2000 字的文字：'+id);
       const type=r.iconType,valid=typeof type==='string'&&(type==='auto'||(type.startsWith('custom:')?custom.has(type.slice(7)):library?(type==='none'||library.hasIcon(type)):/^(?:lucide:)?[a-z][a-z0-9-]*$/.test(type)));
       if(!valid)errors.push('道具圖示引用不存在或無效的圖示：'+id);
     }
     return errors;
   }
   function validate(doc,library){const errors=issues(doc,library);if(errors.length)throw Error(errors.join('\n'));return doc.inventoryIcons===undefined?undefined:copy(doc.inventoryIcons);}
-  const api={VERSION:1,kinds,entries,fallback,issues,validate};root.EmberwildInventoryIcons=api;if(typeof module==='object'&&module.exports)module.exports=api;
+  const api={VERSION:2,kinds,entries,fallback,issues,validate};root.EmberwildInventoryIcons=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 
 __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;
@@ -15042,7 +15047,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   function types(v,b,p){if(b===null||b===undefined||v===undefined)return;if(v===null){if(['mastery','requiredMastery','partnerId','unitPrice','control'].includes(p.split('.').at(-1)))return;typeErrors.push(issue(p,'此欄位不可為 null'));return;}if(Array.isArray(b)){if(!Array.isArray(v)){typeErrors.push(issue(p,'必須為陣列'));return;}for(let i=0;i<v.length;i++)types(v[i],b[i]??b[0],p+'.'+i);return;}if(typeof b==='object'){if(!v||typeof v!=='object'||Array.isArray(v)){typeErrors.push(issue(p,'必須為物件'));return;}for(const k of Object.keys(v))types(v[k],b[k],p+'.'+k);return;}if(!/\.(key|value)$/.test(p)&&typeof v!==typeof b)typeErrors.push(issue(p,'型別必須為 '+typeof b));}
   if(defaults)types(d,defaults,'$');if(typeErrors.length)throw Object.assign(Error(typeErrors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:typeErrors});
 if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Error(e.message),{issues:e.issues||[issue('domain',e.message)]});}}return d;}
- const api={inventoryIconsVersion:1,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
+ const api={inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 
 __EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildBalanceDocument=globalThis.EmberwildBalanceDocument??EmberwildBalanceDocument;
@@ -15192,7 +15197,7 @@ __EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBE
     if(stockSort!=='default')stockNames.sort((a,b)=>(stockSort==='quantity'?count(b)-count(a):stockSort==='price'?materialSellPrice(b)-materialSellPrice(a):0)||a.localeCompare(b,'zh-Hant'));
     const stock=stockNames.map(name=>{
       const n=count(name);
-      return `<article class="life-stock-row"><div class="life-stock-info account-item-main">${inventoryMaterialIcon(name)}<div><b>${esc(name)}</b><p class="small">${esc(DESCRIPTIONS[name]||'生活技能材料。')}</p></div></div><div class="life-stock-count"><b>×${n.toLocaleString()}</b><span class="small">賣價 1 個 ${materialSellPrice(name)} 金幣</span></div><div class="life-stock-actions" data-material="${esc(name)}"><input aria-label="${esc(name)}賣出數量" type="number" min="1" max="${n}" value="1" ${n<1?'disabled':''}><button onclick="sellMaterialFromControl(this)" ${n<1?'disabled':''}>賣出</button><button onclick="sellAllMaterialFromControl(this)" ${n<1?'disabled':''}>全部賣出</button></div></article>`;
+      return `<article class="life-stock-row"><div class="life-stock-info account-item-main">${inventoryMaterialIcon(name)}<div><b>${esc(name)}</b><p class="small">${esc(globalThis.lifeMaterialDescription(name)||'生活技能材料。')}</p></div></div><div class="life-stock-count"><b>×${n.toLocaleString()}</b><span class="small">賣價 1 個 ${materialSellPrice(name)} 金幣</span></div><div class="life-stock-actions" data-material="${esc(name)}"><input aria-label="${esc(name)}賣出數量" type="number" min="1" max="${n}" value="1" ${n<1?'disabled':''}><button onclick="sellMaterialFromControl(this)" ${n<1?'disabled':''}>賣出</button><button onclick="sellAllMaterialFromControl(this)" ${n<1?'disabled':''}>全部賣出</button></div></article>`;
     }).join('')||'<p class="empty">沒有符合條件的材料。</p>';
     const stockPanel=`<details class="panel life-stock" ${stockOpen?'open':''} ontoggle="setLifeStockOpen(this.open)"><summary>目前材料庫存 <span class="small">${stockNames.length} 種</span></summary><div class="life-stock-content"><div class="life-stock-controls"><label>篩選 <select aria-label="生活材料篩選" onchange="setLifeStockFilter(this.value)">${[['all','全部材料'],['gather','採集產物'],['alchemy','煉金材料'],['owned','只顯示持有']].map(([key,label])=>`<option value="${key}" ${stockFilter===key?'selected':''}>${label}</option>`).join('')}</select></label><label>排序 <select aria-label="生活材料排序" onchange="setLifeStockSort(this.value)">${[['default','材料類別'],['name','名稱'],['quantity','數量（多到少）'],['price','賣價（高到低）']].map(([key,label])=>`<option value="${key}" ${stockSort===key?'selected':''}>${label}</option>`).join('')}</select></label></div><div class="life-materials">${stock}</div><p class="small">${healPotionCount('heal_small')>0?'簡易治療藥水 ×'+healPotionCount('heal_small').toLocaleString()+' · ':''}材料全隊共用，藥水可在背包的道具頁查看。</p><button onclick="setShopCategory('life');setTab('shop')">購買藥水瓶、清水</button></div></details>`;
     return heading('LIFE SKILLS / 生活技能測試','生活技能')+`<div class="life-skills-page">
@@ -15604,21 +15609,33 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
 (()=>{
   const M=EmberwildInventoryIcons,baseExport=exportableBalance,baseValidate=validateBalanceConfig,baseApply=applyBalanceConfig;
   let definitions,customIcons=baseExport().skillIcons||[],lookup=new Map();
-  const saved=balanceSourceText();if(saved){definitions=M.validate(JSON.parse(saved),__EMBERWILD_SKILL_ICONS);lookup=new Map((definitions||[]).map(r=>[r.kind+':'+r.key,r.iconType]));}
+  const saved=balanceSourceText();if(saved){definitions=M.validate(JSON.parse(saved),__EMBERWILD_SKILL_ICONS);lookup=new Map((definitions||[]).map(r=>[r.kind+':'+r.key,r]));}
   exportableBalance=()=>{const out=baseExport();if(definitions!==undefined)out.inventoryIcons=structuredClone(definitions);return out;};
   validateBalanceConfig=input=>{M.validate(input,__EMBERWILD_SKILL_ICONS);return baseValidate(input);};
   applyBalanceConfig=(input,options={})=>{
     const next=M.validate(input,__EMBERWILD_SKILL_ICONS),out=baseApply(input,options);
-    definitions=next;customIcons=structuredClone(input.skillIcons||[]);lookup=new Map((next||[]).map(r=>[r.kind+':'+r.key,r.iconType]));
+    definitions=next;customIcons=structuredClone(input.skillIcons||[]);lookup=new Map((next||[]).map(r=>[r.kind+':'+r.key,r]));
     if(options.persist!==false){const doc=exportableBalance();localStorage.setItem(BALANCE_KEY,JSON.stringify(doc));if(globalThis.__EMBERWILD_PUBLISHED_BALANCE&&IS_PREVIEW){globalThis.__EMBERWILD_BALANCE_SOURCE=doc;localStorage.setItem(BALANCE_KEY+'-published-base',JSON.stringify(globalThis.__EMBERWILD_PUBLISHED_BALANCE));}}
     if(party)render();return out;
   };
   globalThis.__EMBERWILD_INVENTORY_ICON=(kind,key,fallback,options={})=>{
-    const type=lookup.get(kind+':'+String(key));return __EMBERWILD_SKILL_ICONS.svgFor(!type||type==='auto'?fallback:type,customIcons,options);
+    const row=lookup.get(kind+':'+String(key)),type=row?.iconType;
+    const svg=__EMBERWILD_SKILL_ICONS.svgFor(!type||type==='auto'?fallback:type,customIcons,{...options,color:row?.color});
+    return row?.color?'<span style="display:inline-flex;color:'+row.color+'">'+svg+'</span>':svg;
   };
-  globalThis.__EMBERWILD_INVENTORY_ICONS={version:1,entries:()=>M.entries(exportableBalance())};
+  const description=(kind,key)=>lookup.get(kind+':'+key)?.description;
+  const materialDescription=inventoryMaterialDescription;
+  globalThis.inventoryMaterialDescription=name=>description('material',name)??materialDescription(name);
+  const lifeDescription=lifeMaterialDescription;
+  globalThis.lifeMaterialDescription=name=>description('material',name)??lifeDescription(name);
+  function gearKey(g){return g.boss!==undefined?'boss:'+g.region+':'+g.job:'form:'+equipmentFormGroup(g)+':'+g.slot+':'+g.form;}
+  const gearNameHTML=equipmentNameHTML;
+  equipmentNameHTML=function(g){const key=gearKey(g),row=lookup.get('equipment:'+key);if(!row)return gearNameHTML(g);const glyph=globalThis.__EMBERWILD_INVENTORY_ICON('equipment',key,'lucide:'+(['sword','shirt','shield','gem'][g.slot]),{size:22});return '<span class="inventory-item-icon" style="display:inline-flex;vertical-align:middle;margin-right:6px">'+glyph+'</span>'+gearNameHTML(g);};
+  const attributes=globalThis.equipmentAttributeDetailsHTML;
+  globalThis.equipmentAttributeDetailsHTML=function(g,...args){const text=description('equipment',gearKey(g));return (text?'<p class="small">'+esc(text)+'</p>':'')+attributes(g,...args);};
+  globalThis.__EMBERWILD_INVENTORY_ICONS={version:2,entries:()=>M.entries(exportableBalance())};
 })();
 
-__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_PUBLISHED_BALANCE=globalThis.__EMBERWILD_PUBLISHED_BALANCE??__EMBERWILD_PUBLISHED_BALANCE;__EMBERWILD_INVENTORY_ICONS=globalThis.__EMBERWILD_INVENTORY_ICONS??__EMBERWILD_INVENTORY_ICONS;
+__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;inventoryMaterialDescription=globalThis.inventoryMaterialDescription??inventoryMaterialDescription;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;lifeMaterialDescription=globalThis.lifeMaterialDescription??lifeMaterialDescription;__EMBERWILD_PUBLISHED_BALANCE=globalThis.__EMBERWILD_PUBLISHED_BALANCE??__EMBERWILD_PUBLISHED_BALANCE;__EMBERWILD_INVENTORY_ICONS=globalThis.__EMBERWILD_INVENTORY_ICONS??__EMBERWILD_INVENTORY_ICONS;
 const defaults=exportableBalance();return {defaults,canonicalize(input){return validateBalanceConfig(EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults));},validate(input){const document=EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults);validateBalanceConfig(structuredClone(document));return document;}};
 }
