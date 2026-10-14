@@ -10234,7 +10234,13 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
 .workspace-topbar{height:auto;min-height:64px;padding:10px 14px;align-content:center}
 .sidebar{top:var(--workbench-top);height:calc(100vh - var(--workbench-top))}
 button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-input[type=checkbox],input[type=radio]{width:auto;min-width:0;vertical-align:middle;margin-right:6px}
+/* Keep single-line controls readable on wide panels, including nested editors. */
+html body input:not([type=number]):not([type=checkbox]):not([type=radio]):not([type=color]):not([type=file]):not([type=hidden]),
+html body select:not([multiple]){max-width:min(100%,32rem)}
+html body input[type=number]{max-width:min(100%,12rem)}
+html body select[multiple]{max-width:min(100%,40rem)}
+html body input:is([type=checkbox],[type=radio]){width:1rem;height:1rem;max-width:1rem;min-width:0;flex:none;padding:0;margin:0;vertical-align:middle;justify-self:start;align-self:center}
+html body label:has(>input:is([type=checkbox],[type=radio])){display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:8px;width:fit-content;max-width:100%;text-align:left;line-height:1.5}
 .workbench-search{margin-bottom:10px}.workbench-search input{width:100%;min-width:0}.workbench-results{max-height:45vh;overflow:auto}.workbench-results button{width:100%;text-align:left;margin:3px 0}.workbench-results small{display:block;color:var(--muted);margin-top:4px}
 .workbench-route{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
 .workbench-route strong{margin-right:auto}.workbench-next{border:1px solid var(--line);background:var(--panel2);padding:12px;border-radius:9px;margin-bottom:14px}.workbench-next p{margin:8px 0;color:var(--muted)}
