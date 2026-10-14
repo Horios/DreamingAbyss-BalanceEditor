@@ -4,7 +4,15 @@ class ReleaseService{
  constructor({api,validate,ticketStore=null}){this.api=api;this.validateDocument=validate;this.base='/repos/Horios/Emberwild';this.tickets=ticketStore||new Map();}
  branch(value){if(!['main','chatgpt-dev'].includes(value))throw Error('僅允許 main／chatgpt-dev');return value;}
  async validate({data}){return {data:this.validateDocument(data),valid:true};}
+ async requireMonsterRuntime(target,candidate){
+  const maps=candidate.balanceSettings?.maps?.catalog||[],monsters=candidate.balanceSettings?.monsters?.catalog||[];
+  const needed=maps.some((m,i)=>m.mapType!=='final'&&(m.bossStageMode==='random'||monsters.filter(x=>x.mapIndex===i&&x.kind==='boss').length!==1))||monsters.some(m=>m.kind==='elite'||m.kind==='boss'&&(m.enabled===false||(m.bossStageCount??1)!==1)||m.baseStats&&(m.baseStats.hp>0||m.baseStats.attack>0||m.baseStats.defense>=0))||(candidate.balanceSettings?.drops?.entries||[]).some(d=>['equipment','token'].includes(d.type))||(candidate.items||[]).filter(x=>['imbue','ward','elementTonic'].includes(x.type)).length>15;
+  if(!needed)return;
+  const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+  if(!/monsterDesignVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援怪物個別設定、物品連結或多種 BOSS 陣容。請先升級該分支遊戲程式，再發布平衡 JSON。');
+ }
  async requireLifeRuntime(target,candidate){
+  await this.requireMonsterRuntime(target,candidate);
   const life=candidate.lifeSkills?.gathering!==undefined,icons=Boolean(candidate.inventoryIcons?.length),palette=Boolean(candidate.iconColorTemplates?.length);
   if(target.branch!=='main'||(!life&&!icons&&!palette))return;
   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit);

@@ -1,10 +1,10 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "f303e506954149a9ad0d04b04d988cdd80bd101a",
+  "sourceCommit": "f30252be60b959500398b20cad2deda55f19faf2",
   "files": [
     {
       "path": "js/balance/progression-model.js",
-      "sha256": "e8588c07b8ed09433568291a628bf5df217ba6acb57dd7cf7e06afbc3edc0588"
+      "sha256": "7c219b6865c94ce33260109c8205b9fba87609b96a2bf8d638e5547fad0780d2"
     },
     {
       "path": "js/items/companion-token-model.js",
@@ -48,7 +48,7 @@
     },
     {
       "path": "js/core/core-game.js?v=20261013-team-actions1",
-      "sha256": "fa81989e670717e5ef5b6244f88b263d612ced8bba02d00455926de8cdd07927"
+      "sha256": "b984a9ca7a02fb8bd465fd9669a1016db1ae3053210b93d0535c3fd4adc2eeaf"
     },
     {
       "path": "js/ui/text-rarity-style.js",
@@ -71,12 +71,16 @@
       "sha256": "93f06b24f36c4965c2dc73c729914212b24fadbcc0e25bc88013225119944c8c"
     },
     {
+      "path": "js/world/monster-design-model.js",
+      "sha256": "dfa93bb8a6e3a0490dab5255996f1dc624930f2cbb87a660c09947b06a8b7963"
+    },
+    {
       "path": "js/world/monster-drop-tables.js",
-      "sha256": "521330869a9d7645db594a00c8e4208e4d44c9c17292fa5164799c3df5961a21"
+      "sha256": "9eb5483ff157a6cb592e8bdf377756d8fb5c5224f01ec591ff070b4bfebf9778"
     },
     {
       "path": "js/balance/balance-schema.js",
-      "sha256": "0554f74a30b3a25eded7b2c3bc82dcc1528833e9207d16a86056ade496442f06"
+      "sha256": "2c8cb3127f95e1799f532ff27bac11b307705e230d843b455d1d5018d77dcfbf"
     },
     {
       "path": "js/balance/balance-runtime.js",
@@ -92,7 +96,7 @@
     },
     {
       "path": "js/world/dynamic-world.js",
-      "sha256": "7c9ff60c49272d32161345db7efd67ef53902bbecfba0c145fcca4d0b8994231"
+      "sha256": "c130b1545982a24511adbca3d635284ce813ff83bda12ab1ae0d1fb7cd5d8f55"
     },
     {
       "path": "js/world/world-followup.js",
@@ -104,11 +108,11 @@
     },
     {
       "path": "js/world/custom-final-stage.js",
-      "sha256": "30ee4fc8a5338ad1eeb064f0597431adad82f28c308e1acff771845152de5cd5"
+      "sha256": "e383888e24e010bbf3d9d7096b2600544cf84e8746906b84bb8b6168ce532d54"
     },
     {
       "path": "js/combat/manual-boss.js",
-      "sha256": "3dc8ec39f21e358bbbbd15aac7ccffe5f57348437d60362cf31576c165898b72"
+      "sha256": "146b9773f1309563e17eb8ed43882e43b8fbf46aab38ea1f8bacbb2e7f7b432b"
     },
     {
       "path": "js/combat/combat-contribution.js",
@@ -212,7 +216,7 @@
     },
     {
       "path": "js/combat/shared-skill-runtime.js",
-      "sha256": "d927bf7a37547f63941f9e7cd8f2f75cd7ecb33173cd2945b421010108bb173d"
+      "sha256": "bfbb4fff85203b05585efe28995e0542a4ab6f8d64d536ec0fcaec3a09ea3726"
     },
     {
       "path": "js/ui/title-screen.js?v=20261013-team-actions1",
@@ -268,7 +272,7 @@
     },
     {
       "path": "js/items/companion-tokens.js?v=20261013-inventory-rows2",
-      "sha256": "302ff6c24ee0e22b96b4b87324120dd40b6110f3ecc0eafbf6765bfb7c3a9169"
+      "sha256": "56bbd897f00725194e38b641dcd64f89dea750dca18b8301027959d947f47288"
     },
     {
       "path": "js/character/team-runtime.js?v=20261013-team-actions1",
@@ -304,11 +308,11 @@
     },
     {
       "path": "js/ui/inventory-icon-model.js?v=20261014-catalogue2",
-      "sha256": "aac5a158c93e53ab9e57b348a20dbe646571e8b982ac44b20fdc3658a708ee8c"
+      "sha256": "cdd7398af3d73258a7899174dd3481b63c057dc6dc828348e812e184341ee15f"
     },
     {
       "path": "js/balance/balance-document.js?v=20261014-catalogue2",
-      "sha256": "e8f4cb199f7f1811079923b6506fd1cf17fac361a19edcca1be1062f57f3e5aa"
+      "sha256": "8c86d3cfabe972d9fa025e3a65d362c17cb93e62d8290b0c70437cdb49e8cc7b"
     },
     {
       "path": "js/items/life-skills.js?v=20261014-catalogue2",
@@ -341,6 +345,10 @@
     {
       "path": "js/ui/inventory-icons-runtime.js?v=20261014-catalogue2",
       "sha256": "8d7497e1f5d24053438a4c4f19edaf8085546c669efd73b64395bb2c81684d68"
+    },
+    {
+      "path": "js/world/monster-design-runtime.js",
+      "sha256": "09487ebdedb986909c7a7ae4965171929f23fb63ecc05ecee05e3fe88261aa27"
     }
   ]
 }
