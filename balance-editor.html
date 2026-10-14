@@ -791,7 +791,7 @@ const ORIGINAL_B64 = "eyJzY2hlbWEiOiJlbWJlcndpbGQtYmFsYW5jZS12MSIsIl9yZWZlcmVuY2
 const ORIGINAL_DATA = JSON.parse(decodeURIComponent(escape(atob(ORIGINAL_B64))));
 const EDITOR_WORKSPACE_KEY="emberwild-balance-workspace-v2";
 const EDITOR_LEGACY_DRAFT_KEY="emberwild-json-editor-draft";
-const EDITOR_VERSION="2.0";
+const EDITOR_VERSION="2.1";
 function loadEditorWorkspaceAtBoot(){
   let meta={revision:0,savedAt:null,source:"內建預設"};
   try{
@@ -1437,7 +1437,7 @@ function confirmDelete(msg){ return window.confirm(msg); }
 function renderOverview(){
   const issues=validateData();
   const stats=[
-    ["角色",count("classes")],["核心技能",count("skills")],["輔助技能",count("support")],["裝備變體",count("equipment")],
+    ["角色",count("classes")],["核心技能",data.classes.reduce((n,c)=>n+(c.skills||[]).length,0)],["輔助技能",data.supportSkills.reduce((n,g)=>n+g.length,0)],["裝備變體",count("equipment")],
     ["商店道具",count("items")],["平衡設定",count("balanceSettings")],["詞條設定",flattenSettingLeaves(data.balance||{}).length],["地圖門檻",data.balanceSettings?.maps?.levelRanges?.length||0]
   ];
   document.getElementById("app").innerHTML =
@@ -1449,7 +1449,7 @@ function renderOverview(){
     card("目前檔案",`<div class="fields">
       ${inputField("設定格式版本","schema",data.schema||"","text","",false,"遊戲匯入固定要求 emberwild-balance-v1；修改會直接匯入失敗。",true)}
       <div class="field"><label>頂層區塊</label><input value="${esc(Object.keys(data).join(", "))}" readonly><div class="field-help">只有遊戲程式實際讀取的區塊會產生效果。</div></div>
-      <div class="field full"><label>相容性摘要</label><div class="mini-note">角色數固定為 4；每職業輔助技能實際系統固定 3 個；商店元素道具固定 15 筆且 id／type／element 不可改。核心技能與裝備變體可增減，但刪除或改變順序可能使既有存檔的索引對應改變。</div></div>
+      <div class="field full"><label>相容性摘要</label><div class="mini-note">角色數固定為 4；每職業輔助技能池支援 3～64 個；商店元素道具固定 15 筆且 id／type／element 不可改。核心技能與裝備變體可增減，但刪除或改變順序可能使既有存檔的索引對應改變。</div></div>
     </div>`);
   document.getElementById("validateBtn").onclick=()=>render();
   document.getElementById("resetBtn").onclick=()=>{
@@ -4147,8 +4147,8 @@ ensureArrays();requestEditorInitialRender();
         '<div><b>最後自動儲存</b><span>'+esc(fmt(workspaceSavedAt))+'</span></div>'+
         '<div><b>正式匯出條件</b><span>相容性檢查必須 0 提醒</span></div>'+
       '</div>'+
-      '<div class="mini-note">現在平衡器 HTML 視為「編輯程式」，平衡數值視為「工作資料」。每次修改都會自動備份到這個瀏覽器的本機工作區；平常不需要再按「儲存草稿」。要帶到遊戲測試時匯出測試 JSON；確認後再匯出正式 JSON。</div>'+
-      '<div class="workspace-flow"><span class="workspace-step">本機平衡器</span><span class="workspace-arrow">→</span><span class="workspace-step">自動草稿</span><span class="workspace-arrow">→</span><span class="workspace-step">測試 JSON</span><span class="workspace-arrow">→</span><span class="workspace-step">chatgpt-dev</span><span class="workspace-arrow">→</span><span class="workspace-step">正式 JSON / main</span></div>'+
+      '<div class="mini-note">修改會自動保存在目前瀏覽器。完成設計後，開啟「驗證與發布」，檢查差異並發布至測試版；實際測試完成後，再從已提交的測試版建立正式版摘要。JSON 匯入／匯出仍可用於備份與跨裝置搬移。</div>'+
+      '<div class="workspace-flow"><span class="workspace-step">設計與自動草稿</span><span class="workspace-arrow">→</span><span class="workspace-step">驗證與差異摘要</span><span class="workspace-arrow">→</span><span class="workspace-step">測試版發布</span><span class="workspace-arrow">→</span><span class="workspace-step">實際測試</span><span class="workspace-arrow">→</span><span class="workspace-step">正式版發布</span></div>'+
       '<div class="notice" style="margin:10px 0 0"><b>注意：</b>本機草稿屬於目前瀏覽器與這份 HTML 的儲存空間。清除網站資料、換瀏覽器或移動到無法共用儲存空間的環境時，仍應保留最近匯出的 JSON 作為可攜備份。</div>'+
       '</div>';
     if(head?.nextSibling)app.insertBefore(box,head.nextSibling);else app.appendChild(box);
@@ -8403,7 +8403,7 @@ requestEditorInitialRender();
     function unique(){let n=1;while(list.some(t=>t.id==='token_'+n))n++;return 'token_'+n;}
     document.getElementById('newToken').onclick=()=>{const t=copy(M.defaults.catalog[0]);t.id=unique();t.name='新信物';list.push(t);selectedToken=list.length-1;markDirty();render();};
     document.getElementById('duplicateToken')?.addEventListener('click',()=>{const t=copy(d);t.id=unique();t.name+=' 副本';list.push(t);selectedToken=list.length-1;markDirty();render();});
-    document.getElementById('deleteToken')?.addEventListener('click',()=>{list.splice(selectedToken,1);markDirty();render();});
+    document.getElementById('deleteToken')?.addEventListener('click',()=>{if(!confirmDelete('刪除信物「'+d.name+'」？請先確認任務與其他設定沒有引用此信物。'))return;list.splice(selectedToken,1);markDirty();render();});
     document.getElementById('addTokenEffect')?.addEventListener('click',()=>{d.effects.push({key:'flatAttack',value:1});markDirty();render();});
     app.querySelectorAll('[data-delete-effect]').forEach(el=>el.onclick=()=>{d.effects.splice(Number(el.dataset.deleteEffect),1);markDirty();render();});
     app.querySelectorAll('[data-token-field]').forEach(el=>el.onchange=()=>{
@@ -9635,9 +9635,11 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  const e=esc;
  const current=()=>structuredClone(__EMBERWILD_MASTERY_EDITOR.cleanExport());
  function format(v){if(v===undefined)return '—';const out=typeof v==='string'?v:JSON.stringify(v,null,2);return e(out??'');}
- function diffHTML(diff){if(!diff)return '';const groups=new Map();for(const r of diff.rows){const k=r.system+'：'+r.object;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r);}return '<p>共 '+diff.total+' 項；新增 '+diff.added+'、修改 '+diff.modified+'、刪除 '+diff.deleted+'</p>'+[...groups].map(([k,rows])=>'<details class="release-diff" open><summary>'+e(k)+'</summary>'+rows.map(r=>'<p><b>'+e(r.type)+' · '+e(r.field)+'</b><br><code>'+e(r.path)+'</code><br>'+format(r.before)+' → '+format(r.after)+'</p>').join('')+'</details>').join('');}
+ function diffHTML(diff){if(!diff)return '';const groups=new Map();for(const r of diff.rows){const k=r.system+'：'+r.object;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r);}return '<p>共 '+diff.total+' 項；新增 '+diff.added+'、修改 '+diff.modified+'、刪除 '+diff.deleted+'</p>'+[...groups].map(([k,rows])=>'<details class="release-diff" open><summary>'+e(k)+'</summary>'+rows.map(r=>'<p><b>'+e(r.type)+' · '+e(r.field)+'</b><br><code>'+e(r.path)+'</code> <button type="button" class="small" data-workbench-path="'+e(r.path)+'">前往設定</button><br>'+format(r.before)+' → '+format(r.after)+'</p>').join('')+'</details>').join('');}
  function status(){const d=current(),dev=state.snapshots['chatgpt-dev'],main=state.snapshots.main;if(dev&&!D.diff(dev.data,d).total)return '目前編輯內容與測試版一致';if(main&&!D.diff(main.data,d).total)return '目前編輯內容與正式版一致';return dev||main?'有未發布變更':'本地編輯資料；尚未取得線上版本';}
  async function api(method,body){
+  if(['validate','prepare','commit'].includes(method)&&globalThis.__EMBERWILD_EXPERIENCE?.rawPending())throw Error('原始 JSON 有尚未套用的內容；請先套用或捨棄，再驗證或發布。');
+  if(method==='prepare'&&body?.kind!=='restore'&&String(body?.message||'').trim().length<4)throw Error('請先填寫至少四個字的版本說明。');
   if(location.protocol==='file:')throw Error('請從線上工作臺或本機服務開啟；HTML 檔案仍可編輯及下載 JSON。');
   const controller=typeof AbortController==='function'?new AbortController():null;
   const timeout=controller?setTimeout(()=>controller.abort(),method==='commit'?120000:60000):null;
@@ -9673,7 +9675,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
   const snap=state.snapshots[state.target],prepared=state.prepared;
   document.getElementById('app').innerHTML='<div class="section-head"><h1>發布管理</h1><p id="release-edit-status">'+e(status())+'</p></div><div id="releaseFeedback" class="release-feedback" data-kind="'+e(state.feedbackKind||'')+'"><pre id="releaseStatus" role="status" aria-live="polite">'+e(state.status||'尚未開始發布操作。')+'</pre></div>'+card('完整發布流程',"<ol class=\"release-guide\"><li><b>確認 GitHub 連線：</b>先到 <a href=\"/setup\" target=\"_top\">GitHub 連線設定</a> 完成既有 App 的安裝核對。顯示「GitHub 已連結」後，回來取得線上版本；上傳未啟用時仍可編輯、驗證與下載 JSON。</li><li><b>取得基準：</b>選測試版或正式版，按「取得線上版本」。這只更新比較基準，會保留目前草稿。「載入比較版本至編輯器」才會取代編輯內容，操作前可下載備份。</li><li><b>修改與驗證：</b>完成數值、產物或圖示設定，按「JSON 驗證」，修正所有錯誤，再下載發布前 JSON 備份。未發布草稿依瀏覽器保存，跨裝置可用 JSON 搬移。</li><li><b>填寫版本說明：</b>至少四個字，具體說明改了什麼；例如「調整藍色草採集機率與圖示」。</li><li><b>建立測試版摘要：</b>按「建立測試版發布摘要」。此步只驗證與比較，還不會上傳。檢查目標分支、目前版本及完整新增／修改／刪除差異。</li><li><b>確認發布：</b>勾選「我已檢查完整差異與目標分支」，再按「確認發布」。畫面會立即顯示處理中並停用重複操作；成功後顯示 commit。測試版寫入 chatgpt-dev，摘要十分鐘內有效；資料有變、版本衝突或摘要過期都要重新比較。</li><li><b>等待網站部署：</b>資料提交成功不等於網站已更新。按「檢查部署狀態」，確認「部署成功」，再開啟測試版。若部署中則稍後再查；若失敗則保留 commit 與錯誤，先排除問題。</li><li><b>實際測試：</b>在測試版確認存檔載入、修改的玩法與圖示都符合預期，再進行正式版發布。</li><li><b>發布正式版：</b>按「取得測試版並建立正式版摘要」。來源固定為 GitHub 已提交的測試版，未發布草稿不會帶入。檢查來源 commit 與完整差異，勾選確認並輸入「正式版」，再按「確認發布」；成功後同樣核對部署狀態。正式版程式尚不支援新資料格式時，需先升級程式，工作臺會阻擋不相容發布。</li><li><b>還原與異常處理：</b>在版本紀錄選目標歷史版本的「還原至此版本」，檢查差異後確認；還原會建立新 commit，保留後續歷史，正式版仍需二次確認。若提交逾時或中斷，先取得線上版本核對結果，勿直接重送。</li></ol>")+card('本地資料與線上版本','<p>比較與重新取得版本只更新快照，不會覆蓋本地編輯資料。</p><div class="toolbar"><button id="releaseValidate">JSON 驗證</button><button id="releaseBackup">下載 JSON 備份</button><button id="releaseFetch">取得線上版本</button><select id="releaseTarget"><option value="chatgpt-dev" '+(state.target==='chatgpt-dev'?'selected':'')+'>測試版 · chatgpt-dev</option><option value="main" '+(state.target==='main'?'selected':'')+'>正式版 · main</option></select><button id="releaseCompare">與編輯內容比較</button></div><p>目前比較版本：'+e(snap?.commit||'尚未取得')+'</p><button id="releaseLoad" '+(!snap?'disabled':'')+'>載入比較版本至編輯器</button>')+
    card('差異比較',diffHTML(state.comparison)||'<p>取得目標版本後比較。</p>')+
-   card('發布至測試版','<label>版本說明<input id="releaseMessage" maxlength="300" placeholder="例如：調整採集材料售價與藥水成本" value="'+e(state.message)+'"></label><p>完整驗證 → 取得測試版 → 查看摘要 → 確認發布。</p><button id="releasePreview" '+(!state.snapshots['chatgpt-dev']?'disabled':'')+'>建立測試版發布摘要</button><button id="releasePreBackup">發布前下載備份</button>')+
+   card('發布至測試版','<label>版本說明<input id="releaseMessage" maxlength="300" placeholder="例如：調整採集材料售價與藥水成本" value="'+e(state.message)+'"></label><p>完整驗證 → 取得測試版 → 查看摘要 → 確認發布。</p><button id="releasePreview">建立測試版發布摘要</button><button id="releasePreBackup">發布前下載備份</button>')+
    '<div id="release-promote-panel"></div>'+ 
    (prepared?card('發布前確認','<p>目標：'+(prepared.branch==='main'?'正式版':'測試版')+' · '+e(prepared.branch)+'</p><p>目前版本：'+e(prepared.currentVersion)+'<br>即將建立資料版本：'+e(prepared.nextVersion)+'（commit 於提交時建立）</p><p>'+e(prepared.message)+'</p>'+diffHTML(prepared.diff)+'<label><input type="checkbox" id="releaseConfirm">我已檢查完整差異與目標分支</label><div id="release-final-warning"></div><button id="releaseCommit">確認發布</button><button id="releaseCancel">取消</button>'):'')+
    card('版本紀錄','<button id="releaseHistory">取得 '+e(state.target)+' 版本紀錄</button>'+ (state.history?.versions.map(v=>'<details><summary>'+e(v.date)+' · '+e(v.commit.slice(0,10))+' · '+e(v.message.split('\n')[0])+(v.current?' · 目前版本':'')+'</summary><p>'+e(v.branch)+'</p><div class="toolbar"><button data-release-version="'+v.commit+'" data-action="compare">'+(state.historyReference?'與歷史比較基準比較':'與線上目前版本比較')+'</button><button data-release-version="'+v.commit+'" data-action="local">與本地編輯比較</button><button data-release-version="'+v.commit+'" data-action="reference">設為歷史比較基準</button><button data-release-version="'+v.commit+'" data-action="changes">查看此版本修改摘要</button><button data-release-version="'+v.commit+'" data-action="load">載入至編輯器</button><button data-release-version="'+v.commit+'" data-action="download">下載 JSON</button><button data-release-version="'+v.commit+'" data-action="restore">還原至此版本</button></div></details>').join('')||'')+(state.history?.hasMore?'<button id="releaseMore">更多歷史版本</button>':''))+
@@ -10179,7 +10181,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
   bind('catalogueDelete',()=>{if(row.kind!=='material')return jumpDetails(row);if(confirm('刪除此自建素材定義？會先檢查來源與用途引用；玩家舊庫存仍保留。')){removeMaterial(row);page();}},'click');
   bind('inventoryIconMaker',()=>{inMaker=true;jump('iconMaker');},'click');
   function refreshLibrary(){const names=L.names.filter(k=>k.includes(iconSearch.toLowerCase().trim())),pages=Math.max(1,Math.ceil(names.length/48));iconPage=Math.max(0,Math.min(iconPage,pages-1));document.getElementById('inventoryLucideGrid').innerHTML=names.slice(iconPage*48,(iconPage+1)*48).map(k=>'<button data-inventory-lucide="'+k+'">'+I.svgFor('lucide:'+k,[],{size:26})+'<span>'+k+'</span></button>').join('');document.getElementById('inventoryLucidePage').textContent=(iconPage+1)+'／'+pages+' 頁';document.getElementById('inventoryLucidePrevious').disabled=iconPage===0;document.getElementById('inventoryLucideNext').disabled=iconPage===pages-1;document.querySelectorAll('[data-inventory-lucide]').forEach(el=>el.onclick=()=>{set(row,'lucide:'+el.dataset.inventoryLucide);page();});}
-  bind('inventoryLucideSearch',ev=>{iconSearch=ev.target.value;iconPage=0;refreshLibrary();},'input');bind('inventoryLucidePrevious',()=>{iconPage--;refreshLibrary();},'click');bind('inventoryLucideNext',()=>{iconPage++;refreshLibrary();},'click');refreshLibrary();persist();
+  bind('inventoryLucideSearch',ev=>{iconSearch=ev.target.value;iconPage=0;refreshLibrary();},'input');bind('inventoryLucidePrevious',()=>{iconPage--;refreshLibrary();},'click');bind('inventoryLucideNext',()=>{iconPage++;refreshLibrary();},'click');refreshLibrary();persist();globalThis.__EMBERWILD_EXPERIENCE?.afterPage();
  }
  SECTION_META.push(['inventoryIcons','全域道具管理器']);NAV_GROUPS.find(r=>r[0]==='itemsEconomy')[2].unshift('inventoryIcons');
  const baseExport=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=()=>{const out=baseExport();if(data.inventoryIcons!==undefined)out.inventoryIcons=structuredClone(data.inventoryIcons);return out;};
@@ -10224,5 +10226,139 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  const baseExport=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=()=>{const out=baseExport();if(data.iconColorTemplates!==undefined)out.iconColorTemplates=structuredClone(data.iconColorTemplates);return out;};
  const baseRender=render;render=function(...args){P.use(data.iconColorTemplates);if(currentSection==='iconColors'){renderNav(true);page();return;}return baseRender(...args);};
  globalThis.__EMBERWILD_COLOR_EDITOR={control,bind,add,update,remove,rows,resolve:row=>P.resolve(row,rows())};requestEditorInitialRender();
+})();
+</script>
+
+<style id="workbench-experience-style">
+:root{--workbench-top:76px}
+.workspace-topbar{height:auto;min-height:64px;padding:10px 14px;align-content:center}
+.sidebar{top:var(--workbench-top);height:calc(100vh - var(--workbench-top))}
+button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+input[type=checkbox],input[type=radio]{width:auto;min-width:0;vertical-align:middle;margin-right:6px}
+.workbench-search{margin-bottom:10px}.workbench-search input{width:100%;min-width:0}.workbench-results{max-height:45vh;overflow:auto}.workbench-results button{width:100%;text-align:left;margin:3px 0}.workbench-results small{display:block;color:var(--muted);margin-top:4px}
+.workbench-route{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.workbench-route strong{margin-right:auto}.workbench-next{border:1px solid var(--line);background:var(--panel2);padding:12px;border-radius:9px;margin-bottom:14px}.workbench-next p{margin:8px 0;color:var(--muted)}
+.workbench-guide{border:1px solid var(--line);border-radius:8px;margin-bottom:14px;padding:10px}.workbench-guide summary{cursor:pointer}.workbench-guide .card{margin-top:10px}
+.workbench-toc{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}.workbench-toc button{font-size:12px;padding:5px 8px}
+#app{scroll-margin-top:var(--workbench-top)}#app .card,#app h2{scroll-margin-top:calc(var(--workbench-top) + 16px)}
+.release-guide{line-height:1.7}.release-diff{overflow-wrap:anywhere}.release-diff code{word-break:break-all}
+.inventory-icons-layout>*{min-width:0}.section-actions select{width:auto;max-width:100%}
+@media(max-width:900px){.sidebar{top:auto;height:auto;max-height:40vh}.topbar .brand{width:100%}.section-head{flex-wrap:wrap}.section-actions{margin-left:0;justify-content:flex-start}.workbench-route strong{width:100%}.toolbar select,.toolbar input{max-width:100%;min-width:0}.statgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.kvrow{grid-template-columns:repeat(2,minmax(0,1fr))}.life-input-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+<script id="workbench-experience-v1">
+/* UI state stays outside the game document; the existing editors remain authoritative. */
+(()=>{
+ const E=__EMBERWILD_RELEASE_EDITOR,KEY='emberwild-workbench-view-v1',RAW='emberwild-raw-buffer-v1';
+ const history=[],views=new Map();let last=null,returning=false,raw=null,rawStorageError='',query='',searchTimer=0;
+ const read=key=>{try{return JSON.parse(localStorage.getItem(key)||'null');}catch{return null;}};
+ const write=(key,value)=>{try{if(value===null)localStorage.removeItem(key);else localStorage.setItem(key,JSON.stringify(value));return true;}catch{return false;}};
+ const restored=read(KEY);raw=read(RAW);if(!raw||typeof raw.text!=='string'||typeof raw.base!=='string')raw=null;
+ if(restored&&SECTION_META.some(x=>x[0]===restored.section)){
+  currentSection=restored.section;
+  if(restored.selected&&typeof restored.selected==='object')selected={...selected,...restored.selected};
+  if(Array.isArray(restored.groups))for(const id of restored.groups)if(NAV_GROUPS.some(g=>g[0]===id))expandedNavGroups.add(id);
+ }
+ const title=id=>SECTION_META.find(x=>x[0]===id)?.[1]||id;
+ function rawPending(){return !!raw&&raw.text!==raw.base;}
+ function captureRaw(){if(last?.section!=='raw')return;const ta=document.getElementById('rawEditor');if(!ta)return;if(raw)raw.text=ta.value;}
+ function persistRaw(){if(!write(RAW,rawPending()?raw:null))rawStorageError='文字草稿儲存失敗，請下載備份後再離開。';else rawStorageError='';}
+ function guardRaw(){captureRaw();if(!rawPending())return true;alert('原始 JSON 有尚未套用的內容，請先套用或捨棄。文字草稿已保留，可返回原始 JSON 繼續。');return false;}
+ function search(text){
+  const q=String(text).trim().toLocaleLowerCase();if(!q)return [];
+  const found=SECTION_META.filter(([id,name])=>(name+' '+id).toLocaleLowerCase().includes(q)).map(([section,label])=>({section,label,kind:'設定頁'}));
+  for(const row of __EMBERWILD_INVENTORY_ICON_EDITOR.entries())if((row.name+' '+row.key+' '+row.categoryPath.join(' ')).toLocaleLowerCase().includes(q))found.push({section:'inventoryIcons',label:row.name,id:row.id,kind:row.categoryPath.join(' › ')});
+  data.classes.forEach((c,ci)=>{if(String(c.name||'').toLocaleLowerCase().includes(q))found.push({section:'classes',label:c.name,selection:{class:ci},kind:'角色'});for(const [si,s]of (c.skills||[]).entries())if((s.name+' '+s.id).toLocaleLowerCase().includes(q))found.push({section:'skills',label:s.name,selection:{skillClass:ci,supportClass:ci,skill:si,skillTab:s.activation||'active'},kind:c.name+'技能'});for(const [si,s]of (data.supportSkills[ci]||[]).entries())if((s.name+' '+s.id).toLocaleLowerCase().includes(q))found.push({section:'skills',label:s.name,selection:{skillClass:ci,supportClass:ci,support:si,skillTab:'support'},kind:c.name+'輔助技能'});});
+  (data.balanceSettings.maps.catalog||[]).forEach((m,i)=>{if((m.name+' '+m.id).toLocaleLowerCase().includes(q))found.push({section:'world',label:m.name,selection:{worldMap:i},kind:'地圖'});});
+  (data.balanceSettings.monsters.catalog||[]).forEach(m=>{if((m.name+' '+m.id).toLocaleLowerCase().includes(q))found.push({section:'world',label:m.name,selection:{worldMap:m.mapIndex},kind:'怪物'});});
+  return found.slice(0,40);
+ }
+ function go(result){query='';if(result.id){__EMBERWILD_INVENTORY_ICON_EDITOR.open('inventoryIcons','all',result.id);return;}if(result.selection)Object.assign(selected,result.selection);currentSection=result.section;render();}
+ function jumpPath(path){
+  const openModal=document.getElementById('balanceUxModal');if(openModal)openModal.hidden=true;
+  // Semantic diff arrays use IDs, while the editors select indices.
+  let node=data;const parts=String(path).split('.'),resolved=[];
+  for(const part of parts){let key=part;if(Array.isArray(node)){const index=node.findIndex(x=>x&&typeof x==='object'&&String(x.id??x.key)===part);if(index>=0)key=String(index);}resolved.push(key);node=node?.[key];}
+  const p=resolved.join('.');let section='raw',selection={},m;
+  if((m=p.match(/^classes\.(\d+)\.skills\.(\d+)/))){section='skills';selection={skillClass:+m[1],supportClass:+m[1],skill:+m[2],skillTab:data.classes[+m[1]]?.skills[+m[2]]?.activation||'active'};}
+  else if((m=p.match(/^supportSkills\.(\d+)\.(\d+)/))){section='skills';selection={skillClass:+m[1],supportClass:+m[1],support:+m[2],skillTab:'support'};}
+  else if((m=p.match(/^classes\.(\d+)/))){section='classes';selection={class:+m[1]};}
+  else if((m=p.match(/^equipmentForms\.(\d+)\.(\d+)\.(\d+)/))){section='equipment';selection={equipClass:+m[1],equipSlot:+m[2],equip:+m[3]};}
+  else if((m=p.match(/^items\.(\d+)/))){const item=data.items[+m[1]],row=__EMBERWILD_INVENTORY_ICON_EDITOR.entries().find(r=>r.kind==='item'&&r.key===item?.id);if(row){go({id:row.id});return;}}
+  else if(/^inventoryIcons|^iconColorTemplates/.test(p))section=p.startsWith('iconColorTemplates')?'iconColors':'inventoryIcons';
+  else if((m=p.match(/^balanceSettings\.(maps|monsters)\.catalog\.(\d+)/))){section='world';selection={worldMap:m[1]==='maps'?+m[2]:data.balanceSettings.monsters.catalog[+m[2]]?.mapIndex||0};}
+  else if((m=p.match(/^balanceSettings\.([^.]+)/)))section=['maps','monsters'].includes(m[1])?'world':'balanceSettings:'+m[1];
+  else if(/^lifeSkills\.gathering/.test(p))section='gatheringProducts';
+  else if(/^lifeSkills\.recipes/.test(p))section='alchemyRecipes';
+  else if(/^lifeSkills\.materialBuyPrices/.test(p))section='materialPrices';
+  else if(/^balance\.affixes\.poolBySlotRank/.test(p))section='affixPools';
+  else if(/^balance\./.test(p))section='balance';
+  else {const key=p.split('.')[0],routes={equipmentPowerSystem:'equipmentPower',companionTokens:'companionTokens',companions:'companions',companionSettings:'companionBalance',passiveDefinitions:'passives',statusDefinitions:'statuses',shopSettings:'shopSettings',starterPacks:'starterPacks',teamSettings:'teamSettings',uiText:'uiText',textRarity:'textRarity'};section=routes[key]||'raw';}
+  if(!SECTION_META.some(x=>x[0]===section))section='raw';go({section,selection});
+  const modal=document.getElementById('balanceUxModal');if(modal)modal.hidden=true;
+  requestAnimationFrame(()=>{const el=[...document.querySelectorAll('[data-path]')].find(el=>el.dataset.path===p);if(el){for(let d=el.parentElement;d;d=d.parentElement)if(d.tagName==='DETAILS')d.open=true;el.scrollIntoView({behavior:'smooth',block:'center'});el.focus();}});
+ }
+ document.addEventListener('click',ev=>{const link=ev.target.closest?.('[data-workbench-path]');if(link)jumpPath(link.dataset.workbenchPath);});
+ function back(){if(!history.length)return;const target=history.pop();returning=true;selected=structuredClone(target.selected);currentSection=target.section;render();returning=false;}
+ function searchUI(){
+  const nav=document.getElementById('nav');nav.insertAdjacentHTML('afterbegin','<div class="workbench-search"><label for="workbenchSearch">搜尋設定、道具或技能</label><input id="workbenchSearch" type="search" autocomplete="off" placeholder="輸入名稱或 JSON key" value="'+esc(query)+'"><div id="workbenchResults" class="workbench-results" aria-live="polite"></div></div>');
+  const input=document.getElementById('workbenchSearch'),results=document.getElementById('workbenchResults');
+  const show=()=>{const matches=search(query);results.innerHTML=matches.map((r,i)=>'<button type="button" data-workbench-result="'+i+'">'+esc(r.label)+'<small>'+esc(r.kind)+'</small></button>').join('')+(query&&!matches.length?'<p class="mini-note">找不到符合項目，試試其他名稱。</p>':'');results.querySelectorAll('[data-workbench-result]').forEach(b=>b.onclick=()=>go(matches[+b.dataset.workbenchResult]));};
+  input.oninput=()=>{query=input.value;clearTimeout(searchTimer);searchTimer=setTimeout(show,180);};
+  input.onkeydown=ev=>{if(ev.key==='Escape'){query='';input.value='';show();}if(ev.key==='Enter'){ev.preventDefault();const first=search(input.value)[0];if(first)go(first);}if(ev.key==='ArrowDown'){ev.preventDefault();results.querySelector('button')?.focus();}};
+  if(query)show();
+ }
+ function routeUI(){
+  const app=document.getElementById('app'),group=NAV_GROUPS.find(g=>g[2].includes(currentSection));
+  app.insertAdjacentHTML('afterbegin','<div class="workbench-route"><button id="workbenchBack" '+(!history.length?'disabled':'')+'>返回上一頁</button><strong>'+esc(group?group[1]+' ／ '+title(currentSection):title(currentSection))+'</strong><button id="workbenchRawPending" '+(!rawPending()?'hidden':'')+'>JSON 尚未套用</button><button id="workbenchPublish">驗證與發布</button></div>');
+  document.getElementById('workbenchBack').onclick=back;document.getElementById('workbenchPublish').onclick=()=>{currentSection='releases';render();};document.getElementById('workbenchRawPending').onclick=()=>{currentSection='raw';render();};
+  const cards=[...app.querySelectorAll('.card')].filter(c=>!c.parentElement?.closest('.card')),titles=cards.map(c=>c.querySelector('.card-h strong')).filter(Boolean);
+  if(titles.length>5){const toc=document.createElement('div');toc.className='workbench-toc';toc.setAttribute('aria-label','本頁設定區塊');titles.forEach((h,i)=>{const b=document.createElement('button');b.textContent=h.textContent;b.onclick=()=>cards.filter(c=>c.querySelector('.card-h strong'))[i]?.scrollIntoView({behavior:'smooth',block:'start'});toc.appendChild(b);});app.querySelector('.section-head')?.insertAdjacentElement('afterend',toc);}
+ }
+ function releaseUI(){
+  const app=document.getElementById('app'),s=E.state;
+  const guide=[...app.querySelectorAll('.card')].find(c=>c.querySelector('.card-h strong')?.textContent==='完整發布流程');
+  if(guide){const d=document.createElement('details');d.className='workbench-guide';d.innerHTML='<summary>完整發布流程與異常處理</summary>';guide.replaceWith(d);d.appendChild(guide);}
+  const next=s.prepared?'檢查差異並確認發布':s.lastCommit?'檢查遊戲網站部署狀態':s.capabilities?.publishing===false?'完成 GitHub 連線，或先驗證草稿':s.message.trim().length<4?'填寫版本說明，再建立發布摘要':'建立測試版發布摘要';
+  app.insertAdjacentHTML('afterbegin','<div class="workbench-next"><b>下一步：'+esc(next)+'</b><p>修改 → 驗證與摘要 → 檢查差異 → 確認發布 → 檢查部署</p><button id="workbenchNext">前往操作</button></div>');
+  document.getElementById('workbenchNext').onclick=()=>{const id=s.prepared?'releaseConfirm':s.lastCommit?'releaseDeployment':s.capabilities?.publishing===false?'releaseValidate':s.message.trim().length<4?'releaseMessage':'releasePreview';const el=document.getElementById(id);el?.scrollIntoView({behavior:'smooth',block:'center'});el?.focus();};
+  const message=document.getElementById('releaseMessage'),oldInput=message?.oninput;
+  if(message)message.oninput=ev=>{oldInput?.(ev);write('emberwild-release-message-v1',s.message);const b=document.getElementById('releaseCommit');if(b)b.disabled=true;const confirm=document.getElementById('releaseConfirm');if(confirm)confirm.checked=false;updatePreview();};
+  const updatePreview=()=>{const preview=document.getElementById('releasePreview');if(preview)preview.disabled=s.busy||s.capabilities?.publishing===false||s.message.trim().length<4||rawPending();};updatePreview();
+  const checkbox=document.getElementById('releaseConfirm'),production=document.getElementById('releaseProductionConfirm'),commit=document.getElementById('releaseCommit');
+  const ready=()=>{if(commit)commit.disabled=s.busy||!s.prepared||s.capabilities?.publishing===false||!checkbox?.checked||s.prepared.branch==='main'&&production?.value!=='正式版'||rawPending();};
+  if(checkbox)checkbox.onchange=ready;if(production)production.oninput=ready;ready();
+  if(s.busy)E.showFeedback();
+ }
+ const rawBase=renderRaw;
+ renderRaw=function(...args){
+  const out=rawBase(...args),ta=document.getElementById('rawEditor');if(rawPending())ta.value=raw.text;else raw={text:ta.value,base:ta.value,baseData:JSON.stringify(data)};
+  ta.oninput=()=>{raw.text=ta.value;persistRaw();document.getElementById('workbenchRawPending')?.removeAttribute('hidden');const note=document.getElementById('rawBufferStatus');if(note)note.textContent=rawStorageError||(rawPending()?'文字草稿已保留，尚未套用至設計器。':'文字與已套用內容一致。');};
+  document.getElementById('app').insertAdjacentHTML('beforeend','<p id="rawBufferStatus" role="status" class="mini-note">'+esc(rawStorageError||(rawPending()?'已恢復未套用文字草稿；目前設計器設定保留。':'套用時會驗證完整資料；切換頁面會保留文字草稿。'))+'</p><div class="toolbar"><button id="rawBufferDownload">下載文字草稿</button><button id="rawBufferDiscard" class="danger">捨棄未套用內容</button></div>');
+  document.getElementById('rawBufferDownload').onclick=()=>downloadText('emberwild-raw-draft.json',ta.value,'application/json;charset=utf-8');
+  document.getElementById('rawBufferDiscard').onclick=()=>{if(rawPending()&&!confirm('捨棄未套用的 JSON 文字？目前已套用的設定會保留。'))return;raw=null;persistRaw();render();};
+  document.getElementById('applyRaw').onclick=()=>{try{const candidate=__EMBERWILD_VALIDATE_DOCUMENT(JSON.parse(ta.value));if(raw?.baseData!==JSON.stringify(data)&&!confirm('設計器資料已在文字草稿建立後變動。套用這份 JSON 會取代目前所有設定，確定繼續？'))return;data=candidate;raw=null;persistRaw();markDirty('原始 JSON 已驗證並套用');document.getElementById('cacheBtn').onclick?.();render();}catch(err){alert('JSON 驗證失敗：'+err.message);}};
+  return out;
+ };
+ for(const id of ['exportBtn','releaseBtn']){const button=document.getElementById(id),old=button.onclick;button.onclick=ev=>{if(guardRaw())return old?.(ev);};}
+ const savedMessage=read('emberwild-release-message-v1');if(typeof savedMessage==='string')E.state.message=savedMessage.slice(0,300);
+ const baseRender=render;
+ render=function(...args){
+  if(!SECTION_META.some(x=>x[0]===currentSection)&&currentSection!=='companionSkills')currentSection='overview';
+  captureRaw();if(rawPending())persistRaw();
+  const changed=last&&last.section!==currentSection;
+  if(last){last.scroll=window.scrollY||0;views.set(last.section,last);if(changed&&!returning){history.push(structuredClone(last));if(history.length>30)history.shift();}}
+  const out=baseRender(...args);searchUI();if(!document.getElementById('app').innerHTML.includes('class="workbench-route"'))routeUI();if(currentSection==='releases')releaseUI();
+  const renderedSection=currentSection,target=views.get(currentSection),scroll=changed?(target?.scroll||0):window.scrollY||0;
+  last={section:currentSection,selected:structuredClone(selected),scroll};write(KEY,{section:currentSection,selected,groups:[...expandedNavGroups]});
+  requestAnimationFrame(()=>{if(renderedSection!==currentSection)return;window.scrollTo?.({top:scroll,behavior:'instant'});const height=document.querySelector('.topbar')?.getBoundingClientRect().height;if(height)document.documentElement.style.setProperty?.('--workbench-top',height+'px');});
+  return out;
+ };
+ // Debounced autosave may not run before closing the tab. Flush the current workspace.
+ window.addEventListener('pagehide',()=>{captureRaw();persistRaw();if(dirty)document.getElementById('cacheBtn').onclick?.();});
+ window.addEventListener('beforeunload',ev=>{captureRaw();persistRaw();if(rawPending()&&rawStorageError){ev.preventDefault();ev.returnValue='';}});
+ const dirtyBase=markDirty;markDirty=function(...args){const out=dirtyBase(...args);const b=document.getElementById('releaseCommit');if(b)b.disabled=true;return out;};
+ window.addEventListener('keydown',ev=>{if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='s'){ev.preventDefault();captureRaw();persistRaw();document.getElementById('cacheBtn').onclick?.();}if(ev.key==='Escape'){const modal=document.getElementById('balanceUxModal');if(modal)modal.hidden=true;}});
+ globalThis.__EMBERWILD_EXPERIENCE={search,go,back,jumpPath,rawPending,guardRaw,afterPage:routeUI,get history(){return structuredClone(history);}};
+ requestEditorInitialRender();
 })();
 </script>
