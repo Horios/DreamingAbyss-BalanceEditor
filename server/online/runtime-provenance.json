@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "58315c7dade4c30205a5732f45ae910fb63751a8",
+  "sourceCommit": "61982b92850bc5ba5c1960c38287cefae0966b66",
   "files": [
     {
       "path": "js/balance/progression-model.js",
@@ -176,7 +176,7 @@
     },
     {
       "path": "js/ui/skill-icon-library.js",
-      "sha256": "434454d88caf12d440fb0d4dbff522e2ef06eb26d93d86519ca433630414ef8e"
+      "sha256": "2e94f1ce7ee6abf1bd907ee05974026db795c569790fc3b76240f9d4bdb1249f"
     },
     {
       "path": "js/skills/mastery-core.js",
@@ -184,7 +184,7 @@
     },
     {
       "path": "js/ui/mastery-ui.js",
-      "sha256": "b53552aa1292141eca3459b378716ebf060deb85686826d1bdfce880070b503c"
+      "sha256": "7829bc1567dd6d43d52ef7d31bce329a88c6f9d48e6fcfafc2ceb6b7f41a5e20"
     },
     {
       "path": "js/skills/mastery-cleanup.js",
@@ -299,12 +299,16 @@
       "sha256": "3dd49193c9289845dd713fe7f0a83faeca04b3f1b4c6c8b065ca191f8919bf10"
     },
     {
+      "path": "js/ui/icon-color-palette.js?v=20261014-palette1",
+      "sha256": "1bd26fb858cf44bcb0c6cf370dff0b152b2daa1df86f7b0021411cd755930398"
+    },
+    {
       "path": "js/ui/inventory-icon-model.js?v=20261013-items1",
-      "sha256": "981e026b2e9573cf1ba558d512e4cc59099a381e3182334f194316cdbc0ac363"
+      "sha256": "fcf929348a727a5d0e90f201e97318e8a00f8e3f9dc9ea4e6ec37a99a126f28d"
     },
     {
       "path": "js/balance/balance-document.js?v=life-products-v1",
-      "sha256": "5fcbd7a6bf8c037cb0d25ebff01a870fe96be3427a3c72d713de1148b4c79c1d"
+      "sha256": "3b391a0cf0ee3e50604da40b43ad8e06b61e2c07c65f73c1febfdb3aac9d8cd9"
     },
     {
       "path": "js/items/life-skills.js?v=20261013-life-design",
@@ -336,7 +340,7 @@
     },
     {
       "path": "js/ui/inventory-icons-runtime.js?v=20261013-items1",
-      "sha256": "4614799497fa34d7a6615366916cc90686b4063aee22a10652badd4c6cd01f1d"
+      "sha256": "ef060f1e9d1a93494d849f15e7b283357d16d4005ebe01cc86f7532ffa9dd74c"
     }
   ]
 }

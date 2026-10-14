@@ -5,12 +5,13 @@ class ReleaseService{
  branch(value){if(!['main','chatgpt-dev'].includes(value))throw Error('僅允許 main／chatgpt-dev');return value;}
  async validate({data}){return {data:this.validateDocument(data),valid:true};}
  async requireLifeRuntime(target,candidate){
-  const life=candidate.lifeSkills?.gathering!==undefined,icons=Boolean(candidate.inventoryIcons?.length);
-  if(target.branch!=='main'||(!life&&!icons))return;
+  const life=candidate.lifeSkills?.gathering!==undefined,icons=Boolean(candidate.inventoryIcons?.length),palette=Boolean(candidate.iconColorTemplates?.length);
+  if(target.branch!=='main'||(!life&&!icons&&!palette))return;
   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit);
   const text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
   if(life&&!/lifeProductsVersion\s*:\s*1\b/.test(text))
    throw Error('正式版程式尚未支援採集與煉金產物設定。請先將已測試的遊戲程式升級至 main，再發布這份平衡 JSON。');
+  if(palette&&!/iconColorTemplatesVersion\s*:\s*1\b/.test(text))throw Error('正式版程式尚未支援色彩模板。請先升級正式版程式，再發布這份平衡 JSON。');
   const iconVersion=Number(text.match(/inventoryIconsVersion\s*:\s*(\d+)/)?.[1]||0),needsV2=(candidate.inventoryIcons||[]).some(r=>r.color!==undefined||r.description!==undefined||r.kind==='equipment');
   if(icons&&(iconVersion<1||needsV2&&iconVersion<2))
    throw Error('正式版程式尚未支援道具圖示設定。請先將已測試的遊戲程式升級至 main，再發布這份平衡 JSON。');
