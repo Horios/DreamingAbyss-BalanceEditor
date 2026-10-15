@@ -180,11 +180,11 @@
     },
     {
       "path": "js/ui/skill-icon-library.js",
-      "sha256": "2e94f1ce7ee6abf1bd907ee05974026db795c569790fc3b76240f9d4bdb1249f"
+      "sha256": "2daa18b77f7df005456d1f4de6a62d9ebd25cc21ca94171f212db32f3e33c8ac"
     },
     {
       "path": "js/skills/mastery-core.js",
-      "sha256": "b16929b1ee20cc164be9de1eacf40d85f05cfbf71670284537f7382da47c44eb"
+      "sha256": "1f51d840631a792bd4009696c8c8788fd4a393f4609a6098ff823c59eb1b6d74"
     },
     {
       "path": "js/ui/mastery-ui.js",
@@ -349,6 +349,22 @@
     {
       "path": "js/world/monster-design-runtime.js",
       "sha256": "09487ebdedb986909c7a7ae4965171929f23fb63ecc05ecee05e3fe88261aa27"
+    }
+  ],
+  "overrides": [
+    {
+      "sourceRepository": "Horios/Emberwild",
+      "sourceCommit": "de635c48205363dc52b72df4dc8024f7e1b5b401",
+      "files": [
+        {
+          "path": "js/ui/skill-icon-library.js",
+          "sha256": "2daa18b77f7df005456d1f4de6a62d9ebd25cc21ca94171f212db32f3e33c8ac"
+        },
+        {
+          "path": "js/skills/mastery-core.js",
+          "sha256": "1f51d840631a792bd4009696c8c8788fd4a393f4609a6098ff823c59eb1b6d74"
+        }
+      ]
     }
   ]
 }
