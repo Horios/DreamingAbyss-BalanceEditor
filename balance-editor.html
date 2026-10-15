@@ -6343,7 +6343,7 @@ ensureArrays();requestEditorInitialRender();
   const colors={steel:'#cdd8df',ember:'#f2a47f',blood:'#e98184',frost:'#a9dcf4',wind:'#a9dfd6',light:'#f0d893',shadow:'#c9adea',arcane:'#d0c6f1',aim:'#dbc69e',neutral:'#d8ded5'};
   const toneByKey=Object.fromEntries(Object.entries(tones).flatMap(([tone,keys])=>keys.map(key=>[key,tone])));
   const keys=Object.keys(paths);
-  const shapeKinds=['icon','line','rect','ellipse','arc','polygon'];
+  const shapeKinds=['icon','line','rect','ellipse','arc','polygon','curve'];
   const bound=(n,min,max,fallback)=>Number.isFinite(n)?Math.max(min,Math.min(max,n)):fallback;
   const num=(v,fallback=0)=>Number.isFinite(Number(v))?Number(v):fallback;
   const toneColor=(tone,fallbackKey='magic')=>colors[tone]||colors[toneByKey[fallbackKey]]||colors.neutral;
@@ -6394,12 +6394,29 @@ ensureArrays();requestEditorInitialRender();
     if(isLucideReference(type)&&hasIcon(type))return `<g transform="scale(2)" stroke-width="${strokeWidth??2}">${lucideMarkup(type.slice(7))}</g>`;
     return paths.magic;
   }
+  // Editing extensions are optional, preserving legacy layer serialization and SVG.
+  function validEditing(layer){
+    const points=p=>Array.isArray(p)&&p.length>=1&&p.length<=128&&p.every(v=>Array.isArray(v)&&v.length===2&&v.every(n=>Number.isFinite(n)&&Math.abs(n)<=192));
+    return (layer.eraseStrokes===undefined||Array.isArray(layer.eraseStrokes)&&layer.eraseStrokes.length<=32&&layer.eraseStrokes.every(s=>s&&Number.isFinite(s.width)&&s.width>=.1&&s.width<=40&&points(s.points)))&&
+      (layer.kind!=='icon'||(layer.filled===undefined||typeof layer.filled==='boolean')&&(layer.fillTone===undefined||Object.hasOwn(colors,layer.fillTone)));
+  }
   function normalizeLayer(layer){
+    const normalized=normalizeLayerGeometry(layer);if(!normalized)return normalized;
+    if(layer.kind==='icon'&&layer.filled!==undefined&&layer.fillTone!==undefined){normalized.filled=!!layer.filled;normalized.fillTone=Object.hasOwn(colors,layer.fillTone)?layer.fillTone:'neutral';}
+    if(Array.isArray(layer.eraseStrokes)&&validEditing({eraseStrokes:layer.eraseStrokes}))normalized.eraseStrokes=layer.eraseStrokes.map(s=>({width:s.width,points:s.points.map(p=>p.slice())}));
+    return normalized;
+  }
+  function normalizeLayerGeometry(layer){
     if(!layer||typeof layer!=='object')return null;
     if(!layer.kind&&layer.icon)layer.kind='icon';
     if(!shapeKinds.includes(layer.kind||''))layer.kind='icon';
     if(layer.kind==='icon'){
       return {kind:'icon',icon:validReference(layer.icon)?layer.icon:'magic',x:bound(num(layer.x),-24,24,0),y:bound(num(layer.y),-24,24,0),scale:bound(num(layer.scale,1),.25,2.5,1),rotation:bound(num(layer.rotation),-180,180,0),tone:layer.tone&&Object.hasOwn(colors,layer.tone)?layer.tone:undefined};
+    }
+    if(layer.kind==='curve'){
+      const out={kind:'curve',x:bound(num(layer.x),-24,24,0),y:bound(num(layer.y),-24,24,0),rotation:bound(num(layer.rotation),-180,180,0),strokeWidth:bound(num(layer.strokeWidth,2.7),.4,10,2.7),tone:Object.hasOwn(colors,layer.tone)?layer.tone:'neutral'};
+      for(const [key,fallback] of Object.entries({x1:-12,y1:0,cx:0,cy:-16,x2:12,y2:0}))out[key]=bound(num(layer[key],fallback),-48,48,fallback);
+      return out;
     }
     if(layer.kind==='line'){
       return {kind:'line',x:bound(num(layer.x),-24,24,0),y:bound(num(layer.y),-24,24,0),length:bound(num(layer.length,18),2,64,18),rotation:bound(num(layer.rotation),-180,180,0),strokeWidth:bound(num(layer.strokeWidth,2.7),.4,10,2.7),tone:layer.tone&&Object.hasOwn(colors,layer.tone)?layer.tone:'neutral'};
@@ -6436,19 +6453,33 @@ ensureArrays();requestEditorInitialRender();
     if(L.kind==='rect')return {x:24+L.x-L.w/2,y:24+L.y-L.h/2,w:L.w,h:L.h};
     if(L.kind==='ellipse')return {x:24+L.x-L.rx,y:24+L.y-L.ry,w:L.rx*2,h:L.ry*2};
     if(L.kind==='arc')return {x:24+L.x-L.r,y:24+L.y-L.r,w:L.r*2,h:L.r*2};
+    if(L.kind==='curve'){const xs=[L.x1,L.cx,L.x2],ys=[L.y1,L.cy,L.y2];return {x:24+L.x+Math.min(...xs),y:24+L.y+Math.min(...ys),w:Math.max(...xs)-Math.min(...xs)||1,h:Math.max(...ys)-Math.min(...ys)||1};}
     const b=polygonBounds(L.points);return {x:24+L.x+b.x*L.scale,y:24+L.y+b.y*L.scale,w:b.w*L.scale,h:b.h*L.scale};
   }
   function layerMarkup(rawLayer,appearance){
     const layer=normalizeLayer(rawLayer);if(!layer)return '';
+    const markup=layerGeometryMarkup(layer,appearance);
+    if(!layer.eraseStrokes?.length)return markup;
+    // Stable content-derived IDs allow the same SVG in multiple preview panes.
+    const transform=`translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation||0}) scale(${layer.scale||1})`;
+    let hash=2166136261;for(const c of JSON.stringify([transform,layer.eraseStrokes]))hash=Math.imul(hash^c.charCodeAt(0),16777619);
+    const id='ew-erase-'+(hash>>>0).toString(16);
+    const strokes=layer.eraseStrokes.map(s=>s.points.length===1?`<circle cx="${s.points[0][0]}" cy="${s.points[0][1]}" r="${s.width/2}" fill="black" stroke="none"/>`:`<polyline points="${s.points.map(p=>p.join(',')).join(' ')}" fill="none" stroke="black" stroke-width="${s.width}" stroke-linecap="round" stroke-linejoin="round"/>`).join('');
+    return `<defs><mask id="${id}" maskUnits="userSpaceOnUse" x="-256" y="-256" width="560" height="560" style="mask-type:luminance"><rect x="-256" y="-256" width="560" height="560" fill="white" stroke="none"/><g transform="${transform}">${strokes}</g></mask></defs><g mask="url(#${id})">${markup}</g>`;
+  }
+  function layerGeometryMarkup(rawLayer,appearance){
+    const layer=normalizeLayer(rawLayer);if(!layer)return '';
     const paint=(tone,key)=>appearance?.color||toneColor(tone,key),stroke=appearance?.strokeWidth;
     if(layer.kind==='icon'){
       const color=paint(layer.tone,layer.icon);
-      return `<g transform="translate(${layer.x} ${layer.y}) translate(24 24) rotate(${layer.rotation}) scale(${layer.scale}) translate(-24 -24)" color="${color}" stroke="currentColor">${iconMarkup(layer.icon,stroke)}</g>`;
+      const fill=layer.filled?paint(layer.fillTone||layer.tone,layer.icon):'none',markup=iconMarkup(layer.icon,stroke);
+      return `<g transform="translate(${layer.x} ${layer.y}) translate(24 24) rotate(${layer.rotation}) scale(${layer.scale}) translate(-24 -24)" color="${color}" stroke="currentColor"${layer.filled?` fill="${fill}"`:''}>${layer.filled?markup.replace(/fill="none"/g,`fill="${fill}"`):markup}</g>`;
     }
     if(layer.kind==='line')return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})" color="${paint(layer.tone)}"><line x1="${-layer.length/2}" y1="0" x2="${layer.length/2}" y2="0" stroke="currentColor" stroke-width="${stroke??layer.strokeWidth}" stroke-linecap="round"/></g>`;
     if(layer.kind==='rect')return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})"><rect x="${-layer.w/2}" y="${-layer.h/2}" width="${layer.w}" height="${layer.h}" rx="${layer.radius}" fill="${layer.filled?paint(layer.fillTone||layer.strokeTone):'none'}" stroke="${paint(layer.strokeTone)}" stroke-width="${stroke??layer.strokeWidth}"/></g>`;
     if(layer.kind==='ellipse')return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})"><ellipse cx="0" cy="0" rx="${layer.rx}" ry="${layer.ry}" fill="${layer.filled?paint(layer.fillTone||layer.strokeTone):'none'}" stroke="${paint(layer.strokeTone)}" stroke-width="${stroke??layer.strokeWidth}"/></g>`;
     if(layer.kind==='arc')return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})" color="${paint(layer.tone)}"><path d="${arcPath(layer.r,layer.start,layer.end)}" fill="none" stroke="currentColor" stroke-width="${stroke??layer.strokeWidth}"/></g>`;
+    if(layer.kind==='curve')return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})" color="${paint(layer.tone)}"><path d="M ${layer.x1} ${layer.y1} Q ${layer.cx} ${layer.cy} ${layer.x2} ${layer.y2}" fill="none" stroke="currentColor" stroke-width="${stroke??layer.strokeWidth}"/></g>`;
     return `<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation}) scale(${layer.scale})"><polygon points="${escAttr(layer.points)}" fill="${layer.filled?paint(layer.fillTone||layer.strokeTone):'none'}" stroke="${paint(layer.strokeTone)}" stroke-width="${stroke??layer.strokeWidth}" stroke-linejoin="round" stroke-linecap="round"/></g>`;
   }
   function markupFor(type,definitions=[],appearance){
@@ -6469,7 +6500,7 @@ ensureArrays();requestEditorInitialRender();
     const glow=a.glowStrength?` style="filter:drop-shadow(0 0 ${a.glowStrength}px ${a.glowColor})"`:'';
     return `<svg class="emberwild-icon" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet" fill="none" stroke="currentColor" stroke-width="${a.strokeWidth}" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true" style="${style}"><g class="ew-icon-glow"${glow}><g transform="rotate(${a.rotation} 24 24)"><g class="ew-icon-motion"${animation}>${markupFor(type,definitions,icon?.appearance||options.color||templateColor?a:undefined)}</g></g></g></svg>`;
   }
-  globalThis.__EMBERWILD_SKILL_ICONS=Object.freeze({paths:Object.freeze(paths),labels:Object.freeze(labels),keys:Object.freeze(keys),tones:Object.freeze(tones),colors:Object.freeze(colors),toneByKey:Object.freeze(toneByKey),shapeKinds:Object.freeze(shapeKinds),normalizeLayer,layerBounds,layerMarkup,markupFor,svgFor,hasIcon,validReference,isLucideReference,normalizeAppearance,validAppearance,effects});
+  globalThis.__EMBERWILD_SKILL_ICONS=Object.freeze({paths:Object.freeze(paths),labels:Object.freeze(labels),keys:Object.freeze(keys),tones:Object.freeze(tones),colors:Object.freeze(colors),toneByKey:Object.freeze(toneByKey),shapeKinds:Object.freeze(shapeKinds),normalizeLayer,layerBounds,layerMarkup,markupFor,svgFor,hasIcon,validReference,isLucideReference,normalizeAppearance,validAppearance,validEditing,effects});
 })();
 
 </script>
@@ -8830,7 +8861,7 @@ requestEditorInitialRender();
 </script>
 <style id="skill-icon-maker-style">
 .skill-icon-picker{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.skill-icon-picker-preview{width:82px;height:82px;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;background:#222b30;flex:none}.skill-icon-picker-preview svg{width:58px;height:58px;color:#e5e7df}.skill-icon-picker .field{flex:1;min-width:220px}.skill-icon-picker .field button{margin-top:9px}
-.icon-maker-layout{display:grid;grid-template-columns:minmax(180px,230px) minmax(260px,1fr);gap:14px}.icon-maker-list{max-height:72vh;overflow:auto}.icon-maker-list button{width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;display:flex;gap:10px;align-items:center;text-align:left;background:transparent}.icon-maker-list button.active{background:#253143}.icon-maker-list svg{width:33px;height:33px;flex:none;color:#e3d9bd}.icon-maker-main{min-width:0}.icon-maker-top{display:grid;grid-template-columns:minmax(240px,330px) minmax(280px,1fr);gap:14px}.icon-maker-preview-box{text-align:center}.icon-maker-preview{width:min(100%,280px);aspect-ratio:1;touch-action:none;cursor:grab;background-color:#1c2529;background-image:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:12.5% 12.5%;border:1px solid #526171;border-radius:12px;margin:10px auto}.icon-maker-preview:active{cursor:grabbing}.icon-maker-preview svg{width:100%;height:100%;display:block}.icon-maker-layer{padding:10px;border:1px solid var(--line);border-radius:8px;margin:8px 0;background:var(--panel2)}.icon-maker-layer.active{border-color:var(--accent)}.icon-maker-layer-head{display:flex;align-items:center;gap:8px}.icon-maker-layer-head strong{flex:1}.icon-maker-layer-head button{padding:4px 8px}.icon-maker-layer-fields{display:grid;grid-template-columns:repeat(4,minmax(72px,1fr));gap:7px;margin-top:8px}.icon-maker-layer-fields label{min-width:0}.icon-maker-palette{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:7px}.icon-maker-palette button{display:grid;place-items:center;gap:4px;min-height:82px;font-size:12px}.icon-maker-palette svg{width:35px;height:35px;color:#e1d5b8}.icon-maker-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}.icon-maker-muted{color:var(--muted);font-size:12px;line-height:1.5}
+.icon-maker-layout{display:grid;grid-template-columns:minmax(180px,230px) minmax(260px,1fr);gap:14px}.icon-maker-list{max-height:72vh;overflow:auto}.icon-maker-list button{width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;display:flex;gap:10px;align-items:center;text-align:left;background:transparent}.icon-maker-list button.active{background:#253143}.icon-maker-list svg{width:33px;height:33px;flex:none;color:#e3d9bd}.icon-maker-main{min-width:0}.icon-maker-top{display:grid;grid-template-columns:minmax(240px,330px) minmax(280px,1fr);gap:14px}.icon-maker-preview-box{text-align:center}.icon-maker-preview{width:min(100%,280px);aspect-ratio:1;touch-action:none;cursor:grab;background-color:#1c2529;background-image:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:12.5% 12.5%;border:1px solid #526171;border-radius:12px;margin:10px auto}.icon-canvas-tools{display:flex;flex-wrap:wrap;gap:6px;text-align:left;margin-top:10px}.icon-canvas-tools button{padding:6px 9px}.icon-canvas-tools button[aria-pressed="true"]{border-color:var(--accent);background:#263b51}.icon-canvas-tools label{display:flex;align-items:center;gap:5px}.icon-canvas-tools input{width:64px}.icon-canvas-tools select{width:92px}.icon-maker-preview:active{cursor:grabbing}.icon-maker-preview svg{width:100%;height:100%;display:block}.icon-maker-layer{padding:10px;border:1px solid var(--line);border-radius:8px;margin:8px 0;background:var(--panel2)}.icon-maker-layer.active{border-color:var(--accent)}.icon-maker-layer-head{display:flex;align-items:center;gap:8px}.icon-maker-layer-head strong{flex:1}.icon-maker-layer-head button{padding:4px 8px}.icon-maker-layer-fields{display:grid;grid-template-columns:repeat(4,minmax(72px,1fr));gap:7px;margin-top:8px}.icon-maker-layer-fields label{min-width:0}.icon-maker-palette{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:7px}.icon-maker-palette button{display:grid;place-items:center;gap:4px;min-height:82px;font-size:12px}.icon-maker-palette svg{width:35px;height:35px;color:#e1d5b8}.icon-maker-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}.icon-maker-muted{color:var(--muted);font-size:12px;line-height:1.5}
 .icon-lucide-controls,.icon-appearance-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}.icon-lucide-grid{max-height:360px;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px}.icon-lucide-grid button{min-width:0;min-height:86px;display:grid;place-items:center;gap:6px;font-size:11px;overflow-wrap:anywhere}.icon-lucide-grid button[aria-pressed="true"]{border-color:var(--accent);background:#263b51}.icon-lucide-grid svg{color:#dde6ef}.icon-live-previews{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.icon-live-preview{border:1px solid #526171;border-radius:8px;padding:12px;min-height:170px;overflow:hidden}.icon-live-preview>span{display:block;font-size:12px;margin-bottom:10px}.icon-live-preview>div{min-height:136px;display:grid;place-items:center}.icon-live-preview.dark{background:#101820;color:#dde6ef}.icon-live-preview.light{background:#f2f5f6;color:#27364a}.icon-appearance-fields label{min-width:0}.icon-appearance-fields input:not([type="checkbox"]),.icon-appearance-fields select{width:100%}.icon-lucide-controls input,.icon-lucide-controls select{width:100%}
 @media(max-width:720px){.icon-lucide-controls,.icon-appearance-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:1050px){.icon-maker-top{grid-template-columns:1fr}.icon-maker-layer-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:720px){.icon-maker-layout{grid-template-columns:1fr}.icon-maker-list{max-height:180px}.icon-maker-layer-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -8841,10 +8872,22 @@ requestEditorInitialRender();
   const insertAt=SECTION_META.findIndex(([id])=>id==='skills');
   SECTION_META.splice(insertAt+1,0,['iconMaker','圖示製作器']);
   let iconId='',selectedLayer=0,librarySearch='',libraryCategory='all',libraryPage=0;
+  let canvasTool='move',brushWidth=3,brushTone='neutral';
+  const layerHistories=new WeakMap();
+  function historyFor(icon){
+    let h=layerHistories.get(icon);const snapshot=JSON.stringify(icon.layers);
+    if(!h){h={states:[snapshot],index:0};layerHistories.set(icon,h);}
+    else if(h.states[h.index]!==snapshot){h.states.splice(h.index+1);h.states.push(snapshot);if(h.states.length>30)h.states.shift();h.index=h.states.length-1;}
+    return h;
+  }
+  function canvasTools(icon){
+    const h=historyFor(icon);
+    return `<div class="icon-canvas-tools" role="group" aria-label="畫布工具">${[['move','移動'],['fill','填色'],['erase','橡皮擦'],['line','直線'],['curve','曲線'],['rotate','旋轉']].map(([id,label])=>`<button type="button" data-canvas-tool="${id}" aria-pressed="${canvasTool===id}">${label}</button>`).join('')}<label>色調<select id="iconBrushTone">${toneOptions(brushTone)}</select></label><label>筆寬<input id="iconBrushWidth" type="number" min="0.4" max="10" step="0.2" value="${brushWidth}"></label><button id="iconLayerUndo" ${h.index===0?'disabled':''}>復原圖層</button><button id="iconLayerRedo" ${h.index===h.states.length-1?'disabled':''}>重做圖層</button><button id="iconRotateLeft">左轉 90°</button><button id="iconRotateRight">右轉 90°</button><button id="iconRemoveFill">取消填色</button><button id="iconRestoreErased" ${icon.layers[selectedLayer]?.eraseStrokes?.length?'':'disabled'}>恢復本層擦除</button></div><p id="iconCanvasHelp" class="icon-maker-muted" role="status"></p>`;
+  }
   const PAGE_SIZE=60,CATEGORY_LABELS={all:'全部圖標',combat:'戰鬥與武器',defense:'防禦與護盾',magic:'魔法與元素',healing:'治療與輔助',characters:'角色與職業',equipment:'裝備與道具',status:'狀態效果',exploration:'地圖與探索',system:'系統與介面'};
   const originalEnsure=ensureArrays;
   const TONE_LABELS={steel:'金屬',ember:'火',blood:'血液',frost:'冰',wind:'風',light:'光',shadow:'暗',arcane:'魔法',aim:'弓箭',neutral:'中性'};
-  const KIND_LABELS={icon:'圖標',line:'直線',rect:'矩形',ellipse:'橢圓',arc:'圓弧',polygon:'多邊形'};
+  const KIND_LABELS={icon:'圖標',line:'直線',rect:'矩形',ellipse:'橢圓',arc:'圓弧',polygon:'多邊形',curve:'曲線'};
   function normalizeLayer(layer){
     const normalized=ICONS.normalizeLayer?ICONS.normalizeLayer(layer):layer;
     // Unspecified optional fields are absent in JSON; keep editor state serializable too.
@@ -8858,6 +8901,7 @@ requestEditorInitialRender();
   function emptyLayer(kind='icon',seed={}){
     const base={
       icon:{kind:'icon',icon:'sword',x:0,y:0,scale:1,rotation:0},
+      curve:{kind:'curve',x:0,y:0,x1:-12,y1:0,cx:0,cy:-16,x2:12,y2:0,rotation:0,strokeWidth:2.7,tone:'neutral'},
       line:{kind:'line',x:0,y:0,length:18,rotation:0,strokeWidth:2.7,tone:'neutral'},
       rect:{kind:'rect',x:0,y:0,w:16,h:16,radius:2,rotation:0,strokeWidth:2.4,strokeTone:'neutral',filled:false,fillTone:'neutral'},
       ellipse:{kind:'ellipse',x:0,y:0,rx:8,ry:8,rotation:0,strokeWidth:2.4,strokeTone:'neutral',filled:false,fillTone:'neutral'},
@@ -8899,7 +8943,7 @@ requestEditorInitialRender();
       if(icon.appearance!==undefined&&!ICONS.validAppearance(icon.appearance))issues.push(`自訂技能圖示「${icon.name}」外觀無效。`);
       icon.layers.forEach((rawLayer,j)=>{
         const layer=normalizeLayer(rawLayer);
-        if(!layer||!shapeKinds.has(layer.kind||''))issues.push(`自訂技能圖示「${icon.name}」第 ${j+1} 個圖層類型無效。`);
+        if(!layer||!shapeKinds.has(layer.kind||'')||!ICONS.validEditing(rawLayer))issues.push(`自訂技能圖示「${icon.name}」第 ${j+1} 個圖層類型無效。`);
       });
     });
     for(const [job,cls] of (data.classes||[]).entries())for(const [i,sk] of (cls.skills||[]).entries())if(typeof sk.iconType==='string'&&sk.iconType.startsWith('custom:')&&!seen.has(sk.iconType.slice(7)))issues.push(`技能 ${job}-${i} 引用了不存在的圖示。`);
@@ -8931,6 +8975,7 @@ requestEditorInitialRender();
   function renderLayerFields(layer,i){
     layer=normalizeLayer(layer);
     const commonPos=field('水平 X',`<input type="number" min="-24" max="24" step="0.5" data-layer-field="x" data-index="${i}" value="${escHtml(layer.x)}">`)+field('垂直 Y',`<input type="number" min="-24" max="24" step="0.5" data-layer-field="y" data-index="${i}" value="${escHtml(layer.y)}">`);
+    if(layer.kind==='curve')return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+commonPos+['x1','y1','cx','cy','x2','y2','rotation','strokeWidth'].map(key=>field(({x1:'起點 X',y1:'起點 Y',cx:'控制點 X',cy:'控制點 Y',x2:'終點 X',y2:'終點 Y',rotation:'旋轉',strokeWidth:'線粗'})[key],`<input type="number" min="${key==='rotation'?-180:key==='strokeWidth'?.4:-48}" max="${key==='rotation'?180:key==='strokeWidth'?10:48}" step="0.5" data-layer-field="${key}" data-index="${i}" value="${layer[key]}">`)).join('')+field('色調',`<select data-layer-field="tone" data-index="${i}">${toneOptions(layer.tone)}</select>`);
     if(layer.kind==='icon')return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+field('圖案',`<select data-layer-field="icon" data-index="${i}">${layerOptions(layer.icon)}</select>`)+commonPos+field('比例',`<input type="number" min="0.25" max="2.5" step="0.05" data-layer-field="scale" data-index="${i}" value="${escHtml(layer.scale)}">`)+field('旋轉',`<input type="number" min="-180" max="180" step="1" data-layer-field="rotation" data-index="${i}" value="${escHtml(layer.rotation||0)}">`)+field('色調',`<select data-layer-field="tone" data-index="${i}">${toneOptions(layer.tone||'',true)}</select>`);
     if(layer.kind==='line')return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+commonPos+field('長度',`<input type="number" min="2" max="64" step="0.5" data-layer-field="length" data-index="${i}" value="${escHtml(layer.length)}">`)+field('旋轉',`<input type="number" min="-180" max="180" step="1" data-layer-field="rotation" data-index="${i}" value="${escHtml(layer.rotation)}">`)+field('線粗',`<input type="number" min="0.4" max="10" step="0.1" data-layer-field="strokeWidth" data-index="${i}" value="${escHtml(layer.strokeWidth)}">`)+field('色調',`<select data-layer-field="tone" data-index="${i}">${toneOptions(layer.tone||'neutral')}</select>`);
     if(layer.kind==='rect')return field('類型',`<select data-layer-field="kind" data-index="${i}">${kindOptions(layer.kind)}</select>`)+commonPos+field('寬度',`<input type="number" min="1" max="64" step="0.5" data-layer-field="w" data-index="${i}" value="${escHtml(layer.w)}">`)+field('高度',`<input type="number" min="1" max="64" step="0.5" data-layer-field="h" data-index="${i}" value="${escHtml(layer.h)}">`)+field('圓角',`<input type="number" min="0" max="24" step="0.5" data-layer-field="radius" data-index="${i}" value="${escHtml(layer.radius)}">`)+field('旋轉',`<input type="number" min="-180" max="180" step="1" data-layer-field="rotation" data-index="${i}" value="${escHtml(layer.rotation)}">`)+field('線粗',`<input type="number" min="0.4" max="10" step="0.1" data-layer-field="strokeWidth" data-index="${i}" value="${escHtml(layer.strokeWidth)}">`)+field('描邊色',`<select data-layer-field="strokeTone" data-index="${i}">${toneOptions(layer.strokeTone||'neutral')}</select>`)+field('填色',`<input type="checkbox" data-layer-field="filled" data-index="${i}" ${layer.filled?'checked':''}>`)+field('填滿色',`<select data-layer-field="fillTone" data-index="${i}">${toneOptions(layer.fillTone||layer.strokeTone||'neutral')}</select>`);
@@ -8968,9 +9013,9 @@ requestEditorInitialRender();
     const icon=list.find(item=>item.id===iconId),app=document.getElementById('app');
     selectedLayer=icon?clamp(selectedLayer,0,icon.layers.length-1,0):0;
     const builtInOptions=ICONS.keys.map(key=>`<option value="${key}">${esc(ICONS.labels[key])}</option>`).join('');
-    app.innerHTML=sectionHead('圖示製作器','可新增直線、矩形、橢圓、圓弧、多邊形等基本圖層，也可將內建圖示複製成可編輯副本。圖示會隨平衡 JSON 一起匯出。',`<button id="iconMakerNew">新增空白圖示</button><button id="iconMakerExample">新增範例：劍＋血滴</button>${window.__SKILL_ICON_RETURN?'<button id="iconMakerReturn">返回技能</button>':''}`)+
+    app.innerHTML=sectionHead('圖示製作器','可在畫布填色、擦除、旋轉及繪製直線、曲線，也可新增矩形、橢圓、圓弧、多邊形等基本圖層，也可將內建圖示複製成可編輯副本。圖示會隨平衡 JSON 一起匯出。',`<button id="iconMakerNew">新增空白圖示</button><button id="iconMakerExample">新增範例：劍＋血滴</button>${window.__SKILL_ICON_RETURN?'<button id="iconMakerReturn">返回技能</button>':''}`)+
       `<div class="icon-maker-layout"><div class="card"><div class="card-h"><strong>自製圖示 · ${list.length}/100</strong></div><div class="card-b"><div class="icon-maker-actions"><select id="iconMakerBuiltInSeed">${builtInOptions}</select><button id="iconMakerImportBuiltin">複製內建圖示</button><button id="iconMakerEditableBuiltin">建立可編輯範本</button></div><p class="icon-maker-muted">複製內建圖示會保留原圖；建立可編輯範本可直接從基本圖形開始修改，例如劍、斧、槌、火。</p></div><div class="icon-maker-list">${list.map(item=>`<button type="button" data-icon-id="${esc(item.id)}" class="${item.id===iconId?'active':''}">${ICONS.svgFor('custom:'+item.id,list,{size:33,animate:false})}<span>${esc(item.name)}<br><small class="icon-maker-muted">${esc(item.id)}</small></span></button>`).join('')||'<p class="empty">尚未製作圖示。可先新增範例或複製內建圖示。</p>'}</div></div><div class="icon-maker-main">`+
-      lucideBrowser()+(icon?`${card('編輯 · '+esc(icon.name),`<label for="iconMakerName">圖示名稱</label><input id="iconMakerName" maxlength="40" value="${esc(icon.name)}"><div class="icon-maker-actions"><button id="iconMakerDuplicate">複製</button><button id="iconMakerDelete" class="danger">刪除圖示</button>${window.__SKILL_ICON_RETURN?'<button class="primary" id="iconMakerApply">套用至目前技能</button>':''}</div>${appearanceFields(icon)}<div class="icon-maker-top"><div class="icon-maker-preview-box"><strong>圖層編輯畫布</strong><div id="iconMakerPreview" class="icon-maker-preview"></div><p class="icon-maker-muted">先選圖層，再於畫布拖曳位置。此處編輯輪廓；上方四個即時預覽使用遊戲渲染器呈現完整外觀與動畫。</p></div><div><strong>圖層 · ${icon.layers.length}/8</strong><p class="icon-maker-muted">由後到前繪製。可切換圖層類型，將內建圖示替換成直線、矩形、圓弧等基本圖形。</p>${icon.layers.map((rawLayer,i)=>{const layer=normalizeLayer(rawLayer);return `<div class="icon-maker-layer ${i===selectedLayer?'active':''}" data-layer-row="${i}"><div class="icon-maker-layer-head"><strong>第 ${i+1} 層 · ${esc(KIND_LABELS[layer.kind]||layer.kind)}${layer.kind==='icon'?' / '+esc(ICONS.labels[layer.icon]||layer.icon):''}</strong><button type="button" data-layer-move="-1" data-index="${i}" ${i===0?'disabled':''}>↑</button><button type="button" data-layer-move="1" data-index="${i}" ${i===icon.layers.length-1?'disabled':''}>↓</button><button type="button" class="danger" data-layer-delete="${i}" ${icon.layers.length===1?'disabled':''}>刪</button></div><div class="icon-maker-layer-fields">${renderLayerFields(layer,i)}</div></div>`;}).join('')}</div></div>`)}<div class="card"><div class="card-h"><strong>可用圖層</strong></div><div class="card-b"><p class="icon-maker-muted">先加入基本圖形快速調整輪廓，再視需要疊上現有圖示。</p><div class="icon-maker-palette">${['line','rect','ellipse','arc','polygon'].map(kind=>`<button type="button" data-add-shape="${kind}" title="加入${KIND_LABELS[kind]}">${shapePreview(kind)}<span>${KIND_LABELS[kind]}</span></button>`).join('')}${ICONS.keys.map(key=>`<button type="button" data-add-layer="${key}" title="加入${esc(ICONS.labels[key])}">${ICONS.svgFor(key)}<span>${esc(ICONS.labels[key])}</span></button>`).join('')}</div></div></div>`:'<div class="card"><div class="empty">請新增圖示開始製作。</div></div>')+'</div></div>';
+      lucideBrowser()+(icon?`${card('編輯 · '+esc(icon.name),`<label for="iconMakerName">圖示名稱</label><input id="iconMakerName" maxlength="40" value="${esc(icon.name)}"><div class="icon-maker-actions"><button id="iconMakerDuplicate">複製</button><button id="iconMakerDelete" class="danger">刪除圖示</button>${window.__SKILL_ICON_RETURN?'<button class="primary" id="iconMakerApply">套用至目前技能</button>':''}</div>${appearanceFields(icon)}<div class="icon-maker-top"><div class="icon-maker-preview-box"><strong>圖層編輯畫布</strong>${canvasTools(icon)}<div id="iconMakerPreview" class="icon-maker-preview"></div><p class="icon-maker-muted">填色套用整個封閉圖層；開放線段可改色。橡皮擦只擦選取圖層，露出透明背景或下層。曲線拖出起終點後，可拖曳藍色控制點調整彎曲。上方預覽呈現完整外觀與動畫。</p></div><div><strong>圖層 · ${icon.layers.length}/8</strong><p class="icon-maker-muted">由後到前繪製。可切換圖層類型，將內建圖示替換成直線、矩形、圓弧等基本圖形。</p>${icon.layers.map((rawLayer,i)=>{const layer=normalizeLayer(rawLayer);return `<div class="icon-maker-layer ${i===selectedLayer?'active':''}" data-layer-row="${i}"><div class="icon-maker-layer-head"><strong>第 ${i+1} 層 · ${esc(KIND_LABELS[layer.kind]||layer.kind)}${layer.kind==='icon'?' / '+esc(ICONS.labels[layer.icon]||layer.icon):''}</strong><button type="button" data-layer-move="-1" data-index="${i}" ${i===0?'disabled':''}>↑</button><button type="button" data-layer-move="1" data-index="${i}" ${i===icon.layers.length-1?'disabled':''}>↓</button><button type="button" class="danger" data-layer-delete="${i}" ${icon.layers.length===1?'disabled':''}>刪</button></div><div class="icon-maker-layer-fields">${renderLayerFields(layer,i)}</div></div>`;}).join('')}</div></div>`)}<div class="card"><div class="card-h"><strong>可用圖層</strong></div><div class="card-b"><p class="icon-maker-muted">先加入基本圖形快速調整輪廓，再視需要疊上現有圖示。</p><div class="icon-maker-palette">${['line','rect','ellipse','arc','polygon'].map(kind=>`<button type="button" data-add-shape="${kind}" title="加入${KIND_LABELS[kind]}">${shapePreview(kind)}<span>${KIND_LABELS[kind]}</span></button>`).join('')}${ICONS.keys.map(key=>`<button type="button" data-add-layer="${key}" title="加入${esc(ICONS.labels[key])}">${ICONS.svgFor(key)}<span>${esc(ICONS.labels[key])}</span></button>`).join('')}</div></div></div>`:'<div class="card"><div class="empty">請新增圖示開始製作。</div></div>')+'</div></div>';
     document.getElementById('iconMakerNew').onclick=()=>newIcon(false);
     document.getElementById('iconMakerExample').onclick=()=>newIcon(true);
     document.getElementById('iconMakerReturn')?.addEventListener('click',()=>{window.__SKILL_ICON_RETURN=false;currentSection='skills';render();});
@@ -9005,7 +9050,7 @@ requestEditorInitialRender();
       const selected=icon.layers[selectedLayer];document.getElementById('iconLucideSelected').textContent=selected?.kind==='icon'?(selected.icon==='none'?'未選擇':ICONS.isLucideReference(selected.icon)?selected.icon.slice(7)+(ICONS.hasIcon(selected.icon)?'':'（不存在，使用預設圖標）'):ICONS.labels[selected.icon]||selected.icon):'目前為基本圖形';
       document.querySelectorAll('[data-lucide-icon]').forEach(button=>button.setAttribute('aria-pressed',String(selected?.icon==='lucide:'+button.dataset.lucideIcon)));
       const layer=normalizeLayer(icon.layers[selectedLayer]),box=ICONS.layerBounds?ICONS.layerBounds(layer):{x:4,y:4,w:40,h:40};
-      preview.innerHTML=`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" aria-label="${esc(icon.name)}預覽"><path d="M24 0v48M0 24h48" stroke="#ffffff24" stroke-width=".3"/>${ICONS.markupFor('custom:'+icon.id,list)}<rect x="${box.x}" y="${box.y}" width="${Math.max(1,box.w)}" height="${Math.max(1,box.h)}" stroke="#78a9ff" stroke-width=".6" stroke-dasharray="1.2 1.2" fill="none" pointer-events="none"/></svg>`;
+      preview.innerHTML=`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" aria-label="${esc(icon.name)}預覽"><path d="M24 0v48M0 24h48" stroke="#ffffff24" stroke-width=".3"/>${icon.layers.map((item,i)=>`<g data-canvas-layer="${i}">${ICONS.layerMarkup(item)}</g>`).join('')}${layer.kind==='curve'?`<g transform="translate(${24+layer.x} ${24+layer.y}) rotate(${layer.rotation})"><path d="M ${layer.x1} ${layer.y1} L ${layer.cx} ${layer.cy} L ${layer.x2} ${layer.y2}" stroke="#78a9ff" stroke-width=".3" fill="none" pointer-events="none"/><circle data-curve-control="true" cx="${layer.cx}" cy="${layer.cy}" r="1.4" fill="#78a9ff" stroke="#142334" stroke-width=".4"/></g>`:''}<rect x="${box.x}" y="${box.y}" width="${Math.max(1,box.w)}" height="${Math.max(1,box.h)}" stroke="#78a9ff" stroke-width=".6" stroke-dasharray="1.2 1.2" fill="none" pointer-events="none"/></svg>`;
     }
     app.querySelectorAll('[data-icon-appearance]').forEach(input=>{
       const update=()=>{
@@ -9021,7 +9066,59 @@ requestEditorInitialRender();
     globalThis.__EMBERWILD_COLOR_EDITOR?.bind('iconMakerPalette',icon,patch=>{if(patch.colorTemplateId)icon.colorTemplateId=patch.colorTemplateId;else delete icon.colorTemplateId;icon.appearance=ICONS.normalizeAppearance({...appearanceFor(icon),color:patch.color||''});markDirty();render();});
     document.getElementById('iconColorEnabled').onchange=e=>{delete icon.colorTemplateId;const a=appearanceFor(icon),input=app.querySelector('[data-icon-appearance="color"]');a.color=e.target.checked?input.value:'';input.disabled=!e.target.checked;icon.appearance=ICONS.normalizeAppearance(a);markDirty();render();};
     drawPreview();
-    preview.onpointerdown=e=>{if(e.button!==0)return;const layer=normalizeLayer(icon.layers[selectedLayer]),rect=preview.getBoundingClientRect(),start={x:e.clientX,y:e.clientY,lx:Number(layer.x)||0,ly:Number(layer.y)||0};preview.setPointerCapture(e.pointerId);preview.onpointermove=move=>{layer.x=Number(clamp(start.lx+(move.clientX-start.x)*48/rect.width,-24,24,0).toFixed(1));layer.y=Number(clamp(start.ly+(move.clientY-start.y)*48/rect.height,-24,24,0).toFixed(1));icon.layers[selectedLayer]=normalizeLayer(layer);const xInput=app.querySelector(`[data-layer-field="x"][data-index="${selectedLayer}"]`),yInput=app.querySelector(`[data-layer-field="y"][data-index="${selectedLayer}"]`);if(xInput)xInput.value=layer.x;if(yInput)yInput.value=layer.y;drawPreview();};preview.onpointerup=preview.onpointercancel=()=>{preview.onpointermove=null;preview.onpointerup=null;preview.onpointercancel=null;markDirty();};};
+    const help={move:'拖曳移動選取圖層。',fill:'點選畫布圖形填色；空白處套用到選取圖層。',erase:'拖曳擦除選取圖層；可調整筆寬。每層最多 32 筆。',line:'拖曳起點到終點，放開後新增直線圖層。',curve:'拖曳起點到終點，放開後新增曲線；拖曳藍色控制點改變彎曲。',rotate:'繞著選取圖層中心拖曳旋轉。'};
+    function refreshTools(){document.getElementById('iconCanvasHelp').textContent=help[canvasTool];preview.style.cursor=canvasTool==='move'?'grab':'crosshair';app.querySelectorAll('[data-canvas-tool]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.canvasTool===canvasTool)));document.getElementById('iconRestoreErased').disabled=!icon.layers[selectedLayer]?.eraseStrokes?.length;}
+    app.querySelectorAll('[data-canvas-tool]').forEach(b=>b.onclick=()=>{canvasTool=b.dataset.canvasTool;refreshTools();});
+    document.getElementById('iconBrushTone').onchange=e=>{brushTone=e.target.value;};
+    document.getElementById('iconBrushWidth').onchange=e=>{brushWidth=clamp(Number(e.target.value),.4,10,3);e.target.value=brushWidth;};
+    for(const [id,delta] of [['iconRotateLeft',-90],['iconRotateRight',90]])document.getElementById(id).onclick=()=>{const l=icon.layers[selectedLayer];l.rotation=((l.rotation||0)+delta+540)%360-180;markDirty();render();};
+    document.getElementById('iconRemoveFill').onclick=()=>{const l=icon.layers[selectedLayer];if(!['icon','rect','ellipse','polygon'].includes(l.kind))return;l.filled=false;markDirty();render();};
+    document.getElementById('iconRestoreErased').onclick=()=>{delete icon.layers[selectedLayer].eraseStrokes;markDirty();render();};
+    for(const [id,delta] of [['iconLayerUndo',-1],['iconLayerRedo',1]])document.getElementById(id).onclick=()=>{const h=layerHistories.get(icon);h.index+=delta;icon.layers=JSON.parse(h.states[h.index]);selectedLayer=Math.min(selectedLayer,icon.layers.length-1);markDirty();render();};
+    refreshTools();
+    preview.onpointerdown=e=>{
+      if(e.button!==0||preview.hasPointerCapture(e.pointerId))return;e.preventDefault();
+      const svg=preview.querySelector('svg'),matrix=svg.getScreenCTM().inverse();
+      const at=event=>{const p=new DOMPoint(event.clientX,event.clientY).matrixTransform(matrix);return {x:clamp(p.x,0,48,0),y:clamp(p.y,0,48,0)};};
+      if(canvasTool==='fill'){
+        const hit=e.target.closest('[data-canvas-layer]');if(hit)selectedLayer=Number(hit.dataset.canvasLayer);
+        const l=icon.layers[selectedLayer];if(['icon','rect','ellipse','polygon'].includes(l.kind)){l.filled=true;l.fillTone=brushTone;}else l.tone=brushTone;
+        markDirty();render();return;
+      }
+      const before=JSON.stringify(icon.layers),origin=at(e),control=!!e.target.closest('[data-curve-control]');
+      let layer=normalizeLayer(icon.layers[selectedLayer]),stroke;
+      const local=p=>{const angle=-(layer.rotation||0)*Math.PI/180,scale=layer.scale||1,dx=p.x-24-layer.x,dy=p.y-24-layer.y;return [Number(clamp((dx*Math.cos(angle)-dy*Math.sin(angle))/scale,-192,192,0).toFixed(2))||0,Number(clamp((dx*Math.sin(angle)+dy*Math.cos(angle))/scale,-192,192,0).toFixed(2))||0];};
+      if(!control&&['line','curve'].includes(canvasTool)){
+        if(icon.layers.length>=8)return alert('每個圖示最多 8 層。請先刪除不需要的圖層。');
+        layer=emptyLayer(canvasTool,{strokeWidth:brushWidth,tone:brushTone});icon.layers.push(layer);selectedLayer=icon.layers.length-1;
+      }
+      if(canvasTool==='erase'&&!control){
+        if((layer.eraseStrokes?.length||0)>=32)return alert('本層已達 32 筆擦除；可先復原或恢復本層擦除。');
+        stroke={width:clamp(brushWidth/(layer.scale||1),.1,40,3),points:[local(origin)]};(layer.eraseStrokes??=[]).push(stroke);icon.layers[selectedLayer]=layer;drawPreview();
+      }
+      const initial={x:layer.x,y:layer.y,rotation:layer.rotation||0},angle0=Math.atan2(origin.y-24-layer.y,origin.x-24-layer.x);
+      const update=event=>{
+        const p=at(event);
+        if(control){const v=local(p);layer.cx=clamp(v[0],-48,48,0);layer.cy=clamp(v[1],-48,48,0);}
+        else if(canvasTool==='erase'){
+          const v=local(p),last=stroke.points[stroke.points.length-1];
+          if(Math.hypot(v[0]-last[0],v[1]-last[1])>.15){if(stroke.points.length===128)stroke.points=stroke.points.filter((_,i)=>i%2===0);stroke.points.push(v);}
+        }else if(canvasTool==='move'){layer.x=Number(clamp(initial.x+p.x-origin.x,-24,24,0).toFixed(2));layer.y=Number(clamp(initial.y+p.y-origin.y,-24,24,0).toFixed(2));}
+        else if(canvasTool==='rotate'){const angle=Math.atan2(p.y-24-layer.y,p.x-24-layer.x);layer.rotation=Number(((initial.rotation+(angle-angle0)*180/Math.PI+540)%360-180).toFixed(1));}
+        else if(canvasTool==='line'){const dx=p.x-origin.x,dy=p.y-origin.y;layer.x=(p.x+origin.x)/2-24;layer.y=(p.y+origin.y)/2-24;layer.length=clamp(Math.hypot(dx,dy),2,64,2);layer.rotation=Math.atan2(dy,dx)*180/Math.PI;}
+        else if(canvasTool==='curve'){layer.x1=origin.x-24;layer.y1=origin.y-24;layer.x2=p.x-24;layer.y2=p.y-24;layer.cx=(layer.x1+layer.x2)/2;layer.cy=clamp((layer.y1+layer.y2)/2-8,-48,48,0);}
+        icon.layers[selectedLayer]=normalizeLayer(layer);drawPreview();
+      };
+      let changed=false;
+      preview.setPointerCapture(e.pointerId);
+      preview.onpointermove=move=>{if(move.pointerId!==e.pointerId)return;changed=true;update(move);};
+      const finish=event=>{if(event.pointerId!==e.pointerId)return;preview.onpointermove=null;preview.onpointerup=null;preview.onpointercancel=null;preview.onlostpointercapture=null;
+        if(preview.hasPointerCapture(e.pointerId))preview.releasePointerCapture(e.pointerId);
+        if(event.type==='pointercancel'||event.type==='lostpointercapture'||!changed&&['line','curve'].includes(canvasTool)&&!control)icon.layers=JSON.parse(before);
+        else {if(changed)update(event);markDirty();}render();
+      };
+      preview.onpointerup=preview.onpointercancel=preview.onlostpointercapture=finish;
+    };
   }
   const previousRender=render;
   render=function(){if(currentSection==='iconMaker'){ensureArrays();renderNav(true);renderIconMaker();return;}return previousRender();};
