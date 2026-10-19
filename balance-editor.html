@@ -3781,6 +3781,7 @@ ensureArrays();requestEditorInitialRender();
 
 
 
+
 </body>
 
 <script id="verified-balance-contract-editor-filter">
@@ -9734,6 +9735,7 @@ function removeCompanionOwnedSkills(p){
    for(const key of ['bossKills','eliteKills','bossEquipment'])for(const row of array(u[key]))if(Number.isInteger(mapCount)&&(row.mapIndex<-1||row.mapIndex>=mapCount))add('classes.'+job+'.skills.'+i+'.unlockConditions.'+key,'引用不存在的地圖',skill);
   }
   if(d.lifeSkills!==undefined)errors.push(...lifeIssues(d.lifeSkills,array(d.items)));
+  if(d.story!==undefined&&root.EmberwildStory)for(const reason of root.EmberwildStory.issues(d.story,{maps:d.balanceSettings?.maps?.catalog,monsters:d.balanceSettings?.monsters?.catalog,items:array(d.items),recipes:d.lifeSkills?.recipes}))errors.push(issue('story',reason));
   if(root.EmberwildInventoryIcons)errors.push(...root.EmberwildInventoryIcons.issues(d).map(reason=>issue('inventoryIcons',reason)));
   return errors;
  }
@@ -9749,9 +9751,8 @@ function removeCompanionOwnedSkills(p){
   function types(v,b,p){if(b===null||b===undefined||v===undefined)return;if(v===null){if(['mastery','requiredMastery','partnerId','unitPrice','control'].includes(p.split('.').at(-1)))return;typeErrors.push(issue(p,'此欄位不可為 null'));return;}if(Array.isArray(b)){if(!Array.isArray(v)){typeErrors.push(issue(p,'必須為陣列'));return;}for(let i=0;i<v.length;i++)types(v[i],b[i]??b[0],p+'.'+i);return;}if(typeof b==='object'){if(!v||typeof v!=='object'||Array.isArray(v)){typeErrors.push(issue(p,'必須為物件'));return;}for(const k of Object.keys(v))types(v[k],b[k],p+'.'+k);return;}if(!/\.(key|value)$/.test(p)&&typeof v!==typeof b)typeErrors.push(issue(p,'型別必須為 '+typeof b));}
   if(defaults)types(d,defaults,'$');if(typeErrors.length)throw Object.assign(Error(typeErrors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:typeErrors});
 if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Error(e.message),{issues:e.issues||[issue('domain',e.message)]});}}return d;}
- const api={monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
+ const api={storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
-
 </script>
 <script id="balance-document-editor-v1">
 (()=>{
@@ -11044,3 +11045,140 @@ html body label:has(>input:is([type=checkbox],[type=radio])){display:flex;flex-d
 .catalogue-system-badge{display:inline-block;font-size:10px;padding:2px 5px;border:1px solid #6b6284;border-radius:4px;color:#c4b5df;margin-left:5px}
 .catalogue-system-note{border-left:3px solid #8875ad;background:#292438;padding:10px;font-size:12px;line-height:1.6}
 </style>
+
+<script id="story-model-v1">
+/* Shared, data-only story contract. No quest-specific execution rules. */
+(function(root){
+ 'use strict';
+ const copy=x=>JSON.parse(JSON.stringify(x));
+ const TYPES={companions:'招募夥伴數',party:'上陣人數',region:'解鎖地區',visit:'到達地區',explore:'地區擊殺進度',kill:'指定怪物擊殺',kills:'任意怪物擊殺',boss:'指定地區 BOSS',bosses:'任意 BOSS',stock:'持有道具',acquired:'累積取得道具',gatherItem:'採集指定素材',gather:'採集次數',recipe:'完成指定配方',alchemy:'煉金次數',enhance:'強化次數',enhanceLevel:'裝備最高強化',level:'主角等級',quest:'完成任務',stage:'完成階段',flag:'任務 Flag',unlock:'永久解鎖'};
+ const GUIDES={battle:'前往探索',partnerRoster:'前往夥伴',roster:'前往隊伍',equipment:'前往背包',worn:'前往裝備',forge:'前往強化',gather:'前往採集',alchemy:'前往煉金',shop:'前往商店',skills:'前往技能'};
+ const condition=(type='kills',key='',count=1,mode='lifetime')=>({type,key,count,mode,itemType:'material'});
+ const group=conditions=>({mode:'all',conditions:conditions||[]});
+ const stage=(id='stage_1',name='新階段')=>({id,name,speaker:'旁白',description:'',dialogue:[{speaker:'旁白',kind:'narrator',text:'請填寫劇情。'}],conditions:group(),rewards:{gold:0,ore:0,items:[]},effects:[],next:'',branches:[],choices:[],guides:[]});
+ const quest=(id='quest_1',name='新任務',type='side',npc='')=>({id,name,type,npc,description:'',enabled:true,hidden:false,unlock:group(),prerequisites:[],entry:'stage_1',stages:[stage()],rewards:{gold:0,ore:0,items:[]},effects:[],nextQuests:[]});
+ function defaults(){return {version:1,quests:[]};}
+ function issues(d,ctx={}){
+  const errors=[],add=m=>errors.push('劇情：'+m),id=v=>typeof v==='string'&&/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(v)&&!['constructor','prototype','__proto__'].includes(v),key=v=>typeof v==='string'&&v.length<160&&!['constructor','prototype','__proto__'].includes(v),num=n=>Number.isSafeInteger(n)&&n>=0&&n<=1e9;
+  if(!d||d.version!==1||!Array.isArray(d.quests))return ['劇情：版本或任務列表無效'];
+  const qs=new Map();for(const q of d.quests){if(!q||!id(q.id)||qs.has(q.id)){add('任務 ID 無效或重複');continue;}qs.set(q.id,q);}
+  function conditions(g,label){if(!g||!['all','any'].includes(g.mode)||!Array.isArray(g.conditions)){add(label+'條件群組無效');return;}
+   for(const c of g.conditions){if(!c||!Object.hasOwn(TYPES,c.type)||!key(c.key)||!num(c.count)||c.count<1||!['lifetime','stage'].includes(c.mode)||!['material','item'].includes(c.itemType)){add(label+'條件無效');continue;}
+    if(['region','visit','explore','boss'].includes(c.type)&&(!/^\d+$/.test(c.key)||ctx.maps&& !ctx.maps[Number(c.key)]))add(label+'不存在的地區 '+c.key);
+    if(c.type==='kill'&&ctx.monsters&&!ctx.monsters.some(m=>m.id===c.key))add(label+'不存在的怪物 '+c.key);
+    if(c.type==='recipe'&&ctx.recipes&&!Object.hasOwn(ctx.recipes,c.key))add(label+'不存在的配方 '+c.key);
+    if(c.type==='quest'&&!qs.has(c.key))add(label+'不存在的任務 '+c.key);
+    if(c.type==='stage'){const [q,s]=c.key.split('/');if(!qs.get(q)?.stages?.some(x=>x.id===s))add(label+'不存在的任務階段 '+c.key);}
+    if(['stock','acquired','gatherItem'].includes(c.type)&&(!c.key||c.itemType==='item'&&ctx.items&&!ctx.items.some(x=>x.id===c.key)))add(label+'道具引用無效 '+c.key);
+   }
+  }
+  function rewards(r,label){if(!r||!num(r.gold)||!num(r.ore)||!Array.isArray(r.items)){add(label+'獎勵無效');return;}for(const x of r.items)if(!x||!['material','item'].includes(x.type)||!key(x.key)||!x.key||!num(x.quantity)||x.quantity<1||x.type==='item'&&ctx.items&&!ctx.items.some(i=>i.id===x.key))add(label+'獎勵道具無效');}
+  function effects(list,label){if(!Array.isArray(list)){add(label+'效果無效');return;}for(const e of list)if(!e||!['flag','unlock','vip'].includes(e.type)||!key(e.key)||e.type!=='vip'&&!e.key||e.type==='vip'&&e.value!==1||e.type!=='vip'&&typeof e.value!=='boolean')add(label+'效果無效');}
+  const edges=new Map();
+  function refs(list,label){if(!Array.isArray(list)){add(label+'後續任務無效');return [];}return list.map(x=>{if(!x||!qs.has(x.questId))add(label+'不存在的後續任務');conditions(x?.conditions,label);return x?.questId;});}
+  function acyclic(graph,label){const visiting=new Set(),done=new Set();function visit(n){if(visiting.has(n)){add(label+'存在循環：'+n);return;}if(done.has(n))return;visiting.add(n);for(const v of graph.get(n)||[])if(graph.has(v))visit(v);visiting.delete(n);done.add(n);}for(const n of graph.keys())visit(n);}
+  for(const q of d.quests){if(!q||!qs.has(q.id))continue;const label=q.id+'：';
+   if(typeof q.name!=='string'||typeof q.npc!=='string'||typeof q.description!=='string'||!['main','side','npc'].includes(q.type)||typeof q.enabled!=='boolean'||typeof q.hidden!=='boolean')add(label+'基本欄位無效');
+   conditions(q.unlock,label);rewards(q.rewards,label);effects(q.effects,label);
+   const links=refs(q.nextQuests,label);edges.set(q.id,links);
+   if(!Array.isArray(q.prerequisites))add(label+'前置任務無效');else for(const p of q.prerequisites){if(!qs.has(p))add(label+'不存在的前置任務 '+p);}
+   if(!Array.isArray(q.stages)||!q.stages.length){add(label+'至少需要一個階段');continue;}
+   const graph=new Map();for(const s of q.stages){if(!s||!id(s.id)||graph.has(s.id)){add(label+'階段 ID 無效或重複');continue;}graph.set(s.id,[]);}
+   if(!graph.has(q.entry))add(label+'開始階段不存在');
+   for(const s of q.stages){if(!s||!graph.has(s.id))continue;const sl=label+s.id+'：';
+    conditions(s.conditions,sl);rewards(s.rewards,sl);effects(s.effects,sl);
+    if(typeof s.name!=='string'||typeof s.speaker!=='string'||typeof s.description!=='string'||!Array.isArray(s.dialogue)||s.dialogue.some(x=>!x||!['npc','player','narrator'].includes(x.kind)||typeof x.speaker!=='string'||typeof x.text!=='string'))add(sl+'劇情文字無效');
+    if(!Array.isArray(s.guides)||s.guides.some(g=>!Object.hasOwn(GUIDES,g)))add(sl+'導引無效');
+    const targets=[s.next];
+    if(!Array.isArray(s.branches)||!Array.isArray(s.choices)){add(sl+'分歧無效');continue;}
+    const ids=new Set();for(const c of s.choices){if(!c||!id(c.id)||ids.has(c.id)||typeof c.text!=='string'){add(sl+'選項 ID 或文字無效');continue;}ids.add(c.id);conditions(c.conditions,sl);effects(c.effects,sl);targets.push(c.next);links.push(...refs(c.nextQuests,sl));}
+    for(const b of s.branches){conditions(b?.conditions,sl);targets.push(b?.next);}
+    for(const t of targets)if(t!==''&&!graph.has(t))add(sl+'下一階段不存在 '+t);else if(t)graph.get(s.id).push(t);
+   }
+   acyclic(graph,label);const reachable=new Set();function reach(n){if(reachable.has(n))return;reachable.add(n);for(const v of graph.get(n)||[])reach(v);}reach(q.entry);for(const s of graph.keys())if(!reachable.has(s))add(label+'無法抵達階段 '+s);
+  }
+  // Prerequisites and explicit links both describe forward quest dependencies.
+  for(const q of d.quests)for(const p of q?.prerequisites||[])if(edges.has(p))edges.get(p).push(q.id);
+  acyclic(edges,'任務鏈');return [...new Set(errors)];
+ }
+ function validate(d,ctx){const e=issues(d,ctx);if(e.length)throw Error(e.join('\n'));return copy(d);}
+ const api={copy,TYPES,GUIDES,condition,group,stage,quest,defaults,issues,validate};root.EmberwildStory=api;if(typeof module==='object'&&module.exports)module.exports=api;
+})(globalThis);
+
+</script>
+<script id="story-seed-v1">const STORY_SEED={"version": 1, "quests": [{"id": "goddess_intro", "name": "女神的指引", "type": "main", "npc": "女神", "description": "認識介面、招募夥伴，完成第一次探索與強化。", "enabled": true, "hidden": false, "unlock": {"mode": "all", "conditions": []}, "prerequisites": [], "entry": "welcome", "stages": [{"id": "welcome", "name": "初次相遇", "speaker": "女神", "description": "歡迎來到營地。接下來我會引導你完成一次冒險。", "dialogue": [{"kind": "npc", "speaker": "女神", "text": "歡迎來到營地。接下來我會引導你完成一次冒險。"}], "conditions": {"mode": "all", "conditions": []}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "interface", "branches": [], "choices": [], "guides": []}, {"id": "interface", "name": "認識介面", "speaker": "女神", "description": "劇情用來閱讀對話與確認任務；探索、夥伴、背包、強化與生活技能各自有獨立頁面。", "dialogue": [{"kind": "npc", "speaker": "女神", "text": "劇情用來閱讀對話與確認任務；探索、夥伴、背包、強化與生活技能各自有獨立頁面。"}, {"kind": "player", "speaker": "玩家", "text": "我可以先探索，再回來查看已完成的進度。"}, {"kind": "narrator", "speaker": "旁白", "text": "條件完成時，劇情入口與任務會顯示可繼續提示。"}], "conditions": {"mode": "all", "conditions": []}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "recruit", "branches": [], "choices": [], "guides": ["battle", "partnerRoster", "equipment", "forge"]}, {"id": "recruit", "name": "招募同行夥伴", "speaker": "女神", "description": "前往夥伴名冊招募兩位夥伴。", "dialogue": [{"kind": "npc", "speaker": "女神", "text": "前往夥伴名冊招募兩位夥伴。"}], "conditions": {"mode": "all", "conditions": [{"type": "companions", "key": "", "count": 2, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "team", "branches": [], "choices": [], "guides": ["partnerRoster"]}, {"id": "team", "name": "組成探索隊伍", "speaker": "女神", "description": "在隊伍編成選擇主角職業，並讓三人上陣。", "dialogue": [{"kind": "npc", "speaker": "女神", "text": "在隊伍編成選擇主角職業，並讓三人上陣。"}], "conditions": {"mode": "all", "conditions": [{"type": "party", "key": "", "count": 3, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "depart", "branches": [], "choices": [], "guides": ["roster"]}, {"id": "depart", "name": "前往苔光林地", "speaker": "女神", "description": "前往第一張地圖「苔光林地」。", "dialogue": [{"kind": "npc", "speaker": "女神", "text": "前往第一張地圖「苔光林地」。"}], "conditions": {"mode": "all", "conditions": [{"type": "visit", "key": "0", "count": 1, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "battle", "branches": [], "choices": [], "guides": ["battle"]}, {"id": "battle", "name": "完成實際戰鬥", "speaker": "女神", "description": "在苔光林地擊敗任意一隻怪物。", "dialogue": [{"kind": "npc", "speaker": "女神", "text": "在苔光林地擊敗任意一隻怪物。"}], "conditions": {"mode": "all", "conditions": [{"type": "explore", "key": "0", "count": 1, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "equipment", "branches": [], "choices": [], "guides": ["battle"]}, {"id": "equipment", "name": "查看探索收穫", "speaker": "女神", "description": "打開背包查看取得的裝備，再到裝備與信物頁確認穿戴。", "dialogue": [{"kind": "npc", "speaker": "女神", "text": "打開背包查看取得的裝備，再到裝備與信物頁確認穿戴。"}], "conditions": {"mode": "all", "conditions": []}, "rewards": {"gold": 0, "ore": 20, "items": []}, "effects": [], "next": "forge", "branches": [], "choices": [], "guides": ["equipment", "worn"]}, {"id": "forge", "name": "第一次強化", "speaker": "女神", "description": "在裝備強化頁將任意裝備強化一次。", "dialogue": [{"kind": "npc", "speaker": "女神", "text": "在裝備強化頁將任意裝備強化一次。"}], "conditions": {"mode": "all", "conditions": [{"type": "enhance", "key": "", "count": 1, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "finish", "branches": [], "choices": [], "guides": ["forge"]}, {"id": "finish", "name": "啟程的準備已完成", "speaker": "女神", "description": "你已學會營地與探索的基本操作，也可以到支線與特殊 NPC 任務繼續冒險。", "dialogue": [{"kind": "npc", "speaker": "女神", "text": "你已學會營地與探索的基本操作，也可以到支線與特殊 NPC 任務繼續冒險。"}], "conditions": {"mode": "all", "conditions": []}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "", "branches": [], "choices": [], "guides": []}], "rewards": {"gold": 200, "ore": 0, "items": []}, "effects": [], "nextQuests": []}, {"id": "two_regions", "name": "兩地巡查（測試）", "type": "side", "npc": "巡查員", "description": "巡查兩張地圖，確認各地怪物與 BOSS 的狀況。", "enabled": true, "hidden": false, "unlock": {"mode": "all", "conditions": []}, "prerequisites": [], "entry": "explore_0", "stages": [{"id": "explore_0", "name": "巡查苔光林地", "speaker": "巡查員", "description": "前往苔光林地並擊敗 2 隻怪物。", "dialogue": [{"kind": "npc", "speaker": "巡查員", "text": "前往苔光林地並擊敗 2 隻怪物。"}], "conditions": {"mode": "all", "conditions": [{"type": "visit", "key": "0", "count": 1, "mode": "lifetime", "itemType": "material"}, {"type": "explore", "key": "0", "count": 2, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "hunt_0", "branches": [], "choices": [], "guides": ["battle"]}, {"id": "hunt_0", "name": "調查苔原史萊姆", "speaker": "巡查員", "description": "擊敗 苔原史萊姆 3 隻。", "dialogue": [{"kind": "npc", "speaker": "巡查員", "text": "擊敗 苔原史萊姆 3 隻。"}], "conditions": {"mode": "all", "conditions": [{"type": "kill", "key": "map0_mob0", "count": 3, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "boss_0", "branches": [], "choices": [], "guides": ["battle"]}, {"id": "boss_0", "name": "挑戰苔光林地 BOSS", "speaker": "巡查員", "description": "擊敗此地區的 BOSS 一次。", "dialogue": [{"kind": "npc", "speaker": "巡查員", "text": "擊敗此地區的 BOSS 一次。"}], "conditions": {"mode": "all", "conditions": [{"type": "boss", "key": "0", "count": 1, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "explore_1", "branches": [], "choices": [], "guides": ["battle"]}, {"id": "explore_1", "name": "巡查風蝕礦坑", "speaker": "巡查員", "description": "前往風蝕礦坑並擊敗 2 隻怪物。", "dialogue": [{"kind": "npc", "speaker": "巡查員", "text": "前往風蝕礦坑並擊敗 2 隻怪物。"}], "conditions": {"mode": "all", "conditions": [{"type": "visit", "key": "1", "count": 1, "mode": "lifetime", "itemType": "material"}, {"type": "explore", "key": "1", "count": 2, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "hunt_1", "branches": [], "choices": [], "guides": ["battle"]}, {"id": "hunt_1", "name": "調查洞穴蝙蝠", "speaker": "巡查員", "description": "擊敗 洞穴蝙蝠 3 隻。", "dialogue": [{"kind": "npc", "speaker": "巡查員", "text": "擊敗 洞穴蝙蝠 3 隻。"}], "conditions": {"mode": "all", "conditions": [{"type": "kill", "key": "map1_mob0", "count": 3, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "boss_1", "branches": [], "choices": [], "guides": ["battle"]}, {"id": "boss_1", "name": "挑戰風蝕礦坑 BOSS", "speaker": "巡查員", "description": "擊敗此地區的 BOSS 一次。", "dialogue": [{"kind": "npc", "speaker": "巡查員", "text": "擊敗此地區的 BOSS 一次。"}], "conditions": {"mode": "all", "conditions": [{"type": "boss", "key": "1", "count": 1, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "", "branches": [], "choices": [], "guides": ["battle"]}], "rewards": {"gold": 300, "ore": 20, "items": []}, "effects": [], "nextQuests": []}, {"id": "shop_rescue", "name": "商店任務線", "type": "npc", "npc": "商人", "description": "解救商人並協助準備補給，取得永久銅級 VIP 資格。", "enabled": true, "hidden": false, "unlock": {"mode": "all", "conditions": []}, "prerequisites": [], "entry": "rescue", "stages": [{"id": "rescue", "name": "解救商人", "speaker": "商人", "description": "我在苔光林地被史萊姆包圍了，請幫我擊敗 3 隻苔原史萊姆。", "dialogue": [{"kind": "npc", "speaker": "商人", "text": "我在苔光林地被史萊姆包圍了，請幫我擊敗 3 隻苔原史萊姆。"}], "conditions": {"mode": "all", "conditions": [{"type": "kill", "key": "map0_mob0", "count": 3, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "supplies", "branches": [], "choices": [], "guides": ["battle"]}, {"id": "supplies", "name": "收集材料", "speaker": "商人", "description": "請準備 2 個黏稠凝膠讓我查看；此階段不消耗材料。", "dialogue": [{"kind": "npc", "speaker": "商人", "text": "請準備 2 個黏稠凝膠讓我查看；此階段不消耗材料。"}], "conditions": {"mode": "all", "conditions": [{"type": "stock", "key": "黏稠凝膠", "count": 2, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "gather", "branches": [], "choices": [], "guides": ["battle", "equipment"]}, {"id": "gather", "name": "親手採集", "speaker": "商人", "description": "請用採集系統取得 3 株紅色草；以往採集的紀錄也計入。", "dialogue": [{"kind": "npc", "speaker": "商人", "text": "請用採集系統取得 3 株紅色草；以往採集的紀錄也計入。"}], "conditions": {"mode": "all", "conditions": [{"type": "gatherItem", "key": "紅色草", "count": 3, "mode": "lifetime", "itemType": "material"}, {"type": "gather", "key": "", "count": 3, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "delivery", "branches": [], "choices": [], "guides": ["gather"]}, {"id": "delivery", "name": "準備補給", "speaker": "商人", "description": "請確認持有紅色草，並完成一次煉製簡易治療藥水。你可以在商店買到清水與藥水瓶。", "dialogue": [{"kind": "npc", "speaker": "商人", "text": "請確認持有紅色草，並完成一次煉製簡易治療藥水。你可以在商店買到清水與藥水瓶。"}], "conditions": {"mode": "all", "conditions": [{"type": "stock", "key": "紅色草", "count": 1, "mode": "lifetime", "itemType": "material"}, {"type": "recipe", "key": "alchemy", "count": 1, "mode": "lifetime", "itemType": "material"}]}, "rewards": {"gold": 20, "ore": 0, "items": []}, "effects": [], "next": "vip", "branches": [], "choices": [], "guides": ["alchemy", "shop"]}, {"id": "vip", "name": "商人的謝禮", "speaker": "商人", "description": "謝謝你的協助。這張銅級 VIP 卡讓商店商品常駐 95 折，並解鎖煉金自動購買基礎材料。", "dialogue": [{"kind": "npc", "speaker": "商人", "text": "謝謝你的協助。這張銅級 VIP 卡讓商店商品常駐 95 折，並解鎖煉金自動購買基礎材料。"}], "conditions": {"mode": "all", "conditions": []}, "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [], "next": "", "branches": [], "choices": [{"id": "thanks", "text": "收下 VIP 卡", "conditions": {"mode": "all", "conditions": []}, "effects": [], "next": "", "nextQuests": []}], "guides": []}], "rewards": {"gold": 0, "ore": 0, "items": []}, "effects": [{"type": "vip", "key": "shop_vip_bronze", "value": 1}], "nextQuests": []}]};</script>
+<style>.story-editor-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px}.story-select{display:block;width:100%;text-align:left;margin:8px 0}.story-select small{display:block}.story-edit-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px}.story-edit-fields label{display:grid;gap:6px}.story-edit-wide{grid-column:1/-1;min-width:0}.story-edit-fields textarea,.story-edit-fields input,.story-edit-fields select{max-width:100%;width:100%;box-sizing:border-box}.story-edit-fields input[type=checkbox]{width:auto}.story-edit-row{border-bottom:1px solid #7775;padding:12px 0}.story-editor-layout fieldset{min-width:0;margin:8px 0}@media(max-width:800px){.story-editor-layout,.story-edit-fields{grid-template-columns:1fr}}</style>
+<script id="story-editor-v1">
+/* Structured story editing uses the exact runtime contract and one document field. */
+(()=>{
+ const M=EmberwildStory,copy=M.copy;let selected='',stageId='',filter='all';
+ const baseEnsure=ensureArrays;ensureArrays=function(){const story=data.story;baseEnsure();data.story=story??copy(STORY_SEED);return data;};
+ const labels={id:'ID',name:'名稱',type:'類型',npc:'NPC',description:'簡介／目標說明',enabled:'啟用',hidden:'未解鎖時隱藏',unlock:'解鎖條件',prerequisites:'前置任務（全部完成）',entry:'開始階段',stages:'任務階段',rewards:'獎勵',effects:'完成效果',nextQuests:'後續任務',speaker:'說話者',dialogue:'劇情段落',kind:'說話類型',text:'文字',conditions:'條件',mode:'判定／進度方式',key:'目標 ID／名稱',count:'需求數量',itemType:'道具種類',gold:'金幣',ore:'鍛鐵',items:'道具獎勵',quantity:'數量',next:'下一階段（空白＝完成任務）',branches:'條件分歧（依序取第一個符合項）',choices:'玩家選項',guides:'功能導引',questId:'後續任務',value:'效果值'};
+ const ctx=()=>({maps:data.balanceSettings.maps.catalog,monsters:data.balanceSettings.monsters.catalog,items:data.items,recipes:data.lifeSkills.recipes});
+ const doc=()=>data.story,quest=()=>doc().quests.find(q=>q.id===selected);
+ function unique(prefix,rows){let i=1;while(rows.some(r=>r.id===prefix+i))i++;return prefix+i;}
+ const pathGet=path=>path.split('.').filter(Boolean).reduce((x,k)=>x?.[k],quest());
+ function mutate(path,value){const keys=path.split('.'),key=keys.pop();let o=quest();for(const k of keys)o=o[k];o[key]=value;markDirty('劇情設定已修改');render();}
+ const opts=(values,value)=>values.map(([v,l])=>`<option value="${esc(v)}" ${String(v)===String(value)?'selected':''}>${esc(l)}</option>`).join('');
+ function options(path,value,parent){const k=path.split('.').at(-1),q=quest();
+  if(k==='type'){if(parent.conditions&&parent.stages)return [['main','主線'],['side','支線'],['npc','特殊 NPC']];if(parent.stages)return [['main','主線'],['side','支線'],['npc','特殊 NPC']];if('count'in parent)return Object.entries(M.TYPES);if('value'in parent)return [['flag','任務 Flag'],['unlock','永久解鎖'],['vip','商店 VIP 銅級']];return [['material','材料'],['item','道具']];}
+  if(k==='mode')return 'type'in parent?[['lifetime','既有累計／永久進度'],['stage','從進入階段開始計算']]:[['all','全部達成'],['any','任一達成']];
+  if(k==='itemType')return [['material','材料'],['item','道具']];
+  if(k==='kind')return [['npc','NPC 對話'],['player','玩家對話'],['narrator','旁白']];
+  if(k==='next'||k==='entry')return [...(k==='next'?[['','完成任務']]:[]),...q.stages.map(s=>[s.id,s.name+' · '+s.id])];
+  if(k==='questId'||path.startsWith('prerequisites.'))return doc().quests.map(q=>[q.id,q.name+' · '+q.id]);
+  if(path.includes('.guides.'))return Object.entries(M.GUIDES);
+  if(k==='key'){
+   if(['region','visit','explore','boss'].includes(parent.type))return ctx().maps.map((m,i)=>[String(i),m.name]);
+   if(parent.type==='kill')return ctx().monsters.map(m=>[m.id,m.name]);
+   if(parent.type==='recipe')return Object.entries(ctx().recipes).map(([id,r])=>[id,r.name]);
+   if(parent.type==='quest')return doc().quests.map(q=>[q.id,q.name]);
+   if(parent.type==='stage')return doc().quests.flatMap(q=>q.stages.map(s=>[q.id+'/'+s.id,q.name+' / '+s.name]));
+   if(parent.itemType==='item'||parent.type==='item')return data.items.map(i=>[i.id,i.name]);
+  }
+  return null;
+ }
+ function field(value,path,parent){const k=path.split('.').at(-1),label=labels[k]||(/\d/.test(k)?'項目 '+(Number(k)+1):k),choices=options(path,value,parent);
+  if(choices){if(!choices.some(([v])=>String(v)===String(value)))choices.unshift([value,'尚未設定／無效引用 · '+value]);return `<label>${esc(label)}<select data-story-field="${path}">${opts(choices,value)}</select></label>`;}
+  if(typeof value==='boolean')return `<label><input type="checkbox" data-story-field="${path}" ${value?'checked':''}>${esc(label)}</label>`;
+  if(['text','description'].includes(k))return `<label>${esc(label)}<textarea data-story-field="${path}" rows="3">${esc(value)}</textarea></label>`;
+  return `<label>${esc(label)}<input data-story-field="${path}" type="${typeof value==='number'?'number':'text'}" ${typeof value==='number'?'min="0" step="1"':''} value="${esc(value)}"></label>`;
+ }
+ function form(value,path='',parent={}){if(Array.isArray(value))return `<fieldset><legend>${esc(labels[path.split('.').at(-1)]||path)}</legend>${value.map((x,i)=>`<div class="story-edit-row">${form(x,path+'.'+i,value)}<div class="actions"><button data-story-remove="${path}" data-index="${i}">刪除</button><button data-story-move="${path}" data-index="${i}" data-delta="-1" ${i===0?'disabled':''}>上移</button><button data-story-move="${path}" data-index="${i}" data-delta="1" ${i===value.length-1?'disabled':''}>下移</button></div></div>`).join('')}<button data-story-add="${path}">新增</button></fieldset>`;
+  if(value&&typeof value==='object')return `<div class="story-edit-fields">${Object.entries(value).filter(([k])=>k!=='stages').map(([k,v])=>typeof v==='object'?`<div class="story-edit-wide">${form(v,path?path+'.'+k:k,value)}</div>`:field(v,path?path+'.'+k:k,value)).join('')}</div>`;
+  return field(value,path,parent);
+ }
+ function add(path){const a=pathGet(path),k=path.split('.').at(-1);let v;
+  if(k==='conditions')v=M.condition();else if(k==='dialogue')v={kind:'npc',speaker:quest().npc,text:''};else if(k==='effects')v={type:'flag',key:'new_flag',value:true};else if(k==='items')v={type:'material',key:'紅色草',quantity:1};else if(k==='choices')v={id:unique('choice_',a),text:'新選項',conditions:M.group(),effects:[],next:'',nextQuests:[]};else if(k==='branches')v={conditions:M.group(),next:''};else if(k==='nextQuests')v={questId:doc().quests.find(q=>q.id!==selected)?.id||'',conditions:M.group()};else if(k==='prerequisites')v=doc().quests.find(q=>q.id!==selected)?.id||'';else if(k==='guides')v='battle';else return;
+  a.push(v);markDirty('已新增劇情欄位');render();
+ }
+ function addQuest(type='side'){const q=M.quest(unique('story_',doc().quests),'新任務',type);doc().quests.push(q);selected=q.id;stageId=q.entry;markDirty('已新增劇情任務');render();return q;}
+ function addStage(){const q=quest(),s=M.stage(unique('stage_',q.stages),'新階段'),last=q.stages.at(-1);if(last&&!last.next&&!last.choices.length&&!last.branches.length)last.next=s.id;q.stages.push(s);stageId=s.id;markDirty('已新增任務階段');render();return s;}
+ function page(){if(!quest())selected=doc().quests[0]?.id||'';const q=quest();if(q&&!q.stages.some(s=>s.id===stageId))stageId=q.entry;const si=q?.stages.findIndex(s=>s.id===stageId),s=q?.stages[si],errors=M.issues(doc(),ctx()),app=document.getElementById('app');
+  app.innerHTML=sectionHead('任務／劇情設計器','條件直接讀取遊戲進度；階段 ID 是存檔識別。修改已使用的 ID 會中斷舊進度，請優先新增階段並保留既有 ID。',`<button id="storyAddQuest">新增任務</button>`)+`<div class="story-editor-layout"><section><select id="storyTypeFilter">${opts([['all','所有任務'],['main','主線'],['side','支線'],['npc','特殊 NPC']],filter)}</select>${doc().quests.filter(q=>filter==='all'||q.type===filter).map(q=>`<button class="story-select ${q.id===selected?'primary':''}" data-story-select="${q.id}">${esc(q.name)}<small>${esc(q.id)} · ${q.enabled?'啟用':'停用'}</small></button>`).join('')}</section><section>${q?`<details open><summary>任務基本設定、解鎖、獎勵與後續任務</summary>${form(q)}<button id="storyDeleteQuest" class="danger">刪除任務</button></details><h2>階段</h2><div class="actions">${q.stages.map(x=>`<button data-story-stage="${x.id}" class="${x===s?'primary':''}">${esc(x.name)}</button>`).join('')}<button id="storyAddStage">新增階段</button></div>${s?`<div class="actions"><button id="storyStageUp" ${si===0?'disabled':''}>階段上移</button><button id="storyStageDown" ${si===q.stages.length-1?'disabled':''}>階段下移</button><button id="storyDeleteStage" class="danger">刪除階段</button></div>${form(s,'stages.'+si)}<p>依「開始階段」與「下一階段」連線執行；排序只調整編輯順序。玩家選項優先於條件分歧；選項條件不符時隱藏。</p>`:''}`:'<p>新增任務即可開始。</p>'}<section class="notice"><b>資料驗證</b>${errors.length?errors.map(e=>'<p>'+esc(e)+'</p>').join(''):'<p>引用、可達性與循環檢查通過。</p>'}</section></section></div>`;
+  document.getElementById('storyAddQuest').onclick=()=>addQuest(filter==='all'?'side':filter);document.getElementById('storyTypeFilter').onchange=e=>{filter=e.target.value;render();};
+  app.querySelectorAll('[data-story-select]').forEach(el=>el.onclick=()=>{selected=el.dataset.storySelect;stageId='';render();});
+  app.querySelectorAll('[data-story-stage]').forEach(el=>el.onclick=()=>{stageId=el.dataset.storyStage;render();});
+  if(!q)return;
+  app.querySelectorAll('[data-story-field]').forEach(el=>el.onchange=()=>{const path=el.dataset.storyField,old=pathGet(path),value=el.type==='checkbox'?el.checked:typeof old==='number'?Number(el.value):el.value;
+   // Keep effect value type aligned with the selected effect kind.
+   if(path.endsWith('.type')){const parent=pathGet(path.slice(0,-5));if(parent&&'value'in parent)parent.value=value==='vip'?1:true;}
+   if(path==='id'){q.id=value;selected=value;markDirty('已修改任務 ID');render();return;}if(path==='stages.'+si+'.id')stageId=value;mutate(path,value);
+  });
+  app.querySelectorAll('[data-story-add]').forEach(el=>el.onclick=()=>add(el.dataset.storyAdd));
+  app.querySelectorAll('[data-story-remove]').forEach(el=>el.onclick=()=>{pathGet(el.dataset.storyRemove).splice(Number(el.dataset.index),1);markDirty('已刪除劇情欄位');render();});
+  app.querySelectorAll('[data-story-move]').forEach(el=>el.onclick=()=>{const a=pathGet(el.dataset.storyMove),i=Number(el.dataset.index),j=i+Number(el.dataset.delta);if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];markDirty('已調整順序');render();});
+  document.getElementById('storyAddStage').onclick=addStage;
+  document.getElementById('storyDeleteQuest').onclick=()=>{if(!confirm('刪除任務？既有存檔會保留紀錄；其他任務引用需一併調整。'))return;doc().quests.splice(doc().quests.indexOf(q),1);selected='';markDirty('已刪除任務');render();};
+  if(s){document.getElementById('storyDeleteStage').onclick=()=>{if(q.stages.length<2)return alert('至少保留一個階段');if(!confirm('刪除階段？請調整指向此階段的連線。'))return;q.stages.splice(si,1);stageId='';markDirty('已刪除階段');render();};for(const [id,delta] of [['storyStageUp',-1],['storyStageDown',1]])document.getElementById(id).onclick=()=>{const j=si+delta;if(j<0||j>=q.stages.length)return;[q.stages[si],q.stages[j]]=[q.stages[j],q.stages[si]];markDirty('已調整階段順序');render();};}
+ }
+ SECTION_META.push(['story','任務／劇情設計器']);NAV_GROUPS.find(g=>g[0]==='questsJournal')[2].unshift('story');
+ const baseRender=render;render=function(...args){if(currentSection!=='story')return baseRender(...args);ensureArrays();renderNav(true);page();};
+ const baseCount=count;count=function(section,normalized=false){if(section!=='story')return baseCount(section,normalized);ensureArrays();return doc().quests.length;};
+ const baseValidate=validateData;validateData=function(){return [...new Set([...baseValidate(),...M.issues(doc(),ctx())])];};
+ const baseExport=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=()=>({...baseExport(),story:copy(doc())});
+ globalThis.__EMBERWILD_STORY_EDITOR={addQuest,addStage,select(id){selected=id;stageId='';currentSection='story';render();},set:mutate,add,design:doc};
+ ensureArrays();requestEditorInitialRender();
+})();
+
+</script>

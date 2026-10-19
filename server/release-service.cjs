@@ -12,10 +12,19 @@ class ReleaseService{
   if(!/monsterDesignVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援怪物個別設定、物品連結或多種 BOSS 陣容。請先升級該分支遊戲程式，再發布平衡 JSON。');
  }
  async requireLifeRuntime(target,candidate){
+  if((candidate.starterPacks||[]).some(row=>row.length===1)||candidate.starterPackItems?.some(row=>row.length)){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(!/starterMailVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援新手武器信箱禮包與自由贈品。請先升級該分支遊戲程式，再發布平衡 JSON。');
+  }
+
   const catalogueOnly=(candidate.inventoryIcons||[]).some(r=>r.description!==undefined)&&(candidate.items||[]).some(item=>!Object.hasOwn(item,'description'));
   if(catalogueOnly){
    const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
    if(!/EmberwildInventoryIcons\.migrateDescriptions\b/.test(text))throw Error('目標遊戲程式尚未支援集中物品說明。請先升級該分支遊戲程式，再發布平衡 JSON。');
+  }
+  if(candidate.story?.quests?.length){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(!/storyVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援任務／劇情系統，請先升級該分支遊戲程式。');
   }
   await this.requireMonsterRuntime(target,candidate);
   const life=candidate.lifeSkills?.gathering!==undefined,icons=Boolean(candidate.inventoryIcons?.length),palette=Boolean(candidate.iconColorTemplates?.length);
