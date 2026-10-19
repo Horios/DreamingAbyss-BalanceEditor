@@ -452,7 +452,7 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
 /* Shared real-time consumable contract. Percentages are source contributions, not multipliers. */
 (function(root){
   'use strict';
-  const TYPE='timedBoost',KINDS=['speed4','exp','drop'];
+  const TYPE='timedBoost',KINDS=['speed4','exp','drop'],MAX_STACK_MS=24*60*60*1000;
   const LABELS={speed4:'4× 解鎖',exp:'經驗值',drop:'掉寶率'};
   const copy=v=>JSON.parse(JSON.stringify(v));
   const isItem=item=>item?.type===TYPE;
@@ -464,6 +464,19 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
     return expiresAt;
   }
   const remainingMs=(buff,now=Date.now())=>Math.max(0,(buff?.expiresAt||0)-now);
+  const buffRows=buff=>buff==null?[]:Array.isArray(buff)?buff:[buff];
+  const compactBuffs=rows=>rows.length>1?rows:rows[0]||null;
+  const elementalActive=(buff,now=Date.now())=>buffRows(buff).filter(b=>remainingMs(b,now)>0);
+  // A changed strength/element/stat payload remains an independent timed source,
+  // even if the designer gave both versions the same display name.
+  function sourceKey(b){return JSON.stringify([b.name??b.itemId,b.boostType??'',b.bonusPercent??b.effectPercent,b.element??'',Object.entries(b.statEffects||{}).filter(([,v])=>v!==0).sort(([a],[c])=>a.localeCompare(c))]);}
+  function stackBuff(rows,buff,now=Date.now()){
+    const live=rows.filter(b=>remainingMs(b,now)>0),index=live.findIndex(b=>sourceKey(b)===sourceKey(buff));
+    if(remainingMs(buff,now)+(index<0?0:remainingMs(live[index],now))>MAX_STACK_MS)throw Error('本次使用會超過單一狀態 24 小時上限，未消耗道具');
+    if(index<0){if(live.length>=200)throw Error('有效增益來源已達上限');return [...live,buff];}
+    const previous=live[index],expiresAt=expiryTime(buff.durationMinutes,previous.expiresAt);
+    live[index]={...previous,expiresAt};return live;
+  }
   function timeText(ms,hours=false){const sec=Math.max(0,Math.ceil(ms/1000)),h=Math.floor(sec/3600),m=Math.floor(sec/60)%60,s=sec%60;return (hours||h?String(h).padStart(2,'0')+':':'')+(hours||h?String(m).padStart(2,'0'):String(Math.floor(sec/60)).padStart(2,'0'))+':'+String(s).padStart(2,'0');}
   const elementalPercent=(type,settings)=>100*(type==='ward'?(settings?.combat?.supply?.wardResistance??.25):(settings?.combat?.supply?.elementTonicDamage??.2));
   function validateElementalItem(item){
@@ -491,13 +504,13 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
     if(!buff)return null;
     if(Object.prototype.hasOwnProperty.call(buff,'expiresAt')){
       if(!Number.isSafeInteger(buff.expiresAt)||buff.expiresAt<0||buff.expiresAt>8.64e15)throw Error('屬性藥水到期時間無效');
-      validateElementalItem({...buff,type,duration:0});return remainingMs(buff,now)>0?copy(buff):null;
+      validateElementalItem({...buff,type,duration:0});return remainingMs(buff,now)>0?{...copy(buff),name:buff.name??item?.name??type+'_'+buff.element}:null;
     }
     const roundMs=Math.max(1,Number(settings?.combat?.pacing?.roundMinimumMs)||6000);
     const left=Number.isFinite(buff.remainingTurns)?Math.max(0,Math.ceil(buff.remainingTurns))*roundMs:Math.max(0,(Number(buff.until)||0)-now);
     if(left<=0)return null;
     const total=Number.isFinite(buff.totalTurns)?Math.max(left,Math.ceil(buff.totalTurns)*roundMs):left;
-    const out={...copy(buff),durationMinutes:total/60000,effectPercent:item?.effectPercent??elementalPercent(type,settings),expiresAt:now+left,until:0};
+    const out={...copy(buff),name:buff.name??item?.name??type+'_'+buff.element,durationMinutes:total/60000,effectPercent:item?.effectPercent??elementalPercent(type,settings),expiresAt:now+left,until:0};
     delete out.remainingTurns;delete out.totalTurns;validateElementalItem({...out,type,duration:0});return out;
   }
   function itemName(kind,percent,minutes){return kind==='speed4'?'四倍速解鎖券'+minutes+'分鐘':LABELS[kind]+'＋'+percent+'％ '+minutes+'分鐘';}
@@ -544,15 +557,16 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
     if(!Array.isArray(rows)||rows.length>200)throw Error('限時增益存檔無效');
     for(const b of rows){
       validateItem({id:b?.itemId,type:TYPE,name:b?.name,description:'',boostType:b?.boostType,bonusPercent:b?.bonusPercent,durationMinutes:b?.durationMinutes,duration:0,cost:0});
-      if(!Number.isSafeInteger(b.expiresAt)||b.expiresAt<0||names.has(b.name))throw Error('限時增益到期時間或同名來源無效');
-      names.add(b.name);
+      const key=sourceKey(b);
+      if(!Number.isSafeInteger(b.expiresAt)||b.expiresAt<0||b.expiresAt>8.64e15||names.has(key))throw Error('限時增益到期時間或同名來源無效');
+      names.add(key);
     }
     const raw=data?.combatSession??{},idleTimeMs=raw.idleTimeMs??0,speed=raw.speed??1,reportPaused=raw.reportPaused??false,filter=raw.filter??'all';
     if(!Number.isSafeInteger(idleTimeMs)||idleTimeMs<0||![1,2,4].includes(speed)||typeof reportPaused!=='boolean'||!['all','playerDamage','enemyDamage','exp','item'].includes(filter))throw Error('掛機時間／倍速／戰報存檔無效');
     const timedBoosts=copy(active({timedBoosts:rows}));
     return {timedBoosts,combatSession:{idleTimeMs,speed:speed===4&&!unlocked({timedBoosts})?2:speed,reportPaused,filter}};
   }
-  root.EmberwildTimedBoosts=Object.freeze({TYPE,KINDS,LABELS,DEFAULT_ITEMS,DEFAULT_RULES,isItem,itemName,migrateConfig,validateItem,active,bonus,unlocked,validateState,ELEMENTAL_TYPES,isElementalItem,expiryTime,remainingMs,timeText,validateElementalItem,createElementalBuff,migrateElementalConfig,migrateElementalBuff});
+  root.EmberwildTimedBoosts=Object.freeze({TYPE,KINDS,LABELS,MAX_STACK_MS,DEFAULT_ITEMS,DEFAULT_RULES,isItem,itemName,migrateConfig,validateItem,active,bonus,unlocked,validateState,ELEMENTAL_TYPES,isElementalItem,expiryTime,remainingMs,buffRows,compactBuffs,elementalActive,sourceKey,stackBuff,timeText,validateElementalItem,createElementalBuff,migrateElementalConfig,migrateElementalBuff});
 })(globalThis);
 
 </script>
@@ -2224,7 +2238,7 @@ ensureArrays();requestEditorInitialRender();
   renderItems=function(){
     ensureArrays();selected.item=Math.min(selected.item,Math.max(0,data.items.length-1));const item=data.items[selected.item];
     document.getElementById('app').innerHTML=sectionHead('商店消耗道具','15 個元素補給品保留在道具目錄；抗性與屬性增幅預設不上架，可各自設定效果強度與現實分鐘。附魔使用出戰回合。')+
-      `<div class="notice">抗性與屬性增幅由每個道具的 <code>effectPercent</code> 與 <code>durationMinutes</code> 控制。暫停、候補與關閉頁面仍會到期；同類覆蓋並刷新，不同類可同時生效。上架狀態在「商店」設定，description 只改顯示文字。</div>`+
+      `<div class="notice">抗性與屬性增幅由每個道具的 <code>effectPercent</code> 與 <code>durationMinutes</code> 控制。暫停、候補與關閉頁面仍會到期；同名同效果累加剩餘時間，不同倍率或屬性各自保留狀態並獨立計時；單一狀態上限 24 小時，超過時提醒且不消耗道具。上架狀態在「商店」設定，description 只改顯示文字。</div>`+
       `<div class="grid2"><div class="card"><div class="list">${data.items.map((x,i)=>`<div class="listitem ${i===selected.item?'active':''}" data-item="${i}"><div class="title">${esc(x.name||'(未命名道具)')}</div><div class="sub">${esc(ITEM_TYPE_LABELS[x.type]||x.type)} · ${esc(ELEMENT_LABELS[x.element]||x.element)} · 買 ${esc(x.cost??0)}／賣 ${esc(x.sellPrice??0)} 金幣</div></div>`).join('')||'<div class="empty">缺少商店道具；目前遊戲要求固定 15 筆。</div>'}</div></div>`+
       (item?card('道具資料',`<div class="fields">
         ${inputField('道具 ID','id',item.id||'','text','',false,'匯入驗證會用 id 對照內建 15 個道具，不能修改。',true)}
@@ -3055,7 +3069,7 @@ ensureArrays();requestEditorInitialRender();
     const item=data.items?.[selected.item];if(!item)return;normalizeItem(item);
     const app=document.getElementById("app");
     const fields=ITEM_STATS.map(([key,label,help])=>inputField(label,key,item.statEffects[key]??0,"number","step=0.01",false,help)).join("");
-    app.insertAdjacentHTML("beforeend",card("暫時能力效果",'<p class="mini-note">以下能力在道具有效期間套用到使用者；抗性與增幅依現實時間，附魔依出戰回合。填 0 代表不提供該效果；同類道具覆蓋時會一併覆蓋。</p><div class="fields">'+fields+'</div>'));
+    app.insertAdjacentHTML("beforeend",card("暫時能力效果",'<p class="mini-note">以下能力在道具有效期間套用到使用者；抗性與增幅依現實時間，附魔依出戰回合。填 0 代表不提供該效果；現實時間加成的不同能力組合各自保留狀態，同名同效果只累加時間，上限 24 小時。</p><div class="fields">'+fields+'</div>'));
     const box=app.lastElementChild;
     box.querySelectorAll("[data-key]").forEach(el=>el.onchange=()=>{const key=el.dataset.key,n=Number(el.value);if(!Number.isFinite(n)||n===0)delete item.statEffects[key];else item.statEffects[key]=n;markDirty();render();});
     const head=app.querySelector(".section-head p");if(head)head.textContent="元素補給品可設定價格、個別效果強度、持續時間及暫時主屬性／衍生副屬性效果。抗性與增幅使用現實分鐘。";
@@ -8427,7 +8441,7 @@ requestEditorInitialRender();
   function renderTimedBoosts(){
     ensureArrays();const list=rows();selected.timedBoost=Math.min(selected.timedBoost,Math.max(0,list.length-1));const item=list[selected.timedBoost],rule=item&&ruleFor(item);
     const listHTML=list.map((x,i)=>`<button class="shop-pool-row ${i===selected.timedBoost?'active':''}" data-boost-select="${i}"><b>${esc(x.name)}</b><span>${esc(api.LABELS[x.boostType])} · ${x.boostType==='speed4'?'解鎖':('＋'+x.bonusPercent+'%')} · ${x.durationMinutes} 分鐘</span></button>`).join('')||'<div class="empty">尚無限時道具。</div>';
-    const form=item?card('限時增益資料',`<div class="shop-rule-fields">${input('道具 ID','id',item.id)}${input('道具名稱','name',item.name)}<label>增益類型<select data-boost-field="boostType">${api.KINDS.map(k=>`<option value="${k}" ${item.boostType===k?'selected':''}>${api.LABELS[k]}</option>`).join('')}</select></label>${input('增益百分比 X%','bonusPercent',item.bonusPercent,'number',`min="${item.boostType==='speed4'?0:1}" step="1" ${item.boostType==='speed4'?'disabled':''}`)}${input('持續時間 X 分鐘','durationMinutes',item.durationMinutes,'number','min="1" step="1"')}${input('道具基本單價','cost',item.cost,'number','min="0" step="1"')}${input('賣出單價','sellPrice',item.sellPrice,'number','min="0" step="1"')}<p class="mini-note">物品說明由全域道具管理器統一設定。</p></div><p class="shop-editor-note">同名效果重新刷新完整時間，不累積倍率或時間；不同名稱的經驗／掉寶來源各自加算。分鐘不受倍速、暫停或關閉頁面影響。</p><button onclick="addTimedBoost(true)">複製道具</button>`):'';
+    const form=item?card('限時增益資料',`<div class="shop-rule-fields">${input('道具 ID','id',item.id)}${input('道具名稱','name',item.name)}<label>增益類型<select data-boost-field="boostType">${api.KINDS.map(k=>`<option value="${k}" ${item.boostType===k?'selected':''}>${api.LABELS[k]}</option>`).join('')}</select></label>${input('增益百分比 X%','bonusPercent',item.bonusPercent,'number',`min="${item.boostType==='speed4'?0:1}" step="1" ${item.boostType==='speed4'?'disabled':''}`)}${input('持續時間 X 分鐘','durationMinutes',item.durationMinutes,'number','min="1" step="1"')}${input('道具基本單價','cost',item.cost,'number','min="0" step="1"')}${input('賣出單價','sellPrice',item.sellPrice,'number','min="0" step="1"')}<p class="mini-note">物品說明由全域道具管理器統一設定。</p></div><p class="shop-editor-note">同名同效果累加剩餘時間，不同倍率保留各自狀態、獨立計時並加算效果；單一狀態上限 24 小時，超過時提醒且不消耗道具。分鐘不受倍速、暫停或關閉頁面影響。</p><button onclick="addTimedBoost(true)">複製道具</button>`):'';
     const ruleInput=(label,key,value,type='number',extra='')=>`<label>${label}<input data-boost-rule-field="${key}" type="${type}" value="${esc(value??'')}" ${extra}></label>`;
     const pool=item?card('隨機商店供給',rule?`<div class="shop-rule-fields"><label>上架<select data-boost-rule-field="enabled"><option value="true" ${rule.enabled?'selected':''}>啟用</option><option value="false" ${!rule.enabled?'selected':''}>停用</option></select></label><label>出現方式<select data-boost-rule-field="selection"><option value="weighted" ${rule.selection==='weighted'?'selected':''}>參與商品池權重抽選</option><option value="extra" ${rule.selection==='extra'?'selected':''}>每批獨立機率追加</option></select></label>${ruleInput('出現權重','weight',rule.weight,'number','min="0.000001" step="0.01"')}${ruleInput('每批追加機率（0～1）','chance',rule.chance,'number','min="0" max="1" step="0.001"')}${ruleInput('最少數量','quantityMin',rule.quantityMin,'number','min="1" step="1"')}${ruleInput('最多數量','quantityMax',rule.quantityMax,'number','min="1" step="1"')}${ruleInput('商店單價（留空沿用道具單價）','unitPrice',rule.unitPrice,'number','min="0" step="1"')}</div><p class="shop-editor-note">直接編輯既有 shopSettings.randomOffers.entries。${rule.selection==='weighted'?'權重不是固定機率，實際選中比例為本商品權重／全部啟用商品權重。':'追加機率每批獨立判定一次，不受商品池權重影響。'}</p><button onclick="currentSection='shopSettings';render()">開啟完整商店設定</button>`:`<p>目前未加入隨機池。</p><button id="boostAddShopRule">加入隨機商品池</button>`):'';
     document.getElementById('app').innerHTML=sectionHead('消耗道具','限時增益依現實分鐘計時；4×、經驗與掉寶是三個獨立效果。','<button class="primary" onclick="addTimedBoost()">新增限時道具</button>')+modes()+`<div class="shop-editor-layout"><div class="card shop-pool-list">${listHTML}</div><div class="shop-editor-detail">${form}${pool}</div></div>`;
