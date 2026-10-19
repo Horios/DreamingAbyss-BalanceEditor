@@ -448,6 +448,7 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
 });
 
 </script>
+
 <script id="timed-boost-schema-v1">
 /* Shared real-time consumable contract. Percentages are source contributions, not multipliers. */
 (function(root){
@@ -11181,4 +11182,64 @@ html body label:has(>input:is([type=checkbox],[type=radio])){display:flex;flex-d
  ensureArrays();requestEditorInitialRender();
 })();
 
+</script>
+
+<style id="game-navigation-editor-style">
+.navigation-editor-list{display:grid;gap:12px}
+.navigation-editor-group{border:1px solid var(--line);border-radius:8px;background:#151a20;padding:12px}
+.navigation-editor-head{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;gap:10px;align-items:end}
+.navigation-editor-pages{display:grid;gap:7px;margin-top:12px}
+.navigation-editor-page{display:grid;grid-template-columns:minmax(150px,1fr) minmax(150px,.8fr) auto;gap:8px;align-items:end;padding:8px;border:1px solid var(--line);border-radius:6px}
+.navigation-editor-page code{display:block;margin-top:4px;font-size:10px;color:var(--muted)}
+.navigation-editor-page .actions,.navigation-editor-head .actions{margin:0}
+@media(max-width:800px){.navigation-editor-head,.navigation-editor-page{grid-template-columns:1fr}.navigation-editor-page .actions,.navigation-editor-head .actions{justify-content:flex-start}}
+</style>
+<script id="game-navigation-editor">
+(()=>{
+ const VERSION=1,PAGES={battle:'荒野探索',statistics:'戰鬥統計',shop:'商店',guide:'冒險指南',roster:'隊伍編成',partnerRoster:'夥伴名冊',character:'角色能力',skills:'技能',equipment:'背包',worn:'裝備與信物',forge:'裝備強化',bossCraft:'BOSS 製作','story-main':'主線','story-side':'支線','story-npc':'NPC 任務',quests:'委託',gather:'採集',alchemy:'煉金'},copy=value=>structuredClone(value);
+ const DEFAULTS={version:VERSION,groups:[
+  {id:'adventure',label:'探索與冒險',expanded:true,pages:[['battle','荒野探索'],['statistics','戰鬥統計'],['shop','商店'],['guide','冒險指南']]},
+  {id:'party',label:'角色與隊伍',expanded:true,pages:[['roster','隊伍編成'],['partnerRoster','夥伴名冊'],['character','角色能力'],['skills','技能']]},
+  {id:'equipment',label:'裝備與製作',expanded:false,pages:[['equipment','背包'],['worn','裝備與信物'],['forge','裝備強化'],['bossCraft','BOSS 製作']]},
+  {id:'missions',label:'主要任務',expanded:true,pages:[['story-main','主線'],['story-side','支線'],['story-npc','NPC 任務'],['quests','委託']]},
+  {id:'life',label:'生活技能',expanded:true,pages:[['gather','採集'],['alchemy','煉金']]}
+ ].map(group=>({...group,pages:group.pages.map(([id,label])=>({id,label}))}))};
+ const validText=(value,max)=>typeof value==='string'&&value.trim()===value&&value.length>0&&value.length<=max;
+ function ensure(doc){if(doc.navigation===undefined)doc.navigation=copy(DEFAULTS);}
+ function issues(nav){
+  const out=[];if(!nav||typeof nav!=='object'||Array.isArray(nav)||nav.version!==VERSION||!Array.isArray(nav.groups)||nav.groups.length<1||nav.groups.length>12)return ['導覽列表格式或版本無效。'];
+  const groups=new Set(),pages=new Set();nav.groups.forEach((group,index)=>{
+   if(!group||typeof group!=='object'||Array.isArray(group)||!validText(group.id,48)||groups.has(group.id)||!validText(group.label,24)||typeof group.expanded!=='boolean'||!Array.isArray(group.pages)||group.pages.length>24){out.push(`導覽群組 ${index+1} 無效。`);return;}
+   groups.add(group.id);group.pages.forEach((page,pageIndex)=>{if(!page||typeof page!=='object'||Array.isArray(page)||!Object.hasOwn(PAGES,page.id)||pages.has(page.id)||!validText(page.label,24))out.push(`導覽頁籤 ${index+1}-${pageIndex+1} 無效。`);else pages.add(page.id);});
+  });
+  const missing=Object.keys(PAGES).filter(id=>!pages.has(id));if(missing.length)out.push('導覽列表缺少頁籤：'+missing.join('、'));
+  return out;
+ }
+ ensure(ORIGINAL_DATA);ensure(data);
+ const ensureBase=ensureArrays;ensureArrays=function(...args){const out=ensureBase(...args);ensure(data);return out;};
+ function move(list,index,delta){const target=index+delta;if(target<0||target>=list.length)return;[list[index],list[target]]=[list[target],list[index]];markDirty('已調整遊戲頁籤順序');render();}
+ function movePage(id,targetId){const source=data.navigation.groups.find(group=>group.pages.some(page=>page.id===id)),target=data.navigation.groups.find(group=>group.id===targetId);if(!source||!target||source===target)return;const index=source.pages.findIndex(page=>page.id===id),[page]=source.pages.splice(index,1);target.pages.push(page);markDirty('已移動遊戲頁籤');render();}
+ function page(){
+  ensure(data);const nav=data.navigation,problems=issues(nav),app=document.getElementById('app');
+  app.innerHTML=sectionHead('遊戲頁籤','調整遊戲左側樹狀列表的群組名稱、預設展開狀態、群組順序、頁籤名稱與歸屬。頁面 ID 固定，不會影響功能與存檔。','<button id="navigationReset">恢復預設排列</button>')+
+   (problems.length?`<section class="notice"><b>目前設定無法套用</b>${problems.map(problem=>`<p>${esc(problem)}</p>`).join('')}<p>可按「恢復預設排列」重建完整列表。</p></section>`:
+   `<section class="notice">主線、支線、NPC 任務與委託預設集中於「主要任務」；採集、煉金則分成獨立頁面並同掛於「生活技能」。群組與頁籤都可改名及排序。</section><div class="navigation-editor-list">${nav.groups.map((group,groupIndex)=>`<section class="navigation-editor-group" data-navigation-group="${esc(group.id)}"><div class="navigation-editor-head"><label>群組名稱<input data-navigation-group-label="${esc(group.id)}" maxlength="24" value="${esc(group.label)}"><code>${esc(group.id)}</code></label><label><input type="checkbox" data-navigation-expanded="${esc(group.id)}" ${group.expanded?'checked':''}> 預設展開</label><div class="actions"><button data-navigation-group-up="${groupIndex}" ${groupIndex===0?'disabled':''}>上移</button><button data-navigation-group-down="${groupIndex}" ${groupIndex===nav.groups.length-1?'disabled':''}>下移</button></div></div><div class="navigation-editor-pages">${group.pages.map((entry,pageIndex)=>`<div class="navigation-editor-page"><label>頁籤名稱<input data-navigation-page-label="${esc(entry.id)}" maxlength="24" value="${esc(entry.label)}"><code>${esc(entry.id)}</code></label><label>所屬群組<select data-navigation-page-group="${esc(entry.id)}">${nav.groups.map(option=>`<option value="${esc(option.id)}" ${option===group?'selected':''}>${esc(option.label)}</option>`).join('')}</select></label><div class="actions"><button data-navigation-page-up="${esc(entry.id)}" ${pageIndex===0?'disabled':''}>上移</button><button data-navigation-page-down="${esc(entry.id)}" ${pageIndex===group.pages.length-1?'disabled':''}>下移</button></div></div>`).join('')||'<p class="mini-note">此群組目前沒有頁籤。</p>'}</div></section>`).join('')}</div>`);
+  document.getElementById('navigationReset').onclick=()=>{if(!confirm('恢復預設群組與頁籤排列？自訂名稱與順序會被取代。'))return;data.navigation=copy(DEFAULTS);markDirty('已恢復遊戲頁籤預設排列');render();};
+  if(problems.length)return;
+  app.querySelectorAll('[data-navigation-group-label]').forEach(input=>input.onchange=()=>{const group=nav.groups.find(row=>row.id===input.dataset.navigationGroupLabel),value=input.value.trim();if(!group||!value){render();return;}group.label=value;markDirty('已修改頁籤群組名稱');render();});
+  app.querySelectorAll('[data-navigation-expanded]').forEach(input=>input.onchange=()=>{const group=nav.groups.find(row=>row.id===input.dataset.navigationExpanded);if(!group)return;group.expanded=input.checked;markDirty('已修改群組展開狀態');});
+  app.querySelectorAll('[data-navigation-group-up]').forEach(button=>button.onclick=()=>move(nav.groups,Number(button.dataset.navigationGroupUp),-1));
+  app.querySelectorAll('[data-navigation-group-down]').forEach(button=>button.onclick=()=>move(nav.groups,Number(button.dataset.navigationGroupDown),1));
+  app.querySelectorAll('[data-navigation-page-label]').forEach(input=>input.onchange=()=>{const entry=nav.groups.flatMap(group=>group.pages).find(row=>row.id===input.dataset.navigationPageLabel),value=input.value.trim();if(!entry||!value){render();return;}entry.label=value;markDirty('已修改頁籤名稱');render();});
+  app.querySelectorAll('[data-navigation-page-group]').forEach(select=>select.onchange=()=>movePage(select.dataset.navigationPageGroup,select.value));
+  app.querySelectorAll('[data-navigation-page-up]').forEach(button=>button.onclick=()=>{const group=nav.groups.find(row=>row.pages.some(page=>page.id===button.dataset.navigationPageUp));move(group.pages,group.pages.findIndex(page=>page.id===button.dataset.navigationPageUp),-1);});
+  app.querySelectorAll('[data-navigation-page-down]').forEach(button=>button.onclick=()=>{const group=nav.groups.find(row=>row.pages.some(page=>page.id===button.dataset.navigationPageDown));move(group.pages,group.pages.findIndex(page=>page.id===button.dataset.navigationPageDown),1);});
+ }
+ SECTION_META.push(['navigation','遊戲頁籤']);NAV_GROUPS.find(group=>group[0]==='tools')[2].unshift('navigation');
+ const renderBase=render;render=function(...args){if(currentSection!=='navigation')return renderBase(...args);ensureArrays();renderNav(true);page();};
+ const countBase=count;count=function(section,normalized=false){if(section!=='navigation')return countBase(section,normalized);ensure(data);return data.navigation?.groups?.flatMap(group=>group.pages||[]).length||0;};
+ const validateBase=validateData;validateData=function(){ensure(data);return [...new Set([...validateBase(),...issues(data.navigation)])];};
+ globalThis.__EMBERWILD_NAVIGATION_EDITOR={defaults:()=>copy(DEFAULTS),issues:()=>issues(data.navigation),select(){currentSection='navigation';render();}};
+ requestEditorInitialRender();
+})();
 </script>
