@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "de20dfc3adc6850a3cbd2ccc0204b9a42ad5c2a2",
+  "sourceCommit": "b341ea7bdc4b8ed9cd6c1c7e96db871f6107f985",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -16,15 +16,15 @@
     },
     {
       "path": "js/story/story-model.js?v=20261020-exploration1",
-      "sha256": "53ec3055bd8db233b1c59181425f832ee449e9b50648a8aa09ad0dad9932e441"
+      "sha256": "ac5fc99adb9b4095d1c63ab475330016516476c238177348309edafa13118159"
     },
     {
       "path": "js/skills/skill-system-model.js",
-      "sha256": "d67483e3cfb39f510d86cd9a66700e8080a39080085fd5159a69c325e1802c4d"
+      "sha256": "676a0be814cd137d377925c2f5b0d6f2f88b3af9bec9d1ae0dbcc596c14d801f"
     },
     {
       "path": "js/balance/balance-document.js?v=20261014-descriptions1",
-      "sha256": "bc0beb1da927c6869d208161e60cd055174d8b16bbd2cc58a9685a853c179962"
+      "sha256": "9a35356e21489e3080e59ecfafc46c104df44463017579c4fe22eb268d747e86"
     },
     {
       "path": "inline",
@@ -308,7 +308,7 @@
     },
     {
       "path": "js/equipment/team-references.js?v=20261019-daily-speed2",
-      "sha256": "165239ac48b3109c2b945be53f7aad25918ca0ee6f70f1fa598251bbdf2dc621"
+      "sha256": "65774f544aa5d9cbbc0ab17d0f44b41ed82b9439274d9a20f9e16ed99fee34cb"
     },
     {
       "path": "js/ui/team-builds.js?v=20261013-team-actions1",
@@ -368,7 +368,7 @@
     },
     {
       "path": "js/story/story-runtime.js?v=20261021-new-label1",
-      "sha256": "48b7e4e77da8741e1fd2a1c4dbd030b5d5e37a8084c2cc5464c88c3943f854c2"
+      "sha256": "54ba1dea4e39c42cbc10f5f455ca24619a44a6e5a72ddfb0a4bac5dcbb6995f7"
     },
     {
       "path": "js/ui/mobile-layout.js?v=20261020-exploration1",
@@ -388,15 +388,15 @@
     },
     {
       "path": "js/skills/skill-system-runtime.js",
-      "sha256": "169596825d8f357750256d38ce34603d3773f3d164542ebfb3793668d7ffb584"
+      "sha256": "753198307dd1928780e4ccbec774c987c9c527ae90ae9108b8791a0da0e049b0"
     },
     {
       "path": "js/equipment/equipment-skill-runtime.js",
-      "sha256": "2a1a51df3dcda204fc3724f07920310c6ba4e0e12d5516377de988affd55a4dd"
+      "sha256": "23af1664479fd8ce8113589fc017d55129f4612c9512702f7784430ba6facca8"
     },
     {
       "path": "js/ui/skill-system-ui.js",
-      "sha256": "16ba1f5a1b813b117b43f67aef0471a3bed7a422c4a98af3e359efeedb8c9e30"
+      "sha256": "b76c35d66e7b59ea51c06dd3c4f59e6bb6d65a552a22f43a6f46927a95696d77"
     }
   ]
 }
