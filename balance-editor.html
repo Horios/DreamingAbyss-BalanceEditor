@@ -264,6 +264,15 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
         "multiplierBase": 1,
         "multiplierPerLevel": 0
       },
+      "xpLevelGap": {
+        "enabled": true,
+        "freeLevels": 5,
+        "midGap": 10,
+        "midMultiplier": 0.5,
+        "highGap": 15,
+        "highMultiplier": 0.1,
+        "minimumMultiplier": 0.05
+      },
       "statsPerPoint": {
         "hp": 3,
         "attack": 1,
@@ -409,9 +418,9 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
   }
   function baseMonsterStats(settings,level,kind='normal',row={}){
     const n=settings.monsters.normal,k=settings.monsters.kindMultipliers,f=settings.monsters.finalBoss;
-    const hp=kind==='final'?f.hp:(n.hpBase+level*n.hpPerLevel+level*level*n.hpQuadratic)*(kind==='boss'?k.bossHp:kind==='elite'?k.eliteHp:1);
-    const atk=kind==='final'?f.attack:(n.attackBase+level*n.attackPerLevel)*(kind==='boss'?k.bossAttack:kind==='elite'?k.eliteAttack:1);
-    const def=kind==='final'?f.defense:level*n.defensePerLevel*(kind==='boss'?k.bossDefense:kind==='elite'?k.eliteDefense:1);
+    const hp=Number(row.baseStats?.hp)>0?row.baseStats.hp:kind==='final'?f.hp:(n.hpBase+level*n.hpPerLevel+level*level*n.hpQuadratic)*(kind==='boss'?k.bossHp:kind==='elite'?k.eliteHp:1);
+    const atk=Number(row.baseStats?.attack)>0?row.baseStats.attack:kind==='final'?f.attack:(n.attackBase+level*n.attackPerLevel)*(kind==='boss'?k.bossAttack:kind==='elite'?k.eliteAttack:1);
+    const def=Number(row.baseStats?.defense)>=0?row.baseStats.defense:kind==='final'?f.defense:level*n.defensePerLevel*(kind==='boss'?k.bossDefense:kind==='elite'?k.eliteDefense:1);
     return {hp:Math.max(1,Math.round(hp*(row.hpMultiplier??1))),atk:Math.max(1,Math.round(atk*(row.attackMultiplier??1))),def:Math.max(0,Math.round(def*(row.defenseMultiplier??1)))};
   }
   function scaleMonsterStats(settings,level,kind,mode,base){
@@ -429,10 +438,22 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
     const c=settings.progression.xpCurve,m=settings.skills?.mastery?.characterXpMultiplier??1;
     return Math.max(1,Math.round(Math.round((c.base+level*c.linear+level*level*c.quadratic)*(c.multiplierBase+level*c.multiplierPerLevel))*m));
   }
-  function enemyXp(settings,level,kind='normal',mode=0){
+  // Same-level and higher-level monsters retain their existing EXP. The
+  // reduction is applied once, before sharing the reward with party members.
+  function xpLevelGapFactor(settings,playerLevel,enemyLevel){
+    const cfg=settings.progression?.xpLevelGap;
+    if(!cfg?.enabled||!Number.isFinite(playerLevel)||!Number.isFinite(enemyLevel))return 1;
+    const gap=Math.max(0,playerLevel-enemyLevel);
+    if(gap<=cfg.freeLevels)return 1;
+    if(gap<=cfg.midGap)return 1-(1-cfg.midMultiplier)*(gap-cfg.freeLevels)/(cfg.midGap-cfg.freeLevels);
+    if(gap<=cfg.highGap)return cfg.midMultiplier-(cfg.midMultiplier-cfg.highMultiplier)*(gap-cfg.midGap)/(cfg.highGap-cfg.midGap);
+    return cfg.minimumMultiplier;
+  }
+  function enemyXp(settings,level,kind='normal',mode=0,playerLevel=null){
     const r=settings.rewards,x=r.xp,k=x.kindMultiplier||r.kindMultiplier,key=kind==='final'?'boss':kind;
     const difficulty=settings.difficulty.modes[mode];
-    return Math.max(1,Math.round((x.base+level*x.perLevel)*(k[key]??1)*(difficulty?.xpMultiplier??difficulty?.reward??1)));
+    const base=(x.base+level*x.perLevel)*(k[key]??1)*(difficulty?.xpMultiplier??difficulty?.reward??1);
+    return Math.max(1,Math.round(base*xpLevelGapFactor(settings,playerLevel,level)));
   }
   function xpShare(xp,count){return Math.max(1,Math.round(xp/Math.max(1,count)));}
   function gearStats(raw,effects,power,plus,enhancePerLevel){
@@ -444,9 +465,8 @@ label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
     return {raw:rounded(raw),body,grade,enhance,total};
   }
   function validSteps(steps){return Array.isArray(steps)&&steps.length<=12&&steps.every(s=>s&&Number.isInteger(s.every)&&s.every>=1&&s.every<=60&&['hp','atk','def'].every(k=>Number.isSafeInteger(s[k])&&s[k]>=0));}
-  return {defaults,applyDefaults,applyClassDefaults,naturalStats,encounterLevelLead,baseMonsterStats,scaleMonsterStats,monsterStats,requiredXp,enemyXp,xpShare,gearStats,validSteps};
+  return {defaults,applyDefaults,applyClassDefaults,naturalStats,encounterLevelLead,baseMonsterStats,scaleMonsterStats,monsterStats,requiredXp,enemyXp,xpLevelGapFactor,xpShare,gearStats,validSteps};
 });
-
 </script>
 <script id="timed-boost-schema-v1">
 /* Shared real-time consumable contract. Percentages are source contributions, not multipliers. */
@@ -1008,6 +1028,13 @@ function settingMeta(path){
     "progression.xpCurve.quadratic":["經驗需求平方係數","乘上等級²，主要控制高等級需求成長速度。"],
     "progression.xpCurve.multiplierBase":["經驗需求倍率基礎值","整體需求最後乘上的倍率基礎項。"],
     "progression.xpCurve.multiplierPerLevel":["經驗需求倍率每級增量","整體倍率會再隨等級增加。"],
+    "progression.xpLevelGap.enabled":["低等怪經驗懲罰啟用","主角高於怪物等級時是否降低經驗值。"],
+    "progression.xpLevelGap.freeLevels":["經驗懲罰免費等級差","高於怪物此級數內仍取得完整經驗。"],
+    "progression.xpLevelGap.midGap":["經驗懲罰第一段級差","高於怪物此級數時，倍率降至第一段目標值。"],
+    "progression.xpLevelGap.midMultiplier":["經驗懲罰第一段倍率","差距達第一段級差時的 EXP 倍率，0.5 = 50%。"],
+    "progression.xpLevelGap.highGap":["經驗懲罰第二段級差","高於怪物此級數時，倍率降至第二段目標值。"],
+    "progression.xpLevelGap.highMultiplier":["經驗懲罰第二段倍率","差距達第二段級差時的 EXP 倍率，0.1 = 10%。"],
+    "progression.xpLevelGap.minimumMultiplier":["經驗懲罰最低倍率","超過第二段級差後的 EXP 倍率，0.05 = 5%；階段內線性遞減。"],
     "progression.starting.gold":["新角色起始金幣","建立第一名角色時的初始金幣。"],
     "progression.starting.ore":["新角色起始鍛鐵","建立角色時的初始鍛鐵。"],
     "progression.starting.dust":["新角色起始粉塵","建立角色時的初始粉塵。"],
