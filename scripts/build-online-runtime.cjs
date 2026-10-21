@@ -6,8 +6,9 @@ const scripts=[];
 for(const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){
  const src=m[1].match(/(?:\bsrc|data-balance-src)="([^"]+)"/)?.[1];
  if(src&&/startup-guard|published-loader/.test(src))continue;
- scripts.push({file:src||'inline',code:src?fs.readFileSync(path.join(game,src.split('?')[0]),'utf8'):m[2]});
+ scripts.push({deferred:m[1].includes('data-balance-src'),file:src||'inline',code:src?fs.readFileSync(path.join(game,src.split('?')[0]),'utf8'):m[2]});
 }
+scripts.sort((a,b)=>Number(a.deferred)-Number(b.deferred));
 const acornModule={exports:{}};
 new Function('module','exports',process.binding('natives')['internal/deps/acorn/acorn/dist/acorn'])(acornModule,acornModule.exports);
 const declared=new Set(),constants=new Set();

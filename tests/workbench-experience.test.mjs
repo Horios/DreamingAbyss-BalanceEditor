@@ -6,8 +6,8 @@ const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-e
 const doc=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json'));
 function editor(saved={}){const r=loadRuntime(process.cwd(),'balance-editor.html',saved);r.ctx.doc=doc;r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(doc);ensureArrays();');return r;}
 function click(r,id){return r.ctx.document.getElementById(id).onclick?.({target:r.ctx.document.getElementById(id)});}
-test('all 42 original pages remain reachable; common controls do not change the exported balance',()=>{
- const r=editor(),before=r.run('JSON.stringify(__EMBERWILD_RELEASE_EDITOR.current())'),meta=r.run('SECTION_META');assert.equal(meta.length,42);
+test('all original and canonical pages remain reachable; common controls do not change the exported balance',()=>{
+ const r=editor(),before=r.run('JSON.stringify(__EMBERWILD_RELEASE_EDITOR.current())'),meta=r.run('SECTION_META');assert.equal(meta.length,45);
  // These two editors bind static ID selectors via app.querySelector. Supply those IDs in the minimal DOM.
  const app=r.elements.get('app');app.querySelector=s=>/^#[\w-]+$/.test(s)?r.ctx.document.getElementById(s.slice(1)):s.startsWith('[data-key=')?r.ctx.document.getElementById(s):null;
  for(const [id] of meta){r.run('currentSection='+JSON.stringify(id)+';render();');assert.match(app.innerHTML,/workbenchBack/);assert.match(app.innerHTML,/workbenchPublish/);assert(app.innerHTML.length>500,id);}
@@ -16,7 +16,7 @@ test('all 42 original pages remain reachable; common controls do not change the 
 test('search locates pages, a specific item and skill; back restores the original class selection',()=>{
  const r=editor(),X=r.ctx.__EMBERWILD_EXPERIENCE;assert(X.search('發布').some(x=>x.section==='releases'));const item=X.search('紅色草').find(x=>x.id==='material:紅色草');assert(item);
  r.run('currentSection="classes";selected.class=2;render();');X.go(item);assert.equal(r.run('currentSection'),'inventoryIcons');assert.equal(r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR.state.selectedId,'material:紅色草');X.back();assert.equal(r.run('currentSection'),'classes');assert.equal(r.run('selected.class'),2);
- const skillName=r.run('data.classes[1].skills[1].name');const skill=X.search(skillName).find(x=>x.selection?.skillClass===1);assert(skill);X.go(skill);assert.equal(r.run('selected.skillClass'),1);assert.equal(r.run('selected.skill'),1);assert.equal(r.run('currentSection'),'skills');
+ const skillName=r.run('data.classes[1].skills[1].name');const skill=X.search(skillName).find(x=>x.selection?.skillClass===1);assert(skill);X.go(skill);assert.equal(r.run('selected.skillClass'),1);assert.equal(r.run('selected.skill'),1);assert.equal(r.run('currentSection'),'skillSystem');
 });
 test('invalid raw text survives navigation and reload, does not change data, and blocks publishing/export',async()=>{
  const r=editor(),X=r.ctx.__EMBERWILD_EXPERIENCE;r.run('currentSection="raw";render()');const before=r.run('JSON.stringify(data)'),ta=r.ctx.document.getElementById('rawEditor');ta.value='{ invalid draft';ta.oninput();assert(X.rawPending());r.run('currentSection="classes";render()');assert.equal(r.run('JSON.stringify(data)'),before);assert.equal(X.guardRaw(),false);
@@ -34,5 +34,5 @@ test('view and version message survive reload outside the game JSON; unknown pag
 });
 
 test('semantic diff IDs locate the intended skill and item without editing data',()=>{
- const r=editor(),X=r.ctx.__EMBERWILD_EXPERIENCE,before=r.run('JSON.stringify(data)'),id=r.run('data.classes[2].skills[1].id');X.jumpPath('classes.2.skills.'+id+'.power');assert.equal(r.run('currentSection'),'skills');assert.equal(r.run('selected.skillClass'),2);assert.equal(r.run('selected.skill'),1);X.jumpPath('items.heal_supreme.cooldown');assert.equal(r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR.state.selectedId,'item:heal_supreme');assert.equal(r.run('JSON.stringify(data)'),before);
+ const r=editor(),X=r.ctx.__EMBERWILD_EXPERIENCE,before=r.run('JSON.stringify(data)'),id=r.run('data.classes[2].skills[1].id');X.jumpPath('classes.2.skills.'+id+'.power');assert.equal(r.run('currentSection'),'skillSystem');assert.equal(r.run('selected.skillClass'),2);assert.equal(r.run('selected.skill'),1);X.jumpPath('items.heal_supreme.cooldown');assert.equal(r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR.state.selectedId,'item:heal_supreme');assert.equal(r.run('JSON.stringify(data)'),before);
 });

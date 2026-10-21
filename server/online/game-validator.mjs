@@ -15,7 +15,7 @@ export function createGameValidator(){
  const MutationObserver=class{observe(){}disconnect(){}},ResizeObserver=MutationObserver;
  let seq=0;const setTimeout=()=>++seq,clearTimeout=()=>{},setInterval=()=>++seq,clearInterval=()=>{},requestAnimationFrame=()=>++seq,cancelAnimationFrame=()=>{},queueMicrotask=()=>{},addEventListener=()=>{},removeEventListener=()=>{},matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}}),getComputedStyle=()=>({lineHeight:'20px',fontSize:'16px',getPropertyValue:()=>''}),performance={now:()=>0},crypto={randomUUID:()=>String(++seq)},innerWidth=1440,innerHeight=900,scrollX=0,scrollY=0,alert=()=>{},confirm=()=>true,prompt=()=>null;
  Object.assign(globalThis,{document,localStorage,sessionStorage,location,navigator,crypto,window,self,addEventListener,removeEventListener,setTimeout,clearTimeout,setInterval,clearInterval,requestAnimationFrame,cancelAnimationFrame,matchMedia,getComputedStyle,performance});
- var setUITheme,uiThemeOptionsView,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildQuestDesign,EmberwildCommissions,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,__EMBERWILD_CONTROL_TEST_API,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,equipmentAttributeDetailsHTML,gearStatBreakdown,equipmentTotalSummaryText,equipmentTotalSummaryHTML,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,scaleHeroHealing,equipmentWearableJobsDetailsHTML,setBattleSpeed,equipmentAffixComparison,__EMBERWILD_TEAMS,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_BALANCE_READY,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,performEnemyActionCore,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,itemSlotHTML,gearSlotHTML,itemCostHTML,mailAttachmentSlot,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,lifeMaterialPurchasePrice,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,claimPendingQuality,salvagePendingQuality,sellPendingQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isFinalMap,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,created,recordCombatContribution,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,journalLootOpen,showBattleEffects,activeSupplies,supplyBuffDetails,useAutoHealingPotion,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,companionTokenDescription,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,classInitialStats,classGrowthPerLevel,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,__pendingQualityFoldOpen,setPendingQualityFold,recordDailyProgress,claimPendingGearGroup,sellPendingGearGroup,salvagePendingGearGroup,quickDisposePendingQuality,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_LUCIDE,__EMBERWILD_COMPANION_TEST_API,companionSkillDisabled,__EMBERWILD_TEAM_GAIN,__EMBERWILD_MASTERY,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devMasterySetLevel,devMasterySetExp,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,hydrateEnemyCombatStats,enemyBattleStats,__EMBERWILD_STATUS_TEST_API,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,isEmberwildUIInteracting,__EMBERWILD_AFTER_RENDER,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,recruitCompanion,companionUnlocked,acquireCompanion,confirmMemberReplacement,rememberCompanionRosterDetail,showCompanionRecruitment,companionUnlockText,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,__EMBERWILD_PROGRESSION_TEST,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,buyFixedShopOffer,setShopCategory,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,isEmberwildPreview,numberReminderOptionsView,battleSpeedButtons,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,EmberwildInduction,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showCompanionTokens,setTokenSort,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,quickDisposeJournalGear,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,__EMBERWILD_LIFE_SKILLS,isUtilityDialogOpen,companionPendingMail,companionTicketCount,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,claimAllMailboxAttachments,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,claimDailyBonus,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,taskReminderHTML,storyCategoryReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,completeStoryStage,storyNavigate,openStory,setStoryCategory,readStory,nextStoryDialogue,endStoryDialogue,storyReadyCount,setAlchemyAutoBuy,__EMBERWILD_STORY,toggleMobileJournal,toggleMobileLoot;
+ var setUITheme,uiThemeOptionsView,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildSkillSystem,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,recordCombatContribution,__EMBERWILD_SIMULATION_MODAL,__EMBERWILD_CONTROL_TEST_API,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,equipmentAttributeDetailsHTML,gearStatBreakdown,equipmentTotalSummaryText,equipmentTotalSummaryHTML,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,scaleHeroHealing,equipmentWearableJobsDetailsHTML,setBattleSpeed,equipmentAffixComparison,__EMBERWILD_TEAMS,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,performEnemyActionCore,__EMBERWILD_EQUIPMENT_SKILLS,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,created,__EMBERWILD_OFFLINE_SILENT,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,setExplorationCategory,selectExplorationMap,selectQuestEncounter,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,journalLootOpen,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,useAutoHealingPotion,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,companionTokenDescription,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,classInitialStats,classGrowthPerLevel,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_LUCIDE,__EMBERWILD_OFFLINE_RULE_CACHE,__EMBERWILD_COMPANION_TEST_API,companionSkillDisabled,__EMBERWILD_TEAM_GAIN,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devMasterySetLevel,devMasterySetExp,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,recruitCompanion,companionUnlocked,acquireCompanion,confirmMemberReplacement,rememberCompanionRosterDetail,showCompanionRecruitment,companionUnlockText,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,__EMBERWILD_PROGRESSION_TEST,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,numberReminderOptionsView,EmberwildOffline,battleSpeedButtons,setTimedBoostEnabled,setPauseBoostsOnSpeedEnd,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,isUtilityDialogOpen,companionPendingMail,companionTicketCount,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,claimAllMailboxAttachments,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,claimDailyBonus,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,storyCategoryReminder,taskReminderHTML,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,completeStoryStage,storyNavigate,openStory,setStoryCategory,readStory,nextStoryDialogue,endStoryDialogue,storyReadyCount,setAlchemyAutoBuy,__EMBERWILD_STORY,toggleMobileJournal,toggleMobileLoot,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,__EMBERWILD_GEAR_INVENTORY,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,retryOfflineExploration,configureSkill,selectSkillEquipment,socketEquipmentGem,setEquipmentGemMode,openSkillSlot,chooseSkillSlot,__EMBERWILD_SKILL_SYSTEM_UI;
 
 /* js/ui/themes.js?v=20261016-themes1 */
 /* Browser-wide appearance preference, independent of character and balance data. */
@@ -106,7 +106,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
       for(const p of [r,...(r.bonusDrops||[])])if(p.outputType==='material')add('material',p.output,p.output);
       for(const [key,,type='material'] of r.inputs||[])if(type==='material')add('material',key,key);
     }
-    ['赤焰石','疾風石','共鳴石'].forEach((name,i)=>add('gem',i,name));
+    ['赤焰石','疾風石','靈巧石','生息石','守護石'].forEach((name,i)=>{for(let tier=0;tier<3;tier++)add('gem',i+tier*5,name+'・'+(tier+1)+'階');});
     for(const t of doc.companionTokens?.catalog||[])add('token',t.id,t.name);
     for(const key of Object.keys(doc.lifeSkills?.materialBuyPrices||{}))add('material',key,key);
     for(const pool of [doc.shopSettings?.fixedOffers,doc.shopSettings?.randomOffers])for(const r of pool?.entries||[])if(r.type==='material'&&r.key!=='region')add('material',r.key,r.key);
@@ -124,7 +124,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
     for(const [pool,label] of [[doc.shopSettings?.fixedOffers,'固定商店'],[doc.shopSettings?.randomOffers,'隨機商店']])for(const r of pool?.entries||[]){
       if(r.enabled===false)continue;
       if(r.type==='material'&&r.key==='region'){for(const m of doc.balanceSettings?.monsters?.catalog||[])if(m.material&&m.enabled!==false)source('material',m.material,'shop',label+'（地區材料）','shopSettings');}
-      else if(r.type==='gem'&&r.key==='random'){for(let i=0;i<3;i++)source('gem',i,'shop',label,'shopSettings');}
+      else if(r.type==='gem'&&r.key==='random'){for(let i=0;i<5;i++)source('gem',i,'shop',label,'shopSettings');}
       else{const kind=['ore','dust','material'].includes(r.type)?'material':r.type,key=r.type==='ore'?'鍛鐵':r.type==='dust'?'粉塵':r.key;source(kind,key,'shop',label,'shopSettings');}
     }
     const monsters=(doc.balanceSettings?.monsters?.catalog||[]).filter(m=>m.enabled!==false||m.kind!=='boss'&&(m.bossStageCount||0)>0);
@@ -146,7 +146,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
   }
 
   // The workbench owns description text. Legacy fields are import-only adapters.
-  const descriptionDefaults={"item:imbue_fire": "讓武器暫時附著火之力，調整普通攻擊的屬性。", "item:ward_fire": "以火之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_fire": "強化對火之力的運用，使對應屬性的攻勢更加集中。", "item:imbue_ice": "讓武器暫時附著冰之力，調整普通攻擊的屬性。", "item:ward_ice": "以冰之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_ice": "強化對冰之力的運用，使對應屬性的攻勢更加集中。", "item:imbue_wind": "讓武器暫時附著風之力，調整普通攻擊的屬性。", "item:ward_wind": "以風之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_wind": "強化對風之力的運用，使對應屬性的攻勢更加集中。", "item:imbue_light": "讓武器暫時附著光之力，調整普通攻擊的屬性。", "item:ward_light": "以光之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_light": "強化對光之力的運用，使對應屬性的攻勢更加集中。", "item:imbue_shadow": "讓武器暫時附著暗之力，調整普通攻擊的屬性。", "item:ward_shadow": "以暗之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_shadow": "強化對暗之力的運用，使對應屬性的攻勢更加集中。", "item:speed2_30m": "暫時開放兩倍速探索，可自由切換戰鬥倍速。", "item:exp_100_30m": "暫時增加出戰角色取得的經驗值。", "item:drop_50_30m": "暫時提高物品掉落機率。", "item:heal_small": "少量恢復生命，價格低廉，適合日常探索。", "item:heal_standard": "標準遠征治療藥水，在恢復量與成本之間取得平衡。", "item:heal_greater": "一次恢復較多生命，適合高壓戰鬥，但價格與冷卻較高。", "item:heal_supreme": "可將生命大幅拉回安全線，主要用於危急狀況。", "item:power_tier_reroll": "重新抽選一件裝備的 T1～T10 強度階級；抽選分布依該裝備原始掉落難度決定。", "material:鍛鐵": "裝備強化材料。", "material:粉塵": "裝備強化、洗鍊與寶石合成材料。", "material:以太鍛鐵": "高階裝備強化材料。", "material:光輝碎塊": "洗鍊時用於保留指定詞條。", "material:紅色草": "可加工製作紅色草泥。", "material:紅色草泥": "可搭配清水、藥水瓶製作簡易治療藥水。", "material:小蟲": "尚無用途。", "material:清水": "製作簡易治療藥水的煉金材料，每份配方消耗 1 份。", "material:藥水瓶": "製作簡易治療藥水的空瓶，每份配方消耗 1 個。", "gem:0": "技能效果 +18%", "gem:1": "主動冷卻 −1 回合（最低 1）／觸發率 +10%", "gem:2": "技能效果 +10%，觸發率 +5%／施放時回復攻擊力 15% 生命", "item:level_scroll": "提升全隊共用等級 1 級，後備與名冊夥伴同步成長。"};
+  const descriptionDefaults={"item:imbue_fire": "讓武器暫時附著火之力，調整普通攻擊的屬性。", "item:ward_fire": "以火之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_fire": "強化對火之力的運用，使對應屬性的攻勢更加集中。", "item:imbue_ice": "讓武器暫時附著冰之力，調整普通攻擊的屬性。", "item:ward_ice": "以冰之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_ice": "強化對冰之力的運用，使對應屬性的攻勢更加集中。", "item:imbue_wind": "讓武器暫時附著風之力，調整普通攻擊的屬性。", "item:ward_wind": "以風之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_wind": "強化對風之力的運用，使對應屬性的攻勢更加集中。", "item:imbue_light": "讓武器暫時附著光之力，調整普通攻擊的屬性。", "item:ward_light": "以光之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_light": "強化對光之力的運用，使對應屬性的攻勢更加集中。", "item:imbue_shadow": "讓武器暫時附著暗之力，調整普通攻擊的屬性。", "item:ward_shadow": "以暗之力形成短暫防護，降低對應屬性的威脅。", "item:elementTonic_shadow": "強化對暗之力的運用，使對應屬性的攻勢更加集中。", "item:speed2_30m": "暫時開放兩倍速探索，可自由切換戰鬥倍速。", "item:exp_100_30m": "暫時增加出戰角色取得的經驗值。", "item:drop_50_30m": "暫時提高物品掉落機率。", "item:heal_small": "少量恢復生命，價格低廉，適合日常探索。", "item:heal_standard": "標準遠征治療藥水，在恢復量與成本之間取得平衡。", "item:heal_greater": "一次恢復較多生命，適合高壓戰鬥，但價格與冷卻較高。", "item:heal_supreme": "可將生命大幅拉回安全線，主要用於危急狀況。", "item:power_tier_reroll": "重新抽選一件裝備的 T1～T10 強度階級；抽選分布依該裝備原始掉落難度決定。", "material:鍛鐵": "裝備強化材料。", "material:粉塵": "裝備強化、洗鍊與寶石合成材料。", "material:以太鍛鐵": "高階裝備強化材料。", "material:光輝碎塊": "洗鍊時用於保留指定詞條。", "material:紅色草": "可加工製作紅色草泥。", "material:紅色草泥": "可搭配清水、藥水瓶製作簡易治療藥水。", "material:小蟲": "尚無用途。", "material:清水": "製作簡易治療藥水的煉金材料，每份配方消耗 1 份。", "material:藥水瓶": "製作簡易治療藥水的空瓶，每份配方消耗 1 個。", "gem:0": "技能效果 +2%", "gem:1": "主動施放後 5% 機率冷卻 −1 回合", "gem:2": "觸發率 +1 個百分點", "gem:3": "生命比例最低的存活隊友恢復攻擊力 3% 生命", "gem:4": "生命比例最低的存活隊友獲得施放者防禦力 1% 可累加護盾", "item:level_scroll": "提升全隊共用等級 1 級，後備與名冊夥伴同步成長。"};
   const descriptionRecord=(doc,kind,key)=>(doc.inventoryIcons||[]).find(r=>r.kind===kind&&String(r.key)===String(key));
   function itemDescription(doc,kind,key){return descriptionRecord(doc,kind,key)?.description??'';}
   function migrateDescriptions(input,{hydrate=false}={}){
@@ -216,8 +216,11 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
     for(const [pool,label]of [['fixedOffers','固定商店'],['randomOffers','隨機商店']])for(const [i,r]of (doc.shopSettings?.[pool]?.entries||[]).entries()){
       const path='shopSettings.'+pool+'.entries.'+i,rule={price:r.unitPrice??doc.items?.find(x=>x.id===r.key)?.cost,quantity:r.quantity,quantityMin:r.quantityMin,quantityMax:r.quantityMax,chance:r.chance,refId:r.id};const active=r.enabled!==false;
       if(r.type==='material'&&r.key==='region')for(const m of monsters.filter(x=>x.kind==='normal'))add('material',m.material,'shop',label+'（地區材料）','shopSettings',path,rule,active);
-      else if(r.type==='gem'&&r.key==='random')for(let g=0;g<3;g++)add('gem',g,'shop',label,'shopSettings',path,rule,active);
+      else if(r.type==='gem'&&r.key==='random')for(let g=0;g<5;g++)add('gem',g,'shop',label,'shopSettings',path,rule,active);
       else add(['ore','dust'].includes(r.type)?'material':r.type,r.type==='ore'?'鍛鐵':r.type==='dust'?'粉塵':r.key,'shop',label,'shopSettings',path,rule,active);
+    }
+    for(const [i,stage]of (doc.shopSettings?.equipmentStages||[]).entries())for(const [j,e]of stage.entries.entries()){
+      for(const [group,slots]of (doc.equipmentForms||[]).entries())for(const [slot,forms]of slots.entries())for(const [index,form]of forms.entries())if(form.id===e.formId)add('equipment','form:'+group+':'+slot+':'+index,'shop',stage.name,'shopSettings','shopSettings.equipmentStages.'+i+'.entries.'+j,{price:e.unitPrice,quantity:e.quantity,level:stage.level,refId:e.id});
     }
     for(const [i,r]of (doc.balanceSettings?.drops?.entries||[]).entries()){
       const path='balanceSettings.drops.entries.'+i,targets=monsters.filter(m=>(!r.sources?.length||r.sources.includes(m.id))&&(!r.kinds?.length||r.kinds.includes(m.kind)||m.kind==='normal'&&m.eliteEnabled!==false&&r.kinds.includes('elite'))),rule={chanceByDifficulty:r.chanceByDifficulty,quantityMin:r.quantityMin,quantityMax:r.quantityMax,refId:r.id};
@@ -243,12 +246,12 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
     }
     for(const [job,pack]of (doc.starterPacks||[]).entries())for(const [i,g]of pack.entries())add('equipment','form:'+g.group+':'+g.slot+':'+g.form,'initial',(doc.classes?.[job]?.name||job)+' 初始裝備','starterPacks','starterPacks.'+job+'.'+i);
     for(const [job,rows]of (doc.starterPackItems||[]).entries())for(const [i,row]of rows.entries())add(row.kind,row.key,'initial',(doc.classes?.[job]?.name||job)+' 新手禮包','starterPacks','starterPackItems.'+job+'.'+i,{quantity:row.quantity});
-    for(const [i,r]of (doc.balanceSettings?.equipment?.salvage?.extraRewards||[]).entries()){const path='balanceSettings.equipment.salvage.extraRewards.'+i;if(r.type==='gem'&&r.key==='random')for(let g=0;g<3;g++)add('gem',g,'salvage','品質 '+r.quality+' 分解產物','balanceSettings:equipment',path,{quantity:r.quantity});else add(['ore','dust'].includes(r.type)?'material':r.type,r.type==='ore'?'鍛鐵':r.type==='dust'?'粉塵':r.key,'salvage','品質 '+r.quality+' 分解產物','balanceSettings:equipment',path,{quantity:r.quantity});}
+    for(const [i,r]of (doc.balanceSettings?.equipment?.salvage?.extraRewards||[]).entries()){const path='balanceSettings.equipment.salvage.extraRewards.'+i;if(r.type==='gem'&&r.key==='random')for(let g=0;g<5;g++)add('gem',g,'salvage','品質 '+r.quality+' 分解產物','balanceSettings:equipment',path,{quantity:r.quantity});else add(['ore','dust'].includes(r.type)?'material':r.type,r.type==='ore'?'鍛鐵':r.type==='dust'?'粉塵':r.key,'salvage','品質 '+r.quality+' 分解產物','balanceSettings:equipment',path,{quantity:r.quantity});}
     for(const [i,r]of (doc.inventoryIcons||[]).entries())for(const [j,x]of (r.salvageRewards||[]).entries()){const key=x.type==='ore'?'鍛鐵':x.type==='dust'?'粉塵':x.key,kind=['ore','dust'].includes(x.type)?'material':x.type;add(kind,key,'salvage',(byId.get(r.kind+':'+r.key)?.name||r.key)+' 個別分解','inventoryIcons','inventoryIcons.'+i+'.salvageRewards.'+j,{quantity:x.quantity,refId:r.kind+':'+r.key});}
     for(const key of ['鍛鐵','粉塵'])add('material',key,'salvage','裝備與信物基本分解','balanceSettings:equipment','balanceSettings.equipment.salvage');
     for(const [key,label,path]of [['鍛鐵','裝備強化','equipment.enhance'],['以太鍛鐵','高階裝備強化','equipment.enhance'],['粉塵','強化／洗鍊／寶石合成','equipment.enhance'],['光輝碎塊','保留詞條洗鍊','equipment.salvage']])use('material',key,'upgrade',label,'balanceSettings:equipment','balanceSettings.'+path);
     use('material','粉塵','craft','技能寶石合成','balanceSettings:skills','balanceSettings.skills.gems',{quantity:doc.balanceSettings?.skills?.gems?.craftDust});
-    const rewards=(r,label,path)=>{if(!r)return;for(const [kind,key,n]of [['material','鍛鐵',r.ore],['material','粉塵',r.dust],...((r.materials||[]).map(x=>['material',x.key,x.quantity])),...((r.items||[]).map(x=>['item',x.key,x.quantity])),...((r.potions||[]).map(x=>['item',x.key,x.quantity])),...((r.gemCounts||[]).map((n,i)=>['gem',String(i),n]))])if(n>0)add(kind,key,'quest',label,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:n});if(r.randomGems>0)for(let g=0;g<3;g++)add('gem',g,'quest',label,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:r.randomGems});};
+    const rewards=(r,label,path)=>{if(!r)return;for(const [kind,key,n]of [['material','鍛鐵',r.ore],['material','粉塵',r.dust],...((r.materials||[]).map(x=>['material',x.key,x.quantity])),...((r.items||[]).map(x=>['item',x.key,x.quantity])),...((r.potions||[]).map(x=>['item',x.key,x.quantity])),...((r.gemCounts||[]).map((n,i)=>['gem',String(i),n]))])if(n>0)add(kind,key,'quest',label,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:n});if(r.randomGems>0)for(let g=0;g<5;g++)add('gem',g,'quest',label,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:r.randomGems});};
     for(const [kind,quests]of [['daily',doc.balanceSettings?.quests?.design?.daily?.entries||[]],['side',doc.balanceSettings?.quests?.design?.side||[]]])for(const [i,q]of quests.entries()){
       const path='balanceSettings.quests.design.'+(kind==='daily'?'daily.entries.':'side.')+i;rewards(q.rewards,q.title,path+'.rewards');for(const o of q.objectives||[])if(o.type==='material'){const keys=o.key==='@currentMap'?monsters.filter(m=>m.kind==='normal').map(m=>m.material):[o.key];for(const key of keys)use('material',key,'quest',q.title,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:o.quantity,quantityMax:o.quantityMax,refId:q.id});}
     }
@@ -303,16 +306,17 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
 
 EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;
 
-/* js/story/story-model.js */
+/* js/story/story-model.js?v=20261020-exploration1 */
 /* Shared, data-only story contract. No quest-specific execution rules. */
 (function(root){
  'use strict';
  const copy=x=>JSON.parse(JSON.stringify(x));
- const TYPES={companions:'招募夥伴數',party:'上陣人數',region:'解鎖地區',visit:'到達地區',explore:'地區擊殺進度',kill:'指定怪物擊殺',kills:'任意怪物擊殺',boss:'指定地區 BOSS',bosses:'任意 BOSS',stock:'持有道具',acquired:'累積取得道具',gatherItem:'採集指定素材',gather:'採集次數',recipe:'完成指定配方',alchemy:'煉金次數',enhance:'強化次數',enhanceLevel:'裝備最高強化',level:'主角等級',quest:'完成任務',stage:'完成階段',flag:'任務 Flag',unlock:'永久解鎖'};
+ const TYPES={encounter:'任務關卡通關',companions:'招募夥伴數',party:'上陣人數',region:'解鎖地區',visit:'到達地區',explore:'地區擊殺進度',kill:'指定怪物擊殺',kills:'任意怪物擊殺',boss:'指定地區 BOSS',bosses:'任意 BOSS',stock:'持有道具',acquired:'累積取得道具',gatherItem:'採集指定素材',gather:'採集次數',recipe:'完成指定配方',alchemy:'煉金次數',enhance:'強化次數',enhanceLevel:'裝備最高強化',level:'主角等級',quest:'完成任務',stage:'完成階段',flag:'任務 Flag',unlock:'永久解鎖'};
  const GUIDES={battle:'前往探索',partnerRoster:'前往夥伴',roster:'前往隊伍',equipment:'前往背包',worn:'前往裝備',forge:'前往強化',gather:'前往採集',alchemy:'前往煉金',shop:'前往商店',skills:'前往技能'};
  const condition=(type='kills',key='',count=1,mode='lifetime')=>({type,key,count,mode,itemType:'material'});
  const group=conditions=>({mode:'all',conditions:conditions||[]});
- const stage=(id='stage_1',name='新階段')=>({id,name,speaker:'旁白',description:'',dialogue:[{speaker:'旁白',kind:'narrator',text:'請填寫劇情。'}],conditions:group(),rewards:{gold:0,ore:0,items:[]},effects:[],next:'',branches:[],choices:[],guides:[]});
+ const encounter=()=>({enabled:false,name:'任務關卡',mapIndex:0,repeatable:false,enemies:[]});
+ const stage=(id='stage_1',name='新階段')=>({id,name,encounter:encounter(),speaker:'旁白',description:'',dialogue:[{speaker:'旁白',kind:'narrator',text:'請填寫劇情。'}],conditions:group(),rewards:{gold:0,ore:0,items:[]},effects:[],next:'',branches:[],choices:[],guides:[]});
  const quest=(id='quest_1',name='新任務',type='side',npc='')=>({id,name,type,npc,description:'',enabled:true,hidden:false,unlock:group(),prerequisites:[],entry:'stage_1',stages:[stage()],rewards:{gold:0,ore:0,items:[]},effects:[],nextQuests:[]});
  function defaults(){return {version:1,quests:[]};}
  function issues(d,ctx={}){
@@ -325,6 +329,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERW
     if(c.type==='kill'&&ctx.monsters&&!ctx.monsters.some(m=>m.id===c.key))add(label+'不存在的怪物 '+c.key);
     if(c.type==='recipe'&&ctx.recipes&&!Object.hasOwn(ctx.recipes,c.key))add(label+'不存在的配方 '+c.key);
     if(c.type==='quest'&&!qs.has(c.key))add(label+'不存在的任務 '+c.key);
+    if(c.type==='encounter'){const [q,s]=c.key.split('/');if(!qs.get(q)?.stages?.some(x=>x.id===s&&x.encounter?.enabled))add(label+'不存在的任務關卡 '+c.key);}
     if(c.type==='stage'){const [q,s]=c.key.split('/');if(!qs.get(q)?.stages?.some(x=>x.id===s))add(label+'不存在的任務階段 '+c.key);}
     if(['stock','acquired','gatherItem'].includes(c.type)&&(!c.key||c.itemType==='item'&&ctx.items&&!ctx.items.some(x=>x.id===c.key)))add(label+'道具引用無效 '+c.key);
    }
@@ -343,6 +348,10 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERW
    const graph=new Map();for(const s of q.stages){if(!s||!id(s.id)||graph.has(s.id)){add(label+'階段 ID 無效或重複');continue;}graph.set(s.id,[]);}
    if(!graph.has(q.entry))add(label+'開始階段不存在');
    for(const s of q.stages){if(!s||!graph.has(s.id))continue;const sl=label+s.id+'：';
+    if(s.encounter!==undefined){const e=s.encounter;
+     if(!e||typeof e.enabled!=='boolean'||typeof e.name!=='string'||typeof e.repeatable!=='boolean'||!Number.isInteger(e.mapIndex)||e.mapIndex<0||ctx.maps&&!ctx.maps[e.mapIndex]||!Array.isArray(e.enemies))add(sl+'任務關卡設定無效');
+     else if(e.enabled){if(!e.name.trim()||ctx.maps?.[e.mapIndex]?.mapType==='final'||!e.enemies.length||e.enemies.reduce((n,x)=>n+x.count,0)>20)add(sl+'任務關卡需一般地區與 1～20 隻敵人');for(const x of e.enemies){const m=ctx.monsters?.find(m=>m.id===x.monsterId);if(!x||typeof x.monsterId!=='string'||!Number.isInteger(x.count)||x.count<1||x.count>20||ctx.monsters&&(!m||m.mapIndex!==e.mapIndex||m.kind==='final'))add(sl+'任務關卡敵人引用無效');}}
+    }
     conditions(s.conditions,sl);rewards(s.rewards,sl);effects(s.effects,sl);
     if(typeof s.name!=='string'||typeof s.speaker!=='string'||typeof s.description!=='string'||!Array.isArray(s.dialogue)||s.dialogue.some(x=>!x||!['npc','player','narrator'].includes(x.kind)||typeof x.speaker!=='string'||typeof x.text!=='string'))add(sl+'劇情文字無效');
     if(!Array.isArray(s.guides)||s.guides.some(g=>!Object.hasOwn(GUIDES,g)))add(sl+'導引無效');
@@ -359,10 +368,130 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERW
   acyclic(edges,'任務鏈');return [...new Set(errors)];
  }
  function validate(d,ctx){const e=issues(d,ctx);if(e.length)throw Error(e.join('\n'));return copy(d);}
- const api={copy,TYPES,GUIDES,condition,group,stage,quest,defaults,issues,validate};root.EmberwildStory=api;if(typeof module==='object'&&module.exports)module.exports=api;
+ const api={copy,TYPES,GUIDES,condition,group,encounter,stage,quest,defaults,issues,validate};root.EmberwildStory=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 
 EmberwildStory=globalThis.EmberwildStory??EmberwildStory;
+
+/* js/skills/skill-system-model.js */
+/* Stable skill IDs are authoritative. Positional rows are generated adapters for
+   the existing effect engine and legacy affixes, never a second skill catalog. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.EmberwildSkillSystem=api;})(globalThis,()=>{
+  'use strict';
+  const VERSION=1,copy=x=>JSON.parse(JSON.stringify(x));
+  const types=['active','proc','support','passive'],sources=['class','quest','equipment','advanced','companion'];
+  const emptyConditions=()=>({classMasteryLevel:0,quests:[],materials:[],bossKills:[],eliteKills:[],bossEquipment:[]});
+  const integer=(v,min=0,max=1e12)=>Number.isSafeInteger(v)&&v>=min&&v<=max;
+  const finite=(v,min=0,max=1e9)=>Number.isFinite(v)&&v>=min&&v<=max;
+  const safe=v=>typeof v==='string'&&/^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/.test(v)&&!['constructor','prototype','__proto__'].includes(v);
+  function fromLegacy(d){
+    const definitions=[];
+    d.classes.forEach((c,job)=>{
+      c.skills.forEach((sk,index)=>definitions.push({...copy(sk),id:sk.id||`job${job}-core${index}`,type:sk.activation,jobs:[job],adapter:{job,index,kind:'core'},sources:[{type:sk.partnerId!=null?'companion':sk.requiresAdvanced||index===4||index===5?'advanced':index===1?'quest':'equipment',...(sk.partnerId!=null?{companionId:sk.partnerId}:{})}]}));
+      (d.supportSkills[job]||[]).forEach((sk,index)=>definitions.push({...copy(sk),id:sk.id||`job${job}-support${index}`,type:'support',jobs:[job],adapter:{job,index,kind:'support'},sources:[{type:sk.partnerId!=null?'companion':index>=2?'advanced':index===0?'quest':'equipment',...(sk.partnerId!=null?{companionId:sk.partnerId}:{})}]}));
+    });
+    for(const [index,sk] of (d.passiveDefinitions||[]).entries()){const j=d.companions.find(p=>p.id===sk.partnerId)?.job??0;definitions.push({...copy(sk),id:sk.id,type:'passive',jobs:sk.partnerId!=null?[j]:[0,1,2,3],adapter:{job:j,index,kind:'passive'},sources:[{type:sk.partnerId!=null?'companion':'quest',...(sk.partnerId!=null?{companionId:sk.partnerId}:{})}]});}
+    const classRules=d.classes.map((_,job)=>({job,description:['堅守前線，以嘲諷與減傷保護隊伍。','以群體魔法清理敵群，兼具控制能力。','專注單體射擊，以連射與狙擊擊倒目標。','以聖光攻擊，透過治療與持續恢復支援隊伍。'][job],initial:[],advanced:[],slots:{first:{active:3,proc:1,support:1},advanced:{active:3,proc:2,support:2}}}));
+    const names=[['嘲諷','減傷','重擊'],['魔爆','變形','火球'],['連射','狙擊','繩索陷阱'],['聖光','治療','癒合']];
+    const descriptions=[['使敵人優先攻擊自己。','降低自身承受的傷害。','對單一敵人造成強力傷害。'],['以魔力爆發攻擊敵方群體。','使單一敵人變形，暫時無法行動；首領免疫。','以高倍率火球攻擊敵方群體，冷卻較長。'],['連續射擊同一敵人，穩定造成傷害。','瞄準單一敵人，造成高倍率爆發傷害。','布設繩索陷阱，降低敵方行動速度。'],['以聖光對單一敵人造成傷害。','恢復生命比例最低的一名存活隊友。','使全隊持續恢復生命。']];
+    const templates=[
+      [{effect:'tauntRage',systemEffect:'taunt',power:0,cooldown:6,duration:3,target:'enemies',maxTargets:99},{effect:'shield',systemEffect:'guard',power:.3,cooldown:6,duration:3,target:'self'},{effect:'damage',power:2.4,cooldown:3,target:'enemy'}],
+      [{effect:'damage',power:1.8,cooldown:3,target:'enemies',maxTargets:3},{effect:'polymorph',power:1,cooldown:7,duration:2,target:'enemy'},{effect:'damage',power:3.8,cooldown:7,target:'enemies',maxTargets:3}],
+      [{effect:'damage',power:1.2,cooldown:3,hitCount:2,target:'enemy'},{effect:'damage',power:4,cooldown:7,target:'enemy'},{effect:'damage',systemEffect:'slow',power:.25,cooldown:7,duration:3,target:'enemies',maxTargets:3}],
+      [{effect:'damage',power:2.5,cooldown:3,target:'enemy'},{effect:'heal',power:1.8,cooldown:4,target:'weakest'},{effect:'heal',systemEffect:'regen',power:.025,cooldown:8,duration:4,target:'allies'}]
+    ];
+    for(let job=0;job<4;job++)for(let n=0;n<3;n++){
+      const id=`class${job}-initial${n}`,index=d.classes[job].skills.length+n,t=templates[job][n];
+      const sk={id,name:names[job][n],description:descriptions[job][n],type:'active',activation:'active',jobs:[job],adapter:{job,index,kind:'core'},sources:[{type:'class',level:[1,3,5][n]}],usageScope:'character',partnerId:null,requiredLevel:[1,3,5][n],requiresAdvanced:false,requiredMastery:null,requiredMasteryLevel:0,mastery:['sword','fire','bow','light'][job],weaponTypes:[],unlockConditions:emptyConditions(),iconType:'auto',powerPerLevel:0,element:job===1?'fire':job===3?'light':'physical',maxTargets:1,hitCount:1,baseCritRate:0,baseCritDamage:1.5,defensePenetration:0,defenseIgnore:0,commonEffectKeys:['target'],targetLimit:true,...t};
+      if(!sk.systemEffect&&sk.hitCount>1)sk.commonEffectKeys.push('hitCount');
+      definitions.push(sk);classRules[job].initial.push({skillId:id,level:sk.requiredLevel});
+    }
+    for(const sk of definitions)if(sk.sources.some(s=>s.type==='advanced'))classRules[sk.jobs[0]].advanced.push({skillId:sk.id,level:Math.max(15,sk.requiredLevel??sk.level??1)});
+    const equipmentPool=definitions.filter(sk=>sk.sources.some(s=>s.type==='equipment')).map(sk=>({skillId:sk.id,jobs:sk.jobs,slots:[0,1,2,3],minLevel:1,maxLevel:999,weight:1,maps:[],monsters:[],bosses:[],allowShop:true,allowCraft:true}));
+    const gems=[['atk','flat','effect',[.02,.04,.06]],['speed','flat','cooldown',[.05,.1,.15]],['crit','ratio','procChance',[.01,.02,.03]],['hp','flat','heal',[.03,.06,.09]],['def','flat','shield',[.01,.02,.03]]].map(([stat,unit,key,values],kind)=>({kind,base:{stat,unit,values:kind===0?[2,4,6]:kind===1?[1,2,3]:kind===2?[.01,.02,.03]:kind===3?[10,20,30]:[1,2,3]},skill:{key,values,types:kind===1?['active','support']:kind===2?['proc']:['active','proc','support'],effects:[],slots:[0,1,2]},cap:1}));
+    return {version:VERSION,definitions,classRules,equipment:{chanceByDifficulty:[.15,.15,.15],formRules:[],pool:equipmentPool,socketBands:[{minLevel:1,maxLevel:10,weights:[.7,.3,0,0]},{minLevel:11,maxLevel:20,weights:[.35,.5,.15,0]},{minLevel:21,maxLevel:999,weights:[.1,.35,.35,.2]}],sourceRules:[{source:'starter',weights:[1,0,0,0]},{source:'boss',weights:[0,.3,.4,.3]}]},gems};
+  }
+  function validate(s){
+    const fail=m=>{throw Error('技能系統：'+m);};
+    if(!s||s.version!==VERSION||!Array.isArray(s.definitions)||s.definitions.length>1024||!Array.isArray(s.classRules)||s.classRules.length!==4)fail('版本或技能資料庫無效');
+    const ids=new Map(),positions=new Set();
+    for(const sk of s.definitions){
+      const a=sk.adapter;
+      if(!safe(sk.id)||ids.has(sk.id)||typeof sk.name!=='string'||!sk.name.trim()||sk.name.length>80||!types.includes(sk.type)||!Array.isArray(sk.jobs)||!sk.jobs.length||sk.jobs.some(j=>!integer(j,0,3))||!Array.isArray(sk.sources)||sk.sources.some(x=>!sources.includes(x.type))||typeof sk.disabled!=='undefined'&&typeof sk.disabled!=='boolean')fail('技能 ID、名稱、類型或來源無效：'+sk.id);
+      if(!a||!integer(a.job,0,3)||!integer(a.index,0,a.kind==='passive'?511:63)||!['core','support','passive'].includes(a.kind)||positions.has(`${a.job}:${a.kind}:${a.index}`))fail('技能引擎對照重複或無效：'+sk.id);
+      if(sk.type==='support'&&a.kind!=='support'||['active','proc'].includes(sk.type)&&a.kind!=='core')fail('技能類型與引擎對照不符：'+sk.id);
+      for(const key of ['power','cooldown','duration','requiredLevel','procBaseChance','baseCritRate','defenseIgnore'])if(sk[key]!==undefined&&!finite(sk[key],0,key.includes('Chance')||['baseCritRate','defenseIgnore'].includes(key)?1:1e9))fail('技能數值無效：'+sk.id+' '+key);
+      if(sk.systemEffect!==undefined&&!['taunt','guard','slow','regen'].includes(sk.systemEffect))fail('未知特殊效果：'+sk.id);
+      if(sk.systemEffect&&(!integer(sk.duration,1,999)||!finite(sk.power,0,1)))fail('特殊效果持續時間或倍率無效：'+sk.id);
+      for(const src of sk.sources)if(src.level!==undefined&&!integer(src.level,1,999))fail('技能取得等級無效：'+sk.id);
+      ids.set(sk.id,sk);positions.add(`${a.job}:${a.kind}:${a.index}`);
+    }
+    const classJobs=new Set();
+    for(const rule of s.classRules){
+      if(!integer(rule.job,0,3)||classJobs.has(rule.job))fail('職業設定重複');classJobs.add(rule.job);
+      for(const k of ['initial','advanced']){if(!Array.isArray(rule[k]))fail('職業技能清單無效');for(const row of rule[k])if(!ids.has(row.skillId)||!ids.get(row.skillId).jobs.includes(rule.job)||!integer(row.level,1,999))fail('職業引用不存在或等級無效：'+row.skillId);}
+      for(const stage of ['first','advanced'])for(const type of ['active','proc','support'])if(!integer(rule.slots?.[stage]?.[type],0,type==='active'?3:2))fail('職業槽位超出上限');
+    }
+    const e=s.equipment;if(!e||!Array.isArray(e.pool)||!Array.isArray(e.chanceByDifficulty)||e.chanceByDifficulty.length!==3||e.chanceByDifficulty.some(x=>!finite(x,0,1)))fail('裝備技能機率無效');
+    if(e.formRules!==undefined&&(!Array.isArray(e.formRules)||e.formRules.some(r=>!safe(r.formId)||r.skillId&&!ids.has(r.skillId)||r.skillChance!==undefined&&!finite(r.skillChance,0,1)||r.allowSkill!==undefined&&typeof r.allowSkill!=='boolean')))fail('固定裝備技能設定無效');
+    for(const row of e.pool){const sk=ids.get(row.skillId);if(!sk||!sk.sources.some(x=>x.type==='equipment')||!Array.isArray(row.jobs)||row.jobs.some(x=>!integer(x,0,3))||!Array.isArray(row.slots)||row.slots.some(x=>!integer(x,0,3))||!integer(row.minLevel,1,999)||!integer(row.maxLevel,row.minLevel,999)||!finite(row.weight,0)||!['maps','monsters','bosses'].every(k=>Array.isArray(row[k]))||typeof row.allowShop!=='boolean'||typeof row.allowCraft!=='boolean')fail('裝備技能池引用或限制無效：'+row.skillId);}
+    if(!Array.isArray(e.socketBands)||!e.socketBands.length||!Array.isArray(e.sourceRules))fail('鑲嵌孔分布無效');
+    const weights=row=>Array.isArray(row.weights)&&row.weights.length===4&&row.weights.every(v=>finite(v,0,1))&&Math.abs(row.weights.reduce((a,v)=>a+v,0)-1)<1e-8;
+    let end=0;for(const row of e.socketBands){if(!integer(row.minLevel,1,999)||row.minLevel!==end+1||!integer(row.maxLevel,row.minLevel,999)||!weights(row))fail('孔數等級區間必須連續且機率總和為 1');end=row.maxLevel;}if(end!==999)fail('孔數分布需涵蓋 LV1～999');
+    for(const row of e.sourceRules)if(!['starter','boss','drop','shop','craft','legacy'].includes(row.source)||!weights(row))fail('來源孔數機率無效');
+    if(!Array.isArray(s.gems)||s.gems.length!==5||new Set(s.gems.map(g=>g.kind)).size!==5)fail('寶石定義無效');
+    for(const g of s.gems)if(!integer(g.kind,0,4)||!['atk','hp','def','speed','crit'].includes(g.base?.stat)||!['flat','ratio'].includes(g.base?.unit)||!['effect','cooldown','procChance','heal','shield'].includes(g.skill?.key)||![g.base.values,g.skill.values].every(a=>Array.isArray(a)&&a.length===3&&a.every(v=>finite(v,0,1e6)))||!Array.isArray(g.skill.types)||g.skill.types.some(x=>!types.includes(x))||!Array.isArray(g.skill.effects)||!Array.isArray(g.skill.slots)||g.skill.slots.some(x=>!integer(x,0,2))||!finite(g.cap,0,1e6))fail('寶石效果、相容性或階級無效');
+    for(const sk of s.definitions)for(const target of sk.induction?.targets||[])if(target.kind==='skill'&&!ids.has(target.skillId))fail('誘發技能引用不存在：'+target.skillId);
+    return s;
+  }
+  function project(d){
+    const s=validate(d.skillSystem);
+    const maps=d.balanceSettings?.maps?.catalog,monsters=d.balanceSettings?.monsters?.catalog,forms=new Set();
+    for(const [job,slots] of (d.equipmentForms||[]).entries())for(const [slot,rows] of slots.entries())for(const [i,row] of rows.entries())forms.add(row.id||`job${job}-slot${slot}-form${i}`);
+    for(const row of s.equipment.pool)if(maps&&row.maps.some(i=>!integer(i,0,maps.length-1))||monsters&&row.monsters.some(id=>!monsters.some(m=>m.id===id))||maps&&row.bosses.some(i=>!integer(i,0,maps.length-1)))throw Error('技能系統：裝備技能池來源引用不存在：'+row.skillId);
+    for(const row of s.equipment.formRules||[])if(forms.size&&!forms.has(row.formId))throw Error('技能系統：固定裝備引用不存在：'+row.formId);
+    for(const sk of s.definitions){
+      const {adapter,type,jobs,sources,disabled,...row}=copy(sk),{job,index,kind}=adapter;
+      if(kind==='passive'){d.passiveDefinitions[index]=row;continue;}
+      const list=kind==='core'?d.classes[job].skills:d.supportSkills[job];
+      if(index>list.length)throw Error('技能引擎對照不可跳號：'+sk.id);
+      if(kind==='core'){row.activation=type;row.requiredLevel??=1;row.requiresAdvanced=false;row.powerPerLevel??=0;if(type==='proc'){row.procChancePerLevel??=0;row.procBaseChance??=.245;}}
+      else row.level??=1;
+      list[index]=row;
+    }
+    return d;
+  }
+  function normalizeDocument(input){const d=copy(input);d.skillSystem??=fromLegacy(d);return project(d);}
+  function slots(system,job,advanced){return copy(system.classRules.find(r=>r.job===job)?.slots[advanced?'advanced':'first']||{active:3,proc:1,support:1});}
+  function gear(g,{legacy=false,source='drop',system,random=Math.random}={}){
+    if(!g||g.type==='companionToken')return g;
+    if(g.skillSockets===undefined){
+      const level=g.equipmentLevel||1,rows=system?.equipment,rule=rows?.sourceRules.find(x=>x.source===source&&(x.boss===undefined||x.boss===g.boss))||rows?.socketBands.find(x=>level>=x.minLevel&&level<=x.maxLevel),weights=rule?.weights||[1,0,0,0];
+      let n=0;if(!legacy){let r=random();while(n<3&&r>=weights[n])r-=weights[n++];}
+      g.skillSockets={version:VERSION,count:n,gems:Array(n).fill(null),firstMode:'skill'};
+    }
+    const x=g.skillSockets;
+    if(x.version!==VERSION||!integer(x.count,0,3)||!Array.isArray(x.gems)||x.gems.length!==x.count||x.gems.some(id=>id!==null&&!integer(id,0,14))||!['skill','base'].includes(x.firstMode))throw Error('裝備寶石孔資料無效：'+g.id);
+    if(g.skillId!==undefined&&g.skillId!==null&&(typeof g.skillId!=='string'||system&&!system.definitions.some(s=>s.id===g.skillId)))throw Error('裝備技能不存在：'+g.skillId);
+    return g;
+  }
+  function migrateSave(input,system){
+    const d=copy(input),members=d.version===3?d.members:[d];if(!Array.isArray(members)||!members[0])return d;
+    const h=members[0],b=d.buildSystem;
+    if(d.skillSystemVersion!==undefined&&d.skillSystemVersion!==VERSION)throw Error('不支援的技能存檔版本');
+    const first=d.skillSystemVersion!==VERSION;
+    if(first){
+      const instances=b?.permanent?.gemInstances||{};
+      if(b){for(const type of Object.values(instances)){if(!integer(type,0,14))throw Error('舊寶石實例無效');h.gems[type]=(h.gems[type]||0)+1;}b.permanent.gemInstances={};for(const p of b.plans||[])p.sockets=p.sockets?.map(()=>null)||[];}
+      members.forEach((member,n)=>{if(!b||n>0)for(const type of member.sockets||[])if(type!==null){if(!integer(type,0,14))throw Error('舊技能寶石無效');h.gems[type]=(h.gems[type]||0)+1;}member.sockets=member.skills?.map(()=>null)||[];delete member.disabledCompanionSkills;});
+    }
+    const ids=new Set();for(const member of members)for(const g of member.bag||[]){if(ids.has(g.id))throw Error('重複裝備 ID：'+g.id);ids.add(g.id);gear(g,{legacy:true,source:'legacy',system});}
+    d.skillSystemVersion=VERSION;return d;
+  }
+  return {VERSION,copy,types,sources,emptyConditions,fromLegacy,validate,project,normalizeDocument,slots,gear,migrateSave};
+});
+
+EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;
 
 /* js/balance/balance-document.js?v=20261014-descriptions1 */
 /* Shared document preflight. Runtime/editor validators remain the domain authorities. */
@@ -453,6 +582,7 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;
     walk(v,field,owner);
    }
   }walk(d);
+  if(d.skillSystem&&root.EmberwildSkillSystem){try{root.EmberwildSkillSystem.validate(d.skillSystem);}catch(e){add('skillSystem',e.message);}}
   // Detect destructive sanitization using the existing final status normalizer.
   // Its allowed enums are maintained by the status module, including late extensions.
   if(typeof normalizeStatusDefinition==='function')for(const [i,row] of (Array.isArray(d.statusDefinitions)?d.statusDefinitions:[]).entries()){
@@ -493,10 +623,10 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;
   function types(v,b,p){if(b===null||b===undefined||v===undefined)return;if(v===null){if(['mastery','requiredMastery','partnerId','unitPrice','control'].includes(p.split('.').at(-1)))return;typeErrors.push(issue(p,'此欄位不可為 null'));return;}if(Array.isArray(b)){if(!Array.isArray(v)){typeErrors.push(issue(p,'必須為陣列'));return;}for(let i=0;i<v.length;i++)types(v[i],b[i]??b[0],p+'.'+i);return;}if(typeof b==='object'){if(!v||typeof v!=='object'||Array.isArray(v)){typeErrors.push(issue(p,'必須為物件'));return;}for(const k of Object.keys(v))types(v[k],b[k],p+'.'+k);return;}if(!/\.(key|value)$/.test(p)&&typeof v!==typeof b)typeErrors.push(issue(p,'型別必須為 '+typeof b));}
   if(defaults)types(d,defaults,'$');if(typeErrors.length)throw Object.assign(Error(typeErrors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:typeErrors});
 if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Error(e.message),{issues:e.issues||[issue('domain',e.message)]});}}return d;}
- const api={storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
+ const api={skillSystemVersion:1,questEncountersVersion:1,consumableClockVersion:1,equipmentAcquisitionVersion:1,storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 
-EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildStory=globalThis.EmberwildStory??EmberwildStory;__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildBalanceDocument=globalThis.EmberwildBalanceDocument??EmberwildBalanceDocument;
+EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildStory=globalThis.EmberwildStory??EmberwildStory;EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildBalanceDocument=globalThis.EmberwildBalanceDocument??EmberwildBalanceDocument;
 
 /* inline */
 
@@ -634,6 +764,15 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
         "quadratic": 6,
         "multiplierBase": 1,
         "multiplierPerLevel": 0
+      },
+      "xpLevelGap": {
+        "enabled": true,
+        "freeLevels": 5,
+        "midGap": 10,
+        "midMultiplier": 0.5,
+        "highGap": 15,
+        "highMultiplier": 0.1,
+        "minimumMultiplier": 0.05
       },
       "statsPerPoint": {
         "hp": 3,
@@ -800,10 +939,22 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
     const c=settings.progression.xpCurve,m=settings.skills?.mastery?.characterXpMultiplier??1;
     return Math.max(1,Math.round(Math.round((c.base+level*c.linear+level*level*c.quadratic)*(c.multiplierBase+level*c.multiplierPerLevel))*m));
   }
-  function enemyXp(settings,level,kind='normal',mode=0){
+  // Same-level and higher-level monsters retain their existing EXP. The
+  // reduction is applied once, before sharing the reward with party members.
+  function xpLevelGapFactor(settings,playerLevel,enemyLevel){
+    const cfg=settings.progression?.xpLevelGap;
+    if(!cfg?.enabled||!Number.isFinite(playerLevel)||!Number.isFinite(enemyLevel))return 1;
+    const gap=Math.max(0,playerLevel-enemyLevel);
+    if(gap<=cfg.freeLevels)return 1;
+    if(gap<=cfg.midGap)return 1-(1-cfg.midMultiplier)*(gap-cfg.freeLevels)/(cfg.midGap-cfg.freeLevels);
+    if(gap<=cfg.highGap)return cfg.midMultiplier-(cfg.midMultiplier-cfg.highMultiplier)*(gap-cfg.midGap)/(cfg.highGap-cfg.midGap);
+    return cfg.minimumMultiplier;
+  }
+  function enemyXp(settings,level,kind='normal',mode=0,playerLevel=null){
     const r=settings.rewards,x=r.xp,k=x.kindMultiplier||r.kindMultiplier,key=kind==='final'?'boss':kind;
     const difficulty=settings.difficulty.modes[mode];
-    return Math.max(1,Math.round((x.base+level*x.perLevel)*(k[key]??1)*(difficulty?.xpMultiplier??difficulty?.reward??1)));
+    const base=(x.base+level*x.perLevel)*(k[key]??1)*(difficulty?.xpMultiplier??difficulty?.reward??1);
+    return Math.max(1,Math.round(base*xpLevelGapFactor(settings,playerLevel,level)));
   }
   function xpShare(xp,count){return Math.max(1,Math.round(xp/Math.max(1,count)));}
   function gearStats(raw,effects,power,plus,enhancePerLevel){
@@ -815,7 +966,7 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
     return {raw:rounded(raw),body,grade,enhance,total};
   }
   function validSteps(steps){return Array.isArray(steps)&&steps.length<=12&&steps.every(s=>s&&Number.isInteger(s.every)&&s.every>=1&&s.every<=60&&['hp','atk','def'].every(k=>Number.isSafeInteger(s[k])&&s[k]>=0));}
-  return {defaults,applyDefaults,applyClassDefaults,naturalStats,encounterLevelLead,baseMonsterStats,scaleMonsterStats,monsterStats,requiredXp,enemyXp,xpShare,gearStats,validSteps};
+  return {defaults,applyDefaults,applyClassDefaults,naturalStats,encounterLevelLead,baseMonsterStats,scaleMonsterStats,monsterStats,requiredXp,enemyXp,xpLevelGapFactor,xpShare,gearStats,validSteps};
 });
 
 EmberwildProgression=globalThis.EmberwildProgression??EmberwildProgression;
@@ -888,12 +1039,7 @@ EmberwildProgression=globalThis.EmberwildProgression??EmberwildProgression;
     if(raw?.version!==3)return raw;
     const data=copy(raw);if(!Array.isArray(data.members))return data;
     for(const h of data.members.slice(1))if(Array.isArray(h.equipped))h.equipped=h.equipped.map(()=>null);
-    if(data.companionEquipmentVersion===undefined){
-      // Worn gear already belongs to each old member's bag. Preserve its exact object
-      // and move only excess unowned entries to the existing persisted loot queue.
-      const keep=new Set(data.members[0]?.equipped?.filter(Boolean)||[]);let count=data.members.reduce((n,h)=>n+(h.bag?.length||0),0);
-      if(count>capacity){data.pendingGearLoot??=[];for(const h of [...data.members].reverse())if(Array.isArray(h.bag))h.bag=h.bag.filter(g=>{if(count>capacity&&!keep.has(g.id)&&g.id!==h.tokenId){data.pendingGearLoot.push(g);count--;return false;}return true;});}
-    }
+    // Preserve excess legacy gear in the shared bag; exploration pauses until space is available.
     data.companionEquipmentVersion=VERSION;return data;
   }
   return {TYPE,VERSION,stats,effectKeys,events,actions,defaults,copy,isToken,canEquip,normalize,validateEffects,validateAbility,validateItem,effectsFor,eligible,weighted,prepareSave};
@@ -1230,7 +1376,7 @@ EmberwildAchievements=globalThis.EmberwildAchievements??EmberwildAchievements;Em
   function budget(level,progression,permanent){return {ap:Math.round((progression.starting.abilityPoints||0)+(level-1)*(progression.levelRewards.abilityPoints||0))+(permanent.abilityCredit||0)};
   }
   const key=(job,kind,i)=>`${job}:${kind}:${i}`;
-  function blank(id,name,job=null,coreCount=0,supportCount=0){return {id,name,job,playerActive:true,stats:[0,0,0],skills:Array(coreCount).fill(0),supportLevels:Array(supportCount).fill(0),active:[null,null],procSlots:[null,null],supportSlots:[null,null],equipped:Array(5).fill(null),sockets:Array(coreCount).fill(null),companions:[],enlisted:[],tokens:{}};}
+  function blank(id,name,job=null,coreCount=0,supportCount=0){return {id,name,job,playerActive:true,stats:[0,0,0],skills:Array(coreCount).fill(0),supportLevels:Array(supportCount).fill(0),active:[null,null],procSlots:[null,null],supportSlots:[null,null],equipped:Array(5).fill(null),sockets:Array(coreCount).fill(null),companions:[],enlisted:[],tokens:{},skillLoadout:null,activeSkillEquipmentId:null};}
   function spent(){return 0;}
   function references(build,id){return build.plans.filter(p=>p.equipped.includes(id)||Object.values(p.tokens).includes(id)).map(p=>({id:p.id,name:p.name}));}
   function clearReferences(build,ids){const set=new Set(ids);for(const p of build.plans){p.equipped=p.equipped.map(id=>set.has(id)?null:id);for(const k of Object.keys(p.tokens))if(set.has(p.tokens[k]))p.tokens[k]=null;}}
@@ -1249,7 +1395,7 @@ EmberwildAchievements=globalThis.EmberwildAchievements??EmberwildAchievements;Em
     for(const [k,v] of Object.entries(perm.payments))if(!skillKeys.has(k)||v!==true||!perm.unlocks[k])fail('技能材料消耗成果無效');
     for(const [k,v] of Object.entries(perm.classes))if(!/^\d+$/.test(k)||!classes[Number(k)]||!object(v)||typeof v.activated!=='boolean'||typeof v.advanced!=='boolean'||!int(v.xp)||!v.activated&&(v.xp||v.advanced))fail('職業永久成長無效');
     for(const [k,v] of Object.entries(perm.masteries))if(!/^[a-zA-Z][a-zA-Z0-9_-]{0,79}$/.test(k)||!int(v))fail('武器／元素精通無效');
-    for(const [k,v] of Object.entries(perm.gemInstances))if(!/^gem-\d+$/.test(k)||!int(v,0,2))fail('技能寶石實體無效');
+    for(const [k,v] of Object.entries(perm.gemInstances))if(!/^gem-\d+$/.test(k)||!int(v,0,14))fail('技能寶石實體無效');
     if(Object.keys(perm.gemInstances).some(k=>Number(k.slice(4))>=perm.gemSerial))fail('技能寶石序號無效');
     if(perm.playerKey!==(members[0].playerId??members[0].job))fail('主角永久識別不符');
     const owned=new Map(items.map(g=>[g.id,g])),people=new Set(members.slice(1).map(h=>h.companionId??h.job)),ids=new Set(),totals=budget(level,progression,perm);
@@ -1264,7 +1410,7 @@ EmberwildAchievements=globalThis.EmberwildAchievements??EmberwildAchievements;Em
       }
       if(!Array.isArray(p.stats)||p.stats.length!==3||p.stats.some(n=>!int(n,0,100000))||p.stats.reduce((a,v)=>a+v,0)>totals.ap||!Array.isArray(p.skills)||p.skills.length!==c||p.skills.some(n=>!int(n,0,1))||!Array.isArray(p.supportLevels)||p.supportLevels.length!==s||p.supportLevels.some(n=>!int(n,0,1)))fail('隊伍配點超出額度');
       for(const [kind,list] of [['core',p.skills],['support',p.supportLevels]])if(list.some((v,i)=>v&&!perm.unlocks[key(p.job,kind,i)]))fail('隊伍學習了尚未永久解鎖的技能');
-      for(const [field,list,type] of [['active',p.skills,'active'],['procSlots',p.skills,'proc'],['supportSlots',p.supportLevels,null]]){const slots=p[field];if(!Array.isArray(slots)||slots.length!==2||new Set(slots.filter(v=>v!==null)).size!==slots.filter(v=>v!==null).length||slots.some(i=>i!==null&&(!int(i,0,list.length-1)||!list[i]||type&&classes[p.job].skills[i].activation!==type)))fail('隊伍技能槽無效');}
+      for(const [field,list,type] of [['active',p.skills,'active'],['procSlots',p.skills,'proc'],['supportSlots',p.supportLevels,null]]){const slots=p[field];if(!Array.isArray(slots)||slots.length!==(p.skillLoadout?globalThis.__EMBERWILD_SKILLS?.slotCounts({job:p.job??0,advanced:!!perm.classes[p.job]?.advanced})[type||'support']??2:2)||new Set(slots.filter(v=>v!==null)).size!==slots.filter(v=>v!==null).length||slots.some(i=>i!==null&&(!int(i,0,list.length-1)||!list[i]||type&&classes[p.job].skills[i].activation!==type)))fail('隊伍技能槽無效');}
       p.playerActive??=true;
       const activeCount=Number(p.playerActive)+(p.companions?.length||0);
       if(typeof p.playerActive!=='boolean'||activeCount<1||activeCount>3||!Array.isArray(p.equipped)||p.equipped.length!==5||!object(p.tokens)||!Array.isArray(p.companions)||p.companions.length>3||!Array.isArray(p.enlisted)||p.enlisted.length>512||new Set(p.enlisted).size!==p.enlisted.length||new Set(p.companions).size!==p.companions.length||p.enlisted.some(k=>!people.has(k))||p.companions.some(k=>!p.enlisted.includes(k)))fail('隊伍編成無效');
@@ -1275,16 +1421,16 @@ EmberwildAchievements=globalThis.EmberwildAchievements??EmberwildAchievements;Em
       if(p.job===null&&(p.stats.some(Boolean)||p.skills.some(Boolean)||p.equipped.some(Boolean)||p.companions.length||p.enlisted.length||Object.values(p.tokens).some(Boolean)))fail('空白隊伍含有配置');
     }
     if(!ids.has(b.activeId)||Number(b.plans.reduce((n,p)=>Math.max(n,Number(p.id.slice(5))),0))>=b.serial)fail('目前隊伍或序號無效');
-    const fields=Object.keys(blank('team-1','隊伍'));
-    b.plans=b.plans.map(p=>Object.fromEntries(fields.map(k=>[k,p[k]])));
+    const fields=[...Object.keys(blank('team-1','隊伍')),'skillLoadout','activeSkillEquipmentId'];
+    b.plans=b.plans.map(p=>Object.fromEntries(fields.filter(k=>p[k]!==undefined).map(k=>[k,p[k]])));
     return b;
   }
   return {VERSION,defaults,copy,settings,rules,normalizeDocument,budget,key,blank,spent,references,clearReferences,prepareSave,validate};
 });
 
-EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;
+EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;
 
-/* js/items/timed-boosts.js?v=20261019-daily-speed2 */
+/* js/items/timed-boosts.js?v=20261020-exploration1 */
 /* Shared real-time consumable contract. Percentages are source contributions, not multipliers. */
 (function(root){
   'use strict';
@@ -1299,19 +1445,26 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;
     if(!Number.isFinite(minutes)||minutes<=0||!Number.isSafeInteger(duration)||duration<1||!Number.isSafeInteger(expiresAt)||expiresAt>8.64e15)throw Error('現實時間分鐘必須為有效正數');
     return expiresAt;
   }
-  const remainingMs=(buff,now=Date.now())=>Math.max(0,(buff?.expiresAt||0)-now);
+  const remainingMs=(buff,now=Date.now())=>Math.max(0,buff?.remainingMs??((buff?.expiresAt||0)-now));
+  function migrateBuff(buff,now=Date.now(),enabled=true){
+    if(!buff||typeof buff!=='object')throw Error('限時增益資料無效');
+    if(Object.hasOwn(buff,'remainingMs')?(!Number.isSafeInteger(buff.remainingMs)||buff.remainingMs<0):(!Number.isSafeInteger(buff.expiresAt)||buff.expiresAt<0||buff.expiresAt>8.64e15))throw Error('限時增益時間無效');
+    const left=remainingMs(buff,now);
+    if(!Number.isSafeInteger(left)||left<0||left>8.64e15||buff.enabled!==undefined&&typeof buff.enabled!=='boolean')throw Error('限時增益剩餘時間或啟用狀態無效');
+    const out={...copy(buff),remainingMs:left,enabled:left>0&&(buff.enabled??enabled)};delete out.expiresAt;return out;
+  }
   const buffRows=buff=>buff==null?[]:Array.isArray(buff)?buff:[buff];
   const compactBuffs=rows=>rows.length>1?rows:rows[0]||null;
-  const elementalActive=(buff,now=Date.now())=>buffRows(buff).filter(b=>remainingMs(b,now)>0);
+  const elementalActive=(buff,now=Date.now())=>buffRows(buff).filter(b=>remainingMs(b,now)>0&&b.enabled!==false);
   // A changed strength/element/stat payload remains an independent timed source,
   // even if the designer gave both versions the same display name.
   function sourceKey(b){return JSON.stringify([b.name??b.itemId,b.boostType??'',b.bonusPercent??b.effectPercent,b.element??'',Object.entries(b.statEffects||{}).filter(([,v])=>v!==0).sort(([a],[c])=>a.localeCompare(c))]);}
   function stackBuff(rows,buff,now=Date.now()){
     const live=rows.filter(b=>remainingMs(b,now)>0),index=live.findIndex(b=>sourceKey(b)===sourceKey(buff));
     if(remainingMs(buff,now)+(index<0?0:remainingMs(live[index],now))>MAX_STACK_MS)throw Error('本次使用會超過單一狀態 24 小時上限，未消耗道具');
-    if(index<0){if(live.length>=200)throw Error('有效增益來源已達上限');return [...live,buff];}
-    const previous=live[index],expiresAt=expiryTime(buff.durationMinutes,previous.expiresAt);
-    live[index]={...previous,expiresAt};return live;
+    if(index<0){if(live.length>=200)throw Error('有效增益來源已達上限');return [...live,migrateBuff(buff,now)];}
+    const previous=migrateBuff(live[index],now);
+    live[index]={...previous,remainingMs:remainingMs(previous,now)+remainingMs(buff,now)};return live;
   }
   function timeText(ms,hours=false){const sec=Math.max(0,Math.ceil(ms/1000)),h=Math.floor(sec/3600),m=Math.floor(sec/60)%60,s=sec%60;return (hours||h?String(h).padStart(2,'0')+':':'')+(hours||h?String(m).padStart(2,'0'):String(Math.floor(sec/60)).padStart(2,'0'))+':'+String(s).padStart(2,'0');}
   const elementalPercent=(type,settings)=>100*(type==='ward'?(settings?.combat?.supply?.wardResistance??.25):(settings?.combat?.supply?.elementTonicDamage??.2));
@@ -1321,7 +1474,7 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;
   }
   function createElementalBuff(item,now=Date.now()){
     validateElementalItem(item);
-    return {itemId:item.id,name:item.name,element:item.element,effectPercent:item.effectPercent,durationMinutes:item.durationMinutes,expiresAt:expiryTime(item.durationMinutes,now),until:0,statEffects:copy(item.statEffects||{})};
+    return {itemId:item.id,name:item.name,element:item.element,effectPercent:item.effectPercent,durationMinutes:item.durationMinutes,remainingMs:expiryTime(item.durationMinutes,0),enabled:true,until:0,statEffects:copy(item.statEffects||{})};
   }
   function migrateElementalConfig(cfg){
     cfg.timeUnits??={};
@@ -1338,15 +1491,16 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;
   }
   function migrateElementalBuff(buff,type,{item=null,settings=null,now=Date.now()}={}){
     if(!buff)return null;
+    if(Object.prototype.hasOwnProperty.call(buff,'remainingMs')){validateElementalItem({...buff,type,duration:0});return migrateBuff(buff,now);}
     if(Object.prototype.hasOwnProperty.call(buff,'expiresAt')){
       if(!Number.isSafeInteger(buff.expiresAt)||buff.expiresAt<0||buff.expiresAt>8.64e15)throw Error('屬性藥水到期時間無效');
-      validateElementalItem({...buff,type,duration:0});return remainingMs(buff,now)>0?{...copy(buff),name:buff.name??item?.name??type+'_'+buff.element}:null;
+      validateElementalItem({...buff,type,duration:0});return remainingMs(buff,now)>0?migrateBuff({...buff,name:buff.name??item?.name??type+'_'+buff.element},now):null;
     }
     const roundMs=Math.max(1,Number(settings?.combat?.pacing?.roundMinimumMs)||6000);
     const left=Number.isFinite(buff.remainingTurns)?Math.max(0,Math.ceil(buff.remainingTurns))*roundMs:Math.max(0,(Number(buff.until)||0)-now);
     if(left<=0)return null;
     const total=Number.isFinite(buff.totalTurns)?Math.max(left,Math.ceil(buff.totalTurns)*roundMs):left;
-    const out={...copy(buff),name:buff.name??item?.name??type+'_'+buff.element,durationMinutes:total/60000,effectPercent:item?.effectPercent??elementalPercent(type,settings),expiresAt:now+left,until:0};
+    const out={...copy(buff),name:buff.name??item?.name??type+'_'+buff.element,durationMinutes:total/60000,effectPercent:item?.effectPercent??elementalPercent(type,settings),remainingMs:left,enabled:true,until:0};
     delete out.remainingTurns;delete out.totalTurns;validateElementalItem({...out,type,duration:0});return out;
   }
   function itemName(kind,percent,minutes){return kind==='speed2'?'兩倍速解鎖券'+minutes+'分鐘':LABELS[kind]+'＋'+percent+'％ '+minutes+'分鐘';}
@@ -1355,7 +1509,7 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;
     {id:'exp_100_30m',type:TYPE,boostType:'exp',bonusPercent:100,durationMinutes:30,duration:0,cost:600,sellPrice:150,shopEnabled:false,name:itemName('exp',100,30),description:''},
     {id:'drop_50_30m',type:TYPE,boostType:'drop',bonusPercent:50,durationMinutes:30,duration:0,cost:600,sellPrice:150,shopEnabled:false,name:itemName('drop',50,30),description:''}
   ];
-  const DAILY_TICKET={id:'speed2_120m',type:TYPE,boostType:'speed2',bonusPercent:0,durationMinutes:120,duration:0,cost:0,sellPrice:0,shopEnabled:false,name:'兩倍速券2小時',description:'每日委託五選四完成獎勵，按現實時間開放兩倍速 2 小時。'};
+  const DAILY_TICKET={id:'speed2_120m',type:TYPE,boostType:'speed2',bonusPercent:0,durationMinutes:120,duration:0,cost:0,sellPrice:0,shopEnabled:false,name:'兩倍速券2小時',description:'每日委託五選四完成獎勵，提供 2 小時現實時間的兩倍速效果。'};
   const DEFAULT_RULES=DEFAULT_ITEMS.map((item,i)=>({id:item.id,enabled:true,type:'item',key:item.id,name:'',description:'',quantityMin:1,quantityMax:1,unitPrice:null,weight:i===0?.15:.35,selection:'weighted',chance:1,quantityScalesWithTier:false,priceScalesWithTier:false}));
   function migrateConfig(cfg){
     migrateElementalConfig(cfg);
@@ -1376,6 +1530,7 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;
       }
       cfg.timeUnits.timedBoostDuration='realMinutes';
     }
+    cfg.timeUnits.consumableClock='wall';
     cfg.items??=[];if(!cfg.items.some(i=>i.id==='speed2_120m'))cfg.items.push(copy(DAILY_TICKET));
     return cfg;
   }
@@ -1388,9 +1543,10 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;
     if(item.duration!==0||!Number.isSafeInteger(item.cost)||item.cost<0||item.sellPrice!==undefined&&(!Number.isSafeInteger(item.sellPrice)||item.sellPrice<0)||item.element!==undefined&&item.element!==null&&item.element!=='')throw Error('限時增益價格或時間單位無效：'+id);
     return item;
   }
-  function active(party,now=Date.now()){return (party?.timedBoosts||[]).filter(b=>remainingMs(b,now)>0);}
+  function available(party,now=Date.now()){return (party?.timedBoosts||[]).filter(b=>remainingMs(b,now)>0);}
+  function active(party,now=Date.now()){return available(party,now).filter(b=>b.enabled!==false);}
   function bonus(party,kind,now=Date.now()){return active(party,now).filter(b=>b.boostType===kind).reduce((sum,b)=>sum+b.bonusPercent,0);}
-  function unlocked(party,now=Date.now()){return active(party,now).some(b=>b.boostType==='speed2');}
+  function unlocked(party,now=Date.now()){return available(party,now).some(b=>b.boostType==='speed2');}
   function migrateSpeedData(data){
     // Rename legacy references together, including inventories, rules, mail and snapshots.
     function walk(v){if(!v||typeof v!=='object')return;for(const k of Object.keys(v)){
@@ -1399,7 +1555,21 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;
       if(next!==k){if(typeof value==='number'&&typeof v[next]==='number')value+=v[next];delete v[k];}v[next]=value;
     }}walk(data);if(data?.combatSession?.speed===4)data.combatSession.speed=2;return data;
   }
-  function prepareSave(data){return migrateSpeedData(copy(data));}
+  function prepareSave(data){
+    const out=migrateSpeedData(copy(data)),now=Date.now();
+    if(Array.isArray(out?.timedBoosts))out.timedBoosts=out.timedBoosts.map(b=>migrateBuff(b,now,b.boostType!=='speed2'||out.combatSession?.speed===2));
+    return out;
+  }
+  // One wall-clock delta per running expedition. Link at the exact speed expiry,
+  // including when a background callback arrives after several effects expire.
+  function consume(party,elapsed){
+    if(!party||!Number.isSafeInteger(elapsed)||elapsed<=0)return false;
+    const rows=party.timedBoosts||[],speed=rows.filter(b=>b.boostType==='speed2'&&b.enabled&&remainingMs(b)>0),cutoff=speed.length?Math.max(...speed.map(b=>remainingMs(b))):Infinity;
+    const exhausted=cutoff<=elapsed,link=exhausted&&party.combatSession?.pauseBoostsOnSpeedEnd===true;
+    for(const b of rows){if(!b.enabled)continue;const used=link&&b.boostType!=='speed2'?Math.min(elapsed,cutoff):elapsed;b.remainingMs=Math.max(0,remainingMs(b)-used);if(!b.remainingMs||link&&b.boostType!=='speed2')b.enabled=false;}
+    for(const h of party.members||[])for(const k of ELEMENTAL_TYPES)for(const b of buffRows(h[k]))if(b.enabled){b.remainingMs=Math.max(0,remainingMs(b)-elapsed);if(!b.remainingMs)b.enabled=false;}
+    return exhausted;
+  }
   function validateState(data){
     data=prepareSave(data);
     const rows=data?.timedBoosts??[],names=new Set();
@@ -1407,15 +1577,16 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;
     for(const b of rows){
       validateItem({id:b?.itemId,type:TYPE,name:b?.name,description:'',boostType:b?.boostType,bonusPercent:b?.bonusPercent,durationMinutes:b?.durationMinutes,duration:0,cost:0});
       const key=sourceKey(b);
-      if(!Number.isSafeInteger(b.expiresAt)||b.expiresAt<0||b.expiresAt>8.64e15||names.has(key))throw Error('限時增益到期時間或同名來源無效');
+      if(!Number.isSafeInteger(b.remainingMs)||b.remainingMs<0||typeof b.enabled!=='boolean'||names.has(key))throw Error('限時增益到期時間或同名來源無效');
       names.add(key);
     }
     const raw=data?.combatSession??{},idleTimeMs=raw.idleTimeMs??0,speed=raw.speed??1,reportPaused=raw.reportPaused??false,filter=raw.filter??'all';
     if(!Number.isSafeInteger(idleTimeMs)||idleTimeMs<0||![1,2].includes(speed)||typeof reportPaused!=='boolean'||!['all','playerDamage','enemyDamage','exp','item'].includes(filter))throw Error('掛機時間／倍速／戰報存檔無效');
-    const timedBoosts=copy(active({timedBoosts:rows}));
-    return {timedBoosts,combatSession:{idleTimeMs,speed:speed===2&&!unlocked({timedBoosts})?1:speed,reportPaused,filter}};
+    const pauseBoostsOnSpeedEnd=raw.pauseBoostsOnSpeedEnd??false;if(typeof pauseBoostsOnSpeedEnd!=='boolean')throw Error('增益自動暫停設定無效');
+    const timedBoosts=copy(rows);
+    return {timedBoosts,combatSession:{idleTimeMs,speed:speed===2&&!active({timedBoosts}).some(b=>b.boostType==='speed2')?1:speed,reportPaused,filter,pauseBoostsOnSpeedEnd}};
   }
-  root.EmberwildTimedBoosts=Object.freeze({TYPE,KINDS,LABELS,MAX_STACK_MS,DEFAULT_ITEMS,DEFAULT_RULES,DAILY_TICKET,prepareSave,migrateSpeedData,isItem,itemName,migrateConfig,validateItem,active,bonus,unlocked,validateState,ELEMENTAL_TYPES,isElementalItem,expiryTime,remainingMs,buffRows,compactBuffs,elementalActive,sourceKey,stackBuff,timeText,validateElementalItem,createElementalBuff,migrateElementalConfig,migrateElementalBuff});
+  root.EmberwildTimedBoosts=Object.freeze({TYPE,KINDS,LABELS,MAX_STACK_MS,DEFAULT_ITEMS,DEFAULT_RULES,DAILY_TICKET,prepareSave,migrateSpeedData,isItem,itemName,migrateConfig,validateItem,available,migrateBuff,consume,active,bonus,unlocked,validateState,ELEMENTAL_TYPES,isElementalItem,expiryTime,remainingMs,buffRows,compactBuffs,elementalActive,sourceKey,stackBuff,timeText,validateElementalItem,createElementalBuff,migrateElementalConfig,migrateElementalBuff});
 })(globalThis);
 
 EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;
@@ -1566,7 +1737,35 @@ EmberwildQuestDesign=globalThis.EmberwildQuestDesign??EmberwildQuestDesign;
 
 EmberwildCommissions=globalThis.EmberwildCommissions??EmberwildCommissions;
 
-/* js/core/core-game.js?v=20261019-daily-speed2 */
+/* js/equipment/gear-inventory-model.js */
+/* Legacy pending loot is folded into the existing bag before save validation.
+   Work on a copy: a failed validation/save leaves the original save intact. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.EmberwildGearInventory=api;})(globalThis,()=>{
+  const SAVE_LIMIT=100000;
+  const canonical=v=>Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;
+  function prepareSave(raw){
+    if(!raw||raw.pendingGearLoot===undefined)return raw;
+    if(!Array.isArray(raw.pendingGearLoot)||raw.pendingGearLoot.length>SAVE_LIMIT)throw Error('舊待領裝備資料無效，原始存檔已保留');
+    const data=JSON.parse(JSON.stringify(raw)),members=data.version===3?data.members:[data];
+    if(!Array.isArray(members)||!members.length||!members.every(h=>Array.isArray(h.bag)))throw Error('舊待領裝備無法轉入背包，原始存檔已保留');
+    const seen=new Map();
+    for(const h of members)for(const g of h.bag)seen.set(g?.id,g);
+    for(const g of data.pendingGearLoot){
+      if(!g||typeof g.id!=='string')throw Error('舊待領裝備 ID 無效，原始存檔已保留');
+      const existing=seen.get(g.id);
+      if(existing){if(JSON.stringify(canonical(existing))!==JSON.stringify(canonical(g)))throw Error('舊待領裝備 ID 衝突，原始存檔已保留');continue;}
+      members[0].bag.push(g);seen.set(g.id,g);
+    }
+    if(seen.size>SAVE_LIMIT)throw Error('裝備資料超出可保存範圍，原始存檔已保留');
+    delete data.pendingGearLoot;
+    return data;
+  }
+  return {SAVE_LIMIT,prepareSave};
+});
+
+EmberwildGearInventory=globalThis.EmberwildGearInventory??EmberwildGearInventory;
+
+/* js/core/core-game.js?v=20261021-input-scroll3 */
 'use strict';
 // Published data is supplied before any runtime module or player save loads.
 // Legacy browser balance caches never override a published build implicitly.
@@ -1585,10 +1784,56 @@ function GS(path,fallback){
   return cur===undefined?fallback:cur;
 }
 function gearRequiredLevelByTier(tier){return Math.max(1,Math.round(GS('equipment.requiredLevel.base',1)+(Number(tier)-1)*GS('equipment.requiredLevel.perTier',5)));}
+function gearRequiredLevel(g){return Number.isInteger(g?.equipmentLevel)?g.equipmentLevel:gearRequiredLevelByTier(g?.tier||1);}
 
 const CLASSES=[{name:'戰士',advanced:'破曉騎士',icon:'',desc:'堅守前線，以重擊與護盾承受攻勢。',hp:155,atk:19,def:9,main:'力量',skills:[['裂地斬','active',1,3,2.4,'damage'],['堅毅壁壘','active',4,6,1.6,'shield'],['反擊之刃','proc',7,0,.9,'damage'],['浴血重擊','proc',11,0,.45,'drain'],['聖鋼裁決','active',15,4,3.8,'damage'],['不屈戰意','proc',20,0,1.1,'shield']]},{name:'法師',advanced:'星火賢者',icon:'',desc:'法術普攻，以高倍率魔法突破敵人防線。',hp:105,atk:26,def:4,main:'智力',skills:[['火焰箭','active',1,3,2.8,'damage'],['冰霜護幕','active',4,5,1.5,'shield'],['餘燼爆發','proc',7,0,1.3,'damage'],['奧術汲取','proc',11,0,.5,'drain'],['隕星墜落','active',15,5,5.6,'damage'],['魔力迴響','proc',20,0,1.9,'damage']]},{name:'弓箭手',advanced:'逐風遊俠',icon:'',desc:'高暴擊遠程射擊，連續觸發追擊。',hp:120,atk:23,def:5,main:'敏捷',skills:[['穿透箭','active',1,3,2.6,'damage'],['林間休憩','active',4,5,1.3,'heal'],['連射','proc',7,0,1.2,'damage'],['獵手印記','proc',11,0,1.5,'damage'],['疾風箭雨','active',15,4,4,'damage'],['生命之箭','proc',20,0,.8,'drain']]},{name:'牧師',advanced:'晨光主教',icon:'',desc:'聖光普攻，治癒與庇護維持長期作戰。',hp:130,atk:20,def:7,main:'精神',skills:[['聖光審判','active',1,3,2.5,'damage'],['治癒禱言','active',4,4,1.8,'heal'],['懲戒','proc',7,0,1.1,'damage'],['生命泉源','proc',11,0,.8,'heal'],['黎明聖印','active',15,4,3.8,'damage'],['神聖庇護','proc',20,0,1.4,'shield']]}];
 const MAPS=[{name:'苔光林地',min:1,max:5,icon:'',color:'#34483a',mobs:[['苔原史萊姆','','黏稠凝膠'],['林間野狼','','完整狼牙'],['迷路樹精','','活性樹芯']],boss:['古木守望者','','古木年輪']},{name:'風蝕礦坑',min:6,max:10,icon:'',color:'#494333',mobs:[['洞穴蝙蝠','','薄翼膜'],['岩背蜥蜴','','堅硬石鱗'],['礦坑魔偶','','魔偶齒輪']],boss:['礦脈巨人','','礦脈之心']},{name:'暮色沼澤',min:11,max:15,icon:'≋',color:'#3d394b',mobs:[['劇毒蛙','','劇毒腺體'],['幽光飛蛾','','微光鱗粉'],['沼地亡魂','','怨念碎片']],boss:['泥沼女巫','‍','女巫符印']},{name:'霜眠山脊',min:16,max:20,icon:'△',color:'#364956',mobs:[['霜牙雪狼','','霜牙'],['冰晶妖精','','冰晶翅片'],['雪原巨熊','‍','厚暖熊皮']],boss:['凜冬巨獸','','永凍結晶']},{name:'熔火遺跡',min:21,max:25,icon:'',color:'#57392e',mobs:[['熔岩蟲','','灼熱甲殼'],['火羽渡鴉','‍','不熄火羽'],['失控鎧甲','','焦黑鋼片']],boss:['熔爐暴君','','熔核']},{name:'星隕荒原',min:26,max:30,icon:'',color:'#3c3c53',mobs:[['虛空獵犬','','虛空尖牙'],['星塵水母','','星塵觸鬚'],['墜星魔像','','隕鐵核心']],boss:['星隕監視者','','星隕稜鏡']},{name:'終焉王座',min:40,max:40,icon:'',color:'#4a2c3b',mobs:[],boss:['噬日者・厄爾','','日蝕王冠']}];
-const GEMS=[{name:'赤焰石',desc:'',icon:''},{name:'疾風石',desc:'',icon:''},{name:'共鳴石',desc:'',icon:''}];
+// Each gem ID identifies one of five independent effects at one of three tiers.
+const GEM_NAMES=['赤焰石','疾風石','靈巧石','生息石','守護石'];
+const GEM_COLORS=['#ec5555','#51b878','#a57be4','#e9eef7','#559ff0'];
+const GEM_RATES=[[.02,.04,.06],[.05,.10,.15],[.01,.02,.03],[.03,.06,.09],[.01,.02,.03]];
+const GEM_KINDS=GEM_NAMES.length;
+const GEMS=Array.from({length:GEM_KINDS*3},(_,id)=>{
+ const kind=id%GEM_KINDS,tier=Math.floor(id/GEM_KINDS),pct=Number((GEM_RATES[kind][tier]*100).toFixed(3));
+ const desc=[
+  '技能效果 +'+pct+'%（加算型增幅）',
+  '主動技能施放後 '+pct+'% 機率減少 1 回合冷卻（最低 1）',
+  '普攻觸發技能發動率 +'+pct+' 個百分點',
+  '技能成功發動後，使生命比例最低的存活隊友恢復施放者攻擊力 '+pct+'% 的生命',
+  '技能成功發動後，使生命比例最低的存活隊友獲得施放者防禦力 '+pct+'% 的護盾（可與其他護盾累加）'
+ ][kind];
+ return {name:GEM_NAMES[kind]+'・'+(tier+1)+'階',desc,icon:'',color:GEM_COLORS[kind],kind,tier:tier+1};
+});
+function gemCompatible(id,job,skill){
+ const sk=CLASSES[job]?.skills?.[skill];if(!sk||!Number.isInteger(id)||id<0||id>=GEMS.length)return false;
+ return id%GEM_KINDS===0?Number(sk[4])>0:id%GEM_KINDS===1?sk[1]==='active':id%GEM_KINDS===2?sk[1]==='proc':['active','proc'].includes(sk[1]);
+}
+function gemRate(h,i,kind){
+ const id=h?.sockets?.[i];return Number.isInteger(id)&&id%GEM_KINDS===kind&&gemCompatible(id,h.job,i)?GEM_RATES[kind][Math.floor(id/GEM_KINDS)]:0;
+}
+function gemCooldownOnCast(i,h){
+ const chance=gemRate(h,i,1),floor=GAME_BALANCE.combat.minimumActiveCooldown;
+ return Math.max(floor,skillCooldown(i,h)-(chance>0&&Math.random()<chance?1:0));
+}
+function applyGemAfterSkill(h,i,v){
+ const healingRate=gemRate(h,i,3),shieldRate=gemRate(h,i,4);
+ if(!healingRate&&!shieldRate)return;
+ const candidates=[...living()].filter(ally=>ally.hp>0);
+ if(!candidates.length)return;
+ const ally=candidates.sort((a,b)=>a.hp/Math.max(1,stats(a).hp)-b.hp/Math.max(1,stats(b).hp))[0];
+ if(healingRate){
+  const before=ally.hp,amount=Math.max(1,Math.round((v?.atk??battleStats(h).atk)*healingRate));
+  ally.hp=Math.min(stats(ally).hp,ally.hp+amount);
+  const recovered=Math.max(0,ally.hp-before);
+  if(recovered){globalThis.recordCombatContribution?.(h,'healing',recovered);note(GEMS[h.sockets[i]].name+' → '+characterName(ally)+' 回復 '+recovered+' 生命');}
+ }
+ if(shieldRate){
+  const amount=Math.max(1,Math.round(Math.max(0,stats(h).def)*shieldRate));
+  ally.shield=Math.max(0,Number(ally.shield)||0)+amount;
+  note(GEMS[h.sockets[i]].name+' → '+characterName(ally)+' 護盾 +'+amount);
+ }
+}
+
 const SLOTS=['武器','護甲','副手','飾品'];const RARITY=['普通','精良','稀有','傳說'];const AFFIX=['攻擊','生命','防禦','暴擊'];
 // Preview has a separate copy so the older production client cannot discard
 // the new permanent/build extension when it saves its single-team projection.
@@ -1620,9 +1865,9 @@ const KEY=saveKeyForSlot(ACTIVE_SAVE_SLOT),BACKUP_KEY=backupKeyForSlot(ACTIVE_SA
 // Do not persist a partially hydrated save while later modules are still loading.
 let saveReady=false;
 let migrateWorldSave=data=>data;
-const $=x=>document.getElementById(x);const rand=n=>Math.floor(Math.random()*n);let uidSerial=0;const uid=()=>{let id;do{id=Date.now().toString(36)+'-'+(++uidSerial).toString(36)+'-'+Math.random().toString(36).slice(2,8);}while(party?.members.some(h=>h.bag.some(g=>g.id===id)));return id;};let need=l=>Math.round((45+l*18+l*l*2)*(2.2+l*.16));
+const $=x=>x==='modal'&&globalThis.__EMBERWILD_SIMULATION_MODAL?globalThis.__EMBERWILD_SIMULATION_MODAL:document.getElementById(x);const rand=n=>Math.floor(Math.random()*n);let uidSerial=0;const uid=()=>{let id;do{id=Date.now().toString(36)+'-'+(++uidSerial).toString(36)+'-'+Math.random().toString(36).slice(2,8);}while(party?.members.some(h=>h.bag.some(g=>g.id===id)));return id;};let need=l=>Math.round((45+l*18+l*l*2)*(2.2+l*.16));
 
-function initial(job){let g=gear(1,0,0,job);return migrate({version:1,job,lv:1,xp:0,gold:150,ore:12,dust:0,hp:CLASSES[job].hp,shield:0,map:0,advanced:false,ap:0,stats:[0,0,0],skills:[1,0,0,0,0,0],active:[0,null],procSlots:[null,null],gems:[0,0,0],sockets:[null,null,null,null,null,null],bag:[g],equipped:[g.id,null,null,null,null],materials:{},kills:{},totalKills:0,tutorial:0,claimed:[],repeat:0,won:false,autoPotion:true,potions:5,discovered:[],created:Date.now()});}
+function initial(job){let g=gear(1,0,0,job);return migrate({version:1,job,lv:1,xp:0,gold:150,ore:12,dust:0,hp:CLASSES[job].hp,shield:0,map:0,advanced:false,ap:0,stats:[0,0,0],skills:[1,0,0,0,0,0],active:[0,null],procSlots:[null,null],gems:Array(GEMS.length).fill(0),sockets:[null,null,null,null,null,null],bag:[g],equipped:[g.id,null,null,null,null],materials:{},kills:{},totalKills:0,tutorial:0,claimed:[],repeat:0,won:false,autoPotion:true,potions:5,discovered:[],created:Date.now()});}
 function equipment(s=state){return s.companionId!==undefined?s.bag.filter(g=>EmberwildTokens.isToken(g)&&g.id===s.tokenId):s.equipped.map(id=>s.bag.find(g=>g.id===id&&!EmberwildTokens.isToken(g))).filter(Boolean);}
 
 function note(t){logs.unshift(t);logs=logs.slice(0,65);}function toast(t){$('toast').textContent=t;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',2800);}function esc(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -1648,7 +1893,20 @@ function battleHealthMeter(hp,max,shield=0){
 function pixel(index,extra=''){return '';}
 function enemyArt(e){if(!e)return pixel(6);if(e.kind==='final')return pixel(7);if(/史萊姆/.test(e.name))return pixel(4);if(/狼|獵犬/.test(e.name))return pixel(5);if(/樹|古木/.test(e.name))return pixel(6);return `<span class="monster-symbol">${e.icon}</span>`;}
 
-function render(){if(!state){$('app').innerHTML=`<section class="start"><span class="eyebrow">EMBERWILD · 選擇你的遠征者</span><p>一場沒有主線束縛的遠征。探索、收集、雕琢你的技能。<br>LV30 挑戰 40 級噬日者，通關後解鎖 LV60 與覺醒地圖。</p><div class="cards">${CLASSES.map((c,i)=>`<article class="card"><div class="class-art">${pixel(i)}</div><h2>${c.name}</h2><span class="tag">${c.main} · LV15 ${c.advanced}</span><p>${c.desc}</p><p class="small">生命 ${c.hp} / 攻擊 ${c.atk} / 防禦 ${c.def}</p><button class="primary" onclick="requestHeroName(${i},true)">選擇${c.name}</button></article>`).join('')}</div><p class="small">自動存檔 · 無離線戰鬥</p></section>`;return;}
+function creationSkillPreview(job){
+  const api=globalThis.__EMBERWILD_SKILLS;
+  if(api){const rows=api.system().classRules.find(r=>r.job===job).initial;return `<section class="creation-skill-preview" aria-label="${esc(CLASSES[job].name)}技能預覽"><h3>技能預覽</h3><ul>${rows.map(row=>{const sk=api.byId(row.skillId);return `<li><b>${esc(sk.name)}</b><span class="creation-skill-meta">主動 · LV${row.level}</span><p>${esc(sk.description||'')}</p></li>`;}).join('')}</ul></section>`;}
+  const skills=CLASSES[job].skills.filter(sk=>sk[6]?.partnerId==null).slice(0,3);
+  if(!skills.length)return '';
+  return `<section class="creation-skill-preview" aria-label="${esc(CLASSES[job].name)}技能預覽"><h3>技能預覽</h3><ul>${skills.map(sk=>{
+    const meta=sk[6]||{},type=meta.activation||sk[1],requirements=[`LV${sk[2]}`];
+    if(meta.requiresAdvanced)requirements.push('二轉');
+    if(meta.requiredMastery&&meta.requiredMasteryLevel>0)requirements.push(`${globalThis.__EMBERWILD_MASTERY?.masteryLabels?.[meta.requiredMastery]||meta.requiredMastery}熟練 ${meta.requiredMasteryLevel}`);
+    return `<li><b>${esc(sk[0])}</b><span class="creation-skill-meta">${esc(({active:'主動',proc:'普攻觸發',passive:'被動'})[type]||type)} · ${esc(requirements.join('／'))}</span>${meta.description?`<p>${esc(meta.description)}</p>`:''}</li>`;
+  }).join('')}</ul></section>`;
+}
+
+function render(){if(!state){$('app').innerHTML=`<section class="start"><span class="eyebrow">EMBERWILD · 選擇你的遠征者</span><div class="cards">${CLASSES.map((c,i)=>`<article class="card"><div class="class-art">${pixel(i)}</div><h2>${c.name}</h2><span class="tag">${c.main} · LV${GS('progression.advance.level',15)} 二轉：${c.advanced}</span><p>${c.desc}</p>${creationSkillPreview(i)}<button class="primary" onclick="requestHeroName(${i},true)">選擇${c.name}</button></article>`).join('')}</div></section>`;return;}
 let c=CLASSES[state.job],v=stats();$('wallet').textContent=`◈ ${state.gold.toLocaleString()} 金幣`;
 const legacyNavigation=[['battle','荒野探索'],['statistics','戰鬥統計'],['roster','隊伍編成'],['partnerRoster','夥伴名冊'],['character','角色能力'],['skills','技能'],['equipment','背包'],['worn','裝備與信物'],['forge','裝備強化'],['bossCraft','BOSS 製作'],['story','主要任務'],['quests','委託'],['shop','商店'],['lifeSkills','生活技能'],['guide','冒險指南']].map(([id,name])=>`<button data-page="${id}" class="${tab===id?'active':''}" onclick="setTab('${id}')"><span>${name}</span>${globalThis.numberBadgeHTML?.(id)||''}</button>`).join('');
 const navigationHTML=globalThis.gameNavigationHTML?.(tab)||legacyNavigation;
@@ -1659,9 +1917,9 @@ function tutorial(){if(state.tutorial>=3)return '';let texts=[['01 / 初次狩�
 function claimTutorial(){if(state.tutorial===0&&state.bag.length>=RULES.bagCapacity)return toast('背包已滿，請先整理再領取新手護甲');let ok=[state.totalKills>=3,state.bag.some(g=>g.plus>0),state.skills[0]>=2][state.tutorial];if(!ok)return;state.tutorial++;state.gold+=100;state.ore+=10;if(state.tutorial===1){addGear(gear(1,1,1,state.job));toast('獲得精良護甲、100 金幣與 10 鍛鐵！');}else toast('獲得 100 金幣與 10 鍛鐵');save();render();}
 function characterView(){let v=stats(),c=CLASSES[state.job];return heading('ADVENTURER / 角色能力',esc(characterName(state)),`<span class="tag">剩餘能力點 ${state.ap}</span>`)+`<div class="grid"><section class="panel"><div class="row"><h2>能力配點</h2><span class="tag">可分配 ${state.ap} 點</span></div>${uiHelp('能力點說明','升級獲得 3 能力點；免費重置退還全部能力點。')}<div class="stat-grid"><span>生命上限 <b class="gold">${v.hp}</b></span><span>攻擊力 <b class="gold">${v.atk}</b></span><span>防禦力 <b class="gold">${v.def}</b></span><span>暴擊率 <b class="gold">${Math.round(v.crit*100)}%</b></span><span>速度 <b class="gold">${v.speed}</b></span></div>${[c.main,'體質','韌性'].map((x,i)=>`<div class="mobdrop row"><div><b>${x} ${state.stats[i]}</b><div class="small">每點${['攻擊力 +2','生命上限 +12','防禦力 +1.3'][i]}</div></div><div class="stat-allocate"><input id="stat-alloc-${i}" type="number" min="1" max="${state.ap}" value="${state.ap>0?1:''}" inputmode="numeric" aria-label="分配${x}點數" ${state.ap<1?'disabled':''}><button onclick="allocate(${i},document.getElementById('stat-alloc-${i}').value)" ${state.ap<1?'disabled':''}>分配</button></div></div>`).join('')}<div class="actions"><button onclick="resetStats()">免費重置能力點</button></div></section><section class="panel"><div class="icon"></div><h2>LV15 · ${c.advanced}</h2><p>進階後生命 +18%、攻擊 +22%、防禦 +15%，開放兩項進階技能。</p><p class="small">需求：LV15、500 金幣、20 鍛鐵、怨念碎片 ×3。怨念碎片來自暮色沼澤的沼地亡魂。</p><button class="primary" onclick="advance()" ${state.advanced||state.lv<15?'disabled':''}>${state.advanced?'已完成職業進階':'完成二轉'}</button></section></div>`;}
 function allocate(i,amount=1){if(![0,1,2].includes(i)||state.ap<1)return;const n=Math.floor(Number(amount));if(!Number.isFinite(n)||n<1)return toast('請輸入至少 1 點');if(n>state.ap)return toast('剩餘能力點不足');state.ap-=n;state.stats[i]+=n;save();render();}function resetStats(){state.ap+=state.stats.reduce((a,b)=>a+b,0);state.stats=[0,0,0];clampVitals();save();render();}function advance(){if(state.advanced||state.lv<15)return;if(state.gold<500||state.ore<20||(state.materials['怨念碎片']||0)<3)return toast('需要 500 金幣、20 鍛鐵、3 怨念碎片');state.gold-=500;state.ore-=20;state.materials['怨念碎片']-=3;state.advanced=true;state.hp=stats().hp;save();render();toast('二轉完成，進階技能已開放！');}
-function skillsView(){let c=CLASSES[state.job];return heading('SKILLS / 技能','主動技能與普攻觸發技能','')+`<p>兩個主動槽獨立計算冷卻；普攻觸發技能必須配置於觸發槽才會啟用。每項技能最高 10 級，每點增加基礎效果 40%、可鑲嵌 1 顆寶石，替換時退還舊寶石。</p><div class="panel" style="margin-bottom:20px"><div class="row"><span>${GEMS.map((g,i)=>` ${esc(equipmentDisplayName(g))} ×${state.gems[i]}`).join('　')}</span><button onclick="craftGem()">合成隨機寶石 · 12 寶石粉塵</button></div></div><div class="cards">${c.skills.map((sk,i)=>{let locked=state.lv<sk[2]||(i>=4&&!state.advanced),gem=state.sockets[i];return `<article class="card"><div class="row"><span class="icon">${sk[1]==='active'?'':'ϟ'}</span><span class="tag">${sk[1]==='active'?'主動':'普攻觸發'}</span></div><h2>${sk[0]} <span class="gold">${state.skills[i]}/${RULES.skillMax}</span></h2>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p>${skillDescription(i)}<br><span class="small">${sk[1]==='active'?`冷卻 ${skillCooldown(i)} 回合`:`每次普攻 ${Math.round(procChance(i)*100)}% 觸發`} · LV${sk[2]}${i>=4?' + 二轉':''}</span></p><button ${locked||state.skills[i]>=skillCap()?'disabled':''} onclick="learn(${i})">${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?`<button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},0)">${state.active[0]===i?' 槽 1':'設為槽 1'}</button><button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},1)">${state.active[1]===i?' 槽 2':'設為槽 2'}</button>`:'<p class="small">學會後需配置於觸發槽</p>'}<div class="divider"></div><div class="small">鑲嵌寶石</div><select aria-label="${sk[0]}寶石" style="width:100%;margin-top:8px" ${!state.skills[i]?'disabled':''} onchange="socket(${i},this.value)"><option value="-1">空插槽</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${state.gems[j]<1&&gem!==j?'disabled':''}>${esc(equipmentDisplayName(g))} · ${g.desc}</option>`).join('')}</select></article>`;}).join('')}</div>`;}
+function skillsView(){let c=CLASSES[state.job];return heading('SKILLS / 技能','主動技能與普攻觸發技能','')+`<p>兩個主動槽獨立計算冷卻；普攻觸發技能必須配置於觸發槽才會啟用。每項技能最高 10 級，每點增加基礎效果 40%、可鑲嵌 1 顆寶石，替換時退還舊寶石。</p><div class="panel" style="margin-bottom:20px"><div class="row"><span>${GEMS.map((g,i)=>` ${esc(equipmentDisplayName(g))} ×${state.gems[i]}`).join('　')}</span><button onclick="craftGem()">合成隨機寶石 · 12 寶石粉塵</button></div></div><div class="cards">${c.skills.map((sk,i)=>{let locked=state.lv<sk[2]||(i>=4&&!state.advanced),gem=state.sockets[i];return `<article class="card"><div class="row"><span class="icon">${sk[1]==='active'?'':'ϟ'}</span><span class="tag">${sk[1]==='active'?'主動':'普攻觸發'}</span></div><h2>${sk[0]} <span class="gold">${state.skills[i]}/${RULES.skillMax}</span></h2>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p>${skillDescription(i)}<br><span class="small">${sk[1]==='active'?`冷卻 ${skillCooldown(i)} 回合`:`每次普攻 ${Math.round(procChance(i)*100)}% 觸發`} · LV${sk[2]}${i>=4?' + 二轉':''}</span></p><button ${locked||state.skills[i]>=skillCap()?'disabled':''} onclick="learn(${i})">${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?`<button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},0)">${state.active[0]===i?' 槽 1':'設為槽 1'}</button><button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},1)">${state.active[1]===i?' 槽 2':'設為槽 2'}</button>`:'<p class="small">學會後需配置於觸發槽</p>'}<div class="divider"></div><div class="small">鑲嵌寶石</div><select aria-label="${sk[0]}寶石" style="width:100%;margin-top:8px" ${!state.skills[i]?'disabled':''} onchange="socket(${i},this.value)"><option value="-1">空插槽</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${(!gemCompatible(j,state.job,i)||state.gems[j]<1&&gem!==j)?'disabled':''}>${esc(equipmentDisplayName(g))} · ${g.desc}</option>`).join('')}</select></article>`;}).join('')}</div>`;}
 function skillDescription(i){let sk=CLASSES[state.job].skills[i];return `${{damage:'造成',heal:'恢復',shield:'獲得',drain:'造成傷害並吸取等量生命，倍率為'}[sk[5]]}攻擊力 ${Math.round(skillPower(i)*100)}%${{damage:'傷害',heal:'生命',shield:'護盾（無上限；重複施放與其他護盾來源只保留較高值）',drain:''}[sk[5]]}`;}
-function equipSkill(i,slot){if(!Number.isInteger(i)||!CLASSES[state.job].skills[i]||CLASSES[state.job].skills[i][1]!=='active'||![0,1].includes(slot)||!state.skills[i])return;let other=1-slot;if(state.active[other]===i)state.active[other]=null;state.active[slot]=i;save();render();}function socket(i,value){let g=Number(value);if(!Number.isInteger(i)||i<0||i>=6||!state.skills[i]||!Number.isInteger(g)||g< -1||g>2)return;let old=state.sockets[i];if(g===old)return;if(g>=0&&state.gems[g]<1)return;if(old!==null)state.gems[old]++;state.sockets[i]=g<0?null:g;if(g>=0)state.gems[g]--;save();render();}function craftGem(){{const cost=Math.max(0,Math.round(GS('skills.gems.craftDust',12)));if(state.dust<cost)return toast('需要 '+cost+' 寶石粉塵');state.dust-=cost;}let i=rand(3);state.gems[i]++;save();render();toast('合成了'+GEMS[i].name);}
+function equipSkill(i,slot){if(!Number.isInteger(i)||!CLASSES[state.job].skills[i]||CLASSES[state.job].skills[i][1]!=='active'||![0,1].includes(slot)||!state.skills[i])return;let other=1-slot;if(state.active[other]===i)state.active[other]=null;state.active[slot]=i;save();render();}function socket(i,value){let g=Number(value);if(!Number.isInteger(i)||i<0||i>=6||!state.skills[i]||!Number.isInteger(g)||g< -1||g>=GEMS.length||g>=0&&!gemCompatible(g,state.job,i))return;let old=state.sockets[i];if(g===old)return;if(g>=0&&state.gems[g]<1)return;if(old!==null)state.gems[old]++;state.sockets[i]=g<0?null:g;if(g>=0)state.gems[g]--;save();render();}function craftGem(){{const cost=Math.max(0,Math.round(GS('skills.gems.craftDust',12)));if(state.dust<cost)return toast('需要 '+cost+' 寶石粉塵');state.dust-=cost;}let i=rand(GEM_KINDS);state.gems[i]++;save();render();toast('合成了'+GEMS[i].name);}
 (function installEquipmentAttributePresentation(){
   if(globalThis.equipmentAttributeDetailsHTML)return;
   const labels={atk:'攻擊',hp:'生命',def:'防禦'};
@@ -1725,19 +1983,19 @@ function equipSkill(i,slot){if(!Number.isInteger(i)||!CLASSES[state.job].skills[
   `;
   document.head.appendChild(style);
 })();
-function findGear(id){return state.bag.find(g=>g.id===id);}function equipGear(id){let g=findGear(id);if(!g||state.lv<gearRequiredLevelByTier(g.tier))return;state.equipped[g.slot]=id;clampVitals();save();render();}function enhanceCost(g){return g.tier*(g.plus+1)*2;}function enhance(id){let g=findGear(id);if(!g||g.plus>=RULES.enhanceMax)return;if(state.ore<enhanceCost(g))return toast('鍛鐵不足，狩獵或分解裝備可取得');state.ore-=enhanceCost(g);g.plus++;save();render();toast(`${esc(equipmentDisplayName(g))} 強化至 +${g.plus}`);}
+function findGear(id){return state.bag.find(g=>g.id===id);}function equipGear(id){let g=findGear(id);if(!g||state.lv<gearRequiredLevel(g))return;state.equipped[g.slot]=id;clampVitals();save();render();}function enhanceCost(g){return g.tier*(g.plus+1)*2;}function enhance(id){let g=findGear(id);if(!g||g.plus>=RULES.enhanceMax)return;if(state.ore<enhanceCost(g))return toast('鍛鐵不足，狩獵或分解裝備可取得');state.ore-=enhanceCost(g);g.plus++;save();render();toast(`${esc(equipmentDisplayName(g))} 強化至 +${g.plus}`);}
 let pendingAffix=null;
 function acceptAffix(){if(pendingAffix){let g=findGear(pendingAffix.id);if(g)g.affix=pendingAffix.affix;}pendingAffix=null;clampVitals();save();closeModal();render();}function closeModal(){const m=$('modal');m.close();delete m.dataset.view;pendingAffix=null;}
 function salvage(id){if(state.equipped.includes(id))return;let g=findGear(id);if(!g)return;state.ore+=g.tier*(3+g.rar*2+g.plus);state.dust+=1+g.rar;state.bag=state.bag.filter(x=>x.id!==id);save();render();}
 const QUESTS=[{id:'wolves',title:'縫補獵人的披肩',desc:'林間野狼的狼牙，是獵人交換皮革的憑證。',mat:'完整狼牙',n:5,gold:300,ore:20},{id:'witch',title:'淨化沼澤',desc:'採集女巫符印，協助營地研究暮色詛咒。',mat:'女巫符印',n:2,gold:800,ore:55},{id:'stars',title:'鍛造師的最後一課',desc:'取得星隕監視者的稜鏡，準備迎戰噬日者。',mat:'星隕稜鏡',n:3,gold:2000,ore:120}];
 function questView(){let m=MAPS[state.map===6?5:state.map],repeatMat=m.mobs[0][2];return heading('JOURNAL / 委託手札','荒野裡的小小約定。')+`<div class="cards">${QUESTS.map(q=>`<article class="card"><span class="tag">一次性支線</span><h2 style="margin-top:15px">${q.title}</h2><p>${q.desc}</p><p>${q.mat}　${state.materials[q.mat]||0} / ${q.n}</p><p class="gold">${q.gold} 金幣 · ${q.ore} 鍛鐵 · 隨機寶石 ×1</p><button class="primary" onclick="claimQuest('${q.id}')" ${state.claimed.includes(q.id)||(state.materials[q.mat]||0)<q.n?'disabled':''}>${state.claimed.includes(q.id)?'已完成':'交付材料'}</button></article>`).join('')}<article class="card"><span class="tag">可重複 · ${m.name}</span><h2 style="margin-top:15px">營地物資募集</h2><p>收集本地常見怪物的材料。切換地圖後會更新募集品項。</p><p>${repeatMat}　${state.materials[repeatMat]||0} / 8</p><p class="gold">${regionTier(questRegion())*150} 金幣 · 15 鍛鐵 · 3 粉塵</p><button class="primary" onclick="claimRepeat()" ${(state.materials[repeatMat]||0)<8?'disabled':''}>交付材料</button><p class="small">累計完成 ${state.repeat} 次</p></article></div>`;}
-function claimQuest(id){let q=QUESTS.find(q=>q.id===id);if(!q||state.claimed.includes(id)||(state.materials[q.mat]||0)<q.n)return;state.materials[q.mat]-=q.n;state.gold+=q.gold;state.ore+=q.ore;state.gems[rand(3)]++;state.claimed.push(id);save();render();toast('委託完成，已領取獎勵');}
+function claimQuest(id){let q=QUESTS.find(q=>q.id===id);if(!q||state.claimed.includes(id)||(state.materials[q.mat]||0)<q.n)return;state.materials[q.mat]-=q.n;state.gold+=q.gold;state.ore+=q.ore;state.gems[rand(GEM_KINDS)]++;state.claimed.push(id);save();render();toast('委託完成，已領取獎勵');}
 function guideView(){return heading('FIELD NOTES / 冒險指南','你的遠征，由你安排。')+`<section class="panel"><h2>完整遊戲流程</h2><p>選擇職業 → 完成三步教學 → 每 5 級前往新區域 → 收集專屬材料、裝備與寶石 → LV15 完成二轉 → LV30 打造星隕裝備與技能組合 → 挑戰 LV40 噬日者。</p><h3>戰鬥與越級</h3><p>1倍速每回合至少 6 秒。普攻每回合一次；兩個主動技在冷卻完成時各自施放，只有配置於普攻觸發槽的觸發技會在普攻時各自判定，不搶佔普攻。暴擊傷害 150%。傷害以攻擊減去 65% 防禦計算，最低 1。護盾可抵擋單一角色受到的所有來源傷害，沒有生命比例上限；新的護盾不與既有護盾相加，只保留兩者較高值。一般探索只會遇見不高於自己 5 級的敵人；傷害承受會隨越級增加，每級 +12%。噬日者不使用一般越級加成。</p><h3>探索與補給</h3><p>遭遇機率：普通 83%、菁英 12%、地圖首領 5%。首領等級為區域最高級，尚未達到越級條件時改遇普通怪。戰後回滿生命、清空護盾；下一場遭遇開始時技能冷卻重置。戰敗自動停戰並扣除 5% 金幣，不失去經驗或裝備。每次遭遇結束自動回滿生命；暫停不會重置敵人，切換地圖會放棄當前遭遇，但不會回復。</p><h3>掉落與鍛造</h3><p>專屬素材掉率：普通 65%、菁英與首領 100%。裝備掉率：普通 22%、菁英 55%、首領 100%。寶石掉率：普通 4%、菁英 12%、首領 35%。每次擊殺另有 0.15% 獨立機率取得本區傳說裝備。鍛鐵每次擊殺必掉。背包達 720 件時，新掉落裝備自動分解。裝備職業通用：武器會依職業作為近戰、弓箭或法術攻擊來源。</p><h3>終局挑戰</h3><p>噬日者擁有 85,000 生命、850 攻擊、110 防禦，每第 5 回合施放 1.65 倍日蝕打擊；第 46 回合起狂暴。建議完成二轉、分配能力點、核心技能 5 級、三件星隕稀有以上裝備 +10、洗鍊適合的雙詞綴，並為所有技能鑲嵌寶石。備足治療藥水。LV30 僅是挑戰起點；不同職業應調整輸出、治療與護盾組合。</p><h3>存檔</h3><p>每 5 秒與重要操作後存入此瀏覽器。匯出 JSON 可搬移到另一台裝置；匯入會先顯示確認，再覆蓋當前角色。只保存成長進度，不保存戰鬥中敵人；續玩從整備狀態開始。關閉頁面不會離線戰鬥。</p><button class="danger" onclick="confirmNew()">建立新角色</button></section>`;}
 function makeBaseEnemy(map=state.map,s=state,rng=Math.random){let m=MAPS[map];if(map===6)return{name:m.boss[0],icon:m.boss[1],mat:m.boss[2],lv:40,hp:180000,maxhp:180000,atk:1000,def:110,kind:'final',turn:0};let r=rng(),kind=r<.05&&m.max<=s.lv+5?'boss':r<.17?'elite':'normal',mob=kind==='boss'?m.boss:m.mobs[Math.floor(rng()*m.mobs.length)],lv=kind==='boss'?m.max:m.min+Math.floor(rng()*(Math.min(m.max,s.lv+5)-m.min+1));let hp=Math.round((42+lv*15+lv*lv*.7)*(kind==='boss'?3:kind==='elite'?1.65:1)),atk=Math.round((8+lv*3.3)*(kind==='boss'?1.45:kind==='elite'?1.2:1));return{name:(kind==='elite'?'菁英・':'')+mob[0],icon:mob[1],mat:mob[2],lv,hp,maxhp:hp,atk,def:Math.round(lv*1.7),kind,turn:0};}
 
 function toggleBattle(){if(state.hp<=0)return toast('請先戰後恢復生命');running=!running;if(running&&!enemy){enemy=makeEnemy();note(`遭遇 LV${enemy.lv} ${enemy.name}！`);}render();}function potion(quiet=false){if(state.potions<1)return;let v=stats();if(state.hp>=v.hp)return;state.potions--;state.hp=Math.min(v.hp,state.hp+v.hp*.45);note('使用治療藥水，恢復 45% 生命。');if(!quiet){save();render();}}function buyPotion(){if(state.gold<75)return toast('金幣不足');state.gold-=75;state.potions+=5;save();render();}
 function damage(amount,critical=false){let d=Math.max(1,Math.round(amount-enemy.def*.65));if(critical)d=Math.round(d*1.5);enemy.hp=Math.max(0,enemy.hp-d);return d;}
-function cast(i,v){let sk=CLASSES[state.job].skills[i],power=v.atk*skillPower(i),effect=sk[5];if(effect==='heal'){let h=Math.min(v.hp-state.hp,Math.round(power));state.hp+=h;note(`${sk[0]} · 回復 ${h} 生命`);}else if(effect==='shield'){const shieldResult=applyPureShield(state,power);note(shieldResult.upgraded?`${sk[0]} · 獲得護盾 ${shieldResult.generated}，目前護盾 ${Math.round(shieldResult.current)}`:`${sk[0]} · 產生護盾 ${shieldResult.generated}，現有護盾 ${Math.round(shieldResult.previous)} 較高，維持不變`);}else{let d=damage(power,Math.random()<v.crit);if(effect==='drain')state.hp=Math.min(v.hp,state.hp+d);note(`${sk[0]} · ${d} 傷害${effect==='drain'?'並吸取生命':''}`);}if(state.sockets[i]===2&&sk[1]==='active')state.hp=Math.min(v.hp,state.hp+Math.round(v.atk*GS('skills.gems.hybridActiveHealAttack',.15)));}
+function cast(i,v){let sk=CLASSES[state.job].skills[i],power=v.atk*skillPower(i),effect=sk[5];if(effect==='heal'){let h=Math.min(v.hp-state.hp,Math.round(power));state.hp+=h;note(`${sk[0]} · 回復 ${h} 生命`);}else if(effect==='shield'){const shieldResult=applyPureShield(state,power);note(shieldResult.upgraded?`${sk[0]} · 獲得護盾 ${shieldResult.generated}，目前護盾 ${Math.round(shieldResult.current)}`:`${sk[0]} · 產生護盾 ${shieldResult.generated}，現有護盾 ${Math.round(shieldResult.previous)} 較高，維持不變`);}else{let d=damage(power,Math.random()<v.crit);if(effect==='drain')state.hp=Math.min(v.hp,state.hp+d);note(`${sk[0]} · ${d} 傷害${effect==='drain'?'並吸取生命':''}`);}}
 function addGear(g){if(state.bag.length>=RULES.bagCapacity){state.ore+=g.tier*(3+g.rar*2);state.dust+=1+g.rar;note('背包已滿，掉落裝備自動分解。');}else{state.bag.push(g);note(`獲得 ${RARITY[g.rar]} ${equipmentDisplayName(g)}`);}}
 function exportSave(){if(!state)return toast('請先建立角色');save();let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`emberwild-lv${state.lv}-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('已匯出角色 JSON');}
 
@@ -1759,15 +2017,15 @@ function rollAffixes(g){const cfg=GAME_BALANCE.affixes;return [0,1].map(()=>{con
 function affixLabel(a,g){let sk=CLASSES[g.job??state.job].skills[a.skill??0];return a.type<4?`${AFFIX[a.type]} +${a.value}${a.type===3?'%':''}`:a.type===4?`${sk[0]} 效果 +${a.value}%`:`${sk[0]} ${sk[1]==='active'?`冷卻 −${a.value} 回合`:`觸發率 +${a.value*GAME_BALANCE.affixes.procChancePerPointPercent}%`}`;}
 function affixHTML(a,g){return `<span class="affix effect-quality-${a.rank??0}">[${AFFIX_RANK[a.rank??0]}] ${affixLabel(a,g)}</span>`;}
 function bonusFor(i,type,s=state){return equipment(s).filter(g=>g.job===s.job).flatMap(g=>g.affix).filter(a=>a.type===type&&a.skill===i).reduce((n,a)=>n+a.value,0);}
-function skillPower(i,s=state){const sk=CLASSES[s.job].skills[i],perLevel=Number.isFinite(sk?.[6]?.powerPerLevel)?sk[6].powerPerLevel:GS('skills.core.effectPerExtraLevel',.4);return (sk[4]+Math.max(0,(Number(s.skills[i])||0)-1)*perLevel)*(s.sockets[i]===0?1.18:s.sockets[i]===2?1.10:1)*(1+bonusFor(i,4,s)/100);};
-function skillCooldown(i,s=state){return Math.max(GAME_BALANCE.combat.minimumActiveCooldown,CLASSES[s.job].skills[i][3]-(s.sockets[i]===1?1:0)-bonusFor(i,5,s));};
-function procChance(i,s=state){return Math.min(GAME_BALANCE.combat.statCaps.crit,.22+s.skills[i]*.025+(s.sockets[i]===1?.1:s.sockets[i]===2?.05:0)+bonusFor(i,5,s)*(GAME_BALANCE.affixes.procChancePerPointPercent/100));};
+function skillPower(i,s=state){const sk=CLASSES[s.job].skills[i],perLevel=Number.isFinite(sk?.[6]?.powerPerLevel)?sk[6].powerPerLevel:GS('skills.core.effectPerExtraLevel',.4);return (sk[4]+Math.max(0,(Number(s.skills[i])||0)-1)*perLevel)*(1+gemRate(s,i,0)+bonusFor(i,4,s)/100);};
+function skillCooldown(i,s=state){return Math.max(GAME_BALANCE.combat.minimumActiveCooldown,CLASSES[s.job].skills[i][3]-bonusFor(i,5,s));};
+function procChance(i,s=state){return Math.min(GAME_BALANCE.combat.statCaps.crit,.22+s.skills[i]*.025+gemRate(s,i,2)+bonusFor(i,5,s)*(GAME_BALANCE.affixes.procChancePerPointPercent/100));};
 function learn(i){let sk=CLASSES[state.job].skills[i],cap=skillCap();if(state.skills[i]>=cap)return toast(`目前技能上限 ${cap} 級；角色每 ${GS('skills.core.capLevelsPerStep',3)} 級提高 1 級上限，最高 ${RULES.skillMax} 級`);if(state.lv<sk[2]||(i>=4&&!state.advanced))return;state.skills[i]++;save();render();};
 
 note=function(t){originalNote(t);currentEvents.push(t);};
 cast=function(i,v){motion.skill=true;if(['heal','drain'].includes(CLASSES[state.job].skills[i][5]))motion.heal=true;originalCast(i,v);};
 function logContent(){return `<div class="row"><h2>本回合戰況</h2><span class="tag">回合 ${round}</span></div><div class="current-events">${(currentEvents.length?currentEvents:logs.slice(0,3)).map(t=>`<div class="${/傷害/.test(t)?'event-damage':/恢復|回復|護盾/.test(t)?'event-heal':'event-loot'}">${esc(t)}</div>`).join('')}</div><details><summary>展開歷史紀錄（最近 65 則）</summary><div class="history-events">${logs.map(t=>`<div>${esc(t)}</div>`).join('')}</div></details>`;}
-function buildBoard(s=state){let mi=s.map===6?5:s.map,m=MAPS[mi];s.board.serial++;s.board.next=Date.now()+BOARD_INTERVAL;s.board.tasks=m.mobs.slice(0,3).map((mob,i)=>({id:uid(),map:mi,mat:mob[2],n:8+rand(9)+(regionTier(mi)-1)*2,kind:i===2?'gear':'gem',gem:rand(3),slot:rand(4),rar:Math.random()<.2?3:2,done:false}));}
+function buildBoard(s=state){let mi=s.map===6?5:s.map,m=MAPS[mi];s.board.serial++;s.board.next=Date.now()+BOARD_INTERVAL;s.board.tasks=m.mobs.slice(0,3).map((mob,i)=>({id:uid(),map:mi,mat:mob[2],n:8+rand(9)+(regionTier(mi)-1)*2,kind:i===2?'gear':'gem',gem:rand(GEM_KINDS),slot:rand(4),rar:Math.random()<.2?3:2,done:false}));}
 function ensureBoard(){if(!state.board||state.board.next<=Date.now()){if(!state.board)state.board={next:0,serial:0,tasks:[]};buildBoard();save();}}
 function refreshBoard(){ensureBoard();let cost=boardRefreshCost();if(state.gold<cost)return toast(`需要 ${cost} 金幣`);$('modal').innerHTML=`<h2>刷新委託？</h2><p>消耗 ${cost} 金幣，取代目前三張委託，依目前地圖生成新委託。已持有的材料不受影響。</p><div class="actions"><button class="primary" onclick="confirmRefresh()">支付並刷新</button><button onclick="closeModal()">取消</button></div>`;$('modal').showModal();}
 function confirmRefresh(){let cost=boardRefreshCost();if(state.gold<cost)return;state.gold-=cost;buildBoard();closeModal();save();render();}
@@ -1775,7 +2033,7 @@ function claimBoard(id){ensureBoard();let q=state.board.tasks.find(q=>q.id===id)
 const oldQuestView=questView;questView=function(){ensureBoard();let mins=Math.max(1,Math.ceil((state.board.next-Date.now())/60000));return heading('COMMISSION BOARD / 委託看板','荒野的新委託',`<span class="tag">第 ${state.board.serial} 批</span>`)+`<section class="panel board-bar"><div><b>${mins} 分鐘內自動刷新</b><p class="small">每 20 分鐘更換三張委託。刷新依目前地圖生成；切換地圖不會立即更換。過期未交付委託會移除，材料保留。</p></div><button onclick="refreshBoard()">立即刷新 · ${boardRefreshCost()}◈</button></section><div class="cards">${state.board.tasks.map(q=>`<article class="card"><span class="tag">${MAPS[q.map].name} · ${q.done?'已交付':'物資委託'}</span><h2 style="margin-top:16px">${q.mat}募集</h2>${q.kind==='gear'?equipmentArt({job:state.job,slot:q.slot,tier:regionTier(q.map)}):''}<p>${state.materials[q.mat]||0} / ${q.n} 份</p><p class="gold">${q.kind==='gear'?`${RARITY[q.rar]} ${esc(characterName(state))}${SLOTS[q.slot]} ×1`:`${GEMS[q.gem].name} ×2`}</p><p class="small">另獲 ${(regionTier(q.map))*180} 金幣、${(regionTier(q.map))*8} 鍛鐵</p><button class="primary" ${q.done||(state.materials[q.mat]||0)<q.n?'disabled':''} onclick="claimBoard('${q.id}')">${q.done?'已完成':'交付並領獎'}</button></article>`).join('')}</div><h2 style="margin-top:28px">支線手札與常駐募集</h2>`+oldQuestView().replace(/<div class="heading">[\s\S]*?<\/h1><\/div><\/div>/,'');};
 function setFilter(k,v){filters[k]=v;render();}
 function filteredGear(){return state.bag.filter(g=>(filters.slot==='all'||g.slot===Number(filters.slot))&&(filters.rar==='all'||g.rar===Number(filters.rar))&&(filters.job==='all'||filters.job==='own'&&(g.slot===1||g.job===state.job)||g.slot===1||g.job===Number(filters.job))&&(filters.effectRank==='all'||equipmentEffectRank(g)===Number(filters.effectRank))&&(!filters.special||g.boss!==undefined||g.affix.some(a=>[4,5].includes(a.type)))).sort((a,b)=>Number(state.equipped.includes(b.id))-Number(state.equipped.includes(a.id))||b.tier-a.tier||b.rar-a.rar);}
-equipGear=function(id){let g=findGear(id);if(!g||g.job!==state.job)return toast('此裝備限定其他職業使用');if(state.lv<gearRequiredLevelByTier(g.tier))return toast('等級不足');state.equipped[g.slot]=id;clampVitals();save();render();};
+equipGear=function(id){let g=findGear(id);if(!g||g.job!==state.job)return toast('此裝備限定其他職業使用');if(state.lv<gearRequiredLevel(g))return toast('等級不足');state.equipped[g.slot]=id;clampVitals();save();render();};
 function reroll(id){let g=findGear(id);if(!g)return;const cost=rerollCostFor(g);if(state.gold<cost.gold||state.dust<cost.dust)return toast(`需要 ${cost.gold} 金幣與 ${cost.dust} 粉塵`);state.gold-=cost.gold;state.dust-=cost.dust;pendingAffix={id,affix:rollAffixes(g)};save();render();$('modal').innerHTML=`${equipmentArt(g)}<h2>洗鍊 · ${equipmentNameHTML(g)}</h2><p>費用已扣除，可保留原有詞條。詞條品質：${qualityChanceText()}；精良以上有 ${Math.round(GAME_BALANCE.affixes.skillSpecialChance*100)}% 機會先抽技能類詞條。</p><h3>原詞條</h3>${g.affix.map(a=>affixHTML(a,g)).join('')||'無'}<h3 style="margin-top:20px">新詞條</h3>${pendingAffix.affix.map(a=>affixHTML(a,g)).join('')}<div class="actions"><button class="primary" onclick="acceptAffix()">採用新詞條</button><button onclick="closeModal()">保留原詞條</button></div>`;$('modal').showModal();};
 
 guideView=function(){return `<section class="panel release-notes"><h2>2.0 · 成長與戰利品更新</h2><p>升級所需經驗依等級約為原版的 2.4–6.9 倍，打怪經驗維持原值。LV30 仍為上限；舊存檔等級、經驗、點數與物品全部保留。</p><p>技能上限提高為 10 級，每點增加該技能基礎效果 40%。角色每 3 級提高 1 級技能上限。稀有以上詞條可額外強化本職業特定技能的效果、冷卻或觸發率；效果加成加總、冷卻最低 2 回合、觸發率最高 85%。</p><p>委託每 20 分鐘刷新，亦可付費立即刷新。各區 BOSS 專屬材料保底掉落、25% 額外掉落專屬裝備；5 份材料可製造。既有裝備會轉為角色所屬職業，舊詞條列為尋常。</p><p>最終 BOSS 同步調整為 180,000 生命、1,000 攻擊。建議 LV30、二轉、10 級技能、星隕 +10、職業詞條與寶石配置，搭配治療藥水。</p></section>`+originalGuide().replace('85,000 生命、850 攻擊','180,000 生命、1,000 攻擊').replaceAll('核心技能 5 級','核心技能 10 級').replace('裝備職業通用：武器會依職業作為近戰、弓箭或法術攻擊來源。','裝備限定對應職業使用；劍／板甲／戰旗、法杖／法袍／魔典、弓／皮甲／箭袋、權杖／聖衣／聖徽分別對應四職業。');};
@@ -1801,13 +2059,13 @@ let forgeSelection=null;
 function gearFilters(){return `<div class="filters"><label>部位<select onchange="setFilter('slot',this.value)">${[['all','全部部位'],[0,'武器'],[1,'護甲'],[2,'副手'],[3,'飾品']].map(([v,n])=>`<option value="${v}" ${String(v)===filters.slot?'selected':''}>${n}</option>`).join('')}</select></label><label>品質<select onchange="setFilter('rar',this.value)">${[['all','全部品質'],...RARITY.map((n,i)=>[i,n])].map(([v,n])=>`<option value="${v}" ${String(v)===filters.rar?'selected':''}>${n}</option>`).join('')}</select></label><label>最高詞條<select onchange="setFilter('effectRank',this.value)">${[['all','全部詞條'],[1,'綠字'],[2,'藍字'],[3,'黃字']].map(([v,n])=>`<option value="${v}" ${String(v)===String(filters.effectRank??'all')?'selected':''}>${n}</option>`).join('')}</select></label><label>職業<select onchange="setFilter('job',this.value)">${[['all','全部職業'],...CLASSES.map((c,i)=>[i,c.name])].map(([v,n])=>`<option value="${v}" ${String(v)===filters.job?'selected':''}>${n}</option>`).join('')}</select></label><label><input type="checkbox" ${filters.special?'checked':''} onchange="setFilter('special',this.checked)"> BOSS／技能詞條</label></div>`;}
 function resourceLine(){return `<div class="resource-line">◈ ${state.gold.toLocaleString()} 金幣　▰ ${state.ore} 鍛鐵　 ${state.dust} 粉塵　光輝碎塊 ${state.materials['光輝碎塊']||0}</div>`;}
 function materialView(){return `<details class="panel material-panel"><summary>材料庫存 · ${Object.values(state.materials).filter(n=>n>0).length} 種</summary><div class="material-tags">${Object.entries(state.materials).filter(([,n])=>n>0).map(([k,n])=>`<span class="tag">${esc(k)} ×${n}</span>`).join('')||'尚未取得材料'}</div></details>`;}
-function equipmentView(){let items=filteredGear();return heading('INVENTORY / 背包','整理行囊',`<span class="tag">${items.length} / ${state.bag.length} 件</span>`)+`<section class="panel inventory-panel">${resourceLine()}${gearFilters()}<div class="row inventory-toolbar"><span class="small">點選裝備查看完整數值與詞條。</span><button onclick="salvageAll()">分解未養成普通裝備</button></div><p class="small">批次分解不受篩選影響；保留已強化、帶詞條與 BOSS 裝備。</p><div class="inventory-table" aria-label="裝備背包">${items.map(g=>`<button class="inventory-row rarity-row-${g.rar}" onclick="showGearDetail('${g.id}')" aria-label="查看 ${esc(equipmentDisplayName(g))}">${equipmentArt(g)}<span class="inventory-name"><b>${equipmentNameHTML(g)}</b><small>${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV${gearRequiredLevelByTier(g.tier)}</small></span><span class="inventory-quality"><span class="rank-${g.rar}">${RARITY[g.rar]}</span>${g.boss!==undefined?'<small>BOSS 專屬</small>':''}</span><span class="inventory-summary">${gearDesc(g)}</span><span class="inventory-state">${state.equipped.includes(g.id)?'<span class="tag">已穿戴</span>':'查看詳情 ›'}</span></button>`).join('')||'<div class="empty">沒有符合篩選的裝備。</div>'}</div></section>${materialView()}`;};
-function showGearDetail(id){let g=findGear(id);if(!g)return;let worn=state.equipped.includes(g.id);$('modal').innerHTML=`<div class="gear-detail-header">${equipmentArt(g)}<div><span class="tag">${RARITY[g.rar]}${g.boss!==undefined?' · BOSS 專屬':''}${worn?' · 已穿戴':''}</span><h2>${equipmentNameHTML(g)}</h2><p class="small">${g.slot===1?'全職業通用':CLASSES[g.job].name+'限定'} · ${CLASS_GEAR[g.job][g.slot]} · LV${gearRequiredLevelByTier(g.tier)}</p></div></div><div class="detail-stat"><h3>裝備能力</h3><p class="equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}</div>${g.boss!==undefined?`<p class="small">來自 ${MAPS[g.region??g.boss].boss[0]}，亦可收集 ${bossMaterial(g.region??g.boss,g.difficulty||0)} ×5 製造。</p>`:''}<div class="actions"><button onclick="openForge('${id}')">前往強化</button><button onclick="salvageFromDetail('${id}')" ${worn?'disabled':''}>分解</button><button onclick="closeModal()">關閉</button></div>`;$('modal').showModal();}
+function equipmentView(){let items=filteredGear();return heading('INVENTORY / 背包','整理行囊',`<span class="tag">${items.length} / ${state.bag.length} 件</span>`)+`<section class="panel inventory-panel">${resourceLine()}${gearFilters()}<div class="row inventory-toolbar"><span class="small">點選裝備查看完整數值與詞條。</span><button onclick="salvageAll()">分解未養成普通裝備</button></div><p class="small">批次分解不受篩選影響；保留已強化、帶詞條與 BOSS 裝備。</p><div class="inventory-table" aria-label="裝備背包">${items.map(g=>`<button class="inventory-row rarity-row-${g.rar}" onclick="showGearDetail('${g.id}')" aria-label="查看 ${esc(equipmentDisplayName(g))}">${equipmentArt(g)}<span class="inventory-name"><b>${equipmentNameHTML(g)}</b><small>${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV${gearRequiredLevel(g)}</small></span><span class="inventory-quality"><span class="rank-${g.rar}">${RARITY[g.rar]}</span>${g.boss!==undefined?'<small>BOSS 專屬</small>':''}</span><span class="inventory-summary">${gearDesc(g)}</span><span class="inventory-state">${state.equipped.includes(g.id)?'<span class="tag">已穿戴</span>':'查看詳情 ›'}</span></button>`).join('')||'<div class="empty">沒有符合篩選的裝備。</div>'}</div></section>${materialView()}`;};
+function showGearDetail(id){let g=findGear(id);if(!g)return;let worn=state.equipped.includes(g.id);$('modal').innerHTML=`<div class="gear-detail-header">${equipmentArt(g)}<div><span class="tag">${RARITY[g.rar]}${g.boss!==undefined?' · BOSS 專屬':''}${worn?' · 已穿戴':''}</span><h2>${equipmentNameHTML(g)}</h2><p class="small">${g.slot===1?'全職業通用':CLASSES[g.job].name+'限定'} · ${CLASS_GEAR[g.job][g.slot]} · LV${gearRequiredLevel(g)}</p></div></div><div class="detail-stat"><h3>裝備能力</h3><p class="equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}</div>${g.boss!==undefined?`<p class="small">來自 ${MAPS[g.region??g.boss].boss[0]}，亦可收集 ${bossMaterial(g.region??g.boss,g.difficulty||0)} ×5 製造。</p>`:''}<div class="actions"><button onclick="openForge('${id}')">前往強化</button><button onclick="salvageFromDetail('${id}')" ${worn?'disabled':''}>分解</button><button onclick="closeModal()">關閉</button></div>`;$('modal').showModal();}
 function equipFromDetail(id){equipGear(id);closeModal();showGearDetail(id);}
 function salvageFromDetail(id){if(state.equipped.includes(id))return;closeModal();salvage(id);}
 function openForge(id){if(!findGear(id))return;forgeSelection=id;closeModal();setTab('forge');}
 function chooseForge(id){forgeSelection=id;render();}
-function forgeView(){let g=findGear(forgeSelection)||equipment(state)[0]||state.bag[0];if(g)forgeSelection=g.id;return heading('FORGE / 裝備強化','強化與洗鍊')+`<section class="panel">${resourceLine()}${uiHelp('強化說明','強化必定成功，最高 +'+RULES.enhanceMax+'。')}${g?`<label class="forge-picker">選擇裝備<select aria-label="強化目標" onchange="chooseForge(this.value)">${forgeEquipmentOptions(g.id)}</select></label><div class="forge-layout"><article class="forge-preview"><div class="gear-detail-header">${equipmentArt(g)}<div><span class="tag">${RARITY[g.rar]}${g.boss!==undefined?' · BOSS 專屬':''}</span><h2>${equipmentNameHTML(g)}</h2><p class="small">${CLASSES[g.job].name} · LV${gearRequiredLevelByTier(g.tier)}</p></div></div><h3>目前能力</h3><p class="equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}</article><div class="forge-controls"><section class="forge-action"><h3>強化基礎能力</h3>${g.plus<RULES.enhanceMax?`<p class="green">下一級 +${g.plus+1}：${globalThis.equipmentTotalSummaryText({...g,plus:g.plus+1})}</p><p class="small">費用：${upgradeCostText(g)} · 成功率 100%</p><button class="primary" onclick="enhance('${g.id}')" ${!canEnhance(g)?'disabled':''}>強化至 +${g.plus+1}</button>`:'<p class="gold">已達 +10 強化上限。</p>'}</section><section class="forge-action"><h3>洗鍊隨機詞條</h3>${uiHelp('洗鍊說明','每條詞條品質：'+qualityChanceText()+'。重骰時逐次扣款；自動洗鍊會在至少出現一條指定品質以上詞條時停止，最後結果仍可選擇採用或保留。')}<p>◈ ${rerollCostFor(g).gold} 金幣 ＋ ${rerollCostFor(g).dust} 粉塵／次</p><div class="actions"><button onclick="reroll('${g.id}')" ${state.gold<rerollCostFor(g).gold||state.dust<rerollCostFor(g).dust?'disabled':''}>洗鍊一次</button><button onclick="autoReroll('${g.id}',2)" ${state.gold<rerollCostFor(g).gold||state.dust<rerollCostFor(g).dust?'disabled':''}>自動洗到稀有+</button><button onclick="autoReroll('${g.id}',3)" ${state.gold<rerollCostFor(g).gold||state.dust<rerollCostFor(g).dust?'disabled':''}>自動洗到傳說</button></div></section></div></div>`:'<div class="empty">背包沒有裝備，請先探索取得裝備。</div>'}</section>`;}
+function forgeView(){let g=findGear(forgeSelection)||equipment(state)[0]||state.bag[0];if(g)forgeSelection=g.id;return heading('FORGE / 裝備強化','強化與洗鍊')+`<section class="panel">${resourceLine()}${uiHelp('強化說明','強化必定成功，最高 +'+RULES.enhanceMax+'。')}${g?`<label class="forge-picker">選擇裝備<select aria-label="強化目標" onchange="chooseForge(this.value)">${forgeEquipmentOptions(g.id)}</select></label><div class="forge-layout"><article class="forge-preview"><div class="gear-detail-header">${equipmentArt(g)}<div><span class="tag">${RARITY[g.rar]}${g.boss!==undefined?' · BOSS 專屬':''}</span><h2>${equipmentNameHTML(g)}</h2><p class="small">${CLASSES[g.job].name} · LV${gearRequiredLevel(g)}</p></div></div><h3>目前能力</h3><p class="equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}</article><div class="forge-controls"><section class="forge-action"><h3>強化基礎能力</h3>${g.plus<RULES.enhanceMax?`<p class="green">下一級 +${g.plus+1}：${globalThis.equipmentTotalSummaryText({...g,plus:g.plus+1})}</p><p class="small">費用：${upgradeCostText(g)} · 成功率 100%</p><button class="primary" onclick="enhance('${g.id}')" ${!canEnhance(g)?'disabled':''}>強化至 +${g.plus+1}</button>`:'<p class="gold">已達 +10 強化上限。</p>'}</section><section class="forge-action"><h3>洗鍊隨機詞條</h3>${uiHelp('洗鍊說明','每條詞條品質：'+qualityChanceText()+'。重骰時逐次扣款；自動洗鍊會在至少出現一條指定品質以上詞條時停止，最後結果仍可選擇採用或保留。')}<p>◈ ${rerollCostFor(g).gold} 金幣 ＋ ${rerollCostFor(g).dust} 粉塵／次</p><div class="actions"><button onclick="reroll('${g.id}')" ${state.gold<rerollCostFor(g).gold||state.dust<rerollCostFor(g).dust?'disabled':''}>洗鍊一次</button><button onclick="autoReroll('${g.id}',2)" ${state.gold<rerollCostFor(g).gold||state.dust<rerollCostFor(g).dust?'disabled':''}>自動洗到稀有+</button><button onclick="autoReroll('${g.id}',3)" ${state.gold<rerollCostFor(g).gold||state.dust<rerollCostFor(g).dust?'disabled':''}>自動洗到傳說</button></div></section></div></div>`:'<div class="empty">背包沒有裝備，請先探索取得裝備。</div>'}</section>`;}
 
 function battleView(){const m=MAPS[state.map],v=stats(),shown=enemy||lastDefeatedEnemy,c=CLASSES[state.job],dead=state.hp<=0,phase=dead?'戰敗 · 請先戰後恢復':enemy?(running?'交戰中':'戰鬥暫停'):lastDefeatedEnemy?(running?'勝利 · 搜尋下一個敵人':'戰鬥結束'):'整備 · 尚未探索',procCount=c.skills.filter((s,i)=>s[1]==='proc'&&state.skills[i]>0).length;return heading('EXPEDITION / 荒野遠征',m.name,`<span class="tag encounter-status">${phase}</span>`)+`<div class="combat-layout"><section class="panel encounter-panel"><div class="encounter-topline"><span>區域 LV ${m.min}${state.map===6?'':'–'+m.max}</span><span class="round-counter">第 <b>${round}</b> 回合</span><span>${shown?shown.kind==='final'?'終局首領':shown.kind==='boss'?'地圖首領':shown.kind==='elite'?'菁英遭遇':'普通遭遇':'等待出發'}</span></div><div class="battle-arena"><article class="combatant player-combatant"><div class="combatant-label"><b>${esc(characterName(state))}</b><span>LV ${state.lv}</span></div><div class="health-readout"><span>生命</span><b>${Math.ceil(state.hp)} <small>/ ${v.hp}</small></b></div>${battleHealthMeter(state.hp,v.hp,battleShieldValue(state))}<div class="combatant-art"><div class="sprite player-sprite ${running&&motion.player?'attack-pose':''} ${running&&motion.skill?'cast-pose':''}">${pixel(state.job)}</div></div><div class="combatant-foot"><span>攻擊 ${v.atk}</span><span>護盾 ${Math.ceil(state.shield)}</span></div></article><div class="combat-center"><span class="duel-mark"></span><span>${enemy?'交戰':lastDefeatedEnemy?'勝利':'遠征'}</span><small>${running?'自動戰鬥':dead?'需要休息':'等待指令'}</small></div><article class="combatant enemy-combatant"><div class="combatant-label"><b>${shown?esc(shown.name):'未知的相遇'}</b><span>${shown?'LV '+shown.lv:'—'}</span></div><div class="health-readout"><span>生命</span><b>${enemy?Math.ceil(enemy.hp):0} <small>/ ${shown?shown.maxhp:'—'}</small></b></div>${battleHealthMeter(enemy?enemy.hp:0,shown?shown.maxhp:1,battleShieldValue(enemy))}<div class="combatant-art"><div class="sprite enemy-sprite ${running&&enemy&&motion.enemy?'enemy-pose':''}">${enemyArt(enemy)}</div></div><div class="combatant-foot"><span>${shown?'防禦 '+shown.def:'探索時隨機遇敵'}</span><span>${shown?'攻擊 '+shown.atk:''}</span></div></article></div><div class="battle-command"><button class="primary battle-toggle" onclick="toggleBattle()" ${dead?'disabled':''}>${running?'Ⅱ 暫停探索':'▶ 開始自動探索'}</button><span class="small">1 秒／回合 · 對話框開啟時暫停</span></div><section class="battle-loadout"><div class="row"><h3>戰鬥技能</h3><span class="small">${procCount} 項普攻觸發技已啟用</span><button class="text-button" onclick="setTab('skills')">調整配置 ›</button></div><div class="skill-strip">${state.active.map((id,i)=>`<div class="skill-slot ${id!==null&&!cd[id]?'skill-ready':''}"><div class="row"><span class="small">主動槽 ${i+1}</span><span class="skill-cooldown">${id===null?'未配置':cd[id]>0?cd[id]+' 回合':'就緒'}</span></div><b>${id===null?'空的技能槽':c.skills[id][0]}</b><span class="small">${id===null?'前往技能頁選擇主動技能':'技能 Lv.'+state.skills[id]+(state.sockets[id]!==null?' · '+GEMS[state.sockets[id]].name:'')}</span></div>`).join('')}</div></section><section class="supply-bar"><div><b>治療藥水 <span class="gold">×${state.potions}</span></b><label><input type="checkbox" ${state.autoPotion?'checked':''} onchange="state.autoPotion=this.checked;save()"> 生命低於 35% 自動使用</label></div><div class="supply-actions"><button onclick="potion()" ${state.potions<1||state.hp>=v.hp?'disabled':''}>使用藥水</button><button onclick="buyPotion()" ${state.gold<75?'disabled':''}>補給 +5 · 75◈</button></div></section></section><section class="panel combat-journal"><div class="journal-heading"><span class="eyebrow">BATTLE JOURNAL</span><span class="small">即時紀錄</span></div><div id="liveLog" class="journal-content" role="log" aria-live="polite" aria-label="戰鬥紀錄">${logContent()}</div><div class="journal-note">戰鬥事件依普攻、技能與敵方行動順序列出。<br>展開歷史紀錄可回看掉落與升級。</div></section></div><section class="panel destination-panel"><div class="row"><div><span class="eyebrow">WORLD / 目的地</span><h2>選擇探索區域</h2></div><span class="small">切換地圖會停止探索並放棄當前遭遇</span></div><div class="destination-grid">${MAPS.map((x,i)=>`<button class="destination ${state.map===i?'selected':''}" onclick="chooseMap(${i})" ${!canVisit(i)?'disabled':''}><span class="destination-icon">${x.icon}</span><b>${x.name}</b><small>LV ${x.min}${i===6?' · 終局':'–'+x.max}</small></button>`).join('')}</div><details class="region-bestiary"><summary>${m.name} · 怪物與掉落圖鑑</summary><div class="bestiary-grid">${m.mobs.concat([m.boss]).map(x=>`<article class="bestiary-item">${x[1]}<div><b>${x[0]}</b><small>${x[2]}</small></div></article>`).join('')}</div><p class="small">專屬素材：普通怪 65%、菁英與首領 100%。一般裝備 22% 起、技能寶石 4% 起；地圖 BOSS 專屬裝備 25%，或以 5 份素材保底製作。</p></details></section>`;};
 
@@ -1834,7 +2092,7 @@ function modePicker(){let mode=state.difficulty||0,d=MODES[mode];return `<sectio
 const progressionBattleView=battleView;battleView=function(){let d=MODES[state.difficulty||0];return modePicker()+progressionBattleView().replace('專屬素材：普通怪 65%、菁英與首領 100%。一般裝備 22% 起、技能寶石 4% 起；地圖 BOSS 專屬裝備 25%，或以 5 份素材保底製作。',`目前模式：普通怪素材 ${Math.round((GAMEPLAY_SETTINGS.difficulty.materialChance[state.difficulty||0]??0)*100)}%、裝備 ${Math.round(d.equip[0]*100)}%、寶石 ${Math.round(d.gem[0]*100)}%。菁英與首領素材必掉，地圖 BOSS 專屬裝備 ${d.boss*100}%；${Math.round(GS('equipment.boss.craftMaterialCount',5))} 份對應難度素材可保底製作。`);};
 function bossCraftView(){let mode=state.difficulty||0;return heading('BOSS WORKSHOP / 首領製作',MODES[mode].name+'模式專屬裝備')+modePicker()+`<section class="panel">${resourceLine()}${uiHelp('製作說明','須使用對應難度素材。困難：基礎能力 +25%、技能效果 +40%；地獄：基礎能力 +55%、傳說品質、技能效果 +55%。')}</section><div class="cards boss-recipes">${MAPS.map((m,i)=>{if(i===6)return '';let family=regionFamily(i),g={job:state.job,slot:bossEquipmentSlot(family),tier:regionTier(i),boss:family,region:i,difficulty:mode,rar:mode===2?3:2,plus:0,affix:[{type:4,rank:mode===2?3:2,skill:family,value:[30,40,55][mode]}]},mat=bossMaterial(i),n=state.materials[mat]||0,cost=g.tier*250*(mode+1),ready=canVisit(i)&&state.lv>=m.min&&state.gold>=cost&&n>=5;return `<article class="card boss-recipe">${equipmentArt(g)}<span class="tag">${m.name}</span><h3>${equipmentNameHTML(g)}</h3><p class="small">${esc(characterName(state))} · LV${m.min} · ${mode===2?'傳說':'稀有'}</p><p class="effect-quality-${mode===2?3:2}">${CLASSES[state.job].skills[family][0]} 效果 +${[30,40,55][mode]}%</p><div class="recipe-cost"><span>${mat} ${n}/5</span><span>◈ ${cost}</span></div><button class="primary" onclick="craftBoss(${i})" ${ready?'':'disabled'}>${!canVisit(i)?'尚未解鎖':ready?'製作裝備':'等級／材料不足'}</button></article>`;}).join('')}</div>`;};
 function awardXP(amount){if(state.lv>=levelCap())return;state.xp+=amount;while(state.lv<levelCap()&&state.xp>=need(state.lv)){state.xp-=need(state.lv);state.lv++;state.ap+=3;state.hp=stats().hp;note(`升至 LV${state.lv}！能力點 +3`);}if(state.lv===levelCap())state.xp=0;}
-function victory(){let e=enemy;if(!e)return;lastDefeatedEnemy={...e};let mode=e.difficulty||0,d=MODES[mode],mi=e.region??state.map,tier=regionTier(mi),kindIndex=e.kind==='normal'?0:e.kind==='elite'?1:2,mult=[1,1.7,3][kindIndex],firstClear=e.kind==='final'&&!state.won;state.totalKills++;state.kills[e.mat]=(state.kills[e.mat]||0)+1;if(!state.discovered.includes(e.mat))state.discovered.push(e.mat);let gold=Math.round((12+e.lv*4)*mult*d.xp),xp=Math.round((15+e.lv*6)*mult*d.xp);state.gold+=gold;state.ore+=Math.ceil(tier*(kindIndex===0?1:3)*d.ore);if(Math.random()<[.65,.8,.95][mode]||kindIndex>0){let mat=e.kind==='boss'?bossMaterial(mi,mode):e.mat;state.materials[mat]=(state.materials[mat]||0)+1;note('獲得 '+mat+' ×1');}if(Math.random()<d.equip[kindIndex]){let g=gear(tier,rand(4),Math.random()<.18?2:Math.random()<.45?1:0);modeAffixes(g,mode);addGear(g);}if(Math.random()<d.rare){let g=gear(tier,rand(4),3);modeAffixes(g,mode);addGear(g);}if(e.kind==='boss'&&mi!==6&&Math.random()<d.boss)addGear(bossGear(mi,state.job,mode));if(Math.random()<d.gem[kindIndex]){let i=rand(3);state.gems[i]++;note('獲得 '+GEMS[i].name);}awardEther(e);if(Math.random()<.08)state.potions++;if(Math.random()<radiantDropChance(e.kind)){state.materials['光輝碎塊']=(state.materials['光輝碎塊']||0)+1;note('獲得極稀有道具：光輝碎塊 ×1');}if(e.kind==='final'){state.won=true;state.modeClears[mode]++;state.materials['日蝕王冠']=1;running=false;}awardXP(xp);state.hp=Math.min(stats().hp,state.hp+stats().hp*.12);state.shield=0;note(`擊敗 ${e.name}（${d.name}）· +${xp} EXP、${gold} 金幣`);enemy=null;if(e.kind==='final'){$('modal').innerHTML=`<h1>${firstClear?'等級界限已突破':'再次戰勝噬日者'}</h1><p>${d.name}模式通關。${firstClear?'等級上限提升至 LV60，開放 LV31～60 的六張覺醒地圖。':'可繼續探索覺醒地圖，或挑戰更高難度。'}</p><p>角色每次升級仍獲得 3 能力點。高階裝備依區域掉落。</p><button class="primary" onclick="closeModal()">繼續旅程</button>`;$('modal').showModal();}save();};
+function victory(){let e=enemy;if(!e)return;lastDefeatedEnemy={...e};let mode=e.difficulty||0,d=MODES[mode],mi=e.region??state.map,tier=regionTier(mi),kindIndex=e.kind==='normal'?0:e.kind==='elite'?1:2,mult=[1,1.7,3][kindIndex],firstClear=e.kind==='final'&&!state.won;state.totalKills++;state.kills[e.mat]=(state.kills[e.mat]||0)+1;if(!state.discovered.includes(e.mat))state.discovered.push(e.mat);let gold=Math.round((12+e.lv*4)*mult*d.xp),xp=Math.round((15+e.lv*6)*mult*d.xp);state.gold+=gold;state.ore+=Math.ceil(tier*(kindIndex===0?1:3)*d.ore);if(Math.random()<[.65,.8,.95][mode]||kindIndex>0){let mat=e.kind==='boss'?bossMaterial(mi,mode):e.mat;state.materials[mat]=(state.materials[mat]||0)+1;note('獲得 '+mat+' ×1');}if(Math.random()<d.equip[kindIndex]){let g=gear(tier,rand(4),Math.random()<.18?2:Math.random()<.45?1:0);modeAffixes(g,mode);addGear(g);}if(Math.random()<d.rare){let g=gear(tier,rand(4),3);modeAffixes(g,mode);addGear(g);}if(e.kind==='boss'&&mi!==6&&Math.random()<d.boss)addGear(bossGear(mi,state.job,mode));if(Math.random()<d.gem[kindIndex]){let i=rand(GEM_KINDS);state.gems[i]++;note('獲得 '+GEMS[i].name);}awardEther(e);if(Math.random()<.08)state.potions++;if(Math.random()<radiantDropChance(e.kind)){state.materials['光輝碎塊']=(state.materials['光輝碎塊']||0)+1;note('獲得極稀有道具：光輝碎塊 ×1');}if(e.kind==='final'){state.won=true;state.modeClears[mode]++;state.materials['日蝕王冠']=1;running=false;}awardXP(xp);state.hp=Math.min(stats().hp,state.hp+stats().hp*.12);state.shield=0;note(`擊敗 ${e.name}（${d.name}）· +${xp} EXP、${gold} 金幣`);enemy=null;if(e.kind==='final'){$('modal').innerHTML=`<h1>${firstClear?'等級界限已突破':'再次戰勝噬日者'}</h1><p>${d.name}模式通關。${firstClear?'等級上限提升至 LV60，開放 LV31～60 的六張覺醒地圖。':'可繼續探索覺醒地圖，或挑戰更高難度。'}</p><p>角色每次升級仍獲得 3 能力點。高階裝備依區域掉落。</p><button class="primary" onclick="closeModal()">繼續旅程</button>`;$('modal').showModal();}save();};
 const progressionGuide=guideView;guideView=function(){return `<section class="panel"><h2>難度與界限突破</h2><p>到達 LV30 並擊敗任一難度的噬日者後，等級上限解鎖至 LV60。既有已通關存檔會直接解鎖；不會自動贈送等級。未通關時仍停在 LV30。</p><table class="mode-table"><thead><tr><th>模式</th><th>生命／攻擊／防禦</th><th>普通怪裝備／寶石</th><th>BOSS 專屬</th></tr></thead><tbody>${MODES.map(d=>`<tr><td>${d.name}</td><td>×${d.hp}／×${d.atk}／×${d.def}</td><td>${d.equip[0]*100}%／${d.gem[0]*100}%</td><td>${d.boss*100}%</td></tr>`).join('')}</tbody></table><p>困難普通／精良裝備有 65% 機會直接附帶詞條，地獄為 90%；已有詞條的掉落也會重新套用難度詞條，其中至少一條為稀有以上，可能強化職業技能。洗鍊的機率與費用維持原設定。</p><p>困難 BOSS 裝備：基礎能力 ×1.25、固定技能效果 +40%。地獄 BOSS 裝備：基礎能力 ×1.55、傳說品質、固定技能效果 +55%。以相同品質比較倍率，品質加成另計。素材與裝備會標示難度；切換模式不影響已獲得裝備。</p><p>覺醒地圖覆蓋 31–35、36–40、41–45、46–50、51–55、56–60 級。每區三種普通怪與一隻 BOSS，沿用對應物種圖像，掉落新素材及階級 7–12 裝備；一般遇敵仍限制不高於玩家 5 級。</p></section>`+progressionGuide().replace('LV30 仍為上限','未通關上限為 LV30；通關後為 LV60').replace('等級的終點是 30','等級的終點是 60');};
 
 function gear(tier=1,slot=rand(4),rar=0,job=null) {
@@ -1968,6 +2226,7 @@ function validateSave(input,{companion=false}={}) {
   const object=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
   if(!object(input)||![1,2].includes(input.version))fail('存檔版本不符');
   const s=migrateLegacyEquipmentSlotsInSave(JSON.parse(JSON.stringify(input))),legacy=s.version===1;
+  if(Array.isArray(s.gems)&&s.gems.length===3){s.gems=[...s.gems,...Array(GEMS.length-3).fill(0)];if(Array.isArray(s.sockets))s.sockets=s.sockets.map((v,i)=>v===1&&CLASSES[s.job]?.skills?.[i]?.[1]==='proc'?2:v===2&&CLASSES[s.job]?.skills?.[i]?.[1]==='active'?3:v);}
   delete s.sp;
   if(!int(s.job,0,3)||!int(s.lv,1,RULES.maxLevel)||!int(s.map,0,MAPS.length-1))fail('角色或地圖無效');
   if(s.avatarId!==undefined&&s.avatarId!==null&&s.avatarId!==''&&!['guardian','mage','ranger','healer','wanderer','phoenix'].includes(s.avatarId))fail('角色圖示無效');
@@ -1981,22 +2240,28 @@ function validateSave(input,{companion=false}={}) {
   if(Array.isArray(s.sockets)&&s.sockets.length<skillCount)while(s.sockets.length<skillCount)s.sockets.push(null);
   if(!array(s.stats,3)||!s.stats.every(v=>int(v,0,100000)))fail('能力值陣列無效');
   if(!Array.isArray(s.skills)||s.skills.length<skillCount||s.skills.length>MAX_SAVE_SKILLS||!s.skills.every(v=>int(v,0,RULES.skillMax)))fail('技能陣列無效');
-  if(!array(s.gems,3)||!s.gems.every(v=>int(v,0,1e9)))fail('寶石陣列無效');
+  if(!array(s.gems,GEMS.length)||!s.gems.every(v=>int(v,0,1e9)))fail('寶石陣列無效');
   for(const k of ['advanced','won','autoPotion'])if(typeof s[k]!=='boolean')fail('角色狀態無效');
   if(!int(s.tutorial,0,3)||s.advanced&&s.lv<GS('progression.advance.level',15)||s.won&&s.lv<GS('progression.levelCaps.beforeClear',30))fail('角色進度無效');
   for(let i=0;i<skillCount;i++)if(!companion&&s.skills[i]>0&&(s.lv<CLASSES[s.job].skills[i][2]||skillRequiresAdvanced(CLASSES[s.job].skills[i],i)&&!s.advanced))fail('尚未解鎖的技能');
-  if(!array(s.active,2)||!s.active.every(i=>i===null||int(i,0,s.skills.length-1)&&s.skills[i]>0&&(i>=skillCount||CLASSES[s.job].skills[i][1]==='active'))||s.active[0]!==null&&s.active[0]===s.active[1])fail('主動槽無效');
+  if(!array(s.active,(s.skillLoadout||companion)?globalThis.__EMBERWILD_SKILLS?.slotCounts(s).active??2:2)||!s.active.every(i=>i===null||int(i,0,s.skills.length-1)&&s.skills[i]>0&&(i>=skillCount||CLASSES[s.job].skills[i][1]==='active'))||new Set(s.active.filter(i=>i!==null)).size!==s.active.filter(i=>i!==null).length)fail('主動槽無效');
   // Unknown trailing active slots belong to late-installed skills. Do not expose them
   // to early renderers; the original boot bytes are rehydrated after those skills exist.
   if(s.active.some(i=>i!==null&&i>=skillCount))s.active=s.active.map(i=>i!==null&&i>=skillCount?null:i);
-  if(!Array.isArray(s.sockets)||s.sockets.length!==s.skills.length||s.sockets.length>MAX_SAVE_SKILLS||!s.sockets.every((v,i)=>v===null||int(v,0,2)&&s.skills[i]>0))fail('寶石插槽無效');
-  if(!Array.isArray(s.bag)||s.bag.length>RULES.bagCapacity)fail('背包無效');
+  if(!Array.isArray(s.sockets)||s.sockets.length!==s.skills.length||s.sockets.length>MAX_SAVE_SKILLS||!s.sockets.every((v,i)=>v===null||int(v,0,GEMS.length-1)&&s.skills[i]>0))fail('寶石插槽無效');
+  if(!Array.isArray(s.bag)||s.bag.length>EmberwildGearInventory.SAVE_LIMIT)fail('背包無效');
+  for(const g of s.bag)if(g?.acquiredAt!==undefined&&(!Number.isSafeInteger(g.acquiredAt)||g.acquiredAt<0))fail('裝備取得時間無效');
   const ids=new Set();
   for(const g of s.bag) {
     if(EmberwildTokens.isToken(g)){EmberwildTokens.validateItem(g,RULES.enhanceMax);if(ids.has(g.id))fail('信物 ID 重複');ids.add(g.id);continue;}
     // Types 16/17/18 are persisted by later gameplay modules, so boot-time validation must accept them before those modules execute.
     if(!object(g)||typeof g.id!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(g.id)||ids.has(g.id)||typeof g.name!=='string'||g.name.length>80||/[<>]/.test(g.name)||!int(g.tier,1,12)||!int(g.slot,0,3)||!int(g.rar,0,3)||!int(g.plus,0,RULES.enhanceMax)||!Array.isArray(g.affix)||g.affix.length>2)fail('裝備資料無效');
     ids.add(g.id);
+    if(g.equipmentLevel!==undefined&&!int(g.equipmentLevel,1,RULES.maxLevel))fail('裝備等級無效');
+    if(g.baseRuleVersion!==undefined&&![0,1].includes(g.baseRuleVersion))fail('裝備基底版本無效');
+    for(const key of ['canEnhance','canReroll'])if(g[key]!==undefined&&typeof g[key]!=='boolean')fail('裝備培養設定無效');
+    if(g.equipmentSource!==undefined&&g.equipmentSource!=='shop')fail('裝備取得來源無效');
+    if(g.baseSnapshot!==undefined){const b=g.baseSnapshot;if(!object(b)||b.version!==1||!num(b.mult,.01,100)||['raw','body','base'].some(key=>!object(b[key])||['atk','hp','def'].some(k=>!int(b[key][k],0,1e9))))fail('裝備基底快照無效');}
     if(g.rerolled!==undefined&&typeof g.rerolled!=='boolean')fail('洗鍊紀錄無效');
     if(g.affixLock!==undefined&&(!int(g.affixLock,0,1)||g.affixLock>=g.affix.length))fail('潛能鎖定資料無效');
     if(!legacy&&!int(g.job,0,3))fail('裝備職業無效');
@@ -2005,7 +2270,7 @@ function validateSave(input,{companion=false}={}) {
     if(g.region!==undefined&&(!int(g.region,0,MAPS.length-1)||g.region===6||g.boss===undefined||regionFamily(g.region)!==g.boss||regionTier(g.region)!==g.tier))fail('裝備來源無效');
     for(const a of g.affix)if(!object(a)||!int(a.type,0,legacy?3:18)||!num(a.value,0,RULES.affixMax)||!legacy&&!int(a.rank,0,3)||[4,5].includes(a.type)&&!int(a.skill,0,MAX_SAVE_SKILLS-1)||[12,14].includes(a.type)&&!['fire','ice','wind','light','shadow'].includes(a.element)||a.type===13&&!['beast','plant','undead','construct','demon','spirit'].includes(a.race))fail('詞條資料無效');
   }
-  if(!array(s.equipped,5)||new Set(s.equipped.filter(Boolean)).size!==s.equipped.filter(Boolean).length||!s.equipped.every((id,i)=>id===null||s.bag.some(g=>g.id===id&&gearEquipPositions(g).includes(i)&&(legacy||gearWearableJobs(g).includes(s.job))&&s.lv>=gearRequiredLevelByTier(g.tier))))fail('穿戴資料無效');
+  if(!array(s.equipped,5)||new Set(s.equipped.filter(Boolean)).size!==s.equipped.filter(Boolean).length||!s.equipped.every((id,i)=>id===null||s.bag.some(g=>g.id===id&&gearEquipPositions(g).includes(i)&&(legacy||gearWearableJobs(g).includes(s.job))&&s.lv>=gearRequiredLevel(g))))fail('穿戴資料無效');
   for(const k of ['materials','kills'])if(!object(s[k])||Object.entries(s[k]).some(([key,n])=>key.length>80||/[<>]/.test(key)||['__proto__','constructor','prototype'].includes(key)||!int(n,0,1e9)))fail('素材資料無效');
   for(const k of ['claimed','discovered'])if(!Array.isArray(s[k])||s[k].length>200||!s[k].every(v=>typeof v==='string'&&v.length<100))fail('圖鑑資料無效');
   // A v1 save has no commission board; ignore unknown extension fields.
@@ -2018,7 +2283,7 @@ function validateSave(input,{companion=false}={}) {
       if(!object(q)||typeof q.id!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(q.id)||questIds.has(q.id)||!int(q.map,0,MAPS.length-1)||q.map===6||!EmberwildQuestDesign.validSnapshot(q))fail('委託設計內容無效');
       questIds.add(q.id);continue;
     }
-    if(!object(q)||typeof q.id!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(q.id)||questIds.has(q.id)||!int(q.map,0,MAPS.length-1)||q.map===6||!EmberwildCommissions.validSource(q,MAPS)||!int(q.n,1,100)||!['gear','gem'].includes(q.kind)||!int(q.gem,0,2)||!int(q.slot,0,3)||![2,3].includes(q.rar)||typeof q.done!=='boolean')fail('委託內容無效');
+    if(!object(q)||typeof q.id!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(q.id)||questIds.has(q.id)||!int(q.map,0,MAPS.length-1)||q.map===6||!EmberwildCommissions.validSource(q,MAPS)||!int(q.n,1,100)||!['gear','gem'].includes(q.kind)||!int(q.gem,0,GEM_KINDS-1)||!int(q.slot,0,3)||![2,3].includes(q.rar)||typeof q.done!=='boolean')fail('委託內容無效');
     questIds.add(q.id);
   }
   if(!int(s.difficulty,0,2)||!array(s.modeClears,3)||!s.modeClears.every(v=>int(v)))fail('難度資料無效');
@@ -2047,7 +2312,7 @@ function start(job) {
 function claimRepeat() {
   const mi=questRegion(),mat=MAPS[mi].mobs[0][2];
   if((state.materials[mat]||0)<8)return;
-  state.materials[mat]-=8;state.gold+=regionTier(mi)*150;state.ore+=15;state.dust+=3;state.gems[rand(3)]++;state.repeat++;save();render();
+  state.materials[mat]-=8;state.gold+=regionTier(mi)*150;state.ore+=15;state.dust+=3;state.gems[rand(GEM_KINDS)]++;state.repeat++;save();render();
 }
 function salvageAll() {
   const targets=state.bag.filter(g=>g.rar===0&&g.plus===0&&!g.affix.length&&g.boss===undefined&&!state.equipped.includes(g.id));
@@ -2086,6 +2351,8 @@ function withHero(hero,fn){const previous=state;state=hero;try{return fn();}fina
 function syncParty(){if(!party)return;for(const h of party.members){h.map=party.map;h.difficulty=party.difficulty;if(party.cleared&&h.lv>=GS('progression.levelCaps.beforeClear',30))h.won=true;}}
 function packParty(){syncParty();return party;}
 save=function(show=false){
+ if(globalThis.__EMBERWILD_SAVE_OWNER===false)return false;
+ if(globalThis.__EMBERWILD_BALANCE_SOURCE&&!globalThis.__EMBERWILD_BALANCE_READY)return true;
  if(globalThis.__EMBERWILD_TEAM_BOOT_RAW&&!globalThis.__EMBERWILD_TEAM_READY)return;
  if(!saveReady||!state||partyBusy)return;
  if(!party)party=createParty(state);
@@ -2107,7 +2374,35 @@ save=function(show=false){
   return false;
  }
 };
+function migrateLegacyGemSave(data){
+ if(!data||typeof data!=='object')return data;
+ const rows=data.version===3?data.members:[data];
+ if(!Array.isArray(rows)||!rows.some(h=>Array.isArray(h?.gems)&&h.gems.length===3))return data;
+ const copy=JSON.parse(JSON.stringify(data)),heroes=copy.version===3?copy.members:[copy];
+ const convert=(type,job,i)=>{
+  if(type===null)return null;
+  const skill=CLASSES[job]?.skills?.[i];
+  if(type===1&&skill?.[1]==='proc')return 2;
+  if(type===2&&skill?.[1]==='active')return 3;
+  return type;
+ };
+ for(const h of heroes){
+  if(!Array.isArray(h.gems)||h.gems.length!==3)continue;
+  h.gems=[...h.gems,...Array(GEMS.length-3).fill(0)];
+  if(Array.isArray(h.sockets))h.sockets=h.sockets.map((type,i)=>convert(type,h.job,i));
+ }
+ const permanent=copy.buildSystem?.permanent;
+ if(permanent?.gemInstances&&Array.isArray(copy.buildSystem.plans)){
+  const old={...permanent.gemInstances};
+  for(const plan of copy.buildSystem.plans)for(const [i,id] of (plan.sockets||[]).entries()){
+   if(id&&Object.hasOwn(old,id))permanent.gemInstances[id]=convert(old[id],plan.job,i);
+  }
+ }
+ return copy;
+}
 function validateParty(data){
+ data=migrateLegacyGemSave(data);
+ data=EmberwildGearInventory.prepareSave(data);
  data=EmberwildTimedBoosts.prepareSave(data);
  EmberwildCompanionSkills.validateUnlockProgress(data?.companionUnlocks);
  EmberwildAchievements.validateState(data?.achievements);
@@ -2119,12 +2414,12 @@ function validateParty(data){
  if(!Array.isArray(data.members)||data.members.length<1||data.members.length>513||!Array.isArray(data.active)||data.active.length<1||data.active.length>3||new Set(data.active).size!==data.active.length||!['single','group'].includes(data.encounterMode)||!Number.isInteger(data.map)||!MAPS[data.map]||![0,1,2].includes(data.difficulty)||typeof data.cleared!=='boolean')throw Error('隊伍資料無效');
  const playTimeMs=Number.isSafeInteger(data.playTimeMs)&&data.playTimeMs>=0?data.playTimeMs:0;
  if(data.progressionXpRequirements!==undefined&&(!Array.isArray(data.progressionXpRequirements)||data.progressionXpRequirements.length!==data.members.length||data.progressionXpRequirements.some(n=>!Number.isSafeInteger(n)||n<=0)))throw Error('存檔 EXP 曲線快照無效');
- const result={numberReminders:EmberwildAchievements.validateNumberReminders(data.numberReminders),mailbox:EmberwildAchievements.validateMailbox(data.mailbox),achievements:EmberwildAchievements.validateState(data.achievements),companionUnlocks:EmberwildCompanionSkills.validateUnlockProgress(data.companionUnlocks),companionEquipmentVersion:EmberwildTokens.VERSION,pendingGearLoot:data.pendingGearLoot,progressionCurveVersion:data.progressionCurveVersion,progressionXpRequirements:data.progressionXpRequirements?[...data.progressionXpRequirements]:undefined,version:3,enlisted:data.enlisted,members:[],active:[...data.active],selected:data.selected,map:data.map,difficulty:data.difficulty,encounterMode:'group',cleared:data.cleared,playTimeMs,companionNames:data.companionNames,companionProfiles:data.companionProfiles,...EmberwildTimedBoosts.validateState(data)};
+ const result={numberReminders:EmberwildAchievements.validateNumberReminders(data.numberReminders),mailbox:EmberwildAchievements.validateMailbox(data.mailbox),achievements:EmberwildAchievements.validateState(data.achievements),companionUnlocks:EmberwildCompanionSkills.validateUnlockProgress(data.companionUnlocks),companionEquipmentVersion:EmberwildTokens.VERSION,progressionCurveVersion:data.progressionCurveVersion,progressionXpRequirements:data.progressionXpRequirements?[...data.progressionXpRequirements]:undefined,version:3,enlisted:data.enlisted,members:[],active:[...data.active],selected:data.selected,map:data.map,difficulty:data.difficulty,encounterMode:'group',cleared:data.cleared,playTimeMs,companionNames:data.companionNames,companionProfiles:data.companionProfiles,...EmberwildTimedBoosts.validateState(data)};
  for(const raw of data.members){
   // Reserves may be below the expedition level; validate their personal data at home.
   const companion=result.members.length>0,h=solo.validateSave({...raw,map:0},{companion});initHero(h);
   if(h.companionId!==undefined&&(!Number.isInteger(h.companionId)||h.companionId<10||h.companionId>1000000000||EmberwildCompanions.defaultPlans.find(p=>p.id===h.companionId)?.job!==h.job&&data.companionProfiles?.[h.companionId]?.job!==h.job))throw Error('夥伴識別無效');
-  if(!Array.isArray(h.supportLevels)||h.supportLevels.length<SUPPORT[h.job].length||h.supportLevels.length>64||h.supportLevels.some((n,i)=>!Number.isInteger(n)||n<0||n>Math.max(1,Math.floor(GS('skills.support.maxLevel',5)))||!companion&&n>0&&(h.lv<(SUPPORT[h.job][i]?.level??Infinity)||i===2&&!h.advanced))||!Array.isArray(h.supportSlots)||h.supportSlots.length!==2||h.supportSlots.some(i=>i!==null&&(!Number.isInteger(i)||i<0||i>=h.supportLevels.length||h.supportLevels[i]<1))||h.supportSlots[0]!==null&&h.supportSlots[0]===h.supportSlots[1])throw Error('輔助技能資料無效');
+  if(!Array.isArray(h.supportLevels)||h.supportLevels.length<SUPPORT[h.job].length||h.supportLevels.length>64||h.supportLevels.some((n,i)=>!Number.isInteger(n)||n<0||n>Math.max(1,Math.floor(GS('skills.support.maxLevel',5)))||!companion&&n>0&&(h.lv<(SUPPORT[h.job][i]?.level??Infinity)||i===2&&!h.advanced))||!Array.isArray(h.supportSlots)||h.supportSlots.length!==((h.skillLoadout||companion)?globalThis.__EMBERWILD_SKILLS?.slotCounts(h).support??2:2)||h.supportSlots.some(i=>i!==null&&(!Number.isInteger(i)||i<0||i>=h.supportLevels.length||h.supportLevels[i]<1))||new Set(h.supportSlots.filter(i=>i!==null)).size!==h.supportSlots.filter(i=>i!==null).length)throw Error('輔助技能資料無效');
   if(result.members.length===0)h.playerId=raw.playerId??h.job;
   result.members.push(h);
  }
@@ -2154,7 +2449,7 @@ function slotSupport(i,slot){if(![0,1].includes(slot)||i!==null&&(!Number.isInte
 function spawnGroup(){const weak=[...heroes()].sort((a,b)=>a.lv-b.lv)[0],n=3+rand(4);foes=[];effects=[];actorCooldowns={};supportCooldowns={};for(const h of heroes())h.shield=0;for(let i=0;i<n;i++){const mi=party.map===6&&i>0?5:party.map;const e=makeEnemy(mi,weak);e.id='foe-'+uid();e.rewarded=false;foes.push(e);}enemy=foes[0];round=0;note('遭遇 '+foes.length+' 隻敵人。');}
 toggleBattle=function(){if(!living().length)return toast('請先戰後恢復');running=!running;if(running&&!foes.length)spawnGroup();render();};
 function hitFoe(e,amount,crit){const def=e.def*(1-Math.min(.75,effectTotal(e.id,'fracture')));let d=Math.max(1,Math.round(amount-def*.65));if(crit)d=Math.round(d*1.5);d=Math.round(d*(1+effectTotal(e.id,'vulnerable')));const actual=Math.min(e.hp,d);e.hp=Math.max(0,e.hp-d);return actual;}
-function castPartySkill(h,i,v){const sk=CLASSES[h.job].skills[i],power=v.atk*skillPower(i,h)*(1+effectTotal(heroKey(h),'power'));if(sk[5]==='heal'){const ally=[...living()].sort((a,b)=>a.hp/solo.stats(a).hp-b.hp/solo.stats(b).hp)[0];ally.hp=Math.min(solo.stats(ally).hp,ally.hp+Math.round(power));note(sk[0]+' → '+CLASSES[ally.job].name);}else if(sk[5]==='shield'){const shieldResult=applyPureShield(h,power);note(pureShieldCastLog(h,sk[0],shieldResult));}else{const e=foes.find(e=>e.hp>0);if(!e)return;const d=hitFoe(e,power,Math.random()<v.crit);if(sk[5]==='drain')h.hp=Math.min(v.hp,h.hp+d);note(characterName(h)+'・'+sk[0]+' → '+e.name+' '+d+' 傷害');}if(h.sockets[i]===2&&sk[1]==='active')h.hp=Math.min(v.hp,h.hp+Math.round(v.atk*GS('skills.gems.hybridActiveHealAttack',.15)));}
+function castPartySkill(h,i,v){const sk=CLASSES[h.job].skills[i],power=v.atk*skillPower(i,h)*(1+effectTotal(heroKey(h),'power'));if(sk[5]==='heal'){const ally=[...living()].sort((a,b)=>a.hp/solo.stats(a).hp-b.hp/solo.stats(b).hp)[0];ally.hp=Math.min(solo.stats(ally).hp,ally.hp+Math.round(power));note(sk[0]+' → '+CLASSES[ally.job].name);}else if(sk[5]==='shield'){const shieldResult=applyPureShield(h,power);note(pureShieldCastLog(h,sk[0],shieldResult));}else{const e=foes.find(e=>e.hp>0);if(!e)return;const d=hitFoe(e,power,Math.random()<v.crit);if(sk[5]==='drain')h.hp=Math.min(v.hp,h.hp+d);note(characterName(h)+'・'+sk[0]+' → '+e.name+' '+d+' 傷害');}applyGemAfterSkill(h,i,v);}
 function rewardGroupKill(e){if(e.rewarded)return;e.rewarded=true;const members=heroes(),receiver=members[rand(members.length)],isFinal=e.kind==='final',mult=e.kind==='normal'?1:e.kind==='elite'?1.7:3,xp=Math.round((15+e.lv*6)*mult*MODES[e.difficulty].xp),hp=receiver.hp,shield=receiver.shield;
  // Existing loot rules run exactly once per enemy. XP and kill credit are shared.
  const oldAward=awardXP;awardXP=()=>{};enemy=e;partyBusy=true;
@@ -2223,11 +2518,22 @@ function transferGear(id,job){const item=findGear(id),target=partyMember(job);if
 const stablePartyRender=render;
 let previousViewKey=null;
 const viewPositions=new Map();
-const SCROLL_REGIONS='.layout>main,.layout>aside,.current-events,.history-events,.unit-effects,.unit-skills,.inventory-table,.buff-table-scroll,.compact-map-list,.member-content,.member-skill-content,.member-equipment-content,.page-owner-content,.inline-equipment-list,.worn-overview,.worn-character-list,.worn-detail-pane,.guide-scroll,.forge-detail-pane,.forge-gear-list,.player-skill-page';
+const SCROLL_REGIONS='#app,.layout>main,.layout>aside,.current-events,.history-events,.unit-effects,.unit-skills,.inventory-table,.buff-table-scroll,.compact-map-list,.member-content,.member-skill-content,.member-equipment-content,.page-owner-content,.inline-equipment-list,.worn-overview,.worn-character-list,.worn-detail-pane,.guide-scroll,.forge-detail-pane,.forge-gear-list,.player-skill-page,.layout>aside nav,.layout>aside .mobile-more-pages,.party-picker,.party-tabs,.journal-content,.journal-loot-list,.layout>main .inventory-list-scroll,.layout>main .shop-catalog-scroll,.layout>main .account-material-groups,.layout>main .companion-management-page,.layout>main .partner-owned-list,.layout>main .character-ability-scroll,.layout>main .squad-allies,.layout>main .squad-enemies,.layout>main .expedition-control-card,.layout>main .expedition-tools>details,.layout>main .initiative-panel,.layout>main .last-actions,.layout>main .roster-page,.layout>main .shared-shop-grid,.mobile-journal-body,.mobile-loot-body,.layout>main .forge-layout,.layout>main .forge-preview,.layout>main .forge-controls,.layout>main .squad-field,.layout>main .filters,.layout>main .cards>.card,.layout>main .material-panel,.layout>main .destination-panel';
+const SCROLL_REGION_TYPES=SCROLL_REGIONS.split(',');
+function scrollRegionEntries(){
+ const seen=new Map();
+ return [...document.querySelectorAll(SCROLL_REGIONS)].map(el=>{
+  // Conditional panels must not shift the scroll positions of unrelated regions.
+  const type=el.id?'id:'+el.id:SCROLL_REGION_TYPES.find(selector=>el.matches?.(selector))||el.tagName;
+  const order=seen.get(type)||0;
+  seen.set(type,order+1);
+  return [type+':'+order,el];
+ });
+}
 render=function(){
  if(document.querySelectorAll&&previousViewKey){
   viewPositions.set(previousViewKey,{
-   scroll:[...document.querySelectorAll(SCROLL_REGIONS)].map(el=>[el.scrollTop,el.scrollLeft]),
+   scroll:scrollRegionEntries().map(([name,el])=>[name,el.scrollTop,el.scrollLeft]),
    details:[...document.querySelectorAll('.layout main details')].map(el=>el.open)
   });
  }
@@ -2235,7 +2541,7 @@ render=function(){
  const key=state?tab+':'+(party?memberKey(pageHero(tab)):state.job):'start',position=viewPositions.get(key);
  if(position&&document.querySelectorAll){
   [...document.querySelectorAll('.layout main details')].forEach((el,i)=>{el.open=!!position.details[i];});
-  [...document.querySelectorAll(SCROLL_REGIONS)].forEach((el,i)=>{if(position.scroll[i]){el.scrollTop=position.scroll[i][0];el.scrollLeft=position.scroll[i][1];}});
+  const savedScroll=new Map(position.scroll.map(([name,top,left])=>[name,[top,left]]));scrollRegionEntries().forEach(([name,el])=>{const coords=savedScroll.get(name);if(coords){el.scrollTop=coords[0];el.scrollLeft=coords[1];}});
  }
  previousViewKey=key;
 };
@@ -2343,6 +2649,7 @@ function ensureAllProcSkillMeta(settings=null){for(let job=0;job<CLASSES.length;
 function validProcIndex(h,i){return Number.isInteger(i)&&i>=0&&i<CLASSES[h.job].skills.length&&CLASSES[h.job].skills[i][1]==='proc'&&h.skills[i]>0;}
 function ensureProcSlots(h){
  if(!h)return h;
+ if(globalThis.__EMBERWILD_SKILLS&&h.skillLoadout)return globalThis.__EMBERWILD_SKILLS.projectHero(h);
  const had=Array.isArray(h.procSlots);let slots=had?h.procSlots.slice(0,PROC_SLOT_COUNT):[];
  if(!had){const learned=[];for(let i=0;i<CLASSES[h.job].skills.length;i++)if(validProcIndex(h,i))learned.push(i);slots=learned.slice(0,PROC_SLOT_COUNT);}
  while(slots.length<PROC_SLOT_COUNT)slots.push(null);
@@ -2375,7 +2682,7 @@ function weaponElement(h){const form=itemForm(equipment(h).find(g=>g.slot===0)||
 function skillManaCost(){return 0;}
 function refillParty(){for(const h of party.members){const v=stats(h);h.hp=v.hp;h.shield=0;}effects=[];}
 function resolveHit(e,amount,h,element,crit){const v=battleStats(h),def=e.def*(1-Math.min(.75,effectTotal(e.id,'fracture')))*(1-v.pierce);let d=Math.max(1,Math.round(amount-def*.65));if(crit)d=Math.round(d*v.critDamage);const tonic=activeSupply(h,'elementTonic'),bonus=(v.elementDamage[element]||0)+(element==='physical'?0:v.elementBonus)+(tonic && tonic.element===element ? .2 : 0);d=Math.max(1,Math.round(d*elementFactor(element,e.element)*(1+bonus)*(1+(v.raceDamage[e.race]||0))*(1+effectTotal(e.id,'vulnerable'))));const actual=Math.min(e.hp,d);e.hp=Math.max(0,e.hp-d);h.hp=Math.min(v.hp,h.hp+Math.round(actual*v.lifesteal));return actual;}
-castPartySkill=function(h,i,v){const sk=CLASSES[h.job].skills[i],power=v.atk*skillPower(i,h)*(1+effectTotal(heroKey(h),'power')),element=SKILL_ELEMENTS[h.job][i];if(sk[5]==='heal'){const ally=[...living()].sort((a,b)=>a.hp/stats(a).hp-b.hp/stats(b).hp)[0];ally.hp=Math.min(stats(ally).hp,ally.hp+Math.round(power));note(sk[0]+' → '+CLASSES[ally.job].name);}else if(sk[5]==='shield'){const shieldResult=applyPureShield(h,power);note(pureShieldCastLog(h,sk[0],shieldResult));}else{const e=foes.find(e=>e.hp>0);if(!e)return false;const d=resolveHit(e,power,h,element,Math.random()<v.crit);if(sk[5]==='drain')h.hp=Math.min(v.hp,h.hp+d);note(characterName(h)+'・'+sk[0]+' ['+ELEMENTS[element]+'] → '+e.name+' '+d+' 傷害');}if(h.sockets[i]===2&&sk[1]==='active')h.hp=Math.min(v.hp,h.hp+Math.round(v.atk*GS('skills.gems.hybridActiveHealAttack',.15)));return true;};
+castPartySkill=function(h,i,v){const sk=CLASSES[h.job].skills[i],power=v.atk*skillPower(i,h)*(1+effectTotal(heroKey(h),'power')),element=SKILL_ELEMENTS[h.job][i];if(sk[5]==='heal'){const ally=[...living()].sort((a,b)=>a.hp/stats(a).hp-b.hp/stats(b).hp)[0];ally.hp=Math.min(stats(ally).hp,ally.hp+Math.round(power));note(sk[0]+' → '+CLASSES[ally.job].name);}else if(sk[5]==='shield'){const shieldResult=applyPureShield(h,power);note(pureShieldCastLog(h,sk[0],shieldResult));}else{const e=foes.find(e=>e.hp>0);if(!e)return false;const d=resolveHit(e,power,h,element,Math.random()<v.crit);if(sk[5]==='drain')h.hp=Math.min(v.hp,h.hp+d);note(characterName(h)+'・'+sk[0]+' ['+ELEMENTS[element]+'] → '+e.name+' '+d+' 傷害');}return true;};
 // Supply definitions remain available independently of shop pools; buffs retain their own clock across saves.
 const SHOP=[];
 for(const element of ['fire','ice','wind','light','shadow'])for(const type of ['imbue','ward','elementTonic'])SHOP.push({id:type+'_'+element,element,type,cost:type==='imbue'?180:type==='ward'?140:200,duration:type==='imbue'?300:0,...(type==='imbue'?{}:{durationMinutes:5,effectPercent:type==='ward'?25:20}),name:ELEMENTS[element]+{imbue:'屬性附魔藥水',ward:'屬性抗性藥水',elementTonic:'屬性增幅藥水'}[type],desc:''});
@@ -2455,7 +2762,7 @@ const singleOwnerInventoryView=equipmentView;
 const individualSkillsView=skillsView;
 function memberMenuTitle(h){return `${esc(characterName(h))} · LV ${h.lv} · ${party.active.includes(memberKey(h))?'出戰':'候補'}`;}
 skillsView=function(){return heading('PARTY SKILLS / 全隊技能','隊伍技能')+`<p class="small">直接操作各隊員的技能、主動／輔助槽與寶石。技能點、寶石及材料仍由各角色分別持有。</p><div class="team-menus team-skills">${party.members.map(h=>withHero(h,()=>`<details class="team-member" open><summary><b>${memberMenuTitle(h)}</b><span>技能點 ${h.sp} · 寶石粉塵 ${h.dust}</span></summary><div class="member-skill-content">${ownerControls(individualSkillsView(),memberKey(h))}</div></details>`)).join('')}</div>`;};
-equipmentView=function(){return heading('PARTY INVENTORY / 全隊背包','隊伍裝備')+`<section class="panel team-inventory-filters">${gearFilters()}<p class="small">篩選套用到全隊；「本職業」依各背包主人的職業判定。點開裝備可穿戴、分解、轉交或前往強化。</p></section><div class="team-menus team-equipment">${party.members.map(h=>withHero(h,()=>{const items=filteredGear();return `<details class="team-member" open><summary><b>${memberMenuTitle(h)}</b><span>${items.length}／${h.bag.length} 件 · ${h.gold.toLocaleString()} 金幣</span></summary><div class="member-equipment-content"><div class="equipped-summary">${[0,1,2,3,4].map(position=>{const g=findGear(h.equipped[position]);return `<span>${EQUIP_POSITION_NAMES[position]}：${g?`<button onclick="heroMenuAction(${memberKey(h)},()=>showGearDetail('${g.id}'))">${equipmentNameHTML(g)}</button>`:'未穿戴'}</span>`;}).join('')}</div><div class="member-inventory-toolbar"><span class="small">鍛鐵 ${h.ore} · 粉塵 ${h.dust}</span><button onclick="heroMenuAction(${memberKey(h)},()=>salvageAll())">分解本角色未養成普通裝備</button></div><div class="inventory-table" aria-label="${esc(characterName(h))}背包">${items.map(g=>`<button class="inventory-row rarity-row-${g.rar}" onclick="heroMenuAction(${memberKey(h)},()=>showGearDetail('${g.id}'))"><span class="inventory-name"><b>${equipmentNameHTML(g)}</b><small>${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV${gearRequiredLevelByTier(g.tier)}</small></span><span class="inventory-quality"><span class="rank-${g.rar}">${RARITY[g.rar]}</span>${g.boss!==undefined?'<small>BOSS 專屬</small>':''}</span><span class="inventory-summary">${gearDesc(g)}</span><span class="inventory-state">${h.equipped.includes(g.id)?'已穿戴':'查看詳情'}</span></button>`).join('')||'<p class="empty">沒有符合篩選的裝備。</p>'}</div>${materialView()}</div></details>`;})).join('')}</div>`;};
+equipmentView=function(){return heading('PARTY INVENTORY / 全隊背包','隊伍裝備')+`<section class="panel team-inventory-filters">${gearFilters()}<p class="small">篩選套用到全隊；「本職業」依各背包主人的職業判定。點開裝備可穿戴、分解、轉交或前往強化。</p></section><div class="team-menus team-equipment">${party.members.map(h=>withHero(h,()=>{const items=filteredGear();return `<details class="team-member" open><summary><b>${memberMenuTitle(h)}</b><span>${items.length}／${h.bag.length} 件 · ${h.gold.toLocaleString()} 金幣</span></summary><div class="member-equipment-content"><div class="equipped-summary">${[0,1,2,3,4].map(position=>{const g=findGear(h.equipped[position]);return `<span>${EQUIP_POSITION_NAMES[position]}：${g?`<button onclick="heroMenuAction(${memberKey(h)},()=>showGearDetail('${g.id}'))">${equipmentNameHTML(g)}</button>`:'未穿戴'}</span>`;}).join('')}</div><div class="member-inventory-toolbar"><span class="small">鍛鐵 ${h.ore} · 粉塵 ${h.dust}</span><button onclick="heroMenuAction(${memberKey(h)},()=>salvageAll())">分解本角色未養成普通裝備</button></div><div class="inventory-table" aria-label="${esc(characterName(h))}背包">${items.map(g=>`<button class="inventory-row rarity-row-${g.rar}" onclick="heroMenuAction(${memberKey(h)},()=>showGearDetail('${g.id}'))"><span class="inventory-name"><b>${equipmentNameHTML(g)}</b><small>${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV${gearRequiredLevel(g)}</small></span><span class="inventory-quality"><span class="rank-${g.rar}">${RARITY[g.rar]}</span>${g.boss!==undefined?'<small>BOSS 專屬</small>':''}</span><span class="inventory-summary">${gearDesc(g)}</span><span class="inventory-state">${h.equipped.includes(g.id)?'已穿戴':'查看詳情'}</span></button>`).join('')||'<p class="empty">沒有符合篩選的裝備。</p>'}</div>${materialView()}</div></details>`;})).join('')}</div>`;};
 const singleCharacterPartyPicker=partyPicker;
 partyPicker=function(){return ['skills','equipment'].includes(tab)?'':singleCharacterPartyPicker();};
 
@@ -2631,7 +2938,7 @@ function autoReroll(id,targetRank){
  render();toast(reached?`自動洗鍊 ${attempts} 次，已出現${AFFIX_RANK[targetRank]}以上詞條`:`資源用盡：已洗鍊 ${attempts} 次，尚未出現${AFFIX_RANK[targetRank]}以上詞條`);
 }
 function resolveInlineAffix(id,accept){const g=findGear(id);if(!g)return;const key=affixDraftKey(g),draft=inlineAffixDrafts.get(key);if(!draft)return;const old=g.affix;const vitals=party.members.map(h=>[h,h.hp,h.shield]);if(accept)g.affix=draft;inlineAffixDrafts.delete(key);autoRerollMeta.delete(key);for(const h of party.members)withHero(h,clampVitals);if(!save()){g.affix=old;inlineAffixDrafts.set(key,draft);for(const [h,hp,shield] of vitals)Object.assign(h,{hp,shield});}render();}
-function inlineInventoryView(){return `<section class="panel">${resourceLine()}${gearFilters()}${bulkSalvageControls()}<div class="inline-equipment-list">${filteredGear().map(g=>{const wearer=gearWearer(g.id),worn=!!wearer,draft=inlineAffixDrafts.has(affixDraftKey(g)),locked=!!g.locked,receiver=null;return `<article class="inline-equipment"><div class="gear-inline-body"><div class="row"><b>${equipmentNameHTML(g)}</b><span class="tag">${RARITY[g.rar]}${worn?' · '+esc(characterName(wearer))+'已穿戴':''}${locked?' · 已鎖定':''}</span></div><p class="small">${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV ${gearRequiredLevelByTier(g.tier)}${g.boss!==undefined?' · BOSS 專屬':''}</p><p class="inline-gear-stats equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}<div class="actions"><button onclick="enhance('${g.id}')" ${g.plus>=RULES.enhanceMax||!canEnhance(g)?'disabled':''}>${g.plus>=RULES.enhanceMax?'已達 +'+RULES.enhanceMax:'強化 +'+(g.plus+1)+'／'+upgradeCostText(g)}</button><button onclick="reroll('${g.id}')" ${(()=>{const c=rerollCostFor(g);return draft||state.gold<c.gold||state.dust<c.dust;})()?'disabled':''}>洗鍊／${rerollCostFor(g).gold} 金幣＋${rerollCostFor(g).dust} 粉塵</button><button onclick="toggleGearLock('${g.id}')">${locked?'解除鎖定':'鎖定'}</button><button onclick="salvage('${g.id}')" ${worn||draft||locked?'disabled':''}>分解</button></div></div>${inlineAffixComparison(g)}</article>`;}).join('')||'<p>沒有符合篩選的裝備。</p>'}</div></section>`;}
+function inlineInventoryView(){return `<section class="panel">${resourceLine()}${gearFilters()}${bulkSalvageControls()}<div class="inline-equipment-list">${filteredGear().map(g=>{const wearer=gearWearer(g.id),worn=!!wearer,draft=inlineAffixDrafts.has(affixDraftKey(g)),locked=!!g.locked,receiver=null;return `<article class="inline-equipment"><div class="gear-inline-body"><div class="row"><b>${equipmentNameHTML(g)}</b><span class="tag">${RARITY[g.rar]}${worn?' · '+esc(characterName(wearer))+'已穿戴':''}${locked?' · 已鎖定':''}</span></div><p class="small">${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV ${gearRequiredLevel(g)}${g.boss!==undefined?' · BOSS 專屬':''}</p><p class="inline-gear-stats equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}<div class="actions"><button onclick="enhance('${g.id}')" ${g.plus>=RULES.enhanceMax||!canEnhance(g)?'disabled':''}>${g.plus>=RULES.enhanceMax?'已達 +'+RULES.enhanceMax:'強化 +'+(g.plus+1)+'／'+upgradeCostText(g)}</button><button onclick="reroll('${g.id}')" ${(()=>{const c=rerollCostFor(g);return draft||state.gold<c.gold||state.dust<c.dust;})()?'disabled':''}>洗鍊／${rerollCostFor(g).gold} 金幣＋${rerollCostFor(g).dust} 粉塵</button><button onclick="toggleGearLock('${g.id}')">${locked?'解除鎖定':'鎖定'}</button><button onclick="salvage('${g.id}')" ${worn||draft||locked?'disabled':''}>分解</button></div></div>${inlineAffixComparison(g)}</article>`;}).join('')||'<p>沒有符合篩選的裝備。</p>'}</div></section>`;}
 equipmentView=function(){return singlePagePanel('equipment','裝備背包',inlineInventoryView);};
 forgeView=function(){return singlePagePanel('forge','裝備強化與洗鍊',()=>{const html=memberForgeView();const g=findGear(forgeSelection);return html+(g?inlineAffixComparison(g):'');});};
 const inlineSafeSalvageAll=salvageAll;
@@ -2639,7 +2946,7 @@ salvageAll=function(){if([...inlineAffixDrafts.keys()].some(k=>k.startsWith(stat
 
 function ensureSharedGear(){if(!party)return;if(!party.sharedGear)Object.defineProperty(party,'sharedGear',{value:{items:[],linked:new Set()},enumerable:false});const shared=party.sharedGear;for(const h of party.members){if(shared.linked.has(h))continue;const ids=new Set(shared.items.map(g=>g.id));for(const g of h.bag){if(!ids.has(g.id)){shared.items.push(g);ids.add(g.id);}}Object.defineProperty(h,'bag',{enumerable:true,configurable:true,get:()=>shared.items,set:v=>{shared.items=v;}});shared.linked.add(h);}}
 function gearWearer(id){return party.members.find(h=>h.equipped.includes(id)||h.tokenId===id);}
-function eligibleWearers(g){return EmberwildTokens.isToken(g)?[]:party.members.slice(0,1).filter(h=>gearWearableJobs(g).includes(h.job)&&h.lv>=gearRequiredLevelByTier(g.tier));}
+function eligibleWearers(g){return EmberwildTokens.isToken(g)?[]:party.members.slice(0,1).filter(h=>gearWearableJobs(g).includes(h.job)&&h.lv>=gearRequiredLevel(g));}
 function equipSharedGear(id,job,position=null){ensureSharedGear();const g=party.sharedGear.items.find(g=>g.id===id),h=partyMember(job);if(!g||!h||!eligibleWearers(g).includes(h)||gearWearer(id)&&gearWearer(id)!==h)return;const positions=gearEquipPositions(g);if(position!==null&&(!Number.isInteger(position)||!positions.includes(position)))return;let target=Number.isInteger(position)&&positions.includes(position)?position:positions.find(p=>!h.equipped[p]);if(target===undefined)target=positions[0];if(target===undefined)return;for(const member of party.members)member.equipped=member.equipped.map(x=>x===id?null:x);while(h.equipped.length<5)h.equipped.push(null);h.equipped[target]=id;for(const member of party.members)withHero(member,clampVitals);save();render();}
 function unequipSharedGear(id){ensureSharedGear();const wearer=gearWearer(id);if(!wearer)return;wearer.equipped=wearer.equipped.map(x=>x===id?null:x);withHero(wearer,clampVitals);save();render();}
 equipGear=function(id){equipSharedGear(id,memberKey(state));};
@@ -2653,8 +2960,8 @@ salvageAll=function(){const targets=state.bag.filter(g=>g.rar===0&&g.plus===0&&!
 transferGear=function(){toast('裝備已由全隊共用，不需要轉交');};
 equipmentView=function(){ensureSharedGear();if(filters.job==='own')filters.job='all';const h=pageHero('equipment');return heading('SHARED INVENTORY / 全隊共用','裝備背包',`<span class="tag">${h.bag.length} / ${RULES.bagCapacity} 件</span>`)+`<div class="shared-maintenance"><label>強化／洗鍊付款與分解材料歸屬 <select onchange="selectPageHero('equipment',Number(this.value))">${(typeof enlistedHeroes==='function'?enlistedHeroes():party.members).map(x=>`<option value="${memberKey(x)}" ${x===h?'selected':''}>${esc(characterName(x))}</option>`).join('')}</select></label><span class="small">前往夥伴裝備頁選擇角色與裝備欄位。</span></div><section class="panel page-owner-panel"><div class="page-owner-content">${withHero(h,()=>ownerControls(inlineInventoryView(),memberKey(h)))}</div></section>`;};
 
-function ensureAccountResources(){if(!party)return;if(!party.accountResources)Object.defineProperty(party,'accountResources',{value:{gold:0,ore:0,dust:0,gems:[0,0,0],materials:{},linked:new Set()},enumerable:false});const r=party.accountResources;for(const h of party.members){if(r.linked.has(h))continue;for(const k of ['gold','ore','dust'])r[k]+=h[k]||0;h.gems.forEach((n,i)=>r.gems[i]+=n);for(const [k,n] of Object.entries(h.materials))r.materials[k]=(r.materials[k]||0)+n;for(const k of ['gold','ore','dust','gems','materials'])Object.defineProperty(h,k,{enumerable:true,configurable:true,get:()=>r[k],set:v=>{r[k]=v;}});r.linked.add(h);}}
-const beforeAccountPack=packParty;packParty=function(){ensureAccountResources();const data=beforeAccountPack();return {...data,members:data.members.map((h,i)=>({...h,gold:i===0?h.gold:0,ore:i===0?h.ore:0,dust:i===0?h.dust:0,gems:i===0?[...h.gems]:[0,0,0],materials:i===0?{...h.materials}:{}}))};};
+function ensureAccountResources(){if(!party)return;if(!party.accountResources)Object.defineProperty(party,'accountResources',{value:{gold:0,ore:0,dust:0,gems:Array(GEMS.length).fill(0),materials:{},linked:new Set()},enumerable:false});const r=party.accountResources;for(const h of party.members){if(r.linked.has(h))continue;for(const k of ['gold','ore','dust'])r[k]+=h[k]||0;h.gems.forEach((n,i)=>{if(i<GEMS.length)r.gems[i]=(r.gems[i]||0)+n;});for(const [k,n] of Object.entries(h.materials))r.materials[k]=(r.materials[k]||0)+n;for(const k of ['gold','ore','dust','gems','materials'])Object.defineProperty(h,k,{enumerable:true,configurable:true,get:()=>r[k],set:v=>{r[k]=v;}});r.linked.add(h);}}
+const beforeAccountPack=packParty;packParty=function(){ensureAccountResources();const data=beforeAccountPack();return {...data,members:data.members.map((h,i)=>({...h,gold:i===0?h.gold:0,ore:i===0?h.ore:0,dust:i===0?h.dust:0,gems:i===0?[...h.gems]:Array(GEMS.length).fill(0),materials:i===0?{...h.materials}:{}}))};};
 const beforeAccountRender=render;render=function(){ensureAccountResources();beforeAccountRender();};
 function armorProfile(){return null;}
 const beforeArmorStats=stats;stats=function(h=state){const v=beforeArmorStats(h);for(const g of equipment(h)){const p=armorProfile(g);if(p)for(const k of ['hp','def','crit','evasion'])v[k]=(v[k]||0)+(p[k]||0);}v.crit=Math.min(.85,v.crit);v.evasion=Math.min(.45,v.evasion);v.speed=Math.round([102,108,116,96][h.job]+h.lv*.5+Math.min(5,v.evasion*10+v.crit*5));return v;};solo.stats=stats;
@@ -2703,9 +3010,9 @@ const auditValidateParty=validateParty;
 validateParty=function(data){
  const result=auditValidateParty(data),ids=new Set(),worn=new Set();
  for(const h of result.members){for(const g of h.bag){if(ids.has(g.id))throw Error('不同角色背包具有重複裝備 ID，請使用未損壞的備份');ids.add(g.id);}for(const id of h.equipped.filter(Boolean)){if(worn.has(id))throw Error('同一裝備不能由多人穿戴');worn.add(id);}}
- if(ids.size>RULES.bagCapacity)throw Error('共用背包超過容量');
+ if(ids.size>EmberwildGearInventory.SAVE_LIMIT)throw Error('共用背包超過容量');
  for(const key of ['gold','ore','dust','potions'])if(!Number.isSafeInteger(result.members.reduce((n,h)=>n+h[key],0))||result.members.reduce((n,h)=>n+h[key],0)>1e12)throw Error('帳號資源超出可保存範圍');
- for(let i=0;i<3;i++)if(result.members.reduce((n,h)=>n+h.gems[i],0)>1e9)throw Error('帳號寶石超出可保存範圍');
+ for(let i=0;i<GEMS.length;i++)if(result.members.reduce((n,h)=>n+h.gems[i],0)>1e9)throw Error('帳號寶石超出可保存範圍');
  for(const [field,limit] of [['materials',1e9],['consumables',1e6]]){const totals=new Map();for(const h of result.members)for(const [k,n] of Object.entries(h[field]))totals.set(k,(totals.get(k)||0)+n);if([...totals.values()].some(n=>n>limit))throw Error('帳號物品超出可保存範圍');}
  const pending=data.pendingAffixes??{};if(!pending||typeof pending!=='object'||Array.isArray(pending)||Object.keys(pending).length>RULES.bagCapacity)throw Error('待確認洗鍊資料無效');
  result.pendingAffixes={};for(const [id,list] of Object.entries(pending)){if(!/^[a-zA-Z0-9_-]{1,100}$/.test(id)||['__proto__','constructor','prototype'].includes(id))throw Error('待確認裝備 ID 無效');const affixes=validateAffixList(list);if(ids.has(id)){if(result.members.some(h=>h.bag.some(g=>g.id===id&&g.affixLock!==undefined)))throw Error('待確認裝備不能另設潛能鎖定');result.pendingAffixes[id]=affixes;}}
@@ -2817,24 +3124,24 @@ const testShopView=shopView;shopView=function(){return `<div class="actions"><bu
 let skillPanel='active';
 function setSkillPanel(panel){if(!['active','proc','support'].includes(panel))return;skillPanel=panel;render();}
 function clearActiveSkill(slot){if(![0,1].includes(slot))return;state.active[slot]=null;save();render();}
-function coreSkillRows(){const activeSlots=Array.from({length:2},(_,i)=>state.active?.[i]??null);return `<div class="actions active-slot-summary">${activeSlots.map((id,i)=>`<span>槽 ${i+1}：${id===null?'未配置':esc(CLASSES[state.job].skills[id]?.[0]||'未知技能')+(id!==null?skillTypeBadges(state.job,id):'')} <button onclick="clearActiveSkill(${i})">清空</button></span>`).join('')}</div><div class="skill-list">${CLASSES[state.job].skills.map((sk,i)=>{const locked=state.lv<sk[2]||(i>=4&&!state.advanced),gem=state.sockets[i];return `<article class="skill-list-row"><div><div class="skill-list-title"><b>${esc(sk[0])}</b><span>Lv.${state.skills[i]}/${RULES.skillMax}</span><span>${sk[1]==='proc'?'普攻觸發':'主動'}</span></div>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p>${skillDescription(i)}</p><p>${sk[1]==='active'?'冷卻 '+skillCooldown(i)+' 回合':'普攻觸發率 '+Math.round(procChance(i)*100)+'%'} · 需求 LV${sk[2]}${i>=4?'／二轉':''}</p></div><div class="skill-list-controls"><button onclick="learn(${i})" ${locked||state.skills[i]>=skillCap()?'disabled':''}>${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?[0,1].map(slot=>`<button onclick="equipSkill(${i},${slot})" ${!state.skills[i]?'disabled':''}>${state.active[slot]===i?'已配置槽':'設為槽'} ${slot+1}</button>`).join(''):'<span>需配置於觸發槽</span>'}<label>寶石 <select aria-label="${esc(sk[0])}寶石" onchange="socket(${i},this.value)" ${!state.skills[i]?'disabled':''}><option value="-1" ${gem===null?'selected':''}>不鑲嵌</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${state.gems[j]<1&&gem!==j?'disabled':''}>${esc(g.name)} ×${state.gems[j]} · ${esc(g.desc)}</option>`).join('')}</select></label></div></article>`;}).join('')}</div>`;}
+function coreSkillRows(){const activeSlots=Array.from({length:2},(_,i)=>state.active?.[i]??null);return `<div class="actions active-slot-summary">${activeSlots.map((id,i)=>`<span>槽 ${i+1}：${id===null?'未配置':esc(CLASSES[state.job].skills[id]?.[0]||'未知技能')+(id!==null?skillTypeBadges(state.job,id):'')} <button onclick="clearActiveSkill(${i})">清空</button></span>`).join('')}</div><div class="skill-list">${CLASSES[state.job].skills.map((sk,i)=>{const locked=state.lv<sk[2]||(i>=4&&!state.advanced),gem=state.sockets[i];return `<article class="skill-list-row"><div><div class="skill-list-title"><b>${esc(sk[0])}</b><span>Lv.${state.skills[i]}/${RULES.skillMax}</span><span>${sk[1]==='proc'?'普攻觸發':'主動'}</span></div>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p>${skillDescription(i)}</p><p>${sk[1]==='active'?'冷卻 '+skillCooldown(i)+' 回合':'普攻觸發率 '+Math.round(procChance(i)*100)+'%'} · 需求 LV${sk[2]}${i>=4?'／二轉':''}</p></div><div class="skill-list-controls"><button onclick="learn(${i})" ${locked||state.skills[i]>=skillCap()?'disabled':''}>${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?[0,1].map(slot=>`<button onclick="equipSkill(${i},${slot})" ${!state.skills[i]?'disabled':''}>${state.active[slot]===i?'已配置槽':'設為槽'} ${slot+1}</button>`).join(''):'<span>需配置於觸發槽</span>'}<label>寶石 <select aria-label="${esc(sk[0])}寶石" onchange="socket(${i},this.value)" ${!state.skills[i]?'disabled':''}><option value="-1" ${gem===null?'selected':''}>不鑲嵌</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${(!gemCompatible(j,state.job,i)||state.gems[j]<1&&gem!==j)?'disabled':''}>${esc(g.name)} ×${state.gems[j]} · ${esc(g.desc)}</option>`).join('')}</select></label></div></article>`;}).join('')}</div>`;}
 function supportSkillRows(){return `<div class="actions">${state.supportSlots.map((id,i)=>`<span>槽 ${i+1}：${id===null?'未配置':esc(SUPPORT[state.job][id].name)+skillTypeBadges(state.job,id,'support')} <button onclick="slotSupport(null,${i})">清空</button></span>`).join('')}</div><div class="skill-list">${SUPPORT[state.job].map((sk,i)=>`<article class="skill-list-row"><div><div class="skill-list-title"><b>${esc(sk.name)}</b><span>Lv.${state.supportLevels[i]}/${Math.max(1,Math.floor(GS('skills.support.maxLevel',5)))}</span><span>${ELEMENTS[sk.element]}</span></div>${skillTypeBadges(state.job,i,'support')}${skillMechanicsDetails(state.job,i,'support')}<p>${TARGET_NAMES[sk.target]} · ${EFFECT_NAMES[sk.kind]} ${+(sk.value*(1+Math.max(0,state.supportLevels[i]-1)*GS('skills.support.effectPerExtraLevel',.2))*100).toFixed(1)}%</p><p>持續 ${sk.duration} 戰鬥回合／冷卻 ${sk.cooldown} 回合 · 需求 LV${sk.level}${i===2?'／二轉':''}</p></div><div class="skill-list-controls"><button onclick="learnSupport(${i})" ${state.supportLevels[i]>=Math.max(1,Math.floor(GS('skills.support.maxLevel',5)))||state.lv<sk.level||i===2&&!state.advanced?'disabled':''}>${state.supportLevels[i]?'升級1點':'學習'}</button>${[0,1].map(slot=>`<button onclick="slotSupport(${i},${slot})" ${state.supportLevels[i]?'':'disabled'}>${state.supportSlots[slot]===i?'已配置槽':'設為槽'} ${slot+1}</button>`).join('')}</div></article>`).join('')}</div>`;}
 skillsView=function(){return singlePagePanel('skills','技能 <span class="skill-rules-help" tabindex="0" aria-label="技能規則說明" data-tooltip="1. 主動技能／輔助技能的冷卻只在該角色自己的回合推進；冷卻 N 代表施放後要完整經過 N 次自身行動，之後才能再次施放。主動技能最低可降至 1 回合。&#10;2. 輔助技能不消耗主要行動；輔助處理後，本回合只會執行 1 個主動技能或 1 次普攻。主動技能與普攻執行後都會立即結束該角色回合。&#10;3. 主動技能不會觸發普攻觸發技能；觸發技能只會在普攻後判定。">?</span>',()=>`<div class="actions skill-subtabs"><button class="${skillPanel==='active'?'primary':''}" onclick="setSkillPanel('active')">主動技能</button><button class="${skillPanel==='proc'?'primary':''}" onclick="setSkillPanel('proc')">普攻觸發技能</button><button class="${skillPanel==='support'?'primary':''}" onclick="setSkillPanel('support')">輔助技能</button></div>${skillPanel==='active'?coreSkillRows():skillPanel==='proc'?procSkillRows():supportSkillRows()}`);};
 // Shared quest accessors retain legacy callers; pack writes the account only once.
 function ensureAccountQuests(){if(!party)return;if(!party.accountQuests)Object.defineProperty(party,'accountQuests',{enumerable:false,value:{claimed:[],repeat:0,board:{next:0,serial:0,tasks:[]},linked:new Set()}});const q=party.accountQuests;for(const h of party.members){if(q.linked.has(h))continue;q.claimed=[...new Set([...q.claimed,...h.claimed])];q.repeat+=h.repeat;const b=h.board;if([1,2].includes(b?.dailyVersion)){if(![1,2].includes(q.board.dailyVersion)||b.day>q.board.day||b.day===q.board.day&&b.dailyVersion>q.board.dailyVersion)q.board=JSON.parse(JSON.stringify(b));else if(b.day===q.board.day&&b.dailyVersion===q.board.dailyVersion){for(const task of b.tasks){const old=q.board.tasks.find(x=>x.id===task.id);if(old){old.done=old.done||task.done;old.started=old.started||task.started;}}if(b.bonusClaimed)q.board.bonusClaimed=true;}}else if(b&&![1,2].includes(q.board.dailyVersion)){q.board.next=Math.max(q.board.next,b.next);q.board.serial=Math.max(q.board.serial,b.serial);for(const task of b.tasks){const old=q.board.tasks.find(x=>x.id===task.id);if(old)old.done=old.done||task.done;else q.board.tasks.push(task);}}for(const key of ['claimed','repeat','board'])Object.defineProperty(h,key,{enumerable:true,configurable:true,get:()=>q[key],set:value=>{q[key]=value;}});q.linked.add(h);}}
 const questAccountPack=packParty;packParty=function(){ensureAccountQuests();const data=questAccountPack();return {...data,members:data.members.map((h,i)=>({...h,claimed:i===0?[...h.claimed]:[],repeat:i===0?h.repeat:0,board:i===0?JSON.parse(JSON.stringify(h.board)):{next:0,serial:0,tasks:[]}}))};};
 const questAccountRender=render;render=function(){ensureAccountQuests();questAccountRender();};
-buildBoard=function(s=state){ensureAccountQuests();const mi=party.map===6?5:party.map,m=MAPS[mi];s.board.serial++;s.board.next=Date.now()+BOARD_INTERVAL;s.board.tasks=m.mobs.slice(0,3).map(mob=>({id:uid(),map:mi,mat:mob[2],n:8+rand(9)+(regionTier(mi)-1)*2,kind:rand(2)?'gear':'gem',gem:rand(3),slot:rand(4),rar:Math.random()<.2?3:2,job:rand(4),done:false}));};
+buildBoard=function(s=state){ensureAccountQuests();const mi=party.map===6?5:party.map,m=MAPS[mi];s.board.serial++;s.board.next=Date.now()+BOARD_INTERVAL;s.board.tasks=m.mobs.slice(0,3).map(mob=>({id:uid(),map:mi,mat:mob[2],n:8+rand(9)+(regionTier(mi)-1)*2,kind:rand(2)?'gear':'gem',gem:rand(GEM_KINDS),slot:rand(4),rar:Math.random()<.2?3:2,job:rand(4),done:false}));};
 questView=function(){ensureAccountQuests();ensureBoard();const remaining=Math.max(1,Math.ceil((state.board.next-Date.now())/60000)),mat=MAPS[questRegion()].mobs[0][2];return heading('QUESTS / 帳號共用','任務')+`<section class="panel shared-quests"><div class="row"><span>${remaining} 分鐘內刷新 · 已完成募集 ${state.repeat} 次</span><button onclick="refreshBoard()">刷新委託 · ${boardRefreshCost()} 金幣</button></div>${uiHelp('委託規則','每 20 分鐘刷新 3 張，依當前地圖產生。刷新會替換未交付委託，材料保留。')}<div class="quest-list">${state.board.tasks.map(q=>`<article class="quest-list-row"><div><b>${esc(q.mat)}募集 · ${MAPS[q.map].name}</b><p>${state.materials[q.mat]||0}/${q.n} 份 · ${q.kind==='gear'?RARITY[q.rar]+' '+(q.job===undefined?'隨機職業':CLASSES[q.job].name)+' '+SLOTS[q.slot]+' ×1':GEMS[q.gem].name+' ×2'}</p><p>另獲 ${regionTier(q.map)*180} 金幣、${regionTier(q.map)*8} 鍛鐵</p></div><button onclick="claimBoard('${q.id}')" ${q.done||(state.materials[q.mat]||0)<q.n?'disabled':''}>${q.done?'已交付':'交付'}</button></article>`).join('')}</div><h3>支線</h3>${QUESTS.map(q=>`<article class="quest-list-row"><div><b>${q.title}</b><p>${q.desc} · ${q.mat} ${state.materials[q.mat]||0}/${q.n}</p><p>${q.gold} 金幣／${q.ore} 鍛鐵／隨機寶石 ×1</p></div><button onclick="claimQuest('${q.id}')" ${state.claimed.includes(q.id)||(state.materials[q.mat]||0)<q.n?'disabled':''}>${state.claimed.includes(q.id)?'已完成':'交付'}</button></article>`).join('')}<h3>重複募集</h3><article class="quest-list-row"><div><b>${esc(mat)} ${state.materials[mat]||0}/8</b><p>${regionTier(questRegion())*150} 金幣、15 鍛鐵、3 粉塵、隨機寶石 ×1</p></div><button onclick="claimRepeat()" ${(state.materials[mat]||0)<8?'disabled':''}>交付</button></article></section>`;};
 let MARKET_REFRESH_COST=100;
-function generateMarket(){const serial=(party.market?.serial||0)+1,tier=regionTier(party.map===6?5:party.map),pool=MAPS[party.map===6?5:party.map].mobs;return {serial,offers:Array.from({length:6},(_,i)=>{const kind=i===0?'ore':i===1?'dust':i===2?'gem':['ore','dust','gem','material'][rand(4)],key=kind==='gem'?String(rand(3)):kind==='material'?pool[rand(pool.length)][2]:'',qty=kind==='ore'?(8+rand(13))*tier:kind==='dust'?3+rand(6):kind==='gem'?1+rand(2):3+rand(4),unit=kind==='ore'?12:kind==='dust'?25:kind==='gem'?180:60*tier;return {id:serial+'-'+i,kind,key,qty,price:qty*unit,sold:false};})};}
+function generateMarket(){const serial=(party.market?.serial||0)+1,tier=regionTier(party.map===6?5:party.map),pool=MAPS[party.map===6?5:party.map].mobs;return {serial,offers:Array.from({length:6},(_,i)=>{const kind=i===0?'ore':i===1?'dust':i===2?'gem':['ore','dust','gem','material'][rand(4)],key=kind==='gem'?String(rand(GEM_KINDS)):kind==='material'?pool[rand(pool.length)][2]:'',qty=kind==='ore'?(8+rand(13))*tier:kind==='dust'?3+rand(6):kind==='gem'?1+rand(2):3+rand(4),unit=kind==='ore'?12:kind==='dust'?25:kind==='gem'?180:60*tier;return {id:serial+'-'+i,kind,key,qty,price:qty*unit,sold:false};})};}
 function ensureMarket(){if(!party.market){party.market=generateMarket();save();}}
 function refreshMarket(){ensureMarket();if(state.gold<MARKET_REFRESH_COST)return toast('刷新需要100金幣');const old=party.market;state.gold-=MARKET_REFRESH_COST;party.market=generateMarket();if(!save()){party.market=old;state.gold+=MARKET_REFRESH_COST;return;}render();toast('素材商品已刷新');}
 function marketOfferName(o){return o.kind==='ore'?'鍛鐵':o.kind==='dust'?'粉塵':o.kind==='gem'?GEMS[Number(o.key)].name:o.key;}
 function buyMarketOffer(id){const o=party.market?.offers.find(x=>x.id===id);if(!o||o.sold)return;if(state.gold<o.price)return toast('金幣不足');const prior={gold:state.gold,ore:state.ore,dust:state.dust,gems:[...state.gems],materials:{...state.materials}};state.gold-=o.price;if(o.kind==='ore'||o.kind==='dust')state[o.kind]+=o.qty;else if(o.kind==='gem')state.gems[Number(o.key)]+=o.qty;else state.materials[o.key]=(state.materials[o.key]||0)+o.qty;if(state.ore>1e12||state.dust>1e12||state.gems.some(n=>n>1e9)||Object.values(state.materials).some(n=>n>1e9)){Object.assign(state,prior);return toast('庫存已達上限');}o.sold=true;if(!save()){o.sold=false;Object.assign(state,prior);return;}render();toast('已購買 '+marketOfferName(o)+' ×'+o.qty);}
 function marketCards(){return party.market.offers.map(o=>`<article class="card"><h3>${esc(marketOfferName(o))} ×${o.qty}</h3><p>${o.price} 金幣</p><button onclick="buyMarketOffer('${o.id}')" ${o.sold||state.gold<o.price?'disabled':''}>${o.sold?'已售完':'購買'}</button></article>`).join('');}
 const materialShopView=shopView;shopView=function(){ensureMarket();return materialShopView().replace('<div class="shared-shop-grid">',`<div class="actions market-refresh"><span>素材商品 · 第 ${party.market.serial} 批</span><button onclick="refreshMarket()">刷新商店 · ${MARKET_REFRESH_COST} 金幣</button></div><div class="shared-shop-grid">${marketCards()}`);};
-const update08ValidateParty=validateParty;validateParty=function(data){const p=update08ValidateParty(data);const tasks=p.members.flatMap(h=>h.board.tasks);if(new Set(tasks.map(q=>q.id)).size>12)throw Error('共用委託超過遷移容量');for(const q of tasks)if(q.job!==undefined&&(!Number.isInteger(q.job)||q.job<0||q.job>3))throw Error('委託裝備職業無效');const m=data.market;if(m!==undefined){const validMaterialKey=key=>typeof key==='string'&&key.length>0&&key.length<=80&&!/[<>]/.test(key)&&!['__proto__','constructor','prototype'].includes(key);if(!m||!Number.isSafeInteger(m.serial)||m.serial<1||!Array.isArray(m.offers)||m.offers.length>100)throw Error('商店資料無效');const ids=new Set();for(const o of m.offers){if(!o||typeof o.id!=='string'||!/^\d+-\d+$/.test(o.id)||ids.has(o.id)||!['ore','dust','gem','material','item'].includes(o.kind)||!Number.isInteger(o.qty)||o.qty<1||o.qty>10000||!Number.isInteger(o.price)||o.price<0||o.price>1e9||typeof o.sold!=='boolean'||typeof o.key!=='string'||o.kind==='item'&&!/^[A-Za-z0-9_-]{1,100}$/.test(o.key)||o.kind==='gem'&&!['0','1','2'].includes(o.key)||o.kind==='material'&&!validMaterialKey(o.key)||['ore','dust'].includes(o.kind)&&o.key!=='')throw Error('素材商品無效');ids.add(o.id);}p.market=JSON.parse(JSON.stringify(m));}return p;};
+const update08ValidateParty=validateParty;validateParty=function(data){const p=update08ValidateParty(data);const tasks=p.members.flatMap(h=>h.board.tasks);if(new Set(tasks.map(q=>q.id)).size>12)throw Error('共用委託超過遷移容量');for(const q of tasks)if(q.job!==undefined&&(!Number.isInteger(q.job)||q.job<0||q.job>3))throw Error('委託裝備職業無效');const m=data.market;if(m!==undefined){const validMaterialKey=key=>typeof key==='string'&&key.length>0&&key.length<=80&&!/[<>]/.test(key)&&!['__proto__','constructor','prototype'].includes(key);if(!m||!Number.isSafeInteger(m.serial)||m.serial<1||!Array.isArray(m.offers)||m.offers.length>100)throw Error('商店資料無效');const ids=new Set();for(const o of m.offers){if(!o||typeof o.id!=='string'||!/^\d+-\d+$/.test(o.id)||ids.has(o.id)||!['ore','dust','gem','material','item'].includes(o.kind)||!Number.isInteger(o.qty)||o.qty<1||o.qty>10000||!Number.isInteger(o.price)||o.price<0||o.price>1e9||typeof o.sold!=='boolean'||typeof o.key!=='string'||o.kind==='item'&&!/^[A-Za-z0-9_-]{1,100}$/.test(o.key)||o.kind==='gem'&&!(Number.isInteger(Number(o.key))&&Number(o.key)>=0&&Number(o.key)<GEM_KINDS)||o.kind==='material'&&!validMaterialKey(o.key)||['ore','dust'].includes(o.kind)&&o.key!=='')throw Error('素材商品無效');ids.add(o.id);}p.market=JSON.parse(JSON.stringify(m));}return p;};
 
 // Combat-only counters are per open session; purchases and spending cannot alter totals.
 let expeditionLoot={kills:0,items:new Map()};
@@ -2853,10 +3160,16 @@ function refreshGlobalJournal(){
  const panel=$('globalBattleJournal');if(!party||!panel)return;
  const live=$('liveLog'),list=$('journalLootList'),detail=live?.querySelector?.('details'),history=live?.querySelector?.('.history-events'),current=live?.querySelector?.('.current-events');
  const saved={open:detail?.open,loot:list?.scrollTop||0,history:history?.scrollTop||0,current:current?.scrollTop||0};
- const html=sharedBattleJournal();panel.innerHTML=html.slice(html.indexOf('>')+1,html.lastIndexOf('</section>'));
- const next=$('liveLog'),d=next?.querySelector?.('details'),h=next?.querySelector?.('.history-events'),c=next?.querySelector?.('.current-events');
- if(d)d.open=!!saved.open;if(h)h.scrollTop=saved.history;if(c)c.scrollTop=saved.current;
- const l=$('journalLootList');if(l)l.scrollTop=saved.loot;
+ const fresh=document.createElement('template');fresh.innerHTML=sharedBattleJournal();
+ // Keep the log, scroll containers, disclosures and controls mounted. Update only
+ // information that actually changed; the log appends through appendBattleLogLine.
+ for(const selector of ['.journal-title-row','.journal-summary','.journal-actions','.journal-filter','#journalRealtimeStatus','#journalLootList']){
+  const before=panel.querySelector(selector),after=fresh.content.querySelector?.(selector);
+  if(before&&after&&before.innerHTML!==after.innerHTML)before.innerHTML=after.innerHTML;
+ }
+ const oldSummary=panel.querySelector('.journal-loot-compact>summary,.mobile-loot-content>h3'),newSummary=fresh.content.querySelector?.('.journal-loot-compact>summary,.mobile-loot-content>h3');
+ if(oldSummary&&newSummary&&oldSummary.textContent!==newSummary.textContent)oldSummary.textContent=newSummary.textContent;
+ syncBattleLogHeader(live);
  const wallet=$('wallet');if(wallet)wallet.textContent='全隊金幣 '+party.members[0].gold.toLocaleString();
 }
 
@@ -2987,13 +3300,13 @@ castPartySkill=function(h,i,v){
  else if(sk[5]==='shield'){const shieldResult=applyPureShield(h,basePower);note(pureShieldCastLog(h,sk[0],shieldResult));success=true;}
  else{const targets=coreSkillTargets(sk);if(!targets.length)return false;let total=0;const results=[];for(const e of targets){const d=resolveHit(e,power,h,element,Math.random()<v.crit);total+=d;results.push(combatEnemyName(e)+' '+d);}if(sk[5]==='drain'){const beforeDrain=h.hp;h.hp=Math.min(v.hp,h.hp+total);const recovered=Math.max(0,h.hp-beforeDrain);if(recovered>0)recordCombatContribution(h,'healing',recovered);}note(characterName(h)+'・'+sk[0]+' ['+ELEMENTS[element]+'] → '+results.join('、')+' 傷害');success=true;}
  if(success&&sk[1]==='active'&&storedBonus>0)delete h.nextActiveDamageBonus;
- if(success&&h.sockets[i]===2&&sk[1]==='active'){const beforeGem=h.hp;h.hp=Math.min(v.hp,h.hp+Math.round(v.atk*GS('skills.gems.hybridActiveHealAttack',.15)));const recovered=Math.max(0,h.hp-beforeGem);if(recovered>0)recordCombatContribution(h,'healing',recovered);}
+ 
  return success;
 };
 const update09PerformHeroBasic=performHeroBasic;performHeroBasic=function(h){ensureProcSlots(h);const v=battleStats(h),target=foes.find(enemyAvailableForSingleTarget);if(!target)return;const d=resolveHit(target,v.atk,h,weaponElement(h),Math.random()<v.crit);note(characterName(h)+' 普攻 → '+combatEnemyName(target)+' '+d+' 傷害','playerDamage');for(const i of h.procSlots){if(!foes.some(e=>e.hp>0))break;if(i!==null&&validProcIndex(h,i)&&Math.random()<procChance(i,h))castPartySkill(h,i,v);}};
-const update09Socket=socket;socket=function(i,value){let g=Number(value);if(!Number.isInteger(i)||i<0||i>=CLASSES[state.job].skills.length||!state.skills[i]||!Number.isInteger(g)||g< -1||g>2)return;let old=state.sockets[i]??null;if(g===old)return;if(g>=0&&state.gems[g]<1)return;if(old!==null)state.gems[old]++;state.sockets[i]=g<0?null:g;if(g>=0)state.gems[g]--;save();render();};
+const update09Socket=socket;socket=function(i,value){let g=Number(value);if(!Number.isInteger(i)||i<0||i>=CLASSES[state.job].skills.length||!state.skills[i]||!Number.isInteger(g)||g< -1||g>=GEMS.length||g>=0&&!gemCompatible(g,state.job,i))return;let old=state.sockets[i]??null;if(g===old)return;if(g>=0&&state.gems[g]<1)return;if(old!==null)state.gems[old]++;state.sockets[i]=g<0?null:g;if(g>=0)state.gems[g]--;save();render();};
 learn=function(i){let sk=CLASSES[state.job].skills[i],cap=skillCap();if(!sk)return;if(state.skills[i]>=cap)return toast(`目前技能上限 ${cap} 級；角色每 ${GS('skills.core.capLevelsPerStep',3)} 級提高 1 級上限，最高 ${RULES.skillMax} 級`);if(state.lv<sk[2]||(skillRequiresAdvanced(sk,i)&&!state.advanced)||!skillPrerequisitesMet(sk,state))return;state.skills[i]++;save();render();};
-coreSkillRows=function(){syncHeroSkillArrays(state);const activeSlots=Array.from({length:2},(_,i)=>state.active?.[i]??null);return `<div class="actions active-slot-summary">${activeSlots.map((id,i)=>`<span>槽 ${i+1}：${id===null?'未配置':esc(CLASSES[state.job].skills[id]?.[0]||'未知技能')+skillTypeBadges(state.job,id)} <button onclick="clearActiveSkill(${i})">清空</button></span>`).join('')}</div><div class="skill-list">${CLASSES[state.job].skills.map((sk,i)=>{const advanced=skillRequiresAdvanced(sk,i),prereqs=skillPrerequisites(sk),prereqsMet=skillPrerequisitesMet(sk,state),locked=state.lv<sk[2]||(advanced&&!state.advanced)||!prereqsMet,gem=state.sockets[i]??null;return `<article class="skill-list-row"><div><div class="skill-list-title"><b>${esc(sk[0])}</b><span>Lv.${state.skills[i]}/${RULES.skillMax}</span><span>${sk[1]==='proc'?'普攻觸發':'主動'}</span></div>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p>${skillDescription(i)}</p><p>${sk[1]==='active'?'冷卻 '+skillCooldown(i)+' 回合':'普攻觸發率 '+Math.round(procChance(i)*100)+'%'} · 需求 LV${sk[2]}${advanced?'／二轉':''}${prereqs.length?'／前置 '+esc(skillPrerequisiteLabel(state.job,sk)):''}</p></div><div class="skill-list-controls"><button onclick="learn(${i})" ${locked||state.skills[i]>=skillCap()?'disabled':''}>${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?[0,1].map(slot=>`<button onclick="equipSkill(${i},${slot})" ${!state.skills[i]?'disabled':''}>${state.active[slot]===i?'已配置槽':'設為槽'} ${slot+1}</button>`).join(''):'<span>需配置於觸發槽</span>'}<label>寶石 <select aria-label="${esc(sk[0])}寶石" onchange="socket(${i},this.value)" ${!state.skills[i]?'disabled':''}><option value="-1" ${gem===null?'selected':''}>不鑲嵌</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${state.gems[j]<1&&gem!==j?'disabled':''}>${esc(g.name)} ×${state.gems[j]} · ${esc(g.desc)}</option>`).join('')}</select></label></div></article>`;}).join('')}</div>`;};
+coreSkillRows=function(){syncHeroSkillArrays(state);const activeSlots=Array.from({length:2},(_,i)=>state.active?.[i]??null);return `<div class="actions active-slot-summary">${activeSlots.map((id,i)=>`<span>槽 ${i+1}：${id===null?'未配置':esc(CLASSES[state.job].skills[id]?.[0]||'未知技能')+skillTypeBadges(state.job,id)} <button onclick="clearActiveSkill(${i})">清空</button></span>`).join('')}</div><div class="skill-list">${CLASSES[state.job].skills.map((sk,i)=>{const advanced=skillRequiresAdvanced(sk,i),prereqs=skillPrerequisites(sk),prereqsMet=skillPrerequisitesMet(sk,state),locked=state.lv<sk[2]||(advanced&&!state.advanced)||!prereqsMet,gem=state.sockets[i]??null;return `<article class="skill-list-row"><div><div class="skill-list-title"><b>${esc(sk[0])}</b><span>Lv.${state.skills[i]}/${RULES.skillMax}</span><span>${sk[1]==='proc'?'普攻觸發':'主動'}</span></div>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p>${skillDescription(i)}</p><p>${sk[1]==='active'?'冷卻 '+skillCooldown(i)+' 回合':'普攻觸發率 '+Math.round(procChance(i)*100)+'%'} · 需求 LV${sk[2]}${advanced?'／二轉':''}${prereqs.length?'／前置 '+esc(skillPrerequisiteLabel(state.job,sk)):''}</p></div><div class="skill-list-controls"><button onclick="learn(${i})" ${locked||state.skills[i]>=skillCap()?'disabled':''}>${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?[0,1].map(slot=>`<button onclick="equipSkill(${i},${slot})" ${!state.skills[i]?'disabled':''}>${state.active[slot]===i?'已配置槽':'設為槽'} ${slot+1}</button>`).join(''):'<span>需配置於觸發槽</span>'}<label>寶石 <select aria-label="${esc(sk[0])}寶石" onchange="socket(${i},this.value)" ${!state.skills[i]?'disabled':''}><option value="-1" ${gem===null?'selected':''}>不鑲嵌</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${(!gemCompatible(j,state.job,i)||state.gems[j]<1&&gem!==j)?'disabled':''}>${esc(g.name)} ×${state.gems[j]} · ${esc(g.desc)}</option>`).join('')}</select></label></div></article>`;}).join('')}</div>`;};
 
 function exportableBalance(){return {schema:BALANCE_SCHEMA,_reference:balanceReference(),notes:['核心技能支援 active/proc；proc 另支援 nextActiveDamage、advanceNextRound、shieldLowest。','maxTargets > 1 時，從存活敵人隨機抽取且不重複；target=enemies 表示全部存活敵人。','可直接在 skills 或 equipmentForms 陣列新增資料；新增技能會自動建立技能等級與寶石插槽。','balance 內的數值會實際影響遊戲；_reference 僅為中文對照說明，不參與計算。','proc 技能使用 2 個觸發槽；只有配置技能會在普攻後判定。','procBaseChance 為 Lv1 基礎觸發率，procChancePerLevel 為每次升級增加率。','核心技能 powerPerLevel 為每次升級直接加到基礎倍率的數值；基礎倍率即 Lv1 倍率，實際倍率 = 基礎倍率 + (技能等級 - 1) × 每級倍率；缺少時沿用舊版全域 effectPerExtraLevel。','輔助技能 effectPerLevel 為每次升級直接加到基礎效果的數值；基礎效果即 Lv1 效果，實際效果 = 基礎效果 + (技能等級 - 1) × 每級倍率；缺少時沿用舊版全域 effectPerExtraLevel。','核心與輔助技能皆可設定最多 3 個前置技能，前置可來自主動、觸發或輔助技能，且必須同時滿足各自需求等級才可學習／升級。'],balance:cloneBalance(GAME_BALANCE),classes:CLASSES.map((c,job)=>({id:job,name:c.name,advanced:c.advanced,hp:c.hp,atk:c.atk,def:c.def,main:c.main,skills:c.skills.map((sk,i)=>({id:`job${job}-skill${i}`,name:sk[0],activation:sk[1],requiredLevel:sk[2],cooldown:sk[3],power:sk[4],powerPerLevel:Number.isFinite(sk[6]?.powerPerLevel)?sk[6].powerPerLevel:GS('skills.core.effectPerExtraLevel',.18),effect:sk[5],element:coreSkillElement(job,i),maxTargets:sk[6]?.target==='enemies'?99:(sk[6]?.maxTargets||1),requiresAdvanced:skillRequiresAdvanced(sk,i),...Object.fromEntries((sk[6]?.commonEffectKeys||[]).map(k=>[k,sk[6][k]])),prerequisites:skillPrerequisites(sk),...(sk[1]==='proc'?{procBaseChance:ensureProcSkillMeta(job,i).procBaseChance,procChancePerLevel:ensureProcSkillMeta(job,i).procChancePerLevel}:{})}))})),supportSkills:SUPPORT.map((list,job)=>list.map((sk,i)=>({id:`job${job}-support${i}`,...sk,prerequisites:skillPrerequisites(sk)}))),equipmentForms:ITEM_FORMS.map((jobs,job)=>jobs.map((slots,slot)=>slots.map((form,i)=>({id:`job${job}-slot${slot}-form${i}`,...form}))))};}
 function balanceConfigPrerequisites(sk){return Array.isArray(sk?.prerequisites)?sk.prerequisites:(Number.isInteger(sk?.prerequisiteSkill)?[{skill:sk.prerequisiteSkill,level:sk.prerequisiteLevel}]:[]);}
@@ -3027,7 +3340,7 @@ for(let job=0;job<data.classes.length;job++){
 }
 data.equipmentForms.forEach((jobs,job)=>{const global=job===CLASSES.length;if(!Array.isArray(jobs)||jobs.length!==4)throw Error('裝備部位資料無效：'+job);jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||(!global&&!forms.length))throw Error(`裝備類型不可為空：${job}-${slot}`);forms.forEach((f,i)=>{if(!f||typeof f.name!=='string')throw Error(`裝備資料無效：${job}-${slot}-${i}`);if(f.element!==undefined&&!elements.has(f.element))throw Error('裝備元素無效');if(f.wearableJobs!==undefined&&(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=CLASSES.length)))throw Error(`裝備可穿戴職業無效：${job}-${slot}-${i}`);for(const [k,v] of Object.entries(f)){if(['id','name','element','wearableJobs','exclusive','fixedEffects','textStyleId'].includes(k))continue;if(!legacyNumeric.has(k)||!Number.isFinite(v))throw Error(`未知或無效裝備欄位：${job}-${slot}-${i}-${k}`);}if(f.exclusive!==undefined){if(!f.exclusive||typeof f.exclusive!=='object'||Array.isArray(f.exclusive))throw Error(`裝備專屬屬性無效：${job}-${slot}-${i}`);for(const [k,v] of Object.entries(f.exclusive))if(!exclusiveKeys.has(k)||!Number.isFinite(v)||v<-100||v>500)throw Error(`裝備專屬屬性無效：${job}-${slot}-${i}-${k}`);}});});});return data;}
 function validateBalanceConfig(data){return validateBalanceConfigCore(data);}
-function applyBalanceConfig(data,{persist=true}={}){data=validateBalanceConfig(JSON.parse(JSON.stringify(data)));GAME_BALANCE=cloneBalance(data.balance);data.classes.forEach((c,job)=>{const target=CLASSES[job];for(const k of ['name','advanced','hp','atk','def','main'])if(c[k]!==undefined)target[k]=c[k];target.skills=c.skills.map(sk=>[sk.name,sk.activation,sk.requiredLevel,sk.cooldown,sk.power,sk.effect,{commonEffectKeys:EmberwildSkillEffects.KEYS.filter(k=>sk[k]!==undefined),...Object.fromEntries(EmberwildSkillEffects.KEYS.filter(k=>sk[k]!==undefined).map(k=>[k,sk[k]])),target:sk.target??(sk.maxTargets>=99?'enemies':sk.effect==='heal'||sk.effect==='shieldLowest'?'weakest':sk.effect==='shield'||PROC_ONLY_EFFECTS.has(sk.effect)?'self':'enemy'),maxTargets:Math.max(1,Math.floor(sk.maxTargets)),requiresAdvanced:!!sk.requiresAdvanced,powerPerLevel:sk.powerPerLevel,prerequisites:balanceConfigPrerequisites(sk).slice(0,3).map(req=>({type:req?.type==='support'?'support':'core',skill:req.skill,level:req.level})),effects:[{kind:sk.effect}],...(sk.activation==='proc'?{procBaseChance:sk.procBaseChance,procChancePerLevel:sk.procChancePerLevel}:{})}]);SKILL_ELEMENTS[job]=c.skills.map(sk=>sk.element);});if(Array.isArray(data.supportSkills)&&data.supportSkills.length===SUPPORT.length)data.supportSkills.forEach((list,job)=>{if(Array.isArray(list))SUPPORT[job]=list.map(({id,...sk})=>({...sk,prerequisites:balanceConfigPrerequisites(sk).slice(0,3).map(req=>({type:req?.type==='support'?'support':'core',skill:req.skill,level:req.level}))}));});normalizeEquipmentFormsArray(data.equipmentForms);data.equipmentForms.forEach((jobs,job)=>jobs.forEach((forms,slot)=>{ITEM_FORMS[job][slot]=forms.map(({id,...form})=>form);}));normalizeEquipmentFormsArray(ITEM_FORMS);normalizeEquipmentFormWearability();normalizeEquippedWearability();syncAllHeroSkillArrays();if(persist)localStorage.setItem(BALANCE_KEY,JSON.stringify(data));if(state){for(const h of party?.members||[state])withHero(h,clampVitals);render();}}
+function applyBalanceConfig(data,{persist=true}={}){data=validateBalanceConfig(JSON.parse(JSON.stringify(data)));GAME_BALANCE=cloneBalance(data.balance);data.classes.forEach((c,job)=>{const target=CLASSES[job];for(const k of ['name','advanced','hp','atk','def','main'])if(c[k]!==undefined)target[k]=c[k];target.skills=c.skills.map(sk=>[sk.name,sk.activation,sk.requiredLevel,sk.cooldown,sk.power,sk.effect,{commonEffectKeys:EmberwildSkillEffects.KEYS.filter(k=>sk[k]!==undefined),...Object.fromEntries(EmberwildSkillEffects.KEYS.filter(k=>sk[k]!==undefined).map(k=>[k,sk[k]])),target:sk.target??(sk.maxTargets>=99?'enemies':sk.effect==='heal'||sk.effect==='shieldLowest'?'weakest':sk.effect==='shield'||PROC_ONLY_EFFECTS.has(sk.effect)?'self':'enemy'),maxTargets:Math.max(1,Math.floor(sk.maxTargets)),requiresAdvanced:!!sk.requiresAdvanced,powerPerLevel:sk.powerPerLevel,prerequisites:balanceConfigPrerequisites(sk).slice(0,3).map(req=>({type:req?.type==='support'?'support':'core',skill:req.skill,level:req.level})),effects:[{kind:sk.effect}],...(sk.activation==='proc'?{procBaseChance:sk.procBaseChance,procChancePerLevel:sk.procChancePerLevel}:{})}]);SKILL_ELEMENTS[job]=c.skills.map(sk=>sk.element);});if(Array.isArray(data.supportSkills)&&data.supportSkills.length===SUPPORT.length)data.supportSkills.forEach((list,job)=>{if(Array.isArray(list))SUPPORT[job]=list.map(({id,...sk})=>({...sk,prerequisites:balanceConfigPrerequisites(sk).slice(0,3).map(req=>({type:req?.type==='support'?'support':'core',skill:req.skill,level:req.level}))}));});normalizeEquipmentFormsArray(data.equipmentForms);data.equipmentForms.forEach((jobs,job)=>jobs.forEach((forms,slot)=>{ITEM_FORMS[job][slot]=forms.map(form=>({...form}));}));normalizeEquipmentFormsArray(ITEM_FORMS);normalizeEquipmentFormWearability();normalizeEquippedWearability();syncAllHeroSkillArrays();if(persist)localStorage.setItem(BALANCE_KEY,JSON.stringify(data));if(state){for(const h of party?.members||[state])withHero(h,clampVitals);render();}}
 function exportBalanceJSON(){const blob=new Blob([JSON.stringify(exportableBalance(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='emberwild-balance-test.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('已匯出測試設定 JSON');}
 async function importBalanceJSON(ev){const f=ev.target.files[0];ev.target.value='';if(!f)return false;try{if(f.size>4e6)throw Error('檔案過大');const data=JSON.parse(await f.text());applyBalanceConfig(data);toast('測試設定已套用；重新開啟仍會保留');return true;}catch(e){toast('測試設定匯入失敗：'+e.message);return false;}}
 function resetBalanceJSON(){localStorage.removeItem(BALANCE_KEY);replaceArray(CLASSES,BASE_BALANCE_SNAPSHOT.classes);replaceArray(SKILL_ELEMENTS,BASE_BALANCE_SNAPSHOT.skillElements);replaceArray(SUPPORT,BASE_BALANCE_SNAPSHOT.support);replaceArray(ITEM_FORMS,BASE_BALANCE_SNAPSHOT.itemForms);normalizeEquipmentFormWearability();normalizeEquippedWearability();syncAllHeroSkillArrays();if(state)render();toast('已恢復 HTML 內建預設設定');}
@@ -3184,7 +3497,7 @@ function supplyDetail(item){const effect=item.type==='imbue'?`普通攻擊轉為
 // Keep legacy callers useful, but return only the hand-written description.
 skillDescription=function(i){return esc(coreSkillFlavor(state.job,i));};
 
-coreSkillRows=function(){syncHeroSkillArrays(state);const activeSlots=Array.from({length:2},(_,i)=>state.active?.[i]??null);return `<div class="actions active-slot-summary">${activeSlots.map((id,i)=>`<span>槽 ${i+1}：${id===null?'未配置':esc(CLASSES[state.job].skills[id]?.[0]||'未知技能')+skillTypeBadges(state.job,id)} <button onclick="clearActiveSkill(${i})">清空</button></span>`).join('')}</div><div class="skill-list">${CLASSES[state.job].skills.map((sk,i)=>{const advanced=skillRequiresAdvanced(sk,i),prereqMet=skillPrerequisitesMet(sk,state),locked=state.lv<sk[2]||(advanced&&!state.advanced)||!prereqMet,gem=state.sockets[i]??null;return `<article class="skill-list-row"><div><div class="skill-list-title"><b>${esc(sk[0])}</b><span>Lv.${state.skills[i]}/${RULES.skillMax}</span><span>${sk[1]==='proc'?'普攻觸發':'主動'}</span></div>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p class="skill-flavor"><b>說明：</b>${esc(coreSkillFlavor(state.job,i))||'<span class="small">尚未填寫</span>'}</p><p class="skill-detail"><b>詳細：</b>${esc(coreSkillDetail(state.job,i,state))}</p></div><div class="skill-list-controls"><button onclick="learn(${i})" ${locked||state.skills[i]>=skillCap()?'disabled':''}>${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?[0,1].map(slot=>`<button onclick="equipSkill(${i},${slot})" ${!state.skills[i]?'disabled':''}>${state.active[slot]===i?'已配置槽':'設為槽'} ${slot+1}</button>`).join(''):'<span>需配置於觸發槽</span>'}<label>寶石 <select aria-label="${esc(sk[0])}寶石" onchange="socket(${i},this.value)" ${!state.skills[i]?'disabled':''}><option value="-1" ${gem===null?'selected':''}>不鑲嵌</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${state.gems[j]<1&&gem!==j?'disabled':''}>${esc(g.name)} ×${state.gems[j]} · ${esc(g.desc)}</option>`).join('')}</select></label></div></article>`;}).join('')}</div>`;};
+coreSkillRows=function(){syncHeroSkillArrays(state);const activeSlots=Array.from({length:2},(_,i)=>state.active?.[i]??null);return `<div class="actions active-slot-summary">${activeSlots.map((id,i)=>`<span>槽 ${i+1}：${id===null?'未配置':esc(CLASSES[state.job].skills[id]?.[0]||'未知技能')+skillTypeBadges(state.job,id)} <button onclick="clearActiveSkill(${i})">清空</button></span>`).join('')}</div><div class="skill-list">${CLASSES[state.job].skills.map((sk,i)=>{const advanced=skillRequiresAdvanced(sk,i),prereqMet=skillPrerequisitesMet(sk,state),locked=state.lv<sk[2]||(advanced&&!state.advanced)||!prereqMet,gem=state.sockets[i]??null;return `<article class="skill-list-row"><div><div class="skill-list-title"><b>${esc(sk[0])}</b><span>Lv.${state.skills[i]}/${RULES.skillMax}</span><span>${sk[1]==='proc'?'普攻觸發':'主動'}</span></div>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p class="skill-flavor"><b>說明：</b>${esc(coreSkillFlavor(state.job,i))||'<span class="small">尚未填寫</span>'}</p><p class="skill-detail"><b>詳細：</b>${esc(coreSkillDetail(state.job,i,state))}</p></div><div class="skill-list-controls"><button onclick="learn(${i})" ${locked||state.skills[i]>=skillCap()?'disabled':''}>${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?[0,1].map(slot=>`<button onclick="equipSkill(${i},${slot})" ${!state.skills[i]?'disabled':''}>${state.active[slot]===i?'已配置槽':'設為槽'} ${slot+1}</button>`).join(''):'<span>需配置於觸發槽</span>'}<label>寶石 <select aria-label="${esc(sk[0])}寶石" onchange="socket(${i},this.value)" ${!state.skills[i]?'disabled':''}><option value="-1" ${gem===null?'selected':''}>不鑲嵌</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${(!gemCompatible(j,state.job,i)||state.gems[j]<1&&gem!==j)?'disabled':''}>${esc(g.name)} ×${state.gems[j]} · ${esc(g.desc)}</option>`).join('')}</select></label></div></article>`;}).join('')}</div>`;};
 supportSkillRows=function(){return `<div class="actions">${state.supportSlots.map((id,i)=>`<span>槽 ${i+1}：${id===null?'未配置':esc(SUPPORT[state.job][id].name)+skillTypeBadges(state.job,id,'support')} <button onclick="slotSupport(null,${i})">清空</button></span>`).join('')}</div><div class="skill-list">${SUPPORT[state.job].map((sk,i)=>`<article class="skill-list-row"><div><div class="skill-list-title"><b>${esc(sk.name)}</b><span>Lv.${state.supportLevels[i]}/${Math.max(1,Math.floor(GS('skills.support.maxLevel',5)))}</span><span>${ELEMENTS[sk.element]}</span></div>${skillTypeBadges(state.job,i,'support')}${skillMechanicsDetails(state.job,i,'support')}<p class="skill-flavor"><b>說明：</b>${esc(sk.description||'')||'<span class="small">尚未填寫</span>'}</p><p class="skill-detail"><b>詳細：</b>${esc(supportSkillDetail(state.job,i,state))}</p></div><div class="skill-list-controls"><button onclick="learnSupport(${i})" ${state.supportLevels[i]>=Math.max(1,Math.floor(GS('skills.support.maxLevel',5)))||state.lv<sk.level||i===2&&!state.advanced?'disabled':''}>${state.supportLevels[i]?'升級1點':'學習'}</button>${[0,1].map(slot=>`<button onclick="slotSupport(${i},${slot})" ${state.supportLevels[i]?'':'disabled'}>${state.supportSlots[slot]===i?'已配置槽':'設為槽'} ${slot+1}</button>`).join('')}</div></article>`).join('')}</div>`;};
 
 const update11DefaultItemShape=SHOP.filter(item=>!EmberwildTimedBoosts.isItem(item)).map(item=>({id:item.id,type:item.type,element:item.element??null}));
@@ -3263,9 +3576,6 @@ function applyGameplaySettingsSideEffects(){
   g.difficulty.modes.forEach((m,i)=>{if(!MODES[i])return;Object.assign(MODES[i],{hp:m.hp,atk:m.attack,def:m.defense,xp:m.reward,equip:[...m.equipmentChance],gem:[...m.gemChance],boss:m.bossGearChance,ore:m.ore,rare:m.legendaryGearChance});});
   g.maps.levelRanges.forEach((r,i)=>{if(MAPS[i]){MAPS[i].min=Math.max(1,Math.round(r.min));MAPS[i].max=Math.max(MAPS[i].min,Math.round(r.max));}});
   g.quests.side.forEach((q,i)=>{if(QUESTS[i])Object.assign(QUESTS[i],{n:Math.max(1,Math.round(q.required)),gold:Math.max(0,Math.round(q.gold)),ore:Math.max(0,Math.round(q.ore))});});
-  GEMS[0].desc='技能效果 +'+Math.round((g.skills.gems.effectMultiplier-1)*10000)/100+'%';
-  GEMS[1].desc='主動冷卻 −'+g.skills.gems.cooldownReduction+' 回合／觸發率 +'+Math.round(g.skills.gems.cooldownProcBonus*10000)/100+'%';
-  GEMS[2].desc='技能效果 +'+Math.round((g.skills.gems.hybridMultiplier-1)*10000)/100+'%，觸發率 +'+Math.round(g.skills.gems.hybridProcBonus*10000)/100+'%／施放時回復攻擊力 '+Math.round(g.skills.gems.hybridActiveHealAttack*10000)/100+'% 生命';
   for(const item of SHOP){if(item.type==='ward')item.desc='承受此屬性傷害減少 '+item.effectPercent+'%';if(item.type==='elementTonic')item.desc='此屬性傷害增加 '+item.effectPercent+'%';}
 }
 applyGameplaySettingsSideEffects();
@@ -3331,7 +3641,7 @@ try{
   if(previewBuild&&message.startsWith('裝備類型無效：')){
     globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=true;
     console.warn('存檔使用尚未載入的測試裝備類型，等待完整模組或測試 JSON 後重試',e);
-  }else toast('存檔未能載入：'+message+'；將在完整模組載入後再重試。');
+  }else console.warn('存檔等待完整模組載入後重試：'+message);
 }
 render();window.emberwildBootComplete=true;timer=setInterval(()=>{if(!globalThis.__EMBERWILD_BALANCE_SOURCE||globalThis.__EMBERWILD_BALANCE_READY)tick();},50);setInterval(()=>{if(!globalThis.__EMBERWILD_BALANCE_SOURCE||globalThis.__EMBERWILD_BALANCE_READY)save();},5000);window.addEventListener('beforeunload',()=>{if(!globalThis.__EMBERWILD_BALANCE_SOURCE||globalThis.__EMBERWILD_BALANCE_READY)save();});
 
@@ -3357,7 +3667,7 @@ filteredGear=function(){const members=party?.members?.length?party.members:[stat
 gearFilters=function(){return `<div class="filters"><label>部位<select onchange="setFilter('slot',this.value)">${[['all','全部部位'],[0,'武器'],[1,'護甲'],[2,'副手'],[3,'飾品']].map(([v,n])=>`<option value="${v}" ${String(v)===String(filters.slot)?'selected':''}>${n}</option>`).join('')}</select></label><label>職業<select onchange="setFilter('job',this.value)">${[['all','全部職業'],...CLASSES.map((c,i)=>[i,c.name])].map(([v,n])=>`<option value="${v}" ${String(v)===String(filters.job)?'selected':''}>${n}</option>`).join('')}</select></label><label>BOSS裝<select onchange="setFilter('boss',this.value)">${[['all','全部'],['normal','非 BOSS 裝'],['boss','BOSS 專屬裝']].map(([v,n])=>`<option value="${v}" ${String(v)===String(filters.boss)?'selected':''}>${n}</option>`).join('')}</select></label><label>最高詞條<select onchange="setFilter('effectRank',this.value)">${[['all','全部'],...AFFIX_RANK.map((n,i)=>[i,n])].map(([v,n])=>`<option value="${v}" ${String(v)===String(filters.effectRank)?'selected':''}>${n}</option>`).join('')}</select></label></div>`;};
 
 function qualityTag(g){return `${AFFIX_RANK[gearQualityRank(g)]}${g.boss!==undefined?' · BOSS 專屬':''}`;}
-inlineInventoryView=function(){return `<section class="panel">${resourceLine()}${gearFilters()}${bulkSalvageControls()}<div class="inline-equipment-list">${filteredGear().map(g=>{const wearer=gearWearer(g.id),worn=!!wearer,draft=inlineAffixDrafts.has(affixDraftKey(g)),locked=!!g.locked;return `<article class="inline-equipment"><div class="gear-inline-body"><div class="row"><b>${equipmentNameHTML(g)}</b><span class="tag">${qualityTag(g)}${worn?' · '+esc(characterName(wearer))+'已穿戴':''}${locked?' · 已鎖定':''}</span></div><p class="small">${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV ${gearRequiredLevelByTier(g.tier)}</p><p class="inline-gear-stats equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}<div class="actions"><button onclick="enhance('${g.id}')" ${g.plus>=RULES.enhanceMax||!canEnhance(g)?'disabled':''}>${g.plus>=RULES.enhanceMax?'已達 +'+RULES.enhanceMax:'強化 +'+(g.plus+1)+'／'+upgradeCostText(g)}</button><button onclick="reroll('${g.id}')" ${(()=>{const c=rerollCostFor(g);return draft||state.gold<c.gold||state.dust<c.dust;})()?'disabled':''}>洗鍊／${rerollCostFor(g).gold} 金幣＋${rerollCostFor(g).dust} 粉塵</button><button onclick="toggleGearLock('${g.id}')">${locked?'解除鎖定':'鎖定'}</button>${worn?`<button onclick="unequipSharedGear('${g.id}')">脫下裝備</button>`:''}<button onclick="salvage('${g.id}')" ${worn||draft||locked?'disabled':''}>分解</button></div></div>${inlineAffixComparison(g)}</article>`;}).join('')||'<p>沒有符合篩選的裝備。</p>'}</div></section>`;};
+inlineInventoryView=function(){return `<section class="panel">${resourceLine()}${gearFilters()}${bulkSalvageControls()}<div class="inline-equipment-list">${filteredGear().map(g=>{const wearer=gearWearer(g.id),worn=!!wearer,draft=inlineAffixDrafts.has(affixDraftKey(g)),locked=!!g.locked;return `<article class="inline-equipment"><div class="gear-inline-body"><div class="row"><b>${equipmentNameHTML(g)}</b><span class="tag">${qualityTag(g)}${worn?' · '+esc(characterName(wearer))+'已穿戴':''}${locked?' · 已鎖定':''}</span></div><p class="small">${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV ${gearRequiredLevel(g)}</p><p class="inline-gear-stats equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}<div class="actions"><button onclick="enhance('${g.id}')" ${g.plus>=RULES.enhanceMax||!canEnhance(g)?'disabled':''}>${g.plus>=RULES.enhanceMax?'已達 +'+RULES.enhanceMax:'強化 +'+(g.plus+1)+'／'+upgradeCostText(g)}</button><button onclick="reroll('${g.id}')" ${(()=>{const c=rerollCostFor(g);return draft||state.gold<c.gold||state.dust<c.dust;})()?'disabled':''}>洗鍊／${rerollCostFor(g).gold} 金幣＋${rerollCostFor(g).dust} 粉塵</button><button onclick="toggleGearLock('${g.id}')">${locked?'解除鎖定':'鎖定'}</button>${worn?`<button onclick="unequipSharedGear('${g.id}')">脫下裝備</button>`:''}<button onclick="salvage('${g.id}')" ${worn||draft||locked?'disabled':''}>分解</button></div></div>${inlineAffixComparison(g)}</article>`;}).join('')||'<p>沒有符合篩選的裝備。</p>'}</div></section>`;};
 
 bulkSalvageControls=function(){return `<div class="small">分解範圍：全部背包（不受篩選影響）；依最高詞條品質判定，無詞條視為普通。</div><div class="actions bulk-salvage-actions">${AFFIX_RANK.map((name,rank)=>`<button onclick="requestMassSalvage(${rank})">分解所有${name}</button>`).join('')}</div>${uiHelp('分解規則','已鎖定、已穿戴、待確認洗鍊的裝備不會分解。BOSS 專屬裝備會再次確認。')}`;};
 requestMassSalvage=function(rank){if(!Number.isInteger(rank)||rank<0||rank>3)return;const items=massSalvageTargets(state.bag.filter(g=>gearQualityRank(g)===rank).map(g=>g.id));if(!items.length)return toast('沒有可分解的'+AFFIX_RANK[rank]+'裝備');massSalvageIds=items.map(g=>g.id);if(items.some(g=>g.plus>0||g.rerolled||g.affix.length||g.boss!==undefined)){$('modal').innerHTML=`<h2>再次確認批次分解</h2><p>將分解 ${items.length} 件最高詞條為${AFFIX_RANK[rank]}的裝備。含強化、詞條或 BOSS 專屬裝備時請再次確認；分解後無法復原。</p><div class="mass-salvage-list">${items.map(g=>`<p>${equipmentNameHTML(g)}</p>`).join('')}</div><button class="danger" onclick="confirmMassSalvage()">確認全部分解</button><button onclick="massSalvageIds=null;closeModal()">取消</button>`;$('modal').showModal();}else confirmMassSalvage();};
@@ -3370,7 +3680,7 @@ forgeEquipmentOptions=function(selectedId){const worn=[],spare=[];for(const g of
 // Normalize old saves in memory: legacy equipment rarity no longer has gameplay meaning.
 if(state?.bag)state.bag.forEach(g=>g.rar=0);
 
-EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;gameNavigationHTML=globalThis.gameNavigationHTML??gameNavigationHTML;partnerRosterView=globalThis.partnerRosterView??partnerRosterView;storyView=globalThis.storyView??storyView;achievementsView=globalThis.achievementsView??achievementsView;mailboxView=globalThis.mailboxView??mailboxView;lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThis.gatheringView??gatheringView;alchemyView=globalThis.alchemyView??alchemyView;optionsView=globalThis.optionsView??optionsView;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_READY;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;scaleHeroHealing=globalThis.scaleHeroHealing??scaleHeroHealing;equipmentWearableJobsDetailsHTML=globalThis.equipmentWearableJobsDetailsHTML??equipmentWearableJobsDetailsHTML;setBattleSpeed=globalThis.setBattleSpeed??setBattleSpeed;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;emberwildBootComplete=globalThis.emberwildBootComplete??emberwildBootComplete;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;
+EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;recordCombatContribution=globalThis.recordCombatContribution??recordCombatContribution;__EMBERWILD_SIMULATION_MODAL=globalThis.__EMBERWILD_SIMULATION_MODAL??__EMBERWILD_SIMULATION_MODAL;__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;gameNavigationHTML=globalThis.gameNavigationHTML??gameNavigationHTML;partnerRosterView=globalThis.partnerRosterView??partnerRosterView;storyView=globalThis.storyView??storyView;achievementsView=globalThis.achievementsView??achievementsView;mailboxView=globalThis.mailboxView??mailboxView;lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThis.gatheringView??gatheringView;alchemyView=globalThis.alchemyView??alchemyView;optionsView=globalThis.optionsView??optionsView;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_READY;__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;scaleHeroHealing=globalThis.scaleHeroHealing??scaleHeroHealing;equipmentWearableJobsDetailsHTML=globalThis.equipmentWearableJobsDetailsHTML??equipmentWearableJobsDetailsHTML;setBattleSpeed=globalThis.setBattleSpeed??setBattleSpeed;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;emberwildBootComplete=globalThis.emberwildBootComplete??emberwildBootComplete;
 
 /* js/ui/text-rarity-style.js */
 /* Shared presentation for user-defined text rarity presets. */
@@ -3449,66 +3759,6 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
 
 __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_GALLERY_EFFECTS;__EMBERWILD_TEXT_STYLES=globalThis.__EMBERWILD_TEXT_STYLES??__EMBERWILD_TEXT_STYLES;textRarityStyleById=globalThis.textRarityStyleById??textRarityStyleById;setTextRarityStyles=globalThis.setTextRarityStyles??setTextRarityStyles;textRarityPresentation=globalThis.textRarityPresentation??textRarityPresentation;textRarityBlockPresentation=globalThis.textRarityBlockPresentation??textRarityBlockPresentation;textRarityFrameHTML=globalThis.textRarityFrameHTML??textRarityFrameHTML;textRarityItemHTML=globalThis.textRarityItemHTML??textRarityItemHTML;
 
-/* js/equipment/pending-gear-loot.js */
-
-/* Battle equipment drops stay outside the inventory until the player settles them. */
-let pendingGearLoot=[];
-let collectingBattleGear=false;
-
-const pendingLootBaseAddGear=addGear;
-addGear=function(g){
-  if(!collectingBattleGear)return pendingLootBaseAddGear(g);
-  g.rar=0;
-  pendingGearLoot.push(g);
-  const q=typeof gearQualityRank==='function'?gearQualityRank(g):0;
-  note(`獲得 ${AFFIX_RANK[q]} ${equipmentDisplayName(g)}${g.boss!==undefined?'（BOSS 專屬）':''}（待結算）`,'item');
-  if(typeof addExpeditionLoot==='function')addExpeditionLoot(equipmentDisplayName(g),1,q);
-};
-
-const pendingLootBaseRewardGroupKill=rewardGroupKill;
-rewardGroupKill=function(e){
-  if(e?.rewarded)return;
-  collectingBattleGear=true;
-  try{return pendingLootBaseRewardGroupKill(e);}
-  finally{collectingBattleGear=false;}
-};
-
-function pendingGearLootView(){
-  const n=pendingGearLoot.length;
-  return `<section class="panel pending-gear-loot"><div class="pending-gear-head"><div><b>待結算裝備 ${n} 件</b><span class="small">　戰鬥掉落先存放於此，不會改變背包中的裝備順序。</span></div><button class="primary" onclick="claimPendingGearLoot()" ${n?'':'disabled'}>結算並領取</button></div>${n?`<div class="pending-gear-list">${pendingGearLoot.map(g=>`<span class="pending-gear-chip">${equipmentNameHTML(g)}${g.boss!==undefined?' · BOSS':''}</span>`).join('')}</div>`:'<p class="small">目前沒有待結算裝備。</p>'}</section>`;
-}
-
-function claimPendingGearLoot(){
-  ensureSharedGear();
-  if(!pendingGearLoot.length)return toast('目前沒有待結算裝備');
-  const free=Math.max(0,RULES.bagCapacity-state.bag.length);
-  if(free<=0)return toast('背包已滿，請先整理裝備');
-  const claimed=pendingGearLoot.splice(0,free);
-  const oldBagLength=state.bag.length;
-  state.bag.push(...claimed);
-  if(!save()){
-    state.bag.splice(oldBagLength,claimed.length);pendingGearLoot.unshift(...claimed);
-    return toast('領取失敗：儲存失敗');
-  }
-  render();
-  toast(pendingGearLoot.length?`已領取 ${claimed.length} 件；背包已滿，尚有 ${pendingGearLoot.length} 件待結算`:`已領取 ${claimed.length} 件裝備`);
-}
-
-const pendingLootBaseEquipmentView=equipmentView;
-equipmentView=function(){return pendingGearLootView()+pendingLootBaseEquipmentView();};
-
-const pendingLootBasePackParty=packParty;
-packParty=function(){const data=pendingLootBasePackParty();return {...data,pendingGearLoot:pendingGearLoot.map(g=>JSON.parse(JSON.stringify(g)))};};
-
-const pendingLootBaseLoadParty=loadParty;
-loadParty=function(data){
-  const queued=Array.isArray(data?.pendingGearLoot)?data.pendingGearLoot.map(g=>JSON.parse(JSON.stringify(g))):[];
-  pendingLootBaseLoadParty(data);
-  pendingGearLoot=queued;
-};
-
-
-
 /* js/equipment/equipment-stat-source.js?v=20261019-daily-speed2 */
 
 /* Final equipment source cleanup:
@@ -3578,7 +3828,6 @@ function migrateEquipmentManaAffixes(list){
 }
 function migrateCurrentEquipmentMana(){
   if(state?.bag)migrateEquipmentManaAffixes(state.bag);
-  if(Array.isArray(pendingGearLoot))migrateEquipmentManaAffixes(pendingGearLoot);
   if(typeof inlineAffixDrafts!=='undefined')for(const [key,list] of inlineAffixDrafts){
     const id=String(key).replace(/^shared:/,''),g=state?.bag?.find(x=>x.id===id);
     inlineAffixDrafts.set(key,list.map(a=>convertLegacyManaAffix(a,g)));
@@ -3727,7 +3976,7 @@ if(state){for(const h of party?.members||[state])withHero(h,clampVitals);save();
 
 // Update 12 final runtime hooks. These are deliberately last so every later compatibility layer uses the JSON settings.
 need=function(l){return Math.round((GS('progression.xpCurve.base',45)+l*GS('progression.xpCurve.linear',18)+l*l*GS('progression.xpCurve.quadratic',2))*(GS('progression.xpCurve.multiplierBase',2.2)+l*GS('progression.xpCurve.multiplierPerLevel',.16)));};
-initial=function(job){let g=gear(1,0,0,job);return migrate({version:1,job,lv:1,xp:0,gold:Math.round(GS('progression.starting.gold',150)),ore:Math.round(GS('progression.starting.ore',12)),dust:Math.round(GS('progression.starting.dust',0)),hp:CLASSES[job].hp,shield:0,map:0,advanced:false,sp:Math.round(GS('progression.starting.skillPoints',2)),ap:Math.round(GS('progression.starting.abilityPoints',0)),stats:[0,0,0],skills:[1,0,0,0,0,0],active:[0,null],procSlots:[null,null],gems:[0,0,0],sockets:[null,null,null,null,null,null],bag:[g],equipped:[g.id,null,null,null,null],materials:{},kills:{},totalKills:0,tutorial:0,claimed:[],repeat:0,won:false,autoPotion:true,potions:Math.round(GS('progression.starting.potions',5)),discovered:[],created:Date.now()});};
+initial=function(job){let g=gear(1,0,0,job);return migrate({version:1,job,lv:1,xp:0,gold:Math.round(GS('progression.starting.gold',150)),ore:Math.round(GS('progression.starting.ore',12)),dust:Math.round(GS('progression.starting.dust',0)),hp:CLASSES[job].hp,shield:0,map:0,advanced:false,sp:Math.round(GS('progression.starting.skillPoints',2)),ap:Math.round(GS('progression.starting.abilityPoints',0)),stats:[0,0,0],skills:[1,0,0,0,0,0],active:[0,null],procSlots:[null,null],gems:Array(GEMS.length).fill(0),sockets:[null,null,null,null,null,null],bag:[g],equipped:[g.id,null,null,null,null],materials:{},kills:{},totalKills:0,tutorial:0,claimed:[],repeat:0,won:false,autoPotion:true,potions:Math.round(GS('progression.starting.potions',5)),discovered:[],created:Date.now()});};
 solo.initial=initial;
 levelCap=function(s=state){return s?.won?Math.floor(GS('progression.levelCaps.afterClear',60)):Math.floor(GS('progression.levelCaps.beforeClear',30));};
 regionTier=function(mi){if(!MAPS[mi])return 1;return Math.max(1,Math.ceil(MAPS[mi].min/Math.max(1,GS('progression.regionTierLevels',5))));};
@@ -3754,9 +4003,9 @@ stats=function(h=state){
   const heroBase=GS('combat.speed.heroBase',[102,108,116,96]);v.speed=Math.round((heroBase[h.job]??100)+h.lv*GS('combat.speed.heroPerLevel',.5)+Math.min(GS('combat.speed.bonusCap',5),(v.evasion||0)*GS('combat.speed.evasionWeight',10)+(v.crit||0)*GS('combat.speed.critWeight',5)));for(const k of ['hp','atk','def'])v[k]=Math.round(v[k]);return v;
 };solo.stats=stats;
 
-skillPower=function(i,h=state){const sk=CLASSES[h.job].skills[i],perLevel=Number.isFinite(sk?.[6]?.powerPerLevel)?sk[6].powerPerLevel:GS('skills.core.effectPerExtraLevel',.4);return (sk[4]+Math.max(0,(Number(h.skills[i])||0)-1)*perLevel)*(h.sockets[i]===0?GS('skills.gems.effectMultiplier',1.18):h.sockets[i]===2?GS('skills.gems.hybridMultiplier',1.10):1)*(1+bonusFor(i,4,h)/100);};
-skillCooldown=function(i,h=state){return Math.max(GAME_BALANCE.combat.minimumActiveCooldown,CLASSES[h.job].skills[i][3]-(h.sockets[i]===1?GS('skills.gems.cooldownReduction',1):0)-bonusFor(i,5,h));};
-procChance=function(i,h=state){const meta=ensureProcSkillMeta(h.job,i);if(!meta)return 0;const level=Math.max(1,Number(h.skills[i])||1),gem=h.sockets[i]===1?GS('skills.gems.cooldownProcBonus',.10):h.sockets[i]===2?GS('skills.gems.hybridProcBonus',.05):0,affix=bonusFor(i,5,h)*(GAME_BALANCE.affixes.procChancePerPointPercent/100);return Math.min(GAME_BALANCE.combat.statCaps.crit,Math.max(0,meta.procBaseChance+(level-1)*meta.procChancePerLevel+gem+affix));};
+skillPower=function(i,h=state){const sk=CLASSES[h.job].skills[i],perLevel=Number.isFinite(sk?.[6]?.powerPerLevel)?sk[6].powerPerLevel:GS('skills.core.effectPerExtraLevel',.4);return (sk[4]+Math.max(0,(Number(h.skills[i])||0)-1)*perLevel)*(1+gemRate(h,i,0)+bonusFor(i,4,h)/100);};
+skillCooldown=function(i,h=state){return Math.max(GAME_BALANCE.combat.minimumActiveCooldown,CLASSES[h.job].skills[i][3]-bonusFor(i,5,h));};
+procChance=function(i,h=state){const meta=ensureProcSkillMeta(h.job,i);if(!meta)return 0;const level=Math.max(1,Number(h.skills[i])||1),gem=gemRate(h,i,2),affix=bonusFor(i,5,h)*(GAME_BALANCE.affixes.procChancePerPointPercent/100);return Math.min(GAME_BALANCE.combat.statCaps.crit,Math.max(0,meta.procBaseChance+(level-1)*meta.procChancePerLevel+gem+affix));};
 supportAmount=function(job,index){const h=party.members.find(h=>h.job===job),sk=SUPPORT[job][index];return sk.value+Math.max(0,(Number(h.supportLevels[index])||0)-1)*(Number.isFinite(sk.effectPerLevel)?sk.effectPerLevel:GS('skills.support.effectPerExtraLevel',.2));};
 
 claimTutorial=function(){const t=GAMEPLAY_SETTINGS.quests.tutorial;if(state.tutorial===0&&state.bag.length>=RULES.bagCapacity)return toast('背包已滿，請先整理再領取新手護甲');let ok=[state.totalKills>=t.killRequirement,state.bag.some(g=>g.plus>0),state.skills[0]>=t.skillLevelRequirement][state.tutorial];if(!ok)return;state.tutorial++;state.gold+=Math.round(t.rewardGold);state.ore+=Math.round(t.rewardOre);if(state.tutorial===1){addGear(gear(Math.max(1,Math.round(t.armorTier)),Math.max(0,Math.min(3,Math.round(t.armorSlot))),Math.max(0,Math.min(3,Math.round(t.armorQuality))),state.job));}save();render();toast('獲得 '+Math.round(t.rewardGold)+' 金幣與 '+Math.round(t.rewardOre)+' 鍛鐵');};
@@ -3779,7 +4028,7 @@ function update12SalvageRewards(g,includeEnhance=true){const q=gearQualityRank(g
 salvage=function(id){const g=findGear(id);if(!g||g.locked||gearWearer(g.id)||inlineAffixDrafts.has(affixDraftKey(g)))return;const r=update12SalvageRewards(g,true);state.ore+=r.ore;state.dust+=r.dust;state.bag=state.bag.filter(x=>x.id!==id);pruneGearSelections();save();render();};
 confirmMassSalvage=function(){if(!massSalvageIds)return;const items=massSalvageTargets(massSalvageIds),ids=new Set(items.map(g=>g.id)),bag=state.bag,ore=state.ore,dust=state.dust;for(const g of items){const r=update12SalvageRewards(g,true);state.ore+=r.ore;state.dust+=r.dust;}state.bag=state.bag.filter(g=>!ids.has(g.id));if(!save()){state.bag=bag;state.ore=ore;state.dust=dust;return;}massSalvageIds=null;pruneGearSelections();closeModal();render();toast('已分解 '+items.length+' 件裝備');};
 salvageAll=function(){const targets=state.bag.filter(g=>gearQualityRank(g)===0&&(g.plus||0)===0&&!g.affix.length&&g.boss===undefined&&!state.equipped.includes(g.id)&&!g.locked),ids=new Set(targets.map(g=>g.id));for(const g of targets){const r=update12SalvageRewards(g,false);state.ore+=r.ore;state.dust+=r.dust;}state.bag=state.bag.filter(g=>!ids.has(g.id));pruneGearSelections();save();render();toast(`已分解 ${ids.size} 件未養成普通裝備`);};
-addGear=function(g){g.rar=0;const q=gearQualityRank(g);if(typeof collectingBattleGear!=='undefined'&&collectingBattleGear){pendingGearLoot.push(g);note(`獲得 ${AFFIX_RANK[q]} ${equipmentDisplayName(g)}${g.boss!==undefined?'（BOSS 專屬）':''}（待結算）`,'item');if(typeof addExpeditionLoot==='function')addExpeditionLoot(equipmentDisplayName(g),1,q);return;}if(state.bag.length>=RULES.bagCapacity){const r=update12SalvageRewards(g,false);state.ore+=r.ore;state.dust+=r.dust;note('背包已滿，掉落裝備自動分解。','item');}else{state.bag.push(g);note(`獲得 ${AFFIX_RANK[q]} ${equipmentDisplayName(g)}${g.boss!==undefined?'（BOSS 專屬）':''}`,'item');}};
+addGear=function(g){if(!g)return;g.acquiredAt??=Date.now();state.bag.push(g);const q=gearQualityRank(g);note(`獲得 ${AFFIX_RANK[q]} ${equipmentDisplayName(g)}${g.boss!==undefined?'（BOSS 專屬）':''}`,'item');if(state.bag.length>=RULES.bagCapacity){running=false;note('裝備背包已滿：本場掉落已完整保留，探索暫停，請整理背包後繼續。','item');toast('裝備背包已滿，本場掉落已保留；請整理後繼續探索');}};
 
 combatSpeed=function(e){const s=GAMEPLAY_SETTINGS.combat.speed;return Math.round(s.enemyBase+e.lv*s.enemyPerLevel+(s.race[e.race]||0)+(s.kind[e.kind]||0)+(e.difficulty||0)*s.difficultyBonus);};
 resolveHit=function(e,amount,h,element,crit){const v=battleStats(h),cap=GAMEPLAY_SETTINGS.combat.caps,def=e.def*(1-Math.min(cap.fracture,effectTotal(e.id,'fracture')))*(1-v.pierce);let d=Math.max(1,Math.round(amount-def*GS('combat.defenseEffectiveness',.65)));if(crit)d=Math.round(d*v.critDamage);const tonic=activeSupply(h,'elementTonic'),bonus=(v.elementDamage[element]||0)+(element==='physical'?0:v.elementBonus)+(tonic&&tonic.element===element?GS('combat.supply.elementTonicDamage',.2):0);d=Math.max(1,Math.round(d*elementFactor(element,e.element)*(1+bonus)*(1+(v.raceDamage[e.race]||0))*(1+effectTotal(e.id,'vulnerable'))));const actual=Math.min(e.hp,d);e.hp=Math.max(0,e.hp-d);h.hp=Math.min(v.hp,h.hp+actual*v.lifesteal);return actual;};
@@ -3796,10 +4045,10 @@ etherDropChance=function(e){const c=GAMEPLAY_SETTINGS.rewards.ether;if(e.kind===
 awardEther=function(e){if(!party)return;let n=0;const c=GAMEPLAY_SETTINGS.rewards.ether,boss=e.kind==='boss'||e.kind==='final',key=(e.region??party.map)+':'+(e.difficulty||0);party.etherBossClaims??=[];if(boss&&!party.etherBossClaims.includes(key)){const min=Math.round(c.firstBossMin),max=Math.max(min,Math.round(c.firstBossMax));n=min+rand(max-min+1);party.etherBossClaims.push(key);}else if(Math.random()<etherDropChance(e))n=1;if(n){state.materials['以太鍛鐵']=(state.materials['以太鍛鐵']||0)+n;note('獲得以太鍛鐵 ×'+n,'item');}};
 
 const update12VictoryBase=victory;
-victory=function(){let e=enemy;if(!e)return;lastDefeatedEnemy={...e};let mode=e.difficulty||0,d=MODES[mode],mi=e.region??state.map,tier=regionTier(mi),kindIndex=e.kind==='normal'?0:e.kind==='elite'?1:2,r=GAMEPLAY_SETTINGS.rewards,mult=[r.kindMultiplier.normal,r.kindMultiplier.elite,r.kindMultiplier.boss][kindIndex],firstClear=e.kind==='final'&&!state.won;state.totalKills++;state.kills[e.mat]=(state.kills[e.mat]||0)+1;if(!state.discovered.includes(e.mat))state.discovered.push(e.mat);let gold=Math.round((r.gold.base+e.lv*r.gold.perLevel)*mult*d.xp),xp=EmberwildProgression.enemyXp(GAMEPLAY_SETTINGS,e.lv,e.kind,mode);state.gold+=gold;state.ore+=Math.ceil(tier*(kindIndex===0?r.ore.normalKindMultiplier:r.ore.eliteBossKindMultiplier)*d.ore);if(Math.random()<(GAMEPLAY_SETTINGS.difficulty.materialChance[mode]??0)||kindIndex>0){let mat=e.kind==='boss'?bossMaterial(mi,mode):e.mat;state.materials[mat]=(state.materials[mat]||0)+1;note('獲得 '+mat+' ×1');}if(Math.random()<d.equip[kindIndex]){let g=gear(tier,rand(4),Math.random()<r.equipmentQuality.rareChance?2:Math.random()<r.equipmentQuality.fineConditionalChance?1:0);modeAffixes(g,mode);addGear(g);}if(Math.random()<d.rare){let g=gear(tier,rand(4),3);modeAffixes(g,mode);addGear(g);}if(e.kind==='boss'&&mi!==6&&Math.random()<d.boss)addGear(bossGear(mi,state.job,mode));if(Math.random()<d.gem[kindIndex]){let i=rand(3);state.gems[i]++;note('獲得 '+GEMS[i].name);}awardEther(e);if(Math.random()<r.potionDropChance)state.potions++;if(Math.random()<radiantDropChance(e.kind)){state.materials['光輝碎塊']=(state.materials['光輝碎塊']||0)+1;note('獲得極稀有道具：光輝碎塊 ×1');}if(e.kind==='final'){state.won=true;state.modeClears[mode]++;state.materials['日蝕王冠']=1;running=false;}awardXP(xp);state.hp=Math.min(stats().hp,state.hp+stats().hp*r.postVictoryHeal);state.shield=0;note(`擊敗 ${e.name}（${d.name}）· +${xp} EXP、${gold} 金幣`);enemy=null;if(e.kind==='final'){$('modal').innerHTML=`<h1>${firstClear?'等級界限已突破':'再次戰勝噬日者'}</h1><p>${d.name}模式通關。${firstClear?'等級上限提升。':'可繼續探索或挑戰更高難度。'}</p><button class="primary" onclick="closeModal()">繼續旅程</button>`;$('modal').showModal();}save();};solo.victory=victory;
+victory=function(){let e=enemy;if(!e)return;lastDefeatedEnemy={...e};let mode=e.difficulty||0,d=MODES[mode],mi=e.region??state.map,tier=regionTier(mi),kindIndex=e.kind==='normal'?0:e.kind==='elite'?1:2,r=GAMEPLAY_SETTINGS.rewards,mult=[r.kindMultiplier.normal,r.kindMultiplier.elite,r.kindMultiplier.boss][kindIndex],firstClear=e.kind==='final'&&!state.won;state.totalKills++;state.kills[e.mat]=(state.kills[e.mat]||0)+1;if(!state.discovered.includes(e.mat))state.discovered.push(e.mat);let gold=Math.round((r.gold.base+e.lv*r.gold.perLevel)*mult*d.xp),xp=EmberwildProgression.enemyXp(GAMEPLAY_SETTINGS,e.lv,e.kind,mode,party?.members?.[0]?.lv??state?.lv);state.gold+=gold;state.ore+=Math.ceil(tier*(kindIndex===0?r.ore.normalKindMultiplier:r.ore.eliteBossKindMultiplier)*d.ore);if(Math.random()<(GAMEPLAY_SETTINGS.difficulty.materialChance[mode]??0)||kindIndex>0){let mat=e.kind==='boss'?bossMaterial(mi,mode):e.mat;state.materials[mat]=(state.materials[mat]||0)+1;note('獲得 '+mat+' ×1');}if(Math.random()<d.equip[kindIndex]){let g=gear(tier,rand(4),Math.random()<r.equipmentQuality.rareChance?2:Math.random()<r.equipmentQuality.fineConditionalChance?1:0);modeAffixes(g,mode);addGear(g);}if(Math.random()<d.rare){let g=gear(tier,rand(4),3);modeAffixes(g,mode);addGear(g);}if(e.kind==='boss'&&mi!==6&&Math.random()<d.boss)addGear(bossGear(mi,state.job,mode));if(Math.random()<d.gem[kindIndex]){let i=rand(3);state.gems[i]++;note('獲得 '+GEMS[i].name);}awardEther(e);if(Math.random()<r.potionDropChance)state.potions++;if(Math.random()<radiantDropChance(e.kind)){state.materials['光輝碎塊']=(state.materials['光輝碎塊']||0)+1;note('獲得極稀有道具：光輝碎塊 ×1');}if(e.kind==='final'){state.won=true;state.modeClears[mode]++;state.materials['日蝕王冠']=1;running=false;}awardXP(xp);state.hp=Math.min(stats().hp,state.hp+stats().hp*r.postVictoryHeal);state.shield=0;note(`擊敗 ${e.name}（${d.name}）· +${xp} EXP、${gold} 金幣`);enemy=null;if(e.kind==='final'){$('modal').innerHTML=`<h1>${firstClear?'等級界限已突破':'再次戰勝噬日者'}</h1><p>${d.name}模式通關。${firstClear?'等級上限提升。':'可繼續探索或挑戰更高難度。'}</p><button class="primary" onclick="closeModal()">繼續旅程</button>`;$('modal').showModal();}save();};solo.victory=victory;
 rewardGroupKill=function(e){
   if(e.rewarded)return;e.rewarded=true;
-  const members=heroes(),receiver=members[rand(members.length)],isFinal=e.kind==='final',xp=EmberwildProgression.enemyXp(GAMEPLAY_SETTINGS,e.lv,e.kind,e.difficulty||0),hp=receiver.hp,shield=receiver.shield;
+  const members=heroes(),receiver=members[rand(members.length)],isFinal=e.kind==='final',xp=EmberwildProgression.enemyXp(GAMEPLAY_SETTINGS,e.lv,e.kind,e.difficulty||0,party?.members?.[0]?.lv??state?.lv),hp=receiver.hp,shield=receiver.shield;
   const oldAward=awardXP;awardXP=()=>{};enemy=e;partyBusy=true;
   try{withHero(receiver,()=>solo.victory());}finally{awardXP=oldAward;partyBusy=false;receiver.hp=hp;receiver.shield=shield;}
   if(isFinal){party.cleared=true;closeModal();running=true;}
@@ -3851,8 +4100,30 @@ shopView=function(){ensureMarket();const h=pageHero('shop'),pc=Math.round(GS('qu
 const update12RenderBase=render;
 render=function(){update12RenderBase();if(!state)return;const after=GS('progression.levelCaps.afterClear',60),before=GS('progression.levelCaps.beforeClear',30);document.querySelectorAll('.aside-foot .gold').forEach(el=>{el.textContent=state.won?' 已突破 · 上限 LV'+after:'LV'+before+' · 挑戰噬日者';});};
 
-guideView=function(){const g=GAMEPLAY_SETTINGS,c=g.combat,r=g.rewards,e=g.equipment,m=g.monsters;return heading('FIELD NOTES / 冒險指南','目前平衡設定摘要')+`<section class="panel"><h2>成長與戰鬥</h2><p>通關前等級上限 LV${g.progression.levelCaps.beforeClear}，通關後 LV${g.progression.levelCaps.afterClear}。每級獲得 ${g.progression.levelRewards.abilityPoints} 能力點。二轉需求 LV${g.progression.advance.level}。</p><p>基礎暴擊傷害 ${Math.round(c.baseCritDamage*10000)/100}%；防禦係數 ${Math.round(c.defenseEffectiveness*10000)/100}%。一般越級每級增加 ${Math.round(c.levelGapDamagePerLevel*10000)/100}% 敵方傷害。全隊戰敗損失 ${Math.round(c.defeatGoldLoss*10000)/100}% 金幣。</p><h2>遭遇與掉落</h2><p>一般地圖的菁英遭遇率由各地圖 <span class="code">maps.catalog[].eliteChance</span> 決定；BOSS 不會隨機遭遇，而是由擊殺累積 BOSS 挑戰進度。裝備、素材、寶石、消耗品等實際掉落由 <span class="code">drops.entries</span> 逐條判定。</p><h2>裝備與強化</h2><p>裝備背包 ${e.bagCapacity} 件，強化上限 +${e.enhance.maxLevel}，每 +1 的基礎能力增幅 ${Math.round(e.enhance.statPerLevel*10000)/100}%。升到 +${e.enhance.dustStartLevel} 開始消耗粉塵，+${e.enhance.etherStartLevel} 開始消耗以太鍛鐵。</p><div class="actions"><button class="danger" onclick="confirmNew()">建立新角色</button></div></section>`;};
-
+guideView=function(){
+ const g=GAMEPLAY_SETTINGS,p=g.progression,e=g.equipment,c=g.combat,x=p.xpLevelGap,drop=e.dropLevelGap;
+ const xpHint=x?.enabled?`<p>挑戰低等怪物時，高於怪物 ${x.freeLevels} 級以內仍可獲得完整經驗；高出 ${x.midGap} 級時剩 ${Math.round(x.midMultiplier*100)}%、高出 ${x.highGap} 級時剩 ${Math.round(x.highMultiplier*100)}%，高出 ${x.highGap+1} 級以上剩 ${Math.round(x.minimumMultiplier*100)}%。中間等級差逐級遞減，BOSS 也適用。</p>`:'';
+ const dropHint=drop?.enabled?`<p>角色高於地圖最高等級 ${drop.freeLevels} 級後，普通怪與菁英怪的裝備掉落率會逐漸降低，最低為基礎掉落率的 ${Math.round(drop.minimumMultiplier*100)}%。素材與 BOSS 裝備不受這項限制。</p>`:'';
+ return heading('FIELD NOTES / 冒險指南','遊戲系統說明')+`<section class="panel guide-scroll">
+ <h2>角色成長與隊伍</h2>
+ <p>主角透過探索獲得經驗並升級，夥伴等級與主角同步。最多三人出戰，其他夥伴可以留在候補。每次升級獲得 ${p.levelRewards.abilityPoints} 點能力點；LV${p.advance.level} 可以二轉。擊敗界限突破首領後，等級上限由 LV${p.levelCaps.beforeClear} 提升至 LV${p.levelCaps.afterClear}。</p>
+ <p>金幣、素材、消耗品與背包由隊伍共用；角色的技能、配點與穿戴裝備則可分別設定。</p>
+ <h2>探索與戰鬥</h2>
+ <p>開始探索後會自動遭遇並攻擊怪物。普通探索的擊殺可累積地區 BOSS 挑戰進度。技能依裝備的技能槽與冷卻時間使用，普攻觸發技能須配置到觸發槽才會生效。火剋風、風剋冰、冰剋火，光與暗互相剋制。</p>
+ <p>遭遇結束後全隊恢復生命；戰敗會停止探索並損失 ${Math.round(c.defeatGoldLoss*100)}% 金幣。暫停不會回復生命，停止探索則結束目前的掛機。</p>
+ <h2>經驗與戰利品</h2>
+ <p>怪物等級、種類與探索難度會影響獲得的經驗。經驗由出戰隊伍人數分配，再由主角累積並同步夥伴等級；經驗加倍券可額外提高收益。</p>
+ ${xpHint}
+ <p>裝備、素材與其他戰利品依怪物掉落表判定；擊敗怪物取得的裝備會直接放入背包。一般裝備掉率依探索難度不同，詳情可在怪物資訊查看。</p>
+ ${dropHint}
+ <h2>裝備與養成</h2>
+ <p>裝備需符合職業及等級需求。背包最多持有 ${e.bagCapacity} 件裝備，可篩選、排序、鎖定及批次處理。強化最多 +${e.enhance.maxLevel}，能提升裝備能力；洗鍊可重新產生詞條，並選擇採用新結果或保留原詞條。BOSS 專屬裝備可使用對應素材製作。</p>
+ <h2>任務與生活技能</h2>
+ <p>主線、支線、NPC 任務與每日委託會依各自條件推進並提供獎勵。採集會按時間取得材料；煉金則依配方消耗材料製作道具。</p>
+ <h2>存檔與離線探索</h2>
+ <p>遊戲會自動保存進度，也可以匯出存檔備份或移轉裝置。探索進行中關閉網頁，重新進入後會補算離線期間完成的戰鬥與收益；暫停或停止探索的時間不會產生探索收益。</p>
+ </section>`;
+};
 
 // Update 12 views whose original renderers captured old constants before the settings layer existed.
 function update12BossMemberView(){
@@ -3876,6 +4147,14 @@ characterView=function(){let html=update12CharacterViewConsistency(),a=GAMEPLAY_
 // The battle page was composed by earlier wrappers; replace only the stale balance-dependent supply text.
 const update12BattleViewConsistency=battleView;
 battleView=function(){let html=update12BattleViewConsistency(),pc=Math.round(GS('quests.potion.buyCost',75)),pq=Math.round(GS('quests.potion.buyQuantity',5)),th=Math.round(GS('combat.autoPotionThreshold',.35)*10000)/100;return html.replace(/\+\d+ 瓶／\d+ 金幣/g,`+${pq} 瓶／${pc} 金幣`).replace(/低於\d+(?:\.\d+)?%自動喝藥/g,`低於${th}%自動喝藥`);};
+
+// Roaming equipment attenuation is data; all other loot retains the same rates.
+(()=>{
+ GAMEPLAY_SETTINGS_DEFAULTS.equipment.dropLevelGap={enabled:true,freeLevels:5,penaltyPerLevel:.4,minimumMultiplier:.05};
+ const normalizeBase=normalizeGameplaySettings;normalizeGameplaySettings=function(input){const cfg=normalizeBase(input);cfg.equipment.dropLevelGap={enabled:true,freeLevels:5,penaltyPerLevel:.4,minimumMultiplier:.05,...input?.equipment?.dropLevelGap};return cfg;};
+ const validateBase=validateGameplaySettings;validateGameplaySettings=function(input){const cfg=validateBase(input),v=cfg.equipment.dropLevelGap;if(typeof v.enabled!=='boolean'||!Number.isFinite(v.freeLevels)||v.freeLevels<0||!Number.isFinite(v.penaltyPerLevel)||v.penaltyPerLevel<0||!Number.isFinite(v.minimumMultiplier)||v.minimumMultiplier<0||v.minimumMultiplier>1)throw Error('裝備掉落等級差設定無效');return cfg;};
+ GAMEPLAY_SETTINGS=normalizeGameplaySettings(GAMEPLAY_SETTINGS);
+})();
 
 __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;recordEnhancement=globalThis.recordEnhancement??recordEnhancement;
 
@@ -3979,7 +4258,7 @@ spawnGroup=function(){const r=battleStatsSpawnGroupBase();beginBattleStatistics(
 const battleStatsAwardXPBase=awardXP;
 awardXP=function(amount){if(statsRewardingKill&&activeBattleStat)activeBattleStat.xp+=Math.max(0,Math.floor(Number(amount)||0));return battleStatsAwardXPBase(amount);};
 const battleStatsAddGearBase=addGear;
-addGear=function(g){if(statsRewardingKill&&activeBattleStat)addBattleStatDrop(equipmentDisplayName(g),1);return battleStatsAddGearBase(g);};
+addGear=function(g){if(statsRewardingKill&&activeBattleStat)addBattleStatDrop(equipmentDisplayName(g)+(globalThis.EmberwildTokens?.isToken(g)?' · '+AFFIX_RANK[g.rar]:''),1);return battleStatsAddGearBase(g);};
 const battleStatsRewardGroupKillBase=rewardGroupKill;
 rewardGroupKill=function(e){if(e?.rewarded)return;const before=battleStatLootSnapshot();statsRewardingKill=true;try{return battleStatsRewardGroupKillBase(e);}finally{statsRewardingKill=false;collectBattleStatLootDiff(before,battleStatLootSnapshot());}};
 const battleStatsEnemyBasicBase=performEnemyBasic;
@@ -4027,7 +4306,7 @@ if(state&&party){
   ensureBattleStatistics();save();render();
 }
 
-
+EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
 
 /* js/combat/action-turn-cooldown.js */
 
@@ -4067,25 +4346,76 @@ affixLabel=function(a,g){
 };
 /* Keep the unified equipment filter model; affix type 16 needs no separate filter override. */
 function allSkillCooldownReduction(h=state){return equipment(h).filter(g=>g.job===h.job||g.slot===1).flatMap(g=>g.affix||[]).filter(a=>a.type===16).reduce((n,a)=>n+(Number(a.value)||0),0);}
-skillCooldown=function(i,h=state){return Math.max(GAME_BALANCE.combat.minimumActiveCooldown,CLASSES[h.job].skills[i][3]-(h.sockets[i]===1?GS('skills.gems.cooldownReduction',1):0)-bonusFor(i,5,h)-allSkillCooldownReduction(h));};
+skillCooldown=function(i,h=state){return Math.max(GAME_BALANCE.combat.minimumActiveCooldown,CLASSES[h.job].skills[i][3]-bonusFor(i,5,h)-allSkillCooldownReduction(h));};
 function supportSkillCooldown(h,index){return Math.max(1,Math.round(SUPPORT[h.job][index].cooldown-allSkillCooldownReduction(h)));}
 function tickHeroCooldowns(h){for(const key of Object.keys(actorCooldowns))if(key.startsWith(memberKey(h)+'-'))actorCooldowns[key]=Math.max(0,Math.floor(actorCooldowns[key])-1);for(const key of Object.keys(supportCooldowns))if(key.startsWith(memberKey(h)+'-'))supportCooldowns[key]=Math.max(0,Math.floor(supportCooldowns[key])-1);}
 function cooldownLeft(cds,key){return Math.max(0,Math.floor(cds[key]||0));}
 globalThis.performEnemyActionCore ??= (e=>performEnemyBasic(e));
 function performEnemyAction(e){return globalThis.performEnemyActionCore(e);}
-pacedRound=function*(){if(!party||!running||$('modal').open)return;currentEvents=[];lastActionOrder=[];actionVisualTime=Date.now();partyClock++;round++;effects=effects.filter(e=>e.until>partyClock);if(!foes.some(e=>e.hp>0)){spawnGroup();if(tab==='battle'||!isEditingControl())render();else refreshGlobalJournal();return;}for(const h of living()){const v=battleStats(h),regen=effectTotal(heroKey(h),'regen'),beforeRegen=h.hp;h.hp=Math.min(v.hp,h.hp+v.hp*regen);const regenHealed=Math.max(0,h.hp-beforeRegen);if(regenHealed>0)recordRegenContribution(h,regenHealed);if(h.autoPotion&&h.hp<v.hp*GS('combat.autoPotionThreshold',.35)&&h.potions>0)withHero(h,()=>potion(true));}const order=initiativeOrder();for(const unit of order){if(!living().length||!foes.some(e=>e.hp>0))break;if(unit.actor.hp<=0)continue;if(unit.side==='hero'){const h=unit.actor,readySupport=h.supportSlots.filter(i=>i!==null&&cooldownLeft(supportCooldowns,memberKey(h)+'-'+i)<=0),readyActive=h.active.filter(i=>i!==null&&cooldownLeft(actorCooldowns,memberKey(h)+'-'+i)<=0);tickHeroCooldowns(h);for(const i of readySupport){const key=memberKey(h)+'-'+i;if(castSupport(h,i)!==false){recordAction(heroKey(h),characterName(h),'輔助');supportCooldowns[key]=supportSkillCooldown(h,i);yield;if(!living().length||!foes.some(e=>e.hp>0))break;}}let actionTaken=false;for(const i of readyActive){if(!foes.some(e=>e.hp>0))break;const key=memberKey(h)+'-'+i;if(castPartySkill(h,i,battleStats(h))!==false){actorCooldowns[key]=Math.max(0,Math.round(skillCooldown(i,h)));recordAction(heroKey(h),characterName(h),'技能');actionTaken=true;yield;break;}}if(actionTaken)continue;if(singleTargetEnemyPool().length){recordAction(unit.id,characterName(h),'普攻');performHeroBasic(h);yield;}}else{const label=typeof sharedEnemyActionLabel==='function'?sharedEnemyActionLabel(unit.actor):'攻擊';recordAction(unit.id,unit.actor.name,label);performEnemyAction(unit.actor);yield;}}for(const e of foes)if(e.hp<=0)rewardGroupKill(e);if(!living().length){running=false;party.members[0].gold-=Math.floor(party.members[0].gold*GS('combat.defeatGoldLoss',.05));for(const h of heroes())h.shield=0;note('全隊戰敗，帳號失去 '+Math.round(GS('combat.defeatGoldLoss',.05)*10000)/100+'% 金幣。生命已全滿。');refillParty();foes=[];enemy=null;}else if(!foes.some(e=>e.hp>0)){refillParty();note('本次遭遇勝利，全隊生命已回滿。');if(foes.some(e=>e.kind==='final')){running=false;note('噬日者已倒下！LV30 成員解鎖 LV60，其他成員達 LV30 時解鎖。');}}save();if(tab==='battle'||!isEditingControl())render();else refreshGlobalJournal();if(activeBattleStat){if(activeBattleStat.pendingOutcome==='wipe')finalizeBattleStatistics('wipe');else if(foes.length&&foes.every(e=>e.hp<=0))finalizeBattleStatistics('victory');}};
+// The same generator drives visible and offline actions. Its cursor contains
+// only IDs and indices, so a save can resume between any two yielded actions.
+let combatRoundProgress=null;
+pacedRound=function*(){
+ if(!party||!running||$('modal').open)return;
+ if(!combatRoundProgress){
+  currentEvents=[];lastActionOrder=[];actionVisualTime=Date.now();partyClock++;round++;
+  effects=effects.filter(e=>e.until>partyClock);
+  if(!foes.some(e=>e.hp>0)){spawnGroup();if(tab==='battle'||!isEditingControl())render();else refreshGlobalJournal();return;}
+  for(const h of living()){
+   const v=battleStats(h),regen=effectTotal(heroKey(h),'regen'),beforeRegen=h.hp;
+   h.hp=Math.min(v.hp,h.hp+v.hp*regen);
+   const regenHealed=Math.max(0,h.hp-beforeRegen);if(regenHealed>0)recordRegenContribution(h,regenHealed);
+   if(h.autoPotion&&h.hp<v.hp*GS('combat.autoPotionThreshold',.35)&&h.potions>0)withHero(h,()=>potion(true));
+  }
+  combatRoundProgress={order:initiativeOrder().map(u=>({side:u.side,id:u.id})),index:0,unit:null};
+ }
+ const p=combatRoundProgress;
+ while(p.index<p.order.length){
+  if(!living().length||!foes.some(e=>e.hp>0))break;
+  const ref=p.order[p.index],actor=ref.side==='hero'?heroes().find(h=>heroKey(h)===ref.id):foes.find(e=>e.id===ref.id);
+  if(!actor||actor.hp<=0){p.index++;p.unit=null;continue;}
+  if(ref.side==='hero'){
+   const h=actor;
+   if(!p.unit){
+    p.unit={support:h.supportSlots.filter(i=>i!==null&&cooldownLeft(supportCooldowns,memberKey(h)+'-'+i)<=0),active:h.active.filter(i=>i!==null&&cooldownLeft(actorCooldowns,memberKey(h)+'-'+i)<=0),index:0};
+    tickHeroCooldowns(h);
+   }
+   const u=p.unit;
+   while(u.index<u.support.length){
+    const i=u.support[u.index++],key=memberKey(h)+'-'+i;
+    if(castSupport(h,i)!==false){recordAction(heroKey(h),characterName(h),'輔助');supportCooldowns[key]=globalThis.__EMBERWILD_EQUIPMENT_SKILLS?.supportCooldownOnCast(h,i)??supportSkillCooldown(h,i);yield;if(!living().length||!foes.some(e=>e.hp>0))break;}
+   }
+   if(!living().length||!foes.some(e=>e.hp>0))break;
+   let actionTaken=false;
+   for(const i of u.active){
+    if(!foes.some(e=>e.hp>0))break;
+    if(castPartySkill(h,i,battleStats(h))!==false){actorCooldowns[memberKey(h)+'-'+i]=Math.max(0,Math.round(gemCooldownOnCast(i,h)));recordAction(heroKey(h),characterName(h),'技能');actionTaken=true;break;}
+   }
+   p.index++;p.unit=null;
+   if(actionTaken){yield;continue;}
+   if(singleTargetEnemyPool().length){recordAction(ref.id,characterName(h),'普攻');performHeroBasic(h);yield;}
+  }else{
+   const label=typeof sharedEnemyActionLabel==='function'?sharedEnemyActionLabel(actor):'攻擊';
+   recordAction(ref.id,actor.name,label);performEnemyAction(actor);p.index++;p.unit=null;yield;
+  }
+ }
+ combatRoundProgress=null;
+ for(const e of foes)if(e.hp<=0)rewardGroupKill(e);if(!living().length){running=false;party.members[0].gold-=Math.floor(party.members[0].gold*GS('combat.defeatGoldLoss',.05));for(const h of heroes())h.shield=0;note('全隊戰敗，帳號失去 '+Math.round(GS('combat.defeatGoldLoss',.05)*10000)/100+'% 金幣。生命已全滿。');refillParty();foes=[];enemy=null;}else if(!foes.some(e=>e.hp>0)){refillParty();note('本次遭遇勝利，全隊生命已回滿。');if(foes.some(e=>e.kind==='final')){running=false;note('噬日者已倒下！LV30 成員解鎖 LV60，其他成員達 LV30 時解鎖。');}}save();if(tab==='battle'||!isEditingControl())render();else refreshGlobalJournal();if(activeBattleStat){if(activeBattleStat.pendingOutcome==='wipe')finalizeBattleStatistics('wipe');else if(foes.length&&foes.every(e=>e.hp<=0))finalizeBattleStatistics('victory');}
+};
+const resumableRoundReset=resetEncounter;
+resetEncounter=function(){combatRoundProgress=null;return resumableRoundReset();};
 function actionTurnElementLabel(element){return element==='physical'?'無屬性':`${ELEMENTS[element]}屬性`;}
 coreSkillDetail=function(job,i,h=state){const sk=CLASSES[job]?.skills?.[i];if(!sk)return '';const old=state;if(h&&h!==state)state=h;let power=0,cdText='',proc=0;try{power=Math.round(skillPower(i,h)*100);if(sk[1]==='active')cdText=`冷卻 ${skillCooldown(i,h)} 回合`;else{proc=Math.round(procChance(i,h)*100);cdText=`普攻觸發率 ${proc}% · 冷卻 無`;}}finally{state=old;}const effectLabel={damage:'傷害倍率',heal:'治療倍率',shield:'護盾倍率',drain:'傷害／吸血倍率'}[sk[5]]||'效果倍率';return `${actionTurnElementLabel(coreSkillElement(job,i))} · ${effectLabel} ${power}% · 目標 ${coreSkillTargetText(sk)} · ${cdText} · 需求 LV${sk[2]}${skillRequiresAdvanced(sk,i)?'／二轉':''}`;};
 supportSkillDetail=function(job,i,h=state){const sk=SUPPORT[job]?.[i];if(!sk)return '';const level=Math.max(1,h?.supportLevels?.[i]||1),value=+((sk.value+Math.max(0,level-1)*(Number.isFinite(sk.effectPerLevel)?sk.effectPerLevel:GS('skills.support.effectPerExtraLevel',.2)))*100).toFixed(1),cd=supportSkillCooldown(h,i);return `${actionTurnElementLabel(sk.element)} · 目標 ${TARGET_NAMES[sk.target]} · ${EFFECT_NAMES[sk.kind]} ${value}% · 持續 ${sk.duration} 戰鬥回合 · 冷卻 ${cd} 回合 · 需求 LV${sk.level}${i===2?'／二轉':''}`;};
 const actionTurnApplyGameplaySettingsBase=applyGameplaySettingsSideEffects;
-applyGameplaySettingsSideEffects=function(){actionTurnApplyGameplaySettingsBase();GEMS[1].desc='主動技能冷卻 −'+GS('skills.gems.cooldownReduction',1)+' 回合（最低 '+GAME_BALANCE.combat.minimumActiveCooldown+'）／觸發率 +'+Math.round(GS('skills.gems.cooldownProcBonus',.10)*10000)/100+'%';};
+applyGameplaySettingsSideEffects=function(){actionTurnApplyGameplaySettingsBase();};
 applyGameplaySettingsSideEffects();
 const actionTurnGuideBase=guideView;
 guideView=function(){return `<section class="panel"><h2>行動回合冷卻</h2><p>主動與輔助技能的冷卻只在該角色自己的行動回合推進；冷卻 N 代表施放後要完整經過 N 次自身行動，之後才能再次施放。其他隊員與敵人行動不會扣除冷卻，戰鬥倍速也只改變播放速度。</p><p>每個角色自己的行動中，輔助技能不消耗主要行動；輔助處理完後，最多只會施放 1 個可用主動技能，若沒有主動技能可施放才會普通攻擊。主動技能或普通攻擊一旦執行，就結束該角色本回合。</p><p>主動技能最低冷卻為 ${GAME_BALANCE.combat.minimumActiveCooldown} 回合；因此 1 回合冷卻時，至少會隔一個自己的行動回合才再次施放。裝備的全技能冷卻詞條與指定技能冷卻詞條可同時生效。</p></section>`+actionTurnGuideBase();};
 try{GAMEPLAY_SETTINGS=normalizeGameplaySettings(GAMEPLAY_SETTINGS);globalThis.__EMBERWILD_GAMEPLAY_SETTINGS=GAMEPLAY_SETTINGS;applyGameplaySettingsSideEffects();}catch(e){console.warn('行動回合設定初始化失敗',e);}
 if(state&&party){resetEncounter();save();render();}
 
-__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;performEnemyActionCore=globalThis.performEnemyActionCore??performEnemyActionCore;
+__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;performEnemyActionCore=globalThis.performEnemyActionCore??performEnemyActionCore;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;
 
 /* js/world/monster-design-model.js */
 /* Shared rules for configurable monster roles and BOSS-stage lineups. */
@@ -4144,7 +4474,7 @@ EmberwildMonsterDesign=globalThis.EmberwildMonsterDesign??EmberwildMonsterDesign
 
 /* Update 15: data-driven monster catalog, per-monster drop tables and drop-rate affixes. */
 const DEFAULT_MONSTER_CATALOG=[{"id":"map0_mob0","name":"苔原史萊姆","mapIndex":0,"kind":"normal","material":"黏稠凝膠","element":"wind","race":"spirit","maxDrops":99},{"id":"map0_mob1","name":"林間野狼","mapIndex":0,"kind":"normal","material":"完整狼牙","element":"wind","race":"beast","maxDrops":99},{"id":"map0_mob2","name":"迷路樹精","mapIndex":0,"kind":"normal","material":"活性樹芯","element":"wind","race":"plant","maxDrops":99},{"id":"map0_boss","name":"古木守望者","mapIndex":0,"kind":"boss","material":"古木年輪","element":"wind","race":"plant","maxDrops":99},{"id":"map1_mob0","name":"洞穴蝙蝠","mapIndex":1,"kind":"normal","material":"薄翼膜","element":"physical","race":"beast","maxDrops":99},{"id":"map1_mob1","name":"岩背蜥蜴","mapIndex":1,"kind":"normal","material":"堅硬石鱗","element":"physical","race":"beast","maxDrops":99},{"id":"map1_mob2","name":"礦坑魔偶","mapIndex":1,"kind":"normal","material":"魔偶齒輪","element":"physical","race":"construct","maxDrops":99},{"id":"map1_boss","name":"礦脈巨人","mapIndex":1,"kind":"boss","material":"礦脈之心","element":"physical","race":"construct","maxDrops":99},{"id":"map2_mob0","name":"劇毒蛙","mapIndex":2,"kind":"normal","material":"劇毒腺體","element":"shadow","race":"beast","maxDrops":99},{"id":"map2_mob1","name":"幽光飛蛾","mapIndex":2,"kind":"normal","material":"微光鱗粉","element":"shadow","race":"spirit","maxDrops":99},{"id":"map2_mob2","name":"沼地亡魂","mapIndex":2,"kind":"normal","material":"怨念碎片","element":"shadow","race":"undead","maxDrops":99},{"id":"map2_boss","name":"泥沼女巫","mapIndex":2,"kind":"boss","material":"女巫符印","element":"shadow","race":"undead","maxDrops":99},{"id":"map3_mob0","name":"霜牙雪狼","mapIndex":3,"kind":"normal","material":"霜牙","element":"ice","race":"beast","maxDrops":99},{"id":"map3_mob1","name":"冰晶妖精","mapIndex":3,"kind":"normal","material":"冰晶翅片","element":"ice","race":"spirit","maxDrops":99},{"id":"map3_mob2","name":"雪原巨熊","mapIndex":3,"kind":"normal","material":"厚暖熊皮","element":"ice","race":"beast","maxDrops":99},{"id":"map3_boss","name":"凜冬巨獸","mapIndex":3,"kind":"boss","material":"永凍結晶","element":"ice","race":"beast","maxDrops":99},{"id":"map4_mob0","name":"熔岩蟲","mapIndex":4,"kind":"normal","material":"灼熱甲殼","element":"fire","race":"beast","maxDrops":99},{"id":"map4_mob1","name":"火羽渡鴉","mapIndex":4,"kind":"normal","material":"不熄火羽","element":"fire","race":"beast","maxDrops":99},{"id":"map4_mob2","name":"失控鎧甲","mapIndex":4,"kind":"normal","material":"焦黑鋼片","element":"fire","race":"construct","maxDrops":99},{"id":"map4_boss","name":"熔爐暴君","mapIndex":4,"kind":"boss","material":"熔核","element":"fire","race":"demon","maxDrops":99},{"id":"map5_mob0","name":"虛空獵犬","mapIndex":5,"kind":"normal","material":"虛空尖牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map5_mob1","name":"星塵水母","mapIndex":5,"kind":"normal","material":"星塵觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map5_mob2","name":"墜星魔像","mapIndex":5,"kind":"normal","material":"隕鐵核心","element":"shadow","race":"construct","maxDrops":99},{"id":"map5_boss","name":"星隕監視者","mapIndex":5,"kind":"boss","material":"星隕稜鏡","element":"shadow","race":"construct","maxDrops":99},{"id":"map6_boss","name":"噬日者・厄爾","mapIndex":6,"kind":"final","material":"日蝕王冠","element":"shadow","race":"demon","maxDrops":99},{"id":"map7_mob0","name":"覺醒・苔原史萊姆","mapIndex":7,"kind":"normal","material":"覺醒黏稠凝膠","element":"wind","race":"spirit","maxDrops":99},{"id":"map7_mob1","name":"覺醒・林間野狼","mapIndex":7,"kind":"normal","material":"覺醒完整狼牙","element":"wind","race":"beast","maxDrops":99},{"id":"map7_mob2","name":"覺醒・迷路樹精","mapIndex":7,"kind":"normal","material":"覺醒活性樹芯","element":"wind","race":"plant","maxDrops":99},{"id":"map7_boss","name":"覺醒・古木守望者","mapIndex":7,"kind":"boss","material":"覺醒古木年輪","element":"wind","race":"plant","maxDrops":99},{"id":"map8_mob0","name":"覺醒・洞穴蝙蝠","mapIndex":8,"kind":"normal","material":"覺醒薄翼膜","element":"physical","race":"beast","maxDrops":99},{"id":"map8_mob1","name":"覺醒・岩背蜥蜴","mapIndex":8,"kind":"normal","material":"覺醒堅硬石鱗","element":"physical","race":"beast","maxDrops":99},{"id":"map8_mob2","name":"覺醒・礦坑魔偶","mapIndex":8,"kind":"normal","material":"覺醒魔偶齒輪","element":"physical","race":"construct","maxDrops":99},{"id":"map8_boss","name":"覺醒・礦脈巨人","mapIndex":8,"kind":"boss","material":"覺醒礦脈之心","element":"physical","race":"construct","maxDrops":99},{"id":"map9_mob0","name":"覺醒・劇毒蛙","mapIndex":9,"kind":"normal","material":"覺醒劇毒腺體","element":"shadow","race":"beast","maxDrops":99},{"id":"map9_mob1","name":"覺醒・幽光飛蛾","mapIndex":9,"kind":"normal","material":"覺醒微光鱗粉","element":"shadow","race":"spirit","maxDrops":99},{"id":"map9_mob2","name":"覺醒・沼地亡魂","mapIndex":9,"kind":"normal","material":"覺醒怨念碎片","element":"shadow","race":"undead","maxDrops":99},{"id":"map9_boss","name":"覺醒・泥沼女巫","mapIndex":9,"kind":"boss","material":"覺醒女巫符印","element":"shadow","race":"undead","maxDrops":99},{"id":"map10_mob0","name":"覺醒・霜牙雪狼","mapIndex":10,"kind":"normal","material":"覺醒霜牙","element":"ice","race":"beast","maxDrops":99},{"id":"map10_mob1","name":"覺醒・冰晶妖精","mapIndex":10,"kind":"normal","material":"覺醒冰晶翅片","element":"ice","race":"spirit","maxDrops":99},{"id":"map10_mob2","name":"覺醒・雪原巨熊","mapIndex":10,"kind":"normal","material":"覺醒厚暖熊皮","element":"ice","race":"beast","maxDrops":99},{"id":"map10_boss","name":"覺醒・凜冬巨獸","mapIndex":10,"kind":"boss","material":"覺醒永凍結晶","element":"ice","race":"beast","maxDrops":99},{"id":"map11_mob0","name":"覺醒・熔岩蟲","mapIndex":11,"kind":"normal","material":"覺醒灼熱甲殼","element":"fire","race":"beast","maxDrops":99},{"id":"map11_mob1","name":"覺醒・火羽渡鴉","mapIndex":11,"kind":"normal","material":"覺醒不熄火羽","element":"fire","race":"beast","maxDrops":99},{"id":"map11_mob2","name":"覺醒・失控鎧甲","mapIndex":11,"kind":"normal","material":"覺醒焦黑鋼片","element":"fire","race":"construct","maxDrops":99},{"id":"map11_boss","name":"覺醒・熔爐暴君","mapIndex":11,"kind":"boss","material":"覺醒熔核","element":"fire","race":"demon","maxDrops":99},{"id":"map12_mob0","name":"覺醒・虛空獵犬","mapIndex":12,"kind":"normal","material":"覺醒虛空尖牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map12_mob1","name":"覺醒・星塵水母","mapIndex":12,"kind":"normal","material":"覺醒星塵觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map12_mob2","name":"覺醒・墜星魔像","mapIndex":12,"kind":"normal","material":"覺醒隕鐵核心","element":"shadow","race":"construct","maxDrops":99},{"id":"map12_boss","name":"覺醒・星隕監視者","mapIndex":12,"kind":"boss","material":"覺醒星隕稜鏡","element":"shadow","race":"construct","maxDrops":99},{"id":"map13_mob0","name":"燼翼火蛾","mapIndex":13,"kind":"normal","material":"燼翼粉","element":"fire","race":"spirit","maxDrops":99},{"id":"map13_mob1","name":"赤鬃山狼","mapIndex":13,"kind":"normal","material":"赤鬃毛皮","element":"fire","race":"beast","maxDrops":99},{"id":"map13_mob2","name":"焦根樹人","mapIndex":13,"kind":"normal","material":"焦根木髓","element":"fire","race":"plant","maxDrops":99},{"id":"map13_mob3","name":"炭殼魔偶","mapIndex":13,"kind":"normal","material":"炭殼碎片","element":"fire","race":"construct","maxDrops":99},{"id":"map13_boss","name":"赤楓炎靈","mapIndex":13,"kind":"boss","material":"炎靈心木","element":"fire","race":"spirit","maxDrops":99},{"id":"map14_mob0","name":"潮影蝙蝠","mapIndex":14,"kind":"normal","material":"潮影翼膜","element":"ice","race":"beast","maxDrops":99},{"id":"map14_mob1","name":"寒潮蜥蜴","mapIndex":14,"kind":"normal","material":"寒潮腺體","element":"ice","race":"beast","maxDrops":99},{"id":"map14_mob2","name":"海霧幽魂","mapIndex":14,"kind":"normal","material":"海霧結珠","element":"ice","race":"undead","maxDrops":99},{"id":"map14_mob3","name":"鹽晶魔像","mapIndex":14,"kind":"normal","material":"鹽晶塊","element":"ice","race":"construct","maxDrops":99},{"id":"map14_boss","name":"潮汐巨像","mapIndex":14,"kind":"boss","material":"深潮齒輪","element":"ice","race":"construct","maxDrops":99},{"id":"map15_mob0","name":"墓園亡魂","mapIndex":15,"kind":"normal","material":"亡者殘響","element":"shadow","race":"undead","maxDrops":99},{"id":"map15_mob1","name":"噬骨獵犬","mapIndex":15,"kind":"normal","material":"噬骨獠牙","element":"shadow","race":"beast","maxDrops":99},{"id":"map15_mob2","name":"墓火飛蛾","mapIndex":15,"kind":"normal","material":"墓火鱗片","element":"shadow","race":"spirit","maxDrops":99},{"id":"map15_mob3","name":"腐枝守衛","mapIndex":15,"kind":"normal","material":"腐枝黑核","element":"shadow","race":"plant","maxDrops":99},{"id":"map15_boss","name":"白骨巫后","mapIndex":15,"kind":"boss","material":"巫后骨印","element":"shadow","race":"undead","maxDrops":99},{"id":"map16_mob0","name":"雷牙蒼狼","mapIndex":16,"kind":"normal","material":"雷牙","element":"wind","race":"beast","maxDrops":99},{"id":"map16_mob1","name":"風暴妖精","mapIndex":16,"kind":"normal","material":"風暴晶羽","element":"wind","race":"spirit","maxDrops":99},{"id":"map16_mob2","name":"雷殼魔偶","mapIndex":16,"kind":"normal","material":"雷殼銅片","element":"wind","race":"construct","maxDrops":99},{"id":"map16_mob3","name":"高地巨熊","mapIndex":16,"kind":"normal","material":"高地熊膽","element":"wind","race":"beast","maxDrops":99},{"id":"map16_boss","name":"雷鳴獸王","mapIndex":16,"kind":"boss","material":"獸王雷角","element":"wind","race":"beast","maxDrops":99},{"id":"map17_mob0","name":"聖樹幼靈","mapIndex":17,"kind":"normal","material":"聖樹芽核","element":"light","race":"plant","maxDrops":99},{"id":"map17_mob1","name":"晶光妖精","mapIndex":17,"kind":"normal","material":"晶光翼","element":"light","race":"spirit","maxDrops":99},{"id":"map17_mob2","name":"聖羽渡鴉","mapIndex":17,"kind":"normal","material":"聖羽","element":"light","race":"beast","maxDrops":99},{"id":"map17_mob3","name":"失序聖鎧","mapIndex":17,"kind":"normal","material":"聖鎧殘片","element":"light","race":"construct","maxDrops":99},{"id":"map17_boss","name":"聖所守護者","mapIndex":17,"kind":"boss","material":"聖所徽核","element":"light","race":"construct","maxDrops":99},{"id":"map18_mob0","name":"冥界獵犬","mapIndex":18,"kind":"normal","material":"冥犬黑牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map18_mob1","name":"幽影水母","mapIndex":18,"kind":"normal","material":"幽影觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map18_mob2","name":"黑曜魔像","mapIndex":18,"kind":"normal","material":"黑曜脊核","element":"shadow","race":"construct","maxDrops":99},{"id":"map18_mob3","name":"游蕩冤魂","mapIndex":18,"kind":"normal","material":"邊境魂塵","element":"shadow","race":"undead","maxDrops":99},{"id":"map18_boss","name":"幽冥觀測者","mapIndex":18,"kind":"boss","material":"冥視之瞳","element":"shadow","race":"demon","maxDrops":99},{"id":"map19_mob0","name":"上古・燼翼火蛾","mapIndex":19,"kind":"normal","material":"上古燼翼粉","element":"fire","race":"spirit","maxDrops":99},{"id":"map19_mob1","name":"上古・赤鬃山狼","mapIndex":19,"kind":"normal","material":"上古赤鬃毛皮","element":"fire","race":"beast","maxDrops":99},{"id":"map19_mob2","name":"上古・焦根樹人","mapIndex":19,"kind":"normal","material":"上古焦根木髓","element":"fire","race":"plant","maxDrops":99},{"id":"map19_mob3","name":"上古・炭殼魔偶","mapIndex":19,"kind":"normal","material":"上古炭殼碎片","element":"fire","race":"construct","maxDrops":99},{"id":"map19_boss","name":"上古・赤楓炎靈","mapIndex":19,"kind":"boss","material":"上古炎靈心木","element":"fire","race":"spirit","maxDrops":99},{"id":"map20_mob0","name":"上古・潮影蝙蝠","mapIndex":20,"kind":"normal","material":"上古潮影翼膜","element":"ice","race":"beast","maxDrops":99},{"id":"map20_mob1","name":"上古・寒潮蜥蜴","mapIndex":20,"kind":"normal","material":"上古寒潮腺體","element":"ice","race":"beast","maxDrops":99},{"id":"map20_mob2","name":"上古・海霧幽魂","mapIndex":20,"kind":"normal","material":"上古海霧結珠","element":"ice","race":"undead","maxDrops":99},{"id":"map20_mob3","name":"上古・鹽晶魔像","mapIndex":20,"kind":"normal","material":"上古鹽晶塊","element":"ice","race":"construct","maxDrops":99},{"id":"map20_boss","name":"上古・潮汐巨像","mapIndex":20,"kind":"boss","material":"上古深潮齒輪","element":"ice","race":"construct","maxDrops":99},{"id":"map21_mob0","name":"上古・墓園亡魂","mapIndex":21,"kind":"normal","material":"上古亡者殘響","element":"shadow","race":"undead","maxDrops":99},{"id":"map21_mob1","name":"上古・噬骨獵犬","mapIndex":21,"kind":"normal","material":"上古噬骨獠牙","element":"shadow","race":"beast","maxDrops":99},{"id":"map21_mob2","name":"上古・墓火飛蛾","mapIndex":21,"kind":"normal","material":"上古墓火鱗片","element":"shadow","race":"spirit","maxDrops":99},{"id":"map21_mob3","name":"上古・腐枝守衛","mapIndex":21,"kind":"normal","material":"上古腐枝黑核","element":"shadow","race":"plant","maxDrops":99},{"id":"map21_boss","name":"上古・白骨巫后","mapIndex":21,"kind":"boss","material":"上古巫后骨印","element":"shadow","race":"undead","maxDrops":99},{"id":"map22_mob0","name":"上古・雷牙蒼狼","mapIndex":22,"kind":"normal","material":"上古雷牙","element":"wind","race":"beast","maxDrops":99},{"id":"map22_mob1","name":"上古・風暴妖精","mapIndex":22,"kind":"normal","material":"上古風暴晶羽","element":"wind","race":"spirit","maxDrops":99},{"id":"map22_mob2","name":"上古・雷殼魔偶","mapIndex":22,"kind":"normal","material":"上古雷殼銅片","element":"wind","race":"construct","maxDrops":99},{"id":"map22_mob3","name":"上古・高地巨熊","mapIndex":22,"kind":"normal","material":"上古高地熊膽","element":"wind","race":"beast","maxDrops":99},{"id":"map22_boss","name":"上古・雷鳴獸王","mapIndex":22,"kind":"boss","material":"上古獸王雷角","element":"wind","race":"beast","maxDrops":99},{"id":"map23_mob0","name":"上古・聖樹幼靈","mapIndex":23,"kind":"normal","material":"上古聖樹芽核","element":"light","race":"plant","maxDrops":99},{"id":"map23_mob1","name":"上古・晶光妖精","mapIndex":23,"kind":"normal","material":"上古晶光翼","element":"light","race":"spirit","maxDrops":99},{"id":"map23_mob2","name":"上古・聖羽渡鴉","mapIndex":23,"kind":"normal","material":"上古聖羽","element":"light","race":"beast","maxDrops":99},{"id":"map23_mob3","name":"上古・失序聖鎧","mapIndex":23,"kind":"normal","material":"上古聖鎧殘片","element":"light","race":"construct","maxDrops":99},{"id":"map23_boss","name":"上古・聖所守護者","mapIndex":23,"kind":"boss","material":"上古聖所徽核","element":"light","race":"construct","maxDrops":99},{"id":"map24_mob0","name":"上古・冥界獵犬","mapIndex":24,"kind":"normal","material":"上古冥犬黑牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map24_mob1","name":"上古・幽影水母","mapIndex":24,"kind":"normal","material":"上古幽影觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map24_mob2","name":"上古・黑曜魔像","mapIndex":24,"kind":"normal","material":"上古黑曜脊核","element":"shadow","race":"construct","maxDrops":99},{"id":"map24_mob3","name":"上古・游蕩冤魂","mapIndex":24,"kind":"normal","material":"上古邊境魂塵","element":"shadow","race":"undead","maxDrops":99},{"id":"map24_boss","name":"上古・幽冥觀測者","mapIndex":24,"kind":"boss","material":"上古冥視之瞳","element":"shadow","race":"demon","maxDrops":99}];
-const DEFAULT_DROP_ENTRIES=[{"id":"map0_mob0_material_normal","name":"黏稠凝膠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"map0_mob0_material_elite","name":"黏稠凝膠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"map0_mob1_material_normal","name":"完整狼牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"map0_mob1_material_elite","name":"完整狼牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"map0_mob2_material_normal","name":"活性樹芯","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"map0_mob2_material_elite","name":"活性樹芯（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"map0_boss_material","name":"古木年輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_boss"]},{"id":"map1_mob0_material_normal","name":"薄翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map1_mob0"]},{"id":"map1_mob0_material_elite","name":"薄翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob0"]},{"id":"map1_mob1_material_normal","name":"堅硬石鱗","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map1_mob1"]},{"id":"map1_mob1_material_elite","name":"堅硬石鱗（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob1"]},{"id":"map1_mob2_material_normal","name":"魔偶齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map1_mob2"]},{"id":"map1_mob2_material_elite","name":"魔偶齒輪（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob2"]},{"id":"map1_boss_material","name":"礦脈之心","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map1_boss"]},{"id":"map2_mob0_material_normal","name":"劇毒腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map2_mob0"]},{"id":"map2_mob0_material_elite","name":"劇毒腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob0"]},{"id":"map2_mob1_material_normal","name":"微光鱗粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map2_mob1"]},{"id":"map2_mob1_material_elite","name":"微光鱗粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob1"]},{"id":"map2_mob2_material_normal","name":"怨念碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map2_mob2"]},{"id":"map2_mob2_material_elite","name":"怨念碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob2"]},{"id":"map2_boss_material","name":"女巫符印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map2_boss"]},{"id":"map3_mob0_material_normal","name":"霜牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map3_mob0"]},{"id":"map3_mob0_material_elite","name":"霜牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob0"]},{"id":"map3_mob1_material_normal","name":"冰晶翅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map3_mob1"]},{"id":"map3_mob1_material_elite","name":"冰晶翅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob1"]},{"id":"map3_mob2_material_normal","name":"厚暖熊皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map3_mob2"]},{"id":"map3_mob2_material_elite","name":"厚暖熊皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob2"]},{"id":"map3_boss_material","name":"永凍結晶","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map3_boss"]},{"id":"map4_mob0_material_normal","name":"灼熱甲殼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map4_mob0"]},{"id":"map4_mob0_material_elite","name":"灼熱甲殼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob0"]},{"id":"map4_mob1_material_normal","name":"不熄火羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map4_mob1"]},{"id":"map4_mob1_material_elite","name":"不熄火羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob1"]},{"id":"map4_mob2_material_normal","name":"焦黑鋼片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map4_mob2"]},{"id":"map4_mob2_material_elite","name":"焦黑鋼片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob2"]},{"id":"map4_boss_material","name":"熔核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map4_boss"]},{"id":"map5_mob0_material_normal","name":"虛空尖牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map5_mob0"]},{"id":"map5_mob0_material_elite","name":"虛空尖牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob0"]},{"id":"map5_mob1_material_normal","name":"星塵觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map5_mob1"]},{"id":"map5_mob1_material_elite","name":"星塵觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob1"]},{"id":"map5_mob2_material_normal","name":"隕鐵核心","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map5_mob2"]},{"id":"map5_mob2_material_elite","name":"隕鐵核心（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob2"]},{"id":"map5_boss_material","name":"星隕稜鏡","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map5_boss"]},{"id":"map6_boss_material","name":"日蝕王冠","enabled":true,"type":"sourceMaterial","key":"","kinds":["final"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map6_boss"]},{"id":"map7_mob0_material_normal","name":"覺醒黏稠凝膠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map7_mob0"]},{"id":"map7_mob0_material_elite","name":"覺醒黏稠凝膠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob0"]},{"id":"map7_mob1_material_normal","name":"覺醒完整狼牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map7_mob1"]},{"id":"map7_mob1_material_elite","name":"覺醒完整狼牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob1"]},{"id":"map7_mob2_material_normal","name":"覺醒活性樹芯","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map7_mob2"]},{"id":"map7_mob2_material_elite","name":"覺醒活性樹芯（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob2"]},{"id":"map7_boss_material","name":"覺醒古木年輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map7_boss"]},{"id":"map8_mob0_material_normal","name":"覺醒薄翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map8_mob0"]},{"id":"map8_mob0_material_elite","name":"覺醒薄翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob0"]},{"id":"map8_mob1_material_normal","name":"覺醒堅硬石鱗","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map8_mob1"]},{"id":"map8_mob1_material_elite","name":"覺醒堅硬石鱗（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob1"]},{"id":"map8_mob2_material_normal","name":"覺醒魔偶齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map8_mob2"]},{"id":"map8_mob2_material_elite","name":"覺醒魔偶齒輪（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob2"]},{"id":"map8_boss_material","name":"覺醒礦脈之心","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map8_boss"]},{"id":"map9_mob0_material_normal","name":"覺醒劇毒腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map9_mob0"]},{"id":"map9_mob0_material_elite","name":"覺醒劇毒腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob0"]},{"id":"map9_mob1_material_normal","name":"覺醒微光鱗粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map9_mob1"]},{"id":"map9_mob1_material_elite","name":"覺醒微光鱗粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob1"]},{"id":"map9_mob2_material_normal","name":"覺醒怨念碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map9_mob2"]},{"id":"map9_mob2_material_elite","name":"覺醒怨念碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob2"]},{"id":"map9_boss_material","name":"覺醒女巫符印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map9_boss"]},{"id":"map10_mob0_material_normal","name":"覺醒霜牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map10_mob0"]},{"id":"map10_mob0_material_elite","name":"覺醒霜牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob0"]},{"id":"map10_mob1_material_normal","name":"覺醒冰晶翅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map10_mob1"]},{"id":"map10_mob1_material_elite","name":"覺醒冰晶翅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob1"]},{"id":"map10_mob2_material_normal","name":"覺醒厚暖熊皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map10_mob2"]},{"id":"map10_mob2_material_elite","name":"覺醒厚暖熊皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob2"]},{"id":"map10_boss_material","name":"覺醒永凍結晶","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map10_boss"]},{"id":"map11_mob0_material_normal","name":"覺醒灼熱甲殼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map11_mob0"]},{"id":"map11_mob0_material_elite","name":"覺醒灼熱甲殼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob0"]},{"id":"map11_mob1_material_normal","name":"覺醒不熄火羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map11_mob1"]},{"id":"map11_mob1_material_elite","name":"覺醒不熄火羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob1"]},{"id":"map11_mob2_material_normal","name":"覺醒焦黑鋼片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map11_mob2"]},{"id":"map11_mob2_material_elite","name":"覺醒焦黑鋼片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob2"]},{"id":"map11_boss_material","name":"覺醒熔核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map11_boss"]},{"id":"map12_mob0_material_normal","name":"覺醒虛空尖牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map12_mob0"]},{"id":"map12_mob0_material_elite","name":"覺醒虛空尖牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob0"]},{"id":"map12_mob1_material_normal","name":"覺醒星塵觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map12_mob1"]},{"id":"map12_mob1_material_elite","name":"覺醒星塵觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob1"]},{"id":"map12_mob2_material_normal","name":"覺醒隕鐵核心","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map12_mob2"]},{"id":"map12_mob2_material_elite","name":"覺醒隕鐵核心（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob2"]},{"id":"map12_boss_material","name":"覺醒星隕稜鏡","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map12_boss"]},{"id":"map13_mob0_material_normal","name":"燼翼粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map13_mob0"]},{"id":"map13_mob0_material_elite","name":"燼翼粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob0"]},{"id":"map13_mob1_material_normal","name":"赤鬃毛皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map13_mob1"]},{"id":"map13_mob1_material_elite","name":"赤鬃毛皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob1"]},{"id":"map13_mob2_material_normal","name":"焦根木髓","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map13_mob2"]},{"id":"map13_mob2_material_elite","name":"焦根木髓（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob2"]},{"id":"map13_mob3_material_normal","name":"炭殼碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map13_mob3"]},{"id":"map13_mob3_material_elite","name":"炭殼碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob3"]},{"id":"map13_boss_material","name":"炎靈心木","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_boss"]},{"id":"map14_mob0_material_normal","name":"潮影翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map14_mob0"]},{"id":"map14_mob0_material_elite","name":"潮影翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob0"]},{"id":"map14_mob1_material_normal","name":"寒潮腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map14_mob1"]},{"id":"map14_mob1_material_elite","name":"寒潮腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob1"]},{"id":"map14_mob2_material_normal","name":"海霧結珠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map14_mob2"]},{"id":"map14_mob2_material_elite","name":"海霧結珠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob2"]},{"id":"map14_mob3_material_normal","name":"鹽晶塊","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map14_mob3"]},{"id":"map14_mob3_material_elite","name":"鹽晶塊（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob3"]},{"id":"map14_boss_material","name":"深潮齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_boss"]},{"id":"map15_mob0_material_normal","name":"亡者殘響","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map15_mob0"]},{"id":"map15_mob0_material_elite","name":"亡者殘響（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob0"]},{"id":"map15_mob1_material_normal","name":"噬骨獠牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map15_mob1"]},{"id":"map15_mob1_material_elite","name":"噬骨獠牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob1"]},{"id":"map15_mob2_material_normal","name":"墓火鱗片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map15_mob2"]},{"id":"map15_mob2_material_elite","name":"墓火鱗片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob2"]},{"id":"map15_mob3_material_normal","name":"腐枝黑核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map15_mob3"]},{"id":"map15_mob3_material_elite","name":"腐枝黑核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob3"]},{"id":"map15_boss_material","name":"巫后骨印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_boss"]},{"id":"map16_mob0_material_normal","name":"雷牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map16_mob0"]},{"id":"map16_mob0_material_elite","name":"雷牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob0"]},{"id":"map16_mob1_material_normal","name":"風暴晶羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map16_mob1"]},{"id":"map16_mob1_material_elite","name":"風暴晶羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob1"]},{"id":"map16_mob2_material_normal","name":"雷殼銅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map16_mob2"]},{"id":"map16_mob2_material_elite","name":"雷殼銅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob2"]},{"id":"map16_mob3_material_normal","name":"高地熊膽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map16_mob3"]},{"id":"map16_mob3_material_elite","name":"高地熊膽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob3"]},{"id":"map16_boss_material","name":"獸王雷角","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_boss"]},{"id":"map17_mob0_material_normal","name":"聖樹芽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map17_mob0"]},{"id":"map17_mob0_material_elite","name":"聖樹芽核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob0"]},{"id":"map17_mob1_material_normal","name":"晶光翼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map17_mob1"]},{"id":"map17_mob1_material_elite","name":"晶光翼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob1"]},{"id":"map17_mob2_material_normal","name":"聖羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map17_mob2"]},{"id":"map17_mob2_material_elite","name":"聖羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob2"]},{"id":"map17_mob3_material_normal","name":"聖鎧殘片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map17_mob3"]},{"id":"map17_mob3_material_elite","name":"聖鎧殘片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob3"]},{"id":"map17_boss_material","name":"聖所徽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_boss"]},{"id":"map18_mob0_material_normal","name":"冥犬黑牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map18_mob0"]},{"id":"map18_mob0_material_elite","name":"冥犬黑牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob0"]},{"id":"map18_mob1_material_normal","name":"幽影觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map18_mob1"]},{"id":"map18_mob1_material_elite","name":"幽影觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob1"]},{"id":"map18_mob2_material_normal","name":"黑曜脊核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map18_mob2"]},{"id":"map18_mob2_material_elite","name":"黑曜脊核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob2"]},{"id":"map18_mob3_material_normal","name":"邊境魂塵","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map18_mob3"]},{"id":"map18_mob3_material_elite","name":"邊境魂塵（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob3"]},{"id":"map18_boss_material","name":"冥視之瞳","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_boss"]},{"id":"map19_mob0_material_normal","name":"上古燼翼粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map19_mob0"]},{"id":"map19_mob0_material_elite","name":"上古燼翼粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob0"]},{"id":"map19_mob1_material_normal","name":"上古赤鬃毛皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map19_mob1"]},{"id":"map19_mob1_material_elite","name":"上古赤鬃毛皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob1"]},{"id":"map19_mob2_material_normal","name":"上古焦根木髓","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map19_mob2"]},{"id":"map19_mob2_material_elite","name":"上古焦根木髓（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob2"]},{"id":"map19_mob3_material_normal","name":"上古炭殼碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map19_mob3"]},{"id":"map19_mob3_material_elite","name":"上古炭殼碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob3"]},{"id":"map19_boss_material","name":"上古炎靈心木","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_boss"]},{"id":"map20_mob0_material_normal","name":"上古潮影翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map20_mob0"]},{"id":"map20_mob0_material_elite","name":"上古潮影翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob0"]},{"id":"map20_mob1_material_normal","name":"上古寒潮腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map20_mob1"]},{"id":"map20_mob1_material_elite","name":"上古寒潮腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob1"]},{"id":"map20_mob2_material_normal","name":"上古海霧結珠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map20_mob2"]},{"id":"map20_mob2_material_elite","name":"上古海霧結珠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob2"]},{"id":"map20_mob3_material_normal","name":"上古鹽晶塊","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map20_mob3"]},{"id":"map20_mob3_material_elite","name":"上古鹽晶塊（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob3"]},{"id":"map20_boss_material","name":"上古深潮齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_boss"]},{"id":"map21_mob0_material_normal","name":"上古亡者殘響","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map21_mob0"]},{"id":"map21_mob0_material_elite","name":"上古亡者殘響（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob0"]},{"id":"map21_mob1_material_normal","name":"上古噬骨獠牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map21_mob1"]},{"id":"map21_mob1_material_elite","name":"上古噬骨獠牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob1"]},{"id":"map21_mob2_material_normal","name":"上古墓火鱗片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map21_mob2"]},{"id":"map21_mob2_material_elite","name":"上古墓火鱗片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob2"]},{"id":"map21_mob3_material_normal","name":"上古腐枝黑核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map21_mob3"]},{"id":"map21_mob3_material_elite","name":"上古腐枝黑核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob3"]},{"id":"map21_boss_material","name":"上古巫后骨印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_boss"]},{"id":"map22_mob0_material_normal","name":"上古雷牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map22_mob0"]},{"id":"map22_mob0_material_elite","name":"上古雷牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob0"]},{"id":"map22_mob1_material_normal","name":"上古風暴晶羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map22_mob1"]},{"id":"map22_mob1_material_elite","name":"上古風暴晶羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob1"]},{"id":"map22_mob2_material_normal","name":"上古雷殼銅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map22_mob2"]},{"id":"map22_mob2_material_elite","name":"上古雷殼銅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob2"]},{"id":"map22_mob3_material_normal","name":"上古高地熊膽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map22_mob3"]},{"id":"map22_mob3_material_elite","name":"上古高地熊膽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob3"]},{"id":"map22_boss_material","name":"上古獸王雷角","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_boss"]},{"id":"map23_mob0_material_normal","name":"上古聖樹芽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map23_mob0"]},{"id":"map23_mob0_material_elite","name":"上古聖樹芽核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob0"]},{"id":"map23_mob1_material_normal","name":"上古晶光翼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map23_mob1"]},{"id":"map23_mob1_material_elite","name":"上古晶光翼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob1"]},{"id":"map23_mob2_material_normal","name":"上古聖羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map23_mob2"]},{"id":"map23_mob2_material_elite","name":"上古聖羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob2"]},{"id":"map23_mob3_material_normal","name":"上古聖鎧殘片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map23_mob3"]},{"id":"map23_mob3_material_elite","name":"上古聖鎧殘片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob3"]},{"id":"map23_boss_material","name":"上古聖所徽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_boss"]},{"id":"map24_mob0_material_normal","name":"上古冥犬黑牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map24_mob0"]},{"id":"map24_mob0_material_elite","name":"上古冥犬黑牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob0"]},{"id":"map24_mob1_material_normal","name":"上古幽影觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map24_mob1"]},{"id":"map24_mob1_material_elite","name":"上古幽影觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob1"]},{"id":"map24_mob2_material_normal","name":"上古黑曜脊核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map24_mob2"]},{"id":"map24_mob2_material_elite","name":"上古黑曜脊核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob2"]},{"id":"map24_mob3_material_normal","name":"上古邊境魂塵","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map24_mob3"]},{"id":"map24_mob3_material_elite","name":"上古邊境魂塵（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob3"]},{"id":"map24_boss_material","name":"上古冥視之瞳","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_boss"]},{"id":"gear_normal","name":"一般裝備（普通怪）","enabled":true,"type":"gear","key":"","kinds":["normal"],"chanceByDifficulty":[0.22,0.38,0.55],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gear_elite","name":"一般裝備（菁英）","enabled":true,"type":"gear","key":"","kinds":["elite"],"chanceByDifficulty":[0.55,0.75,0.95],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gear_boss","name":"一般裝備（首領）","enabled":true,"type":"gear","key":"","kinds":["boss","final"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]},{"id":"gear_legendary","name":"傳說詞條裝備","enabled":true,"type":"gearLegendary","key":"","kinds":["normal","elite","boss","final"],"chanceByDifficulty":[0.0015,0.004,0.008],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map0_boss","map1_mob0","map1_mob1","map1_mob2","map1_boss","map2_mob0","map2_mob1","map2_mob2","map2_boss","map3_mob0","map3_mob1","map3_mob2","map3_boss","map4_mob0","map4_mob1","map4_mob2","map4_boss","map5_mob0","map5_mob1","map5_mob2","map5_boss","map6_boss","map7_mob0","map7_mob1","map7_mob2","map7_boss","map8_mob0","map8_mob1","map8_mob2","map8_boss","map9_mob0","map9_mob1","map9_mob2","map9_boss","map10_mob0","map10_mob1","map10_mob2","map10_boss","map11_mob0","map11_mob1","map11_mob2","map11_boss","map12_mob0","map12_mob1","map12_mob2","map12_boss","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map13_boss","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map14_boss","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map15_boss","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map16_boss","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map17_boss","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map18_boss","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map19_boss","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map20_boss","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map21_boss","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map22_boss","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map23_boss","map24_mob0","map24_mob1","map24_mob2","map24_mob3","map24_boss"]},{"id":"boss_gear","name":"BOSS 專屬裝備","enabled":true,"type":"bossGear","key":"","kinds":["boss"],"chanceByDifficulty":[0.25,0.4,0.6],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss"]},{"id":"gem_normal","name":"隨機技能寶石（普通怪）","enabled":true,"type":"gem","key":"random","kinds":["normal"],"chanceByDifficulty":[0.04,0.08,0.13],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gem_elite","name":"隨機技能寶石（菁英）","enabled":true,"type":"gem","key":"random","kinds":["elite"],"chanceByDifficulty":[0.12,0.22,0.35],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gem_boss","name":"隨機技能寶石（首領）","enabled":true,"type":"gem","key":"random","kinds":["boss","final"],"chanceByDifficulty":[0.35,0.5,0.7],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]},{"id":"potion_all","name":"治療藥水","enabled":true,"type":"potion","key":"","kinds":["normal","elite","boss","final"],"chanceByDifficulty":[0.08,0.08,0.08],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map0_boss","map1_mob0","map1_mob1","map1_mob2","map1_boss","map2_mob0","map2_mob1","map2_mob2","map2_boss","map3_mob0","map3_mob1","map3_mob2","map3_boss","map4_mob0","map4_mob1","map4_mob2","map4_boss","map5_mob0","map5_mob1","map5_mob2","map5_boss","map6_boss","map7_mob0","map7_mob1","map7_mob2","map7_boss","map8_mob0","map8_mob1","map8_mob2","map8_boss","map9_mob0","map9_mob1","map9_mob2","map9_boss","map10_mob0","map10_mob1","map10_mob2","map10_boss","map11_mob0","map11_mob1","map11_mob2","map11_boss","map12_mob0","map12_mob1","map12_mob2","map12_boss","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map13_boss","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map14_boss","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map15_boss","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map16_boss","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map17_boss","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map18_boss","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map19_boss","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map20_boss","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map21_boss","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map22_boss","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map23_boss","map24_mob0","map24_mob1","map24_mob2","map24_mob3","map24_boss"]},{"id":"radiant_normal","name":"光輝碎塊（普通／菁英）","enabled":true,"type":"material","key":"光輝碎塊","kinds":["normal","elite"],"chanceByDifficulty":[0.0005,0.0005,0.0005],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"radiant_boss","name":"光輝碎塊（首領）","enabled":true,"type":"material","key":"光輝碎塊","kinds":["boss","final"],"chanceByDifficulty":[0.01,0.01,0.01],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]}];
+const DEFAULT_DROP_ENTRIES=[{"id":"map0_mob0_material_normal","name":"黏稠凝膠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"map0_mob0_material_elite","name":"黏稠凝膠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"map0_mob1_material_normal","name":"完整狼牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"map0_mob1_material_elite","name":"完整狼牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"map0_mob2_material_normal","name":"活性樹芯","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"map0_mob2_material_elite","name":"活性樹芯（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"map0_boss_material","name":"古木年輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_boss"]},{"id":"map1_mob0_material_normal","name":"薄翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map1_mob0"]},{"id":"map1_mob0_material_elite","name":"薄翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob0"]},{"id":"map1_mob1_material_normal","name":"堅硬石鱗","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map1_mob1"]},{"id":"map1_mob1_material_elite","name":"堅硬石鱗（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob1"]},{"id":"map1_mob2_material_normal","name":"魔偶齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map1_mob2"]},{"id":"map1_mob2_material_elite","name":"魔偶齒輪（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob2"]},{"id":"map1_boss_material","name":"礦脈之心","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map1_boss"]},{"id":"map2_mob0_material_normal","name":"劇毒腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map2_mob0"]},{"id":"map2_mob0_material_elite","name":"劇毒腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob0"]},{"id":"map2_mob1_material_normal","name":"微光鱗粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map2_mob1"]},{"id":"map2_mob1_material_elite","name":"微光鱗粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob1"]},{"id":"map2_mob2_material_normal","name":"怨念碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map2_mob2"]},{"id":"map2_mob2_material_elite","name":"怨念碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob2"]},{"id":"map2_boss_material","name":"女巫符印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map2_boss"]},{"id":"map3_mob0_material_normal","name":"霜牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map3_mob0"]},{"id":"map3_mob0_material_elite","name":"霜牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob0"]},{"id":"map3_mob1_material_normal","name":"冰晶翅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map3_mob1"]},{"id":"map3_mob1_material_elite","name":"冰晶翅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob1"]},{"id":"map3_mob2_material_normal","name":"厚暖熊皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map3_mob2"]},{"id":"map3_mob2_material_elite","name":"厚暖熊皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob2"]},{"id":"map3_boss_material","name":"永凍結晶","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map3_boss"]},{"id":"map4_mob0_material_normal","name":"灼熱甲殼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map4_mob0"]},{"id":"map4_mob0_material_elite","name":"灼熱甲殼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob0"]},{"id":"map4_mob1_material_normal","name":"不熄火羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map4_mob1"]},{"id":"map4_mob1_material_elite","name":"不熄火羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob1"]},{"id":"map4_mob2_material_normal","name":"焦黑鋼片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map4_mob2"]},{"id":"map4_mob2_material_elite","name":"焦黑鋼片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob2"]},{"id":"map4_boss_material","name":"熔核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map4_boss"]},{"id":"map5_mob0_material_normal","name":"虛空尖牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map5_mob0"]},{"id":"map5_mob0_material_elite","name":"虛空尖牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob0"]},{"id":"map5_mob1_material_normal","name":"星塵觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map5_mob1"]},{"id":"map5_mob1_material_elite","name":"星塵觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob1"]},{"id":"map5_mob2_material_normal","name":"隕鐵核心","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map5_mob2"]},{"id":"map5_mob2_material_elite","name":"隕鐵核心（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob2"]},{"id":"map5_boss_material","name":"星隕稜鏡","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map5_boss"]},{"id":"map6_boss_material","name":"日蝕王冠","enabled":true,"type":"sourceMaterial","key":"","kinds":["final"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map6_boss"]},{"id":"map7_mob0_material_normal","name":"覺醒黏稠凝膠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map7_mob0"]},{"id":"map7_mob0_material_elite","name":"覺醒黏稠凝膠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob0"]},{"id":"map7_mob1_material_normal","name":"覺醒完整狼牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map7_mob1"]},{"id":"map7_mob1_material_elite","name":"覺醒完整狼牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob1"]},{"id":"map7_mob2_material_normal","name":"覺醒活性樹芯","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map7_mob2"]},{"id":"map7_mob2_material_elite","name":"覺醒活性樹芯（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob2"]},{"id":"map7_boss_material","name":"覺醒古木年輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map7_boss"]},{"id":"map8_mob0_material_normal","name":"覺醒薄翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map8_mob0"]},{"id":"map8_mob0_material_elite","name":"覺醒薄翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob0"]},{"id":"map8_mob1_material_normal","name":"覺醒堅硬石鱗","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map8_mob1"]},{"id":"map8_mob1_material_elite","name":"覺醒堅硬石鱗（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob1"]},{"id":"map8_mob2_material_normal","name":"覺醒魔偶齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map8_mob2"]},{"id":"map8_mob2_material_elite","name":"覺醒魔偶齒輪（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob2"]},{"id":"map8_boss_material","name":"覺醒礦脈之心","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map8_boss"]},{"id":"map9_mob0_material_normal","name":"覺醒劇毒腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map9_mob0"]},{"id":"map9_mob0_material_elite","name":"覺醒劇毒腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob0"]},{"id":"map9_mob1_material_normal","name":"覺醒微光鱗粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map9_mob1"]},{"id":"map9_mob1_material_elite","name":"覺醒微光鱗粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob1"]},{"id":"map9_mob2_material_normal","name":"覺醒怨念碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map9_mob2"]},{"id":"map9_mob2_material_elite","name":"覺醒怨念碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob2"]},{"id":"map9_boss_material","name":"覺醒女巫符印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map9_boss"]},{"id":"map10_mob0_material_normal","name":"覺醒霜牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map10_mob0"]},{"id":"map10_mob0_material_elite","name":"覺醒霜牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob0"]},{"id":"map10_mob1_material_normal","name":"覺醒冰晶翅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map10_mob1"]},{"id":"map10_mob1_material_elite","name":"覺醒冰晶翅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob1"]},{"id":"map10_mob2_material_normal","name":"覺醒厚暖熊皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map10_mob2"]},{"id":"map10_mob2_material_elite","name":"覺醒厚暖熊皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob2"]},{"id":"map10_boss_material","name":"覺醒永凍結晶","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map10_boss"]},{"id":"map11_mob0_material_normal","name":"覺醒灼熱甲殼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map11_mob0"]},{"id":"map11_mob0_material_elite","name":"覺醒灼熱甲殼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob0"]},{"id":"map11_mob1_material_normal","name":"覺醒不熄火羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map11_mob1"]},{"id":"map11_mob1_material_elite","name":"覺醒不熄火羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob1"]},{"id":"map11_mob2_material_normal","name":"覺醒焦黑鋼片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map11_mob2"]},{"id":"map11_mob2_material_elite","name":"覺醒焦黑鋼片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob2"]},{"id":"map11_boss_material","name":"覺醒熔核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map11_boss"]},{"id":"map12_mob0_material_normal","name":"覺醒虛空尖牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map12_mob0"]},{"id":"map12_mob0_material_elite","name":"覺醒虛空尖牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob0"]},{"id":"map12_mob1_material_normal","name":"覺醒星塵觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map12_mob1"]},{"id":"map12_mob1_material_elite","name":"覺醒星塵觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob1"]},{"id":"map12_mob2_material_normal","name":"覺醒隕鐵核心","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map12_mob2"]},{"id":"map12_mob2_material_elite","name":"覺醒隕鐵核心（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob2"]},{"id":"map12_boss_material","name":"覺醒星隕稜鏡","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map12_boss"]},{"id":"map13_mob0_material_normal","name":"燼翼粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map13_mob0"]},{"id":"map13_mob0_material_elite","name":"燼翼粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob0"]},{"id":"map13_mob1_material_normal","name":"赤鬃毛皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map13_mob1"]},{"id":"map13_mob1_material_elite","name":"赤鬃毛皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob1"]},{"id":"map13_mob2_material_normal","name":"焦根木髓","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map13_mob2"]},{"id":"map13_mob2_material_elite","name":"焦根木髓（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob2"]},{"id":"map13_mob3_material_normal","name":"炭殼碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map13_mob3"]},{"id":"map13_mob3_material_elite","name":"炭殼碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob3"]},{"id":"map13_boss_material","name":"炎靈心木","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map13_boss"]},{"id":"map14_mob0_material_normal","name":"潮影翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map14_mob0"]},{"id":"map14_mob0_material_elite","name":"潮影翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob0"]},{"id":"map14_mob1_material_normal","name":"寒潮腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map14_mob1"]},{"id":"map14_mob1_material_elite","name":"寒潮腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob1"]},{"id":"map14_mob2_material_normal","name":"海霧結珠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map14_mob2"]},{"id":"map14_mob2_material_elite","name":"海霧結珠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob2"]},{"id":"map14_mob3_material_normal","name":"鹽晶塊","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map14_mob3"]},{"id":"map14_mob3_material_elite","name":"鹽晶塊（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob3"]},{"id":"map14_boss_material","name":"深潮齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map14_boss"]},{"id":"map15_mob0_material_normal","name":"亡者殘響","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map15_mob0"]},{"id":"map15_mob0_material_elite","name":"亡者殘響（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob0"]},{"id":"map15_mob1_material_normal","name":"噬骨獠牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map15_mob1"]},{"id":"map15_mob1_material_elite","name":"噬骨獠牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob1"]},{"id":"map15_mob2_material_normal","name":"墓火鱗片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map15_mob2"]},{"id":"map15_mob2_material_elite","name":"墓火鱗片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob2"]},{"id":"map15_mob3_material_normal","name":"腐枝黑核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map15_mob3"]},{"id":"map15_mob3_material_elite","name":"腐枝黑核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob3"]},{"id":"map15_boss_material","name":"巫后骨印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map15_boss"]},{"id":"map16_mob0_material_normal","name":"雷牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map16_mob0"]},{"id":"map16_mob0_material_elite","name":"雷牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob0"]},{"id":"map16_mob1_material_normal","name":"風暴晶羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map16_mob1"]},{"id":"map16_mob1_material_elite","name":"風暴晶羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob1"]},{"id":"map16_mob2_material_normal","name":"雷殼銅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map16_mob2"]},{"id":"map16_mob2_material_elite","name":"雷殼銅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob2"]},{"id":"map16_mob3_material_normal","name":"高地熊膽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map16_mob3"]},{"id":"map16_mob3_material_elite","name":"高地熊膽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob3"]},{"id":"map16_boss_material","name":"獸王雷角","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map16_boss"]},{"id":"map17_mob0_material_normal","name":"聖樹芽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map17_mob0"]},{"id":"map17_mob0_material_elite","name":"聖樹芽核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob0"]},{"id":"map17_mob1_material_normal","name":"晶光翼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map17_mob1"]},{"id":"map17_mob1_material_elite","name":"晶光翼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob1"]},{"id":"map17_mob2_material_normal","name":"聖羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map17_mob2"]},{"id":"map17_mob2_material_elite","name":"聖羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob2"]},{"id":"map17_mob3_material_normal","name":"聖鎧殘片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map17_mob3"]},{"id":"map17_mob3_material_elite","name":"聖鎧殘片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob3"]},{"id":"map17_boss_material","name":"聖所徽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map17_boss"]},{"id":"map18_mob0_material_normal","name":"冥犬黑牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map18_mob0"]},{"id":"map18_mob0_material_elite","name":"冥犬黑牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob0"]},{"id":"map18_mob1_material_normal","name":"幽影觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map18_mob1"]},{"id":"map18_mob1_material_elite","name":"幽影觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob1"]},{"id":"map18_mob2_material_normal","name":"黑曜脊核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map18_mob2"]},{"id":"map18_mob2_material_elite","name":"黑曜脊核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob2"]},{"id":"map18_mob3_material_normal","name":"邊境魂塵","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map18_mob3"]},{"id":"map18_mob3_material_elite","name":"邊境魂塵（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob3"]},{"id":"map18_boss_material","name":"冥視之瞳","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map18_boss"]},{"id":"map19_mob0_material_normal","name":"上古燼翼粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map19_mob0"]},{"id":"map19_mob0_material_elite","name":"上古燼翼粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob0"]},{"id":"map19_mob1_material_normal","name":"上古赤鬃毛皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map19_mob1"]},{"id":"map19_mob1_material_elite","name":"上古赤鬃毛皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob1"]},{"id":"map19_mob2_material_normal","name":"上古焦根木髓","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map19_mob2"]},{"id":"map19_mob2_material_elite","name":"上古焦根木髓（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob2"]},{"id":"map19_mob3_material_normal","name":"上古炭殼碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map19_mob3"]},{"id":"map19_mob3_material_elite","name":"上古炭殼碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob3"]},{"id":"map19_boss_material","name":"上古炎靈心木","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map19_boss"]},{"id":"map20_mob0_material_normal","name":"上古潮影翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map20_mob0"]},{"id":"map20_mob0_material_elite","name":"上古潮影翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob0"]},{"id":"map20_mob1_material_normal","name":"上古寒潮腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map20_mob1"]},{"id":"map20_mob1_material_elite","name":"上古寒潮腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob1"]},{"id":"map20_mob2_material_normal","name":"上古海霧結珠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map20_mob2"]},{"id":"map20_mob2_material_elite","name":"上古海霧結珠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob2"]},{"id":"map20_mob3_material_normal","name":"上古鹽晶塊","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map20_mob3"]},{"id":"map20_mob3_material_elite","name":"上古鹽晶塊（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob3"]},{"id":"map20_boss_material","name":"上古深潮齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map20_boss"]},{"id":"map21_mob0_material_normal","name":"上古亡者殘響","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map21_mob0"]},{"id":"map21_mob0_material_elite","name":"上古亡者殘響（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob0"]},{"id":"map21_mob1_material_normal","name":"上古噬骨獠牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map21_mob1"]},{"id":"map21_mob1_material_elite","name":"上古噬骨獠牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob1"]},{"id":"map21_mob2_material_normal","name":"上古墓火鱗片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map21_mob2"]},{"id":"map21_mob2_material_elite","name":"上古墓火鱗片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob2"]},{"id":"map21_mob3_material_normal","name":"上古腐枝黑核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map21_mob3"]},{"id":"map21_mob3_material_elite","name":"上古腐枝黑核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob3"]},{"id":"map21_boss_material","name":"上古巫后骨印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map21_boss"]},{"id":"map22_mob0_material_normal","name":"上古雷牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map22_mob0"]},{"id":"map22_mob0_material_elite","name":"上古雷牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob0"]},{"id":"map22_mob1_material_normal","name":"上古風暴晶羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map22_mob1"]},{"id":"map22_mob1_material_elite","name":"上古風暴晶羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob1"]},{"id":"map22_mob2_material_normal","name":"上古雷殼銅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map22_mob2"]},{"id":"map22_mob2_material_elite","name":"上古雷殼銅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob2"]},{"id":"map22_mob3_material_normal","name":"上古高地熊膽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map22_mob3"]},{"id":"map22_mob3_material_elite","name":"上古高地熊膽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob3"]},{"id":"map22_boss_material","name":"上古獸王雷角","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map22_boss"]},{"id":"map23_mob0_material_normal","name":"上古聖樹芽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map23_mob0"]},{"id":"map23_mob0_material_elite","name":"上古聖樹芽核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob0"]},{"id":"map23_mob1_material_normal","name":"上古晶光翼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map23_mob1"]},{"id":"map23_mob1_material_elite","name":"上古晶光翼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob1"]},{"id":"map23_mob2_material_normal","name":"上古聖羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map23_mob2"]},{"id":"map23_mob2_material_elite","name":"上古聖羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob2"]},{"id":"map23_mob3_material_normal","name":"上古聖鎧殘片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map23_mob3"]},{"id":"map23_mob3_material_elite","name":"上古聖鎧殘片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob3"]},{"id":"map23_boss_material","name":"上古聖所徽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map23_boss"]},{"id":"map24_mob0_material_normal","name":"上古冥犬黑牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map24_mob0"]},{"id":"map24_mob0_material_elite","name":"上古冥犬黑牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob0"]},{"id":"map24_mob1_material_normal","name":"上古幽影觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map24_mob1"]},{"id":"map24_mob1_material_elite","name":"上古幽影觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob1"]},{"id":"map24_mob2_material_normal","name":"上古黑曜脊核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map24_mob2"]},{"id":"map24_mob2_material_elite","name":"上古黑曜脊核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob2"]},{"id":"map24_mob3_material_normal","name":"上古邊境魂塵","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.65,0.8,0.95],"quantityMin":1,"quantityMax":1,"sources":["map24_mob3"]},{"id":"map24_mob3_material_elite","name":"上古邊境魂塵（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob3"]},{"id":"map24_boss_material","name":"上古冥視之瞳","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map24_boss"]},{"id":"gear_normal","name":"一般裝備（普通怪）","enabled":true,"type":"gear","key":"","kinds":["normal"],"chanceByDifficulty":[0.22,0.38,0.55],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gear_elite","name":"一般裝備（菁英）","enabled":true,"type":"gear","key":"","kinds":["elite"],"chanceByDifficulty":[0.55,0.75,0.95],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gear_boss","name":"一般裝備（首領）","enabled":true,"type":"gear","key":"","kinds":["boss","final"],"chanceByDifficulty":[1,1,1],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]},{"id":"gear_legendary","name":"傳說詞條裝備","enabled":true,"type":"gearLegendary","key":"","kinds":["normal","elite","boss","final"],"chanceByDifficulty":[0.0015,0.004,0.008],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map0_boss","map1_mob0","map1_mob1","map1_mob2","map1_boss","map2_mob0","map2_mob1","map2_mob2","map2_boss","map3_mob0","map3_mob1","map3_mob2","map3_boss","map4_mob0","map4_mob1","map4_mob2","map4_boss","map5_mob0","map5_mob1","map5_mob2","map5_boss","map6_boss","map7_mob0","map7_mob1","map7_mob2","map7_boss","map8_mob0","map8_mob1","map8_mob2","map8_boss","map9_mob0","map9_mob1","map9_mob2","map9_boss","map10_mob0","map10_mob1","map10_mob2","map10_boss","map11_mob0","map11_mob1","map11_mob2","map11_boss","map12_mob0","map12_mob1","map12_mob2","map12_boss","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map13_boss","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map14_boss","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map15_boss","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map16_boss","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map17_boss","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map18_boss","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map19_boss","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map20_boss","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map21_boss","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map22_boss","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map23_boss","map24_mob0","map24_mob1","map24_mob2","map24_mob3","map24_boss"]},{"id":"boss_gear","name":"BOSS 專屬裝備","enabled":true,"type":"bossGear","key":"","kinds":["boss"],"chanceByDifficulty":[0.25,0.4,0.6],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss"]},{"id":"gem_normal","name":"隨機技能寶石（普通怪）","enabled":true,"type":"gem","key":"random","kinds":["normal"],"chanceByDifficulty":[0.03,0.06,0.1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gem_elite","name":"隨機技能寶石（菁英）","enabled":true,"type":"gem","key":"random","kinds":["elite"],"chanceByDifficulty":[0.09,0.17,0.27],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gem_boss","name":"隨機技能寶石（首領）","enabled":true,"type":"gem","key":"random","kinds":["boss","final"],"chanceByDifficulty":[0.27,0.4,0.55],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]},{"id":"potion_all","name":"治療藥水","enabled":true,"type":"potion","key":"","kinds":["normal","elite","boss","final"],"chanceByDifficulty":[0.08,0.08,0.08],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map0_boss","map1_mob0","map1_mob1","map1_mob2","map1_boss","map2_mob0","map2_mob1","map2_mob2","map2_boss","map3_mob0","map3_mob1","map3_mob2","map3_boss","map4_mob0","map4_mob1","map4_mob2","map4_boss","map5_mob0","map5_mob1","map5_mob2","map5_boss","map6_boss","map7_mob0","map7_mob1","map7_mob2","map7_boss","map8_mob0","map8_mob1","map8_mob2","map8_boss","map9_mob0","map9_mob1","map9_mob2","map9_boss","map10_mob0","map10_mob1","map10_mob2","map10_boss","map11_mob0","map11_mob1","map11_mob2","map11_boss","map12_mob0","map12_mob1","map12_mob2","map12_boss","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map13_boss","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map14_boss","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map15_boss","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map16_boss","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map17_boss","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map18_boss","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map19_boss","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map20_boss","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map21_boss","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map22_boss","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map23_boss","map24_mob0","map24_mob1","map24_mob2","map24_mob3","map24_boss"]},{"id":"radiant_normal","name":"光輝碎塊（普通／菁英）","enabled":true,"type":"material","key":"光輝碎塊","kinds":["normal","elite"],"chanceByDifficulty":[0.0005,0.0005,0.0005],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"radiant_boss","name":"光輝碎塊（首領）","enabled":true,"type":"material","key":"光輝碎塊","kinds":["boss","final"],"chanceByDifficulty":[0.01,0.01,0.01],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]}];
 GAME_BALANCE_DEFAULTS.affixes.extendedValues.dropRateBonus ??= {normal:0,fine:5,rare:10,legendary:20};
 GAME_BALANCE=normalizeRuntimeBalance(GAME_BALANCE);
 GAMEPLAY_SETTINGS_DEFAULTS.monsters.catalog ??= cloneGameplaySettings(DEFAULT_MONSTER_CATALOG);
@@ -4178,7 +4508,7 @@ validateGameplaySettings=function(cfg){
     if(!d||typeof d.id!=='string'||!/^[a-zA-Z0-9_-]{1,120}$/.test(d.id)||dropIds.has(d.id))throw Error('掉落規則 ID 無效或重複：'+i);dropIds.add(d.id);
     if(typeof d.name!=='string'||!d.name.trim()||typeof d.enabled!=='boolean'||!types.has(d.type)||!Array.isArray(d.kinds)||!d.kinds.length||d.kinds.some(k=>!encKinds.has(k))||!Array.isArray(d.chanceByDifficulty)||d.chanceByDifficulty.length!==3||d.chanceByDifficulty.some(v=>!Number.isFinite(v)||v<0||v>1)||!Number.isInteger(d.quantityMin)||!Number.isInteger(d.quantityMax)||d.quantityMin<1||d.quantityMax<d.quantityMin||d.quantityMax>999||!Array.isArray(d.sources)||!d.sources.length||d.sources.some(id=>!monsterIds.has(id)))throw Error('掉落規則資料無效：'+d.id);
     if(d.type==='material'&&(typeof d.key!=='string'||!d.key.trim()))throw Error('材料掉落需要材料名稱：'+d.id);
-    if(d.type==='gem'&&d.key!=='random'&&![0,1,2,'0','1','2'].includes(d.key))throw Error('寶石掉落 key 需為 random/0/1/2：'+d.id);if(d.type==='item'&&!(globalThis.__EMBERWILD_VALIDATE_ITEM_IDS||new Set(SHOP.map(x=>x.id))).has(d.key))throw Error('商店道具掉落 key 無效：'+d.id);
+    if(d.type==='gem'&&d.key!=='random'&&![0,1,2,3,4,'0','1','2','3','4'].includes(d.key))throw Error('寶石掉落 key 需為 random/0/1/2：'+d.id);if(d.type==='item'&&!(globalThis.__EMBERWILD_VALIDATE_ITEM_IDS||new Set(SHOP.map(x=>x.id))).has(d.key))throw Error('商店道具掉落 key 無效：'+d.id);
   }
   return cfg;
 };
@@ -4206,7 +4536,13 @@ makeBaseEnemy=function(map=state.map,h=state,rng=Math.random){const e=dropTableM
 
 function heroDropRateBonus(h){return equipment(h).flatMap(g=>g.affix||[]).filter(a=>a.type===17).reduce((n,a)=>n+(Number(a.value)||0),0)/100;}
 function partyDropRateBonus(){const hs=party?heroes():(state?[state]:[]);return hs.reduce((n,h)=>n+heroDropRateBonus(h),0);}
-function effectiveDropChance(rule,e,bonus=partyDropRateBonus()){const mode=Math.max(0,Math.min(2,Number(e?.difficulty)||0)),base=Math.max(0,Math.min(1,Number(rule?.chanceByDifficulty?.[mode])||0));return Math.min(1,base*(1+Math.max(0,Number(bonus)||0)));}
+function equipmentLevelGapDropFactor(rule,e){
+  if(!['gear','gearLegendary','equipment'].includes(rule?.type)||!['normal','elite'].includes(e?.kind)||e.bossChallenge)return 1;
+  const cfg=GAMEPLAY_SETTINGS.equipment?.dropLevelGap;if(!cfg?.enabled)return 1;
+  const mi=e.region??party?.map??0,max=MAPS[mi]?.max??e.lv??1,level=party?.members?.[0]?.lv??state?.lv??max,gap=Math.max(0,level-max-cfg.freeLevels);
+  return Math.max(cfg.minimumMultiplier,1/(1+gap*cfg.penaltyPerLevel));
+}
+function effectiveDropChance(rule,e,bonus=partyDropRateBonus()){const mode=Math.max(0,Math.min(2,Number(e?.difficulty)||0)),base=Math.max(0,Math.min(1,Number(rule?.chanceByDifficulty?.[mode])||0));return Math.min(1,base*equipmentLevelGapDropFactor(rule,e)*(1+Math.max(0,Number(bonus)||0)));}
 function configuredDropRules(e){const id=e.monsterId||resolveMonsterCatalogId(e);return (GAMEPLAY_SETTINGS.drops?.entries||[]).filter(r=>r.enabled!==false&&r.sources.includes(id)&&r.kinds.includes(e.kind));}
 function configuredDropDescription(row,kind,mapIndex){
   const e={monsterId:row.id,kind,region:mapIndex,difficulty:party?.difficulty??state?.difficulty??0},bonus=partyDropRateBonus();
@@ -4239,8 +4575,8 @@ function grantConfiguredDrop(rule,e,rng=Math.random){
   if(rule.type==='dust'){state.dust+=qty;note('獲得 寶石粉塵 ×'+qty,'item');return {name:'寶石粉塵',count:qty};}
   if(rule.type==='potion'){const item=typeof healPotionItems==='function'?(healPotionItems().find(x=>x.id==='heal_standard')||healPotionItems()[0]):null;if(item&&typeof healPotionCount==='function'&&typeof setHealPotionCount==='function')setHealPotionCount(item.id,healPotionCount(item.id)+qty);else state.potions+=qty;note('獲得 '+(item?.name||'治療藥水')+' ×'+qty,'item');return {name:item?.name||'治療藥水',count:qty};}
   if(rule.type==='item'){const item=SHOP.find(x=>x.id===rule.key);if(!item)return null;if(typeof isHealPotion==='function'&&isHealPotion(item)&&typeof healPotionCount==='function'&&typeof setHealPotionCount==='function')setHealPotionCount(item.id,healPotionCount(item.id)+qty);else{state.consumables??={};state.consumables[item.id]=(state.consumables[item.id]||0)+qty;}note('獲得 '+item.name+' ×'+qty,'item');return {name:item.name,count:qty};}
-  if(rule.type==='gem'){for(let q=0;q<qty;q++){const i=rule.key==='random'?Math.floor(rng()*GEMS.length):Math.max(0,Math.min(GEMS.length-1,Number(rule.key)||0));state.gems[i]++;note('獲得 '+GEMS[i].name,'item');}return {name:rule.key==='random'?'隨機技能寶石':GEMS[Number(rule.key)||0].name,count:qty};}
-  if(rule.type==='gear'||rule.type==='gearLegendary'){for(let q=0;q<qty;q++){const rar=rule.type==='gearLegendary'?0:(rng()<r.equipmentQuality.rareChance?2:rng()<r.equipmentQuality.fineConditionalChance?1:0),g=gear(tier,Math.floor(rng()*4),rar);modeAffixes(g,mode);if(rule.type==='gearLegendary')ensureLegendaryDropAffix(g);addGear(g);}return {name:rule.name,count:qty};}
+  if(rule.type==='gem'){for(let q=0;q<qty;q++){const i=rule.key==='random'?Math.floor(rng()*GEM_KINDS):Math.max(0,Math.min(GEMS.length-1,Number(rule.key)||0));state.gems[i]++;note('獲得 '+GEMS[i].name,'item');}return {name:rule.key==='random'?'隨機技能寶石':GEMS[Number(rule.key)||0].name,count:qty};}
+  if(rule.type==='gear'||rule.type==='gearLegendary'){for(let q=0;q<qty;q++){const rar=rule.type==='gearLegendary'?0:(rng()<r.equipmentQuality.rareChance?2:rng()<r.equipmentQuality.fineConditionalChance?1:0),g=gear(tier,Math.floor(rng()*4),rar);modeAffixes(g,mode);if(rule.type==='gearLegendary')ensureLegendaryDropAffix(g);gearStatBreakdown(g);addGear(g);}return {name:rule.name,count:qty};}
   if(rule.type==='bossGear'){for(let q=0;q<qty;q++)addGear(bossGear(mi,state.job,mode));return {name:rule.name,count:qty};}
   return null;
 }
@@ -4255,7 +4591,7 @@ function rollConfiguredDrops(e,rng=Math.random){
 victory=function(){
   let e=enemy;if(!e)return;lastDefeatedEnemy={...e};let mode=e.difficulty||0,d=MODES[mode],mi=e.region??state.map,tier=regionTier(mi),kindIndex=e.kind==='normal'?0:e.kind==='elite'?1:2,r=GAMEPLAY_SETTINGS.rewards,mult=[r.kindMultiplier.normal,r.kindMultiplier.elite,r.kindMultiplier.boss][kindIndex],firstClear=e.kind==='final'&&!state.won;
   state.totalKills++;state.kills[e.mat]=(state.kills[e.mat]||0)+1;if(!state.discovered.includes(e.mat))state.discovered.push(e.mat);
-  let gold=Math.round((r.gold.base+e.lv*r.gold.perLevel)*mult*d.xp),xp=EmberwildProgression.enemyXp(GAMEPLAY_SETTINGS,e.lv,e.kind,mode);state.gold+=gold;state.ore+=Math.ceil(tier*(kindIndex===0?r.ore.normalKindMultiplier:r.ore.eliteBossKindMultiplier)*d.ore);
+  let gold=Math.round((r.gold.base+e.lv*r.gold.perLevel)*mult*d.xp),xp=EmberwildProgression.enemyXp(GAMEPLAY_SETTINGS,e.lv,e.kind,mode,party?.members?.[0]?.lv??state?.lv);state.gold+=gold;state.ore+=Math.ceil(tier*(kindIndex===0?r.ore.normalKindMultiplier:r.ore.eliteBossKindMultiplier)*d.ore);
   rollConfiguredDrops(e);awardEther(e);
   if(e.kind==='final'){state.won=true;state.modeClears[mode]++;state.materials['日蝕王冠']=Math.max(1,state.materials['日蝕王冠']||0);running=false;}
   awardXP(xp);state.hp=Math.min(stats().hp,state.hp+stats().hp*r.postVictoryHeal);state.shield=0;note(`擊敗 ${e.name}（${d.name}）· ${gold} 金幣`);enemy=null;
@@ -4278,7 +4614,7 @@ validateSave=function(input,options){
 };solo.validateSave=validateSave;
 
 const dropTableBalanceReferenceBase=balanceReference;
-balanceReference=function(){const r=dropTableBalanceReferenceBase();r.affixTypes['17']='掉寶率增加：實際機率 = 基礎掉落率 × (1 + 全隊掉寶率加成)，最高 100%';r.balancePaths['balance.affixes.extendedValues.dropRateBonus']='各品質「掉寶率」詞條數值，單位為百分比';r.dropAlgorithm='每條符合怪物來源與遭遇種類的掉落規則先獨立判定；實際率=該難度基礎率×(1+全隊裝備掉寶率總和)，封頂100%。成功項目超過怪物 maxDrops 時，從成功項目中隨機保留至上限。';return r;};
+balanceReference=function(){const r=dropTableBalanceReferenceBase();r.affixTypes['17']='掉寶率增加：實際機率 = 基礎掉落率 × (1 + 全隊掉寶率加成)，最高 100%';r.balancePaths['balanceSettings.equipment.dropLevelGap']='一般／菁英怪掉落非 BOSS 裝備時，主角超過地圖最高等級 freeLevels 級後以 1/(1+超出級數×penaltyPerLevel) 遞減，最低 minimumMultiplier。';r.balancePaths['balance.affixes.extendedValues.dropRateBonus']='各品質「掉寶率」詞條數值，單位為百分比';r.dropAlgorithm='每條符合怪物來源與遭遇種類的掉落規則獨立判定；普通／菁英的一般裝備先乘低等地區的掉率衰減，接著乘(1+全隊掉寶率加成)，最後封頂100%。成功項目超過怪物 maxDrops 時，隨機保留至上限；素材、BOSS 與信物等不套用一般裝備的等級差衰減。';return r;};
 
 const dropTableApplySideEffectsBase=applyGameplaySettingsSideEffects;
 applyGameplaySettingsSideEffects=function(){dropTableApplySideEffectsBase();syncMonsterCatalogToMaps();};
@@ -4373,16 +4709,16 @@ rewardGroupKill=function(e){
     for(const [key,name] of [['gold','金幣'],['ore','鍛鐵'],['dust','寶石粉塵'],['potions','治療藥水']])addExpeditionLoot(name,h[key]-before[key]);
     h.gems.forEach((n,i)=>addExpeditionLoot(GEMS[i].name,n-before.gems[i]));
     for(const [name,n] of Object.entries(h.materials))addExpeditionLoot(name,n-(before.materials[name]||0));
-    for(const gearItem of h.bag)if(!before.gear.has(gearItem.id)&&!globalThis.EmberwildTokens?.isToken(gearItem))addExpeditionLoot(equipmentDisplayName(gearItem),1,typeof gearQualityRank==='function'?gearQualityRank(gearItem):Math.max(0,Math.min(3,Number(gearItem.rar)||0)));
+    for(const gearItem of h.bag)if(!before.gear.has(gearItem.id))addExpeditionLoot(equipmentDisplayName(gearItem),1,typeof gearQualityRank==='function'?gearQualityRank(gearItem):Math.max(0,Math.min(3,Number(gearItem.rar)||0)));
   }
   return result;
 };
 
-EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
+
 
 /* js/ui/item-presentation.js?v=20261019-compact-dust1 */
-/* Shared SVG item slots. Lists keep their actions; details use the existing gear
-   panel or a separate dialog so opening a mail attachment never replaces mail. */
+/* Shared SVG item slots. Backpack details use their existing panel/dialog;
+   references stay passive and shops expose purchase actions inline. */
 (()=>{
   let selection=null,hovered=null;
   const attr=value=>esc(String(value??''));
@@ -4445,7 +4781,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
     const d=node.dataset,mail=d.itemMail?party?.mailbox?.messages.find(m=>m.id===Number(d.itemMail))?.attachments[Number(d.itemIndex)]:null;
     if(mail){const g=mail.gear,id=g?gearIdentity(g):mail.type==='companionTicket'?{kind:'item',key:'companion-ticket-'+mail.companionId}:{kind:mail.kind,key:mail.key};return {...id,g,context:'mail',quantity:mail.quantity,quantityLabel:'附件數量'};}
     const number=value=>value===undefined?undefined:Number(value);
-    return {kind:d.itemKind,key:d.itemKey,g:d.itemPreview?JSON.parse(d.itemPreview):d.itemGear?(findGear(d.itemGear)||(typeof pendingGearLoot!=='undefined'?pendingGearLoot.find(g=>g.id===d.itemGear):null)):null,extra:d.itemExtra,context:d.itemContext||'reference',quantity:number(d.itemQuantity),quantityLabel:d.itemQuantityLabel,price:number(d.itemPrice),priceLabel:d.itemPriceLabel,shopType:d.itemShopType,shopId:d.itemShopId,sold:d.itemSold==='true',soldLabel:d.itemSoldLabel};
+    return {kind:d.itemKind,key:d.itemKey,g:d.itemPreview?JSON.parse(d.itemPreview):d.itemGear?findGear(d.itemGear):null,extra:d.itemExtra,context:d.itemContext||'reference',quantity:number(d.itemQuantity),quantityLabel:d.itemQuantityLabel,price:number(d.itemPrice),priceLabel:d.itemPriceLabel,shopType:d.itemShopType,shopId:d.itemShopId,sold:d.itemSold==='true',soldLabel:d.itemSoldLabel};
   }
   globalThis.itemSlotHTML=function(kind,key,options={}){
     key=String(key);const g=options.gear;
@@ -4454,10 +4790,19 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
     const context=options.context||(options.mailId?'mail':'reference'),quantity=options.detailQuantity??options.count;
     const data=`data-item-kind="${attr(kind)}" data-item-key="${attr(key)}" data-item-context="${attr(context)}"${g?.id?` data-item-gear="${attr(g.id)}"`:''}${options.preview?` data-item-preview="${attr(JSON.stringify(options.preview))}"`:''}${options.mailId?` data-item-mail="${options.mailId}" data-item-index="${options.mailIndex}"`:''}${options.extra?` data-item-extra="${attr(options.extra)}"`:''}${quantity!==undefined?` data-item-quantity="${attr(quantity)}"`:''}${options.detailLabel?` data-item-quantity-label="${attr(options.detailLabel)}"`:''}${options.price!==undefined?` data-item-price="${attr(options.price)}"`:''}${options.priceLabel?` data-item-price-label="${attr(options.priceLabel)}"`:''}${options.shopType?` data-item-shop-type="${attr(options.shopType)}"`:''}${options.shopId!==undefined?` data-item-shop-id="${attr(options.shopId)}"`:''}${options.sold?` data-item-sold="true"`:''}${options.soldLabel?` data-item-sold-label="${attr(options.soldLabel)}"`:''}`;
     const token=globalThis.EmberwildTokens?.isToken(g),wearer=g&&typeof gearWearer==='function'?gearWearer(g.id):null;
-    const content=`<span class="item-slot-art" aria-hidden="true">${icon(kind,key,g)}</span><span class="item-slot-name">${attr(n)}${token?` <span class="tag token-job-tag">${attr(companionTokenJobLabel(g))}</span>${wearer?` <span class="token-wearer">${attr(characterName(wearer))} · 已裝備</span>`:''}`:''}</span>${options.count!==undefined?`<span class="item-slot-count" aria-label="數量 ${attr(options.count)}">×${attr(options.count)}</span>`:''}${g?.plus?`<span class="item-slot-plus" aria-hidden="true">+${g.plus}</span>`:''}${g&&typeof gearWearer==='function'&&gearWearer(g.id)?'<span class="item-slot-worn" aria-label="已穿戴"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></span>':''}`;
-    const tag=options.contentOnly?'span':'button';
-    return `<${tag} ${tag==='button'?'type="button" ':''}class="item-slot ${options.className||''}${options.selected?' selected':''}${g?' item-quality-'+gearQualityRank(g):''}" ${data} aria-label="${attr(label)}"${tag==='button'?` onclick="${options.onclick||'openItemSlotDetails(this)'}"`:''}${options.selected?' aria-pressed="true"':''}>${content}</${tag}>`;
+    const content=`<span class="item-slot-art" aria-hidden="true">${icon(kind,key,g)}</span><span class="item-slot-name">${attr(n)}${g&&!token?` <span class="gear-tier-chip gear-tier-${Number.isInteger(g.powerTier)?g.powerTier:0}">${Number.isInteger(g.powerTier)?'T'+g.powerTier:'T—'}</span>`:''}${token?` <span class="tag token-job-tag">${attr(companionTokenJobLabel(g))}</span>${wearer?` <span class="token-wearer">${attr(characterName(wearer))} · 已裝備</span>`:''}`:''}</span>${options.count!==undefined?`<span class="item-slot-count" aria-label="數量 ${attr(options.count)}">×${attr(options.count)}</span>`:''}${g?.plus?`<span class="item-slot-plus" aria-hidden="true">+${g.plus}</span>`:''}${g&&typeof gearWearer==='function'&&gearWearer(g.id)?'<span class="item-slot-worn" aria-label="已穿戴"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></span>':''}`;
+    const tag=!options.contentOnly&&(options.onclick||context==='inventory')?'button':'span';
+    const slot=`<${tag} ${tag==='button'?'type="button" ':''}class="item-slot ${options.className||''}${options.selected?' selected':''}${g?' item-quality-'+gearQualityRank(g):''}" ${data} aria-label="${attr(label)}"${tag==='button'?` onclick="${options.onclick||'openItemSlotDetails(this)'}"`:''}${options.selected?' aria-pressed="true"':''}>${content}</${tag}>`;
+    return slot+(context==='shop'&&!options.contentOnly?shopInlineControls(options):'');
   };
+  function shopInlineControls(o){
+    const id=attr(JSON.stringify(o.shopId)),price=Number(o.price)||0,disabled=o.sold||state.gold<price,off=disabled?'disabled':'';
+    let action='';
+    if(o.shopType==='equipment')action=`<input type="number" min="1" max="100" step="1" value="1" aria-label="購買份數"><button onclick="buyEquipmentShopOffer(${id},Number(this.previousElementSibling.value))" ${off}>購買</button>`;
+    else if(o.shopType==='life')action=`<button onclick="buyLifeMaterial(${id},1)" ${off}>購買 1 份</button><button onclick="buyLifeMaterial(${id},10)" ${o.sold||state.gold<(globalThis.lifeMaterialPurchasePrice?.(o.shopId,10)??price*10)?'disabled':''}>購買 10 份</button>`;
+    else if(['market','fixed'].includes(o.shopType))action=`<button onclick="${o.shopType==='market'?'buyMarketOffer':'buyFixedShopOffer'}(${id})" ${off}>${o.sold?attr(o.soldLabel||'已售完'):'購買'}</button>`;
+    return `<span class="shop-inline-controls"><span class="small">${attr(o.detailLabel||'商品數量')} ${attr(o.detailQuantity??o.count??1)} · ${price.toLocaleString()} 金幣</span><span class="shop-inline-actions">${action}</span></span>`;
+  }
   globalThis.gearSlotHTML=(g,options={})=>itemSlotHTML('equipment','',{...options,gear:g});
   globalThis.itemCostHTML=function(g){const c=upgradeMaterials(g);return '<span class="item-cost-line">'+[['鍛鐵',c.ore],['粉塵',c.dust],['以太鍛鐵',c.ether]].filter(([,n])=>n>0).map(([key,count])=>itemSlotHTML('material',key,{count,detailLabel:'所需數量'})).join(' ＋ ')+'</span>';};
   globalThis.mailAttachmentSlot=function(mailId,index){
@@ -4468,10 +4813,10 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
   function info(ref){
     const {kind,key,g}=ref,item=definition(kind,key),description=globalThis.EmberwildTokens?.isToken(g)?companionTokenDescription(g):globalThis.__EMBERWILD_ITEM_DESCRIPTION?.(kind,key)||'';
     let detail='';
-    if(g)detail=`<p>${globalThis.EmberwildTokens?.isToken(g)?esc(gearDesc(g)):esc(gearWearableJobsText(g)+' · LV '+gearRequiredLevelByTier(g.tier))}</p><p class="equipment-total-summary">${globalThis.equipmentTotalSummaryHTML?.(g)||esc(gearDesc(g))}</p>${globalThis.equipmentAttributeDetailsHTML?.(g)||''}${g.starterPack?'<p>可強化；不可洗鍊詞綴或重鑄基底。</p>':''}`;
+    if(g)detail=`<p>T${g.powerTier||1} · ${g.affix?.length?'已附詞綴':'尚未洗鍊／無隨機詞綴'}${g.equipmentSource==='shop'?' · 固定商店基底':''}</p><p>${globalThis.EmberwildTokens?.isToken(g)?esc(gearDesc(g)):esc(gearWearableJobsText(g)+' · LV '+gearRequiredLevel(g))}</p><p class="equipment-total-summary">${globalThis.equipmentTotalSummaryHTML?.(g)||esc(gearDesc(g))}</p>${globalThis.equipmentAttributeDetailsHTML?.(g)||''}${g.starterPack?'<p>可強化；不可洗鍊詞綴或重鑄基底。</p>':''}`;
     else if(kind==='item'&&key.startsWith('companion-ticket-'))detail='<p>領取後存入背包，使用可解鎖指定夥伴；重複取得依原規則轉換。</p>';
     else if(item)detail='<p>'+esc(key==='level_scroll'?'全隊共用等級 +1':supplyDetail(item))+'</p>';
-    else if(kind==='gem')detail='<p>'+esc(GEMS[Number(key)]?.desc||'技能鑲嵌寶石')+'</p>';
+    else if(kind==='gem'&&!description)detail='<p>'+esc(GEMS[Number(key)]?.desc||'技能鑲嵌寶石')+'</p>';
     if(ref.context==='inventory'){
       if(item)detail+='<p>持有 '+(state?__EMBERWILD_INVENTORY_STOCK.count(key):0)+' · 售價 '+(key==='level_scroll'?materialSellPrice('升級卷軸'):typeof itemSellPrice==='function'?itemSellPrice(key):0)+' 金幣／個</p>';
       else if(kind==='item'&&key.startsWith('companion-ticket-'))detail+='<p>持有 '+(Number.isFinite(ref.quantity)?ref.quantity.toLocaleString():'0')+'</p>';
@@ -4486,13 +4831,6 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
   }
   function controls(ref){
     const {kind,key,g}=ref;
-    if(ref.context==='shop'){
-      const id=attr(JSON.stringify(ref.shopId)),price=Number(ref.price)||0,disabled=ref.sold||state.gold<price;
-      if(ref.shopType==='market')return `<button onclick="itemDetailsAction(()=>buyMarketOffer(${id}))" ${disabled?'disabled':''}>${ref.sold?esc(ref.soldLabel||'已售完'):'購買'}</button>`;
-      if(ref.shopType==='fixed')return `<button onclick="itemDetailsAction(()=>buyFixedShopOffer(${id}))" ${disabled?'disabled':''}>購買</button>`;
-      if(ref.shopType==='life')return `<div class="actions"><button onclick="itemDetailsAction(()=>buyLifeMaterial(${id},1))" ${state.gold<price?'disabled':''}>購買 1 份</button><button onclick="itemDetailsAction(()=>buyLifeMaterial(${id},10))" ${state.gold<(globalThis.lifeMaterialPurchasePrice?.(ref.shopId,10)??price*10)?'disabled':''}>購買 10 份</button></div>`;
-      return '';
-    }
     if(!g&&ref.context!=='inventory')return '';
     if(g){
       if(!findGear(g.id))return '';
@@ -4511,13 +4849,17 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
   }
   function dialog(){let d=document.getElementById('item-detail-dialog');if(!d){d=document.createElement('dialog');d.id='item-detail-dialog';document.body.appendChild(d);}return d;}
   function renderDetail(){const d=dialog();if(selection)d.innerHTML=`<div class="item-detail-top"><span class="item-detail-art">${icon(selection.kind,selection.key,selection.g)}</span><button onclick="closeItemDetails()" aria-label="關閉道具詳細資料">關閉</button></div>${info(selection)}${controls(selection)}`;}
-  globalThis.openItemSlotDetails=function(node){selection=refFromNode(node);if(!selection.kind)return;hideTooltip();renderDetail();const d=dialog();if(!d.open)d.showModal();};
+  globalThis.openItemSlotDetails=function(node){const ref=refFromNode(node);if(ref.context!=='inventory'||!ref.kind)return false;selection=ref;hideTooltip();renderDetail();const d=dialog();if(!d.open)d.showModal();};
   globalThis.closeItemDetails=function(){dialog().close();selection=null;};
-  globalThis.itemDetailsAction=function(action){action();if(selection?.context==='shop'&&selection.shopType==='market')selection.sold=selection.sold||!!party?.market?.offers?.find(o=>o.id===selection.shopId)?.sold;if(selection)renderDetail();};
-  let tooltip;
-  function hideTooltip(){if(tooltip){if(typeof tooltip.hidePopover==='function'&&tooltip.matches(':popover-open'))tooltip.hidePopover();tooltip.hidden=true;}hovered=null;}
-  function showTooltip(node){
-    if(!node)return;hovered=node;
+  globalThis.itemDetailsAction=function(action){action();if(selection)renderDetail();};
+  let tooltip, pointerHover=false, lastPointer=null, hoverCheckQueued=false;
+  function hideTooltip(){
+    if(tooltip){if(typeof tooltip.hidePopover==='function'&&tooltip.matches(':popover-open'))tooltip.hidePopover();tooltip.hidden=true;}
+    hovered=null;pointerHover=false;
+  }
+  function showTooltip(node,fromPointer=false){
+    if(!node)return;
+    hovered=node;pointerHover=fromPointer;
     if(!tooltip){tooltip=document.createElement('div');tooltip.id='item-hover-tooltip';tooltip.className='item-hover-tooltip';tooltip.setAttribute('role','tooltip');document.body.appendChild(tooltip);}
     tooltip.innerHTML=info(refFromNode(node));tooltip.hidden=false;
     if(typeof tooltip.showPopover==='function'&&!tooltip.matches(':popover-open')){tooltip.setAttribute('popover','manual');tooltip.showPopover();}
@@ -4526,15 +4868,52 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
     tooltip.style.left=Math.max(8,Math.min(left,innerWidth-tip.width-8))+'px';
     tooltip.style.top=Math.max(8,Math.min(rect.top,innerHeight-tip.height-8))+'px';
   }
-  document.addEventListener('pointerover',e=>{if(e.pointerType==='touch')return;const node=e.target.closest?.('[data-item-kind]');if(node&&node!==hovered)showTooltip(node);});
-  document.addEventListener('pointerout',e=>{if(hovered&&!hovered.contains?.(e.relatedTarget))hideTooltip();});
-  document.addEventListener('focusin',e=>{const node=e.target.closest?.('[data-item-kind]');if(node)showTooltip(node);});
-  document.addEventListener('focusout',hideTooltip);
-  document.addEventListener('scroll',hideTooltip,true);
+  function itemAtPointer(){
+    return lastPointer?document.elementFromPoint(lastPointer.x,lastPointer.y)?.closest?.('[data-item-kind]'):null;
+  }
+  function syncPointerHover(){
+    if(!pointerHover)return;
+    const node=itemAtPointer();
+    // A live render can replace the hovered element without moving the mouse.
+    if(node&&node!==hovered)showTooltip(node,true);
+    else if(!node)hideTooltip();
+  }
+  function queuePointerCheck(){
+    if(hoverCheckQueued||!pointerHover)return;
+    hoverCheckQueued=true;
+    requestAnimationFrame(()=>{hoverCheckQueued=false;syncPointerHover();});
+  }
+  function trackPointer(e){lastPointer={x:e.clientX,y:e.clientY};}
+  document.addEventListener('pointerover',e=>{
+    if(e.pointerType==='touch')return;
+    trackPointer(e);
+    const node=e.target.closest?.('[data-item-kind]');
+    if(node&&node!==hovered)showTooltip(node,true);
+    else if(node)pointerHover=true;
+    else queuePointerCheck();
+  });
+  document.addEventListener('pointermove',e=>{
+    if(e.pointerType==='touch')return;
+    trackPointer(e);
+    const node=e.target.closest?.('[data-item-kind]');
+    if(node&&node!==hovered)showTooltip(node,true);
+    else if(node)pointerHover=true;
+    else if(pointerHover)hideTooltip();
+  });
+  document.addEventListener('pointerout',e=>{
+    if(pointerHover&&hovered?.contains?.(e.target)&&!hovered.contains(e.relatedTarget))queuePointerCheck();
+  });
+  document.addEventListener('focusin',e=>{
+    const node=e.target.closest?.('[data-item-kind]');
+    if(node&&node!==hovered)showTooltip(node,false);
+  });
+  document.addEventListener('focusout',()=>{if(!pointerHover)hideTooltip();});
+  // Battle journal auto-scroll and unrelated panel scrolls must not close an item tooltip.
+  document.addEventListener('scroll',queuePointerCheck,true);
   document.addEventListener('keydown',e=>{if(e.key==='Escape')hideTooltip();});
 })();
 
-toast=globalThis.toast??toast;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;EmberwildMonsterDesign=globalThis.EmberwildMonsterDesign??EmberwildMonsterDesign;setItemDisplayMode=globalThis.setItemDisplayMode??setItemDisplayMode;itemDisplayOptionsView=globalThis.itemDisplayOptionsView??itemDisplayOptionsView;__EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;itemSlotHTML=globalThis.itemSlotHTML??itemSlotHTML;gearSlotHTML=globalThis.gearSlotHTML??gearSlotHTML;itemCostHTML=globalThis.itemCostHTML??itemCostHTML;mailAttachmentSlot=globalThis.mailAttachmentSlot??mailAttachmentSlot;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;companionTokenAbilityText=globalThis.companionTokenAbilityText??companionTokenAbilityText;lifeMaterialPurchasePrice=globalThis.lifeMaterialPurchasePrice??lifeMaterialPurchasePrice;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;openItemSlotDetails=globalThis.openItemSlotDetails??openItemSlotDetails;closeItemDetails=globalThis.closeItemDetails??closeItemDetails;itemDetailsAction=globalThis.itemDetailsAction??itemDetailsAction;
+toast=globalThis.toast??toast;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;EmberwildMonsterDesign=globalThis.EmberwildMonsterDesign??EmberwildMonsterDesign;setItemDisplayMode=globalThis.setItemDisplayMode??setItemDisplayMode;itemDisplayOptionsView=globalThis.itemDisplayOptionsView??itemDisplayOptionsView;__EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;itemSlotHTML=globalThis.itemSlotHTML??itemSlotHTML;lifeMaterialPurchasePrice=globalThis.lifeMaterialPurchasePrice??lifeMaterialPurchasePrice;gearSlotHTML=globalThis.gearSlotHTML??gearSlotHTML;itemCostHTML=globalThis.itemCostHTML??itemCostHTML;mailAttachmentSlot=globalThis.mailAttachmentSlot??mailAttachmentSlot;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;companionTokenAbilityText=globalThis.companionTokenAbilityText??companionTokenAbilityText;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;openItemSlotDetails=globalThis.openItemSlotDetails??openItemSlotDetails;closeItemDetails=globalThis.closeItemDetails??closeItemDetails;itemDetailsAction=globalThis.itemDetailsAction??itemDetailsAction;
 
 /* js/ui/ui-text-config.js?v=20261019-compact-dust1 */
 
@@ -4682,7 +5061,7 @@ function inventoryGearDetail(g){
       <div><h2>${equipmentNameHTML(g)}</h2></div>
       <span class="tag">${qualityTag(g)}${locked?' · 已鎖定':''}</span>
     </div>
-    <div class="inventory-detail-meta">${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV ${gearRequiredLevelByTier(g.tier)}${worn?' · 目前由 '+esc(characterName(wearer))+' 穿戴':''}</div>
+    <div class="inventory-detail-meta">${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV ${gearRequiredLevel(g)}${worn?' · 目前由 '+esc(characterName(wearer))+' 穿戴':''}</div>
     <section class="inventory-detail-section"><h3>裝備能力</h3><p class="inventory-detail-stats equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}</section>
     <section class="inventory-detail-section"><div class="actions inventory-detail-actions"><button onclick="enhance('${g.id}')" ${g.plus>=RULES.enhanceMax||!canEnhance(g)?'disabled':''}>${g.plus>=RULES.enhanceMax?'已達 +'+RULES.enhanceMax:'強化 +'+(g.plus+1)+'／'+upgradeCostText(g)}</button><button onclick="reroll('${g.id}')" ${(()=>{const c=rerollCostFor(g);return draft||state.gold<c.gold||state.dust<c.dust;})()?'disabled':''}>洗鍊／${rerollCostFor(g).gold} 金幣＋${rerollCostFor(g).dust} 粉塵</button><button onclick="toggleGearLock('${g.id}')">${locked?'解除鎖定':'鎖定'}</button><button class="danger" onclick="salvage('${g.id}')" ${worn||draft||locked?'disabled':''}>分解</button></div></section>
     ${inlineAffixComparison(g)}
@@ -4760,17 +5139,6 @@ inlineInventoryView=function(){
     initial=function(job){const h=initHero(finalInitialBase(job));if(typeof syncHeroSkillArrays==='function')syncHeroSkillArrays(h);return h;};
   }
 
-  if(typeof rewardGroupKill==='function'){
-    const finalPendingRewardBase=rewardGroupKill;
-    rewardGroupKill=function(e){
-      if(e?.rewarded)return;
-      const previous=collectingBattleGear;
-      collectingBattleGear=true;
-      try{return finalPendingRewardBase(e);}
-      finally{collectingBattleGear=previous;}
-    };
-  }
-
   if(typeof pacedRound==='function'){
     const finalAutoRetryPacedRoundBase=pacedRound;
     pacedRound=function*(){
@@ -4779,7 +5147,7 @@ inlineInventoryView=function(){
       // A wipe is the only normal round outcome that clears foes/enemy after
       // starting in the running state. Final-boss victory keeps the defeated
       // foe list, while a manual pause does not clear the encounter.
-      if(startedRunning&&party&&!running&&!foes.length&&!enemy&&living().length){
+      if(startedRunning&&party&&!party.questChallenge&&!globalThis.isFinalMap?.(party.map)&&!running&&!foes.length&&!enemy&&living().length){
         running=true;
         note('全隊恢復後，自動重新挑戰目前區域。');
         save();
@@ -4790,11 +5158,9 @@ inlineInventoryView=function(){
   }
 
   if(typeof resetSession==='function'){
-    const finalPendingResetSessionBase=resetSession;
+    const finalInventoryResetSessionBase=resetSession;
     resetSession=function(){
-      const result=finalPendingResetSessionBase();
-      pendingGearLoot=[];
-      collectingBattleGear=false;
+      const result=finalInventoryResetSessionBase();
       if(typeof inventorySelectedGearId!=='undefined')inventorySelectedGearId=null;
       // resetSession() still came from the legacy filter model. Always restore
       // the current inventory filter schema so a new game/import does not
@@ -4950,46 +5316,6 @@ inlineInventoryView=function(){
     };
   }
 
-  // Preserve late pending-loot data through validateParty() so manual JSON
-  // import does not silently discard it. The actual gear objects are validated
-  // after the party state is available by reusing the final validateSave().
-  if(typeof validateParty==='function'){
-    const auditedValidatePartyBase=validateParty;
-    validateParty=function(data){
-      data=EmberwildTokens.prepareSave(data,RULES.bagCapacity);
-      const out=auditedValidatePartyBase(data);
-      if(data?.pendingGearLoot!==undefined){
-        if(!Array.isArray(data.pendingGearLoot))throw Error('待結算裝備資料無效');
-        out.pendingGearLoot=validatePendingGearArray(data.pendingGearLoot,out);
-      }
-      return out;
-    };
-  }
-  function validatePendingGearArray(raw,validatedParty=null){
-    if(raw===undefined)return [];
-    if(!Array.isArray(raw))throw Error('待結算裝備資料無效');
-    const members=validatedParty?.members||[state],hero=validatedParty?members.find(h=>memberKey(h)===validatedParty.selected):state;
-    const existing=new Set(members.flatMap(h=>(h?.bag||[]).map(g=>g.id))),seen=new Set(),out=[],template=clonePlain(hero);
-    for(const item of raw){
-      if(!item||typeof item.id!=='string'||existing.has(item.id)||seen.has(item.id))throw Error('待結算裝備 ID 無效');
-      seen.add(item.id);
-      const probe={...template,map:0,bag:[clonePlain(item)],equipped:[null,null,null,null,null]};
-      const valid=validateSave(probe);
-      if(!valid?.bag?.[0])throw Error('待結算裝備資料無效');
-      out.push(valid.bag[0]);
-    }
-    return out;
-  }
-  if(typeof loadParty==='function'){
-    const auditedLoadPartyBase=loadParty;
-    loadParty=function(data){
-      const validated=validateParty(data),queued=validated.pendingGearLoot;
-      const copy=clonePlain(data);copy.pendingGearLoot=[];
-      const out=auditedLoadPartyBase(copy);
-      pendingGearLoot=queued||[];
-      return out;
-    };
-  }
 })();
 
 
@@ -5036,15 +5362,15 @@ try{
   }
 }catch(e){
   console.warn('最終存檔完整載入失敗',e);
-  if(!state){state=null;party=null;toast('存檔未能載入：'+e.message+'；可匯入備份。');}
+  if(!state){state=null;party=null;if(!globalThis.__EMBERWILD_BALANCE_SOURCE||globalThis.__EMBERWILD_BALANCE_READY)toast('存檔未能載入：'+e.message+'；可匯入備份。');}
 }
 render();
 
-__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;setInventorySort=globalThis.setInventorySort??setInventorySort;toggleInventorySortDirection=globalThis.toggleInventorySortDirection??toggleInventorySortDirection;setInventoryVisibility=globalThis.setInventoryVisibility??setInventoryVisibility;forceGearQuality=globalThis.forceGearQuality??forceGearQuality;
+__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;setInventorySort=globalThis.setInventorySort??setInventorySort;toggleInventorySortDirection=globalThis.toggleInventorySortDirection??toggleInventorySortDirection;setInventoryVisibility=globalThis.setInventoryVisibility??setInventoryVisibility;isFinalMap=globalThis.isFinalMap??isFinalMap;forceGearQuality=globalThis.forceGearQuality??forceGearQuality;
 
 /* js/equipment/economy-salvage.js?v=20261014-catalogue2 */
 
-/* Update 21: sale economy, grouped pending loot and configurable salvage output. */
+/* Sale economy and configurable salvage output. */
 (function installEconomyAndSalvageSystem(){
   const QUALITY_NAMES=(typeof AFFIX_RANK!=='undefined'?AFFIX_RANK:['普通','精良','稀有','傳說']);
   const DEFAULT_GEAR_SELL=[12,30,75,180];
@@ -5161,7 +5487,17 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
     else if(type==='item'){const item=SHOP.find(x=>x.id===key);if(isHealPotion(item))setHealPotionCount(key,healPotionCount(key)+n);else if(item)state.consumables[key]=(state.consumables[key]||0)+n;}
     else if(type==='gem'){for(let i=0;i<n;i++){const gi=key==='random'?rand(3):Number(key);if(Number.isInteger(gi)&&gi>=0&&gi<3)state.gems[gi]=(state.gems[gi]||0)+1;}}
   }
-  function grantSalvageRewards(g,includeEnhance=true){const identity=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY?.(g),custom=identity&&globalThis.__EMBERWILD_ITEM_DETAILS?.(identity.kind,identity.key)?.salvageRewards;if(custom!==undefined){for(const x of custom)grantEconomyReward(x.type,x.key,x.quantity);return {ore:custom.filter(x=>x.type==='ore').reduce((n,x)=>n+x.quantity,0),dust:custom.filter(x=>x.type==='dust').reduce((n,x)=>n+x.quantity,0)};}const r=update12SalvageRewards(g,includeEnhance);state.ore+=r.ore;state.dust+=r.dust;for(const x of salvageExtraRules(g))grantEconomyReward(x.type,x.key,x.quantity);return r;}
+  function salvageRewardPlan(g,includeEnhance=true){
+    const identity=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY?.(g),custom=identity&&globalThis.__EMBERWILD_ITEM_DETAILS?.(identity.kind,identity.key)?.salvageRewards;
+    if(custom!==undefined)return custom.map(x=>({...x}));
+    const r=update12SalvageRewards(g,includeEnhance);
+    return [{type:'ore',key:'',quantity:r.ore},{type:'dust',key:'',quantity:r.dust},...salvageExtraRules(g).map(x=>({...x}))];
+  }
+  function grantSalvageRewards(g,includeEnhance=true){
+    const plan=salvageRewardPlan(g,includeEnhance);for(const x of plan)grantEconomyReward(x.type,x.key,x.quantity);
+    return {ore:plan.filter(x=>x.type==='ore').reduce((n,x)=>n+x.quantity,0),dust:plan.filter(x=>x.type==='dust').reduce((n,x)=>n+x.quantity,0)};
+  }
+  globalThis.salvageRewardPlan=salvageRewardPlan;
   globalThis.grantSalvageRewards=grantSalvageRewards;
 
   salvage=function(id){
@@ -5177,13 +5513,6 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
   salvageAll=function(){
     const targets=state.bag.filter(g=>!EmberwildTokens.isToken(g)&&gearQualityRank(g)===0&&(g.plus||0)===0&&!g.affix.length&&g.boss===undefined&&!state.equipped.includes(g.id)&&!g.locked),ids=new Set(targets.map(g=>g.id));for(const g of targets)grantSalvageRewards(g,false);state.bag=state.bag.filter(g=>!ids.has(g.id));pruneGearSelections();save();render();toast(`已分解 ${ids.size} 件未養成普通裝備`);
   };
-  // Auto-salvage on a full inventory must use the same configurable output.
-  const economyAddGearBase=addGear;
-  addGear=function(g){
-    if(!(typeof collectingBattleGear!=='undefined'&&collectingBattleGear)&&state.bag.length>=RULES.bagCapacity){g.rar=0;grantSalvageRewards(g,false);note('背包已滿，掉落裝備自動分解。');return;}
-    return economyAddGearBase(g);
-  };
-
   function canDisposeBagGear(g){return !!g&&globalThis.__EMBERWILD_CAN_SELL_GEAR?.(g)!==false&&!g.locked&&!gearWearer(g.id)&&!inlineAffixDrafts.has(affixDraftKey(g));}
   function sellGear(id){
     const g=findGear(id);if(g&&globalThis.__EMBERWILD_CAN_SELL_GEAR?.(g)===false)return toast('此裝備不可販售');if(!canDisposeBagGear(g))return toast('已穿戴、鎖定或待確認洗鍊的裝備不能販售');
@@ -5204,25 +5533,6 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
   };
   const economyBulkSalvageBase=bulkSalvageControls;
   bulkSalvageControls=function(){return economyBulkSalvageBase()+`<div class="actions bulk-sell-actions">${QUALITY_NAMES.map((name,q)=>`<button onclick="sellAllGearByQuality(${q})">販售所有${name}</button>`).join('')}</div>`;};
-
-  function pendingByQuality(q){return pendingGearLoot.filter(g=>gearQualityRank(g)===q);}
-  function claimPendingQuality(q){
-    const room=Math.max(0,RULES.bagCapacity-state.bag.length),group=pendingByQuality(q);if(!group.length)return toast('沒有'+QUALITY_NAMES[q]+'待領取裝備');if(!room)return toast('裝備背包已滿');
-    const take=group.slice(0,room),ids=new Set(take.map(g=>g.id));state.bag.push(...take);pendingGearLoot=pendingGearLoot.filter(g=>!ids.has(g.id));save();render();toast(`已領取 ${take.length} 件${QUALITY_NAMES[q]}裝備${take.length<group.length?'；背包已滿':''}`);
-  }
-  function disposePendingQuality(q,mode){
-    const group=pendingByQuality(q);if(!group.length)return toast('沒有'+QUALITY_NAMES[q]+'待領取裝備');
-    const hasBoss=group.some(g=>g.boss!==undefined),verb=mode==='sell'?'販售':'分解',total=mode==='sell'?group.reduce((n,g)=>n+equipmentSellPrice(g),0):0;
-    if((q>=2||hasBoss)&&!confirm(`確定${verb} ${group.length} 件${QUALITY_NAMES[q]}待領取裝備${mode==='sell'?`，獲得 ${total} 金幣`:''}？${hasBoss?'\n其中包含 BOSS 專屬裝備。':''}`))return;
-    const snap=economyResourceSnapshot(),old=pendingGearLoot;try{if(mode==='sell')state.gold+=total;else for(const g of group)grantSalvageRewards(g,false);const ids=new Set(group.map(g=>g.id));pendingGearLoot=pendingGearLoot.filter(g=>!ids.has(g.id));if(!save())throw Error('儲存失敗');render();toast(`已${verb} ${group.length} 件${QUALITY_NAMES[q]}裝備${mode==='sell'?`，獲得 ${total} 金幣`:''}`);}catch(e){pendingGearLoot=old;restoreEconomyResources(snap);toast('操作失敗：'+e.message);}
-  }
-  globalThis.claimPendingQuality=claimPendingQuality;globalThis.salvagePendingQuality=q=>disposePendingQuality(q,'salvage');globalThis.sellPendingQuality=q=>disposePendingQuality(q,'sell');
-
-  pendingGearLootView=function(){
-    if(!pendingGearLoot.length)return `<section class="panel pending-gear-panel"><div class="row"><b>待結算裝備 0 件</b><span class="small">戰鬥掉落先存放於此，不會改變背包中的裝備順序。</span></div><p class="small">目前沒有待結算裝備。</p></section>`;
-    const groups=QUALITY_NAMES.map((name,q)=>{const list=pendingByQuality(q),total=list.reduce((n,g)=>n+equipmentSellPrice(g),0);return `<section class="pending-quality-group effect-quality-${q}"><div class="row"><b>${name} ${list.length} 件</b><span class="small">${list.length?`販售 ${equipmentSellPrice(list[0])}／件`:'—'}</span></div><div class="small">${list.slice(0,3).map(g=>esc(equipmentDisplayName(g))).join('、')}${list.length>3?'…':''}</div><div class="actions"><button onclick="claimPendingQuality(${q})" ${list.length?'':'disabled'}>領取</button><button onclick="salvagePendingQuality(${q})" ${list.length?'':'disabled'}>分解</button><button onclick="sellPendingQuality(${q})" ${list.length?'':'disabled'}>販售${list.length?' '+total+'金':''}</button></div></section>`;}).join('');
-    return `<section class="panel pending-gear-panel"><div class="row"><div><b>待結算裝備 ${pendingGearLoot.length} 件</b><span class="small" style="margin-left:10px">可依品質直接領取、分解或販售。</span></div><button onclick="claimPendingGearLoot()" ${state.bag.length>=RULES.bagCapacity?'disabled':''}>全部結算並領取</button></div><div class="pending-quality-groups">${groups}</div></section>`;
-  };
 
   function sellMaterial(key,qty){if(globalThis.__EMBERWILD_CAN_SELL?.(key==='升級卷軸'?'item':'material',key==='升級卷軸'?'level_scroll':key)===false)return toast('此素材不可販售');const have=materialCount(key),n=Math.max(0,Math.min(have,Math.floor(Number(qty)||0)));if(n<1)return toast('請輸入要販售的數量');const unit=materialSellPrice(key),gold=state.gold;if(!Number.isSafeInteger(unit*n)||gold+unit*n>1e12)return toast('金幣已達上限，素材已保留');setMaterialCount(key,have-n);state.gold+=unit*n;if(!save()){setMaterialCount(key,have);state.gold=gold;return;}render();toast(`已販售 ${key} ×${n}，獲得 ${unit*n} 金幣`);}
   function sellMaterialFromControl(btn){const box=btn.closest('[data-material]'),input=box.querySelector('input');sellMaterial(box.dataset.material,input.value);}
@@ -5288,7 +5598,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
   render();
 })();
 
-__EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_ITEM_DETAILS=globalThis.__EMBERWILD_ITEM_DETAILS??__EMBERWILD_ITEM_DETAILS;equipmentSellPrice=globalThis.equipmentSellPrice??equipmentSellPrice;materialSellPrice=globalThis.materialSellPrice??materialSellPrice;itemSellPrice=globalThis.itemSellPrice??itemSellPrice;materialCount=globalThis.materialCount??materialCount;setMaterialCount=globalThis.setMaterialCount??setMaterialCount;grantSalvageRewards=globalThis.grantSalvageRewards??grantSalvageRewards;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;sellGear=globalThis.sellGear??sellGear;sellAllGearByQuality=globalThis.sellAllGearByQuality??sellAllGearByQuality;claimPendingQuality=globalThis.claimPendingQuality??claimPendingQuality;salvagePendingQuality=globalThis.salvagePendingQuality??salvagePendingQuality;sellPendingQuality=globalThis.sellPendingQuality??sellPendingQuality;sellMaterial=globalThis.sellMaterial??sellMaterial;sellMaterialFromControl=globalThis.sellMaterialFromControl??sellMaterialFromControl;sellAllMaterialFromControl=globalThis.sellAllMaterialFromControl??sellAllMaterialFromControl;setCommonMaterialRegion=globalThis.setCommonMaterialRegion??setCommonMaterialRegion;setCommonMaterialSort=globalThis.setCommonMaterialSort??setCommonMaterialSort;inventoryMaterialRegions=globalThis.inventoryMaterialRegions??inventoryMaterialRegions;sellItem=globalThis.sellItem??sellItem;sellItemFromControl=globalThis.sellItemFromControl??sellItemFromControl;sellAllItemFromControl=globalThis.sellAllItemFromControl??sellAllItemFromControl;accountItemsView=globalThis.accountItemsView??accountItemsView;
+__EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_ITEM_DETAILS=globalThis.__EMBERWILD_ITEM_DETAILS??__EMBERWILD_ITEM_DETAILS;equipmentSellPrice=globalThis.equipmentSellPrice??equipmentSellPrice;materialSellPrice=globalThis.materialSellPrice??materialSellPrice;itemSellPrice=globalThis.itemSellPrice??itemSellPrice;materialCount=globalThis.materialCount??materialCount;setMaterialCount=globalThis.setMaterialCount??setMaterialCount;salvageRewardPlan=globalThis.salvageRewardPlan??salvageRewardPlan;grantSalvageRewards=globalThis.grantSalvageRewards??grantSalvageRewards;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;sellGear=globalThis.sellGear??sellGear;sellAllGearByQuality=globalThis.sellAllGearByQuality??sellAllGearByQuality;sellMaterial=globalThis.sellMaterial??sellMaterial;sellMaterialFromControl=globalThis.sellMaterialFromControl??sellMaterialFromControl;sellAllMaterialFromControl=globalThis.sellAllMaterialFromControl??sellAllMaterialFromControl;setCommonMaterialRegion=globalThis.setCommonMaterialRegion??setCommonMaterialRegion;setCommonMaterialSort=globalThis.setCommonMaterialSort??setCommonMaterialSort;inventoryMaterialRegions=globalThis.inventoryMaterialRegions??inventoryMaterialRegions;sellItem=globalThis.sellItem??sellItem;sellItemFromControl=globalThis.sellItemFromControl??sellItemFromControl;sellAllItemFromControl=globalThis.sellAllItemFromControl??sellAllItemFromControl;accountItemsView=globalThis.accountItemsView??accountItemsView;
 
 /* js/world/dynamic-world.js */
 
@@ -5461,7 +5771,7 @@ __EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBE
         if(!d||typeof d.id!=='string'||!/^[a-zA-Z0-9_-]{1,120}$/.test(d.id)||dropIds.has(d.id))throw Error('掉落規則 ID 無效或重複：'+i);dropIds.add(d.id);
         if(typeof d.name!=='string'||!d.name.trim()||typeof d.enabled!=='boolean'||!types.has(d.type)||!Array.isArray(d.kinds)||!d.kinds.length||d.kinds.some(k=>!encKinds.has(k))||!Array.isArray(d.chanceByDifficulty)||d.chanceByDifficulty.length!==3||d.chanceByDifficulty.some(v=>!Number.isFinite(v)||v<0||v>1)||!Number.isInteger(d.quantityMin)||!Number.isInteger(d.quantityMax)||d.quantityMin<1||d.quantityMax<d.quantityMin||d.quantityMax>999||!Array.isArray(d.sources)||!d.sources.length||d.sources.some(id=>!monsterById.has(id)))throw Error('掉落規則資料無效：'+d.id);
         if(d.type==='material'&&(typeof d.key!=='string'||!d.key.trim()))throw Error('材料掉落需要材料名稱：'+d.id);
-        if(d.type==='gem'&&d.key!=='random'&&![0,1,2,'0','1','2'].includes(d.key))throw Error('寶石掉落 key 需為 random/0/1/2：'+d.id);if(d.type==='item'&&!(globalThis.__EMBERWILD_VALIDATE_ITEM_IDS||new Set(SHOP.map(x=>x.id))).has(d.key))throw Error('商店道具掉落 key 無效：'+d.id);
+        if(d.type==='gem'&&d.key!=='random'&&![0,1,2,3,4,'0','1','2','3','4'].includes(d.key))throw Error('寶石掉落 key 需為 random/0/1/2：'+d.id);if(d.type==='item'&&!(globalThis.__EMBERWILD_VALIDATE_ITEM_IDS||new Set(SHOP.map(x=>x.id))).has(d.key))throw Error('商店道具掉落 key 無效：'+d.id);
         const ruleKinds=new Set(d.kinds);for(const id of d.sources){const m=monsterById.get(id),compatible=m.kind==='normal'?['normal','elite']:[m.kind];if(!compatible.some(k=>ruleKinds.has(k)))throw Error('掉落規則來源與遭遇種類不相容：'+d.id+' → '+id);}
       }
     }
@@ -5589,7 +5899,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
     }
   }catch(e){
     console.warn('動態地圖套用後重新載入存檔失敗',e);
-    if(!state){state=null;party=null;toast('存檔未能載入：'+e.message+'；可匯入備份。');}
+    if(!state){state=null;party=null;if(!globalThis.__EMBERWILD_BALANCE_SOURCE||globalThis.__EMBERWILD_BALANCE_READY)toast('存檔未能載入：'+e.message+'；可匯入備份。');}
   }
 
   // Keep the player-facing bestiary consistent with per-map BOSS switches.
@@ -5606,7 +5916,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
   }
 })();
 
-__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;
+__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;
 
 /* js/world/final-map.js */
 
@@ -5693,7 +6003,7 @@ __EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT
   }
   if(typeof guideView==='function'){
     const finalMapGuideBase=guideView;
-    guideView=function(){const html=finalMapGuideBase().replace('終焉王座群怪模式為噬日者及最多五隻星隕護衛。','終局地圖採固定關卡編成；可設定最終首領並加入普通或菁英隨從。');return html.includes('終局地圖採固定關卡編成')?html:html+`<section class=\"panel\"><h2>終局地圖</h2><p>終局地圖採固定關卡編成：必須有 1 名最終首領，可加入普通或菁英隨從並設定數量與集火隊列。索引 6 的終焉王座是預設等級突破關卡；後續可新增更多終局地圖，擊敗它們不會再次改變等級上限。</p></section>`;};
+    guideView=function(){return finalMapGuideBase()+`<section class="panel"><h2>終局地圖</h2><p>終局關卡會出現最終首領，部分關卡也有普通或菁英隨從。擊敗終焉王座的噬日者可以突破等級上限；其他終局關卡的勝利不會重複提高等級上限。</p></section>`;};
   }
   if(typeof showRegionBestiary==='function'){
     showRegionBestiary=function(){
@@ -5796,7 +6106,8 @@ isFinalMap=globalThis.isFinalMap??isFinalMap;isProgressionGateMap=globalThis.isP
     if(globalThis.__EMBERWILD_FINAL_STAGE_CLEARED)return;
     globalThis.__EMBERWILD_FINAL_STAGE_CLEARED=true;
     const boss=foes.find(e=>e.kind==='final'),mode=boss?.difficulty??state.difficulty??0,d=MODES[mode],gate=isGate(mi),firstClear=gate&&!party.cleared,before=Math.floor(GS('progression.levelCaps.beforeClear',30));
-    running=false;refillParty();
+    globalThis.expeditionChallengeResult={name:MAPS[mi]?.name||'終局關卡',success:true};running=false;refillParty();
+    globalThis.recordMapClear?.(mi);
     if(gate){party.cleared=true;for(const h of heroes()){h.modeClears[mode]=(h.modeClears[mode]||0)+1;if(h.lv>=before)h.won=true;}}
     note(`終局關卡「${MAPS[mi]?.name||'未命名'}」已完成。`);
     if(!partyBusy){const title=gate?(firstClear?'等級界限已突破':'再次完成突破關卡'):'終局關卡已完成',body=gate?(firstClear?'等級上限提升，通關後區域已解鎖。':'可繼續探索通關後區域，或挑戰其他終局地圖。'):`已擊敗首領與所有隨從，完成「${MAPS[mi]?.name||'終局地圖'}」。此關卡不會改變等級上限。`;$('modal').innerHTML=`<h1>${title}</h1><p>${esc(body)}</p><button class="primary" onclick="closeModal()">繼續旅程</button>`;$('modal').showModal();}
@@ -5806,7 +6117,9 @@ isFinalMap=globalThis.isFinalMap??isFinalMap;isProgressionGateMap=globalThis.isP
   if(typeof pacedRound==='function'){
     const customStagePacedBase=pacedRound;
     pacedRound=function*(){
+      const finalAttempt=party&&isFinal(party.map)&&running;
       yield* customStagePacedBase();
+      if(finalAttempt&&party&&!running&&!foes.length){globalThis.expeditionChallengeResult={name:MAPS[party.map]?.name||'終局關卡',success:false};save();render();}
       if(party&&isFinal(party.map)&&foes.length&&foes.some(e=>e.kind==='final')&&foes.every(e=>e.hp<=0))completeFinalStage(party.map);
     };
   }
@@ -5844,7 +6157,7 @@ isFinalMap=globalThis.isFinalMap??isFinalMap;isProgressionGateMap=globalThis.isP
   if(state)render();
 })();
 
-__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;configuredFinalStageRows=globalThis.configuredFinalStageRows??configuredFinalStageRows;__EMBERWILD_FINAL_STAGE_CLEARED=globalThis.__EMBERWILD_FINAL_STAGE_CLEARED??__EMBERWILD_FINAL_STAGE_CLEARED;
+__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;configuredFinalStageRows=globalThis.configuredFinalStageRows??configuredFinalStageRows;__EMBERWILD_FINAL_STAGE_CLEARED=globalThis.__EMBERWILD_FINAL_STAGE_CLEARED??__EMBERWILD_FINAL_STAGE_CLEARED;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;recordMapClear=globalThis.recordMapClear??recordMapClear;
 
 /* js/combat/manual-boss.js */
 
@@ -5987,7 +6300,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
   if(typeof chooseMap==='function'){const base=chooseMap;chooseMap=function(mi){if(party?.bossChallenge?.active&&mi!==party.map)party.bossChallenge=null;return base(mi);};}
 
   function completeAttempt(){
-    const ch=party?.bossChallenge;if(!ch?.active||!ch.stagePaid)return;const mi=ch.mapIndex,entry=bossProgressEntry(mi);ch.stagePaid=false;refillParty();clearEncounter();
+    const ch=party?.bossChallenge;if(!ch?.active||!ch.stagePaid)return;const mi=ch.mapIndex,entry=bossProgressEntry(mi);globalThis.recordMapClear?.(mi);ch.stagePaid=false;refillParty();clearEncounter();
     if(entry.charges>0){running=true;note(`BOSS 關卡完成。仍有 ${entry.charges} 次挑戰，將自動進入下一場。`);}else{party.bossChallenge=null;running=true;note('BOSS 挑戰次數已用完，返回目前地圖繼續一般探索。');}
     save();if(tab==='battle'||!isEditingControl())render();else refreshGlobalJournal();
   }
@@ -6015,7 +6328,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
     const bossMeterGuideBase=guideView;
     guideView=function(){
       const b=GAMEPLAY_SETTINGS.monsters.bossMeter;
-      return `<section class="panel"><h2>BOSS 挑戰進度</h2><p>一般地圖不會隨機遭遇 BOSS。擊敗普通怪增加 ${b.normalProgress}% 進度，菁英怪為 ×${b.eliteMultiplier}；每累積 ${b.progressPerCharge}% 會存入 1 次 BOSS 挑戰，最多可保留 ${b.maxCharges} 次。</p><p>可在探索頁手動進入目前地圖的 BOSS 關卡。關卡內容由平衡設定獨立配置；若還有累積次數，完成後會自動進入下一場。次數用完會返回原地圖繼續一般探索，也可隨時手動離開；離開會放棄目前已消耗的一次挑戰。</p></section>`+bossMeterGuideBase();
+      return `<section class="panel"><h2>BOSS 挑戰進度</h2><p>一般地圖不會隨機遭遇 BOSS。擊敗普通怪增加 ${b.normalProgress}% 進度，菁英怪為 ×${b.eliteMultiplier}；每累積 ${b.progressPerCharge}% 會存入 1 次 BOSS 挑戰，最多可保留 ${b.maxCharges} 次。</p><p>可在探索頁手動進入目前地圖的 BOSS 關卡。每個地區的 BOSS 關卡有各自的敵人編成；若還有累積次數，完成後會自動進入下一場。次數用完會返回原地圖繼續一般探索，也可隨時手動離開；離開會放棄目前已消耗的一次挑戰。</p></section>`+bossMeterGuideBase();
     };
   }
 
@@ -6027,7 +6340,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
   render();
 })();
 
-__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;bossProgressEntry=globalThis.bossProgressEntry??bossProgressEntry;configuredBossStageRows=globalThis.configuredBossStageRows??configuredBossStageRows;startBossChallenge=globalThis.startBossChallenge??startBossChallenge;leaveBossChallenge=globalThis.leaveBossChallenge??leaveBossChallenge;
+__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;recordMapClear=globalThis.recordMapClear??recordMapClear;bossProgressEntry=globalThis.bossProgressEntry??bossProgressEntry;configuredBossStageRows=globalThis.configuredBossStageRows??configuredBossStageRows;startBossChallenge=globalThis.startBossChallenge??startBossChallenge;leaveBossChallenge=globalThis.leaveBossChallenge??leaveBossChallenge;
 
 /* js/combat/combat-contribution.js */
 
@@ -6065,7 +6378,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
     return out;
   }
   function writeCache(){
-    if(!party||!cache)return;
+    if(!party||!cache||globalThis.__EMBERWILD_OFFLINE_SILENT)return;
     try{localStorage.setItem(storageKey(),JSON.stringify(cache));}catch{}
   }
   function ensure(){
@@ -6143,9 +6456,9 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
   }
 })();
 
-created=globalThis.created??created;recordCombatContribution=globalThis.recordCombatContribution??recordCombatContribution;resetCombatContribution=globalThis.resetCombatContribution??resetCombatContribution;setCombatContributionMetric=globalThis.setCombatContributionMetric??setCombatContributionMetric;recordRegenContribution=globalThis.recordRegenContribution??recordRegenContribution;combatContributionPanel=globalThis.combatContributionPanel??combatContributionPanel;
+recordCombatContribution=globalThis.recordCombatContribution??recordCombatContribution;created=globalThis.created??created;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;resetCombatContribution=globalThis.resetCombatContribution??resetCombatContribution;setCombatContributionMetric=globalThis.setCombatContributionMetric??setCombatContributionMetric;recordRegenContribution=globalThis.recordRegenContribution??recordRegenContribution;combatContributionPanel=globalThis.combatContributionPanel??combatContributionPanel;
 
-/* js/ui/expedition-ui.js?v=20261015-loot-fold1 */
+/* js/ui/expedition-ui.js?v=20261020-exploration1 */
 
 /* Update 27: compact expedition controls + lower-density battle journal. */
 (function installExpeditionUiTidy(){
@@ -6213,7 +6526,7 @@ created=globalThis.created??created;recordCombatContribution=globalThis.recordCo
   const isFinal=mi=>typeof globalThis.isFinalMap==='function'?globalThis.isFinalMap(mi):GAMEPLAY_SETTINGS?.maps?.catalog?.[mi]?.mapType==='final';
   const mapCfg=mi=>typeof globalThis.worldMapConfig==='function'?globalThis.worldMapConfig(mi):GAMEPLAY_SETTINGS?.maps?.catalog?.[mi];
   const progressEntry=mi=>typeof globalThis.bossProgressEntry==='function'?globalThis.bossProgressEntry(mi):(party?.bossProgress?.[mapCfg(mi)?.id]||{progress:0,charges:0});
-  const bossRows=mi=>typeof globalThis.configuredBossStageRows==='function'?globalThis.configuredBossStageRows(mi):[];
+  const bossRows=mi=>typeof globalThis.configuredBossStageRows==='function'?globalThis.configuredBossStageRows(mi,Math.random,{preview:true}):[];
   const finalRows=mi=>typeof globalThis.configuredFinalStageRows==='function'?globalThis.configuredFinalStageRows(mi):[];
   const fmt=n=>Math.round((Number(n)||0)*100)/100;
   function tooltip(label,text){return `<button type="button" class="icon-help" title="${safeEsc(text)}" aria-label="${safeEsc(label+'：'+text)}">?</button>`;}
@@ -6238,9 +6551,47 @@ created=globalThis.created??created;recordCombatContribution=globalThis.recordCo
     return `<div class="boss-compact"><div class="boss-head"><b>${active?'BOSS 關卡':'BOSS 進度'}</b><span class="tag">${entry.charges}/${bm.maxCharges} 次</span></div><div class="boss-meter"><span style="width:${pct}%"></span></div><div class="boss-meta"><span>${fmt(entry.progress)}/${bm.progressPerCharge}%</span><span>普通 +${bm.normalProgress}%</span><span>菁英 ×${bm.eliteMultiplier}</span><span>${total} 隻／場</span></div><div class="boss-actions">${active?`<button class="danger" onclick="leaveBossChallenge()" title="離開會放棄目前已消耗的一次，剩餘次數保留。">離開關卡</button>`:`<button class="primary" onclick="startBossChallenge()" ${!enabled||entry.charges<1?'disabled':''} title="${enabled?'使用 1 次累積挑戰進入本地圖 BOSS 關卡。':'此地圖 BOSS 挑戰已停用。'}">挑戰 BOSS</button>`}${tooltip('BOSS 規則','普通與菁英怪擊殺會累積進度；進度滿後增加一次挑戰，次數用完會自動返回一般探索。')}</div></div>`;
   }
 
+  let destinationOwner=null,destination={category:'explore',map:0,quest:''};
+  function selectedDestination(){
+    if(destinationOwner!==party){destinationOwner=party;destination={category:isFinal(party.map)?'boss':'explore',map:party.map,quest:''};}
+    return destination;
+  }
+  globalThis.setExplorationCategory=function(category){if(!['explore','boss','quest'].includes(category))return;const d=selectedDestination();d.category=category;const maps=MAPS.map((_,i)=>i).filter(i=>category==='boss'||!isFinal(i));if(category!=='quest'&&!maps.includes(d.map))d.map=maps[0]??0;render();};
+  globalThis.selectExplorationMap=function(mi){const d=selectedDestination();if(!MAPS[mi])return;d.map=mi;render();};
+  globalThis.selectQuestEncounter=function(key){selectedDestination().quest=key;render();};
+  const busy=()=>!!globalThis.__EMBERWILD_TEAMS?.busy();
+  globalThis.explorationStateText=function(){return running?($('modal')?.open?'視窗暫停':'探索中'):globalThis.expeditionChallengeResult?'挑戰結束':busy()?'已暫停':'已停止';};
+  globalThis.currentExplorationName=function(){return party?.questChallenge?.name||(party?.bossChallenge?.active?MAPS[party.map]?.name+' · BOSS 難關':MAPS[party?.map]?.name)||'';};
+  globalThis.explorationControlButtons=function(quick=false){
+    if(running||busy()&&!globalThis.expeditionChallengeResult)return `<button class="primary" onclick="toggleBattle()">${running?'暫停':'繼續'}</button><button onclick="stopTeamExploration()">停止</button>`;
+    if(quick)return `<button onclick="setTab('battle')">前往探索</button>`;
+    const d=selectedDestination(),single=d.category!=='explore';
+    return `<button class="primary" onclick="startSelectedExploration()">${single?'開始挑戰':'開始探索'}</button>`;
+  };
+  globalThis.startSelectedExploration=function(){
+    if(running||busy()&&!globalThis.expeditionChallengeResult)return false;
+    const d=selectedDestination();if(d.category==='quest')return globalThis.startQuestEncounter?.(d.quest);
+    if(!canVisit(d.map))return toast('尚未符合此地區的探索條件');
+    if(!globalThis.__EMBERWILD_TEAMS?.valid())return toast('請先完成可探索的隊伍編成');
+    if(state.bag.length>=RULES.bagCapacity)return toast('背包已滿，請先整理裝備');
+    globalThis.expeditionChallengeResult=null;
+    if(party.bossChallenge?.active&&d.category==='boss'&&d.map===party.map)return toggleBattle();
+    chooseMap(d.map);
+    if(d.category==='boss'&&!isFinal(d.map))return startBossChallenge();
+    return toggleBattle();
+  };
+  globalThis.refreshExplorationStatus=function(){
+    document.querySelectorAll('[data-exploration-state]').forEach(n=>n.textContent=explorationStateText()+' · '+battleRate+'×');
+    document.querySelectorAll('[data-exploration-name]').forEach(n=>n.textContent=currentExplorationName());
+  };
   function expeditionControlCard(){
-    const mi=party.map,mode=party.difficulty||0;
-    return `<section class="panel battle-map-column expedition-control-card"><div class="control-head"><div><span class="eyebrow">EXPEDITION CONTROL</span><h2>探索控制</h2></div>${tooltip('探索控制','地圖、難度與倍速共用此面板。切換地圖或難度會結束目前遭遇。介面中的「回合」是指該角色每次輪到自己行動一次；技能與治療藥水等冷卻只在該角色行動時遞減 1，不受戰鬥倍速影響。自動喝水在角色回合開始時判定，且不會取消原本的攻擊。')}</div><div class="control-grid"><label class="control-row"><span>地圖</span><select aria-label="探索地圖" onchange="chooseMap(Number(this.value))">${MAPS.map((m,i)=>`<option value="${i}" ${i===mi?'selected':''} ${canVisit(i)?'':'disabled'}>${safeEsc(m.name)} · LV${m.min}${isFinal(i)?' 終局':'–'+m.max}</option>`).join('')}</select><button onclick="showRegionBestiary()" title="查看目前區域怪物、BOSS 關卡與掉落">圖鑑</button></label><label class="control-row"><span>難度</span><select aria-label="探索難度" onchange="changeDifficulty(this.value)">${MODES.map((d,i)=>`<option value="${i}" ${i===mode?'selected':''}>${safeEsc(d.name)}</option>`).join('')}</select>${tooltip('難度','切換難度會結束目前遭遇；不會恢復生命。詳細倍率可在冒險指南查看。')}</label><div class="control-row"><span>倍速</span>${typeof battleSpeedButtons==='function'?battleSpeedButtons():''}${tooltip('戰鬥節奏','倍速只影響等待時間，不改變回合制冷卻與行動順序。')}</div></div>${bossBlock(mi)}${compactSupply()}${combatContributionPanel()}</section>`;
+    const d=selectedDestination(),mi=d.map,mode=party.difficulty||0,questRows=globalThis.questEncounterRows?.()||[];
+    if(!questRows.some(x=>x.key===d.quest))d.quest=questRows.find(x=>x.unlocked)?.key||questRows[0]?.key||'';
+    const q=questRows.find(x=>x.key===d.quest),maps=MAPS.map((m,i)=>({m,i})).filter(({i})=>d.category==='boss'||!isFinal(i));
+    const enemies=d.category==='quest'?(q?.enemies||[]).map(x=>{const row=monsterCatalog().find(m=>m.id===x.monsterId);return (row?.name||x.monsterId)+' ×'+x.count;}):d.category==='boss'?(isFinal(mi)?finalRows(mi):bossRows(mi)).map(x=>x.row.name+' ×'+x.count):monsterCatalog().filter(m=>m.mapIndex===mi&&['normal','elite'].includes(m.kind)&&m.enabled!==false).map(m=>m.name);
+    const info=d.category==='quest'?(q?`任務來源：${safeEsc(q.source)} · ${q.completed?'已通關':q.unlocked?'已開放':'尚未符合任務進度'} · ${q.repeatable?'可重複挑戰':'完成後不可重複挑戰'}`:'依任務進度開放，目前沒有已設定的任務關卡。'):d.category==='boss'&&!isFinal(mi)?`累積挑戰 ${progressEntry(mi).charges} 次 · 保留原有連續挑戰與獎勵規則`:`LV ${MAPS[mi]?.min}–${MAPS[mi]?.max} · ${isFinal(mi)?'擊敗全部敵人後結束挑戰':'持續探索，直到暫停或停止'}`;
+    const result=globalThis.expeditionChallengeResult;
+    return `<section class="panel battle-map-column expedition-control-card"><div class="control-head"><h2>探索與挑戰</h2><span class="tag" data-exploration-state>${explorationStateText()} · ${battleRate}×</span></div><div class="exploration-categories" role="group" aria-label="關卡分類">${[['explore','一般探索'],['boss','BOSS 難關'],['quest','任務關卡']].map(([id,name])=>`<button aria-pressed="${d.category===id}" class="${d.category===id?'primary':''}" onclick="setExplorationCategory('${id}')">${name}</button>`).join('')}</div><div class="exploration-selection"><label><span>${d.category==='quest'?'任務關卡':'選擇地圖'}</span>${d.category==='quest'?`<select aria-label="任務關卡" onchange="selectQuestEncounter(this.value)">${questRows.map(x=>`<option value="${x.key}" ${x.key===d.quest?'selected':''}>${safeEsc(x.name)} · ${x.unlocked?'可挑戰':x.completed?'已完成':'未解鎖'}</option>`).join('')||'<option>目前無任務關卡</option>'}</select>`:`<select aria-label="探索地圖" onchange="selectExplorationMap(Number(this.value))">${maps.map(({m,i})=>`<option value="${i}" ${i===mi?'selected':''}>${safeEsc(m.name)} · LV${m.min}${canVisit(i)?'':' · 未解鎖'}</option>`).join('')}</select>`}</label><div class="exploration-destination-detail"><b>${safeEsc(d.category==='quest'?q?.name||'任務關卡':MAPS[mi]?.name)}</b><p>${info}</p><p>敵人：${safeEsc(enemies.join('、')||'未設定')}</p></div><div class="exploration-primary-actions">${explorationControlButtons()}</div></div><div class="exploration-live-status"><span>目前${running||busy()?'探索':'所在'}：</span><b data-exploration-name>${safeEsc(currentExplorationName())}</b><small>${running||busy()?'選擇其他目的地僅供準備，停止後再開始才會切換。':'選擇目的地後按下開始。'}</small></div>${result?`<div class="exploration-result" role="status">${safeEsc(result.name)} · ${result.success?'挑戰成功':'挑戰失敗'}${result.key?`<button onclick="openStory('${result.key.split('/')[0]}')">查看任務</button>`:''}</div>`:''}<div class="exploration-secondary-settings">${typeof timedBoostManagement==='function'?timedBoostManagement():''}<details class="exploration-secondary"><summary>難度與隊伍補給</summary><label class="control-row"><span>難度</span><select aria-label="探索難度" onchange="changeDifficulty(this.value)">${MODES.map((x,i)=>`<option value="${i}" ${i===mode?'selected':''}>${safeEsc(x.name)}</option>`).join('')}</select><button onclick="showRegionBestiary()">目前地區圖鑑</button></label><p class="small">切換難度會停止探索並放棄目前遭遇。</p>${compactSupply()}${combatContributionPanel()}</details></div></section>`;
   }
 
   if(typeof battleView==='function'){
@@ -6258,7 +6609,8 @@ created=globalThis.created??created;recordCombatContribution=globalThis.recordCo
       }
       /* Keep combat rules available without occupying a separate row. */
       html=html.replace(/<p class="small combat-rule">[\s\S]*?<\/p>/,'');
-      html=html.replace(/(<button class="primary" onclick="toggleBattle\(\)">[\s\S]*?<\/button>)/,`$1<button onclick="stopTeamExploration()" ${globalThis.__EMBERWILD_TEAMS?.busy()?'':'disabled'} title="停止探索並放棄目前遭遇，即可更換裝備">停止探索</button><button onclick="restartExploration()" title="${party.bossChallenge?.active?'放棄本場 BOSS 關卡並消耗下一次挑戰；次數用完返回一般探索':'放棄目前遭遇，立即開始新一場'}">重新探索</button>${tooltip('戰鬥規則','• 冷卻：技能與治療藥水等只在對應角色完成自己的行動時遞減 1，不受戰鬥倍速影響。\n• 自動攻擊：集中攻擊敵方隊列中第一名仍存活的敵人，擊倒後再依序切換下一名。\n• 遭遇結束：全隊生命回滿並清空護盾。\n• 技能冷卻：每次新遭遇開始時重置。')}`);
+      html=html.replace(/<div class="actions">(?:(?!<\/div>)[\s\S])*?<\/div>/g,match=>match.includes('onclick="toggleBattle()"')?'':match);
+      html=html.replace(/<section class="panel boss-meter-panel">[\s\S]*?<\/section>/,'');
       return html;
     };
   }
@@ -6267,14 +6619,16 @@ created=globalThis.created??created;recordCombatContribution=globalThis.recordCo
     sharedBattleJournal=function(){
       if(!party)return '';
       const paused=$('modal').open,alive=living().length,total=heroes().length,enemies=foes.filter(e=>e.hp>0).length,allEnemies=foes.length,lootKinds=expeditionLoot.items.size;
-      return `<section id="globalBattleJournal" class="global-battle-journal" aria-label="全隊共通戰報"><div class="global-journal-head"><div class="journal-title-row"><h2>全隊戰報</h2><span class="tag">${running?(paused?'視窗暫停':'探索中'):(globalThis.__EMBERWILD_TEAMS?.busy()?'已暫停':'已停止')} · ${battleRate}×</span></div><div class="journal-summary">${safeEsc(MAPS[party.map].name)} · ${safeEsc(MODES[party.difficulty||0].name)} · 隊員 ${alive}/${total} · 敵人 ${enemies}/${allEnemies}</div><div class="journal-actions"><button onclick="toggleBattle()">${running?'暫停戰鬥':'開始戰鬥'}</button><button onclick="stopTeamExploration()" ${globalThis.__EMBERWILD_TEAMS?.busy()?'':'disabled'} title="停止探索並放棄目前遭遇，即可更換裝備">停止探索</button>${tab==='battle'?'':`<button onclick="setTab('battle')">戰場</button>`}<button onclick="toggleBattleReport()">${battleReportPaused?'恢復戰報':'戰報暫停'}</button></div>${typeof battleJournalStatus==='function'?battleJournalStatus():''}${battleJournalFilter()}</div><div id="liveLog" role="log" aria-label="即時戰鬥紀錄">${logContent()}</div><div class="journal-resizer" title="拖曳調整戰報與累積戰利品高度" onpointerdown="startJournalResize(event)"></div><details class="journal-loot-compact" ${globalThis.journalLootOpen?'open':''} onclick="toggleJournalLoot(event)"><summary>累積戰利品 · 擊敗 ${expeditionLoot.kills} · ${lootKinds} 種</summary><div id="journalLootList" class="journal-loot-list">${[...expeditionLoot.items].map(([name,item])=>`<div class="journal-loot-row"><span class="loot-rarity-${item.rar??0}">${safeEsc(name)}</span><b>+${(item.count??item).toLocaleString()}</b></div>`).join('')||'<p class="small">尚無戰利品。</p>'}</div></details><section class="journal-quick-dispose" aria-label="快速整理待領取裝備"><b>快速整理待領取裝備</b><p class="small">僅處理待領取區的普通、精良裝備；BOSS 專屬裝備會保留，稀有與傳說請領取後至背包操作。</p><div class="journal-dispose-actions">${[0,1].map(q=>`<button onclick="quickDisposeJournalGear(${q},'salvage')">分解${AFFIX_RANK[q]}</button><button onclick="quickDisposeJournalGear(${q},'sell')">賣出${AFFIX_RANK[q]}</button>`).join('')}</div></section></section>`;
+      return `<section id="globalBattleJournal" class="global-battle-journal" aria-label="全隊共通戰報"><div class="global-journal-head"><div class="journal-title-row"><h2>全隊戰報</h2><span class="tag" data-exploration-state>${explorationStateText()} · ${battleRate}×</span></div><div class="journal-summary"><b data-exploration-name>${safeEsc(currentExplorationName())}</b> · ${safeEsc(MODES[party.difficulty||0].name)} · 隊員 ${alive}/${total} · 敵人 ${enemies}/${allEnemies}</div><div class="journal-actions">${explorationControlButtons(true)}${tab==='battle'?'':`<button onclick="setTab('battle')">戰場</button>`}<button onclick="toggleBattleReport()">${battleReportPaused?'恢復戰報':'戰報暫停'}</button></div>${typeof battleJournalStatus==='function'?battleJournalStatus():''}${battleJournalFilter()}</div><div id="liveLog" role="log" aria-label="即時戰鬥紀錄">${logContent()}</div><div class="journal-resizer" title="拖曳調整戰報與累積戰利品高度" onpointerdown="startJournalResize(event)"></div><details class="journal-loot-compact" ${globalThis.journalLootOpen?'open':''} onclick="toggleJournalLoot(event)"><summary>累積戰利品 · 擊敗 ${expeditionLoot.kills} · ${lootKinds} 種</summary><div id="journalLootList" class="journal-loot-list">${[...expeditionLoot.items].map(([name,item])=>`<div class="journal-loot-row"><span class="loot-rarity-${item.rar??0}">${safeEsc(name)}</span><b>+${(item.count??item).toLocaleString()}</b></div>`).join('')||'<p class="small">尚無戰利品。</p>'}</div></details></section>`;
     };
   }
 
+  const preserveSettingsRender=render;
+  render=function(...args){const open=$('explorationBoostSettings')?.open,secondary=document.querySelector('.exploration-secondary-settings>details:last-child')?.open;const out=preserveSettingsRender(...args);if(open&&$('explorationBoostSettings'))$('explorationBoostSettings').open=true;if(secondary){const node=document.querySelector('.exploration-secondary-settings>details:last-child');if(node)node.open=true;}return out;};
   if(typeof render==='function'&&typeof party!=='undefined'&&party)render();
 })();
 
-__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;worldMapConfig=globalThis.worldMapConfig??worldMapConfig;isFinalMap=globalThis.isFinalMap??isFinalMap;configuredFinalStageRows=globalThis.configuredFinalStageRows??configuredFinalStageRows;bossProgressEntry=globalThis.bossProgressEntry??bossProgressEntry;configuredBossStageRows=globalThis.configuredBossStageRows??configuredBossStageRows;restartExploration=globalThis.restartExploration??restartExploration;journalLootOpen=globalThis.journalLootOpen??journalLootOpen;
+__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;isFinalMap=globalThis.isFinalMap??isFinalMap;worldMapConfig=globalThis.worldMapConfig??worldMapConfig;configuredFinalStageRows=globalThis.configuredFinalStageRows??configuredFinalStageRows;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;bossProgressEntry=globalThis.bossProgressEntry??bossProgressEntry;configuredBossStageRows=globalThis.configuredBossStageRows??configuredBossStageRows;restartExploration=globalThis.restartExploration??restartExploration;setExplorationCategory=globalThis.setExplorationCategory??setExplorationCategory;selectExplorationMap=globalThis.selectExplorationMap??selectExplorationMap;selectQuestEncounter=globalThis.selectQuestEncounter??selectQuestEncounter;explorationStateText=globalThis.explorationStateText??explorationStateText;currentExplorationName=globalThis.currentExplorationName??currentExplorationName;explorationControlButtons=globalThis.explorationControlButtons??explorationControlButtons;startSelectedExploration=globalThis.startSelectedExploration??startSelectedExploration;startQuestEncounter=globalThis.startQuestEncounter??startQuestEncounter;refreshExplorationStatus=globalThis.refreshExplorationStatus??refreshExplorationStatus;questEncounterRows=globalThis.questEncounterRows??questEncounterRows;journalLootOpen=globalThis.journalLootOpen??journalLootOpen;
 
 /* js/ui/expedition-density.js */
 
@@ -6307,7 +6661,7 @@ __EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;worldMapConfig
 
 
 
-/* js/ui/expedition-layout.js?v=20261013-cleanup1 */
+/* js/ui/expedition-layout.js?v=20261021-input-scroll1 */
 
 /* Update 29: keep the expedition battlefield geometry stable while effects/status change. */
 (function installExpeditionLayoutStabilityFix(){
@@ -6359,7 +6713,7 @@ __EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;worldMapConfig
   refreshBattleBuffTimers=function(){
     if(!party)return;
     const summary=$('battle-effect-summary');if(summary)summary.textContent=effectSummaryText();
-    const body=$('battle-effect-modal-rows');if(body)body.innerHTML=rowsHtml();
+    const body=$('battle-effect-modal-rows');if(body&&!globalThis.isEmberwildUIInteracting?.()){const next=rowsHtml();if(body.innerHTML!==next)body.innerHTML=next;}
     refreshSupplyStatus();
   };
 
@@ -6381,7 +6735,7 @@ __EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;worldMapConfig
   if(typeof render==='function'&&typeof party!=='undefined'&&party)render();
 })();
 
-showBattleEffects=globalThis.showBattleEffects??showBattleEffects;
+showBattleEffects=globalThis.showBattleEffects??showBattleEffects;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;
 
 /* js/combat/turn-duration.js */
 
@@ -6450,10 +6804,10 @@ showBattleEffects=globalThis.showBattleEffects??showBattleEffects;
     }
     return rows.join('')||'<tr><td colspan="5" class="no-buffs">目前沒有生效中的 BUFF、DEBUFF 或消耗品效果。</td></tr>';
   };
-  showBattleEffects=function(){if(!party)return;const modal=$('modal');modal.innerHTML=`<h2>生效效果與持續時間</h2><p class="small">BUFF／DEBUFF 依戰鬥回合計時；附魔只扣出戰回合；抗性、屬性增幅依現實時間到期，暫停、候補與關閉頁面仍會扣時。</p><div class="effects-modal-scroll"><table class="effects-modal-table"><thead><tr><th>對象</th><th>效果</th><th>能力變化</th><th>剩餘／總時間</th><th>計時方式</th></tr></thead><tbody id="battle-effect-modal-rows">${battleBuffRows()}</tbody></table></div><button onclick="closeModal()">關閉</button>`;modal.showModal();};
+  showBattleEffects=function(){if(!party)return;const modal=$('modal');modal.innerHTML=`<h2>生效效果與持續時間</h2><p class="small">BUFF／DEBUFF 依戰鬥回合計時；附魔只扣出戰回合；抗性、屬性增幅依現實時間計時，可在探索控制區獨立停用；暫停、停止與關閉頁面仍會扣時。</p><div class="effects-modal-scroll"><table class="effects-modal-table"><thead><tr><th>對象</th><th>效果</th><th>能力變化</th><th>剩餘／總時間</th><th>計時方式</th></tr></thead><tbody id="battle-effect-modal-rows">${battleBuffRows()}</tbody></table></div><button onclick="closeModal()">關閉</button>`;modal.showModal();};
 
   const pacedRoundTurnDurationBase=pacedRound;
-  pacedRound=function*(){const hadCombat=!!party&&foes.some(e=>e.hp>0),priorRound=round;yield* pacedRoundTurnDurationBase();if(hadCombat&&party&&round>priorRound)decrementSupplyTurns();};
+  pacedRound=function*(){const hadCombat=!!party&&(globalThis.__EMBERWILD_RESUMING_ROUND||foes.some(e=>e.hp>0)),priorRound=round-(globalThis.__EMBERWILD_RESUMING_ROUND?1:0);yield* pacedRoundTurnDurationBase();if(hadCombat&&party&&round>priorRound)decrementSupplyTurns();};
 
   if(typeof battleView==='function'){
     const turnDurationBattleViewBase=battleView;
@@ -6465,12 +6819,12 @@ showBattleEffects=globalThis.showBattleEffects??showBattleEffects;
   }
   if(typeof guideView==='function'){
     const turnDurationGuideBase=guideView;
-    guideView=function(){return `<section class="panel"><h2>BUFF／DEBUFF 與消耗品計時</h2><p>輔助技能的 BUFF／DEBUFF 使用戰鬥回合，回復效果每回合觸發一次。附魔藥水只扣該角色的出戰回合；抗性與屬性增幅藥水使用現實分鐘，暫停、候補或關閉頁面仍會到期。同名且同效果的藥水累加剩餘時間；不同倍率、屬性或能力加成各自保留狀態並獨立計時。每個狀態最多累積 24 小時，超過時提醒且不消耗道具。</p><p>技能冷卻使用施放者自己的行動回合；護盾在耗盡或戰鬥結束時消失。</p></section>`+turnDurationGuideBase();};
+    guideView=function(){return `<section class="panel"><h2>BUFF／DEBUFF 與消耗品計時</h2><p>輔助技能的 BUFF／DEBUFF 使用戰鬥回合，回復效果每回合觸發一次。附魔藥水只扣該角色的出戰回合；抗性與屬性增幅藥水使用現實分鐘，暫停、停止或關閉頁面仍會扣時。同名且同效果的藥水累加剩餘時間；不同倍率、屬性或能力加成各自保留狀態並獨立計時。每個狀態最多累積 24 小時，超過時提醒且不消耗道具。</p><p>技能冷卻使用施放者自己的行動回合；護盾在耗盡或戰鬥結束時消失。</p></section>`+turnDurationGuideBase();};
   }
 
   if(typeof exportableBalance==='function'){
     const turnDurationExportBase=exportableBalance;
-    exportableBalance=function(){const out=turnDurationExportBase();out.timeUnits={...(out.timeUnits||{}),...TIME_UNITS,elementPotionDuration:'realMinutes'};out.notes=[...(out.notes||[]),'supportSkills[].duration 為戰鬥回合；附魔 items[].duration 為出戰回合。','ward / elementTonic 使用 items[].durationMinutes（現實分鐘）與 effectPercent（百分比）；duration=0。同名同效果累加時間，不同倍率狀態各自計時；單一狀態上限 24 小時，超過時不消耗道具；暫停、候補與離線仍會到期。'];return out;};
+    exportableBalance=function(){const out=turnDurationExportBase();out.timeUnits={...(out.timeUnits||{}),...TIME_UNITS,elementPotionDuration:'realMinutes'};out.notes=[...(out.notes||[]),'supportSkills[].duration 為戰鬥回合；附魔 items[].duration 為出戰回合。','ward / elementTonic 使用 items[].durationMinutes（現實分鐘）與 effectPercent（百分比）；duration=0。同名同效果累加時間，不同倍率狀態各自計時；單一狀態上限 24 小時，超過時不消耗道具；暫停、停止與離線仍會扣時。'];return out;};
   }
   if(typeof validateBalanceConfig==='function'){
     const turnDurationValidateBase=validateBalanceConfig;
@@ -6502,7 +6856,7 @@ showBattleEffects=globalThis.showBattleEffects??showBattleEffects;
   if(state)render();
 })();
 
-activeSupplies=globalThis.activeSupplies??activeSupplies;supplyBuffDetails=globalThis.supplyBuffDetails??supplyBuffDetails;
+activeSupplies=globalThis.activeSupplies??activeSupplies;supplyBuffDetails=globalThis.supplyBuffDetails??supplyBuffDetails;__EMBERWILD_RESUMING_ROUND=globalThis.__EMBERWILD_RESUMING_ROUND??__EMBERWILD_RESUMING_ROUND;
 
 /* js/items/healing-potions.js?v=20261014-descriptions1 */
 
@@ -6696,7 +7050,7 @@ activeSupplies=globalThis.activeSupplies??activeSupplies;supplyBuffDetails=globa
 
   if(typeof guideView==='function'){
     const baseGuide=guideView;
-    guideView=function(){return `<section class="panel"><h2>自動治療藥水</h2><p>每名角色可設定自動喝藥開關、HP 百分比門檻與指定治療藥水。判定只發生在該角色回合開始時；使用治療藥水不會取消該回合原本的攻擊。治療藥水使用後依品項進入回合冷卻，冷卻期間不會再喝。治療藥水不提供手動使用按鈕。</p></section>`+baseGuide();};
+    guideView=function(){return `<section class="panel"><h2>自動治療藥水</h2><p>每名角色可設定自動喝藥開關、HP 百分比門檻與指定治療藥水。判定只發生在該角色回合開始時；使用治療藥水不會取消該回合的攻擊。治療藥水使用後依品項進入回合冷卻，冷卻期間不會再喝。治療藥水不提供手動使用按鈕。</p></section>`+baseGuide();};
   }
 
   if(typeof save==='function'){
@@ -6724,38 +7078,6 @@ activeSupplies=globalThis.activeSupplies??activeSupplies;supplyBuffDetails=globa
 })();
 
 __EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;useAutoHealingPotion=globalThis.useAutoHealingPotion??useAutoHealingPotion;setHeroAutoPotion=globalThis.setHeroAutoPotion??setHeroAutoPotion;setHeroAutoPotionThreshold=globalThis.setHeroAutoPotionThreshold??setHeroAutoPotionThreshold;setHeroAutoPotionItem=globalThis.setHeroAutoPotionItem??setHeroAutoPotionItem;buyHealingPotion=globalThis.buyHealingPotion??buyHealingPotion;openHealingSettings=globalThis.openHealingSettings??openHealingSettings;ensureHealingPotionState=globalThis.ensureHealingPotionState??ensureHealingPotionState;healPotionItems=globalThis.healPotionItems??healPotionItems;isHealPotion=globalThis.isHealPotion??isHealPotion;healPotionCount=globalThis.healPotionCount??healPotionCount;setHealPotionCount=globalThis.setHealPotionCount??setHealPotionCount;healingInventory=globalThis.healingInventory??healingInventory;
-
-/* js/equipment/pending-gear-compact.js */
-
-/* Move pending equipment settlement below the equipment inventory. Collapsed
-   mode intentionally keeps only one quality-count summary line visible. */
-let pendingGearPanelCollapsed=true;
-function pendingGearQualityCounts(){
-  const names=(typeof AFFIX_RANK!=='undefined'&&Array.isArray(AFFIX_RANK))?AFFIX_RANK:['普通','精良','稀有','傳說'];
-  return names.map((name,q)=>({name,q,list:(Array.isArray(pendingGearLoot)?pendingGearLoot:[]).filter(g=>gearQualityRank(g)===q)}));
-}
-function pendingGearBottomView(){
-  const rows=pendingGearQualityCounts(),total=rows.reduce((n,r)=>n+r.list.length,0);
-  const summary=rows.map(r=>`<span class="pending-gear-summary-count effect-quality-${r.q}">${esc(r.name)} ${r.list.length} 件</span>`).join('');
-  const groups=rows.map(r=>{
-    const totalSell=r.list.reduce((n,g)=>n+(typeof equipmentSellPrice==='function'?equipmentSellPrice(g):0),0);
-    const unit=r.list.length&&typeof equipmentSellPrice==='function'?equipmentSellPrice(r.list[0]):0;
-    return `<section class="pending-quality-group effect-quality-${r.q}"><div class="row"><b>${esc(r.name)} ${r.list.length} 件</b><span class="small">${r.list.length?`販售 ${unit}／件`:'—'}</span></div><div class="small">${r.list.slice(0,3).map(g=>esc(equipmentDisplayName(g))).join('、')}${r.list.length>3?'…':''}</div><div class="actions"><button onclick="claimPendingQuality(${r.q})" ${r.list.length?'':'disabled'}>領取</button><button onclick="salvagePendingQuality(${r.q})" ${r.list.length?'':'disabled'}>分解</button><button onclick="sellPendingQuality(${r.q})" ${r.list.length?'':'disabled'}>販售${r.list.length?' '+totalSell+'金':''}</button></div></section>`;
-  }).join('');
-  return `<details class="panel pending-gear-panel pending-gear-bottom" ${pendingGearPanelCollapsed?'':'open'} ontoggle="pendingGearPanelCollapsed=!this.open"><summary><span class="pending-gear-summary-title">待結算裝備 ${total} 件</span><span class="pending-gear-summary-counts">${summary}</span></summary><div class="pending-gear-expanded"><div class="row"><span class="small">可依品質直接領取、分解或販售；戰鬥掉落在結算前不會改變背包順序。</span><button onclick="claimPendingGearLoot()" ${!total||state.bag.length>=RULES.bagCapacity?'disabled':''}>全部結算並領取</button></div>${groups}</div></details>`;
-}
-
-// The legacy pending-loot wrapper prepended this block before the inventory.
-// Empty it, then append the new compact block after the equipment inventory.
-pendingGearLootView=function(){return '';};
-const pendingGearBottomEquipmentBase=equipmentView;
-equipmentView=function(){
-  const html=pendingGearBottomEquipmentBase();
-  return inventoryCategory==='equipment'?html+pendingGearBottomView():html;
-};
-if(state)render();
-
-
 
 /* js/skills/skill-tooltip-reroll.js?v=20261019-compact-dust1 */
 
@@ -6933,7 +7255,7 @@ procSkillRows=globalThis.procSkillRows??procSkillRows;stopAutoReroll=globalThis.
 
   function forgeIsToken(g){return globalThis.EmberwildTokens?.isToken(g)===true;}
   function forgeGearMeta(g){
-    return forgeIsToken(g)?[companionTokenJobLabel(g),'信物']:[gearWearableJobsText(g),CLASS_GEAR[g.job][g.slot],`LV ${gearRequiredLevelByTier(g.tier)}`];
+    return forgeIsToken(g)?[companionTokenJobLabel(g),'信物']:[gearWearableJobsText(g),CLASS_GEAR[g.job][g.slot],`LV ${gearRequiredLevel(g)}`];
   }
 
   function forgeSortValue(g,key){
@@ -7005,7 +7327,7 @@ procSkillRows=globalThis.procSkillRows??procSkillRows;stopAutoReroll=globalThis.
     if(!g)return `<div class="inventory-detail-empty"><b>沒有可顯示的裝備</b><p class="small">調整左側篩選條件後選擇裝備。</p></div>`;
     const wearer=gearWearer(g.id),worn=!!wearer,draft=inlineAffixDrafts.has(affixDraftKey(g)),locked=!!g.locked;
       const forgeAction=`<button onclick="openForge('${g.id}')">強化／洗鍊</button>`;
-    return `<div class="inventory-detail-pane"><div class="inventory-detail-heading"><div><h2>${equipmentNameHTML(g)}</h2></div><span class="tag">${qualityTag(g)}${locked?' · 已鎖定':''}</span></div><div class="inventory-detail-meta">${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV ${gearRequiredLevelByTier(g.tier)}${worn?' · 目前由 '+esc(characterName(wearer))+' 穿戴':''}</div><section class="inventory-detail-section"><h3>裝備能力</h3><p class="inventory-detail-stats equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}</section><section class="inventory-detail-section"><div class="actions inventory-detail-actions">${forgeAction}<button onclick="toggleGearLock('${g.id}')">${locked?'解除鎖定':'鎖定'}</button><button class="danger" onclick="salvage('${g.id}')" ${worn||draft||locked?'disabled':''}>分解</button></div>${draft?'<p class="inventory-detail-forge-note">這件裝備有待確認的洗鍊結果，請前往「裝備強化」處理。</p>':''}</section></div>`;
+    return `<div class="inventory-detail-pane"><div class="inventory-detail-heading"><div><h2>${equipmentNameHTML(g)}</h2></div><span class="tag inventory-quality-tag"><span class="effect-quality-${gearQualityRank(g)}">${qualityTag(g)}${locked?' · 已鎖定':''}</span></span></div><div class="inventory-detail-meta">${gearWearableJobsText(g)} · ${CLASS_GEAR[g.job][g.slot]} · LV ${gearRequiredLevel(g)} · ${Number.isInteger(g.powerTier)?'T'+g.powerTier:'T—'}${worn?' · 目前由 '+esc(characterName(wearer))+' 穿戴':''}</div><section class="inventory-detail-section"><h3>裝備能力</h3><p class="inventory-detail-stats equipment-total-summary">${globalThis.equipmentTotalSummaryHTML(g)}</p>${globalThis.equipmentAttributeDetailsHTML(g)}</section><section class="inventory-detail-section"><div class="actions inventory-detail-actions">${forgeAction}<button onclick="toggleGearLock('${g.id}')">${locked?'解除鎖定':'鎖定'}</button><button class="danger" onclick="salvage('${g.id}')" ${worn||draft||locked?'disabled':''}>分解</button></div>${draft?'<p class="inventory-detail-forge-note">這件裝備有待確認的洗鍊結果，請前往「裝備強化」處理。</p>':''}</section></div>`;
   };
 
   // Forge is now an account-level workbench: no character tabs, a sortable
@@ -7265,7 +7587,7 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
    Normal gear: prefix + suffix + base + internal power tier.
    - Player base ratings describe only powerTier; enhancement and effect quality are separate.
    - Prefix/suffix each carry one explicit gameplay effect.
-   Boss gear: no prefix/suffix and no random reroll affixes; one boss-exclusive profile supplies exactly three fixed effects.
+   Boss gear: one exclusive profile supplies three fixed effects alongside rerollable affixes.
 */
 (()=>{
   const clone=v=>JSON.parse(JSON.stringify(v));
@@ -7348,11 +7670,13 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
     suffixes:DEFAULT_SUFFIXES,
     bossAffixes:DEFAULT_BOSS_AFFIXES,
     strength:{
-      multipliers:[1,1.06,1.12,1.19,1.25,1.31,1.37,1.43,1.49,1.55],
+      multipliers:[.8,.85,.9,.95,1,1.04,1.08,1.12,1.16,1.2],
+      bossMultipliers:[1.15,1.167,1.183,1.2,1.217,1.233,1.25,1.267,1.283,1.3],
+      acquisitionVersion:1,legacyMultipliers:[1,1.08,1.16,1.24,1.32,1.4,1.48,1.56,1.64,1.72],legacyBossLevelBonus:7,
       weightsByDifficulty:[
-        [70,20,8,2,0,0,0,0,0,0],
-        [0,0,5,20,55,15,5,0,0,0],
-        [0,0,0,0,0,2,5,10,23,60]
+        [8,12,16,20,20,12,6,3,2,1],
+        [2,4,8,12,22,20,14,9,6,3],
+        [1,2,3,6,12,18,20,18,12,8]
       ]
     },
     rerollItem:{id:POWER_ITEM_ID,name:'強度重鑄石',description:'',cost:0,sellPrice:80,shopEnabled:false,shopChance:.06,shopPrice:650,dropRuleInitialized:false}
@@ -7436,6 +7760,10 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
     out.bossAffixes=normalizeBossAffixes(src.bossAffixes,src.seriesPrefixes);
     const st=src.strength&&typeof src.strength==='object'?src.strength:{};
     out.strength.multipliers=Array.from({length:10},(_,i)=>finite(st.multipliers?.[i],DEFAULT_POWER.strength.multipliers[i],.01,100));
+    out.strength.acquisitionVersion=st.acquisitionVersion===1?1:0;
+    out.strength.bossMultipliers=Array.from({length:10},(_,i)=>finite(st.bossMultipliers?.[i],DEFAULT_POWER.strength.bossMultipliers[i],.01,100));
+    out.strength.legacyMultipliers=Array.from({length:10},(_,i)=>finite(st.legacyMultipliers?.[i],st.multipliers?.[i]??DEFAULT_POWER.strength.legacyMultipliers[i],.01,100));
+    out.strength.legacyBossLevelBonus=finite(st.legacyBossLevelBonus,7,0,100);
     out.strength.weightsByDifficulty=Array.from({length:3},(_,d)=>Array.from({length:10},(_,i)=>finite(st.weightsByDifficulty?.[d]?.[i],DEFAULT_POWER.strength.weightsByDifficulty[d][i],0,1e9)));
     const r=src.rerollItem&&typeof src.rerollItem==='object'?src.rerollItem:{};
     out.rerollItem={id:POWER_ITEM_ID,name:typeof r.name==='string'&&r.name.trim()?r.name.trim():DEFAULT_POWER.rerollItem.name,description:typeof r.description==='string'?r.description:DEFAULT_POWER.rerollItem.description,cost:0,sellPrice:finite(r.sellPrice,80,0,1e9),shopEnabled:false,shopChance:finite(r.shopChance,.06,0,1),shopPrice:Math.round(finite(r.shopPrice,650,1,1e9)),dropRuleInitialized:!!r.dropRuleInitialized,textStyleId:typeof r.textStyleId==='string'?r.textStyleId:''};
@@ -7486,6 +7814,9 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   ensurePowerDropRule();
 
   function validatePowerInput(raw){
+    const st=raw?.strength;
+    for(const key of ['multipliers','bossMultipliers','legacyMultipliers'])if(st?.[key]!==undefined&&(!Array.isArray(st[key])||st[key].length!==10||st[key].some(v=>!Number.isFinite(v)||v<=0||v>100)))throw Error('T 級倍率無效：'+key);
+    if(st?.weightsByDifficulty!==undefined&&(!Array.isArray(st.weightsByDifficulty)||st.weightsByDifficulty.length!==3||st.weightsByDifficulty.some(row=>!Array.isArray(row)||row.length!==10||row.some(v=>!Number.isFinite(v)||v<0)||!row.some(v=>v>0))))throw Error('T 級權重無效');
     const p=normalizePower(raw);
     const checkRows=(rows,label)=>{
       const ids=new Set();
@@ -7520,10 +7851,10 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
         naming:'一般裝備名稱 = 前綴 + 後綴 + 基底；前綴或後綴可為空；BOSS 裝備只使用 BOSS 專屬名稱。',
         stats:'一般裝備 ATK/HP/DEF 只由基底、T1~T10 與既有 +N 強化計算；前後綴不提供 raw ATK/HP/DEF。',
         affixChance:'prefixes / suffixes 的 chanceByTier[0..9] 分別代表 T1～T10 的實際百分比機率（0~100）；同一 T 級與部位合計不足 100% 時，剩餘機率為無該類詞綴。舊版 weight 只作匯入相容。',
-        boss:'BOSS 專屬裝備沒有前後綴與隨機洗鍊詞條；bossAffixes 每筆固定 3 條效果。',
+        boss:'BOSS 裝備不抽前後綴，保留三條專屬效果及兩個可洗鍊隨機詞綴。',
         effects:[...BOSS_EFFECT_KEYS]
       };
-      out.notes=[...(out.notes||[]),'equipmentPowerSystem schemaVersion=4：prefixes / suffixes 各一條效果；chanceByTier[0..9] 分別控制 T1～T10 實際百分比機率，舊版 weight 會自動轉入有效 T 級。','同一 T 級與部位的前綴／後綴機率池各自以 100% 為上限；不足 100% 的剩餘機率會生成無前綴／無後綴裝備。','一般裝備 raw ATK/HP/DEF 不受前後綴影響；由 equipmentForms 基底、T 階級與既有強化計算。','BOSS 專屬裝備不抽前後綴，也不使用隨機洗鍊詞條。'];
+      out.notes=[...(out.notes||[]),'equipmentPowerSystem schemaVersion=4：prefixes / suffixes 各一條效果；chanceByTier[0..9] 分別控制 T1～T10 實際百分比機率，舊版 weight 會自動轉入有效 T 級。','同一 T 級與部位的前綴／後綴機率池各自以 100% 為上限；不足 100% 的剩餘機率會生成無前綴／無後綴裝備。','一般裝備 raw ATK/HP/DEF 不受前後綴影響；由 equipmentForms 基底、T 階級與既有強化計算。','BOSS 專屬裝備不抽前後綴；三條專屬效果保留，隨機詞綴可洗鍊。'];
       return out;
     };
   }
@@ -7538,6 +7869,7 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
       copy.equipmentPowerSystem=clone(nextPower);
       // Validate the complete candidate before changing the live equipment rules.
       validateDescriptionItems(normalizeDescriptionBalance(copy).items);validateBalanceConfig(copy);
+      for(const g of allKnownGear())if(!EmberwildTokens.isToken(g)&&!g.starterPack)gearStatBreakdown(g);
       EQUIPMENT_POWER=nextPower;globalThis.__EMBERWILD_EQUIPMENT_POWER=EQUIPMENT_POWER;
       syncRerollItem();ensurePowerDropRule(copy.balanceSettings);copy.equipmentPowerSystem=clone(EQUIPMENT_POWER);
       const out=identityApplyBase(copy,{persist:false});
@@ -7562,7 +7894,7 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   function bossProfileForGear(g){if(!g||g.boss===undefined)return null;const id=bossProfileId(g);return EQUIPMENT_POWER.bossAffixes.find(x=>x.id===id)||DEFAULT_BOSS_AFFIXES.find(x=>x.id===id)||null;}
   function strengthAnchor(mode){return mode===2?10:mode===1?5:1;}
   function rollStrengthTier(mode){mode=Math.max(0,Math.min(2,Number(mode)||0));const w=EQUIPMENT_POWER.strength.weightsByDifficulty[mode]||[],rows=Array.from({length:10},(_,i)=>({tier:i+1,weight:Number(w[i])||0})),hit=rollWeighted(rows);return hit?.tier||strengthAnchor(mode);}
-  function strengthMultiplier(g){const t=Math.max(1,Math.min(10,Number(g?.powerTier)||strengthAnchor(g?.difficulty)));return Number(EQUIPMENT_POWER.strength.multipliers[t-1])||1;}
+  function strengthMultiplier(g){const t=Math.max(1,Math.min(10,Number(g?.powerTier)||strengthAnchor(g?.difficulty)));if(g?.baseSnapshot)return g.baseSnapshot.mult;const rules=EQUIPMENT_POWER.strength;return Number((g?.baseRuleVersion===1?(g.boss===undefined?rules.multipliers:rules.bossMultipliers):rules.legacyMultipliers)[t-1])||1;}
   const BASE_RATINGS=['D','D','C','C','B','B','A','S','SS','SSS'];
   globalThis.equipmentBaseRating=function(g){
     if(!g||g.slot===undefined||g.starterPack)return '—';
@@ -7587,12 +7919,12 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
       if(freshNames||!hasPrefix||(g.prefixId!==''&&(!prefixById(g.prefixId)||!prefixById(g.prefixId).slots.includes(slot))))g.prefixId=(freshNames?rollNamedAffix(EQUIPMENT_POWER.prefixes,tier,slot):deterministicRow(EQUIPMENT_POWER.prefixes,tier,slot,0))?.id||'';
       if(freshNames||!hasSuffix||(g.suffixId!==''&&(!suffixById(g.suffixId)||!suffixById(g.suffixId).slots.includes(slot))))g.suffixId=(freshNames?rollNamedAffix(EQUIPMENT_POWER.suffixes,tier,slot):deterministicRow(EQUIPMENT_POWER.suffixes,tier,slot,3))?.id||'';
     }else{
-      g.prefixId='';g.suffixId='';g.affix=[];delete g.affixLock;
+      g.prefixId='';g.suffixId='';if(!Array.isArray(g.affix))g.affix=[];
       g.bossQualityRank=Math.max(2,Math.min(3,Number(GS('equipment.boss.affixRankByDifficulty',[2,2,3])[g.difficulty||0])||2));
     }
     return g;
   }
-  function allKnownGear(){const out=[];for(const h of party?.members||[])for(const g of h?.bag||[])out.push(g);if(state&&!party?.members?.includes(state))for(const g of state.bag||[])out.push(g);if(Array.isArray(globalThis.pendingGearLoot))out.push(...globalThis.pendingGearLoot);else if(typeof pendingGearLoot!=='undefined'&&Array.isArray(pendingGearLoot))out.push(...pendingGearLoot);return [...new Map(out.filter(Boolean).map(g=>[g.id,g])).values()];}
+  function allKnownGear(){const out=[];for(const h of party?.members||[])for(const g of h?.bag||[])out.push(g);if(state&&!party?.members?.includes(state))for(const g of state.bag||[])out.push(g);return [...new Map(out.filter(Boolean).map(g=>[g.id,g])).values()];}
   function normalizeAllGearIdentity(){for(const g of allKnownGear()){ensureGearIdentityMeta(g);g.name=gearName(g);}}
 
   function baseFormForGear(g){return g&&g.boss===undefined&&Number.isInteger(g.form)?itemForm(g):null;}
@@ -7604,7 +7936,13 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   function identityEffectEntriesForGear(g){
     if(EmberwildTokens.isToken(g))return EmberwildTokens.effectsFor(g,GS('equipment.enhance.statPerLevel',.05));
     ensureGearIdentityMeta(g);
-    if(g.boss!==undefined)return (bossProfileForGear(g)?.effects||[]).map(e=>({...e,source:'boss'}));
+    if(g.boss!==undefined)return (bossProfileForGear(g)?.effects||[]).map(e=>{
+      const key={gearAtkPct:'atk',gearHpPct:'hp',gearDefPct:'def'}[e.key];
+      // New BOSS bases reference the matching standard shop form. Their exclusive
+      // percent effects are affixes applied once, outside that immutable base.
+      if(g.baseRuleVersion===1&&key)return {key:{atk:'flatAttack',hp:'flatHp',def:'flatDefense'}[key],value:Math.round((g.baseSnapshot?.base[key]||0)*(1+(g.plus||0)*GS('equipment.enhance.statPerLevel',.05))*e.value/100),ruleEffect:e,source:'boss'};
+      return {...e,source:'boss'};
+    });
     const out=baseEffectEntries(g),p=prefixById(g.prefixId),s=suffixById(g.suffixId);
     if(p?.effect)out.push({...p.effect,source:'prefix'});
     if(s?.effect)out.push({...s.effect,source:'suffix'});
@@ -7614,7 +7952,7 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   function effectNumberForHero(h,key){return identityEffectsForHero(h).filter(e=>e.key===key).reduce((n,e)=>n+(Number(e.value)||0),0);}
 
   function effectText(effect){
-    if(!effect)return '無效果';
+    if(!effect)return '無效果';if(effect.ruleEffect)return effectText(effect.ruleEffect);
     const key=effect.key,value=effect.value,label=EFFECT_LABELS[key]||key;
     if(key==='basicElement')return '此武器攻擊屬性：'+(ELEMENTS[value]||value);
     if(key==='basicAdvanceNextRound')return '普攻後，下回合行動往前 '+Math.round(Number(value)||0)+' 格';
@@ -7645,11 +7983,11 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   equipmentNameHTML=function(g){return identityNameHTMLBase(g)+globalThis.equipmentBaseRatingHTML(g);};
 
   const identityGearFactoryBase=gear;
-  gear=function(tier=1,slot=rand(4),rar=0,job=null){const g=identityGearFactoryBase(tier,slot,rar,job);ensureGearIdentityMeta(g,{freshNames:true,freshPower:true,mode:0});g.name=gearName(g);return g;};
+  gear=function(tier=1,slot=rand(4),rar=0,job=null){const g=identityGearFactoryBase(tier,slot,rar,job);ensureGearIdentityMeta(g,{freshNames:true,freshPower:true,mode:0});g.baseRuleVersion=EQUIPMENT_POWER.strength.acquisitionVersion;delete g.baseSnapshot;g.name=gearName(g);return g;};
   const identityModeAffixesBase=modeAffixes;
-  modeAffixes=function(g,mode){const out=identityModeAffixesBase(g,mode);if(g){g.difficulty=Math.max(0,Math.min(2,Number(mode)||0));ensureGearIdentityMeta(g,{freshNames:true,freshPower:true,mode:g.difficulty});g.name=gearName(g);}return out;};
+  modeAffixes=function(g,mode){const out=identityModeAffixesBase(g,mode);if(g){delete g.baseSnapshot;g.difficulty=Math.max(0,Math.min(2,Number(mode)||0));ensureGearIdentityMeta(g,{freshNames:true,freshPower:true,mode:g.difficulty});g.name=gearName(g);}return out;};
   const identityBossGearBase=bossGear;
-  bossGear=function(mi,job=state.job,mode=state.difficulty||0){const g=identityBossGearBase(mi,job,mode);g.affix=[];delete g.affixLock;ensureGearIdentityMeta(g,{freshPower:true,mode});g.name=gearName(g);return g;};
+  bossGear=function(mi,job=state.job,mode=state.difficulty||0){const g=identityBossGearBase(mi,job,mode);delete g.baseSnapshot;ensureGearIdentityMeta(g,{freshPower:true,mode});g.affix=rollAffixes(g);delete g.affixLock;g.name=gearName(g);gearStatBreakdown(g);return g;};
 
   const identityQualityBase=gearQualityRank;
   gearQualityRank=function(g){if(g?.boss!==undefined)return Math.max(2,Math.min(3,Number(g.bossQualityRank??GS('equipment.boss.affixRankByDifficulty',[2,2,3])[g.difficulty||0])||2));return identityQualityBase(g);};
@@ -7657,7 +7995,7 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   gearQualityRank=function(g){return EmberwildTokens.isToken(g)?g.rar:tokenQualityBase(g);};
 
   bossPower=function(){return 1;};
-  function rawTierStats(g){const tier=Math.max(1,Number(g?.tier)||1)+(g?.boss!==undefined?GS('equipment.boss.baseLevelBonus',7)/GS('equipment.requiredLevel.perTier',5):0),atkPer=g.slot===2?GS('equipment.baseStats.offhandAttackPerTier',GS('equipment.baseStats.accessoryAttackPerTier',4)):GS('equipment.baseStats.accessoryAttackPerTier',4),hpPer=g.slot===2?GS('equipment.baseStats.offhandHpPerTier',GS('equipment.baseStats.accessoryHpPerTier',20)):GS('equipment.baseStats.accessoryHpPerTier',20);return {atk:g.slot===0?(Number.isFinite(g.starterPack?.baseAttack)?g.starterPack.baseAttack:tier*GS('equipment.baseStats.weaponAttackPerTier',11)):[2,3].includes(g.slot)?tier*atkPer:0,hp:g.slot===1?tier*GS('equipment.baseStats.armorHpPerTier',45):[2,3].includes(g.slot)?tier*hpPer:0,def:g.slot===1?tier*GS('equipment.baseStats.armorDefensePerTier',4):0};}
+  function rawTierStats(g){if(g?.baseSnapshot&&!g.starterPack)return {...g.baseSnapshot.raw};const tier=(Number.isInteger(g?.equipmentLevel)?1+(g.equipmentLevel-GS('equipment.requiredLevel.base',1))/GS('equipment.requiredLevel.perTier',5):Math.max(1,Number(g?.tier)||1))+(g?.boss!==undefined&&g.baseRuleVersion!==1?EQUIPMENT_POWER.strength.legacyBossLevelBonus/GS('equipment.requiredLevel.perTier',5):0),atkPer=g.slot===2?GS('equipment.baseStats.offhandAttackPerTier',GS('equipment.baseStats.accessoryAttackPerTier',4)):GS('equipment.baseStats.accessoryAttackPerTier',4),hpPer=g.slot===2?GS('equipment.baseStats.offhandHpPerTier',GS('equipment.baseStats.accessoryHpPerTier',20)):GS('equipment.baseStats.accessoryHpPerTier',20);const raw={atk:g.slot===0?(Number.isFinite(g.starterPack?.baseAttack)?g.starterPack.baseAttack:tier*GS('equipment.baseStats.weaponAttackPerTier',11)):[2,3].includes(g.slot)?tier*atkPer:0,hp:g.slot===1?tier*GS('equipment.baseStats.armorHpPerTier',45):[2,3].includes(g.slot)?tier*hpPer:0,def:g.slot===1?tier*GS('equipment.baseStats.armorDefensePerTier',4):0};if(g.boss!==undefined&&g.baseRuleVersion===1){const form=ITEM_FORMS[g.job]?.[g.slot]?.[0];for(const [key,fx] of [['atk','gearAtkPct'],['hp','gearHpPct'],['def','gearDefPct']])raw[key]=Math.round(raw[key]*(1+(form?.fixedEffects||[]).filter(e=>e.key===fx).reduce((n,e)=>n+Number(e.value||0),0)/100));}return raw;}
   function baseStatPct(g,key){
     const effects=identityEffectEntriesForGear(g);
     return effects.filter(e=>e.key===key).reduce((n,e)=>n+(Number(e.value)||0),0);
@@ -7665,8 +8003,17 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   function gearStatBreakdown(g){
     if(EmberwildTokens.isToken(g)){const zero={atk:0,hp:0,def:0};return {raw:{...zero},body:{...zero},grade:{...zero},enhance:{...zero},total:{...zero},mult:g.qualityMultipliers[g.rar],powerTier:1,prefix:null,suffix:null,bossProfile:null};}
     ensureGearIdentityMeta(g);
+    const mult=g.starterPack?Number(EQUIPMENT_POWER.strength.legacyMultipliers[(g.powerTier||1)-1])||1:strengthMultiplier(g);
     const raw=rawTierStats(g);
-    const mult=strengthMultiplier(g),integers=EmberwildProgression.gearStats(raw,{atk:baseStatPct(g,'gearAtkPct'),hp:baseStatPct(g,'gearHpPct'),def:baseStatPct(g,'gearDefPct')},mult,g.plus||0,GS('equipment.enhance.statPerLevel',.05));
+    // Persist the generated base, before enhancement and random affixes. Changing
+    // published T rules or rerolling affixes must never rewrite an owned base.
+    let integers;
+    if(g.starterPack){integers=EmberwildProgression.gearStats(raw,{atk:baseStatPct(g,'gearAtkPct'),hp:baseStatPct(g,'gearHpPct'),def:baseStatPct(g,'gearDefPct')},mult,g.plus||0,GS('equipment.enhance.statPerLevel',.05));}
+    else{
+      if(!g.baseSnapshot){const b=EmberwildProgression.gearStats(raw,{atk:baseStatPct(g,'gearAtkPct'),hp:baseStatPct(g,'gearHpPct'),def:baseStatPct(g,'gearDefPct')},mult,0,0);g.baseSnapshot={version:1,raw:b.raw,body:b.body,base:b.total,mult};}
+      const b=g.baseSnapshot,total=Object.fromEntries(['hp','atk','def'].map(k=>[k,Math.round(b.base[k]*(1+(g.plus||0)*GS('equipment.enhance.statPerLevel',.05)))]));
+      integers={raw:{...b.raw},body:{...b.body},grade:Object.fromEntries(['hp','atk','def'].map(k=>[k,b.base[k]-b.body[k]])),enhance:Object.fromEntries(['hp','atk','def'].map(k=>[k,total[k]-b.base[k]])),total};
+    }
     return {...integers,mult,powerTier:g.powerTier||1,prefix:prefixById(g.prefixId),suffix:suffixById(g.suffixId),bossProfile:bossProfileForGear(g)};
   }
   globalThis.gearStatBreakdown=gearStatBreakdown;
@@ -7802,7 +8149,7 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
       return row;
     };
     Object.assign(add('基底數值').stats,b.raw);
-    const effects=g.boss===undefined?baseEffectEntries(g):(b.bossProfile?.effects||[]);
+    const effects=g.boss===undefined?baseEffectEntries(g):identityEffectEntriesForGear(g);
     const baseCount=growth?growth.baseCount:effects.length;
     if(!baseCount)add('基底效果');
     effects.slice(0,baseCount).forEach((e,i)=>add((g.boss===undefined?'基底效果 ':'BOSS 專屬加成 ')+(i+1),effectText(e),e));
@@ -7899,6 +8246,8 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
       const key=AFFIX_EFFECT_KEYS[a.type]||(a.type===4?'skillEffectPct':a.type===5?'skillCooldownReduction':'');
       if(key)addEffect({key,value:a.value,...(a.element?{element:a.element}:{}),...(a.race?{race:a.race}:{}),...([4,5].includes(a.type)?{skill:a.skill??0}:{})},true);
     }
+    const numeric={...ledger.total};
+    for(const row of ledger.rows){const e=row.effect||(row.affix?.type===15?{key:'attackPct',value:row.affix.value}:null);if(e&&CHARACTER_EFFECT_KEYS.has(e.key))numeric[e.key]=(numeric[e.key]||0)+(Number(e.value)||0);}
     const values=statText(ledger.total)==='—'?[]:statText(ledger.total).split(' / ');
     for(const e of effects.values()){
       // The existing skill formula multiplies its fixed and random bonus groups.
@@ -7909,10 +8258,26 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
         e.value=Number(e.value.toFixed(2));
         if(!e.value)continue;
       }
+      if(e.key!=='basicElement')numeric[[e.key,e.element||'',e.race||'',e.skill??''].join(':')]=e.value;
       values.push(e.key==='skillProcChance'?'核心技能 '+((e.skill??0)+1)+' 觸發率 '+(e.value>=0?'+':'')+e.value+'%':e.key==='skillCooldownReduction'?'核心技能 '+((e.skill??0)+1)+' 冷卻 −'+e.value+' 回合':effectText(e));
     }
     const affixes=ledger.rows.filter(row=>row.affix).map(row=>({label:row.label.replace(' 加成',''),rule:row.rule,rank:row.affix.rank??0}));
-    return {total:ledger.total,values,affixes};
+    return {total:ledger.total,values,affixes,numeric};
+  };
+  globalThis.equipmentNumericFields=function(){
+    const fields=[{key:'atk',label:'攻擊'},{key:'def',label:'防禦'},{key:'hp',label:'生命'},{key:'speed',label:'速度'}];
+    for(const [key,label] of Object.entries(EFFECT_LABELS)){
+      if(key==='basicElement'||FLAT_PANEL_KEYS[key]||PCT_PANEL_KEYS[key])continue;
+      if(CHARACTER_EFFECT_KEYS.has(key)){fields.push({key,label:label+'加成（%）'});continue;}
+      if(['elementDamagePct','elementResistPct'].includes(key)){for(const [target,name] of Object.entries(ELEMENTS))fields.push({key:[key,target,'',''].join(':'),label:name+' · '+label+'（%）'});}
+      else if(key==='raceDamagePct'){for(const [target,name] of Object.entries(RACES))fields.push({key:[key,'',target,''].join(':'),label:name+' · '+label+'（%）'});}
+      else if(['skillEffectPct','skillCooldownReduction'].includes(key)){
+        const count=Math.max(...CLASSES.map(c=>c.skills.length));
+        for(let i=0;i<count;i++)fields.push({key:[key,'','',i].join(':'),label:'核心技能 '+(i+1)+' · '+label});
+        if(key==='skillCooldownReduction')for(let i=0;i<count;i++)fields.push({key:['skillProcChance','','',i].join(':'),label:'核心技能 '+(i+1)+' · 觸發率（%）'});
+      }else fields.push({key:[key,'','',''].join(':'),label});
+    }
+    return fields;
   };
   globalThis.equipmentTotalSummaryText=function(g){return globalThis.equipmentAbilitySummary(g).values.join(' / ')||'—';};
   globalThis.equipmentTotalSummaryHTML=function(g){
@@ -7952,31 +8317,27 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   gearDesc=function(g){return globalThis.equipmentTotalSummaryText(g);};
 
   const identityRerollBase=reroll;
-  reroll=function(id){const g=findGear(id);if(g?.boss!==undefined)return toast('BOSS 專屬裝備固定三條專屬詞綴，不能洗鍊隨機詞條');return identityRerollBase(id);};
+  reroll=function(id){const g=findGear(id);if(g?.equipmentSource==='shop'&&g.canReroll===false)return toast('此裝備不可洗鍊');return identityRerollBase(id);};
   const identityAutoRerollBase=autoReroll;
-  autoReroll=function(id,targetRank){const g=findGear(id);if(g?.boss!==undefined)return toast('BOSS 專屬裝備不能自動洗鍊');return identityAutoRerollBase(id,targetRank);};
+  autoReroll=function(id,targetRank){const g=findGear(id);if(g?.canReroll===false)return toast('此裝備不可洗鍊');return identityAutoRerollBase(id,targetRank);};
 
   const identityForgeViewBase=forgeView;
   forgeView=function(){
     let html=identityForgeViewBase();
     const g=typeof findGear==='function'?findGear(forgeSelection):null;
-    if(!g||g.starterPack||globalThis.EmberwildTokens?.isToken(g))return html;
+    if(!g||g.starterPack||g.equipmentSource==='shop'||globalThis.EmberwildTokens?.isToken(g))return html;
     ensureGearIdentityMeta(g);
-    if(g.boss!==undefined){
-      const profile=bossProfileForGear(g),body='<section class="forge-action boss-exclusive-note"><h3>BOSS 專屬詞綴</h3><p class="small">固定三條，沒有前綴／後綴，也不能洗鍊隨機詞條。</p>'+(profile?.effects||[]).map((e,i)=>'<p><b>'+(i+1)+'.</b> '+esc(effectText(e))+'</p>').join('')+'</section>';
-      html=html.replace(/<section class="forge-action"><h3>洗鍊隨機詞條<\/h3>[\s\S]*?<\/section>/,body);
-    }
     const n=state?.consumables?.[POWER_ITEM_ID]||0,b=gearStatBreakdown(g);
     const card='<section class="forge-power-reroll"><h3>基底重鑄</h3><p><b>基底評級：'+globalThis.equipmentBaseRating(g)+'</b>（'+esc(sourceDifficulty(g))+'來源，基底倍率 ×'+Number(b.mult.toFixed(3))+'）。</p><p class="small">'+esc(EQUIPMENT_POWER.rerollItem.name)+' ×'+n+' · 依原始掉落難度重抽基底；強化與詞綴不改變基底評級。</p><div class="actions"><button onclick="rerollEquipmentPowerTier(\''+g.id+'\')" '+(n<1?'disabled':'')+'>消耗 1 個重鑄基底</button></div></section>';
     const tail=html.lastIndexOf('</section>');return tail>=0?html.slice(0,tail)+card+html.slice(tail):html+card;
   };
 
   globalThis.rerollEquipmentPowerTier=function(id){
-    const g=typeof findGear==='function'?findGear(id):allKnownGear().find(x=>x.id===id);if(!g)return toast('找不到裝備');
+    const g=typeof findGear==='function'?findGear(id):allKnownGear().find(x=>x.id===id);if(!g)return toast('找不到裝備');if(g.equipmentSource==='shop')return toast('商店裝備的 T 級與基底固定，無法重鑄');
     syncRerollItem();state.consumables??={};if((state.consumables[POWER_ITEM_ID]||0)<1)return toast(EQUIPMENT_POWER.rerollItem.name+'不足');
     const old=g.powerTier||strengthAnchor(g.difficulty),weights=EQUIPMENT_POWER.strength.weightsByDifficulty[Math.max(0,Math.min(2,g.difficulty||0))]||[],choices=weights.filter(x=>x>0).length;let next=rollStrengthTier(g.difficulty||0);
     if(choices>1)for(let n=0;n<8&&next===old;n++)next=rollStrengthTier(g.difficulty||0);
-    state.consumables[POWER_ITEM_ID]--;g.powerTier=next;g.name=gearName(g);for(const h of party?.members||[state])withHero(h,clampVitals);save();render();toast('基底重鑄完成 · 基底評級：'+BASE_RATINGS[old-1]+' → 基底評級：'+BASE_RATINGS[next-1]+'（基底倍率 ×'+Number(EQUIPMENT_POWER.strength.multipliers[old-1].toFixed(3))+' → ×'+Number(strengthMultiplier(g).toFixed(3))+'）');
+    state.consumables[POWER_ITEM_ID]--;delete g.baseSnapshot;g.powerTier=next;gearStatBreakdown(g);g.name=gearName(g);for(const h of party?.members||[state])withHero(h,clampVitals);save();render();toast('基底重鑄完成 · 基底評級：'+BASE_RATINGS[old-1]+' → 基底評級：'+BASE_RATINGS[next-1]+'（基底倍率 ×'+Number(EQUIPMENT_POWER.strength.multipliers[old-1].toFixed(3))+' → ×'+Number(strengthMultiplier(g).toFixed(3))+'）');
   };
 
   if(typeof supplyDetail==='function'){const identitySupplyDetailBase=supplyDetail;supplyDetail=function(item){if(item?.id===POWER_ITEM_ID)return '基底重鑄道具 · 基底評級：D～SSS · 在裝備強化頁使用 · 賣價 '+Math.round(item.sellPrice||0)+' 金幣';return identitySupplyDetailBase(item);};}
@@ -7988,7 +8349,7 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   if(typeof update12BossMemberView==='function'){
     update12BossMemberView=function(job=state.job){
       const mode=state.difficulty||0,b=GAMEPLAY_SETTINGS.equipment.boss,needMat=Math.max(0,Math.round(b.craftMaterialCount));
-      return heading('BOSS WORKSHOP / 首領製作',MODES[mode].name+'模式專屬裝備')+modePicker()+'<section class="panel">'+resourceLine()+uiHelp('製作說明','BOSS 專屬裝備固定三條專屬詞綴，不抽前綴／後綴，也不能洗鍊隨機詞條；基礎能力約高於需求等級 ' + GS('equipment.boss.baseLevelBonus',7) + ' 級，基底評級依難度浮動，詞綴至少為稀有品質。')+'</section><div class="cards boss-recipes">'+MAPS.map((m,i)=>{if(typeof worldIsFinalMap==='function'?worldIsFinalMap(i):i===6)return '';const family=regionFamily(i),tier=regionTier(i),g={job,slot:bossEquipmentSlot(family),tier,boss:family,region:i,difficulty:mode,rar:0,plus:0,affix:[],powerTier:strengthAnchor(mode)},mat=bossMaterial(i,mode),n=state.materials[mat]||0,cost=Math.round(tier*b.craftGoldPerTier*(mode+1)),ready=canVisit(i)&&state.lv>=m.min&&state.gold>=cost&&n>=needMat;return '<article class="card boss-recipe">'+'<span class="tag">'+esc(m.name)+'</span>'+gearSlotHTML(g,{preview:g})+'<p class="small">'+esc(CLASSES[job].name)+' · LV'+m.min+'</p>'+'<div class="recipe-cost"><span>'+itemSlotHTML('material',mat,{count:needMat,detailLabel:'所需數量'})+' 持有 '+n+'</span><span>◈ '+cost+'</span></div><button class="primary" onclick="craftBoss('+i+','+job+')" '+(ready?'':'disabled')+'>'+(!canVisit(i)?'尚未解鎖':ready?'製作裝備':'等級／材料不足')+'</button></article>';}).join('')+'</div>';
+      return heading('BOSS WORKSHOP / 首領製作',MODES[mode].name+'模式專屬裝備')+modePicker()+'<section class="panel">'+resourceLine()+uiHelp('製作說明','BOSS 裝備保留三條專屬效果，另有可洗鍊詞綴；新基底依 T 級為同級標準的 115%～130%，強化與詞綴另外計算。')+'</section><div class="cards boss-recipes">'+MAPS.map((m,i)=>{if(typeof worldIsFinalMap==='function'?worldIsFinalMap(i):i===6)return '';const family=regionFamily(i),tier=regionTier(i),g={job,slot:bossEquipmentSlot(family),tier,boss:family,region:i,difficulty:mode,rar:0,plus:0,affix:[],powerTier:strengthAnchor(mode)},mat=bossMaterial(i,mode),n=state.materials[mat]||0,cost=Math.round(tier*b.craftGoldPerTier*(mode+1)),ready=canVisit(i)&&state.lv>=m.min&&state.gold>=cost&&n>=needMat;return '<article class="card boss-recipe">'+'<span class="tag">'+esc(m.name)+'</span>'+gearSlotHTML(g,{preview:g})+'<p class="small">'+esc(CLASSES[job].name)+' · LV'+m.min+'</p>'+'<div class="recipe-cost"><span>'+itemSlotHTML('material',mat,{count:needMat,detailLabel:'所需數量'})+' 持有 '+n+'</span><span>◈ '+cost+'</span></div><button class="primary" onclick="craftBoss('+i+','+job+')" '+(ready?'':'disabled')+'>'+(!canVisit(i)?'尚未解鎖':ready?'製作裝備':'等級／材料不足')+'</button></article>';}).join('')+'</div>';
     };
   }
 
@@ -8006,14 +8367,14 @@ triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs
   if(candidates.length){
     state=null;party=null;
     // A custom form may be unavailable until its test JSON is imported; keep the primary save intact.
-    for(const candidate of candidates){try{loadParty(migrateWorldSave(JSON.parse(candidate.raw)));normalizeAllGearIdentity();normalizeEquippedWearability();globalThis.__EMBERWILD_PRE_CONTROL_SAVE_RAW=candidate.raw;if(candidate.label==='備份存檔')toast('主要存檔無法載入，已自動恢復上一份備份');break;}catch(e){state=null;party=null;console.warn(candidate.label+'最終載入失敗',e);if(candidate.label==='主要存檔'&&String(e?.message||e).startsWith('裝備類型無效：'))break;}}
+    for(const candidate of candidates){try{loadParty(migrateWorldSave(JSON.parse(candidate.raw)));normalizeAllGearIdentity();normalizeEquippedWearability();globalThis.__EMBERWILD_PRE_CONTROL_SAVE_RAW=candidate.raw;if(candidate.label==='備份存檔'&&(!globalThis.__EMBERWILD_BALANCE_SOURCE||globalThis.__EMBERWILD_BALANCE_READY))toast('主要存檔無法載入，已自動恢復上一份備份');break;}catch(e){state=null;party=null;console.warn(candidate.label+'最終載入失敗',e);if(candidate.label==='主要存檔'&&String(e?.message||e).startsWith('裝備類型無效：'))break;}}
   }
   saveReady=true;
   window.__EMBERWILD_EQUIPMENT_IDENTITY={schemaVersion:2,effectKeys:[...BOSS_EFFECT_KEYS],prefixes:()=>clone(EQUIPMENT_POWER.prefixes),suffixes:()=>clone(EQUIPMENT_POWER.suffixes),bossAffixes:()=>clone(EQUIPMENT_POWER.bossAffixes),effectText};
   if(state){save();render();}
 })();
 
-__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentBaseRatingHTML=globalThis.equipmentBaseRatingHTML??equipmentBaseRatingHTML;equipmentPlayerItemDescription=globalThis.equipmentPlayerItemDescription??equipmentPlayerItemDescription;pendingGearLoot=globalThis.pendingGearLoot??pendingGearLoot;equipmentIdentityEffectText=globalThis.equipmentIdentityEffectText??equipmentIdentityEffectText;classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPerLevel=globalThis.classGrowthPerLevel??classGrowthPerLevel;companionPassiveStatEffects=globalThis.companionPassiveStatEffects??companionPassiveStatEffects;equipmentStatContributions=globalThis.equipmentStatContributions??equipmentStatContributions;equipmentStarterGrowthSources=globalThis.equipmentStarterGrowthSources??equipmentStarterGrowthSources;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;rerollEquipmentPowerTier=globalThis.rerollEquipmentPowerTier??rerollEquipmentPowerTier;useInventoryItem=globalThis.useInventoryItem??useInventoryItem;__EMBERWILD_PRE_CONTROL_SAVE_RAW=globalThis.__EMBERWILD_PRE_CONTROL_SAVE_RAW??__EMBERWILD_PRE_CONTROL_SAVE_RAW;
+__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentBaseRatingHTML=globalThis.equipmentBaseRatingHTML??equipmentBaseRatingHTML;equipmentPlayerItemDescription=globalThis.equipmentPlayerItemDescription??equipmentPlayerItemDescription;equipmentIdentityEffectText=globalThis.equipmentIdentityEffectText??equipmentIdentityEffectText;classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPerLevel=globalThis.classGrowthPerLevel??classGrowthPerLevel;companionPassiveStatEffects=globalThis.companionPassiveStatEffects??companionPassiveStatEffects;equipmentStatContributions=globalThis.equipmentStatContributions??equipmentStatContributions;equipmentStarterGrowthSources=globalThis.equipmentStarterGrowthSources??equipmentStarterGrowthSources;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;equipmentNumericFields=globalThis.equipmentNumericFields??equipmentNumericFields;rerollEquipmentPowerTier=globalThis.rerollEquipmentPowerTier??rerollEquipmentPowerTier;useInventoryItem=globalThis.useInventoryItem??useInventoryItem;__EMBERWILD_PRE_CONTROL_SAVE_RAW=globalThis.__EMBERWILD_PRE_CONTROL_SAVE_RAW??__EMBERWILD_PRE_CONTROL_SAVE_RAW;
 
 /* js/ui/journal-split.js?v=20261015-loot-fold1 */
 
@@ -8106,227 +8467,6 @@ journalLootOpen=globalThis.journalLootOpen??journalLootOpen;journalLootHeight=gl
 })();
 
 inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldOpen;inventoryDisposeFoldOpen=globalThis.inventoryDisposeFoldOpen??inventoryDisposeFoldOpen;setInventoryFoldState=globalThis.setInventoryFoldState??setInventoryFoldState;
-
-/* js/equipment/pending-gear-detail.js?v=20261019-daily-speed2 */
-
-(function installPendingGearDetailedList(){
-  if(!globalThis.__pendingQualityFoldOpen)globalThis.__pendingQualityFoldOpen={0:true,1:true,2:true,3:true};
-  globalThis.setPendingQualityFold=function(q,open){globalThis.__pendingQualityFoldOpen[q]=!!open;};
-
-  function namedAffixName(kind,id){
-    if(!id)return kind==='prefix'?'無前綴':'無後綴';
-    var power=globalThis.__EMBERWILD_EQUIPMENT_POWER||{};
-    var rows=kind==='prefix'?(power.prefixes||[]):(power.suffixes||[]);
-    var row=rows.find(function(x){return x&&x.id===id;});
-    return row&&row.name?String(row.name):String(id);
-  }
-
-  function qualityName(q){
-    return (Array.isArray(AFFIX_RANK)&&AFFIX_RANK[q])||(Array.isArray(QUALITY_NAMES)&&QUALITY_NAMES[q])||('品質 '+q);
-  }
-
-  function pendingGearGroupMeta(g){
-    var boss=!!(g&&g.boss!==undefined);
-    var quality=Math.max(0,Math.min(3,typeof gearQualityRank==='function'?gearQualityRank(g):0));
-    var name=typeof gearName==='function'?String(gearName(g)||g&&g.name||'裝備'):String(g&&g.name||'裝備');
-    var prefixId=boss?'':String(g&&g.prefixId||'');
-    var suffixId=boss?'':String(g&&g.suffixId||'');
-    var key=[
-      quality,
-      boss?'boss':'normal',
-      g&&g.job!==undefined?g.job:'',
-      g&&g.slot!==undefined?g.slot:'',
-      g&&g.form!==undefined?g.form:'',
-      prefixId,
-      suffixId,
-      name
-    ].join('|');
-    return {
-      key:key,
-      quality:quality,
-      name:name,
-      boss:boss,
-      prefix:namedAffixName('prefix',prefixId),
-      suffix:namedAffixName('suffix',suffixId)
-    };
-  }
-
-  function pendingGearGroups(source){
-    var map=new Map(),rows=Array.isArray(source)?source:pendingGearLoot;
-    for(const g of rows){
-      var meta=pendingGearGroupMeta(g),group=map.get(meta.key);
-      if(group)group.list.push(g);
-      else map.set(meta.key,{meta:meta,list:[g]});
-    }
-    return Array.from(map.values());
-  }
-
-  function pendingQualityRows(){
-    var rows=[];
-    for(var q=0;q<4;q++){
-      var list=pendingGearLoot.filter(function(g){return gearQualityRank(g)===q;});
-      if(list.length)rows.push({q:q,name:qualityName(q),list:list,groups:pendingGearGroups(list)});
-    }
-    return rows;
-  }
-
-  function tierSummary(list){
-    var counts=new Map();
-    for(const g of list){
-      var key=globalThis.equipmentBaseRating(g);
-      counts.set(key,(counts.get(key)||0)+1);
-    }
-    return Array.from(counts.entries()).sort(function(a,b){
-      var order=['D','C','B','A','S','SS','SSS','—'];
-      return order.indexOf(a[0])-order.indexOf(b[0]);
-    }).map(function(x){return '基底評級：'+x[0]+' ×'+x[1];}).join(' · ');
-  }
-
-  function clonePlain(v){return JSON.parse(JSON.stringify(v||{}));}
-  function economySnapshot(){
-    return {
-      gold:state.gold,ore:state.ore,dust:state.dust,potions:state.potions,
-      materials:clonePlain(state.materials),consumables:clonePlain(state.consumables),healingPotions:clonePlain(healingInventory()),
-      gems:Array.isArray(state.gems)?state.gems.slice():[]
-    };
-  }
-  function restoreObject(target,source){
-    for(const k of Object.keys(target||{}))delete target[k];
-    Object.assign(target,source||{});
-  }
-  function restoreEconomy(s){
-    state.gold=s.gold;state.ore=s.ore;state.dust=s.dust;state.potions=s.potions;
-    restoreObject(state.materials,s.materials);
-    restoreObject(state.consumables,s.consumables);
-    restoreObject(healingInventory(),s.healingPotions);
-    if(Array.isArray(state.gems))state.gems.splice(0,state.gems.length,...s.gems);
-  }
-
-  function findPendingGroup(key){
-    return pendingGearGroups().find(function(x){return x.meta.key===key;})||null;
-  }
-  function pendingNeedsConfirm(list){
-    return list.some(function(g){return gearQualityRank(g)>=1||g.boss!==undefined;});
-  }
-  function confirmPendingDispose(list,mode,label){
-    if(!pendingNeedsConfirm(list))return true;
-    var verb=mode==='sell'?'販售':'分解';
-    var total=mode==='sell'?list.reduce(function(n,g){return n+(typeof equipmentSellPrice==='function'?equipmentSellPrice(g):0);},0):0;
-    var boss=list.some(function(g){return g.boss!==undefined;});
-    return confirm('確定要'+verb+' '+list.length+' 件'+label+'？'+(mode==='sell'?'\n可獲得 '+total+' 金幣。':'')+'\n精良、稀有、傳說裝備的'+verb+'需要再次確認，操作後無法復原。'+(boss?'\n其中包含 BOSS 專屬裝備。':''));
-  }
-
-  function claimPendingList(list,label){
-    if(!list.length)return toast('沒有可領取的'+label);
-    var room=Math.max(0,RULES.bagCapacity-state.bag.length);
-    if(!room)return toast('裝備背包已滿');
-    var take=list.slice(0,room),ids=new Set(take.map(function(g){return g.id;}));
-    var oldPending=pendingGearLoot.slice(),oldBag=state.bag.slice();
-    state.bag.push.apply(state.bag,take);
-    pendingGearLoot=pendingGearLoot.filter(function(g){return !ids.has(g.id);});
-    if(!save()){
-      state.bag.splice(0,state.bag.length,...oldBag);
-      pendingGearLoot=oldPending;
-      return toast('領取失敗：儲存失敗');
-    }
-    render();
-    toast('已領取 '+take.length+' 件'+label+(take.length<list.length?'；背包已滿':''));
-  }
-
-  function disposePendingList(list,mode,label,skipConfirm){
-    if(!list.length){toast('沒有可處理的'+label);return false;}
-    if(!skipConfirm&&!confirmPendingDispose(list,mode,label))return false;
-    ensureBoard();var oldPending=pendingGearLoot.slice(),snap=economySnapshot(),oldBoard=JSON.parse(JSON.stringify(playerHero().board));
-    try{
-      if(mode==='sell'){
-        var total=list.reduce(function(n,g){return n+(typeof equipmentSellPrice==='function'?equipmentSellPrice(g):0);},0);
-        state.gold+=total;
-      }else{
-        for(const g of list)grantSalvageRewards(g,false);globalThis.recordDailyProgress?.('salvage','',list.length);
-      }
-      var ids=new Set(list.map(function(g){return g.id;}));
-      pendingGearLoot=pendingGearLoot.filter(function(g){return !ids.has(g.id);});
-      if(!save())throw Error('儲存失敗');
-      render();
-      toast('已'+(mode==='sell'?'販售 ':'分解 ')+list.length+' 件'+label+(mode==='sell'?'，獲得 '+total+' 金幣':''));
-      return true;
-    }catch(e){
-      pendingGearLoot=oldPending;playerHero().board=oldBoard;
-      restoreEconomy(snap);
-      toast('操作失敗：'+e.message);
-      return false;
-    }
-  }
-
-  globalThis.claimPendingGearGroup=function(key){
-    var group=findPendingGroup(key);
-    if(!group)return toast('這組待領取裝備已不存在');
-    claimPendingList(group.list,group.meta.name);
-  };
-  globalThis.sellPendingGearGroup=function(key){
-    var group=findPendingGroup(key);
-    if(!group)return toast('這組待領取裝備已不存在');
-    disposePendingList(group.list,'sell',group.meta.name);
-  };
-  globalThis.salvagePendingGearGroup=function(key){
-    var group=findPendingGroup(key);
-    if(!group)return toast('這組待領取裝備已不存在');
-    disposePendingList(group.list,'salvage',group.meta.name);
-  };
-
-  globalThis.claimPendingQuality=function(q){
-    var row=pendingQualityRows().find(function(x){return x.q===Number(q);});
-    if(!row)return toast('沒有'+qualityName(Number(q))+'待領取裝備');
-    claimPendingList(row.list,qualityName(row.q)+'裝備');
-  };
-  globalThis.sellPendingQuality=function(q){
-    var row=pendingQualityRows().find(function(x){return x.q===Number(q);});
-    if(!row)return toast('沒有'+qualityName(Number(q))+'待領取裝備');
-    disposePendingList(row.list,'sell',qualityName(row.q)+'裝備');
-  };
-  globalThis.salvagePendingQuality=function(q){
-    var row=pendingQualityRows().find(function(x){return x.q===Number(q);});
-    if(!row)return toast('沒有'+qualityName(Number(q))+'待領取裝備');
-    disposePendingList(row.list,'salvage',qualityName(row.q)+'裝備');
-  };
-  globalThis.quickDisposePendingQuality=function(q,mode){
-    q=Number(q);
-    if(![0,1].includes(q)||!['salvage','sell'].includes(mode))return false;
-    var row=pendingQualityRows().find(function(x){return x.q===q;});
-    if(!row)return false;
-    var list=row.list.filter(function(g){return g.boss===undefined;});
-    if(!list.length)return false;
-    return disposePendingList(list,mode,qualityName(q)+'待領取裝備',true);
-  };
-
-  function groupHtml(group){
-    var g=group.list[0],meta=group.meta;
-    var affixText=meta.boss?'BOSS 專屬':('前綴：'+meta.prefix+' · 後綴：'+meta.suffix);
-    var claimDisabled=state.bag.length>=RULES.bagCapacity?' disabled':'';
-    var totalSell=group.list.reduce(function(n,x){return n+(typeof equipmentSellPrice==='function'?equipmentSellPrice(x):0);},0);
-    return '<section class="pending-affix-group"><div class="pending-affix-group-main"><div class="pending-affix-group-name">'+gearSlotHTML(g,{count:group.list.length})+'<div class="pending-affix-group-meta"><span>'+esc(affixText)+'</span><span>'+esc(tierSummary(group.list))+'</span></div></div><span class="pending-affix-group-count">×'+group.list.length+'</span><div class="pending-affix-group-actions"><button data-group="'+esc(meta.key)+'" onclick="claimPendingGearGroup(this.dataset.group)"'+claimDisabled+'>全領</button><button data-group="'+esc(meta.key)+'" onclick="salvagePendingGearGroup(this.dataset.group)">全分解</button><button data-group="'+esc(meta.key)+'" onclick="sellPendingGearGroup(this.dataset.group)">全賣 · '+totalSell+'金</button></div></div></section>';
-  }
-
-  pendingGearBottomView=function(){
-    var qualityRows=pendingQualityRows();
-    var total=qualityRows.reduce(function(n,r){return n+r.list.length;},0);
-    var groupCount=qualityRows.reduce(function(n,r){return n+r.groups.length;},0);
-    var qualityHtml=qualityRows.map(function(row){
-      var totalSell=row.list.reduce(function(n,g){return n+(typeof equipmentSellPrice==='function'?equipmentSellPrice(g):0);},0);
-      var claimDisabled=state.bag.length>=RULES.bagCapacity?' disabled':'';
-      var open=globalThis.__pendingQualityFoldOpen[row.q]?' open':'';
-      return '<details class="pending-color-group effect-quality-'+row.q+'"'+open+' ontoggle="setPendingQualityFold('+row.q+',this.open)"><summary><span class="pending-color-group-count">'+row.list.length+' 件 · '+row.groups.length+' 組</span><span class="pending-color-group-title">'+esc(row.name)+'</span><span class="pending-color-group-tier">'+esc(tierSummary(row.list))+'</span></summary><div class="pending-color-group-body"><div class="pending-color-group-actions"><button onclick="claimPendingQuality('+row.q+')"'+claimDisabled+'>全領</button><button onclick="salvagePendingQuality('+row.q+')">全分解</button><button onclick="sellPendingQuality('+row.q+')">全賣 · '+totalSell+'金</button><span class="pending-quality-total">依最高詞條等級分組</span></div><div class="pending-affix-groups">'+row.groups.map(groupHtml).join('')+'</div></div></details>';
-    }).join('');
-
-    var outerOpen=pendingGearPanelCollapsed?'':' open';
-    var claimAllDisabled=!total||state.bag.length>=RULES.bagCapacity?' disabled':'';
-    return '<details class="panel pending-gear-panel pending-gear-bottom"'+outerOpen+' ontoggle="pendingGearPanelCollapsed=!this.open"><summary><span class="pending-gear-summary-title">待領取裝備 '+total+' 件 · '+groupCount+' 組</span></summary><div class="pending-gear-expanded"><div class="pending-gear-top-actions"><span class="small">先依最高詞條等級（裝備顏色）分組，各色內仍依前綴＋後綴與裝備名稱分組。精良以上販售／分解會再次確認。</span><button onclick="claimPendingGearLoot()"'+claimAllDisabled+'>全部領取</button></div><div class="pending-quality-groups">'+(qualityHtml||'<p class="small">目前沒有待領取裝備。</p>')+'</div></div></details>';
-  };
-
-  if(state)render();
-})();
-
-equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;claimPendingQuality=globalThis.claimPendingQuality??claimPendingQuality;salvagePendingQuality=globalThis.salvagePendingQuality??salvagePendingQuality;sellPendingQuality=globalThis.sellPendingQuality??sellPendingQuality;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;__pendingQualityFoldOpen=globalThis.__pendingQualityFoldOpen??__pendingQualityFoldOpen;setPendingQualityFold=globalThis.setPendingQualityFold??setPendingQualityFold;recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;claimPendingGearGroup=globalThis.claimPendingGearGroup??claimPendingGearGroup;sellPendingGearGroup=globalThis.sellPendingGearGroup??sellPendingGearGroup;salvagePendingGearGroup=globalThis.salvagePendingGearGroup??salvagePendingGearGroup;quickDisposePendingQuality=globalThis.quickDisposePendingQuality??quickDisposePendingQuality;
 
 /* js/balance/numeric-compression-formula.js?v=20261019-compact-dust1 */
 
@@ -10865,15 +11005,24 @@ function ensureMasterySettings(settings){
 ensureMasterySettings(GAMEPLAY_SETTINGS_DEFAULTS);
 ensureMasterySettings(GAMEPLAY_SETTINGS);
 
-function masterySettings(){ensureMasterySettings(GAMEPLAY_SETTINGS);return GAMEPLAY_SETTINGS.skills.mastery;}
+function masterySettings(){
+  // Simulation batches cannot edit design data; normalize once per batch.
+  const cache=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE;
+  if(cache?.masteryOwner===GAMEPLAY_SETTINGS)return cache.mastery;
+  ensureMasterySettings(GAMEPLAY_SETTINGS);
+  if(cache){cache.masteryOwner=GAMEPLAY_SETTINGS;cache.mastery=GAMEPLAY_SETTINGS.skills.mastery;}
+  return GAMEPLAY_SETTINGS.skills.mastery;
+}
 function masteryStepCost(level){
   const s=masterySettings(),l=Math.max(0,Math.floor(Number(level)||0));
   return Math.max(1,Math.round(s.xpBase+l*s.xpLinear+l*l*s.xpQuadratic));
 }
 function masteryLevelFromXp(xp){
-  const s=masterySettings(),value=Math.max(0,Math.floor(Number(xp)||0));let level=0,spent=0;
+  const s=masterySettings(),value=Math.max(0,Math.floor(Number(xp)||0)),cache=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE;
+  const levels=cache?(cache.masteryLevels??=new Map()):null;if(levels?.has(value))return levels.get(value);
+  let level=0,spent=0;
   while(level<s.maxLevel){const cost=masteryStepCost(level);if(value<spent+cost)break;spent+=cost;level++;}
-  return level;
+  levels?.set(value,level);return level;
 }
 function masteryProgress(xp){
   const value=Math.max(0,Math.floor(Number(xp)||0)),level=masteryLevelFromXp(value),max=masterySettings().maxLevel;
@@ -11266,7 +11415,7 @@ globalThis.__EMBERWILD_MASTERY={
 globalThis.__EMBERWILD_MASTERY.resetBattleGain=()=>{if(Object.keys(currentBattleMastery).length)lastBattleMastery=currentBattleMastery;currentBattleMastery={};};
 })();
 
-__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;companionSkillDisabled=globalThis.companionSkillDisabled??companionSkillDisabled;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;
+__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;companionSkillDisabled=globalThis.companionSkillDisabled??companionSkillDisabled;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;
 
 /* js/ui/mastery-ui.js */
 
@@ -11527,14 +11676,12 @@ characterView=function(){
 };
 const masteryGuideBase=guideView;
 guideView=function(){
-  let html=masteryGuideBase();
-  html=html.replace(/每級獲得\s*([\d.]+)\s*能力點[、，]\s*[\d.]+\s*技能點/g,'每級獲得 $1 能力點').replace(/每級增加[^。<]*。/g,'').replace(/技能上限[^。<]*。/g,'').replace(/每級消耗 1 技能點[^。<]*。/g,'').replace(/技能點/g,'');
-  return `<section class="panel"><h2>角色成長與精通</h2><p>角色升級改為較慢的重大階段；技能學會即完整，不再升技能等級。戰士／弓箭手靠對應武器普攻與技能培養武器精通；法師／牧師依實際施放技能的魔法體系培養元素／光暗精通。精通主要用於解鎖技能與二轉條件。</p></section>`+html;
+  return `<section class="panel"><h2>角色成長與精通</h2><p>角色升級可獲得能力點並解鎖新的冒險內容。戰士與弓箭手使用對應武器的普攻與技能可累積武器精通；法師與牧師依實際施放技能的體系累積元素或光暗精通。技能學習與二轉可能需要指定的精通等級，習得技能即可使用完整效果。</p></section>`+masteryGuideBase();
 };
 if(state){save();render();}
 })();
 
-__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;procSkillRows=globalThis.procSkillRows??procSkillRows;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_ICON_COLOR=globalThis.__EMBERWILD_ICON_COLOR??__EMBERWILD_ICON_COLOR;setSkillTurn=globalThis.setSkillTurn??setSkillTurn;selectSkillTile=globalThis.selectSkillTile??selectSkillTile;__EMBERWILD_MASTERY_UI=globalThis.__EMBERWILD_MASTERY_UI??__EMBERWILD_MASTERY_UI;devMasterySetLevel=globalThis.devMasterySetLevel??devMasterySetLevel;devMasterySetExp=globalThis.devMasterySetExp??devMasterySetExp;devMasterySet=globalThis.devMasterySet??devMasterySet;devMasteryAdjust=globalThis.devMasteryAdjust??devMasteryAdjust;devMasteryReset=globalThis.devMasteryReset??devMasteryReset;devMasteryToggleCore=globalThis.devMasteryToggleCore??devMasteryToggleCore;devMasteryToggleSupport=globalThis.devMasteryToggleSupport??devMasteryToggleSupport;devMasteryWeapon=globalThis.devMasteryWeapon??devMasteryWeapon;devMasterySimulate=globalThis.devMasterySimulate??devMasterySimulate;
+__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;procSkillRows=globalThis.procSkillRows??procSkillRows;__EMBERWILD_ICON_COLOR=globalThis.__EMBERWILD_ICON_COLOR??__EMBERWILD_ICON_COLOR;setSkillTurn=globalThis.setSkillTurn??setSkillTurn;selectSkillTile=globalThis.selectSkillTile??selectSkillTile;__EMBERWILD_MASTERY_UI=globalThis.__EMBERWILD_MASTERY_UI??__EMBERWILD_MASTERY_UI;devMasterySetLevel=globalThis.devMasterySetLevel??devMasterySetLevel;devMasterySetExp=globalThis.devMasterySetExp??devMasterySetExp;devMasterySet=globalThis.devMasterySet??devMasterySet;devMasteryAdjust=globalThis.devMasteryAdjust??devMasteryAdjust;devMasteryReset=globalThis.devMasteryReset??devMasteryReset;devMasteryToggleCore=globalThis.devMasteryToggleCore??devMasteryToggleCore;devMasteryToggleSupport=globalThis.devMasteryToggleSupport??devMasteryToggleSupport;devMasteryWeapon=globalThis.devMasteryWeapon??devMasteryWeapon;devMasterySimulate=globalThis.devMasterySimulate??devMasterySimulate;
 
 /* js/skills/mastery-cleanup.js */
 
@@ -11882,7 +12029,7 @@ classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPer
       state=null;party=null;
       const previewBuild=/(?:^|\/)preview(?:\/|$)/.test(location.pathname)||!!document.getElementById('preview-build-banner');
       if(previewBuild&&message.startsWith('裝備類型無效：'))globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=true;
-      else toast('存檔未能載入：'+message+'；可匯入備份。');
+      else if(!globalThis.__EMBERWILD_BALANCE_SOURCE||globalThis.__EMBERWILD_BALANCE_READY)toast('存檔未能載入：'+message+'；可匯入備份。');
     }
   }
 
@@ -11964,8 +12111,9 @@ classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPer
     if(e.__controlSkip){note(combatEnemyName(e)+' 因'+e.__controlSkip+'無法行動。');return;}
     e.turn=(e.turn||0)+1;
     const s=stateFor(e.id,false),rage=s?.rage;
-    let target=null;
-    if(rage&&Number.isInteger(rage.tauntHeroJob))target=living().find(h=>memberKey(h)===rage.tauntHeroJob)||null;
+    const taunt=effects.find(x=>x.kind==='skillTaunt'&&x.target===e.id&&x.until>partyClock);
+    let target=taunt?living().find(h=>memberKey(h)===taunt.source)||null:null;
+    if(!target&&rage&&Number.isInteger(rage.tauntHeroJob))target=living().find(h=>memberKey(h)===rage.tauntHeroJob)||null;
     if(!target){
       const candidates=[...living(),...combatSummons.filter(x=>x.hp>0)];
       if(!candidates.length)return;
@@ -12038,10 +12186,6 @@ classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPer
     }else if(effect==='summonMorphTrap'||effect==='summonFreezeTrap'){
       const trapMeta={...meta,controlId:sk[6]?.controlId,powerMultiplier:Math.max(0,skillPower(i,h))};
       success=summonTrap(h,effect,trapMeta);
-    }
-    if(success&&h.sockets?.[i]===2&&sk[1]==='active'){
-      const before=h.hp;h.hp=Math.min(profileV.hp,h.hp+Math.round(healingAmount(h,profileV.atk*GS('skills.gems.hybridActiveHealAttack',.10))));
-      const recovered=Math.max(0,h.hp-before);if(recovered>0&&typeof recordCombatContribution==='function')recordCombatContribution(h,'healing',recovered);
     }
     const mastery=globalThis.__EMBERWILD_MASTERY;
     if(success&&sk[6]?.mastery&&mastery?.gainMastery)mastery.gainMastery(h,sk[6].mastery,mastery.masterySettings().skillUseXp);
@@ -12144,6 +12288,7 @@ classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPer
     resetBalanceJSON=function(){const out=controlResetBalanceBase();ensureControlSkills();if(state)render();return out;};
   }
 
+  globalThis.EmberwildControlCombatState={pack:()=>({states:controlStates,summons:combatSummons}),restore:v=>{controlStates=v?.states||Object.create(null);combatSummons=v?.summons||[];}};
   globalThis.__EMBERWILD_CONTROL_TEST_API={
     get states(){return controlStates;},get summons(){return combatSummons;},
     clear(e,kind){const s=stateFor(e?.id,false),key=kind==='tauntRage'?'rage':kind;if(!s?.[key])return false;delete s[key];cleanState(e.id);return true;},
@@ -12152,7 +12297,7 @@ classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPer
   if(state){syncAllHeroSkillArrays();render();}
 })();
 
-__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;__EMBERWILD_PRE_CONTROL_SAVE_RAW=globalThis.__EMBERWILD_PRE_CONTROL_SAVE_RAW??__EMBERWILD_PRE_CONTROL_SAVE_RAW;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;
+__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;__EMBERWILD_PRE_CONTROL_SAVE_RAW=globalThis.__EMBERWILD_PRE_CONTROL_SAVE_RAW??__EMBERWILD_PRE_CONTROL_SAVE_RAW;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;EmberwildControlCombatState=globalThis.EmberwildControlCombatState??EmberwildControlCombatState;
 
 /* js/combat/enemy-combat-stats.js */
 /* Shared combat-stat shape for enemies.
@@ -12484,7 +12629,6 @@ castPartySkill=function(h,i,v){
   const sk=CLASSES[h.job]?.skills?.[i],meta=sk?.[6];if(!sk||sk[5]!=='applyStatus')return statusCastBase(h,i,v);
   const def=statusById(meta?.statusId);if(!def||!statusAllowedTargetsForDefinition(def).includes(meta?.statusTarget||'enemy'))return false;const targets=statusTargetsForSkill(h,meta);if(!targets.length)return false;
   let success=false;for(const target of targets)success=applyCustomStatus(def,h,target)||success;
-  if(success&&h.sockets?.[i]===2&&sk[1]==='active'){const pv=v||battleStats(h),before=h.hp;h.hp=Math.min(pv.hp,h.hp+Math.round(healingAmount(h,pv.atk*GS('skills.gems.hybridActiveHealAttack',.10))));const recovered=Math.max(0,h.hp-before);if(recovered>0&&typeof recordCombatContribution==='function')recordCombatContribution(h,'healing',recovered);}
   const mastery=globalThis.__EMBERWILD_MASTERY;
   if(success&&meta?.mastery&&mastery?.gainMastery)mastery.gainMastery(h,meta.mastery,mastery.masterySettings().skillUseXp);
   return success;
@@ -12628,17 +12772,20 @@ exportableBalance=function(){const out=advancedExportBalanceBase();ensurePainSpr
 const advancedResetEncounterBase=resetEncounter;
 resetEncounter=function(){advancedStatusSerial=0;advancedSpreadContext=null;return advancedResetEncounterBase();};
 
+globalThis.EmberwildStatusCombatState={pack:()=>({active:activeStatuses,clock:lastStatusTickClock,serial:advancedStatusSerial}),restore:v=>{activeStatuses=v?.active||[];lastStatusTickClock=v?.clock??-1;advancedStatusSerial=v?.serial||0;advancedSpreadContext=null;}};
 globalThis.__EMBERWILD_STATUS_TEST_API={schema:STATUS_SCHEMA_VERSION,normalize:normalizeStatusDefinition,validate:validateStatusDefinition,selfTest:statusPureSelfTest,get definitions(){return deepClone(statusDefinitions);},get active(){return deepClone(activeStatuses);},apply:applyCustomStatus,tick:tickCustomStatuses,remove:removeStatusEffects,polarity:statusPolarity,basis:statusBasisValue,damage:trackedStatusDamage,maxHp:statusMaxHp,consume:consumeCustomStatusUse,beginSkillCast:beginStatusSkillCast,endSkillCast:endStatusSkillCast,targetStats:ADVANCED_STATUS_TARGET_STATS,targetOrders:ADVANCED_STATUS_TARGET_ORDERS};
 if(state)render();
 })();
 
-__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;
+__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;
 
 /* js/combat/shared-skill-runtime.js */
 /* Shared player/monster core-skill pool.
    Monsters keep only skillId references; definitions remain in CLASSES / SKILL_ELEMENTS. */
 (()=>{
   let enemySharedCooldowns=Object.create(null);
+  globalThis.EmberwildEnemyCombatState={pack:()=>enemySharedCooldowns,restore:v=>{enemySharedCooldowns=v||Object.create(null);}};
+
   const BASIC_EFFECTS=new Set(['cleanse','dispel','revive','damage','heal','shield','drain','nextActiveDamage','advanceNextRound','shieldLowest','applyStatus','induceSkill']);
   const idFor=(job,index)=>CLASSES[job]?.skills?.[index]?.[6]?.sharedId||`job${job}-core${index}`;
   function sharedCoreSkillPool(){
@@ -12835,7 +12982,7 @@ __EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWIL
   }catch(e){console.warn('共用技能池後段重載失敗',e);}
 })();
 
-__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;performEnemyActionCore=globalThis.performEnemyActionCore??performEnemyActionCore;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;sharedCoreSkillPool=globalThis.sharedCoreSkillPool??sharedCoreSkillPool;sharedSkillById=globalThis.sharedSkillById??sharedSkillById;sharedSkillScopeAllowsEnemy=globalThis.sharedSkillScopeAllowsEnemy??sharedSkillScopeAllowsEnemy;sharedSkillScopeAllowsHero=globalThis.sharedSkillScopeAllowsHero??sharedSkillScopeAllowsHero;sharedEnemySkillDamage=globalThis.sharedEnemySkillDamage??sharedEnemySkillDamage;EmberwildSkillEffectRuntime=globalThis.EmberwildSkillEffectRuntime??EmberwildSkillEffectRuntime;EmberwildInductionRuntime=globalThis.EmberwildInductionRuntime??EmberwildInductionRuntime;castEnemySharedSkill=globalThis.castEnemySharedSkill??castEnemySharedSkill;performSharedEnemyAction=globalThis.performSharedEnemyAction??performSharedEnemyAction;sharedEnemyActionLabel=globalThis.sharedEnemyActionLabel??sharedEnemyActionLabel;enemySharedSkillStatus=globalThis.enemySharedSkillStatus??enemySharedSkillStatus;coreSkillUsageScope=globalThis.coreSkillUsageScope??coreSkillUsageScope;coreSkillAvailableToHero=globalThis.coreSkillAvailableToHero??coreSkillAvailableToHero;EmberwildInduction=globalThis.EmberwildInduction??EmberwildInduction;
+__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;performEnemyActionCore=globalThis.performEnemyActionCore??performEnemyActionCore;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;sharedCoreSkillPool=globalThis.sharedCoreSkillPool??sharedCoreSkillPool;sharedSkillById=globalThis.sharedSkillById??sharedSkillById;sharedSkillScopeAllowsEnemy=globalThis.sharedSkillScopeAllowsEnemy??sharedSkillScopeAllowsEnemy;sharedSkillScopeAllowsHero=globalThis.sharedSkillScopeAllowsHero??sharedSkillScopeAllowsHero;sharedEnemySkillDamage=globalThis.sharedEnemySkillDamage??sharedEnemySkillDamage;EmberwildSkillEffectRuntime=globalThis.EmberwildSkillEffectRuntime??EmberwildSkillEffectRuntime;EmberwildInductionRuntime=globalThis.EmberwildInductionRuntime??EmberwildInductionRuntime;castEnemySharedSkill=globalThis.castEnemySharedSkill??castEnemySharedSkill;performSharedEnemyAction=globalThis.performSharedEnemyAction??performSharedEnemyAction;sharedEnemyActionLabel=globalThis.sharedEnemyActionLabel??sharedEnemyActionLabel;enemySharedSkillStatus=globalThis.enemySharedSkillStatus??enemySharedSkillStatus;coreSkillUsageScope=globalThis.coreSkillUsageScope??coreSkillUsageScope;coreSkillAvailableToHero=globalThis.coreSkillAvailableToHero??coreSkillAvailableToHero;EmberwildInduction=globalThis.EmberwildInduction??EmberwildInduction;
 
 /* js/ui/title-screen.js?v=20261013-team-actions1 */
 /* Save slots are selected before boot; switching slots reloads the complete hydration chain. */
@@ -13069,30 +13216,63 @@ __EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWIL
   else setTimeout(finishTitleBoot,0);
 })();
 
-__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;importTestJSONFromTitle=globalThis.importTestJSONFromTitle??importTestJSONFromTitle;continueFromTitle=globalThis.continueFromTitle??continueFromTitle;selectSaveSlot=globalThis.selectSaveSlot??selectSaveSlot;openCharacterCreation=globalThis.openCharacterCreation??openCharacterCreation;confirmTitleCreation=globalThis.confirmTitleCreation??confirmTitleCreation;downloadRawLocalSave=globalThis.downloadRawLocalSave??downloadRawLocalSave;retryImportFromTitle=globalThis.retryImportFromTitle??retryImportFromTitle;backToTitle=globalThis.backToTitle??backToTitle;returnToTitle=globalThis.returnToTitle??returnToTitle;requestDeleteSlot=globalThis.requestDeleteSlot??requestDeleteSlot;confirmDeleteSlotStep=globalThis.confirmDeleteSlotStep??confirmDeleteSlotStep;deleteSaveSlot=globalThis.deleteSaveSlot??deleteSaveSlot;
+__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;importTestJSONFromTitle=globalThis.importTestJSONFromTitle??importTestJSONFromTitle;continueFromTitle=globalThis.continueFromTitle??continueFromTitle;selectSaveSlot=globalThis.selectSaveSlot??selectSaveSlot;openCharacterCreation=globalThis.openCharacterCreation??openCharacterCreation;confirmTitleCreation=globalThis.confirmTitleCreation??confirmTitleCreation;downloadRawLocalSave=globalThis.downloadRawLocalSave??downloadRawLocalSave;retryImportFromTitle=globalThis.retryImportFromTitle??retryImportFromTitle;backToTitle=globalThis.backToTitle??backToTitle;returnToTitle=globalThis.returnToTitle??returnToTitle;requestDeleteSlot=globalThis.requestDeleteSlot??requestDeleteSlot;confirmDeleteSlotStep=globalThis.confirmDeleteSlotStep??confirmDeleteSlotStep;deleteSaveSlot=globalThis.deleteSaveSlot??deleteSaveSlot;
 
-/* js/ui/interaction-guard.js?v=20261012-utility1 */
-// Combat updates must not replace a control between pointerdown and click.
+/* js/ui/interaction-guard.js?v=20261021-input-scroll1 */
+// Keep live combat updates from replacing controls or scrollable panels mid-interaction.
 (function(){
   const gameRender=render,gameRefreshJournal=refreshGlobalJournal;
   const pointers=new Set();
-  let interacting=false,pendingRender=false,pendingJournal=false,releaseTimer=null,activeSelect=null;
+  const scope='#app, #modal, #utilityNavigation';
+  let interacting=false,pendingRender=false,pendingJournal=false,releaseTimer=null,activeSelect=null,scrollHoldUntil=0,flushing=false;
 
-  globalThis.isEmberwildUIInteracting=()=>interacting;
+  function isTextEditor(node){
+    if(!node?.matches?.('input, textarea, [contenteditable="true"], [contenteditable=""], [role="textbox"]'))return false;
+    if(!node.closest?.('#app, #modal'))return false;
+    if(!node.matches('input'))return true;
+    return !['checkbox','radio','range','button','submit','reset','file','hidden','color','image'].includes(String(node.type||'text').toLowerCase());
+  }
+  function editing(){
+    if(document.visibilityState==='hidden'||typeof document.hasFocus==='function'&&!document.hasFocus())return false;
+    return isTextEditor(document.activeElement);
+  }
+  function busy(){
+    return interacting||pointers.size>0||!!activeSelect||editing()||scrollHoldUntil>Date.now()||!!globalThis.__EMBERWILD_NAVIGATION_DRAGGING;
+  }
+  globalThis.isEmberwildUIInteracting=busy;
+
   function finishInteraction(){
-    if(pointers.size||activeSelect)return;
+    if(globalThis.__EMBERWILD_NAVIGATION_DRAGGING){scheduleRelease(100);return;}
+    if(pointers.size||activeSelect||editing())return;
+    const remaining=scrollHoldUntil-Date.now();
+    if(remaining>0){scheduleRelease(remaining+10);return;}
     clearTimeout(releaseTimer);releaseTimer=null;
     interacting=false;
-    if(pendingRender){pendingRender=false;pendingJournal=false;gameRender();globalThis.__EMBERWILD_AFTER_RENDER?.();}
-    else if(pendingJournal){pendingJournal=false;gameRefreshJournal();}
+    // Resume through the latest render wrapper, not the startup snapshot:
+    // later modules add inventory, navigation, dialogue, mobile and log hooks.
+    flushing=true;
+    try{
+      if(pendingRender){
+        pendingRender=false;pendingJournal=false;
+        render();
+        globalThis.__EMBERWILD_AFTER_RENDER?.();
+      }else if(pendingJournal){
+        pendingJournal=false;
+        refreshGlobalJournal();
+      }
+    }finally{flushing=false;}
   }
   function scheduleRelease(delay){
     clearTimeout(releaseTimer);
     releaseTimer=setTimeout(finishInteraction,delay);
   }
-  function holdSelect(select){
-    activeSelect=select;
+  function holdScroll(delay=350){
+    scrollHoldUntil=Date.now()+delay;
     interacting=true;
+    scheduleRelease(delay+10);
+  }
+  function holdSelect(select){
+    activeSelect=select;interacting=true;
     clearTimeout(releaseTimer);releaseTimer=null;
   }
   function releaseSelect(event){
@@ -13101,13 +13281,13 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
     if(!pointers.size)scheduleRelease(0);
   }
 
-  render=function(){
-    if(interacting){pendingRender=true;return;}
-    return gameRender();
+  render=function(...args){
+    if(!flushing&&busy()){pendingRender=true;return;}
+    return gameRender(...args);
   };
-  refreshGlobalJournal=function(){
-    if(interacting){pendingJournal=true;return;}
-    return gameRefreshJournal();
+  refreshGlobalJournal=function(...args){
+    if(!flushing&&busy()){pendingJournal=true;return;}
+    return gameRefreshJournal(...args);
   };
 
   document.addEventListener('pointerdown',event=>{
@@ -13117,37 +13297,64 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
     }
     const select=event.target.closest?.('#app select, #modal select');
     if(select)holdSelect(select);
-    if(event.target.closest?.('#app button, #app a, #app input, #app select, #app textarea, #app label, #app summary, #app [role="button"], #modal button, #modal input, #modal select, #modal textarea, #modal label, #utilityNavigation button')){
+    if(event.target.closest?.(scope)){
+      // An intentional button/action after scrolling must not wait for the wheel timeout.
+      if(event.target.closest?.('button, a, input, select, textarea, label, summary, [role="button"]'))scrollHoldUntil=0;
       clearTimeout(releaseTimer);releaseTimer=null;
-      pointers.add(event.pointerId);
-      interacting=true;
+      pointers.add(event.pointerId);interacting=true;
     }
   },true);
   document.addEventListener('pointerup',event=>{
     if(!pointers.delete(event.pointerId))return;
-    // A touch click can arrive after pointerup; click below releases immediately.
+    // A touch click can arrive after pointerup.
     if(!pointers.size)scheduleRelease(500);
+  },true);
+  document.addEventListener('pointercancel',event=>{
+    if(pointers.delete(event.pointerId)&&!pointers.size)scheduleRelease(0);
   },true);
   document.addEventListener('click',()=>{
     if(interacting&&!pointers.size&&!activeSelect)scheduleRelease(0);
   },true);
+  document.addEventListener('focusin',event=>{
+    if(isTextEditor(event.target)){interacting=true;clearTimeout(releaseTimer);releaseTimer=null;}
+  },true);
+  document.addEventListener('focusout',event=>{
+    releaseSelect(event);
+    // Defer until after focus actually changes, so a pending render cannot swallow the click.
+    scheduleRelease(0);
+  },true);
   document.addEventListener('keydown',event=>{
-    if(!event.target.matches?.('#app select, #modal select'))return;
-    if(event.key==='Escape')releaseSelect(event);
-    else if([' ','Enter','ArrowDown','ArrowUp','Home','End','PageUp','PageDown'].includes(event.key))holdSelect(event.target);
+    if(event.target.matches?.('#app select, #modal select')){
+      if(event.key==='Escape')releaseSelect(event);
+      else if([' ','Enter','ArrowDown','ArrowUp','Home','End','PageUp','PageDown'].includes(event.key))holdSelect(event.target);
+      return;
+    }
+    if(!event.target.closest?.(scope))return;
+    if(['ArrowDown','ArrowUp','ArrowLeft','ArrowRight','PageDown','PageUp','Home','End',' '].includes(event.key)){
+      if(!isTextEditor(event.target))holdScroll(300);
+    }else if(event.key==='Enter'&&event.target.matches?.('button,[role="button"]')){
+      scrollHoldUntil=0;scheduleRelease(0);
+    }
   },true);
   document.addEventListener('change',releaseSelect,true);
-  document.addEventListener('focusout',releaseSelect,true);
-  document.addEventListener('pointercancel',event=>{
-    if(pointers.delete(event.pointerId))scheduleRelease(0);
-  },true);
-  window.addEventListener('blur',()=>{pointers.clear();scheduleRelease(0);});
+  document.addEventListener('wheel',event=>{
+    if(event.target.closest?.(scope))holdScroll(360);
+  },{capture:true,passive:true});
+  document.addEventListener('touchmove',event=>{
+    if(event.target.closest?.(scope))holdScroll(430);
+  },{capture:true,passive:true});
+  window.addEventListener('blur',()=>{
+    pointers.clear();activeSelect=null;scrollHoldUntil=0;scheduleRelease(0);
+  });
+  window.addEventListener('focus',()=>scheduleRelease(0));
   document.addEventListener('visibilitychange',()=>{
-    if(document.visibilityState==='hidden'){activeSelect=null;pointers.clear();scheduleRelease(0);}
+    if(document.visibilityState==='hidden'){
+      activeSelect=null;pointers.clear();scrollHoldUntil=0;scheduleRelease(0);
+    }
   });
 })();
 
-isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;
+isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;__EMBERWILD_NAVIGATION_DRAGGING=globalThis.__EMBERWILD_NAVIGATION_DRAGGING??__EMBERWILD_NAVIGATION_DRAGGING;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;
 
 /* js/character/starter-pack.js */
 (function starterModule(){
@@ -13539,6 +13746,7 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
 
   function createStarterGear(job,position,entry){
     const g=gear(1,entry.slot,0,job);
+    if(globalThis.__EMBERWILD_EQUIPMENT_SKILLS)globalThis.__EMBERWILD_EQUIPMENT_SKILLS.generate(g,{source:'starter',force:true});
     g.job=job;
     g.formJob=entry.group;
     g.form=entry.form;
@@ -13618,7 +13826,7 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
   }
 })();
 
-__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentStarterGrowthSources=globalThis.equipmentStarterGrowthSources??equipmentStarterGrowthSources;rerollEquipmentPowerTier=globalThis.rerollEquipmentPowerTier??rerollEquipmentPowerTier;
+__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentStarterGrowthSources=globalThis.equipmentStarterGrowthSources??equipmentStarterGrowthSources;rerollEquipmentPowerTier=globalThis.rerollEquipmentPowerTier??rerollEquipmentPowerTier;
 
 /* js/ui/text-rarity-runtime.js */
 /* Game presentation and balance JSON lifecycle for text rarity presets. */
@@ -13787,7 +13995,7 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
   const byId=()=>new Map(plans.map(p=>[p.id,p]));
   function companionPlan(h){const current=byId().get(h?.companionId);return current?.job===h?.job?current:party?.companionProfiles?.[h?.companionId]?.job===h?.job?party.companionProfiles[h.companionId]:null;}
   function allPassivesFor(h){return (companionPlan(h)?.passives||[]).map(id=>passiveDefinitions.find(d=>d.id===id)).filter(Boolean);}
-  function skillDisabled(h,kind,id){return !!companionPlan(h)&&!!h.disabledCompanionSkills?.[kind]?.includes(id);}
+  function skillDisabled(h,kind,id){if(globalThis.__EMBERWILD_SKILLS)return false;return !!companionPlan(h)&&!!h.disabledCompanionSkills?.[kind]?.includes(id);}
   function validateDisabledSkills(raw){
     if(raw===undefined)return {core:[],support:[],passive:[]};
     if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!['core','support','passive'].includes(k)))throw Error('夥伴技能啟用設定無效');
@@ -13798,7 +14006,7 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
     }return out;
   }
   globalThis.companionSkillDisabled=skillDisabled;
-  function passivesFor(h){return allPassivesFor(h).filter(d=>d.partnerId===h.companionId&&h.lv>=d.requiredLevel&&!skillDisabled(h,'passive',d.id));}
+  function passivesFor(h){return allPassivesFor(h).filter(d=>d.partnerId===h.companionId&&!globalThis.__EMBERWILD_SKILLS?.byId(d.id)?.disabled&&h.lv>=d.requiredLevel&&!skillDisabled(h,'passive',d.id));}
   function passiveEffectsFor(h){
     const out=passivesFor(h).filter(d=>d.target==='self').flatMap(d=>d.effects);
     if(party?.active.includes(memberKey(h)))for(const owner of heroes().filter(x=>x.hp>0))out.push(...passivesFor(owner).filter(d=>d.target==='allies').flatMap(d=>d.effects));
@@ -13864,6 +14072,7 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
     while(h.procSlots.length<PROC_SLOT_COUNT)h.procSlots.push(null);
     h.supportSlots=plan.support.filter(i=>h.supportLevels[i]&&!skillDisabled(h,'support',i)).slice(-2);
     while(h.supportSlots.length<2)h.supportSlots.push(null);
+    globalThis.__EMBERWILD_SKILLS?.refreshHero(h);
     h.sockets.forEach((gem,i)=>{if(gem!==null&&!h.skills[i]){h.gems[gem]++;h.sockets[i]=null;}});
     if(fullHealth)h.hp=stats(h).hp;else h.hp=Math.min(h.hp,stats(h).hp);
   }
@@ -13893,8 +14102,9 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
         h.hp=fullHealth&&h.lv>previous?stats(h).hp:Math.min(h.hp,stats(h).hp);
       }
       // A previously higher-level companion keeps all gear and gems in storage.
-      h.equipped=h.equipped.map(id=>id&&h.bag.some(g=>g.id===id&&gearRequiredLevelByTier(g.tier)<=h.lv)?id:null);
-      h.sockets.forEach((gem,i)=>{if(gem!==null&&!h.skills[i]){h.gems[gem]++;h.sockets[i]=null;}});
+      h.equipped=h.equipped.map(id=>id&&h.bag.some(g=>g.id===id&&gearRequiredLevel(g)<=h.lv)?id:null);
+      globalThis.__EMBERWILD_SKILLS?.refreshHero(h);
+    h.sockets.forEach((gem,i)=>{if(gem!==null&&!h.skills[i]){h.gems[gem]++;h.sockets[i]=null;}});
       h.hp=wasDead?0:Math.min(h.hp,stats(h).hp);
     }
   }
@@ -14030,10 +14240,10 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
   function companionSkillsView(){
     const h=state,plan=companionPlan(h),mastery=globalThis.__EMBERWILD_MASTERY;
     const core=CLASSES[h.job].skills,support=SUPPORT[h.job]||[];
-    const toggle=(kind,id,unlocked)=>plan?`<div class="actions"><button data-companion-toggle="${memberKey(h)}:${kind}:${esc(id)}" aria-pressed="${unlocked&&!skillDisabled(h,kind,id)}" onclick="setCompanionSkillEnabled(${memberKey(h)},'${kind}',${kind==='passive'?`'${esc(id)}'`:id},${skillDisabled(h,kind,id)})" ${unlocked?'':'disabled'}>${unlocked?(skillDisabled(h,kind,id)?'啟用':'禁用'):'未解鎖'}</button></div>`:'';
+    const toggle=(kind,id,unlocked)=>!globalThis.__EMBERWILD_SKILLS&&plan?`<div class="actions"><button data-companion-toggle="${memberKey(h)}:${kind}:${esc(id)}" aria-pressed="${unlocked&&!skillDisabled(h,kind,id)}" onclick="setCompanionSkillEnabled(${memberKey(h)},'${kind}',${kind==='passive'?`'${esc(id)}'`:id},${skillDisabled(h,kind,id)})" ${unlocked?'':'disabled'}>${unlocked?(skillDisabled(h,kind,id)?'啟用':'禁用'):'未解鎖'}</button></div>`:'';
     const includes=(kind,i)=>!plan||(plan[kind]||[]).includes(i)||(kind==='core'?h.skills?.[i]||h.active?.includes(i)||h.procSlots?.includes(i):h.supportLevels?.[i]||h.supportSlots?.includes(i));
     const slotGroup=(label,slots,nameOf)=>`<div class="companion-skill-slot-group"><b>${label}</b>${Array.from({length:2},(_,slot)=>{const id=slots?.[slot]??null;return `<span>槽 ${slot+1}：${esc(id===null?'未配置':nameOf(id)||'未知技能')}</span>`;}).join('')}</div>`;
-    const slots=`<div class="companion-skill-loadout">${slotGroup('主動技能',h.active,i=>core[i]?.[0])}${slotGroup('普攻觸發技能',h.procSlots,i=>core[i]?.[0])}${slotGroup('輔助技能',h.supportSlots,i=>support[i]?.name)}</div>`;
+    const slots=globalThis.__EMBERWILD_SKILLS?'':`<div class="companion-skill-loadout">${slotGroup('主動技能',h.active,i=>core[i]?.[0])}${slotGroup('普攻觸發技能',h.procSlots,i=>core[i]?.[0])}${slotGroup('輔助技能',h.supportSlots,i=>support[i]?.name)}</div>`;
     const skillRows=(kind,list)=>list.map((sk,i)=>{
       const isCore=kind==='core',meta=isCore?sk[6]:sk;
       if(!includes(kind,i)||!skillAllowedForPartner(h,meta))return '';
@@ -14049,14 +14259,15 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
     }).filter(Boolean).join('');
     const rows=skillRows('core',core)+skillRows('support',support);
     const passiveRows=allPassivesFor(h).map(d=>`<article class="companion-skill-card" data-companion-passive="${esc(d.id)}"><div class="skill-list-title"><span class="skill-icon-glyph" aria-hidden="true">${globalThis.__EMBERWILD_SKILL_ICONS?.svgFor(d.kind==='debuff'?'skull':'shield')||''}</span><b>${esc(d.name)}</b><span class="skill-state ${h.lv>=d.requiredLevel?'learned':'locked'}">${h.lv<d.requiredLevel?'未解鎖':skillDisabled(h,'passive',d.id)?'已禁用':'已啟用'}</span><span>被動 · ${d.kind==='debuff'?'DEBUFF':'BUFF'}</span></div><p>${esc(d.effects.map(Passive.effectText).join('、'))}</p><p class="small">需求 LV${d.requiredLevel} · ${esc(Passive.targets[d.target])} · ${d.target==='self'?'解鎖且啟用後常時生效':'啟用、上陣且存活時提供常駐光環'} · 不占技能槽</p>${d.description?`<p class="small">${esc(d.description)}</p>`:''}${toggle('passive',d.id,h.lv>=d.requiredLevel)}</article>`).join('');
-    return `<p class="small companion-skill-note">${plan?'技能達到需求角色等級後自動解鎖，可個別啟用或禁用；禁用選擇會隨存檔保留。':'保留原有隊員的技能與配置。'}</p>${slots}<div class="companion-skill-list">${rows||'<p class="small">此夥伴尚無技能。</p>'}</div><h3>常駐被動</h3><div class="companion-skill-list">${passiveRows||'<p class="small">此夥伴尚無被動。</p>'}</div>`;
+    return `<p class="small companion-skill-note">${plan?'技能達到需求角色等級後自動解鎖，所有已解鎖技能都會自動使用。':'保留原有隊員的技能與配置。'}</p>${slots}<div class="companion-skill-list">${rows||'<p class="small">此夥伴尚無技能。</p>'}</div><h3>常駐被動</h3><div class="companion-skill-list">${passiveRows||'<p class="small">此夥伴尚無被動。</p>'}</div>`;
   }
   globalThis.setCompanionSkillEnabled=function(key,kind,id,enabled){
+    if(globalThis.__EMBERWILD_SKILLS)return false;
     const h=partyMember(key),plan=companionPlan(h);if(!plan||typeof enabled!=='boolean')return false;
     let unlocked=false;
     if(kind==='core')unlocked=plan.core.includes(id)&&!!h.skills[id]&&skillAllowedForPartner(h,CLASSES[h.job].skills[id]?.[6]);
     else if(kind==='support')unlocked=plan.support.includes(id)&&!!h.supportLevels[id]&&skillAllowedForPartner(h,SUPPORT[h.job][id]);
-    else if(kind==='passive')unlocked=allPassivesFor(h).some(d=>d.id===id&&d.partnerId===h.companionId&&h.lv>=d.requiredLevel);
+    else if(kind==='passive')unlocked=allPassivesFor(h).some(d=>d.id===id&&d.partnerId===h.companionId&&!globalThis.__EMBERWILD_SKILLS?.byId(d.id)?.disabled&&h.lv>=d.requiredLevel);
     if(!unlocked)return false;
     const settings=validateDisabledSkills(h.disabledCompanionSkills);settings[kind]=settings[kind].filter(value=>value!==id);if(!enabled)settings[kind].push(id);h.disabledCompanionSkills=settings;
     applyPlan(h);for(const member of party.members)member.hp=Math.min(member.hp,stats(member).hp);
@@ -14082,7 +14293,7 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
   if(state&&party)render();
 })();
 
-__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;partnerRosterView=globalThis.partnerRosterView??partnerRosterView;scaleHeroHealing=globalThis.scaleHeroHealing??scaleHeroHealing;companionPassiveStatEffects=globalThis.companionPassiveStatEffects??companionPassiveStatEffects;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;companionSkillDisabled=globalThis.companionSkillDisabled??companionSkillDisabled;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_MASTERY_UI=globalThis.__EMBERWILD_MASTERY_UI??__EMBERWILD_MASTERY_UI;recruitCompanion=globalThis.recruitCompanion??recruitCompanion;companionUnlocked=globalThis.companionUnlocked??companionUnlocked;acquireCompanion=globalThis.acquireCompanion??acquireCompanion;confirmMemberReplacement=globalThis.confirmMemberReplacement??confirmMemberReplacement;rememberCompanionRosterDetail=globalThis.rememberCompanionRosterDetail??rememberCompanionRosterDetail;showCompanionRecruitment=globalThis.showCompanionRecruitment??showCompanionRecruitment;companionUnlockText=globalThis.companionUnlockText??companionUnlockText;isPartnerEnlisted=globalThis.isPartnerEnlisted??isPartnerEnlisted;enlistedHeroes=globalThis.enlistedHeroes??enlistedHeroes;sortedEnlistedHeroes=globalThis.sortedEnlistedHeroes??sortedEnlistedHeroes;partnerRating=globalThis.partnerRating??partnerRating;skillAllowedForPartner=globalThis.skillAllowedForPartner??skillAllowedForPartner;heroGrowthDefinition=globalThis.heroGrowthDefinition??heroGrowthDefinition;setPartnerEnlisted=globalThis.setPartnerEnlisted??setPartnerEnlisted;prepareCompanionSkillDocument=globalThis.prepareCompanionSkillDocument??prepareCompanionSkillDocument;setCompanionSkillEnabled=globalThis.setCompanionSkillEnabled??setCompanionSkillEnabled;
+__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;partnerRosterView=globalThis.partnerRosterView??partnerRosterView;scaleHeroHealing=globalThis.scaleHeroHealing??scaleHeroHealing;companionPassiveStatEffects=globalThis.companionPassiveStatEffects??companionPassiveStatEffects;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;companionSkillDisabled=globalThis.companionSkillDisabled??companionSkillDisabled;__EMBERWILD_MASTERY_UI=globalThis.__EMBERWILD_MASTERY_UI??__EMBERWILD_MASTERY_UI;recruitCompanion=globalThis.recruitCompanion??recruitCompanion;companionUnlocked=globalThis.companionUnlocked??companionUnlocked;acquireCompanion=globalThis.acquireCompanion??acquireCompanion;confirmMemberReplacement=globalThis.confirmMemberReplacement??confirmMemberReplacement;rememberCompanionRosterDetail=globalThis.rememberCompanionRosterDetail??rememberCompanionRosterDetail;showCompanionRecruitment=globalThis.showCompanionRecruitment??showCompanionRecruitment;companionUnlockText=globalThis.companionUnlockText??companionUnlockText;isPartnerEnlisted=globalThis.isPartnerEnlisted??isPartnerEnlisted;enlistedHeroes=globalThis.enlistedHeroes??enlistedHeroes;sortedEnlistedHeroes=globalThis.sortedEnlistedHeroes??sortedEnlistedHeroes;partnerRating=globalThis.partnerRating??partnerRating;skillAllowedForPartner=globalThis.skillAllowedForPartner??skillAllowedForPartner;heroGrowthDefinition=globalThis.heroGrowthDefinition??heroGrowthDefinition;setPartnerEnlisted=globalThis.setPartnerEnlisted??setPartnerEnlisted;prepareCompanionSkillDocument=globalThis.prepareCompanionSkillDocument??prepareCompanionSkillDocument;setCompanionSkillEnabled=globalThis.setCompanionSkillEnabled??setCompanionSkillEnabled;
 
 /* js/balance/progression-runtime.js */
 /* Save progress and source documentation for the LV1–60 curves. */
@@ -14114,6 +14325,8 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
     const out=validateBase(cfg),x=out.rewards.xp.kindMultiplier;
     if(!x||['normal','elite','boss'].some(k=>!Number.isFinite(x[k])||x[k]<=0))throw Error('EXP 遭遇倍率必須大於 0');
     if(out.difficulty.modes.some(d=>!Number.isFinite(d.xpMultiplier)||d.xpMultiplier<=0))throw Error('難度 EXP 倍率必須大於 0');
+    const p=out.progression.xpLevelGap;
+    if(!p||typeof p.enabled!=='boolean'||!Number.isInteger(p.freeLevels)||p.freeLevels<0||!Number.isInteger(p.midGap)||p.midGap<=p.freeLevels||!Number.isInteger(p.highGap)||p.highGap<=p.midGap||![p.midMultiplier,p.highMultiplier,p.minimumMultiplier].every(v=>Number.isFinite(v)&&v>0&&v<=1)||p.highMultiplier>p.midMultiplier||p.minimumMultiplier>p.highMultiplier)throw Error('經驗等級差懲罰設定無效');
     const interval=out.monsters.encounter.levelLeadInterval;
     if(!Number.isInteger(interval)||interval<0||interval>60)throw Error('怪物領先等級間隔必須為 0～60 整數');
     for(const [path,min] of [['progression.statsPerPoint.hp',0],['progression.statsPerPoint.attack',0],['progression.statsPerPoint.defense',0],['rewards.xp.base',0],['rewards.xp.perLevel',0],['progression.xpCurve.base',0],['progression.xpCurve.linear',0],['progression.xpCurve.quadratic',0],['progression.xpCurve.multiplierBase',.000001],['progression.xpCurve.multiplierPerLevel',0]])if(!Number.isFinite(gameplayAt(out,path))||gameplayAt(out,path)<min)throw Error('成長／EXP 設定無效：'+path);
@@ -14130,7 +14343,8 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
       'balanceSettings.rewards.kindMultiplier':'金幣等既有獎勵的遭遇倍率；EXP 使用 rewards.xp.kindMultiplier。',
       'balanceSettings.difficulty.modes[].xpMultiplier':'EXP 專用難度倍率；reward 仍控制金幣等既有獎勵。',
       'balanceSettings.monsters.encounter.levelLeadInterval':'怪物每此間隔可領先 1 級，最多 progression.mapAheadAllowance 級；0 沿用固定上限。只限制隨機怪物等級，BOSS 固定為地圖上限。',
-      'balanceSettings.progression.xpCurve':'升級需求多項式，最後乘 skills.mastery.characterXpMultiplier；主角每隻怪取得 round(怪物總 EXP / 出戰人數) 一次，夥伴等級同步主角，不獨立累積 EXP。'
+      'balanceSettings.progression.xpCurve':'升級需求多項式，最後乘 skills.mastery.characterXpMultiplier；主角每隻怪取得 round(怪物總 EXP / 出戰人數) 一次，夥伴等級同步主角，不獨立累積 EXP。',
+      'balanceSettings.progression.xpLevelGap':'主角等級高於怪物 freeLevels 級內無懲罰；超出後線性遞減至 midGap/midMultiplier、highGap/highMultiplier，再降至 minimumMultiplier 並維持。所有怪物種類適用；在隊伍分配與 EXP 券之前計算，不影響金錢或掉落。'
     });
     out.legacySettings['balanceSettings.progression.statsPerLevel']={status:'fallback',replacement:'classes[].growthPerLevel',note:'只有缺少該職業獨立成長的舊 JSON 使用。'};
     return out;
@@ -14200,7 +14414,7 @@ __EMBERWILD_PROGRESSION_TEST=globalThis.__EMBERWILD_PROGRESSION_TEST??__EMBERWIL
       offerCount:field(random,'offerCount',DEFAULT_RANDOM.offerCount),
       refreshBaseCost:field(random,'refreshBaseCost',DEFAULT_RANDOM.refreshBaseCost),
       refreshCostStep:field(random,'refreshCostStep',DEFAULT_RANDOM.refreshCostStep),entries
-    },fixedOffers:{entries:fixedEntries}};
+    },fixedOffers:{entries:fixedEntries},equipmentStages:copy(src.equipmentStages??[])};
   }
   const integer=(n,min,max)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
   const number=(n,min,max)=>Number.isFinite(n)&&n>=min&&n<=max;
@@ -14219,7 +14433,7 @@ __EMBERWILD_PROGRESSION_TEST=globalThis.__EMBERWILD_PROGRESSION_TEST??__EMBERWIL
         if(typeof rule.enabled!=='boolean'||!TYPES.includes(rule.type)||typeof rule.key!=='string'||typeof rule.name!=='string'||typeof rule.description!=='string')throw Error(label+'，基本資料無效');
         if(rule.unitPrice!==null&&!integer(rule.unitPrice,0,1e9)||rule.unitPrice===null&&rule.type!=='item')throw Error(label+'，單價無效');
         if(rule.type==='item'&&!items.has(rule.key))throw Error(label+'，找不到道具 '+rule.key);
-        if(rule.type==='gem'&&!(pool==='random'?['random','0','1','2']:['0','1','2']).includes(rule.key))throw Error(label+'，寶石種類無效');
+        if(rule.type==='gem'&&!(pool==='random'?['random','0','1','2','3','4']:['0','1','2','3','4']).includes(rule.key))throw Error(label+'，寶石種類無效');
         if(rule.type==='material'&&(!rule.key.trim()||rule.key.length>80||/[<>]/.test(rule.key)||['__proto__','constructor','prototype'].includes(rule.key)||pool==='fixed'&&rule.key==='region'))throw Error(label+'，素材名稱無效');
         if(['ore','dust'].includes(rule.type)&&rule.key!=='')throw Error(label+'，此商品不使用 key');
         if(pool==='random'){
@@ -14227,10 +14441,29 @@ __EMBERWILD_PROGRESSION_TEST=globalThis.__EMBERWILD_PROGRESSION_TEST??__EMBERWIL
         }else if(!integer(rule.quantity,1,10000))throw Error(label+'，數量無效');
       }
     }
+    validateEquipmentStages(cfg.equipmentStages,options);
     return cfg;
   }
+  function equipmentForms(forms=[]){const rows=[];forms.forEach((slots,group)=>slots.forEach((list,slot)=>list.forEach((form,index)=>rows.push({form:{...form,id:form.id||'job'+group+'-slot'+slot+'-form'+index},group,slot,index}))));return rows;}
+  function validateEquipmentStages(stages,{equipmentForms:forms,maps,classes}={}){
+    if(!Array.isArray(stages)||stages.length>100)throw Error('裝備販售階段必須為最多 100 筆的陣列');
+    const ids=new Set(),refs=forms?new Map(equipmentForms(forms).map(row=>[row.form.id,row])):null,mapIds=maps?new Set(maps.filter(m=>m.bossEnabled!==false).map(m=>m.id)):null;
+    if(refs&&refs.size!==equipmentForms(forms).length)throw Error('裝備定義 ID 不可重複');
+    for(const stage of stages){
+      if(!stage||typeof stage.id!=='string'||!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(stage.id)||ids.has(stage.id))throw Error('裝備販售階段 ID 無效或重複');ids.add(stage.id);
+      if(typeof stage.name!=='string'||!stage.name.trim()||stage.name.length>80||!integer(stage.level,1,60)||!integer(stage.powerTier,1,10)||!integer(stage.order,0,10000)||typeof stage.initiallyUnlocked!=='boolean'||!Array.isArray(stage.unlockMapIds)||new Set(stage.unlockMapIds).size!==stage.unlockMapIds.length||stage.unlockMapIds.some(id=>typeof id!=='string'||mapIds&&!mapIds.has(id))||!stage.initiallyUnlocked&&!stage.unlockMapIds.length)throw Error('裝備販售階段的等級／T 級／通關條件無效：'+stage.id);
+      if(typeof stage.mapId!=='string'||maps&&!maps.some(m=>m.id===stage.mapId))throw Error('裝備階段對應地圖無效：'+stage.id);
+      if(!Array.isArray(stage.entries)||stage.entries.length>1000)throw Error('裝備階段商品最多 1000 筆');
+      const offers=new Set();for(const entry of stage.entries){
+        const ref=refs?.get(entry?.formId);
+        if(!entry||typeof entry.id!=='string'||!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(entry.id)||offers.has(entry.id)||typeof entry.formId!=='string'||refs&&!ref||!integer(entry.job,0,(classes?.length??4)-1)||ref&&!(ref.form.wearableJobs||[ref.group]).includes(entry.job)||!integer(entry.unitPrice,1,1e9)||!integer(entry.quantity,1,100)||typeof entry.canEnhance!=='boolean'||typeof entry.canReroll!=='boolean')throw Error('裝備商品引用／職業／價格／培養設定無效：'+stage.id);
+        offers.add(entry.id);
+      }
+    }
+    return stages;
+  }
   function fixedItemIds(cfg){return new Set(cfg.fixedOffers.entries.filter(x=>x.enabled&&x.type==='item').map(x=>x.key));}
-  root.EmberwildShopCatalog=Object.freeze({TYPES,DEFAULT_RANDOM,normalize,normalizeRule,validate,fixedItemIds,LEGACY_DESCRIPTIONS});
+  root.EmberwildShopCatalog=Object.freeze({TYPES,DEFAULT_RANDOM,normalize,normalizeRule,validate,validateEquipmentStages,equipmentForms,fixedItemIds,LEGACY_DESCRIPTIONS});
 })(globalThis);
 
 EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
@@ -14241,7 +14474,7 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
   const clone=v=>JSON.parse(JSON.stringify(v));
   const pctText=v=>Math.round((Number(v)||0)*10000)/100;
   const catalog=globalThis.EmberwildShopCatalog;
-  const catalogOptions=items=>({items:items||SHOP,rerollItem:globalThis.__EMBERWILD_EQUIPMENT_POWER?.rerollItem});
+  const catalogOptions=items=>({items:items||SHOP,rerollItem:globalThis.__EMBERWILD_EQUIPMENT_POWER?.rerollItem,equipmentForms:ITEM_FORMS,maps:GAMEPLAY_SETTINGS.maps.catalog,classes:CLASSES});
   let SHOP_SETTINGS=catalog.validate(undefined,catalogOptions());
   const publishSettings=()=>{globalThis.__EMBERWILD_SHOP_SETTINGS=SHOP_SETTINGS;};
   publishSettings();
@@ -14249,7 +14482,7 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
   const baseValidate=validateBalanceConfig;
   validateBalanceConfig=function(input){
     const copy=clone(input),items=normalizeDescriptionBalance(copy).items;
-    copy.shopSettings=catalog.validate(copy.shopSettings,catalogOptions(items));
+    copy.shopSettings=catalog.validate(copy.shopSettings,{...catalogOptions(items),equipmentForms:copy.equipmentForms,maps:copy.balanceSettings?.maps?.catalog,classes:copy.classes});
     if(Array.isArray(copy.items))for(const item of copy.items)if(item.shopEnabled!==undefined&&typeof item.shopEnabled!=='boolean')throw Error('商店上架設定必須為布林值：'+item.id);
     const out=baseValidate(copy);out.shopSettings=copy.shopSettings;return out;
   };
@@ -14291,7 +14524,7 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
     if(!rows.length)return null;let roll=Math.random()*total;for(const rule of rows){roll-=rule.weight;if(roll<=0)return rule;}return rows[rows.length-1];
   }
   function offerFromRule(rule,serial,index,tier){
-    let key=rule.key;if(rule.type==='gem'&&key==='random')key=String(rand(3));if(rule.type==='material'&&key==='region'){const pool=regionMaterialPool();key=pool[rand(pool.length)];}
+    let key=rule.key;if(rule.type==='gem'&&key==='random')key=String(rand(GEM_KINDS));if(rule.type==='material'&&key==='region'){const pool=regionMaterialPool();key=pool[rand(pool.length)];}
     const scale=rule.quantityScalesWithTier?tier:1,min=rule.quantityMin*scale,max=rule.quantityMax*scale;
     const qty=Math.min(10000,Math.floor(min+Math.random()*(max-min+1))),price=Math.min(1e9,Math.round(qty*unitPrice(rule)*(rule.priceScalesWithTier?tier:1)));
     return {id:serial+'-'+index,kind:rule.type,key,qty,price,sold:false,ruleId:rule.id};
@@ -14347,6 +14580,16 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
     ensureHealingPotionState();const object=isHealPotion(item)?party.members[0].healingPotions:state.consumables;return {object,key:item.id,limit:1e9};
   }
   function purchase(offer,name,onSold){
+    if(offer.kind==='equipment'){
+      const price=globalThis.shopPayablePrice?.(offer.price)??offer.price;
+      if(state.gold<price)return toast('金幣不足');
+      if(state.bag.length+offer.qty>RULES.bagCapacity)return toast('背包空間不足');
+      const items=Array.from({length:offer.qty},()=>globalThis.createEquipmentShopGear(offer.stageId,offer.entryId));
+      if(items.some(g=>!g))return false;
+      const gold=state.gold;state.bag.push(...items);state.gold-=price;
+      if(!save()){const ids=new Set(items.map(g=>g.id));state.bag.splice(0,state.bag.length,...state.bag.filter(g=>!ids.has(g.id)));state.gold=gold;return false;}
+      render();toast('已購買 '+name+' ×'+offer.qty);return true;
+    }
     const slot=stockSlot(offer);if(!slot)return toast('找不到此商品對應的道具');
     const price=globalThis.shopPayablePrice?.(offer.price)??offer.price;
     if(state.gold<price)return toast('金幣不足');
@@ -14356,6 +14599,7 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
     if(!save()){if(had)slot.object[slot.key]=old;else delete slot.object[slot.key];state.gold=gold;if(onSold)onSold(false);return;}
     render();toast('已購買 '+name+' ×'+offer.qty);
   }
+  globalThis.purchaseShopOffer=purchase;
   buyMarketOffer=function(id){const raw=party?.market?.offers?.find(x=>x.id===id);if(!raw||raw.sold||!marketOfferIsListed(raw))return;const offer=resolvedOffer(raw);purchase(offer,marketOfferName(raw),value=>{raw.sold=value;});};
   function fixedOffer(rule){return {kind:rule.type,key:rule.key,qty:rule.quantity,price:Math.min(1e9,Math.round(rule.quantity*unitPrice(rule)))};}
   globalThis.buyFixedShopOffer=function(id){const rule=SHOP_SETTINGS.fixedOffers.entries.find(x=>x.id===id&&x.enabled);if(!rule)return;const offer=fixedOffer(rule);purchase(offer,offerName(offer,rule));};
@@ -14373,7 +14617,7 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
       for(const [i,offer] of p.market.offers.entries()){if(offer.kind==='item'&&!SHOP.some(x=>x.id===offer.key))throw Error('商店存檔引用不存在的道具：'+offer.key);if(typeof raw.offers?.[i]?.ruleId==='string')offer.ruleId=raw.offers[i].ruleId;}
     }return p;
   };
-  const SHOP_CATEGORIES=[['life','生活技能材料'],['random','隨機商品'],['fixed','固定商品']];
+  const SHOP_CATEGORIES=[['equipment','裝備商店'],['life','生活技能材料'],['random','隨機商品'],['fixed','固定商品']];
   let shopCategory='random';
   globalThis.setShopCategory=function(id){
     if(!SHOP_CATEGORIES.some(([key])=>key===id))return false;
@@ -14384,7 +14628,8 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
     const cost=currentRefreshCost(),rc=party.market?.refreshCount||0;
     const tabs=`<nav class="shop-category-tabs" aria-label="商店分類">${SHOP_CATEGORIES.map(([id,name])=>`<button class="${shopCategory===id?'primary':''}" aria-pressed="${shopCategory===id}" onclick="setShopCategory('${id}')">${name}</button>`).join('')}</nav>`;
     let section;
-    if(shopCategory==='life')section=globalThis.lifeShopMaterialsView?.()||'<div class="shop-empty">生活技能材料尚未載入。</div>';
+    if(shopCategory==='equipment')section=globalThis.equipmentShopView?.()||'<div class="shop-empty">裝備商店尚未載入。</div>';
+    else if(shopCategory==='life')section=globalThis.lifeShopMaterialsView?.()||'<div class="shop-empty">生活技能材料尚未載入。</div>';
     else if(shopCategory==='fixed'){
       const fixed=SHOP_SETTINGS.fixedOffers.entries.filter(x=>x.enabled).map(rule=>productRow(fixedOffer(rule),rule,false)).join('');
       section=`<section class="shop-section shop-fixed-section"><div class="shop-section-head"><h2>固定商品</h2><span class="small">購買後進入共用背包；使用請到「背包 → 道具」。</span></div><div class="shop-product-grid">${fixed||'<div class="shop-empty">目前沒有上架固定商品。</div>'}</div></section>`;
@@ -14429,7 +14674,86 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
   if(state)render();
 })();
 
-__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;accountItemsView=globalThis.accountItemsView??accountItemsView;buyHealingPotion=globalThis.buyHealingPotion??buyHealingPotion;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;useInventoryItem=globalThis.useInventoryItem??useInventoryItem;EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;__EMBERWILD_SHOP_SETTINGS=globalThis.__EMBERWILD_SHOP_SETTINGS??__EMBERWILD_SHOP_SETTINGS;currentRefreshCost=globalThis.currentRefreshCost??currentRefreshCost;hasCompanionRecruitmentOffers=globalThis.hasCompanionRecruitmentOffers??hasCompanionRecruitmentOffers;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;buyFixedShopOffer=globalThis.buyFixedShopOffer??buyFixedShopOffer;setShopCategory=globalThis.setShopCategory??setShopCategory;lifeShopMaterialsView=globalThis.lifeShopMaterialsView??lifeShopMaterialsView;sellInventoryItem=globalThis.sellInventoryItem??sellInventoryItem;sellInventoryItemFromButton=globalThis.sellInventoryItemFromButton??sellInventoryItemFromButton;inventoryMaterialIcon=globalThis.inventoryMaterialIcon??inventoryMaterialIcon;inventoryMaterialDescription=globalThis.inventoryMaterialDescription??inventoryMaterialDescription;inventoryItemIcon=globalThis.inventoryItemIcon??inventoryItemIcon;inventoryShopOfferIcon=globalThis.inventoryShopOfferIcon??inventoryShopOfferIcon;inventoryGemIcon=globalThis.inventoryGemIcon??inventoryGemIcon;
+__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;accountItemsView=globalThis.accountItemsView??accountItemsView;buyHealingPotion=globalThis.buyHealingPotion??buyHealingPotion;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;useInventoryItem=globalThis.useInventoryItem??useInventoryItem;EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;__EMBERWILD_SHOP_SETTINGS=globalThis.__EMBERWILD_SHOP_SETTINGS??__EMBERWILD_SHOP_SETTINGS;currentRefreshCost=globalThis.currentRefreshCost??currentRefreshCost;hasCompanionRecruitmentOffers=globalThis.hasCompanionRecruitmentOffers??hasCompanionRecruitmentOffers;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;createEquipmentShopGear=globalThis.createEquipmentShopGear??createEquipmentShopGear;purchaseShopOffer=globalThis.purchaseShopOffer??purchaseShopOffer;buyFixedShopOffer=globalThis.buyFixedShopOffer??buyFixedShopOffer;setShopCategory=globalThis.setShopCategory??setShopCategory;equipmentShopView=globalThis.equipmentShopView??equipmentShopView;lifeShopMaterialsView=globalThis.lifeShopMaterialsView??lifeShopMaterialsView;sellInventoryItem=globalThis.sellInventoryItem??sellInventoryItem;sellInventoryItemFromButton=globalThis.sellInventoryItemFromButton??sellInventoryItemFromButton;inventoryMaterialIcon=globalThis.inventoryMaterialIcon??inventoryMaterialIcon;inventoryMaterialDescription=globalThis.inventoryMaterialDescription??inventoryMaterialDescription;inventoryItemIcon=globalThis.inventoryItemIcon??inventoryItemIcon;inventoryShopOfferIcon=globalThis.inventoryShopOfferIcon??inventoryShopOfferIcon;inventoryGemIcon=globalThis.inventoryGemIcon??inventoryGemIcon;
+
+/* js/equipment/equipment-shop.js?v=20261020-equipment1 */
+/* Standard equipment reuses global forms, the shop transaction and boss progress. */
+(()=>{
+  const C=EmberwildShopCatalog,copy=x=>JSON.parse(JSON.stringify(x));
+  const stages=()=>globalThis.__EMBERWILD_SHOP_SETTINGS.equipmentStages;
+  const mapId=i=>GAMEPLAY_SETTINGS.maps.catalog[i]?.id;
+  let folded=new Map(),latest=null,viewOwner=null;
+  function migrateClears(p,inferLegacy=false){
+    const out={};
+    for(const [i,m] of GAMEPLAY_SETTINGS.maps.catalog.entries()){
+      if(p.mapClears?.[m.id]===true||inferLegacy&&(Number(p.achievements?.bossKills?.[i])>0||(p.etherBossClaims||[]).some(key=>String(key).startsWith(i+':'))||(m.mapType==='final'&&p.cleared)))out[m.id]=true;
+    }
+    // Retain clears if the designer temporarily removes a map from the catalog.
+    for(const [id,clear] of Object.entries(p.mapClears||{}))if(clear===true)out[id]=true;
+    p.mapClears=out;p.equipmentShopUnlocked=[...new Set((p.equipmentShopUnlocked||[]).filter(id=>typeof id==='string'))];
+    for(const s of stages())if((s.initiallyUnlocked||s.unlockMapIds.some(id=>out[id]))&&!p.equipmentShopUnlocked.includes(s.id))p.equipmentShopUnlocked.push(s.id);
+    return p;
+  }
+  function unlocked(s){if(!party)return false;migrateClears(party);return party.equipmentShopUnlocked.includes(s.id);}
+  globalThis.recordMapClear=function(index){
+    if(!party||!mapId(index))return false;
+    // Do not infer new clears from per-enemy kill/ether counters: a stage may have
+    // several bosses. Legacy counters are consumed only during save migration.
+    party.mapClears??={};if(party.mapClears[mapId(index)])return false;
+    const old=new Set(party.equipmentShopUnlocked||[]);party.mapClears[mapId(index)]=true;migrateClears(party);
+    for(const s of stages())if(!old.has(s.id)&&party.equipmentShopUnlocked.includes(s.id))note('裝備商店永久解鎖 · '+s.name,'item');
+    return true;
+  };
+  function currentOffers(){return stages().filter(unlocked).sort((a,b)=>b.order-a.order||b.level-a.level);}
+  function offer(key){
+    if(typeof key!=='string')return null;const [stageId,entryId]=key.split('/'),stage=stages().find(s=>s.id===stageId);
+    if(!stage||!unlocked(stage))return null;const entry=stage.entries.find(e=>e.id===entryId);return entry?{stage,entry}:null;
+  }
+  globalThis.createEquipmentShopGear=function(stageId,entryId,{preview=false}={}){
+    const found=offer(stageId+'/'+entryId);if(!found)return null;
+    const {stage:s,entry:e}=found,ref=C.equipmentForms(ITEM_FORMS).find(r=>r.form.id===e.formId);if(!ref)return null;
+    const g=gear(Math.max(1,Math.min(12,Math.ceil(s.level/5))),ref.slot,0,e.job);
+    Object.assign(g,{formJob:ref.group,form:ref.index,powerTier:s.powerTier,equipmentLevel:s.level,equipmentSource:'shop',acquiredAt:Date.now(),baseRuleVersion:1,prefixId:'',suffixId:'',affix:[],plus:0,canEnhance:e.canEnhance,canReroll:e.canReroll});
+    delete g.baseSnapshot;
+    // A fixed shop base is exactly 100%, regardless of the stage's displayed T.
+    const baseline=gearStatBreakdown(g);g.baseSnapshot.base={...baseline.body};g.baseSnapshot.mult=1;
+    g.weaponType=ref.form.weaponType||g.weaponType;g.name=gearName(g);if(preview)g.id='shop-preview-'+s.id+'-'+e.id;
+    return g;
+  };
+  globalThis.buyEquipmentShopOffer=function(key,quantity=1){
+    const found=offer(key);if(!found||!Number.isSafeInteger(quantity)||quantity<1||quantity>100)return false;
+    const {stage:s,entry:e}=found,qty=e.quantity*quantity,price=e.unitPrice*qty;
+    if(!Number.isSafeInteger(price)||price>1e12||qty>RULES.bagCapacity)return false;
+    return globalThis.purchaseShopOffer({kind:'equipment',stageId:s.id,entryId:e.id,qty,price},s.name);
+  };
+  globalThis.setEquipmentShopFold=function(id,open){if(!stages().some(s=>s.id===id))return;folded.set(id,!open);if(state)render();};
+  globalThis.equipmentShopView=function(){
+    const rows=currentOffers(),newest=rows[0]?.id;
+    if(viewOwner!==party){viewOwner=party;folded=new Map();latest=null;}
+    if(newest!==latest){for(const s of rows)folded.set(s.id,s.id!==newest);latest=newest;}
+    return '<section class="shop-section equipment-shop"><h2>裝備商店</h2><p class="small">固定 T 級、100% 標準基底，初始無隨機詞綴。購買後可在背包查看、強化及洗鍊；首次通關地區 BOSS 可永久解鎖新階段。</p>'+rows.map(s=>{
+      const open=!folded.get(s.id),content=open?s.entries.map(e=>{
+        const g=createEquipmentShopGear(s.id,e.id,{preview:true});if(!g)return '';
+        const key=s.id+'/'+e.id,price=globalThis.shopPayablePrice?.(e.unitPrice*e.quantity)??e.unitPrice*e.quantity;
+        return '<article class="shop-product-row icon-product fixed-shop-row">'+gearSlotHTML(g,{preview:g,count:e.quantity,context:'shop',shopType:'equipment',shopId:key,price,detailLabel:'每份件數'})+'<small class="shop-product-label">'+esc(CLASSES[e.job].name)+' · '+esc(SLOTS[g.slot])+' · '+price.toLocaleString()+' 金幣</small></article>';
+      }).join(''):'';
+      return '<section class="equipment-shop-stage" data-equipment-stage="'+esc(s.id)+'"><button type="button" class="equipment-stage-toggle" aria-expanded="'+open+'" onclick="setEquipmentShopFold(\''+s.id+'\','+!open+')">'+(open?'▼ ':'▶ ')+esc(s.name)+' · LV '+s.level+'</button>'+(open?'<div class="shop-product-grid">'+content+'</div>':'')+'</section>';
+    }).join('')+'</section>';
+  };
+  const validateBase=validateParty;
+  validateParty=function(raw){
+    if(raw.mapClears!==undefined&&(!raw.mapClears||typeof raw.mapClears!=='object'||Array.isArray(raw.mapClears)||Object.entries(raw.mapClears).some(([id,v])=>!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(id)||typeof v!=='boolean')))throw Error('地區通關紀錄無效');
+    if(raw.equipmentShopUnlocked!==undefined&&(!Array.isArray(raw.equipmentShopUnlocked)||raw.equipmentShopUnlocked.length>1000||raw.equipmentShopUnlocked.some(id=>typeof id!=='string'||!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(id))))throw Error('裝備商店解鎖紀錄無效');
+    const p=validateBase(raw);p.mapClears=copy(raw.mapClears||{});p.equipmentShopUnlocked=copy(raw.equipmentShopUnlocked||[]);return migrateClears(p,raw.mapClears===undefined);
+  };
+  const packBase=packParty;packParty=function(){const out=packBase();if(party){for(const g of party.members[0].bag)if(!EmberwildTokens.isToken(g))gearStatBreakdown(g);migrateClears(party);out.mapClears=copy(party.mapClears);out.equipmentShopUnlocked=copy(party.equipmentShopUnlocked);}return out;};
+  const canEnhanceBase=canEnhance;canEnhance=function(g){return g?.canEnhance!==false&&canEnhanceBase(g);};
+  const enhanceBase=enhance;enhance=function(id){const g=findGear(id);if(g?.canEnhance===false)return toast('此裝備不可強化');return enhanceBase(id);};
+  const rerollBase=reroll;reroll=function(id){const g=findGear(id);if(g?.canReroll===false)return toast('此裝備不可洗鍊');return rerollBase(id);};
+  globalThis.__EMBERWILD_EQUIPMENT_SHOP={version:1,stages,currentOffers,migrateClears};
+})();
+
+recordMapClear=globalThis.recordMapClear??recordMapClear;__EMBERWILD_SHOP_SETTINGS=globalThis.__EMBERWILD_SHOP_SETTINGS??__EMBERWILD_SHOP_SETTINGS;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;createEquipmentShopGear=globalThis.createEquipmentShopGear??createEquipmentShopGear;purchaseShopOffer=globalThis.purchaseShopOffer??purchaseShopOffer;equipmentShopView=globalThis.equipmentShopView??equipmentShopView;buyEquipmentShopOffer=globalThis.buyEquipmentShopOffer??buyEquipmentShopOffer;setEquipmentShopFold=globalThis.setEquipmentShopFold??setEquipmentShopFold;__EMBERWILD_EQUIPMENT_SHOP=globalThis.__EMBERWILD_EQUIPMENT_SHOP??__EMBERWILD_EQUIPMENT_SHOP;
 
 /* js/ui/options.js?v=20261019-item-lists1 */
 /* Account actions live in Options; balance imports are visible only in Preview. */
@@ -14446,15 +14770,16 @@ __EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_
 
 uiThemeOptionsView=globalThis.uiThemeOptionsView??uiThemeOptionsView;optionsView=globalThis.optionsView??optionsView;itemDisplayOptionsView=globalThis.itemDisplayOptionsView??itemDisplayOptionsView;isEmberwildPreview=globalThis.isEmberwildPreview??isEmberwildPreview;numberReminderOptionsView=globalThis.numberReminderOptionsView??numberReminderOptionsView;
 
-/* js/items/timed-boost-runtime.js?v=20261019-daily-speed2 */
-/* Account boosts use wall-clock expiry; the expedition clock accrues only while combat runs. */
+/* js/items/timed-boost-runtime.js?v=20261020-exploration1 */
+/* Timed effects and the persisted expedition clock share the offline event timeline. */
 (function installTimedBoostRuntime(){
   const api=EmberwildTimedBoosts,copy=v=>JSON.parse(JSON.stringify(v));
-  let clockParty=null,lastClockAt=Date.now(),wasActive=false,pacePausedAt=null,lastStatusKey='';
+  let lastBoostState='',clockParty=null,lastClockAt=Date.now(),wasActive=false,pacePausedAt=null,lastStatusKey='';
   const isActive=()=>!!party&&running&&!$('modal')?.open;
-  function session(){if(!party)return null;return party.combatSession??={idleTimeMs:0,speed:1,reportPaused:false,filter:'all'};}
+  function session(){if(!party)return null;return party.combatSession??={idleTimeMs:0,speed:1,reportPaused:false,filter:'all',pauseBoostsOnSpeedEnd:false};}
   function syncCombatClock(now=Date.now()){
-    if(clockParty===party&&wasActive&&party){const s=session();s.idleTimeMs=Math.min(Number.MAX_SAFE_INTEGER,s.idleTimeMs+Math.max(0,now-lastClockAt));}
+    if(globalThis.EmberwildOffline)return EmberwildOffline.sync(now);
+    if(clockParty===party&&wasActive&&party){const s=session(),elapsed=Math.max(0,now-lastClockAt);s.idleTimeMs=Math.min(Number.MAX_SAFE_INTEGER,s.idleTimeMs+elapsed);const elemental=party.members.map(h=>api.ELEMENTAL_TYPES.flatMap(k=>api.buffRows(h[k])).filter(b=>b.enabled));api.consume(party,elapsed);party.members.forEach((h,i)=>{if(elemental[i].some(b=>!b.enabled))withHero(h,clampVitals);});}
     const active=isActive();
     if(clockParty===party){
       if(wasActive&&!active)pacePausedAt=now;
@@ -14463,7 +14788,7 @@ uiThemeOptionsView=globalThis.uiThemeOptionsView??uiThemeOptionsView;optionsView
     clockParty=party;lastClockAt=now;wasActive=active;
   }
   function changeRate(rate,now=Date.now()){
-    const old=battleRate,timelineNow=pacePausedAt??now;
+    const old=battleRate,timelineNow=globalThis.EmberwildOffline?now:pacePausedAt??now;
     if(old===rate)return;
     if(roundStartedAt)roundStartedAt=timelineNow-(timelineNow-roundStartedAt)*old/rate;
     nextActionAt=timelineNow+Math.max(0,nextActionAt-timelineNow)*old/rate;
@@ -14471,15 +14796,19 @@ uiThemeOptionsView=globalThis.uiThemeOptionsView??uiThemeOptionsView;optionsView
   }
   function expireBoosts(now=Date.now()){
     if(!party)return false;
-    const prior=party.timedBoosts?.length||0;party.timedBoosts=api.active(party,now);
-    const invalid=battleRate===2&&!api.unlocked(party,now)||![1,2].includes(battleRate);
-    if(invalid)changeRate(1,now);
+    const before=JSON.stringify([battleRate,(party.timedBoosts||[]).map(b=>b.enabled)]);
+    party.timedBoosts=(party.timedBoosts||[]).map(b=>api.migrateBuff(b,now,b.boostType!=='speed2'||battleRate===2));
+    const speedOn=api.active(party,now).some(b=>b.boostType==='speed2');
+    if(battleRate===2&&!speedOn||![1,2].includes(battleRate))changeRate(1,now);
     let elementalExpired=false;
-    for(const h of party.members){let changed=false;for(const key of api.ELEMENTAL_TYPES){const before=api.buffRows(h[key]),live=api.elementalActive(h[key],now);if(before.length!==live.length){h[key]=api.compactBuffs(live);changed=true;}}if(changed){withHero(h,clampVitals);elementalExpired=true;}}
-    return prior!==party.timedBoosts.length||invalid||elementalExpired;
+    for(const h of party.members)for(const key of api.ELEMENTAL_TYPES){
+      const rows=api.buffRows(h[key]);h[key]=api.compactBuffs(rows.map(b=>api.migrateBuff(b,now)));
+      if(rows.some(b=>b.enabled&&api.remainingMs(b,now)<=0)){withHero(h,clampVitals);elementalExpired=true;}
+    }
+    return before!==JSON.stringify([battleRate,party.timedBoosts.map(b=>b.enabled)])||elementalExpired;
   }
   function restoreSession(){
-    if(party){const s=session();party.timedBoosts??=[];battleRate=s.speed;battleReportPaused=s.reportPaused;battleLogFilter=s.filter;expireBoosts();}
+    if(party){const s=session();party.timedBoosts=(party.timedBoosts||[]).map(b=>api.migrateBuff(b,Date.now(),b.boostType!=='speed2'||s.speed===2));s.pauseBoostsOnSpeedEnd??=false;battleRate=s.speed;battleReportPaused=s.reportPaused;battleLogFilter=s.filter;expireBoosts();}
     else{battleRate=1;battleReportPaused=false;battleLogFilter='all';}
     clockParty=party;lastClockAt=Date.now();wasActive=isActive();pacePausedAt=wasActive?null:lastClockAt;
     lastStatusKey='';battleLogGeneration++;
@@ -14487,17 +14816,18 @@ uiThemeOptionsView=globalThis.uiThemeOptionsView??uiThemeOptionsView;optionsView
   globalThis.setBattleSpeed=function(rate){
     syncCombatClock();expireBoosts();
     if(![1,2].includes(rate)||rate===2&&!api.unlocked(party))return toast('2× 尚未解鎖，請先使用兩倍速解鎖券');
+    for(const b of party?.timedBoosts||[])if(b.boostType==='speed2')b.enabled=rate===2&&api.remainingMs(b)>0;
     changeRate(rate);save();render();return true;
   };
   toggleBattleRate=function(){const rates=api.unlocked(party)?[1,2]:[1],index=rates.indexOf(battleRate);return setBattleSpeed(rates[(index+1)%rates.length]);};
   globalThis.battleSpeedButtons=function(){return `<div class="battle-speed-buttons">${[1,2].map(rate=>{const locked=rate===2&&!api.unlocked(party);return `<button type="button" class="${battleRate===rate?'primary':''}" onclick="setBattleSpeed(${rate})" aria-pressed="${battleRate===rate}" ${locked?'disabled aria-label="2倍速（鎖定）" title="使用兩倍速解鎖券後可選擇"':''}>${rate}×${locked?'（鎖定）':''}</button>`;}).join('')}</div>`;};
   const useBase=useSupply;
   useSupply=function(id){
-    const item=SHOP.find(x=>x.id===id);if(!api.isItem(item))return useBase(id);
+    syncCombatClock();const item=SHOP.find(x=>x.id===id);if(!api.isItem(item))return useBase(id);
     if(!party||(state.consumables[id]||0)<1)return;
     api.validateItem(item);expireBoosts();const before=copy(party.timedBoosts||[]),count=state.consumables[id];
     const now=Date.now();
-    try{party.timedBoosts=api.stackBuff(party.timedBoosts||[],{itemId:item.id,name:item.name,boostType:item.boostType,bonusPercent:item.bonusPercent,durationMinutes:item.durationMinutes,expiresAt:api.expiryTime(item.durationMinutes,now)},now);}
+    try{party.timedBoosts=api.stackBuff(party.timedBoosts||[],{itemId:item.id,name:item.name,boostType:item.boostType,bonusPercent:item.bonusPercent,durationMinutes:item.durationMinutes,remainingMs:api.expiryTime(item.durationMinutes,0),enabled:item.boostType!=='speed2'||battleRate===2},now);}
     catch(e){return toast(e.message);}
     state.consumables[id]--;
     if(save()===false){party.timedBoosts=before;state.consumables[id]=count;return;}
@@ -14524,36 +14854,62 @@ uiThemeOptionsView=globalThis.uiThemeOptionsView??uiThemeOptionsView;optionsView
   const packBase=packParty;
   packParty=function(){syncCombatClock();expireBoosts();const out=packBase();if(out){const s=session();s.speed=battleRate;s.reportPaused=battleReportPaused;s.filter=battleLogFilter;out.timedBoosts=copy(party.timedBoosts);out.combatSession=copy(s);}return out;};
   const tickBase=tick;
-  tick=function(){syncCombatClock();const changed=expireBoosts();if(changed&&state)render();try{return tickBase();}finally{syncCombatClock();refreshJournalRealtime();}};
+  tick=function(){syncCombatClock();const changed=expireBoosts(),key=JSON.stringify([battleRate,party?.timedBoosts?.map(b=>b.enabled)]);if((changed||key!==lastBoostState)&&state){lastBoostState=key;render();}try{return tickBase();}finally{syncCombatClock();refreshJournalRealtime();}};
   new MutationObserver(()=>{syncCombatClock();refreshJournalRealtime(true);}).observe($('modal'),{attributes:true,attributeFilter:['open']});
 
   const timeText=api.timeText;
-  function boostRow(kind,now){
-    const rows=api.active(party,now).filter(b=>b.boostType===kind);if(!rows.length)return '';
-    const nearest=Math.min(...rows.map(b=>b.expiresAt)),summary=kind==='speed2'?timeText(Math.max(...rows.map(b=>b.expiresAt))-now):'＋'+api.bonus(party,kind,now)+'%｜'+timeText(nearest-now);
-    const sources=rows.map(b=>b.name+'：'+timeText(b.expiresAt-now)).join('；');
-    return `<div class="journal-boost-row" title="${esc(sources)}"><span>${api.LABELS[kind]}：</span><b>${summary}</b>${rows.length>1?`<small>（下一筆到期）</small><details><summary>${rows.length} 個來源</summary>${rows.map(b=>`<div>${esc(b.name)}｜${timeText(b.expiresAt-now)}</div>`).join('')}</details>`:''}</div>`;
-  }
-  globalThis.battleJournalStatus=function(){
-    const now=Date.now(),rows=api.KINDS.map(k=>boostRow(k,now)).join('');
-    return `<div id="journalRealtimeStatus" class="journal-realtime-status"><div>已掛機時間：<b>${timeText(Math.floor((session()?.idleTimeMs||0)/1000)*1000,true)}</b></div><div class="journal-boosts">${rows||'<span class="small">目前增益：無</span>'}</div></div>`;
+  const boostState=b=>api.remainingMs(b)<=0?'時間已耗盡':!b.enabled?'已停用':'已啟用・倒數中';
+  function sources(){return [...(party?.timedBoosts||[]).map((b,i)=>({b,key:'team:'+i,owner:'全隊'})),...(party?.members||[]).flatMap((h,i)=>api.ELEMENTAL_TYPES.flatMap(k=>api.buffRows(h[k]).map((b,j)=>({b,key:i+':'+k+':'+j,owner:characterName(h)}))))];}
+  function source(key){return sources().find(x=>x.key===key);}
+  globalThis.setTimedBoostEnabled=function(key,on){
+    syncCombatClock();const row=source(key);if(!row||on&&api.remainingMs(row.b)<=0)return false;
+    row.b.enabled=!!on;
+    if(row.b.boostType==='speed2'){
+      changeRate(api.active(party).some(b=>b.boostType==='speed2')?2:1);
+    }
+    if(!row.b.boostType){const h=party.members[Number(key.split(':')[0])];withHero(h,clampVitals);}
+    save();render();return true;
   };
-  function refreshJournalRealtime(force=false){
-    const now=Date.now(),key=JSON.stringify([Math.floor((session()?.idleTimeMs||0)/1000),api.active(party,now).map(b=>[b.name,b.boostType,b.bonusPercent,Math.ceil((b.expiresAt-now)/1000)])]);
-    if(!force&&lastStatusKey===key)return;lastStatusKey=key;
-    const node=$('journalRealtimeStatus');if(node){const fresh=document.createElement('template');fresh.innerHTML=battleJournalStatus();const next=fresh.content.firstElementChild;if(node.innerHTML!==next.innerHTML){const opened=[...node.querySelectorAll('details')].map(x=>x.open);node.innerHTML=next.innerHTML;node.querySelectorAll('details').forEach((d,i)=>{d.open=opened[i]||false;});}}
+  globalThis.setPauseBoostsOnSpeedEnd=function(on){syncCombatClock();session().pauseBoostsOnSpeedEnd=!!on;save();};
+  function effectText(b){return b.boostType==='speed2'?'2× 戰鬥倍速':b.boostType?api.LABELS[b.boostType]+'＋'+b.bonusPercent+'%':ELEMENTS[b.element]+' '+b.effectPercent+'%';}
+  globalThis.timedBoostManagement=function(){
+    const rows=sources();return `<details class="exploration-secondary" id="explorationBoostSettings"><summary>倍速與限時增益 · ${battleRate}×</summary>${battleSpeedButtons()}<p class="small">以現實時間倒數；暫停、停止與離線仍會到期。</p><div class="boost-management-list">${rows.map(({b,key,owner})=>`<div class="boost-management-row"><b>${esc(b.name)}</b><small>${esc(owner)} · ${esc(effectText(b))}</small><span data-boost-time="${key}">${timeText(api.remainingMs(b))}</span><span data-boost-state="${key}">${boostState(b)}</span><button data-boost-toggle="${key}" onclick="setTimedBoostEnabled('${key}',${!b.enabled})" ${api.remainingMs(b)<=0?'disabled':''} aria-pressed="${!!b.enabled}">${b.enabled?'停用':'啟用'}</button></div>`).join('')||'<p class="small">尚未使用增益道具。</p>'}</div><label class="boost-link-setting"><input type="checkbox" ${session()?.pauseBoostsOnSpeedEnd?'checked':''} onchange="setPauseBoostsOnSpeedEnd(this.checked)">2 倍速結束時，自動暫停其他加倍效果</label></details>`;
+  };
+  globalThis.battleJournalStatus=function(){
+    const rows=sources().filter(({b})=>api.remainingMs(b)>0),groups=[...api.KINDS,'elemental'].map(kind=>{
+      const entries=rows.filter(({b})=>(b.boostType||'elemental')===kind);if(!entries.length)return '';
+      const active=entries.filter(({b})=>b.enabled),shown=active.length?active:entries,left=Math.min(...shown.map(({b})=>api.remainingMs(b))),name=kind==='elemental'?'屬性藥水':api.LABELS[kind],effect=kind==='speed2'?battleRate+'×':kind==='elemental'?entries.length+' 個狀態':'＋'+api.bonus(party,kind)+'%',status=active.length?'倒數中':'已停用',title=entries.map(({b,owner})=>owner+'・'+b.name+' '+timeText(api.remainingMs(b))+' '+boostState(b)).join('；');
+      return `<div class="journal-boost-row" title="${esc(title)}"><span>${name} ${effect} · ${status}</span><b>${timeText(left)}</b>${entries.length>1?'<small>下一筆剩餘時間 · '+entries.length+' 個來源</small>':''}</div>`;
+    }).join('');
+    return `<div id="journalRealtimeStatus" class="journal-realtime-status"><div>已掛機時間：<b>${timeText(session()?.idleTimeMs||0,true)}</b></div><div class="journal-boosts">${groups||'<span class="small">目前增益：無</span>'}</div></div>`;
   }
+
+  function refreshJournalRealtime(force=false){
+    const key=JSON.stringify([Math.floor((session()?.idleTimeMs||0)/1000),isActive(),sources().map(({b})=>[b.name,b.enabled,Math.ceil(api.remainingMs(b)/1000)])]);
+    if(!force&&lastStatusKey===key)return;lastStatusKey=key;
+    const node=$('journalRealtimeStatus');if(node){const fresh=document.createElement('template');fresh.innerHTML=battleJournalStatus();const next=fresh.content.firstElementChild;if(next&&node.innerHTML!==next.innerHTML)node.innerHTML=next.innerHTML;}
+    for(const {b,key} of sources()){
+      const time=document.querySelector('[data-boost-time="'+key+'"]'),status=document.querySelector('[data-boost-state="'+key+'"]'),button=document.querySelector('[data-boost-toggle="'+key+'"]');
+      if(time)time.textContent=timeText(api.remainingMs(b));if(status)status.textContent=boostState(b);
+      if(button){button.disabled=api.remainingMs(b)<=0;button.textContent=b.enabled?'停用':'啟用';button.setAttribute('aria-pressed',String(!!b.enabled));button.setAttribute('onclick',"setTimedBoostEnabled('"+key+"',"+!b.enabled+")");}
+    }
+    globalThis.refreshExplorationStatus?.();
+  }
+  // Persist the last settled cursor; the offline runtime retains wall-clock debt.
+  addEventListener('pagehide',()=>{syncCombatClock();save();wasActive=false;});
+  addEventListener('pageshow',()=>{lastClockAt=Date.now();wasActive=isActive();});
+  document.addEventListener('visibilitychange',()=>{syncCombatClock();if(party)save();});
   const referenceBase=balanceReference;
-  balanceReference=function(){const out=referenceBase();out.itemTypes={...(out.itemTypes||{}),timedBoost:'全隊現實時間增益；boostType=speed2/exp/drop，bonusPercent 為加算百分比，durationMinutes 為正整數分鐘；同名同效果累加時間；不同倍率獨立計時；單一狀態上限 24 小時。'};out.units={...(out.units||{}),timedBoostDuration:'現實分鐘；暫停與關閉頁面仍會到期'};out.balancePaths={...(out.balancePaths||{}),'items[].bonusPercent':'各限時來源的加算百分比，經驗與掉寶各自先相加。','items[].durationMinutes':'抗性／屬性增幅與限時增益的現實分鐘；元素藥水可輸入小數，不使用 duration 的戰鬥回合。','combat.pacing.rates':'固定 1/2；2× 需要有效解鎖效果。'};out.dropAlgorithm='掉落率 = 基礎機率 × (1 + 全隊裝備加成 + 各有效限時來源加成)，封頂 100%；首殺保底不變。';return out;};
+  balanceReference=function(){const out=referenceBase();out.itemTypes={...(out.itemTypes||{}),timedBoost:'全隊現實時間增益；boostType=speed2/exp/drop，bonusPercent 為加算百分比，durationMinutes 為正整數分鐘；同名同效果累加時間；不同倍率獨立計時；單一狀態上限 24 小時。'};out.units={...(out.units||{}),timedBoostDuration:'現實分鐘；暫停、停止與離線仍會扣時'};out.balancePaths={...(out.balancePaths||{}),'items[].bonusPercent':'各限時來源的加算百分比，經驗與掉寶各自先相加。','items[].durationMinutes':'抗性／屬性增幅與限時增益的現實分鐘；元素藥水可輸入小數，不使用 duration 的戰鬥回合。','combat.pacing.rates':'固定 1/2；2× 需要有效解鎖效果。'};out.dropAlgorithm='掉落率 = 基礎機率 × (1 + 全隊裝備加成 + 各有效限時來源加成)，封頂 100%；首殺保底不變。';return out;};
   const exportBase=exportableBalance;
-  exportableBalance=function(){const out=exportBase();out.timeUnits={...(out.timeUnits||{}),timedBoostDuration:'realMinutes'};out.notes=[...(out.notes||[]),'type=timedBoost 使用 boostType / bonusPercent / durationMinutes；各類來源加算，同名同效果累加剩餘時間，不同倍率狀態各自計時；單一狀態上限 24 小時，超過時不消耗道具。'];return out;};
+  exportableBalance=function(){const out=exportBase();out.timeUnits={...(out.timeUnits||{}),timedBoostDuration:'realMinutes',consumableClock:'wall'};out.notes=[...(out.notes||[]),'type=timedBoost 使用 boostType / bonusPercent / durationMinutes；各類來源加算，同名同效果累加剩餘時間，不同倍率狀態各自計時；單一狀態上限 24 小時，超過時不消耗道具。'];return out;};
   const guideBase=guideView;
-  guideView=function(){return `<section class="panel"><h2>倍速與限時增益</h2><p>日常探索為 1×；2× 需要兩倍速券，效果到期時自動回到 1×。倍速只影響進行速度，單場獎勵不變。經驗與掉寶的百分比各自加算，不同類型可同時生效；同名同效果的道具重新使用會累加剩餘時間，不同倍率保留各自狀態並獨立計時；每個狀態最多累積 24 小時，若本次使用會超過上限則提醒且不消耗道具。</p><p>限時券按現實時間到期，暫停或關閉遊戲仍會扣時。已掛機時間只計實際探索時間；暫停戰鬥或對話框暫停時停止。戰報暫停與篩選只影響紀錄顯示。</p></section>`+guideBase();};
+  guideView=function(){return `<section class="panel"><h2>倍速與限時增益</h2><p>日常探索為 1×；2× 需要兩倍速券，效果到期時自動回到 1×。倍速只影響進行速度，單場獎勵不變。經驗與掉寶的百分比各自加算，不同類型可同時生效；同名同效果的道具重新使用會累加剩餘時間，不同倍率保留各自狀態並獨立計時；每個狀態最多累積 24 小時，若本次使用會超過上限則提醒且不消耗道具。</p><p>限時券以現實時間倒數，各項效果可獨立啟用、停用；停用不延長到期時間；暫停、停止或關閉遊戲仍會扣時。已掛機時間只計實際探索時間；暫停戰鬥或對話框暫停時停止。戰報暫停與篩選只影響紀錄顯示。</p></section>`+guideBase();};
   restoreSession();if(state)render();
-  globalThis.__EMBERWILD_TIMED_BOOST_TEST={syncCombatClock,expireBoosts,restoreSession,refreshJournalRealtime};
+  globalThis.__EMBERWILD_TIMED_BOOST_TEST={sources,isActive,syncCombatClock,expireBoosts,restoreSession,refreshJournalRealtime,changeRate};
 })();
 
-setBattleSpeed=globalThis.setBattleSpeed??setBattleSpeed;battleSpeedButtons=globalThis.battleSpeedButtons??battleSpeedButtons;battleJournalStatus=globalThis.battleJournalStatus??battleJournalStatus;__EMBERWILD_TIMED_BOOST_TEST=globalThis.__EMBERWILD_TIMED_BOOST_TEST??__EMBERWILD_TIMED_BOOST_TEST;
+setBattleSpeed=globalThis.setBattleSpeed??setBattleSpeed;refreshExplorationStatus=globalThis.refreshExplorationStatus??refreshExplorationStatus;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;battleSpeedButtons=globalThis.battleSpeedButtons??battleSpeedButtons;setTimedBoostEnabled=globalThis.setTimedBoostEnabled??setTimedBoostEnabled;setPauseBoostsOnSpeedEnd=globalThis.setPauseBoostsOnSpeedEnd??setPauseBoostsOnSpeedEnd;timedBoostManagement=globalThis.timedBoostManagement??timedBoostManagement;battleJournalStatus=globalThis.battleJournalStatus??battleJournalStatus;__EMBERWILD_TIMED_BOOST_TEST=globalThis.__EMBERWILD_TIMED_BOOST_TEST??__EMBERWILD_TIMED_BOOST_TEST;
 
 /* js/combat/skill-effect-runtime.js */
 /* Common optional effects. Old skills delegate to their existing implementation. */
@@ -14577,7 +14933,7 @@ setBattleSpeed=globalThis.setBattleSpeed??setBattleSpeed;battleSpeedButtons=glob
     if(mode==='allies')return members(caster);
     if(mode==='weakest')return members(caster).sort((a,b)=>a.hp/maxHp(a)-b.hp/maxHp(b)).slice(0,1);
     const opponents=isHero(caster)?foes.filter(e=>e.hp>0):living();
-    if(mode==='enemies'||sk.maxTargets>=99)return opponents;
+    if(mode==='enemies'||sk.maxTargets>=99)return meta.targetLimit?opponents.slice(0,sk.maxTargets||1):opponents;
     const n=Math.max(1,Math.floor(sk.maxTargets||1)),pool=isHero(caster)&&n===1?opponents.filter(enemyAvailableForSingleTarget):opponents;
     return shuffleCopy(pool).slice(0,n);
   }
@@ -14646,7 +15002,7 @@ setBattleSpeed=globalThis.setBattleSpeed??setBattleSpeed;battleSpeedButtons=glob
     const tracker=status();tracker?.beginSkillCast?.(h,i);let ok=false;
     try{
       const power=skillPower(i,h)*(1+effectTotal(heroKey(h),'power'));ok=cast(h,sk,options(meta),v,power,skillCombatProfile(h,i,v));
-      if(ok&&h.sockets?.[i]===2&&sk.activation==='active')healing(h,h,v.atk*GS('skills.gems.hybridActiveHealAttack',.10));
+      
       const mastery=globalThis.__EMBERWILD_MASTERY;if(ok&&meta.mastery&&mastery?.gainMastery)mastery.gainMastery(h,meta.mastery,mastery.masterySettings().skillUseXp);
       return ok;
     }finally{tracker?.endSkillCast?.(h,i,ok);}
@@ -14727,7 +15083,7 @@ __EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWIL
         if(typeof target.chance!=='number'||!Number.isFinite(target.chance)||target.chance<0||target.chance>1)issues.push(label+'：誘發機率必須介於 0～1');
         let key;
         if(target.kind==='activeSlot'||target.kind==='procSlot'){
-          if(!Number.isInteger(target.slot)||target.slot<0||target.slot>1)issues.push(label+'：技能槽必須是 0 或 1');
+          if(!Number.isInteger(target.slot)||target.slot<0||target.slot>(target.kind==='activeSlot'?2:1))issues.push(label+'：主動槽必須是 0～2，觸發槽必須是 0～1');
           key=target.kind+':'+target.slot;
         }else if(target.kind==='skill'){
           const row=pool.get(target.skillId);key='skill:'+target.skillId;
@@ -14786,11 +15142,6 @@ EmberwildInduction=globalThis.EmberwildInduction??EmberwildInduction;
     if(source.effect===api.EFFECT){
       if(inducedDepth||!api.tagged(source)||!h.skills?.[i]||h.hp<=0||!coreSkillAvailableToHero(h.job,i,h)||globalThis.__EMBERWILD_MASTERY?.coreMissingRequirements(h,i,true).length)return false;
       const count=induceHero(h,i);
-      if(source.activation==='active'&&h.sockets?.[i]===2){
-        const pv=v||battleStats(h),before=h.hp;
-        h.hp=Math.min(pv.hp,h.hp+Math.round(healingAmount(h,pv.atk*GS('skills.gems.hybridActiveHealAttack',.10))));
-        if(h.hp>before&&typeof recordCombatContribution==='function')recordCombatContribution(h,'healing',h.hp-before);
-      }
       // A valid induction action consumes its normal turn/cooldown even when probability misses.
       if(source.mastery)globalThis.__EMBERWILD_MASTERY?.gainMastery(h,source.mastery,globalThis.__EMBERWILD_MASTERY.masterySettings().skillUseXp);
       note(characterName(h)+'・'+CLASSES[h.job].skills[i][0]+' [誘發]：成功 '+count+' 個技能');
@@ -14937,22 +15288,29 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;Emberwil
       const out=baseCast(h,i,v);if(out!==false)trigger(h,'skillCast');else if(reserved)Object.assign(reserved.r,reserved.before);return out;
     }finally{context=previous;}
   };
+  globalThis.EmberwildTokenCombatState={pack:()=>[...combat],restore:rows=>{combat.clear();for(const [k,v] of rows||[])combat.set(k,v);}};
   const baseRound=pacedRound;
-  pacedRound=function*(){if(running&&!$('modal').open){preparingRound=true;try{for(const h of living()){ensureBattle(h);const r=companion(h)?runtime(h):null,a=item(h)?.snapshot.ability;if(r?.started&&a?.event==='round'&&eventClock()-r.round+1>=a.threshold)trigger(h,'round');}}finally{preparingRound=false;}}yield* baseRound();if(!foes.some(e=>e.hp>0)||!living().length)clear();};
+  pacedRound=function*(){if(!globalThis.__EMBERWILD_RESUMING_ROUND&&running&&!$('modal').open){preparingRound=true;try{for(const h of living()){ensureBattle(h);const r=companion(h)?runtime(h):null,a=item(h)?.snapshot.ability;if(r?.started&&a?.event==='round'&&eventClock()-r.round+1>=a.threshold)trigger(h,'round');}}finally{preparingRound=false;}}yield* baseRound();if(!foes.some(e=>e.hp>0)||!living().length)clear();};
   const baseReset=resetEncounter;
   resetEncounter=function(){clear();return baseReset();};
   function makeToken(id,quality=null){const d=config.catalog.find(x=>x.id===id);if(!d)return null;const q=quality??d.quality;const g={id:uid(),type:M.TYPE,tokenId:d.id,name:d.name,slot:4,job:0,tier:1,rar:q,plus:0,affix:[],locked:false,snapshot:copy(d),qualityMultipliers:copy(config.qualityMultipliers)};M.validateItem(g,RULES.enhanceMax);return g;}
-  function addToken(g){ensureSharedGear();if(state.bag.length<RULES.bagCapacity)state.bag.push(g);else pendingGearLoot.push(g);note(`獲得 ${AFFIX_RANK[g.rar]} ${g.snapshot.name}${state.bag.includes(g)?'':'（待結算）'}`,'item');if(typeof addExpeditionLoot==='function')addExpeditionLoot(g.snapshot.name,1,g.rar);if(typeof addBattleStatDrop==='function')addBattleStatDrop(g.snapshot.name+' · '+AFFIX_RANK[g.rar],1);}
+  function addToken(g){ensureSharedGear();addGear(g);}
   globalThis.createCompanionToken=makeToken;
   globalThis.grantConfiguredToken=function(id,rng=Math.random){
     const def=config.catalog.find(t=>t.id===id);if(!def)return null;
     const quality=def.qualityFixed?def.quality:M.weighted([0,1,2,3],config.drop.qualityWeights,rng),g=makeToken(id,quality);addToken(g);return g;
   };
+  function tokenDropChance(e){
+    // Match ordinary equipment rules for this monster/kind/difficulty, including
+    // timed boosts and level-gap attenuation; keep token pool eligibility below.
+    const rules=configuredDropRules(e).filter(r=>['gear','equipment'].includes(r.type));
+    return 1-rules.reduce((miss,r)=>miss*(1-effectiveDropChance(r,e)),1);
+  }
   function rollTokens(e,rng=Math.random){
     if(!e||e.__tokenDropRolled)return [];e.__tokenDropRolled=true;
     const d=config.drop;if(!M.eligible(d,e)||(monsterCatalogEntry(e.monsterId)?.maxDrops??e.maxDrops??99)===0)return [];
     const pool=config.catalog.filter(t=>M.eligible(t.drop,e));if(!pool.length)return [];
-    const rule={chanceByDifficulty:d.chanceByDifficulty};if(rng()>=effectiveDropChance(rule,e))return [];
+    if(rng()>=tokenDropChance(e))return [];
     const def=M.weighted(pool,pool.map(t=>t.drop.weight),rng),quality=M.weighted([0,1,2,3],d.qualityWeights,rng);if(!def||quality===null)return [];
     const g=makeToken(def.id,def.qualityFixed?def.quality:quality);addToken(g);return [g];
   }
@@ -14962,7 +15320,7 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;Emberwil
   packParty=function(){const d=basePack();d.companionEquipmentVersion=M.VERSION;for(const h of d.members){h.tokenId??=null;if(h.companionId!==undefined)h.equipped=Array(5).fill(null);}return d;};
   const baseLoad=loadParty;
   loadParty=function(data){const out=baseLoad(M.prepareSave(data,RULES.bagCapacity));syncTokens();for(const h of party.members.filter(companion))withHero(h,clampVitals);return out;};
-  function syncTokens(){if(!party)return;for(const g of [...state.bag,...pendingGearLoot].filter(M.isToken)){const d=config.catalog.find(x=>x.id===g.tokenId);if(d){g.snapshot=copy(d);g.name=d.name;g.qualityMultipliers=copy(config.qualityMultipliers);}}for(const h of party.members.filter(companion)){const g=findGear(h.tokenId);if(g&&!M.canEquip(g,h))h.tokenId=null;}}
+  function syncTokens(){if(!party)return;for(const g of state.bag.filter(M.isToken)){const d=config.catalog.find(x=>x.id===g.tokenId);if(d){g.snapshot=copy(d);g.name=d.name;g.qualityMultipliers=copy(config.qualityMultipliers);}}for(const h of party.members.filter(companion)){const g=findGear(h.tokenId);if(g&&!M.canEquip(g,h))h.tokenId=null;}}
   const baseValidate=validateBalanceConfig;
   validateBalanceConfig=function(input){const next=M.normalize(input?.companionTokens),out=baseValidate(input);for(const d of [next.drop,...next.catalog.map(x=>x.drop)])if(d.maps.some(i=>!out.balanceSettings.maps.catalog[i])||d.monsters.some(id=>!out.balanceSettings.monsters.catalog.some(m=>m.id===id)))throw Error('信物掉落指定了不存在的地圖或怪物');out.companionTokens=next;return out;};
   const baseExport=exportableBalance;
@@ -14992,7 +15350,7 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;Emberwil
   const baseEnhance=enhance;
   enhance=function(id){const h=gearWearer(id),out=baseEnhance(id);if(h)withHero(h,clampVitals);return out;};
   try{const saved=JSON.parse(balanceSourceText()||'null');if(saved?.companionTokens)config=M.normalize(saved.companionTokens);}catch(e){console.warn('信物設定載入失敗',e);}
-  globalThis.__EMBERWILD_TOKEN_TEST={makeToken,rollTokens,trigger,ensureBattle,clear,item,ready,get config(){return copy(config);},get combat(){return combat;}};
+  globalThis.__EMBERWILD_TOKEN_TEST={makeToken,rollTokens,tokenDropChance,trigger,ensureBattle,clear,item,ready,get config(){return copy(config);},get combat(){return combat;}};
   // UI is below so all controls use the same validated mutations above.
   function tokenStatsText(g){
     // Merge identical stat targets after quality and enhancement scaling.
@@ -15034,21 +15392,87 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;Emberwil
   function companionCards(){return `<section class="panel companion-token-panel"><h2>夥伴信物</h2><p class="small">夥伴依自身等級成長，只使用一件信物；後備與名冊夥伴保留穿戴。更換或卸下信物會放棄目前遭遇。</p><div class="token-grid">${party.members.filter(companion).map(h=>{const g=item(h);return `<article class="card token-slot" data-token-owner="${memberKey(h)}"><h3>${esc(characterName(h))} · ${esc(CLASSES[h.job].name)}</h3>${g?gearSlotHTML(g):'<p class="empty">未穿戴信物</p>'}<div class="actions"><button onclick="showCompanionTokens(${memberKey(h)})">更換信物</button>${g?`<button onclick="unequipCompanionToken(${memberKey(h)})">卸下</button><button onclick="openForge('${g.id}')">強化</button>`:''}</div></article>`;}).join('')||'<p>招募夥伴後即可使用信物。</p>'}</div></section>`;}
   globalThis.showCompanionTokens=function(key){const h=partyMember(key);if(!companion(h))return;const current=item(h);$('modal').innerHTML=`<div class="token-dialog-header"><h2>${esc(characterName(h))} · 信物管理</h2><button type="button" onclick="closeModal()">關閉</button></div>${current?detail(current):'<p>目前未穿戴信物</p>'}<div class="token-grid">${state.bag.filter(g=>M.canEquip(g,h)&&(!gearWearer(g.id)||gearWearer(g.id)===h)).map(g=>`<article class="card">${detail(g)}${comparison(h,g)}<button data-token-id="${g.id}" onclick="if(equipCompanionToken('${g.id}',${key}))closeModal()" ${g===current?'disabled':''}>${g===current?'已穿戴':'穿戴'}</button></article>`).join('')||'<p>背包目前沒有可穿戴的信物。</p>'}</div>`;$('modal').showModal();};
   function comparison(h,g){const before=stats(h),after=stats({...h,tokenId:g.id});return `<p class="small">換裝比較：${['hp','atk','def','crit','critDamage','speed','pierce','defenseIgnore','lifesteal','evasion'].filter(k=>before[k]!==after[k]).map(k=>`${({hp:'HP',atk:'攻擊',def:'防禦',crit:'暴擊',critDamage:'暴傷',speed:'速度',pierce:'穿透',defenseIgnore:'無視',lifesteal:'竊取',evasion:'閃避'})[k]} ${Number(before[k].toFixed(3))} → ${Number(after[k].toFixed(3))}`).join(' / ')||'面板相同，請比較特殊效果'}</p>`;}
-  let tokenSort='quality';
-  function tokenInventory(){
-    const list=state.bag.filter(M.isToken).sort((a,b)=>tokenSort==='name'?a.snapshot.name.localeCompare(b.snapshot.name):tokenSort==='enhance'?b.plus-a.plus:b.rar-a.rar||b.plus-a.plus);
-    return heading('COMPANION TOKENS / 共用背包','夥伴信物')+`<div class="actions token-inventory-toolbar"><label>排序 <select onchange="setTokenSort(this.value)"><option value="quality" ${tokenSort==='quality'?'selected':''}>品質</option><option value="enhance" ${tokenSort==='enhance'?'selected':''}>強化</option><option value="name" ${tokenSort==='name'?'selected':''}>名稱</option></select></label><span class="small">背包 ${state.bag.length} / ${RULES.bagCapacity}</span></div><div class="token-grid token-inventory-list">${list.map(g=>{
-      const h=gearWearer(g.id),description=tokenDescription(g);
-      return gearSlotHTML(g,{className:'token-inventory-row',context:'inventory'});
-    }).join('')||'<p class="empty">尚未取得信物；正常戰鬥有獨立掉落機會。</p>'}</div>`;
+  const tokenDefaults=()=>({name:'',job:'all',quality:'all',locked:'all',worn:'all',plusMin:'',plusMax:'',stat:'',op:'gte',value:'',upper:''});
+  let tokenFilter=tokenDefaults(),tokenSort='quality',tokenDirection='desc',tokenMulti=false,tokenAdvanced=false,tokenSelected=new Set(),tokenReview=null,tokenDetailId=null;
+  const tokenOwned=g=>!!gearWearer(g.id)||!!globalThis.__EMBERWILD_TEAM_EQUIPMENT?.references(g.id).length;
+  const tokenActionable=(g,mode)=>M.isToken(g)&&!g.locked&&!tokenOwned(g)&&(mode!=='sell'||globalThis.__EMBERWILD_CAN_SELL_GEAR?.(g)!==false);
+  const tokenBound=(n,v,lower)=>v===''||Number.isFinite(Number(v))&&(lower?n>=Number(v):n<=Number(v));
+  function tokenNumeric(g){
+    const totals={atk:0,hp:0,def:0,speed:0},flat={flatAttack:'atk',flatHp:'hp',flatDefense:'def',speed:'speed'};
+    for(const e of M.effectsFor(g,GS('equipment.enhance.statPerLevel',.05))){
+      if(e.key==='basicElement')continue;
+      const key=flat[e.key]||(['attackPct','hpPct','defensePct'].includes(e.key)?e.key:[e.key,e.element||'',e.race||'',e.skill??''].join(':'));
+      totals[key]=Number(((totals[key]||0)+e.value).toFixed(6));
+    }
+    return totals;
   }
-  globalThis.setTokenSort=value=>{tokenSort=value;render();};
+  function tokenRows(){
+    const f=tokenFilter,fields=equipmentNumericFields();
+    return state.bag.filter(M.isToken).map((g,index)=>({g,index,stats:tokenNumeric(g)})).filter(({g,stats})=>{
+      const job=g.snapshot.job===undefined||g.snapshot.job==='all'?'common':String(g.snapshot.job);
+      if(f.name&&!g.snapshot.name.includes(f.name)||f.job!=='all'&&job!==f.job||f.quality!=='all'&&g.rar!==Number(f.quality)||f.locked!=='all'&&!!g.locked!==(f.locked==='yes')||f.worn!=='all'&&!!gearWearer(g.id)!==(f.worn==='yes')||!tokenBound(g.plus,f.plusMin,true)||!tokenBound(g.plus,f.plusMax,false))return false;
+      if(f.stat&&f.value!==''&&fields.some(x=>x.key===f.stat)){
+        const n=stats[f.stat],v=Number(f.value),u=Number(f.upper);
+        if(!Number.isFinite(n)||n===0||!Number.isFinite(v))return false;
+        const checks={gt:()=>n>v,gte:()=>n>=v,eq:()=>n===v,lte:()=>n<=v,lt:()=>n<v,range:()=>f.upper!==''&&Number.isFinite(u)&&n>=v&&n<=u};
+        if(!checks[f.op]?.())return false;
+      }
+      return true;
+    }).map(row=>({...row,value:tokenSort==='name'?row.g.snapshot.name:tokenSort==='quality'?row.g.rar:tokenSort==='enhance'?row.g.plus:tokenSort==='price'?equipmentSellPrice(row.g):tokenSort==='acquired'?row.g.acquiredAt??null:row.stats[tokenSort]||null})).sort((a,b)=>{
+      const missingA=a.value==null,missingB=b.value==null;if(missingA!==missingB)return missingA?1:-1;
+      const diff=missingA?0:typeof a.value==='string'?a.value.localeCompare(b.value):a.value-b.value;
+      return (tokenDirection==='asc'?diff:-diff)||(tokenSort==='quality'?b.g.plus-a.g.plus:0)||a.index-b.index;
+    });
+  }
+  const tokenRedraw=()=>{tokenReview=null;render();};
+  globalThis.setTokenFilter=(key,value)=>{if(!Object.hasOwn(tokenFilter,key))return false;tokenFilter[key]=String(value);tokenSelected.clear();tokenRedraw();return true;};
+  globalThis.clearTokenFilters=()=>{tokenFilter=tokenDefaults();tokenSelected.clear();tokenRedraw();};
+  globalThis.setTokenSort=value=>{if(!['quality','enhance','name','acquired','price',...equipmentNumericFields().map(f=>f.key)].includes(value))return false;tokenSort=value;tokenRedraw();return true;};
+  globalThis.toggleTokenDirection=()=>{tokenDirection=tokenDirection==='desc'?'asc':'desc';tokenRedraw();};
+  globalThis.setTokenAdvanced=value=>{tokenAdvanced=!!value;};
+  globalThis.toggleTokenMulti=()=>{tokenMulti=!tokenMulti;tokenSelected.clear();tokenRedraw();};
+  globalThis.toggleTokenSelected=(id,checked)=>{if(!tokenMulti||!tokenActionable(findGear(id))||!tokenRows().some(r=>r.g.id===id))return false;if(checked)tokenSelected.add(id);else tokenSelected.delete(id);tokenRedraw();return true;};
+  globalThis.selectVisibleTokens=()=>{if(!tokenMulti)return;tokenSelected=new Set(tokenRows().map(r=>r.g).filter(g=>tokenActionable(g)).map(g=>g.id));tokenRedraw();};
+  globalThis.clearSelectedTokens=()=>{tokenSelected.clear();tokenRedraw();};
+  function tokenBatchReview(mode){
+    const items=tokenRows().map(r=>r.g).filter(g=>tokenSelected.has(g.id)&&tokenActionable(g,mode)),quote=__EMBERWILD_GEAR_INVENTORY.quote(items,mode),ids=items.map(g=>g.id);
+    return {mode,ids,quote,signature:JSON.stringify([ids,quote])};
+  }
+  globalThis.requestTokenBatch=mode=>{
+    if(!tokenMulti||!['sell','salvage'].includes(mode))return false;
+    tokenReview=tokenBatchReview(mode);if(!tokenReview.ids.length){toast('沒有可操作的選取信物');return false;}
+    const verb=mode==='sell'?'出售':'分解';$('modal').innerHTML=`<h2>確認批次${verb}信物</h2><p>實際${verb} ${tokenReview.quote.count} 件信物</p><p>${esc(tokenReview.quote.text)}</p><p class="small">鎖定、已裝備與隊伍配置使用中的信物會保留。</p><div class="actions"><button class="danger" onclick="confirmTokenBatch()">確認${verb}</button><button onclick="closeModal()">取消</button></div>`;$('modal').showModal();return true;
+  };
+  globalThis.confirmTokenBatch=()=>{
+    if(!tokenReview)return false;
+    const next=tokenBatchReview(tokenReview.mode);
+    if(next.signature!==tokenReview.signature){if(!next.ids.length){tokenReview=null;closeModal();render();toast('信物狀態已變更，沒有可操作信物');return false;}requestTokenBatch(next.mode);toast('信物或產出已變更，請確認更新後的明細');return false;}
+    const ok=__EMBERWILD_TEAM_EQUIPMENT.dispose(next.ids,next.mode,true,{batch:true,reviewed:true});
+    if(ok){tokenSelected.clear();tokenReview=null;closeModal();render();}return ok;
+  };
+  const tokenChoose=(key,label,options)=>`<label>${label}<select aria-label="信物${label}" onchange="setTokenFilter('${key}',this.value)">${options.map(([v,text])=>`<option value="${esc(String(v))}" ${String(v)===tokenFilter[key]?'selected':''}>${esc(text)}</option>`).join('')}</select></label>`;
+  const tokenInput=(key,label,type='number')=>`<label>${label}<input type="${type}" aria-label="信物${label}" value="${esc(tokenFilter[key])}" onchange="setTokenFilter('${key}',this.value)"></label>`;
+  globalThis.selectInventoryToken=id=>{if(!M.isToken(findGear(id)))return false;tokenDetailId=id;tokenRedraw();return true;};
+  function tokenInventoryDetail(g){
+    if(!g)return '<div class="inventory-detail-empty">選擇左側信物查看詳細說明。</div>';
+    const wearer=gearWearer(g.id),targets=party.members.filter(h=>M.canEquip(g,h)&&(!wearer||wearer===h)),can=tokenActionable(g);
+    return `<div class="inventory-detail-pane">${detail(g)}<p class="small">品質：${AFFIX_RANK[g.rar]} · 強化 +${g.plus}${g.locked?' · 已鎖定':''}</p><div class="actions token-detail-actions"><select id="token-detail-owner" aria-label="信物穿戴對象">${targets.map(h=>`<option value="${memberKey(h)}">${esc(characterName(h))}</option>`).join('')}</select><button onclick="equipCompanionToken('${g.id}',Number(document.getElementById('token-detail-owner').value))" ${targets.length&&!wearer?'':'disabled'}>穿戴</button>${wearer?`<button onclick="unequipCompanionToken(${memberKey(wearer)})">卸下</button>`:''}<button onclick="openForge('${g.id}')">強化</button><button onclick="toggleGearLock('${g.id}')">${g.locked?'解除鎖定':'鎖定'}</button><button onclick="sellGear('${g.id}')" ${tokenActionable(g,'sell')?'':'disabled'}>出售 ${equipmentSellPrice(g)} 金幣</button><button class="danger" onclick="salvage('${g.id}')" ${can?'':'disabled'}>分解</button></div>${tokenOwned(g)?'<p class="small">已裝備或隊伍配置使用中的信物不會被批次出售或分解。</p>':''}</div>`;
+  }
+  function tokenInventory(){
+    const rows=tokenRows(),visible=new Set(rows.map(r=>r.g.id)),all=[['all','全部']],fields=equipmentNumericFields();
+    tokenSelected=new Set([...tokenSelected].filter(id=>visible.has(id)&&tokenActionable(findGear(id))));
+    if(!visible.has(tokenDetailId))tokenDetailId=rows[0]?.g.id??null;
+    return heading('COMPANION TOKENS / 共用背包','夥伴信物')+`<section class="panel token-management-panel">${resourceLine()}<div class="gear-management-controls"><div class="gear-basic-filters">${tokenInput('name','名稱','search')}${tokenChoose('job','職業',[...all,['common','通用'],...CLASSES.map((c,i)=>[String(i),c.name])])}${tokenChoose('quality','品質',[...all,...AFFIX_RANK.map((q,i)=>[i,q])])}${tokenChoose('locked','鎖定',[...all,['yes','已鎖定'],['no','未鎖定']])}${tokenChoose('worn','穿戴',[...all,['yes','已裝備'],['no','未裝備']])}${tokenInput('plusMin','強化下限')}${tokenInput('plusMax','強化上限')}<button onclick="clearTokenFilters()">清除篩選</button></div><details ${tokenAdvanced?'open':''} ontoggle="setTokenAdvanced(this.open)"><summary>屬性數值篩選</summary><p class="small">依信物自身數值（含品質與強化），不含角色能力或戰鬥觸發效果。</p><div class="gear-numeric-filters">${tokenChoose('stat','屬性',[['','不限制'],...fields.map(f=>[f.key,f.label])])}${tokenChoose('op','比較',[['gt','大於'],['gte','大於等於'],['eq','等於'],['lte','小於等於'],['lt','小於'],['range','區間（含上下限）']])}${tokenInput('value','數值／下限')}${tokenFilter.op==='range'?tokenInput('upper','數值上限'):''}</div></details><div class="gear-sort-controls"><label>排序<select aria-label="信物排序" onchange="setTokenSort(this.value)">${[['quality','品質'],['enhance','強化'],['name','名稱'],['acquired','取得時間'],['price','出售價格'],...fields.map(f=>[f.key,f.label])].map(([v,text])=>`<option value="${v}" ${tokenSort===v?'selected':''}>${esc(text)}</option>`).join('')}</select></label><button onclick="toggleTokenDirection()">${tokenDirection==='desc'?'高 → 低':'低 → 高'}</button><button onclick="toggleTokenMulti()" aria-pressed="${tokenMulti}">${tokenMulti?'結束多選':'多選信物'}</button><span class="small">顯示 ${rows.length} 件 · 背包 ${state.bag.length} / ${RULES.bagCapacity}</span></div></div>${tokenMulti?`<div class="gear-batch-controls"><b>已選 ${tokenSelected.size} 件</b><button onclick="selectVisibleTokens()">全選目前結果</button><button onclick="clearSelectedTokens()">清除選取</button><button onclick="requestTokenBatch('sell')" ${tokenSelected.size?'':'disabled'}>批次出售</button><button onclick="requestTokenBatch('salvage')" ${tokenSelected.size?'':'disabled'}>批次分解</button></div>`:''}<div class="token-inventory-layout"><section class="token-inventory-master"><div class="token-grid token-inventory-list">${rows.map(({g})=>`<article class="token-management-row" data-token-id="${g.id}">${tokenMulti?`<label class="gear-selection"><input type="checkbox" aria-label="選取 ${esc(equipmentDisplayName(g))}" ${tokenSelected.has(g.id)?'checked':''} ${tokenActionable(g)?'':'disabled'} onchange="toggleTokenSelected('${g.id}',this.checked)"></label>`:''}${gearSlotHTML(g,{className:'token-inventory-row',context:'inventory',selected:tokenDetailId===g.id,onclick:`selectInventoryToken('${g.id}')`})}<button class="gear-lock" onclick="toggleGearLock('${g.id}')" aria-pressed="${!!g.locked}">${g.locked?'已鎖定':'鎖定'}</button></article>`).join('')||'<p class="empty">沒有符合條件的信物。</p>'}</div></section><section class="token-inventory-detail" aria-label="信物詳細說明">${tokenInventoryDetail(rows.find(r=>r.g.id===tokenDetailId)?.g)}</section></div></section>`;
+  }
+  const tokenReset=resetSession;
+  resetSession=function(){const out=tokenReset();tokenFilter=tokenDefaults();tokenSort='quality';tokenDirection='desc';tokenMulti=false;tokenAdvanced=false;tokenSelected.clear();tokenReview=null;tokenDetailId=null;return out;};
+  globalThis.__EMBERWILD_TOKEN_INVENTORY={rows:tokenRows,selection:()=>[...tokenSelected],review:()=>tokenReview};
   const baseTabs=inventoryTabs;
   inventoryTabs=function(){return baseTabs().replace('</div>',`<button onclick="setInventoryCategory('tokens')" class="${inventoryCategory==='tokens'?'primary':''}">信物</button></div>`);};
   const baseCategory=setInventoryCategory;
   setInventoryCategory=function(value){if(value==='tokens'){inventoryCategory=value;render();return;}return baseCategory(value);};
   const baseInventory=equipmentView;
-  equipmentView=function(){return inventoryCategory==='tokens'?inventoryTabs()+`<div class="companion-management-page">${pendingGearLootView()+tokenInventory()}</div>`:baseInventory();};
+  equipmentView=function(){return inventoryCategory==='tokens'?inventoryTabs()+`<div class="companion-management-page">${tokenInventory()}</div>`:baseInventory();};
   const baseWorn=wornEquipmentView;
   wornEquipmentView=function(){pageHeroSelection.set('worn',memberKey(party.members[0]));return `<div class="companion-management-page worn-token-page">${baseWorn()+companionCards()}</div>`;};
   for(const name of ['rosterView','partnerRosterView']){const base=globalThis[name];globalThis[name]=function(){return `<div class="companion-management-page">${base()}</div>`;};}
@@ -15058,7 +15482,7 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;Emberwil
   if(state&&party){syncTokens();for(const h of party.members.filter(companion)){h.equipped=Array(5).fill(null);h.tokenId??=null;withHero(h,clampVitals);}render();}
 })();
 
-__EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_READY;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;companionTokenAbilityText=globalThis.companionTokenAbilityText??companionTokenAbilityText;companionTokenDescription=globalThis.companionTokenDescription??companionTokenDescription;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;createCompanionToken=globalThis.createCompanionToken??createCompanionToken;grantConfiguredToken=globalThis.grantConfiguredToken??grantConfiguredToken;equipCompanionToken=globalThis.equipCompanionToken??equipCompanionToken;unequipCompanionToken=globalThis.unequipCompanionToken??unequipCompanionToken;__EMBERWILD_TOKEN_TEST=globalThis.__EMBERWILD_TOKEN_TEST??__EMBERWILD_TOKEN_TEST;companionTokenJobLabel=globalThis.companionTokenJobLabel??companionTokenJobLabel;showCompanionTokens=globalThis.showCompanionTokens??showCompanionTokens;setTokenSort=globalThis.setTokenSort??setTokenSort;
+__EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_READY;__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;companionTokenAbilityText=globalThis.companionTokenAbilityText??companionTokenAbilityText;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;__EMBERWILD_RESUMING_ROUND=globalThis.__EMBERWILD_RESUMING_ROUND??__EMBERWILD_RESUMING_ROUND;companionTokenDescription=globalThis.companionTokenDescription??companionTokenDescription;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;EmberwildTokenCombatState=globalThis.EmberwildTokenCombatState??EmberwildTokenCombatState;createCompanionToken=globalThis.createCompanionToken??createCompanionToken;grantConfiguredToken=globalThis.grantConfiguredToken??grantConfiguredToken;equipCompanionToken=globalThis.equipCompanionToken??equipCompanionToken;unequipCompanionToken=globalThis.unequipCompanionToken??unequipCompanionToken;__EMBERWILD_TOKEN_TEST=globalThis.__EMBERWILD_TOKEN_TEST??__EMBERWILD_TOKEN_TEST;companionTokenJobLabel=globalThis.companionTokenJobLabel??companionTokenJobLabel;showCompanionTokens=globalThis.showCompanionTokens??showCompanionTokens;setTokenFilter=globalThis.setTokenFilter??setTokenFilter;clearTokenFilters=globalThis.clearTokenFilters??clearTokenFilters;setTokenSort=globalThis.setTokenSort??setTokenSort;toggleTokenDirection=globalThis.toggleTokenDirection??toggleTokenDirection;setTokenAdvanced=globalThis.setTokenAdvanced??setTokenAdvanced;toggleTokenMulti=globalThis.toggleTokenMulti??toggleTokenMulti;toggleTokenSelected=globalThis.toggleTokenSelected??toggleTokenSelected;selectVisibleTokens=globalThis.selectVisibleTokens??selectVisibleTokens;clearSelectedTokens=globalThis.clearSelectedTokens??clearSelectedTokens;requestTokenBatch=globalThis.requestTokenBatch??requestTokenBatch;confirmTokenBatch=globalThis.confirmTokenBatch??confirmTokenBatch;selectInventoryToken=globalThis.selectInventoryToken??selectInventoryToken;__EMBERWILD_TOKEN_INVENTORY=globalThis.__EMBERWILD_TOKEN_INVENTORY??__EMBERWILD_TOKEN_INVENTORY;
 
 /* js/character/team-runtime.js?v=20261019-token-jobs1 */
 /* Last adapter in the production load order. Existing actors remain the combat
@@ -15082,7 +15506,7 @@ __EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_RE
   globalThis.__EMBERWILD_TEAM_MASTERY=masteryView;
   globalThis.__EMBERWILD_TEAM_GAIN=(h,n)=>{if(h!==player()||!build()||plan()?.job===null)return;const c=build().permanent.classes[h.job];if(c?.activated)c.xp+=n;refreshUnlocks();};
   function snapshot(p){
-    const h=player();p.stats=copy(h.stats);p.skills=copy(h.skills);p.supportLevels=copy(h.supportLevels);p.active=copy(h.active);p.procSlots=copy(h.procSlots);p.supportSlots=copy(h.supportSlots);p.equipped=copy(h.equipped);
+    const h=player();p.stats=copy(h.stats);p.skills=copy(h.skills);p.supportLevels=copy(h.supportLevels);p.active=copy(h.active);p.procSlots=copy(h.procSlots);p.supportSlots=copy(h.supportSlots);p.equipped=copy(h.equipped);if(h.skillLoadout)p.skillLoadout=copy(h.skillLoadout);p.activeSkillEquipmentId=h.activeSkillEquipmentId??null;
     p.playerActive=party.active.includes(memberKey(h));p.companions=party.active.filter(k=>k!==memberKey(h));p.enlisted=(party.enlisted||party.members.map(memberKey)).filter(k=>k!==memberKey(h));
     p.tokens=Object.fromEntries(party.members.slice(1).map(h=>[memberKey(h),h.tokenId??null]));
     p.sockets??=Array(h.skills.length).fill(null);
@@ -15112,7 +15536,7 @@ __EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_RE
     for(const field of ['stats','skills','supportLevels','active','procSlots','supportSlots','equipped'])h[field]=copy(p[field]);
     if(p.job===null){h.skills=Array(CLASSES[0].skills.length).fill(0);h.supportLevels=SUPPORT[0].map(()=>0);}
     h.sockets=p.job===null?h.skills.map(()=>null):p.sockets.map(id=>id===null?null:build().permanent.gemInstances[id]);
-    h.mastery=masteryView(h);party.active=[...(p.playerActive?[memberKey(h)]:[]),...p.companions];party.enlisted=[memberKey(h),...p.enlisted];party.selected=memberKey(h);state=h;
+    h.skillLoadout=p.skillLoadout?copy(p.skillLoadout):undefined;h.activeSkillEquipmentId=p.activeSkillEquipmentId??null;globalThis.__EMBERWILD_SKILLS?.refreshHero(h);h.mastery=masteryView(h);party.active=[...(p.playerActive?[memberKey(h)]:[]),...p.companions];party.enlisted=[memberKey(h),...p.enlisted];party.selected=memberKey(h);state=h;
     for(const x of party.members.slice(1)){const key=memberKey(x),id=p.tokens[key]??null;x.tokenId=id&&EmberwildTokens.canEquip(findGear(id),x)?id:null;p.tokens[key]=x.tokenId;}
     pageHeroSelection.clear();forgeSelection=null;pendingAffix=null;
     for(const x of party.members){x.hp=Math.min(hp.get(memberKey(x))??0,stats(x).hp);if(x.hp<=0)x.hp=0;}
@@ -15172,10 +15596,10 @@ __EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_RE
   const learnBase=learn,supportBase=learnSupport;
   learn=function(i){return state===player()?learnTeam('core',i):learnBase(i);};learnSupport=function(i){return state===player()?learnTeam('support',i):supportBase(i);};
   globalThis.unlockTeamSkill=function(kind,i){if(!safe()||!['core','support'].includes(kind)||plan().job===null)return false;const j=plan().job,k=M.key(j,kind,i);if(build().permanent.unlocks[k])return true;const missing=unlockMissing(j,kind,i);if(missing.length){toast('尚未達成：'+missing.join('、'));return false;}return transaction(()=>{const r=kind==='core'?coreRule(j,i):supportRule(j,i);for(const m of r.unlockConditions.materials)setMaterialCount(m.name,materialCount(m.name)-m.quantity);build().permanent.unlocks[k]=true;if(r.unlockConditions.materials.length)build().permanent.payments[k]=true;});};
-  const socketBase=socket;socket=function(i,value){if(state!==player())return socketBase(i,value);if(!safe()||plan().job===null||!Number.isInteger(i)||!player().skills[i])return false;const type=Number(value),p=plan();if(!Number.isInteger(type)||type< -1||type>2)return false;if(type>=0&&player().gems[type]<1)return false;return transaction(()=>{const old=p.sockets[i];p.sockets[i]=null;if(old&&!build().plans.some(other=>other.sockets.includes(old))){player().gems[build().permanent.gemInstances[old]]++;delete build().permanent.gemInstances[old];}if(type>=0){const id='gem-'+build().permanent.gemSerial++;build().permanent.gemInstances[id]=type;player().gems[type]--;p.sockets[i]=id;}player().sockets=p.sockets.map(id=>id?build().permanent.gemInstances[id]:null);});};
+  const socketBase=socket;socket=function(i,value){if(state!==player())return socketBase(i,value);if(!safe()||plan().job===null||!Number.isInteger(i)||!player().skills[i])return false;const type=Number(value),p=plan();if(!Number.isInteger(type)||type< -1||type>=GEMS.length||type>=0&&!gemCompatible(type,player().job,i))return false;if(type>=0&&player().gems[type]<1)return false;return transaction(()=>{const old=p.sockets[i];p.sockets[i]=null;if(old&&!build().plans.some(other=>other.sockets.includes(old))){player().gems[build().permanent.gemInstances[old]]++;delete build().permanent.gemInstances[old];}if(type>=0){const id='gem-'+build().permanent.gemSerial++;build().permanent.gemInstances[id]=type;player().gems[type]--;p.sockets[i]=id;}player().sockets=p.sockets.map(id=>id?build().permanent.gemInstances[id]:null);});};
   const baseSave=save;save=function(...args){if(suppressSave)return true;if(party&&!hydrating)capture();return baseSave(...args);};
   const basePack=packParty;packParty=function(){capture();const out=basePack();out.buildSystem=copy(build());return out;};
-  function validateBuild(data,p){return M.validate(data,{classes:classDocs(),supports:SUPPORT,members:p.members,items:p.members.flatMap(h=>h.bag),progression:GAMEPLAY_SETTINGS.progression,level:p.members[0].lv,config:cfg,wearable:(g,j,i)=>!EmberwildTokens.isToken(g)&&gearWearableJobs(g).includes(j)&&gearEquipPositions(g).includes(i)&&gearRequiredLevelByTier(g.tier)<=p.members[0].lv});}
+  function validateBuild(data,p){return M.validate(data,{classes:classDocs(),supports:SUPPORT,members:p.members,items:p.members.flatMap(h=>h.bag),progression:GAMEPLAY_SETTINGS.progression,level:p.members[0].lv,config:cfg,wearable:(g,j,i)=>!EmberwildTokens.isToken(g)&&gearWearableJobs(g).includes(j)&&gearEquipPositions(g).includes(i)&&gearRequiredLevel(g)<=p.members[0].lv});}
   const baseValidate=validateParty;validateParty=function(input){const d=M.prepareSave(input),p=baseValidate(d);if(d.buildSystem!==undefined)p.buildSystem=validateBuild(d.buildSystem,p);return p;};
   const baseLoad=loadParty;loadParty=function(input){
     const d=M.prepareSave(input);validateParty(d);hydrating=true;try{baseLoad(d);if(d.buildSystem)party.buildSystem=validateBuild(d.buildSystem,party);else delete party.buildSystem;}finally{hydrating=false;}
@@ -15202,6 +15626,9 @@ __EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_RE
     catch(e){throw Error('平衡設定不相容於已保存的隊伍：'+e.message+'。請先調整配置；原設定保留。');}
   }
   const balanceBase=applyBalanceConfig;
+  // Re-enter the final adapters without staging a build or committing another save.
+  function restoreRules(doc){const previous=resettingBalance;resettingBalance=true;try{applyBalanceConfig(doc,{persist:false});}finally{resettingBalance=previous;}}
+  function rollbackDocument(){const doc=exportableBalance();return globalThis.EmberwildInventoryIcons?.migrateDescriptions?.(doc,{hydrate:true})||doc;}
   applyBalanceConfig=function(input,{persist=true}={}){
     if(party&&!safe())return false;
     const d=validateBalanceConfig(input);
@@ -15209,14 +15636,15 @@ __EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_RE
     // Validate the completed reset once the full existing reset chain returns.
     if(resettingBalance){balanceBase(d,{persist:false});applyRules(d);return d;}
     capture();
-    const next=stageBalanceBuild(d),before=exportableBalance(),previousBuild=build()?copy(build()):null,previousCache=localStorage.getItem(BALANCE_KEY),previousSuppress=suppressSave;
+    // Inner importers need descriptions hydrated from the exported icon catalogue.
+    const next=stageBalanceBuild(d),before=rollbackDocument(),previousBuild=build()?copy(build()):null,previousCache=localStorage.getItem(BALANCE_KEY),previousSuppress=suppressSave;
     const previousMarket=party?.market===undefined?undefined:copy(party.market);
     const battle=party?{heroes:party.members.map(h=>({hp:h.hp,shield:h.shield,potion:h.healPotionCooldownRemaining||0})),actors:copy(actorCooldowns),supports:copy(supportCooldowns),clock:partyClock}:null;
     try{
       suppressSave=true;balanceBase(d,{persist:false});applyRules(d);
       if(next){
         party.buildSystem=next;
-        for(const p of next.plans)if(p.job!==null)p.equipped=p.equipped.map((id,i)=>{const g=findGear(id);return g&&gearWearableJobs(g).includes(p.job)&&gearEquipPositions(g).includes(i)&&gearRequiredLevelByTier(g.tier)<=player().lv?id:null;});
+        for(const p of next.plans)if(p.job!==null)p.equipped=p.equipped.map((id,i)=>{const g=findGear(id);return g&&gearWearableJobs(g).includes(p.job)&&gearEquipPositions(g).includes(i)&&gearRequiredLevel(g)<=player().lv?id:null;});
         apply(plan());capture();resetBattleState();
       }
       if(persist)localStorage.setItem(BALANCE_KEY,JSON.stringify(exportableBalance()));
@@ -15225,7 +15653,7 @@ __EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_RE
     }catch(e){
       suppressSave=true;
       try{
-        balanceBase(before,{persist:false});applyRules(before);
+        restoreRules(before);
         if(previousBuild){party.buildSystem=previousBuild;apply(plan());}
         if(party){if(previousMarket===undefined)delete party.market;else party.market=previousMarket;}
         if(battle){party.members.forEach((h,i)=>{h.hp=battle.heroes[i].hp;h.shield=battle.heroes[i].shield;h.healPotionCooldownRemaining=battle.heroes[i].potion;});actorCooldowns=battle.actors;supportCooldowns=battle.supports;partyClock=battle.clock;}
@@ -15238,7 +15666,7 @@ __EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_RE
   const resetBalanceBase=resetBalanceJSON;
   resetBalanceJSON=function(publishedDefaults){
     if(party&&!safe())return false;capture();
-    const before=exportableBalance(),oldBuild=build()?copy(build()):null,cache=localStorage.getItem(BALANCE_KEY),previousSuppress=suppressSave;
+    const before=rollbackDocument(),oldBuild=build()?copy(build()):null,cache=localStorage.getItem(BALANCE_KEY),previousSuppress=suppressSave;
     const previousMarket=party?.market===undefined?undefined:copy(party.market);
     const vitals=party?.members.map(h=>({hp:h.hp,shield:h.shield,potion:h.healPotionCooldownRemaining||0})),actors=copy(actorCooldowns),supports=copy(supportCooldowns),clock=partyClock;
     try{
@@ -15248,7 +15676,7 @@ __EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_RE
     }catch(e){
       resettingBalance=false;suppressSave=true;
       try{
-        balanceBase(before,{persist:false});applyRules(before);if(oldBuild){party.buildSystem=oldBuild;apply(plan());}
+        restoreRules(before);if(oldBuild){party.buildSystem=oldBuild;apply(plan());}
         if(party){if(previousMarket===undefined)delete party.market;else party.market=previousMarket;}
         if(vitals){party.members.forEach((h,i)=>{h.hp=vitals[i].hp;h.shield=vitals[i].shield;h.healPotionCooldownRemaining=vitals[i].potion;});actorCooldowns=actors;supportCooldowns=supports;partyClock=clock;}
         if(cache===null)localStorage.removeItem(BALANCE_KEY);else localStorage.setItem(BALANCE_KEY,cache);
@@ -15281,15 +15709,15 @@ __EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_RE
   }catch(e){globalThis.__EMBERWILD_TEAM_READY=true;globalThis.__EMBERWILD_BOOT_SAVE_ERROR=e.message;console.warn('隊伍方案載入失敗；原始存檔保留',e);if(boot){state=null;party=null;globalThis.__EMBERWILD_BOOT_SAVE_RAW=boot;}render();}
 })();
 
-__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;changePlayerClass=globalThis.changePlayerClass??changePlayerClass;addTeamPlan=globalThis.addTeamPlan??addTeamPlan;copyTeamPlan=globalThis.copyTeamPlan??copyTeamPlan;renameTeamPlan=globalThis.renameTeamPlan??renameTeamPlan;switchTeamPlan=globalThis.switchTeamPlan??switchTeamPlan;clearTeamPlan=globalThis.clearTeamPlan??clearTeamPlan;deleteTeamPlan=globalThis.deleteTeamPlan??deleteTeamPlan;resetSkills=globalThis.resetSkills??resetSkills;unlockTeamSkill=globalThis.unlockTeamSkill??unlockTeamSkill;stopTeamExploration=globalThis.stopTeamExploration??stopTeamExploration;
+EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;changePlayerClass=globalThis.changePlayerClass??changePlayerClass;addTeamPlan=globalThis.addTeamPlan??addTeamPlan;copyTeamPlan=globalThis.copyTeamPlan??copyTeamPlan;renameTeamPlan=globalThis.renameTeamPlan??renameTeamPlan;switchTeamPlan=globalThis.switchTeamPlan??switchTeamPlan;clearTeamPlan=globalThis.clearTeamPlan??clearTeamPlan;deleteTeamPlan=globalThis.deleteTeamPlan??deleteTeamPlan;resetSkills=globalThis.resetSkills??resetSkills;unlockTeamSkill=globalThis.unlockTeamSkill??unlockTeamSkill;stopTeamExploration=globalThis.stopTeamExploration??stopTeamExploration;
 
 /* js/equipment/team-references.js?v=20261019-daily-speed2 */
 /* All manual disposal paths share the existing prices/reward functions and the
-   same reference audit. Automatic overflow handles only newly dropped items. */
+   same reference audit. Battle overflow stays in the bag and pauses exploration. */
 (()=>{
   const T=__EMBERWILD_TEAMS,M=EmberwildTeams,copy=M.copy;
   const disposable=g=>g&&!g.locked&&!inlineAffixDrafts.has(affixDraftKey(g));
-  const quickDisposable=g=>disposable(g)&&[0,1].includes(gearQualityRank(g))&&!MToken(g)&&!gearWearer(g.id)&&!M.references(T.build(),g.id).length&&!(g.plus>0)&&!g.rerolled&&g.boss===undefined;
+
 
   // Each encounter keeps the equipment values it started with. Players may
   // strengthen/reroll during combat, but those live item changes are projected
@@ -15320,16 +15748,17 @@ __EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM
   const spawnGroupBase=spawnGroup;
   spawnGroup=function(...args){captureBattleEquipment();return spawnGroupBase(...args);};
 
-  function dispose(ids,mode,includeEnhance=true,quick=false){
+  function dispose(ids,mode,includeEnhance=true,options={}){
     if(!party)return false;
     ensureBoard();T.capture();
-    let items=[...new Set(ids)].map(findGear).filter(quick?quickDisposable:disposable);if(!items.length)return false;
+    let items=[...new Set(ids)].map(findGear).filter(g=>disposable(g)&&(mode!=='sell'||globalThis.__EMBERWILD_CAN_SELL_GEAR?.(g)!==false)&&(!options.batch||!gearWearer(g.id)&&!M.references(T.build(),g.id).length));if(!items.length)return false;
     const verb=mode==='sell'?'販售':'分解',activeIds=currentBattleGearIds(),blocked=items.filter(g=>activeIds.has(g.id));
     items=items.filter(g=>!activeIds.has(g.id));
     if(!items.length){toast('目前戰鬥隊伍正在使用的裝備無法'+verb);return false;}
     const refs=new Map();for(const g of items)for(const p of M.references(T.build(),g.id))refs.set(p.id,p.name);
     if(refs.size&&!confirm(`此${items.length>1?'批裝備':'裝備'}正在其他隊伍或目前未出戰的配置中使用：${[...refs.values()].join('、')}。\n目前戰鬥隊伍使用中的裝備不會被處理；若繼續${verb}，相關裝備／信物欄位會清空且不自動補裝。確定繼續？`))return false;
-    if(!quick&&!refs.size&&(items.length>1||items.some(g=>g.boss!==undefined))&&!confirm(`確定${verb} ${items.length} 件裝備？物品實體將失去，無法復原。`))return false;
+    if(!options.reviewed&&!refs.size&&(items.length>1||items.some(g=>g.boss!==undefined))&&!confirm(`確定${verb} ${items.length} 件裝備？物品實體將失去，無法復原。`))return false;
+    if(mode==='sell'&&state.gold+items.reduce((n,g)=>n+equipmentSellPrice(g),0)>1e12){toast('金幣已達上限，裝備已保留');return false;}
     const b=copy(T.build()),bag=state.bag,selected=party.selected,hp=party.members.map(h=>h.hp),memberGear=party.members.map(x=>({equipped:copy(x.equipped),tokenId:x.tokenId})),h=T.player(),resource={};
     for(const k of ['gold','ore','dust','gems','materials','potions','consumables'])resource[k]=copy(h[k]);
     const healingPotions=copy(healingInventory()),oldBoard=copy(h.board);
@@ -15337,24 +15766,19 @@ __EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM
     try{
       M.clearReferences(T.build(),[...removed]);
       for(const x of party.members){x.equipped=x.equipped.map(id=>removed.has(id)?null:id);if(removed.has(x.tokenId))x.tokenId=null;}
-      let total=0;for(const g of items){if(mode==='sell'){const price=equipmentSellPrice(g);h.gold+=price;total+=price;}else grantSalvageRewards(g,includeEnhance);}
+      let total=0;for(const g of items){globalThis.__EMBERWILD_EQUIPMENT_SKILLS?.refund(g,h);if(mode==='sell'){const price=equipmentSellPrice(g);h.gold+=price;total+=price;}else grantSalvageRewards(g,includeEnhance);}
       state.bag=bag.filter(g=>!removed.has(g.id));if(mode==='salvage')globalThis.recordDailyProgress?.('salvage','',items.length);
       for(const x of party.members)x.hp=Math.min(x.hp,stats(x).hp);
       if(save()===false)throw Error('儲存失敗');pruneGearSelections();render();toast(`已${verb} ${items.length} 件装備${mode==='sell'?'，獲得 '+total+' 金幣':''}${blocked.length?'；略過 '+blocked.length+' 件目前戰鬥隊伍裝備':''}`);return true;
     }catch(e){h.board=oldBoard;party.buildSystem=b;state.bag=bag;for(const k of Object.keys(resource))h[k]=resource[k];const inv=healingInventory();for(const k of Object.keys(inv))delete inv[k];Object.assign(inv,healingPotions);party.selected=selected;state=partyMember(selected)||h;party.members.forEach((x,i)=>{x.equipped=copy(memberGear[i].equipped);x.tokenId=memberGear[i].tokenId;x.hp=hp[i];});toast('操作未保存：'+e.message);return false;}
   }
   salvage=id=>dispose([id],'salvage');globalThis.sellGear=id=>dispose([id],'sell');
-  globalThis.sellAllGearByQuality=q=>Number.isInteger(q)&&q>=0&&q<=3&&dispose(state.bag.filter(g=>gearQualityRank(g)===q).map(g=>g.id),'sell');
-  salvageAll=()=>dispose(state.bag.filter(g=>!MToken(g)&&gearQualityRank(g)===0&&(g.plus||0)===0&&!g.affix.length&&g.boss===undefined).map(g=>g.id),'salvage',false);
+  globalThis.sellAllGearByQuality=q=>Number.isInteger(q)&&q>=0&&q<=3&&dispose(state.bag.filter(g=>gearQualityRank(g)===q).map(g=>g.id),'sell',true,{batch:true});
+  salvageAll=()=>dispose(state.bag.filter(g=>!MToken(g)&&gearQualityRank(g)===0&&(g.plus||0)===0&&!g.affix.length&&g.boss===undefined).map(g=>g.id),'salvage',false,{batch:true});
   const MToken=g=>EmberwildTokens.isToken(g);
-  globalThis.quickDisposeJournalGear=function(q,mode){
-    if(!party||![0,1].includes(q)||!['salvage','sell'].includes(mode)||typeof globalThis.quickDisposePendingQuality!=='function')return false;
-    const ok=globalThis.quickDisposePendingQuality(q,mode);
-    if(!ok)toast('沒有可快速整理的'+AFFIX_RANK[q]+'待領取裝備，或操作未保存');return ok;
-  };
-  massSalvageTargets=ids=>{const active=currentBattleGearIds();return state.bag.filter(g=>ids.includes(g.id)&&disposable(g)&&!active.has(g.id));};
-  requestMassSalvage=q=>Number.isInteger(q)&&q>=0&&q<=3&&dispose(state.bag.filter(g=>!MToken(g)&&gearQualityRank(g)===q).map(g=>g.id),'salvage');
-  confirmMassSalvage=()=>{if(!massSalvageIds)return false;const ok=dispose(massSalvageIds,'salvage');if(ok){massSalvageIds=null;closeModal();}return ok;};
+  massSalvageTargets=ids=>{const active=currentBattleGearIds();return state.bag.filter(g=>ids.includes(g.id)&&disposable(g)&&!gearWearer(g.id)&&!M.references(T.build(),g.id).length&&!active.has(g.id));};
+  requestMassSalvage=q=>Number.isInteger(q)&&q>=0&&q<=3&&dispose(state.bag.filter(g=>!MToken(g)&&gearQualityRank(g)===q).map(g=>g.id),'salvage',true,{batch:true});
+  confirmMassSalvage=()=>{if(!massSalvageIds)return false;const ok=dispose(massSalvageIds,'salvage',true,{batch:true});if(ok){massSalvageIds=null;closeModal();}return ok;};
 
   // Enhancing or accepting new affixes on an item used by the current encounter
   // is allowed. The encounter snapshot above keeps its old combat values until
@@ -15394,7 +15818,7 @@ __EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM
   globalThis.__EMBERWILD_TEAM_EQUIPMENT={dispose,references:id=>M.references(T.build(),id),currentBattleGearIds,withLiveEquipment};
 })();
 
-__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;sellGear=globalThis.sellGear??sellGear;sellAllGearByQuality=globalThis.sellAllGearByQuality??sellAllGearByQuality;recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;quickDisposePendingQuality=globalThis.quickDisposePendingQuality??quickDisposePendingQuality;quickDisposeJournalGear=globalThis.quickDisposeJournalGear??quickDisposeJournalGear;
+__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;sellGear=globalThis.sellGear??sellGear;sellAllGearByQuality=globalThis.sellAllGearByQuality??sellAllGearByQuality;recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;
 
 /* js/ui/team-builds.js?v=20261013-team-actions1 */
 (()=>{
@@ -15493,7 +15917,7 @@ __EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TE
   if(party)render();
 })();
 
-__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_MASTERY_UI=globalThis.__EMBERWILD_MASTERY_UI??__EMBERWILD_MASTERY_UI;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;inventoryGemIcon=globalThis.inventoryGemIcon??inventoryGemIcon;browsePlayerSkillClass=globalThis.browsePlayerSkillClass??browsePlayerSkillClass;selectTeamSkill=globalThis.selectTeamSkill??selectTeamSkill;
+__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_MASTERY_UI=globalThis.__EMBERWILD_MASTERY_UI??__EMBERWILD_MASTERY_UI;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;inventoryGemIcon=globalThis.inventoryGemIcon??inventoryGemIcon;browsePlayerSkillClass=globalThis.browsePlayerSkillClass??browsePlayerSkillClass;selectTeamSkill=globalThis.selectTeamSkill??selectTeamSkill;
 
 /* js/equipment/boss-crafting.js */
 /* Boss recipes belong to equipment classes, independent of recruited actors. */
@@ -15671,7 +16095,15 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
   globalThis.setLifeStockSort=value=>{if(!['default','name','quantity','price'].includes(value))return;stockSort=value;render();};
   globalThis.setLifeStockOpen=open=>{stockOpen=!!open;};
   const products=()=>Object.keys(design.materialBuyPrices||{}).map(name=>({name,description:globalThis.lifeMaterialDescription(name)}));
-  let RECIPES=design.recipes;
+  // Alchemy tier synthesis shares the existing processing lane, stock and save rules.
+  // No variant rolls: 5 × tier I → tier II; 10 × tier II → tier III.
+  const gemRecipes=()=>Object.fromEntries(GEMS.filter(g=>g.tier<3).map(g=>{
+    const id=GEMS.indexOf(g),amount=g.tier===1?5:10,output=id+GEM_KINDS;
+    return ['gem_'+id,{name:g.name+' ×'+amount+' → '+GEMS[output].name,
+      inputs:[[String(id),amount,'gem']],output:String(output),outputType:'gem',
+      periodMs:5000,chance:1,quantity:1}];
+  }));
+  let RECIPES={...design.recipes,...gemRecipes()};
   let owner=null,gather=null,work=null,lastTick=Date.now();
   const copy=v=>JSON.parse(JSON.stringify(v));
   const count=name=>ready()?materialCount(name):0;
@@ -15682,10 +16114,10 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
   }
   const stock=globalThis.__EMBERWILD_INVENTORY_STOCK;
   const itemFor=(key,type)=>type==='item'?stock.item(key):null;
-  const stockCount=(key,type='material')=>type==='item'?stock.count(key):count(key);
-  function setStock(key,type,n){if(type==='item')return stock.set(key,n);setMaterialCount(key,n);return true;}
-  const productName=r=>globalThis.__EMBERWILD_ITEM_NAME?.(r.outputType,r.output,itemFor(r.output,r.outputType)?.name||r.output)||itemFor(r.output,r.outputType)?.name||r.output;
-  const inputName=([key,n,type='material'])=>globalThis.__EMBERWILD_ITEM_NAME?.(type,key,itemFor(key,type)?.name||key)||itemFor(key,type)?.name||key;
+  const stockCount=(key,type='material')=>type==='gem'?(playerHero()?.gems[Number(key)]||0):type==='item'?stock.count(key):count(key);
+  function setStock(key,type,n){if(type==='gem'){const id=Number(key);if(!Number.isInteger(id)||id<0||id>=GEMS.length||!Number.isSafeInteger(n)||n<0||n>LIMIT)return false;(globalThis.__DEBUG_GEM_ALCHEMY??=[]).push({key,type,n,before:playerHero().gems[id],at:Date.now()});playerHero().gems[id]=n;return true;}if(type==='item')return stock.set(key,n);setMaterialCount(key,n);return true;}
+  const productName=r=>r.outputType==='gem'?GEMS[Number(r.output)]?.name:globalThis.__EMBERWILD_ITEM_NAME?.(r.outputType,r.output,itemFor(r.output,r.outputType)?.name||r.output)||itemFor(r.output,r.outputType)?.name||r.output;
+  const inputName=([key,n,type='material'])=>type==='gem'?GEMS[Number(key)]?.name:globalThis.__EMBERWILD_ITEM_NAME?.(type,key,itemFor(key,type)?.name||key)||itemFor(key,type)?.name||key;
   const productIcon=r=>itemFor(r.output,r.outputType)?inventoryItemIcon(itemFor(r.output,r.outputType)):inventoryMaterialIcon(r.output);
   const outputCount=r=>stockCount(r.output,r.outputType);
   const succeeds=chance=>chance===1||chance>0&&Math.random()<chance;
@@ -15748,7 +16180,7 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
     if(!ready())return;
     const now=Date.now(),elapsed=Math.max(0,now-lastTick);lastTick=now;
     if(!gather&&!work)return;
-    const h=playerHero(),before={gold:h.gold,progressStats:party.progressStats?copy(party.progressStats):null,ore:h.ore,dust:h.dust,materials:{...h.materials},potions:{...healingInventory()},consumables:{...h.consumables}};
+    const h=playerHero(),before={gold:h.gold,progressStats:party.progressStats?copy(party.progressStats):null,ore:h.ore,dust:h.dust,materials:{...h.materials},potions:{...healingInventory()},consumables:{...h.consumables},gems:[...h.gems]};
     let changed=false,message='';
     if(gather){
       const target=GATHER_TARGETS.find(target=>target.id===gather.target);
@@ -15775,7 +16207,7 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
       }
     }
     if(changed&&save()!==true){
-      h.gold=before.gold;if(before.progressStats)party.progressStats=before.progressStats;h.ore=before.ore;h.dust=before.dust;h.materials=before.materials;h.healingPotions=before.potions;h.consumables=before.consumables;
+      h.gold=before.gold;if(before.progressStats)party.progressStats=before.progressStats;h.ore=before.ore;h.dust=before.dust;h.materials=before.materials;h.healingPotions=before.potions;h.consumables=before.consumables;h.gems=before.gems;
       gather=null;work=null;message='生活技能產物未能儲存，已回復庫存並停止動作';
     }
     if(message)toast(message);
@@ -15821,17 +16253,18 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
     const section=`<section class="shop-section life-shop-section"><div class="shop-section-head"><h2>生活技能材料</h2><span class="small">存入全隊共用材料庫。</span></div><div class="shop-product-grid">${productRows}</div></section>`;
     return section;
   };
+  globalThis.emberwildLifeHeartbeat=tickLifeSkills;
   const baseTick=tick;tick=function(...args){tickLifeSkills();return baseTick(...args);};
   const baseLoad=loadParty;loadParty=function(...args){const result=baseLoad(...args);resetJobs();return result;};
   const baseStart=start;start=function(...args){const result=baseStart(...args);resetJobs();return result;};
   const baseReturn=returnToTitle;globalThis.returnToTitle=function(...args){tickLifeSkills();resetJobs();return baseReturn(...args);};
-  const balanceBase=applyBalanceConfig;applyBalanceConfig=function(input,options={}){const result=balanceBase(input,options);if(input.lifeSkills){design=M.normalizeLife(input.lifeSkills,SHOP);GATHER_TARGETS=design.gathering;RECIPES=design.recipes;resetJobs();}return result;};
+  const balanceBase=applyBalanceConfig;applyBalanceConfig=function(input,options={}){const result=balanceBase(input,options);if(input.lifeSkills){design=M.normalizeLife(input.lifeSkills,SHOP);GATHER_TARGETS=design.gathering;RECIPES={...design.recipes,...gemRecipes()};resetJobs();}return result;};
   globalThis.__EMBERWILD_LIFE_SKILLS={get jobs(){return copy({gather,work});},get period(){return GATHER_TARGETS[0]?.periodMs||5000;},get bugChance(){return GATHER_TARGETS[0]?.bonusDrops?.[0]?.chance||0;},get design(){return copy(design);}};
   resetJobs();
   if(state)render();
 })();
 
-lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThis.gatheringView??gatheringView;alchemyView=globalThis.alchemyView??alchemyView;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;lifeMaterialPurchasePrice=globalThis.lifeMaterialPurchasePrice??lifeMaterialPurchasePrice;returnToTitle=globalThis.returnToTitle??returnToTitle;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;lifeShopMaterialsView=globalThis.lifeShopMaterialsView??lifeShopMaterialsView;lifeMaterialDescription=globalThis.lifeMaterialDescription??lifeMaterialDescription;setLifeStockFilter=globalThis.setLifeStockFilter??setLifeStockFilter;setLifeStockSort=globalThis.setLifeStockSort??setLifeStockSort;setLifeStockOpen=globalThis.setLifeStockOpen??setLifeStockOpen;hasShopVIP=globalThis.hasShopVIP??hasShopVIP;buyLifeMaterial=globalThis.buyLifeMaterial??buyLifeMaterial;selectLifeGatheringTarget=globalThis.selectLifeGatheringTarget??selectLifeGatheringTarget;startLifeGathering=globalThis.startLifeGathering??startLifeGathering;stopLifeGathering=globalThis.stopLifeGathering??stopLifeGathering;startLifeWork=globalThis.startLifeWork??startLifeWork;stopLifeWork=globalThis.stopLifeWork??stopLifeWork;recordLifeProgress=globalThis.recordLifeProgress??recordLifeProgress;recordStoryAcquisition=globalThis.recordStoryAcquisition??recordStoryAcquisition;recordGatheredItem=globalThis.recordGatheredItem??recordGatheredItem;tickLifeSkills=globalThis.tickLifeSkills??tickLifeSkills;alchemyVIPView=globalThis.alchemyVIPView??alchemyVIPView;__EMBERWILD_LIFE_SKILLS=globalThis.__EMBERWILD_LIFE_SKILLS??__EMBERWILD_LIFE_SKILLS;
+lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThis.gatheringView??gatheringView;alchemyView=globalThis.alchemyView??alchemyView;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;lifeMaterialPurchasePrice=globalThis.lifeMaterialPurchasePrice??lifeMaterialPurchasePrice;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;returnToTitle=globalThis.returnToTitle??returnToTitle;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;lifeShopMaterialsView=globalThis.lifeShopMaterialsView??lifeShopMaterialsView;lifeMaterialDescription=globalThis.lifeMaterialDescription??lifeMaterialDescription;setLifeStockFilter=globalThis.setLifeStockFilter??setLifeStockFilter;setLifeStockSort=globalThis.setLifeStockSort??setLifeStockSort;setLifeStockOpen=globalThis.setLifeStockOpen??setLifeStockOpen;__DEBUG_GEM_ALCHEMY=globalThis.__DEBUG_GEM_ALCHEMY??__DEBUG_GEM_ALCHEMY;hasShopVIP=globalThis.hasShopVIP??hasShopVIP;buyLifeMaterial=globalThis.buyLifeMaterial??buyLifeMaterial;selectLifeGatheringTarget=globalThis.selectLifeGatheringTarget??selectLifeGatheringTarget;startLifeGathering=globalThis.startLifeGathering??startLifeGathering;stopLifeGathering=globalThis.stopLifeGathering??stopLifeGathering;startLifeWork=globalThis.startLifeWork??startLifeWork;stopLifeWork=globalThis.stopLifeWork??stopLifeWork;recordLifeProgress=globalThis.recordLifeProgress??recordLifeProgress;recordStoryAcquisition=globalThis.recordStoryAcquisition??recordStoryAcquisition;recordGatheredItem=globalThis.recordGatheredItem??recordGatheredItem;tickLifeSkills=globalThis.tickLifeSkills??tickLifeSkills;alchemyVIPView=globalThis.alchemyVIPView??alchemyVIPView;emberwildLifeHeartbeat=globalThis.emberwildLifeHeartbeat??emberwildLifeHeartbeat;__EMBERWILD_LIFE_SKILLS=globalThis.__EMBERWILD_LIFE_SKILLS??__EMBERWILD_LIFE_SKILLS;
 
 /* js/character/companion-unlocks.js?v=20261014-descriptions1 */
 /* Catalog rules are global; achievements, tickets and unlocks belong to one player save. */
@@ -16048,7 +16481,7 @@ achievementsView=globalThis.achievementsView??achievementsView;mailboxView=globa
 
 __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;
 
-/* js/world/daily-commissions.js?v=20261019-daily-speed2 */
+/* js/world/daily-commissions.js?v=20261021-new-label1 */
 /* Account quests: five immutable daily choices at Taipei midnight; four claims per day. */
 (()=>{
   const C=EmberwildCommissions,M=EmberwildQuestDesign,copy=M.copy;
@@ -16162,7 +16595,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
   let sideFilter='available';globalThis.setQuestSideFilter=function(value){if(['available','locked','done','all'].includes(value)){sideFilter=value;render();}};
   questView=function(){
     ensureBoard();const h=playerHero(),board=h.board,tasks=current(board)?board.tasks:[],done=tasks.filter(q=>q.done).length;
-    const daily=tasks.map(q=>{const req=requirements(q);return `<article class="card quest-design-card"><span class="tag">${q.done?'今日已完成':q.started?'進行中':'未開始'}</span>${!q.started&&done<4?'<span class="quest-new">NEW!</span>':''}<h2>${esc(q.title)}</h2><p>${esc(q.description)}</p>${progressHTML(req)}<p class="gold">${esc(rewardText(req.rewards))}</p>${q.started?`<button class="primary" onclick="claimBoard('${q.id}')" ${ready(q)?'':'disabled'}>${q.done?'今日已完成':done>=4?'今日已完成四項':'交付並領獎'}</button>`:`<button onclick="startDailyCommission('${q.id}')" ${done>=4?'disabled':''}>開始任務</button>`}</article>`;}).join('');
+    const daily=tasks.map(q=>{const req=requirements(q);return `<article class="card quest-design-card"><span class="tag">${q.done?'今日已完成':q.started?'進行中':'未開始'}</span>${!q.started&&done<4?'<span class="quest-new quest-new-detail" aria-label="有未開始任務">NEW!</span>':''}<h2>${esc(q.title)}</h2><p>${esc(q.description)}</p>${progressHTML(req)}<p class="gold">${esc(rewardText(req.rewards))}</p>${q.started?`<button class="primary" onclick="claimBoard('${q.id}')" ${ready(q)?'':'disabled'}>${q.done?'今日已完成':done>=4?'今日已完成四項':'交付並領獎'}</button>`:`<button onclick="startDailyCommission('${q.id}')" ${done>=4?'disabled':''}>開始任務</button>`}</article>`;}).join('');
     return heading('COMMISSIONS / 每日委託','委託')+`<section class="panel"><b>每日委託 · 今日 ${done} / 4（五選四）</b><p class="small">每天隨機五項，最多完成四項，全隊共用。台灣時間 00:00 更新；切換角色、地圖或匯入設計不會重抽。擊殺、分解與強化從開始任務後計算；收集道具交付時會實際扣除。每項隨機素材獎勵已抽定。</p><p>完成四項額外獎勵：兩倍速券2小時 ×1</p><button class="primary" onclick="claimDailyBonus()" ${bonusReady()?'':'disabled'}>${board.bonusClaimed?'今日獎勵已領取':'領取四項完成獎勵'}</button></section><div class="cards">${daily||'<p>目前沒有可接取的每日委託。</p>'}</div>`;
   };
   globalThis.sideQuestListHTML=function(){const h=playerHero(),d=design();
@@ -16170,7 +16603,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
     const rows=d.side.filter(q=>q.enabled||h.claimed.includes(q.id)).map(q=>{const done=h.claimed.includes(q.id),unlocked=M.eligible(q,context()),status=done?'done':unlocked?'available':'locked';counts[status]++;return {q,done,unlocked,status};});
     const side=rows.filter(x=>sideFilter==='all'||x.status===sideFilter).map(({q,done,unlocked})=>{
       const missing=q.prerequisites.filter(id=>!h.claimed.includes(id)).map(id=>d.side.find(p=>p.id===id)?.title||id),locks=[...(!q.enabled?['任務已停用']:[]),...(h.lv<q.minLevel?['需要 LV'+q.minLevel]:[]),...(q.maxLevel&&h.lv>q.maxLevel?['限 LV'+q.maxLevel+' 以下']:[]),...(q.mapIndices.length&&!q.mapIndices.includes(party.map)?['需在 '+q.mapIndices.map(i=>MAPS[i]?.name).join('、')]:[]),...(missing.length?['前置支線：'+missing.join('、')]:[])];
-      return `<article class="card quest-design-card"><span class="tag">${done?'已完成':unlocked?'一次性支線':'尚未解鎖'}</span><h2>${esc(q.title)}</h2>${!done&&unlocked&&!party.story?.flags['side_started_'+q.id]&&!sideReady(q)?`<span class="quest-new">NEW!</span><button onclick="startSideQuest('${q.id}')">開始任務</button>`:''}<p>${esc(q.description)}</p>${locks.length&&!done?`<p class="small">${esc(locks.join(' · '))}</p>`:''}${progressHTML(q)}<p class="gold">${esc(rewardText(q.rewards))}${q.rewards.choice==='gearOrGems'?'（裝備／寶石二選一）':''}</p>${!done&&unlocked&&blocked(q)?`<p class="small">${esc(blocked(q))}</p>`:''}<button class="primary" onclick="claimQuest('${q.id}')" ${sideReady(q)?'':'disabled'}>${done?'已完成':unlocked?'完成並領獎':'尚未解鎖'}</button></article>`;
+      return `<article class="card quest-design-card"><span class="tag">${done?'已完成':unlocked?'一次性支線':'尚未解鎖'}</span><h2>${esc(q.title)}</h2>${!done&&unlocked&&!party.story?.flags['side_started_'+q.id]&&!sideReady(q)?`<span class="quest-new quest-new-detail" aria-label="有未開始任務">NEW!</span><button onclick="startSideQuest('${q.id}')">開始任務</button>`:''}<p>${esc(q.description)}</p>${locks.length&&!done?`<p class="small">${esc(locks.join(' · '))}</p>`:''}${progressHTML(q)}<p class="gold">${esc(rewardText(q.rewards))}${q.rewards.choice==='gearOrGems'?'（裝備／寶石二選一）':''}</p>${!done&&unlocked&&blocked(q)?`<p class="small">${esc(blocked(q))}</p>`:''}<button class="primary" onclick="claimQuest('${q.id}')" ${sideReady(q)?'':'disabled'}>${done?'已完成':unlocked?'完成並領獎':'尚未解鎖'}</button></article>`;
     }).join('');
     return `<h2>一般支線</h2><div class="actions quest-filter">${[['available','可進行'],['locked','未解鎖'],['done','已完成'],['all','全部']].map(([id,label])=>`<button class="${sideFilter===id?'primary':''}" onclick="setQuestSideFilter('${id}')">${label} ${id==='all'?rows.length:counts[id]}</button>`).join('')}</div><div class="cards">${side||'<p>此分類沒有支線。</p>'}</div>`;
   };
@@ -16182,7 +16615,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
 
 recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;startDailyCommission=globalThis.startDailyCommission??startDailyCommission;claimDailyBonus=globalThis.claimDailyBonus??claimDailyBonus;questReadyCount=globalThis.questReadyCount??questReadyCount;sideQuestReminder=globalThis.sideQuestReminder??sideQuestReminder;dailyQuestReminder=globalThis.dailyQuestReminder??dailyQuestReminder;startSideQuest=globalThis.startSideQuest??startSideQuest;setQuestSideFilter=globalThis.setQuestSideFilter??setQuestSideFilter;sideQuestListHTML=globalThis.sideQuestListHTML??sideQuestListHTML;__EMBERWILD_QUESTS=globalThis.__EMBERWILD_QUESTS??__EMBERWILD_QUESTS;
 
-/* js/ui/utility-navigation.js?v=20261013-cleanup1 */
+/* js/ui/utility-navigation.js?v=20261021-group-reminders1 */
 /* Compact utility dialogs and account-owned number reminders. */
 (()=>{
   const A=EmberwildAchievements,labels={mailbox:'信箱',achievements:'成就',equipment:'背包',quests:'委託'},utilityIds=['mailbox','achievements','options'];
@@ -16190,7 +16623,7 @@ recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;startDai
   function counts(){
     if(!party||!state)return {mailbox:0,achievements:0,equipment:0,quests:0};
     __EMBERWILD_COMPANION_UNLOCK_TEST.syncUnlocks();
-    const a=party.achievements,read=new Set(a.readCompleted),gearIds=new Set((pendingGearLoot||[]).map(g=>g.id));
+    const a=party.achievements,read=new Set(a.readCompleted),gearIds=new Set();
     for(const g of party.sharedGear?.items||state.bag||[])if(inlineAffixDrafts.has(affixDraftKey(g))||pendingAffix?.id===g.id)gearIds.add(g.id);
     const quests=questReadyCount();
     return {mailbox:party.mailbox.messages.filter(m=>!m.read||!m.claimed).length,achievements:a.completed.filter(id=>!read.has(id)).length,equipment:gearIds.size,quests};
@@ -16200,7 +16633,8 @@ recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;startDai
   // Direct calls and post-render updates always read the current account state.
   let buildingPage=false,pageCounts=null,pageRefreshed=false;
   const pageBadgeCounts=()=>buildingPage?(pageCounts??=counts()):counts();
-  globalThis.numberBadgeHTML=function(id){if(!Object.hasOwn(labels,id))return '';const n=settings()[id]?pageBadgeCounts()[id]:0;return `<span id="navReminder-${id}" class="number-badge" ${n?'':'hidden'} aria-label="${labels[id]}提醒 ${n}">${n||''}</span>`;};
+  globalThis.numberReminderCount=id=>Object.hasOwn(labels,id)&&settings()[id]?(pageBadgeCounts()[id]||0):0;
+  globalThis.numberBadgeHTML=function(id){if(!Object.hasOwn(labels,id))return '';const n=numberReminderCount(id);return `<span id="navReminder-${id}" class="number-badge" ${n?'':'hidden'} aria-label="${labels[id]}提醒 ${n}">${n||''}</span>`;};
   globalThis.numberReminderOptionsView=function(){return `<section class="panel number-reminder-options"><h2>數字提醒開關</h2><p class="small">各入口的紅色數字可分別開關；關閉不影響信件、成就、裝備或任務功能。</p><div class="number-reminder-settings">${Object.entries(labels).map(([id,label])=>`<label><input type="checkbox" data-number-reminder="${id}" onchange="setNumberReminder('${id}',this.checked)" ${settings()[id]?'checked':''}> ${label}</label>`).join('')}</div></section>`;};
   globalThis.setNumberReminder=function(id,enabled){if(!party||!Object.hasOwn(labels,id)||typeof enabled!=='boolean')return false;const old={...settings()};party.numberReminders[id]=enabled;if(!save()){party.numberReminders=old;lastDialogHTML='';render();return false;}render();return true;};
   const svg=name=>`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${(__EMBERWILD_LUCIDE.nodes[name]||[]).map(([tag,attrs])=>`<${tag} ${Object.entries(attrs).map(([key,value])=>`${key}="${esc(value)}"`).join(' ')}></${tag}>`).join('')}</svg>`;
@@ -16263,7 +16697,7 @@ recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;startDai
   refreshBadges();
 })();
 
-numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;returnToTitle=globalThis.returnToTitle??returnToTitle;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;numberReminderOptionsView=globalThis.numberReminderOptionsView??numberReminderOptionsView;isUtilityDialogOpen=globalThis.isUtilityDialogOpen??isUtilityDialogOpen;numberBadgeCounts=globalThis.numberBadgeCounts??numberBadgeCounts;setNumberReminder=globalThis.setNumberReminder??setNumberReminder;openUtilityPanel=globalThis.openUtilityPanel??openUtilityPanel;
+numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;returnToTitle=globalThis.returnToTitle??returnToTitle;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;numberReminderOptionsView=globalThis.numberReminderOptionsView??numberReminderOptionsView;isUtilityDialogOpen=globalThis.isUtilityDialogOpen??isUtilityDialogOpen;numberBadgeCounts=globalThis.numberBadgeCounts??numberBadgeCounts;numberReminderCount=globalThis.numberReminderCount??numberReminderCount;setNumberReminder=globalThis.setNumberReminder??setNumberReminder;openUtilityPanel=globalThis.openUtilityPanel??openUtilityPanel;
 
 /* js/balance/published-runtime.js */
 /* Installed last: one import/export boundary for published design documents. */
@@ -16294,10 +16728,10 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;returnToTitle=global
 
 __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_PUBLISHED_BALANCE=globalThis.__EMBERWILD_PUBLISHED_BALANCE??__EMBERWILD_PUBLISHED_BALANCE;
 
-/* js/ui/navigation-tree.js?v=20261019-daily-speed2 */
+/* js/ui/navigation-tree.js?v=20261021-group-reminders1 */
 /* Data-driven desktop navigation. Page identities stay fixed so saved progress
-   and direct links keep working; the balance document controls grouping,
-   labels, order and the default expanded state. */
+   and direct links keep working; the balance document controls grouping
+   and labels. */
 (()=>{
   const VERSION=1,copy=value=>structuredClone(value);
   const PAGES={
@@ -16308,11 +16742,11 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
     gather:'採集',alchemy:'煉金'
   };
   const DEFAULTS={version:VERSION,groups:[
-    {id:'adventure',label:'探索與冒險',expanded:true,pages:[['battle','荒野探索'],['statistics','戰鬥統計'],['shop','商店'],['guide','冒險指南']]},
-    {id:'party',label:'角色與隊伍',expanded:true,pages:[['roster','隊伍編成'],['partnerRoster','夥伴名冊'],['character','角色能力'],['skills','技能']]},
-    {id:'equipment',label:'裝備與製作',expanded:false,pages:[['equipment','背包'],['worn','裝備與信物'],['forge','裝備強化'],['bossCraft','BOSS 製作']]},
-    {id:'missions',label:'主要任務',expanded:true,pages:[['story-main','主線'],['story-side','支線'],['story-npc','NPC 任務'],['quests','委託']]},
-    {id:'life',label:'生活技能',expanded:true,pages:[['gather','採集'],['alchemy','煉金']]}
+    {id:'missions',label:'主線',expanded:false,pages:[['story-main','主線'],['story-side','支線'],['story-npc','NPC 任務'],['quests','委託']]},
+    {id:'adventure',label:'冒險',expanded:false,pages:[['battle','荒野探索'],['statistics','戰鬥統計'],['guide','冒險指南'],['roster','隊伍編成'],['partnerRoster','夥伴名冊'],['character','角色能力'],['skills','技能']]},
+    {id:'equipment',label:'背包',expanded:false,pages:[['equipment','背包'],['worn','裝備與信物'],['forge','裝備強化'],['bossCraft','BOSS 製作']]},
+    {id:'shop',label:'商店',expanded:false,pages:[['shop','商品列表']]},
+    {id:'life',label:'生活',expanded:false,pages:[['gather','採集'],['alchemy','煉金']]}
   ].map(group=>({...group,pages:group.pages.map(([id,label])=>({id,label}))}))};
   const validText=(value,max)=>typeof value==='string'&&value.trim()===value&&value.length>0&&value.length<=max;
   function normalize(raw){
@@ -16331,6 +16765,7 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
     return {version:VERSION,groups};
   }
   let design=normalize(JSON.parse(balanceSourceText()||'null')?.navigation),openState=new Map();
+  function orderedGroups(){return design.groups;}
   function storyType(){return globalThis.currentStoryCategory?.()||'main';}
   function active(page,current){
     if(page.id.startsWith('story-'))return current==='story'&&storyType()===page.id.slice(6);
@@ -16343,18 +16778,37 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
   function rememberOpenState(){
     document.querySelectorAll?.('#app>.layout>aside nav details[data-nav-group]').forEach(group=>openState.set(group.dataset.navGroup,group.open));
   }
-  globalThis.taskReminderHTML=function(id){const status=id.startsWith('story-')?globalThis.storyCategoryReminder?.(id.slice(6)):id==='quests'?globalThis.dailyQuestReminder?.():null;if(!status)return '';return `${status.ready?`<span class="number-badge" aria-label="可完成任務 ${status.ready}">${status.ready}</span>`:''}${status.new?'<span class="quest-new" aria-label="有未開始任務">NEW!</span>':''}`;};
-  function pageBadge(page){return ['story-main','story-side','story-npc','quests'].includes(page.id)?taskReminderHTML(page.id):globalThis.numberBadgeHTML?.(page.id)||'';}
+
+  const taskPages=new Set(['story-main','story-side','story-npc','quests']);
+  function taskStatus(id){return id.startsWith('story-')?globalThis.storyCategoryReminder?.(id.slice(6)):id==='quests'?globalThis.dailyQuestReminder?.():null;}
+  function taskBadge(status){
+    if(!status)return '';
+    if(status.new)return '<span class="quest-new" aria-label="有未開始任務">N</span>';
+    const count=Math.max(0,Number(status.ready)||0);
+    return count?`<span class="number-badge" aria-label="可完成任務 ${count}">${count}</span>`:'';
+  }
+  globalThis.taskReminderHTML=id=>taskBadge(taskStatus(id));
+  function pageReminder(page){
+    if(taskPages.has(page.id)){
+      const status=taskStatus(page.id);
+      return {isNew:!!status?.new,count:status?.new?0:Math.max(0,Number(status?.ready)||0),html:taskBadge(status)};
+    }
+    return {isNew:false,count:globalThis.numberReminderCount?.(page.id)||0,html:globalThis.numberBadgeHTML?.(page.id)||''};
+  }
   globalThis.gameNavigationHTML=function(current){
     rememberOpenState();
-    return design.groups.map(group=>{
+
+    return orderedGroups().map(group=>{
       const groupActive=group.pages.some(page=>active(page,current));
-      const open=openState.has(group.id)?openState.get(group.id):(group.expanded||groupActive);
-      const storyBadge='';
-      return `<details class="game-nav-group ${groupActive?'has-active':''}" data-nav-group="${esc(group.id)}" ${open?'open':''}><summary><span>${esc(group.label)}</span>${storyBadge}<span class="game-nav-chevron" aria-hidden="true">›</span></summary><div class="game-nav-items">${group.pages.map(page=>`<button type="button" data-page="${esc(page.id)}" class="${active(page,current)?'active':''}" onclick="${action(page)}" ${active(page,current)?'aria-current="page"':''}><span>${esc(page.label)}</span>${pageBadge(page)}</button>`).join('')}</div></details>`;
+      const open=openState.has(group.id)?openState.get(group.id):group.expanded;
+      const pages=group.pages.map(page=>({page,reminder:pageReminder(page)}));
+      const hasNew=pages.some(({reminder})=>reminder.isNew);
+      const count=pages.reduce((sum,{reminder})=>sum+reminder.count,0);
+      const groupBadge=hasNew?'<span class="quest-new" aria-label="包含未開始任務">N</span>':count?`<span class="number-badge" aria-label="分類提醒 ${count}">${count}</span>`:'';
+      return `<details class="game-nav-group ${groupActive?'has-active':''}" data-nav-group="${esc(group.id)}" ${open?'open':''}><summary><span>${esc(group.label)}</span>${groupBadge}<span class="game-nav-chevron" aria-hidden="true">›</span></summary><div class="game-nav-items">${pages.map(({page,reminder})=>`<button type="button" data-page="${esc(page.id)}" class="${active(page,current)?'active':''}" onclick="${action(page)}" ${active(page,current)?'aria-current="page"':''}><span>${esc(page.label)}</span>${reminder.html}</button>`).join('')}</div></details>`;
     }).join('');
   };
-  globalThis.EmberwildNavigation=Object.freeze({VERSION,PAGES:Object.freeze({...PAGES}),defaults:()=>copy(DEFAULTS),normalize,get design(){return copy(design);}});
+  globalThis.EmberwildNavigation=Object.freeze({VERSION,PAGES:Object.freeze({...PAGES}),defaults:()=>copy(DEFAULTS),normalize,get design(){return copy(design);},get order(){return orderedGroups().map(g=>g.id);}});
 
   const exportBase=exportableBalance;
   exportableBalance=function(){return {...exportBase(),navigation:copy(design)};};
@@ -16369,14 +16823,14 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
   if(state)render();
 })();
 
-numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;gameNavigationHTML=globalThis.gameNavigationHTML??gameNavigationHTML;dailyQuestReminder=globalThis.dailyQuestReminder??dailyQuestReminder;currentStoryCategory=globalThis.currentStoryCategory??currentStoryCategory;taskReminderHTML=globalThis.taskReminderHTML??taskReminderHTML;storyCategoryReminder=globalThis.storyCategoryReminder??storyCategoryReminder;EmberwildNavigation=globalThis.EmberwildNavigation??EmberwildNavigation;
+numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;gameNavigationHTML=globalThis.gameNavigationHTML??gameNavigationHTML;dailyQuestReminder=globalThis.dailyQuestReminder??dailyQuestReminder;numberReminderCount=globalThis.numberReminderCount??numberReminderCount;currentStoryCategory=globalThis.currentStoryCategory??currentStoryCategory;storyCategoryReminder=globalThis.storyCategoryReminder??storyCategoryReminder;taskReminderHTML=globalThis.taskReminderHTML??taskReminderHTML;EmberwildNavigation=globalThis.EmberwildNavigation??EmberwildNavigation;
 
 /* js/ui/inventory-icons-runtime.js?v=20261014-descriptions1 */
 /* Optional presentation data shares the published balance document and icon library. */
 (()=>{
   const M=EmberwildInventoryIcons,baseExport=exportableBalance,baseValidate=validateBalanceConfig,baseApply=applyBalanceConfig;
   const defaultGemLabels=GEMS.map(g=>({name:g.name}));
-  function applyGemLabels(){for(const [i,g]of GEMS.entries()){g.name=lookup.get('gem:'+i)?.displayName||defaultGemLabels[i].name;g.desc=lookup.get('gem:'+i)?.description??'';}}
+  function applyGemLabels(){for(const [i,g]of GEMS.entries()){g.name=lookup.get('gem:'+i)?.displayName||defaultGemLabels[i].name;g.desc=lookup.get('gem:'+i)?.description??g.desc;}}
   let templates,definitions=M.migrateDescriptions(baseExport()).inventoryIcons,customIcons=baseExport().skillIcons||[],lookup=new Map(definitions.map(r=>[r.kind+':'+r.key,r]));
   const saved=balanceSourceText();if(saved){templates=EmberwildIconColors.validate(JSON.parse(saved));EmberwildIconColors.use(templates);definitions=M.validate(M.migrateDescriptions(JSON.parse(saved)),__EMBERWILD_SKILL_ICONS);lookup=new Map((definitions||[]).map(r=>[r.kind+':'+r.key,r]));}
   exportableBalance=()=>{const out=baseExport();if(templates!==undefined)out.iconColorTemplates=structuredClone(templates);if(definitions!==undefined)out.inventoryIcons=structuredClone(definitions);return M.migrateDescriptions(out);};
@@ -16403,7 +16857,7 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;gameNavigationHTML=g
   equipmentDisplayName=function(g){const id=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY(g),name=lookup.get(id.kind+':'+id.key)?.displayName;return name?'+'+(g.plus||0)+' '+name:baseGearDisplay(g);};
   globalThis.inventoryGemSellPrice=i=>lookup.get('gem:'+String(i))?.sellPrice??0;
   globalThis.sellCatalogueGem=function(i,quantity=1){
-    if(!party||!state||!Number.isInteger(i)||i<0||i>2||!globalThis.__EMBERWILD_CAN_SELL('gem',i))return false;
+    if(!party||!state||!Number.isInteger(i)||i<0||i>=GEMS.length||!globalThis.__EMBERWILD_CAN_SELL('gem',i))return false;
     const n=Number(quantity),gold=state.gold,held=state.gems[i],price=inventoryGemSellPrice(i);
     if(!Number.isSafeInteger(n)||n<1||n>held||gold+n*price>1e12)return false;
     state.gems[i]-=n;state.gold+=n*price;
@@ -16471,21 +16925,21 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_BALANCE_
 
 __EMBERWILD_VALIDATE_ITEM_IDS=globalThis.__EMBERWILD_VALIDATE_ITEM_IDS??__EMBERWILD_VALIDATE_ITEM_IDS;grantConfiguredToken=globalThis.grantConfiguredToken??grantConfiguredToken;
 
-/* js/story/story-runtime.js?v=20261019-daily-speed2 */
+/* js/story/story-runtime.js?v=20261021-new-label1 */
 /* Story orchestration reads existing account stores; only missing lifetime metrics live in progressStats. */
 (()=>{
  const M=EmberwildStory,copy=M.copy;
  let design=M.defaults(),category='main',selected='',dialogue=null,trackingOwner=null,inventoryBefore={},committedInventory={},pendingGains={};
  const context=d=>({maps:d.balanceSettings?.maps?.catalog,monsters:d.balanceSettings?.monsters?.catalog,items:d.items,recipes:d.lifeSkills?.recipes});
  function fresh(){return {version:1,quests:{},flags:{},unlocks:{},vip:0,autoBuy:false};}
- function freshStats(){return {version:1,visits:{},explore:{},gatherItems:{},gather:0,recipes:{},alchemy:0,enhance:0,enhanceLevel:0,acquired:{}};}
+ function freshStats(){return {version:1,encounters:{},visits:{},explore:{},gatherItems:{},gather:0,recipes:{},alchemy:0,enhance:0,enhanceLevel:0,acquired:{}};}
  function validData(raw,fallback){if(raw===undefined)return fallback;const x=copy(raw);function walk(v){if(!v||typeof v!=='object')return;for(const [k,n] of Object.entries(v)){if(['__proto__','constructor','prototype'].includes(k))throw Error('劇情存檔包含無效鍵值');if(typeof n==='number'&&(!Number.isSafeInteger(n)||n<0||n>1e12))throw Error('劇情存檔數值無效');walk(n);}}walk(x);return x;}
  function validateProgress(raw,stats){const q=validData(raw,fresh()),p=validData(stats,freshStats());
   if(p.version!==1||q.version!==1||![0,1].includes(q.vip)||typeof q.autoBuy!=='boolean'||!q.quests||!q.flags||!q.unlocks||[q.quests,q.flags,q.unlocks].some(x=>Array.isArray(x)||typeof x!=='object'))throw Error('劇情存檔格式無效');
   for(const [id,r] of Object.entries(q.quests)){if(!r||r.started!==undefined&&typeof r.started!=='boolean'||typeof r.current!=='string'||typeof r.done!=='boolean'||!Array.isArray(r.completed)||r.completed.some(x=>typeof x!=='string')||!r.baseline||!r.choices||Array.isArray(r.baseline)||Array.isArray(r.choices)||typeof r.baseline!=='object'||typeof r.choices!=='object'||new Set(r.completed).size!==r.completed.length||Object.values(r.baseline).some(n=>!Number.isSafeInteger(n)||n<0)||Object.values(r.choices).some(v=>typeof v!=='string'))throw Error('任務階段存檔無效：'+id);}
   for(const f of [q.flags,q.unlocks])if(Object.values(f).some(v=>typeof v!=='boolean'))throw Error('任務解鎖格式無效');
   for(const k of Object.keys(freshStats()))if(p[k]===undefined)p[k]=freshStats()[k];
-  for(const k of ['visits','explore','gatherItems','recipes','acquired'])if(!p[k]||Array.isArray(p[k])||typeof p[k]!=='object'||Object.values(p[k]).some(n=>!Number.isSafeInteger(n)||n<0))throw Error('永久統計格式無效');
+  for(const k of ['encounters','visits','explore','gatherItems','recipes','acquired'])if(!p[k]||Array.isArray(p[k])||typeof p[k]!=='object'||Object.values(p[k]).some(n=>!Number.isSafeInteger(n)||n<0))throw Error('永久統計格式無效');
   for(const k of ['gather','alchemy','enhance','enhanceLevel'])if(!Number.isSafeInteger(p[k])||p[k]<0)throw Error('永久統計數值無效');return {story:q,progressStats:p};
  }
  function migrateStats(account){const p=freshStats(),h=account.members?.[0];if(!h)return p;p.visits[String(account.map??0)]=1;p.enhance=(h.bag||[]).reduce((n,g)=>n+(g.plus||0),0);p.enhanceLevel=Math.max(0,...(h.bag||[]).map(g=>g.plus||0));
@@ -16501,6 +16955,7 @@ __EMBERWILD_VALIDATE_ITEM_IDS=globalThis.__EMBERWILD_VALIDATE_ITEM_IDS??__EMBERW
  globalThis.recordGatheredItem=(type,key,n)=>{const p=stats();p.gatherItems[type+':'+key]=(p.gatherItems[type+':'+key]||0)+n;};
  const countStock=c=>c.itemType==='item'?(globalThis.__EMBERWILD_INVENTORY_STOCK?.count(c.key)||0):materialCount(c.key);
  function value(c){const h=playerHero(),p=stats(),q=ensure(),sum=o=>Object.values(o||{}).reduce((a,b)=>a+b,0);switch(c.type){
+  case 'encounter':return p.encounters[c.key]||0;
   case 'companions':return party.members.length-1;case 'party':return party.buildSystem?.plans?.find(x=>x.id===party.buildSystem.activeId)?.job===null?0:heroes().length;
   case 'region':return Number(!!MAPS[Number(c.key)]&&solo.canVisit(Number(c.key),h));case 'visit':return Number(p.visits[c.key]||party.map===Number(c.key));case 'explore':return p.explore[c.key]||0;
   case 'kill':{const m=GAMEPLAY_SETTINGS.monsters.catalog.find(m=>m.id===c.key);return m?h.kills[m.material]||0:0;}case 'kills':return h.totalKills;
@@ -16540,7 +16995,7 @@ __EMBERWILD_VALIDATE_ITEM_IDS=globalThis.__EMBERWILD_VALIDATE_ITEM_IDS??__EMBERW
  const rewardText=r=>[r.gold?'金幣 ×'+r.gold:'',r.ore?'鍛鐵 ×'+r.ore:'',...r.items.map(x=>(x.type==='item'?SHOP.find(i=>i.id===x.key)?.name||x.key:x.key)+' ×'+x.quantity)].filter(Boolean).join('、');
  globalThis.storyReadyCount=()=>{if(!party)return 0;sync();return design.quests.filter(q=>q.enabled&&record(q.id)&&!record(q.id).done&&met(q.stages.find(s=>s.id===record(q.id).current)?.conditions||M.group([M.condition('level','',1e9)]),record(q.id))).length;};
  globalThis.storyView=function(){sync();const title={main:'主線',side:'支線',npc:'NPC 任務'}[category],rows=design.quests.filter(q=>q.type===category&&(q.enabled||record(q.id))&&(!q.hidden||record(q.id)));return heading('MISSIONS / 主要任務',title)+(category==='side'?sideQuestListHTML():'')+`<div class="story-list">${rows.map(q=>{const r=record(q.id),s=q.stages.find(s=>s.id===r?.current),ready=!!s&&!r.done&&met(s.conditions,r),status=r?.done?'已完成':!r?'未解鎖':ready?'可繼續':'進行中';let talk='';if(dialogue?.id===q.id&&dialogue.stage===s?.id){const line=s.dialogue[dialogue.index];talk=`<section class="story-dialogue" aria-live="polite">${line?`<b>${esc(line.kind==='player'?characterName(playerHero()):line.speaker||s.speaker||q.npc)}</b><p>${esc(line.text)}</p><button onclick="nextStoryDialogue()">繼續</button>`:ready?(s.choices.length?s.choices.filter(c=>met(c.conditions,r)).map(c=>`<button onclick="completeStoryStage('${q.id}','${c.id}','${s.id}')">${esc(c.text)}</button>`).join(''):`<button class="primary" onclick="completeStoryStage('${q.id}','','${s.id}')">完成階段／繼續劇情</button>`):'<p>完成下方目標後，可回來繼續。</p>'}<button onclick="endStoryDialogue()">結束對話</button></section>`;}
- return `<article class="panel story-card ${selected===q.id?'story-selected':''}"><div class="row"><h2>${esc(q.name)}</h2>${r&&!r.done&&!r.started?'<span class="quest-new">NEW!</span>':''}<span class="tag">${ready?'● ':''}${status}</span></div><p class="small">${{main:'主線',side:'支線',npc:'特殊 NPC'}[q.type]} · NPC：${esc(q.npc||'旁白')}</p><p>${esc(q.description)}</p>${!r?`<p>前置任務：${esc(q.prerequisites.map(id=>design.quests.find(q=>q.id===id)?.name||id).join('、')||'無')}</p>${objectives(q.unlock)}`:r.done?`<p>已領取獎勵${rewardText(q.rewards)?'：'+esc(rewardText(q.rewards)):''}${q.effects.some(e=>e.type==='vip')?' · 商店 VIP 卡・銅級':''}</p>`:!s?'<p>目前階段已從設計中移除，請還原此階段 ID 以接續進度。</p>':`<h3>${esc(s.name)}</h3><p>${esc(s.description)}</p>${objectives(s.conditions,r)}${rewardText(s.rewards)?'<p>階段獎勵：'+esc(rewardText(s.rewards))+'</p>':''}<div class="actions">${s.guides.map(g=>`<button onclick="storyNavigate('${g}')">${M.GUIDES[g]}</button>`).join('')}<button onclick="readStory('${q.id}')">閱讀劇情</button></div>${talk}`}</article>`;}).join('')||'<p>這個分類目前沒有任務。</p>'}</div>`;};
+ return `<article class="panel story-card ${selected===q.id?'story-selected':''}"><div class="row"><h2>${esc(q.name)}</h2>${r&&!r.done&&!r.started?'<span class="quest-new quest-new-detail" aria-label="有未開始任務">NEW!</span>':''}<span class="tag">${ready?'● ':''}${status}</span></div><p class="small">${{main:'主線',side:'支線',npc:'特殊 NPC'}[q.type]} · NPC：${esc(q.npc||'旁白')}</p><p>${esc(q.description)}</p>${!r?`<p>前置任務：${esc(q.prerequisites.map(id=>design.quests.find(q=>q.id===id)?.name||id).join('、')||'無')}</p>${objectives(q.unlock)}`:r.done?`<p>已領取獎勵${rewardText(q.rewards)?'：'+esc(rewardText(q.rewards)):''}${q.effects.some(e=>e.type==='vip')?' · 商店 VIP 卡・銅級':''}</p>`:!s?'<p>目前階段已從設計中移除，請還原此階段 ID 以接續進度。</p>':`<h3>${esc(s.name)}</h3><p>${esc(s.description)}</p>${objectives(s.conditions,r)}${rewardText(s.rewards)?'<p>階段獎勵：'+esc(rewardText(s.rewards))+'</p>':''}<div class="actions">${s.guides.map(g=>`<button onclick="storyNavigate('${g}')">${M.GUIDES[g]}</button>`).join('')}<button onclick="readStory('${q.id}')">閱讀劇情</button></div>${talk}`}</article>`;}).join('')||'<p>這個分類目前沒有任務。</p>'}</div>`;};
  globalThis.hasShopVIP=()=>!!party&&ensure().vip>=1;
  // Round the payable amount once, consistently for all shop goods. Free goods remain free.
  globalThis.shopPayablePrice=price=>hasShopVIP()?(price>0?Math.max(1,Math.floor(price*95/100)):0):price;
@@ -16564,22 +17019,63 @@ __EMBERWILD_VALIDATE_ITEM_IDS=globalThis.__EMBERWILD_VALIDATE_ITEM_IDS??__EMBERW
  claimTutorial=function(){openStory('goddess_intro','main');return false;};
  globalThis.storyCategoryReminder=type=>{if(!party||!state)return {ready:0,new:0};sync();const rows=design.quests.filter(q=>q.type===type&&q.enabled&&record(q.id)&&!record(q.id).done);const out={ready:0,new:0};for(const q of rows){const r=record(q.id),s=q.stages.find(s=>s.id===r.current);if(s&&met(s.conditions,r)&&(!s.choices.length||s.choices.some(c=>met(c.conditions,r))))out.ready++;if(!r.started)out.new++;}if(type==='side'){const extra=sideQuestReminder();out.ready+=extra.ready;out.new+=extra.new;}return out;};
  const badgeBase=numberBadgeHTML;globalThis.numberBadgeHTML=function(id){if(id!=='story')return badgeBase(id);const n=storyReadyCount();return n?`<span class="number-badge" aria-label="可繼續任務 ${n}">${n}</span>`:'';};
+
+ // Task stages supply encounter data to the existing spawn/round/reward pipeline.
+ function questEncounterRows(){
+  if(!party)return [];sync();const out=[];
+  for(const q of design.quests){const r=record(q.id);if(!q.enabled||q.hidden&&!r)continue;
+   for(const s of q.stages){const e=s.encounter;if(!e?.enabled)continue;const key=q.id+'/'+s.id,completed=(stats().encounters[key]||0)>0;
+    const reached=!!r&&(r.current===s.id&&!r.done||e.repeatable&&(r.completed.includes(s.id)||r.done));
+    out.push({key,questId:q.id,stageId:s.id,name:e.name,source:q.name,mapIndex:e.mapIndex,enemies:copy(e.enemies),repeatable:e.repeatable,completed,unlocked:!!r?.started&&reached&&(!completed||e.repeatable)&&canVisit(e.mapIndex)});
+   }
+  }return out;
+ }
+ globalThis.questEncounterRows=questEncounterRows;
+ globalThis.startQuestEncounter=function(key){
+  const row=questEncounterRows().find(x=>x.key===key);if(!row?.unlocked)return toast('任務進度尚未開放此關卡，或關卡已完成');
+  if(!globalThis.__EMBERWILD_TEAMS?.valid())return toast('請先完成可探索的隊伍編成');
+  if(state.bag.length>=RULES.bagCapacity)return toast('背包已滿，請先整理裝備');
+  globalThis.__EMBERWILD_TIMED_BOOST_TEST.syncCombatClock();
+  stopTeamExploration();chooseMap(row.mapIndex);party.questChallenge={key:row.key,name:row.name,mapIndex:row.mapIndex};
+  globalThis.expeditionChallengeResult=null;running=true;spawnGroup();globalThis.__EMBERWILD_TIMED_BOOST_TEST.syncCombatClock();save();render();return true;
+ };
+ const spawnBase=spawnGroup;spawnGroup=function(){
+  const ch=party?.questChallenge;if(!ch)return spawnBase();
+  const row=questEncounterRows().find(x=>x.key===ch.key);if(!row?.unlocked){running=false;party.questChallenge=null;return false;}
+  const h=[...heroes()].sort((a,b)=>a.lv-b.lv)[0],mi=row.mapIndex,mode=party.difficulty||0;
+  foes=[];effects=[];actorCooldowns={};supportCooldowns={};round=0;for(const hero of heroes())hero.shield=0;
+  for(const spec of row.enemies){const m=monsterCatalog().find(x=>x.id===spec.monsterId),kind=m.kind;
+   const ahead=EmberwildProgression.encounterLevelLead(GAMEPLAY_SETTINGS,h.lv),max=Math.max(MAPS[mi].min,Math.min(MAPS[mi].max,h.lv+ahead));
+   for(let i=0;i<spec.count;i++){const lv=kind==='boss'?MAPS[mi].max:MAPS[mi].min+Math.floor(Math.random()*(max-MAPS[mi].min+1)),v=EmberwildProgression.monsterStats(GAMEPLAY_SETTINGS,lv,kind,mode,m);
+    foes.push({id:'foe-'+uid(),monsterId:m.id,name:m.name,icon:'',mat:m.material,lv,...v,maxhp:v.hp,kind,turn:0,rewarded:false,element:m.element,race:m.race,maxDrops:m.maxDrops,difficulty:mode,region:mi,questEncounter:ch.key});
+   }
+  }
+  enemy=foes[0]||null;beginBattleStatistics();note('任務關卡開始：'+row.name+'。');return true;
+ };
+ const questRoundBase=pacedRound;pacedRound=function*(){
+  const ch=party?.questChallenge;yield* questRoundBase();if(!ch||party?.questChallenge!==ch)return;
+  const success=foes.length>0&&foes.every(e=>e.hp<=0);
+  if(success||!running&&!foes.length){
+   running=false;party.questChallenge=null;
+   if(success){stats().encounters[ch.key]=(stats().encounters[ch.key]||0)+1;sync();}
+   globalThis.expeditionChallengeResult={name:ch.name,success,key:ch.key};
+   note('任務關卡「'+ch.name+'」'+(success?'挑戰成功，任務進度已更新。':'挑戰失敗，可依任務規則重試。'));save();render();
+  }
+ };
+ const stopBase=stopTeamExploration;stopTeamExploration=function(...args){if(party)party.questChallenge=null;return stopBase(...args);};
+ const changeMapBase=chooseMap;chooseMap=function(...args){if(party)party.questChallenge=null;globalThis.expeditionChallengeResult=null;return changeMapBase(...args);};
+
  globalThis.__EMBERWILD_STORY={get design(){return copy(design);},value,progress,met,sync,record,transaction,stats,resetTracking,validateProgress};
 })();
 
-numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis.storyView??storyView;recordEnhancement=globalThis.recordEnhancement??recordEnhancement;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;hasShopVIP=globalThis.hasShopVIP??hasShopVIP;recordLifeProgress=globalThis.recordLifeProgress??recordLifeProgress;recordStoryAcquisition=globalThis.recordStoryAcquisition??recordStoryAcquisition;recordGatheredItem=globalThis.recordGatheredItem??recordGatheredItem;alchemyVIPView=globalThis.alchemyVIPView??alchemyVIPView;currentStoryCategory=globalThis.currentStoryCategory??currentStoryCategory;storyCategoryReminder=globalThis.storyCategoryReminder??storyCategoryReminder;completeStoryStage=globalThis.completeStoryStage??completeStoryStage;storyNavigate=globalThis.storyNavigate??storyNavigate;openStory=globalThis.openStory??openStory;setStoryCategory=globalThis.setStoryCategory??setStoryCategory;readStory=globalThis.readStory??readStory;nextStoryDialogue=globalThis.nextStoryDialogue??nextStoryDialogue;endStoryDialogue=globalThis.endStoryDialogue??endStoryDialogue;storyReadyCount=globalThis.storyReadyCount??storyReadyCount;setAlchemyAutoBuy=globalThis.setAlchemyAutoBuy??setAlchemyAutoBuy;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;
+numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis.storyView??storyView;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;recordEnhancement=globalThis.recordEnhancement??recordEnhancement;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;startQuestEncounter=globalThis.startQuestEncounter??startQuestEncounter;questEncounterRows=globalThis.questEncounterRows??questEncounterRows;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;__EMBERWILD_TIMED_BOOST_TEST=globalThis.__EMBERWILD_TIMED_BOOST_TEST??__EMBERWILD_TIMED_BOOST_TEST;recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;hasShopVIP=globalThis.hasShopVIP??hasShopVIP;recordLifeProgress=globalThis.recordLifeProgress??recordLifeProgress;recordStoryAcquisition=globalThis.recordStoryAcquisition??recordStoryAcquisition;recordGatheredItem=globalThis.recordGatheredItem??recordGatheredItem;alchemyVIPView=globalThis.alchemyVIPView??alchemyVIPView;currentStoryCategory=globalThis.currentStoryCategory??currentStoryCategory;storyCategoryReminder=globalThis.storyCategoryReminder??storyCategoryReminder;completeStoryStage=globalThis.completeStoryStage??completeStoryStage;storyNavigate=globalThis.storyNavigate??storyNavigate;openStory=globalThis.openStory??openStory;setStoryCategory=globalThis.setStoryCategory??setStoryCategory;readStory=globalThis.readStory??readStory;nextStoryDialogue=globalThis.nextStoryDialogue??nextStoryDialogue;endStoryDialogue=globalThis.endStoryDialogue??endStoryDialogue;storyReadyCount=globalThis.storyReadyCount??storyReadyCount;setAlchemyAutoBuy=globalThis.setAlchemyAutoBuy??setAlchemyAutoBuy;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;
 
-/* js/ui/mobile-layout.js?v=20261015-mobile5 */
+/* js/ui/mobile-layout.js?v=20261020-exploration1 */
 /* Mobile presentation reuses the game's navigation, journal and page data. */
 (()=>{
   const mobile=matchMedia('(max-width:900px)');
   const primary=['battle','roster','equipment','character'];
-  let menuOpen=false,journalOpen=false,lootOpen=false,journalScroll=0,lootScroll=0,menuScroll=0,settingsOpen=false,pendingSkill=null,journalSeen=false,followFilteredLog=false;
-  function latestLogTop(body){
-    const stream=body?.querySelector('.battle-log-stream');
-    return stream?Math.max(0,body.scrollTop+stream.getBoundingClientRect().bottom-body.getBoundingClientRect().top-body.clientHeight):0;
-  }
-  function followMobileLog(body){if(body){body.scrollTop=latestLogTop(body);journalScroll=body.scrollTop;}}
+  let menuOpen=false,journalOpen=false,lootOpen=false,lootScroll=0,menuScroll=0,pendingSkill=null,journalSeen=false;
   function sync(){
     const main=document.querySelector('#app>.layout>main');
     if(main&&tab==='roster'){
@@ -16624,27 +17120,10 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis
       if(button){button.setAttribute('aria-expanded',String(journalOpen));button.textContent=`戰鬥紀錄 · ${journal.querySelector('.journal-title-row .tag')?.textContent||''}　${journalOpen?'收合 ▾':'展開 ▴'}`;}
       const body=journal.querySelector('.mobile-journal-body');
       body?.setAttribute('aria-hidden',String(mobile.matches&&!journalOpen));
-      if(body&&journalOpen&&body.scrollTop!==journalScroll)body.scrollTop=journalScroll;
-      if(body&&mobile.matches&&journalOpen&&followFilteredLog&&body.querySelector('#liveLog')?.dataset.logGeneration===String(battleLogGeneration)){followFilteredLog=false;followMobileLog(body);}
       const lootButton=journal.querySelector('.mobile-loot-toggle'),lootBody=journal.querySelector('.mobile-loot-body');
       if(lootButton){lootButton.setAttribute('aria-expanded',String(lootOpen));lootButton.textContent=`戰利品／整理　${lootOpen?'收合 ▾':'展開 ▴'}`;}
       lootBody?.setAttribute('aria-hidden',String(mobile.matches&&!lootOpen));
       if(lootBody&&lootOpen&&lootBody.scrollTop!==lootScroll)lootBody.scrollTop=lootScroll;
-    }
-    const control=document.querySelector('.expedition-control-card');
-    if(control){
-      if(!control.querySelector('.mobile-settings-toggle')){
-        const body=document.createElement('div');body.id='mobileExpeditionSettings';body.className='mobile-settings-body';
-        body.append(...control.childNodes);
-        const button=document.createElement('button');button.type='button';button.className='mobile-settings-toggle';button.setAttribute('aria-controls',body.id);
-        button.innerHTML='<b>探索設定 · BOSS／補給</b><span></span>';
-        button.onclick=()=>{settingsOpen=!settingsOpen;sync();};control.append(button,body);
-      }
-      control.classList.toggle('mobile-settings-open',settingsOpen);
-      const button=control.querySelector('.mobile-settings-toggle'),body=control.querySelector('.mobile-settings-body');
-      button.setAttribute('aria-expanded',String(settingsOpen));
-      button.querySelector('span').textContent=`${MAPS[party.map].name} · ${MODES[party.difficulty||0].name} · ${battleRate}×　${settingsOpen?'收合 ▴':'展開 ▾'}`;
-      body.setAttribute('aria-hidden',String(mobile.matches&&!settingsOpen));
     }
     if(tab!=='skills')pendingSkill=null;
     if(mobile.matches&&pendingSkill){
@@ -16652,26 +17131,16 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis
       if(detail){pendingSkill=null;detail.scrollIntoView({block:'start'});}
     }
   }
-  globalThis.toggleMobileJournal=()=>{journalOpen=!journalOpen;if(journalOpen)lootOpen=false;sync();if(journalOpen&&!journalSeen){journalSeen=true;followMobileLog(document.getElementById('mobileJournalBody'));}};
+  globalThis.toggleMobileJournal=()=>{journalOpen=!journalOpen;if(journalOpen)lootOpen=false;sync();if(journalOpen&&!journalSeen){journalSeen=true;scrollBattleLogToBottom(document.getElementById('liveLog'));}};
   globalThis.toggleMobileLoot=()=>{lootOpen=!lootOpen;if(lootOpen)journalOpen=false;sync();};
-  const appendBase=appendBattleLogLine;
-  appendBattleLogLine=function(...args){
-    const body=mobile.matches&&journalOpen?document.getElementById('mobileJournalBody'):null;
-    const top=body?.scrollTop,follow=body&&Math.abs(top-latestLogTop(body))<=2;
-    const out=appendBase(...args);
-    if(body&&!battleReportPaused){if(follow)followMobileLog(body);else{body.scrollTop=top;journalScroll=body.scrollTop;}}
-    return out;
-  };
-  const filterBase=setBattleLogFilter;
-  setBattleLogFilter=function(...args){followFilteredLog=mobile.matches&&journalOpen;return filterBase(...args);};
   const journalBase=sharedBattleJournal;
   sharedBattleJournal=function(){
     const html=journalBase();if(!html)return html;
-    const at=html.indexOf('>')+1,resizer=html.indexOf('<div class="journal-resizer"'),loot=html.indexOf('<details class="journal-loot-compact"');
+    const at=html.indexOf('>')+1,live=html.indexOf('<div id="liveLog"'),resizer=html.indexOf('<div class="journal-resizer"'),loot=html.indexOf('<details class="journal-loot-compact"');
     if(resizer<0||loot<0)return html;
     let lootHTML=html.slice(loot,html.lastIndexOf('</section>'));
     if(mobile.matches)lootHTML=lootHTML.replace(/<details class="journal-loot-compact"[^>]*>/,'<section class="mobile-loot-content">').replace('<summary>','<h3>').replace('</summary>','</h3>').replace('</details>','</section>');
-    return html.slice(0,at)+`<section class="mobile-journal-report"><button type="button" class="mobile-journal-toggle" aria-controls="mobileJournalBody" aria-expanded="${journalOpen}" onclick="toggleMobileJournal()">戰鬥紀錄</button><div id="mobileJournalBody" class="mobile-journal-body">`+html.slice(at,resizer)+'</div></section>'+html.slice(resizer,loot)+`<section class="mobile-journal-loot"><button type="button" class="mobile-loot-toggle" aria-controls="mobileLootBody" aria-expanded="${lootOpen}" onclick="toggleMobileLoot()">戰利品／整理</button><div id="mobileLootBody" class="mobile-loot-body">`+lootHTML+'</div></section></section>';
+    return html.slice(0,at)+`<section class="mobile-journal-report"><button type="button" class="mobile-journal-toggle" aria-controls="mobileJournalBody" aria-expanded="${journalOpen}" onclick="toggleMobileJournal()">戰鬥紀錄</button>`+html.slice(at,live)+`<div id="mobileJournalBody" class="mobile-journal-body">`+html.slice(live,resizer)+'</div></section>'+html.slice(resizer,loot)+`<section class="mobile-journal-loot"><button type="button" class="mobile-loot-toggle" aria-controls="mobileLootBody" aria-expanded="${lootOpen}" onclick="toggleMobileLoot()">戰利品／整理</button><div id="mobileLootBody" class="mobile-loot-body">`+lootHTML+'</div></section></section>';
   };
   const renderBase=render;
   render=function(...args){const out=renderBase(...args);sync();return out;};
@@ -16686,7 +17155,6 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis
     return out;
   };
   document.getElementById('app').addEventListener('scroll',event=>{
-    if(event.target.matches?.('.mobile-journal-body'))journalScroll=event.target.scrollTop;
     if(event.target.matches?.('.mobile-loot-body'))lootScroll=event.target.scrollTop;
     if(event.target.matches?.('.mobile-more-pages'))menuScroll=event.target.scrollTop;
   },true);
@@ -16701,5 +17169,667 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis
 })();
 
 __EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;toggleMobileJournal=globalThis.toggleMobileJournal??toggleMobileJournal;toggleMobileLoot=globalThis.toggleMobileLoot??toggleMobileLoot;
+
+/* js/equipment/gear-inventory.js */
+/* Bag presentation uses immutable item identities and the existing stat ledger,
+   sale transaction and salvage reward plan. No generated-stat cache is persisted. */
+(()=>{
+  const defaults=()=>({job:'all',slot:'all',quality:'all',tMin:'',tMax:'',levelMin:'',levelMax:'',locked:'all',worn:'all',stat:'',op:'gte',value:'',upper:''});
+  let filter=defaults(),sort='acquired',direction='desc',multi=false,advanced=false,selected=new Set(),review=null;
+  const T=()=>globalThis.__EMBERWILD_TEAM_EQUIPMENT;
+  const fields=()=>globalThis.equipmentNumericFields();
+  const numeric=(g)=>globalThis.equipmentAbilitySummary(g).numeric;
+  const owned=g=>!!gearWearer(g.id)||!!T()?.references(g.id).length;
+  const actionable=(g,mode)=>!!g&&!g.locked&&!owned(g)&&!inlineAffixDrafts.has(affixDraftKey(g))&&(mode!=='sell'||globalThis.__EMBERWILD_CAN_SELL_GEAR?.(g)!==false);
+  const bound=(value,limit,lower)=>limit===''||Number.isFinite(Number(limit))&&(lower?value>=Number(limit):value<=Number(limit));
+  function rows(){
+    if(!state)return [];
+    const wearers=new Set(party.members.flatMap(h=>[...h.equipped,h.tokenId]).filter(Boolean));
+    const keys=new Set(fields().map(f=>f.key));
+    const result=[];
+    state.bag.forEach((g,index)=>{
+      if(EmberwildTokens.isToken(g))return;
+      const t=Number.isInteger(g.powerTier)?g.powerTier:null,level=gearRequiredLevel(g),worn=wearers.has(g.id);
+      if(filter.job!=='all'&&!gearWearableJobs(g).includes(Number(filter.job))||filter.slot!=='all'&&g.slot!==Number(filter.slot)||filter.quality!=='all'&&gearQualityRank(g)!==Number(filter.quality)||filter.locked!=='all'&&!!g.locked!==(filter.locked==='yes')||filter.worn!=='all'&&worn!==(filter.worn==='yes'))return;
+      if((filter.tMin!==''||filter.tMax!=='')&&t===null||!bound(t,filter.tMin,true)||!bound(t,filter.tMax,false)||!bound(level,filter.levelMin,true)||!bound(level,filter.levelMax,false))return;
+      const stats=numeric(g);
+      if(filter.stat&&keys.has(filter.stat)&&filter.value!==''){
+        const n=stats[filter.stat],v=Number(filter.value),u=Number(filter.upper);
+        if(!Number.isFinite(n)||n===0||!Number.isFinite(v))return;
+        const ok={gt:()=>n>v,gte:()=>n>=v,eq:()=>n===v,lte:()=>n<=v,lt:()=>n<v,range:()=>filter.upper!==''&&Number.isFinite(u)&&n>=v&&n<=u}[filter.op];
+        if(!ok||!ok())return;
+      }
+      const value=sort==='acquired'?(g.acquiredAt??null):sort==='level'?level:sort==='tier'?t:sort==='quality'?gearQualityRank(g):sort==='price'?equipmentSellPrice(g):stats[sort]===0?null:stats[sort];
+      result.push({g,index,stats,value});
+    });
+    result.sort((a,b)=>{
+      const am=a.value===null||a.value===undefined,bm=b.value===null||b.value===undefined;
+      if(am!==bm)return am?1:-1;
+      const d=am?0:a.value-b.value;
+      return (d?(direction==='asc'?d:-d):0)||a.index-b.index||String(a.g.id).localeCompare(String(b.g.id));
+    });
+    return result;
+  }
+  function visibleSelection(mode){const ids=new Set(rows().map(r=>r.g.id));return state.bag.filter(g=>ids.has(g.id)&&selected.has(g.id)&&actionable(g,mode));}
+  const redraw=()=>{review=null;render();};
+  globalThis.setGearInventoryFilter=function(key,value){
+    if(!Object.hasOwn(filter,key))return false;
+    filter[key]=String(value);selected.clear();redraw();return true;
+  };
+  globalThis.clearGearInventoryFilters=function(){filter=defaults();selected.clear();redraw();};
+  globalThis.setGearInventorySort=function(key){if(!['acquired','level','tier','quality','price',...fields().map(f=>f.key)].includes(key))return false;sort=key;redraw();return true;};
+  globalThis.toggleGearInventoryDirection=function(){direction=direction==='asc'?'desc':'asc';redraw();};
+  globalThis.toggleGearInventoryMulti=function(){multi=!multi;selected.clear();redraw();};
+  globalThis.toggleGearInventorySelected=function(id,checked){const g=findGear(id);if(!multi||!g||!actionable(g)||!rows().some(r=>r.g.id===id))return false;if(checked)selected.add(id);else selected.delete(id);redraw();return true;};
+  globalThis.selectVisibleGear=function(){if(!multi)return;selected=new Set(rows().map(r=>r.g).filter(g=>actionable(g)).map(g=>g.id));redraw();};
+  globalThis.clearSelectedGear=function(){selected.clear();redraw();};
+  const choose=(key,label,options)=>`<label>${label}<select aria-label="${label}" onchange="setGearInventoryFilter('${key}',this.value)">${options.map(([value,text])=>`<option value="${esc(String(value))}" ${String(value)===filter[key]?'selected':''}>${esc(text)}</option>`).join('')}</select></label>`;
+  const input=(key,label)=>`<label>${label}<input type="number" aria-label="${label}" value="${esc(filter[key])}" onchange="setGearInventoryFilter('${key}',this.value)"></label>`;
+  function controls(){
+    const all=[['all','全部']],fs=fields();
+    return `<div class="gear-management-controls"><div class="gear-basic-filters">${choose('job','職業',[...all,...CLASSES.map((c,i)=>[i,c.name])])}${choose('slot','部位',[...all,...['武器','護甲','副手','飾品'].map((s,i)=>[i,s])])}${choose('quality','品質',[...all,...AFFIX_RANK.map((q,i)=>[i,q])])}${choose('locked','鎖定',[...all,['yes','已鎖定'],['no','未鎖定']])}${choose('worn','穿戴',[...all,['yes','已裝備'],['no','未裝備']])}${input('tMin','T 級下限')}${input('tMax','T 級上限')}${input('levelMin','等級下限')}${input('levelMax','等級上限')}<button onclick="clearGearInventoryFilters()">清除篩選</button></div>
+      <details ${advanced?'open':''} ontoggle="setGearInventoryAdvanced(this.open)"><summary>屬性數值篩選</summary><p class="small">依裝備自身總值（含詞綴與強化），不含角色或隊伍能力。</p><div class="gear-numeric-filters">${choose('stat','屬性',[['','不限制'],...fs.map(f=>[f.key,f.label])])}${choose('op','比較',[['gt','大於'],['gte','大於等於'],['eq','等於'],['lte','小於等於'],['lt','小於'],['range','區間（含上下限）']])}${input('value','數值／下限')}${filter.op==='range'?input('upper','數值上限'):''}</div></details>
+      <div class="gear-sort-controls"><label>排序<select aria-label="裝備排序" onchange="setGearInventorySort(this.value)">${[['acquired','取得時間'],['level','裝備等級'],['tier','T 級'],['quality','品質'],...fs.map(f=>[f.key,f.label]),['price','出售價格']].map(([key,label])=>`<option value="${key}" ${sort===key?'selected':''}>${esc(label)}</option>`).join('')}</select></label><button onclick="toggleGearInventoryDirection()">${direction==='desc'?'高 → 低':'低 → 高'}</button><button onclick="toggleGearInventoryMulti()" aria-pressed="${multi}">${multi?'結束多選':'多選裝備'}</button></div></div>`;
+  }
+  globalThis.setGearInventoryAdvanced=value=>{advanced=!!value;};
+  function item(row){
+    const g=row.g,worn=gearWearer(g.id),can=actionable(g),stats=Object.entries(row.stats).filter(([key,n])=>['atk','def','hp','speed'].includes(key)&&n).map(([key,n])=>({atk:'攻',def:'防',hp:'生命',speed:'速度'}[key])+' '+n).join(' · ');
+    return `<article class="gear-management-row" data-gear-id="${g.id}">${multi?`<label class="gear-selection"><input type="checkbox" aria-label="選取 ${esc(equipmentDisplayName(g))}" ${selected.has(g.id)?'checked':''} ${can?'':'disabled'} onchange="toggleGearInventorySelected('${g.id}',this.checked)"></label>`:''}<div class="gear-management-item">${gearSlotHTML(g,{selected:g.id===inventorySelectedGearId,className:'inventory-list-item',onclick:`selectInventoryGear('${g.id}')`})}<div class="gear-management-meta"><span class="effect-quality-${gearQualityRank(g)}">${esc(AFFIX_RANK[gearQualityRank(g)])}</span> · LV ${gearRequiredLevel(g)} · ${esc(gearWearableJobsText(g))}${worn?' · '+esc(characterName(worn))+'已裝備':''}<br>${esc(stats||'無面板屬性')}</div></div><button class="gear-lock" onclick="toggleGearLock('${g.id}')" aria-pressed="${!!g.locked}" aria-label="${g.locked?'解除鎖定':'鎖定'} ${esc(equipmentDisplayName(g))}">${g.locked?'已鎖定':'鎖定'}</button></article>`;
+  }
+  function quote(items,mode){
+    if(mode==='sell'){const gold=items.reduce((n,g)=>n+equipmentSellPrice(g),0);return {count:items.length,gold,text:'保證獲得 '+gold.toLocaleString()+' 金幣'};}
+    const totals=new Map();for(const g of items)for(const p of salvageRewardPlan(g,true)){const key=p.type+'/'+(p.key??'');if(!totals.has(key))totals.set(key,{...p,quantity:0});totals.get(key).quantity+=p.quantity;}
+    const names={ore:'鍛鐵',dust:'粉塵',potion:'治療藥水'};
+    const rewards=[...totals.values()].filter(p=>p.quantity>0),text=rewards.map(p=>{const name=names[p.type]||(p.type==='gem'?(p.key==='random'?'隨機種類寶石':GEMS[Number(p.key)]?.name||'寶石'):p.type==='item'?SHOP.find(i=>i.id===p.key)?.name||p.key:p.key);return name+' ×'+p.quantity+(p.type==='gem'&&p.key==='random'?'（總數保證，種類隨機）':'（保證）');}).join('、');
+    return {count:items.length,rewards,text:text||'無材料產出'};
+  }
+  function makeReview(mode){const items=visibleSelection(mode),q=quote(items,mode);return {mode,ids:items.map(g=>g.id),quote:q,signature:JSON.stringify([items.map(g=>g.id),q])};}
+  globalThis.requestGearInventoryBatch=function(mode){
+    if(!['sell','salvage'].includes(mode)||!multi)return false;
+    review=makeReview(mode);if(!review.ids.length){toast('沒有可操作的選取裝備');return false;}
+    const verb=mode==='sell'?'出售':'分解';$('modal').innerHTML=`<h2>確認批次${verb}</h2><p>實際${verb} ${review.quote.count} 件裝備</p><p>${esc(review.quote.text)}</p><p class="small">鎖定、已裝備、隊伍配置使用中與待確認洗鍊的裝備會保留。</p><div class="actions"><button class="danger" onclick="confirmGearInventoryBatch()">確認${verb}</button><button onclick="closeModal()">取消</button></div>`;$('modal').showModal();return true;
+  };
+  globalThis.confirmGearInventoryBatch=function(){
+    if(!review)return false;const old=review,next=makeReview(old.mode);
+    if(next.signature!==old.signature){if(!next.ids.length){review=null;closeModal();render();toast('裝備狀態已變更，沒有可操作裝備');return false;}requestGearInventoryBatch(old.mode);toast('裝備或產出已變更，請確認更新後的明細');return false;}
+    const ok=T().dispose(next.ids,next.mode,true,{batch:true,reviewed:true});
+    if(ok){selected.clear();review=null;closeModal();render();}return ok;
+  };
+  sortedFilteredGear=()=>rows().map(r=>r.g);
+  inlineInventoryView=function(){
+    const list=rows(),visible=new Set(list.map(r=>r.g.id));selected=new Set([...selected].filter(id=>visible.has(id)&&actionable(findGear(id))));
+    if(!visible.has(inventorySelectedGearId))inventorySelectedGearId=list[0]?.g.id??null;
+    const current=list.find(r=>r.g.id===inventorySelectedGearId)?.g;
+    return `<section class="panel compact-inventory-panel gear-management-panel">${resourceLine()}${state.bag.length>=RULES.bagCapacity?'<p class="gear-overflow-note" role="status">背包已滿，掉落已保留；整理至容量以下後可繼續探索。</p>':''}${controls()}<div class="inventory-master-detail"><section class="inventory-master-pane"><div class="inventory-master-heading"><b>裝備列表</b><span>顯示 ${list.length} 件</span></div><div class="inline-equipment-list inventory-list-scroll">${list.map(item).join('')||'<p class="empty">沒有符合條件的裝備。</p>'}</div>${multi?`<div class="gear-batch-controls"><b>已選 ${selected.size} 件</b><button onclick="selectVisibleGear()">全選目前結果</button><button onclick="clearSelectedGear()">清除選取</button><button onclick="requestGearInventoryBatch('sell')" ${selected.size?'':'disabled'}>批次出售</button><button onclick="requestGearInventoryBatch('salvage')" ${selected.size?'':'disabled'}>批次分解</button></div>`:''}</section><section class="inventory-detail-wrap">${inventoryGearDetail(current)}</section></div></section>`;
+  };
+  const reset=resetSession;resetSession=function(){const out=reset();filter=defaults();sort='acquired';direction='desc';multi=false;selected.clear();review=null;return out;};
+  const validate=validateParty;validateParty=data=>validate(EmberwildGearInventory.prepareSave(data));
+  function full(){return !!state&&state.bag.length>=RULES.bagCapacity;}
+  function blocked(){if(!full())return false;running=false;toast('背包已滿，請先整理裝備再繼續探索');return true;}
+  const battle=toggleBattle;toggleBattle=function(...args){if(!running&&blocked())return false;return battle(...args);};
+  for(const name of ['startBossChallenge','restartExploration']){const base=globalThis[name];if(base)globalThis[name]=function(...args){if(blocked())return false;return base(...args);};}
+  const spawn=spawnGroup;spawnGroup=function(...args){if(blocked())return false;return spawn(...args);};
+  const round=pacedRound;pacedRound=function*(){if(blocked())return;try{yield* round();}finally{if(full())running=false;}};
+  globalThis.__EMBERWILD_GEAR_INVENTORY={rows,filters:()=>({...filter}),sort:()=>({key:sort,direction}),selection:()=>[...selected],actionable,quote,review:()=>review};
+})();
+
+__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;equipmentNumericFields=globalThis.equipmentNumericFields??equipmentNumericFields;setGearInventoryFilter=globalThis.setGearInventoryFilter??setGearInventoryFilter;clearGearInventoryFilters=globalThis.clearGearInventoryFilters??clearGearInventoryFilters;setGearInventorySort=globalThis.setGearInventorySort??setGearInventorySort;toggleGearInventoryDirection=globalThis.toggleGearInventoryDirection??toggleGearInventoryDirection;toggleGearInventoryMulti=globalThis.toggleGearInventoryMulti??toggleGearInventoryMulti;toggleGearInventorySelected=globalThis.toggleGearInventorySelected??toggleGearInventorySelected;selectVisibleGear=globalThis.selectVisibleGear??selectVisibleGear;clearSelectedGear=globalThis.clearSelectedGear??clearSelectedGear;setGearInventoryAdvanced=globalThis.setGearInventoryAdvanced??setGearInventoryAdvanced;requestGearInventoryBatch=globalThis.requestGearInventoryBatch??requestGearInventoryBatch;confirmGearInventoryBatch=globalThis.confirmGearInventoryBatch??confirmGearInventoryBatch;__EMBERWILD_GEAR_INVENTORY=globalThis.__EMBERWILD_GEAR_INVENTORY??__EMBERWILD_GEAR_INVENTORY;
+
+/* js/combat/offline-exploration.js */
+/* One event timeline for visible play, background throttling and cold saves.
+   Party, combat cursor and pending receipt are committed by one KEY setItem. */
+(()=>{
+ 'use strict';
+ const copy=v=>v==null?v:JSON.parse(JSON.stringify(v)),api=EmberwildTimedBoosts;
+ const hooks=()=>[EmberwildControlCombatState,EmberwildEnemyCombatState,EmberwildStatusCombatState,EmberwildTokenCombatState];
+ const transient=['hp','shield','basicAdvanceRound','procAdvanceRound','procAdvanceSteps','nextActiveDamageBonus','healPotionCooldownRemaining'];
+ let internal=false,stepping=false,job=null,failed=false,restoring=false,lastMode=false,actionSerial=0,lastRendered=0,gearPage=0,lastCheck=0,requestedAt=0,renderedReceipt=null,jobOffline=false,lastCommitted=globalThis.__EMBERWILD_BOOT_SAVE_RAW||null;
+ // Profiling: full saves dominated replay (about 23ms each on an 8h debt).
+ // One wall-clock second of work amortizes serialization while bounding replay
+ // lost on close. Only commit()/successful save moves the durable checkpoint.
+ const checkpointIntervalMs=1000;
+ let settlementProgress=null,bootResumePending=!!globalThis.__EMBERWILD_BOOT_SAVE_RAW;
+ const atTitle=()=>!!globalThis.isEmberwildTitleOpen?.();
+ const nowReal=Date.now.bind(Date),basePack=packParty,baseSave=save,baseLoad=loadParty,baseValidate=validateParty;
+ const active=()=>!!party&&running&&!$('modal')?.open&&!globalThis.isEmberwildTitleOpen?.();
+ const clock=()=>party?.offlineExploration;
+ function fresh(){return {version:2,startedAt:nowReal(),lastAt:nowReal(),status:'stopped',nextAt:0,roundAt:0,combat:null,receipt:null,pendingReceipt:null};}
+ function migrate(c){
+  if(c.version===1){
+   if(c.receipt?.complete){c.status=c.resumeRunning?'running':c.status==='paused'?'paused':'stopped';c.receipt.legacy=true;}
+   else if(c.receipt){c.pendingReceipt=c.receipt;c.receipt=null;}
+   delete c.resumeRunning;c.version=2;
+  }
+  // Earlier versions could save a visible but empty completed receipt.
+  if(c.receipt?.complete&&!hasRewards(c.receipt))c.receipt=null;
+  c.pendingReceipt??=null;if(c.pendingReceipt)c.pendingReceipt.battles??=0;
+  return c;
+ }
+ function ensure(){if(party&&!party.offlineExploration)party.offlineExploration=fresh();return clock()?migrate(clock()):null;}
+ function snapshot(){return copy({foes,enemyId:enemy?.id,round,partyClock,effects,actorCooldowns,supportCooldowns,progress:combatRoundProgress,activeBattleStat,questChallenge:party.questChallenge||null,states:hooks().map(h=>h.pack()),heroes:party.members.map(h=>Object.fromEntries(transient.filter(k=>h[k]!==undefined).map(k=>[k,h[k]])))});}
+ function hydrate(c){
+  migrate(c);
+  roundIterator=null;nextActionAt=c.nextAt;roundStartedAt=c.roundAt;
+  running=c.status==='running';lastMode=running;
+  const b=c.combat;if(!b)return;
+  foes=copy(b.foes);enemy=foes.find(e=>e.id===b.enemyId)||null;round=b.round;partyClock=b.partyClock;effects=copy(b.effects);
+  actorCooldowns=copy(b.actorCooldowns);supportCooldowns=copy(b.supportCooldowns);combatRoundProgress=copy(b.progress);activeBattleStat=copy(b.activeBattleStat);party.questChallenge=copy(b.questChallenge);
+  hooks().forEach((h,i)=>h.restore(copy(b.states[i])));
+  party.members.forEach((h,i)=>{for(const k of transient){if(b.heroes[i]?.[k]===undefined)delete h[k];else h[k]=b.heroes[i][k];}});
+  running=c.status==='running';lastMode=running;
+ }
+ function validateCombat(b,members){
+  const object=v=>!!v&&typeof v==='object'&&!Array.isArray(v),count=n=>Number.isSafeInteger(n)&&n>=0;
+  const counters=v=>object(v)&&Object.values(v).every(n=>Number.isFinite(n)&&n>=0);
+  const ids=new Set(b.foes.map(e=>e.id)),heroIds=new Set(members.map(h=>'hero-'+memberKey(h)));
+  if(ids.size!==b.foes.length||!counters(b.actorCooldowns)||!counters(b.supportCooldowns)||b.effects.some(e=>!object(e)||typeof e.target!=='string'||typeof e.kind!=='string'||!Number.isFinite(e.value)||!Number.isFinite(e.until)))throw Error('離線戰鬥狀態無效');
+  const [control,enemies,status,tokens]=b.states;
+  if(!object(control)||!object(control.states)||!Array.isArray(control.summons)||control.summons.some(v=>!object(v))||!object(enemies)||Object.values(enemies).some(v=>!counters(v))||!object(status)||!Array.isArray(status.active)||status.active.some(v=>!object(v))||!Number.isSafeInteger(status.clock)||status.clock< -1||!count(status.serial)||!Array.isArray(tokens)||tokens.some(row=>!Array.isArray(row)||row.length!==2||!['number','string'].includes(typeof row[0])||!object(row[1])))throw Error('離線戰鬥效果快照無效');
+  if(b.activeBattleStat&&(!object(b.activeBattleStat)||!Array.isArray(b.activeBattleStat.deaths)||!counters(b.activeBattleStat.drops)||!Number.isFinite(b.activeBattleStat.xp)||b.activeBattleStat.xp<0))throw Error('離線戰鬥統計無效');
+  const p=b.progress;if(!p)return;
+  if(p.order.some(ref=>!object(ref)||!['hero','enemy'].includes(ref.side)||typeof ref.id!=='string'||!(ref.side==='hero'?heroIds:ids).has(ref.id)))throw Error('離線回合角色引用無效');
+  if(p.unit){const ref=p.order[p.index],h=ref?.side==='hero'?members.find(h=>'hero-'+memberKey(h)===ref.id):null,u=p.unit;
+   if(!h||!object(u)||!Array.isArray(u.support)||!Array.isArray(u.active)||!count(u.index)||u.index>u.support.length||u.support.some(i=>!count(i)||!SUPPORT[h.job]?.[i])||u.active.some(i=>!count(i)||!CLASSES[h.job]?.skills[i]))throw Error('離線回合技能游標無效');
+  }
+ }
+ function validate(raw,members=[]){
+  if(raw===undefined)return null;
+  const c=copy(raw),validTime=n=>Number.isSafeInteger(n)&&n>=0&&n<=8.64e15;
+  if(![1,2].includes(c.version)||!validTime(c.lastAt)||!validTime(c.startedAt)||!['running','paused','stopped'].includes(c.status)||![c.nextAt,c.roundAt].every(n=>Number.isFinite(n)&&n>=0))throw Error('離線探索時間或狀態無效');
+  if(c.combat){const b=c.combat;if(!Array.isArray(b.foes)||!Array.isArray(b.states)||b.states.length!==4||!Array.isArray(b.heroes)||!Array.isArray(b.effects)||!Number.isSafeInteger(b.round)||!Number.isSafeInteger(b.partyClock))throw Error('離線戰鬥進度無效');
+   if(b.heroes.length!==members.length||b.heroes.some(h=>!Number.isFinite(h.hp)||h.hp<0||!Number.isFinite(h.shield)||h.shield<0)||b.foes.some(e=>!e||typeof e.id!=='string'||!Number.isFinite(e.hp)||e.hp<0||!Number.isFinite(e.maxhp)||e.maxhp<=0))throw Error('離線戰鬥角色資料無效');
+   if(b.questChallenge&&(typeof b.questChallenge.key!=='string'||typeof b.questChallenge.name!=='string'||!Number.isInteger(b.questChallenge.mapIndex)))throw Error('離線任務關卡無效');
+   if(b.progress&&(!Array.isArray(b.progress.order)||!Number.isInteger(b.progress.index)||b.progress.index<0||b.progress.index>b.progress.order.length))throw Error('離線回合游標無效');
+   validateCombat(b,members);
+  }
+  for(const r of [c.receipt,c.pendingReceipt].filter(Boolean)){if(!validTime(r.start)||!validTime(r.end)||r.end<r.start||typeof r.id!=='string'||typeof r.complete!=='boolean'||!Array.isArray(r.levels)||!Array.isArray(r.gear)||!r.items||!r.boosts||![r.effectiveMs,r.kills,r.xp,r.goldGained,r.goldSpent].every(n=>Number.isFinite(n)&&n>=0))throw Error('離線收益紀錄無效');
+   if(c.version===2&&((r===c.receipt&&!r.complete)||(r===c.pendingReceipt&&r.complete)))throw Error('離線收益紀錄狀態無效');
+   if(r.battles!==undefined&&(!Number.isSafeInteger(r.battles)||r.battles<0))throw Error('離線戰鬥完成數無效');
+   if(r.intervals!==undefined&&(!Array.isArray(r.intervals)||r.intervals.some((x,i)=>!validTime(x.start)||!validTime(x.end)||x.end<x.start||i>0&&x.start<r.intervals[i-1].end)))throw Error('離線收益時間區間無效');
+  }
+  function finite(v){if(typeof v==='number'&&!Number.isFinite(v))throw Error('離線存檔包含無效數值');if(v&&typeof v==='object')for(const x of Object.values(v))finite(x);}finite(c);
+  return migrate(c);
+ }
+ validateParty=function(raw){const c=validate(raw?.offlineExploration,raw?.members),p=baseValidate(raw);if(c)p.offlineExploration=c;return p;};
+ loadParty=function(raw){
+  if(job&&!restoring)throw Error('離線結算進行中，請完成後再讀取存檔');
+  restoring=true;try{const out=baseLoad(raw);const c=ensure();hydrate(c);failed=false;lastCheck=nowReal();renderedReceipt=null;return out;}finally{restoring=false;}
+ };
+ packParty=function(){
+  const c=ensure();if(c&&!restoring){c.buffDeadlines=buffs().map(b=>({name:b.name,expiresAt:c.lastAt+b.remainingMs,enabled:b.enabled}));c.status=running?'running':foes.length?'paused':'stopped';c.nextAt=c.status==='stopped'?0:nextActionAt;c.roundAt=c.status==='stopped'?0:roundStartedAt;c.combat=c.status==='stopped'?null:snapshot();}
+  const out=basePack();if(c)out.offlineExploration=copy(c);return out;
+ };
+ save=function(...args){
+  if(stepping||restoring)return true;
+  if(!internal){sync();if(job)return true;}
+  if(failed||globalThis.__EMBERWILD_SAVE_OWNER===false)return false;
+  // Never move lastAt just because a save ran: it represents settled events only.
+  const saved=baseSave(...args);if(saved===true&&typeof globalThis.__EMBERWILD_BOOT_SAVE_RAW==='string')lastCommitted=globalThis.__EMBERWILD_BOOT_SAVE_RAW;return saved;
+ };
+ function virtual(at,fn){const prev=Date.now;Date.now=()=>at;try{return fn();}finally{Date.now=prev;}}
+ function quiet(fn){
+  // Keep the modal DOM contract (dataset/classList) for boss reward cleanup,
+  // while leaving replay dialogs detached and unable to pause the event loop.
+  const originals={render,note,toast,refreshGlobalJournal},fake=document.createElement('dialog');
+  fake.showModal=()=>{};fake.close=()=>{};
+  globalThis.__EMBERWILD_OFFLINE_SILENT=true;globalThis.__EMBERWILD_OFFLINE_RULE_CACHE={};render=()=>{};toast=()=>{};refreshGlobalJournal=()=>{};
+  // Live ticks use this same event loop; only offline replay suppresses reports.
+  if(jobOffline)note=()=>{};
+  globalThis.__EMBERWILD_SIMULATION_MODAL=fake;
+  try{return fn();}finally{({render,note,toast,refreshGlobalJournal}=originals);globalThis.__EMBERWILD_SIMULATION_MODAL=null;globalThis.__EMBERWILD_OFFLINE_RULE_CACHE=null;globalThis.__EMBERWILD_OFFLINE_SILENT=false;}
+ }
+ function buffs(){return [...(party?.timedBoosts||[]),...party.members.flatMap(h=>api.ELEMENTAL_TYPES.flatMap(k=>api.buffRows(h[k])))];}
+ function receipt(start,end){const p=playerHero();return {id:String(start)+'-'+String(end)+'-'+String(p.created),start,end,map:MAPS[party.map]?.name||'',stage:party.questChallenge?.name||(party.bossChallenge?.active?'BOSS 難關':'一般探索'),intervals:[],battles:0,effectiveMs:0,kills:0,xp:0,goldGained:0,goldSpent:0,items:{},consumed:{},gear:[],boosts:{},levels:party.members.map(h=>({key:memberKey(h),name:characterName(h),before:h.lv,after:h.lv})),complete:false,reason:'',stoppedAt:null};}
+ // Scratch buffers belong to one synchronous advance batch, never to the save.
+ function stock(out={}){
+  const h=playerHero();for(const k in out)out[k]=0;
+  out['material:鍛鐵']=h.ore;out['material:粉塵']=h.dust;out['item:legacy-potion']=h.potions;
+  for(let i=0;i<h.gems.length;i++)out['gem:'+i]=h.gems[i];
+  for(const k in h.materials)out['material:'+k]=h.materials[k];
+  for(const k in h.healingPotions)out['item:'+k]=h.healingPotions[k];
+  for(const k in h.consumables)out['item:'+k]=h.consumables[k];
+  return out;
+ }
+ function captureResources(before){
+  const r=clock()?.pendingReceipt;if(!r||r.complete)return null;
+  const h=playerHero();before??={items:{},after:{}};before.gold=h.gold;before.gained=r.goldGained;
+  stock(before.items);before.bag=h.bag;before.length=h.bag.length;return before;
+ }
+ function collect(before){
+  const r=clock()?.pendingReceipt;if(!before||!r||r.complete)return;
+  const h=playerHero(),delta=h.gold-before.gold-(r.goldGained-before.gained);r.goldGained+=Math.max(0,delta);r.goldSpent+=Math.max(0,-delta);
+  const after=stock(before.after);
+  for(const k in before.items){const n=(after[k]||0)-(before.items[k]||0);if(n>0)r.items[k]=(r.items[k]||0)+n;else if(n<0){r.consumed??={};r.consumed[k]=(r.consumed[k]||0)-n;}}
+  for(const k in after)if(!(k in before.items)&&after[k]>0)r.items[k]=(r.items[k]||0)+after[k];
+  // Combat only appends through addGear (equipment and tokens). UI disposal is
+  // blocked while replaying. Inspect just the appended tail, preserving order.
+  // Retain ID comparison if a future event replaces the bag array.
+  if(h.bag===before.bag){for(let i=before.length;i<h.bag.length;i++)r.gear.push(copy(h.bag[i]));}
+  else {const ids=new Set(before.bag.map(g=>g.id));for(const g of h.bag)if(!ids.has(g.id))r.gear.push(copy(g));}
+  for(const l of r.levels)l.after=partyMember(l.key)?.lv??l.after;
+ }
+ const award=awardXP;
+ awardXP=function(...args){const h=playerHero(),level=h?.lv,xp=h?.xp,out=award(...args),r=clock()?.pendingReceipt;if(stepping&&jobOffline&&r&&!r.complete&&h){let gained=h.xp-xp;for(let lv=level;lv<h.lv;lv++)gained+=need(lv);r.xp+=Math.max(0,gained);}return out;};
+ const reward=rewardGroupKill;
+ rewardGroupKill=function(e){const eligible=e&&!e.rewarded,before=playerHero()?.gold||0,out=reward(e),r=clock()?.pendingReceipt;if(stepping&&jobOffline&&eligible&&e.rewarded&&r&&!r.complete){r.kills++;r.goldGained+=Math.max(0,playerHero().gold-before);}return out;};
+ const finalize=finalizeBattleStatistics;
+ finalizeBattleStatistics=function(result){
+  const finished=!!activeBattleStat&&(result==='victory'||result==='wipe'),out=finalize(result),r=clock()?.pendingReceipt;
+  if(stepping&&jobOffline&&finished&&r){r.battles++;r.lastBattleAt=Date.now();}return out;
+ };
+ function hasRewards(r){return !!r&&(r.xp>0||r.goldGained>0||r.gear.length>0||Object.values(r.items).some(n=>n>0));}
+ function eligible(r){return hasRewards(r)&&(r.battles>0||r.legacy===true);}
+ function track(target){
+  const c=ensure();if(!c.pendingReceipt&&lastMode&&target>c.lastAt)c.pendingReceipt=receipt(c.lastAt,target);
+ }
+ function recordInterval(r,start,end){
+  if(!r||end<=start)return;r.intervals??=[{start:r.start,end:Math.min(start,r.end)}];
+  const tail=r.intervals.at(-1);if(tail&&tail.end===start)tail.end=end;else r.intervals.push({start,end});
+ }
+ function promote(){
+  const c=clock(),r=c?.pendingReceipt;if(c&&!c.receipt&&eligible(r)){r.complete=true;c.receipt=r;c.pendingReceipt=null;gearPage=0;}
+ }
+ function consumeTo(at,combatActive){
+  const c=clock(),elapsed=at-c.lastAt;if(elapsed<=0)return;
+  const r=c.pendingReceipt,rows=buffs(),disabled=rows.filter(b=>!b.enabled);
+  if(jobOffline&&r&&!r.complete&&combatActive){r.effectiveMs+=elapsed;for(const b of rows.filter(b=>b.enabled&&b.remainingMs>0)){
+   const key=api.sourceKey(b);const entry=r.boosts[key]??={name:b.name,effect:b.boostType==='speed2'?'兩倍速':b.boostType==='exp'?'經驗＋'+b.bonusPercent+'%':b.boostType==='drop'?'掉寶＋'+b.bonusPercent+'%':'屬性藥水',ms:0};entry.ms+=Math.min(elapsed,b.remainingMs);
+  }}
+  if(combatActive)party.combatSession.idleTimeMs+=elapsed;
+  api.consume(party,elapsed);
+  // Disabled effects also retain their actual wall-clock deadline.
+  for(const b of disabled)b.remainingMs=Math.max(0,b.remainingMs-elapsed);
+  if(jobOffline&&r&&!r.complete)r.end=at;
+  c.lastAt=at;
+  virtual(at,()=>__EMBERWILD_TIMED_BOOST_TEST.expireBoosts(at));
+ }
+ function event(at){
+  actionSerial++;stepping=true;
+  try{virtual(at,()=>{
+   if(!roundIterator){globalThis.__EMBERWILD_RESUMING_ROUND=!!combatRoundProgress;roundIterator=pacedRound();if(!combatRoundProgress)roundStartedAt=at;}
+   let result;try{result=roundIterator.next();}finally{globalThis.__EMBERWILD_RESUMING_ROUND=false;}
+   const actionMs=Math.max(1,Math.round(GS('combat.pacing.actionIntervalMs',900)/battleRate)),roundMs=Math.max(actionMs,Math.round(GS('combat.pacing.roundMinimumMs',6000)/battleRate));
+   if(result.done){roundIterator=null;nextActionAt=Math.max(at+actionMs,roundStartedAt+roundMs);}else nextActionAt=at+actionMs;
+  });}finally{stepping=false;}
+ }
+ // Finite batches yield to the browser; no cap is imposed on owed game time.
+ function advance(target,maxEvents=150){
+  const c=ensure();if(globalThis.__EMBERWILD_SAVE_OWNER===false)throw Error('存檔已由另一分頁接手');
+  if(!c||target<c.lastAt)return false;
+  let count=0,resources=null;const batchStart=performance.now();
+  quiet(()=>{while(c.lastAt<target&&count<maxEvents&&(count===0||performance.now()-batchStart<12)){
+   if(!lastMode||!running){const wait=target-c.lastAt;if(nextActionAt)nextActionAt+=wait;if(roundStartedAt)roundStartedAt+=wait;consumeTo(target,false);break;}
+   const expiry=Math.min(...buffs().filter(b=>b.enabled&&b.remainingMs>0).map(b=>c.lastAt+b.remainingMs),Infinity);
+   const at=Math.min(target,Math.max(c.lastAt,nextActionAt),expiry);consumeTo(at,true);
+   if(at===expiry){count++;continue;}
+   if(nextActionAt<=at){resources=jobOffline?captureResources(resources):null;event(at);collect(resources);count++;if(!running){lastMode=false;const r=c.pendingReceipt;if(jobOffline&&r&&!r.complete){r.stoppedAt=at;r.reason=playerHero().bag.length>=RULES.bagCapacity?'背包已滿，掉落已保留':globalThis.expeditionChallengeResult?(expeditionChallengeResult.success?'任務關卡完成':'任務關卡戰敗'):'本次探索已依戰鬥規則結束';}}}
+   if(at===target)break;
+  }});
+  c.status=running?'running':foes.length?'paused':'stopped';return c.lastAt<target;
+ }
+ function commit(){internal=true;try{if(save()!==true)throw Error('無法儲存結算進度，原存檔與未補算時間仍保留');}finally{internal=false;}}
+ function rollback(message){
+  let raw=null;try{raw=localStorage.getItem(KEY);}catch{}
+  restoring=true;try{for(const candidate of new Set([raw,lastCommitted]))if(candidate){try{loadParty(JSON.parse(candidate));break;}catch{}}}finally{restoring=false;}failed=true;
+  showProgress(message,true);
+ }
+ function showProgress(message,error=false){
+  const box=document.getElementById('offline-settlement');if(!box||atTitle())return;
+  const c=clock(),p=settlementProgress;
+  const total=p?Math.max(1,p.target-p.start):0,done=p?Math.max(0,Math.min(total,c.lastAt-p.start)):0,percent=total?Math.floor(done/total*1000)/10:0;box.hidden=false;renderedReceipt=null;
+  box.innerHTML=`<section role="status" aria-live="polite" aria-busy="${!error}"><h2>離線探索收益</h2><p>${esc(message)}</p>${p?`<progress max="${total}" value="${done}" aria-label="離線結算進度"></progress><p class="offline-progress-value">${percent}% · 已計算 ${api.timeText(done,true)} / ${api.timeText(total,true)}</p><p class="small">進度代表已計算時間；計算期間分批儲存，完成時立即儲存全部收益。</p>`:''}${error?'<button onclick="retryOfflineExploration()">重試結算</button>':''}</section>`;
+ }
+ function showReceipt(){
+  const r=clock()?.receipt,box=document.getElementById('offline-settlement');if(!r?.complete||!eligible(r)||!box||atTitle()||document.hidden)return;
+  if(renderedReceipt===r.id&&!box.hidden)return;renderedReceipt=r.id;
+  box.hidden=false;const fmt=n=>Math.round(n).toLocaleString('zh-TW'),time=t=>new Date(t).toLocaleString('zh-TW',{hour12:false});
+  const group=(kind,title)=>{const rows=Object.entries(r.items).filter(([k,n])=>k.startsWith(kind+':')&&n>0);return rows.length?`<h3>${title}</h3><div class="offline-items">${rows.map(([k,n])=>itemSlotHTML(kind,k.slice(kind.length+1),{count:n,detailLabel:'本次獲得'})).join('')}</div>`:'';};
+  box.innerHTML=`<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="offline-heading"><h2 id="offline-heading">離線探索收益</h2><p>${esc(r.map)} · ${esc(r.stage||'一般探索')} · ${r.reason?esc(r.reason):'正常完成補算'}</p><p class="small">開始 ${time(r.start)}<br>結束 ${time(r.end)}${r.stoppedAt?'<br>探索終止 '+time(r.stoppedAt):''}</p><div class="offline-summary"><div>實際離線<b>${api.timeText(r.intervals?.reduce((n,x)=>n+x.end-x.start,0)??r.end-r.start,true)}</b></div><div>有效掛機<b>${api.timeText(r.effectiveMs,true)}</b></div><div>擊殺怪物<b>${fmt(r.kills)} 隻</b></div><div>經驗值<b>＋${fmt(r.xp)}</b></div><div>金錢獲得<b>＋${fmt(r.goldGained)}</b></div><div>金錢消耗<b>−${fmt(r.goldSpent)}</b></div><div>金錢淨增加<b>${fmt(r.goldGained-r.goldSpent)}</b></div></div><p class="small">夥伴沿用現有規則，與主角同步等級，沒有獨立經驗槽。</p><div>${r.levels.map(l=>`<p>${esc(l.name)}：Lv.${l.before} → Lv.${l.after}（升級 ${l.after-l.before} 次）</p>`).join('')}</div>${group('material','素材收益')}${group('item','消耗品收益')}${group('gem','寶石收益')}${r.gear.length?'<h3>裝備收益 · '+r.gear.length+' 件</h3><div class="offline-items">'+r.gear.slice(gearPage*30,gearPage*30+30).map((g,j)=>{const i=gearPage*30+j;return `<button class="offline-gear" onclick="showOfflineGear(${i})">${gearSlotHTML(g,{preview:g,count:1,contentOnly:true})}<span class="q${gearQualityRank(g)}">${AFFIX_RANK[gearQualityRank(g)]}</span></button>`;}).join('')+'</div>'+ (r.gear.length>30?`<div class="actions"><button onclick="changeOfflineGearPage(-1)" ${gearPage===0?'disabled':''}>上一頁</button><span>${gearPage+1} / ${Math.ceil(r.gear.length/30)}</span><button onclick="changeOfflineGearPage(1)" ${(gearPage+1)*30>=r.gear.length?'disabled':''}>下一頁</button></div>`:''):''}<h3>增益實際生效時間</h3>${Object.values(r.boosts).map(b=>`<p>${esc(b.name)} · ${esc(b.effect)}：${api.timeText(b.ms,true)}</p>`).join('')||'<p>無限時增益</p>'}${Object.keys(r.consumed||{}).length?'<h3>道具消耗</h3>'+Object.entries(r.consumed).map(([k,n])=>'<p>'+esc(k.split(':').slice(1).join(':'))+' × '+fmt(n)+'</p>').join(''):''}<p class="small">收益已存入角色與背包；視窗僅顯示已保存的收益，探索仍會持續進行。此遊戲使用裝置時間，無法完全防止改時鐘作弊。</p><button class="primary" onclick="acknowledgeOfflineExploration()">確認／關閉</button></section>`;box.querySelector('[role="dialog"]')?.focus({preventScroll:true});
+ }
+ globalThis.changeOfflineGearPage=function(delta){renderedReceipt=null;gearPage=Math.max(0,Math.min(Math.ceil((clock()?.receipt?.gear.length||1)/30)-1,gearPage+delta));showReceipt();};
+ globalThis.showOfflineGear=function(i){const g=clock()?.receipt?.gear[i];if(!g)return;$('modal').innerHTML='<h2>'+equipmentNameHTML(g)+'</h2>'+equipmentAttributeDetailsHTML(g)+'<button onclick="closeModal()">關閉</button>';$('modal').showModal();};
+ globalThis.acknowledgeOfflineExploration=function(){
+  const c=clock();if(job||failed||!c?.receipt?.complete||globalThis.__EMBERWILD_SAVE_OWNER===false)return false;
+  const previous=copy(c);c.receipt=null;promote();
+  try{commit();}catch(e){Object.assign(c,previous);return false;}
+  renderedReceipt=null;document.getElementById('offline-settlement').hidden=true;showReceipt();return true;
+ };
+ function settle(target=nowReal(),offline=true){
+  if(!party||restoring||atTitle()||globalThis.__EMBERWILD_SAVE_OWNER===false)return Promise.resolve();
+  if(job){if(Number.isSafeInteger(target)){requestedAt=Math.max(requestedAt,target);if(offline){jobOffline=true;track(target);}}return job;}
+  const c=ensure();if(!Number.isSafeInteger(target)||target<0||target>8.64e15||target<c.lastAt){failed=true;settlementProgress=null;showProgress('裝置時間無效或早於最後結算時間；收益與時間已保留，請校正時間後重試。',true);return Promise.resolve();}
+  requestedAt=target;jobOffline=offline;if(offline)track(target);
+  failed=false;settlementProgress={start:c.lastAt,target};
+  job=Promise.resolve().then(async()=>{
+   try{
+    // Foreground catch-up is silent; an unread receipt keeps its DOM and scroll.
+    const show=jobOffline&&!c.receipt&&settlementProgress.target-settlementProgress.start>1000;
+    if(show)showProgress('正在計算掛機收益，請稍候…');commit();
+    // Paint the overlay before starting CPU-intensive combat replay.
+    if(show)await new Promise(resolve=>setTimeout(resolve,0));
+    let lastProgress=performance.now(),lastCheckpoint=lastProgress;
+    do{
+     const end=requestedAt;settlementProgress.target=end;
+     let more;
+     do{const start=c.lastAt,r=c.pendingReceipt,status=c.status;more=advance(end);if(jobOffline)recordInterval(r,start,c.lastAt);if(c.status!==status||more&&performance.now()-lastCheckpoint>=checkpointIntervalMs){commit();lastCheckpoint=performance.now();}if(show&&(performance.now()-lastProgress>=100||!more)){showProgress('正在計算掛機收益，請稍候…');lastProgress=performance.now();}if(more)await new Promise(resolve=>setTimeout(resolve,0));}while(more);
+    }while(c.lastAt<requestedAt);
+    // A throttled tick takes this async path; do not starve online life jobs.
+    internal=true;try{globalThis.emberwildLifeHeartbeat?.();}finally{internal=false;}
+    if(jobOffline&&!document.hidden)promote();commit();render();showReceipt();
+    if(!c.receipt)document.getElementById('offline-settlement').hidden=true;
+   }catch(e){rollback(String(e.message||e));}
+   finally{job=null;lastMode=atTitle()?false:running;lastCheck=nowReal();}
+  });return job;
+ }
+ globalThis.retryOfflineExploration=function(){failed=false;return settle(nowReal(),jobOffline);};
+ function sync(now=nowReal()){
+  if(internal||stepping||restoring||!party||failed||atTitle()||globalThis.__EMBERWILD_SAVE_OWNER===false)return;
+  if(job){requestedAt=Math.max(requestedAt,now);return;}
+  const c=ensure();if(now<c.lastAt){void settle(now,false);return;}
+  if(now-c.lastAt>1000){void settle(now,false);return;}
+  jobOffline=false;
+  internal=true;try{advance(now,50);}finally{internal=false;}
+  lastMode=active();c.status=running?'running':foes.length?'paused':'stopped';
+  if(c.receipt&&renderedReceipt!==c.receipt.id){try{commit();showReceipt();}catch(e){rollback(String(e.message||e));}}
+ }
+ tick=function(){
+  if(failed||atTitle()||globalThis.__EMBERWILD_SAVE_OWNER===false)return;
+  const now=nowReal();if(now-lastCheck<1000)return;lastCheck=now;sync(now);
+  if(!job&&!document.hidden){globalThis.emberwildLifeHeartbeat?.();__EMBERWILD_TIMED_BOOST_TEST.refreshJournalRealtime();if(lastRendered!==actionSerial){lastRendered=actionSerial;render();}}
+ };
+ // UI actions are already synchronous. Flush debt before changing the team/map,
+ // and persist the new running/paused/stopped state after the operation.
+ for(const name of [
+  'toggleBattle','stopTeamExploration','restartExploration','startSelectedExploration','startBossChallenge','startQuestEncounter','leaveBossChallenge',
+  'chooseMap','changeDifficulty','setEncounterMode','returnToTitle','setBattleSpeed','setTimedBoostEnabled','setPauseBoostsOnSpeedEnd','useSupply','closeModal',
+  'buyFixedShopOffer','buyMarketOffer','buyHealingPotion','buySupply','buyLifeMaterial','sellInventoryItem',
+  'setHeroAutoPotion','setHeroAutoPotionThreshold','setHeroAutoPotionItem','potion',
+  'enhance','reroll','autoReroll','acceptAffix','resolveInlineAffix','rerollEquipmentPowerTier','socket',
+  'salvage','salvageAll','sellGear','sellAllGearByQuality','confirmMassSalvage','confirmGearInventoryBatch','confirmTokenBatch','sellMaterial','sellCatalogueGem',
+  'startDailyCommission','claimBoard','claimDailyBonus','startSideQuest','claimQuest','completeStoryStage','claimMailboxAttachments','claimAllMailboxAttachments','useLevelScroll'
+ ]){
+  // Mail claims commit attachments and claim flags atomically, including rollback.
+  const savesOwnState=['claimMailboxAttachments','claimAllMailboxAttachments'].includes(name),base=globalThis[name];if(typeof base!=='function')continue;
+  globalThis[name]=function(...args){if(!stepping){if(globalThis.__EMBERWILD_SAVE_OWNER===false)return false;sync();if(job||failed)return false;}const wasRunning=running,wasEncounter=foes.length;const out=base.apply(this,args);if(!stepping){if(!wasRunning&&running&&!wasEncounter)ensure().startedAt=nowReal();sync();if(!savesOwnState)save();if(atTitle()){document.getElementById('offline-settlement').hidden=true;renderedReceipt=null;}}return out;};
+ }
+ const continueBase=continueFromTitle;
+ continueFromTitle=function(...args){const out=continueBase(...args);if(party){const c=ensure();lastMode=c.status==='running';const offline=bootResumePending&&lastMode;bootResumePending=false;void settle(nowReal(),offline);}return out;};
+ const ui=document.createElement('div');ui.id='offline-settlement';ui.className='offline-settlement';ui.hidden=true;document.body.appendChild(ui);ui.tabIndex=-1;
+ ui.addEventListener('keydown',event=>{if($('modal').open)return;if(event.key==='Escape'&&clock()?.receipt?.complete){event.preventDefault();acknowledgeOfflineExploration();}else if(event.key==='Tab'){const buttons=[...ui.querySelectorAll('button:not([disabled])')];if(!buttons.length){event.preventDefault();ui.focus();return;}const index=buttons.indexOf(document.activeElement),next=event.shiftKey?(index<=0?buttons.length-1:index-1):(index+1)%buttons.length;event.preventDefault();buttons[next].focus();}});
+ document.addEventListener('visibilitychange',()=>{if(!party||atTitle())return;if(document.hidden){sync();save();}else{if(!job)lastMode=clock()?.status==='running';void settle(nowReal(),false);}});
+ addEventListener('pagehide',()=>{if(party&&!job&&!failed&&!atTitle())save();});
+ if(party){ensure();}lastCheck=nowReal();
+ globalThis.EmberwildOffline={sync,settle,advance,snapshot,hydrate,validate,get busy(){return !!job;},get failed(){return failed;},get active(){return lastMode;}};
+})();
+
+__EMBERWILD_SIMULATION_MODAL=globalThis.__EMBERWILD_SIMULATION_MODAL??__EMBERWILD_SIMULATION_MODAL;__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;__EMBERWILD_RESUMING_ROUND=globalThis.__EMBERWILD_RESUMING_ROUND??__EMBERWILD_RESUMING_ROUND;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;emberwildLifeHeartbeat=globalThis.emberwildLifeHeartbeat??emberwildLifeHeartbeat;changeOfflineGearPage=globalThis.changeOfflineGearPage??changeOfflineGearPage;showOfflineGear=globalThis.showOfflineGear??showOfflineGear;acknowledgeOfflineExploration=globalThis.acknowledgeOfflineExploration??acknowledgeOfflineExploration;retryOfflineExploration=globalThis.retryOfflineExploration??retryOfflineExploration;
+
+/* js/combat/gem-finalizer.js?v=20261021-gems2 */
+/* Centralized post-cast skill gem effects, including control, status, induction
+   and other specialized skill runtimes. Resolve the skill first, then gem. */
+(()=>{
+  const castSkillBeforeGems=castPartySkill;
+  castPartySkill=function(h,i,v){
+    const success=castSkillBeforeGems(h,i,v);
+    if(success!==false&&h?.hp>0)applyGemAfterSkill(h,i,v||battleStats(h));
+    return success;
+  };
+})();
+
+
+
+/* js/skills/skill-system-runtime.js */
+/* Stable-ID configuration projected into the existing shared combat runtime. */
+(()=>{
+ 'use strict';
+ const M=EmberwildSkillSystem,copy=M.copy,T=()=>globalThis.__EMBERWILD_TEAMS;
+ let system=null,byId=new Map(),byPosition=new Map(),refreshing=false;
+ const wornCache=new WeakMap();
+ function worn(h){if(!party?.members.includes(h))return (h.bag||[]).filter(g=>h.equipped?.includes(g.id));if(!wornCache.has(h))wornCache.set(h,equipment(h));return wornCache.get(h);}
+ const player=()=>party?.members[0],companion=h=>h&&h!==player()&&h.companionId!==undefined;
+ const position=(j,k,i)=>`${j}:${k}:${i}`;
+ function install(s){system=copy(M.validate(s));byId=new Map(system.definitions.map(sk=>[sk.id,sk]));byPosition=new Map(system.definitions.map(sk=>[position(sk.adapter.job,sk.adapter.kind,sk.adapter.index),sk]));}
+ function slotCounts(h){return companion(h)?{active:h.active?.length||0,proc:h.procSlots?.length||0,support:h.supportSlots?.length||0}:M.slots(system,h.job,h.advanced);}
+ function learned(h,sk){
+  if(!sk||sk.disabled||!sk.jobs.includes(h.job)||sk.partnerId!=null&&sk.partnerId!==h.companionId)return false;
+  const level=sk.requiredLevel??sk.level??1;if(h.lv<level)return false;
+  if(companion(h)){const p=globalThis.__EMBERWILD_COMPANION_TEST_API?.companionPlan(h);return sk.partnerId===h.companionId&&(sk.adapter.kind==='core'?p?.core:p?.support)?.includes(sk.adapter.index);}
+  const key=`${h.job}:${sk.adapter.kind}:${sk.adapter.index}`,permanent=T()?.build()?.permanent,unlocked=permanent?.unlocks?.[key];
+  if(!unlocked&&sk.requiredMastery&&__EMBERWILD_MASTERY.masteryLevelFromXp(h.mastery?.[sk.requiredMastery]||0)<(sk.requiredMasteryLevel||0))return false;
+  const gates=sk.unlockConditions||{};
+  if(!unlocked&&(gates.classMasteryLevel||['materials','bossKills','eliteKills','bossEquipment'].some(k=>gates[k]?.length)))return false;
+  const r=system.classRules.find(r=>r.job===h.job);
+  if(r.initial.some(x=>x.skillId===sk.id&&h.lv>=x.level))return true;
+  if(h.advanced&&r.advanced.some(x=>x.skillId===sk.id&&h.lv>=x.level))return true;
+  for(const src of sk.sources){
+   if(src.level&&h.lv<src.level)continue;
+   if(src.type==='quest'){const qs=src.questIds||sk.unlockConditions?.quests||['tutorial'];const required=qs.length?qs:['tutorial'];if(required.every(q=>q==='tutorial'?player()?.tutorial>=3||party?.story?.quests?.goddess_intro?.done:player()?.claimed?.includes(q)||party?.story?.quests?.[q]?.done)||h.acquiredSkillIds?.includes(sk.id))return true;}
+   if(src.type==='equipment'&&h.activeSkillEquipmentId&&worn(h).some(g=>g.id===h.activeSkillEquipmentId&&g.skillId===sk.id))return true;
+  }
+  return false;
+ }
+ function emptyLoadout(h){const c=M.slots(system,h.job,h.advanced);return Object.fromEntries(['active','proc','support'].map(t=>[t,Array(c[t]).fill(null)]));}
+ function legacyLoadout(h){const out=emptyLoadout(h);for(const [type,field,kind] of [['active','active','core'],['proc','procSlots','core'],['support','supportSlots','support']])out[type]=out[type].map((_,n)=>byPosition.get(position(h.job,kind,h[field]?.[n]))?.id??null);return out;}
+ function projectHero(h){
+  if(!h||!system)return h;
+  if(companion(h)){
+   const list=system.definitions.filter(sk=>learned(h,sk));
+   h.active=list.filter(sk=>sk.type==='active').map(sk=>sk.adapter.index);h.procSlots=list.filter(sk=>sk.type==='proc').map(sk=>sk.adapter.index);h.supportSlots=list.filter(sk=>sk.type==='support').map(sk=>sk.adapter.index);
+   return h;
+  }
+  if(!h.skillLoadout)return h;
+  for(const [type,field] of [['active','active'],['proc','procSlots'],['support','supportSlots']])h[field]=h.skillLoadout[type].map(id=>byId.get(id)?.adapter.index??null);
+  return h;
+ }
+ function refreshHero(h){
+  if(!h||!system)return h;
+  if(h===player()&&T()?.plan()?.job===null){h.skillLoadout=null;h.activeSkillEquipmentId=null;return h;}
+  h.activeSkillEquipmentId??=null;
+  wornCache.delete(h);
+  if(companion(h)){delete h.disabledCompanionSkills;return projectHero(h);}
+  if(h.activeSkillEquipmentId&&!worn(h).some(g=>g.id===h.activeSkillEquipmentId&&byId.get(g.skillId)?.jobs.includes(h.job)))h.activeSkillEquipmentId=null;
+  globalThis.__EMBERWILD_EQUIPMENT_SKILLS?.refresh(h);
+  const first=!h.skillLoadout;h.skillLoadout??=legacyLoadout(h);
+  const slots=emptyLoadout(h),seen=new Set();
+  for(const type of ['active','proc','support'])for(let n=0;n<slots[type].length;n++){
+   const id=h.skillLoadout[type]?.[n],sk=byId.get(id);if(id&&sk?.type===type&&learned(h,sk)&&!seen.has(id)){slots[type][n]=id;seen.add(id);}
+  }
+  if(first)for(const row of system.classRules.find(r=>r.job===h.job).initial){const sk=byId.get(row.skillId),n=slots.active.indexOf(null);if(n>=0&&!seen.has(sk.id)&&learned(h,sk)){slots.active[n]=sk.id;seen.add(sk.id);}}
+  h.skillLoadout=slots;
+  h.skills=CLASSES[h.job].skills.map((_,i)=>Number(learned(h,byPosition.get(position(h.job,'core',i)))));
+  h.supportLevels=SUPPORT[h.job].map((_,i)=>Number(learned(h,byPosition.get(position(h.job,'support',i)))));
+  h.sockets=h.skills.map(()=>null);return projectHero(h);
+ }
+ function refreshAll(){if(refreshing||!party||!system)return;refreshing=true;try{for(const h of party.members)refreshHero(h);}finally{refreshing=false;}}
+ function applyMetadata(){for(const r of system.classRules)if(r.description)CLASSES[r.job].desc=r.description;for(const sk of system.definitions){const a=sk.adapter;if(a.kind==='core'&&CLASSES[a.job]?.skills[a.index])Object.assign(CLASSES[a.job].skills[a.index][6],copy(sk),{sharedId:sk.id,requiresAdvanced:false});else if(a.kind==='support'&&SUPPORT[a.job]?.[a.index])Object.assign(SUPPORT[a.job][a.index],copy(sk));}}
+ const baseValidate=validateBalanceConfig,baseApply=applyBalanceConfig,baseExport=exportableBalance;
+ validateBalanceConfig=function(input){const d=M.normalizeDocument(input),out=baseValidate(d);out.skillSystem=copy(d.skillSystem);return out;};
+ exportableBalance=function(){const d=baseExport();d.skillSystem=copy(system);d.balanceSettings.meta.skillSystemVersion=M.VERSION;return M.project(d);};
+ applyBalanceConfig=function(input,options={}){
+  const d=M.normalizeDocument(input),old=system;install(d.skillSystem);
+  try{const out=baseApply(d,{...options,persist:false});if(out===false){install(old);return false;}applyMetadata();refreshAll();if(options.persist!==false)localStorage.setItem(BALANCE_KEY,JSON.stringify(exportableBalance()));return {...out,skillSystem:copy(system)};}catch(e){if(old)install(old);throw e;}
+ };
+ const baseCoreAvailable=coreSkillAvailableToHero;
+ coreSkillAvailableToHero=function(j,i,h=state){const sk=byPosition.get(position(j,'core',i));return sk?learned(h,sk):baseCoreAvailable(j,i,h);};
+ const mastery=__EMBERWILD_MASTERY,oldCoreMissing=mastery.coreMissingRequirements,oldSupportMissing=mastery.supportMissingRequirements;
+ mastery.coreMissingRequirements=(h,i,use)=>{const sk=byPosition.get(position(h?.job,'core',i));return sk?[...(learned(h,sk)?[]:['尚未取得技能']),...oldCoreMissing(h,i,true)]:oldCoreMissing(h,i,use);};
+ mastery.supportMissingRequirements=(h,i,use)=>{const sk=byPosition.get(position(h?.job,'support',i));return sk?[...(learned(h,sk)?[]:['尚未取得技能']),...oldSupportMissing(h,i,true)]:oldSupportMissing(h,i,use);};
+ function validCast(h,i,kind){const sk=byPosition.get(position(h?.job,kind,i));if(!sk||!learned(h,sk)||h.hp<=0||(kind==='core'?oldCoreMissing:oldSupportMissing)(h,i,true).length)return false;return companion(h)||Object.values(h.skillLoadout||{}).some(a=>a.includes(sk.id));}
+ const oldCast=castPartySkill,oldSupport=castSupport;
+ castPartySkill=function(h,i,v){
+  if(!validCast(h,i,'core'))return false;const sk=byPosition.get(position(h.job,'core',i));
+  if(!sk.systemEffect)return oldCast(h,i,v);
+  const alive=foes.filter(e=>e.hp>0);if(!alive.length)return false;
+  if(sk.systemEffect==='taunt'){for(const e of alive){effects=effects.filter(x=>!(x.kind==='skillTaunt'&&x.target===e.id));effects.push({source:memberKey(h),skill:sk.id,target:e.id,kind:'skillTaunt',value:memberKey(h),until:partyClock+sk.duration,name:sk.name});}}
+  else if(sk.systemEffect==='guard'||sk.systemEffect==='regen'){
+   const targets=sk.systemEffect==='guard'?[h]:living(),kind=sk.systemEffect==='guard'?'guard':'regen';
+   for(const ally of targets){effects=effects.filter(e=>!(e.source===memberKey(h)&&e.skill===sk.id&&e.target===heroKey(ally)));effects.push({source:memberKey(h),skill:sk.id,target:heroKey(ally),kind,value:sk.power,until:partyClock+sk.duration,name:sk.name});}
+  }else if(sk.systemEffect==='slow')for(const e of alive.slice(0,sk.maxTargets)){effects=effects.filter(x=>!(x.skill===sk.id&&x.target===e.id));effects.push({source:memberKey(h),skill:sk.id,target:e.id,kind:'skillSlow',value:sk.power,until:partyClock+sk.duration,name:sk.name});}
+  note(characterName(h)+'・'+sk.name+' · '+sk.description);applyGemAfterSkill(h,i,v||battleStats(h));return true;
+ };
+ castSupport=function(h,i){return validCast(h,i,'support')?oldSupport(h,i):false;};
+ const speedBase=combatSpeed;combatSpeed=function(e){return Math.max(1,Math.round(speedBase(e)*(1-Math.min(.9,effectTotal(e.id,'skillSlow')))));};
+ const oldValidateParty=validateParty;
+ function prepare(raw){
+  const d=M.migrateSave(migrateLegacyGemSave(raw),system),members=d.version===3?d.members:[d],h=members[0],b=d.buildSystem;
+  if(b){for(const p of b.plans){if(p.job===null){p.skillLoadout=null;p.activeSkillEquipmentId=null;continue;}const tmp={...h,job:p.job,advanced:!!b.permanent.classes[p.job]?.advanced,...copy(p)};tmp.advanced=!!b.permanent.classes[p.job]?.advanced;refreshHero(tmp);for(const f of ['skills','supportLevels','active','procSlots','supportSlots','skillLoadout','activeSkillEquipmentId'])if(tmp[f]!==undefined)p[f]=copy(tmp[f]);for(const [kind,list] of [['core',p.skills],['support',p.supportLevels]])list.forEach((v,i)=>{if(v)b.permanent.unlocks[`${p.job}:${kind}:${i}`]=true;});}const p=b.plans.find(x=>x.id===b.activeId);if(p?.job!==null)for(const f of ['skills','supportLevels','active','procSlots','supportSlots','skillLoadout','activeSkillEquipmentId'])if(p[f]!==undefined)h[f]=copy(p[f]);}
+  for(const member of members)refreshHero(member);
+  if(raw.skillSystemVersion!==M.VERSION&&d.offlineExploration?.combat){d.offlineExploration.combat.progress=null;d.offlineExploration.combat.actorCooldowns={};d.offlineExploration.combat.supportCooldowns={};}
+  return d;
+ }
+ validateParty=function(raw){const d=prepare(raw),out=oldValidateParty(d);out.skillSystemVersion=M.VERSION;for(let n=0;n<out.members.length;n++){const src=d.version===3?d.members[n]:d;for(const f of ['skillLoadout','activeSkillEquipmentId','acquiredSkillIds'])if(src[f]!==undefined)out.members[n][f]=copy(src[f]);}return out;};
+ const oldLoad=loadParty;loadParty=function(raw){const d=prepare(raw),out=oldLoad(d);party.skillSystemVersion=M.VERSION;refreshAll();return out;};
+ const oldPack=packParty;packParty=function(){refreshAll();const out=oldPack();out.skillSystemVersion=M.VERSION;return out;};
+ const oldStart=start;start=function(...args){const out=oldStart(...args);refreshAll();T()?.capture();save();render();return out;};
+ const oldXP=awardXP;awardXP=function(...args){const out=oldXP(...args);refreshAll();return out;};
+ const oldSave=save;save=function(...args){refreshAll();return oldSave(...args);};
+ globalThis.configureSkill=function(type,slot,id){
+  const h=state;if(companion(h)||T()?.plan()?.job===null||!T()?.safe()||!['active','proc','support'].includes(type)||!Number.isInteger(slot)||slot<0||slot>=slotCounts(h)[type])return false;
+  const sk=byId.get(id);if(id!==null&&(!sk||sk.type!==type||!learned(h,sk)))return false;
+  const old=copy(h.skillLoadout);for(const list of Object.values(h.skillLoadout))for(let n=0;n<list.length;n++)if(id!==null&&list[n]===id)list[n]=null;
+  h.skillLoadout[type][slot]=id;projectHero(h);actorCooldowns={};supportCooldowns={};combatRoundProgress=null;
+  if(save()===false){h.skillLoadout=old;projectHero(h);return false;}render();return true;
+ };
+ equipSkill=(i,n)=>configureSkill('active',n,byPosition.get(position(state.job,'core',i))?.id);
+ clearActiveSkill=n=>configureSkill('active',n,null);slotProcSkill=(i,n)=>configureSkill('proc',n,i===null?null:byPosition.get(position(state.job,'core',i))?.id);clearProcSkill=n=>configureSkill('proc',n,null);slotSupport=(i,n)=>configureSkill('support',n,i===null?null:byPosition.get(position(state.job,'support',i))?.id);
+ socket=()=>false;
+ globalThis.__EMBERWILD_SKILLS={system:()=>system,byId:id=>byId.get(id),byPosition:(j,k,i)=>byPosition.get(position(j,k,i)),slotCounts,learned,refreshHero,refreshAll,projectHero,prepare,validCast,worn};
+ install(M.normalizeDocument(baseExport()).skillSystem);applyMetadata();
+ const source=JSON.parse(balanceSourceText()||'null');if(source)applyBalanceConfig(source,{persist:false});
+ refreshAll();
+})();
+
+__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;configureSkill=globalThis.configureSkill??configureSkill;
+
+/* js/equipment/equipment-skill-runtime.js */
+/* Equipment owns gems. Cached effects read only the five worn instances; all
+   gem changes and item disposal commit together with the existing save. */
+(()=>{
+ 'use strict';
+ const M=EmberwildSkillSystem,S=__EMBERWILD_SKILLS,copy=M.copy,cache=new WeakMap();
+ let creatingSource=null,creatingPreview=false,creatingContext=null;
+ const pending=new WeakSet();
+ const owner=()=>party?.members[0],rules=()=>S.system();
+ function compatible(id,sk,slot){const g=rules().gems.find(g=>g.kind===id%5);return !!g&&!!sk&&g.skill.types.includes(sk.type)&&(!g.skill.effects.length||g.skill.effects.includes(sk.effect||sk.kind))&&g.skill.slots.includes(slot);}
+ function mode(h,g,n){if(g.id!==h?.activeSkillEquipmentId||!g.skillId||n===0&&g.skillSockets.firstMode==='base')return 'base';const id=g.skillSockets.gems[n];return id!==null&&compatible(id,S.byId(g.skillId),n)?'skill':'base';}
+ function refresh(h){
+  const base={},ratios={},skills=new Map();
+  for(const g of equipment(h)){
+   if(EmberwildTokens.isToken(g))continue;M.gear(g,{legacy:true,system:rules()});
+   g.skillSockets.gems.forEach((id,n)=>{
+    if(id===null)return;const def=rules().gems.find(g=>g.kind===id%5),tier=Math.floor(id/5);
+    if(mode(h,g,n)==='base'){const v=def.base.values[tier],box=def.base.unit==='ratio'&&def.base.stat!=='crit'?ratios:base;box[def.base.stat]=(box[def.base.stat]||0)+v;}
+    else{if(!skills.has(g.skillId))skills.set(g.skillId,{});const out=skills.get(g.skillId);out[def.skill.key]=Math.min(def.cap,(out[def.skill.key]||0)+def.skill.values[tier]);}
+   });
+  }
+  const result={base,ratios,skills};cache.set(h,result);return result;
+ }
+ const effectsFor=h=>cache.get(h)||refresh(h);
+ const summaryBase=equipmentAbilitySummary;globalThis.equipmentAbilitySummary=function(g){
+  const out=summaryBase(g),h=owner();
+  for(const [n,id] of (g.skillSockets?.gems||[]).entries()){
+   if(id===null)continue;const d=rules().gems.find(x=>x.kind===id%5),tier=Math.floor(id/5),use=mode(h,g,n);
+   if(use==='base'){const ratio=d.base.unit==='ratio',key=ratio&&d.base.stat!=='crit'?({atk:'attackPct',hp:'hpPct',def:'defensePct'}[d.base.stat]||d.base.stat):d.base.stat,v=d.base.values[tier]*(ratio?100:1);out.numeric[key]=(out.numeric[key]||0)+v;out.values.push(GEMS[id].name+'：'+({atk:'攻擊',hp:'生命',def:'防禦',crit:'暴擊率',speed:'速度'}[d.base.stat]||d.base.stat)+' +'+v+(ratio?'%':''));}
+   else{const key='gemSkill:'+g.skillId+':'+d.skill.key,v=d.skill.values[tier];out.numeric[key]=(out.numeric[key]||0)+v;out.values.push(GEMS[id].name+'：'+S.byId(g.skillId).name+' '+({effect:'效果',cooldown:'冷卻縮短機率',procChance:'觸發率',heal:'治療',shield:'護盾'}[d.skill.key]||d.skill.key)+' +'+Number((v*100).toFixed(2))+'%');}
+  }
+  return out;
+ };
+ function skillRate(h,id,key){return effectsFor(h).skills.get(id)?.[key]||0;}
+ function pool(g,source,ctx){const lv=gearRequiredLevel(g);return rules().equipment.pool.filter(r=>!S.byId(r.skillId)?.disabled&&r.jobs.includes(g.job)&&r.slots.includes(g.slot)&&lv>=r.minLevel&&lv<=r.maxLevel&&(source!=='shop'||r.allowShop)&&(source!=='craft'||r.allowCraft)&&(!r.maps.length||r.maps.includes(ctx.map))&&(!r.monsters.length||r.monsters.includes(ctx.monster))&&(!r.bosses.length||r.bosses.includes(g.boss))&&r.weight>0);}
+ function generate(g,{source=creatingSource||'drop',preview=creatingPreview,context=creatingContext||{},force=false}={}){
+  if(!g||EmberwildTokens.isToken(g))return g;
+  if(force){delete g.skillSockets;delete g.skillId;}
+  if(g.skillSockets)return g;
+  M.gear(g,{source,system:rules(),random:preview?()=>0:Math.random});
+  const original=typeof itemForm==='function'?itemForm(g):null,formId=original?.id||`job${g.formJob??g.job}-slot${g.slot}-form${g.form??0}`,form={...original,...rules().equipment.formRules?.find(r=>r.formId===formId)},fixed=form?.skillId;
+  if(fixed&&S.byId(fixed))g.skillId=fixed;
+  else if(!preview&&source!=='starter'&&form?.allowSkill!==false&&Math.random()<(form?.skillChance??rules().equipment.chanceByDifficulty[context.difficulty??g.difficulty??0])){
+   const rows=pool(g,source,{map:g.region??party?.map,monster:context.monster??enemy?.monsterId,...context}),sum=rows.reduce((a,x)=>a+x.weight,0);let n=Math.random()*sum;
+   for(const row of rows)if((n-=row.weight)<0){g.skillId=row.skillId;break;}
+  }
+  return g;
+ }
+ const baseGear=gear;gear=function(...args){const g=baseGear(...args);if(creatingContext){pending.add(g);return g;}return generate(g);};
+ const grantBase=grantConfiguredDrop;grantConfiguredDrop=function(rule,e,...args){const before=creatingContext;creatingContext={map:e.region??party?.map,monster:e.monsterId,difficulty:e.difficulty??0};try{return grantBase(rule,e,...args);}finally{creatingContext=before;}};
+ const addBase=addGear;addGear=function(g,...args){if(pending.has(g)){pending.delete(g);generate(g);}return addBase(g,...args);};
+ const baseBoss=bossGear;bossGear=function(...args){return generate(baseBoss(...args),{source:creatingSource||'boss',force:true});};
+ const shopBase=createEquipmentShopGear;globalThis.createEquipmentShopGear=function(a,b,opts={}){const old=creatingSource,prev=creatingPreview;creatingSource='shop';creatingPreview=!!opts.preview;try{return generate(shopBase(a,b,opts),{source:'shop',preview:!!opts.preview,force:true});}finally{creatingSource=old;creatingPreview=prev;}};
+ const craftBase=craftBoss;craftBoss=function(...args){const old=creatingSource;creatingSource='craft';try{return craftBase(...args);}finally{creatingSource=old;}};
+ const statsBase=stats;stats=function(h=state){const v=statsBase(h),e=effectsFor(h),b=e.base;for(const [k,n] of Object.entries(b))v[k]=(v[k]||0)+n;for(const [k,n] of Object.entries(e.ratios))v[k]=(v[k]||0)*(1+n);v.hp=Math.max(1,Math.round(v.hp));v.atk=Math.max(0,Math.round(v.atk));v.def=Math.max(0,Math.round(v.def));v.crit=Math.min(GAME_BALANCE.combat.statCaps.crit,v.crit);return v;};solo.stats=stats;
+ gemCompatible=function(id,job,i){return compatible(id,S.byPosition(job,'core',i),0);};
+ gemRate=function(h,i,kind){const sk=S.byPosition(h?.job,'core',i),g=rules().gems.find(g=>g.kind===kind);return sk&&g?skillRate(h,sk.id,g.skill.key):0;};
+ applyGemAfterSkill=function(h,i,v){
+  const sk=S.byPosition(h?.job,'core',i),id=sk?.id;if(!id)return;
+  const heal=skillRate(h,id,'heal'),shield=skillRate(h,id,'shield');if(!heal&&!shield)return;
+  const ally=[...living()].sort((a,b)=>a.hp/stats(a).hp-b.hp/stats(b).hp)[0];if(!ally)return;
+  if(heal){const before=ally.hp;ally.hp=Math.min(stats(ally).hp,ally.hp+Math.max(1,Math.round((v?.atk??battleStats(h).atk)*heal)));recordCombatContribution(h,'healing',ally.hp-before);}
+  if(shield)ally.shield=Math.max(0,ally.shield||0)+Math.max(1,Math.round(stats(h).def*shield));
+ };
+ const supportAmountBase=supportAmount;supportAmount=function(j,i){const h=heroes().find(h=>h.job===j&&h.supportSlots.includes(i)),sk=S.byPosition(j,'support',i);return supportAmountBase(j,i)*(1+(h&&sk?skillRate(h,sk.id,'effect'):0));};
+ function supportCooldownOnCast(h,i){const sk=S.byPosition(h?.job,'support',i);return Math.max(1,supportSkillCooldown(h,i)-(sk&&Math.random()<skillRate(h,sk.id,'cooldown')?1:0));}
+ const supportBase=castSupport;castSupport=function(h,i){const out=supportBase(h,i),sk=S.byPosition(h?.job,'support',i);if(out!==false&&sk){const heal=skillRate(h,sk.id,'heal'),shield=skillRate(h,sk.id,'shield'),ally=[...living()].sort((a,b)=>a.hp/stats(a).hp-b.hp/stats(b).hp)[0];if(ally){if(heal){const before=ally.hp;ally.hp=Math.min(stats(ally).hp,ally.hp+Math.round(battleStats(h).atk*heal));recordCombatContribution(h,'healing',ally.hp-before);}if(shield)ally.shield+=Math.round(stats(h).def*shield);}}return out;};
+ function transaction(change){
+  if(!party||!__EMBERWILD_TEAMS.safe())return false;
+  const p=owner(),before=copy(packParty()),oldState=memberKey(state);
+  try{change();S.refreshAll();for(const h of party.members)h.hp=Math.min(h.hp,stats(h).hp);if(save()===false)throw Error('儲存失敗');render();return true;}
+  catch(e){loadParty(before);state=partyMember(oldState)||p;toast('操作未保存：'+e.message);return false;}
+ }
+ globalThis.selectSkillEquipment=function(id){
+  const h=state;if(h!==owner())return false;
+  const g=id===null?null:equipment(h).find(g=>g.id===id),sk=g&&S.byId(g.skillId);
+  if(id!==null&&(!g||!sk||!sk.jobs.includes(h.job)||sk.disabled))return false;
+  return transaction(()=>{h.activeSkillEquipmentId=id;refresh(h);S.refreshHero(h);actorCooldowns={};supportCooldowns={};});
+ };
+ globalThis.socketEquipmentGem=function(id,n,type){
+  const g=findGear(id);type=Number(type);if(!g||EmberwildTokens.isToken(g)||!Number.isInteger(n)||n<0||n>=g.skillSockets?.count||!Number.isInteger(type)||type< -1||type>=GEMS.length)return false;
+  const h=owner(),old=g.skillSockets.gems[n],next=type===-1?null:type;if(old===next)return true;
+  if(next!==null&&h.gems[next]<1)return false;
+  if(next!==null&&g.skillId&&!compatible(next,S.byId(g.skillId),n)){toast('此寶石不適用於裝備技能');return false;}
+  return transaction(()=>{if(old!==null)h.gems[old]++;if(next!==null)h.gems[next]--;g.skillSockets.gems[n]=next;});
+ };
+ globalThis.setEquipmentGemMode=function(id,value){const h=owner(),g=equipment(h).find(g=>g.id===id);if(!g||h.activeSkillEquipmentId!==id||!g.skillSockets?.count||!['skill','base'].includes(value))return false;return transaction(()=>{g.skillSockets.firstMode=value;});};
+ function refund(g,h=owner()){for(const id of g.skillSockets?.gems||[])if(id!==null)h.gems[id]++;}
+ globalThis.__EMBERWILD_EQUIPMENT_SKILLS={refresh,generate,compatible,mode,effectsFor,skillRate,refund,supportCooldownOnCast};
+ S.refreshAll();
+})();
+
+__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;createEquipmentShopGear=globalThis.createEquipmentShopGear??createEquipmentShopGear;selectSkillEquipment=globalThis.selectSkillEquipment??selectSkillEquipment;socketEquipmentGem=globalThis.socketEquipmentGem??socketEquipmentGem;setEquipmentGemMode=globalThis.setEquipmentGemMode??setEquipmentGemMode;
+
+/* js/ui/skill-system-ui.js */
+/* One loadout view and one equipment socket editor use the canonical catalog. */
+(()=>{
+ 'use strict';
+ const S=__EMBERWILD_SKILLS,E=__EMBERWILD_EQUIPMENT_SKILLS;
+ const labels={active:'主動',proc:'觸發',support:'輔助',passive:'被動'},sources={class:'職業',advanced:'二轉',quest:'任務',equipment:'裝備',companion:'夥伴'};
+ function detail(sk,h=state){
+  const a=sk.adapter;
+  if(sk.systemEffect)return `${sk.description} 持續 ${sk.duration} 回合 · 冷卻 ${sk.cooldown} 回合${['guard','slow'].includes(sk.systemEffect)?' · '+Math.round(sk.power*100)+'%':sk.systemEffect==='regen'?' · 每回合最大生命 '+Math.round(sk.power*10000)/100+'%':''}`;
+  return a.kind==='core'?coreSkillDetail(a.job,a.index,h):supportSkillDetail(a.job,a.index,h);
+ }
+ function icon(sk){return __EMBERWILD_MASTERY_UI.skillIcon(sk.adapter.job,sk.adapter.kind,sk.adapter.index);}
+ function equipmentPicker(h){const worn=equipment(h).filter(g=>g.skillId&&S.byId(g.skillId)?.jobs.includes(h.job));return `<section class="panel equipment-skill-picker"><h2>裝備技能</h2><div class="skill-equipment-list"><button type="button" aria-pressed="${!h.activeSkillEquipmentId}" onclick="selectSkillEquipment(null)">不啟用裝備技能</button>${worn.map(g=>{const sk=S.byId(g.skillId),chosen=g.id===h.activeSkillEquipmentId,slotted=Object.values(h.skillLoadout).some(a=>a.includes(sk.id));return `<button type="button" data-skill-equipment="${esc(g.id)}" aria-pressed="${chosen}" onclick="selectSkillEquipment('${esc(g.id)}')"><b>${esc(equipmentDisplayName(g))}</b><span>${esc(sk.name)} · ${labels[sk.type]}${chosen?' · '+(slotted?'已配置':'待配置'):''}</span><small>${esc(sk.description||detail(sk,h))}</small></button>`;}).join('')}</div></section>`;}
+ skillsView=function(){
+  const h=party.members[0];if(__EMBERWILD_TEAMS.plan()?.job===null)return heading('SKILLS / 技能','尚未選擇職業')+`<section class="panel"><button onclick="setTab('roster')">前往隊伍編成</button></section>`;return withHero(h,()=>{S.refreshHero(h);return heading('SKILLS / 技能','目前技能配置',`<span class="tag">${esc(characterName(h))} · ${h.advanced?'二轉':'一轉'}</span>`)+`<div class="skill-system-page">${['active','proc','support'].map(type=>`<section class="panel"><h2>${labels[type]}技能</h2><div class="skill-system-slots">${h.skillLoadout[type].map((id,n)=>{const sk=S.byId(id);return `<button type="button" class="skill-system-slot skill-kind-${type}" data-skill-slot="${type}:${n}" onclick="openSkillSlot('${type}',${n})"><span class="small">${labels[type]}槽 ${n+1}</span>${sk?`<span class="skill-slot-name">${icon(sk)}<b>${esc(sk.name)}</b></span><span>${esc(sk.description||detail(sk,h))}</span>`:'<b>選擇技能</b>'}</button>`;}).join('')}</div></section>`).join('')}${equipmentPicker(h)}</div>`;});
+ };
+ globalThis.openSkillSlot=function(type,n){
+  const h=party.members[0];if(!h.skillLoadout?.[type]||n<0||n>=h.skillLoadout[type].length)return false;
+  const list=S.system().definitions.filter(sk=>sk.type===type&&S.learned(h,sk)),modal=$('modal');modal.classList.add('skill-system-dialog');
+  modal.innerHTML=`<h2>${labels[type]}槽 ${n+1}</h2><div class="skill-candidate-list">${list.map(sk=>`<article class="skill-candidate" data-skill-id="${esc(sk.id)}"><div class="skill-slot-name">${icon(sk)}<b>${esc(sk.name)}</b><span class="tag">${esc(sk.sources.map(x=>sources[x.type]).join('／'))}</span></div><p>${esc(sk.description||'')}</p><p class="small">${esc(detail(sk,h))}</p><p class="small">需求 LV${sk.requiredLevel??sk.level??1}${sk.sources.some(s=>s.type==='advanced')?' · 二轉':''}</p><button type="button" onclick="chooseSkillSlot('${type}',${n},'${esc(sk.id)}')">${h.skillLoadout[type][n]===sk.id?'目前配置':'裝入技能'}</button></article>`).join('')||'<p>尚未取得符合此類型的技能。</p>'}</div><div class="actions"><button type="button" onclick="chooseSkillSlot('${type}',${n},null)">清空技能槽</button><button type="button" onclick="closeModal()">關閉</button></div>`;if(!modal.open)modal.showModal();return true;
+ };
+ globalThis.chooseSkillSlot=function(t,n,id){const h=party.members[0];return withHero(h,()=>{if(!configureSkill(t,n,id))return false;closeModal();return true;});};
+ $('modal').addEventListener('close',()=>$('modal').classList.remove('skill-system-dialog'));
+ const statNames={atk:'攻擊',hp:'生命',def:'防禦',speed:'速度',crit:'暴擊'};
+ function gemText(h,g,id,n){const def=S.system().gems.find(x=>x.kind===id%5),tier=Math.floor(id/5),base=E.mode(h||{},g,n)==='base';if(base){const b=def.base,value=b.values[tier];return statNames[b.stat]+' +'+(b.unit==='ratio'?Math.round(value*10000)/100+'%':value);}return ({effect:'技能效果',cooldown:'冷卻縮短機率',procChance:'觸發率',heal:'額外治療',shield:'額外護盾'})[def.skill.key]+' +'+Math.round(def.skill.values[tier]*10000)/100+'%';}
+ function sockets(g){
+  if(EmberwildTokens.isToken(g))return '';const sk=S.byId(g.skillId),h=party.members[0],active=h.activeSkillEquipmentId===g.id,x=g.skillSockets;
+  if(!x)return '';
+  return `<section class="equipment-socket-editor" data-socket-equipment="${esc(g.id)}"><h3>裝備技能${active?' · 已啟用':''}</h3>${sk?`<b>${esc(sk.name)} · ${labels[sk.type]}</b><p>${esc(sk.description||detail(sk,h))}</p>`:'<p class="small">無附帶技能</p>'}<h3>鑲嵌孔 ${x.gems.filter(id=>id!==null).length}／${x.count}</h3><div class="equipment-socket-list">${x.gems.map((id,n)=>`<div class="equipment-socket-row"><b>第 ${n+1} 孔</b><span>${id===null?'空孔':esc(GEMS[id].name)+' · '+esc(gemText(h,g,id,n))}</span><select aria-label="第 ${n+1} 孔寶石" onchange="socketEquipmentGem('${esc(g.id)}',${n},this.value)"><option value="-1" ${id===null?'selected':''}>不鑲嵌／免費拆除</option>${GEMS.map((gem,type)=>`<option value="${type}" ${id===type?'selected':''} ${(h.gems[type]<1&&id!==type||sk&&!E.compatible(type,sk,n))?'disabled':''}>${esc(gem.name)} ×${h.gems[type]}</option>`).join('')}</select>${n===0&&sk?`<label>第一孔模式<select aria-label="第一孔效果模式" onchange="setEquipmentGemMode('${esc(g.id)}',this.value)" ${active?'':'disabled'}><option value="skill" ${x.firstMode==='skill'?'selected':''}>技能加成</option><option value="base" ${x.firstMode==='base'?'selected':''}>基礎數值</option></select></label>${!active?'<small>未啟用：實際採用基礎數值。</small>':''}`:''}</div>`).join('')||'<p class="small">此裝備沒有鑲嵌孔。</p>'}</div><p class="small">拆除與替換免費；出售或分解時，寶石會退回庫存。</p></section>`;
+ }
+ const detailBase=inventoryGearDetail;inventoryGearDetail=function(g){return detailBase(g)+sockets(g);};
+ const slotBase=gearSlotHTML;gearSlotHTML=function(g,options){const html=slotBase(g,options);if(!g?.skillSockets)return html;const text=(g.skillId?'技能 · ':'')+g.skillSockets.gems.filter(x=>x!==null).length+'/'+g.skillSockets.count+' 孔';return html.replace(/(<\/button>)$/,`<small class="equipment-socket-badge">${esc(text)}</small>$1`);};
+ globalThis.__EMBERWILD_SKILL_SYSTEM_UI={detail,sockets};
+})();
+
+openSkillSlot=globalThis.openSkillSlot??openSkillSlot;chooseSkillSlot=globalThis.chooseSkillSlot??chooseSkillSlot;__EMBERWILD_SKILL_SYSTEM_UI=globalThis.__EMBERWILD_SKILL_SYSTEM_UI??__EMBERWILD_SKILL_SYSTEM_UI;
 const defaults=exportableBalance();return {defaults,canonicalize(input){return EmberwildInventoryIcons.migrateDescriptions(validateBalanceConfig(EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults)));},validate(input){const document=EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults);validateBalanceConfig(structuredClone(document));return EmberwildInventoryIcons.migrateDescriptions(document);}};
 }

@@ -12,6 +12,13 @@ class ReleaseService{
   if(!/monsterDesignVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援怪物個別設定、物品連結或多種 BOSS 陣容。請先升級該分支遊戲程式，再發布平衡 JSON。');
  }
  async requireLifeRuntime(target,candidate){
+  if(candidate.skillSystem){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/skillSystemVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援新版技能、裝備與寶石系統；請先升級該分支程式。');}
+
+  if(candidate.equipmentPowerSystem?.strength?.acquisitionVersion===1||candidate.shopSettings?.equipmentStages?.length){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(!/equipmentAcquisitionVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援裝備取得、固定商店與 BOSS 通關解鎖，請先升級該分支遊戲程式。');
+  }
+
   if((candidate.starterPacks||[]).some(row=>row.length===1)||candidate.starterPackItems?.some(row=>row.length)){
    const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
    if(!/starterMailVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援新手武器信箱禮包與自由贈品。請先升級該分支遊戲程式，再發布平衡 JSON。');
@@ -25,6 +32,12 @@ class ReleaseService{
   if(candidate.story?.quests?.length){
    const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
    if(!/storyVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援任務／劇情系統，請先升級該分支遊戲程式。');
+  }
+  const encounters=candidate.story?.quests?.some(q=>q.stages?.some(s=>s.encounter?.enabled));
+  if(encounters||candidate.timeUnits?.consumableClock==='exploration'){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(encounters&&!/questEncountersVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援任務關卡，請先升級該分支遊戲程式。');
+   if(candidate.timeUnits?.consumableClock==='exploration'&&!/consumableClockVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援有效探索時間增益，請先升級該分支遊戲程式。');
   }
   await this.requireMonsterRuntime(target,candidate);
   const life=candidate.lifeSkills?.gathering!==undefined,icons=Boolean(candidate.inventoryIcons?.length),palette=Boolean(candidate.iconColorTemplates?.length);

@@ -9,7 +9,7 @@ test('story publication requires target runtime and compiled validator preserves
  const s=new ReleaseService({validate:x=>x,api:async p=>{
   if(p.includes('/git/ref/heads/'))return {object:{sha:p.endsWith('main')?head:source}};
   if(p.includes('/compare/'))return {status:'ahead'};
-  if(p.includes('/contents/js/'))return {type:'file',encoding:'base64',content:Buffer.from(supported?'const api={storyVersion:1};':'const api={version:1};').toString('base64')};
+  if(p.includes('/contents/js/'))return {type:'file',encoding:'base64',content:Buffer.from(supported?'const api={storyVersion:1,questEncountersVersion:1};':'const api={version:1};').toString('base64')};
   return {type:'file',encoding:'base64',sha:head,content:Buffer.from(JSON.stringify(p.endsWith('ref='+head)?{}:candidate)).toString('base64')};
  }});
  const args={kind:'promote',sourceCommit:source,expectedCommit:head,message:'發布任務設定'};
