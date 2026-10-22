@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "b341ea7bdc4b8ed9cd6c1c7e96db871f6107f985",
+  "sourceCommit": "329141a37dcd3f901b38c9842fa9c9dbf10f81f8",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -32,7 +32,7 @@
     },
     {
       "path": "js/balance/progression-model.js",
-      "sha256": "57149834e63f304f63a314718421f87f3422f3ccb7c62b1d4844758290767878"
+      "sha256": "190f3540d01adb8758b7be958a790bac72bdedb75e3955d4708381b3a101be10"
     },
     {
       "path": "js/items/companion-token-model.js?v=20261019-token-jobs1",
@@ -115,8 +115,8 @@
       "sha256": "e8750fd6cab29cf5d92a8525717d6c89cf9fc8994261bcac9680d246172c1957"
     },
     {
-      "path": "js/ui/item-presentation.js?v=20261019-compact-dust1",
-      "sha256": "74261978a1cb2580490a370fb2110db12d1bf46abe0a8b5a664391aeb109e7b5"
+      "path": "js/ui/item-presentation.js?v=20261021-quality-forge1",
+      "sha256": "a84b6af32478b7773a1a01ef9adb6fccbff8efa307720ae63ea224316690b014"
     },
     {
       "path": "js/ui/ui-text-config.js?v=20261019-compact-dust1",
@@ -175,8 +175,8 @@
       "sha256": "3ef841300f0ac040a0e3049aa0b4f057e70e9f1ed2d63361ed4cd9cd7e65ebbb"
     },
     {
-      "path": "js/equipment/forge-navigation.js?v=20261019-compact-dust1",
-      "sha256": "1a34af54991642436d16688236bac63a56cabaac0ee84ebeaa3cdf1e9f6a8605"
+      "path": "js/equipment/forge-navigation.js?v=20261021-quality-forge1",
+      "sha256": "d75a30d157cd0182fda6e1e0970bf729365f8f6dc14bc19314714af6816ff2a8"
     },
     {
       "path": "js/skills/support-debuff.js",
@@ -184,7 +184,7 @@
     },
     {
       "path": "js/equipment/equipment-identity.js?v=20261019-daily-speed2",
-      "sha256": "ee5d4944979c381a77338d69c5f1aa960c09a6078d0b4aed053df2a21b7b5780"
+      "sha256": "9f01315d2604f6cabae8f2eb7c8cbf6e41aaeca7216bc34dc65b7a17ffae54ab"
     },
     {
       "path": "js/ui/journal-split.js?v=20261015-loot-fold1",
@@ -264,7 +264,7 @@
     },
     {
       "path": "js/balance/progression-runtime.js",
-      "sha256": "778081f3335a077f62fe97f9e28d14422a310f5b04ddf804fc0a6b1091add1a3"
+      "sha256": "8f85ac63434485cba711c385e885cc14653c61f507f8ba64f23c87f5375f869a"
     },
     {
       "path": "js/items/shop-catalog.js?v=20261014-descriptions1",
@@ -375,8 +375,8 @@
       "sha256": "67da639e345d17c349f697e47c16182bf012b03ddbd4692885e416c3c6449b14"
     },
     {
-      "path": "js/equipment/gear-inventory.js",
-      "sha256": "fabd5bcef8ad04055308cc4ebb44eb4ca8ce6ed29972c9237cde66a95fc993e6"
+      "path": "js/equipment/gear-inventory.js?v=20261021-quality-forge1",
+      "sha256": "1046689a8637f5468481cf3fdba740b0b5fd3d3dd08304a9771910ba2cb38d2b"
     },
     {
       "path": "js/combat/offline-exploration.js",
