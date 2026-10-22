@@ -1,0 +1,6 @@
+const fs=require('node:fs'),path=require('node:path');
+const game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(__dirname,'../../Emberwild')),file=path.join(__dirname,'../balance-editor.html');
+const model=fs.readFileSync(path.join(game,'js/skills/skill-system-model.js'),'utf8'),editor=fs.readFileSync(path.join(__dirname,'skill-system-editor.js'),'utf8');
+let html=fs.readFileSync(file,'utf8').replace(/\n<!-- canonical-skill-system:start -->[\s\S]*?<!-- canonical-skill-system:end -->\n?/g,'\n');
+html+='\n<!-- canonical-skill-system:start -->\n<style>.canonical-editor-layout{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,3fr);gap:16px}.canonical-skill-list{display:grid;gap:6px;margin-top:12px;max-height:65vh;overflow:auto}.canonical-skill-list button{text-align:left;white-space:normal}.canonical-skill-list small{display:block}.canonical-json{width:100%;min-height:420px;font-family:monospace;resize:vertical}#canonicalError{color:#f7aa84;white-space:pre-wrap}@media(max-width:800px){.canonical-editor-layout{grid-template-columns:1fr}.canonical-skill-list{max-height:220px}}</style>\n<script>\n'+model+'\n</script>\n<script>\n'+editor+'\n</script>\n<!-- canonical-skill-system:end -->\n';
+fs.writeFileSync(file,html);console.log('Synchronized canonical skill model and editor');

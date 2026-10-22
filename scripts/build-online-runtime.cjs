@@ -6,8 +6,9 @@ const scripts=[];
 for(const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){
  const src=m[1].match(/(?:\bsrc|data-balance-src)="([^"]+)"/)?.[1];
  if(src&&/startup-guard|published-loader/.test(src))continue;
- scripts.push({file:src||'inline',code:src?fs.readFileSync(path.join(game,src.split('?')[0]),'utf8'):m[2]});
+ scripts.push({deferred:m[1].includes('data-balance-src'),file:src||'inline',code:src?fs.readFileSync(path.join(game,src.split('?')[0]),'utf8'):m[2]});
 }
+scripts.sort((a,b)=>Number(a.deferred)-Number(b.deferred));
 const acornModule={exports:{}};
 new Function('module','exports',process.binding('natives')['internal/deps/acorn/acorn/dist/acorn'])(acornModule,acornModule.exports);
 const declared=new Set(),constants=new Set();
@@ -31,8 +32,8 @@ const prelude=`
  Object.assign(globalThis,{document,localStorage,sessionStorage,location,navigator,crypto,window,self,addEventListener,removeEventListener,setTimeout,clearTimeout,setInterval,clearInterval,requestAnimationFrame,cancelAnimationFrame,matchMedia,getComputedStyle,performance});
  var ${props.filter(n=>!declared.has(n)).join(',')};
 `;
-const compiled='export function createGameValidator(){\n'+prelude+scripts.map(s=>'\n/* '+s.file+' */\n'+s.code+'\n'+props.filter(n=>!constants.has(n)).filter(n=>s.code.includes('globalThis.'+n)||s.code.includes('root.'+n)||s.code.includes('window.'+n)).map(n=>`${n}=globalThis.${n}??${n};`).join('')).join('\n')+`\nconst defaults=exportableBalance();return {defaults,canonicalize(input){return validateBalanceConfig(EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults));},validate(input){const document=EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults);validateBalanceConfig(structuredClone(document));return document;}};\n}\n`;
+const compiled='export function createGameValidator(){\n'+prelude+scripts.map(s=>'\n/* '+s.file+' */\n'+s.code+'\n'+props.filter(n=>!constants.has(n)).filter(n=>s.code.includes('globalThis.'+n)||s.code.includes('root.'+n)||s.code.includes('window.'+n)).map(n=>`${n}=globalThis.${n}??${n};`).join('')).join('\n')+`\nconst defaults=exportableBalance();return {defaults,canonicalize(input){return EmberwildInventoryIcons.migrateDescriptions(validateBalanceConfig(EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults)));},validate(input){const document=EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults);validateBalanceConfig(structuredClone(document));return EmberwildInventoryIcons.migrateDescriptions(document);}};\n}\n`;
 const output=path.join(__dirname,'../server/online/game-validator.mjs');
 fs.writeFileSync(output,compiled);
-fs.writeFileSync(path.join(__dirname,'../server/online/runtime-provenance.json'),JSON.stringify({sourceRepository:'Horios/Emberwild',sourceCommit:require('node:child_process').execFileSync('git',['-C',game,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),files:scripts.map(s=>({path:s.file,sha256:crypto.createHash('sha256').update(s.code).digest('hex')}))},null,2)+'\n');
+fs.writeFileSync(path.join(__dirname,'../server/online/runtime-provenance.json'),JSON.stringify({sourceRepository:'Horios/Emberwild',sourceCommit:process.env.EMBERWILD_GAME_COMMIT||require('node:child_process').execFileSync('git',['-C',game,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),files:scripts.map(s=>({path:s.file,sha256:crypto.createHash('sha256').update(s.code).digest('hex')}))},null,2)+'\n');
 console.log('Compiled '+scripts.length+' game scripts ('+Buffer.byteLength(compiled)+' bytes)');

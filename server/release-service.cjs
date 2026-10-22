@@ -4,7 +4,45 @@ class ReleaseService{
  constructor({api,validate,ticketStore=null}){this.api=api;this.validateDocument=validate;this.base='/repos/Horios/Emberwild';this.tickets=ticketStore||new Map();}
  branch(value){if(!['main','chatgpt-dev'].includes(value))throw Error('僅允許 main／chatgpt-dev');return value;}
  async validate({data}){return {data:this.validateDocument(data),valid:true};}
+ async requireMonsterRuntime(target,candidate){
+  const maps=candidate.balanceSettings?.maps?.catalog||[],monsters=candidate.balanceSettings?.monsters?.catalog||[];
+  const needed=maps.some((m,i)=>m.mapType!=='final'&&(m.bossStageMode==='random'||monsters.filter(x=>x.mapIndex===i&&x.kind==='boss').length!==1))||monsters.some(m=>m.kind==='elite'||m.kind==='boss'&&(m.enabled===false||(m.bossStageCount??1)!==1)||m.baseStats&&(m.baseStats.hp>0||m.baseStats.attack>0||m.baseStats.defense>=0))||(candidate.balanceSettings?.drops?.entries||[]).some(d=>['equipment','token'].includes(d.type))||(candidate.items||[]).filter(x=>['imbue','ward','elementTonic'].includes(x.type)).length>15;
+  if(!needed)return;
+  const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+  if(!/monsterDesignVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援怪物個別設定、物品連結或多種 BOSS 陣容。請先升級該分支遊戲程式，再發布平衡 JSON。');
+ }
  async requireLifeRuntime(target,candidate){
+  if(candidate.items?.some(x=>x.type==='healPotion'&&x.healAmount!==undefined)){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/healingPotionVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援固定 HP 治療藥水與 VIP 購買條件，請先更新該分支程式。');}
+  if(candidate.story?.gearRewards?.length||candidate.skillSystem?.gemSlotRuleVersion===2){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/equipmentGemModeVersion\s*:\s*2\b/.test(text)||!/storyEquipmentLessonsVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援第一孔規則與裝備教學任務，請先更新測試分支程式。');}
+
+  if(candidate.skillSystem){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/skillSystemVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援新版技能、裝備與寶石系統；請先升級該分支程式。');}
+
+  if(candidate.equipmentPowerSystem?.strength?.acquisitionVersion===1||candidate.shopSettings?.equipmentStages?.length){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(!/equipmentAcquisitionVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援裝備取得、固定商店與 BOSS 通關解鎖，請先升級該分支遊戲程式。');
+  }
+
+  if((candidate.starterPacks||[]).some(row=>row.length===1)||candidate.starterPackItems?.some(row=>row.length)){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(!/starterMailVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援新手武器信箱禮包與自由贈品。請先升級該分支遊戲程式，再發布平衡 JSON。');
+  }
+
+  const catalogueOnly=(candidate.inventoryIcons||[]).some(r=>r.description!==undefined)&&(candidate.items||[]).some(item=>!Object.hasOwn(item,'description'));
+  if(catalogueOnly){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(!/EmberwildInventoryIcons\.migrateDescriptions\b/.test(text))throw Error('目標遊戲程式尚未支援集中物品說明。請先升級該分支遊戲程式，再發布平衡 JSON。');
+  }
+  if(candidate.story?.quests?.length){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(!/storyVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援任務／劇情系統，請先升級該分支遊戲程式。');
+  }
+  const encounters=candidate.story?.quests?.some(q=>q.stages?.some(s=>s.encounter?.enabled));
+  if(encounters||candidate.timeUnits?.consumableClock==='exploration'){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(encounters&&!/questEncountersVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援任務關卡，請先升級該分支遊戲程式。');
+   if(candidate.timeUnits?.consumableClock==='exploration'&&!/consumableClockVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援有效探索時間增益，請先升級該分支遊戲程式。');
+  }
+  await this.requireMonsterRuntime(target,candidate);
   const life=candidate.lifeSkills?.gathering!==undefined,icons=Boolean(candidate.inventoryIcons?.length),palette=Boolean(candidate.iconColorTemplates?.length);
   if(target.branch!=='main'||(!life&&!icons&&!palette))return;
   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit);
