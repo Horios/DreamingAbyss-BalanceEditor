@@ -4,7 +4,10 @@ test('lake CRUD, validation, future records, import/export and online comparison
  const r=loadRuntime(root),run=r.run;
  run('__EMBERWILD_LAKE_EDITOR.open()');assert.match(r.elements.get('app').innerHTML,/許願湖|回贈模擬器/);assert.equal(run('__EMBERWILD_LAKE_EDITOR.issues().length'),0);
  run("__EMBERWILD_LAKE_EDITOR.add('input');__EMBERWILD_LAKE_EDITOR.update('inputs.4.min',25);__EMBERWILD_LAKE_EDITOR.update('typeWeights.gold',70);");assert.equal(run('data.wishingLake.inputs[4].max'),25);assert.equal(run('data.wishingLake.typeWeights.gold'),70);
- run("__EMBERWILD_LAKE_EDITOR.add('pool');__EMBERWILD_LAKE_EDITOR.update('inputs.4.poolId','pool1');__EMBERWILD_LAKE_EDITOR.remove('inputs.4');__EMBERWILD_LAKE_EDITOR.remove('pools.1');");
+ run("__EMBERWILD_LAKE_EDITOR.add('pool');__EMBERWILD_LAKE_EDITOR.update('inputs.4.poolId','pool1');__EMBERWILD_LAKE_EDITOR.update('pools.1.useOwnWeights',true);__EMBERWILD_LAKE_EDITOR.update('pools.1.typeWeights.gold',0);__EMBERWILD_LAKE_EDITOR.update('pools.1.typeWeights.equipment',0);");
+ assert.equal(run('data.wishingLake.pools[1].typeWeights.gold'),0);assert.equal(run('data.wishingLake.typeWeights.gold'),70);assert.equal(run('__EMBERWILD_LAKE_EDITOR.issues().length'),0);
+ run("__EMBERWILD_LAKE_EDITOR.update('pools.1.enabled',false)");assert.throws(()=>run("__EMBERWILD_LAKE_EDITOR.simulate({mapId:'map0',inputId:data.wishingLake.inputs[4].id,quantity:25,count:100})"),/停用/);
+ run("__EMBERWILD_LAKE_EDITOR.remove('inputs.4');__EMBERWILD_LAKE_EDITOR.remove('pools.1');");
  run("for(const k of ['fairyEvents','companionQuests','festivals'])__EMBERWILD_LAKE_EDITOR.add(k);");assert.equal(run('Object.values(data.wishingLake.future).filter(Array.isArray).every(rows=>rows.every(x=>x.enabled===false))'),true);
  const out=JSON.parse(run('JSON.stringify(__EMBERWILD_MASTERY_EDITOR.cleanExport())'));r.ctx.roundtrip=out;run('data=JSON.parse(JSON.stringify(roundtrip));ensureArrays();');assert.deepEqual(JSON.parse(run('JSON.stringify(__EMBERWILD_MASTERY_EDITOR.cleanExport().wishingLake)')),out.wishingLake);
  run("__EMBERWILD_LAKE_EDITOR.update('gold.max',20001)");assert.throws(()=>run('__EMBERWILD_MASTERY_EDITOR.cleanExport()'),/金幣/);run("__EMBERWILD_LAKE_EDITOR.update('gold.max',20000)");

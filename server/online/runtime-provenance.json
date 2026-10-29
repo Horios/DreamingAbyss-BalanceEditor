@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "6bb72d6d1225190a1784757203ecaa54511ec8a1",
+  "sourceCommit": "4b1eb393620aba47869caa8654563e6359c0ff90",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -28,7 +28,7 @@
     },
     {
       "path": "js/world/wishing-lake-model.js",
-      "sha256": "33ebb05a02c03fef512ad104a3fd88e22b749d21eb5959acb9664f7708a8b122"
+      "sha256": "81a4820d55034cd75cf662bea3e5f4312ea7bfa6130db46dd412223201f5f0b0"
     },
     {
       "path": "js/balance/balance-document.js?v=20261022-potions1",
@@ -452,7 +452,7 @@
     },
     {
       "path": "js/world/wishing-lake.js",
-      "sha256": "8d52cf0a1d83e1f053cbc1a9ece98f403f9e1a526cb75d100ca2e87cf5e94599"
+      "sha256": "5b22c22c63d82dd48e4c5b19da30b2fef9374622e21cc1e6fc7163309e1d2107"
     }
   ]
 }
