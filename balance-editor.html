@@ -7893,7 +7893,7 @@ renderOverview=function(){statusRenderOverviewBase();const app=document.getEleme
   ensureArrays();requestEditorInitialRender();
 })();
 
-globalThis.__EMBERWILD_STATUS_EDITOR_TEST_API={schema:STATUS_SCHEMA_VERSION,normalize:normalizeStatusDefinition,validate:validateStatusDefinition,selfTest:statusPureSelfTest,get definitions(){return deepCloneStatus(statusList());}};
+globalThis.__EMBERWILD_STATUS_EDITOR_TEST_API={select(id){const i=statusList().findIndex(s=>s.id===id);if(i<0)throw Error('找不到狀態：'+id);selectedStatusIndex=i;currentSection='statuses';render();},schema:STATUS_SCHEMA_VERSION,normalize:normalizeStatusDefinition,validate:validateStatusDefinition,selfTest:statusPureSelfTest,get definitions(){return deepCloneStatus(statusList());}};
 requestEditorInitialRender();
 })();
 </script>
@@ -11546,8 +11546,16 @@ html body label:has(>input:is([type=checkbox],[type=radio])){display:flex;flex-d
 
 
 
+
+
+
+
+
+
+
+
 <!-- canonical-skill-system:start -->
-<style>.canonical-editor-layout{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,3fr);gap:16px}.canonical-skill-list{display:grid;gap:6px;margin-top:12px;max-height:65vh;overflow:auto}.canonical-skill-list button{text-align:left;white-space:normal}.canonical-skill-list small{display:block}.canonical-json{width:100%;min-height:420px;font-family:monospace;resize:vertical}#canonicalError{color:#f7aa84;white-space:pre-wrap}@media(max-width:800px){.canonical-editor-layout{grid-template-columns:1fr}.canonical-skill-list{max-height:220px}}</style>
+<style>.canonical-editor-layout{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,3fr);gap:16px}.canonical-skill-list{display:grid;gap:6px;margin-top:12px;max-height:65vh;overflow:auto}.canonical-skill-list button{text-align:left;white-space:normal}.canonical-skill-list small{display:block}.canonical-json{width:100%;min-height:420px;font-family:monospace;resize:vertical}.mechanism-card{border:1px solid var(--border,#3b4654);border-radius:10px;padding:12px;margin:10px 0}.mechanism-card pre,.mechanism-dialog pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:280px;overflow:auto}.mechanism-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:16px 0}.mechanism-grid small,.mechanism-dialog small{display:block;overflow-wrap:anywhere}.canonical-list-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px}.mechanism-dialog{width:min(900px,94vw);max-height:90vh;overflow:auto;background:var(--panel,#17202c);color:inherit;border:1px solid #64748b;border-radius:12px;padding:24px}.mechanism-dialog::backdrop{background:#0009}.mechanism-dialog label{display:block;margin:10px 0}.mechanism-dialog select{max-width:100%}.mechanism-section code{overflow-wrap:anywhere}#canonicalError{color:#f7aa84;white-space:pre-wrap}@media(max-width:800px){.canonical-editor-layout{grid-template-columns:1fr}.canonical-skill-list{max-height:220px}}</style>
 <script>
 /* Stable skill IDs are authoritative. Positional rows are generated adapters for
    the existing effect engine and legacy affixes, never a second skill catalog. */
@@ -11675,10 +11683,148 @@ html body label:has(>input:is([type=checkbox],[type=radio])){display:flex;flex-d
 
 </script>
 <script>
+/* Editor-only mechanism definitions, instances and reverse examples. No runtime schema changes. */
+(function(root){
+'use strict';
+const copy=x=>JSON.parse(JSON.stringify(x)),pick=(s,ks)=>Object.fromEntries(ks.filter(k=>s[k]!==undefined).map(k=>[k,copy(s[k])])),defs=new Map();
+const common=['damage','drain','heal','shield','cleanse','dispel','revive'];
+const mainKeys=['effect','systemEffect','power','powerPerLevel','duration','element','drainRate','healResolution','dispelCount','reviveHpRatio','statusId','statusTarget','statusTargetStat','statusTargetOrder','statusTargetIncludeSelf'];
+const supportKeys=['kind','value','effectPerLevel','duration','element','statusId','statusTarget','statusTargetStat','statusTargetOrder','statusTargetIncludeSelf','baseCritRate','baseCritDamage','defensePenetration','defenseIgnore'];
+const commonKeys=['target','hitCount','powerBasis','damageResolution','healResolution','drainRate','onHitStatusId','onHitStatusChance','dispelCount','reviveHpRatio'];
+function define(id,name,category,description,source,reusable=true){if(!defs.has(id))defs.set(id,{id,name,category,description,source,reusable});return defs.get(id);}
+const names={damage:'直接傷害',drain:'傷害轉治療',heal:'恢復生命',shield:'生成護盾',cleanse:'淨化減益',dispel:'驅散增益',revive:'復活',applyStatus:'施加自訂狀態',taunt:'嘲諷',guard:'減傷',slow:'緩速',regen:'持續恢復',polymorph:'變形',freeze:'凍結',frost:'冰霜',rage:'狂暴',summonMorphTrap:'變形陷阱',summonFreezeTrap:'冰凍陷阱',fear:'恐懼',tauntRage:'嘲諷狂暴',nextActiveDamage:'下次主動技能增傷',advanceNextRound:'下回合行動提前',shieldLowest:'最低生命護盾'};
+for(const e of common.concat('applyStatus'))define('core.'+e,names[e],['heal','revive'].includes(e)?'治療':['shield','applyStatus','cleanse','dispel'].includes(e)?'狀態':'傷害','核心技能主要效果；同一技能只有一個主效果槽。','js/combat/skill-effect-runtime.js / js/skills/status-maker.js');
+for(const e of ['taunt','guard','slow','regen'])define('system.'+e,names[e],'狀態','職業特殊效果覆蓋一般主要效果，限人物核心技能。','js/skills/skill-system-runtime.js');
+for(const e of ['polymorph','freeze','frost','rage','summonMorphTrap','summonFreezeTrap','fear','tauntRage','nextActiveDamage','advanceNextRound','shieldLowest'])define('exclusive.'+e,names[e],'特殊機制','專屬處理器；尚未拆成可獨立取用的積木。完整複製保留此處理器及原職業限制。','js/combat/control-status-summon.js / js/core/core-game.js',false);
+define('core.target','目標篩選','目標','核心共用效果的目標及數量上限。','js/combat/skill-effect-runtime.js');
+define('core.hitCount','多段傷害','傷害','每個目標執行指定段數。','js/combat/skill-effect-runtime.js');
+define('core.powerBasis','計算基準','條件','選擇倍率計算使用的生命、攻擊等基準。','js/combat/skill-effect-runtime.js');
+define('core.damageResolution','傷害結算','傷害','一般、固定或真實傷害結算。','js/combat/skill-effect-runtime.js');
+define('core.onHitStatus','命中／恢復後附加狀態','狀態','命中傷害、治療或護盾後按機率附加狀態。','js/combat/skill-effect-runtime.js');
+define('core.induction','誘發技能','事件','一次誘發 1～2 個技能／槽位；禁止誘發再誘發。','js/skills/induction-runtime.js');
+define('event.proc','普攻後觸發','事件','目前引擎的 proc 是普攻後觸發，不代表受擊觸發。','js/core/core-game.js',false);
+function instances(sk,doc){
+ const out=[],add=(id,key,parameters,slot,editable=true,extra={})=>{const def=defs.get(id);out.push({key,id,definition:def,parameters:copy(parameters),slot,editable,reusable:def.reusable&&editable,dependencies:[],...extra});};
+ const core=sk.adapter.kind==='core',normal=core&&!sk.systemEffect&&common.includes(sk.effect);
+ if(core){
+  let id=sk.systemEffect?'system.'+sk.systemEffect:(common.includes(sk.effect)||sk.effect==='applyStatus'?'core.':'exclusive.')+sk.effect;
+  if(!defs.has(id))define(id,'尚未結構化：'+(sk.effect||'未知'),'特殊機制','未辨識的處理器，保留原始設定，禁止單獨重用。','未辨識',false);
+  add(id,'main',pick(sk,mainKeys),'main',true,{dependencies:sk.statusId?[{kind:'status',id:sk.statusId}]:[]});
+  // systemEffect short-circuits the common handler; dormant fields are not advertised as running.
+  if(normal){
+   if(sk.target!==undefined)add('core.target','target',pick(sk,['target','maxTargets','targetLimit']),'target');
+   if(['damage','drain'].includes(sk.effect)&&sk.hitCount!==undefined)add('core.hitCount','hitCount',pick(sk,['hitCount']),'hitCount');
+   if(['damage','drain','heal','shield'].includes(sk.effect)&&sk.powerBasis!==undefined)add('core.powerBasis','powerBasis',pick(sk,['powerBasis']),'powerBasis');
+   if(['damage','drain'].includes(sk.effect)&&sk.damageResolution!==undefined)add('core.damageResolution','damageResolution',pick(sk,['damageResolution']),'damageResolution');
+   if(sk.onHitStatusId)add('core.onHitStatus','onHitStatus',pick(sk,['onHitStatusId','onHitStatusChance']),'onHitStatus',true,{dependencies:[{kind:'status',id:sk.onHitStatusId}]});
+  }
+  if(sk.tags?.includes('induce')||sk.induction||sk.effect==='induceSkill')add('core.induction','induction',pick(sk,['tags','induction']),'induction',true,{dependencies:(sk.induction?.targets||[]).filter(t=>t.kind==='skill').map(t=>({kind:'skill',id:t.skillId}))});
+  if(sk.type==='proc')add('event.proc','proc',pick(sk,['procBaseChance','procChancePerLevel']),'trigger',false);
+ }else if(sk.adapter.kind==='support'){
+  const kind=sk.kind||'unknown',known=['attack','critical','guard','power','regen','fracture','weaken','vulnerable','followup','dotAttack','dotMaxHp','damageAmp','applyStatus'].includes(kind);
+  const id='support.'+kind;define(id,({dotAttack:'行動前持續傷害（攻擊）',dotMaxHp:'行動前持續傷害（生命）',followup:'受擊後追加傷害',regen:'持續恢復',applyStatus:'施加自訂狀態'})[kind]||'輔助效果：'+kind,known?'狀態':'特殊機制','輔助技能的單一持續效果槽；保留施放目標。','js/skills/support-debuff.js / js/skills/status-maker.js',known);
+  add(id,'support',pick(sk,[...supportKeys,'target']),'support',true,{dependencies:sk.statusId?[{kind:'status',id:sk.statusId}]:[]});
+ }else{
+  for(const [i,e] of (sk.effects||[]).entries()){
+   const known=Object.hasOwn(root.EmberwildPassives?.labels||{},e.key),id='passive.'+e.key;define(id,'被動：'+(root.EmberwildPassives?.labels?.[e.key]||e.key),known?'狀態':'特殊機制','被動常駐效果；目標方向須相容。','js/skills/passive-model.js',known);add(id,'passive:'+i,{effect:copy(e),target:sk.target,kind:sk.kind},'passive');
+  }
+ }
+ // State internals are shown separately from the skill's application mechanism.
+ for(const inst of [...out])for(const dep of inst.dependencies.filter(d=>d.kind==='status')){
+  const state=doc.statusDefinitions?.find(s=>s.id===dep.id);if(!state)continue;
+  for(const [i,e] of (state.periodic||[]).entries()){
+   const id='status.periodic.'+e.kind;define(id,e.kind==='heal'?'狀態持續恢復':'狀態持續傷害','狀態','相關狀態內的週期效果。由施加狀態積木一併複製，不能獨立貼到技能。','js/skills/status-maker.js',false);add(id,inst.key+':periodic:'+i,{statusId:state.id,...copy(e)},'related',false,{related:true});
+  }
+  for(const [i,m] of (state.modifiers||[]).entries()){
+   const id='status.modifier.'+m.kind;define(id,'狀態效果：'+m.kind,'狀態','相關狀態的增減益效果；透過施加狀態積木取用。','js/skills/status-maker.js',false);add(id,inst.key+':modifier:'+i,{statusId:state.id,...copy(m)},'related',false,{related:true});
+  }
+  if(state.control){const id='status.control.'+state.control.kind;define(id,'狀態控制：'+(names[state.control.kind]||state.control.kind),'狀態','相關狀態嵌入的控制處理器。','js/skills/status-maker.js',false);add(id,inst.key+':control',{statusId:state.id,...copy(state.control)},'related',false,{related:true});}
+  for(const [field,name] of [['stackable','狀態疊加'],['uses','狀態觸發次數']])if(state[field]){const id='status.'+field;define(id,name,'條件','狀態定義的疊加或消耗次數設定，不是門檻比較或死亡事件。','js/skills/status-maker.js',false);add(id,inst.key+':'+field,{statusId:state.id,[field]:state[field],duration:state.duration},'related',false,{related:true});}
+  if(state.tags?.includes('instant')){const id='status.instant';define(id,'施加時立即結算','事件','施加時額外結算一次 periodic。','js/skills/status-maker.js',false);add(id,inst.key+':instant',{statusId:state.id},'related',false,{related:true});}
+
+ }
+ return out;
+}
+function index(doc){const byMechanism=new Map(),bySkill=new Map();for(const sk of doc.skillSystem.definitions.filter(s=>!s.deleted)){const xs=instances(sk,doc);bySkill.set(sk.id,xs);for(const x of xs){if(!byMechanism.has(x.id))byMechanism.set(x.id,{...x.definition,skills:[],uses:0});const row=byMechanism.get(x.id);row.uses++;if(!row.skills.includes(sk.id))row.skills.push(sk.id);}}return {byMechanism,bySkill};}
+function newId(prefix,used){let n=1;while(used.has(prefix+n))n++;return prefix+n;}
+function allocate(doc,sk){const kind=sk.adapter.kind,used=new Set(doc.skillSystem.definitions.flatMap(s=>s.adapters||[s.adapter]).filter(a=>a.kind===kind).map(a=>a.job+':'+a.index));const adapters=kind==='passive'?[{job:sk.jobs[0],kind,index:doc.passiveDefinitions.length}]:sk.jobs.map(job=>{let index=kind==='core'?doc.classes[job].skills.length:doc.supportSkills[job].length;while(used.has(job+':'+index))index++;if(index>=64)throw Error('此職業技能池已滿（最多 64）');return {job,kind,index};});sk.adapter=adapters[0];delete sk.adapters;if(adapters.length>1)sk.adapters=adapters;return sk;}
+function cloneStates(doc,skill){const map=new Map();for(const key of ['statusId','onHitStatusId'])if(skill[key]){const id=skill[key],src=doc.statusDefinitions?.find(s=>s.id===id);if(!src)throw Error('缺少狀態來源：'+id);if(!map.has(id)){const fresh=newId('copied-status-',new Set(doc.statusDefinitions.map(s=>s.id)));doc.statusDefinitions.push({...copy(src),id:fresh,name:src.name+'（副本）'});map.set(id,fresh);}skill[key]=map.get(id);}return skill;}
+function duplicate(doc,id){const next=copy(doc),src=next.skillSystem.definitions.find(s=>s.id===id);if(!src)throw Error('技能不存在');const sk=allocate(next,copy(src));sk.id=newId('custom-skill-',new Set(next.skillSystem.definitions.map(s=>s.id)));sk.name=(sk.name.slice(0,72)+'（副本）');delete sk.deleted;cloneStates(next,sk);next.skillSystem.definitions.push(sk);return {document:next,skillId:sk.id,warnings:instances(src,doc).filter(x=>!x.reusable).map(x=>x.definition.name+'：'+x.definition.description).concat((sk.induction?.targets||[]).filter(t=>t.kind==='skill').map(t=>'保留外部技能引用：'+t.skillId))};}
+function blank(doc,job=0,type='active'){
+ const next=copy(doc),sk={id:newId('custom-skill-',new Set(next.skillSystem.definitions.map(s=>s.id))),name:'新技能',description:'請設定機制與取得來源後再啟用。',type,jobs:[job],adapter:{job,kind:type==='support'?'support':type==='passive'?'passive':'core',index:0},sources:[{type:'quest',rewardOnly:true}],partnerId:null,usageScope:'character',requiredLevel:1,requiresAdvanced:false,disabled:true,unlockConditions:root.EmberwildSkillSystem.emptyConditions(),cooldown:3,power:0,powerPerLevel:0,element:'physical',maxTargets:1,baseCritRate:0,baseCritDamage:1.5,defensePenetration:0,defenseIgnore:0,requiredMastery:null,requiredMasteryLevel:0,mastery:null,weaponTypes:[]};
+ if(type==='support')Object.assign(sk,{kind:'guard',target:'allies',value:0,duration:1,level:1,effectPerLevel:0});else if(type==='passive')Object.assign(sk,{kind:'buff',target:'self',effects:[{key:'flatAttack',value:0}]});else Object.assign(sk,{activation:type,effect:'damage',target:'enemy',commonEffectKeys:['target'],...(type==='proc'?{procBaseChance:0,procChancePerLevel:0}:{})});allocate(next,sk);next.skillSystem.definitions.push(sk);return {document:next,skillId:sk.id};
+}
+function check(doc){
+ root.EmberwildSkillSystem.project(doc);const issues=[];
+ for(const sk of doc.skillSystem.definitions){
+  if(sk.adapter.kind==='core'){
+   if(sk.systemEffect){if(sk.usageScope&&!['character'].includes(sk.usageScope))issues.push(sk.id+'：systemEffect 只支援人物');}
+   else issues.push(...root.EmberwildSkillEffects.validateSkill(sk,doc.statusDefinitions||[]).map(s=>sk.id+'：'+s));
+   if(sk.effect==='applyStatus'&&!doc.statusDefinitions?.some(s=>s.id===sk.statusId))issues.push(sk.id+'：缺少狀態來源');
+  }
+ }
+ issues.push(...root.EmberwildInduction.validate(doc));if(issues.length)throw Error(issues.join('\n'));return doc;
+}
+function transfer(doc,sourceId,keys,targetId,options={}){
+ const next=copy(doc),src=next.skillSystem.definitions.find(s=>s.id===sourceId),dst=next.skillSystem.definitions.find(s=>s.id===targetId);if(!src||!dst)throw Error('來源或目標技能不存在');
+ const xs=instances(src,next),selected=[...new Set(keys)].map(key=>{const x=xs.find(x=>x.key===key);if(!x||!x.reusable)throw Error('此機制僅可查看，無法獨立重用：'+key);return x;});if(!selected.length)throw Error('請選擇機制');
+ const changes=[],deps=[],conflicts=[];
+ for(const x of selected){
+  if(x.slot==='passive'){if(dst.type!=='passive'||dst.target!==x.parameters.target)throw Error('被動機制需要相同目標方向的被動技能');dst.effects.push(copy(x.parameters.effect));changes.push({mechanism:x.id,append:x.parameters.effect});continue;}
+  if((x.slot==='support')!==(dst.type==='support')||dst.type==='passive')throw Error('核心／輔助／被動技能引擎不相容');
+  const values=copy(x.parameters),fields=x.slot==='main'?mainKeys:x.slot==='support'?[...supportKeys,'target']:Object.keys(values);
+  if(x.slot==='main'&&dst.effect==='induceSkill')throw Error('誘發專屬主效果需先在技能設定中調整，避免遺失誘發流程');
+  for(const k of fields)if(dst[k]!==undefined&&JSON.stringify(dst[k])!==JSON.stringify(values[k]))conflicts.push(k);
+  if(x.slot==='induction'){
+   // Preserve unrelated tags; only the induce tag belongs to this mechanism.
+   values.tags=[...new Set([...(dst.tags||[]),'induce'])];
+   for(const t of values.induction?.targets||[])if(t.kind==='skill'){
+    const chosen=options.skillMap?.[t.skillId];if(!chosen)throw Error('請明確指定誘發技能相依：'+t.skillId);t.skillId=chosen;const ref=next.skillSystem.definitions.find(s=>s.id===chosen);
+    if(!ref||ref.id===dst.id||ref.partnerId!==dst.partnerId||!dst.jobs.every(j=>ref.jobs.includes(j)))throw Error('誘發目標角色／職業不相容');deps.push({kind:'skill',source:x.dependencies.find(d=>d.id===chosen)?.id||chosen,target:chosen});
+   }
+  }
+  for(const dep of x.dependencies.filter(d=>d.kind==='status')){
+   const mode=options.statusMode;if(!['clone','existing'].includes(mode))throw Error('請選擇複製相依狀態或重新指定既有狀態：'+dep.id);
+   const key=values.onHitStatusId?'onHitStatusId':'statusId';
+   if(mode==='existing'){const id=options.statusMap?.[dep.id];if(!next.statusDefinitions?.some(s=>s.id===id))throw Error('請指定有效的目標狀態');values[key]=id;}
+   else cloneStates(next,values);
+   deps.push({kind:'status',source:dep.id,target:values[key],mode});
+  }
+  for(const k of fields)delete dst[k];Object.assign(dst,values);
+  if(x.slot==='main'){
+   // A changed main handler cannot silently retain incompatible optional behavior.
+   for(const k of commonKeys)if(dst[k]!==undefined&&!fields.includes(k)&&!selected.some(s=>Object.hasOwn(s.parameters,k))){
+    if((!common.includes(dst.effect)&&dst.effect!=='applyStatus')||dst.systemEffect||(root.EmberwildSkillEffects.validateSkill(dst,next.statusDefinitions||[]).length))throw Error('目標含不相容的 '+k+'；請先移除或調整目標機制');
+   }
+  }
+  changes.push({mechanism:x.id,fields,values:copy(values)});
+ }
+ for(const x of selected)if(['target','hitCount','powerBasis','damageResolution','onHitStatus'].includes(x.slot)){if(dst.systemEffect||!common.includes(dst.effect))throw Error('目標處理器不支援共用選項：'+x.id);if(x.slot==='hitCount'&&!['damage','drain'].includes(dst.effect))throw Error('多段傷害需要傷害／吸血效果');if(x.slot==='onHitStatus'&&!['damage','drain','heal','shield'].includes(dst.effect))throw Error('附加狀態需要傷害、治療或護盾');}
+ if(conflicts.length&&!options.replace)throw Error('會替換既有欄位：'+[...new Set(conflicts)].join('、')+'；請勾選明確替換');
+ if(dst.adapter.kind==='core'&&!dst.systemEffect&&common.includes(dst.effect))dst.commonEffectKeys=commonKeys.filter(k=>dst[k]!==undefined);
+ check(next);return {document:next,skillId:dst.id,changes,dependencies:deps,conflicts:[...new Set(conflicts)]};
+}
+function compatible(id,sk){if(!sk)return false;if(id.startsWith('passive.'))return sk.type==='passive';if(id.startsWith('support.'))return sk.type==='support';if(!['active','proc'].includes(sk.type))return false;if(id.startsWith('system.'))return sk.usageScope==='character';if(['core.hitCount','core.damageResolution'].includes(id))return !sk.systemEffect&&['damage','drain'].includes(sk.effect);if(['core.onHitStatus','core.powerBasis'].includes(id))return !sk.systemEffect&&['damage','drain','heal','shield'].includes(sk.effect);return !sk.systemEffect;}
+root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,blank,transfer,check,copy,mainKeys};
+})(globalThis);
+
+</script>
+<script>
 /* Embedded after the existing editor. All authoring targets the canonical IDs. */
 (()=>{
  'use strict';
- const M=EmberwildSkillSystem,copy=M.copy;
+ const M=EmberwildSkillSystem,K=EmberwildMechanisms,copy=M.copy;
+ let cache=null,revision=0;const drafts=new Map(),history=[],recent=[];let mechanismQuery='',category='',mechanismId='',notice='',lastSection='',externalReturn=false;
+ const draftKey='emberwild-skill-mechanism-drafts-v1';try{for(const [id,d] of JSON.parse(localStorage.getItem(draftKey)||'[]'))drafts.set(id,d);}catch{}
+ const ix=()=>cache||(cache=K.index(data)),invalidate=()=>{cache=null;revision++;};
+ function checkCandidate(next){const previous=data;try{K.check(next);data=next;const issues=validateData();if(issues.length)throw Error(issues.join('\n'));return next;}finally{data=previous;}}
+ function commit(next,message){checkCandidate(next);data=next;invalidate();markDirty(message);}
+ function commitResult(result,message){commit(result.document,message);selection=result.skillId;section='skills';notice=(result.warnings||[]).join('\n');return result.skillId;}
+ function warnDraft(){return !drafts.size||confirm('有 '+drafts.size+' 份技能未套用修改。保留草稿並繼續跳轉？返回技能後可繼續編輯；匯出前需先套用或捨棄。');}
+ function route(part,id=''){if(!warnDraft())return;history.push({section,selection,query,mechanismQuery,category,mechanismId});section=part;if(part==='mechanisms')mechanismId=id;else if(id)selection=id;currentSection='skillSystem';render();}
+ function persistDrafts(){localStorage.setItem(draftKey,JSON.stringify([...drafts]));}
+ function requireApplied(id){if(drafts.has(id))throw Error('請先套用或捨棄該技能的未儲存修改，再複製或取用。');}
+
  let section='skills',selection='',query='';
  function ensure(d){if(!d.skillSystem)d.skillSystem=M.fromLegacy(d);M.project(d);return d.skillSystem;}
  ensure(ORIGINAL_DATA);ensure(data);
@@ -11688,45 +11834,76 @@ html body label:has(>input:is([type=checkbox],[type=radio])){display:flex;flex-d
  const exportBase=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=function(){ensure(data);const out=exportBase();out.skillSystem=copy(data.skillSystem);out.balanceSettings.meta.skillSystemVersion=1;return M.project(out);};
  const labels={active:'主動',proc:'觸發',support:'輔助',passive:'被動'},sourceLabels={class:'職業',advanced:'二轉',quest:'任務',equipment:'裝備',companion:'夥伴'};
  function references(id){const s=data.skillSystem,out=[];for(const r of s.classRules)for(const k of ['initial','advanced'])if(r[k].some(x=>x.skillId===id))out.push('職業 '+r.job+' '+k);if(s.equipment.pool.some(x=>x.skillId===id)||s.equipment.formRules?.some(x=>x.skillId===id))out.push('裝備技能池');for(const sk of s.definitions)if(sk.induction?.targets?.some(x=>x.skillId===id))out.push('誘發技能 '+sk.name);for(const mon of data.balanceSettings.monsters.catalog)if(mon.skillAssignments?.some(x=>x.skillId===id))out.push('怪物 '+mon.name);const sk=s.definitions.find(x=>x.id===id);if(sk){const a=sk.adapter;for(const p of data.companions)if(p.core?.includes(a.index)&&a.kind==='core'&&p.job===a.job||p.support?.includes(a.index)&&a.kind==='support'&&p.job===a.job||p.passives?.includes(id))out.push('夥伴 '+p.name);for(const cls of data.equipmentForms||[])for(const forms of cls)for(const form of forms)if(form.fixedEffects?.some(x=>['skillEffectPct','skillCooldownReduction'].includes(x.key)&&x.skill===a.index)&&a.kind==='core')out.push('裝備詞條 '+form.name);}return out;}
- function updateSkill(id,patch){const s=copy(data.skillSystem),i=s.definitions.findIndex(x=>x.id===id);if(i<0)return false;const old=s.definitions[i];s.definitions[i]={...old,...copy(patch),id:old.id,adapter:old.adapter};M.project({...copy(data),skillSystem:s});data.skillSystem=s;M.project(data);markDirty('已修改技能 '+old.name);return true;}
- function addSkill(job=0,type='active'){
-  const s=copy(data.skillSystem),kind=type==='support'?'support':type==='passive'?'passive':'core',index=kind==='core'?data.classes[job].skills.length:kind==='support'?data.supportSkills[job].length:data.passiveDefinitions.length;
-  const template=s.definitions.find(x=>x.type===type&&(x.jobs.includes(job)||type==='passive'));if(!template)throw Error('請先建立此類型技能範本');
-  let serial=1;while(s.definitions.some(x=>x.id==='custom-skill-'+serial))serial++;
-  const sk={...copy(template),id:'custom-skill-'+serial,name:'新技能',description:'',jobs:[job],adapter:{job,kind,index},sources:[{type:'quest',questIds:['tutorial']}],partnerId:null,requiredLevel:1,requiresAdvanced:false,disabled:false,unlockConditions:M.emptyConditions()};
-  s.definitions.push(sk);M.project({...copy(data),skillSystem:s});data.skillSystem=s;M.project(data);selection=sk.id;markDirty('已新增技能');return sk.id;
- }
+ function updateSkill(id,patch){const next=copy(data),s=next.skillSystem,i=s.definitions.findIndex(x=>x.id===id);if(i<0)return false;const old=s.definitions[i];s.definitions[i]={...old,...copy(patch),id:old.id,adapter:old.adapter,...(old.adapters?{adapters:old.adapters}:{})};commit(next,'已修改技能 '+old.name);drafts.delete(id);persistDrafts();return true;}
+ function addSkill(job=0,type='active'){return commitResult(K.blank(data,job,type),'已建立空白技能（預設停用）');}
+ function duplicateSkill(id){requireApplied(id);return commitResult(K.duplicate(data,id),'已複製技能；請檢查取得來源及配置');}
  function deleteSkill(id){const refs=references(id);if(refs.length)throw Error('技能仍被引用：'+refs.join('、'));return updateSkill(id,{disabled:true,deleted:true});}
  function applyPart(part,value){const s=copy(data.skillSystem);s[part]=copy(value);M.project({...copy(data),skillSystem:s});data.skillSystem=s;M.project(data);markDirty('已修改 '+part);return true;}
  function iconMetadata(sk){const a=sk.adapter;return __EMBERWILD_INVENTORY_ICON_EDITOR.settings('skill',`${a.kind}:${a.job}:${a.index}`);}
- function skillForm(sk){return `<h2>${esc(sk.name)}</h2><p class="mini-note">ID：${esc(sk.id)} · ${labels[sk.type]} · 來源：${sk.sources.map(x=>sourceLabels[x.type]).join('／')}</p>${__EMBERWILD_COLOR_EDITOR.control('skillPalette',iconMetadata(sk))}<label>名稱<input id="canonicalSkillName" value="${esc(sk.name)}"></label><label>說明<textarea id="canonicalSkillDescription">${esc(sk.description||'')}</textarea></label><label><input id="canonicalSkillDisabled" type="checkbox" ${sk.disabled?'checked':''}>停用</label><p class="mini-note">以下可編輯類型、職業限制、圖示、目標、倍率、冷卻、元素、觸發、取得來源與既有效果參數。ID 與引擎索引固定；變更類型時須保留對應的核心／輔助／被動引擎。</p><textarea id="canonicalSkillJSON" class="canonical-json" spellcheck="false">${esc(JSON.stringify(sk,null,2))}</textarea><div class="actions"><button id="canonicalSkillApply">套用技能設定</button><button id="canonicalSkillDelete">刪除未引用技能</button></div><p class="mini-note">刪除會保留停用的 ID 對照，供既有存檔安全遷移。</p>`;}
+ function mechanismCards(sk){const idx=ix(),xs=idx.bySkill.get(sk.id)||[];return `<section class="mechanism-section"><h3>使用中的機制</h3><div class="actions"><button id="canonicalFromSkill">從其他技能加入機制</button><button id="canonicalMechanismBox">機制積木箱</button></div><p class="mini-note">一般積木共用處理器，技能參數獨立。主效果僅一槽；相關狀態與跨技能相依會另外列出。</p>${xs.map(x=>`<article class="mechanism-card"><div class="actions"><button data-mechanism-open="${esc(x.id)}">${esc(x.definition.name)}</button><code>${esc(x.id)}</code><span>${idx.byMechanism.get(x.id).skills.length} 個技能</span></div><p>${esc(x.definition.description)}</p><p class="mini-note">${x.related?'相關狀態內機制':x.reusable?'可複製／可編輯（獨立實例）':'專屬或相關機制：僅查看／引用來源'} · ${esc(x.definition.source)}</p><pre>${esc(JSON.stringify(x.parameters,null,2))}</pre>${x.dependencies.length?`<p>相依：${x.dependencies.map(d=>d.kind==='skill'?`<button data-mechanism-skill="${esc(d.id)}">技能 ${esc(d.id)}</button>`:`<button data-mechanism-status="${esc(d.id)}">狀態 ${esc(d.id)}</button>`).join(' ')}</p>`:''}<div class="actions">${x.reusable?`<button data-mechanism-copy="${esc(x.key)}">複製機制</button><button data-mechanism-edit="${esc(x.key)}">編輯參數</button><button data-mechanism-remove="${esc(x.key)}">移除機制</button>`:'<span class="mini-note">無法單獨重用：'+esc(x.definition.description)+'</span>'}</div></article>`).join('')||'<p>尚未辨識到機制；原始資料完整保留。</p>'}<h4>技能取得與戰鬥方案引用</h4><p>${references(sk.id).map(esc).join('、')||'尚未配置引用；新技能需另設取得來源或怪物配置。'}</p>${data.balanceSettings.monsters.catalog.filter(m=>m.skillAssignments?.some(a=>a.skillId===sk.id||(sk.adapters||[]).some(b=>a.skillId===sk.id+'-job'+b.job))).map(m=>`<button data-mechanism-monster="${esc(m.id)}">相關單位：${esc(m.name)}</button>`).join('')}</section>`;}
+ function skillForm(sk){const d=drafts.get(sk.id);return `<h2>${esc(sk.name)}</h2><p class="mini-note">ID：${esc(sk.id)} · ${labels[sk.type]} · 來源：${sk.sources.map(x=>sourceLabels[x.type]).join('／')}</p><button id="canonicalDuplicateSkill">複製技能</button>${mechanismCards(sk)}${__EMBERWILD_COLOR_EDITOR.control('skillPalette',iconMetadata(sk))}<label>名稱<input id="canonicalSkillName" value="${esc(d?.name??sk.name)}"></label><label>說明<textarea id="canonicalSkillDescription">${esc(d?.description??sk.description??'')}</textarea></label><label><input id="canonicalSkillDisabled" type="checkbox" ${(d?.disabled??sk.disabled)?'checked':''}>停用</label><p class="mini-note">${d?'有保留的未套用草稿。':''}ID 與引擎索引固定。原始設定保留所有專屬欄位；套用前檢查完整資料與相依。</p><textarea id="canonicalSkillJSON" class="canonical-json" spellcheck="false">${esc(d?.json??JSON.stringify(sk,null,2))}</textarea><div class="actions"><button id="canonicalSkillApply">套用技能設定</button><button id="canonicalSkillDiscard">捨棄未套用草稿</button><button id="canonicalSkillDelete">刪除未引用技能</button></div>`;}
+ function mechanismPage(){const idx=ix(),rows=[...idx.byMechanism.values()].filter(x=>(!category||x.category===category)&&(!mechanismQuery||(x.name+' '+x.id+' '+x.description).toLowerCase().includes(mechanismQuery.toLowerCase()))).sort((a,b)=>Number(K.compatible(b.id,data.skillSystem.definitions.find(s=>s.id===selection)))-Number(K.compatible(a.id,data.skillSystem.definitions.find(s=>s.id===selection)))||Number(b.skills.length>1&&b.reusable)-Number(a.skills.length>1&&a.reusable)||Number(recent.includes(b.id))-Number(recent.includes(a.id))||b.skills.length-a.skills.length),m=idx.byMechanism.get(mechanismId);return `<section class="card"><div class="card-b"><h2>機制積木箱</h2><p>優先列出可重用的常用機制；專屬機制仍保留於索引。此處的引用是來源導覽，複製數值不會建立連動。</p><input id="mechanismSearch" aria-label="搜尋機制" placeholder="名稱、ID 或描述" value="${esc(mechanismQuery)}"><select id="mechanismCategory" aria-label="機制分類"><option value="">所有分類</option>${['傷害','治療','狀態','事件','條件','目標','特殊機制'].map(c=>`<option ${c===category?'selected':''}>${c}</option>`).join('')}</select><div class="mechanism-grid">${rows.map(x=>`<button data-mechanism-open="${esc(x.id)}"><b>${esc(x.name)}</b><small>${esc(x.id)} · ${x.skills.length} 個技能 · ${x.reusable?'可重用':'僅查看'}</small></button>`).join('')}</div>${m?`<h3>${esc(m.name)}</h3><code>${esc(m.id)}</code><p>${esc(m.description)}</p><p>來源：${esc(m.source)}</p><p>支援狀態：${m.reusable?'可取用既有技能範例，參數獨立':'專屬／相關機制，僅可查看與引用來源'}</p><p>${m.skills.length} 個技能／${m.uses} 個實例</p>${m.skills.map(id=>{const sk=data.skillSystem.definitions.find(s=>s.id===id);return `<div class="actions"><button data-mechanism-skill="${esc(id)}">${esc(sk.name)} · ${esc(id)}</button>${m.reusable?`<button data-example-source="${esc(id)}" data-example-mechanism="${esc(m.id)}">取用此範例</button>`:''}</div>`;}).join('')}`:''}</div></section>`;}
+ function editMechanism(id,key,parameters){requireApplied(id);const next=copy(data),sk=next.skillSystem.definitions.find(s=>s.id===id),x=K.instances(sk,next).find(x=>x.key===key);if(!x?.reusable)throw Error('此機制僅可查看');if(Object.keys(parameters).some(k=>!Object.hasOwn(x.parameters,k)))throw Error('請僅編輯此機制既有欄位；新增欄位使用完整技能設定');if(x.slot==='passive'){sk.effects[Number(key.split(':')[1])]=copy(parameters.effect);sk.target=parameters.target;sk.kind=parameters.kind;}else {for(const k of Object.keys(x.parameters))delete sk[k];Object.assign(sk,copy(parameters));}commit(next,'已修改機制 '+x.id);}
+ function removeMechanism(id,key){requireApplied(id);const next=copy(data),sk=next.skillSystem.definitions.find(s=>s.id===id),x=K.instances(sk,next).find(x=>x.key===key);if(!x?.reusable)throw Error('此機制僅可查看');if(['main','support'].includes(x.slot))throw Error('主要效果不可留空；請取用另一主效果並明確替換');if(x.slot==='passive')sk.effects.splice(Number(key.split(':')[1]),1);else for(const k of Object.keys(x.parameters)){if(k==='tags')sk.tags=sk.tags.filter(t=>t!=='induce');else delete sk[k];}if(sk.adapter.kind==='core')sk.commonEffectKeys=EmberwildSkillEffects.KEYS.filter(k=>sk[k]!==undefined);commit(next,'已移除機制 '+x.id);}
+ function picker(sourceId=selection,keys=[],targetId=selection){
+  requireApplied(sourceId);const host=document.createElement('dialog');host.className='mechanism-dialog';host.setAttribute('aria-label','從既有技能加入機制');document.body.appendChild(host);let preview=null;
+  const options=()=>data.skillSystem.definitions.filter(s=>!s.deleted).map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${esc(s.id)}</option>`).join('');
+  host.innerHTML=`<h2>從既有技能加入機制</h2><label>搜尋來源技能<input id="mechanismSourceSearch" placeholder="名稱或 ID"></label><label>來源技能<select id="mechanismSource">${options()}</select></label><div id="mechanismChoices"></div><label>加入目標<select id="mechanismTarget"><option value="__new">建立新技能</option>${options()}</select></label><div class="actions"><label>新技能職業<select id="mechanismNewJob">${data.classes.map((c,i)=>`<option value="${i}">${esc(c.name)}</option>`).join('')}</select></label><label>新技能類型<select id="mechanismNewType">${Object.entries(labels).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></label></div><label>狀態相依<select id="mechanismStatusMode"><option value="clone">一併複製相依狀態（獨立參數）</option><option value="existing">重新指定既有狀態（明確共用定義）</option></select></label><div id="mechanismDependencies"></div><label><input id="mechanismReplace" type="checkbox">允許替換預覽列出的既有欄位</label><button id="mechanismPreview">預覽與檢查</button><pre id="mechanismPreviewText" role="status"></pre><div class="actions"><button id="mechanismConfirm" disabled>確認加入</button><button id="mechanismCancel">取消</button></div>`;
+  const el=id=>host.querySelector('#'+id),err=e=>{el('mechanismPreviewText').textContent=e.message;el('mechanismConfirm').disabled=true;preview=null;};
+  el('mechanismSource').value=sourceId;el('mechanismTarget').value=targetId||'__new';const source=()=>data.skillSystem.definitions.find(s=>s.id===el('mechanismSource').value);
+  const refresh=()=>{const sk=source(),xs=sk?K.instances(sk,data):[];el('mechanismChoices').innerHTML=xs.map(x=>`<label><input data-pick-mechanism="${esc(x.key)}" type="checkbox" ${keys.includes(x.key)?'checked':''} ${x.reusable?'':'disabled'}>${esc(x.definition.name)} · ${esc(x.id)}${x.reusable?'':'（僅查看）'}<small>${esc(JSON.stringify(x.parameters))}</small></label>`).join('');el('mechanismDependencies').innerHTML=xs.flatMap(x=>x.dependencies).filter((d,i,a)=>a.findIndex(t=>t.kind===d.kind&&t.id===d.id)===i).map(d=>d.kind==='skill'?`<label>指定誘發相依 ${esc(d.id)}<select data-dependency-skill="${esc(d.id)}"><option value="">請選擇（可明確保留原引用）</option>${options()}</select></label>`:`<label>重新指定狀態 ${esc(d.id)}<select data-dependency-status="${esc(d.id)}"><option value="">請選擇（複製模式免填）</option>${(data.statusDefinitions||[]).map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${esc(s.id)}</option>`).join('')}</select></label>`).join('');preview=null;el('mechanismConfirm').disabled=true;};
+  el('mechanismSource').onchange=()=>{keys=[];refresh();};el('mechanismSourceSearch').oninput=e=>{const q=e.target.value.toLowerCase();for(const o of el('mechanismSource').options)o.hidden=!(o.textContent.toLowerCase().includes(q));};
+  const input=()=>({source:el('mechanismSource').value,target:el('mechanismTarget').value,job:Number(el('mechanismNewJob').value),type:el('mechanismNewType').value,keys:[...host.querySelectorAll('[data-pick-mechanism]:checked')].map(x=>x.dataset.pickMechanism),options:{replace:el('mechanismReplace').checked,statusMode:el('mechanismStatusMode').value,skillMap:Object.fromEntries([...host.querySelectorAll('[data-dependency-skill]')].map(e=>[e.dataset.dependencySkill,e.value])),statusMap:Object.fromEntries([...host.querySelectorAll('[data-dependency-status]')].map(e=>[e.dataset.dependencyStatus,e.value]))}});
+  const build=p=>{requireApplied(p.source);if(p.target!=='__new')requireApplied(p.target);const b=p.target==='__new'?K.blank(data,p.job,p.type):{document:data,skillId:p.target};const result=K.transfer(b.document,p.source,p.keys,b.skillId,p.options);checkCandidate(result.document);return result;};
+  el('mechanismPreview').onclick=()=>{try{const p=input(),result=build(p);preview={input:JSON.stringify(p),revision,result};el('mechanismPreviewText').textContent=JSON.stringify({加入技能:result.skillId,修改:result.changes,相依:result.dependencies,替換欄位:result.conflicts},null,2);el('mechanismConfirm').disabled=false;}catch(e){err(e);}};
+  el('mechanismConfirm').onclick=()=>{try{if(!preview||preview.revision!==revision||preview.input!==JSON.stringify(input()))throw Error('設定或資料已變更，請重新預覽');const r=build(input());commitResult(r,'已從既有技能取用機制');recent.unshift(...r.changes.map(c=>c.mechanism));recent.splice(20);host.close();host.remove();render();}catch(e){err(e);}};el('mechanismCancel').onclick=()=>{host.close();host.remove();};host.oncancel=()=>host.remove();refresh();host.showModal();
+ }
  function page(){
-  const s=ensure(data),app=document.getElementById('app'),tabs=[['skills','技能資料庫'],['classRules','職業解鎖與槽位'],['equipment','裝備技能與孔數'],['gems','寶石雙模式']];
+  const s=ensure(data),app=document.getElementById('app'),tabs=[['skills','技能資料庫'],['mechanisms','機制積木箱'],['classRules','職業解鎖與槽位'],['equipment','裝備技能與孔數'],['gems','寶石雙模式']];
   let body='';
   if(section==='skills'){
    const list=s.definitions.filter(x=>!x.deleted&&(!query||(x.name+' '+x.id+' '+x.type+' '+x.sources.map(s=>s.type).join(' ')).toLowerCase().includes(query.toLowerCase()))),sk=s.definitions.find(x=>x.id===selection)||list[0];selection=sk?.id||'';
-   body=`<div class="canonical-editor-layout"><section class="card"><div class="card-b"><input id="canonicalSkillSearch" aria-label="搜尋技能" placeholder="搜尋名稱、ID、類型或來源" value="${esc(query)}"><label>新增技能職業<select id="canonicalNewJob">${data.classes.map((c,j)=>`<option value="${j}">${esc(c.name)}</option>`).join('')}</select></label><label>新增技能類型<select id="canonicalNewType">${Object.entries(labels).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></label><button id="canonicalAddSkill">新增技能</button><div class="canonical-skill-list">${list.map(x=>`<button type="button" data-canonical-skill="${esc(x.id)}" aria-pressed="${x.id===selection}"><b>${esc(x.name)}</b><small>${labels[x.type]} · ${x.sources.map(y=>sourceLabels[y.type]).join('／')}${x.disabled?' · 已停用':''}</small></button>`).join('')}</div></div></section><section class="card"><div class="card-b">${sk?skillForm(sk):'尚無技能'}</div></section></div>`;
-  }else{
+   body=`<div class="canonical-editor-layout"><section class="card"><div class="card-b"><input id="canonicalSkillSearch" aria-label="搜尋技能" placeholder="搜尋名稱、ID、類型或來源" value="${esc(query)}"><label>新增技能職業<select id="canonicalNewJob">${data.classes.map((c,j)=>`<option value="${j}">${esc(c.name)}</option>`).join('')}</select></label><label>新增技能類型<select id="canonicalNewType">${Object.entries(labels).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></label><button id="canonicalAddSkill">建立空白技能</button><button id="canonicalNewFromMechanisms">從既有技能取用機制</button><div class="canonical-skill-list">${list.map(x=>`<div class="canonical-list-entry"><button type="button" data-canonical-skill="${esc(x.id)}" aria-pressed="${x.id===selection}"><b>${esc(x.name)}</b><small>${labels[x.type]} · ${x.sources.map(y=>sourceLabels[y.type]).join('／')}${x.disabled?' · 已停用':''}</small></button><button data-duplicate-skill="${esc(x.id)}" aria-label="複製 ${esc(x.name)}">複製技能</button></div>`).join('')}</div></div></section><section class="card"><div class="card-b">${sk?skillForm(sk):'尚無技能'}</div></section></div>`;
+  }else if(section==='mechanisms'){body=mechanismPage();}else{
    const help={classRules:'各職業 initial／advanced 以 skillId 引用技能；level 設定解鎖等級。slots.first／advanced 設定一轉與二轉槽數。',equipment:'chanceByDifficulty 是三難度附技機率；pool 設定技能、職業、部位、等級、地區、怪物、BOSS、權重及商店／製作限制。formRules 可指定 formId、固定 skillId、allowSkill、skillChance。socketBands／sourceRules 設定等級與來源的零至三孔機率。',gems:'五種寶石保留三階。base 設定 stat、unit（flat／ratio）及 values；skill 設定效果 key、三階 values、相容 types／effects、可用 slots（只允許 0＝第一孔）；第二、第三孔固定基礎數值；cap 設定加成上限。'};
    body=`<section class="card"><div class="card-b"><p>${help[section]}</p><textarea id="canonicalPartJSON" class="canonical-json" spellcheck="false">${esc(JSON.stringify(s[section],null,2))}</textarea><button id="canonicalPartApply">驗證並套用</button></div></section>`;
   }
-  app.innerHTML=sectionHead('技能、裝備與寶石','技能 ID 是共用引用；此頁編輯後沿用既有草稿、匯入匯出、差異比較及發布管理。','')+`<div class="actions">${tabs.map(([id,label])=>`<button data-canonical-tab="${id}" class="${id===section?'primary':''}">${label}</button>`).join('')}</div><p id="canonicalError" role="status"></p>`+body;
-  app.querySelectorAll('[data-canonical-tab]').forEach(b=>b.onclick=()=>{section=b.dataset.canonicalTab;render();});
+  app.innerHTML=sectionHead('技能、裝備與寶石','技能 ID 是共用引用；此頁編輯後沿用既有草稿、匯入匯出、差異比較及發布管理。','')+`<div class="actions">${tabs.map(([id,label])=>`<button data-canonical-tab="${id}" class="${id===section?'primary':''}">${label}</button>`).join('')}</div><button id="canonicalBack" ${history.length?'':'disabled'}>返回上一頁</button><p id="canonicalError" role="status">${esc(notice)}</p>`+body;
+  app.querySelectorAll('[data-canonical-tab]').forEach(b=>b.onclick=()=>{route(b.dataset.canonicalTab);});
   const bind=(id,fn)=>{const b=document.getElementById(id);if(b)b.onclick=()=>{try{fn();render();}catch(e){document.getElementById('canonicalError').textContent=e.message;}};};
   if(section==='skills'){
    const sk=s.definitions.find(x=>x.id===selection);if(sk)__EMBERWILD_COLOR_EDITOR.bind('skillPalette',iconMetadata(sk),patch=>{const a=sk.adapter;__EMBERWILD_INVENTORY_ICON_EDITOR.set('skill',`${a.kind}:${a.job}:${a.index}`,iconMetadata(sk).iconType||'auto',patch);});
-   document.getElementById('canonicalSkillSearch').oninput=e=>{query=e.target.value;page();};
-   app.querySelectorAll('[data-canonical-skill]').forEach(b=>b.onclick=()=>{selection=b.dataset.canonicalSkill;render();});
+   document.getElementById('canonicalSkillSearch').oninput=e=>{query=e.target.value;page();const box=document.getElementById('canonicalSkillSearch');box.focus();box.setSelectionRange?.(query.length,query.length);};
+   app.querySelectorAll('[data-canonical-skill]').forEach(b=>b.onclick=()=>{route('skills',b.dataset.canonicalSkill);});
+   app.querySelectorAll('[data-duplicate-skill]').forEach(b=>b.onclick=()=>{try{duplicateSkill(b.dataset.duplicateSkill);render();}catch(e){document.getElementById('canonicalError').textContent=e.message;}});
+   bind('canonicalDuplicateSkill',()=>duplicateSkill(selection));bind('canonicalFromSkill',()=>picker());bind('canonicalMechanismBox',()=>route('mechanisms'));bind('canonicalNewFromMechanisms',()=>picker(selection,[],'__new'));
+   bind('canonicalSkillDiscard',()=>{drafts.delete(selection);persistDrafts();});
+   if(sk)for(const id of ['canonicalSkillName','canonicalSkillDescription','canonicalSkillDisabled','canonicalSkillJSON'])document.getElementById(id).oninput=()=>{drafts.set(sk.id,{name:document.getElementById('canonicalSkillName').value,description:document.getElementById('canonicalSkillDescription').value,disabled:document.getElementById('canonicalSkillDisabled').checked,json:document.getElementById('canonicalSkillJSON').value});persistDrafts();};
    bind('canonicalAddSkill',()=>addSkill(Number(document.getElementById('canonicalNewJob').value),document.getElementById('canonicalNewType').value));
    bind('canonicalSkillApply',()=>{const next=JSON.parse(document.getElementById('canonicalSkillJSON').value);next.name=document.getElementById('canonicalSkillName').value;next.description=document.getElementById('canonicalSkillDescription').value;next.disabled=document.getElementById('canonicalSkillDisabled').checked;updateSkill(selection,next);});
    bind('canonicalSkillDelete',()=>deleteSkill(selection));
-  }else bind('canonicalPartApply',()=>applyPart(section,JSON.parse(document.getElementById('canonicalPartJSON').value)));
+  }else if(section!=='mechanisms')bind('canonicalPartApply',()=>applyPart(section,JSON.parse(document.getElementById('canonicalPartJSON').value)));
+
+  bind('canonicalBack',()=>{if(!warnDraft())return;const p=history.pop();if(p){({section,selection,query,mechanismQuery,category,mechanismId}=p);}});
+  app.querySelectorAll('[data-mechanism-open]').forEach(b=>b.onclick=()=>route('mechanisms',b.dataset.mechanismOpen));
+  app.querySelectorAll('[data-mechanism-skill]').forEach(b=>b.onclick=()=>route('skills',b.dataset.mechanismSkill));
+  app.querySelectorAll('[data-mechanism-status]').forEach(b=>b.onclick=()=>{if(!warnDraft())return;const n=data.statusDefinitions.findIndex(s=>s.id===b.dataset.mechanismStatus);if(n>=0){externalReturn=true;lastSection='statuses';__EMBERWILD_STATUS_EDITOR_TEST_API.select(b.dataset.mechanismStatus);}});
+  app.querySelectorAll('[data-mechanism-copy]').forEach(b=>b.onclick=()=>{try{picker(selection,[b.dataset.mechanismCopy]);}catch(e){document.getElementById('canonicalError').textContent=e.message;}});
+  app.querySelectorAll('[data-example-source]').forEach(b=>b.onclick=()=>{try{const keys=ix().bySkill.get(b.dataset.exampleSource).filter(x=>x.id===b.dataset.exampleMechanism).map(x=>x.key);picker(b.dataset.exampleSource,keys,selection);}catch(e){document.getElementById('canonicalError').textContent=e.message;}});
+  app.querySelectorAll('[data-mechanism-edit]').forEach(b=>b.onclick=()=>{try{const x=ix().bySkill.get(selection).find(x=>x.key===b.dataset.mechanismEdit),v=prompt('編輯 '+x.definition.name+' 的獨立參數（JSON）',JSON.stringify(x.parameters,null,2));if(v!==null){editMechanism(selection,x.key,JSON.parse(v));render();}}catch(e){document.getElementById('canonicalError').textContent=e.message;}});
+  app.querySelectorAll('[data-mechanism-remove]').forEach(b=>b.onclick=()=>{try{if(confirm('移除此技能的機制？')){removeMechanism(selection,b.dataset.mechanismRemove);render();}}catch(e){document.getElementById('canonicalError').textContent=e.message;}});
+  app.querySelectorAll('[data-mechanism-monster]').forEach(b=>b.onclick=()=>{if(!warnDraft())return;const m=data.balanceSettings.monsters.catalog.find(m=>m.id===b.dataset.mechanismMonster);if(m){selected.worldMap=m.mapIndex;selected.worldMonsterSearch=m.name;selected.worldMonsterPage=0;externalReturn=true;lastSection='world';currentSection='world';render();}});
+  const search=document.getElementById('mechanismSearch');if(section==='mechanisms'){search.oninput=e=>{mechanismQuery=e.target.value;page();const n=document.getElementById('mechanismSearch');n.focus();n.setSelectionRange?.(mechanismQuery.length,mechanismQuery.length);};document.getElementById('mechanismCategory').onchange=e=>{category=e.target.value;page();};}
+
  }
  SECTION_META.push(['skillSystem','技能、裝備與寶石']);NAV_GROUPS.find(g=>g[0]==='skillsCombat')[2].unshift('skillSystem');
- const renderBase=render;render=function(...args){if(['skills','passives'].includes(currentSection)){const kind=currentSection==='passives'?'passive':selected.skillTab==='support'?'support':'core',job=kind==='support'?selected.supportClass:selected.skillClass,index=kind==='passive'?selected.passive:kind==='support'?selected.support:selected.skill;const sk=data.skillSystem.definitions.find(x=>x.adapter.kind===kind&&x.adapter.job===job&&x.adapter.index===index);if(sk)selection=sk.id;section='skills';currentSection='skillSystem';}if(currentSection!=='skillSystem'){const out=renderBase(...args);if(!document.getElementById('app').innerHTML.includes('class="workbench-route"')){globalThis.__EMBERWILD_EXPERIENCE?.refreshSearch();globalThis.__EMBERWILD_EXPERIENCE?.afterPage();}return out;}ensureArrays();renderNav(true);page();globalThis.__EMBERWILD_EXPERIENCE?.refreshSearch();globalThis.__EMBERWILD_EXPERIENCE?.afterPage();};
+ const renderBase=render;render=function(...args){if(lastSection==='skillSystem'&&currentSection!=='skillSystem'&&drafts.size&&!warnDraft())currentSection='skillSystem';lastSection=currentSection;if(['skills','passives'].includes(currentSection)){const kind=currentSection==='passives'?'passive':selected.skillTab==='support'?'support':'core',job=kind==='support'?selected.supportClass:selected.skillClass,index=kind==='passive'?selected.passive:kind==='support'?selected.support:selected.skill;const sk=data.skillSystem.definitions.find(x=>x.adapter.kind===kind&&x.adapter.job===job&&x.adapter.index===index);if(sk)selection=sk.id;section='skills';currentSection='skillSystem';}if(currentSection!=='skillSystem'){const out=renderBase(...args);if(externalReturn){document.getElementById('app').insertAdjacentHTML('afterbegin','<button id="returnSkillMechanisms">返回技能機制</button>');document.getElementById('returnSkillMechanisms').onclick=()=>{externalReturn=false;currentSection='skillSystem';render();};}if(!document.getElementById('app').innerHTML.includes('class="workbench-route"')){globalThis.__EMBERWILD_EXPERIENCE?.refreshSearch();globalThis.__EMBERWILD_EXPERIENCE?.afterPage();}return out;}ensureArrays();renderNav(true);page();globalThis.__EMBERWILD_EXPERIENCE?.refreshSearch();globalThis.__EMBERWILD_EXPERIENCE?.afterPage();};
  const countBase=count;count=function(key,...args){return key==='skillSystem'?data.skillSystem?.definitions.filter(x=>!x.deleted).length||0:countBase(key,...args);};
  const designer=globalThis.__EMBERWILD_MONSTER_DESIGNER,assignBase=designer?.assignSkill;if(assignBase)designer.assignSkill=function(monster,id,...args){const sk=data.skillSystem.definitions.find(x=>x.id===id),previous=sk?.usageScope;if(sk){sk.usageScope='shared';M.project(data);}try{return assignBase(monster,id,...args);}catch(e){if(sk){sk.usageScope=previous;M.project(data);}throw e;}};
- globalThis.__EMBERWILD_SKILL_SYSTEM_EDITOR={system:()=>ensure(data),updateSkill,addSkill,deleteSkill,applyPart,references,issues:issueList,select(part='skills',id=''){section=part;if(id)selection=id;currentSection='skillSystem';render();}};
+ globalThis.__EMBERWILD_SKILL_SYSTEM_EDITOR={system:()=>ensure(data),updateSkill,addSkill,deleteSkill,applyPart,references,issues:issueList,duplicateSkill,index:()=>ix(),transfer(source,keys,target,options){requireApplied(source);requireApplied(target);return commitResult(K.transfer(data,source,keys,target,options),'已取用機制');},editMechanism,removeMechanism,picker,select:route};
+ const oldImport=ensureArrays;ensureArrays=function(...args){const r=oldImport(...args);invalidate();return r;};
+ const clean=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=function(){if(drafts.size)throw Error('技能有未套用草稿，請先套用或捨棄');return clean();};
+ window.addEventListener('beforeunload',e=>{if(drafts.size){e.preventDefault();e.returnValue='';}});
  requestEditorInitialRender();
 })();
 
