@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "304795c3c1d952eff56c50ea58577c79df671af8",
+  "sourceCommit": "6bb72d6d1225190a1784757203ecaa54511ec8a1",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -444,7 +444,7 @@
     },
     {
       "path": "js/ui/battle-summary.js?v=20261029-pace1",
-      "sha256": "7ff93484054f663db44a166c637e59e620cf9c2b22a7aa7e90193284ea5a412e"
+      "sha256": "e0e91e85650e35fb263eb1b8c0ca358fcb32509200d1c260d1b0ed2467a6d1f1"
     },
     {
       "path": "js/ui/battle-effects.js?v=20261029-semantic2",

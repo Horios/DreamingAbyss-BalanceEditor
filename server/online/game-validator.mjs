@@ -19105,7 +19105,10 @@ equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmen
   const s=globalThis.EmberwildBattleEffects?.present(snapshot())||snapshot(),event=sample(s,animate);
   if(tab==='battle'&&!globalThis.EmberwildBattleEffects?.holdingEncounter&&foes.length){
    const expected=[...s.allies,...s.units].map(r=>r.id).sort().join('|'),actual=[...document.querySelectorAll('.squad-field :is(.squad-allies,.squad-enemies) > .unit[data-combat-id]')].map(n=>n.dataset.combatId).sort().join('|');
-   if(actual!==expected){render();return;}
+   // The input guard may defer a page redraw until the current click/scroll
+   // finishes. It already queues that redraw; recursively requesting it here
+   // would keep observing the previous page and overflow the stack.
+   if(actual!==expected){if(!globalThis.isEmberwildUIInteracting?.())render();return;}
   }
   const status=s.result==='victory'?'戰鬥勝利':s.result==='wipe'?'戰鬥失敗':!s.total?(running?'搜尋敵人':'尚未探索'):!running?'戰鬥暫停':$('modal')?.open?'視窗暫停':round>0&&!roundIterator&&!combatRoundProgress&&foes.some(e=>e.hp>0)?'等待下一回合':event||'戰鬥中';
   if(summary){
@@ -19232,7 +19235,7 @@ equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmen
  if(party)render();
 })();
 
-__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;querySelector=globalThis.querySelector??querySelector;classList=globalThis.classList??classList;querySelectorAll=globalThis.querySelectorAll??querySelectorAll;children=globalThis.children??children;insertBefore=globalThis.insertBefore??insertBefore;
+__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;querySelector=globalThis.querySelector??querySelector;classList=globalThis.classList??classList;querySelectorAll=globalThis.querySelectorAll??querySelectorAll;children=globalThis.children??children;insertBefore=globalThis.insertBefore??insertBefore;
 
 /* js/ui/battle-effects.js?v=20261029-semantic2 */
 /* Read-only presentation of the existing live timeline. No timers schedule combat.
