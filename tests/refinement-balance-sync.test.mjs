@@ -49,3 +49,4 @@ test('game validator rejects negative refinement growth without silently coercin
  doc.balanceSettings.equipment.enhance.flatStatsPerEquipmentLevel.hp=-0.01;
  assert.throws(()=>validator.validate(doc),/精煉|非負|不得為負值/);
 });
+

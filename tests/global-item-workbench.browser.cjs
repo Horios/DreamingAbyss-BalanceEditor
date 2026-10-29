@@ -57,3 +57,4 @@ const doc=JSON.parse(fs.readFileSync(path.resolve(root,'../Emberwild/data/balanc
   console.log('Item workbench browser smoke passed: bounded DOM, lazy tabs, drafts/reload, edits, search, source return, batch confirmation and mobile width.');
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exit(1);});
+

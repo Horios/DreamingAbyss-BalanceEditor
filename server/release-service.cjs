@@ -12,6 +12,8 @@ class ReleaseService{
   if(!/monsterDesignVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援怪物個別設定、物品連結或多種 BOSS 陣容。請先升級該分支遊戲程式，再發布平衡 JSON。');
  }
  async requireLifeRuntime(target,candidate){
+  if(candidate.wishingLake){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/wishingLakeVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援許願湖，請先升級遊戲程式，再發布設定。');}
+  if(candidate.items?.some(x=>x.type==='healPotion'&&x.healAmount!==undefined)){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/healingPotionVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援固定 HP 治療藥水與 VIP 購買條件，請先更新該分支程式。');}
   if(candidate.story?.gearRewards?.length||candidate.skillSystem?.gemSlotRuleVersion===2){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/equipmentGemModeVersion\s*:\s*2\b/.test(text)||!/storyEquipmentLessonsVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援第一孔規則與裝備教學任務，請先更新測試分支程式。');}
 
   if(candidate.skillSystem){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/skillSystemVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援新版技能、裝備與寶石系統；請先升級該分支程式。');}
@@ -131,3 +133,4 @@ class ReleaseService{
 
 }
 module.exports={ReleaseService};
+
