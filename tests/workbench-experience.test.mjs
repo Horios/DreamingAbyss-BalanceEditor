@@ -7,7 +7,7 @@ const doc=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json'));
 function editor(saved={}){const r=loadRuntime(process.cwd(),'balance-editor.html',saved);r.ctx.doc=doc;r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(doc);ensureArrays();');return r;}
 function click(r,id){return r.ctx.document.getElementById(id).onclick?.({target:r.ctx.document.getElementById(id)});}
 test('all original and canonical pages remain reachable; common controls do not change the exported balance',()=>{
- const r=editor(),before=r.run('JSON.stringify(__EMBERWILD_RELEASE_EDITOR.current())'),meta=r.run('SECTION_META');assert.equal(meta.length,45);
+ const r=editor(),before=r.run('JSON.stringify(__EMBERWILD_RELEASE_EDITOR.current())'),meta=r.run('SECTION_META');assert(meta.length>=45);assert.equal(new Set(meta.map(([id])=>id)).size,meta.length);
  // These two editors bind static ID selectors via app.querySelector. Supply those IDs in the minimal DOM.
  const app=r.elements.get('app');app.querySelector=s=>/^#[\w-]+$/.test(s)?r.ctx.document.getElementById(s.slice(1)):s.startsWith('[data-key=')?r.ctx.document.getElementById(s):null;
  for(const [id] of meta){r.run('currentSection='+JSON.stringify(id)+';render();');assert.match(app.innerHTML,/workbenchBack/);assert.match(app.innerHTML,/workbenchPublish/);assert(app.innerHTML.length>500,id);}

@@ -56,8 +56,8 @@ test('latest remote changes still compare, cancelled load preserves edits, and a
  r.ctx.fetch=async()=>{throw Error('offline');};await click(r,'releaseCompare');assert.equal(E.state.feedbackKind,'error');assert.deepEqual(current(r),newer);
 });
 test('array insertions, removals and reordering are real edits rather than hidden defaults',()=>{
- const doc=fixture(),r=boot(doc);r.run('__EMBERWILD_RELEASE_EDITOR.load(doc);data.statusDefinitions.reverse();data.statusDefinitions.splice(1,1);data.starterPacks[0][0].plus=2;');
- const out=current(r);assert.deepEqual(out.statusDefinitions,[...doc.statusDefinitions].reverse().filter((_,i)=>i!==1));
+ const doc=fixture();doc.statusDefinitions.push({...structuredClone(doc.statusDefinitions[0]),id:'unused-roundtrip-status'});const r=boot(doc);r.run('__EMBERWILD_RELEASE_EDITOR.load(doc);data.statusDefinitions.reverse();data.statusDefinitions.splice(0,1);data.starterPacks[0][0].plus=2;');
+ const out=current(r);assert.deepEqual(out.statusDefinitions,[...doc.statusDefinitions].reverse().filter((_,i)=>i!==0));
  assert.equal(out.starterPacks[0][0].plus,2);assert.deepEqual(out.starterPacks[0].slice(1),doc.starterPacks[0].slice(1));
  r.run('__EMBERWILD_SKILL_SYSTEM_EDITOR.addSkill(1,"active")');assert.equal(current(r).skillSystem.definitions.length,doc.skillSystem.definitions.length+1);
 });

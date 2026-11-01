@@ -1,5 +1,13 @@
 # 平衡工作台：線上比較與 GitHub 發布
 
+## 秒數／MP 改版的移植稽核
+
+「秒數／MP 移植稽核」頁讀取同一份技能、狀態、怪物、裝備與道具資料，列出時間及事件欄位與待驗收範圍；不建立第二套技能資料庫，也不自動換算平衡值。MP 與獨立冷卻仍依改版計畫並存。
+
+遊戲 v0.015 只新增排程核心，尚未啟用秒數戰鬥。此階段的設計器會在舊回合遷移前拒絕已標記的新秒數／MP 文件；後端驗證、發布摘要與提交也會拒絕，避免秒數被轉回回合或新欄位被舊執行器忽略。一般舊文件的匯入、比較、匯出與還原保持原流程。正式接通新 schema 後須共同更新此檢查、編輯欄位、發布 validator 與遊戲能力宣告，不能只刪除檢查或只換標籤。
+
+`sync-preview-editor-contract.cjs` 同步新工作區的內建資料及共用夥伴／成長模型；讀取目前測試分支 `data/balance.json`，不覆蓋已存在的瀏覽器草稿。夥伴固定能力／成長格式不再強制補回已淘汰的循環配點。`sync-combat-migration.cjs` 同步稽核與保護邏輯。發布 validator 的來源 commit 及每個模組 SHA256 保存在既有 provenance 文件。
+
 線上入口：https://emberwild-balance.hortw.chatgpt.site/
 
 工作台是 owner-private Sites，須登入擁有者的 ChatGPT 帳號。平衡器原始碼仍保存在私有 `Horios/Emberwild-Balance`；遊戲正式版、測試版的 `data/balance.json` 仍分別保存在 `Horios/Emberwild` 的 `main`、`chatgpt-dev`。不需要公開平衡器 Repository，也不在工作台另建平衡版本資料庫。

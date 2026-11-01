@@ -1,9 +1,9 @@
 'use strict';
-const crypto=require('node:crypto'),D=require('./balance-diff.cjs');
+const crypto=require('node:crypto'),D=require('./balance-diff.cjs'),CM=require('../scripts/combat-migration-audit.cjs');
 class ReleaseService{
  constructor({api,validate,ticketStore=null}){this.api=api;this.validateDocument=validate;this.base='/repos/Horios/Emberwild';this.tickets=ticketStore||new Map();}
  branch(value){if(!['main','chatgpt-dev'].includes(value))throw Error('僅允許 main／chatgpt-dev');return value;}
- async validate({data}){return {data:this.validateDocument(data),valid:true};}
+ async validate({data}){CM.assertSupported(data);return {data:CM.assertSupported(this.validateDocument(data)),valid:true};}
  async requireMonsterRuntime(target,candidate){
   const maps=candidate.balanceSettings?.maps?.catalog||[],monsters=candidate.balanceSettings?.monsters?.catalog||[];
   const needed=maps.some((m,i)=>m.mapType!=='final'&&(m.bossStageMode==='random'||monsters.filter(x=>x.mapIndex===i&&x.kind==='boss').length!==1))||monsters.some(m=>m.kind==='elite'||m.kind==='boss'&&(m.enabled===false||(m.bossStageCount??1)!==1)||m.baseStats&&(m.baseStats.hp>0||m.baseStats.attack>0||m.baseStats.defense>=0))||(candidate.balanceSettings?.drops?.entries||[]).some(d=>['equipment','token'].includes(d.type))||(candidate.items||[]).filter(x=>['imbue','ward','elementTonic'].includes(x.type)).length>15;
@@ -85,7 +85,8 @@ class ReleaseService{
   }
   if(target.commit!==expectedCommit)throw Object.assign(Error('線上版本已更新，請重新取得最新版並重新比較。'),{status:409});
   if(typeof message!=='string'||message.trim().length<4||message.length>300||/[\u0000-\u001f]/.test(message)||/^update(?: json)?$/i.test(message.trim()))throw Error('請輸入至少四個字的具體版本說明');
-  const candidate=this.validateDocument(data),diff=D.diff(target.data,candidate);if(!diff.total)throw Error('沒有有效設定差異，禁止建立空白發布 commit');
+  CM.assertSupported(data);
+  const candidate=CM.assertSupported(this.validateDocument(data)),diff=D.diff(target.data,candidate);if(!diff.total)throw Error('沒有有效設定差異，禁止建立空白發布 commit');
   await this.requireLifeRuntime(target,candidate);
   const ticket=crypto.randomBytes(32).toString('hex'),nextVersion=crypto.createHash('sha256').update(D.stable(candidate)).digest('hex').slice(0,12);
   if(this.tickets.prune)await this.tickets.prune();else for(const [id,t] of this.tickets)if(t.expires<Date.now())this.tickets.delete(id);
@@ -94,6 +95,7 @@ class ReleaseService{
  }
  async commit({ticket,confirmed,productionConfirmation},session){
   const t=await this.tickets.get(ticket);if(!t||t.session!==session||t.expires<Date.now())throw Error('發布摘要已過期，請重新比較');
+  CM.assertSupported(t.candidate);
   if(confirmed!==true)throw Error('必須確認完整發布摘要');
   if(t.target.branch==='main'&&productionConfirmation!=='正式版')throw Error('你正在更新正式版遊戲資料。請輸入「正式版」完成二次確認');
   if(this.tickets.take){if(!await this.tickets.take(ticket,session))throw Error('發布摘要已使用或正在提交，請核對線上版本。');}else this.tickets.delete(ticket);

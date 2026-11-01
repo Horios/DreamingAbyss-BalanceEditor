@@ -3,7 +3,7 @@
 'use strict';
 const copy=x=>JSON.parse(JSON.stringify(x)),pick=(s,ks)=>Object.fromEntries(ks.filter(k=>s[k]!==undefined).map(k=>[k,copy(s[k])])),defs=new Map();
 const common=['damage','drain','heal','shield','cleanse','dispel','revive'];
-const mainKeys=['effect','systemEffect','power','powerPerLevel','duration','element','drainRate','healResolution','dispelCount','reviveHpRatio','statusId','statusTarget','statusTargetStat','statusTargetOrder','statusTargetIncludeSelf'];
+const mainKeys=['effect','systemEffect','power','powerPerLevel','duration','element','drainRate','healResolution','dispelCount','reviveHpRatio','statusId','statusTarget','statusTargetStat','statusTargetOrder','statusTargetIncludeSelf','statusMaxTargets'];
 const supportKeys=['kind','value','effectPerLevel','duration','element','statusId','statusTarget','statusTargetStat','statusTargetOrder','statusTargetIncludeSelf','baseCritRate','baseCritDamage','defensePenetration','defenseIgnore'];
 const commonKeys=['target','hitCount','powerBasis','damageResolution','healResolution','drainRate','onHitStatusId','onHitStatusChance','dispelCount','reviveHpRatio'];
 function define(id,name,category,description,source,reusable=true){if(!defs.has(id))defs.set(id,{id,name,category,description,source,reusable});return defs.get(id);}
@@ -17,6 +17,8 @@ define('core.powerBasis','計算基準','條件','選擇倍率計算使用的生
 define('core.damageResolution','傷害結算','傷害','一般、固定或真實傷害結算。','js/combat/skill-effect-runtime.js');
 define('core.onHitStatus','命中／恢復後附加狀態','狀態','命中傷害、治療或護盾後按機率附加狀態。','js/combat/skill-effect-runtime.js');
 define('core.induction','誘發技能','事件','一次誘發 1～2 個技能／槽位；禁止誘發再誘發。','js/skills/induction-runtime.js');
+for(const [event,label] of Object.entries({targetTurnEnd:'受術者回合結束（含受控）',targetActionEnd:'受術者行動結束',targetDeath:'受術者死亡'}))define('event.'+event,label,'事件','可獨立複製至施加狀態技能；各事件共用標記次數，觸發後可移除，死亡連鎖使用佇列。','js/combat/event-trigger-runtime.js');
+for(const event of ['kill','enemyDeath'])define('passiveEvent.'+event,event==='kill'?'擊殺連續追擊':'敵人死亡冷卻縮減','事件','常駐事件型被動，不占技能槽。','js/combat/event-trigger-runtime.js');
 define('event.proc','普攻後觸發','事件','目前引擎的 proc 是普攻後觸發，不代表受擊觸發。','js/core/core-game.js',false);
 function instances(sk,doc){
  const out=[],add=(id,key,parameters,slot,editable=true,extra={})=>{const def=defs.get(id);out.push({key,id,definition:def,parameters:copy(parameters),slot,editable,reusable:def.reusable&&editable,dependencies:[],...extra});};
@@ -40,6 +42,7 @@ function instances(sk,doc){
   const id='support.'+kind;define(id,({dotAttack:'行動前持續傷害（攻擊）',dotMaxHp:'行動前持續傷害（生命）',followup:'受擊後追加傷害',regen:'持續恢復',applyStatus:'施加自訂狀態'})[kind]||'輔助效果：'+kind,known?'狀態':'特殊機制','輔助技能的單一持續效果槽；保留施放目標。','js/skills/support-debuff.js / js/skills/status-maker.js',known);
   add(id,'support',pick(sk,[...supportKeys,'target']),'support',true,{dependencies:sk.statusId?[{kind:'status',id:sk.statusId}]:[]});
  }else{
+  if(sk.eventPassive)add('passiveEvent.'+sk.eventPassive.event,'eventPassive',{eventPassive:sk.eventPassive},'eventPassive');
   for(const [i,e] of (sk.effects||[]).entries()){
    const known=Object.hasOwn(root.EmberwildPassives?.labels||{},e.key),id='passive.'+e.key;define(id,'被動：'+(root.EmberwildPassives?.labels?.[e.key]||e.key),known?'狀態':'特殊機制','被動常駐效果；目標方向須相容。','js/skills/passive-model.js',known);add(id,'passive:'+i,{effect:copy(e),target:sk.target,kind:sk.kind},'passive');
   }
@@ -47,6 +50,7 @@ function instances(sk,doc){
  // State internals are shown separately from the skill's application mechanism.
  for(const inst of [...out])for(const dep of inst.dependencies.filter(d=>d.kind==='status')){
   const state=doc.statusDefinitions?.find(s=>s.id===dep.id);if(!state)continue;
+  for(const [i,t] of (state.triggers||[]).entries())add('event.'+t.event,'statusEvent:'+state.id+':'+t.event,{statusId:state.id,trigger:t,uses:state.uses,removeOnTrigger:state.removeOnTrigger,stackable:state.stackable,permanent:state.permanent,duration:state.duration,durationClock:state.durationClock},'statusEvent');
   for(const [i,e] of (state.periodic||[]).entries()){
    const id='status.periodic.'+e.kind;define(id,e.kind==='heal'?'狀態持續恢復':'狀態持續傷害','狀態','相關狀態內的週期效果。由施加狀態積木一併複製，不能獨立貼到技能。','js/skills/status-maker.js',false);add(id,inst.key+':periodic:'+i,{statusId:state.id,...copy(e)},'related',false,{related:true});
   }
@@ -83,8 +87,29 @@ function check(doc){
 function transfer(doc,sourceId,keys,targetId,options={}){
  const next=copy(doc),src=next.skillSystem.definitions.find(s=>s.id===sourceId),dst=next.skillSystem.definitions.find(s=>s.id===targetId);if(!src||!dst)throw Error('來源或目標技能不存在');
  const xs=instances(src,next),selected=[...new Set(keys)].map(key=>{const x=xs.find(x=>x.key===key);if(!x||!x.reusable)throw Error('此機制僅可查看，無法獨立重用：'+key);return x;});if(!selected.length)throw Error('請選擇機制');
- const changes=[],deps=[],conflicts=[];
+ const changes=[],deps=[],conflicts=[],eventStates=new Set();
  for(const x of selected){
+  if(x.slot==='eventPassive'){
+   if(dst.type!=='passive')throw Error('事件被動需要被動技能');
+   if(dst.eventPassive&&JSON.stringify(dst.eventPassive)!==JSON.stringify(x.parameters.eventPassive)&&!options.replace)throw Error('將替換事件被動，請允許替換');
+   dst.eventPassive=copy(x.parameters.eventPassive);changes.push({mechanism:x.id,values:copy(x.parameters)});continue;
+  }
+  if(x.slot==='statusEvent'){
+   if(!['active','proc','support'].includes(dst.type))throw Error('狀態事件需要施加狀態技能');
+   let state=next.statusDefinitions.find(s=>s.id===dst.statusId);
+   if(state&&!eventStates.has(state.id)&&next.skillSystem.definitions.some(s=>s.id!==dst.id&&(s.statusId===state.id||s.onHitStatusId===state.id))){
+    state={...copy(state),id:newId('event-status-',new Set(next.statusDefinitions.map(s=>s.id))),name:state.name+'（副本）'};next.statusDefinitions.push(state);dst.statusId=state.id;
+   }
+   if(!state){const id=newId('event-status-',new Set(next.statusDefinitions.map(s=>s.id)));state={id,name:dst.name+'標記',tags:[],polarity:'debuff',dispellable:true,modifiers:[],periodic:[],control:null,triggers:[]};next.statusDefinitions.push(state);dst.statusId=id;}
+   eventStates.add(state.id);
+   const p=x.parameters,old=state.triggers?.find(t=>t.event===p.trigger.event);
+   if(old&&JSON.stringify(old)!==JSON.stringify(p.trigger)&&!options.replace)throw Error('將替換同時機的狀態事件，請允許替換');
+   for(const k of ['uses','removeOnTrigger','stackable','permanent','duration','durationClock'])state[k]=copy(p[k]);
+   state.triggers=(state.triggers||[]).filter(t=>t.event!==p.trigger.event).concat(copy(p.trigger));
+   for(const k of commonKeys)delete dst[k];dst.commonEffectKeys=[];dst.statusTarget='enemies';
+   if(dst.type==='support'){dst.kind='applyStatus';dst.target='enemies';}else {dst.effect='applyStatus';delete dst.systemEffect;}
+   changes.push({mechanism:x.id,statusId:state.id,trigger:copy(p.trigger)});continue;
+  }
   if(x.slot==='passive'){if(dst.type!=='passive'||dst.target!==x.parameters.target)throw Error('被動機制需要相同目標方向的被動技能');dst.effects.push(copy(x.parameters.effect));changes.push({mechanism:x.id,append:x.parameters.effect});continue;}
   if((x.slot==='support')!==(dst.type==='support')||dst.type==='passive')throw Error('核心／輔助／被動技能引擎不相容');
   const values=copy(x.parameters),fields=x.slot==='main'?mainKeys:x.slot==='support'?[...supportKeys,'target']:Object.keys(values);
@@ -119,6 +144,6 @@ function transfer(doc,sourceId,keys,targetId,options={}){
  if(dst.adapter.kind==='core'&&!dst.systemEffect&&common.includes(dst.effect))dst.commonEffectKeys=commonKeys.filter(k=>dst[k]!==undefined);
  check(next);return {document:next,skillId:dst.id,changes,dependencies:deps,conflicts:[...new Set(conflicts)]};
 }
-function compatible(id,sk){if(!sk)return false;if(id.startsWith('passive.'))return sk.type==='passive';if(id.startsWith('support.'))return sk.type==='support';if(!['active','proc'].includes(sk.type))return false;if(id.startsWith('system.'))return sk.usageScope==='character';if(['core.hitCount','core.damageResolution'].includes(id))return !sk.systemEffect&&['damage','drain'].includes(sk.effect);if(['core.onHitStatus','core.powerBasis'].includes(id))return !sk.systemEffect&&['damage','drain','heal','shield'].includes(sk.effect);return !sk.systemEffect;}
+function compatible(id,sk){if(!sk)return false;if(id.startsWith('passiveEvent.'))return sk.type==='passive';if(id.startsWith('event.target'))return ['active','proc','support'].includes(sk.type);if(id.startsWith('passive.'))return sk.type==='passive';if(id.startsWith('support.'))return sk.type==='support';if(!['active','proc'].includes(sk.type))return false;if(id.startsWith('system.'))return sk.usageScope==='character';if(['core.hitCount','core.damageResolution'].includes(id))return !sk.systemEffect&&['damage','drain'].includes(sk.effect);if(['core.onHitStatus','core.powerBasis'].includes(id))return !sk.systemEffect&&['damage','drain','heal','shield'].includes(sk.effect);return !sk.systemEffect;}
 root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,blank,transfer,check,copy,mainKeys};
 })(globalThis);
