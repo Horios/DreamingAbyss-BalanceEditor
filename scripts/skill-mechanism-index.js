@@ -17,9 +17,10 @@ define('core.powerBasis','計算基準','條件','選擇倍率計算使用的生
 define('core.damageResolution','傷害結算','傷害','一般、固定或真實傷害結算。','js/combat/skill-effect-runtime.js');
 define('core.onHitStatus','命中／恢復後附加狀態','狀態','命中傷害、治療或護盾後按機率附加狀態。','js/combat/skill-effect-runtime.js');
 define('core.induction','誘發技能','事件','一次誘發 1～2 個技能／槽位；禁止誘發再誘發。','js/skills/induction-runtime.js');
-for(const [event,label] of Object.entries({targetTurnEnd:'受術者回合結束（含受控）',targetActionEnd:'受術者行動結束',targetDeath:'受術者死亡'}))define('event.'+event,label,'事件','可獨立複製至施加狀態技能；各事件共用標記次數，觸發後可移除，死亡連鎖使用佇列。','js/combat/event-trigger-runtime.js');
+for(const [event,label] of Object.entries({targetTurnEnd:'戰鬥週期觸發（受控仍結算）',targetActionEnd:'受術者行動結束',targetDeath:'受術者死亡'}))define('event.'+event,label,'事件','可獨立複製至施加狀態技能；各事件共用標記次數，觸發後可移除，死亡連鎖使用佇列。','js/combat/event-trigger-runtime.js');
 for(const event of ['kill','enemyDeath'])define('passiveEvent.'+event,event==='kill'?'擊殺連續追擊':'敵人死亡冷卻縮減','事件','常駐事件型被動，不占技能槽。','js/combat/event-trigger-runtime.js');
 define('event.proc','普攻後觸發','事件','目前引擎的 proc 是普攻後觸發，不代表受擊觸發。','js/core/core-game.js',false);
+define('timing.seconds','秒數／MP 與自動施放','條件','獨立秒數冷卻、MP、施法時間、共同行動限制、優先級與條件。','js/combat/seconds-runtime.js');
 function instances(sk,doc){
  const out=[],add=(id,key,parameters,slot,editable=true,extra={})=>{const def=defs.get(id);out.push({key,id,definition:def,parameters:copy(parameters),slot,editable,reusable:def.reusable&&editable,dependencies:[],...extra});};
  const core=sk.adapter.kind==='core',normal=core&&!sk.systemEffect&&common.includes(sk.effect);
@@ -39,7 +40,7 @@ function instances(sk,doc){
   if(sk.type==='proc')add('event.proc','proc',pick(sk,['procBaseChance','procChancePerLevel']),'trigger',false);
  }else if(sk.adapter.kind==='support'){
   const kind=sk.kind||'unknown',known=['attack','critical','guard','power','regen','fracture','weaken','vulnerable','followup','dotAttack','dotMaxHp','damageAmp','applyStatus'].includes(kind);
-  const id='support.'+kind;define(id,({dotAttack:'行動前持續傷害（攻擊）',dotMaxHp:'行動前持續傷害（生命）',followup:'受擊後追加傷害',regen:'持續恢復',applyStatus:'施加自訂狀態'})[kind]||'輔助效果：'+kind,known?'狀態':'特殊機制','輔助技能的單一持續效果槽；保留施放目標。','js/skills/support-debuff.js / js/skills/status-maker.js',known);
+  const id='support.'+kind;define(id,({dotAttack:'計時持續傷害（攻擊）',dotMaxHp:'計時持續傷害（生命）',followup:'受擊後追加傷害',regen:'持續恢復',applyStatus:'施加自訂狀態'})[kind]||'輔助效果：'+kind,known?'狀態':'特殊機制','輔助技能的單一持續效果槽；保留施放目標。','js/skills/support-debuff.js / js/skills/status-maker.js',known);
   add(id,'support',pick(sk,[...supportKeys,'target']),'support',true,{dependencies:sk.statusId?[{kind:'status',id:sk.statusId}]:[]});
  }else{
   if(sk.eventPassive)add('passiveEvent.'+sk.eventPassive.event,'eventPassive',{eventPassive:sk.eventPassive},'eventPassive');
@@ -62,6 +63,7 @@ function instances(sk,doc){
   if(state.tags?.includes('instant')){const id='status.instant';define(id,'施加時立即結算','事件','施加時額外結算一次 periodic。','js/skills/status-maker.js',false);add(id,inst.key+':instant',{statusId:state.id},'related',false,{related:true});}
 
  }
+ if(sk.timing)add('timing.seconds','secondsTiming',{timing:sk.timing},'secondsTiming');
  return out;
 }
 function index(doc){const byMechanism=new Map(),bySkill=new Map();for(const sk of doc.skillSystem.definitions.filter(s=>!s.deleted)){const xs=instances(sk,doc);bySkill.set(sk.id,xs);for(const x of xs){if(!byMechanism.has(x.id))byMechanism.set(x.id,{...x.definition,skills:[],uses:0});const row=byMechanism.get(x.id);row.uses++;if(!row.skills.includes(sk.id))row.skills.push(sk.id);}}return {byMechanism,bySkill};}
@@ -89,6 +91,7 @@ function transfer(doc,sourceId,keys,targetId,options={}){
  const xs=instances(src,next),selected=[...new Set(keys)].map(key=>{const x=xs.find(x=>x.key===key);if(!x||!x.reusable)throw Error('此機制僅可查看，無法獨立重用：'+key);return x;});if(!selected.length)throw Error('請選擇機制');
  const changes=[],deps=[],conflicts=[],eventStates=new Set();
  for(const x of selected){
+  if(x.slot==='secondsTiming'){if(!['active','support'].includes(dst.type)&&x.parameters.timing.mpCost>0)throw Error('被動／觸發技能不可新增 MP 成本');if(dst.timing&&JSON.stringify(dst.timing)!==JSON.stringify(x.parameters.timing)&&!options.replace)throw Error('將替換秒數設定，請允許替換');dst.timing=copy(x.parameters.timing);changes.push({mechanism:x.id,values:copy(x.parameters)});continue;}
   if(x.slot==='eventPassive'){
    if(dst.type!=='passive')throw Error('事件被動需要被動技能');
    if(dst.eventPassive&&JSON.stringify(dst.eventPassive)!==JSON.stringify(x.parameters.eventPassive)&&!options.replace)throw Error('將替換事件被動，請允許替換');

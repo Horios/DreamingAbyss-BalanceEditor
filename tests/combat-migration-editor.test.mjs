@@ -1,22 +1,7 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {createRequire} from 'node:module';
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs');
-const json=(r,s)=>JSON.parse(r.run('JSON.stringify('+s+')'));
-test('audit page reads the existing shared catalog, links to skills and does not edit its document',()=>{
- const r=loadRuntime(process.cwd()),before=r.run('JSON.stringify(data)');r.run('__EMBERWILD_COMBAT_MIGRATION_AUDIT.open()');
- assert(r.elements.get('app').innerHTML.includes('秒數／MP 戰鬥移植稽核'));assert(r.elements.get('app').innerHTML.includes('尚未切換'));
- const report=json(r,'__EMBERWILD_COMBAT_MIGRATION_AUDIT.scan()');assert(report.sharedSkills>100);assert(report.rows.length>100);
- assert.equal(r.run('JSON.stringify(data)'),before);assert.equal(r.run('typeof document.getElementById("combatMigrationSkills").onclick'),'function');assert.deepEqual(r.errors,[]);
-});
-test('new-format import is rejected before old unit normalization and current edits remain exact',()=>{
- const r=loadRuntime(process.cwd()),before=r.run('JSON.stringify(data)');
- r.run('globalThis.futureDoc=structuredClone(data);futureDoc.timeUnits.supportDuration="battleSeconds";futureDoc.supportSkills[0][0].duration=1.25;globalThis.futureBefore=JSON.stringify(futureDoc);');
- assert.throws(()=>r.run('__EMBERWILD_VALIDATE_DOCUMENT(futureDoc)'),/秒數／MP/);
- assert.equal(r.run('JSON.stringify(data)'),before);assert.equal(r.run('JSON.stringify(futureDoc)'),r.run('futureBefore'));
- r.run('normalizeTurnUnitsInPlace(futureDoc)');assert.equal(r.run('JSON.stringify(futureDoc)'),r.run('futureBefore'));
- assert.throws(()=>r.run('__EMBERWILD_RELEASE_EDITOR.load(futureDoc)'),/秒數／MP/);assert.equal(r.run('JSON.stringify(data)'),before);
-});
-test('MP changes cannot be silently exported through the legacy canonical editor',()=>{
- const r=loadRuntime(process.cwd()),before=r.run('JSON.stringify(data.skillSystem)');
- assert.throws(()=>r.run('__EMBERWILD_SKILL_SYSTEM_EDITOR.updateSkill("class1-initial0",{mpCost:7})'),/秒數／MP/);assert.equal(r.run('JSON.stringify(data.skillSystem)'),before);
- r.run('data.skillSystem.definitions[0].mpCost=7');assert.throws(()=>r.run('__EMBERWILD_MASTERY_EDITOR.cleanExport()'),/秒數／MP/);
-});
+const source=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json','utf8')),json=(r,s)=>JSON.parse(r.run('JSON.stringify('+s+')'));
+function boot(){const r=loadRuntime(process.cwd());r.ctx.source=structuredClone(source);r.run('__EMBERWILD_RELEASE_EDITOR.load(source)');return r;}
+test('seconds editor manages canonical skills, statuses, monsters, tokens and MP without creating another catalog',()=>{const r=boot(),before=r.run('JSON.stringify(data)');r.run('__EMBERWILD_COMBAT_MIGRATION_AUDIT.open()');assert(r.elements.get('app').innerHTML.includes('秒數／MP 戰鬥'));assert.equal(r.run('JSON.stringify(data)'),before);assert.equal(r.run('__EMBERWILD_COMBAT_MIGRATION_AUDIT.scan().runtimeSwitched'),true);for(const kind of ['combat','skills','statuses','monsters','tokens','items']){r.ctx.kind=kind;r.run('__EMBERWILD_COMBAT_MIGRATION_AUDIT.select(kind,\"\")');assert(r.elements.get('app').innerHTML.includes('共同規則與技能參數'));}assert.deepEqual(r.errors,[]);});
+test('fractional seconds and MP round-trip exactly; invalid updates leave original data intact',()=>{const r=boot();r.run('__EMBERWILD_COMBAT_MIGRATION_AUDIT.select(\"skills\",\"class1-initial0\");__EMBERWILD_COMBAT_MIGRATION_AUDIT.update(\"class1-initial0\",{cooldownSeconds:4.125,mpCost:7.5,castSeconds:.75,priority:2})');const out=json(r,'__EMBERWILD_RELEASE_EDITOR.current()'),sk=out.skillSystem.definitions.find(s=>s.id==='class1-initial0');assert.equal(sk.timing.cooldownSeconds,4.125);assert.equal(sk.timing.mpCost,7.5);assert.equal(sk.timing.castSeconds,.75);assert.deepEqual(out.equipmentForms,source.equipmentForms);assert.deepEqual(out.balanceSettings.drops,source.balanceSettings.drops);const before=r.run('JSON.stringify(data)');assert.throws(()=>r.run('__EMBERWILD_COMBAT_MIGRATION_AUDIT.update(\"class1-initial0\",{mpCost:-1})'),/秒數/);assert.equal(r.run('JSON.stringify(data)'),before);r.ctx.out=out;r.run('__EMBERWILD_RELEASE_EDITOR.load(out)');assert.deepEqual(json(r,'__EMBERWILD_RELEASE_EDITOR.current()'),out);});
+test('misplaced MP fields and unversioned seconds documents cannot be silently exported or normalized',()=>{const r=boot(),before=r.run('JSON.stringify(data.skillSystem)');assert.throws(()=>r.run('__EMBERWILD_SKILL_SYSTEM_EDITOR.updateSkill(\"class1-initial0\",{mpCost:7})'),/秒數／MP/);assert.equal(r.run('JSON.stringify(data.skillSystem)'),before);r.run('globalThis.bad=structuredClone(data);delete bad.balanceSettings.combat.seconds;delete bad.balanceSettings.meta.combatTimingVersion');assert.throws(()=>r.run('__EMBERWILD_RELEASE_EDITOR.load(bad)'),/秒數／MP/);});

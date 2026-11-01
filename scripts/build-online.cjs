@@ -1,9 +1,10 @@
 const fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'..'),out=path.join(root,'server/online');
 const doc=fs.readFileSync(path.join(root,'server/balance-diff.cjs'),'utf8');
+const secondsSchema=fs.readFileSync(path.join(root,'scripts/seconds-schema.cjs'),'utf8').replace('})(globalThis,','})(root,');
 const combatMigration=fs.readFileSync(path.join(root,'scripts/combat-migration-audit.cjs'),'utf8');
 let service=fs.readFileSync(path.join(root,'server/release-service.cjs'),'utf8');
-service=service.replace("'use strict';\nconst crypto=require('node:crypto'),D=require('./balance-diff.cjs'),CM=require('../scripts/combat-migration-audit.cjs');", "import {randomToken,digest,decodeGitContent} from './github-app.mjs';\nconst root={};\n"+doc.replace(/\}\)\(globalThis\);\s*$/, '})(root);')+combatMigration.replace(/\}\)\(globalThis\);\s*$/, '})(root);')+"\nconst D=root.EmberwildBalanceDiff,CM=root.EmberwildCombatMigration;");
+service=service.replace("'use strict';\nconst crypto=require('node:crypto'),D=require('./balance-diff.cjs'),CM=require('../scripts/combat-migration-audit.cjs');", "import {randomToken,digest,decodeGitContent} from './github-app.mjs';\nconst root={};\n"+doc.replace(/\}\)\(globalThis\);\s*$/, '})(root);')+secondsSchema+combatMigration.replace(/\}\)\(globalThis\);\s*$/, '})(root);')+"\nconst D=root.EmberwildBalanceDiff,CM=root.EmberwildCombatMigration;");
 service=service.replaceAll("Buffer.from(source.content.replace(/\\s/g,''),'base64').toString('utf8')",'decodeGitContent(source.content)').replaceAll("Buffer.from(f.content.replace(/\\s/g,''),'base64').toString('utf8')",'decodeGitContent(f.content)');
 service=service.replace("crypto.randomBytes(32).toString('hex')",'randomToken()').replace("crypto.createHash('sha256').update(D.stable(candidate)).digest('hex').slice(0,12)","(await digest(D.stable(candidate))).slice(0,12)");
 service=service.replace('module.exports={ReleaseService};','export {ReleaseService};');

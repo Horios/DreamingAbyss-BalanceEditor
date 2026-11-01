@@ -5,7 +5,7 @@
  let cache=null,revision=0;const drafts=new Map(),history=[],recent=[];let mechanismQuery='',category='',mechanismId='',notice='',lastSection='',externalReturn=false;
  const draftKey='emberwild-skill-mechanism-drafts-v1';try{for(const [id,d] of JSON.parse(localStorage.getItem(draftKey)||'[]'))drafts.set(id,d);}catch{}
  const ix=()=>cache||(cache=K.index(data)),invalidate=()=>{cache=null;revision++;};
- function checkCandidate(next){const previous=data;try{K.check(next);data=next;const issues=validateData();if(issues.length)throw Error(issues.join('\n'));return next;}finally{data=previous;}}
+ function checkCandidate(next){if(next.balanceSettings?.meta?.combatTimingVersion===1)Object.assign(next,EmberwildSecondsSchema.normalize(next));const previous=data;try{K.check(next);data=next;const issues=validateData();if(issues.length)throw Error(issues.join('\n'));return next;}finally{data=previous;}}
  function commit(next,message){checkCandidate(next);data=next;invalidate();markDirty(message);}
  function commitResult(result,message){commit(result.document,message);selection=result.skillId;section='skills';notice=(result.warnings||[]).join('\n');return result.skillId;}
  function warnDraft(){return !drafts.size||confirm('有 '+drafts.size+' 份技能未套用修改。保留草稿並繼續跳轉？返回技能後可繼續編輯；匯出前需先套用或捨棄。');}
