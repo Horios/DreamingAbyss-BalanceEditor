@@ -1,6 +1,6 @@
 # Dreaming Abyss V2 開發者模式第一階段稽核
 
-遊戲基準：`06f4c33eb1f981fc08cd31d9462577796e4e04dc`。由 `node scripts/audit-v2.cjs` 重建；輸出不含時間戳，來源不變時可重現。
+遊戲基準：`cea79fe8920b78d20cd26db717628039e9c1b500`。由 `node scripts/audit-v2.cjs` 重建；輸出不含時間戳，來源不變時可重現。
 
 - 欄位清冊是目前文件所有觀測路徑，並非完整 schema。
 - observedOptional 只表示同類物件有缺值，不能當作 schema 選用欄位定義。
@@ -98,7 +98,7 @@ flowchart TD
 
 ## 秒數與相容投影
 
-`*.timing` 與 `balanceSettings.combat.seconds` 為秒數／資源主欄位；classes/supportSkills/passiveSkills 與 adapter 是投影或定位資訊。其他含 turn、round、duration 的欄位只能標示待查，不能一律改秒數。選用的目標門檻、狀態引用、怪物 MP、裝備 mana 另列來源證據。裝備冷卻使用既有技能／寶石效果及 `skillCooldownSeconds`，不能另造 mana.cooldown 欄位。
+`skillSystem.definitions[].timing`、狀態／怪物／道具／信物的 timing 與 `balanceSettings.combat.seconds` 為秒數／資源主欄位；classes[].skills、supportSkills、passiveDefinitions 與 adapter 是投影或定位資訊（含其 timing）。其他含 turn、round、duration 的欄位只能標示待查，不能一律改秒數。選用的目標門檻、狀態引用、怪物 MP、裝備 mana 另列來源證據。裝備冷卻使用既有技能／寶石效果及 `skillCooldownSeconds`，不能另造 mana.cooldown 欄位。
 
 ## 往返結果
 

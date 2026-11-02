@@ -109,6 +109,11 @@ jobs:
         env:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
         run: node tests/global-item-workbench.browser.cjs
+      - name: Read-only V2 audit entry
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+        run: node tests/v2-audit.browser.cjs
 
   sites-artifact:
     name: Sites artifact build (no sign-in)

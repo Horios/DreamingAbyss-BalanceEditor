@@ -21,5 +21,7 @@ test('full round-trip diff includes metadata and temporal roles do not mislabel 
  assert.deepEqual(differences({_reference:{x:1},notes:'a'},{_reference:{x:2},notes:'b'}).map(x=>x.path),['_reference.x','notes']);
  assert.equal(temporal('classes[].base.hp'),'other');
  assert.equal(temporal('classes[].skills[].cooldown'),'compatibility-projection-or-adapter');
+ assert.equal(temporal('classes[].skills[].timing.cooldownSeconds'),'compatibility-projection-or-adapter');
+ assert.equal(temporal('passiveDefinitions[].timing.mpCost'),'compatibility-projection-or-adapter');
  assert.equal(temporal('skillSystem.definitions[].timing.mpCost'),'canonical-seconds-or-resource');
 });

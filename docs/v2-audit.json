@@ -3,7 +3,7 @@
   "title": "Dreaming Abyss V2 開發者模式第一階段稽核",
   "game": {
     "repository": "Horios/Emberwild",
-    "commit": "06f4c33eb1f981fc08cd31d9462577796e4e04dc",
+    "commit": "cea79fe8920b78d20cd26db717628039e9c1b500",
     "files": [
       {
         "path": "index.html",
@@ -35923,7 +35923,7 @@
       "observedOptional": false,
       "presentInObjects": null,
       "parentObjectCount": 1,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -35936,7 +35936,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -35949,7 +35949,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -35962,7 +35962,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "time-or-event-needs-review",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -35975,7 +35975,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -35988,7 +35988,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36001,7 +36001,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36014,7 +36014,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36027,7 +36027,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36040,7 +36040,7 @@
       "observedOptional": false,
       "presentInObjects": null,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36053,7 +36053,7 @@
       "observedOptional": false,
       "presentInObjects": 20,
       "parentObjectCount": 20,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36066,7 +36066,7 @@
       "observedOptional": false,
       "presentInObjects": 20,
       "parentObjectCount": 20,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36079,7 +36079,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36092,7 +36092,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36105,7 +36105,7 @@
       "observedOptional": true,
       "presentInObjects": 1,
       "parentObjectCount": 2,
-      "role": "time-or-event-needs-review",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36118,7 +36118,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36131,7 +36131,7 @@
       "observedOptional": true,
       "presentInObjects": 1,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36144,7 +36144,7 @@
       "observedOptional": true,
       "presentInObjects": 1,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36157,7 +36157,7 @@
       "observedOptional": true,
       "presentInObjects": 1,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36170,7 +36170,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36183,7 +36183,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36196,7 +36196,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36209,7 +36209,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36222,7 +36222,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36235,7 +36235,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36248,7 +36248,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36262,7 +36262,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36275,7 +36275,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36288,7 +36288,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36301,7 +36301,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36314,7 +36314,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36327,7 +36327,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36340,7 +36340,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36353,7 +36353,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36366,7 +36366,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36379,7 +36379,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36392,7 +36392,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36405,7 +36405,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36418,7 +36418,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36431,7 +36431,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36444,7 +36444,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36457,7 +36457,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -36470,7 +36470,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other",
+      "role": "compatibility-projection-or-adapter",
       "editorReferenceCandidates": [],
       "editingVerified": false
     },
@@ -54757,7 +54757,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].timing.actionCostSeconds",
@@ -54768,7 +54768,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].timing.bossDurationSeconds",
@@ -54779,7 +54779,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].timing.castSeconds",
@@ -54790,7 +54790,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].timing.condition",
@@ -54801,7 +54801,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].timing.cooldownSeconds",
@@ -54812,7 +54812,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].timing.durationSeconds",
@@ -54823,7 +54823,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].timing.mpCost",
@@ -54834,7 +54834,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].timing.priority",
@@ -54845,7 +54845,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].timing.tickIntervalSeconds",
@@ -54856,7 +54856,7 @@
       "observedOptional": false,
       "presentInObjects": 117,
       "parentObjectCount": 117,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "classes[].skills[].trapHp",
@@ -58832,7 +58832,7 @@
       "observedOptional": false,
       "presentInObjects": null,
       "parentObjectCount": 1,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].baseCritDamage",
@@ -58843,7 +58843,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].baseCritRate",
@@ -58854,7 +58854,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].cooldown",
@@ -58865,7 +58865,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "time-or-event-needs-review"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].defenseIgnore",
@@ -58876,7 +58876,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].defensePenetration",
@@ -58887,7 +58887,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].description",
@@ -58898,7 +58898,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].effect",
@@ -58909,7 +58909,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].effects",
@@ -58920,7 +58920,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].effects[]",
@@ -58931,7 +58931,7 @@
       "observedOptional": false,
       "presentInObjects": null,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].effects[].key",
@@ -58942,7 +58942,7 @@
       "observedOptional": false,
       "presentInObjects": 20,
       "parentObjectCount": 20,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].effects[].value",
@@ -58953,7 +58953,7 @@
       "observedOptional": false,
       "presentInObjects": 20,
       "parentObjectCount": 20,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].element",
@@ -58964,7 +58964,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].eventPassive",
@@ -58975,7 +58975,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].eventPassive.cooldown",
@@ -58986,7 +58986,7 @@
       "observedOptional": true,
       "presentInObjects": 1,
       "parentObjectCount": 2,
-      "role": "time-or-event-needs-review"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].eventPassive.event",
@@ -58997,7 +58997,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].eventPassive.maxAttacks",
@@ -59008,7 +59008,7 @@
       "observedOptional": true,
       "presentInObjects": 1,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].eventPassive.power",
@@ -59019,7 +59019,7 @@
       "observedOptional": true,
       "presentInObjects": 1,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].eventPassive.reduction",
@@ -59030,7 +59030,7 @@
       "observedOptional": true,
       "presentInObjects": 1,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].hitCount",
@@ -59041,7 +59041,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].iconType",
@@ -59052,7 +59052,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].id",
@@ -59063,7 +59063,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].kind",
@@ -59074,7 +59074,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].mastery",
@@ -59085,7 +59085,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].maxTargets",
@@ -59096,7 +59096,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].name",
@@ -59107,7 +59107,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].partnerId",
@@ -59119,7 +59119,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].power",
@@ -59130,7 +59130,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].powerPerLevel",
@@ -59141,7 +59141,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].requiredLevel",
@@ -59152,7 +59152,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].requiredMastery",
@@ -59163,7 +59163,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].requiredMasteryLevel",
@@ -59174,7 +59174,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].requiresAdvanced",
@@ -59185,7 +59185,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].target",
@@ -59196,7 +59196,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing",
@@ -59207,7 +59207,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing.actionCostSeconds",
@@ -59218,7 +59218,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing.bossDurationSeconds",
@@ -59229,7 +59229,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing.castSeconds",
@@ -59240,7 +59240,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing.condition",
@@ -59251,7 +59251,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing.cooldownSeconds",
@@ -59262,7 +59262,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing.durationSeconds",
@@ -59273,7 +59273,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing.mpCost",
@@ -59284,7 +59284,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing.priority",
@@ -59295,7 +59295,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].timing.tickIntervalSeconds",
@@ -59306,7 +59306,7 @@
       "observedOptional": false,
       "presentInObjects": 22,
       "parentObjectCount": 22,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].unlockConditions",
@@ -59317,7 +59317,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].unlockConditions.bossEquipment",
@@ -59328,7 +59328,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].unlockConditions.bossKills",
@@ -59339,7 +59339,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].unlockConditions.classMasteryLevel",
@@ -59350,7 +59350,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].unlockConditions.eliteKills",
@@ -59361,7 +59361,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].unlockConditions.materials",
@@ -59372,7 +59372,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].unlockConditions.quests",
@@ -59383,7 +59383,7 @@
       "observedOptional": false,
       "presentInObjects": 2,
       "parentObjectCount": 2,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].usageScope",
@@ -59394,7 +59394,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "passiveDefinitions[].weaponTypes",
@@ -59405,7 +59405,7 @@
       "observedOptional": true,
       "presentInObjects": 2,
       "parentObjectCount": 22,
-      "role": "other"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "schema",
@@ -64241,7 +64241,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].timing.actionCostSeconds",
@@ -64252,7 +64252,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].timing.bossDurationSeconds",
@@ -64263,7 +64263,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].timing.castSeconds",
@@ -64274,7 +64274,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].timing.condition",
@@ -64285,7 +64285,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].timing.cooldownSeconds",
@@ -64296,7 +64296,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].timing.durationSeconds",
@@ -64307,7 +64307,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].timing.mpCost",
@@ -64318,7 +64318,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].timing.priority",
@@ -64329,7 +64329,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].timing.tickIntervalSeconds",
@@ -64340,7 +64340,7 @@
       "observedOptional": false,
       "presentInObjects": 49,
       "parentObjectCount": 49,
-      "role": "canonical-seconds-or-resource"
+      "role": "compatibility-projection-or-adapter"
     },
     {
       "path": "supportSkills[][].unlockConditions",
