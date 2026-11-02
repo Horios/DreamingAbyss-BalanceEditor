@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dreaming Abyss · 開發者模式稽核</title>
+<style>
+:root{color-scheme:dark;font:15px/1.6 system-ui,sans-serif;background:#14191e;color:#e0e7ec}body{max-width:1200px;margin:auto;padding:28px}h1{font-size:24px;margin:0}a{color:#94c9e2}header{border-bottom:1px solid #35414c;padding-bottom:20px}.muted{color:#acbac5}section{margin:25px 0}input,select,button{font:inherit;padding:8px 12px;background:#202a33;color:inherit;border:1px solid #536573;border-radius:5px}input{min-width:230px;flex:1}.tools{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.table{overflow:auto;border:1px solid #35414c}table{border-collapse:collapse;width:100%;font-size:13px}td,th{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid #35414c}th{background:#202a33}code{overflow-wrap:anywhere}#status{white-space:pre-wrap}summary{cursor:pointer}button:disabled{opacity:.4}@media(max-width:600px){body{padding:15px}input{min-width:160px}h1{font-size:21px}}
+</style>
+<header><p class="muted">DREAMING ABYSS · 開發者模式 / 第一階段</p><h1>資料與編輯器稽核</h1><p>此入口唯讀，顯示來源分析與待驗證項目。編輯操作沿用既有工作台。</p><a href="balance-editor.html">開啟既有平衡器</a> · <a href="docs/v2-audit.md">完整稽核說明</a> · <a href="docs/v2-audit.json">機器可讀清冊</a> · <a href="docs/v2-source-status.md">分支與部署差異</a></header>
+<p id="status" role="status">正在讀取稽核報告…</p>
+<p id="coverage" class="muted"></p>
+<section><h2>欄位清冊</h2><p class="muted">靜態引用只提供來源線索。專用編輯介面與實際套用仍須逐欄驗收；沒有引用也不代表無法編輯。</p><div class="tools"><input id="search" aria-label="搜尋欄位" placeholder="搜尋欄位路徑，例如 timing 或 recovery"><select id="role" aria-label="欄位角色"><option value="">所有角色</option><option value="canonical-seconds-or-resource">秒數與資源主欄位</option><option value="compatibility-projection-or-adapter">相容投影與定位</option><option value="time-or-event-needs-review">時間與事件待查</option><option value="other">其他</option></select><select id="presence" aria-label="欄位來源"><option value="raw">Repository JSON</option><option value="effective">遊戲實際匯出</option></select></div><p id="count"></p><div class="table"><table><thead><tr><th>路徑</th><th>型別</th><th>角色</th><th>觀測缺值</th><th>靜態編輯引用</th><th>驗證證據</th></tr></thead><tbody id="rows"></tbody></table></div><div class="tools"><button id="prev">上一頁</button><button id="next">下一頁</button></div></section>
+<section><details><summary>選用與動態欄位</summary><pre id="optional"></pre><p>完整動態存取候選見 JSON 的 dynamicAccess。選用欄位補充有 schema 來源證據，並非完整 schema。</p></details></section>
+<section><details><summary>舊入口、模組與 DOM 耦合</summary><div id="modules"></div></details></section>
+<section><details open><summary>驗證界線與往返差異</summary><ul id="limits"></ul><p id="roundtrip"></p></details></section>
+<script src="scripts/v2-shared-core.js"></script>
+<script>
+(()=>{'use strict';let report,page=0;const $=id=>document.getElementById(id),size=60;
+function node(tag,text){const n=document.createElement(tag);n.textContent=text;return n;}
+function paint(){if(!report)return;const q=$('search').value.trim().toLowerCase(),role=$('role').value,fields=$('presence').value==='effective'?report.effectiveFields:report.fields;
+const filtered=fields.filter(x=>x.path.toLowerCase().includes(q)&&(!role||x.role===role));page=Math.max(0,Math.min(page,Math.ceil(filtered.length/size)-1));$('rows').replaceChildren();
+for(const r of filtered.slice(page*size,(page+1)*size)){const tr=document.createElement('tr');for(const text of [r.path,r.types.join(' / '),r.role,r.observedOptional?'有（'+r.presentInObjects+'/'+r.parentObjectCount+'）':'無',r.editorReferenceCandidates?.map(x=>x.module+':'+x.line).join(', ')||'未驗證',r.editingVerified?'代表欄位已通過 UI → 匯出 → 遊戲':r.loadExportPreserved?'原樣載入／匯出已驗證':'未驗證'])tr.appendChild(node('td',text));$('rows').appendChild(tr);}
+$('count').textContent=filtered.length+' 個路徑 · 第 '+(filtered.length?page+1:0)+' / '+Math.ceil(filtered.length/size)+' 頁';$('prev').disabled=page===0;$('next').disabled=(page+1)*size>=filtered.length;}
+for(const id of ['search','role','presence'])$(id).addEventListener(id==='search'?'input':'change',()=>{page=0;paint();});$('prev').onclick=()=>{page--;paint();};$('next').onclick=()=>{page++;paint();};
+fetch('docs/v2-audit.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}).then(r=>{report=r;$('status').textContent='遊戲基準 '+r.game.commit+'\n'+r.summary.fieldPaths+' 個原始欄位路徑 · '+r.summary.sections+' 個舊功能入口 · '+r.summary.modules+' 個 script 模組';
+$('coverage').textContent='正式匯入與匯出差異：'+r.roundTrip.changes.length+'；已有實際編輯證據的原始欄位形狀：'+r.summary.verifiedEditing+'。共用核心：'+r.sharedCore.models.map(x=>x.name).join('、');
+for(const text of r.limitations)$('limits').appendChild(node('li',text));$('optional').textContent=r.optionalFields.map(x=>x.path+'\n  '+x.source+':'+x.line+' · '+(x.present?'目前存在':'目前未出現')).join('\n');
+for(const m of r.editor.modules){const d=document.createElement('details');d.appendChild(node('summary',m.id+' · '+m.dom.length+' 個 DOM 引用'));d.appendChild(node('p','依賴候選：'+(m.dependencyCandidates.join(', ')||'無')+'；包裝：'+(m.wrappers.map(x=>x.name+':'+x.line).join(', ')||'無')));$('modules').appendChild(d);}
+$('roundtrip').textContent='原始 JSON → 編輯器：'+r.roundTrip.changes.length+' 項差異。原始 JSON → 遊戲實際資料：'+r.roundTrip.gameNormalization.length+' 項差異。遊戲實際資料 → 編輯器：'+r.roundTrip.effectiveGameToEditor.length+' 項差異。完整路徑見 JSON。';paint();}).catch(e=>{$('status').textContent='無法讀取報告：'+e.message+'。請以 HTTP server 開啟 repository，並先執行 node scripts/audit-v2.cjs。';});})();
+</script>
+</html>

@@ -1,12 +1,12 @@
 # Dreaming Abyss V2 開發者模式第一階段稽核
 
-遊戲基準：`cea79fe8920b78d20cd26db717628039e9c1b500`。由 `node scripts/audit-v2.cjs` 重建；輸出不含時間戳，來源不變時可重現。
+遊戲基準：`37afe3e23a644dde79208dc6d0b42778adaba53a`。由 `node scripts/audit-v2.cjs` 重建；輸出不含時間戳，來源不變時可重現。
 
 - 欄位清冊是目前文件所有觀測路徑，並非完整 schema。
 - observedOptional 只表示同類物件有缺值，不能當作 schema 選用欄位定義。
 - 靜態引用、依賴和 DOM 清冊是候選證據；未解析所有別名、字串路徑及作用域，不等於編輯支援或完整呼叫圖。
 - optionalFields 是有來源行號的秒數 schema 補充清單，不宣稱涵蓋所有選用或動態欄位。
-- 不計算未經逐欄操作驗證的 UI 覆蓋率。
+- UI 驗證只涵蓋已列證據的代表性欄位形狀；未驗證欄位與每筆物件不可算作通過。
 - roundTrip 保留 raw JSON 的完整差異，包含 _reference 與 notes。
 - 未修改資料、預設、規則或遊戲數值。
 
@@ -19,9 +19,10 @@
 - modules：90
 - sections：47
 - domReferences：1044
-- unverifiedEditing：1909
+- verifiedEditing：38
+- unverifiedEditing：1871
 
-完整逐欄路徑、型別、缺值比例、秒數角色、引用候選與行號見 `v2-audit.json`。每欄 `editingVerified:false`，需後續逐欄操作驗收。
+完整逐欄路徑、型別、缺值比例、秒數角色、引用候選與行號見 `v2-audit.json`。`loadExportPreserved` 表示正式匯入後原樣匯出的逐欄保存結果；`editingVerified` 僅在有實際 UI 修改、匯出及遊戲套用證據時標示 true，並限定為代表性欄位形狀。
 
 ## 資料讀寫與 DOM 耦合
 
@@ -102,8 +103,8 @@ flowchart TD
 
 ## 往返結果
 
-raw balance.json → 現行驗證／匯入 → 現行匯出：215 個完整欄位差異；遊戲本身 raw → effective 有 285 項；effective 遊戲文件 → 編輯器有 10 項；既有語意比較為 0 項。0 個編輯器錯誤。完整差異含 metadata，見 JSON。此檢查不代表所有欄位均有專用 UI 或修改已套用遊戲；後者由現行 preview-compatibility 測試的具體操作另驗。
+raw balance.json → 正式匯入（含 SourceDocument.capture）→ 現行匯出：0 個完整欄位差異；遊戲本身 raw → effective 有 285 項；effective 遊戲文件 → 編輯器有 0 項；既有語意比較為 0 項。0 個編輯器錯誤。完整差異含 metadata，見 JSON。此檢查不代表所有欄位均有專用 UI 或修改已套用遊戲；後者由現行 preview-compatibility 測試的具體操作另驗。
 
 ## V2 範圍
 
-`balance-editor-v2.html` 目前僅是唯讀稽核入口，連回舊版與報告，不更動草稿、不提供發布、不載入另一份資料模型。完整 V2 指令未取得前，不自行決定新版編輯體驗。
+依使用者補充，`balance-editor-v2.html` 以目前遊戲介面作為主畫面：載入釘選來源的原版遊戲，右側開啟對應頁面的既有編輯器。編輯文件仍由舊版持有；套用至預覽會經既有驗證與實際遊戲 applyBalanceConfig。測試存檔隔離於遊戲 frame 記憶體；發布沿用既有完整差異、摘要與確認流程。原唯讀稽核入口移至 `balance-audit.html`。四個共用核心的原樣來源雜湊見 v2-core-provenance.json；實際遊戲來源與每檔雜湊見 v2-game-provenance.json。

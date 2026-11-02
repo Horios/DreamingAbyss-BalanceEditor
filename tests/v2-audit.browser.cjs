@@ -5,9 +5,10 @@ process.env.NODE_PATH=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||path.resol
 require('node:module').Module._initPaths();
 const {openRuntime}=require('../../Emberwild/tests/runtime.cjs');
 (async()=>{
- const g=await openRuntime(path.resolve(__dirname,'..'),'balance-editor-v2.html'),p=g.page;
+ const g=await openRuntime(path.resolve(__dirname,'..'),'balance-audit.html'),p=g.page;
  try{
   await p.waitForFunction(()=>document.querySelector('#rows tr'));
+  assert.deepEqual(await p.evaluate(()=>['EmberwildBalanceDocument','EmberwildSkillSystem','EmberwildMechanisms','EmberwildSecondsSchema'].map(k=>typeof globalThis[k])),['object','object','object','object']);
   assert.equal(await p.locator('#rows tr').count(),60);
   await p.locator('#next').click();assert((await p.locator('#count').innerText()).includes('第 2 /'));
   await p.locator('#search').fill('timing');

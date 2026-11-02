@@ -114,6 +114,16 @@ jobs:
         env:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
         run: node tests/v2-audit.browser.cjs
+      - name: Canonical seconds controls export to the real game
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+        run: node scripts/audit-seconds-browser.cjs
+      - name: Game interface with contextual developer settings
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+        run: node tests/v2-game.browser.cjs
 
   sites-artifact:
     name: Sites artifact build (no sign-in)

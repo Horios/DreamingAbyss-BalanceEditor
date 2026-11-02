@@ -1,0 +1,627 @@
+{
+  "formatVersion": 1,
+  "gameCommit": "7c9ee58e2ddd5ad23744c36c0133c6879ccab2ac",
+  "balanceSha256": "3640896962af2d1b5ddc397e69922509ba250f5d07de589583262e87d4b3b1d6",
+  "scope": "Representative field shapes in the existing canonical seconds UI, including optional MP/equipment fields. Not every object instance or every editor page.",
+  "summary": {
+    "ui-export-game-verified": 46,
+    "intentional-readonly": 2,
+    "permanent-preserved": 1
+  },
+  "results": [
+    {
+      "path": "balanceSettings.combat.seconds.referenceSpeed",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "referenceSpeed"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 106.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.minimumActionIntervalSeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "minimumActionIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.425
+    },
+    {
+      "path": "balanceSettings.combat.seconds.actionReferenceSeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "actionReferenceSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 3.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.durationReferenceSeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "durationReferenceSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 6.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.periodicIntervalSeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "periodicIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 6.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.triggerIntervalSeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "triggerIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 3.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.encounterDelaySeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "encounterDelaySeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 1.625
+    },
+    {
+      "path": "balanceSettings.combat.seconds.healThreshold",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "healThreshold"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.74
+    },
+    {
+      "path": "balanceSettings.combat.seconds.advanceStepSeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "advanceStepSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 1.625
+    },
+    {
+      "path": "balanceSettings.combat.seconds.finalBoss.enrageAfterSeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "finalBoss",
+        "enrageAfterSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 135.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.finalBoss.specialIntervalSeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "finalBoss",
+        "specialIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 15.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.recovery.hpFractionPerSecond",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "recovery",
+        "hpFractionPerSecond"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.145
+    },
+    {
+      "path": "balanceSettings.combat.seconds.recovery.mpRegenMultiplier",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "recovery",
+        "mpRegenMultiplier"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 1.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.recovery.minimumHpRatio",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "recovery",
+        "minimumHpRatio"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.99
+    },
+    {
+      "path": "balanceSettings.combat.seconds.recovery.minimumMpRatio",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "recovery",
+        "minimumMpRatio"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.01
+    },
+    {
+      "path": "balanceSettings.combat.seconds.mana.maxMp",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "mana",
+        "maxMp"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 100.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.mana.regenPerSecond",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "mana",
+        "regenPerSecond"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 1.791667
+    },
+    {
+      "path": "balanceSettings.combat.seconds.mana.costMultiplier",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "mana",
+        "costMultiplier"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 1.125
+    },
+    {
+      "path": "balanceSettings.combat.seconds.classes[].baseIntervalSeconds",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "classes",
+        0,
+        "baseIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 3.125
+    },
+    {
+      "path": "skillSystem.definitions[].timing.minTargets",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "minTargets"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 2
+    },
+    {
+      "path": "skillSystem.definitions[].timing.requiredTargetStatusId",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "requiredTargetStatusId"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": "pain-spread"
+    },
+    {
+      "path": "skillSystem.definitions[].timing.cooldownSeconds",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "cooldownSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 12.125
+    },
+    {
+      "path": "skillSystem.definitions[].timing.mpCost",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "mpCost"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 9.42016
+    },
+    {
+      "path": "skillSystem.definitions[].timing.castSeconds",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "castSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.125
+    },
+    {
+      "path": "skillSystem.definitions[].timing.actionCostSeconds",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "actionCostSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.125
+    },
+    {
+      "path": "skillSystem.definitions[].timing.priority",
+      "variant": "editable",
+      "result": "intentional-readonly"
+    },
+    {
+      "path": "skillSystem.definitions[].timing.durationSeconds",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "durationSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.125
+    },
+    {
+      "path": "skillSystem.definitions[].timing.bossDurationSeconds",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "bossDurationSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.125
+    },
+    {
+      "path": "skillSystem.definitions[].timing.tickIntervalSeconds",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "tickIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 6.125
+    },
+    {
+      "path": "skillSystem.definitions[].timing.condition",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "condition"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": "injured"
+    },
+    {
+      "path": "skillSystem.definitions[].timing.mpCost",
+      "variant": "free-trigger",
+      "result": "intentional-readonly"
+    },
+    {
+      "path": "statusDefinitions[].timing.durationSeconds",
+      "parts": [
+        "statusDefinitions",
+        0,
+        "timing",
+        "durationSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 594.125
+    },
+    {
+      "path": "statusDefinitions[].timing.periodicIntervalSeconds",
+      "parts": [
+        "statusDefinitions",
+        0,
+        "timing",
+        "periodicIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 6.125
+    },
+    {
+      "path": "statusDefinitions[].timing.triggerIntervalSeconds",
+      "parts": [
+        "statusDefinitions",
+        0,
+        "timing",
+        "triggerIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 3.125
+    },
+    {
+      "path": "statusDefinitions[].timing.durationSeconds",
+      "variant": "permanent",
+      "result": "permanent-preserved"
+    },
+    {
+      "path": "balanceSettings.monsters.catalog[].timing.maxMp",
+      "parts": [
+        "balanceSettings",
+        "monsters",
+        "catalog",
+        0,
+        "timing",
+        "maxMp"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 100.25
+    },
+    {
+      "path": "balanceSettings.monsters.catalog[].timing.regenPerSecond",
+      "parts": [
+        "balanceSettings",
+        "monsters",
+        "catalog",
+        0,
+        "timing",
+        "regenPerSecond"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 1.916667
+    },
+    {
+      "path": "balanceSettings.monsters.catalog[].timing.costMultiplier",
+      "parts": [
+        "balanceSettings",
+        "monsters",
+        "catalog",
+        0,
+        "timing",
+        "costMultiplier"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 1.25
+    },
+    {
+      "path": "balanceSettings.monsters.catalog[].timing.baseIntervalSeconds",
+      "parts": [
+        "balanceSettings",
+        "monsters",
+        "catalog",
+        0,
+        "timing",
+        "baseIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 3.125
+    },
+    {
+      "path": "companionTokens.catalog[].ability.timing.cooldownSeconds",
+      "parts": [
+        "companionTokens",
+        "catalog",
+        0,
+        "ability",
+        "timing",
+        "cooldownSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 3.125
+    },
+    {
+      "path": "companionTokens.catalog[].ability.timing.durationSeconds",
+      "parts": [
+        "companionTokens",
+        "catalog",
+        0,
+        "ability",
+        "timing",
+        "durationSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 12.125
+    },
+    {
+      "path": "companionTokens.catalog[].ability.timing.triggerIntervalSeconds",
+      "parts": [
+        "companionTokens",
+        "catalog",
+        0,
+        "ability",
+        "timing",
+        "triggerIntervalSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 6.125
+    },
+    {
+      "path": "companionTokens.catalog[].ability.timing.firstTriggerSeconds",
+      "parts": [
+        "companionTokens",
+        "catalog",
+        0,
+        "ability",
+        "timing",
+        "firstTriggerSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.125
+    },
+    {
+      "path": "items[].timing.cooldownSeconds",
+      "parts": [
+        "items",
+        0,
+        "timing",
+        "cooldownSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.125
+    },
+    {
+      "path": "items[].timing.durationSeconds",
+      "parts": [
+        "items",
+        0,
+        "timing",
+        "durationSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 300.125
+    },
+    {
+      "path": "equipmentForms[][][].mana.maxMp",
+      "parts": [
+        "equipmentForms",
+        0,
+        0,
+        0,
+        "mana",
+        "maxMp"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.125
+    },
+    {
+      "path": "equipmentForms[][][].mana.regenPerSecond",
+      "parts": [
+        "equipmentForms",
+        0,
+        0,
+        0,
+        "mana",
+        "regenPerSecond"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.125
+    },
+    {
+      "path": "equipmentForms[][][].mana.costReduction",
+      "parts": [
+        "equipmentForms",
+        0,
+        0,
+        0,
+        "mana",
+        "costReduction"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 0.01
+    },
+    {
+      "path": "balanceSettings.combat.seconds.groupWeights",
+      "parts": [
+        "balanceSettings",
+        "combat",
+        "seconds",
+        "groupWeights"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": [
+        1.125,
+        1,
+        1
+      ]
+    }
+  ]
+}

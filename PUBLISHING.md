@@ -97,6 +97,14 @@ node scripts/build-online.cjs && node --test tests/*.test.mjs tests/*.test.cjs
 
 `chatgpt-dev`（`4363276`）的 6 個提交已全部包含在 `main` 或被 `main` 的新版本取代：技能機制索引與重用、載入來源 JSON 保留、經驗曲線、治療藥水控制。後續以 `main` 為維護基準；`chatgpt-dev` 保留原狀，不強制改寫。
 
+## 開發者模式 V2
+
+`/v2` 以目前遊戲介面遊玩與測試，右上「編輯目前畫面」開啟對應的既有設定頁。編輯後按「套用至遊戲預覽」將同一份文件交由真正遊戲驗證及套用；不會因此發布。右側「驗證與發布」沿用既有差異摘要、確認與版本管控。
+
+遊戲預覽的存檔及進度保存在該 frame 的記憶體，重整會清除；不寫入正式遊戲存檔。既有平衡器草稿仍由原編輯器保存。原工作台根入口維持可用，稽核報告移至 `/v2-audit`。
+
+`scripts/build-v2-assets.cjs` 從並列遊戲 checkout 原樣封裝遊戲檔案，僅在入口注入預覽儲存隔離與套用橋接。來源 commit 與逐檔 SHA256 見 `docs/v2-game-provenance.json`。更新遊戲來源或 V2 文件後須重建封裝、跑 V2 瀏覽器與 hosting 測試並重新部署；生成的 `v2-assets.mjs` 不手動修改。
+
 ## 命名規則
 
 遊戲名稱為「夢淵（Dreaming Abyss）」。畫面文字、文件與註解中的「Emberwild」一律寫作「Dreaming Abyss」，之後新增內容也依此辦理。程式運作依據維持原樣：程式識別名稱（`Emberwild*`、`__EMBERWILD_*`、`X-Emberwild-CSRF`）、User-Agent、localStorage 鍵名，以及實際存在的 repository 名稱與網址（`Horios/Emberwild`、`Horios/Emberwild-Balance`、`horios.github.io/Emberwild`）。
