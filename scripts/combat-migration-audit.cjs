@@ -20,9 +20,17 @@
   }
   walk(doc);return [...new Set(rows)];
  }
+ function current(doc){const m=doc?.balanceSettings?.meta;return m?.independentActionsVersion===1&&m?.continuousExplorationVersion===1;}
+ function retainContract(out,source){if(source?.balanceSettings?.meta?.combatTimingVersion!==1)return out;
+  // Historical documents are compared/exported as loaded. Upgrades are explicit.
+  for(const k of ['actionModel','recovery'])if(!Object.hasOwn(source.balanceSettings.combat.seconds,k))delete out.balanceSettings.combat.seconds[k];
+  for(const k of ['independentActionsVersion','continuousExplorationVersion'])if(!Object.hasOwn(source.balanceSettings.meta,k))delete out.balanceSettings.meta[k];
+  return out;
+ }
+ function attachExport(output,source){const S=root.EmberwildSecondsSchema||(typeof require==='function'?require('./seconds-schema.cjs'):null);return retainContract(S.attach(output,S.normalize(source)),source);}
  function assertSupported(doc){
   const paths=unsupportedPaths(doc);
-  if(doc?.balanceSettings?.meta?.combatTimingVersion===1){const S=root.EmberwildSecondsSchema||(typeof require==='function'?require('./seconds-schema.cjs'):null);if(!S)throw Error('秒數／MP 驗證器未載入');try{S.assertJSON(doc);S.validate(doc);}catch(e){throw Error('秒數／MP：'+e.message);}return doc;}
+  if(doc?.balanceSettings?.meta?.combatTimingVersion===1){const S=root.EmberwildSecondsSchema||(typeof require==='function'?require('./seconds-schema.cjs'):null);if(!S)throw Error('秒數／MP 驗證器未載入');try{S.assertJSON(doc);for(const k of ['independentActionsVersion','continuousExplorationVersion'])if(doc.balanceSettings.meta[k]!==undefined&&doc.balanceSettings.meta[k]!==1)throw Error('未知的 '+k);S.validateImport(doc);}catch(e){throw Error('秒數／MP：'+e.message);}return doc;}
   if(paths.length)throw Error('秒數／MP 戰鬥資料尚未接通目前遊戲與平衡器，不能套用、換算或發布。請先完成戰鬥資料格式與執行器移植：'+paths.slice(0,8).join('、'));
   return doc;
  }
@@ -41,7 +49,7 @@
      const category=group(p);counts[category]=(counts[category]||0)+1;
      const itemIndex=Number(p.match(/^items\.(\d+)\./)?.[1]);
      const real=/durationMinutes/.test(p)||/^items\./.test(p)&&['ward','elementTonic','timedBoost'].includes(doc.items?.[itemIndex]?.type);
-     rows.push({path:p,category,owner:String(name||category),value:item,clock:real?'現實時間（保留）':/speed/.test(p)?'舊版僅影響順序':/trigger|event/.test(p)?'事件條件需個別映射':'舊回合／未標明單位，需確認'});
+     rows.push({path:p,category,owner:String(name||category),value:item,clock:real?'現實時間（保留）':/\.timing\.|\.combat\.seconds\./.test(p)?'正式秒數／MP 設定':/speed/.test(p)?'速度換算普攻間隔':/trigger|event/.test(p)?'事件條件需個別映射':'舊回合／未標明單位，需確認'});
     }
    }
   }
@@ -50,10 +58,10 @@
   return {runtimeSwitched:doc?.balanceSettings?.meta?.combatTimingVersion===1,counts,rows,sharedSkills:skills.length,
    activeNeedingMpDesign:active.filter(s=>s.timing?.mpCost===undefined&&s.mpCost===undefined&&s.manaCost===undefined).map(s=>({id:s.id,name:s.name})),
    unsupported:unsupportedPaths(doc),
-   checklist:['職業／夥伴 MP 上限、恢復、消耗減免與技能成本','共用技能冷卻、施法時間、優先順序與施放條件','主動增減益的行動成本與續放條件','DOT／HOT、永久／疊加狀態、控制與死亡事件','怪物獨立行動、BOSS 計數及觸發冷卻','裝備詞綴、寶石、信物的秒數冷卻及事件語意','單怪／群怪配置與跨戰鬥冷卻保留','匯入／匯出／比較／歷史還原的單位及完整資料保留','發布驗證器、能力檢查與線上／離線規則一致性'],
+   checklist:['職業／夥伴 MP 上限、恢復、消耗減免與技能成本','技能獨立冷卻、個別施法限制、裝備順序與施放條件','瞬發增減益不重置普攻，個別動作成本與續放條件','DOT／HOT、永久／疊加狀態、控制與死亡事件','怪物獨立行動、BOSS 計數及觸發冷卻','裝備詞綴、寶石、信物的秒數冷卻及事件語意','單怪／群怪配置、跨場冷卻、脫戰恢復及下一場 HP／MP 門檻','匯入／匯出／比較／歷史還原的單位及完整資料保留','發布驗證器、能力檢查與線上／離線規則一致性'],
    note:'這是目前資料的移植清單；列出欄位不代表該機制已轉換或驗收完成。MP 與獨立冷卻並存，沒有自動把冷卻改成耗魔。'};
  }
- const api={unsupportedPaths,assertSupported,inspect};
+ const api={unsupportedPaths,assertSupported,inspect,current,attachExport,retainContract};
  root.EmberwildCombatMigration=api;
  if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);

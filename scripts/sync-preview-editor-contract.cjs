@@ -11,6 +11,8 @@ const settings=structuredClone(source.balanceSettings);
 // A migration receipt belongs to the source document that was migrated; it is
 // not a required setting to add to every otherwise unchanged exported document.
 delete settings.meta.activeCooldownFloorVersion;
+for(const k of ['independentActionsVersion','continuousExplorationVersion'])delete settings.meta[k];
+for(const k of ['actionModel','recovery'])delete settings.combat.seconds[k];
 html=html.replace(/^const BALANCE_SETTINGS_DEFAULTS = .+;$/m,()=> 'const BALANCE_SETTINGS_DEFAULTS = '+JSON.stringify(settings)+';');
 for(const [id,sourcePath] of [['companion-model-v1','js/character/companion-model.js'],['progression-model-v2','js/balance/progression-model.js'],['companion-token-model-v1','js/items/companion-token-model.js'],['team-model-v1','js/character/team-model.js']]){
  const marker=new RegExp('(<script id="'+id+'">)[\\s\\S]*?(<\\/script>)');
@@ -23,4 +25,5 @@ html=html.replace(old,next);
 // New companions use initialStats/growthPerLevel; do not recreate retired points.
 html=html.replace("+p.points.map((n,i)=>", "+(p.points||[]).map((n,i)=>");
 html=html.replace("0 為職業主屬、1 為體質、2 為韌性；依下列順序循環分配每個能力點。", "舊版循環配點：0 為職業主屬、1 為體質、2 為韌性。新版夥伴採 initialStats／growthPerLevel 固定能力與成長，保留原設定，不補回循環配點。");
+html=html.replace('return structuredClone(data);}finally{data=previous;}', 'return EmberwildCombatMigration.retainContract(structuredClone(data),input);}finally{data=previous;}');
 fs.writeFileSync(file,html);console.log('Synchronized current preview fallback and companion growth contract');

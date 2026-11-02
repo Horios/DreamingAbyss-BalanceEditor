@@ -20,7 +20,7 @@ define('core.induction','誘發技能','事件','一次誘發 1～2 個技能／
 for(const [event,label] of Object.entries({targetTurnEnd:'戰鬥週期觸發（受控仍結算）',targetActionEnd:'受術者行動結束',targetDeath:'受術者死亡'}))define('event.'+event,label,'事件','可獨立複製至施加狀態技能；各事件共用標記次數，觸發後可移除，死亡連鎖使用佇列。','js/combat/event-trigger-runtime.js');
 for(const event of ['kill','enemyDeath'])define('passiveEvent.'+event,event==='kill'?'擊殺連續追擊':'敵人死亡冷卻縮減','事件','常駐事件型被動，不占技能槽。','js/combat/event-trigger-runtime.js');
 define('event.proc','普攻後觸發','事件','目前引擎的 proc 是普攻後觸發，不代表受擊觸發。','js/core/core-game.js',false);
-define('timing.seconds','秒數／MP 與自動施放','條件','獨立秒數冷卻、MP、施法時間、共同行動限制、優先級與條件。','js/combat/seconds-runtime.js');
+define('timing.seconds','秒數／MP 與自動施放','條件','獨立普攻與技能冷卻、MP、個別詠唱／動作限制、技能裝備順序與施放條件。','js/combat/seconds-runtime.js');
 function instances(sk,doc){
  const out=[],add=(id,key,parameters,slot,editable=true,extra={})=>{const def=defs.get(id);out.push({key,id,definition:def,parameters:copy(parameters),slot,editable,reusable:def.reusable&&editable,dependencies:[],...extra});};
  const core=sk.adapter.kind==='core',normal=core&&!sk.systemEffect&&common.includes(sk.effect);

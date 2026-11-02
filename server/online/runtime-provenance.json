@@ -1,14 +1,14 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "bd7ba13d79583fce0dc974a478378f0b43f1dda7",
+  "sourceCommit": "787eff6de6c12f65f4a071225dce09049324c528",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
       "sha256": "bdf3ebde5c908169a8881246134ab6c80650d152058b4cca5e7aab40fdce9dc7"
     },
     {
-      "path": "js/combat/seconds-schema.js?v=20261102-v0017-seconds1",
-      "sha256": "0f064efe22d94d262780aed1857fbaf8112e0c0d5ad3d23c13404eabcedeefda"
+      "path": "js/combat/seconds-schema.js?v=20261102-v0022-verification1",
+      "sha256": "574a9294666f2fe6239dc8b108a8e794f3651b5b59c7381730ef3bc365bb7c61"
     },
     {
       "path": "js/ui/icon-color-palette.js?v=20261014-palette1",
@@ -35,8 +35,8 @@
       "sha256": "81a4820d55034cd75cf662bea3e5f4312ea7bfa6130db46dd412223201f5f0b0"
     },
     {
-      "path": "js/balance/balance-document.js?v=20261102-v0017-seconds1",
-      "sha256": "4248099b2bf4689c057f9bf2fa56a2ae8b2de7fbe60f871629c5132fb602e698"
+      "path": "js/balance/balance-document.js?v=20261102-v0022-verification1",
+      "sha256": "4cb0cf188342430d63d5058942a0acdf43eded719360ee7670feda34f75e9de7"
     },
     {
       "path": "inline",
@@ -83,8 +83,8 @@
       "sha256": "16746a329b2b4dcb2c22403a536725325e32ea204abc8c967061c8f2445b976d"
     },
     {
-      "path": "js/combat/seconds-timeline.js?v=20261102-v0017-seconds1",
-      "sha256": "8c2fe2f840d049594019e97d3e792f044a8b9dacab6f5d17633610a8fbfad348"
+      "path": "js/combat/seconds-timeline.js?v=20261102-v0020-continuous1",
+      "sha256": "1dab3f06fce797af82f3d5094010593a72c990648bd2c32e8748d1726550cea7"
     },
     {
       "path": "js/world/quest-design-model.js?v=20261019-daily-speed2",
@@ -223,8 +223,8 @@
       "sha256": "090933c63b15ee7c7e68d10e18ef87676ef1930eb017f33c7aa5e214265be960"
     },
     {
-      "path": "js/items/healing-potions.js?v=20261102-v0017-seconds1",
-      "sha256": "0b776671dd5922d20b6d261fd1a54458f817c1bf996602abd02e3a6ea16659dd"
+      "path": "js/items/healing-potions.js?v=20261102-v0021-interface1",
+      "sha256": "48bc65bd3aeb78db827db695a29f2d4560863c419d3961ead51f3391e691d09c"
     },
     {
       "path": "js/skills/skill-tooltip-reroll.js?v=20261019-compact-dust1",
@@ -291,8 +291,8 @@
       "sha256": "defd6acad56e83d407b8cb96e9f04eb575b511ab487a161d59f010345d70326f"
     },
     {
-      "path": "js/skills/status-maker.js?v=20261102-v0017-seconds1",
-      "sha256": "f945aaaa25a0b414ad93ab378628863af011d1526940983ae62ae0a14c727237"
+      "path": "js/skills/status-maker.js?v=20261102-v0020-continuous1",
+      "sha256": "b92ba09052396bd62f36b67adf83477d0f937fc4d2a29734711d544d57dd24be"
     },
     {
       "path": "js/combat/shared-skill-runtime.js?v=20261102-v0017-seconds1",
@@ -403,16 +403,16 @@
       "sha256": "88f23e37e34b795731ffa2f3bd4026def25e919637db19fdf27a8caf2f5ab133"
     },
     {
-      "path": "js/ui/utility-navigation.js?v=20261021-group-reminders1",
-      "sha256": "74fe529432972760b1e1aa2de9fb0e2ac710233bcb27be81df5a03ad8209841f"
+      "path": "js/ui/utility-navigation.js?v=20261102-v0021-interface1",
+      "sha256": "174c5c44aaac48dd29e61c47b60bce94d67d0e08b6faf36dfc4df6f19d15c781"
     },
     {
       "path": "js/balance/published-runtime.js",
       "sha256": "406f402c0e46dd216633176ac2e5c51c477a3e8e5ad876bf5758d23d8e8ddb83"
     },
     {
-      "path": "js/ui/navigation-tree.js?v=20261021-group-reminders1",
-      "sha256": "c245560488474fba598aa7fa0c281ea9d261080bc29a3728a0e9b0855bd4b2e3"
+      "path": "js/ui/navigation-tree.js?v=20261102-v0021-interface1",
+      "sha256": "61d70459dbdda542e6fa0b36eb306d5d4225c9510a15dbb9b6682fd82afb853b"
     },
     {
       "path": "js/ui/inventory-icons-runtime.js?v=20261014-descriptions1",
@@ -427,16 +427,16 @@
       "sha256": "a1e2c3175c2540c642c851bc4a73eb0672cbc21d2a59bf08efa157e4e04ed2c3"
     },
     {
-      "path": "js/ui/mobile-layout.js?v=20261020-exploration1",
-      "sha256": "67da639e345d17c349f697e47c16182bf012b03ddbd4692885e416c3c6449b14"
+      "path": "js/ui/mobile-layout.js?v=20261102-v0021-interface1",
+      "sha256": "7a36b04c8e0fd7d1d8422bd701b120ec414b10b19c5a6cbd4e8bdadb2f3e1734"
     },
     {
       "path": "js/equipment/gear-inventory.js?v=20261101-wear-help1",
       "sha256": "3daf0a40ad84917c17a7135b80dfb02312737a8d8d2481cce255fda56115cef8"
     },
     {
-      "path": "js/combat/offline-exploration.js?v=20261102-v0017-seconds1",
-      "sha256": "1c6d62cdbe4151d85aac1e38d7b65fb4c5a51eaf1b9e74b3bde69c1ce0ae6af7"
+      "path": "js/combat/offline-exploration.js?v=20261102-v0020-continuous1",
+      "sha256": "6e31e18cbf946e75183d9ca23378adda4d46777117bba2546419e5bc196f5049"
     },
     {
       "path": "js/combat/gem-finalizer.js?v=20261021-gems2",
@@ -455,32 +455,32 @@
       "sha256": "84104aac3e22526bdfd0d59e8e2ee98f9695612d9aeb214b741918010c8c1d51"
     },
     {
-      "path": "js/ui/battle-summary.js?v=20261102-v0017-seconds1",
-      "sha256": "d9b57af6a68defc268f508abaa7e0b7906e2e1dd3ff6dbc2d8333cb9515aaa08"
+      "path": "js/ui/battle-summary.js?v=20261102-v0021-interface1",
+      "sha256": "0deb8eebe8744a50d2b3c2c448ddf8803e9abef8e3cb6ecd485044b865eaa4ab"
     },
     {
-      "path": "js/ui/battle-effects.js?v=20261029-semantic2",
-      "sha256": "917c125dc2b222fe5c099ef3c829d54ee60e3b75504236fc7307dbfe588343be"
+      "path": "js/ui/battle-effects.js?v=20261102-v0022-verification1",
+      "sha256": "6fb4195ca07e25ca5ad87cf3f3a4033a3d120576cc6c3dfa554f03a45d47b930"
     },
     {
-      "path": "js/world/wishing-lake.js",
-      "sha256": "5b22c22c63d82dd48e4c5b19da30b2fef9374622e21cc1e6fc7163309e1d2107"
+      "path": "js/world/wishing-lake.js?v=20261102-v0021-interface1",
+      "sha256": "ad45a9ecc8760b336aacccb1372fca4176d98749c55f4626184841bcc3ab61e4"
     },
     {
-      "path": "js/combat/event-trigger-runtime.js?v=20261102-v0017-seconds1",
-      "sha256": "4029c60eec8e6433cdbf04733356ddee28808bc8d84f0a882b558be1bfd1157a"
+      "path": "js/combat/event-trigger-runtime.js?v=20261102-v0020-continuous1",
+      "sha256": "14f22b48c73ce61f597d77ceb503ad5e132584de871ca4232391d94533652116"
     },
     {
       "path": "js/combat/battle-configuration.js?v=20261102-v0017-seconds1",
       "sha256": "8675ebc659c307719d95e50eadf95a97b9810601c67a25b0bdd0a6020f4fa79b"
     },
     {
-      "path": "js/combat/seconds-runtime.js?v=20261102-v0018-seconds1",
-      "sha256": "babbb11c2ae328a9632dfd1fcdaebe869ae1c55b94ed00114ed9bab47cdd0a2e"
+      "path": "js/combat/seconds-runtime.js?v=20261102-v0021-interface1",
+      "sha256": "494740d13611b67611b6ddc8238362ae57ed168f17e181e64a6c83a767a95e86"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261102-v0017-seconds1",
-      "sha256": "660e8661a1d73471a5d30c4b3a76af3aa4163581e239bb1e779bdfe5d745b3b0"
+      "path": "js/ui/seconds-battle.js?v=20261102-v0021-interface1",
+      "sha256": "b05eab3c4ba395bea5bea19aef4c77f4894ed0e4615ae4c6ff2efabc6391eff9"
     }
   ]
 }

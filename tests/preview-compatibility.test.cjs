@@ -28,9 +28,11 @@ test('current preview data round-trips without an edit for three cycles and edit
   assert.deepEqual(D.diff(original,doc).rows,[],'no new starter gear, obsolete materials or encounter defaults');
   assert.deepEqual(D.diff(validator.canonicalize(original),validator.canonicalize(doc)).rows,[]);
  }
- r.run('data.balanceSettings.equipment.enhance.flatStatsPerLevel.atk=1.25;data.items.find(x=>x.id==="heal_small").healAmount=47;__EMBERWILD_SKILL_SYSTEM_EDITOR.updateSkill("class1-initial0",{power:2.25});markDirty()');
+ r.run('data.balanceSettings.combat.seconds.recovery.hpFractionPerSecond=.0125;data.balanceSettings.combat.seconds.recovery.minimumMpRatio=.4;data.balanceSettings.equipment.enhance.flatStatsPerLevel.atk=1.25;data.items.find(x=>x.id==="heal_small").healAmount=47;__EMBERWILD_SKILL_SYSTEM_EDITOR.updateSkill("class1-initial0",{power:2.25});markDirty()');
  const edited=plain(r.run('__EMBERWILD_RELEASE_EDITOR.current()'));validator.validate(edited);
  g.ctx.input=edited;g.run('applyBalanceConfig(input,{persist:false})');
+ assert.equal(g.run('EmberwildSecondsCombat.config().recovery.hpFractionPerSecond'),.0125);
+ assert.equal(g.run('EmberwildSecondsCombat.config().recovery.minimumMpRatio'),.4);
  assert.equal(g.run('exportableBalance().items.find(x=>x.id==="heal_small").healAmount'),47);
  assert.equal(g.run('exportableBalance().balanceSettings.equipment.enhance.flatStatsPerLevel.atk'),1.25);
  assert.equal(g.run('exportableBalance().skillSystem.definitions.find(x=>x.id==="class1-initial0").power'),2.25);

@@ -33,7 +33,9 @@
   const c=doc.balanceSettings.combat.seconds===undefined?defaults(doc):copy(doc.balanceSettings.combat.seconds);
   c.finalBoss??={enrageAfterSeconds:(doc.balanceSettings.combat.finalBoss?.enrageAfterTurn??45)*c.actionReferenceSeconds,specialIntervalSeconds:(doc.balanceSettings.combat.finalBoss?.specialEveryTurns||5)*c.actionReferenceSeconds};
   c.advanceStepSeconds??=(doc.balanceSettings.combat.pacing?.actionIntervalMs||1500)/1000;
-  doc.balanceSettings.combat.seconds=c;doc.balanceSettings.meta.combatTimingVersion=VERSION;
+  c.actionModel??='independent';
+  c.recovery??={hpFractionPerSecond:round((doc.balanceSettings.rewards?.postVictoryHeal??.12)/c.durationReferenceSeconds),mpRegenMultiplier:1,minimumHpRatio:1,minimumMpRatio:0};
+  doc.balanceSettings.combat.seconds=c;doc.balanceSettings.meta.combatTimingVersion=VERSION;doc.balanceSettings.meta.independentActionsVersion=1;doc.balanceSettings.meta.continuousExplorationVersion=1;
   for(const s of doc.skillSystem?.definitions||[]){s.timing??=timing(s,s.adapter?.job??s.jobs?.[0]??0,c);}
   for(const s of doc.statusDefinitions||[]){s.timing??={durationSeconds:s.permanent?null:round(s.duration*c.durationReferenceSeconds),periodicIntervalSeconds:c.periodicIntervalSeconds,triggerIntervalSeconds:c.triggerIntervalSeconds};if(s.control)s.timing.bossControlDurationSeconds??=round(s.control.bossDuration*c.actionReferenceSeconds);}
   for(const row of doc.balanceSettings.monsters?.catalog||[])row.timing??={baseIntervalSeconds:c.actionReferenceSeconds};
@@ -44,10 +46,11 @@
   validate(doc);return doc;
  }
  function validate(doc){
-  const c=doc?.balanceSettings?.combat?.seconds;if(!c||c.version!==VERSION)fail('缺少版本 1');
+  const c=doc?.balanceSettings?.combat?.seconds;if(c?.actionModel!=='independent')fail('必須使用獨立普攻與技能時間軸');if(!c||c.version!==VERSION)fail('缺少版本 1');
   for(const k of ['referenceSpeed','minimumActionIntervalSeconds','actionReferenceSeconds','durationReferenceSeconds','periodicIntervalSeconds','triggerIntervalSeconds'])if(!finite(c[k],.000001,3600))fail(k+' 必須為正秒數／速度');
   if(!finite(c.advanceStepSeconds,.000001,3600)||!finite(c.encounterDelaySeconds,0,3600)||!finite(c.healThreshold,0,1))fail('遭遇等待或治療門檻無效');
   if(!c.finalBoss||!finite(c.finalBoss.enrageAfterSeconds)||!finite(c.finalBoss.specialIntervalSeconds,.000001))fail('終局首領計時無效');
+  if(!c.recovery||!finite(c.recovery.hpFractionPerSecond)||!finite(c.recovery.mpRegenMultiplier)||!finite(c.recovery.minimumHpRatio,0,1)||!finite(c.recovery.minimumMpRatio,0,1))fail('脫戰恢復與遭遇門檻無效');
   if(!c.mana||!finite(c.mana.maxMp,1)||!finite(c.mana.regenPerSecond)||!finite(c.mana.costMultiplier))fail('魔力預算無效');
   if(!Array.isArray(c.classes)||c.classes.length!==4||new Set(c.classes.map(x=>x.job)).size!==4||c.classes.some(x=>!Number.isInteger(x.job)||x.job<0||x.job>3||!finite(x.baseIntervalSeconds,.000001,3600)))fail('職業間隔需各一筆');
   if(!Array.isArray(c.groupWeights)||c.groupWeights.length!==3||c.groupWeights.some(x=>!finite(x))||!c.groupWeights.some(x=>x>0))fail('群怪 3／4／5 隻權重無效');
@@ -59,14 +62,20 @@
   for(const row of doc.items||[])if(['imbue','healPotion'].includes(row.type)){const t=row.timing;if(!t||!finite(t.cooldownSeconds)||!finite(t.durationSeconds))fail(row.id+' 道具秒數無效');}
   return doc;
  }
+ function validateImport(doc){
+  const c=doc?.balanceSettings?.combat?.seconds,m=doc?.balanceSettings?.meta;
+  if(c?.version!==VERSION)fail('缺少版本 1');
+  for(const k of ['independentActionsVersion','continuousExplorationVersion'])if(m?.[k]!==undefined&&m[k]!==1)fail('未知的 '+k);
+  validate(m?.independentActionsVersion===undefined&&m?.continuousExplorationVersion===undefined?normalize(doc):doc);return doc;
+ }
  function legacy(input){
-  const d=copy(input);delete d.balanceSettings?.combat?.seconds;delete d.balanceSettings?.meta?.combatTimingVersion;
+  const d=copy(input);delete d.balanceSettings?.combat?.seconds;delete d.balanceSettings?.meta?.combatTimingVersion;delete d.balanceSettings?.meta?.independentActionsVersion;delete d.balanceSettings?.meta?.continuousExplorationVersion;
   for(const group of d.equipmentForms||[])for(const slot of group||[])for(const form of slot||[])delete form.mana;
   d.timeUnits={...(d.timeUnits||{}),supportDuration:'battleRounds',itemDuration:'battleRounds'};
   return d;
  }
  function attach(output,source){
-  const out=copy(output),d=source?.balanceSettings?.meta?.combatTimingVersion===VERSION?validate(source):normalize(source);out.balanceSettings.combat.seconds=copy(d.balanceSettings.combat.seconds);out.balanceSettings.meta.combatTimingVersion=VERSION;out.timeUnits=copy(d.timeUnits);if(out._reference?.units){out._reference.units.cooldown=d._reference?.units?.cooldown||'timing.cooldownSeconds：戰鬥秒數';out._reference.units.duration=d._reference?.units?.duration||'timing.durationSeconds：戰鬥秒數';}
+  const out=copy(output),d=source?.balanceSettings?.meta?.combatTimingVersion===VERSION?validate(source):normalize(source);out.balanceSettings.combat.seconds=copy(d.balanceSettings.combat.seconds);out.balanceSettings.meta.combatTimingVersion=VERSION;out.balanceSettings.meta.independentActionsVersion=1;out.balanceSettings.meta.continuousExplorationVersion=1;out.timeUnits=copy(d.timeUnits);if(out._reference?.units){out._reference.units.cooldown=d._reference?.units?.cooldown||'timing.cooldownSeconds：戰鬥秒數';out._reference.units.duration=d._reference?.units?.duration||'timing.durationSeconds：戰鬥秒數';}
   for(const [j,group] of (out.equipmentForms||[]).entries())for(const [k,slot] of group.entries())for(const [i,form] of slot.entries()){const mana=d.equipmentForms?.[j]?.[k]?.[i]?.mana;if(mana)form.mana=copy(mana);}
   for(const [name,key] of [['statusDefinitions','id'],['items','id']])for(const x of out[name]||[]){const s=d[name]?.find(s=>s[key]===x[key]);if(s?.timing)x.timing=copy(s.timing);}
   for(const s of out.skillSystem?.definitions||[]){const v=d.skillSystem.definitions.find(x=>x.id===s.id);if(v?.timing)s.timing=copy(v.timing);}
@@ -74,5 +83,5 @@
   for(const t of out.companionTokens?.catalog||[]){const v=d.companionTokens.catalog.find(x=>x.id===t.id);if(v?.ability?.timing)t.ability.timing=copy(v.ability.timing);}
   return out;
  }
- return {VERSION,copy,assertJSON,defaults,timing,normalize,validate,legacy,attach};
+ return {VERSION,copy,assertJSON,defaults,timing,normalize,validate,validateImport,legacy,attach};
 });
