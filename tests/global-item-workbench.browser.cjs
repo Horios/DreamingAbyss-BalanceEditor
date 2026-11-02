@@ -21,8 +21,8 @@ const doc=JSON.parse(fs.readFileSync(path.resolve(root,'../Emberwild/data/balanc
   await page.locator('#managerName').fill('測試治療藥水');
   assert.equal(await page.evaluate(()=>data.items.find(x=>x.id==='heal_small').name),doc.items.find(x=>x.id==='heal_small').name);
   await page.locator('[data-catalogue-tab="consumable"]').click();
-  await page.locator('#managerHealFraction').fill('.4');await page.locator('#catalogueSave').click();
-  assert.equal(await page.evaluate(()=>data.items.find(x=>x.id==='heal_small').healFraction),.4);
+  await page.locator('#managerHealAmount').fill('40');await page.locator('#catalogueSave').click();
+  assert.equal(await page.evaluate(()=>data.items.find(x=>x.id==='heal_small').healAmount),40);
   assert.equal(await page.evaluate(()=>data.items.find(x=>x.id==='heal_small').name),'測試治療藥水');
   assert.equal(await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.diagnostics.indexBuilds),index);
   await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.select('material:紅色草'));
@@ -34,12 +34,14 @@ const doc=JSON.parse(fs.readFileSync(path.resolve(root,'../Emberwild/data/balanc
   await page.locator('[data-catalogue-tab="sources"]').click();await page.locator('[data-catalogue-reference]').first().click();await page.locator('#backToGlobalItems').click();
   assert.equal(await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.state.selectedId),'material:紅色草');
   await page.locator('#inventoryIconSearch').fill('material:紅色草');
-  await page.waitForFunction(()=>document.querySelectorAll('[data-inventory-icon-row]').length===2);
+  // The match count follows the current catalogue; the batch summary must agree with it.
+  await page.waitForFunction(()=>document.querySelectorAll('[data-inventory-icon-row]').length===__EMBERWILD_INVENTORY_ICON_EDITOR.query().length);
+  const matches=await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.query().length);assert(matches>=1);
   const price=await page.evaluate(()=>data.balanceSettings.economy.materialPrices.find(x=>x.key==='紅色草').sellPrice);
   await page.locator('#catalogueSelectPage').click();await page.locator('#catalogueBatch').click();
   await page.locator('#catalogueBatchOperation').selectOption('price');await page.locator('#catalogueBatchValue').fill('17');await page.locator('#catalogueBatchPreview').click();
   assert.equal(await page.evaluate(()=>data.balanceSettings.economy.materialPrices.find(x=>x.key==='紅色草').sellPrice),price);
-  assert.match(await page.locator('#catalogueBatchSummary').textContent(),/2 件/);
+  assert.match(await page.locator('#catalogueBatchSummary').textContent(),new RegExp(matches+' 件'));
   await page.locator('#catalogueBatchConfirm').click();assert.equal(await page.evaluate(()=>data.balanceSettings.economy.materialPrices.find(x=>x.key==='紅色草').sellPrice),17);
   await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.open('inventoryIcons','all','equipment:form:0:0:0'));
   assert.equal(await page.locator('#inventoryIconSearch').inputValue(),'');

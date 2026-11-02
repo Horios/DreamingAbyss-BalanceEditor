@@ -1,0 +1,146 @@
+# Repository-only verification for the Dreaming Abyss balance designer.
+# Nothing here signs in to ChatGPT Sites: every check runs the code in this
+# repository against the public game repository. The owner-private Sites
+# deployment is reported separately as "not verified" and never counts as a
+# passing or failing test.
+name: Balance designer CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      game_ref:
+        description: Horios/Emberwild branch, tag or commit to verify against
+        required: false
+        default: chatgpt-dev
+
+permissions:
+  contents: read
+
+concurrency:
+  group: balance-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GAME_REF: ${{ github.event.inputs.game_ref || 'chatgpt-dev' }}
+
+jobs:
+  tests:
+    name: Editor, models and release service
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # The tests resolve the game as a sibling directory: ../Emberwild.
+      - uses: actions/checkout@v4
+        with:
+          path: emberwild-balance
+      - uses: actions/checkout@v4
+        with:
+          repository: Horios/Emberwild
+          ref: ${{ env.GAME_REF }}
+          path: Emberwild
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Record the game revision under test
+        run: echo "Game Horios/Emberwild@$(git -C Emberwild rev-parse HEAD) ($GAME_REF)" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Run every repository test except the game contract
+        working-directory: emberwild-balance
+        run: |
+          node scripts/build-online.cjs
+          tests=$(ls tests/*.test.mjs tests/*.test.cjs | grep -v '^tests/preview-compatibility.test.cjs$')
+          node --test --test-concurrency=2 $tests
+
+  game-contract:
+    name: Compatibility with the latest game data
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: emberwild-balance
+      - uses: actions/checkout@v4
+        with:
+          repository: Horios/Emberwild
+          ref: ${{ env.GAME_REF }}
+          path: Emberwild
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # Embedded shared models and the compiled release validator must match the
+      # game source; the current game JSON must load, round-trip and export.
+      - name: Shared models, validator provenance and data round-trip
+        working-directory: emberwild-balance
+        run: node --test tests/preview-compatibility.test.cjs
+      - name: Explain a contract mismatch
+        if: failure()
+        run: |
+          {
+            echo "### Game contract mismatch"
+            echo "The game at $GAME_REF changed a shared model, data/balance.json or a validator source."
+            echo "Synchronize with scripts/sync-preview-editor-contract.cjs and scripts/build-online-runtime.cjs, then commit."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  browser:
+    name: Browser workbench (local HTTP + Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: emberwild-balance
+      - uses: actions/checkout@v4
+        with:
+          repository: Horios/Emberwild
+          ref: ${{ env.GAME_REF }}
+          path: Emberwild
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # Playwright comes from the game repository's pinned devDependency.
+      - name: Install Playwright Chromium
+        working-directory: Emberwild
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Workbench smoke test on a local HTTP server
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+        run: node tests/global-item-workbench.browser.cjs
+
+  sites-artifact:
+    name: Sites artifact build (no sign-in)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: emberwild-balance
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and validate the deployable Worker
+        working-directory: emberwild-balance
+        run: |
+          bash scripts/build.sh
+          node scripts/validate-artifact.mjs
+
+  sites-deployment:
+    name: Sites deployment (not verified by CI)
+    runs-on: ubuntu-latest
+    needs: [tests, game-contract, browser, sites-artifact]
+    if: always()
+    steps:
+      # The site is owner-private: it requires the owner's ChatGPT sign-in, which
+      # Actions cannot hold. Report it as unverified rather than as passed/failed.
+      - name: Report deployment status
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://emberwild-balance.hortw.chatgpt.site/ || echo unreachable)
+          {
+            echo "### ChatGPT Sites deployment: 未驗證 (not verified)"
+            echo "The deployed workbench requires the owner's ChatGPT sign-in. CI did not sign in and does not claim the deployment succeeded."
+            echo "Anonymous HTTP status of the site entry: \`$code\` (informational only)."
+            echo "Repository checks: tests=${{ needs.tests.result }}, game-contract=${{ needs.game-contract.result }}, browser=${{ needs.browser.result }}, sites-artifact=${{ needs.sites-artifact.result }}."
+          } >> "$GITHUB_STEP_SUMMARY"

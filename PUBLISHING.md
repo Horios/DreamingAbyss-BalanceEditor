@@ -76,3 +76,28 @@ App 尚未完成連結時，工作台可透過公開 GitHub API 讀取版本、�
 ## 工作台操作優化（Editor 2.1）
 
 側欄可搜尋設定、道具、技能、地圖與怪物；所有頁面支援返回與「驗證與發布」。原始 JSON 未套用文字會獨立保留；先套用或捨棄才能發布。發布頁的「下一步」會帶到對應操作，完整操作說明可展開查看。改善範圍與驗證界線見 `docs/workbench-experience-audit-2026-10-14.md`。
+
+## GitHub Actions 驗證（不需登入 Sites）
+
+`.github/workflows/ci.yml` 只執行 Repository 內的程式，並以 `actions/checkout` 取得公開的 `Horios/Emberwild`（預設 `chatgpt-dev`，可於手動執行時指定其他分支或 commit），放在平衡器旁的 `../Emberwild`，與本機目錄結構相同。
+
+- `tests`：先執行 `scripts/build-online.cjs` 產生 `release-service.mjs` 與 `editor.mjs`，再跑全部 `tests/*.test.mjs`、`tests/*.test.cjs`（遊戲契約測試除外）。涵蓋 JSON、資料模型、技能機制、匯入匯出、版本比較與發布服務。
+- `game-contract`：單獨執行 `tests/preview-compatibility.test.cjs`，確認內嵌共用模型、發布驗證器來源雜湊與遊戲最新 `data/balance.json` 相容，且資料可往返匯出。遊戲更新共用檔案後這項會失敗，屬於需要同步的提示；同步方式為 `scripts/sync-preview-editor-contract.cjs` 與 `scripts/build-online-runtime.cjs`。
+- `browser`：以遊戲 repository 釘選的 Playwright 啟動 Chromium，測試在本機 `127.0.0.1` HTTP Server 上開啟 `balance-editor.html`，API 以測試資料回應，不連線任何線上網址。
+- `sites-artifact`：執行 `scripts/build.sh` 產生與 Sites 相同的部署產出物，並以 `scripts/validate-artifact.mjs` 驗證 Worker 模組。
+- `sites-deployment`：線上工作台是擁有者私人 Sites，Actions 無法取得登入身分。此 job 一律標示「未驗證」，只記錄匿名存取網址的 HTTP 狀態碼供參考，不計入測試成敗，也不代表部署成功。實際部署驗收需由擁有者登入後確認。
+
+本機執行與 CI 相同：
+
+```bash
+node scripts/build-online.cjs && node --test tests/*.test.mjs tests/*.test.cjs
+```
+
+## 分支狀態（2026-11-02 稽核）
+
+`chatgpt-dev`（`4363276`）的 6 個提交已全部包含在 `main` 或被 `main` 的新版本取代：技能機制索引與重用、載入來源 JSON 保留、經驗曲線、治療藥水控制。後續以 `main` 為維護基準；`chatgpt-dev` 保留原狀，不強制改寫。
+
+## 命名規則
+
+遊戲名稱為「夢淵（Dreaming Abyss）」。畫面文字、文件與註解中的「Emberwild」一律寫作「Dreaming Abyss」，之後新增內容也依此辦理。程式運作依據維持原樣：程式識別名稱（`Emberwild*`、`__EMBERWILD_*`、`X-Emberwild-CSRF`）、User-Agent、localStorage 鍵名，以及實際存在的 repository 名稱與網址（`Horios/Emberwild`、`Horios/Emberwild-Balance`、`horios.github.io/Emberwild`）。
+
