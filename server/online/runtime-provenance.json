@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "0f684f544c98dd59370d47441d4b6dfe12e825de",
+  "sourceCommit": "06f4c33eb1f981fc08cd31d9462577796e4e04dc",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -427,8 +427,8 @@
       "sha256": "a1e2c3175c2540c642c851bc4a73eb0672cbc21d2a59bf08efa157e4e04ed2c3"
     },
     {
-      "path": "js/ui/mobile-layout.js?v=20261102-v0021-interface1",
-      "sha256": "7a36b04c8e0fd7d1d8422bd701b120ec414b10b19c5a6cbd4e8bdadb2f3e1734"
+      "path": "js/ui/mobile-layout.js?v=20261102-v0028-mobile-fixes1",
+      "sha256": "b6ea623597ab1d0abf0a8d1024093db2faf8d7c832669c649f9d18b634b280cc"
     },
     {
       "path": "js/equipment/gear-inventory.js?v=20261101-wear-help1",

@@ -18472,11 +18472,15 @@ __EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_VA
 
 numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis.storyView??storyView;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;recordEnhancement=globalThis.recordEnhancement??recordEnhancement;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;startQuestEncounter=globalThis.startQuestEncounter??startQuestEncounter;questEncounterRows=globalThis.questEncounterRows??questEncounterRows;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;__EMBERWILD_TIMED_BOOST_TEST=globalThis.__EMBERWILD_TIMED_BOOST_TEST??__EMBERWILD_TIMED_BOOST_TEST;recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;hasShopVIP=globalThis.hasShopVIP??hasShopVIP;recordLifeProgress=globalThis.recordLifeProgress??recordLifeProgress;recordStoryAcquisition=globalThis.recordStoryAcquisition??recordStoryAcquisition;recordGatheredItem=globalThis.recordGatheredItem??recordGatheredItem;alchemyVIPView=globalThis.alchemyVIPView??alchemyVIPView;currentStoryCategory=globalThis.currentStoryCategory??currentStoryCategory;storyCategoryReminder=globalThis.storyCategoryReminder??storyCategoryReminder;recoverStoryRewards=globalThis.recoverStoryRewards??recoverStoryRewards;completeStoryStage=globalThis.completeStoryStage??completeStoryStage;storyNavigate=globalThis.storyNavigate??storyNavigate;openStory=globalThis.openStory??openStory;setStoryCategory=globalThis.setStoryCategory??setStoryCategory;readStory=globalThis.readStory??readStory;nextStoryDialogue=globalThis.nextStoryDialogue??nextStoryDialogue;endStoryDialogue=globalThis.endStoryDialogue??endStoryDialogue;storyReadyCount=globalThis.storyReadyCount??storyReadyCount;setAlchemyAutoBuy=globalThis.setAlchemyAutoBuy??setAlchemyAutoBuy;EmberwildQuestEncounter=globalThis.EmberwildQuestEncounter??EmberwildQuestEncounter;
 
-/* js/ui/mobile-layout.js?v=20261102-v0021-interface1 */
+/* js/ui/mobile-layout.js?v=20261102-v0028-mobile-fixes1 */
 /* Mobile presentation reuses the game's navigation, journal and page data. */
 (()=>{
   const mobile=matchMedia('(max-width:900px)');
   const primary=['battle','roster','equipment','character'];
+  // Top-menu category buttons point at their last visited sub-page, so the four
+  // shortcuts are matched by the category that owns each primary page.
+  const groupOf=id=>globalThis.EmberwildNavigation?.design.groups.find(g=>g.pages.some(p=>p.id===id))?.id;
+  const shortcutIndex=button=>{const group=button.dataset.navGroup;return group?primary.findIndex(id=>groupOf(id)===group):primary.indexOf(button.dataset.page);};
   let menuOpen=false,journalOpen=false,lootOpen=false,lootScroll=0,menuScroll=0,pendingSkill=null,journalSeen=false;
   function sync(){
     const main=document.querySelector('#app>.layout>main');
@@ -18497,16 +18501,16 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis
         const id=button.dataset.page||(button.dataset.statisticsTab?'statistics':button.getAttribute('onclick')?.match(/setTab\('([^']+)'\)/)?.[1]);
         if(!id)continue;
         button.dataset.page=id;
-        if(!primary.includes(id))pages.appendChild(button);
+        if(shortcutIndex(button)<0)pages.appendChild(button);
       }
       // Keep familiar, short labels in the four thumb-accessible shortcuts.
-      for(const id of primary){const b=nav.querySelector(`[data-page="${id}"]`);if(b)nav.appendChild(b);}
+      for(const [index,id] of primary.entries()){const b=[...nav.querySelectorAll('[data-page]')].find(b=>b.parentElement===nav&&shortcutIndex(b)===index)||nav.querySelector(`[data-page="${id}"]`);if(b)nav.appendChild(b);}
       const more=document.createElement('button');more.type='button';more.className='mobile-more-toggle';more.setAttribute('aria-controls',pages.id);more.onclick=()=>{menuOpen=!menuOpen;sync();};nav.append(more,pages);
     }
     if(nav){
       nav.classList.toggle('mobile-menu-open',menuOpen);
       const more=nav.querySelector('.mobile-more-toggle');
-      if(more){more.setAttribute('aria-expanded',String(menuOpen));more.textContent=menuOpen?'收起':primary.includes(tab)?'更多':'更多 · '+(nav.querySelector('.mobile-more-pages .active span')?.textContent||nav.querySelector('.mobile-more-pages .active')?.textContent||'');more.classList.toggle('active',!primary.includes(tab));}
+      if(more){more.setAttribute('aria-expanded',String(menuOpen));more.textContent=menuOpen?'收起':primary.some(id=>id===tab||groupOf(id)&&groupOf(id)===groupOf(tab))?'更多':'更多 · '+(nav.querySelector('.mobile-more-pages .active span')?.textContent||nav.querySelector('.mobile-more-pages .active')?.textContent||'');more.classList.toggle('active',!primary.includes(tab));}
       for(const b of nav.querySelectorAll('[data-page]')){
         if(b.dataset.page===tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
       }
@@ -18573,7 +18577,7 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis
   if(state)render();else sync();
 })();
 
-__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;toggleMobileJournal=globalThis.toggleMobileJournal??toggleMobileJournal;toggleMobileLoot=globalThis.toggleMobileLoot??toggleMobileLoot;
+__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;EmberwildNavigation=globalThis.EmberwildNavigation??EmberwildNavigation;toggleMobileJournal=globalThis.toggleMobileJournal??toggleMobileJournal;toggleMobileLoot=globalThis.toggleMobileLoot??toggleMobileLoot;
 
 /* js/equipment/gear-inventory.js?v=20261101-wear-help1 */
 /* Bag presentation uses immutable item identities and the existing stat ledger,
