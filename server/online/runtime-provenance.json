@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "4cace6794724953305183672dd55ca293236789f",
+  "sourceCommit": "e8e2359a5f5f417c4c9a7320af338bbfb6c9a9c4",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -207,8 +207,8 @@
       "sha256": "15ce6003c3ce9583d028218c836660e58128b11ea00144062436f0a713529dd2"
     },
     {
-      "path": "js/ui/expedition-ui.js?v=20261102-v0023-speed-removal1",
-      "sha256": "aca4e0906ff0dda615a4cab674372e6f8224ebedaf17357a860ae27a94f514b4"
+      "path": "js/ui/expedition-ui.js?v=20261103-v0047-nav1",
+      "sha256": "73a5c3b201b358135a8f0bba84609609c2303a28d70347a86c62ac7907dd5454"
     },
     {
       "path": "js/ui/expedition-density.js",
@@ -335,8 +335,8 @@
       "sha256": "e78ffa44cca2813e48176b43e15070d87ef057c6915a65fdb281672449b2ff48"
     },
     {
-      "path": "js/ui/options.js?v=20261103-v0042-header1",
-      "sha256": "bc12ec34abe7fbe8e1e7ad90dcc13341accb83ebceb6f36f405ea597da79534f"
+      "path": "js/ui/options.js?v=20261103-v0047-nav1",
+      "sha256": "b2d0fb6df910fa58cfb47e2230c2f19c8149305e806d7de9dd790085ee4c33bc"
     },
     {
       "path": "js/items/timed-boost-runtime.js?v=20261102-v0023-speed-removal1",
@@ -367,8 +367,8 @@
       "sha256": "7934f05a9b866e97fc8996a76661416d273beae11ecaa2a24e39f5f1a8b5b8be"
     },
     {
-      "path": "js/ui/team-builds.js?v=20261013-team-actions1",
-      "sha256": "04d8a3992e388b32d1124e7709531347a986d642e0a455dbabe00d56de79e61e"
+      "path": "js/ui/team-builds.js?v=20261103-v0047-nav1",
+      "sha256": "3edc06d0e14d68bcad838480023fd027ec92123ec3fe047e7e21de0843383a12"
     },
     {
       "path": "js/equipment/boss-crafting.js",
@@ -403,16 +403,16 @@
       "sha256": "6aed4e504aa734ea1f13bb6e3ab9db286fc4cf82b17efb4d0e7c924160cf7b10"
     },
     {
-      "path": "js/ui/utility-navigation.js?v=20261103-v0042-header1",
-      "sha256": "bf203e18c69322ce1af2cb01d62817215cb68d750bf139207407662f59348b82"
+      "path": "js/ui/utility-navigation.js?v=20261103-v0047-nav1",
+      "sha256": "b87f32e71c4259324ae1939846dc125dc93f95dd04e9a7bca841709c3e88b7ef"
     },
     {
       "path": "js/balance/published-runtime.js",
       "sha256": "406f402c0e46dd216633176ac2e5c51c477a3e8e5ad876bf5758d23d8e8ddb83"
     },
     {
-      "path": "js/ui/navigation-tree.js?v=20261102-v0025-interface1",
-      "sha256": "e0ffd9559fcc282978c58d4c6f148e544129804a018db3805cedeefa992a611c"
+      "path": "js/ui/navigation-tree.js?v=20261103-v0047-nav1",
+      "sha256": "1f5ebdd173bee9d7de908d62b2587a568c2744f81a1d4c0117918041e6aa1863"
     },
     {
       "path": "js/ui/inventory-icons-runtime.js?v=20261014-descriptions1",

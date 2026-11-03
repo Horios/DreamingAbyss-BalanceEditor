@@ -4,12 +4,18 @@ import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs');
 const json=(runtime,code)=>JSON.parse(runtime.run('JSON.stringify('+code+')'));
 
+test('older documents that still list the retired guide page load without a missing-page error',()=>{
+  const runtime=loadRuntime(process.cwd());
+  runtime.run("data.navigation=__EMBERWILD_NAVIGATION_EDITOR.defaults();data.navigation.groups[0].pages.push({id:'guide',label:'冒險指南'});ensureArrays()");
+  assert(!json(runtime,'data.navigation').groups.some(group=>group.pages.some(page=>page.id==='guide')));assert.deepEqual(json(runtime,'validateData()'),[]);assert.deepEqual(runtime.errors,[]);
+});
 test('game navigation editor supplies and exports the complete default tree',()=>{
   const runtime=loadRuntime(process.cwd());runtime.run('data.navigation=__EMBERWILD_NAVIGATION_EDITOR.defaults()');const defaults=json(runtime,'__EMBERWILD_NAVIGATION_EDITOR.defaults()');
   assert.deepEqual(defaults.groups.map(group=>group.label),['探索與冒險','角色與隊伍','裝備與製作','主要任務','生活技能']);
   assert.deepEqual(defaults.groups.find(group=>group.id==='missions').pages.map(page=>page.label),['主線','支線','NPC 任務','委託']);
   assert.deepEqual(defaults.groups.find(group=>group.id==='life').pages.map(page=>page.label),['採集','煉金']);
-  assert.equal(defaults.groups.flatMap(group=>group.pages).length,18);
+  // The adventure guide is a header dialog since game v0.047, so the menu tree holds 17 pages.
+  assert.equal(defaults.groups.flatMap(group=>group.pages).length,17);assert(!defaults.groups.some(group=>group.pages.some(page=>page.id==='guide')));
   assert.deepEqual(json(runtime,'validateData()'),[]);
   assert.deepEqual(json(runtime,'__EMBERWILD_MASTERY_EDITOR.cleanExport().navigation'),defaults);
   runtime.run('__EMBERWILD_NAVIGATION_EDITOR.select()');

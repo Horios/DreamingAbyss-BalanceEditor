@@ -1,5 +1,5 @@
 {
-  "gameCommit": "4cace6794724953305183672dd55ca293236789f",
+  "gameCommit": "e8e2359a5f5f417c4c9a7320af338bbfb6c9a9c4",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -343,7 +343,7 @@
     },
     {
       "path": "js/ui/expedition-ui.js",
-      "sha256": "aca4e0906ff0dda615a4cab674372e6f8224ebedaf17357a860ae27a94f514b4"
+      "sha256": "73a5c3b201b358135a8f0bba84609609c2303a28d70347a86c62ac7907dd5454"
     },
     {
       "path": "js/ui/icon-color-palette.js",
@@ -387,11 +387,11 @@
     },
     {
       "path": "js/ui/navigation-tree.js",
-      "sha256": "e0ffd9559fcc282978c58d4c6f148e544129804a018db3805cedeefa992a611c"
+      "sha256": "1f5ebdd173bee9d7de908d62b2587a568c2744f81a1d4c0117918041e6aa1863"
     },
     {
       "path": "js/ui/options.js",
-      "sha256": "bc12ec34abe7fbe8e1e7ad90dcc13341accb83ebceb6f36f405ea597da79534f"
+      "sha256": "b2d0fb6df910fa58cfb47e2230c2f19c8149305e806d7de9dd790085ee4c33bc"
     },
     {
       "path": "js/ui/page-readability.js",
@@ -415,7 +415,7 @@
     },
     {
       "path": "js/ui/team-builds.js",
-      "sha256": "04d8a3992e388b32d1124e7709531347a986d642e0a455dbabe00d56de79e61e"
+      "sha256": "3edc06d0e14d68bcad838480023fd027ec92123ec3fe047e7e21de0843383a12"
     },
     {
       "path": "js/ui/text-rarity-runtime.js",
@@ -439,7 +439,7 @@
     },
     {
       "path": "js/ui/utility-navigation.js",
-      "sha256": "bf203e18c69322ce1af2cb01d62817215cb68d750bf139207407662f59348b82"
+      "sha256": "b87f32e71c4259324ae1939846dc125dc93f95dd04e9a7bca841709c3e88b7ef"
     },
     {
       "path": "js/world/commission-model.js",
@@ -603,7 +603,7 @@
     },
     {
       "path": "css/page-readability.css",
-      "sha256": "fedd2e62d066de3860216ce37802d582664ae0c51daefc3405d2a2cbe350dd17"
+      "sha256": "86b0b4ca3861c51ff9e1f83ffb3f24041ea12a0a784da8b7fd1e1aeb69be6660"
     },
     {
       "path": "css/quest-design.css",
@@ -643,7 +643,7 @@
     },
     {
       "path": "css/team-builds.css",
-      "sha256": "f9a98269dbd4a0dbcd43c3241ad6e03afd929b1d59aaa583f1353dfd91fbcc9a"
+      "sha256": "04d469e7ef701a50347827cb8cdd7326b8daf6f0cfa87d10c82db389d36cbf3c"
     },
     {
       "path": "css/text-rarity.css",
@@ -663,7 +663,7 @@
     },
     {
       "path": "css/utility-navigation.css",
-      "sha256": "6ebefd5122660b3e0b7930397dcf4587f783f7904cac4982fc234cd7806b27c8"
+      "sha256": "1910a6ef871e029eb6959ba58697d6b5cd3e11413ea4e495a5f82cfa5a812006"
     },
     {
       "path": "css/wishing-lake.css",
@@ -671,7 +671,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "4ecb119ed3586a1c28e1ccd2b2215a8de5ed080b525078679ea6d28306335eef"
+      "sha256": "c4f828d4995c7cb101fa34fbe9c0763c99d1bf4991c49128eb0599f9067646f8"
     },
     {
       "path": "data/build.json",
@@ -679,11 +679,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "fcbab9420fde7ef7a2761d4cba70ef2568769843e80f705dc8c0a6575e7f0e7b"
+      "sha256": "10ec63f4ff7abf71406e9bb51ea3dfdbf04f25187ca4200a4a18c01c52651456"
     },
     {
       "path": "index.html",
-      "sha256": "5a29bde909821a280fa354a87156cba795190659d7716380cef53ab58d94499b"
+      "sha256": "c8b0ec826189e4928c06cf89f146841408ce05b54c9e5eb77ecf21cb62c5c735"
     }
   ],
   "gameBridgeSha256": "69ccac044b02328a9e07db4a62ea25b4c824c0b379ab7e8447cd8bf7cf8666dc",
