@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "1045d3006517eba57fe04a663e820d9a88088870",
+  "sourceCommit": "4cace6794724953305183672dd55ca293236789f",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -31,8 +31,8 @@
       "sha256": "d9875933b36ae2242355e51d790b4e844514c8eed19b5d2d3d0a9ac61e6e63a3"
     },
     {
-      "path": "js/world/wishing-lake-model.js",
-      "sha256": "81a4820d55034cd75cf662bea3e5f4312ea7bfa6130db46dd412223201f5f0b0"
+      "path": "js/world/wishing-lake-model.js?v=20261103-v0038-boot1",
+      "sha256": "7a54a3cc618adf56bedc7af5af33c8dbc5b61f7aa5c31743d2ae6abad59cadf8"
     },
     {
       "path": "js/balance/balance-document.js?v=20261102-v0022-verification1",
@@ -159,8 +159,8 @@
       "sha256": "dfa93bb8a6e3a0490dab5255996f1dc624930f2cbb87a660c09947b06a8b7963"
     },
     {
-      "path": "js/world/monster-drop-tables.js?v=20261101-offline-level-gap2",
-      "sha256": "09244a2e056643a60c337f488ee438d84e9fb0b6af9f756b258545575ed85cf5"
+      "path": "js/world/monster-drop-tables.js?v=20261103-v0046-vouchers1",
+      "sha256": "7ac0324bc7bd710079a8a7212eca098b0540f91852ea94910a1a73f078e6f3d2"
     },
     {
       "path": "js/balance/balance-schema.js",
@@ -171,8 +171,8 @@
       "sha256": "37603e70fd591392dae8a4e3a18f4a34799b30c2b47314c31f6db9ad113956b3"
     },
     {
-      "path": "js/ui/item-presentation.js?v=20261021-quality-forge1",
-      "sha256": "f56188c4f14272fbb79218e1ace9fdb8277dd4a62a7b8467a8a3fdb3ee3c56e8"
+      "path": "js/ui/item-presentation.js?v=20261103-v0046-vouchers1",
+      "sha256": "bc3b7418270211a89322200a4b885fc5f96fc1939da2baf96c13646065bfa61d"
     },
     {
       "path": "js/ui/ui-text-config.js?v=20261102-v0025-interface1",
@@ -183,8 +183,8 @@
       "sha256": "d60733b4e4c588f7f4417a3d755278e9005bca7fdaf539582add2357150e1ddd"
     },
     {
-      "path": "js/world/dynamic-world.js",
-      "sha256": "ddf5f589ecfd6db973fae1e9ae46a3c641cef8098832ae1bc18b6ad1986be21d"
+      "path": "js/world/dynamic-world.js?v=20261103-v0046-vouchers1",
+      "sha256": "e788c62ad10526de8fec77376eb6434a03ea2748e59a6757e723d5298f86a1d7"
     },
     {
       "path": "js/world/world-followup.js?v=20261019-daily-speed2",
@@ -327,32 +327,32 @@
       "sha256": "253355d0e09da93e1672eb5afc9aaaf17a568603bcb5ec3dc947708e2dc0a9d7"
     },
     {
-      "path": "js/items/shop-inventory.js?v=20261102-v0033-shop-migration1",
-      "sha256": "a9e9cac272930f2dc1c8b17e21d299e00f9a8dfee1f9819e4e7381bea236b30b"
+      "path": "js/items/shop-inventory.js?v=20261103-v0046-vouchers1",
+      "sha256": "da27dfbeb39d371d840a2bc5dbfda097c2561843ec6d22fbcf7009e91d636730"
     },
     {
       "path": "js/equipment/equipment-shop.js?v=20261020-equipment1",
       "sha256": "e78ffa44cca2813e48176b43e15070d87ef057c6915a65fdb281672449b2ff48"
     },
     {
-      "path": "js/ui/options.js?v=20261027-fx1",
-      "sha256": "56daee830ff5c831e111fcc838f1d1ce5dfe2e057bb5ba96aa0c4626cfa3c37c"
+      "path": "js/ui/options.js?v=20261103-v0042-header1",
+      "sha256": "bc12ec34abe7fbe8e1e7ad90dcc13341accb83ebceb6f36f405ea597da79534f"
     },
     {
       "path": "js/items/timed-boost-runtime.js?v=20261102-v0023-speed-removal1",
       "sha256": "c65927f2f5b08dbaa4f96193f98b1ce0b7caa3240457307f4178fc05a75844cc"
     },
     {
-      "path": "js/combat/skill-effect-runtime.js",
-      "sha256": "c94719e2bd6831ea45d1926a4f86b501b9464025f9476f5434aaf52e39ae1f1e"
+      "path": "js/combat/skill-effect-runtime.js?v=20261103-v0038-boot1",
+      "sha256": "d35ccdc68d2a4f6e90c9d31a8ef5ae427a5cd6a5be0aea24d4cf2afb4d1f9bd3"
     },
     {
       "path": "js/skills/induction-schema.js",
       "sha256": "d244e2606007ffdbd71878c62f46568be5a35b8d28a9a172eaa627ff5d628238"
     },
     {
-      "path": "js/skills/induction-runtime.js",
-      "sha256": "791bf068c3e48732235338c5956c9e5ee5145d720f531ff0a43ec2809b32bd71"
+      "path": "js/skills/induction-runtime.js?v=20261103-v0038-boot1",
+      "sha256": "f4cf5ce73c54af9b35838f812bfa11ec8a965f0c552e2df73c8bd28965d73a2b"
     },
     {
       "path": "js/items/companion-tokens.js?v=20261102-v0017-seconds1",
@@ -391,8 +391,8 @@
       "sha256": "6e4fea69149b245b112d8ff2c3dbedb9d10159ecf87191fd402efe2eee417f04"
     },
     {
-      "path": "js/character/companion-unlocks.js?v=20261102-v0025-interface1",
-      "sha256": "2b5cad1985ba17a6068ea2c5bc5bf05b54fed8f6f86d3ac4b61ea1c667c7daa6"
+      "path": "js/character/companion-unlocks.js?v=20261103-v0046-vouchers1",
+      "sha256": "6b72828320ac23490b8c899f37817c7f12a75a5b4d706154523a4645eab47c35"
     },
     {
       "path": "js/world/quest-design-settings.js?v=20261019-daily-speed2",
@@ -403,8 +403,8 @@
       "sha256": "6aed4e504aa734ea1f13bb6e3ab9db286fc4cf82b17efb4d0e7c924160cf7b10"
     },
     {
-      "path": "js/ui/utility-navigation.js?v=20261102-v0021-interface1",
-      "sha256": "174c5c44aaac48dd29e61c47b60bce94d67d0e08b6faf36dfc4df6f19d15c781"
+      "path": "js/ui/utility-navigation.js?v=20261103-v0042-header1",
+      "sha256": "bf203e18c69322ce1af2cb01d62817215cb68d750bf139207407662f59348b82"
     },
     {
       "path": "js/balance/published-runtime.js",
@@ -435,16 +435,16 @@
       "sha256": "3daf0a40ad84917c17a7135b80dfb02312737a8d8d2481cce255fda56115cef8"
     },
     {
-      "path": "js/combat/offline-exploration.js?v=20261103-v0037-offline-speed1",
-      "sha256": "d0385818734c70be46b514159b930a4e315a19908c0102f6078bfc2754a7de9e"
+      "path": "js/combat/offline-exploration.js?v=20261103-v0046-vouchers1",
+      "sha256": "fec90b890467e774bb0d208601df961e697b8fa499f3247f4d01e373f363242d"
     },
     {
       "path": "js/combat/gem-finalizer.js?v=20261021-gems2",
       "sha256": "c7017e100ff59ca1567dc93cc7963eebba6f335f93484ff4c1b34c5252f2b978"
     },
     {
-      "path": "js/skills/skill-system-runtime.js",
-      "sha256": "2cf00e47f0ac95bf6aa6dc9f5a1d79ec873f3b4bba3bf93cc5aaf5f3c19ad7f9"
+      "path": "js/skills/skill-system-runtime.js?v=20261103-v0038-boot1",
+      "sha256": "125abef9359b2dcf38ab980213b4ae602db320e43c9c40bbc15ca4e79abf26ec"
     },
     {
       "path": "js/equipment/equipment-skill-runtime.js",
@@ -455,20 +455,20 @@
       "sha256": "84104aac3e22526bdfd0d59e8e2ee98f9695612d9aeb214b741918010c8c1d51"
     },
     {
-      "path": "js/ui/battle-summary.js?v=20261102-v0025-interface1",
-      "sha256": "6eacd58e3524dbac23a0c1f44db598fd290f8d04a1104ad10623f91b57cff6c8"
+      "path": "js/ui/battle-summary.js?v=20261103-v0041-stack1",
+      "sha256": "af4c7187bee6a3ba554a49793189736c76ac81a268d1be35a904c2cb74fc8c0f"
     },
     {
-      "path": "js/ui/battle-effects.js?v=20261102-v0023-speed-removal1",
-      "sha256": "d1404ae33157368288fc9ca47eec05635dfabd87bedf9e97fc2fb7b3fd7a5eeb"
+      "path": "js/ui/battle-effects.js?v=20261103-v0043-blast1",
+      "sha256": "67761d1acf03556b23aafd82ef110b3faac0ffcc12aaee9e8b6ac7202e7c15f5"
     },
     {
-      "path": "js/world/wishing-lake.js?v=20261102-v0021-interface1",
-      "sha256": "ad45a9ecc8760b336aacccb1372fca4176d98749c55f4626184841bcc3ab61e4"
+      "path": "js/world/wishing-lake.js?v=20261103-v0044-bag1",
+      "sha256": "4b51788e1f427d8ec9ece6fd4f7ac0388ff082a88a9da06cf03fab2d2ce9a50a"
     },
     {
-      "path": "js/combat/event-trigger-runtime.js?v=20261102-v0020-continuous1",
-      "sha256": "14f22b48c73ce61f597d77ceb503ad5e132584de871ca4232391d94533652116"
+      "path": "js/combat/event-trigger-runtime.js?v=20261103-v0037-seconds-log1",
+      "sha256": "02d44d5d87197bc2ad2ce2c1b425d7b406c826111a60acaab0f2ccd189a1b13c"
     },
     {
       "path": "js/combat/battle-configuration.js?v=20261103-v0037-offline-speed1",
@@ -479,8 +479,16 @@
       "sha256": "c0e08fd4a76e11d6425d1a4f044cf3a4acec1b2934445ca1f9f112407a4fe3cf"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261102-v0033-charge-redraw1",
-      "sha256": "45b6927d4456f60d0e17fd190f8a102bb7f2f787362397c8a305befd42c49f03"
+      "path": "js/combat/online-idle-statistics.js?v=20261103-v0046-vouchers1",
+      "sha256": "b32aee0e655fab4c6362a202986df485bf64e1ccbe4d451a671dac420f57f391"
+    },
+    {
+      "path": "js/world/region-vouchers.js?v=20261103-v0046-vouchers1",
+      "sha256": "34f76cfea76855c3e013a3d774a97061ca0318fefb593b21dad470c8bbf0b73f"
+    },
+    {
+      "path": "js/ui/seconds-battle.js?v=20261103-v0042-header1",
+      "sha256": "43aefa27a3660cdecfc5b37f70ca94875b736e6bcd114b7e43baf89f09689827"
     }
   ]
 }
