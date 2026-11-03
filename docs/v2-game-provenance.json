@@ -1,5 +1,5 @@
 {
-  "gameCommit": "e8e2359a5f5f417c4c9a7320af338bbfb6c9a9c4",
+  "gameCommit": "59681d0c61c15a01bce1f92f840bba609e0964ec",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -119,7 +119,7 @@
     },
     {
       "path": "js/combat/offline-exploration.js",
-      "sha256": "fec90b890467e774bb0d208601df961e697b8fa499f3247f4d01e373f363242d"
+      "sha256": "bf5adddde8b4e05f2c22313d3ef66c192ca653671de1573ef2c05cb6871645a1"
     },
     {
       "path": "js/combat/online-idle-statistics.js",
@@ -415,7 +415,7 @@
     },
     {
       "path": "js/ui/team-builds.js",
-      "sha256": "3edc06d0e14d68bcad838480023fd027ec92123ec3fe047e7e21de0843383a12"
+      "sha256": "25114c9b04ab585dde7d14594a102ccbda8b3824c9f65426eca5db44448402b1"
     },
     {
       "path": "js/ui/text-rarity-runtime.js",
@@ -432,6 +432,10 @@
     {
       "path": "js/ui/title-screen.js",
       "sha256": "7091b257bdd9cbc8b980f43d97cfa08628d43a6144eb163d01aed2090424d3ff"
+    },
+    {
+      "path": "js/ui/toast-layer.js",
+      "sha256": "574e72161fa7693793d1adbeaef45d46ce4d9ec25b655acae093d76320e93e7c"
     },
     {
       "path": "js/ui/ui-text-config.js",
@@ -587,7 +591,7 @@
     },
     {
       "path": "css/mobile-layout.css",
-      "sha256": "fd9f0ffd2dcbc6d4d117963348fd6658c47908cc4db8e8b8fa12f6130b332842"
+      "sha256": "79a1d06a08550779d3ba0849fef6bffcb14d32c2c478dfe34c3a85c9545ab43e"
     },
     {
       "path": "css/navigation-tree.css",
@@ -643,7 +647,7 @@
     },
     {
       "path": "css/team-builds.css",
-      "sha256": "04d469e7ef701a50347827cb8cdd7326b8daf6f0cfa87d10c82db389d36cbf3c"
+      "sha256": "c3ead61bfc8830ed5f975d18d60b47cf5de10bf43b0084df33ad3764b8fc7d29"
     },
     {
       "path": "css/text-rarity.css",
@@ -679,11 +683,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "10ec63f4ff7abf71406e9bb51ea3dfdbf04f25187ca4200a4a18c01c52651456"
+      "sha256": "a54e4d5f02297ddeac122226ed73d47a755ac7ca26a9c15aa44feb16a5bb202c"
     },
     {
       "path": "index.html",
-      "sha256": "c8b0ec826189e4928c06cf89f146841408ce05b54c9e5eb77ecf21cb62c5c735"
+      "sha256": "430d6b197f267f502cb3ef154fad6ddd59d38eebc6beaa0ee1ac29f744fe77c3"
     }
   ],
   "gameBridgeSha256": "69ccac044b02328a9e07db4a62ea25b4c824c0b379ab7e8447cd8bf7cf8666dc",

@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "e8e2359a5f5f417c4c9a7320af338bbfb6c9a9c4",
+  "sourceCommit": "59681d0c61c15a01bce1f92f840bba609e0964ec",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -367,8 +367,8 @@
       "sha256": "7934f05a9b866e97fc8996a76661416d273beae11ecaa2a24e39f5f1a8b5b8be"
     },
     {
-      "path": "js/ui/team-builds.js?v=20261103-v0047-nav1",
-      "sha256": "3edc06d0e14d68bcad838480023fd027ec92123ec3fe047e7e21de0843383a12"
+      "path": "js/ui/team-builds.js?v=20261103-v0049-toast1",
+      "sha256": "25114c9b04ab585dde7d14594a102ccbda8b3824c9f65426eca5db44448402b1"
     },
     {
       "path": "js/equipment/boss-crafting.js",
@@ -407,6 +407,10 @@
       "sha256": "b87f32e71c4259324ae1939846dc125dc93f95dd04e9a7bca841709c3e88b7ef"
     },
     {
+      "path": "js/ui/toast-layer.js?v=20261103-v0049-toast1",
+      "sha256": "574e72161fa7693793d1adbeaef45d46ce4d9ec25b655acae093d76320e93e7c"
+    },
+    {
       "path": "js/balance/published-runtime.js",
       "sha256": "406f402c0e46dd216633176ac2e5c51c477a3e8e5ad876bf5758d23d8e8ddb83"
     },
@@ -435,8 +439,8 @@
       "sha256": "3daf0a40ad84917c17a7135b80dfb02312737a8d8d2481cce255fda56115cef8"
     },
     {
-      "path": "js/combat/offline-exploration.js?v=20261103-v0046-vouchers1",
-      "sha256": "fec90b890467e774bb0d208601df961e697b8fa499f3247f4d01e373f363242d"
+      "path": "js/combat/offline-exploration.js?v=20261103-v0050-voucher-pause1",
+      "sha256": "bf5adddde8b4e05f2c22313d3ef66c192ca653671de1573ef2c05cb6871645a1"
     },
     {
       "path": "js/combat/gem-finalizer.js?v=20261021-gems2",
