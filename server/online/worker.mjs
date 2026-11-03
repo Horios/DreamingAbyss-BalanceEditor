@@ -30,7 +30,8 @@ export function createWorker({githubFactory=createHostedGithubApp,validatorFacto
    if(!user)return url.pathname==='/'?Response.redirect(url.origin+'/signin-with-chatgpt?return_to=%2F',302):json(401,{error:'請先登入私人工作台'});
    if(env.EMBERWILD_ALLOWED_USER_ID&&user!==env.EMBERWILD_ALLOWED_USER_ID)return json(403,{error:'此帳號沒有發布權限'});
    if(request.method==='GET'){const preview=await serveV2(url.pathname,editorHTML);if(preview)return preview;}
-   if(request.method==='GET'&&url.pathname==='/')return new Response(editorHTML,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store','X-Frame-Options':'DENY','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"}});
+   if(request.method==='GET'&&url.pathname==='/')return Response.redirect(url.origin+'/v2',302);
+   if(request.method==='GET'&&url.pathname==='/workbench')return new Response(editorHTML,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store','X-Frame-Options':'DENY','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"}});
    const secret=env.EMBERWILD_SESSION_SECRET;
    if(!secret||secret.length<32)return json(503,{error:'工作台安全金鑰尚未配置'});
    if(url.pathname==='/setup'&&request.method==='GET'){

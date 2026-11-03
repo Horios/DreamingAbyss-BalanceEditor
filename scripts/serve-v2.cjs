@@ -10,6 +10,7 @@ async function createPreviewServer({loopbackOnly=true}={}){
   if(loopbackOnly&&!req.headers.host?.startsWith('127.0.0.1:')){res.writeHead(403);res.end();return;}
   if(req.method==='GET'){
    if(url.pathname==='/'){res.writeHead(302,{Location:'/v2'});res.end();return;}
+   if(url.pathname==='/workbench'){res.setHeader('Content-Type','text/html; charset=utf-8');res.end(html);return;}
    if(url.pathname==='/api/session'){res.setHeader('Content-Type','application/json');res.end(JSON.stringify({csrf:'local-preview',capabilities:{publishing:false,readOnly:true}}));return;}
    const result=await serveV2(url.pathname,html);if(result){res.writeHead(result.status,Object.fromEntries(result.headers));res.end(Buffer.from(await result.arrayBuffer()));return;}
   }

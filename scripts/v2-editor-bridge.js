@@ -12,7 +12,21 @@ function sections(){const labels=new Map(SECTION_META),assigned=new Set(),groups
 globalThis.__EMBERWILD_V2_BRIDGE=Object.freeze({
  sections,
  theme(id){if(['ember','forest','paper'].includes(id))document.documentElement.dataset.uiTheme=id;},
- open(section,context={}){if(!SECTION_META.some(row=>row[0]===section))throw Error('找不到設定頁面：'+section);if(section==='world'&&Number.isInteger(context.mapIndex)&&data.balanceSettings.maps.catalog[context.mapIndex])selected.worldMap=context.mapIndex;if(section==='classes'&&Number.isInteger(context.job)&&data.classes[context.job])selected.class=context.job;currentSection=section;render();return currentSection;},
+ open(section,context={}){if(!SECTION_META.some(row=>row[0]===section))throw Error('找不到設定頁面：'+section);if(section==='world'&&Number.isInteger(context.mapIndex)&&data.balanceSettings.maps.catalog[context.mapIndex])selected.worldMap=context.mapIndex;if(section==='classes'&&Number.isInteger(context.job)&&data.classes[context.job])selected.class=context.job;if(section==='skillSystem'&&Number.isInteger(context.job)){const sk=data.skillSystem.definitions.find(s=>s.id==='class'+context.job+'-initial0')||data.skillSystem.definitions.find(s=>s.jobs?.includes(context.job)&&s.partnerId==null&&!s.disabled);if(sk){__EMBERWILD_SKILL_SYSTEM_EDITOR.select('skills',sk.id);return currentSection;}}currentSection=section;render();return currentSection;},
+ inspect(target,context={}){
+  if(!target||typeof target!=='object')throw Error('物件識別無效');
+  if(target.kind==='skill'){
+   const sk=data.skillSystem.definitions.find(s=>s.id===target.id);if(!sk)throw Error('找不到技能定義：'+target.id);
+   __EMBERWILD_SKILL_SYSTEM_EDITOR.select('skills',sk.id);return currentSection;
+  }
+  if(target.kind==='monster'){
+   const monster=data.balanceSettings.monsters.catalog.find(m=>m.id===target.id);if(!monster)throw Error('找不到怪物定義：'+target.id);
+   selected.worldMap=monster.mapIndex;selected.worldMonsterSearch=monster.id;selected.worldMonsterPage=0;currentSection='world';render();return currentSection;
+  }
+  if(target.kind==='hero'){return this.open('classes',{...context,job:target.job});}
+  const id=target.kind+':'+target.key,row=__EMBERWILD_INVENTORY_ICON_EDITOR.entries().find(r=>r.id===id);if(!row)throw Error('找不到物品定義：'+id);
+  __EMBERWILD_INVENTORY_ICON_EDITOR.open('inventoryIcons','all',id);__EMBERWILD_INVENTORY_ICON_EDITOR.selectTab('basic');return currentSection;
+ },
  current(){if(!__EMBERWILD_EXPERIENCE.guardRaw())throw Error('原始 JSON 有尚未套用的內容');return __EMBERWILD_RELEASE_EDITOR.current();},
  validate(doc){return __EMBERWILD_VALIDATE_DOCUMENT(doc);},
  save(){document.getElementById('cacheBtn').click();}

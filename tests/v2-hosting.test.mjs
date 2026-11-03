@@ -12,10 +12,11 @@ test('V2 game and editor routes stay behind the existing private identity bounda
  const page=await worker.fetch(request('/v2','owner'),{},{});
  assert.equal(page.status,200);assert.match(await page.text(),/id="devGame"/);
  assert.match(page.headers.get('Content-Security-Policy'),/frame-ancestors 'self'/);
- const original=await worker.fetch(request('/','owner'),{},{});
+ const home=await worker.fetch(request('/','owner'),{},{});assert.equal(home.status,302);assert.equal(home.headers.get('Location'),'https://private.test/v2');
+ const original=await worker.fetch(request('/workbench','owner'),{},{});
  assert.equal(original.headers.get('X-Frame-Options'),'DENY','existing root protection stays unchanged');
  const editor=await worker.fetch(request('/v2-editor','owner'),{},{});
- assert.equal(editor.headers.get('X-Frame-Options'),'SAMEORIGIN');assert.match(await editor.text(),/__EMBERWILD_V2_BRIDGE/);
+ assert.equal(editor.headers.get('X-Frame-Options'),'SAMEORIGIN');const editorBody=await editor.text();assert.match(editorBody,/__EMBERWILD_V2_BRIDGE/);assert(editorBody.lastIndexOf('v2-panel-style')>editorBody.lastIndexOf('globalThis.__EMBERWILD_COMBAT_MIGRATION_AUDIT='),'context bridge runs after the final legacy editor extension');
 });
 test('packaged game assets match the pinned real game source and isolation runs first',async()=>{
  const provenance=JSON.parse(fs.readFileSync(path.join(root,'docs/v2-game-provenance.json')));
