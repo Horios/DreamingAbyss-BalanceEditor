@@ -124,6 +124,11 @@ jobs:
         env:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
         run: node tests/v2-game.browser.cjs
+      - name: Developer-mode simulations of the draft
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+        run: node tests/v2-simulation.browser.cjs
 
       - name: Seconds authoring consistency
         working-directory: emberwild-balance

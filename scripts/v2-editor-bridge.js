@@ -29,6 +29,7 @@ globalThis.__EMBERWILD_V2_BRIDGE=Object.freeze({
  },
  current(){if(!__EMBERWILD_EXPERIENCE.guardRaw())throw Error('原始 JSON 有尚未套用的內容');return __EMBERWILD_RELEASE_EDITOR.current();},
  validate(doc){return __EMBERWILD_VALIDATE_DOCUMENT(doc);},
+ selectedSkill(){return currentSection==='skillSystem'?__EMBERWILD_SKILL_SYSTEM_EDITOR.selected?.()||'':'';},
  save(){document.getElementById('cacheBtn').click();}
 });announce();
 })();
