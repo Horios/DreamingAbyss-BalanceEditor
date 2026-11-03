@@ -12178,7 +12178,7 @@ __EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;
 
 EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;
 
-/* js/skills/mastery-core.js */
+/* js/skills/mastery-core.js?v=20261103-v0051-xp1 */
 
 (()=>{
 const clone=v=>JSON.parse(JSON.stringify(v));
@@ -12529,7 +12529,9 @@ advance=function(){
 };
 
 const masteryNeedBase=need;
-need=function(level){return Math.max(1,Math.round(masteryNeedBase(level)*masterySettings().characterXpMultiplier));};
+// requiredXp (EmberwildProgression) already applies skills.mastery.characterXpMultiplier; applying it here again
+// squared the multiplier whenever it was not 1. Keep the single, shared formula.
+need=function(level){return Math.max(1,Math.round(masteryNeedBase(level)));};
 
 function prepSaveForLegacyValidator(input){
   const out=clone(input),rows=out?.version===3?out.members:[out];
@@ -20584,7 +20586,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;
 
-/* js/combat/seconds-runtime.js?v=20261103-v0037-offline-speed1 */
+/* js/combat/seconds-runtime.js?v=20261103-v0051-xp1 */
 /* The shared live/offline seconds driver. Existing damage, targeting, equipment,
    death-chain and reward handlers remain authoritative. No round generator runs. */
 (()=>{
@@ -20666,7 +20668,9 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  function addTimer(id,actorId,duration,interval,payload,control=false,priority=0){
   if(!engine||!unit(actorId))return;
   if(!engine.actors.some(a=>a.definition.id===actorId)){if(engine.executing)return;syncRoster();}
-  engine.removeStatus(id);if(duration!==null&&duration<=0)return;
+  // A residue below the timeline resolution (1 µs, e.g. a cooldown left at 1e-9 s by float subtraction) has already
+  // expired; the timeline rounds it to 0 and rejects it, which would abort combat and offline settlement.
+  engine.removeStatus(id);if(duration!==null&&!(Math.round(duration*1e6)>=1))return;
   engine.addStatus({id,actorId,durationSeconds:duration,tickEverySeconds:interval,preventsAction:control,tickPriority:priority,payload});
  }
  function scheduleEffects(before,t,sk){
