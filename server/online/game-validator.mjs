@@ -15275,7 +15275,7 @@ __EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWIL
 
 __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_GALLERY_EFFECTS;__EMBERWILD_TEXT_STYLES=globalThis.__EMBERWILD_TEXT_STYLES??__EMBERWILD_TEXT_STYLES;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;textRarityEquipmentRowColor=globalThis.textRarityEquipmentRowColor??textRarityEquipmentRowColor;textRarityEquipmentBlockPresentation=globalThis.textRarityEquipmentBlockPresentation??textRarityEquipmentBlockPresentation;
 
-/* js/character/companions.js */
+/* js/character/companions.js?v=20261103-v0037-offline-speed1 */
 /* Recruitable people have their own identity, name and fixed growth plan. */
 (()=>{
   const Model=EmberwildCompanions,Passive=EmberwildPassives,DEFAULT_PLANS=Model.defaultPlans;
@@ -15331,7 +15331,11 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
   try{const saved=JSON.parse(balanceSourceText()||'null');if(saved?.companions)plans=parsePlans(saved.companions,saved);if(saved){config=Model.normalizeSettings(saved.companionSettings,saved.classes||CLASSES,saved.balanceSettings||GAMEPLAY_SETTINGS);passiveDefinitions=Passive.normalize(saved.passiveDefinitions);}}catch(e){console.warn('夥伴平衡設定無法載入，使用內建角色',e);}
   const byId=()=>new Map(plans.map(p=>[p.id,p]));
   function companionPlan(h){const current=byId().get(h?.companionId);return current?.job===h?.job?current:party?.companionProfiles?.[h?.companionId]?.job===h?.job?party.companionProfiles[h.companionId]:null;}
-  function allPassivesFor(h){const S=globalThis.__EMBERWILD_SKILLS;if(S&&h===party?.members[0])return S.system().definitions.filter(d=>d.type==='passive'&&S.learned(h,d));return (companionPlan(h)?.passives||[]).map(id=>passiveDefinitions.find(d=>d.id===id)).filter(Boolean);}
+  // Installed skill systems are immutable (their id/position maps are built once), so keep each one's
+  // passive subset instead of scanning every definition on every stat and effect lookup.
+  const passiveSubsets=new WeakMap();
+  function systemPassives(S){const defs=S.system().definitions;let list=passiveSubsets.get(defs);if(!list){list=defs.filter(d=>d.type==='passive');passiveSubsets.set(defs,list);}return list;}
+  function allPassivesFor(h){const S=globalThis.__EMBERWILD_SKILLS;if(S&&h===party?.members[0])return systemPassives(S).filter(d=>S.learned(h,d));return (companionPlan(h)?.passives||[]).map(id=>passiveDefinitions.find(d=>d.id===id)).filter(Boolean);}
   function skillDisabled(h,kind,id){if(globalThis.__EMBERWILD_SKILLS)return false;return !!companionPlan(h)&&!!h.disabledCompanionSkills?.[kind]?.includes(id);}
   function validateDisabledSkills(raw){
     if(raw===undefined)return {core:[],support:[],passive:[]};
@@ -18745,7 +18749,7 @@ __EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;equipmentNumericFields=globalThis.equipmentNumericFields??equipmentNumericFields;setGearInventoryFilter=globalThis.setGearInventoryFilter??setGearInventoryFilter;clearGearInventoryFilters=globalThis.clearGearInventoryFilters??clearGearInventoryFilters;setGearInventorySort=globalThis.setGearInventorySort??setGearInventorySort;setGearInventoryFold=globalThis.setGearInventoryFold??setGearInventoryFold;toggleGearInventoryDirection=globalThis.toggleGearInventoryDirection??toggleGearInventoryDirection;toggleGearInventoryMulti=globalThis.toggleGearInventoryMulti??toggleGearInventoryMulti;toggleGearInventorySelected=globalThis.toggleGearInventorySelected??toggleGearInventorySelected;selectVisibleGear=globalThis.selectVisibleGear??selectVisibleGear;clearSelectedGear=globalThis.clearSelectedGear??clearSelectedGear;openGearInventoryFilters=globalThis.openGearInventoryFilters??openGearInventoryFilters;finishGearInventoryFilters=globalThis.finishGearInventoryFilters??finishGearInventoryFilters;setGearInventoryAdvanced=globalThis.setGearInventoryAdvanced??setGearInventoryAdvanced;requestGearInventoryBatch=globalThis.requestGearInventoryBatch??requestGearInventoryBatch;confirmGearInventoryBatch=globalThis.confirmGearInventoryBatch??confirmGearInventoryBatch;openInventoryWear=globalThis.openInventoryWear??openInventoryWear;openWornWearHelp=globalThis.openWornWearHelp??openWornWearHelp;__EMBERWILD_GEAR_INVENTORY=globalThis.__EMBERWILD_GEAR_INVENTORY??__EMBERWILD_GEAR_INVENTORY;
 
-/* js/combat/offline-exploration.js?v=20261102-v0023-speed-removal1 */
+/* js/combat/offline-exploration.js?v=20261103-v0037-offline-speed1 */
 /* One event timeline for visible play, background throttling and cold saves.
    Party, combat cursor and pending receipt are committed by one KEY setItem. */
 (()=>{
@@ -19063,6 +19067,12 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
  }
 
  // Finite batches yield to the browser; settlement enforces the offline cap.
+ // Yield between settlement batches. Nested setTimeout(0) is clamped to >=4ms in browsers, which
+ // left the CPU idle for a quarter of every 12ms batch; a message-channel task has no such clamp.
+ function yieldBatch(){
+  if(typeof MessageChannel!=='function')return new Promise(resolve=>setTimeout(resolve,0));
+  return new Promise(resolve=>{const channel=new MessageChannel();channel.port1.onmessage=()=>{channel.port1.close();resolve();};channel.port2.postMessage(0);});
+ }
  function advance(target,maxEvents=150,foreground=false){
   let c=ensure();if(globalThis.__EMBERWILD_SAVE_OWNER===false)throw Error('存檔已由另一分頁接手');
   if(!c||target<c.lastAt)return false;
@@ -19157,7 +19167,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
      if(c.offlineWindow)c.offlineWindow.untilAt=Math.max(c.offlineWindow.untilAt,requestedAt);
      settlementProgress.target=end;
      let more;
-     do{const start=c.lastAt,r=c.pendingReceipt,status=c.status;more=advance(end);if(c!==clock()){c=clock();more=c.lastAt<end;}else if(jobOffline)recordInterval(r,start,c.lastAt);if(c.status!==status||more&&performance.now()-lastCheckpoint>=checkpointIntervalMs){commit();lastCheckpoint=performance.now();}if(show&&(performance.now()-lastProgress>=100||!more)){showProgress(metrics.fastBattles?'正在快速結算收益 · 正在生成掉落物品':metrics.phase);lastProgress=performance.now();}if(more)await new Promise(resolve=>setTimeout(resolve,0));}while(more);
+     do{const start=c.lastAt,r=c.pendingReceipt,status=c.status;more=advance(end);if(c!==clock()){c=clock();more=c.lastAt<end;}else if(jobOffline)recordInterval(r,start,c.lastAt);if(c.status!==status||more&&performance.now()-lastCheckpoint>=checkpointIntervalMs){commit();lastCheckpoint=performance.now();}if(show&&(performance.now()-lastProgress>=100||!more)){showProgress(metrics.fastBattles?'正在快速結算收益 · 正在生成掉落物品':metrics.phase);lastProgress=performance.now();}if(more)await yieldBatch();}while(more);
      if(c.offlineWindow&&c.lastAt<requestedAt)skipUncreditedTime(requestedAt);
     }while(c.lastAt<requestedAt);
     // A throttled tick takes this async path; do not starve online life jobs.
@@ -20349,7 +20359,7 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;gameNavigationHTML=glob
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildCombatEvents=globalThis.EmberwildCombatEvents??EmberwildCombatEvents;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;
 
-/* js/combat/battle-configuration.js?v=20261102-v0017-seconds1 */
+/* js/combat/battle-configuration.js?v=20261103-v0037-offline-speed1 */
 /* One persisted encounter projection. Only configuration is frozen; vitals,
    rewards and progression continue to belong to the real actors. Each generator
    step restores the editable configuration before yielding to the UI. */
@@ -20361,7 +20371,17 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
  const gemEffects=new Map();
  const values=h=>Object.fromEntries(fields.filter(k=>h[k]!==undefined).map(k=>[k,h[k]]));
  function assign(h,v){for(const k of fields){if(Object.hasOwn(v,k))h[k]=v[k];else delete h[k];}}
- const row=h=>owner===party&&rows?.find(r=>r.key===memberKey(h));
+ // rows is only ever replaced (capture/clear/restore), never edited in place, so lookups
+ // are memoised per rows array: combat reads these on every passive and skill check.
+ let rowCacheFor=null,rowCache=new WeakMap(),learnedCache=new WeakMap();
+ const row=h=>{
+  if(owner!==party)return false;if(!rows)return undefined;
+  if(rowCacheFor!==rows){rowCacheFor=rows;rowCache=new WeakMap();learnedCache=new WeakMap();}
+  if(!h||typeof h!=='object')return rows.find(r=>r.key===memberKey(h));
+  if(rowCache.has(h))return rowCache.get(h);
+  const found=rows.find(r=>r.key===memberKey(h));rowCache.set(h,found);return found;
+ };
+ const learnedIds=r=>{let set=learnedCache.get(r);if(!set){set=new Set(r.learned);learnedCache.set(r,set);}return set;};
  const pending=()=>!!(owner===party&&rows&&foes.length&&(foes.some(e=>e.hp>0)||combatRoundProgress||roundIterator));
  function capture(){
   S.refreshAll();owner=party;notified=false;gemEffects.clear();
@@ -20395,7 +20415,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
    for(const g of r.gear){if(!g||typeof g.id!=='string'||!Number.isInteger(g.slot)||g.slot<0||g.slot>4||!Array.isArray(g.affix))throw Error('戰鬥配置裝備無效');EmberwildSkillSystem.gear(g,{legacy:true,system:S.system()});}
   }
  }
- globalThis.EmberwildBattleConfiguration={begin:capture,get active(){return active;},has:h=>!!row(h),learned:(h,id)=>!!row(h)?.learned.includes(id),pending,notify,editable,combat,
+ globalThis.EmberwildBattleConfiguration={begin:capture,get active(){return active;},has:h=>!!row(h),learned:(h,id)=>{const r=row(h);return !!r&&learnedIds(r).has(id);},pending,notify,editable,combat,
   equipmentEffects(h,read){if(!row(h))return read();if(!gemEffects.has(memberKey(h)))gemEffects.set(memberKey(h),read());return gemEffects.get(memberKey(h));},
   pack:()=>owner===party&&rows?{version:1,heroes:copy(rows)}:null,
   validate,restore(data){clear();if(data){validate(data,party.members);owner=party;rows=copy(data.heroes);}else if(foes.some(e=>e.hp>0))editable(capture);}
@@ -20421,7 +20441,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;
 
-/* js/combat/seconds-runtime.js?v=20261102-v0025-interface1 */
+/* js/combat/seconds-runtime.js?v=20261103-v0037-offline-speed1 */
 /* The shared live/offline seconds driver. Existing damage, targeting, equipment,
    death-chain and reward handlers remain authoritative. No round generator runs. */
 (()=>{
@@ -20496,7 +20516,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
    if(x.hp<=0&&a.alive)engine.setAlive(a.definition.id,false);else if(x.hp>0&&!a.alive)engine.setAlive(a.definition.id,true);
    {const m=mana(x);if(a.definition.maxMp!==m.maxMp)engine.setMaxMp(key(x),m.maxMp);engine.setMpRegen(key(x),m.regen*(phase==='recovery'&&Object.hasOwn(x,'job')?config().recovery.mpRegenMultiplier:1)*Math.max(0,1+effectTotal(key(x),'mpRegen')));engine.setMpCostMultiplier(key(x),Math.max(0,m.cost-effectTotal(key(x),'mpCostReduction')));}
    const speed=Object.hasOwn(x,'job')?battleStats(x).speed:combatSpeed(x);if(speed!==a.speed)engine.setSpeed(key(x),speed);
-   x.mp=engine.actor(key(x)).mp;
+   x.mp=engine.mana(a,engine.now); // same value as engine.actor(id).mp without copying the actor view
    if(Object.hasOwn(x,'job'))for(const s of a.definition.skills){const d=skill(s.id);(d.type==='support'?supportCooldowns:actorCooldowns)[memberKey(x)+'-'+d.adapter.index]=Math.max(0,(a.ready[s.id]-engine.now)/1e6);}
   }
  }

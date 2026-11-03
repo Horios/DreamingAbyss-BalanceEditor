@@ -1,5 +1,5 @@
 {
-  "gameCommit": "a3434bf388693a2de6a87ecdb4448ed0e0744dcc",
+  "gameCommit": "1045d3006517eba57fe04a663e820d9a88088870",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -67,7 +67,7 @@
     },
     {
       "path": "js/character/companions.js",
-      "sha256": "028d2961d88778a9234b7a6750fb5c8b0e9bb1cc75adf3e349bc450fa9143621"
+      "sha256": "b00214ea104461abc8ba2b54ad04296f58ed82d77562c4bb2d17e327ecb5617c"
     },
     {
       "path": "js/character/starter-pack.js",
@@ -87,7 +87,7 @@
     },
     {
       "path": "js/combat/battle-configuration.js",
-      "sha256": "8675ebc659c307719d95e50eadf95a97b9810601c67a25b0bdd0a6020f4fa79b"
+      "sha256": "3d4304de56df1400b460684771b69f02a5e2479a1836380feaa732562064e6a3"
     },
     {
       "path": "js/combat/battle-statistics.js",
@@ -119,11 +119,11 @@
     },
     {
       "path": "js/combat/offline-exploration.js",
-      "sha256": "7f06f72c256f96dbf156e3cee516ac0e054a458a5bc7967082b02c52a283d117"
+      "sha256": "d0385818734c70be46b514159b930a4e315a19908c0102f6078bfc2754a7de9e"
     },
     {
       "path": "js/combat/seconds-runtime.js",
-      "sha256": "4a5a13be27c75a33db3bfb45d9dd0c1586784753d23101a919a16ba79b2d63d2"
+      "sha256": "c0e08fd4a76e11d6425d1a4f044cf3a4acec1b2934445ca1f9f112407a4fe3cf"
     },
     {
       "path": "js/combat/seconds-schema.js",
@@ -671,11 +671,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "f9dd4e561eabde4313b50b9ac5e98b18346a684b20cfca7ff71a460b319a27bb"
+      "sha256": "5e20e87f6e55200705d57aa2ea6da0e0ebc8c1adb49392a3c940410d12c2efcb"
     },
     {
       "path": "index.html",
-      "sha256": "e16bf937bcb653bf5a0306955fa14a5e1f479c5cd2534f847f3eb788e94102c3"
+      "sha256": "c535a339d508654d496aab4417286eaf67f32f6effdeea7b21b411133e2a11c2"
     }
   ],
   "gameBridgeSha256": "69ccac044b02328a9e07db4a62ea25b4c824c0b379ab7e8447cd8bf7cf8666dc",

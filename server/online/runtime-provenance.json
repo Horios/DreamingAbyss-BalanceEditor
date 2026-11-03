@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "a3434bf388693a2de6a87ecdb4448ed0e0744dcc",
+  "sourceCommit": "1045d3006517eba57fe04a663e820d9a88088870",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -315,8 +315,8 @@
       "sha256": "9a723950cc991d3cafc4fa4d67d76aaf5f11a0561a13c4e4f6c6ca79ae4bb7d5"
     },
     {
-      "path": "js/character/companions.js",
-      "sha256": "028d2961d88778a9234b7a6750fb5c8b0e9bb1cc75adf3e349bc450fa9143621"
+      "path": "js/character/companions.js?v=20261103-v0037-offline-speed1",
+      "sha256": "b00214ea104461abc8ba2b54ad04296f58ed82d77562c4bb2d17e327ecb5617c"
     },
     {
       "path": "js/balance/progression-runtime.js",
@@ -435,8 +435,8 @@
       "sha256": "3daf0a40ad84917c17a7135b80dfb02312737a8d8d2481cce255fda56115cef8"
     },
     {
-      "path": "js/combat/offline-exploration.js?v=20261102-v0023-speed-removal1",
-      "sha256": "7f06f72c256f96dbf156e3cee516ac0e054a458a5bc7967082b02c52a283d117"
+      "path": "js/combat/offline-exploration.js?v=20261103-v0037-offline-speed1",
+      "sha256": "d0385818734c70be46b514159b930a4e315a19908c0102f6078bfc2754a7de9e"
     },
     {
       "path": "js/combat/gem-finalizer.js?v=20261021-gems2",
@@ -471,12 +471,12 @@
       "sha256": "14f22b48c73ce61f597d77ceb503ad5e132584de871ca4232391d94533652116"
     },
     {
-      "path": "js/combat/battle-configuration.js?v=20261102-v0017-seconds1",
-      "sha256": "8675ebc659c307719d95e50eadf95a97b9810601c67a25b0bdd0a6020f4fa79b"
+      "path": "js/combat/battle-configuration.js?v=20261103-v0037-offline-speed1",
+      "sha256": "3d4304de56df1400b460684771b69f02a5e2479a1836380feaa732562064e6a3"
     },
     {
-      "path": "js/combat/seconds-runtime.js?v=20261102-v0025-interface1",
-      "sha256": "4a5a13be27c75a33db3bfb45d9dd0c1586784753d23101a919a16ba79b2d63d2"
+      "path": "js/combat/seconds-runtime.js?v=20261103-v0037-offline-speed1",
+      "sha256": "c0e08fd4a76e11d6425d1a4f044cf3a4acec1b2934445ca1f9f112407a4fe3cf"
     },
     {
       "path": "js/ui/seconds-battle.js?v=20261102-v0033-charge-redraw1",
