@@ -87,7 +87,9 @@ test('an edited equipment fixed effect changes the stats of a character wearing 
  const e=editor();
  e.run('data.equipmentForms[0][0][0].fixedEffects=data.equipmentForms[0][0][0].fixedEffects.map(x=>x.key==="critDamage"?{...x,value:x.value+30}:x);markDirty("roundtrip")');
  const doc=plain(e.run('__EMBERWILD_RELEASE_EDITOR.current()'));
- const crit=g=>plain(g.run(`selectSaveSlot(1);start(0);closeModal();(()=>{const h=playerHero();h.lv=30;h.equipped=Array(5).fill(null);const it=gear(5,0,1);Object.assign(it,{job:0,formJob:0,form:0,slot:0});h.bag.push(it);h.equipped[0]=it.id;return stats(h).critDamage;})()`));
+ // Base quality, no affixes and a fixed random seed, so only the edited fixed effect differs.
+ const crit=g=>plain(g.run(`selectSaveSlot(1);start(0);closeModal();(()=>{let seed=11;Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};const h=playerHero();h.lv=30;h.equipped=Array(5).fill(null);const bare=stats(h).critDamage,it=gear(5,0,0,0);Object.assign(it,{job:0,formJob:0,form:0,slot:0,affix:[]});h.bag.push(it);h.equipped[0]=it.id;return stats(h).critDamage-bare;})()`));
+ // Each runtime reports what wearing the item adds, so unrelated differences cancel out.
  const before=crit(loadGame(game)),after=crit(applied(doc));
  assert(Math.abs(after-before-0.3)<1e-9,JSON.stringify({before,after}));
 });
