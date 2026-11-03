@@ -1,5 +1,5 @@
 {
-  "gameCommit": "be526cddd1f3c62034892a47172e0ad310fe2ae1",
+  "gameCommit": "fdbd70c8710876fe165d9fad32968e8d744f631e",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -119,11 +119,11 @@
     },
     {
       "path": "js/combat/offline-exploration.js",
-      "sha256": "bf5adddde8b4e05f2c22313d3ef66c192ca653671de1573ef2c05cb6871645a1"
+      "sha256": "d7c188283ce7dd8d32e124563a105718277a88d7402ceb66f34cbb82f26380c8"
     },
     {
       "path": "js/combat/online-idle-statistics.js",
-      "sha256": "b32aee0e655fab4c6362a202986df485bf64e1ccbe4d451a671dac420f57f391"
+      "sha256": "0e6ff42699567f8089143e48405a59f25aceaed67abe79f844649ac719c0b239"
     },
     {
       "path": "js/combat/seconds-runtime.js",
@@ -487,7 +487,7 @@
     },
     {
       "path": "js/world/region-vouchers.js",
-      "sha256": "34f76cfea76855c3e013a3d774a97061ca0318fefb593b21dad470c8bbf0b73f"
+      "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
       "path": "js/world/wishing-lake-model.js",
@@ -675,7 +675,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "e064cf938fb41ed5df5401968a06ad19904f873a3bcf0b5d5249afc935adb7db"
+      "sha256": "6430deee8057da55cdff097a4fde7e93807814a4357f96916a1a573ac31505e2"
     },
     {
       "path": "data/build.json",
@@ -683,11 +683,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "41821cafa391bb99d800bad9fa8a083db653b16e8ccb8366ec01ec4f327dbf82"
+      "sha256": "9f1f25a067d48f2e191194ea2faf436279229f2cbc071c168e0280a44d296eb6"
     },
     {
       "path": "index.html",
-      "sha256": "8e23cfb2c93a584a0cc05153852c428d5b1adb3303f5582da9a6710580cb7ffa"
+      "sha256": "7e783178e899330b447a02442574694c095d409317455d93aa438aa901b9ddf9"
     }
   ],
   "gameBridgeSha256": "f925b38419877f1756748d4dd8d587d8d1cc6c172234f48063936c943c619dce",

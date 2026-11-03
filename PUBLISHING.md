@@ -6,6 +6,18 @@
 
 遊戲 v0.015 只新增排程核心，尚未啟用秒數戰鬥。此階段的設計器會在舊回合遷移前拒絕已標記的新秒數／MP 文件；後端驗證、發布摘要與提交也會拒絕，避免秒數被轉回回合或新欄位被舊執行器忽略。一般舊文件的匯入、比較、匯出與還原保持原流程。正式接通新 schema 後須共同更新此檢查、編輯欄位、發布 validator 與遊戲能力宣告，不能只刪除檢查或只換標籤。
 
+## 同步遊戲新版本
+
+遊戲資料或程式更新後，用一個指令完成全部同步步驟（內建資料與共用模型、許願湖、發布驗證器、V2 核心與遊戲預覽、線上包）：
+
+```bash
+EMBERWILD_GAME_ROOT=../Emberwild node scripts/sync-game.cjs
+```
+
+- 遊戲的 js／css／data／index.html 有未提交修改時會停止，避免來源紀錄對不上 commit；確定要用工作中的檔案時加 `--allow-dirty`。
+- `node scripts/check-game-sync.cjs` 檢查記錄的遊戲 commit 是否等於目前遊戲 checkout。CI 的 `game-contract` 會執行它；落後時顯示警告與同步指令，不會讓 CI 失敗（加 `--strict` 才會）。
+- 同步後執行 `npm test`、四組瀏覽器測試與 `bash scripts/build.sh && node scripts/validate-artifact.mjs`，再提交。
+
 `sync-preview-editor-contract.cjs` 同步新工作區的內建資料及共用夥伴／成長模型；讀取目前測試分支 `data/balance.json`，不覆蓋已存在的瀏覽器草稿。夥伴固定能力／成長格式不再強制補回已淘汰的循環配點。`sync-combat-migration.cjs` 同步稽核與保護邏輯。發布 validator 的來源 commit 及每個模組 SHA256 保存在既有 provenance 文件。
 
 線上入口：https://emberwild-balance.hortw.chatgpt.site/

@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve-v2.cjs",
+    "sync:game": "node scripts/sync-game.cjs",
+    "check:game-sync": "node scripts/check-game-sync.cjs",
     "build": "bash scripts/build.sh",
     "test": "node scripts/build-online.cjs && node --test tests/*.test.mjs tests/*.test.cjs",
     "validate": "node scripts/validate-artifact.mjs"

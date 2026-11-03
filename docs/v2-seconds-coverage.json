@@ -1,12 +1,13 @@
 {
   "formatVersion": 1,
-  "gameCommit": "7c9ee58e2ddd5ad23744c36c0133c6879ccab2ac",
-  "balanceSha256": "3640896962af2d1b5ddc397e69922509ba250f5d07de589583262e87d4b3b1d6",
+  "gameCommit": "fdbd70c8710876fe165d9fad32968e8d744f631e",
+  "balanceSha256": "6430deee8057da55cdff097a4fde7e93807814a4357f96916a1a573ac31505e2",
   "scope": "Representative field shapes in the existing canonical seconds UI, including optional MP/equipment fields. Not every object instance or every editor page.",
   "summary": {
     "ui-export-game-verified": 46,
     "intentional-readonly": 2,
-    "permanent-preserved": 1
+    "permanent-preserved": 1,
+    "inapplicable-hidden": 3
   },
   "results": [
     {
@@ -515,10 +516,25 @@
     },
     {
       "path": "companionTokens.catalog[].ability.timing.triggerIntervalSeconds",
+      "variant": "not-applicable",
+      "result": "inapplicable-hidden"
+    },
+    {
+      "path": "companionTokens.catalog[].ability.timing.firstTriggerSeconds",
+      "variant": "not-applicable",
+      "result": "inapplicable-hidden"
+    },
+    {
+      "path": "companionTokens.catalog[].ability.timing.durationSeconds",
+      "variant": "not-applicable",
+      "result": "inapplicable-hidden"
+    },
+    {
+      "path": "companionTokens.catalog[].ability.timing.triggerIntervalSeconds",
       "parts": [
         "companionTokens",
         "catalog",
-        0,
+        9,
         "ability",
         "timing",
         "triggerIntervalSeconds"
@@ -532,14 +548,14 @@
       "parts": [
         "companionTokens",
         "catalog",
-        0,
+        9,
         "ability",
         "timing",
         "firstTriggerSeconds"
       ],
       "variant": "editable",
       "result": "ui-export-game-verified",
-      "value": 0.125
+      "value": 24.125
     },
     {
       "path": "items[].timing.cooldownSeconds",

@@ -70,6 +70,9 @@ jobs:
           node-version: '22'
       # Embedded shared models and the compiled release validator must match the
       # game source; the current game JSON must load, round-trip and export.
+      - name: Recorded game commit matches the game under test
+        working-directory: emberwild-balance
+        run: node scripts/check-game-sync.cjs
       - name: Shared models, validator provenance and data round-trip
         working-directory: emberwild-balance
         run: node --test tests/preview-compatibility.test.cjs
@@ -79,7 +82,7 @@ jobs:
           {
             echo "### Game contract mismatch"
             echo "The game at $GAME_REF changed a shared model, data/balance.json or a validator source."
-            echo "Synchronize with scripts/sync-preview-editor-contract.cjs and scripts/build-online-runtime.cjs, then commit."
+            echo "Synchronize with node scripts/sync-game.cjs (EMBERWILD_GAME_ROOT pointing at the game checkout), then commit."
           } >> "$GITHUB_STEP_SUMMARY"
 
   browser:

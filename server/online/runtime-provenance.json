@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "be526cddd1f3c62034892a47172e0ad310fe2ae1",
+  "sourceCommit": "fdbd70c8710876fe165d9fad32968e8d744f631e",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -439,8 +439,8 @@
       "sha256": "3daf0a40ad84917c17a7135b80dfb02312737a8d8d2481cce255fda56115cef8"
     },
     {
-      "path": "js/combat/offline-exploration.js?v=20261103-v0050-voucher-pause1",
-      "sha256": "bf5adddde8b4e05f2c22313d3ef66c192ca653671de1573ef2c05cb6871645a1"
+      "path": "js/combat/offline-exploration.js?v=20261103-v0052-voucher-settings1",
+      "sha256": "d7c188283ce7dd8d32e124563a105718277a88d7402ceb66f34cbb82f26380c8"
     },
     {
       "path": "js/combat/gem-finalizer.js?v=20261021-gems2",
@@ -483,12 +483,12 @@
       "sha256": "d0115e351299f1856480f02b0b587fec41882e6318862e362712a3167501a67a"
     },
     {
-      "path": "js/combat/online-idle-statistics.js?v=20261103-v0046-vouchers1",
-      "sha256": "b32aee0e655fab4c6362a202986df485bf64e1ccbe4d451a671dac420f57f391"
+      "path": "js/combat/online-idle-statistics.js?v=20261103-v0052-voucher-settings1",
+      "sha256": "0e6ff42699567f8089143e48405a59f25aceaed67abe79f844649ac719c0b239"
     },
     {
-      "path": "js/world/region-vouchers.js?v=20261103-v0046-vouchers1",
-      "sha256": "34f76cfea76855c3e013a3d774a97061ca0318fefb593b21dad470c8bbf0b73f"
+      "path": "js/world/region-vouchers.js?v=20261103-v0052-voucher-settings1",
+      "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
       "path": "js/ui/seconds-battle.js?v=20261103-v0042-header1",
