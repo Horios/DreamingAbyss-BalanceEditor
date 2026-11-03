@@ -16,6 +16,8 @@ function build(){
  const at=gameHTML.indexOf('<script');if(at<0)throw Error('Game entry has no script boundary');
  const entry=gameHTML.slice(0,at)+'<script>'+gameBridge+'</script>'+gameHTML.slice(at);
  add('/v2-game/',entry,'text/html');add('/v2-game/index.html',entry,'text/html');
+ // Reuse the game's theme tokens without importing its page layout rules.
+ add('/v2-theme.css',fs.readFileSync(path.join(game,'css/themes.css'),'utf8').split('body{')[0],'text/css');
  add('/v2',read('balance-editor-v2.html'),'text/html');add('/v2/',read('balance-editor-v2.html'),'text/html');add('/balance-editor-v2.html',read('balance-editor-v2.html'),'text/html');
  add('/v2-audit',read('balance-audit.html'),'text/html');add('/balance-audit.html',read('balance-audit.html'),'text/html');
  for(const file of ['scripts/v2-shared-core.js','docs/v2-audit.json','docs/v2-audit.md','docs/v2-source-status.md','docs/v2-seconds-coverage.json','docs/v2-core-provenance.json'])add('/'+file,read(file),file.endsWith('.js')?'text/javascript':file.endsWith('.json')?'application/json':'text/plain');
@@ -29,7 +31,7 @@ export async function serveV2(pathname,editorHTML){
   const body=/<\\/body>/i.test(editorHTML)?editorHTML.replace(/<\\/body>/i,script+'</body>'):editorHTML+script;
   return new Response(body,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store','X-Frame-Options':'SAMEORIGIN','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'self'; base-uri 'none'; form-action 'self'"}});
  }
- if(!['/v2','/v2/','/balance-editor-v2.html','/v2-audit','/balance-audit.html'].includes(pathname)&&!pathname.startsWith('/v2-game/')&&!pathname.startsWith('/docs/v2-')&&pathname!=='/scripts/v2-shared-core.js')return null;
+ if(!['/v2','/v2/','/balance-editor-v2.html','/v2-audit','/balance-audit.html'].includes(pathname)&&!pathname.startsWith('/v2-game/')&&!pathname.startsWith('/docs/v2-')&&pathname!=='/scripts/v2-shared-core.js'&&pathname!=='/v2-theme.css')return null;
  const all=await v2Assets();if(!Object.hasOwn(all,pathname))return new Response('Not found',{status:404});const row=all[pathname];
  return new Response(row.body,{headers:{'Content-Type':row.type+'; charset=utf-8','Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff',...(row.type==='text/html'?{'X-Frame-Options':'SAMEORIGIN','Content-Security-Policy':"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; base-uri 'none'; form-action 'self'"}:{})}});
 }

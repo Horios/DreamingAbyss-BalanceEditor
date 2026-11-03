@@ -1,5 +1,5 @@
 {
-  "gameCommit": "37afe3e23a644dde79208dc6d0b42778adaba53a",
+  "gameCommit": "a3434bf388693a2de6a87ecdb4448ed0e0744dcc",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -79,7 +79,7 @@
     },
     {
       "path": "js/character/team-runtime.js",
-      "sha256": "ff1a60d2bee416012076b6693a1f48b06331a6821c0e16f7115693b0c0ba126d"
+      "sha256": "fc4a068162cde9c070c385ce104d48c02182c98202a02ab45d9ea3ea10216b6f"
     },
     {
       "path": "js/combat/action-turn-cooldown.js",
@@ -119,7 +119,7 @@
     },
     {
       "path": "js/combat/offline-exploration.js",
-      "sha256": "8b938045788a385afaf45a24a3c8ee1eda190bd589d81003f01d164082ee9c41"
+      "sha256": "7f06f72c256f96dbf156e3cee516ac0e054a458a5bc7967082b02c52a283d117"
     },
     {
       "path": "js/combat/seconds-runtime.js",
@@ -231,7 +231,7 @@
     },
     {
       "path": "js/items/shop-inventory.js",
-      "sha256": "706b5130f8a47e2cd063b1d7886e163666e3263ed71cef8613088af88c63d88a"
+      "sha256": "a9e9cac272930f2dc1c8b17e21d299e00f9a8dfee1f9819e4e7381bea236b30b"
     },
     {
       "path": "js/items/timed-boost-runtime.js",
@@ -399,7 +399,7 @@
     },
     {
       "path": "js/ui/seconds-battle.js",
-      "sha256": "1edb911eeb323f7d19ff98613d1561bd1087edee1ea2342558cd8c2a7b8fb7b6"
+      "sha256": "45b6927d4456f60d0e17fd190f8a102bb7f2f787362397c8a305befd42c49f03"
     },
     {
       "path": "js/ui/skill-icon-library.js",
@@ -671,14 +671,14 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "c141c8a3b8122c98751a3ce2614daeb7f14237a667438b346e7d11816bd250e4"
+      "sha256": "f9dd4e561eabde4313b50b9ac5e98b18346a684b20cfca7ff71a460b319a27bb"
     },
     {
       "path": "index.html",
-      "sha256": "66ba166969fd3954c4a09f046ce24b6633402e979778f81f337c86f227782d8e"
+      "sha256": "e16bf937bcb653bf5a0306955fa14a5e1f479c5cd2534f847f3eb788e94102c3"
     }
   ],
-  "gameBridgeSha256": "05646cb9158e80df413a4cf19ae12f2c7161f9358dd572eb786aec51374acb1e",
-  "editorBridgeSha256": "181ad8d55fa599e7856c9d8838bc5a4399f346d8d52500fc404ba175aa18a60d",
-  "entrySha256": "19da9be3c5e257b897248a871fe76e77ad62ae76fbb1e48ae21ae17b1eaf47dc"
+  "gameBridgeSha256": "03e51bb2bc44c225e508f3e2f44d811f93d7ccc9436186b0e8a9c79c6f2ceda0",
+  "editorBridgeSha256": "bad390ce647175cdf06f841abfb17716939e724148fa2fc7f9e0f677a62e5191",
+  "entrySha256": "6d520ca71e0c0812ba8b95ad411145884446ee4aeb84f79bb7a264d3fe3ce74a"
 }

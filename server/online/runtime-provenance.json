@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "06f4c33eb1f981fc08cd31d9462577796e4e04dc",
+  "sourceCommit": "a3434bf388693a2de6a87ecdb4448ed0e0744dcc",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -327,8 +327,8 @@
       "sha256": "253355d0e09da93e1672eb5afc9aaaf17a568603bcb5ec3dc947708e2dc0a9d7"
     },
     {
-      "path": "js/items/shop-inventory.js?v=20261019-item-lists1",
-      "sha256": "706b5130f8a47e2cd063b1d7886e163666e3263ed71cef8613088af88c63d88a"
+      "path": "js/items/shop-inventory.js?v=20261102-v0033-shop-migration1",
+      "sha256": "a9e9cac272930f2dc1c8b17e21d299e00f9a8dfee1f9819e4e7381bea236b30b"
     },
     {
       "path": "js/equipment/equipment-shop.js?v=20261020-equipment1",
@@ -359,8 +359,8 @@
       "sha256": "98850ea4c30c688965ee9c51ef3005ea59339d49ac8ada245dde7cc792ba1ee3"
     },
     {
-      "path": "js/character/team-runtime.js?v=20261019-token-jobs1",
-      "sha256": "ff1a60d2bee416012076b6693a1f48b06331a6821c0e16f7115693b0c0ba126d"
+      "path": "js/character/team-runtime.js?v=20261103-v0036-team-reset1",
+      "sha256": "fc4a068162cde9c070c385ce104d48c02182c98202a02ab45d9ea3ea10216b6f"
     },
     {
       "path": "js/equipment/team-references.js?v=20261019-daily-speed2",
@@ -436,7 +436,7 @@
     },
     {
       "path": "js/combat/offline-exploration.js?v=20261102-v0023-speed-removal1",
-      "sha256": "8b938045788a385afaf45a24a3c8ee1eda190bd589d81003f01d164082ee9c41"
+      "sha256": "7f06f72c256f96dbf156e3cee516ac0e054a458a5bc7967082b02c52a283d117"
     },
     {
       "path": "js/combat/gem-finalizer.js?v=20261021-gems2",
@@ -479,8 +479,8 @@
       "sha256": "4a5a13be27c75a33db3bfb45d9dd0c1586784753d23101a919a16ba79b2d63d2"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261102-v0025-interface1",
-      "sha256": "1edb911eeb323f7d19ff98613d1561bd1087edee1ea2342558cd8c2a7b8fb7b6"
+      "path": "js/ui/seconds-battle.js?v=20261102-v0033-charge-redraw1",
+      "sha256": "45b6927d4456f60d0e17fd190f8a102bb7f2f787362397c8a305befd42c49f03"
     }
   ]
 }
