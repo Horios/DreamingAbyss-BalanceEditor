@@ -26,7 +26,7 @@ async function run(){
    data.skillSystem.definitions.forEach((s,i)=>add('skills',s.id,{minTargets:1,requiredTargetStatusId:null,...s.timing},['skillSystem','definitions',i,'timing'],s.type));
    data.statusDefinitions.forEach((s,i)=>add('statuses',s.id,s.timing,['statusDefinitions',i,'timing']));
    data.balanceSettings.monsters.catalog.forEach((s,i)=>add('monsters',s.id,{maxMp:c.mana.maxMp,regenPerSecond:c.mana.regenPerSecond,costMultiplier:c.mana.costMultiplier,...s.timing},['balanceSettings','monsters','catalog',i,'timing']));
-   data.companionTokens.catalog.forEach((s,i)=>add('tokens',s.id,s.ability.timing,['companionTokens','catalog',i,'ability','timing']));
+   data.companionTokens.catalog.forEach((s,i)=>{add('tokens',s.id,s.ability.timing,['companionTokens','catalog',i,'ability','timing']);Object.assign(rows.at(-1),{tokenEvent:s.ability.event,tokenAction:s.ability.action});});
    data.items.forEach((s,i)=>{if(s.timing)add('items',s.id,s.timing,['items',i,'timing']);});
    data.equipmentForms.forEach((g,j)=>g.forEach((slot,k)=>slot.forEach((f,i)=>add('equipment',f.id||j+':'+k+':'+i,f.mana||{maxMp:0,regenPerSecond:0,costReduction:0},['equipmentForms',j,k,i,'mana']))));
    return {rows,statusId:data.statusDefinitions[0].id};
@@ -34,7 +34,8 @@ async function run(){
   const cases=new Map();
   for(const row of plan.rows)for(const [key,value] of Object.entries(row.target||{})){
    if(['version','job'].includes(key)||!(typeof value==='number'||value===null||['condition','requiredTargetStatusId'].includes(key)))continue;
-   const parts=[...row.parts,key],normalized=shape(parts),variant=(value===null&&key==='durationSeconds'?'permanent':row.category==='skills'&&key==='mpCost'&&['passive','proc'].includes(row.type)?'free-trigger':'editable');
+   const applicable=row.category!=='tokens'||(key==='durationSeconds'?['attack','guard','critical','power'].includes(row.tokenAction):!['triggerIntervalSeconds','firstTriggerSeconds'].includes(key)||row.tokenEvent==='round');
+   const parts=[...row.parts,key],normalized=shape(parts),variant=!applicable?'not-applicable':(value===null&&key==='durationSeconds'?'permanent':row.category==='skills'&&key==='mpCost'&&['passive','proc'].includes(row.type)?'free-trigger':'editable');
    const identity=normalized+'|'+variant;
    if(!cases.has(identity))cases.set(identity,{...row,key,value,parts,path:normalized,variant});
   }
@@ -42,6 +43,7 @@ async function run(){
   for(const x of cases.values()){
    await p.evaluate(({category,id})=>__EMBERWILD_COMBAT_MIGRATION_AUDIT.select(category,id),x);
    const control=p.locator('[data-seconds-field="'+x.key+'"]');
+   if(x.variant==='not-applicable'){assert.equal(await control.count(),0,'unused token timing must be hidden: '+x.path);results.push({path:x.path,variant:x.variant,result:'inapplicable-hidden'});continue;}
    if(!await control.count()){results.push({path:x.path,variant:x.variant,result:'missing-control'});continue;}
    if(!await control.isEnabled()){
     const intended=x.key==='priority'||x.variant==='free-trigger';

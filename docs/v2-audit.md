@@ -1,6 +1,6 @@
 # Dreaming Abyss V2 開發者模式第一階段稽核
 
-遊戲基準：`37afe3e23a644dde79208dc6d0b42778adaba53a`。由 `node scripts/audit-v2.cjs` 重建；輸出不含時間戳，來源不變時可重現。
+遊戲基準：`a3434bf388693a2de6a87ecdb4448ed0e0744dcc`。由 `node scripts/audit-v2.cjs` 重建；輸出不含時間戳，來源不變時可重現。
 
 - 欄位清冊是目前文件所有觀測路徑，並非完整 schema。
 - observedOptional 只表示同類物件有缺值，不能當作 schema 選用欄位定義。
@@ -15,10 +15,10 @@
 - fieldPaths：1909
 - canonicalTimeOrResource：59
 - observedOptional：142
-- withStaticEditorReference：174
-- modules：90
+- withStaticEditorReference：177
+- modules：91
 - sections：47
-- domReferences：1044
+- domReferences：1048
 - verifiedEditing：38
 - unverifiedEditing：1871
 

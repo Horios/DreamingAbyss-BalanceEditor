@@ -125,6 +125,12 @@ jobs:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
         run: node tests/v2-game.browser.cjs
 
+      - name: Seconds authoring consistency
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+        run: node tests/seconds-authoring.browser.cjs
+
   sites-artifact:
     name: Sites artifact build (no sign-in)
     runs-on: ubuntu-latest
