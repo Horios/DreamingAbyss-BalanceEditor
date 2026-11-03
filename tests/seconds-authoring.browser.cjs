@@ -17,6 +17,17 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   await editor.locator('[data-seconds-field="reductionSeconds"]').fill('6');await editor.locator('[data-seconds-field="reductionSeconds"]').press('Tab');
   assert.equal(await editor.locator('body').evaluate(()=>data.skillSystem.definitions.find(s=>s.id==='mage-mana-cycle').eventPassive.reduction),2);
   await editor.locator('body').evaluate(()=>__EMBERWILD_COMBAT_MIGRATION_AUDIT.select('tokens','revival'));assert.equal(await editor.locator('[data-seconds-field="firstTriggerSeconds"]').count(),0);assert.equal(await editor.locator('[data-seconds-field="durationSeconds"]').count(),0);
+  // The skill form checks edits while typing and blocks applying a mana cost on a proc skill.
+  await p.locator('#devSettings').selectOption('skillSystem');await editor.locator('body').evaluate(()=>__EMBERWILD_SKILL_SYSTEM_EDITOR.select('skills','job0-core2'));
+  assert.match(await editor.locator('[data-skill-hint]').first().innerText(),/不使用耗魔/);
+  const json=JSON.parse(await editor.locator('#canonicalSkillJSON').inputValue());json.timing.mpCost=3;
+  await editor.locator('#canonicalSkillJSON').fill(JSON.stringify(json,null,2));
+  await p.waitForFunction(()=>/無法套用：.*耗魔/.test(document.getElementById('devEditor').contentDocument.getElementById('canonicalSkillCheck').textContent));
+  assert.equal(await editor.locator('#canonicalSkillApply').isDisabled(),true);
+  json.timing.mpCost=0;json.power=Math.round((json.power+0.05)*1000)/1000;await editor.locator('#canonicalSkillJSON').fill(JSON.stringify(json,null,2));
+  await p.waitForFunction(()=>/檢查通過/.test(document.getElementById('devEditor').contentDocument.getElementById('canonicalSkillCheck').textContent));
+  await editor.locator('#canonicalSkillApply').click();
+  assert.equal(await editor.locator('body').evaluate(()=>data.skillSystem.definitions.find(s=>s.id==='job0-core2').power),json.power);
   assert.deepEqual(errors,[]);console.log('Seconds authoring browser passed: finite/permanent round-trip, actual game apply, event seconds, compatibility clocks and conditional token fields');
  }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exitCode=1;});
