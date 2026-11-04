@@ -5933,7 +5933,7 @@ rewardGroupKill=function(e){
 
 __EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;
 
-/* js/ui/item-presentation.js?v=20261103-v0046-vouchers1 */
+/* js/ui/item-presentation.js?v=20261104-v0067-decisions1 */
 /* Shared SVG item slots. Backpack details use their existing panel/dialog;
    references stay passive and shops expose purchase actions inline. */
 (()=>{
@@ -6004,14 +6004,15 @@ __EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBE
     const d=node.dataset,mail=d.itemMail?party?.mailbox?.messages.find(m=>m.id===Number(d.itemMail))?.attachments[Number(d.itemIndex)]:null;
     if(mail){const g=mail.gear,id=mailIdentity(mail);return {...id,g,context:'mail',quantity:mail.quantity,quantityLabel:'附件數量'};}
     const number=value=>value===undefined?undefined:Number(value);
-    return {kind:d.itemKind,key:d.itemKey,g:d.itemPreview?JSON.parse(d.itemPreview):d.itemGear?findGear(d.itemGear):null,extra:d.itemExtra,context:d.itemContext||'reference',quantity:number(d.itemQuantity),quantityLabel:d.itemQuantityLabel,price:number(d.itemPrice),priceLabel:d.itemPriceLabel,shopType:d.itemShopType,shopId:d.itemShopId,sold:d.itemSold==='true',soldLabel:d.itemSoldLabel};
+    return {kind:d.itemKind,key:d.itemKey,g:d.itemPreview?JSON.parse(d.itemPreview):d.itemGear?findGear(d.itemGear):null,extra:d.itemExtra,displayName:d.itemDisplayName,context:d.itemContext||'reference',quantity:number(d.itemQuantity),quantityLabel:d.itemQuantityLabel,price:number(d.itemPrice),priceLabel:d.itemPriceLabel,shopType:d.itemShopType,shopId:d.itemShopId,sold:d.itemSold==='true',soldLabel:d.itemSoldLabel};
   }
   globalThis.itemSlotHTML=function(kind,key,options={}){
     key=String(key);const g=options.gear;
     if(g)({kind,key}=gearIdentity(g));
-    const n=name(kind,key,g),label=n+(options.count!==undefined?' ×'+options.count:'');
+    // A shop rule may give its offer a custom display name (商店顯示名稱).
+    const n=options.displayName||name(kind,key,g),label=n+(options.count!==undefined?' ×'+options.count:'');
     const context=options.context||(options.mailId?'mail':'reference'),quantity=options.detailQuantity??options.count;
-    const data=`data-item-kind="${attr(kind)}" data-item-key="${attr(key)}" data-item-context="${attr(context)}"${g?.id?` data-item-gear="${attr(g.id)}"`:''}${options.preview?` data-item-preview="${attr(JSON.stringify(options.preview))}"`:''}${options.mailId?` data-item-mail="${options.mailId}" data-item-index="${options.mailIndex}"`:''}${options.extra?` data-item-extra="${attr(options.extra)}"`:''}${quantity!==undefined?` data-item-quantity="${attr(quantity)}"`:''}${options.detailLabel?` data-item-quantity-label="${attr(options.detailLabel)}"`:''}${options.price!==undefined?` data-item-price="${attr(options.price)}"`:''}${options.priceLabel?` data-item-price-label="${attr(options.priceLabel)}"`:''}${options.shopType?` data-item-shop-type="${attr(options.shopType)}"`:''}${options.shopId!==undefined?` data-item-shop-id="${attr(options.shopId)}"`:''}${options.sold?` data-item-sold="true"`:''}${options.soldLabel?` data-item-sold-label="${attr(options.soldLabel)}"`:''}`;
+    const data=`data-item-kind="${attr(kind)}" data-item-key="${attr(key)}" data-item-context="${attr(context)}"${g?.id?` data-item-gear="${attr(g.id)}"`:''}${options.preview?` data-item-preview="${attr(JSON.stringify(options.preview))}"`:''}${options.mailId?` data-item-mail="${options.mailId}" data-item-index="${options.mailIndex}"`:''}${options.extra?` data-item-extra="${attr(options.extra)}"`:''}${options.displayName?` data-item-display-name="${attr(options.displayName)}"`:''}${quantity!==undefined?` data-item-quantity="${attr(quantity)}"`:''}${options.detailLabel?` data-item-quantity-label="${attr(options.detailLabel)}"`:''}${options.price!==undefined?` data-item-price="${attr(options.price)}"`:''}${options.priceLabel?` data-item-price-label="${attr(options.priceLabel)}"`:''}${options.shopType?` data-item-shop-type="${attr(options.shopType)}"`:''}${options.shopId!==undefined?` data-item-shop-id="${attr(options.shopId)}"`:''}${options.sold?` data-item-sold="true"`:''}${options.soldLabel?` data-item-sold-label="${attr(options.soldLabel)}"`:''}`;
     const token=globalThis.EmberwildTokens?.isToken(g),wearer=g&&typeof gearWearer==='function'?gearWearer(g.id):null;
     const content=`<span class="item-slot-art" aria-hidden="true">${icon(kind,key,g)}</span><span class="item-slot-name">${attr(n)}${g&&!token?` <span class="gear-tier-chip gear-tier-${Number.isInteger(g.powerTier)?g.powerTier:0}">${Number.isInteger(g.powerTier)?'T'+g.powerTier:'T—'}</span>`:''}${token?` <span class="tag token-job-tag">${attr(companionTokenJobLabel(g))}</span>${wearer?` <span class="token-wearer">${attr(characterName(wearer))} · 已裝備</span>`:''}`:''}</span>${options.count!==undefined?`<span class="item-slot-count" aria-label="數量 ${attr(options.count)}">×${attr(options.count)}</span>`:''}${g?.plus?`<span class="item-slot-plus" aria-hidden="true">+${g.plus}</span>`:''}${g&&typeof gearWearer==='function'&&gearWearer(g.id)?'<span class="item-slot-worn" aria-label="已穿戴"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></span>':''}`;
     const tag=!options.contentOnly&&(options.onclick||context==='inventory')?'button':'span';
@@ -6052,7 +6053,7 @@ __EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBE
     else if(ref.context!=='inventory'&&ref.quantity!==undefined&&Number.isFinite(ref.quantity))detail+=`<p>${esc(ref.quantityLabel||'數量')}：${ref.quantity.toLocaleString()}</p>`;
     if(g&&globalThis.EmberwildTokens?.isToken(g)){const wearer=gearWearer(g.id);detail+='<p><span class="tag token-job-tag">'+esc(companionTokenJobLabel(g))+'</span>'+ (wearer?' '+esc(characterName(wearer))+' · 已裝備':'')+'</p>';}
     if(g&&globalThis.EmberwildTokens?.isToken(g))detail+='<p>'+esc(globalThis.companionTokenAbilityText?.(g)||'')+'</p>';
-    return `<h3>${esc(name(kind,key,g))}</h3>${description?'<p>'+esc(description)+'</p>':''}${detail}${ref.extra?'<p>'+esc(ref.extra)+'</p>':''}`;
+    return `<h3>${esc(ref.displayName||name(kind,key,g))}</h3>${ref.displayName&&ref.displayName!==name(kind,key,g)?'<p class="small">'+esc(name(kind,key,g))+'</p>':''}${description?'<p>'+esc(description)+'</p>':''}${detail}${ref.extra?'<p>'+esc(ref.extra)+'</p>':''}`;
   }
   function controls(ref){
     const {kind,key,g}=ref;
@@ -15303,7 +15304,7 @@ __EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWIL
 
 __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_GALLERY_EFFECTS;__EMBERWILD_TEXT_STYLES=globalThis.__EMBERWILD_TEXT_STYLES??__EMBERWILD_TEXT_STYLES;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;textRarityEquipmentRowColor=globalThis.textRarityEquipmentRowColor??textRarityEquipmentRowColor;textRarityEquipmentBlockPresentation=globalThis.textRarityEquipmentBlockPresentation??textRarityEquipmentBlockPresentation;
 
-/* js/character/companions.js?v=20261103-v0037-offline-speed1 */
+/* js/character/companions.js?v=20261104-v0067-decisions1 */
 /* Recruitable people have their own identity, name and fixed growth plan. */
 (()=>{
   const Model=EmberwildCompanions,Passive=EmberwildPassives,DEFAULT_PLANS=Model.defaultPlans;
@@ -15620,9 +15621,12 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
       const gem=isCore?h.sockets?.[i]:null;
       return `<article class="companion-skill-card" data-companion-skill="${kind}:${i}"><div class="skill-list-title">${globalThis.__EMBERWILD_MASTERY_UI?.skillIcon?.(h.job,kind,i)||''}<b>${esc(name)}</b><span class="skill-state ${learned?'learned':'locked'}">${status}</span><span>${isCore?(sk[1]==='proc'?'普攻觸發':'主動'):'輔助'}</span></div>${skillTypeBadges(h.job,i,isCore?'core':'support')}${skillMechanicsDetails(h.job,i,isCore?'core':'support')}${flavor?`<p class="small">${esc(flavor)}</p>`:''}<p>${esc(detail)}</p><p class="small">解鎖 LV${isCore?sk[2]:sk.level}</p>${equipped.length?`<p class="small companion-skill-equipped">已配置：${esc(equipped.join('、'))}</p>`:''}${growthMissing.length?`<p class="small">使用條件：${esc(growthMissing.join('、'))}</p>`:''}${gem!=null&&GEMS[gem]?`<p class="small">鑲嵌寶石：${esc(GEMS[gem].name)}</p>`:''}${toggle(kind,i,!!learned)}</article>`;
     }).filter(Boolean).join('');
-    const rows=skillRows('core',core)+skillRows('support',support);
+    // Heroes from saves older than the companion system cannot use class skills yet; list them as 等待解鎖.
+    const legacy=!plan&&h.companionId===undefined&&h!==party?.members?.[0];
+    const waiting=legacy?(globalThis.__EMBERWILD_SKILLS?.system()?.definitions||[]).filter(sk=>!sk.disabled&&sk.partnerId==null&&sk.type!=='passive'&&sk.jobs?.includes(h.job)).map(sk=>`<article class="companion-skill-card is-waiting" data-companion-skill-waiting="${esc(sk.id)}"><div class="skill-list-title"><b>${esc(sk.name)}</b><span class="skill-state locked">等待解鎖</span><span>${({active:'主動',proc:'普攻觸發',support:'輔助'})[sk.type]||''}</span></div>${sk.description?`<p class="small">${esc(sk.description)}</p>`:''}</article>`).join(''):'';
+    const rows=legacy?waiting:skillRows('core',core)+skillRows('support',support);
     const passiveRows=allPassivesFor(h).map(d=>`<article class="companion-skill-card" data-companion-passive="${esc(d.id)}"><div class="skill-list-title"><span class="skill-icon-glyph" aria-hidden="true">${globalThis.__EMBERWILD_SKILL_ICONS?.svgFor(d.kind==='debuff'?'skull':'shield')||''}</span><b>${esc(d.name)}</b><span class="skill-state ${h.lv>=d.requiredLevel?'learned':'locked'}">${h.lv<d.requiredLevel?'未解鎖':skillDisabled(h,'passive',d.id)?'已禁用':'已啟用'}</span><span>被動 · ${d.kind==='debuff'?'DEBUFF':'BUFF'}</span></div><p>${esc(d.effects.map(Passive.effectText).join('、'))}</p><p class="small">需求 LV${d.requiredLevel} · ${esc(Passive.targets[d.target])} · ${d.target==='self'?'解鎖且啟用後常時生效':'啟用、上陣且存活時提供常駐光環'} · 不占技能槽</p>${d.description?`<p class="small">${esc(d.description)}</p>`:''}${toggle('passive',d.id,h.lv>=d.requiredLevel)}</article>`).join('');
-    return `<p class="small companion-skill-note">${plan?'技能達到需求角色等級後自動解鎖，所有已解鎖技能都會自動使用。':'保留原有隊員的技能與配置。'}</p>${slots}<div class="companion-skill-list">${rows||'<p class="small">此夥伴尚無技能。</p>'}</div><h3>常駐被動</h3><div class="companion-skill-list">${passiveRows||'<p class="small">此夥伴尚無被動。</p>'}</div>`;
+    return `<p class="small companion-skill-note">${plan?'技能達到需求角色等級後自動解鎖，所有已解鎖技能都會自動使用。':legacy?'原有隊員目前不能使用職業技能，等待解鎖。':'保留原有隊員的技能與配置。'}</p>${legacy?'':slots}<div class="companion-skill-list">${rows||'<p class="small">此夥伴尚無技能。</p>'}</div><h3>常駐被動</h3><div class="companion-skill-list">${passiveRows||'<p class="small">此夥伴尚無被動。</p>'}</div>`;
   }
   globalThis.setCompanionSkillEnabled=function(key,kind,id,enabled){
     if(globalThis.__EMBERWILD_SKILLS)return false;
@@ -15841,7 +15845,7 @@ __EMBERWILD_PUBLISHED_BALANCE=globalThis.__EMBERWILD_PUBLISHED_BALANCE??__EMBERW
 
 EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
 
-/* js/items/shop-inventory.js?v=20261103-v0046-vouchers1 */
+/* js/items/shop-inventory.js?v=20261104-v0067-decisions1 */
 /* Shop pools, compact descriptions/effects, daily refresh prices and account inventory. */
 (function installShopInventoryOverhaul(){
   const clone=v=>JSON.parse(JSON.stringify(v));
@@ -15891,7 +15895,8 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
     const mi=party?.map??0,cat=GAMEPLAY_SETTINGS?.monsters?.catalog||[];let pool=cat.filter(x=>x?.mapIndex===mi&&x?.enabled!==false&&typeof x?.material==='string'&&x.material.trim()).map(x=>x.material.trim());
     if(!pool.length)pool=(MAPS?.[mi]?.mobs||[]).map(x=>x?.[2]).filter(Boolean);return [...new Set(pool.length?pool:['鍛鐵'])];
   }
-  function unitPrice(rule){const item=rule.type==='item'?SHOP.find(x=>x.id===rule.key):null;if(isHealPotion(item))return item.cost;return rule.unitPrice===null?Number(SHOP.find(x=>x.id===rule.key)?.cost)||0:rule.unitPrice;}
+  // Healing potions use the rule's unit price like other items; an empty unit price falls back to the item's base price.
+  function unitPrice(rule){return rule.unitPrice===null?Number(SHOP.find(x=>x.id===rule.key)?.cost)||0:rule.unitPrice;}
   function weightedRule(){
     const rows=SHOP_SETTINGS.randomOffers.entries.filter(x=>x.enabled&&x.selection==='weighted'),total=rows.reduce((n,x)=>n+x.weight,0);
     if(!rows.length)return null;let roll=Math.random()*total;for(const rule of rows){roll-=rule.weight;if(roll<=0)return rule;}return rows[rows.length-1];
@@ -15917,7 +15922,7 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
     const old=clone(party.market),gold=state.gold,count=party.market.refreshCount||0;state.gold-=cost;const next=generateMarket();next.refreshCount=count+1;next.dayKey=localDayKey();party.market=next;
     if(!save()){party.market=old;state.gold=gold;return;}render();toast(`商品已刷新；下次刷新 ${currentRefreshCost()} 金幣`);
   };
-  function resolvedOffer(input){const offer=input?.ruleId==='__gear_tier_reroll__'?{...input,kind:'item',key:'power_tier_reroll'}:input,item=offer?.kind==='item'?SHOP.find(x=>x.id===offer.key):null;return isHealPotion(item)?{...offer,price:Math.round(item.cost*offer.qty)}:offer;}
+  function resolvedOffer(input){const offer=input?.ruleId==='__gear_tier_reroll__'?{...input,kind:'item',key:'power_tier_reroll'}:input;return offer;}
   function marketRule(offer){return SHOP_SETTINGS.randomOffers.entries.find(x=>x.id===offer?.ruleId)||null;}
   function marketOfferIsListed(input){
     const offer=resolvedOffer(input),matches=rule=>rule?.enabled&&rule.type===offer.kind&&(rule.type==='item'?rule.key===offer.key:rule.type==='gem'?rule.key==='random'||rule.key===offer.key:rule.type==='material'?rule.key==='region'||rule.key===offer.key:true);
@@ -15955,7 +15960,6 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
   globalThis.healingPotionShopLock=item=>EmberwildHealingPotions.lockReason(item,party?.story?.vip||0);
   function purchase(offer,name,onSold){
     const locked=healingPotionShopLock(offerItem(offer));if(locked)return toast(locked);
-    const item=offerItem(offer);if(isHealPotion(item))offer={...offer,price:Math.round(item.cost*offer.qty)};
     if(offer.kind==='equipment'){
       const price=globalThis.shopPayablePrice?.(offer.price)??offer.price;
       if(state.gold<price)return toast('金幣不足');
@@ -15985,7 +15989,7 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
   function productRow(input,rule,random){
     const offer=resolvedOffer(input),name=offerName(offer,rule),description=offerDescription(offer,rule),effect=offerEffect(offer),slot=stockSlot(offer),stock=Number(slot?.object?.[slot.key])||0;
     const kind=['ore','dust'].includes(offer.kind)?'material':offer.kind,key=offer.kind==='ore'?'鍛鐵':offer.kind==='dust'?'粉塵':offer.key;
-    return `<article class="shop-product-row icon-product ${random?'random-shop-row':'fixed-shop-row'}"><div class="shop-product-visual">${itemSlotHTML(kind,key,{count:offer.qty,extra:description+' '+effect,context:'shop',detailLabel:'商品數量',price:globalThis.shopPayablePrice?.(offer.price)??offer.price,shopType:random?'market':'fixed',shopId:random?input.id:rule.id,sold:!!input.sold,lockedReason:healingPotionShopLock(offerItem(offer))})}<span class="shop-product-stock">庫存<br><b>${stock.toLocaleString()}</b></span></div><small class="shop-product-label">${esc(name)}</small></article>`;
+    return `<article class="shop-product-row icon-product ${random?'random-shop-row':'fixed-shop-row'}"><div class="shop-product-visual">${itemSlotHTML(kind,key,{count:offer.qty,displayName:name!==rawOfferName(offer)?name:undefined,extra:description+' '+effect,context:'shop',detailLabel:'商品數量',price:globalThis.shopPayablePrice?.(offer.price)??offer.price,shopType:random?'market':'fixed',shopId:random?input.id:rule.id,sold:!!input.sold,lockedReason:healingPotionShopLock(offerItem(offer))})}<span class="shop-product-stock">庫存<br><b>${stock.toLocaleString()}</b></span></div><small class="shop-product-label">${esc(name)}</small></article>`;
   }
   marketCards=function(){const offers=party.market?.offers?.filter(marketOfferIsListed)||[];return offers.length?offers.map(o=>productRow(o,marketRule(resolvedOffer(o)),true)).join(''):'<div class="shop-empty">本批沒有隨機商品。</div>';};
   const baseValidateParty=validateParty;
@@ -17245,7 +17249,7 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
 
 __EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;sellGear=globalThis.sellGear??sellGear;sellAllGearByQuality=globalThis.sellAllGearByQuality??sellAllGearByQuality;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;recordDailyProgress=globalThis.recordDailyProgress??recordDailyProgress;
 
-/* js/ui/team-builds.js?v=20261104-v0059-plan-fold1 */
+/* js/ui/team-builds.js?v=20261104-v0065-gate1 */
 (()=>{
   const T=__EMBERWILD_TEAMS,M=EmberwildTeams,mastery=__EMBERWILD_MASTERY;
   const pageHeroBase=pageHero;
@@ -17345,7 +17349,7 @@ __EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_TE
   const journalBase=sharedBattleJournal;sharedBattleJournal=function(){
     const html=journalBase();return T.plan()?.job===null?html.replace('onclick="toggleBattle()"','onclick="toggleBattle()" disabled title="請先為本隊選擇主角職業"'):html;
   };
-  globalThis.__EMBERWILD_AFTER_RENDER=function(){if(!T.build())return;if(T.plan().job===null){const subtitle=document.querySelector('.adventurer-summary > p');if(subtitle)subtitle.textContent='尚未選擇職業';}if(T.plan().job===null)document.querySelectorAll('button[onclick="toggleBattle()"], button[onclick="restartExploration()"], button[onclick="startBossChallenge()"], button[onclick="devMasterySimulate()"]').forEach(el=>{el.disabled=true;el.title='請先為本隊選擇主角職業';});if(T.busy())document.querySelectorAll('#app button[onclick], #app select[onchange], #modal button[onclick]').forEach(el=>{const action=el.getAttribute('onclick')||el.getAttribute('onchange')||'';if(/\b(?:switchTeamPlan|changePlayerClass|addTeamPlan|copyTeamPlan|renameTeamPlan|clearTeamPlan|deleteTeamPlan|allocate|resetStats|resetSkills|advance|learn|learnSupport|socket|toggleMember|setPartnerEnlisted|confirmMemberReplacement|recruitCompanion|equipCompanionToken|unequipCompanionToken|devMasterySetLevel|devMasteryToggleCore|devMasteryToggleSupport|devMasteryWeapon)\s*\(/.test(action))el.disabled=true;});};
+  globalThis.__EMBERWILD_AFTER_RENDER=function(){if(!T.build())return;if(T.plan().job===null){const subtitle=document.querySelector('.adventurer-summary > p');if(subtitle)subtitle.textContent='尚未選擇職業';}if(T.plan().job===null)document.querySelectorAll('button[onclick="toggleBattle()"], button[onclick="restartExploration()"], button[onclick="startBossChallenge()"], button[onclick="startSelectedExploration()"], button[onclick="devMasterySimulate()"]').forEach(el=>{el.disabled=true;el.title='請先為本隊選擇主角職業';});if(T.busy())document.querySelectorAll('#app button[onclick], #app select[onchange], #modal button[onclick]').forEach(el=>{const action=el.getAttribute('onclick')||el.getAttribute('onchange')||'';if(/\b(?:switchTeamPlan|changePlayerClass|addTeamPlan|copyTeamPlan|renameTeamPlan|clearTeamPlan|deleteTeamPlan|allocate|resetStats|resetSkills|advance|learn|learnSupport|socket|toggleMember|setPartnerEnlisted|confirmMemberReplacement|recruitCompanion|equipCompanionToken|unequipCompanionToken|devMasterySetLevel|devMasteryToggleCore|devMasteryToggleSupport|devMasteryWeapon)\s*\(/.test(action))el.disabled=true;});};
   const renderBase=render;render=function(){const out=renderBase();globalThis.__EMBERWILD_AFTER_RENDER();return out;};
   if(party)render();
 })();
@@ -19400,7 +19404,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
 
 
 
-/* js/skills/skill-system-runtime.js?v=20261104-v0058-passive-save1 */
+/* js/skills/skill-system-runtime.js?v=20261104-v0067-decisions1 */
 /* Stable-ID configuration projected into the existing shared combat runtime. */
 (()=>{
  'use strict';
@@ -19409,12 +19413,16 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
  const wornCache=new WeakMap();
  function worn(h){if(!party?.members.includes(h))return (h.bag||[]).filter(g=>h.equipped?.includes(g.id));if(!wornCache.has(h))wornCache.set(h,equipment(h));return wornCache.get(h);}
  const player=()=>party?.members[0],companion=h=>h&&h!==player()&&h.companionId!==undefined;
+ // Members from saves older than the companion system (neither the protagonist nor a companion) cannot use class
+ // skills: protagonist skills belong to the protagonist, and these heroes wait for a future unlock.
+ const legacyMember=h=>!!h&&h!==player()&&h.companionId===undefined&&!!party?.members?.includes(h);
  const position=(j,k,i)=>`${j}:${k}:${i}`;
  function install(s){system=copy(M.validate(s));byId=new Map(system.definitions.map(sk=>[sk.id,sk]));byPosition=new Map(system.definitions.flatMap(sk=>M.adapters(sk).map(a=>[position(a.job,a.kind,a.index),sk])));}
  function slotCounts(h){return companion(h)?{active:h.active?.length||0,proc:h.procSlots?.length||0,support:h.supportSlots?.length||0}:M.slots(system,h.job,h.advanced);}
  function learned(h,sk){
   const battle=globalThis.EmberwildBattleConfiguration;if(battle?.active&&battle.has(h))return battle.learned(h,sk?.id);
   if(!sk||sk.disabled||!sk.jobs.includes(h.job)||sk.partnerId!=null&&sk.partnerId!==h.companionId)return false;
+  if(legacyMember(h))return false;
   const level=sk.requiredLevel??sk.level??1;if(h.lv<level)return false;
   if(companion(h)){const p=globalThis.__EMBERWILD_COMPANION_TEST_API?.companionPlan(h);return sk.partnerId===h.companionId&&(sk.type==='passive'?p?.passives?.includes(sk.id):(sk.adapter.kind==='core'?p?.core:p?.support)?.includes(sk.adapter.index));}
   const key=`${h.job}:${M.adapterFor(sk,h.job).kind}:${M.adapterFor(sk,h.job).index}`,permanent=restoringBuild?.permanent||T()?.build()?.permanent,unlocked=permanent?.unlocks?.[key];
@@ -19547,7 +19555,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
  equipSkill=(i,n)=>configureSkill('active',n,byPosition.get(position(state.job,'core',i))?.id);
  clearActiveSkill=n=>configureSkill('active',n,null);slotProcSkill=(i,n)=>configureSkill('proc',n,i===null?null:byPosition.get(position(state.job,'core',i))?.id);clearProcSkill=n=>configureSkill('proc',n,null);slotSupport=(i,n)=>configureSkill('support',n,i===null?null:byPosition.get(position(state.job,'support',i))?.id);
  socket=()=>false;
- globalThis.__EMBERWILD_SKILLS={system:()=>system,byId:id=>byId.get(id),byPosition:(j,k,i)=>byPosition.get(position(j,k,i)),slotCounts,learned,passiveEnabled:(h,id)=>h?.passiveEnabled?.[id]!==false,grantSkill(h,id){const sk=byId.get(id);if(!sk||!sk.jobs.includes(h.job)||!sk.sources.some(s=>s.type==='quest'))throw Error('任務技能不適用目前職業');h.acquiredSkillIds??=[];if(h.acquiredSkillIds.includes(id))return false;h.acquiredSkillIds.push(id);const a=M.adapterFor(sk,h.job);T().build().permanent.unlocks[`${h.job}:${a.kind}:${a.index}`]=true;refreshHero(h);toast('取得技能：'+sk.name+'；請前往技能頁配置輔助槽');return true;},refreshHero,refreshAll,projectHero,prepare,validCast,worn};
+ globalThis.__EMBERWILD_SKILLS={legacyMember,system:()=>system,byId:id=>byId.get(id),byPosition:(j,k,i)=>byPosition.get(position(j,k,i)),slotCounts,learned,passiveEnabled:(h,id)=>h?.passiveEnabled?.[id]!==false,grantSkill(h,id){const sk=byId.get(id);if(!sk||!sk.jobs.includes(h.job)||!sk.sources.some(s=>s.type==='quest'))throw Error('任務技能不適用目前職業');h.acquiredSkillIds??=[];if(h.acquiredSkillIds.includes(id))return false;h.acquiredSkillIds.push(id);const a=M.adapterFor(sk,h.job);T().build().permanent.unlocks[`${h.job}:${a.kind}:${a.index}`]=true;refreshHero(h);toast('取得技能：'+sk.name+'；請前往技能頁配置輔助槽');return true;},refreshHero,refreshAll,projectHero,prepare,validCast,worn};
  install(M.normalizeDocument(baseExport()).skillSystem);applyMetadata();
  const source=globalThis.__EMBERWILD_BALANCE_FINAL_APPLY_PENDING?null:JSON.parse(balanceSourceText()||'null');if(source)applyBalanceConfig(source,{persist:false});
  refreshAll();
@@ -20604,7 +20612,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;
 
-/* js/combat/seconds-runtime.js?v=20261103-v0051-xp1 */
+/* js/combat/seconds-runtime.js?v=20261104-v0066-imbue1 */
 /* The shared live/offline seconds driver. Existing damage, targeting, equipment,
    death-chain and reward handlers remain authoritative. No round generator runs. */
 (()=>{
@@ -20923,7 +20931,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  const oldPack=packParty,oldPartyValidate=validateParty;
  packParty=function(){const out=oldPack();if(party){out.huntingMode=party.huntingMode||'single';out.currentHuntingMode=party.currentHuntingMode||out.huntingMode;if(party.explorationRecovery)out.explorationRecovery=copy(party.explorationRecovery);}return out;};
  validateParty=function(raw){if(raw?.huntingMode!==undefined&&!['single','group'].includes(raw.huntingMode))throw Error('狩獵模式無效');const out=oldPartyValidate(raw);out.huntingMode=raw?.huntingMode||'single';out.currentHuntingMode=raw?.currentHuntingMode||out.huntingMode;if(raw?.explorationRecovery!==undefined){const r=raw.explorationRecovery;if(!r||['minimumHpRatio','minimumMpRatio'].some(k=>typeof r[k]!=='number'||!Number.isFinite(r[k])||r[k]<0||r[k]>1))throw Error('探索恢復門檻無效');out.explorationRecovery=copy(r);}return out;};
- const baseSupplyDetail=supplyDetail;supplyDetail=function(item){let text=baseSupplyDetail(item);if(item?.type==='imbue')text=text.replace(/持續 \d+(?:\.\d+)?(?: 戰鬥)? 回合/g,'持續 '+item.timing.durationSeconds+' 秒');return text;};
+ const baseSupplyDetail=supplyDetail;supplyDetail=function(item){let text=baseSupplyDetail(item);if(item?.type==='imbue')text=text.replace(/持續 \d+(?:\.\d+)? ?(?:戰鬥)? ?回合/g,'持續 '+item.timing.durationSeconds+' 秒');return text;};
  const baseSupplyDetails=supplyBuffDetails;supplyBuffDetails=function(b,k){const d=baseSupplyDetails(b,k);if(k==='imbue'){d.time=Number(b.remainingTurns.toFixed(1))+' / '+Number(b.totalTurns.toFixed(1))+' 秒';d.clock='戰鬥秒數';}return d;};
  const baseSupplyStatus=supplyStatus;supplyStatus=function(h){return baseSupplyStatus(h).replace(/回合/g,'秒');};
  globalThis.setRecoveryThresholds=function(hp,mp){if(!party||![hp,mp].every(x=>Number.isFinite(x)&&x>=0&&x<=1))return false;EmberwildOffline.sync();if(EmberwildOffline.busy||EmberwildOffline.failed)return false;party.explorationRecovery={minimumHpRatio:hp,minimumMpRatio:mp};save();render();return true;};

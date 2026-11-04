@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "4b034ae1deaf538f0a3e3980e69a8ab12240d883",
+  "sourceCommit": "0ca68672c4c51c65bf841258458b29398fb9a0d5",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -171,8 +171,8 @@
       "sha256": "37603e70fd591392dae8a4e3a18f4a34799b30c2b47314c31f6db9ad113956b3"
     },
     {
-      "path": "js/ui/item-presentation.js?v=20261103-v0046-vouchers1",
-      "sha256": "bc3b7418270211a89322200a4b885fc5f96fc1939da2baf96c13646065bfa61d"
+      "path": "js/ui/item-presentation.js?v=20261104-v0067-decisions1",
+      "sha256": "56f0003146e4799c3d5a7028477ccf28e630849ef490c51d8d89cdb1d6f363c3"
     },
     {
       "path": "js/ui/ui-text-config.js?v=20261104-v0062-bottom1",
@@ -315,8 +315,8 @@
       "sha256": "9a723950cc991d3cafc4fa4d67d76aaf5f11a0561a13c4e4f6c6ca79ae4bb7d5"
     },
     {
-      "path": "js/character/companions.js?v=20261103-v0037-offline-speed1",
-      "sha256": "b00214ea104461abc8ba2b54ad04296f58ed82d77562c4bb2d17e327ecb5617c"
+      "path": "js/character/companions.js?v=20261104-v0067-decisions1",
+      "sha256": "d3d7a5a5434edc4d8d67702f9fe3afc247b9cf6be7186791e5b67a4b4d509fd8"
     },
     {
       "path": "js/balance/progression-runtime.js?v=20261104-v0057-legacy1",
@@ -327,8 +327,8 @@
       "sha256": "253355d0e09da93e1672eb5afc9aaaf17a568603bcb5ec3dc947708e2dc0a9d7"
     },
     {
-      "path": "js/items/shop-inventory.js?v=20261103-v0046-vouchers1",
-      "sha256": "da27dfbeb39d371d840a2bc5dbfda097c2561843ec6d22fbcf7009e91d636730"
+      "path": "js/items/shop-inventory.js?v=20261104-v0067-decisions1",
+      "sha256": "577826bc8ad5f8ea9236b6cff3a832779a676191e065af04749de5e52d2bd8b1"
     },
     {
       "path": "js/equipment/equipment-shop.js?v=20261020-equipment1",
@@ -367,8 +367,8 @@
       "sha256": "7934f05a9b866e97fc8996a76661416d273beae11ecaa2a24e39f5f1a8b5b8be"
     },
     {
-      "path": "js/ui/team-builds.js?v=20261104-v0059-plan-fold1",
-      "sha256": "52bfabb848aa8d596994ec75843944817f61a83fc6190d9b0e72798f239f909f"
+      "path": "js/ui/team-builds.js?v=20261104-v0065-gate1",
+      "sha256": "80f88bfe55c55e4f82ce381b3ebc4acd9caa62210fcea21ce7aea56e71e08708"
     },
     {
       "path": "js/equipment/boss-crafting.js",
@@ -447,8 +447,8 @@
       "sha256": "c7017e100ff59ca1567dc93cc7963eebba6f335f93484ff4c1b34c5252f2b978"
     },
     {
-      "path": "js/skills/skill-system-runtime.js?v=20261104-v0058-passive-save1",
-      "sha256": "9240a08e64ff8620151558003b7f742a8d535c3669b4bcc3ee35bb9dc22c0032"
+      "path": "js/skills/skill-system-runtime.js?v=20261104-v0067-decisions1",
+      "sha256": "93999168da69ebc2296d4f0b393658e0ed1511af33be1e165524044e52328877"
     },
     {
       "path": "js/equipment/equipment-skill-runtime.js",
@@ -479,8 +479,8 @@
       "sha256": "3d4304de56df1400b460684771b69f02a5e2479a1836380feaa732562064e6a3"
     },
     {
-      "path": "js/combat/seconds-runtime.js?v=20261103-v0051-xp1",
-      "sha256": "d0115e351299f1856480f02b0b587fec41882e6318862e362712a3167501a67a"
+      "path": "js/combat/seconds-runtime.js?v=20261104-v0066-imbue1",
+      "sha256": "4b82a638251fa81c576a9791de13cf7761057288293ee4c02832b5c6be3c576d"
     },
     {
       "path": "js/combat/online-idle-statistics.js?v=20261103-v0052-voucher-settings1",

@@ -12442,6 +12442,34 @@ function newRowSecondsTiming(kind,row){
   return row;
 }
 </script>
+<script id="skill-unlock-form-v1">
+/* Skill system v1: the skill database tab edits achievement unlock conditions (BOSS kills, elite kills, BOSS gear held)
+   on the selected definition. Every change goes through __EMBERWILD_SKILL_SYSTEM_EDITOR.updateSkill, which validates it. */
+(function installSkillUnlockForm(){
+  const KINDS=[['bossKills','擊敗 BOSS','count','skillAddBossKill'],['eliteKills','擊敗菁英怪','count','skillAddEliteKill'],['bossEquipment','持有 BOSS 裝備','quantity','skillAddBossEquipment']];
+  const empty=()=>({classMasteryLevel:0,quests:[],materials:[],bossKills:[],eliteKills:[],bossEquipment:[]});
+  const maps=()=>data.balanceSettings?.maps?.catalog||[];
+  const label=i=>i<0?'任意區域':`${i}. ${maps()[i]?.name||('區域 '+i)}`;
+  const options=(current,kind)=>{const values=[-1,...maps().map((_,i)=>i).filter(i=>kind==='eliteKills'?maps()[i]?.eliteEnabled!==false:maps()[i]?.bossEnabled!==false)];if(!values.includes(current))values.push(current);return values.map(i=>`<option value="${i}" ${i===current?'selected':''}>${esc(label(i))}</option>`).join('');};
+  const onSkillDatabase=()=>['skills','skillSystem'].includes(currentSection)&&/data-canonical-tab="skills" class="primary"/.test(document.getElementById('app')?.innerHTML||'');
+  function current(){const E=globalThis.__EMBERWILD_SKILL_SYSTEM_EDITOR,id=E?.selected?.();return id?data.skillSystem?.definitions?.find(s=>s.id===id&&!s.deleted)||null:null;}
+  function commit(sk,u,message){try{__EMBERWILD_SKILL_SYSTEM_EDITOR.updateSkill(sk.id,{unlockConditions:u});}catch(e){alert('無法套用解鎖條件：'+e.message);}render();}
+  function draw(){
+    if(!onSkillDatabase())return;const sk=current(),app=document.getElementById('app');if(!sk||!app||app.innerHTML.includes('id="skillUnlockForm"'))return;
+    const u={...empty(),...structuredClone(sk.unlockConditions||{})};
+    const section=([kind,title,key,button])=>`<div class="mini-note" style="margin-top:10px"><b>${title}</b></div><div data-unlock-kind="${kind}">${(u[kind]||[]).map((x,i)=>`<div class="fields" data-unlock-row="${kind}" data-index="${i}"><div class="field"><label>區域／BOSS</label><select data-unlock-map="${kind}" data-index="${i}">${options(x.mapIndex,kind)}</select></div><div class="field"><label>${key==='quantity'?'持有數量':'需求數量'}</label><input type="number" min="1" step="1" value="${x[key]}" data-unlock-value="${kind}" data-index="${i}"></div><div class="field"><label>&nbsp;</label><button type="button" data-unlock-remove="${kind}" data-index="${i}">移除</button></div></div>`).join('')}</div><div class="actions"><button type="button" id="${button}">新增條件</button></div>`;
+    app.insertAdjacentHTML('beforeend',`<section class="card" id="skillUnlockForm"><div class="card-h"><strong>技能永久解鎖條件 · ${esc(sk.name)}</strong></div><div class="card-b"><div class="mini-note">達成全部條件後永久解鎖，並與角色等級、二轉與精通需求一起判定。</div>${KINDS.map(section).join('')}</div></section>`);
+    for(const [kind,,key,button] of KINDS){
+      app.querySelectorAll(`[data-unlock-map="${kind}"]`).forEach(el=>el.onchange=()=>{u[kind][Number(el.dataset.index)].mapIndex=Number(el.value);commit(sk,u);});
+      app.querySelectorAll(`[data-unlock-value="${kind}"]`).forEach(el=>el.onchange=()=>{u[kind][Number(el.dataset.index)][key]=Math.max(1,Math.floor(Number(el.value)||1));commit(sk,u);});
+      app.querySelectorAll(`[data-unlock-remove="${kind}"]`).forEach(el=>el.onclick=()=>{u[kind].splice(Number(el.dataset.index),1);commit(sk,u);});
+      const add=document.getElementById(button);if(add)add.onclick=()=>{const used=new Set(u[kind].map(x=>x.mapIndex)),mapIndex=[-1,...maps().map((_,i)=>i)].find(i=>!used.has(i));if(mapIndex===undefined)return;u[kind].push({mapIndex,[key]:1});commit(sk,u);};
+    }
+  }
+  const base=render;render=function(...args){const out=base.apply(this,args);try{draw();}catch(e){console.error(e);}return out;};
+  globalThis.__EMBERWILD_SKILL_UNLOCK_FORM={draw};
+})();
+</script>
 <script id="dev-inline-api">
 /* Developer-mode dialogs (開發者模式): read and write equipment forms, companions and skills with the same rules as the
    editor pages. Every write validates the whole document and restores the previous draft when it is rejected. */

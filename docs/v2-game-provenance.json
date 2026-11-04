@@ -1,5 +1,5 @@
 {
-  "gameCommit": "4b034ae1deaf538f0a3e3980e69a8ab12240d883",
+  "gameCommit": "0ca68672c4c51c65bf841258458b29398fb9a0d5",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -67,7 +67,7 @@
     },
     {
       "path": "js/character/companions.js",
-      "sha256": "b00214ea104461abc8ba2b54ad04296f58ed82d77562c4bb2d17e327ecb5617c"
+      "sha256": "d3d7a5a5434edc4d8d67702f9fe3afc247b9cf6be7186791e5b67a4b4d509fd8"
     },
     {
       "path": "js/character/starter-pack.js",
@@ -127,7 +127,7 @@
     },
     {
       "path": "js/combat/seconds-runtime.js",
-      "sha256": "d0115e351299f1856480f02b0b587fec41882e6318862e362712a3167501a67a"
+      "sha256": "4b82a638251fa81c576a9791de13cf7761057288293ee4c02832b5c6be3c576d"
     },
     {
       "path": "js/combat/seconds-schema.js",
@@ -235,7 +235,7 @@
     },
     {
       "path": "js/items/shop-inventory.js",
-      "sha256": "da27dfbeb39d371d840a2bc5dbfda097c2561843ec6d22fbcf7009e91d636730"
+      "sha256": "577826bc8ad5f8ea9236b6cff3a832779a676191e065af04749de5e52d2bd8b1"
     },
     {
       "path": "js/items/timed-boost-runtime.js",
@@ -287,7 +287,7 @@
     },
     {
       "path": "js/skills/skill-system-runtime.js",
-      "sha256": "9240a08e64ff8620151558003b7f742a8d535c3669b4bcc3ee35bb9dc22c0032"
+      "sha256": "93999168da69ebc2296d4f0b393658e0ed1511af33be1e165524044e52328877"
     },
     {
       "path": "js/skills/skill-tooltip-reroll.js",
@@ -367,7 +367,7 @@
     },
     {
       "path": "js/ui/item-presentation.js",
-      "sha256": "bc3b7418270211a89322200a4b885fc5f96fc1939da2baf96c13646065bfa61d"
+      "sha256": "56f0003146e4799c3d5a7028477ccf28e630849ef490c51d8d89cdb1d6f363c3"
     },
     {
       "path": "js/ui/journal-split.js",
@@ -415,7 +415,7 @@
     },
     {
       "path": "js/ui/team-builds.js",
-      "sha256": "52bfabb848aa8d596994ec75843944817f61a83fc6190d9b0e72798f239f909f"
+      "sha256": "80f88bfe55c55e4f82ce381b3ebc4acd9caa62210fcea21ce7aea56e71e08708"
     },
     {
       "path": "js/ui/text-rarity-runtime.js",
@@ -683,11 +683,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "c4c4c339b40a09e18fc34112724e6b8e22714888b4835efcdcdf93fab69a1c31"
+      "sha256": "ea408b21786604294e9bfb7468523d816bca82eb3578af89932131a1747f543b"
     },
     {
       "path": "index.html",
-      "sha256": "556dc6a206eb543e988cac48bb3136551f0e1a5a6e761958bb9e9b29157193e5"
+      "sha256": "bf673dfd9df122c8520f82b5f9be90830f0751f8daa380666e1ff0d27770d81b"
     }
   ],
   "gameBridgeSha256": "47d994f91aa7e7eb719ecd35360ef27e40feb7e82401aace8d11ce3dceef9444",
