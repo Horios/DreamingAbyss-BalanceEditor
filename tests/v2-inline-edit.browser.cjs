@@ -12,7 +12,8 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   const game=p.frameLocator('#devGame'),editor=p.frameLocator('#devEditor');
   // Developer mode is the default and never shows the control console.
   assert.equal(await p.locator('#modeDeveloper').getAttribute('aria-pressed'),'true');assert.equal(await p.locator('#devDock').isVisible(),false);assert.equal(await p.locator('#devOpen').isVisible(),false);
-  await game.locator('body').evaluate(()=>{selectSaveSlot(1);start(0);clearInterval(timer);closeModal();setTab('battle');});
+  // Game v0.063: the exploration map list lives in the 冒險配置 dialog.
+  await game.locator('body').evaluate(()=>{selectSaveSlot(1);start(0);clearInterval(timer);closeModal();setTab('battle');openAdventureConfig();});
   const tools=game.locator('.dev-inline-tools');await tools.waitFor({timeout:10000});
   const before=await game.locator('body').evaluate(()=>MAPS.length);
 
@@ -30,7 +31,7 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   assert.match(await p.locator('#devStatus').innerText(),/已新增並套用至預覽/);
 
   // Edit the first map; an invalid level range keeps the dialog open and changes nothing.
-  await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);});
+  await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);openAdventureConfig();});
   await game.locator('.dev-inline-tools').getByRole('button',{name:'✎ 編輯此地圖'}).click();await dialog.waitFor();
   assert.equal(await p.locator('#devInline-mapType').count(),0,'existing maps do not change type here');
   await p.locator('#devInline-min').fill('40');await p.locator('#devInlineSave').click();
@@ -51,7 +52,7 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   await p.locator('#modeDeveloper').click();assert.equal(await p.locator('#devDock').isVisible(),false,'developer mode hides the console');await game.locator('.dev-inline-tools').waitFor();
   // Lists on each page: switch class, edit an existing record, add a new one.
   const listButton=name=>game.locator('.dev-page-tools [data-dev-list="'+name+'"]');
-  await game.locator('body').evaluate(()=>setTab('skills'));await listButton('skills').click();await dialog.waitFor();
+  await game.locator('body').evaluate(()=>{closeModal();setTab('skills');});await listButton('skills').click();await dialog.waitFor();
   assert.match(await p.locator('#devInlineTitle').innerText(),/技能清單 · 戰士/);
   await p.locator('#devInlineTabs [data-list-job="1"]').click();assert.match(await p.locator('#devInlineTitle').innerText(),/技能清單 · 法師/);
   const mageSkill=await editor.locator('body').evaluate(()=>data.skillSystem.definitions.find(s=>s.jobs?.includes(1)&&s.partnerId==null&&s.type==='active'&&!s.deleted&&s.timing?.cooldownSeconds>0));
@@ -84,18 +85,18 @@ await p.waitForFunction(()=>/技能清單/.test(document.getElementById('devInli
   assert.equal(await herb.count(),1,'the bag lists the material');{await herb.click();await p.locator('#devInline-sellPrice').waitFor();await p.locator('#devInline-sellPrice').fill('4');await p.locator('#devInlineSave').click();
    await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);assert.equal(await game.locator('body').evaluate(()=>materialSellPrice('紅色草')),4);}
   // Monsters: add one to the current map, then edit an enemy card in battle.
-  await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);});
+  await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);openAdventureConfig();});
   await game.locator('.dev-inline-tools').getByRole('button',{name:'＋ 新增怪物'}).click();await p.locator('#devInline-name').fill('開發者測試怪');await p.locator('#devInlineSave').click();
   await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);
   assert.equal(await game.locator('body').evaluate(()=>monsterCatalog().some(m=>m.name==='開發者測試怪'&&m.mapIndex===0)),true);
-  await game.locator('body').evaluate(()=>{spawnGroup();running=true;render();});
+  await game.locator('body').evaluate(()=>{closeModal();spawnGroup();running=true;render();});
   const enemy=game.locator('[data-enemy-id]').first();await enemy.click();await p.locator('#devInline-hpMultiplier').waitFor();
   await p.locator('#devInline-hpMultiplier').fill('2');await p.locator('#devInlineSave').click();await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);
   await game.locator('body').evaluate(()=>{running=false;});
   assert.deepEqual(await editor.locator('body').evaluate(()=>validateData()),[],'the draft stays valid after every dialog');
   // Play-test mode hides the edit entry points; editing mode restores them.
   await p.locator('#devPlay').click();assert.equal(await game.locator('.dev-inline-tools').count(),0);
-  await p.locator('#devPlay').click();await game.locator('.dev-inline-tools').waitFor();
+  await p.locator('#devPlay').click();await game.locator('body').evaluate(()=>openAdventureConfig());await game.locator('.dev-inline-tools').waitFor();
   await p.setViewportSize({width:390,height:844});
   await game.locator('.dev-inline-tools').getByRole('button',{name:'＋ 新增地圖'}).click();await dialog.waitFor();
   assert(await dialog.evaluate(d=>{const r=d.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&d.scrollWidth<=d.clientWidth+1;}),'the dialog fits a phone');

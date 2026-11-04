@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "07f6e35fe1487c224b3470a02b2d326d72d15760",
+  "sourceCommit": "a012c752e9219c1fab719502ad728a9d4d4d51d8",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -175,8 +175,8 @@
       "sha256": "bc3b7418270211a89322200a4b885fc5f96fc1939da2baf96c13646065bfa61d"
     },
     {
-      "path": "js/ui/ui-text-config.js?v=20261102-v0025-interface1",
-      "sha256": "42d6c4e8debd79b0d6067d1d894f4033848c8c9459133f1149b034606231d241"
+      "path": "js/ui/ui-text-config.js?v=20261104-v0062-bottom1",
+      "sha256": "af92c4fe3c3405557050c5aab7b2c347d5dfd305a77717eef7a799a0c27c0039"
     },
     {
       "path": "js/equipment/economy-salvage.js?v=20261014-catalogue2",
@@ -207,8 +207,8 @@
       "sha256": "15ce6003c3ce9583d028218c836660e58128b11ea00144062436f0a713529dd2"
     },
     {
-      "path": "js/ui/expedition-ui.js?v=20261103-v0047-nav1",
-      "sha256": "73a5c3b201b358135a8f0bba84609609c2303a28d70347a86c62ac7907dd5454"
+      "path": "js/ui/expedition-ui.js?v=20261104-v0063-config1",
+      "sha256": "af59a93307f064cf1ee1eebea14d405348bff12b4f40ebd5712bd774d0ecad10"
     },
     {
       "path": "js/ui/expedition-density.js",
@@ -415,8 +415,8 @@
       "sha256": "406f402c0e46dd216633176ac2e5c51c477a3e8e5ad876bf5758d23d8e8ddb83"
     },
     {
-      "path": "js/ui/navigation-tree.js?v=20261103-v0047-nav1",
-      "sha256": "1f5ebdd173bee9d7de908d62b2587a568c2744f81a1d4c0117918041e6aa1863"
+      "path": "js/ui/navigation-tree.js?v=20261104-v0062-bottom1",
+      "sha256": "307898aa52ffc04f816c3369124586b49a1be528b1ebba46560fdb30bbd2efef"
     },
     {
       "path": "js/ui/inventory-icons-runtime.js?v=20261014-descriptions1",
@@ -467,8 +467,8 @@
       "sha256": "67761d1acf03556b23aafd82ef110b3faac0ffcc12aaee9e8b6ac7202e7c15f5"
     },
     {
-      "path": "js/world/wishing-lake.js?v=20261103-v0044-bag1",
-      "sha256": "4b51788e1f427d8ec9ece6fd4f7ac0388ff082a88a9da06cf03fab2d2ce9a50a"
+      "path": "js/world/wishing-lake.js?v=20261104-v0062-bottom1",
+      "sha256": "ec3a63ba609766fffdbe6c56ec43e3a647737a1f7a6a9f08237bb687f227bea0"
     },
     {
       "path": "js/combat/event-trigger-runtime.js?v=20261103-v0037-seconds-log1",
@@ -491,8 +491,8 @@
       "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261104-v0060-tint1",
-      "sha256": "cbb6cde1e3157fb3c1500ce5d5717dc4d70c7125343c286821ea227c9d6b61a7"
+      "path": "js/ui/seconds-battle.js?v=20261104-v0063-config1",
+      "sha256": "68310315aa12cde6a090ce457eaca52b76668333bb34ceee4e2bcb362c46cca7"
     }
   ]
 }
