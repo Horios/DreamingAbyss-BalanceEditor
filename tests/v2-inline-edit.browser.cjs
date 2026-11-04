@@ -84,6 +84,37 @@ await p.waitForFunction(()=>/技能清單/.test(document.getElementById('devInli
   const herb=game.locator('[data-item-kind="material"][data-item-key="紅色草"]').first();
   assert.equal(await herb.count(),1,'the bag lists the material');{await herb.click();await p.locator('#devInline-sellPrice').waitFor();await p.locator('#devInline-sellPrice').fill('4');await p.locator('#devInlineSave').click();
    await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);assert.equal(await game.locator('body').evaluate(()=>materialSellPrice('紅色草')),4);}
+  // New items from the bag's 道具清單: a healing potion and a material.
+  await game.locator('body').evaluate(()=>{setTab('equipment');render();});await listButton('items').click();await dialog.waitFor();
+  assert.match(await p.locator('#devInlineTitle').innerText(),/^道具清單$/);assert.equal(await p.locator('#devInlineTabs button').count(),0,'items are not split by class');
+  await p.locator('.dev-list-adds button',{hasText:'新增治療藥水'}).click();await p.locator('#devInline-healAmount').waitFor();
+  assert.equal(await p.locator('#devInline-boostType').count(),0,'potion dialogs show potion fields only');
+  await p.locator('#devInline-name').fill('開發者測試藥水');await p.locator('#devInline-healAmount').fill('77');await p.locator('#devInline-cooldownSeconds').fill('4');await p.locator('#devInlineSave').click();
+  await p.waitForFunction(()=>/道具清單/.test(document.getElementById('devInlineTitle').textContent),{},{timeout:10000});
+  assert.equal(await p.locator('.dev-list-row',{hasText:'開發者測試藥水'}).count(),1,'the list shows the new potion');
+  assert.deepEqual(await game.locator('body').evaluate(()=>{const i=exportableBalance().items.find(x=>x.name==='開發者測試藥水');return i&&[i.healAmount,i.timing.cooldownSeconds];}),[77,4],'the preview has the potion');
+  await p.locator('.dev-list-adds button',{hasText:'新增素材'}).click();await p.locator('#devInline-name').fill('開發者測試礦');await p.locator('#devInline-sellPrice').fill('3');await p.locator('#devInline-description').fill('測試用素材');await p.locator('#devInlineSave').click();
+  await p.waitForFunction(()=>/道具清單/.test(document.getElementById('devInlineTitle').textContent),{},{timeout:10000});
+  assert.equal(await game.locator('body').evaluate(()=>materialSellPrice('開發者測試礦')),3);
+  assert.equal(await editor.locator('body').evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.info('material:開發者測試礦').description),'測試用素材');
+  // A duplicate name is refused and keeps the dialog open.
+  await p.locator('.dev-list-adds button',{hasText:'新增限時增益券'}).click();await p.locator('#devInline-name').fill('開發者測試藥水');await p.locator('#devInlineSave').click();
+  assert.match(await p.locator('#devInlineError').innerText(),/已有同名道具/);await p.locator('#devInlineCancel').click();
+  // Protagonist class stats: from 職業數值 on the character page and from the protagonist portrait.
+  const hp=await editor.locator('body').evaluate(()=>data.classes[0].initialStats.hp);
+  await game.locator('body').evaluate(()=>setTab('character'));await listButton('classes').click();await dialog.waitFor();
+  assert.equal(await p.locator('.dev-list-row').count(),await editor.locator('body').evaluate(()=>data.classes.length));
+  await p.locator('.dev-list-row').first().click();await p.locator('#devInline-initialStats_hp').waitFor();
+  assert.match(await p.locator('#devInlineTitle').innerText(),/主角職業數值 · 戰士/);
+  await p.locator('#devInline-initialStats_hp').fill(String(hp+10));await p.locator('#devInline-growthPerLevel_atk').fill('2');await p.locator('#devInlineSave').click();
+  await p.waitForFunction(()=>/主角職業數值$/.test(document.getElementById('devInlineTitle').textContent),{},{timeout:10000});
+  assert.deepEqual(await game.locator('body').evaluate(()=>{const c=exportableBalance().classes[0];return [c.initialStats.hp,c.hp,c.growthPerLevel.atk];}),[hp+10,hp+10,2],'the preview uses the new class stats');
+  await p.locator('#devInlineCancel').click();
+  await game.locator('body').evaluate(()=>{setTab('battle');render();});
+  await game.locator('.seconds-protagonist [data-hero-id]').first().click();await p.locator('#devInline-initialStats_hp').waitFor();
+  await p.locator('#devInline-initialStats_hp').fill('-1');await p.locator('#devInlineSave').click();
+  assert.match(await p.locator('#devInlineError').innerText(),/不可小於 0/);assert.equal(await editor.locator('body').evaluate(()=>data.classes[0].initialStats.hp),hp+10,'a rejected edit changes nothing');
+  await p.locator('#devInlineCancel').click();
   // Monsters: add one to the current map, then edit an enemy card in battle.
   await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);openAdventureConfig();});
   await game.locator('.dev-inline-tools').getByRole('button',{name:'＋ 新增怪物'}).click();await p.locator('#devInline-name').fill('開發者測試怪');await p.locator('#devInlineSave').click();
@@ -101,6 +132,6 @@ await p.waitForFunction(()=>/技能清單/.test(document.getElementById('devInli
   await game.locator('.dev-inline-tools').getByRole('button',{name:'＋ 新增地圖'}).click();await dialog.waitFor();
   assert(await dialog.evaluate(d=>{const r=d.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&d.scrollWidth<=d.clientWidth+1;}),'the dialog fits a phone');
   await p.locator('#devInlineCancel').click();
-  assert.deepEqual(errors,[]);console.log('V2 inline editing passed: add and edit maps from the game screen with validation, preview apply and full settings');
+  assert.deepEqual(errors,[]);console.log('V2 inline editing passed: maps, monsters, items (new potions and materials), skills, equipment, companions and protagonist class stats from the game screen');
  }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(e=>{console.error(e);process.exitCode=1;});

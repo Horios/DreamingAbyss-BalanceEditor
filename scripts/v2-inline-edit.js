@@ -1,6 +1,6 @@
 /* Developer mode (開發者模式): edit balance data from dialogs opened on the game screen itself.
-   Record dialogs (map, item, skill, monster, equipment form, companion) load one record, show its fields and save through
-   the editor's guarded APIs; list dialogs (skills, equipment, companions) switch class, list every existing record and
+   Record dialogs (map, item, new item, skill, monster, equipment form, companion, protagonist class) load one record, show its fields and save through
+   the editor's guarded APIs; list dialogs (skills, equipment, companions, items, classes) switch class, list every existing record and
    open or add records. Every successful save is applied to the preview right away. */
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -92,8 +92,44 @@ const EDITORS={
  }
 };
 for(const kind of ['material','equipment','gem','token'])EDITORS[kind]=EDITORS.item;
+// Protagonist class (clicking the protagonist portrait, or 職業數值 on the character page).
+EDITORS.hero={
+ title:(t,r)=>'主角職業數值 · '+r.name,section:'classes',
+ load(t,shell){return api(shell,'__EMBERWILD_CLASS_DIALOG').get(t.job);},
+ fields:[{key:'name',label:'職業名稱',type:'text'},{key:'advanced',label:'二轉名稱',type:'text'},{key:'main',label:'主要屬性名稱',type:'text'},{key:'initialStats.hp',label:'初始生命',type:'number',min:0,step:1},{key:'initialStats.atk',label:'初始攻擊',type:'number',min:0,step:0.1},{key:'initialStats.def',label:'初始防禦',type:'number',min:0,step:0.1},{key:'initialStats.crit',label:'初始暴擊率（小數）',type:'number',min:0,step:0.001},{key:'initialStats.critDamage',label:'初始暴擊傷害（倍率）',type:'number',min:0,step:0.01},{key:'growthPerLevel.hp',label:'每級生命',type:'number',min:0,step:1},{key:'growthPerLevel.atk',label:'每級攻擊',type:'number',min:0,step:0.1},{key:'growthPerLevel.def',label:'每級防禦',type:'number',min:0,step:0.1},{key:'growthPerLevel.crit',label:'每級暴擊率（小數）',type:'number',min:0,step:0.001},{key:'growthPerLevel.critDamage',label:'每級暴擊傷害（倍率）',type:'number',min:0,step:0.01}],
+ note:()=>'自然值 = 初始值 + (等級 − 1) × 每級成長 + 階梯成長。階梯成長、二轉加成與能力點效果請在總控模式調整。',
+ save(t,v,shell){return api(shell,'__EMBERWILD_CLASS_DIALOG').update(t.job,v);},
+ context:(t)=>({job:t.job})
+};
+// New items: materials, healing potions and timed boost tickets. Equipment and companion tokens have their own lists.
+const ITEM_DEFAULTS={material:{sellPrice:1},potion:{healAmount:50,cooldownSeconds:9,cost:20,sellPrice:5},timed:{boostType:'exp',bonusPercent:50,durationMinutes:30,cost:300,sellPrice:75}};
+EDITORS.newItem={
+ title:(t,r)=>'新增'+r.kindName,section:'inventoryIcons',
+ load(t,shell){const D=api(shell,'__EMBERWILD_ITEM_DIALOG');if(!D.kinds[t.itemType])throw Error('不支援的道具類型');return {name:'新'+D.kinds[t.itemType],description:'',...ITEM_DEFAULTS[t.itemType],itemType:t.itemType,kindName:D.kinds[t.itemType],boostTypes:D.boostTypes()};},
+ fields:[
+  {key:'name',label:'名稱',type:'text'},
+  {key:'healAmount',label:'回復量',type:'number',min:1,step:1,when:r=>r.itemType==='potion'},{key:'cooldownSeconds',label:'冷卻（秒）',type:'number',min:0,step:.1,when:r=>r.itemType==='potion'},
+  {key:'boostType',label:'增益類型',type:'select',options:r=>r.boostTypes,when:r=>r.itemType==='timed'},{key:'bonusPercent',label:'增益百分比',type:'number',min:1,step:1,when:r=>r.itemType==='timed'},{key:'durationMinutes',label:'持續分鐘',type:'number',min:1,step:1,when:r=>r.itemType==='timed'},
+  {key:'cost',label:'商店購買價',type:'number',min:0,step:1,when:r=>r.itemType!=='material'},{key:'sellPrice',label:'售價',type:'number',min:0,step:1},
+  {key:'description',label:'說明',type:'textarea',wide:true}
+ ],
+ note:(t,r)=>r.itemType==='material'?'素材名稱同時是庫存識別，建立後不能改名。來源與用途請在總控模式設定。':'新道具預設不上架；商店與掉落規則請在總控模式設定。',
+ save(t,v,shell){const out=api(shell,'__EMBERWILD_ITEM_DIALOG').create(t.itemType,v);if(out?.ok&&out.warning)shell.status(out.warning);return out;},
+ context:()=>({})
+};
 // ---------------------------------------------------------------- list dialogs
 const LISTS={
+ items:{
+  title:'道具清單',section:'inventoryIcons',
+  rows(job,shell){return api(shell,'__EMBERWILD_ITEM_DIALOG').list().map(i=>({label:i.name,meta:i.meta,target:{kind:'item',key:i.id}}));},
+  adds(job,shell){return Object.entries(api(shell,'__EMBERWILD_ITEM_DIALOG').kinds).map(([type,label])=>({label:'＋ 新增'+label,target:{kind:'newItem',itemType:type,create:true}}));},
+  note:'列出治療藥水與限時增益券；素材在背包點選即可編輯。裝備與信物請用裝備清單與夥伴清單。'
+ },
+ classes:{
+  title:'主角職業數值',section:'classes',
+  rows(job,shell){return api(shell,'__EMBERWILD_CLASS_DIALOG').list().map(c=>({label:c.name+(c.advanced?'／'+c.advanced:''),meta:'LV1 生命 '+c.hp+' · 攻擊 '+c.atk+' · 防禦 '+c.def,target:{kind:'hero',job:c.job}}));},
+  note:'點選職業編輯初始值與每級成長。'
+ },
  skills:{
   title:'技能清單',section:'skillSystem',byClass:true,
   rows(job,shell){return api(shell,'__EMBERWILD_SKILL_DIALOG').list(job).map(s=>({label:s.name,meta:s.typeName+' · LV'+s.requiredLevel+(s.cooldown?' · 冷卻 '+s.cooldown+' 秒':'')+(s.disabled?' · 停用':''),target:{kind:'skill',id:s.id},dim:s.disabled}));},
@@ -177,7 +213,7 @@ function open(target,shell){
 function openList(kind,shell,job=0){
  const def=LISTS[kind];if(!def)return false;const d=dialog();current=null;
  const classes=api(shell,'__EMBERWILD_EQUIPMENT_EDITOR').classes();job=Math.max(0,Math.min(classes.length-1,Number(job)||0));list={kind,shell,job};
- $('devInlineTitle').textContent=def.title+' · '+(classes[job]?.name||'');$('devInlineNote').textContent='先切換職業，再點選要編輯的項目或新增。';$('devInlineError').textContent='';$('devInlineSave').hidden=true;$('devInlineBack').hidden=true;$('devInlineExtra').replaceChildren();
+ $('devInlineTitle').textContent=def.byClass?def.title+' · '+(classes[job]?.name||''):def.title;$('devInlineNote').textContent=def.note||(def.byClass?'先切換職業，再點選要編輯的項目或新增。':'點選要編輯的項目或新增。');$('devInlineError').textContent='';$('devInlineSave').hidden=true;$('devInlineBack').hidden=true;$('devInlineExtra').replaceChildren();
  $('devInlineTabs').innerHTML=def.byClass?classes.map(c=>`<button type="button" data-list-job="${c.job}" aria-pressed="${c.job===job}">${esc(c.name)}</button>`).join(''):'';
  for(const b of $('devInlineTabs').querySelectorAll('[data-list-job]'))b.onclick=()=>openList(kind,shell,Number(b.dataset.listJob));
  let groups;try{groups=def.groups?def.groups(job,shell):[{title:'',rows:def.rows(job,shell)}];}catch(e){$('devInlineError').textContent=e.message;groups=[];}

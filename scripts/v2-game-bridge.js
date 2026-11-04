@@ -34,7 +34,7 @@ function devTools(){
   select.insertAdjacentElement('afterend',box);
  }
  // Page lists: switch class, see every existing record, edit or add.
- const page=typeof tab==='string'?tab:'',lists={skills:[['技能清單','skills']],equipment:[['裝備清單','equipment']],worn:[['裝備清單','equipment']],forge:[['裝備清單','equipment']],roster:[['夥伴清單','companions']],partnerRoster:[['夥伴清單','companions']]}[page]||[];
+ const page=typeof tab==='string'?tab:'',lists={skills:[['技能清單','skills']],equipment:[['裝備清單','equipment'],['道具清單','items']],worn:[['裝備清單','equipment']],forge:[['裝備清單','equipment']],shop:[['道具清單','items']],character:[['職業數值','classes']],roster:[['夥伴清單','companions']],partnerRoster:[['夥伴清單','companions']]}[page]||[];
  let bar=document.querySelector('.dev-page-tools');
  if(!lists.length){bar?.remove();return;}
  const sig=page+':'+lists.map(x=>x[1]).join(',');if(bar?.dataset.sig===sig)return;

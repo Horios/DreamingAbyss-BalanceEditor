@@ -3116,7 +3116,7 @@ ensureArrays();requestEditorInitialRender();
 
   function potionRows(){return data.items.map((x,i)=>({x,i})).filter(v=>isHeal(v.x));}
   function uniquePotionId(){const used=new Set(data.items.map(x=>x.id));let n=1,id;do{id='heal_custom_'+n++;}while(used.has(id));return id;}
-  globalThis.addHealingPotion=function(){ensureArrays();const id=uniquePotionId();data.items.push({id,type:HEAL_TYPE,cost:20,sellPrice:5,duration:0,cooldown:3,healAmount:50,shopAvailable:true,requiredVip:0,name:'自訂治療藥水',description:'自訂治療藥水。'});selected.potion=potionRows().length-1;markDirty('已新增治療藥水，尚未匯出');render();};
+  globalThis.addHealingPotion=function(){ensureArrays();const id=uniquePotionId();data.items.push({id,type:HEAL_TYPE,cost:20,sellPrice:5,duration:0,cooldown:3,timing:{cooldownSeconds:9,durationSeconds:0},healAmount:50,shopAvailable:true,requiredVip:0,name:'自訂治療藥水',description:'自訂治療藥水。'});selected.potion=potionRows().length-1;markDirty('已新增治療藥水，尚未匯出');render();};
   globalThis.deleteHealingPotion=function(index){ensureArrays();const rows=potionRows();if(rows.length<=1)return alert('至少要保留 1 種治療藥水。');const row=rows[index];if(!row||!confirmDelete(`刪除治療藥水「${row.x.name||row.x.id}」？`))return;data.items.splice(row.i,1);selected.potion=Math.max(0,Math.min(selected.potion,rows.length-2));markDirty();render();};
 
   function renderHealingPotions(){
@@ -12502,6 +12502,51 @@ const previous=render;render=function(...args){const out=previous(...args);if(!a
     },
     create(job,type){try{const id=S().addSkill(job,type);render();return {ok:true,id};}catch(e){return {ok:false,error:e.message};}},
     duplicate(id){try{const out=S().duplicateSkill(id);render();return {ok:true,id:out};}catch(e){return {ok:false,error:e.message};}}
+  };
+  // Protagonist classes: names and natural stats (初始值、每級成長). LV1 hp/atk/def stay in sync with the legacy top-level fields,
+  // as on the class growth page. Step growth, advancement bonuses and stat points stay in control mode.
+  const CLASS_STATS=['hp','atk','def','crit','critDamage'];
+  const heroClass=job=>{const c=data.classes?.[Number(job)];if(!c)throw Error('找不到職業 '+job);return c;};
+  globalThis.__EMBERWILD_CLASS_DIALOG={
+    stats:CLASS_STATS.slice(),
+    list(){return data.classes.map((c,job)=>({job,name:c.name,advanced:c.advanced||'',hp:c.initialStats?.hp??c.hp,atk:c.initialStats?.atk??c.atk,def:c.initialStats?.def??c.def}));},
+    get(job){const c=heroClass(job),out={job:Number(job),name:c.name||'',advanced:c.advanced||'',main:c.main||''};for(const g of ['initialStats','growthPerLevel'])for(const k of CLASS_STATS)out[g+'.'+k]=c[g]?.[k]??(g==='initialStats'?c[k]??0:0);return out;},
+    update(job,values){return guarded(()=>{const c=heroClass(job);
+      for(const [k,v] of Object.entries(values||{})){
+        if(['name','advanced','main'].includes(k)){const text=String(v||'').trim();if(!text)throw Error('名稱不可空白');if(Array.from(text).length>20)throw Error('名稱最多 20 字');c[k]=text;}
+        else if(/^(initialStats|growthPerLevel)\.(hp|atk|def|crit|critDamage)$/.test(k)){const [g,stat]=k.split('.'),n=Number(v);if(!Number.isFinite(n)||n<0)throw Error('數值不可小於 0：'+k);c[g]={...(c[g]||{}),[stat]:n};if(g==='initialStats'&&['hp','atk','def'].includes(stat))c[stat]=n;}
+        else throw Error('不支援的職業欄位：'+k);
+      }
+      return {job:Number(job)};});}
+  };
+  // New items from the game screen: materials, healing potions and timed boost tickets use the same creation paths as
+  // the item manager's 新增 buttons, then take the dialog's values. Equipment and companion tokens have their own lists.
+  const ITEM_KINDS={material:'素材',potion:'治療藥水',timed:'限時增益券'};
+  const num=(v,label,min=0)=>{const n=Number(v);if(!Number.isFinite(n)||n<min)throw Error(label+'需為 '+min+' 以上的數字');return n;};
+  const consumables=type=>(data.items||[]).filter(i=>i.type===type);
+  globalThis.__EMBERWILD_ITEM_DIALOG={
+    kinds:ITEM_KINDS,
+    boostTypes:()=>EmberwildTimedBoosts.KINDS.map(k=>[k,EmberwildTimedBoosts.LABELS[k]||k]),
+    list(){return [...consumables('healPotion').map(i=>({kind:'potion',id:i.id,name:i.name,meta:'治療藥水 · 回復 '+i.healAmount+' · 冷卻 '+(i.timing?.cooldownSeconds??i.cooldown)+' 秒'})),...consumables('timedBoost').map(i=>({kind:'timed',id:i.id,name:i.name,meta:(EmberwildTimedBoosts.LABELS[i.boostType]||i.boostType)+' ＋'+i.bonusPercent+'% · '+i.durationMinutes+' 分鐘'}))];},
+    create(kind,values){
+      const v=values||{},name=String(v.name||'').trim();
+      if(!ITEM_KINDS[kind])return {ok:false,error:'不支援的道具類型：'+kind};
+      if(!name||Array.from(name).length>40)return {ok:false,error:'道具名稱需 1～40 字'};
+      const out=guarded(()=>{
+        const sell=Math.round(num(v.sellPrice??0,'售價'));
+        if(kind==='material'){
+          __EMBERWILD_INVENTORY_ICON_EDITOR.addMaterial(name);
+          const row=data.balanceSettings.economy.materialPrices.find(r=>r.key===name);row.sellPrice=sell;return {key:name,itemKind:'material'};
+        }
+        if((data.items||[]).some(i=>i.name===name))throw Error('已有同名道具：'+name);
+        if(kind==='potion'){addHealingPotion();const item=data.items.at(-1);Object.assign(item,{name,healAmount:Math.round(num(v.healAmount,'回復量',1)),cost:Math.round(num(v.cost??0,'購買價')),sellPrice:sell});item.timing={durationSeconds:0,...(item.timing||{}),cooldownSeconds:num(v.cooldownSeconds,'冷卻秒數',0)};item.cooldown=item.timing.cooldownSeconds;return {key:item.id,itemKind:'item'};}
+        addTimedBoost();const item=data.items.at(-1);const type=String(v.boostType||'exp');if(!EmberwildTimedBoosts.KINDS.includes(type))throw Error('增益類型無效');
+        Object.assign(item,{name,boostType:type,bonusPercent:Math.round(num(v.bonusPercent,'增益百分比',1)),durationMinutes:Math.round(num(v.durationMinutes,'持續分鐘',1)),cost:Math.round(num(v.cost??0,'購買價')),sellPrice:sell});
+        return {key:item.id,itemKind:'item'};
+      });
+      if(out.ok&&String(v.description||'').trim()){try{__EMBERWILD_INVENTORY_ICON_EDITOR.edit(out.itemKind+':'+out.key,{description:String(v.description).trim()});}catch(e){return {...out,warning:'道具已建立，說明未儲存：'+e.message};}}
+      return out;
+    }
   };
 })();
 </script>
