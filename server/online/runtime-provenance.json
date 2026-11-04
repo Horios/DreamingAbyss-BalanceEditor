@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "0ca68672c4c51c65bf841258458b29398fb9a0d5",
+  "sourceCommit": "f8a5e1cf04bad2d2ba0fb7fafae2927644d79c10",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -207,8 +207,8 @@
       "sha256": "15ce6003c3ce9583d028218c836660e58128b11ea00144062436f0a713529dd2"
     },
     {
-      "path": "js/ui/expedition-ui.js?v=20261104-v0063-config1",
-      "sha256": "af59a93307f064cf1ee1eebea14d405348bff12b4f40ebd5712bd774d0ecad10"
+      "path": "js/ui/expedition-ui.js?v=20261104-v0068-destination1",
+      "sha256": "22fb3a85ffecb53ba8f08f5358c1416010a8e287c8eeda2afe2b2465e9285319"
     },
     {
       "path": "js/ui/expedition-density.js",
@@ -223,8 +223,8 @@
       "sha256": "090933c63b15ee7c7e68d10e18ef87676ef1930eb017f33c7aa5e214265be960"
     },
     {
-      "path": "js/items/healing-potions.js?v=20261102-v0021-interface1",
-      "sha256": "48bc65bd3aeb78db827db695a29f2d4560863c419d3961ead51f3391e691d09c"
+      "path": "js/items/healing-potions.js?v=20261104-v0068-destination1",
+      "sha256": "95c3e98e626bdb3be1e09d5c38eb3edb0ce389d7849841ae27ff664132e84305"
     },
     {
       "path": "js/skills/skill-tooltip-reroll.js?v=20261019-compact-dust1",
@@ -439,8 +439,8 @@
       "sha256": "3daf0a40ad84917c17a7135b80dfb02312737a8d8d2481cce255fda56115cef8"
     },
     {
-      "path": "js/combat/offline-exploration.js?v=20261104-v0060-clock1",
-      "sha256": "3fdd4ee2a7dee5a53317bec6bbfee45283ce0b99d217bc4a8396d5a3b2ab6b7d"
+      "path": "js/combat/offline-exploration.js?v=20261104-v0068-destination1",
+      "sha256": "8aaaead88b6c256de288b64a41cd439091def05f32a4cf25cd26767f9cf0dd55"
     },
     {
       "path": "js/combat/gem-finalizer.js?v=20261021-gems2",
@@ -479,20 +479,20 @@
       "sha256": "3d4304de56df1400b460684771b69f02a5e2479a1836380feaa732562064e6a3"
     },
     {
-      "path": "js/combat/seconds-runtime.js?v=20261104-v0066-imbue1",
-      "sha256": "4b82a638251fa81c576a9791de13cf7761057288293ee4c02832b5c6be3c576d"
+      "path": "js/combat/seconds-runtime.js?v=20261104-v0068-destination1",
+      "sha256": "b4ac204f4f445a373ea0b258928d7657b1c6d03087a9f2775d5c16209b4539a8"
     },
     {
-      "path": "js/combat/online-idle-statistics.js?v=20261103-v0052-voucher-settings1",
-      "sha256": "0e6ff42699567f8089143e48405a59f25aceaed67abe79f844649ac719c0b239"
+      "path": "js/combat/online-idle-statistics.js?v=20261104-v0068-destination1",
+      "sha256": "5b1a5ea64cb5279ef7b923ca8d3a9a80a44b8546f569d121c550e984a6ff939d"
     },
     {
       "path": "js/world/region-vouchers.js?v=20261103-v0052-voucher-settings1",
       "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261104-v0063-config1",
-      "sha256": "68310315aa12cde6a090ce457eaca52b76668333bb34ceee4e2bcb362c46cca7"
+      "path": "js/ui/seconds-battle.js?v=20261104-v0068-destination1",
+      "sha256": "f67a0303ab86fc08928cbf62f7de1a4c93c5635736e0034b0ac19122c3c02cb2"
     }
   ]
 }

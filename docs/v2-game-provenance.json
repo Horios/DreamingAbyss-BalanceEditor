@@ -1,5 +1,5 @@
 {
-  "gameCommit": "0ca68672c4c51c65bf841258458b29398fb9a0d5",
+  "gameCommit": "f8a5e1cf04bad2d2ba0fb7fafae2927644d79c10",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -119,15 +119,15 @@
     },
     {
       "path": "js/combat/offline-exploration.js",
-      "sha256": "3fdd4ee2a7dee5a53317bec6bbfee45283ce0b99d217bc4a8396d5a3b2ab6b7d"
+      "sha256": "8aaaead88b6c256de288b64a41cd439091def05f32a4cf25cd26767f9cf0dd55"
     },
     {
       "path": "js/combat/online-idle-statistics.js",
-      "sha256": "0e6ff42699567f8089143e48405a59f25aceaed67abe79f844649ac719c0b239"
+      "sha256": "5b1a5ea64cb5279ef7b923ca8d3a9a80a44b8546f569d121c550e984a6ff939d"
     },
     {
       "path": "js/combat/seconds-runtime.js",
-      "sha256": "4b82a638251fa81c576a9791de13cf7761057288293ee4c02832b5c6be3c576d"
+      "sha256": "b4ac204f4f445a373ea0b258928d7657b1c6d03087a9f2775d5c16209b4539a8"
     },
     {
       "path": "js/combat/seconds-schema.js",
@@ -223,7 +223,7 @@
     },
     {
       "path": "js/items/healing-potions.js",
-      "sha256": "48bc65bd3aeb78db827db695a29f2d4560863c419d3961ead51f3391e691d09c"
+      "sha256": "95c3e98e626bdb3be1e09d5c38eb3edb0ce389d7849841ae27ff664132e84305"
     },
     {
       "path": "js/items/life-skills.js",
@@ -343,7 +343,7 @@
     },
     {
       "path": "js/ui/expedition-ui.js",
-      "sha256": "af59a93307f064cf1ee1eebea14d405348bff12b4f40ebd5712bd774d0ecad10"
+      "sha256": "22fb3a85ffecb53ba8f08f5358c1416010a8e287c8eeda2afe2b2465e9285319"
     },
     {
       "path": "js/ui/icon-color-palette.js",
@@ -403,7 +403,7 @@
     },
     {
       "path": "js/ui/seconds-battle.js",
-      "sha256": "68310315aa12cde6a090ce457eaca52b76668333bb34ceee4e2bcb362c46cca7"
+      "sha256": "f67a0303ab86fc08928cbf62f7de1a4c93c5635736e0034b0ac19122c3c02cb2"
     },
     {
       "path": "js/ui/skill-icon-library.js",
@@ -567,7 +567,7 @@
     },
     {
       "path": "css/healing-potions.css",
-      "sha256": "0bd7af6b82d7cf8bdbec9f552424c402f6efa649e89bd09be7647f402d59275b"
+      "sha256": "67cc6c265d22f7fc8715f1a34b075da386de2394d87a207e8b723ad48d2d6cff"
     },
     {
       "path": "css/inventory-controls.css",
@@ -615,7 +615,7 @@
     },
     {
       "path": "css/seconds-battle.css",
-      "sha256": "919dd507b0f826809f070ec3e29c6fea4aea519747912e8fc4ba6dcb02fde907"
+      "sha256": "bfb976cf6ca793a5fedb1a4ee319efb73b2706d978f1cac5be05b30158872536"
     },
     {
       "path": "css/shop-inventory.css",
@@ -683,11 +683,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "ea408b21786604294e9bfb7468523d816bca82eb3578af89932131a1747f543b"
+      "sha256": "a2c5598665d51d7f7f1d91079069ceb0368899b2e91d13c21d1cc6289281794f"
     },
     {
       "path": "index.html",
-      "sha256": "bf673dfd9df122c8520f82b5f9be90830f0751f8daa380666e1ff0d27770d81b"
+      "sha256": "966f02d1ba4478ed6889726fa24071b7182119f9ff7d5c249c97ce83c83f45b3"
     }
   ],
   "gameBridgeSha256": "47d994f91aa7e7eb719ecd35360ef27e40feb7e82401aace8d11ce3dceef9444",

@@ -12,8 +12,8 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   const game=p.frameLocator('#devGame'),editor=p.frameLocator('#devEditor');
   // Developer mode is the default and never shows the control console.
   assert.equal(await p.locator('#modeDeveloper').getAttribute('aria-pressed'),'true');assert.equal(await p.locator('#devDock').isVisible(),false);assert.equal(await p.locator('#devOpen').isVisible(),false);
-  // Game v0.063: the exploration map list lives in the 冒險配置 dialog.
-  await game.locator('body').evaluate(()=>{selectSaveSlot(1);start(0);clearInterval(timer);closeModal();setTab('battle');openAdventureConfig();});
+  // Game v0.068: the map menu sits under the battle toolbar.
+  await game.locator('body').evaluate(()=>{selectSaveSlot(1);start(0);clearInterval(timer);closeModal();setTab('battle');});
   const tools=game.locator('.dev-inline-tools');await tools.waitFor({timeout:10000});
   const before=await game.locator('body').evaluate(()=>MAPS.length);
 
@@ -31,7 +31,7 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   assert.match(await p.locator('#devStatus').innerText(),/已新增並套用至預覽/);
 
   // Edit the first map; an invalid level range keeps the dialog open and changes nothing.
-  await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);openAdventureConfig();});
+  await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);render();});
   await game.locator('.dev-inline-tools').getByRole('button',{name:'✎ 編輯此地圖'}).click();await dialog.waitFor();
   assert.equal(await p.locator('#devInline-mapType').count(),0,'existing maps do not change type here');
   await p.locator('#devInline-min').fill('40');await p.locator('#devInlineSave').click();
@@ -116,7 +116,7 @@ await p.waitForFunction(()=>/技能清單/.test(document.getElementById('devInli
   assert.match(await p.locator('#devInlineError').innerText(),/不可小於 0/);assert.equal(await editor.locator('body').evaluate(()=>data.classes[0].initialStats.hp),hp+10,'a rejected edit changes nothing');
   await p.locator('#devInlineCancel').click();
   // Monsters: add one to the current map, then edit an enemy card in battle.
-  await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);openAdventureConfig();});
+  await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);render();});
   await game.locator('.dev-inline-tools').getByRole('button',{name:'＋ 新增怪物'}).click();await p.locator('#devInline-name').fill('開發者測試怪');await p.locator('#devInlineSave').click();
   await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);
   assert.equal(await game.locator('body').evaluate(()=>monsterCatalog().some(m=>m.name==='開發者測試怪'&&m.mapIndex===0)),true);
@@ -127,7 +127,7 @@ await p.waitForFunction(()=>/技能清單/.test(document.getElementById('devInli
   assert.deepEqual(await editor.locator('body').evaluate(()=>validateData()),[],'the draft stays valid after every dialog');
   // Play-test mode hides the edit entry points; editing mode restores them.
   await p.locator('#devPlay').click();assert.equal(await game.locator('.dev-inline-tools').count(),0);
-  await p.locator('#devPlay').click();await game.locator('body').evaluate(()=>openAdventureConfig());await game.locator('.dev-inline-tools').waitFor();
+  await p.locator('#devPlay').click();await game.locator('.dev-inline-tools').waitFor();
   await p.setViewportSize({width:390,height:844});
   await game.locator('.dev-inline-tools').getByRole('button',{name:'＋ 新增地圖'}).click();await dialog.waitFor();
   assert(await dialog.evaluate(d=>{const r=d.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&d.scrollWidth<=d.clientWidth+1;}),'the dialog fits a phone');
