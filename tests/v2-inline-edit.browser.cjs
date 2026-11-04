@@ -8,8 +8,10 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   browser=await chromium.launch({headless:true,args:['--no-sandbox'],...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH}:{})});
   const p=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto('http://127.0.0.1:'+server.address().port+'/v2');
-  await p.waitForFunction(()=>/資料編輯已就緒/.test(document.getElementById('devStatus').textContent),{},{timeout:90000});
+  await p.waitForFunction(()=>/模式已就緒/.test(document.getElementById('devStatus').textContent),{},{timeout:90000});
   const game=p.frameLocator('#devGame'),editor=p.frameLocator('#devEditor');
+  // Developer mode is the default and never shows the control console.
+  assert.equal(await p.locator('#modeDeveloper').getAttribute('aria-pressed'),'true');assert.equal(await p.locator('#devDock').isVisible(),false);assert.equal(await p.locator('#devOpen').isVisible(),false);
   await game.locator('body').evaluate(()=>{selectSaveSlot(1);start(0);clearInterval(timer);closeModal();setTab('battle');});
   const tools=game.locator('.dev-inline-tools');await tools.waitFor({timeout:10000});
   const before=await game.locator('body').evaluate(()=>MAPS.length);
@@ -38,16 +40,19 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);
   assert.equal(await game.locator('body').evaluate(()=>MAPS[0].name),'苔光林地（測試）');
 
-  // The full settings button opens the same map in the dock.
+  assert.equal(await p.locator('#devDock').isVisible(),false,'saving in developer mode keeps the console hidden');
+  // 在總控模式開啟 switches to control mode and opens the same map in the console.
   await game.locator('.dev-inline-tools').getByRole('button',{name:'✎ 編輯此地圖'}).click();await p.locator('#devInlineFull').click();
   for(let i=0;i<50&&await editor.locator('body').evaluate(()=>currentSection)!=='world';i++)await p.waitForTimeout(100);
   assert.equal(await editor.locator('body').evaluate(()=>currentSection),'world');assert.equal(await p.locator('#devDock').isVisible(),true);
   assert.equal(await editor.locator('body').evaluate(()=>selected.worldMap),0);
 
+  assert.equal(await p.locator('#modeControl').getAttribute('aria-pressed'),'true');assert.equal(await game.locator('.dev-inline-tools').count(),0,'control mode has no in-game edit buttons');
+  await p.locator('#modeDeveloper').click();assert.equal(await p.locator('#devDock').isVisible(),false,'developer mode hides the console');await game.locator('.dev-inline-tools').waitFor();
   // Play-test mode hides the edit entry points; editing mode restores them.
   await p.locator('#devPlay').click();assert.equal(await game.locator('.dev-inline-tools').count(),0);
   await p.locator('#devPlay').click();await game.locator('.dev-inline-tools').waitFor();
-  await p.setViewportSize({width:390,height:844});await p.locator('#devClose').click().catch(()=>{});
+  await p.setViewportSize({width:390,height:844});
   await game.locator('.dev-inline-tools').getByRole('button',{name:'＋ 新增地圖'}).click();await dialog.waitFor();
   assert(await dialog.evaluate(d=>{const r=d.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&d.scrollWidth<=d.clientWidth+1;}),'the dialog fits a phone');
   await p.locator('#devInlineCancel').click();

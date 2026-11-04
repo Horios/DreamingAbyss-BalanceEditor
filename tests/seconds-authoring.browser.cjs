@@ -4,7 +4,7 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
 (async()=>{const server=await createPreviewServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
  try{
   browser=await chromium.launch({headless:true,args:['--no-sandbox']});const p=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
-  await p.goto('http://127.0.0.1:'+server.address().port+'/v2');await p.waitForFunction(()=>!document.getElementById('devApply').disabled,{},{timeout:60000});
+  await p.goto('http://127.0.0.1:'+server.address().port+'/v2');await p.waitForFunction(()=>!document.getElementById('devApply').disabled,{},{timeout:60000});await p.locator('#modeControl').click();
   await p.locator('#devAll').click();await p.locator('#devSettings').selectOption('statuses');const editor=p.frameLocator('#devEditor');
   await editor.locator('body').evaluate(()=>__EMBERWILD_STATUS_EDITOR_TEST_API.select('holy-prison-mark'));
   await editor.locator('#eventPermanent').uncheck();await p.waitForFunction(()=>document.getElementById('devEditor').contentDocument.getElementById('eventDurationSeconds').value==='594');

@@ -7,10 +7,10 @@ const SIM=new URLSearchParams(location.search).has('sim');let simNow=Date.now();
 if(SIM){const Real=Date;class SimDate extends Real{constructor(...a){super(...(a.length?a:[simNow]));}static now(){return simNow;}}window.Date=SimDate;const origin=simNow;try{Object.defineProperty(performance,'now',{configurable:true,value:()=>simNow-origin});}catch{}
  // Simulation saves live only in this frame's memory, so it must not wait for the visible preview's save lock.
  const locks={request(name,options,callback){const fn=typeof options==='function'?options:callback;return Promise.resolve().then(()=>fn({name,mode:'exclusive'}));},query:async()=>({held:[],pending:[]})};try{Object.defineProperty(navigator,'locks',{configurable:true,value:locks});}catch{}}
-let ready=false,lastContext,lastTheme,inspecting=true,hooked=false;const send=data=>parent.postMessage(data,location.origin);
+let ready=false,lastContext,lastTheme,inspecting=true,hooked=false,mode='developer';const send=data=>parent.postMessage(data,location.origin);
 const context=()=>({page:typeof state==='undefined'||!state?'creation':tab,mapIndex:typeof party!=='undefined'?party?.map:state?.map,job:typeof state!=='undefined'?state?.job:undefined});
 function notify(navigated=false){const value=context(),key=JSON.stringify(value);if(navigated||key!==lastContext){lastContext=key;send({kind:'dreaming-abyss-dev-page',...value,navigated});}}
-globalThis.__EMBERWILD_V2_GAME=Object.freeze({inspect(value){inspecting=!!value;devTools();},selectMap(index){if(typeof selectExplorationMap==='function'){setTab('battle');selectExplorationMap(index);}},apply(doc){if(!ready)throw Error('遊戲仍在載入');const checked=validateBalanceConfig(structuredClone(doc));applyBalanceConfig(checked,{persist:false});return true;}});
+globalThis.__EMBERWILD_V2_GAME=Object.freeze({inspect(value){inspecting=!!value;devTools();},setMode(value){if(['developer','control'].includes(value))mode=value;devTools();},get mode(){return mode;},selectMap(index){if(typeof selectExplorationMap==='function'){setTab('battle');selectExplorationMap(index);}},apply(doc){if(!ready)throw Error('遊戲仍在載入');const checked=validateBalanceConfig(structuredClone(doc));applyBalanceConfig(checked,{persist:false});return true;}});
 // Capture only definitions with stable game IDs. Other controls retain their normal behavior.
 document.addEventListener('click',event=>{
  if(!ready||!inspecting)return;const node=event.target.closest?.('[data-skill-id],[data-skill-slot],[data-seconds-skill],[data-item-kind],[data-enemy-id],[data-hero-id]');if(!node)return;const d=node.dataset;let target;
@@ -24,7 +24,8 @@ document.addEventListener('click',event=>{
 },true);
 // Developer editing mode: edit entry points next to the game's own controls. They post to the shell, which opens a dialog.
 function devTools(){
- if(SIM||!inspecting)return document.querySelectorAll('.dev-inline-tools').forEach(n=>n.remove());
+ // Edit entry points belong to developer mode only; control mode edits through its console, play mode shows none.
+ if(SIM||!inspecting||mode!=='developer')return document.querySelectorAll('.dev-inline-tools').forEach(n=>n.remove());
  const select=document.querySelector('select[aria-label="探索地圖"]');
  if(select&&!select.parentElement.querySelector('.dev-inline-tools')){
   const box=document.createElement('span');box.className='dev-inline-tools';box.style.cssText='display:inline-flex;gap:6px;margin-top:6px;flex-wrap:wrap';

@@ -8,6 +8,8 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   const p=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto('http://127.0.0.1:'+server.address().port+'/v2');
   await p.waitForFunction(()=>!document.getElementById('devApply').disabled,{},{timeout:60000});
+  // The console lives in control mode (總控模式).
+  await p.locator('#modeControl').click();
   const game=p.frameLocator('#devGame'),editor=p.frameLocator('#devEditor');
   await game.locator('body').evaluate(()=>{selectSaveSlot(1);start(0);clearInterval(timer);closeModal();});
   await game.locator('body').evaluate(()=>setTab('skills'));

@@ -8,7 +8,9 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   browser=await chromium.launch({headless:true,args:['--no-sandbox'],...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH}:{})});
   const p=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto('http://127.0.0.1:'+server.address().port+'/v2');
-  await p.waitForFunction(()=>/資料編輯已就緒/.test(document.getElementById('devStatus').textContent),{},{timeout:90000});
+  await p.waitForFunction(()=>/模式已就緒/.test(document.getElementById('devStatus').textContent),{},{timeout:90000});
+  // The console lives in control mode (總控模式).
+  await p.locator('#modeControl').click();
   const editor=p.frameLocator('#devEditor'),game=p.frameLocator('#devGame');
   const finished=()=>p.waitForFunction(()=>!document.getElementById('simRun').disabled&&!/試算中/.test(document.getElementById('simResult').textContent),{},{timeout:300000});
   const cells=async label=>p.locator('#simResult tr',{hasText:label}).first().locator('td').allInnerTexts();
