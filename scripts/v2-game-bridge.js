@@ -19,20 +19,29 @@ document.addEventListener('click',event=>{
  else if(d.secondsSkill&&d.secondsSkill!=='basic')target={kind:'skill',id:d.secondsSkill};
  else if(d.itemKind&&d.itemKey)target={kind:d.itemKind,key:d.itemKey};
  else if(d.enemyId){const enemy=typeof foes!=='undefined'?foes.find(x=>x.id===d.enemyId):null;if(enemy?.monsterId)target={kind:'monster',id:enemy.monsterId};}
- else if(d.heroId){const hero=typeof party!=='undefined'?party?.members.find(x=>String(heroKey(x))===d.heroId):null;if(hero)target={kind:'hero',job:hero.job};}
+ else if(d.heroId){const hero=typeof party!=='undefined'?party?.members.find(x=>String(heroKey(x))===d.heroId):null;if(hero)target=hero.companionId!==undefined&&mode==='developer'?{kind:'companion',id:hero.companionId}:{kind:'hero',job:hero.job};}
  if(!target)return;event.preventDefault();event.stopImmediatePropagation();send({kind:'dreaming-abyss-dev-inspect',target,context:context()});
 },true);
 // Developer editing mode: edit entry points next to the game's own controls. They post to the shell, which opens a dialog.
 function devTools(){
  // Edit entry points belong to developer mode only; control mode edits through its console, play mode shows none.
- if(SIM||!inspecting||mode!=='developer')return document.querySelectorAll('.dev-inline-tools').forEach(n=>n.remove());
+ if(SIM||!inspecting||mode!=='developer')return document.querySelectorAll('.dev-inline-tools,.dev-page-tools').forEach(n=>n.remove());
  const select=document.querySelector('select[aria-label="探索地圖"]');
  if(select&&!select.parentElement.querySelector('.dev-inline-tools')){
   const box=document.createElement('span');box.className='dev-inline-tools';box.style.cssText='display:inline-flex;gap:6px;margin-top:6px;flex-wrap:wrap';
   const add=(label,target)=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.devEdit=target.create?'map:new':'map:edit';b.style.cssText='font-size:12px;padding:3px 8px;border:1px dashed var(--gold,#dfc18b);background:transparent;color:inherit;border-radius:6px;cursor:pointer';b.onclick=e=>{e.preventDefault();e.stopPropagation();send({kind:'dreaming-abyss-dev-edit',target:typeof target==='function'?target():target});};box.append(b);};
-  add('✎ 編輯此地圖',()=>({kind:'map',index:Number(select.value)}));add('＋ 新增地圖',{kind:'map',create:true});
+  add('✎ 編輯此地圖',()=>({kind:'map',index:Number(select.value)}));add('＋ 新增地圖',{kind:'map',create:true});add('＋ 新增怪物',()=>({kind:'monster',create:true,mapIndex:Number(select.value)}));
   select.insertAdjacentElement('afterend',box);
  }
+ // Page lists: switch class, see every existing record, edit or add.
+ const page=typeof tab==='string'?tab:'',lists={skills:[['技能清單','skills']],equipment:[['裝備清單','equipment']],worn:[['裝備清單','equipment']],forge:[['裝備清單','equipment']],roster:[['夥伴清單','companions']],partnerRoster:[['夥伴清單','companions']]}[page]||[];
+ let bar=document.querySelector('.dev-page-tools');
+ if(!lists.length){bar?.remove();return;}
+ const sig=page+':'+lists.map(x=>x[1]).join(',');if(bar?.dataset.sig===sig)return;
+ bar?.remove();bar=document.createElement('div');bar.className='dev-page-tools';bar.dataset.sig=sig;bar.setAttribute('role','group');bar.setAttribute('aria-label','開發者清單');
+ bar.style.cssText='position:fixed;right:14px;bottom:72px;z-index:2147483000;display:flex;gap:6px;padding:6px;border:1px dashed var(--gold,#dfc18b);border-radius:10px;background:var(--panel,#211e2c);box-shadow:0 6px 20px #0006';
+ for(const [label,list] of lists){const b=document.createElement('button');b.type='button';b.textContent='🛠 '+label;b.dataset.devList=list;b.style.cssText='font-size:12px;padding:5px 10px;border:1px solid var(--gold,#dfc18b);background:transparent;color:inherit;border-radius:7px;cursor:pointer';b.onclick=e=>{e.preventDefault();e.stopPropagation();const job=typeof party!=='undefined'&&party?.members?.[0]?Number(party.members[0].job)||0:0;send({kind:'dreaming-abyss-dev-edit',target:{list,job}});};bar.append(b);}
+ document.body.append(bar);
 }
 const watch=setInterval(()=>{
  const theme=document.documentElement.dataset.uiTheme;if(theme!==lastTheme){lastTheme=theme;send({kind:'dreaming-abyss-dev-theme',theme});}

@@ -2855,7 +2855,24 @@ ensureArrays();requestEditorInitialRender();
     try{const out=fn();const issues=validateData();if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('地圖彈窗');render();return {ok:true,...out};}
     catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}
   }
+  const MONSTER_FIELDS=['name','element','race','hpMultiplier','attackMultiplier','defenseMultiplier','spawnWeight','maxDrops','enabled','eliteEnabled'];
+  function monsterRow(id){const m=data.balanceSettings.monsters.catalog.find(x=>x.id===id);if(!m)throw Error('找不到怪物 '+id);return m;}
+  function applyMonsterPatch(id,patch){
+    const m=monsterRow(id);
+    for(const [k,raw] of Object.entries(patch||{})){
+      if(!MONSTER_FIELDS.includes(k))throw Error('不支援的怪物欄位：'+k);
+      let v=raw;if(['hpMultiplier','attackMultiplier','defenseMultiplier','spawnWeight'].includes(k))v=Number(raw);else if(k==='maxDrops')v=Math.round(Number(raw));else if(['enabled','eliteEnabled'].includes(k))v=raw===true||raw==='true';else v=String(raw??'');
+      if(typeof v==='number'&&(!Number.isFinite(v)||v<0))throw Error('怪物欄位數值無效：'+k);
+      if(k==='name'&&!v.trim())throw Error('怪物名稱不可空白');
+      if(k==='element'&&!ELEMENTS.includes(v))throw Error('元素無效');
+      m[k]=v;
+    }
+  }
   globalThis.__EMBERWILD_WORLD_EDITOR={
+    monsterFields:MONSTER_FIELDS.slice(),elements:()=>ELEMENTS.map(v=>[v,ELEMENT_LABELS[v]||v]),
+    monster(id){const m=structuredClone(monsterRow(id)),map=data.balanceSettings.maps.catalog[m.mapIndex];return {...m,mapName:map?.name||'',elements:ELEMENTS.map(v=>[v,ELEMENT_LABELS[v]||v])};},
+    updateMonster(id,patch){return guardedMapChange(()=>{applyMonsterPatch(id,patch);const m=monsterRow(id);selected.worldMap=m.mapIndex;selected.worldMonsterSearch=m.id;return {id};});},
+    createMonster(mapIndex,patch){return guardedMapChange(()=>{const before=new Set(data.balanceSettings.monsters.catalog.map(x=>x.id));addNormalMonster(mapIndex);const row=data.balanceSettings.monsters.catalog.find(x=>!before.has(x.id));if(!row)throw Error('新增怪物失敗');applyMonsterPatch(row.id,patch);selected.worldMap=mapIndex;return {id:row.id,mapIndex};});},
     fields:MAP_FIELDS.slice(),
     maps(){ensureArrays();return data.balanceSettings.maps.catalog.map((m,i)=>({index:i,...structuredClone(m),overlevelVoucherGold:m.overlevelVoucherGold??defaultOverlevelVoucherGold(m.min),final:isFinalMapRow(m),core:i<=LEGACY_GATE_INDEX,monsters:data.balanceSettings.monsters.catalog.filter(x=>x.mapIndex===i).length}));},
     update(index,patch){return guardedMapChange(()=>{applyMapPatch(index,patch);selected.worldMap=index;return {index};});},
@@ -11079,7 +11096,10 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  const baseCount=count;count=(section,normalized=false)=>section==='inventoryIcons'?rows().filter(r=>!r.systemItem).length:baseCount(section,normalized);const baseValidate=validateData;validateData=()=>[...baseValidate(),...M.issues(data,I)];
  const managerSections=new Set(['equipment','equipmentPower','items','potions','gatheringProducts','alchemyRecipes','materialPrices','companionTokens','shopSettings','dailyQuests','sideQuests']);
  const baseRender=render;render=function(...args){if(currentSection==='inventoryIcons'){renderNav(true);page();return;}const out=baseRender(...args);if(managerSections.has(currentSection)){const origin=currentSection;document.getElementById('app').insertAdjacentHTML('afterbegin','<div class="toolbar"><button id="openGlobalItems">開啟全域道具管理器</button><span class="mini-note">圖示、顏色、價格、分類與用途統一管理。</span></div>');document.getElementById('openGlobalItems').onclick=()=>{if(returnPending){returnPending=false;currentSection='inventoryIcons';render();return;}view.hierarchy=origin==='equipment'?['裝備','主角裝備']:origin==='companionTokens'?['裝備','夥伴信物']:origin==='items'||origin==='potions'?['消耗品']:origin==='materialPrices'?['素材']:[];open('inventoryIcons',origin==='gatheringProducts'?'gather':origin==='alchemyRecipes'?'alchemy':'all');};}renderReturn();if(currentSection==='releases'){__EMBERWILD_RELEASE_EDITOR.showFeedback();if(drafts.size){document.getElementById('app').insertAdjacentHTML('afterbegin','<p class="notice">全域道具管理器有 '+drafts.size+' 件未儲存修改；請先儲存或捨棄，才能建立版本或發布。</p>');}}return out;};
- globalThis.__EMBERWILD_INVENTORY_ICON_EDITOR={toggleCategory,open,select,filter,query:filtered,jump,jumpDetails,addMaterial,removeMaterial,entries:rows,scope,selectTab:tab=>{view.tab=tab;persist();page('detail');},save:saveDraft,stage:(id,field,value)=>stage(id,field,value),batch:applyBatch,get diagnostics(){return {...metrics,drafts:drafts.size,rows:rows().length};},get state(){return structuredClone(view);},set:(kind,key,type,patch)=>{const row=rows().find(r=>r.kind===kind&&r.key===String(key))||(kind==='skill'?M.entries(data).find(r=>r.kind===kind&&r.key===String(key)):null);if(!row)throw Error('找不到道具');set(row,type,patch);},get:(kind,key)=>settings({kind,key:String(key)}).iconType,settings:(kind,key)=>structuredClone(settings({kind,key:String(key)}))};requestEditorInitialRender();
+ globalThis.__EMBERWILD_INVENTORY_ICON_EDITOR={toggleCategory,open,select,filter,query:filtered,jump,jumpDetails,addMaterial,removeMaterial,entries:rows,scope,selectTab:tab=>{view.tab=tab;persist();page('detail');},save:saveDraft,stage:(id,field,value)=>stage(id,field,value),batch:applyBatch,get diagnostics(){return {...metrics,drafts:drafts.size,rows:rows().length};},get state(){return structuredClone(view);},set:(kind,key,type,patch)=>{const row=rows().find(r=>r.kind===kind&&r.key===String(key))||(kind==='skill'?M.entries(data).find(r=>r.kind===kind&&r.key===String(key)):null);if(!row)throw Error('找不到道具');set(row,type,patch);},get:(kind,key)=>settings({kind,key:String(key)}).iconType,settings:(kind,key)=>structuredClone(settings({kind,key:String(key)})),
+  // Developer-mode dialogs: read one row and write fields atomically (a rejected save leaves no draft behind).
+  info(id){rows();const row=idIndex.get(id);if(!row)throw Error('找不到道具 '+id);const obj=objectFor(row);return {id:row.id,kind:row.kind,key:row.key,name:row.name,description:row.description??'',sellPrice:row.price,saleEnabled:settings(row).saleEnabled!==false,cost:row.kind==='item'&&obj&&Number.isFinite(obj.cost)?obj.cost:undefined,systemItem:!!row.systemItem,pending:drafts.has(id)};},
+  edit(id,fields){rows();if(!idIndex.get(id))throw Error('找不到道具 '+id);if(drafts.has(id))throw Error('此道具在總控模式有未儲存的修改，請先儲存或捨棄');for(const [f,v] of Object.entries(fields||{}))stage(id,f,v);try{saveDraft(id);return true;}catch(err){drafts.delete(id);errors.delete(id);persistDrafts();throw err;}}};requestEditorInitialRender();
 })();
 </script>
 
@@ -12589,3 +12609,77 @@ const previous=render;render=function(...args){const out=previous(...args);if(!a
 
 </script>
 <!-- wishing-lake:end -->
+<script id="dev-inline-api">
+/* Developer-mode dialogs (開發者模式): read and write equipment forms, companions and skills with the same rules as the
+   editor pages. Every write validates the whole document and restores the previous draft when it is rejected. */
+(function installDeveloperInlineApi(){
+  const copy=v=>structuredClone(v);
+  function guarded(fn){const snapshot=copy(data);try{const out=fn();ensureArrays();const issues=validateData();if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('開發者模式彈窗');render();return {ok:true,...(out||{})};}catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}}
+  const formsOf=job=>data.equipmentForms[job]||(data.equipmentForms[job]=[[],[],[],[]]);
+  function form(job,slot,index){const f=formsOf(job)[slot]?.[index];if(!f)throw Error('找不到裝備');return f;}
+  function cleanEffects(list){
+    if(!Array.isArray(list)||!list.length||list.length>5)throw Error('每件裝備需要 1～5 條固定屬性');
+    return list.map(fx=>{const def=EQUIPMENT_FIXED_EFFECT_DEFS.find(d=>d.key===fx.key);if(!def)throw Error('未知的固定屬性：'+fx.key);const out={key:fx.key,value:fx.key==='basicElement'?String(fx.value):Number(fx.value)};
+      if(fx.key!=='basicElement'&&!Number.isFinite(out.value))throw Error('固定屬性數值無效：'+def.label);
+      if(def.target==='element')out.element=ELEMENTS.includes(fx.element)?fx.element:'fire';if(def.target==='race')out.race=EQUIPMENT_FIXED_RACES[fx.race]?fx.race:'beast';if(def.target==='skill')out.skill=Math.max(0,Math.round(Number(fx.skill)||0));return out;});
+  }
+  function applyForm(f,patch){
+    for(const [k,v] of Object.entries(patch||{})){
+      if(k==='name'){const name=String(v||'').trim();if(!name)throw Error('裝備名稱不可空白');f.name=name;}
+      else if(k==='fixedEffects')f.fixedEffects=cleanEffects(v);
+      else if(k==='wearableJobs'){const jobs=[...new Set((v||[]).map(Number))].filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length).sort((a,b)=>a-b);if(!jobs.length)throw Error('至少保留 1 個可穿戴職業');f.wearableJobs=jobs;}
+      else throw Error('不支援的裝備欄位：'+k);
+    }
+    normalizeEquipmentFixedEffects(f);
+  }
+  globalThis.__EMBERWILD_EQUIPMENT_EDITOR={
+    classes:()=>data.classes.map((c,i)=>({job:i,name:c.name})),
+    slots:SLOT_NAMES.slice(),
+    effects:()=>EQUIPMENT_FIXED_EFFECT_DEFS.map(d=>({key:d.key,label:d.label,unit:d.unit,target:d.target||null})),
+    elements:()=>ELEMENTS.map(v=>[v,ELEMENT_LABELS[v]||v]),races:()=>Object.entries(EQUIPMENT_FIXED_RACES),
+    list(job){return formsOf(job).map((slot,s)=>({slot:s,slotName:SLOT_NAMES[s],forms:slot.map((f,i)=>({index:i,id:f.id,name:f.name,effects:(f.fixedEffects||[]).map(fx=>(EQUIPMENT_FIXED_EFFECT_DEFS.find(d=>d.key===fx.key)?.label||fx.key)+' '+fx.value).join('、')}))}));},
+    form(job,slot,index){return {job,slot,index,...copy(form(job,slot,index))};},
+    update(job,slot,index,patch){return guarded(()=>{applyForm(form(job,slot,index),patch);return {job,slot,index};});},
+    create(job,slot,patch){return guarded(()=>{const list=formsOf(job)[slot];if(!list)throw Error('部位無效');const i=list.length,allJobs=data.classes.map((_,j)=>j);list.push({id:`job${job}-slot${slot}-form${i}`,name:'新裝備',wearableJobs:slot===1?allJobs:[job],fixedEffects:[{key:'flatAttack',value:0}],...(list[0]?.weaponType?{weaponType:list[0].weaponType}:{})});applyForm(list[i],patch);return {job,slot,index:i};});}
+  };
+  const COMPANION_STATS=['hp','atk','def'];
+  function companion(id){const p=(data.companions||[]).find(x=>x.id===Number(id));if(!p)throw Error('找不到夥伴 '+id);return p;}
+  function applyCompanion(p,patch){
+    for(const [k,v] of Object.entries(patch||{})){
+      if(k==='name'){const name=String(v||'').trim();if(!name||Array.from(name).length>20)throw Error('夥伴名稱需 1～20 字');if((data.companions||[]).some(x=>x!==p&&x.name===name))throw Error('夥伴名稱重複：'+name);p.name=name;}
+      else if(k==='availability'){if(!['visible','hidden'].includes(v))throw Error('顯示狀態無效');p.availability=v;}
+      else if(k==='description')p.description=String(v||'');
+      else if(/^(initialStats|growthPerLevel)\.(hp|atk|def)$/.test(k)){const [group,stat]=k.split('.'),n=Number(v);if(!Number.isFinite(n)||n<0)throw Error('數值無效：'+k);p[group]={...(p[group]||{}),[stat]:n};}
+      else throw Error('不支援的夥伴欄位：'+k);
+    }
+  }
+  globalThis.__EMBERWILD_COMPANION_EDITOR={
+    list(){return (data.companions||[]).map(p=>({id:p.id,name:p.name,job:p.job,jobName:data.classes[p.job]?.name||'',availability:p.availability||'visible',description:p.description||''}));},
+    get(id){const p=companion(id),out={id:p.id,name:p.name,job:p.job,availability:p.availability||'visible',description:p.description||''};for(const g of ['initialStats','growthPerLevel'])for(const s of COMPANION_STATS)out[g+'.'+s]=p[g]?.[s]??0;return out;},
+    update(id,patch){return guarded(()=>{applyCompanion(companion(id),patch);return {id:Number(id)};});},
+    // New companions reuse the companion page's own 新增角色 button so they get the same defaults.
+    // Same defaults as the companion page's 新增角色 (hidden until edited, no skills yet).
+    create(job=0,patch){return guarded(()=>{const list=data.companions||(data.companions=[]);if(list.length>=64)throw Error('夥伴已達上限');job=Number(job);if(!data.classes[job])throw Error('職業無效');const id=Math.max(9,...list.map(p=>p.id))+1,weapon=data.equipmentForms[job]?.[0]?.[0]?.weaponType||'';list.push({id,job,name:uniqueCompanionName('新夥伴'+id),availability:'hidden',description:'',points:[0,0,1],core:[],active:[],proc:[],support:[],passives:[],weapon});applyCompanion(list.at(-1),patch);return {id};});}
+  };
+  const S=()=>globalThis.__EMBERWILD_SKILL_SYSTEM_EDITOR,TYPES={active:'主動',proc:'觸發',support:'輔助',passive:'被動'};
+  globalThis.__EMBERWILD_SKILL_DIALOG={
+    types:TYPES,
+    list(job){return data.skillSystem.definitions.filter(s=>!s.deleted&&s.partnerId==null&&Array.isArray(s.jobs)&&s.jobs.includes(job)).map(s=>({id:s.id,name:s.name,type:s.type,typeName:TYPES[s.type]||s.type,requiredLevel:s.requiredLevel??s.level??1,disabled:!!s.disabled,cooldown:s.timing?.cooldownSeconds,power:s.power}));},
+    get(id){const s=data.skillSystem.definitions.find(x=>x.id===id);if(!s)throw Error('找不到技能 '+id);return {id:s.id,name:s.name,description:s.description||'',type:s.type,typeName:TYPES[s.type]||s.type,enabled:!s.disabled,power:s.power,cooldownSeconds:s.timing?.cooldownSeconds,mpCost:s.timing?.mpCost,procBaseChance:s.procBaseChance,maxTargets:s.maxTargets,requiredLevel:s.requiredLevel,jobs:copy(s.jobs||[])};},
+    update(id,values){
+      const s=data.skillSystem.definitions.find(x=>x.id===id);if(!s)return {ok:false,error:'找不到技能 '+id};
+      const patch={timing:{...s.timing}};
+      for(const [k,v] of Object.entries(values||{})){
+        if(k==='name'){const name=String(v||'').trim();if(!name)return {ok:false,error:'技能名稱不可空白'};patch.name=name;}
+        else if(k==='description')patch.description=String(v||'');else if(k==='enabled')patch.disabled=!v;
+        else if(['cooldownSeconds','mpCost'].includes(k)){const n=Number(v);if(!Number.isFinite(n)||n<0)return {ok:false,error:'數值無效：'+k};patch.timing[k]=n;}
+        else if(['power','procBaseChance','maxTargets','requiredLevel'].includes(k)){const n=Number(v);if(!Number.isFinite(n)||n<0)return {ok:false,error:'數值無效：'+k};patch[k]=['maxTargets','requiredLevel'].includes(k)?Math.round(n):n;}
+        else return {ok:false,error:'不支援的技能欄位：'+k};
+      }
+      try{S().updateSkill(id,patch);render();return {ok:true,id};}catch(e){return {ok:false,error:e.message};}
+    },
+    create(job,type){try{const id=S().addSkill(job,type);render();return {ok:true,id};}catch(e){return {ok:false,error:e.message};}},
+    duplicate(id){try{const out=S().duplicateSkill(id);render();return {ok:true,id:out};}catch(e){return {ok:false,error:e.message};}}
+  };
+})();
+</script>

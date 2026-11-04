@@ -49,6 +49,50 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
 
   assert.equal(await p.locator('#modeControl').getAttribute('aria-pressed'),'true');assert.equal(await game.locator('.dev-inline-tools').count(),0,'control mode has no in-game edit buttons');
   await p.locator('#modeDeveloper').click();assert.equal(await p.locator('#devDock').isVisible(),false,'developer mode hides the console');await game.locator('.dev-inline-tools').waitFor();
+  // Lists on each page: switch class, edit an existing record, add a new one.
+  const listButton=name=>game.locator('.dev-page-tools [data-dev-list="'+name+'"]');
+  await game.locator('body').evaluate(()=>setTab('skills'));await listButton('skills').click();await dialog.waitFor();
+  assert.match(await p.locator('#devInlineTitle').innerText(),/技能清單 · 戰士/);
+  await p.locator('#devInlineTabs [data-list-job="1"]').click();assert.match(await p.locator('#devInlineTitle').innerText(),/技能清單 · 法師/);
+  const mageSkill=await editor.locator('body').evaluate(()=>data.skillSystem.definitions.find(s=>s.jobs?.includes(1)&&s.partnerId==null&&s.type==='active'&&!s.deleted&&s.timing?.cooldownSeconds>0));
+  await p.locator('.dev-list-row',{hasText:mageSkill.name}).first().click();await p.locator('#devInline-cooldownSeconds').waitFor();
+  await p.locator('#devInline-cooldownSeconds').fill(String(mageSkill.timing.cooldownSeconds+2));await p.locator('#devInlineSave').click();
+await p.waitForFunction(()=>/技能清單/.test(document.getElementById('devInlineTitle').textContent),{},{timeout:10000});
+  assert.equal(await game.locator('body').evaluate((_,id)=>__EMBERWILD_SKILLS.byId(id).timing.cooldownSeconds,mageSkill.id),mageSkill.timing.cooldownSeconds+2,'the preview uses the edited cooldown');
+  await p.locator('.dev-list-adds button',{hasText:'新增主動技能'}).click();await p.locator('#devInline-name').waitFor();
+  assert.match(await p.locator('#devInlineTitle').innerText(),/編輯技能/);await p.locator('#devInlineCancel').click();
+  // Equipment: add a weapon variant for the warrior.
+  const forms=await game.locator('body').evaluate(()=>ITEM_FORMS[0][0].length);
+  await game.locator('body').evaluate(()=>setTab('equipment'));await listButton('equipment').click();await dialog.waitFor();
+  await p.locator('#devInlineFields button',{hasText:'＋ 新增武器'}).click();await p.locator('#devInline-name').fill('開發者測試劍');
+  await p.locator('#devInlineEffects [data-part="value"]').first().fill('7');await p.locator('#devInlineSave').click();
+  await p.waitForFunction(()=>/裝備清單/.test(document.getElementById('devInlineTitle').textContent),{},{timeout:10000});
+  assert.equal(await game.locator('body').evaluate(()=>ITEM_FORMS[0][0].length),forms+1);assert.equal(await game.locator('body').evaluate(()=>ITEM_FORMS[0][0].at(-1).name),'開發者測試劍');
+  await p.locator('#devInlineCancel').click();
+  // Companions: add a mage companion.
+  const companions=await editor.locator('body').evaluate(()=>data.companions.length);
+  await game.locator('body').evaluate(()=>setTab('partnerRoster'));await listButton('companions').click();await dialog.waitFor();
+  await p.locator('#devInlineTabs [data-list-job="1"]').click();await p.locator('.dev-list-adds button',{hasText:'新增夥伴'}).click();
+  await p.locator('#devInline-name').fill('測試法師夥伴');await p.locator('#devInlineSave').click();
+  await p.waitForFunction(()=>/夥伴清單/.test(document.getElementById('devInlineTitle').textContent),{},{timeout:10000});
+  assert.equal(await editor.locator('body').evaluate(()=>data.companions.length),companions+1);
+  assert.equal(await game.locator('body').evaluate(()=>exportableBalance().companions.some(c=>c.name==='測試法師夥伴'&&c.job===1)),true);
+  await p.locator('#devInlineCancel').click();
+  // Items: click a material slot in the bag.
+  await game.locator('body').evaluate(()=>{state.materials['紅色草']=3;setTab('equipment');setInventoryCategory('materials');render();});
+  const herb=game.locator('[data-item-kind="material"][data-item-key="紅色草"]').first();
+  assert.equal(await herb.count(),1,'the bag lists the material');{await herb.click();await p.locator('#devInline-sellPrice').waitFor();await p.locator('#devInline-sellPrice').fill('4');await p.locator('#devInlineSave').click();
+   await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);assert.equal(await game.locator('body').evaluate(()=>materialSellPrice('紅色草')),4);}
+  // Monsters: add one to the current map, then edit an enemy card in battle.
+  await game.locator('body').evaluate(()=>{setTab('battle');selectExplorationMap(0);});
+  await game.locator('.dev-inline-tools').getByRole('button',{name:'＋ 新增怪物'}).click();await p.locator('#devInline-name').fill('開發者測試怪');await p.locator('#devInlineSave').click();
+  await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);
+  assert.equal(await game.locator('body').evaluate(()=>monsterCatalog().some(m=>m.name==='開發者測試怪'&&m.mapIndex===0)),true);
+  await game.locator('body').evaluate(()=>{spawnGroup();running=true;render();});
+  const enemy=game.locator('[data-enemy-id]').first();await enemy.click();await p.locator('#devInline-hpMultiplier').waitFor();
+  await p.locator('#devInline-hpMultiplier').fill('2');await p.locator('#devInlineSave').click();await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);
+  await game.locator('body').evaluate(()=>{running=false;});
+  assert.deepEqual(await editor.locator('body').evaluate(()=>validateData()),[],'the draft stays valid after every dialog');
   // Play-test mode hides the edit entry points; editing mode restores them.
   await p.locator('#devPlay').click();assert.equal(await game.locator('.dev-inline-tools').count(),0);
   await p.locator('#devPlay').click();await game.locator('.dev-inline-tools').waitFor();
