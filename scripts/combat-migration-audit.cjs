@@ -31,7 +31,7 @@
  function assertSupported(doc){
   const paths=unsupportedPaths(doc);
   if(doc?.balanceSettings?.meta?.combatTimingVersion===1){const S=root.EmberwildSecondsSchema||(typeof require==='function'?require('./seconds-schema.cjs'):null);if(!S)throw Error('秒數／MP 驗證器未載入');try{S.assertJSON(doc);for(const k of ['independentActionsVersion','continuousExplorationVersion'])if(doc.balanceSettings.meta[k]!==undefined&&doc.balanceSettings.meta[k]!==1)throw Error('未知的 '+k);S.validateImport(doc);for(const state of doc.statusDefinitions||[])if(state.timing&&(state.permanent===true)!==(state.timing.durationSeconds===null))throw Error('狀態 '+state.id+' 的永久標記與 timing.durationSeconds 不一致');}catch(e){throw Error('秒數／MP：'+e.message);}return doc;}
-  if(paths.length)throw Error('秒數／MP 戰鬥資料尚未接通目前遊戲與平衡器，不能套用、換算或發布。請先完成戰鬥資料格式與執行器移植：'+paths.slice(0,8).join('、'));
+  if(paths.length){const stale=doc?.balanceSettings?.meta?.combatTimingVersion===undefined?'這份資料含秒數／MP 欄位，但缺少 balanceSettings.meta.combatTimingVersion 標記，通常是舊版平衡器存下的工作草稿。請按「還原最初資料」改用目前遊戲資料，或從「發布管理」載入線上版本。':'';throw Error(stale+'秒數／MP 戰鬥資料尚未接通目前遊戲與平衡器，不能套用、換算或發布。請先完成戰鬥資料格式與執行器移植：'+paths.slice(0,8).join('、'));}
   return doc;
  }
  function inspect(doc){

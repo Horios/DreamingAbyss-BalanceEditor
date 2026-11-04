@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "fdbd70c8710876fe165d9fad32968e8d744f631e",
+  "sourceCommit": "cd9fd14b44ade70c453503cb9cda1b5365a481d1",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -319,8 +319,8 @@
       "sha256": "b00214ea104461abc8ba2b54ad04296f58ed82d77562c4bb2d17e327ecb5617c"
     },
     {
-      "path": "js/balance/progression-runtime.js",
-      "sha256": "8e590d5b4830e958f3f7420b2d91c045114d75d9fb915e2948edd2eedd69c690"
+      "path": "js/balance/progression-runtime.js?v=20261104-v0057-legacy1",
+      "sha256": "af0229ad578217b4acbf1d856cdc937716ea6ad515463939e887d27c6dec4d6a"
     },
     {
       "path": "js/items/shop-catalog.js?v=20261014-descriptions1",
@@ -447,8 +447,8 @@
       "sha256": "c7017e100ff59ca1567dc93cc7963eebba6f335f93484ff4c1b34c5252f2b978"
     },
     {
-      "path": "js/skills/skill-system-runtime.js?v=20261103-v0038-boot1",
-      "sha256": "125abef9359b2dcf38ab980213b4ae602db320e43c9c40bbc15ca4e79abf26ec"
+      "path": "js/skills/skill-system-runtime.js?v=20261104-v0058-passive-save1",
+      "sha256": "9240a08e64ff8620151558003b7f742a8d535c3669b4bcc3ee35bb9dc22c0032"
     },
     {
       "path": "js/equipment/equipment-skill-runtime.js",
@@ -459,8 +459,8 @@
       "sha256": "84104aac3e22526bdfd0d59e8e2ee98f9695612d9aeb214b741918010c8c1d51"
     },
     {
-      "path": "js/ui/battle-summary.js?v=20261103-v0041-stack1",
-      "sha256": "af4c7187bee6a3ba554a49793189736c76ac81a268d1be35a904c2cb74fc8c0f"
+      "path": "js/ui/battle-summary.js?v=20261104-v0054-resync1",
+      "sha256": "cc4ad6d510333c2b729fd0794da5d9e15ec726565e05f25356e2ae7fa16cf89c"
     },
     {
       "path": "js/ui/battle-effects.js?v=20261103-v0043-blast1",
@@ -491,8 +491,8 @@
       "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261103-v0042-header1",
-      "sha256": "43aefa27a3660cdecfc5b37f70ca94875b736e6bcd114b7e43baf89f09689827"
+      "path": "js/ui/seconds-battle.js?v=20261104-v0054-resync1",
+      "sha256": "e67056e184223d71c6475f425da388a7614c3a8e864e5de13e9a2d7147c4354d"
     }
   ]
 }

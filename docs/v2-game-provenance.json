@@ -1,5 +1,5 @@
 {
-  "gameCommit": "fdbd70c8710876fe165d9fad32968e8d744f631e",
+  "gameCommit": "cd9fd14b44ade70c453503cb9cda1b5365a481d1",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -39,7 +39,7 @@
     },
     {
       "path": "js/balance/progression-runtime.js",
-      "sha256": "8e590d5b4830e958f3f7420b2d91c045114d75d9fb915e2948edd2eedd69c690"
+      "sha256": "af0229ad578217b4acbf1d856cdc937716ea6ad515463939e887d27c6dec4d6a"
     },
     {
       "path": "js/balance/published-loader.js",
@@ -287,7 +287,7 @@
     },
     {
       "path": "js/skills/skill-system-runtime.js",
-      "sha256": "125abef9359b2dcf38ab980213b4ae602db320e43c9c40bbc15ca4e79abf26ec"
+      "sha256": "9240a08e64ff8620151558003b7f742a8d535c3669b4bcc3ee35bb9dc22c0032"
     },
     {
       "path": "js/skills/skill-tooltip-reroll.js",
@@ -315,7 +315,7 @@
     },
     {
       "path": "js/ui/battle-summary.js",
-      "sha256": "af4c7187bee6a3ba554a49793189736c76ac81a268d1be35a904c2cb74fc8c0f"
+      "sha256": "cc4ad6d510333c2b729fd0794da5d9e15ec726565e05f25356e2ae7fa16cf89c"
     },
     {
       "path": "js/ui/character-avatars.js",
@@ -403,7 +403,7 @@
     },
     {
       "path": "js/ui/seconds-battle.js",
-      "sha256": "43aefa27a3660cdecfc5b37f70ca94875b736e6bcd114b7e43baf89f09689827"
+      "sha256": "e67056e184223d71c6475f425da388a7614c3a8e864e5de13e9a2d7147c4354d"
     },
     {
       "path": "js/ui/skill-icon-library.js",
@@ -683,11 +683,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "9f1f25a067d48f2e191194ea2faf436279229f2cbc071c168e0280a44d296eb6"
+      "sha256": "3938b761c6060317545908cc08036bef4232a78799eb5659df60313b7a31bf19"
     },
     {
       "path": "index.html",
-      "sha256": "7e783178e899330b447a02442574694c095d409317455d93aa438aa901b9ddf9"
+      "sha256": "cfb64ce1d810955bac6a4453b13632428806a2f628ffc103af523a2a0d090949"
     }
   ],
   "gameBridgeSha256": "f925b38419877f1756748d4dd8d587d8d1cc6c172234f48063936c943c619dce",
