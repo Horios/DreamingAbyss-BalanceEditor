@@ -11697,16 +11697,19 @@ html body label:has(>input:is([type=checkbox],[type=radio])){display:flex;flex-d
 (()=>{
  // The adventure guide is a header dialog in the game (v0.047), no longer a menu page; older documents may still list it.
  const RETIRED=new Set(['guide']);
- const VERSION=1,PAGES={battle:'荒野探索',statistics:'戰鬥統計',shop:'商店',roster:'隊伍編成',partnerRoster:'夥伴名冊',character:'角色能力',skills:'技能',equipment:'背包',worn:'裝備與信物',forge:'裝備強化',bossCraft:'BOSS 製作','story-main':'主線','story-side':'支線','story-npc':'NPC 任務',quests:'委託',gather:'採集',alchemy:'煉金'},copy=value=>structuredClone(value);
+ const VERSION=1,PAGES={battle:'荒野探索',statistics:'戰鬥統計',shop:'商店',roster:'隊伍編成',partnerRoster:'夥伴名冊',character:'角色能力',skills:'技能',equipment:'背包',worn:'裝備與信物',forge:'裝備強化',bossCraft:'BOSS 製作','story-main':'主線','story-side':'支線','story-npc':'NPC 任務',quests:'委託',wishingLake:'許願湖',gather:'採集',alchemy:'煉金'},copy=value=>structuredClone(value);
  const DEFAULTS={version:VERSION,groups:[
   {id:'adventure',label:'探索與冒險',expanded:true,pages:[['battle','荒野探索'],['statistics','戰鬥統計'],['shop','商店']]},
   {id:'party',label:'角色與隊伍',expanded:true,pages:[['roster','隊伍編成'],['partnerRoster','夥伴名冊'],['character','角色能力'],['skills','技能']]},
   {id:'equipment',label:'裝備與製作',expanded:false,pages:[['equipment','背包'],['worn','裝備與信物'],['forge','裝備強化'],['bossCraft','BOSS 製作']]},
-  {id:'missions',label:'主要任務',expanded:true,pages:[['story-main','主線'],['story-side','支線'],['story-npc','NPC 任務'],['quests','委託']]},
+  {id:'missions',label:'主要任務',expanded:true,pages:[['story-main','主線'],['story-side','支線'],['story-npc','NPC 任務'],['quests','委託'],['wishingLake','許願湖']]},
   {id:'life',label:'生活技能',expanded:true,pages:[['gather','採集'],['alchemy','煉金']]}
  ].map(group=>({...group,pages:group.pages.map(([id,label])=>({id,label}))}))};
  const validText=(value,max)=>typeof value==='string'&&value.trim()===value&&value.length>0&&value.length<=max;
- function ensure(doc){if(doc.navigation===undefined)doc.navigation=copy(DEFAULTS);for(const group of Array.isArray(doc.navigation?.groups)?doc.navigation.groups:[])if(Array.isArray(group?.pages)&&group.pages.some(page=>RETIRED.has(page?.id)))group.pages=group.pages.filter(page=>!RETIRED.has(page?.id));}
+ function ensure(doc){if(doc.navigation===undefined)doc.navigation=copy(DEFAULTS);for(const group of Array.isArray(doc.navigation?.groups)?doc.navigation.groups:[])if(Array.isArray(group?.pages)&&group.pages.some(page=>RETIRED.has(page?.id)))group.pages=group.pages.filter(page=>!RETIRED.has(page?.id));
+  // The wishing lake became a 任務 page in game v0.062; older documents get it right after 委託.
+  const groups=Array.isArray(doc.navigation?.groups)?doc.navigation.groups.filter(g=>Array.isArray(g?.pages)):[];
+  if(groups.length&&!groups.some(g=>g.pages.some(p=>p?.id==='wishingLake'))){const g=groups.find(x=>x.pages.some(p=>p?.id==='quests'))||groups.find(x=>x.id==='missions')||groups.at(-1),i=g.pages.findIndex(p=>p?.id==='quests');g.pages.splice(i<0?g.pages.length:i+1,0,{id:'wishingLake',label:'許願湖'});}}
  function issues(nav){
   const out=[];if(!nav||typeof nav!=='object'||Array.isArray(nav)||nav.version!==VERSION||!Array.isArray(nav.groups)||nav.groups.length<1||nav.groups.length>12)return ['導覽列表格式或版本無效。'];
   const groups=new Set(),pages=new Set();nav.groups.forEach((group,index)=>{
