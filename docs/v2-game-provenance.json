@@ -1,5 +1,5 @@
 {
-  "gameCommit": "cd9fd14b44ade70c453503cb9cda1b5365a481d1",
+  "gameCommit": "07f6e35fe1487c224b3470a02b2d326d72d15760",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -119,7 +119,7 @@
     },
     {
       "path": "js/combat/offline-exploration.js",
-      "sha256": "d7c188283ce7dd8d32e124563a105718277a88d7402ceb66f34cbb82f26380c8"
+      "sha256": "3fdd4ee2a7dee5a53317bec6bbfee45283ce0b99d217bc4a8396d5a3b2ab6b7d"
     },
     {
       "path": "js/combat/online-idle-statistics.js",
@@ -403,7 +403,7 @@
     },
     {
       "path": "js/ui/seconds-battle.js",
-      "sha256": "e67056e184223d71c6475f425da388a7614c3a8e864e5de13e9a2d7147c4354d"
+      "sha256": "cbb6cde1e3157fb3c1500ce5d5717dc4d70c7125343c286821ea227c9d6b61a7"
     },
     {
       "path": "js/ui/skill-icon-library.js",
@@ -415,7 +415,7 @@
     },
     {
       "path": "js/ui/team-builds.js",
-      "sha256": "25114c9b04ab585dde7d14594a102ccbda8b3824c9f65426eca5db44448402b1"
+      "sha256": "52bfabb848aa8d596994ec75843944817f61a83fc6190d9b0e72798f239f909f"
     },
     {
       "path": "js/ui/text-rarity-runtime.js",
@@ -615,7 +615,7 @@
     },
     {
       "path": "css/seconds-battle.css",
-      "sha256": "8816cc21ec40eba086b7f9353afcd0f697b969bab0cfba18952fe22f1d7b019e"
+      "sha256": "0502a6bc132c375f2c04e7d6a726a9069fe7966bff65d6b12163f1ec8f4c49c3"
     },
     {
       "path": "css/shop-inventory.css",
@@ -647,7 +647,7 @@
     },
     {
       "path": "css/team-builds.css",
-      "sha256": "c3ead61bfc8830ed5f975d18d60b47cf5de10bf43b0084df33ad3764b8fc7d29"
+      "sha256": "71cb72aab17b3a6a4356841fed3973dd0e0528dd4062743f042cf636aba88c2f"
     },
     {
       "path": "css/text-rarity.css",
@@ -683,14 +683,14 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "3938b761c6060317545908cc08036bef4232a78799eb5659df60313b7a31bf19"
+      "sha256": "c1f74a14f47053d76ded8dd2ade4d8722c5faedb33869f2e7c0752bb0a7bce5b"
     },
     {
       "path": "index.html",
-      "sha256": "cfb64ce1d810955bac6a4453b13632428806a2f628ffc103af523a2a0d090949"
+      "sha256": "f3bfed824099d89c5ab53f4c9d47075c013214b758330318b90fc811a9717243"
     }
   ],
-  "gameBridgeSha256": "f925b38419877f1756748d4dd8d587d8d1cc6c172234f48063936c943c619dce",
-  "editorBridgeSha256": "896fc5fe2e2821016905f7928a017b2a26ef86910058071c418e16f6cd5675b5",
-  "entrySha256": "b77d00395ab7c8d046a6ef3e7e17042089bbf0e47331487f6c7cacbd0816aa15"
+  "gameBridgeSha256": "dc3c515a4cad2076b3f6ae4dbea5409bee29717f0f790bb1a4ffe8440ac19760",
+  "editorBridgeSha256": "f3459f81bf758a193e32d257cf81f1bb24bd612be8c326c590731844d5c2cfb0",
+  "entrySha256": "1cdd49d42e1105fd42aaa3b724a4b0ddc3653d8e1e385fcfdb821bd144c97134"
 }

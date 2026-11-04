@@ -10,7 +10,7 @@ if(SIM){const Real=Date;class SimDate extends Real{constructor(...a){super(...(a
 let ready=false,lastContext,lastTheme,inspecting=true,hooked=false;const send=data=>parent.postMessage(data,location.origin);
 const context=()=>({page:typeof state==='undefined'||!state?'creation':tab,mapIndex:typeof party!=='undefined'?party?.map:state?.map,job:typeof state!=='undefined'?state?.job:undefined});
 function notify(navigated=false){const value=context(),key=JSON.stringify(value);if(navigated||key!==lastContext){lastContext=key;send({kind:'dreaming-abyss-dev-page',...value,navigated});}}
-globalThis.__EMBERWILD_V2_GAME=Object.freeze({inspect(value){inspecting=!!value;},apply(doc){if(!ready)throw Error('遊戲仍在載入');const checked=validateBalanceConfig(structuredClone(doc));applyBalanceConfig(checked,{persist:false});return true;}});
+globalThis.__EMBERWILD_V2_GAME=Object.freeze({inspect(value){inspecting=!!value;devTools();},selectMap(index){if(typeof selectExplorationMap==='function'){setTab('battle');selectExplorationMap(index);}},apply(doc){if(!ready)throw Error('遊戲仍在載入');const checked=validateBalanceConfig(structuredClone(doc));applyBalanceConfig(checked,{persist:false});return true;}});
 // Capture only definitions with stable game IDs. Other controls retain their normal behavior.
 document.addEventListener('click',event=>{
  if(!ready||!inspecting)return;const node=event.target.closest?.('[data-skill-id],[data-skill-slot],[data-seconds-skill],[data-item-kind],[data-enemy-id],[data-hero-id]');if(!node)return;const d=node.dataset;let target;
@@ -22,9 +22,21 @@ document.addEventListener('click',event=>{
  else if(d.heroId){const hero=typeof party!=='undefined'?party?.members.find(x=>String(heroKey(x))===d.heroId):null;if(hero)target={kind:'hero',job:hero.job};}
  if(!target)return;event.preventDefault();event.stopImmediatePropagation();send({kind:'dreaming-abyss-dev-inspect',target,context:context()});
 },true);
+// Developer editing mode: edit entry points next to the game's own controls. They post to the shell, which opens a dialog.
+function devTools(){
+ if(SIM||!inspecting)return document.querySelectorAll('.dev-inline-tools').forEach(n=>n.remove());
+ const select=document.querySelector('select[aria-label="探索地圖"]');
+ if(select&&!select.parentElement.querySelector('.dev-inline-tools')){
+  const box=document.createElement('span');box.className='dev-inline-tools';box.style.cssText='display:inline-flex;gap:6px;margin-top:6px;flex-wrap:wrap';
+  const add=(label,target)=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.devEdit=target.create?'map:new':'map:edit';b.style.cssText='font-size:12px;padding:3px 8px;border:1px dashed var(--gold,#dfc18b);background:transparent;color:inherit;border-radius:6px;cursor:pointer';b.onclick=e=>{e.preventDefault();e.stopPropagation();send({kind:'dreaming-abyss-dev-edit',target:typeof target==='function'?target():target});};box.append(b);};
+  add('✎ 編輯此地圖',()=>({kind:'map',index:Number(select.value)}));add('＋ 新增地圖',{kind:'map',create:true});
+  select.insertAdjacentElement('afterend',box);
+ }
+}
 const watch=setInterval(()=>{
  const theme=document.documentElement.dataset.uiTheme;if(theme!==lastTheme){lastTheme=theme;send({kind:'dreaming-abyss-dev-theme',theme});}
  if(!ready&&globalThis.__EMBERWILD_BALANCE_READY===true){ready=true;send({kind:'dreaming-abyss-dev-ready'});}
+ if(ready)devTools();
  if(ready){if(!hooked&&typeof setTab==='function'){const base=setTab;setTab=function(...args){const out=base(...args);notify(true);return out;};hooked=true;}notify();}
 },150);
 if(SIM){

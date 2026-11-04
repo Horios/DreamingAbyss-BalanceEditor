@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "cd9fd14b44ade70c453503cb9cda1b5365a481d1",
+  "sourceCommit": "07f6e35fe1487c224b3470a02b2d326d72d15760",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -367,8 +367,8 @@
       "sha256": "7934f05a9b866e97fc8996a76661416d273beae11ecaa2a24e39f5f1a8b5b8be"
     },
     {
-      "path": "js/ui/team-builds.js?v=20261103-v0049-toast1",
-      "sha256": "25114c9b04ab585dde7d14594a102ccbda8b3824c9f65426eca5db44448402b1"
+      "path": "js/ui/team-builds.js?v=20261104-v0059-plan-fold1",
+      "sha256": "52bfabb848aa8d596994ec75843944817f61a83fc6190d9b0e72798f239f909f"
     },
     {
       "path": "js/equipment/boss-crafting.js",
@@ -439,8 +439,8 @@
       "sha256": "3daf0a40ad84917c17a7135b80dfb02312737a8d8d2481cce255fda56115cef8"
     },
     {
-      "path": "js/combat/offline-exploration.js?v=20261103-v0052-voucher-settings1",
-      "sha256": "d7c188283ce7dd8d32e124563a105718277a88d7402ceb66f34cbb82f26380c8"
+      "path": "js/combat/offline-exploration.js?v=20261104-v0060-clock1",
+      "sha256": "3fdd4ee2a7dee5a53317bec6bbfee45283ce0b99d217bc4a8396d5a3b2ab6b7d"
     },
     {
       "path": "js/combat/gem-finalizer.js?v=20261021-gems2",
@@ -491,8 +491,8 @@
       "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261104-v0054-resync1",
-      "sha256": "e67056e184223d71c6475f425da388a7614c3a8e864e5de13e9a2d7147c4354d"
+      "path": "js/ui/seconds-battle.js?v=20261104-v0060-tint1",
+      "sha256": "cbb6cde1e3157fb3c1500ce5d5717dc4d70c7125343c286821ea227c9d6b61a7"
     }
   ]
 }

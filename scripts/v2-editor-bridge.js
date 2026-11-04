@@ -29,6 +29,10 @@ globalThis.__EMBERWILD_V2_BRIDGE=Object.freeze({
  },
  current(){if(!__EMBERWILD_EXPERIENCE.guardRaw())throw Error('原始 JSON 有尚未套用的內容');return __EMBERWILD_RELEASE_EDITOR.current();},
  validate(doc){return __EMBERWILD_VALIDATE_DOCUMENT(doc);},
+ // In-game dialogs: maps through the world editor's guarded API.
+ maps(){return __EMBERWILD_WORLD_EDITOR.maps();},
+ saveMap(index,patch){return __EMBERWILD_WORLD_EDITOR.update(index,patch);},
+ createMap(type,patch){return __EMBERWILD_WORLD_EDITOR.create(type,patch);},
  selectedSkill(){return currentSection==='skillSystem'?__EMBERWILD_SKILL_SYSTEM_EDITOR.selected?.()||'':'';},
  save(){document.getElementById('cacheBtn').click();}
 });announce();

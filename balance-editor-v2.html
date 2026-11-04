@@ -17,6 +17,7 @@
 <output id="devStatus" role="status" aria-live="polite"></output>
 <script src="/scripts/v2-page-context.js"></script>
 <script src="/scripts/v2-simulation.js"></script>
+<script src="/scripts/v2-inline-edit.js"></script>
 <script>
 (()=>{'use strict';const $=id=>document.getElementById(id),game=$('devGame'),editor=$('devEditor');let activePage='battle',gameReady=false,editorReady=false,revision=0,appliedRevision=-1,section='',toastTimer,gameContext={},editing=true;
 const contexts=Object.fromEntries(Object.entries(DreamingAbyssPageContexts).map(([id,c])=>[id,[c.label,c.sections.map(x=>[x.id,x.label,x.paths])]]));
@@ -36,7 +37,10 @@ $('devPlay').onclick=()=>{editing=!editing;$('devPlay').textContent=editing?'遊
 function editorInit(){const deadline=Date.now()+30000;const check=()=>{try{if(bridge()){editorReady=true;bridge().theme(document.documentElement.dataset.uiTheme||'ember');for(const id of ['devAll','devSave','devPublish'])$(id).disabled=false;DreamingAbyssSimulation.enable(bridge);$('devApply').disabled=!gameReady;$('devOpen').disabled=false;$('devSettings').replaceChildren();for(const group of sections()){const g=document.createElement('optgroup');g.label=group.label;for(const page of group.pages){const o=document.createElement('option');o.value=page.id;o.textContent=page.label;g.append(o);}$('devSettings').append(g);}revision++;draft();tabs();if(gameReady&&editing)open();return;}}catch{}if(Date.now()<deadline)setTimeout(check,50);else status('編輯器尚未完成載入，請重新整理。');};check();}
 editor.addEventListener('load',editorInit);if(editor.contentDocument?.readyState==='complete')editorInit();
 window.addEventListener('message',event=>{if(event.origin!==location.origin)return;const m=event.data;if(event.source===editor.contentWindow){if(m?.kind==='dreaming-abyss-dev-change'){revision++;draft();}if(m?.kind==='dreaming-abyss-dev-section'&&typeof m.section==='string'){section=m.section;title();tabs();$('devSettings').value=section;}return;}if(event.source!==game.contentWindow)return;if(m?.kind==='dreaming-abyss-dev-theme'&&['ember','forest','paper'].includes(m.theme)){document.documentElement.dataset.uiTheme=m.theme;if(editorReady)bridge().theme(m.theme);return;}if(m?.kind==='dreaming-abyss-dev-ready'){gameReady=true;$('devPlay').disabled=false;$('devOpen').disabled=!editorReady;$('devApply').disabled=!editorReady;if(editorReady&&editing)open();status('資料編輯已就緒。切換遊戲頁面即可編輯該頁資料；點選技能或物品可定位定義。');}if(m?.kind==='dreaming-abyss-dev-inspect'&&editing&&editorReady){try{gameContext={...gameContext,...m.context};open(false);section=bridge().inspect(m.target,gameContext);title();tabs();status('已定位到遊戲物件使用的平衡資料。');}catch(e){status('無法定位資料：'+e.message);}return;}if(m?.kind==='dreaming-abyss-dev-page'&&typeof m.page==='string'){const changed=activePage!==m.page;activePage=m.page;gameContext={mapIndex:m.mapIndex,job:m.job};tabs();if(editing&&editorReady&&$('devFollow').checked&&(changed||m.navigated))open();}});
-window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('devDock').hidden)close();});
+const shell={bridge,apply,status,game:()=>game,open(id,ctx={}){if(!editorReady)return;open(false);try{gameContext={...gameContext,...ctx};section=bridge().open(id,gameContext);title();tabs();$('devSettings').value=section;}catch(e){status('無法開啟設定：'+e.message);}}};
+globalThis.DreamingAbyssShell=shell;
+window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==game.contentWindow)return;const m=event.data;if(m?.kind!=='dreaming-abyss-dev-edit')return;if(!editorReady||!gameReady)return status('編輯器尚未就緒');if(!editing)return;DreamingAbyssInlineEdit.open(m.target,shell);});
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('devDock').hidden&&!document.getElementById('devInlineDialog')?.open)close();});
 })();
 </script>
 </html>

@@ -2817,7 +2817,7 @@ ensureArrays();requestEditorInitialRender();
   function ensureBossMonster(mapIndex){
     const monsters=data.balanceSettings.monsters.catalog,map=data.balanceSettings.maps.catalog[mapIndex],kind=isFinalMapRow(map)?'final':'boss';let existing=monsters.find(m=>m.mapIndex===mapIndex&&(m.kind==='boss'||m.kind==='final'));
     if(existing){if(existing.kind!==kind){rewriteDropKindsForBoss(existing.id,existing.kind,kind);existing.kind=kind;existing.enabled=true;existing.eliteEnabled=false;}return existing;}
-    const id=uniqueId((map?.id||'map')+'_'+kind+'_',monsters),row=normalizeMonsterEditorRow({id,name:kind==='final'?'新最終首領':'新地圖首領',mapIndex,kind,material:data.balanceSettings.monsters.catalog.find(x=>x.material)?.material||'黏稠凝膠',element:'shadow',race:'demon',maxDrops:1,enabled:true,eliteEnabled:false,spawnWeight:1,stageCount:1,stageElite:false,stageOrder:100,hpMultiplier:1,attackMultiplier:1,defenseMultiplier:1});monsters.push(row);return row;
+    const id=uniqueId((map?.id||'map')+'_'+kind+'_',monsters),row=normalizeMonsterEditorRow({id,name:kind==='final'?'新最終首領':'新地圖首領',mapIndex,kind,material:data.balanceSettings.monsters.catalog.find(x=>x.material)?.material||'黏稠凝膠',element:'shadow',race:'demon',maxDrops:1,enabled:true,eliteEnabled:false,spawnWeight:1,stageCount:1,stageElite:false,stageOrder:100,hpMultiplier:1,attackMultiplier:1,defenseMultiplier:1,...(kind==='boss'?{bossStageCount:1,bossStageOrder:100}:{})});monsters.push(row);return row;
   }
   function addNormalMonster(mapIndex){const map=data.balanceSettings.maps.catalog[mapIndex],monsters=data.balanceSettings.monsters.catalog,id=uniqueId((map?.id||'map')+'_mob_',monsters),existing=monsters.filter(m=>m.mapIndex===mapIndex&&m.kind==='normal'),order=existing.length?Math.max(...existing.map(m=>Number(m.stageOrder)||10))+10:10;monsters.push(normalizeMonsterEditorRow({id,name:isFinalMapRow(map)?'新關卡小怪':'新怪物',mapIndex,kind:'normal',material:data.balanceSettings.monsters.catalog.find(x=>x.material)?.material||'黏稠凝膠',element:'physical',race:'beast',maxDrops:1,enabled:true,eliteEnabled:true,spawnWeight:1,stageCount:1,stageElite:false,stageOrder:order,hpMultiplier:1,attackMultiplier:1,defenseMultiplier:1}));markDirty();render();}
   function addMap(mapType='normal'){
@@ -2833,6 +2833,34 @@ ensureArrays();requestEditorInitialRender();
     else{map.eliteEnabled=true;map.eliteChance=Number(data.balanceSettings.monsters.encounter?.eliteChance??.12);map.bossEnabled=true;map.bossChance=Number(data.balanceSettings.monsters.encounter?.bossChance??.05);ensureBossMonster(mapIndex);if(!data.balanceSettings.monsters.catalog.some(m=>m.mapIndex===mapIndex&&m.kind==='normal'))addNormalMonster(mapIndex);}
   }
   function deleteMap(index){if(index<=LEGACY_GATE_INDEX)return alert('前 7 張核心地圖（包含終焉王座）為相容性保留區，不能刪除；可改名稱與數值。');const assigned=data.balanceSettings.monsters.catalog.filter(m=>m.mapIndex===index);if(assigned.length)return alert(`此地圖仍有 ${assigned.length} 隻怪物。請先移動／刪除怪物與首領後再刪除。`);if(!confirmDelete(`刪除地圖「${data.balanceSettings.maps.catalog[index].name}」？後續地圖索引會自動前移。`))return;data.balanceSettings.maps.catalog.splice(index,1);for(const m of data.balanceSettings.monsters.catalog)if(m.mapIndex>index)m.mapIndex--;selected.worldMap=Math.max(LEGACY_GATE_INDEX+1,index-1);data.balanceSettings.maps.levelRanges=data.balanceSettings.maps.catalog.map(m=>({min:m.min,max:m.max}));markDirty();render();}
+
+  // Developer-mode dialogs edit maps through the same rules as this page. A rejected change restores the whole draft.
+  const MAP_FIELDS=['name','mapType','min','max','family','icon','color','parallel','eliteEnabled','eliteChance','bossEnabled','overlevelVoucherGold'];
+  function applyMapPatch(index,patch){
+    const maps=data.balanceSettings.maps.catalog,map=maps[index];if(!map)throw Error('找不到地圖 '+index);const final=()=>isFinalMapRow(map);
+    for(const k of Object.keys(patch||{}))if(!MAP_FIELDS.includes(k))throw Error('不支援的地圖欄位：'+k);
+    if(patch.mapType!==undefined&&patch.mapType!==map.mapType){if(index<=LEGACY_GATE_INDEX)throw Error('前 7 張核心地圖的類型不能變更');setMapType(index,patch.mapType);}
+    for(const [k,raw] of Object.entries(patch||{})){
+      if(k==='mapType')continue;if(final()&&['eliteEnabled','eliteChance','bossEnabled','bossChance'].includes(k))continue;
+      let v=raw;if(['min','max','family'].includes(k))v=Math.round(Number(raw));else if(k==='eliteChance')v=Number(raw);else if(k==='overlevelVoucherGold')v=Math.round(Number(raw));else if(['parallel','eliteEnabled','bossEnabled'].includes(k))v=raw===true||raw==='true';else v=String(raw??'');
+      if(typeof v==='number'&&!Number.isFinite(v))throw Error('地圖欄位數值無效：'+k);
+      if(k==='name'&&!v.trim())throw Error('地圖名稱不可空白');if(k==='overlevelVoucherGold'&&v<0)throw Error('超等收益券金幣不可小於 0');
+      map[k]=v;if(k==='name')MAP_NAMES[index]=v;
+    }
+    if(map.min>map.max)throw Error('最低等級不可高於最高等級');
+    data.balanceSettings.maps.levelRanges=maps.map(m=>({min:m.min,max:m.max}));
+  }
+  function guardedMapChange(fn){
+    const snapshot=structuredClone(data);
+    try{const out=fn();const issues=validateData();if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('地圖彈窗');render();return {ok:true,...out};}
+    catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}
+  }
+  globalThis.__EMBERWILD_WORLD_EDITOR={
+    fields:MAP_FIELDS.slice(),
+    maps(){ensureArrays();return data.balanceSettings.maps.catalog.map((m,i)=>({index:i,...structuredClone(m),overlevelVoucherGold:m.overlevelVoucherGold??defaultOverlevelVoucherGold(m.min),final:isFinalMapRow(m),core:i<=LEGACY_GATE_INDEX,monsters:data.balanceSettings.monsters.catalog.filter(x=>x.mapIndex===i).length}));},
+    update(index,patch){return guardedMapChange(()=>{applyMapPatch(index,patch);selected.worldMap=index;return {index};});},
+    create(type,patch){return guardedMapChange(()=>{if(!['normal','final'].includes(type))throw Error('地圖類型無效');ensureArrays();const before=data.balanceSettings.maps.catalog.length;addMap(type);const index=data.balanceSettings.maps.catalog.length-1;if(index!==before)throw Error('新增地圖失敗');const {mapType,...rest}=patch||{};applyMapPatch(index,rest);selected.worldMap=index;return {index};});}
+  };
 
   function renderWorld(){
     ensureArrays();const maps=data.balanceSettings.maps.catalog,monsters=data.balanceSettings.monsters.catalog,mi=selected.worldMap,map=maps[mi],assigned=monsters.map((m,i)=>({m,i})).filter(x=>x.m.mapIndex===mi),normalCount=assigned.filter(x=>x.m.kind==='normal').length,final=map&&isFinalMapRow(map),bossKind=final?'final':'boss',boss=assigned.find(x=>x.m.kind===bossKind);const monsterWords=String(selected.worldMonsterSearch||'').toLocaleLowerCase().split(/\s+/).filter(Boolean),shown=assigned.filter(x=>(!selected.worldMonsterKind||x.m.kind===selected.worldMonsterKind)&&monsterWords.every(w=>(x.m.id+' '+x.m.name+' '+x.m.material).toLocaleLowerCase().includes(w)));selected.worldMonsterPage=Math.max(0,Math.min(selected.worldMonsterPage||0,Math.ceil(shown.length/20)-1));const visible=shown.slice(selected.worldMonsterPage*20,selected.worldMonsterPage*20+20);const globalMonster=structuredClone(data.balanceSettings.monsters);delete globalMonster.catalog;
