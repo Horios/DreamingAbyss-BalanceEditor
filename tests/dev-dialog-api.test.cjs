@@ -43,3 +43,10 @@ test('the item manager 新增藥水 button creates a potion that passes validati
  assert.deepEqual(plain(e.run('data.items.at(-1).timing')),{cooldownSeconds:9,durationSeconds:0});
  assert.deepEqual(plain(e.run('validateData()')),[]);
 });
+
+test('the companion token page 新增信物 creates a token that passes validation',()=>{
+ const e=editor();e.run('currentSection="companionTokens";render();document.getElementById("newToken").onclick()');
+ const t=plain(e.run('data.companionTokens.catalog.at(-1)'));
+ assert.equal(t.name,'新信物');assert.deepEqual(Object.keys(t.ability.timing).sort(),['cooldownSeconds','durationSeconds','firstTriggerSeconds','triggerIntervalSeconds']);
+ assert.deepEqual(plain(e.run('validateData()')),[]);
+});

@@ -1,5 +1,5 @@
 {
-  "gameCommit": "a012c752e9219c1fab719502ad728a9d4d4d51d8",
+  "gameCommit": "4b034ae1deaf538f0a3e3980e69a8ab12240d883",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -683,7 +683,7 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "e243feb5dd238257e2d1000e1c7c06b13f9be2cbb80e99fe4db78ff25058e27f"
+      "sha256": "c4c4c339b40a09e18fc34112724e6b8e22714888b4835efcdcdf93fab69a1c31"
     },
     {
       "path": "index.html",

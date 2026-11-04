@@ -3116,7 +3116,7 @@ ensureArrays();requestEditorInitialRender();
 
   function potionRows(){return data.items.map((x,i)=>({x,i})).filter(v=>isHeal(v.x));}
   function uniquePotionId(){const used=new Set(data.items.map(x=>x.id));let n=1,id;do{id='heal_custom_'+n++;}while(used.has(id));return id;}
-  globalThis.addHealingPotion=function(){ensureArrays();const id=uniquePotionId();data.items.push({id,type:HEAL_TYPE,cost:20,sellPrice:5,duration:0,cooldown:3,timing:{cooldownSeconds:9,durationSeconds:0},healAmount:50,shopAvailable:true,requiredVip:0,name:'自訂治療藥水',description:'自訂治療藥水。'});selected.potion=potionRows().length-1;markDirty('已新增治療藥水，尚未匯出');render();};
+  globalThis.addHealingPotion=function(){ensureArrays();const id=uniquePotionId();const potion={id,type:HEAL_TYPE,cost:20,sellPrice:5,duration:0,cooldown:3,healAmount:50,shopAvailable:true,requiredVip:0,name:'自訂治療藥水',description:'自訂治療藥水。'};newRowSecondsTiming('item',potion);data.items.push(potion);selected.potion=potionRows().length-1;markDirty('已新增治療藥水，尚未匯出');render();};
   globalThis.deleteHealingPotion=function(index){ensureArrays();const rows=potionRows();if(rows.length<=1)return alert('至少要保留 1 種治療藥水。');const row=rows[index];if(!row||!confirmDelete(`刪除治療藥水「${row.x.name||row.x.id}」？`))return;data.items.splice(row.i,1);selected.potion=Math.max(0,Math.min(selected.potion,rows.length-2));markDirty();render();};
 
   function renderHealingPotions(){
@@ -8953,7 +8953,7 @@ requestEditorInitialRender();
     document.getElementById('app').innerHTML=sectionHead('夥伴信物','夥伴可使用符合職業的信物；主角不能使用。沿用共用背包與強化，新增獨立掉落判定。','<button id="newToken" class="primary">新增信物</button>')+card('全域掉落與品質',dropFields(cfg.drop,'drop',true)+`<h3>品質屬性倍率</h3><div class="companion-fields">${cfg.qualityMultipliers.map((v,i)=>field(['普通','精良','稀有','傳說'][i]+'倍率','qualityMultipliers.'+i,v)).join('')}</div><p class="mini-note">獨立掉落不占用一般物品 maxDrops 配額；maxDrops=0 的怪物仍禁止信物。最多每隻一件，使用現有全隊掉寶增益；地圖、怪物清單為空代表全部。</p>`)+`<div class="companion-layout"><div class="card"><div class="list">${list.map((t,i)=>`<button data-token-select="${i}" class="listitem ${i===selectedToken?'active':''}">${esc(t.name)} · ${esc(t.id)}</button>`).join('')}</div></div><div class="card"><div class="card-b">${body}</div></div></div>`;
     const app=document.getElementById('app');app.querySelectorAll('[data-token-select]').forEach(el=>el.onclick=()=>{selectedToken=Number(el.dataset.tokenSelect);render();});
     function unique(){let n=1;while(list.some(t=>t.id==='token_'+n))n++;return 'token_'+n;}
-    document.getElementById('newToken').onclick=()=>{const t=copy(M.defaults.catalog[0]);t.id=unique();t.name='新信物';list.push(t);selectedToken=list.length-1;markDirty();render();};
+    document.getElementById('newToken').onclick=()=>{const t=copy(M.defaults.catalog[0]);t.id=unique();t.name='新信物';newRowSecondsTiming('token',t);list.push(t);selectedToken=list.length-1;markDirty();render();};
     document.getElementById('duplicateToken')?.addEventListener('click',()=>{const t=copy(d);t.id=unique();t.name+=' 副本';list.push(t);selectedToken=list.length-1;markDirty();render();});
     document.getElementById('deleteToken')?.addEventListener('click',()=>{if(!confirmDelete('刪除信物「'+d.name+'」？請先確認任務與其他設定沒有引用此信物。'))return;list.splice(selectedToken,1);markDirty();render();});
     document.getElementById('addTokenEffect')?.addEventListener('click',()=>{d.effects.push({key:'flatAttack',value:1});markDirty();render();});
@@ -12430,6 +12430,17 @@ const previous=render;render=function(...args){const out=previous(...args);if(!a
  requestEditorInitialRender();
 })();
 
+</script>
+<script id="new-row-seconds-timing">
+/* New rows created by the editor's 新增 buttons get canonical seconds timing with the same conversion the seconds schema
+   applies to older documents (legacy turns × the reference seconds in balanceSettings.combat.seconds). Without it a new
+   healing potion or companion token fails validation as soon as it is created. */
+function newRowSecondsTiming(kind,row){
+  const c=data?.balanceSettings?.combat?.seconds;if(!c||!row)return row;const round=v=>Math.round(v*1e6)/1e6;
+  if(kind==='item'&&['healPotion','imbue'].includes(row.type))row.timing??={cooldownSeconds:round((row.cooldown||0)*c.actionReferenceSeconds),durationSeconds:round((row.duration||0)*c.durationReferenceSeconds)};
+  if(kind==='token'&&row.ability){const a=row.ability;a.timing??={cooldownSeconds:round((a.cooldown||0)*c.actionReferenceSeconds),durationSeconds:round((a.duration||0)*c.durationReferenceSeconds),triggerIntervalSeconds:c.durationReferenceSeconds,firstTriggerSeconds:round((a.threshold||0)*c.durationReferenceSeconds)};}
+  return row;
+}
 </script>
 <script id="dev-inline-api">
 /* Developer-mode dialogs (開發者模式): read and write equipment forms, companions and skills with the same rules as the
