@@ -1,5 +1,5 @@
 {
-  "gameCommit": "ddaafa294ddc49f96203ec739ebe4c52dc2ba87d",
+  "gameCommit": "d020574114b48f2acab1ed66e5199e49ec5dec79",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -63,7 +63,7 @@
     },
     {
       "path": "js/character/companion-unlocks.js",
-      "sha256": "6b72828320ac23490b8c899f37817c7f12a75a5b4d706154523a4645eab47c35"
+      "sha256": "e6b64d457bdf0cc9b1dfad8b349519b6144eab2ad02600e0145f5242ac4b7b89"
     },
     {
       "path": "js/character/companions.js",
@@ -367,7 +367,7 @@
     },
     {
       "path": "js/ui/item-presentation.js",
-      "sha256": "56f0003146e4799c3d5a7028477ccf28e630849ef490c51d8d89cdb1d6f363c3"
+      "sha256": "1653231c7f16d2a8af26211f20ffba8d1dbb5f4b06ebbdc5d7a5cf19e89b0c59"
     },
     {
       "path": "js/ui/journal-split.js",
@@ -387,7 +387,7 @@
     },
     {
       "path": "js/ui/navigation-tree.js",
-      "sha256": "307898aa52ffc04f816c3369124586b49a1be528b1ebba46560fdb30bbd2efef"
+      "sha256": "1a5c45654d63f6e8a26be0dc9d56f3acbf9e5b54d6ff5a7db5a6344e44ec2111"
     },
     {
       "path": "js/ui/options.js",
@@ -403,7 +403,7 @@
     },
     {
       "path": "js/ui/seconds-battle.js",
-      "sha256": "e6e7dd0543bd25a3a9eb845e7dc616b6c15fba58c046acfc159a8486de96525f"
+      "sha256": "1f2c8944681afca7b70af8cf9107ffb544cf81b9803438ae5806809491f38193"
     },
     {
       "path": "js/ui/skill-icon-library.js",
@@ -411,7 +411,7 @@
     },
     {
       "path": "js/ui/skill-system-ui.js",
-      "sha256": "84104aac3e22526bdfd0d59e8e2ee98f9695612d9aeb214b741918010c8c1d51"
+      "sha256": "ab3b486363be761ee8dac8aeb5b21f8039e5f2a7a3154fa7ba48788bd29d193f"
     },
     {
       "path": "js/ui/team-builds.js",
@@ -631,7 +631,7 @@
     },
     {
       "path": "css/skill-system.css",
-      "sha256": "72c2439756494a9d5561dce2e3539a7bba97796fb08bea184902276dd9d28516"
+      "sha256": "0007fb033ed39ca24d40707124cf2dfe1bb742932dfa8314441a2995e4264d5b"
     },
     {
       "path": "css/skill-tooltip-reroll.css",
@@ -683,11 +683,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "1e6f692e524421561638d14ed28c0c9331d68d912ee4be1a84135c7d3a6d3608"
+      "sha256": "05e747db06f9cbe08a3f78ec66b7364756f865a70d5acdedf42a66d1023f4bb8"
     },
     {
       "path": "index.html",
-      "sha256": "0127f273279820bb469cda7ad6d48fb8f20b0dada236d5512ce7025b0c1795d8"
+      "sha256": "c97abe908e1dca09e688da6b90325439714bcb440e7e84acdd69bf8b58bfda56"
     }
   ],
   "gameBridgeSha256": "47d994f91aa7e7eb719ecd35360ef27e40feb7e82401aace8d11ce3dceef9444",
