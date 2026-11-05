@@ -50,3 +50,30 @@ test('the companion token page 新增信物 creates a token that passes validati
  assert.equal(t.name,'新信物');assert.deepEqual(Object.keys(t.ability.timing).sort(),['cooldownSeconds','durationSeconds','firstTriggerSeconds','triggerIntervalSeconds']);
  assert.deepEqual(plain(e.run('validateData()')),[]);
 });
+
+// Seconds combat revision (game v0.074): initial and reuse cooldowns, action cost and auto-cast condition on skills;
+// basic attack interval, class speed and shortest action interval on classes; basic attack interval on monsters.
+test('seconds rhythm fields read, validate, export and reach the game',()=>{
+ const e=editor();
+ const id='class1-initial0',sk=call(e,'__EMBERWILD_SKILL_DIALOG.get(args)',id);
+ assert.equal(sk.initialCooldownSeconds,plain(e.run(`data.skillSystem.definitions.find(s=>s.id==='${id}').timing.initialCooldownSeconds`)));
+ assert(Number.isFinite(sk.cooldownSeconds)&&sk.condition&&Number.isFinite(sk.actionCostSeconds));
+ assert.equal(call(e,'__EMBERWILD_SKILL_DIALOG.update(args[0],args[1])',[id,{initialCooldownSeconds:1.5,cooldownSeconds:13,condition:'always',actionCostSeconds:.2}]).ok,true);
+ for(const bad of [{initialCooldownSeconds:-1},{condition:'never'},{actionCostSeconds:'x'}])assert.equal(call(e,'__EMBERWILD_SKILL_DIALOG.update(args[0],args[1])',[id,bad]).ok,false,JSON.stringify(bad));
+ const cls=call(e,'__EMBERWILD_CLASS_DIALOG.get(2)');assert.equal(cls.baseIntervalSeconds,1.6);assert(cls.speedBase>0&&cls.minimumActionIntervalSeconds>0);
+ assert.deepEqual(call(e,'__EMBERWILD_CLASS_DIALOG.update(2,args)',{baseIntervalSeconds:1.7,speedBase:cls.speedBase+1}),{ok:true,job:2});
+ assert.equal(call(e,'__EMBERWILD_CLASS_DIALOG.update(2,args)',{baseIntervalSeconds:0}).ok,false);
+ const monsterId=plain(e.run("data.balanceSettings.monsters.catalog.find(m=>m.kind==='normal').id")),mon=call(e,'__EMBERWILD_WORLD_EDITOR.monster(args)',monsterId);
+ assert(mon.attackIntervalSeconds>=2.2&&mon.attackIntervalSeconds<=3.2);
+ assert.notEqual(call(e,'__EMBERWILD_WORLD_EDITOR.updateMonster(args[0],args[1])',[monsterId,{attackIntervalSeconds:2.6}]).ok,false);
+ assert.equal(call(e,'__EMBERWILD_WORLD_EDITOR.updateMonster(args[0],args[1])',[monsterId,{attackIntervalSeconds:-1}]).ok,false);
+ assert.equal(plain(e.run(`data.balanceSettings.monsters.catalog.find(m=>m.id===${JSON.stringify(monsterId)}).timing.baseIntervalSeconds`)),2.6);
+ assert.deepEqual(plain(e.run('validateData()')),[]);
+ const doc=plain(e.run('__EMBERWILD_RELEASE_EDITOR.current()'));
+ const t=doc.skillSystem.definitions.find(s=>s.id===id).timing;assert.deepEqual([t.initialCooldownSeconds,t.cooldownSeconds,t.actionCostSeconds],[1.5,13,.2]);
+ assert.equal(doc.balanceSettings.combat.seconds.classes.find(c=>c.job===2).baseIntervalSeconds,1.7);
+ assert.equal(doc.balanceSettings.monsters.catalog.find(m=>m.id===monsterId).timing.baseIntervalSeconds,2.6);
+ const g=inGame(e);
+ assert.equal(g.run(`EmberwildSecondsSchema.initialCooldownSeconds(__EMBERWILD_SKILLS.byId('${id}'))`),1.5);
+ assert.equal(g.run('EmberwildSecondsCombat.config().classes.find(c=>c.job===2).baseIntervalSeconds'),1.7);
+});

@@ -1,14 +1,14 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "546aced16df966593acfbd4126c6258f5be2ee26",
+  "sourceCommit": "b50177ddb835240114f44ac0a30b45ea281b51f0",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
       "sha256": "bdf3ebde5c908169a8881246134ab6c80650d152058b4cca5e7aab40fdce9dc7"
     },
     {
-      "path": "js/combat/seconds-schema.js?v=20261102-v0022-verification1",
-      "sha256": "574a9294666f2fe6239dc8b108a8e794f3651b5b59c7381730ef3bc365bb7c61"
+      "path": "js/combat/seconds-schema.js?v=20261105-v0074-initialcd1",
+      "sha256": "27b9772c75086d0622c5865ebb6ba7c0ee1760de03107b0035fb57c7856a911b"
     },
     {
       "path": "js/ui/icon-color-palette.js?v=20261014-palette1",
@@ -83,8 +83,8 @@
       "sha256": "16746a329b2b4dcb2c22403a536725325e32ea204abc8c967061c8f2445b976d"
     },
     {
-      "path": "js/combat/seconds-timeline.js?v=20261102-v0020-continuous1",
-      "sha256": "1dab3f06fce797af82f3d5094010593a72c990648bd2c32e8748d1726550cea7"
+      "path": "js/combat/seconds-timeline.js?v=20261105-v0074-initialcd1",
+      "sha256": "ca32f2d8d7d91b1618b4b951726c8868f6ba04ceb3f9e37a85c6bea8ceb02e33"
     },
     {
       "path": "js/world/quest-design-model.js?v=20261019-daily-speed2",
@@ -471,16 +471,16 @@
       "sha256": "ec3a63ba609766fffdbe6c56ec43e3a647737a1f7a6a9f08237bb687f227bea0"
     },
     {
-      "path": "js/combat/event-trigger-runtime.js?v=20261103-v0037-seconds-log1",
-      "sha256": "02d44d5d87197bc2ad2ce2c1b425d7b406c826111a60acaab0f2ccd189a1b13c"
+      "path": "js/combat/event-trigger-runtime.js?v=20261105-v0074-initialcd1",
+      "sha256": "c6fdfa86ba08e1d7c4b5e589652f42226449dc2df259b5b22ea3b9c08f2e5d4c"
     },
     {
       "path": "js/combat/battle-configuration.js?v=20261103-v0037-offline-speed1",
       "sha256": "3d4304de56df1400b460684771b69f02a5e2479a1836380feaa732562064e6a3"
     },
     {
-      "path": "js/combat/seconds-runtime.js?v=20261104-v0068-destination1",
-      "sha256": "b4ac204f4f445a373ea0b258928d7657b1c6d03087a9f2775d5c16209b4539a8"
+      "path": "js/combat/seconds-runtime.js?v=20261105-v0074-initialcd1",
+      "sha256": "520f696e16e3c9ff944656e39dd9879cfaab4bcaed686c6ef74c0c8bd4b0f20a"
     },
     {
       "path": "js/combat/online-idle-statistics.js?v=20261104-v0068-destination1",
@@ -491,8 +491,8 @@
       "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261104-v0068-destination1",
-      "sha256": "f67a0303ab86fc08928cbf62f7de1a4c93c5635736e0034b0ac19122c3c02cb2"
+      "path": "js/ui/seconds-battle.js?v=20261105-v0074-initialcd1",
+      "sha256": "bfd199808589f12f2887fe4a678e83c53400e3a933a6fc94973d1ee50170267a"
     }
   ]
 }

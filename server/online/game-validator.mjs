@@ -56,7 +56,7 @@ export function createGameValidator(){
 
 setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThemeOptionsView=globalThis.uiThemeOptionsView??uiThemeOptionsView;
 
-/* js/combat/seconds-schema.js?v=20261102-v0022-verification1 */
+/* js/combat/seconds-schema.js?v=20261105-v0074-initialcd1 */
 /* Canonical seconds/MP extension. Legacy positional timing is a derived adapter,
    retained for old import validators, never used by the seconds scheduler. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.EmberwildSecondsSchema=api;})(globalThis,()=>{
@@ -87,6 +87,28 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
    bossDurationSeconds:round(Math.max(0,Number(skill.bossDuration)||0)*interval),
    tickIntervalSeconds:config.periodicIntervalSeconds,condition:heal?'injured':buff?'missingEffect':'always'};
  }
+ // Initial cooldown (v0.074): time from each encounter's start until a skill may first be cast; the reuse
+ // cooldown (cooldownSeconds) starts after each cast. Skills without an explicit value use this role rule
+ // instead of becoming instantly ready: a share of the reuse cooldown that depends on the skill's role,
+ // clamped per role and never longer than the reuse cooldown, rounded to 0.5 s.
+ const INITIAL_ROLES={defense:[0,0,0],heal:[.15,.5,2],taunt:[.15,.5,2],buff:[.2,1,4],debuff:[.2,1,4],control:[.3,2,6],area:[.35,2,6],damage:[.25,1,4]};
+ function initialCooldownRole(skill){
+  const k=skill.kind,e=skill.effect,se=skill.systemEffect;
+  if(e==='shield'||e==='revive'||e==='cleanse'||k==='guard'||se==='guard')return 'defense';
+  if(e==='heal'||k==='regen'||se==='regen')return 'heal';
+  if(e==='tauntRage'||se==='taunt')return 'taunt';
+  if(['polymorph','freeze','frost','fear','summonFreezeTrap','summonMorphTrap'].includes(e)||se==='slow')return 'control';
+  if(skill.type==='support')return ['fracture','weaken','damageAmp'].includes(k)?'debuff':'buff';
+  if(e==='applyStatus')return skill.statusTarget==='enemies'||skill.statusTarget==='enemy'?'debuff':'buff';
+  if(skill.target==='enemies'||Number(skill.maxTargets)>1)return 'area';
+  return 'damage';
+ }
+ function defaultInitialCooldownSeconds(skill,cooldownSeconds=skill?.timing?.cooldownSeconds){
+  if(!isActive(skill)||!(cooldownSeconds>0))return 0;
+  const [ratio,min,max]=INITIAL_ROLES[initialCooldownRole(skill)];
+  return Math.min(cooldownSeconds,Math.round(Math.min(max,Math.max(min,cooldownSeconds*ratio))*2)/2);
+ }
+ function initialCooldownSeconds(skill){const t=skill?.timing;return finite(t?.initialCooldownSeconds,0,86400)?t.initialCooldownSeconds:defaultInitialCooldownSeconds(skill);}
  function normalize(input){
   const doc=copy(input);doc.balanceSettings??={};doc.balanceSettings.combat??={};doc.balanceSettings.meta??={};
   const c=doc.balanceSettings.combat.seconds===undefined?defaults(doc):copy(doc.balanceSettings.combat.seconds);
@@ -95,7 +117,7 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
   c.actionModel??='independent';
   c.recovery??={hpFractionPerSecond:round((doc.balanceSettings.rewards?.postVictoryHeal??.12)/c.durationReferenceSeconds),mpRegenMultiplier:1,minimumHpRatio:1,minimumMpRatio:0};
   doc.balanceSettings.combat.seconds=c;doc.balanceSettings.meta.combatTimingVersion=VERSION;doc.balanceSettings.meta.independentActionsVersion=1;doc.balanceSettings.meta.continuousExplorationVersion=1;
-  for(const s of doc.skillSystem?.definitions||[]){s.timing??=timing(s,s.adapter?.job??s.jobs?.[0]??0,c);}
+  for(const s of doc.skillSystem?.definitions||[]){s.timing??=timing(s,s.adapter?.job??s.jobs?.[0]??0,c);if(isActive(s))s.timing.initialCooldownSeconds??=defaultInitialCooldownSeconds(s);}
   for(const s of doc.statusDefinitions||[]){s.timing??={durationSeconds:s.permanent?null:round(s.duration*c.durationReferenceSeconds),periodicIntervalSeconds:c.periodicIntervalSeconds,triggerIntervalSeconds:c.triggerIntervalSeconds};if(s.control)s.timing.bossControlDurationSeconds??=round(s.control.bossDuration*c.actionReferenceSeconds);}
   for(const row of doc.balanceSettings.monsters?.catalog||[])row.timing??={baseIntervalSeconds:c.actionReferenceSeconds};
   for(const row of doc.companionTokens?.catalog||[]){const a=row.ability;a.timing??={cooldownSeconds:round(a.cooldown*c.actionReferenceSeconds),durationSeconds:round(a.duration*c.durationReferenceSeconds),triggerIntervalSeconds:c.durationReferenceSeconds,firstTriggerSeconds:round(a.threshold*c.durationReferenceSeconds)};}
@@ -113,7 +135,7 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
   if(!c.mana||!finite(c.mana.maxMp,1)||!finite(c.mana.regenPerSecond)||!finite(c.mana.costMultiplier))fail('魔力預算無效');
   if(!Array.isArray(c.classes)||c.classes.length!==4||new Set(c.classes.map(x=>x.job)).size!==4||c.classes.some(x=>!Number.isInteger(x.job)||x.job<0||x.job>3||!finite(x.baseIntervalSeconds,.000001,3600)))fail('職業間隔需各一筆');
   if(!Array.isArray(c.groupWeights)||c.groupWeights.length!==3||c.groupWeights.some(x=>!finite(x))||!c.groupWeights.some(x=>x>0))fail('群怪 3／4／5 隻權重無效');
-  for(const s of doc.skillSystem?.definitions||[]){if(['mpCost','manaCost','cooldownSeconds','castSeconds','actionCostSeconds'].some(k=>Object.hasOwn(s,k)))fail(s.id+' 秒數／MP 欄位必須放在 timing');const t=s.timing;if(!t)fail(s.id+' 缺少時間設定');for(const k of ['cooldownSeconds','mpCost','castSeconds','actionCostSeconds','durationSeconds','bossDurationSeconds'])if(!finite(t[k]))fail(s.id+' '+k+' 無效');if(!finite(t.tickIntervalSeconds,.000001)||!Number.isSafeInteger(t.priority)||t.priority<0||t.priority>99||!['always','injured','missingEffect'].includes(t.condition))fail(s.id+' 條件／優先級無效');if(t.minTargets!==undefined&&(!Number.isSafeInteger(t.minTargets)||t.minTargets<1||t.minTargets>99))fail(s.id+' 目標數門檻無效');if(t.requiredTargetStatusId!=null&&!doc.statusDefinitions?.some(x=>x.id===t.requiredTargetStatusId))fail(s.id+' 連動狀態不存在');if(!isActive(s)&&t.mpCost!==0)fail(s.id+' 被動／觸發技能不能新增耗魔');}
+  for(const s of doc.skillSystem?.definitions||[]){if(['mpCost','manaCost','cooldownSeconds','castSeconds','actionCostSeconds'].some(k=>Object.hasOwn(s,k)))fail(s.id+' 秒數／MP 欄位必須放在 timing');const t=s.timing;if(!t)fail(s.id+' 缺少時間設定');for(const k of ['cooldownSeconds','mpCost','castSeconds','actionCostSeconds','durationSeconds','bossDurationSeconds'])if(!finite(t[k]))fail(s.id+' '+k+' 無效');if(!finite(t.tickIntervalSeconds,.000001)||!Number.isSafeInteger(t.priority)||t.priority<0||t.priority>99||!['always','injured','missingEffect'].includes(t.condition))fail(s.id+' 條件／優先級無效');if(t.initialCooldownSeconds!==undefined&&!finite(t.initialCooldownSeconds,0,86400))fail(s.id+' initialCooldownSeconds 無效');if(t.minTargets!==undefined&&(!Number.isSafeInteger(t.minTargets)||t.minTargets<1||t.minTargets>99))fail(s.id+' 目標數門檻無效');if(t.requiredTargetStatusId!=null&&!doc.statusDefinitions?.some(x=>x.id===t.requiredTargetStatusId))fail(s.id+' 連動狀態不存在');if(!isActive(s)&&t.mpCost!==0)fail(s.id+' 被動／觸發技能不能新增耗魔');}
   for(const s of doc.statusDefinitions||[]){const t=s.timing;if(!t||(t.durationSeconds!==null&&!finite(t.durationSeconds,.000001))||!finite(t.periodicIntervalSeconds,.000001)||!finite(t.triggerIntervalSeconds,.000001))fail(s.id+' 狀態秒數無效');if(t.bossControlDurationSeconds!==undefined&&!finite(t.bossControlDurationSeconds))fail(s.id+' BOSS 控制秒數無效');}
   for(const m of doc.balanceSettings.monsters?.catalog||[]){const t=m.timing;if(!finite(t?.baseIntervalSeconds,.000001,3600))fail(m.id+' 怪物間隔無效');for(const [k,min] of [['maxMp',1],['regenPerSecond',0],['costMultiplier',0]])if(t[k]!==undefined&&!finite(t[k],min))fail(m.id+' 怪物魔力設定無效');}
   for(const row of doc.companionTokens?.catalog||[]){const t=row.ability?.timing;if(!t||!finite(t.cooldownSeconds)||!finite(t.durationSeconds)||!finite(t.triggerIntervalSeconds,.000001)||!finite(t.firstTriggerSeconds))fail(row.id+' 信物秒數無效');}
@@ -142,7 +164,7 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
   for(const t of out.companionTokens?.catalog||[]){const v=d.companionTokens.catalog.find(x=>x.id===t.id);if(v?.ability?.timing)t.ability.timing=copy(v.ability.timing);}
   return out;
  }
- return {VERSION,copy,assertJSON,defaults,timing,normalize,validate,validateImport,legacy,attach};
+ return {VERSION,copy,assertJSON,defaults,timing,normalize,validate,validateImport,legacy,attach,INITIAL_ROLES,initialCooldownRole,defaultInitialCooldownSeconds,initialCooldownSeconds};
 });
 
 EmberwildSecondsSchema=globalThis.EmberwildSecondsSchema??EmberwildSecondsSchema;
@@ -1949,7 +1971,7 @@ EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;
 
 EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
 
-/* js/combat/seconds-timeline.js?v=20261102-v0020-continuous1 */
+/* js/combat/seconds-timeline.js?v=20261105-v0074-initialcd1 */
 /* Phase 1 scheduling kernel. No game globals, wall clock, random source, damage
    formulas, rewards or balance defaults. The legacy runtime is not switched by
    loading this module. Time in public data is seconds; internal time is integer
@@ -2013,6 +2035,15 @@ EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
       a.basicAt=safeAdd(this.now,this.interval(a));
       for(const s of d.skills)a.ready[s.id]=safeAdd(this.now,time(s.initialReadyInSeconds??0));
       this.actors.push(a);return this.actor(d.id);
+    }
+    // Each encounter starts every listed actor's timers afresh: a full basic attack charge and each
+    // skill's initial cooldown; nothing carries over from the previous encounter's cooldowns.
+    resetEncounter(actorIds){
+      if(this.executing)fail('cannot reset inside event callback');
+      for(const actorId of actorIds){
+        const a=this.find(actorId);a.casting=null;a.actionAt=a.actionSpeedAt=a.actionFixedAt=this.now;a.basicAt=safeAdd(this.now,this.interval(a));
+        a.retryAt=Object.create(null);a.readyArchive=Object.create(null);for(const s of a.definition.skills)a.ready[s.id]=safeAdd(this.now,time(s.initialReadyInSeconds??0));
+      }
     }
     find(actorId){return this.actors.find(a=>a.definition.id===actorId)||fail('unknown actor '+actorId);}
     syncActors(definitions){
@@ -20415,7 +20446,7 @@ __EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWIL
 
 EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;__EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;recordMapClear=globalThis.recordMapClear??recordMapClear;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;wishingLakeReminder=globalThis.wishingLakeReminder??wishingLakeReminder;selectLakeOffering=globalThis.selectLakeOffering??selectLakeOffering;setLakeQuantity=globalThis.setLakeQuantity??setLakeQuantity;openWishingLake=globalThis.openWishingLake??openWishingLake;confirmLakeOffering=globalThis.confirmLakeOffering??confirmLakeOffering;__EMBERWILD_WISHING_LAKE=globalThis.__EMBERWILD_WISHING_LAKE??__EMBERWILD_WISHING_LAKE;
 
-/* js/combat/event-trigger-runtime.js?v=20261103-v0037-seconds-log1 */
+/* js/combat/event-trigger-runtime.js?v=20261105-v0074-initialcd1 */
 /* Reusable death groups and status events. The shared round generator (including
    offline replay) owns transactions; queued explosions never recurse. */
 (()=>{
@@ -20442,7 +20473,7 @@ EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;__EMBERWILD_BALANCE_SOU
    if(seconds?.active)seconds.reduceCooldowns(h,e.reduction);
    else for(const cds of [actorCooldowns,supportCooldowns])for(const id of Object.keys(cds))if(id.startsWith(memberKey(h)+'-'))cds[id]=Math.max(0,cds[id]-e.reduction);
    h.eventPassiveCooldowns[sk.id]=e.cooldown*(seconds?.active?seconds.config().actionReferenceSeconds:1);
-   const reduction=seconds?.active?e.reduction*seconds.config().classes.find(c=>c.job===h.job).baseIntervalSeconds:e.reduction;
+   const reduction=seconds?.active?e.reduction*seconds.config().actionReferenceSeconds:e.reduction;
    note(characterName(h)+'・'+sk.name+' → 技能冷卻減少 '+reduction+(seconds?.active?' 秒':' 回合'));
   }
  }
@@ -20617,7 +20648,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;
 
-/* js/combat/seconds-runtime.js?v=20261104-v0068-destination1 */
+/* js/combat/seconds-runtime.js?v=20261105-v0074-initialcd1 */
 /* The shared live/offline seconds driver. Existing damage, targeting, equipment,
    death-chain and reward handlers remain authoritative. No round generator runs. */
 (()=>{
@@ -20632,21 +20663,24 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  const timing=s=>s?.timing||source.skillSystem.definitions.find(x=>x.id===s?.id)?.timing;
  const statusList=()=>EmberwildStatusCombatState.seconds.instances(),statusDefs=()=>EmberwildStatusCombatState.seconds.definitions();
  const actorInterval=h=>config().classes.find(x=>x.job===h.job).baseIntervalSeconds;
+ // Cooldown reductions written in legacy action units convert at the fixed action reference (v0.074), so
+ // per-class basic attack intervals do not change any skill or equipment effect.
+ const actionUnit=()=>config().actionReferenceSeconds;
  const mono=()=>engine?engine.now/1e6:partyClock;
  function mana(h){
   const c=config().mana;if(!Object.hasOwn(h,'job')){const t=source.balanceSettings.monsters.catalog.find(m=>m.id===h.monsterId)?.timing||{};return {maxMp:t.maxMp??c.maxMp,regen:t.regenPerSecond??c.regenPerSecond,cost:t.costMultiplier??c.costMultiplier};}const extras=equipment(h).map(g=>g.mana??itemForm(g)?.mana).filter(Boolean);
   return {maxMp:Math.max(1,(h.mana?.maxMp??c.maxMp)+extras.reduce((n,x)=>n+(Number(x.maxMp)||0),0)),regen:Math.max(0,(h.mana?.regenPerSecond??c.regenPerSecond)+extras.reduce((n,x)=>n+(Number(x.regenPerSecond)||0),0)),cost:Math.max(0,(h.mana?.costMultiplier??c.costMultiplier)-extras.reduce((n,x)=>n+(Number(x.costReduction)||0),0))};
  }
  function skillCooldownSeconds(h,s){
-  const t=timing(s),factor=actorInterval(h),flat=allSkillCooldownReduction(h)+(s.adapter.kind==='core'?bonusFor(s.adapter.index,5,h):0);
+  const t=timing(s),factor=actionUnit(),flat=allSkillCooldownReduction(h)+(s.adapter.kind==='core'?bonusFor(s.adapter.index,5,h):0);
   return Math.max(config().minimumActionIntervalSeconds,t.cooldownSeconds-flat*factor);
  }
- function cooldownReductionOnCast(h,id){const chance=__EMBERWILD_EQUIPMENT_SKILLS.skillRate(h,id,'cooldown');return chance>0&&Math.random()<chance?actorInterval(h):0;}
+ function cooldownReductionOnCast(h,id){const chance=__EMBERWILD_EQUIPMENT_SKILLS.skillRate(h,id,'cooldown');return chance>0&&Math.random()<chance?actionUnit():0;}
  function definition(x){
   const hero=Object.hasOwn(x,'job'),m=mana(x);
   const rows=hero?[...x.active.filter(i=>i!==null).map(i=>S.byPosition(x.job,'core',i)),...x.supportSlots.filter(i=>i!==null).map(i=>S.byPosition(x.job,'support',i))].filter(s=>s&&['active','support'].includes(s.type)&&!s.disabled&&S.learned(x,s)):
    (GAMEPLAY_SETTINGS.monsters.catalog.find(m=>m.id===x.monsterId)?.skillAssignments||[]).map(r=>skill(r.skillId)).filter(s=>s?.type==='active'&&!s.disabled&&x.lv>=(s.requiredLevel||1)&&sharedSkillScopeAllowsEnemy(s.usageScope||'character',x.kind));
-  const skills=[...new Map(rows.map(s=>[s.id,s])).values()].map(s=>{const t=timing(s);return {id:s.id,type:'active',cooldownSeconds:hero?skillCooldownSeconds(x,s):t.cooldownSeconds,castSeconds:t.castSeconds,actionCostSeconds:t.actionCostSeconds,mpCost:t.mpCost,priority:t.priority};});
+  const skills=[...new Map(rows.map(s=>[s.id,s])).values()].map(s=>{const t=timing(s);return {id:s.id,type:'active',cooldownSeconds:hero?skillCooldownSeconds(x,s):t.cooldownSeconds,initialReadyInSeconds:Schema.initialCooldownSeconds(s.timing?s:{...s,timing:t}),castSeconds:t.castSeconds,actionCostSeconds:t.actionCostSeconds,mpCost:t.mpCost,priority:t.priority};});
   return {id:key(x),baseIntervalSeconds:hero?actorInterval(x):source.balanceSettings.monsters.catalog.find(m=>m.id===x.monsterId)?.timing.baseIntervalSeconds??config().actionReferenceSeconds,
    speed:hero?battleStats(x).speed:combatSpeed(x),mp:Math.max(0,Math.min(m.maxMp,Number.isFinite(x.mp)?x.mp:m.maxMp)),maxMp:m.maxMp,mpRegenPerSecond:m.regen,skills};
  }
@@ -20691,6 +20725,9 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
   for(const a of engine.actors){const x=unit(a.definition.id);a.alive=!!x&&x.hp>0;}
   syncResources();
  }
+ // v0.074: every encounter re-initializes every actor's basic charge, active/support initial cooldowns and
+ // trigger cooldowns; out-of-combat time never counts toward the next encounter's skill cooldowns.
+ function startEncounterTimers(){engine.resetEncounter(engine.actors.map(a=>a.definition.id));procReady={};}
  function syncResources(){
   if(!engine)return;
   for(const a of engine.actors){const x=unit(a.definition.id);if(!x)continue;
@@ -20857,14 +20894,15 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
    if(!ended&&foes.length&&finish()&&phase==='recovery'){scheduledAt=recoveryUntil;return {delaySeconds:Math.max(.000001,recoveryUntil-mono())};}
    if(!running)return {delaySeconds:config().encounterDelaySeconds};
    const next=Math.max(mono(),scheduledAt);engine.advanceTo(next,{maxEvents:1});clock(next);
-   spawnGroup();ended=false;encounterStart=partyClock;syncRoster();
+   spawnGroup();ended=false;encounterStart=partyClock;syncRoster();startEncounterTimers();
    const before=new Set(effects);
    for(const h of heroes()){
     __EMBERWILD_TOKEN_TEST.ensureBattle(h);const g=__EMBERWILD_TOKEN_TEST.item(h);if(g?.snapshot.ability.event==='round'){const t=tokenTiming(g);addTimer('token:'+key(h),key(h),null,t.triggerIntervalSeconds,{kind:'token'});const timer=engine.statuses.find(s=>s.id==='token:'+key(h));timer.next=engine.now+Math.round(t.firstTriggerSeconds*1e6);}
    }
    scheduleEffects(before,null,null);
   }else if(!engine.actors.length||needsRoster){
-   encounterStart=partyClock;syncRoster();
+   const fresh=!engine.actors.some(a=>foes.some(e=>key(e)===a.definition.id));
+   encounterStart=partyClock;syncRoster();if(fresh)startEncounterTimers();
    const before=new Set(effects);
    for(const h of heroes()){
     __EMBERWILD_TOKEN_TEST.ensureBattle(h);const g=__EMBERWILD_TOKEN_TEST.item(h);if(g?.snapshot.ability.event==='round'){
@@ -20915,7 +20953,9 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  }
  const oldValidate=validateBalanceConfig,oldApply=applyBalanceConfig,oldExport=exportableBalance;
  validateBalanceConfig=function(input){if(importing)return oldValidate(input);Schema.assertJSON(input);const d=Schema.normalize(input);return Schema.attach(oldValidate(Schema.legacy(d)),d);};
- applyBalanceConfig=function(input,options={}){Schema.assertJSON(input);const d=Schema.normalize(input);importing++;let out;try{out=oldApply(Schema.legacy(d),{...options,persist:false});}finally{importing--;}install(Schema.normalize(Schema.attach(oldExport(),d)));engine=null;owner=party;if(party?.offlineExploration?.combat?.seconds)restore(party.offlineExploration.combat.seconds);else if(party&&foes.length)migrateLegacy();if(options.persist!==false)localStorage.setItem(BALANCE_KEY,JSON.stringify(exportableBalance()));return out;};
+ // A failed import is rolled back by inner layers with a document exported while importing, which has no seconds fields;
+ // restore the seconds rules in force before this import so monster intervals and skill timing are not reset to defaults.
+ applyBalanceConfig=function(input,options={}){Schema.assertJSON(input);const d=Schema.normalize(input),prior=source;importing++;let out,failed=true;try{out=oldApply(Schema.legacy(d),{...options,persist:false});failed=false;}finally{importing--;if(failed&&importing===0)install(prior);}install(Schema.normalize(Schema.attach(oldExport(),d)));engine=null;owner=party;if(party?.offlineExploration?.combat?.seconds)restore(party.offlineExploration.combat.seconds);else if(party&&foes.length)migrateLegacy();if(options.persist!==false)localStorage.setItem(BALANCE_KEY,JSON.stringify(exportableBalance()));return out;};
  exportableBalance=function(){const d=oldExport();return importing?d:Schema.attach(d,source);};
  const oldEnemyCast=castEnemySharedSkill;castEnemySharedSkill=function(e,s,...args){const d=skill(s?.id);if(d?.type!=='proc')return oldEnemyCast(e,s,...args);const k=key(e)+':'+d.id;if((procReady[k]||0)>partyClock)return false;const out=oldEnemyCast(e,s,...args);if(out!==false)procReady[k]=partyClock+(timing(d)?.cooldownSeconds||0);return out;};
  const oldCast=castPartySkill,oldSupport=castSupport;
@@ -20949,7 +20989,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  globalThis.EmberwildSecondsCombat={active:true,maxEncounterSize:MAX_FOES,config,thresholds,get phase(){return phase;},get nextSimulationAt(){return scheduledAt;},get continuing(){return continuing;},resourceProfile:mana,step,pack,restore,migrateLegacy,tokenTiming,statusApplied:scheduleStatus,get timeline(){return engine;},get source(){return source;},ensure,sync:syncResources,
   encounterSize(){party.currentHuntingMode=party.huntingMode||'single';if(party.currentHuntingMode==='single')return 1;const weights=config().groupWeights,total=weights.reduce((a,b)=>a+b,0);let pick=Math.random()*total;for(let i=0;i<weights.length;i++)if((pick-=weights[i])<0)return i+3;return 5;},
   validateSnapshot(raw){if(raw!==null){if(raw.phase!==undefined&&!['combat','recovery'].includes(raw.phase)||raw.recoveryUntil!==undefined&&(!Number.isFinite(raw.recoveryUntil)||raw.recoveryUntil<0)||raw.version!==1||!Number.isSafeInteger(raw.serial)||raw.serial<0||typeof raw.ended!=='boolean'||!Number.isFinite(raw.encounterStart)||raw.scheduledAt!==undefined&&(!Number.isFinite(raw.scheduledAt)||raw.scheduledAt<0)||raw.uidSerial!==undefined&&(!Number.isSafeInteger(raw.uidSerial)||raw.uidSerial<0))throw Error('秒數快照無效');E.restore(raw.timeline);}},
-  reduceCooldowns(h,legacyAmount){if(engine?.actors.some(a=>a.definition.id===key(h)))engine.reduceCooldowns(key(h),legacyAmount*actorInterval(h));},
+  reduceCooldowns(h,legacyAmount){if(engine?.actors.some(a=>a.definition.id===key(h)))engine.reduceCooldowns(key(h),legacyAmount*actionUnit());},
   bossMultiplier(e){const f=GAMEPLAY_SETTINGS.combat.finalBoss,schedule=config().finalBoss,elapsed=partyClock-encounterStart;if(elapsed>schedule.enrageAfterSeconds)return f.enrageMultiplier;e.secondsSpecialAt??=encounterStart+schedule.specialIntervalSeconds;if(partyClock>=e.secondsSpecialAt){while(e.secondsSpecialAt<=partyClock)e.secondsSpecialAt+=schedule.specialIntervalSeconds;return f.specialMultiplier;}return 1;}
  };
  install(source);
@@ -21453,7 +21493,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;EmberwildTimedBoosts
 
 __EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_VIRTUAL_ITEM=globalThis.__EMBERWILD_VIRTUAL_ITEM??__EMBERWILD_VIRTUAL_ITEM;__EMBERWILD_VIRTUAL_MAIL_KEY=globalThis.__EMBERWILD_VIRTUAL_MAIL_KEY??__EMBERWILD_VIRTUAL_MAIL_KEY;defaultOverlevelVoucherGold=globalThis.defaultOverlevelVoucherGold??defaultOverlevelVoucherGold;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;EmberwildRegionVouchers=globalThis.EmberwildRegionVouchers??EmberwildRegionVouchers;claimMailboxAttachments=globalThis.claimMailboxAttachments??claimMailboxAttachments;claimAllMailboxAttachments=globalThis.claimAllMailboxAttachments??claimAllMailboxAttachments;EmberwildIdleStatistics=globalThis.EmberwildIdleStatistics??EmberwildIdleStatistics;useRegionVouchers=globalThis.useRegionVouchers??useRegionVouchers;confirmRegionVouchers=globalThis.confirmRegionVouchers??confirmRegionVouchers;
 
-/* js/ui/seconds-battle.js?v=20261104-v0068-destination1 */
+/* js/ui/seconds-battle.js?v=20261105-v0074-initialcd1 */
 /* Seconds presentation reads the shared scheduler; animation never advances it. */
 (()=>{
  'use strict';
@@ -21598,21 +21638,23 @@ __EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER
   for(const n of document.querySelectorAll('[data-seconds-phase]'))n.textContent=running?(C.phase==='recovery'?'脫戰恢復 · 達標後繼續探索':'自動戰鬥中'):'探索已暫停';
   const clock=$('seconds-clock');if(clock)clock.textContent=fmt(now)+'s';
  }
- const baseGuide=guideView;guideView=function(){return baseGuide().replace(/每次遭遇結束（勝利或全隊戰敗）後，全隊含候補回滿生命。/g,'一般探索勝利後保留生命、魔力與冷卻，脫戰恢復至設定的隊伍門檻再繼續。全隊戰敗及特殊關卡依原有恢復規則。').replace(/<p>主動技能只受冷卻時間限制；[\s\S]*?<\/p>/,'<p>主動技能冷卻完成、MP 足夠且符合條件時自動施放；瞬發技能不重置普攻，技能依裝備順序判定。被動與原本免費的觸發技能不占行動。</p>').replace(/1倍速每回合至少 \d+(?:\.\d+)? 秒。普攻每回合一次；[\s\S]*?不搶佔普攻。/,'所有單位依速度獨立行動，主動技能與普攻使用獨立時間軸；個別詠唱與動作鎖定依技能設定。冷卻、增減益與持續傷害依戰鬥秒數推進。').replace(/單體或群怪|群怪 · 3～6 隻/g,'單怪 1 隻／群怪 3～5 隻')
+ const baseGuide=guideView;guideView=function(){return baseGuide().replace(/每次遭遇結束（勝利或全隊戰敗）後，全隊含候補回滿生命。/g,'一般探索勝利後保留生命、魔力與可跨戰鬥的效果，脫戰恢復至設定的隊伍門檻再繼續；下一場的技能冷卻重新初始化。全隊戰敗及特殊關卡依原有恢復規則。').replace(/<p>主動技能只受冷卻時間限制；[\s\S]*?<\/p>/,'<p>主動技能冷卻完成、MP 足夠且符合條件時自動施放；瞬發技能不重置普攻，技能依裝備順序判定。被動與原本免費的觸發技能不占行動。</p>').replace(/1倍速每回合至少 \d+(?:\.\d+)? 秒。普攻每回合一次；[\s\S]*?不搶佔普攻。/,'所有單位依速度獨立行動，主動技能與普攻使用獨立時間軸；個別詠唱與動作鎖定依技能設定。冷卻、增減益與持續傷害依戰鬥秒數推進。').replace(/單體或群怪|群怪 · 3～6 隻/g,'單怪 1 隻／群怪 3～5 隻')
   .replace(/<section class="panel"><h2>BUFF／DEBUFF 與消耗品計時<\/h2>[\s\S]*?<\/section>/,'<section class="panel"><h2>BUFF／DEBUFF 與消耗品計時</h2><p>增益、減益與控制依戰鬥秒數倒數。持續回復與持續傷害依各自的觸發間隔結算。附魔藥水依該角色參戰的戰鬥秒數扣時；抗性與屬性增幅藥水使用現實分鐘，暫停、停止或關閉頁面仍會扣時。同名且同效果的藥水累加剩餘時間；不同倍率、屬性或能力加成各自保留狀態並獨立計時。每個狀態最多累積 24 小時，超過時提醒且不消耗道具。</p><p>一般探索勝利後保留護盾與技能冷卻。護盾在耗盡、全隊戰敗或特殊關卡結束時消失。</p></section>')
-  .replace(/<section class="panel"><h2>行動回合冷卻<\/h2>[\s\S]*?<\/section>/,'<section class="panel"><h2>技能冷卻與行動</h2><p>主動與輔助技能各自有冷卻秒數，施放後依戰鬥時間倒數，其他單位的行動不影響冷卻。MP 不足時不會施放該技能，普攻與其他可用技能照常進行。</p><p>冷卻完成且符合條件的瞬發技能依裝備順序施放，不重置普攻進度。有詠唱或動作時間的技能，只在設定的秒數內限制該角色的下一個行動。裝備的全技能冷卻詞條與指定技能冷卻詞條可同時生效。</p></section>');};
+  .replace(/<section class="panel"><h2>行動回合冷卻<\/h2>[\s\S]*?<\/section>/,'<section class="panel"><h2>技能冷卻與行動</h2><p>主動與輔助技能各有初始冷卻與再使用冷卻：每場戰鬥開始時套用初始冷卻，施放後改以再使用冷卻依戰鬥時間倒數，其他單位的行動不影響冷卻。每場戰鬥開始時普攻重新充能、冷卻重新初始化，不繼承上一場的剩餘冷卻。MP 不足時不會施放該技能，普攻與其他可用技能照常進行。</p><p>冷卻完成且符合條件的瞬發技能依裝備順序施放，不重置普攻進度。有詠唱或動作時間的技能，只在設定的秒數內限制該角色的下一個行動。裝備的全技能冷卻詞條與指定技能冷卻詞條可同時生效。</p></section>');};
  const baseShowEffects=showBattleEffects;showBattleEffects=function(...args){const out=baseShowEffects.apply(this,args);for(const p of $('modal')?.querySelectorAll('p.small')||[])if(/依戰鬥回合計時/.test(p.textContent))p.textContent='增益、減益與附魔依戰鬥秒數計時；抗性、屬性增幅依現實時間計時，可在探索控制區獨立停用；暫停、停止與關閉頁面仍會扣時。';return out;};
  const oldBuffRows=battleBuffRows;battleBuffRows=function(){const rows=[...heroes().map(h=>[h,'ally']),...foes.map(e=>[e,'enemy'])].flatMap(([x,side])=>(EmberwildBattleSummary.inspect(id(x),side)?.statuses||[]).map(s=>'<tr><td>'+esc(title(x))+'</td><td>'+esc(s.name)+'</td><td>'+esc(s.detail)+'</td><td>'+esc(s.time||(s.remaining===null?'永久':fmt(s.remaining)+' 秒'))+'</td><td>'+esc(s.clock||'戰鬥秒數')+'</td></tr>'));return rows.join('');};
  const baseTick=tick;tick=function(...args){const out=baseTick(...args);sync();return out;};
+ // v0.074: active and support skills show both timers; the initial cooldown applies at the start of every encounter.
+ function cooldownText(s,reuse){const first=EmberwildSecondsSchema.initialCooldownSeconds(s.timing?s:{...s,timing:t(s)});return `初始冷卻 ${fmt(first)} 秒 · 再使用冷卻 ${fmt(reuse)} 秒`;}
  function detail(s,h=state){
-  if(!s)return '';const d=t(s);if(!d)return s.description||'';if(!h)return `${s.description||s.name} · 冷卻 ${fmt(d.cooldownSeconds)} 秒 · MP ${fmt(d.mpCost)}`;
+  if(!s)return '';const d=t(s);if(!d)return s.description||'';if(!h)return `${s.description||s.name} · ${cooldownText(s,d.cooldownSeconds)} · MP ${fmt(d.mpCost)}`;
   const sources=(s.sources||[]).map(r=>({class:'職業',quest:'任務',equipment:'裝備',companion:'夥伴',starter:'初始'})[r.type]||r.type).filter((v,i,a)=>a.indexOf(v)===i).join('／'),live=view(h)?.skills.find(x=>x.id===s.id),multiplier=view(h)?C.timeline.find(id(h)).mpCostMultiplier:C.resourceProfile(h).cost,mp=d.mpCost*multiplier;
-  if(s.type==='passive'){const e=s.eventPassive,base=e?.event==='kill'?`擊殺後以 ${fmt(e.power*100)}% 攻擊追擊生命最低的敵人；最多追加 ${e.maxAttacks} 次，每次原始行動最多一條追擊鏈。`:e?.event==='enemyDeath'?`敵人死亡時，自身主動與輔助冷卻縮減 ${fmt(e.reduction*C.config().classes.find(c=>c.job===h.job).baseIntervalSeconds)} 秒；內部冷卻 ${fmt(e.cooldown*C.config().actionReferenceSeconds)} 秒。`:s.description||s.name;return `${base} · 常駐被動，不占行動${sources?' · 來源：'+sources:''}`;}
-  if(h&&!hero(h)){const shared=sharedSkillById(s.id),chance=shared?.meta?.procBaseChance??GS('skills.proc.baseChance',.22);return `${s.description||s.name} · ${s.type==='proc'?'普攻觸發率 '+fmt(chance*100)+'%，不占行動':'主動技能，獨立冷卻'} · 倍率 ${fmt((s.power||0)*100)}% · 最多 ${s.maxTargets||1} 個目標 · 冷卻 ${fmt(live?.cooldownSeconds??d.cooldownSeconds)} 秒 · MP ${fmt(mp)}${d.castSeconds?' · 施法 '+fmt(d.castSeconds)+' 秒':''} · 來源：怪物技能配置`;}
+  if(s.type==='passive'){const e=s.eventPassive,base=e?.event==='kill'?`擊殺後以 ${fmt(e.power*100)}% 攻擊追擊生命最低的敵人；最多追加 ${e.maxAttacks} 次，每次原始行動最多一條追擊鏈。`:e?.event==='enemyDeath'?`敵人死亡時，自身主動與輔助冷卻縮減 ${fmt(e.reduction*C.config().actionReferenceSeconds)} 秒；內部冷卻 ${fmt(e.cooldown*C.config().actionReferenceSeconds)} 秒。`:s.description||s.name;return `${base} · 常駐被動，不占行動${sources?' · 來源：'+sources:''}`;}
+  if(h&&!hero(h)){const shared=sharedSkillById(s.id),chance=shared?.meta?.procBaseChance??GS('skills.proc.baseChance',.22);return `${s.description||s.name} · ${s.type==='proc'?'普攻觸發率 '+fmt(chance*100)+'%，不占行動':'主動技能，獨立冷卻'} · 倍率 ${fmt((s.power||0)*100)}% · 最多 ${s.maxTargets||1} 個目標 · ${cooldownText(s,live?.cooldownSeconds??d.cooldownSeconds)} · MP ${fmt(mp)}${d.castSeconds?' · 施法 '+fmt(d.castSeconds)+' 秒':''} · 來源：怪物技能配置`;}
   const cd=live?.cooldownSeconds??(s.type==='support'?supportSkillCooldown(h,s.adapter.index):s.type==='proc'?d.cooldownSeconds:skillCooldown(s.adapter.index,h)),status=s.statusId?C.source.statusDefinitions.find(x=>x.id===s.statusId):null;
   let description=s.adapter.kind==='support'?baseSupportDetail(h?.job??s.adapter.job,s.adapter.index,h):s.adapter.kind==='core'?baseCoreDetail(h?.job??s.adapter.job,s.adapter.index,h):s.description||s.name;
   description=String(description).replace(/ · 冷卻 \d+(?:\.\d+)?(?: 個自身| 戰鬥)? 回合/g,'').replace(/持續 \d+(?:\.\d+)?(?: 戰鬥)? 回合/g,'持續 '+(status?.timing.durationSeconds===null?'永久':fmt(status?.timing.durationSeconds??d.durationSeconds)+' 秒')).replace(/每(?:個自身)?回合/g,'每 '+fmt(status?.timing.triggerIntervalSeconds??d.tickIntervalSeconds)+' 秒').replace(/下回合行動提前/g,'下次行動提前').replace(/回合/g,'秒');
-  return `${description}${sources?' · 來源：'+sources:''} · ${s.type==='proc'?'觸發技能，不占行動':'主動技能，獨立冷卻'} · ${s.type==='proc'&&!cd?'觸發冷卻 無':'冷卻 '+fmt(cd)+' 秒'} · MP ${fmt(mp)}${d.castSeconds?' · 施法 '+fmt(d.castSeconds)+' 秒':''}${status?.timing.durationSeconds===null?' · 永久':''}`;
+  return `${description}${sources?' · 來源：'+sources:''} · ${s.type==='proc'?'觸發技能，不占行動':'主動技能，獨立冷卻'} · ${s.type==='proc'?(cd?'觸發冷卻 '+fmt(cd)+' 秒（每場重置為就緒）':'觸發冷卻 無'):cooldownText(s,cd)} · MP ${fmt(mp)}${d.castSeconds?' · 施法 '+fmt(d.castSeconds)+' 秒':''}${status?.timing.durationSeconds===null?' · 永久':''}`;
  }
  coreSkillDetail=function(job,index,h=state){return detail(S.byPosition(job,'core',index),h);};
  supportSkillDetail=function(job,index,h=state){return detail(S.byPosition(job,'support',index),h);};

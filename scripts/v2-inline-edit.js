@@ -36,9 +36,10 @@ const EDITORS={
    {key:'name',label:'名稱',type:'text'},{key:'element',label:'元素',type:'select',options:r=>r.elements},{key:'race',label:'種族',type:'select',options:RACES},
    {key:'hpMultiplier',label:'生命倍率',type:'number',min:0,step:.01},{key:'attackMultiplier',label:'攻擊倍率',type:'number',min:0,step:.01},{key:'defenseMultiplier',label:'防禦倍率',type:'number',min:0,step:.01},
    {key:'spawnWeight',label:'出現權重',type:'number',min:0,step:.01},{key:'maxDrops',label:'最大掉落物數',type:'number',min:0,step:1},
-   {key:'enabled',label:'啟用',type:'check'},{key:'eliteEnabled',label:'可菁英化',type:'check',when:r=>!['boss','final'].includes(r.kind)}
+   {key:'enabled',label:'啟用',type:'check'},{key:'eliteEnabled',label:'可菁英化',type:'check',when:r=>!['boss','final'].includes(r.kind)},
+   {key:'attackIntervalSeconds',label:'普攻間隔（秒）',type:'number',min:.1,step:.1,when:r=>r.attackIntervalSeconds!==undefined}
   ],
-  note:(t,r)=>t.create?'新怪物加入目前地圖；技能、掉落與關卡排序請在總控模式調整。':'所在地圖：'+r.mapName+'；技能、掉落與關卡排序請在總控模式調整。',
+  note:(t,r)=>t.create?'新怪物加入目前地圖；技能、掉落與關卡排序請在總控模式調整。':'所在地圖：'+r.mapName+(r.skillTimers?.length?'；技能冷卻：'+r.skillTimers.join('、')+'（在技能彈窗調整）':'')+'；技能、掉落與關卡排序請在總控模式調整。',
   save(t,v,shell){const W=api(shell,'__EMBERWILD_WORLD_EDITOR');return t.create?W.createMonster(t.mapIndex,v):W.updateMonster(t.id,v);},
   context:(t,result,r)=>({mapIndex:r?.mapIndex??t.mapIndex})
  },
@@ -56,14 +57,17 @@ const EDITORS={
   fields:[
    {key:'name',label:'名稱',type:'text'},{key:'enabled',label:'啟用',type:'check'},
    {key:'power',label:'威力',type:'number',min:0,step:.01,when:r=>r.power!==undefined},
-   {key:'cooldownSeconds',label:'冷卻（秒）',type:'number',min:0,step:.1,when:r=>['active','support'].includes(r.type)},
+   {key:'initialCooldownSeconds',label:'初始冷卻（秒；每場戰鬥開始）',type:'number',min:0,step:.1,when:r=>['active','support'].includes(r.type)},
+   {key:'cooldownSeconds',label:'再使用冷卻（秒；施放後）',type:'number',min:0,step:.1,when:r=>['active','support'].includes(r.type)},
    {key:'mpCost',label:'耗魔',type:'number',min:0,step:.1,when:r=>['active','support'].includes(r.type)},
+   {key:'actionCostSeconds',label:'行動成本（秒）',type:'number',min:0,step:.1,when:r=>['active','support'].includes(r.type)},
+   {key:'condition',label:'自動施放條件',type:'select',options:[['always','符合目標即可'],['injured','生命低於治療門檻'],['missingEffect','缺少自身施加的效果']],when:r=>['active','support'].includes(r.type)},
    {key:'procBaseChance',label:'觸發率（0～1）',type:'number',min:0,max:1,step:.001,when:r=>r.type==='proc'},
    {key:'maxTargets',label:'目標數',type:'number',min:1,step:1,when:r=>r.maxTargets!==undefined},
    {key:'requiredLevel',label:'需求等級',type:'number',min:1,step:1,when:r=>r.requiredLevel!==undefined},
    {key:'description',label:'說明',type:'textarea',wide:true}
   ],
-  note:()=>'效果機制、取得來源與狀態請在總控模式調整。',
+  note:()=>'自動施放依技能配置順序；初始冷卻每場戰鬥重新套用，再使用冷卻在施放後起算。效果機制、取得來源與狀態請在總控模式調整。',
   actions:[{label:'複製為新技能',run(t,r,shell){const out=api(shell,'__EMBERWILD_SKILL_DIALOG').duplicate(t.id);if(!out.ok)throw Error(out.error);shell.apply();open({kind:'skill',id:out.id},shell);shell.status('已複製技能，請檢查取得來源後再發布。');}}],
   save(t,v,shell){return api(shell,'__EMBERWILD_SKILL_DIALOG').update(t.id,v);},
   context:(t,result,r)=>({job:r?.jobs?.[0]})
@@ -96,8 +100,8 @@ for(const kind of ['material','equipment','gem','token'])EDITORS[kind]=EDITORS.i
 EDITORS.hero={
  title:(t,r)=>'主角職業數值 · '+r.name,section:'classes',
  load(t,shell){return api(shell,'__EMBERWILD_CLASS_DIALOG').get(t.job);},
- fields:[{key:'name',label:'職業名稱',type:'text'},{key:'advanced',label:'二轉名稱',type:'text'},{key:'main',label:'主要屬性名稱',type:'text'},{key:'initialStats.hp',label:'初始生命',type:'number',min:0,step:1},{key:'initialStats.atk',label:'初始攻擊',type:'number',min:0,step:0.1},{key:'initialStats.def',label:'初始防禦',type:'number',min:0,step:0.1},{key:'initialStats.crit',label:'初始暴擊率（小數）',type:'number',min:0,step:0.001},{key:'initialStats.critDamage',label:'初始暴擊傷害（倍率）',type:'number',min:0,step:0.01},{key:'growthPerLevel.hp',label:'每級生命',type:'number',min:0,step:1},{key:'growthPerLevel.atk',label:'每級攻擊',type:'number',min:0,step:0.1},{key:'growthPerLevel.def',label:'每級防禦',type:'number',min:0,step:0.1},{key:'growthPerLevel.crit',label:'每級暴擊率（小數）',type:'number',min:0,step:0.001},{key:'growthPerLevel.critDamage',label:'每級暴擊傷害（倍率）',type:'number',min:0,step:0.01}],
- note:()=>'自然值 = 初始值 + (等級 − 1) × 每級成長 + 階梯成長。階梯成長、二轉加成與能力點效果請在總控模式調整。',
+ fields:[{key:'name',label:'職業名稱',type:'text'},{key:'advanced',label:'二轉名稱',type:'text'},{key:'main',label:'主要屬性名稱',type:'text'},{key:'initialStats.hp',label:'初始生命',type:'number',min:0,step:1},{key:'initialStats.atk',label:'初始攻擊',type:'number',min:0,step:0.1},{key:'initialStats.def',label:'初始防禦',type:'number',min:0,step:0.1},{key:'initialStats.crit',label:'初始暴擊率（小數）',type:'number',min:0,step:0.001},{key:'initialStats.critDamage',label:'初始暴擊傷害（倍率）',type:'number',min:0,step:0.01},{key:'growthPerLevel.hp',label:'每級生命',type:'number',min:0,step:1},{key:'growthPerLevel.atk',label:'每級攻擊',type:'number',min:0,step:0.1},{key:'growthPerLevel.def',label:'每級防禦',type:'number',min:0,step:0.1},{key:'growthPerLevel.crit',label:'每級暴擊率（小數）',type:'number',min:0,step:0.001},{key:'growthPerLevel.critDamage',label:'每級暴擊傷害（倍率）',type:'number',min:0,step:0.01},{key:'baseIntervalSeconds',label:'基礎普攻間隔（秒）',type:'number',min:.1,step:.1,when:r=>r.baseIntervalSeconds!==undefined},{key:'speedBase',label:'攻速修正（職業基礎速度）',type:'number',min:1,step:1,when:r=>r.speedBase!==undefined},{key:'minimumActionIntervalSeconds',label:'最短行動間隔（秒；全職業共用）',type:'number',min:.05,step:.05,when:r=>r.minimumActionIntervalSeconds!==undefined}],
+ note:()=>'自然值 = 初始值 + (等級 − 1) × 每級成長 + 階梯成長。實際普攻間隔 = 基礎普攻間隔 × 速度換算基準 ÷ 角色速度，且不低於最短行動間隔。階梯成長、二轉加成與能力點效果請在總控模式調整。',
  save(t,v,shell){return api(shell,'__EMBERWILD_CLASS_DIALOG').update(t.job,v);},
  context:(t)=>({job:t.job})
 };
