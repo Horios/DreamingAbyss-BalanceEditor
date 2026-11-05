@@ -77,3 +77,21 @@ test('seconds rhythm fields read, validate, export and reach the game',()=>{
  assert.equal(g.run(`EmberwildSecondsSchema.initialCooldownSeconds(__EMBERWILD_SKILLS.byId('${id}'))`),1.5);
  assert.equal(g.run('EmberwildSecondsCombat.config().classes.find(c=>c.job===2).baseIntervalSeconds'),1.7);
 });
+
+// Cooldown reduction (game v0.075): each source picks percent or fixed seconds with its value; the diminishing
+// threshold, kept share and floor are editable on the seconds page and reach the game.
+test('cooldown reduction rules are editable per source and reach the game',()=>{
+ const e=editor();
+ e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.select('combat','cdr:affixAll')");
+ e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:affixAll',{mode:'percent',value:8})");
+ e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdrDiminishing',{thresholdSeconds:6,factor:.4,minimumSeconds:2.5})");
+ assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:onCast',{mode:'turns'})"));
+ assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:onCast',{mode:'percent',value:150})"));
+ assert.deepEqual(plain(e.run('data.balanceSettings.combat.seconds.cooldownReduction.sources.onCast')),{mode:'flat',value:3},'rejected edits roll back');
+ assert.deepEqual(plain(e.run('validateData()')),[]);
+ const doc=plain(e.run('__EMBERWILD_RELEASE_EDITOR.current()')),r=doc.balanceSettings.combat.seconds.cooldownReduction;
+ assert.deepEqual(r.sources.affixAll,{mode:'percent',value:8});assert.deepEqual(r.diminishing,{thresholdSeconds:6,factor:.4,minimumSeconds:2.5});
+ const g=inGame(e);
+ assert.equal(g.run("EmberwildSecondsCombat.cooldownReductionText('affixAll',2)"),'−16%');
+ assert.equal(g.run("EmberwildSecondsCombat.config().cooldownReduction.diminishing.minimumSeconds"),2.5);
+});

@@ -1,14 +1,14 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "b50177ddb835240114f44ac0a30b45ea281b51f0",
+  "sourceCommit": "ddaafa294ddc49f96203ec739ebe4c52dc2ba87d",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
       "sha256": "bdf3ebde5c908169a8881246134ab6c80650d152058b4cca5e7aab40fdce9dc7"
     },
     {
-      "path": "js/combat/seconds-schema.js?v=20261105-v0074-initialcd1",
-      "sha256": "27b9772c75086d0622c5865ebb6ba7c0ee1760de03107b0035fb57c7856a911b"
+      "path": "js/combat/seconds-schema.js?v=20261105-v0075-cdr1",
+      "sha256": "dfcfdfe0c63bfe3d773c5ca2b222c4ea2a98c6855532452c21d1f072f0907001"
     },
     {
       "path": "js/ui/icon-color-palette.js?v=20261014-palette1",
@@ -135,8 +135,8 @@
       "sha256": "3240204ca4c7a71fbd5b026c8961c7cf2bbb9d19d051a50890a0cc511eb6880c"
     },
     {
-      "path": "js/core/core-game.js?v=20261102-v0027-naming1",
-      "sha256": "a3faaf5d37d88caa19e693199d0b0edafb5c4e7ef13e58d36efad9217809b71d"
+      "path": "js/core/core-game.js?v=20261105-v0075-cdr1",
+      "sha256": "9bac9677a4635cf3bd34bfc28c763f3c2d16f7c6e0d51c48b42e09540cc6212b"
     },
     {
       "path": "js/ui/text-rarity-style.js",
@@ -151,8 +151,8 @@
       "sha256": "97032f233a91c6d9954b111ba4c3a643e3547245696725f7391c3f0d41769c77"
     },
     {
-      "path": "js/combat/action-turn-cooldown.js?v=20261102-v0023-speed-removal1",
-      "sha256": "d9b66566bb79062dd6669e9f79478e458ad7ec62da770f146ffab3ae2fa4225f"
+      "path": "js/combat/action-turn-cooldown.js?v=20261105-v0075-cdr1",
+      "sha256": "9316483d1fff2bbc547e1527e688f72f157d173f09f4d82c0df7250c1c50ab8b"
     },
     {
       "path": "js/world/monster-design-model.js",
@@ -239,8 +239,8 @@
       "sha256": "141bc118d46405b7451655cea02ca7fca741ce75cd84d2a971e041bff30ac214"
     },
     {
-      "path": "js/equipment/equipment-identity.js?v=20261019-daily-speed2",
-      "sha256": "279cb21bd83a9412e0ec311ff63781721517647d3e8c7133ea2bb17733d67b31"
+      "path": "js/equipment/equipment-identity.js?v=20261105-v0075-cdr1",
+      "sha256": "de082518cf821effcd9751dedf34b9b9b7ea0d7d59868996f0056e30445ee3aa"
     },
     {
       "path": "js/ui/journal-split.js?v=20261015-loot-fold1",
@@ -471,16 +471,16 @@
       "sha256": "ec3a63ba609766fffdbe6c56ec43e3a647737a1f7a6a9f08237bb687f227bea0"
     },
     {
-      "path": "js/combat/event-trigger-runtime.js?v=20261105-v0074-initialcd1",
-      "sha256": "c6fdfa86ba08e1d7c4b5e589652f42226449dc2df259b5b22ea3b9c08f2e5d4c"
+      "path": "js/combat/event-trigger-runtime.js?v=20261105-v0075-cdr1",
+      "sha256": "ae0e8dee3708c2bea52b0ac0faa7957672914ad5af2b05ebc00211c237170825"
     },
     {
       "path": "js/combat/battle-configuration.js?v=20261103-v0037-offline-speed1",
       "sha256": "3d4304de56df1400b460684771b69f02a5e2479a1836380feaa732562064e6a3"
     },
     {
-      "path": "js/combat/seconds-runtime.js?v=20261105-v0074-initialcd1",
-      "sha256": "520f696e16e3c9ff944656e39dd9879cfaab4bcaed686c6ef74c0c8bd4b0f20a"
+      "path": "js/combat/seconds-runtime.js?v=20261105-v0075-cdr1",
+      "sha256": "1c2bf5486c430a00236b97bd9abaf760f8836fd81a534d3a80c8c2ffd5d44a17"
     },
     {
       "path": "js/combat/online-idle-statistics.js?v=20261104-v0068-destination1",
@@ -491,8 +491,8 @@
       "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261105-v0074-initialcd1",
-      "sha256": "bfd199808589f12f2887fe4a678e83c53400e3a933a6fc94973d1ee50170267a"
+      "path": "js/ui/seconds-battle.js?v=20261105-v0075-cdr1",
+      "sha256": "e6e7dd0543bd25a3a9eb845e7dc616b6c15fba58c046acfc159a8486de96525f"
     }
   ]
 }

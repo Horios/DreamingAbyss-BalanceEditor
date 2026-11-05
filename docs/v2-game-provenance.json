@@ -1,5 +1,5 @@
 {
-  "gameCommit": "b50177ddb835240114f44ac0a30b45ea281b51f0",
+  "gameCommit": "ddaafa294ddc49f96203ec739ebe4c52dc2ba87d",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -83,7 +83,7 @@
     },
     {
       "path": "js/combat/action-turn-cooldown.js",
-      "sha256": "d9b66566bb79062dd6669e9f79478e458ad7ec62da770f146ffab3ae2fa4225f"
+      "sha256": "9316483d1fff2bbc547e1527e688f72f157d173f09f4d82c0df7250c1c50ab8b"
     },
     {
       "path": "js/combat/battle-configuration.js",
@@ -107,7 +107,7 @@
     },
     {
       "path": "js/combat/event-trigger-runtime.js",
-      "sha256": "c6fdfa86ba08e1d7c4b5e589652f42226449dc2df259b5b22ea3b9c08f2e5d4c"
+      "sha256": "ae0e8dee3708c2bea52b0ac0faa7957672914ad5af2b05ebc00211c237170825"
     },
     {
       "path": "js/combat/gem-finalizer.js",
@@ -127,11 +127,11 @@
     },
     {
       "path": "js/combat/seconds-runtime.js",
-      "sha256": "520f696e16e3c9ff944656e39dd9879cfaab4bcaed686c6ef74c0c8bd4b0f20a"
+      "sha256": "1c2bf5486c430a00236b97bd9abaf760f8836fd81a534d3a80c8c2ffd5d44a17"
     },
     {
       "path": "js/combat/seconds-schema.js",
-      "sha256": "27b9772c75086d0622c5865ebb6ba7c0ee1760de03107b0035fb57c7856a911b"
+      "sha256": "dfcfdfe0c63bfe3d773c5ca2b222c4ea2a98c6855532452c21d1f072f0907001"
     },
     {
       "path": "js/combat/seconds-timeline.js",
@@ -151,7 +151,7 @@
     },
     {
       "path": "js/core/core-game.js",
-      "sha256": "a3faaf5d37d88caa19e693199d0b0edafb5c4e7ef13e58d36efad9217809b71d"
+      "sha256": "9bac9677a4635cf3bd34bfc28c763f3c2d16f7c6e0d51c48b42e09540cc6212b"
     },
     {
       "path": "js/core/game-catalog.js",
@@ -179,7 +179,7 @@
     },
     {
       "path": "js/equipment/equipment-identity.js",
-      "sha256": "279cb21bd83a9412e0ec311ff63781721517647d3e8c7133ea2bb17733d67b31"
+      "sha256": "de082518cf821effcd9751dedf34b9b9b7ea0d7d59868996f0056e30445ee3aa"
     },
     {
       "path": "js/equipment/equipment-shop.js",
@@ -403,7 +403,7 @@
     },
     {
       "path": "js/ui/seconds-battle.js",
-      "sha256": "bfd199808589f12f2887fe4a678e83c53400e3a933a6fc94973d1ee50170267a"
+      "sha256": "e6e7dd0543bd25a3a9eb845e7dc616b6c15fba58c046acfc159a8486de96525f"
     },
     {
       "path": "js/ui/skill-icon-library.js",
@@ -675,7 +675,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "423e7d31317577688072fa51202bbce5df4c1efe6af11add0c0e4a5908a4ecfc"
+      "sha256": "b742a54555a6687ee8b6cae240f7d81aa6a5ed3b7550e605031be2b2134675f7"
     },
     {
       "path": "data/build.json",
@@ -683,11 +683,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "b32523856d194f4b69808bca2c8bb836f68b69d313ded490fe80469462248a1b"
+      "sha256": "1e6f692e524421561638d14ed28c0c9331d68d912ee4be1a84135c7d3a6d3608"
     },
     {
       "path": "index.html",
-      "sha256": "dd052b53571e706525aff875d4ee5b57b2b83adb2a78728d572d06ff791c814e"
+      "sha256": "0127f273279820bb469cda7ad6d48fb8f20b0dada236d5512ce7025b0c1795d8"
     }
   ],
   "gameBridgeSha256": "47d994f91aa7e7eb719ecd35360ef27e40feb7e82401aace8d11ce3dceef9444",
