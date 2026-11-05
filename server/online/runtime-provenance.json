@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "d020574114b48f2acab1ed66e5199e49ec5dec79",
+  "sourceCommit": "0d466440bea25568c4374639b5a106981c2d4029",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -131,8 +131,8 @@
       "sha256": "7444a3030184f7ec9c587e4d357caeca4bd9b130c7fb445e965c7414b9cfa0f3"
     },
     {
-      "path": "js/ui/core-battle-journal.js?v=20261102-v0017-seconds1",
-      "sha256": "3240204ca4c7a71fbd5b026c8961c7cf2bbb9d19d051a50890a0cc511eb6880c"
+      "path": "js/ui/core-battle-journal.js?v=20261105-v0078-visual1",
+      "sha256": "8f15e5c15fccfa29bec28bfab2ff8c03386cce3cc969e084ca923bf4265e137c"
     },
     {
       "path": "js/core/core-game.js?v=20261105-v0075-cdr1",
@@ -439,8 +439,8 @@
       "sha256": "3daf0a40ad84917c17a7135b80dfb02312737a8d8d2481cce255fda56115cef8"
     },
     {
-      "path": "js/combat/offline-exploration.js?v=20261104-v0068-destination1",
-      "sha256": "8aaaead88b6c256de288b64a41cd439091def05f32a4cf25cd26767f9cf0dd55"
+      "path": "js/combat/offline-exploration.js?v=20261105-v0080-average2",
+      "sha256": "6639870c4236372754ec3849d7732ef730cf160c95720c8adef2bcef8355e0e2"
     },
     {
       "path": "js/combat/gem-finalizer.js?v=20261021-gems2",
@@ -483,16 +483,20 @@
       "sha256": "1c2bf5486c430a00236b97bd9abaf760f8836fd81a534d3a80c8c2ffd5d44a17"
     },
     {
-      "path": "js/combat/online-idle-statistics.js?v=20261104-v0068-destination1",
-      "sha256": "5b1a5ea64cb5279ef7b923ca8d3a9a80a44b8546f569d121c550e984a6ff939d"
+      "path": "js/combat/online-idle-statistics.js?v=20261105-v0080-average2",
+      "sha256": "36c4c8721af6b88be99d06abfb342a5500381f5210976df9870328decec61a5f"
     },
     {
       "path": "js/world/region-vouchers.js?v=20261103-v0052-voucher-settings1",
       "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261105-v0076-newskill1",
-      "sha256": "1f2c8944681afca7b70af8cf9107ffb544cf81b9803438ae5806809491f38193"
+      "path": "js/ui/seconds-battle.js?v=20261105-v0079-field1",
+      "sha256": "3ad9575c94dae3b742bc8bb1bbc171b57c81de4e5c3cf317273687be43a27d52"
+    },
+    {
+      "path": "js/ui/visual-colors.js?v=20261105-v0079-field1",
+      "sha256": "d66e5b90461f5ff6a7bca535db00b1a72c55a4ad012ad19834dde95eb741c00b"
     }
   ]
 }

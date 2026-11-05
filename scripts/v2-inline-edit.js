@@ -19,7 +19,7 @@ const EDITORS={
   fields:[
    {key:'mapType',label:'地圖類型',type:'select',options:[['normal','一般地圖'],['final','終局地圖（自訂首領關卡）']],create:true},
    {key:'name',label:'顯示名稱',type:'text'},{key:'min',label:'最低等級',type:'number',min:1,step:1},{key:'max',label:'最高等級',type:'number',min:1,step:1},
-   {key:'family',label:'區域家族',type:'select',options:FAMILIES.map((n,i)=>[String(i),i+'｜'+n]),number:true},{key:'icon',label:'圖示文字',type:'text'},{key:'color',label:'介面色碼',type:'color'},
+   {key:'family',label:'區域家族',type:'select',options:FAMILIES.map((n,i)=>[String(i),i+'｜'+n]),number:true},{key:'icon',label:'圖示文字',type:'text'},{key:'color',label:'介面色碼',type:'color'},{key:'battlefieldColor',label:'戰場底色',type:'color'},
    {key:'parallel',label:'平行／追加區域',type:'check'},{key:'eliteEnabled',label:'啟用菁英',type:'check',when:notHidden},
    {key:'eliteChance',label:'菁英遭遇率（0～1）',type:'number',min:0,max:1,step:.001,when:notHidden},{key:'bossEnabled',label:'啟用 BOSS',type:'check',when:notHidden},
    {key:'overlevelVoucherGold',label:'超等收益券金幣（每張）',type:'number',min:0,step:1,when:notHidden}
@@ -33,7 +33,7 @@ const EDITORS={
   title:(t,r)=>t.create?'新增怪物 · '+r.mapName:'編輯怪物 · '+r.name,section:'world',
   load(t,shell){const W=api(shell,'__EMBERWILD_WORLD_EDITOR');if(t.create){const map=W.maps()[t.mapIndex];return {name:'新怪物',element:'physical',race:'beast',hpMultiplier:1,attackMultiplier:1,defenseMultiplier:1,spawnWeight:1,maxDrops:1,enabled:true,eliteEnabled:true,kind:'normal',mapIndex:t.mapIndex,mapName:map?.name||'',elements:W.elements()};}return W.monster(t.id);},
   fields:[
-   {key:'name',label:'名稱',type:'text'},{key:'element',label:'元素',type:'select',options:r=>r.elements},{key:'race',label:'種族',type:'select',options:RACES},
+   {key:'name',label:'名稱',type:'text'},{key:'element',label:'元素',type:'select',options:r=>r.elements},{key:'race',label:'種族',type:'select',options:RACES},{key:'cardColor',label:'戰鬥卡片顏色',type:'color'},
    {key:'hpMultiplier',label:'生命倍率',type:'number',min:0,step:.01},{key:'attackMultiplier',label:'攻擊倍率',type:'number',min:0,step:.01},{key:'defenseMultiplier',label:'防禦倍率',type:'number',min:0,step:.01},
    {key:'spawnWeight',label:'出現權重',type:'number',min:0,step:.01},{key:'maxDrops',label:'最大掉落物數',type:'number',min:0,step:1},
    {key:'enabled',label:'啟用',type:'check'},{key:'eliteEnabled',label:'可菁英化',type:'check',when:r=>!['boss','final'].includes(r.kind)},
