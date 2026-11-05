@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "0d466440bea25568c4374639b5a106981c2d4029",
+  "sourceCommit": "b69f6452d50622aa13351f4f5ba1c490e1a9efce",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -135,8 +135,8 @@
       "sha256": "8f15e5c15fccfa29bec28bfab2ff8c03386cce3cc969e084ca923bf4265e137c"
     },
     {
-      "path": "js/core/core-game.js?v=20261105-v0075-cdr1",
-      "sha256": "9bac9677a4635cf3bd34bfc28c763f3c2d16f7c6e0d51c48b42e09540cc6212b"
+      "path": "js/core/core-game.js?v=20261105-v0083-switch1",
+      "sha256": "50b46afcb4bc79357d5169c8a99f42f675a27f1f2e2259f7c071837e9208cab7"
     },
     {
       "path": "js/ui/text-rarity-style.js",
@@ -315,8 +315,8 @@
       "sha256": "9a723950cc991d3cafc4fa4d67d76aaf5f11a0561a13c4e4f6c6ca79ae4bb7d5"
     },
     {
-      "path": "js/character/companions.js?v=20261104-v0067-decisions1",
-      "sha256": "d3d7a5a5434edc4d8d67702f9fe3afc247b9cf6be7186791e5b67a4b4d509fd8"
+      "path": "js/character/companions.js?v=20261105-v0083-switch1",
+      "sha256": "8766ef941ad61efddbbfb7e49a84dd0b30997c54890a73a42b0a621c8909cdad"
     },
     {
       "path": "js/balance/progression-runtime.js?v=20261104-v0057-legacy1",
@@ -355,20 +355,20 @@
       "sha256": "f4cf5ce73c54af9b35838f812bfa11ec8a965f0c552e2df73c8bd28965d73a2b"
     },
     {
-      "path": "js/items/companion-tokens.js?v=20261102-v0017-seconds1",
-      "sha256": "98850ea4c30c688965ee9c51ef3005ea59339d49ac8ada245dde7cc792ba1ee3"
+      "path": "js/items/companion-tokens.js?v=20261105-v0083-switch1",
+      "sha256": "f38501add613fba077e853af62732cfbc201b510e36b490bb520860c47117d70"
     },
     {
-      "path": "js/character/team-runtime.js?v=20261103-v0036-team-reset1",
-      "sha256": "fc4a068162cde9c070c385ce104d48c02182c98202a02ab45d9ea3ea10216b6f"
+      "path": "js/character/team-runtime.js?v=20261105-v0086-roster2",
+      "sha256": "d01babb4c57297d5aa86c7c31a25de643cb3de05ecb5f4d5a5aee777d1eccb3e"
     },
     {
       "path": "js/equipment/team-references.js?v=20261019-daily-speed2",
       "sha256": "7934f05a9b866e97fc8996a76661416d273beae11ecaa2a24e39f5f1a8b5b8be"
     },
     {
-      "path": "js/ui/team-builds.js?v=20261104-v0065-gate1",
-      "sha256": "80f88bfe55c55e4f82ce381b3ebc4acd9caa62210fcea21ce7aea56e71e08708"
+      "path": "js/ui/team-builds.js?v=20261105-v0083-switch1",
+      "sha256": "86bd08985df6380019f76e030b7a94c57c94eebbf5c6ae67da49fa82b153d92b"
     },
     {
       "path": "js/equipment/boss-crafting.js",
@@ -431,8 +431,8 @@
       "sha256": "a1e2c3175c2540c642c851bc4a73eb0672cbc21d2a59bf08efa157e4e04ed2c3"
     },
     {
-      "path": "js/ui/mobile-layout.js?v=20261102-v0028-mobile-fixes1",
-      "sha256": "b6ea623597ab1d0abf0a8d1024093db2faf8d7c832669c649f9d18b634b280cc"
+      "path": "js/ui/mobile-layout.js?v=20261105-v0087-report1",
+      "sha256": "8991d4f2ecf34c94b7d399383495a8e214b4b06afcf3bf3c5fa618a70d0205dc"
     },
     {
       "path": "js/equipment/gear-inventory.js?v=20261101-wear-help1",
@@ -455,8 +455,8 @@
       "sha256": "22bd678c50520f6fb8baba3763b40047b6d0dae944d3b686727915e4b9d6d8ab"
     },
     {
-      "path": "js/ui/skill-system-ui.js?v=20261105-v0076-newskill2",
-      "sha256": "ab3b486363be761ee8dac8aeb5b21f8039e5f2a7a3154fa7ba48788bd29d193f"
+      "path": "js/ui/skill-system-ui.js?v=20261105-v0083-switch1",
+      "sha256": "50c6cc668b6007cfed5c4e5d137b3994a67e866e45ce6654924ac7bdadf49673"
     },
     {
       "path": "js/ui/battle-summary.js?v=20261104-v0054-resync1",
@@ -475,8 +475,8 @@
       "sha256": "ae0e8dee3708c2bea52b0ac0faa7957672914ad5af2b05ebc00211c237170825"
     },
     {
-      "path": "js/combat/battle-configuration.js?v=20261103-v0037-offline-speed1",
-      "sha256": "3d4304de56df1400b460684771b69f02a5e2479a1836380feaa732562064e6a3"
+      "path": "js/combat/battle-configuration.js?v=20261105-v0085-token2",
+      "sha256": "bf78fc874bf06458468a2b98aa0749e7578e4ab299abfb8127d49c1b35439e32"
     },
     {
       "path": "js/combat/seconds-runtime.js?v=20261105-v0075-cdr1",
@@ -491,12 +491,16 @@
       "sha256": "8a9cf1dab634b33e5eed0f38a871d0fb914dfeac16f909439addb183d8463e3e"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261105-v0079-field1",
-      "sha256": "3ad9575c94dae3b742bc8bb1bbc171b57c81de4e5c3cf317273687be43a27d52"
+      "path": "js/ui/seconds-battle.js?v=20261105-v0083-switch1",
+      "sha256": "bf8313bc81243668372243d0ec33ce7c3bb097ce6b77830a2e22f2da6fd05b17"
     },
     {
       "path": "js/ui/visual-colors.js?v=20261105-v0079-field1",
       "sha256": "d66e5b90461f5ff6a7bca535db00b1a72c55a4ad012ad19834dde95eb741c00b"
+    },
+    {
+      "path": "js/ui/mastery-bars.js?v=20261105-v0083-switch1",
+      "sha256": "8a0aac01ca51bd993597c2b439a9ca03a1ca9d935b316a8e88e88877ca7b8e04"
     }
   ]
 }
