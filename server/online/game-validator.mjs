@@ -21904,7 +21904,7 @@ EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary
 
 EmberwildVisualColors=globalThis.EmberwildVisualColors??EmberwildVisualColors;
 
-/* js/ui/mastery-bars.js?v=20261105-v0083-switch1 */
+/* js/ui/mastery-bars.js?v=20261105-v0091-mastery3 */
 /* v0.083 mastery bars: an icon and a fill bar per mastery, colored by element; warrior masteries (class and weapons)
    are always gray and archer masteries always cyan. Used by the 目前精通等級 panel and the exploration header. */
 (()=>{
@@ -21924,11 +21924,15 @@ EmberwildVisualColors=globalThis.EmberwildVisualColors??EmberwildVisualColors;
    `<span class="mastery-bar-track" role="progressbar" aria-label="${label}精通進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(pct)}"><span class="mastery-bar-fill" style="width:${pct}%"></span></span>`+
    `${compact?'':`<small>${text}${inactive?'':' EXP · 累積 '+xp}${note?' · '+note:''}</small>`}</span>${compact?`<small class="mastery-bar-value">${text}</small>`:''}</div>`;
  }
- // The protagonist's current class mastery, for the exploration header next to the experience bar.
+ // Exploration header (v0.091): exactly two bars, the class mastery and the highest weapon/element mastery of that class
+ // (by accumulated EXP; ties keep the listed order). v0.090 listed every weapon/element mastery.
  function current(h){
   const T=globalThis.__EMBERWILD_TEAMS,M=globalThis.__EMBERWILD_MASTERY;if(!h||!T?.build?.()||!M?.masteryProgress||!Number.isInteger(h.job))return '';
-  const v=T.build().permanent.classes?.[h.job],p=M.masteryProgress(v?.xp||0);
-  return bar('class:'+h.job,{label:(CLASSES[h.job]?.name||'')+'精通',level:p.level,current:p.current,next:p.next,xp:p.xp,compact:true});
+  const perm=T.build().permanent,cls=M.masteryProgress(perm.classes?.[h.job]?.xp||0),keys=M.validMasteries?.(h.job)||[];
+  const best=keys.reduce((a,k)=>a===null||(perm.masteries?.[k]||0)>(perm.masteries?.[a]||0)?k:a,null);
+  const bars=[bar('class:'+h.job,{label:CLASSES[h.job]?.name||'職業',level:cls.level,current:cls.current,next:cls.next,xp:cls.xp,compact:true})];
+  if(best!==null){const p=M.masteryProgress(perm.masteries?.[best]||0);bars.push(bar(best,{label:M.masteryLabels?.[best]||best,level:p.level,current:p.current,next:p.next,xp:p.xp,compact:true}));}
+  return `<span class="mastery-bar-row" aria-label="${CLASSES[h.job]?.name||''}精通">${bars.join('')}</span>`;
  }
  globalThis.EmberwildMasteryBars={bar,current,CLASS,KEY};
 })();

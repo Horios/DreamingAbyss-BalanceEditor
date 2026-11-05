@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "bdc67568689e0a344a4ad80b126398664c3813e6",
+  "sourceCommit": "5de7bb8c17dfb6c02ff0aa52a580e49ad02a030d",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -499,8 +499,8 @@
       "sha256": "d66e5b90461f5ff6a7bca535db00b1a72c55a4ad012ad19834dde95eb741c00b"
     },
     {
-      "path": "js/ui/mastery-bars.js?v=20261105-v0083-switch1",
-      "sha256": "8a0aac01ca51bd993597c2b439a9ca03a1ca9d935b316a8e88e88877ca7b8e04"
+      "path": "js/ui/mastery-bars.js?v=20261105-v0091-mastery3",
+      "sha256": "5f8f040bb625bb11fc34f52e63ea5c4621c3e35e343b9d8e64d8c51316ba4c65"
     }
   ]
 }

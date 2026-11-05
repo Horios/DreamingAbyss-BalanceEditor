@@ -1,5 +1,5 @@
 {
-  "gameCommit": "bdc67568689e0a344a4ad80b126398664c3813e6",
+  "gameCommit": "5de7bb8c17dfb6c02ff0aa52a580e49ad02a030d",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -379,7 +379,7 @@
     },
     {
       "path": "js/ui/mastery-bars.js",
-      "sha256": "8a0aac01ca51bd993597c2b439a9ca03a1ca9d935b316a8e88e88877ca7b8e04"
+      "sha256": "5f8f040bb625bb11fc34f52e63ea5c4621c3e35e343b9d8e64d8c51316ba4c65"
     },
     {
       "path": "js/ui/mastery-ui.js",
@@ -595,7 +595,7 @@
     },
     {
       "path": "css/mastery-ui.css",
-      "sha256": "fa0e8d862873ea1559c530f957295c90b1c4fcc2e4c557b68efb79546c6e79b9"
+      "sha256": "ec357ad3e6da587a7eb7c4385ce057308043524c2c21621645e62ccfa1e4afc0"
     },
     {
       "path": "css/mobile-layout.css",
@@ -695,11 +695,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "748e473b7d3a962fffde9269ea948eab4c4d2fe84c22831d6decb97eee33209b"
+      "sha256": "9dad844551a170526332b250750d81a12ad4a172a0d90d155aa97de45e853708"
     },
     {
       "path": "index.html",
-      "sha256": "e6061e08b7820aa902f12462d60953d76db43a6459dd8d153a8eb4dc70a2890a"
+      "sha256": "b146d537714a747ac53cb19a3f96e351dd194064e5ac314789b0ce6c166d213c"
     }
   ],
   "gameBridgeSha256": "47d994f91aa7e7eb719ecd35360ef27e40feb7e82401aace8d11ce3dceef9444",
