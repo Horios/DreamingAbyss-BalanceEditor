@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "b69f6452d50622aa13351f4f5ba1c490e1a9efce",
+  "sourceCommit": "bdc67568689e0a344a4ad80b126398664c3813e6",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -479,8 +479,8 @@
       "sha256": "bf78fc874bf06458468a2b98aa0749e7578e4ab299abfb8127d49c1b35439e32"
     },
     {
-      "path": "js/combat/seconds-runtime.js?v=20261105-v0075-cdr1",
-      "sha256": "1c2bf5486c430a00236b97bd9abaf760f8836fd81a534d3a80c8c2ffd5d44a17"
+      "path": "js/combat/seconds-runtime.js?v=20261105-v0089-recovery1",
+      "sha256": "e73c7e663a260fa07bca4d5566c0333ade74780cfb994b646a00fe4c586975cf"
     },
     {
       "path": "js/combat/online-idle-statistics.js?v=20261105-v0080-average2",

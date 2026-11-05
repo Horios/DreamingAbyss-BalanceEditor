@@ -1,5 +1,5 @@
 {
-  "gameCommit": "b69f6452d50622aa13351f4f5ba1c490e1a9efce",
+  "gameCommit": "bdc67568689e0a344a4ad80b126398664c3813e6",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -127,7 +127,7 @@
     },
     {
       "path": "js/combat/seconds-runtime.js",
-      "sha256": "1c2bf5486c430a00236b97bd9abaf760f8836fd81a534d3a80c8c2ffd5d44a17"
+      "sha256": "e73c7e663a260fa07bca4d5566c0333ade74780cfb994b646a00fe4c586975cf"
     },
     {
       "path": "js/combat/seconds-schema.js",
@@ -695,11 +695,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "1cc0674fc38b635f665016c3a30cd6ed692eb6a45ac1706358188f8e28f7b347"
+      "sha256": "748e473b7d3a962fffde9269ea948eab4c4d2fe84c22831d6decb97eee33209b"
     },
     {
       "path": "index.html",
-      "sha256": "ddc469c8222e9b4eaf8f559b7c831482e45017649d133caecf959f0ef2faa947"
+      "sha256": "e6061e08b7820aa902f12462d60953d76db43a6459dd8d153a8eb4dc70a2890a"
     }
   ],
   "gameBridgeSha256": "47d994f91aa7e7eb719ecd35360ef27e40feb7e82401aace8d11ce3dceef9444",
