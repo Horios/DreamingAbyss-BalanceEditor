@@ -706,7 +706,7 @@
       "sha256": "0c74426360a529db26ce573e7d74fa676376072c88c3099f1eb97288fdf090b1"
     }
   ],
-  "gameBridgeSha256": "62a68a5518b209d78250090fefd93eb3c4bf28d21b587cf1d5a873ca01358a5e",
+  "gameBridgeSha256": "273d7e28ff30b86fb29154bcaf07e6d651ca4a9545f9bbfcb6db3528f9ae67ed",
   "editorBridgeSha256": "f3459f81bf758a193e32d257cf81f1bb24bd612be8c326c590731844d5c2cfb0",
-  "entrySha256": "b9074ccffe8a621699f718ef37f7bd4eac6bc6f9f4ae13caafc9dd84242d6af1"
+  "entrySha256": "fe0579a905ea09b8afca1ec17e2dffd59acf4e99bbf7fde4742b337ffbb612be"
 }

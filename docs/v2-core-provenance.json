@@ -1,6 +1,6 @@
 {
-  "editorSha256": "4b523df0fda583dcf8de59b1258ec23ae74cdf95a122c9bbe54bb1d190d03580",
-  "bundleSha256": "be3d2803d12c94f882539f592431ac3250213b9e7e4f4978e44dd400c8860110",
+  "editorSha256": "14e2b3cb866af18ae8f255d4bc622c5715dc8d8362f793a8aa0b8ed27783c083",
+  "bundleSha256": "ee63fa105d240d463a94146c2e36259b059c68856c7765e55d7b2a4e84b5e452",
   "models": [
     {
       "name": "EmberwildSecondsSchema",
@@ -20,7 +20,7 @@
     {
       "name": "EmberwildBalanceDocument",
       "line": 10171,
-      "sha256": "4afc322ad3716e77fd8f93d1fe84b3446424a843b37bfc3d3b6e50601097aa09"
+      "sha256": "c8a218f263628f4362aac6e0d9d391becf649e46fa0a48d8ec83d82ea6ae6190"
     }
   ]
 }
