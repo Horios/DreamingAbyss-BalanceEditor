@@ -45,6 +45,8 @@ const shell={bridge,apply,status,game:()=>game,editor:()=>editor.contentWindow,o
 globalThis.DreamingAbyssShell=shell;
 window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==game.contentWindow)return;const m=event.data;if(m?.kind!=='dreaming-abyss-dev-edit')return;if(!editorReady||!gameReady)return status('編輯器尚未就緒');if(!editing||mode!=='developer')return;if(m.target?.list)DreamingAbyssInlineEdit.openList(m.target.list,shell,m.target.job);else DreamingAbyssInlineEdit.open(m.target,shell);});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('devDock').hidden&&!document.getElementById('devInlineDialog')?.open)close();});
+// Esc also ends text picking (改文字) when focus is on this page rather than inside the game frame.
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.getElementById('devInlineDialog')?.open){try{game.contentWindow.__EMBERWILD_V2_GAME?.textPick(false);}catch{}}});
 })();
 </script>
 </html>

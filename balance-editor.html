@@ -10301,7 +10301,7 @@ ${doc().daily.materialRewards.map((x,i)=>`<div class="quest-editor-row"><label>�
   function types(v,b,p){if(b===null||b===undefined||v===undefined)return;if(v===null){if(['mastery','requiredMastery','partnerId','unitPrice','control','durationSeconds'].includes(p.split('.').at(-1)))return;typeErrors.push(issue(p,'此欄位不可為 null'));return;}if(Array.isArray(b)){if(!Array.isArray(v)){typeErrors.push(issue(p,'必須為陣列'));return;}for(let i=0;i<v.length;i++)types(v[i],b[i]??b[0],p+'.'+i);return;}if(typeof b==='object'){if(!v||typeof v!=='object'||Array.isArray(v)){typeErrors.push(issue(p,'必須為物件'));return;}for(const k of Object.keys(v))types(v[k],b[k],p+'.'+k);return;}if(!/\.(key|value)$/.test(p)&&typeof v!==typeof b)typeErrors.push(issue(p,'型別必須為 '+typeof b));}
   if(defaults)types(d,defaults,'$');if(typeErrors.length)throw Object.assign(Error(typeErrors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:typeErrors});
 if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Error(e.message),{issues:e.issues||[issue('domain',e.message)]});}}return d;}
- const api={combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1,wishingLakeVersion:1,healingPotionVersion:1,equipmentGemModeVersion:2,storyEquipmentLessonsVersion:1,skillSystemVersion:1,questEncountersVersion:1,consumableClockVersion:1,equipmentAcquisitionVersion:1,storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
+ const api={textOverridesVersion:1,combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1,wishingLakeVersion:1,healingPotionVersion:1,equipmentGemModeVersion:2,storyEquipmentLessonsVersion:1,skillSystemVersion:1,questEncountersVersion:1,consumableClockVersion:1,equipmentAcquisitionVersion:1,storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 </script>
 <script id="balance-document-editor-v1">
@@ -12896,6 +12896,29 @@ function newRowSecondsTiming(kind,row){
       if(out.ok&&String(v.description||'').trim()){try{__EMBERWILD_INVENTORY_ICON_EDITOR.edit(out.itemKind+':'+out.key,{description:String(v.description).trim()});}catch(e){return {...out,warning:'道具已建立，說明未儲存：'+e.message};}}
       return out;
     }
+  };
+  // On-screen text overrides (game textOverrides v1, see the game's docs/TEXT_OVERRIDES.md). Sources use {#} for digits;
+  // saving the original wording back removes the override. Rules mirror the game's validator.
+  const squashText=s=>String(s??'').replace(/\s+/g,' ').trim();
+  const textTable=()=>data.textOverrides&&Array.isArray(data.textOverrides.entries)?data.textOverrides:null;
+  globalThis.__EMBERWILD_TEXT_OVERRIDE_EDITOR={
+    entries(){return copy(textTable()?.entries||[]);},
+    get(source){const key=squashText(source);return textTable()?.entries.find(e=>e.source===key)?.text??null;},
+    set(source,text){return guarded(()=>{
+      const key=squashText(source);
+      if(!key)throw Error('缺少原文');
+      if(/\d/.test(key))throw Error('原文的數字請寫成 {#}');
+      if(key.length>400)throw Error('原文過長（最多 400 字元）');
+      if(typeof text!=='string')throw Error('新文字必須是文字');
+      if(text.length>2000)throw Error('新文字過長（最多 2000 字元）');
+      const table=textTable()||(data.textOverrides={version:1,entries:[]}),i=table.entries.findIndex(e=>e.source===key);
+      if(squashText(text)===key){if(i>=0)table.entries.splice(i,1);}
+      else if(i>=0)table.entries[i].text=text;
+      else{if(table.entries.length>=3000)throw Error('文字覆寫最多 3000 筆');table.entries.push({source:key,text});}
+      if(!table.entries.length)delete data.textOverrides;
+      return {source:key};
+    });},
+    remove(source){return this.set(source,squashText(source));}
   };
 })();
 </script>
