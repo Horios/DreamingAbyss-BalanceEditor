@@ -164,6 +164,26 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   assert.equal(await p.locator('.dev-list-row').count(),fixed);
   await p.locator('#devInlineCancel').click();
 
+  // A draft that already has problems (daily commissions set to 裝備／寶石二選一 without both rewards) still saves other records;
+  // the commission dialog names the problem and can complete or undo the settlement.
+  await inEditor(()=>{for(const id of ['daily_explore','daily_herb'])data.balanceSettings.quests.design.daily.entries.find(q=>q.id===id).rewards.choice='gearOrGems';});
+  assert.equal((await inEditor(()=>validateData())).filter(x=>/二選一需同時設計兩種獎勵/.test(x)).length,2);
+  await inGame(()=>setTab('shop'));await listButton('shop').click();await dialog.waitFor();
+  await p.locator('.dev-list-row').first().click();await p.locator('#devInline-weight').fill('2');await p.locator('#devInlineSave').click();await backToList(/商店商品/);
+  assert.match(await p.locator('#devStatus').innerText(),/已更新並套用至預覽[\s\S]*既有問題[\s\S]*二選一/,'existing problems are reported, not blocking');
+  await p.locator('#devInlineCancel').click();
+  await inGame(()=>setTab('quests'));await listButton('quests').click();await dialog.waitFor();
+  const explore=await inEditor(()=>data.balanceSettings.quests.design.daily.entries.find(q=>q.id==='daily_explore').title);
+  await p.locator('.dev-list-row',{hasText:explore}).click();await p.locator('#devInline-rewards_choice').waitFor();
+  assert.equal(await p.locator('#devInline-rewards_choice').inputValue(),'gearOrGems');
+  await p.locator('#devInline-rewards_gold').fill('10');await p.locator('#devInlineSave').click();
+  assert.match(await p.locator('#devInlineError').innerText(),/需要至少 1 項裝備獎勵/,'the incomplete settlement of this quest is named');
+  await p.locator('#devGearAdd').click();await p.locator('#devInline-rewards_gemCounts_0').fill('2');await p.locator('#devInlineSave').click();await backToList(/委託清單/);
+  const settled=await inEditor(()=>data.balanceSettings.quests.design.daily.entries.find(q=>q.id==='daily_explore').rewards);
+  assert.deepEqual([settled.choice,settled.gear.length,settled.gemCounts[0],settled.gold],['gearOrGems',1,2,10]);
+  await p.locator('.dev-list-row',{hasText:await inEditor(()=>data.balanceSettings.quests.design.daily.entries.find(q=>q.id==='daily_herb').title)}).click();
+  await p.locator('#devInline-rewards_choice').selectOption('all');await p.locator('#devInlineSave').click();await backToList(/委託清單/);
+  await p.locator('#devInlineCancel').click();
   assert.deepEqual(await inEditor(()=>validateData()),[],'the draft stays valid after every add, edit and delete');
   assert.equal(await inEditor(()=>{__EMBERWILD_V2_BRIDGE.validate(__EMBERWILD_V2_BRIDGE.current());return true;}),true,'the game validator accepts the draft');
   assert.deepEqual(errors,[]);console.log('V2 inline CRUD passed: maps, monsters (stats, skills), skills, equipment, items, tokens, companions, quests and shop offers');

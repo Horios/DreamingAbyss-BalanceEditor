@@ -2890,8 +2890,9 @@ ensureArrays();requestEditorInitialRender();
     data.balanceSettings.maps.levelRanges=maps.map(m=>({min:m.min,max:m.max}));
   }
   function guardedMapChange(fn){
-    const snapshot=structuredClone(data);
-    try{const out=fn();const issues=validateData();if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('地圖彈窗');render();return {ok:true,...out};}
+    // Problems already in the draft before this change do not block it; only problems the change introduces do.
+    const snapshot=structuredClone(data),before=new Set(validateData());
+    try{const out=fn();const all=validateData(),issues=all.filter(x=>!before.has(x));if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('地圖彈窗');render();return {ok:true,...out,...(all.length?{existingIssues:all.slice(0,3)}:{})};}
     catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}
   }
   const MONSTER_FIELDS=['name','element','race','hpMultiplier','attackMultiplier','defenseMultiplier','spawnWeight','maxDrops','enabled','eliteEnabled','kind','baseStats.hp','baseStats.attack','baseStats.defense'];
@@ -12772,7 +12773,8 @@ function newRowSecondsTiming(kind,row){
    editor pages. Every write validates the whole document and restores the previous draft when it is rejected. */
 (function installDeveloperInlineApi(){
   const copy=v=>structuredClone(v);
-  function guarded(fn){const snapshot=copy(data);try{const out=fn();ensureArrays();const issues=validateData();if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('開發者模式彈窗');render();return {ok:true,...(out||{})};}catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}}
+  // Problems already in the draft before this change do not block it; only problems the change introduces do.
+  function guarded(fn){const snapshot=copy(data),before=new Set(validateData());try{const out=fn();ensureArrays();const all=validateData(),issues=all.filter(x=>!before.has(x));if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('開發者模式彈窗');render();return {ok:true,...(out||{}),...(all.length?{existingIssues:all.slice(0,3)}:{})};}catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}}
   const formsOf=job=>data.equipmentForms[job]||(data.equipmentForms[job]=[[],[],[],[]]);
   function form(job,slot,index){const f=formsOf(job)[slot]?.[index];if(!f)throw Error('找不到裝備');return f;}
   function cleanEffects(list){
@@ -12927,7 +12929,8 @@ function newRowSecondsTiming(kind,row){
    data and rules as the editor pages. Every write validates the whole document and restores the previous draft when rejected. */
 (function installDeveloperCrudApi(){
   const copy=v=>structuredClone(v);
-  function guarded(fn){const snapshot=copy(data);try{const out=fn();ensureArrays();const issues=validateData();if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('開發者模式彈窗');render();return {ok:true,...(out||{})};}catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}}
+  // Problems already in the draft before this change do not block it; only problems the change introduces do.
+  function guarded(fn){const snapshot=copy(data),before=new Set(validateData());try{const out=fn();ensureArrays();const all=validateData(),issues=all.filter(x=>!before.has(x));if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('開發者模式彈窗');render();return {ok:true,...(out||{}),...(all.length?{existingIssues:all.slice(0,3)}:{})};}catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}}
   const int=(v,label,min=0,max=1e9)=>{const n=Math.round(Number(v));if(!Number.isFinite(n)||n<min||n>max)throw Error(label+'需為 '+min+'～'+max+' 的整數');return n;};
   const num=(v,label,min=0,max=1e9)=>{const n=Number(v);if(!Number.isFinite(n)||n<min||n>max)throw Error(label+'需為 '+min+'～'+max+' 的數字');return n;};
   const text=(v,label,max=80)=>{const t=String(v??'').trim();if(!t||Array.from(t).length>max)throw Error(label+'需 1～'+max+' 字');if(/[<>]/.test(t))throw Error(label+'不可包含 < 或 >');return t;};
@@ -12951,7 +12954,7 @@ function newRowSecondsTiming(kind,row){
         nearKill:{mode:'fixed',value:'@nearLevel'},level:{mode:'none'},totalKills:{mode:'none'},salvage:{mode:'none'},enhance:{mode:'none'}}
     };
   }
-  function questView(q,kind){const r=q.rewards;return {id:q.id,kind,title:q.title,description:q.description||'',enabled:!!q.enabled,minLevel:q.minLevel,maxLevel:q.maxLevel,weight:q.weight,'rewards.gold':r.gold,'rewards.xp':r.xp,'rewards.ore':r.ore,'rewards.dust':r.dust,'rewards.randomGems':r.randomGems,objectives:q.objectives.map(o=>({type:o.type,key:o.key,quantity:o.quantity})),objectiveChoices:objectiveChoices(kind),prerequisites:q.prerequisites.length,mapIndices:q.mapIndices.length};}
+  function questView(q,kind){const r=q.rewards;return {id:q.id,kind,title:q.title,description:q.description||'',enabled:!!q.enabled,minLevel:q.minLevel,maxLevel:q.maxLevel,weight:q.weight,'rewards.gold':r.gold,'rewards.xp':r.xp,'rewards.ore':r.ore,'rewards.dust':r.dust,'rewards.randomGems':r.randomGems,'rewards.gemCounts.0':r.gemCounts[0],'rewards.gemCounts.1':r.gemCounts[1],'rewards.gemCounts.2':r.gemCounts[2],'rewards.choice':r.choice,'rewards.gearChance':r.gearChance,'rewards.gear':copy(r.gear),classes:data.classes.map((c,i)=>[String(i),c.name]),objectives:q.objectives.map(o=>({type:o.type,key:o.key,quantity:o.quantity})),objectiveChoices:objectiveChoices(kind),prerequisites:q.prerequisites.length,mapIndices:q.mapIndices.length};}
   function applyQuest(q,kind,v){
     for(const [k,raw] of Object.entries(v||{})){
       if(k==='title')q.title=text(raw,'任務名稱',80);
@@ -12959,8 +12962,12 @@ function newRowSecondsTiming(kind,row){
       else if(k==='enabled')q.enabled=!!raw;
       else if(k==='minLevel')q.minLevel=int(raw,'最低等級',1,1000);
       else if(k==='maxLevel')q.maxLevel=int(raw,'最高等級（0＝不限）',0,1000);
-      else if(k==='weight')q.weight=num(raw,'抽取權重',0,1e6);
+      else if(k==='weight'){q.weight=num(raw,'抽取權重',0,1e6);if(!(q.weight>0))throw Error('抽取權重需大於 0');}
       else if(/^rewards\.(gold|xp|ore|dust|randomGems)$/.test(k))q.rewards[k.slice(8)]=int(raw,'獎勵數值',0);
+      else if(/^rewards\.gemCounts\.[012]$/.test(k))q.rewards.gemCounts[Number(k.at(-1))]=int(raw,'指定寶石數',0,1000);
+      else if(k==='rewards.choice'){if(!['all','gearOrGems'].includes(raw))throw Error('獎勵結算方式無效');q.rewards.choice=raw;}
+      else if(k==='rewards.gearChance')q.rewards.gearChance=num(raw,'二選一抽中裝備機率',0,1);
+      else if(k==='rewards.gear'){if(!Array.isArray(raw)||raw.length>8)throw Error('裝備獎勵最多 8 項');q.rewards.gear=raw.map(g=>({job:int(g.job,'裝備職業',-1,3),slot:int(g.slot,'裝備部位',-1,3),rar:int(g.rar,'裝備品質',0,3),quantity:int(g.quantity,'裝備數量',1,10),tier:int(g.tier,'裝備階級',0,100),legendaryChance:num(g.legendaryChance??0,'升為傳說機率',0,1)}));}
       else if(k==='objectives'){
         if(!Array.isArray(raw)||!raw.length||raw.length>16)throw Error('任務需要 1～16 個需求');const choices=objectiveChoices(kind);
         q.objectives=raw.map((o,i)=>{const type=String(o.type);if(!choices.types.some(([t])=>t===type))throw Error('需求類型無效：'+type);const spec=choices.keys[type],quantity=int(o.quantity,'需求數量',1,1e6);
@@ -12970,6 +12977,7 @@ function newRowSecondsTiming(kind,row){
       else throw Error('不支援的任務欄位：'+k);
     }
     if(q.maxLevel&&q.maxLevel<q.minLevel)throw Error('最高等級不可低於最低等級');
+    const r=q.rewards;if(r.choice==='gearOrGems'&&(!r.gear.length||!(r.randomGems>0||r.gemCounts.some(n=>n>0))))throw Error('「裝備／寶石二選一」需要至少 1 項裝備獎勵，以及隨機寶石或指定寶石；或把獎勵結算改回「全部發放」。');
   }
   globalThis.__EMBERWILD_QUEST_DIALOG={
     kinds:{daily:'每日委託',side:'支線任務'},
