@@ -14,7 +14,7 @@ function createGithubApp({appId,installationId,privateKeyPath,fetchImpl=fetch}){
   if(token&&expires>Date.now()+60000)return token;
   const now=Math.floor(Date.now()/1000),b64=x=>Buffer.from(JSON.stringify(x)).toString('base64url'),head=b64({alg:'RS256',typ:'JWT'}),payload=b64({iat:now-60,exp:now+540,iss:String(appId)}),data=head+'.'+payload;
   const jwt=data+'.'+crypto.sign('RSA-SHA256',Buffer.from(data),fs.readFileSync(privateKeyPath)).toString('base64url');
-  const out=await request('/app/installations/'+encodeURIComponent(installationId)+'/access_tokens',{method:'POST',auth:jwt,body:{repositories:['Emberwild'],permissions:{contents:'write',actions:'read'}}});
+  const out=await request('/app/installations/'+encodeURIComponent(installationId)+'/access_tokens',{method:'POST',auth:jwt,body:{repositories:['DreamingAbyss'],permissions:{contents:'write',actions:'read'}}});
   token=out.token;expires=Date.parse(out.expires_at);return token;
  }
  return async(path,options={})=>request(path,{...options,auth:await access()});

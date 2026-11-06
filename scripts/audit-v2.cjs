@@ -104,7 +104,7 @@ function audit(){
  const sections=JSON.parse(JSON.stringify(r.run('SECTION_META'))),groups=JSON.parse(JSON.stringify(r.run('NAV_GROUPS')));
  const sourceFiles=['index.html','data/balance.json','js/combat/seconds-schema.js','js/combat/seconds-runtime.js','js/combat/seconds-timeline.js'];
  return {formatVersion:1,title:'Dreaming Abyss V2 開發者模式第一階段稽核',
-  game:{repository:'Horios/Emberwild',commit:cp.execFileSync('git',['-C',game,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),files:sourceFiles.map(file=>({path:file,sha256:sha(fs.readFileSync(path.join(game,file)))}))},
+  game:{repository:'Horios/DreamingAbyss',commit:cp.execFileSync('git',['-C',game,'rev-parse','HEAD'],{encoding:'utf8'}).trim(),files:sourceFiles.map(file=>({path:file,sha256:sha(fs.readFileSync(path.join(game,file)))}))},
   editor:{sha256:sha(html),sections,groups,modules},
   limitations:['欄位清冊是目前文件所有觀測路徑，並非完整 schema。','observedOptional 只表示同類物件有缺值，不能當作 schema 選用欄位定義。','靜態引用、依賴和 DOM 清冊是候選證據；未解析所有別名、字串路徑及作用域，不等於編輯支援或完整呼叫圖。','optionalFields 是有來源行號的秒數 schema 補充清單，不宣稱涵蓋所有選用或動態欄位。','UI 驗證只涵蓋已列證據的代表性欄位形狀；未驗證欄位與每筆物件不可算作通過。','roundTrip 保留 raw JSON 的完整差異，包含 _reference 與 notes。','未修改資料、預設、規則或遊戲數值。'],
   summary:{fieldPaths:fields.length,canonicalTimeOrResource:fields.filter(x=>x.role==='canonical-seconds-or-resource').length,observedOptional:fields.filter(x=>x.observedOptional).length,withStaticEditorReference:fields.filter(x=>x.editorReferenceCandidates.length).length,modules:modules.length,sections:sections.length,domReferences:modules.reduce((n,m)=>n+m.dom.length,0),verifiedEditing:fields.filter(x=>x.editingVerified).length,unverifiedEditing:fields.filter(x=>!x.editingVerified).length},

@@ -8921,7 +8921,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentTotalSummar
 
 EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs;__EMBERWILD_DEBUFF_MECHANICS=globalThis.__EMBERWILD_DEBUFF_MECHANICS??__EMBERWILD_DEBUFF_MECHANICS;
 
-/* js/equipment/equipment-identity.js?v=20261105-v0075-cdr1 */
+/* js/equipment/equipment-identity.js?v=20261106-v0095-snapshot1 */
 
 /* Equipment identity v2.
    Normal gear: prefix + suffix + base + internal power tier.
@@ -9368,6 +9368,10 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     rows?.set(g,{plus:g.plus,base:g.baseSnapshot,power:g.powerTier,prefix:g.prefixId,suffix:g.suffixId,value});return value;
   }
   globalThis.gearStatBreakdown=gearStatBreakdown;
+  // v0.094: take the base snapshot when a drop enters the bag, as wishing-lake rewards already do. Before, it was taken on
+  // the first stat read (usually a render), so whether a new item carried it depended on presentation timing, and a balance
+  // update before that first read would have changed the stored base of an owned item.
+  {const addBase=addGear;addGear=function(g,...args){const out=addBase.call(this,g,...args);if(g&&!EmberwildTokens.isToken(g)&&state?.bag?.includes(g))gearStatBreakdown(g);return out;};}
   gearBaseStats=function(g){return gearStatBreakdown(g).total;};
 
   function applyIdentityStatEffect(v,e,attackBox){
@@ -19763,7 +19767,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildBa
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;createEquipmentShopGear=globalThis.createEquipmentShopGear??createEquipmentShopGear;selectSkillEquipment=globalThis.selectSkillEquipment??selectSkillEquipment;socketEquipmentGem=globalThis.socketEquipmentGem??socketEquipmentGem;setEquipmentGemMode=globalThis.setEquipmentGemMode??setEquipmentGemMode;
 
-/* js/ui/skill-system-ui.js?v=20261105-v0083-switch1 */
+/* js/ui/skill-system-ui.js?v=20261105-v0092-catalog1 */
 /* One loadout view and one equipment socket editor use the canonical catalog. */
 (()=>{
  'use strict';
@@ -19827,7 +19831,17 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  }
  function passives(h){const list=sortedSkills(S.system().definitions.filter(sk=>sk.type==='passive'&&S.learned(h,sk)),h);return `<section class="panel"><h2>被動技能 <small>無槽位上限 · 不占主動槽</small></h2><div class="skill-passive-grid">${list.map(sk=>{const on=S.passiveEnabled(h,sk.id);return `<article class="skill-candidate ${on?'':'skill-passive-disabled'}" data-passive-id="${esc(sk.id)}"><button type="button" class="skill-passive-detail" onclick="showSkillInformation('${esc(sk.id)}')">${icon(sk)}<b>${esc(sk.name)}</b></button><p>${esc(sk.description)}</p><button type="button" role="switch" aria-checked="${on}" onclick="setPassiveSkillEnabled('${esc(sk.id)}',${!on})">${on?'已啟用':'已停用'}</button></article>`;}).join('')||'<p>尚未學會被動技能，可至技能圖鑑查看解鎖條件。</p>'}</div></section>`;}
  globalThis.showSkillInformation=function(id){const h=party.members[0],sk=S.byId(id);if(!sk||!S.learned(h,sk)&&!catalog(h).some(s=>s.id===id))return false;const modal=$('modal');modal.classList.add('skill-system-dialog');modal.innerHTML=card(sk,h)+`<button onclick="closeModal()">關閉</button>`;if(!modal.open)modal.showModal();return true;};
- globalThis.openSkillCatalog=function(){const h=party.members[0],modal=$('modal');modal.classList.add('skill-system-dialog');modal.innerHTML=`<h2>${esc(CLASSES[h.job].name)}技能圖鑑</h2><p class="small">收錄目前版本可取得的本職業與二轉技能。</p><div class="skill-candidate-list">${catalog(h).map(sk=>card(sk,h,`<span class="tag">${acquired(sk,h)?'已取得':'尚未取得'}</span>`)).join('')}</div><button onclick="closeModal()">關閉</button>`;if(!modal.open)modal.showModal();return true;};
+ // v0.092: two-pane catalog. Left: every skill of the class (learned first, then by level) with a strong learned/unlearned
+ // contrast; right: the selected skill's full details. Read-only.
+ let catalogSelected=null;
+ globalThis.openSkillCatalog=function(id){
+  const h=party.members[0],modal=$('modal'),list=catalog(h);if(!list.length)return false;
+  if(id!==undefined)catalogSelected=id;if(!list.some(sk=>sk.id===catalogSelected))catalogSelected=list[0].id;
+  const sel=list.find(sk=>sk.id===catalogSelected),have=list.filter(sk=>acquired(sk,h)).length;
+  modal.classList.add('skill-system-dialog','skill-catalog-dialog');
+  modal.innerHTML=`<h2>${esc(CLASSES[h.job].name)}技能圖鑑</h2><p class="small">收錄目前版本可取得的本職業與二轉技能。已取得 ${have} / ${list.length}。</p><div class="skill-catalog-panes"><nav class="skill-catalog-list" aria-label="技能清單">${list.map(sk=>{const got=acquired(sk,h);return `<button type="button" class="skill-catalog-item ${got?'is-acquired':'is-missing'}" data-skill-pick="${esc(sk.id)}" aria-pressed="${sk.id===catalogSelected}" onclick="openSkillCatalog('${esc(sk.id)}')"><span class="skill-catalog-icon">${icon(sk)}</span><span class="skill-catalog-text"><b>${esc(sk.name)}</b><small>${sk.type==='support'?'主動（輔助）':labels[sk.type]||sk.type} · ${stage(sk,h)}</small></span><span class="skill-catalog-state">${got?'已取得':'未取得'}</span></button>`;}).join('')}</nav><section class="skill-catalog-detail ${acquired(sel,h)?'is-acquired':'is-missing'}">${card(sel,h,`<span class="tag skill-catalog-status">${acquired(sel,h)?'已取得':'尚未取得'}</span>`)}</section></div><div class="actions"><button type="button" onclick="closeModal()">關閉</button></div>`;
+  if(!modal.open)modal.showModal();modal.querySelector('.skill-catalog-item[aria-pressed="true"]')?.scrollIntoView?.({block:'nearest'});return true;
+ };
  // Equipment skills belong to classes: a skill rolled for another class shows its class limit and cannot be enabled.
  const skillJobsText=sk=>(sk?.jobs||[]).map(j=>CLASSES[j]?.name||'').filter(Boolean).join('／');
  const usableBy=(sk,h)=>!!sk&&(sk.jobs||[]).includes(h?.job);
@@ -19848,7 +19862,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
   modal.innerHTML=`<h2>技能配置 · ${labels[type]}槽 ${n+1}</h2><div class="skill-slot-panes"><nav class="skill-slot-tabs" aria-label="技能槽">${slots}</nav><section class="skill-slot-choices"><div class="skill-slot-toolbar"><label><input type="checkbox" ${slotShowLocked?'checked':''} onchange="toggleSkillSlotLocked('${type}',${n},this.checked)">顯示未學技能</label>${!slotShowLocked&&hidden?`<small>已隱藏 ${hidden} 個未學技能</small>`:''}</div><div class="skill-candidate-list">${cards||(all.length?'<p>目前沒有已學會的此類技能，可勾選「顯示未學技能」查看解鎖條件。</p>':'<p>目前階段沒有符合此類型的技能。</p>')}</div></section></div><div class="actions"><button type="button" onclick="chooseSkillSlot('${type}',${n},null)">清空此技能槽</button><button type="button" onclick="closeModal()">關閉</button></div>`;if(!modal.open)modal.showModal();return true;
  };
  globalThis.chooseSkillSlot=function(t,n,id){const h=party.members[0];return withHero(h,()=>{if(!configureSkill(t,n,id))return false;closeModal();return true;});};
- $('modal').addEventListener('close',()=>$('modal').classList.remove('skill-system-dialog','skill-slot-dialog'));
+ $('modal').addEventListener('close',()=>$('modal').classList.remove('skill-system-dialog','skill-slot-dialog','skill-catalog-dialog'));
  const statNames={atk:'攻擊',hp:'生命',def:'防禦',speed:'速度',crit:'暴擊'};
  function gemText(h,g,id,n){const def=S.system().gems.find(x=>x.kind===id%5),tier=Math.floor(id/5),base=E.mode(h||{},{...g,skillSockets:{...g.skillSockets,gems:g.skillSockets.gems.map((value,index)=>index===n?id:value)}},n)==='base';if(base){const b=def.base,value=b.values[tier];return statNames[b.stat]+' +'+(b.unit==='ratio'?Math.round(value*10000)/100+'%':value);}return ({effect:'技能效果',cooldown:'冷卻縮短機率',procChance:'觸發率',heal:'額外治療',shield:'額外護盾'})[def.skill.key]+' +'+Math.round(def.skill.values[tier]*10000)/100+'%';}
  let socketSelection=null;
@@ -20171,7 +20185,7 @@ equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSu
 
 __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;__EMBERWILD_CONTROL_TEST_API=globalThis.__EMBERWILD_CONTROL_TEST_API??__EMBERWILD_CONTROL_TEST_API;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;querySelector=globalThis.querySelector??querySelector;classList=globalThis.classList??classList;querySelectorAll=globalThis.querySelectorAll??querySelectorAll;children=globalThis.children??children;insertBefore=globalThis.insertBefore??insertBefore;
 
-/* js/ui/battle-effects.js?v=20261103-v0043-blast1 */
+/* js/ui/battle-effects.js?v=20261106-v0095-quiet2 */
 /* Read-only presentation of the existing live timeline. No timers schedule combat.
    Nested scopes checkpoint actual HP/shield/status writes exactly once, including
    heals and procs inside damage resolvers. Offline events never open a frame. */
@@ -20228,7 +20242,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
     if(hit&&after.shield<=0)enqueue('break',target);
    }
    if(after.hp<before.hp){enqueue(ctx.periodic?'dot':attackType(ctx),target);enqueue('hit',target);}
-   else if(after.hp>before.hp)enqueue(ctx.mode==='potion'?'potion':ctx.mode==='damage'||ctx.effect==='drain'?'drain':ctx.mode==='regen'?'regen':'heal',target);
+   else if(after.hp>before.hp){const kind=ctx.mode==='potion'?'potion':ctx.mode==='damage'||ctx.effect==='drain'?'drain':ctx.mode==='regen'?'regen':'heal';enqueue(kind,target,kind==='regen'?{label:'+'+Math.max(1,Math.round(after.hp-before.hp))+' HP'}:{});}
    // A shield-only attack has an impact on the shield, never a red HP hit.
 
   }
@@ -20243,6 +20257,13 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   if(!frame)return fn();
   checkpoint();const current=frame,old=current.context;if(context.mode==='settlement')current.terminalVitals=sample();current.context={...old,...context};
   try{return fn();}finally{if(frame===current){checkpoint();current.context=old;}}
+ }
+ // v0.094: HP written inside quiet() (per-second recovery regeneration) plays no effect. Only the HP baseline of the
+ // open frame moves by the same amount; no checkpoint runs, so earlier pending changes and combat state are untouched.
+ function quiet(fn){
+  if(!frame)return fn();
+  const before=new Map(units().map(u=>[u,u.hp]));
+  try{return fn();}finally{if(frame)for(const [u,hp] of before){const row=frame.vitals.get(u);if(row&&u.hp!==hp)frame.vitals.set(u,{...row,hp:row.hp+(u.hp-hp)});}}
  }
  function begin(){
   pending=null;
@@ -20421,7 +20442,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   if(frame&&!frame.events.size&&frame.encounter!==foes&&frame.owner===party){frame.encounter=foes;encounter=foes;frame.initial=sample();frame.vitals=sample();frame.statuses=statuses();}
   return out;
  };
- globalThis.EmberwildBattleEffects={begin,end,scope,result,sync,clear,present,get holdingEncounter(){return !!held&&held.encounter!==foes&&performance.now()<held.until;},get capturing(){return !!frame;},get preference(){return preference;},get pendingEvents(){return pending?[...pending.events.values()].map(e=>({...e})):[];},get activeCount(){return [...activeNodes.values()].reduce((n,m)=>n+m.size,0);}};
+ globalThis.EmberwildBattleEffects={begin,end,scope,quiet,result,sync,clear,present,get holdingEncounter(){return !!held&&held.encounter!==foes&&performance.now()<held.until;},get capturing(){return !!frame;},get preference(){return preference;},get pendingEvents(){return pending?[...pending.events.values()].map(e=>({...e})):[];},get activeCount(){return [...activeNodes.values()].reduce((n,m)=>n+m.size,0);}};
  globalThis.setBattleEffects=function(value){if(!choices.includes(value))return false;preference=value;clear();try{localStorage.setItem(storageKey,value);}catch{toast('特效已套用，但瀏覽器無法保存設定。');}document.querySelectorAll('[data-battle-effects]').forEach(select=>select.value=value);EmberwildBattleSummary.sync({animate:false});return true;};
  globalThis.battleEffectsOptionsView=()=>'<section class="panel option-row"><div><h2>戰鬥特效</h2><p class="small">調整探索圖示與血條區塊動畫；保留目前行動者金框；減少動態效果時自動簡化。</p></div><select data-battle-effects aria-label="戰鬥特效" onchange="setBattleEffects(this.value)">'+choices.map((value,i)=>'<option value="'+value+'" '+(preference===value?'selected':'')+'>'+['完整','簡化','關閉'][i]+'</option>').join('')+'</select></section>';
  const modal=document.getElementById('modal');if(modal)new MutationObserver(()=>{if(modal.open)clear();}).observe(modal,{attributes:true,attributeFilter:['open']});
@@ -20763,7 +20784,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;
 
-/* js/combat/seconds-runtime.js?v=20261105-v0089-recovery1 */
+/* js/combat/seconds-runtime.js?v=20261106-v0095-quiet2 */
 /* The shared live/offline seconds driver. Existing damage, targeting, equipment,
    death-chain and reward handlers remain authoritative. No round generator runs. */
 (()=>{
@@ -20909,7 +20930,10 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  }
  function clock(at){
   const delta=Math.max(0,at-partyClock);partyClock=at;
-  for(const h of heroes()){if(phase==='recovery'&&delta>0)h.hp=Math.min(stats(h).hp,h.hp+stats(h).hp*config().recovery.hpFractionPerSecond*delta);h.healPotionCooldownRemaining=Math.max(0,(h.healPotionCooldownRemaining||0)-delta);h.manaPotionCooldownRemaining=Math.max(0,(h.manaPotionCooldownRemaining||0)-delta);for(const id of Object.keys(h.eventPassiveCooldowns||{}))h.eventPassiveCooldowns[id]=Math.max(0,h.eventPassiveCooldowns[id]-delta);const b=h.imbue;if(b?.remainingTurns){b.remainingTurns=Math.max(0,b.remainingTurns-delta);if(!b.remainingTurns)h.imbue=null;}}
+  // v0.094: the per-second recovery regeneration updates HP through EmberwildBattleEffects.quiet; it plays no healing effect (that pulsed every second
+  // and hid the effect of real regen ticks such as 晨光祝福).
+  if(phase==='recovery'&&delta>0){const regen=()=>{for(const h of heroes())h.hp=Math.min(stats(h).hp,h.hp+stats(h).hp*config().recovery.hpFractionPerSecond*delta);},fx=globalThis.EmberwildBattleEffects;if(fx?.quiet)fx.quiet(regen);else regen();}
+  for(const h of heroes()){h.healPotionCooldownRemaining=Math.max(0,(h.healPotionCooldownRemaining||0)-delta);h.manaPotionCooldownRemaining=Math.max(0,(h.manaPotionCooldownRemaining||0)-delta);for(const id of Object.keys(h.eventPassiveCooldowns||{}))h.eventPassiveCooldowns[id]=Math.max(0,h.eventPassiveCooldowns[id]-delta);const b=h.imbue;if(b?.remainingTurns){b.remainingTurns=Math.max(0,b.remainingTurns-delta);if(!b.remainingTurns)h.imbue=null;}}
   for(const c of Object.values(__EMBERWILD_CONTROL_TEST_API.states))for(const s of Object.values(c))if(s.secondsUntil!==undefined)s.turns=Math.max(0,s.secondsUntil-at);
  }
  function periodic(event){
@@ -20962,7 +20986,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
   x.mp=engine.actor(event.actorId).mp;
   if(event.type==='castStart'){recordAction(event.actorId,Object.hasOwn(x,'job')?characterName(x):combatEnemyName(x),'詠唱');note((Object.hasOwn(x,'job')?characterName(x):combatEnemyName(x))+'開始施放 '+skill(event.skillId).name);return;}
   if(event.type==='interrupt'){note((Object.hasOwn(x,'job')?characterName(x):combatEnemyName(x))+'的施法被中斷。');return;}
-  if(event.type==='blocked'){note(combatEnemyName(x)+' 因畏懼延後行動。');return;}
+  if(event.type==='blocked'){if(foes.some(e=>e.hp>0))note(combatEnemyName(x)+' 因畏懼延後行動。');return;}
   if(event.type==='basic'){
    basicAction(x);  }else if(event.type==='skill'||event.type==='castComplete'){
    const s=engine.find(event.actorId).definition.skills.find(s=>s.id===event.skillId);if(s){if(castResolved(x,s))recordAction(event.actorId,Object.hasOwn(x,'job')?characterName(x):combatEnemyName(x),skill(s.id).name);}
@@ -20970,7 +20994,14 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
   scheduleEffects(new Set(effects.filter(f=>f.secondsId)),null,null);scheduleControls();
   for(const a of engine.actors){const u=unit(a.definition.id);if(!u)continue;const steps=(u.procAdvanceSteps||0)+(u.basicAdvanceRound?1:0)+(u.sharedAdvanceSteps||0);if(steps){const advance=steps*config().advanceStepSeconds*1e6;a.basicAt=Math.max(engine.now+config().minimumActionIntervalSeconds*1e6,a.basicAt-advance);a.actionSpeedAt=Math.max(engine.now+config().minimumActionIntervalSeconds*1e6,a.actionSpeedAt-advance);a.actionAt=Math.max(a.actionSpeedAt,a.actionFixedAt);for(const k of ['procAdvanceSteps','basicAdvanceRound','procAdvanceRound','sharedAdvanceSteps','sharedAdvanceRound'])delete u[k];}}
  }
- const handlers={canAct:view=>{const x=unit(view.id);return !!x&&x.hp>0&&living().length>0&&(foes.some(e=>e.hp>0)||recoveryHealer(x));},canUse,
+ // During recovery a hero acts only when a heal/regen skill is ready, affordable and allowed right now (v0.093). Otherwise the
+ // timeline offered its basic attack, beforeAction refused it and the hero was "blocked" every attack interval: the card
+ // flickered and the journal logged 「因畏懼延後行動」 although no fear was involved. Recovery re-checks at least once a second.
+ function recoveryHealReady(view){
+  const a=engine?.find?.(view.id);if(!a)return false;
+  return a.definition.skills.some(s=>{const d=skill(s.id),effect=d?.effect||d?.kind;return ['heal','regen'].includes(effect)&&(a.ready[s.id]||0)<=engine.now&&(a.retryAt?.[s.id]||0)<=engine.now&&engine.mana(a,engine.now)>=engine.mpCost(a,s)&&canUse(view,s)!==false;});
+ }
+ const handlers={canAct:view=>{const x=unit(view.id);return !!x&&x.hp>0&&living().length>0&&(foes.some(e=>e.hp>0)||recoveryHealer(x)&&recoveryHealReady(view));},canUse,
   beforeAction(view,skill){const x=unit(view.id);if(!foes.some(e=>e.hp>0))return !!skill&&recoveryHealer(x);if(Object.hasOwn(x,'job'))return true;const f=__EMBERWILD_CONTROL_TEST_API.states[x.id]?.fear;return !f||Math.random()>=f.skipChance;},onEvent:handleEvent};
  function automaticSupplies(){for(const h of living()){
   const max=stats(h).hp,hpNeeded=h.autoPotion&&h.hp/max<=h.autoPotionThresholdPct/100;
@@ -21121,7 +21152,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  if(party)migrateLegacy();
 })();
 
-EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildAutoRetry=globalThis.EmberwildAutoRetry??EmberwildAutoRetry;equipmentIdentityEffectNumber=globalThis.equipmentIdentityEffectNumber??equipmentIdentityEffectNumber;setRecoveryThresholds=globalThis.setRecoveryThresholds??setRecoveryThresholds;setHuntingMode=globalThis.setHuntingMode??setHuntingMode;
+EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildAutoRetry=globalThis.EmberwildAutoRetry??EmberwildAutoRetry;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;equipmentIdentityEffectNumber=globalThis.equipmentIdentityEffectNumber??equipmentIdentityEffectNumber;setRecoveryThresholds=globalThis.setRecoveryThresholds??setRecoveryThresholds;setHuntingMode=globalThis.setHuntingMode??setHuntingMode;
 
 /* js/combat/online-idle-statistics.js?v=20261105-v0080-average2 */
 /* Region earnings statistics and the 30-minute earnings snapshot used by regional earnings tickets.

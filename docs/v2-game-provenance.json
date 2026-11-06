@@ -1,5 +1,5 @@
 {
-  "gameCommit": "5de7bb8c17dfb6c02ff0aa52a580e49ad02a030d",
+  "gameCommit": "6346cc1f114117054896822c9a1159f3e089243a",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -127,7 +127,7 @@
     },
     {
       "path": "js/combat/seconds-runtime.js",
-      "sha256": "e73c7e663a260fa07bca4d5566c0333ade74780cfb994b646a00fe4c586975cf"
+      "sha256": "271fe3c392f7fdd62446bc91144531acabd4ff03ffa6c0522662522efb1912db"
     },
     {
       "path": "js/combat/seconds-schema.js",
@@ -179,7 +179,7 @@
     },
     {
       "path": "js/equipment/equipment-identity.js",
-      "sha256": "de082518cf821effcd9751dedf34b9b9b7ea0d7d59868996f0056e30445ee3aa"
+      "sha256": "621b71a7d282ecf4950852ef5872bf74db72669fe979e13acb7c7b2daf107bef"
     },
     {
       "path": "js/equipment/equipment-shop.js",
@@ -311,7 +311,7 @@
     },
     {
       "path": "js/ui/battle-effects.js",
-      "sha256": "67761d1acf03556b23aafd82ef110b3faac0ffcc12aaee9e8b6ac7202e7c15f5"
+      "sha256": "22c75b4118186be7de948384a767b22f27a9b28562ed1ecbe899cd6aa36b66f9"
     },
     {
       "path": "js/ui/battle-summary.js",
@@ -415,7 +415,7 @@
     },
     {
       "path": "js/ui/skill-system-ui.js",
-      "sha256": "50c6cc668b6007cfed5c4e5d137b3994a67e866e45ce6654924ac7bdadf49673"
+      "sha256": "74b83504f364e6e8333ed1bf467d3ff742d81e7936901b4238632683e874acce"
     },
     {
       "path": "js/ui/team-builds.js",
@@ -639,7 +639,7 @@
     },
     {
       "path": "css/skill-system.css",
-      "sha256": "8bf2f886fbeebda49dab7e0d8346dd360d040e2d13102f3c87fb62fd83f8e890"
+      "sha256": "07739b8ef074ddf9707790ad0df2d30d64257ce12924455b78744276f57ddffb"
     },
     {
       "path": "css/skill-tooltip-reroll.css",
@@ -695,11 +695,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "9dad844551a170526332b250750d81a12ad4a172a0d90d155aa97de45e853708"
+      "sha256": "7e9d14a71d458e331e45b2ec918f726da2c32b490f905e246c7ff2e0591ce0fb"
     },
     {
       "path": "index.html",
-      "sha256": "b146d537714a747ac53cb19a3f96e351dd194064e5ac314789b0ce6c166d213c"
+      "sha256": "fbee672b09ddcdf5f28aad0e2eeedfcc8abb543695968e5b52181712e7e6eb66"
     }
   ],
   "gameBridgeSha256": "47d994f91aa7e7eb719ecd35360ef27e40feb7e82401aace8d11ce3dceef9444",

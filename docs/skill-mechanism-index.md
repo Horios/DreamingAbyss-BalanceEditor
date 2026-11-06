@@ -2,9 +2,9 @@
 
 ## 來源與交付範圍
 
-- 維護分支：`Horios/Emberwild-Balance:chatgpt-dev`，基準 `cb888f26cea703fda647195320843265b362b565`。沒有推送 GitHub `main`。
+- 維護分支：`Horios/DreamingAbyss-BalanceEditor:chatgpt-dev`，基準 `cb888f26cea703fda647195320843265b362b565`。沒有推送 GitHub `main`。
 - 實際線上工作台：https://emberwild-balance.hortw.chatgpt.site/ ，owner-private Sites。稽核時版本 29 的來源鏡像 commit 為 `39fdb23c27b94d7409782ad1e31682b319de57b5`；其 `balance-editor.html` blob 與上述維護分支完全一致。GitHub main 仍是較舊的 `f19e962`，不作為此次基準。
-- 遊戲基準：`Horios/Emberwild:chatgpt-dev` 的 `1edaa149413c175ea93311ca62317734d42920a0`。此次沒有修改或發布遊戲程式／平衡 JSON。
+- 遊戲基準：`Horios/DreamingAbyss:chatgpt-dev` 的 `1edaa149413c175ea93311ca62317734d42920a0`。此次沒有修改或發布遊戲程式／平衡 JSON。
 - 線上基準資料沿用現有 snapshot API：遊戲 `chatgpt-dev:data/balance.json`。已有瀏覽器草稿仍保留，發布沿用現有驗證、比較、GitHub 提交與部署檢查流程。
 
 ## 修改檔案

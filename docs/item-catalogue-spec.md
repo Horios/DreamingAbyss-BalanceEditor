@@ -4,7 +4,7 @@
 
 現行瓶子素材名稱為「藥水瓶」；本次不另建立同用途的「玻璃瓶」副本。
 
-盤點基準：Horios/Emberwild 的 chatgpt-dev，commit `336b3d3417c56b075965b2b3b805a931cd6b9ccd`，以已提交 data/balance.json 與遊戲現有道具／生成規則為準。平衡器版型基準為本次開啟的既有線上來源；不以截圖或舊附件覆蓋資料。
+盤點基準：Horios/DreamingAbyss 的 chatgpt-dev，commit `336b3d3417c56b075965b2b3b805a931cd6b9ccd`，以已提交 data/balance.json 與遊戲現有道具／生成規則為準。平衡器版型基準為本次開啟的既有線上來源；不以截圖或舊附件覆蓋資料。
 
 **這份清單只定義實作範圍。下文的「需要」與「應支援」是目標規格，不表示目前功能已完成。**
 
@@ -537,14 +537,14 @@
 
 ## 9. 盤點資料來源
 
-- [最新測試分支固定基準](https://github.com/Horios/Emberwild/tree/336b3d3417c56b075965b2b3b805a931cd6b9ccd)
-- [本次平衡 JSON](https://github.com/Horios/Emberwild/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/data/balance.json)
-- [js/ui/inventory-icon-model.js](https://github.com/Horios/Emberwild/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/ui/inventory-icon-model.js)
-- [js/items/life-skills.js](https://github.com/Horios/Emberwild/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/items/life-skills.js)
-- [js/equipment/economy-salvage.js](https://github.com/Horios/Emberwild/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/equipment/economy-salvage.js)
-- [js/items/shop-inventory.js](https://github.com/Horios/Emberwild/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/items/shop-inventory.js)
-- [js/character/companion-unlocks.js](https://github.com/Horios/Emberwild/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/character/companion-unlocks.js)
-- [js/core/core-game.js](https://github.com/Horios/Emberwild/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/core/core-game.js)
-- [js/items/companion-tokens.js](https://github.com/Horios/Emberwild/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/items/companion-tokens.js)
+- [最新測試分支固定基準](https://github.com/Horios/DreamingAbyss/tree/336b3d3417c56b075965b2b3b805a931cd6b9ccd)
+- [本次平衡 JSON](https://github.com/Horios/DreamingAbyss/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/data/balance.json)
+- [js/ui/inventory-icon-model.js](https://github.com/Horios/DreamingAbyss/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/ui/inventory-icon-model.js)
+- [js/items/life-skills.js](https://github.com/Horios/DreamingAbyss/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/items/life-skills.js)
+- [js/equipment/economy-salvage.js](https://github.com/Horios/DreamingAbyss/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/equipment/economy-salvage.js)
+- [js/items/shop-inventory.js](https://github.com/Horios/DreamingAbyss/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/items/shop-inventory.js)
+- [js/character/companion-unlocks.js](https://github.com/Horios/DreamingAbyss/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/character/companion-unlocks.js)
+- [js/core/core-game.js](https://github.com/Horios/DreamingAbyss/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/core/core-game.js)
+- [js/items/companion-tokens.js](https://github.com/Horios/DreamingAbyss/blob/336b3d3417c56b075965b2b3b805a931cd6b9ccd/js/items/companion-tokens.js)
 
 列出的數值、名稱與道具數量以此基準為準；功能需求與分類細分是本次提出的規格。資料來源、輸入限制、來源生成規則仍需在實作時串接驗收，不能將規劃當作已完成。

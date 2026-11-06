@@ -22,7 +22,7 @@ EMBERWILD_GAME_ROOT=../Emberwild node scripts/sync-game.cjs
 
 線上入口：https://emberwild-balance.hortw.chatgpt.site/
 
-工作台是 owner-private Sites，須登入擁有者的 ChatGPT 帳號。平衡器原始碼仍保存在私有 `Horios/Emberwild-Balance`；遊戲正式版、測試版的 `data/balance.json` 仍分別保存在 `Horios/Emberwild` 的 `main`、`chatgpt-dev`。不需要公開平衡器 Repository，也不在工作台另建平衡版本資料庫。
+工作台是 owner-private Sites，須登入擁有者的 ChatGPT 帳號。平衡器原始碼仍保存在私有 `Horios/DreamingAbyss-BalanceEditor`；遊戲正式版、測試版的 `data/balance.json` 仍分別保存在 `Horios/DreamingAbyss` 的 `main`、`chatgpt-dev`。不需要公開平衡器 Repository，也不在工作台另建平衡版本資料庫。
 
 ## 首次啟用上傳
 
@@ -91,7 +91,7 @@ App 尚未完成連結時，工作台可透過公開 GitHub API 讀取版本、�
 
 ## GitHub Actions 驗證（不需登入 Sites）
 
-`.github/workflows/ci.yml` 只執行 Repository 內的程式，並以 `actions/checkout` 取得公開的 `Horios/Emberwild`（預設 `chatgpt-dev`，可於手動執行時指定其他分支或 commit），放在平衡器旁的 `../Emberwild`，與本機目錄結構相同。
+`.github/workflows/ci.yml` 只執行 Repository 內的程式，並以 `actions/checkout` 取得公開的 `Horios/DreamingAbyss`（預設 `chatgpt-dev`，可於手動執行時指定其他分支或 commit），放在平衡器旁的 `../Emberwild`，與本機目錄結構相同。
 
 - `tests`：先執行 `scripts/build-online.cjs` 產生 `release-service.mjs` 與 `editor.mjs`，再跑全部 `tests/*.test.mjs`、`tests/*.test.cjs`（遊戲契約測試除外）。涵蓋 JSON、資料模型、技能機制、匯入匯出、版本比較與發布服務。
 - `game-contract`：單獨執行 `tests/preview-compatibility.test.cjs`，確認內嵌共用模型、發布驗證器來源雜湊與遊戲最新 `data/balance.json` 相容，且資料可往返匯出。遊戲更新共用檔案後這項會失敗，屬於需要同步的提示；同步方式為 `scripts/sync-preview-editor-contract.cjs` 與 `scripts/build-online-runtime.cjs`。
@@ -121,5 +121,5 @@ node scripts/build-online.cjs && node --test tests/*.test.mjs tests/*.test.cjs
 
 ## 命名規則
 
-遊戲名稱為「夢淵（Dreaming Abyss）」。畫面文字、文件與註解中的「Emberwild」一律寫作「Dreaming Abyss」，之後新增內容也依此辦理。程式運作依據維持原樣：程式識別名稱（`Emberwild*`、`__EMBERWILD_*`、`X-Emberwild-CSRF`）、User-Agent、localStorage 鍵名，以及實際存在的 repository 名稱與網址（`Horios/Emberwild`、`Horios/Emberwild-Balance`、`horios.github.io/Emberwild`）。
+遊戲名稱為「夢淵（Dreaming Abyss）」。畫面文字、文件與註解中的「Emberwild」一律寫作「Dreaming Abyss」，之後新增內容也依此辦理。程式運作依據維持原樣：程式識別名稱（`Emberwild*`、`__EMBERWILD_*`、`X-Emberwild-CSRF`）、User-Agent、localStorage 鍵名，以及實際存在的 repository 名稱與網址（`Horios/DreamingAbyss`、`Horios/DreamingAbyss-BalanceEditor`、`horios.github.io/DreamingAbyss`）。
 

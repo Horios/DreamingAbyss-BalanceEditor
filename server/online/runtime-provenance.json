@@ -1,6 +1,6 @@
 {
-  "sourceRepository": "Horios/Emberwild",
-  "sourceCommit": "5de7bb8c17dfb6c02ff0aa52a580e49ad02a030d",
+  "sourceRepository": "Horios/DreamingAbyss",
+  "sourceCommit": "6346cc1f114117054896822c9a1159f3e089243a",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -239,8 +239,8 @@
       "sha256": "141bc118d46405b7451655cea02ca7fca741ce75cd84d2a971e041bff30ac214"
     },
     {
-      "path": "js/equipment/equipment-identity.js?v=20261105-v0075-cdr1",
-      "sha256": "de082518cf821effcd9751dedf34b9b9b7ea0d7d59868996f0056e30445ee3aa"
+      "path": "js/equipment/equipment-identity.js?v=20261106-v0095-snapshot1",
+      "sha256": "621b71a7d282ecf4950852ef5872bf74db72669fe979e13acb7c7b2daf107bef"
     },
     {
       "path": "js/ui/journal-split.js?v=20261015-loot-fold1",
@@ -455,16 +455,16 @@
       "sha256": "22bd678c50520f6fb8baba3763b40047b6d0dae944d3b686727915e4b9d6d8ab"
     },
     {
-      "path": "js/ui/skill-system-ui.js?v=20261105-v0083-switch1",
-      "sha256": "50c6cc668b6007cfed5c4e5d137b3994a67e866e45ce6654924ac7bdadf49673"
+      "path": "js/ui/skill-system-ui.js?v=20261105-v0092-catalog1",
+      "sha256": "74b83504f364e6e8333ed1bf467d3ff742d81e7936901b4238632683e874acce"
     },
     {
       "path": "js/ui/battle-summary.js?v=20261104-v0054-resync1",
       "sha256": "cc4ad6d510333c2b729fd0794da5d9e15ec726565e05f25356e2ae7fa16cf89c"
     },
     {
-      "path": "js/ui/battle-effects.js?v=20261103-v0043-blast1",
-      "sha256": "67761d1acf03556b23aafd82ef110b3faac0ffcc12aaee9e8b6ac7202e7c15f5"
+      "path": "js/ui/battle-effects.js?v=20261106-v0095-quiet2",
+      "sha256": "22c75b4118186be7de948384a767b22f27a9b28562ed1ecbe899cd6aa36b66f9"
     },
     {
       "path": "js/world/wishing-lake.js?v=20261104-v0062-bottom1",
@@ -479,8 +479,8 @@
       "sha256": "bf78fc874bf06458468a2b98aa0749e7578e4ab299abfb8127d49c1b35439e32"
     },
     {
-      "path": "js/combat/seconds-runtime.js?v=20261105-v0089-recovery1",
-      "sha256": "e73c7e663a260fa07bca4d5566c0333ade74780cfb994b646a00fe4c586975cf"
+      "path": "js/combat/seconds-runtime.js?v=20261106-v0095-quiet2",
+      "sha256": "271fe3c392f7fdd62446bc91144531acabd4ff03ffa6c0522662522efb1912db"
     },
     {
       "path": "js/combat/online-idle-statistics.js?v=20261105-v0080-average2",

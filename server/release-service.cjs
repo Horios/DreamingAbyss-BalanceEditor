@@ -1,7 +1,7 @@
 'use strict';
 const crypto=require('node:crypto'),D=require('./balance-diff.cjs'),CM=require('../scripts/combat-migration-audit.cjs');
 class ReleaseService{
- constructor({api,validate,ticketStore=null}){this.api=api;this.validateDocument=validate;this.base='/repos/Horios/Emberwild';this.tickets=ticketStore||new Map();}
+ constructor({api,validate,ticketStore=null}){this.api=api;this.validateDocument=validate;this.base='/repos/Horios/DreamingAbyss';this.tickets=ticketStore||new Map();}
  branch(value){if(!['main','chatgpt-dev'].includes(value))throw Error('僅允許 main／chatgpt-dev');return value;}
  async validate({data}){CM.assertSupported(data);return {data:CM.assertSupported(this.validateDocument(data)),valid:true};}
  async requireMonsterRuntime(target,candidate){
@@ -121,7 +121,7 @@ class ReleaseService{
  async deployment({branch,commit}){
   branch=this.branch(branch);if(!/^[a-f0-9]{40}$/.test(commit))throw Error('commit SHA 無效');
   // Preview dispatch runs from main, so workflow head_sha alone cannot prove deployment.
-  const prefix=branch==='main'?'':'preview/',url='https://horios.github.io/Emberwild/'+prefix;
+  const prefix=branch==='main'?'':'preview/',url='https://horios.github.io/DreamingAbyss/'+prefix;
   const expected=await this.snapshot({branch,ref:commit});
   try{
    const response=await fetch(url+'data/build.json?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(10000)});

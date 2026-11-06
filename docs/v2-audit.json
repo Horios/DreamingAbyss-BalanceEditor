@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "title": "Dreaming Abyss V2 開發者模式第一階段稽核",
   "game": {
-    "repository": "Horios/Emberwild",
+    "repository": "Horios/DreamingAbyss",
     "commit": "a3434bf388693a2de6a87ecdb4448ed0e0744dcc",
     "files": [
       {
