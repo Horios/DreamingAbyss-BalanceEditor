@@ -30,17 +30,19 @@ function devTools(){
  if(select&&!select.parentElement.querySelector('.dev-inline-tools')){
   const box=document.createElement('span');box.className='dev-inline-tools';box.style.cssText='display:inline-flex;gap:6px;margin-top:6px;flex-wrap:wrap';
   const add=(label,target)=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.devEdit=target.create?'map:new':'map:edit';b.style.cssText='font-size:12px;padding:3px 8px;border:1px dashed var(--gold,#dfc18b);background:transparent;color:inherit;border-radius:6px;cursor:pointer';b.onclick=e=>{e.preventDefault();e.stopPropagation();send({kind:'dreaming-abyss-dev-edit',target:typeof target==='function'?target():target});};box.append(b);};
-  add('✎ 編輯此地圖',()=>({kind:'map',index:Number(select.value)}));add('＋ 新增地圖',{kind:'map',create:true});add('＋ 新增怪物',()=>({kind:'monster',create:true,mapIndex:Number(select.value)}));
+  add('✎ 編輯此地圖',()=>({kind:'map',index:Number(select.value)}));add('＋ 新增地圖',{kind:'map',create:true});add('＋ 新增怪物',()=>({kind:'monster',create:true,mapIndex:Number(select.value)}));add('☰ 此地圖的怪物',()=>({list:'monsters',job:Number(select.value)}));
   select.insertAdjacentElement('afterend',box);
  }
  // Page lists: switch class, see every existing record, edit or add.
- const page=typeof tab==='string'?tab:'',lists={skills:[['技能清單','skills']],equipment:[['裝備清單','equipment'],['道具清單','items']],worn:[['裝備清單','equipment']],forge:[['裝備清單','equipment']],shop:[['道具清單','items']],character:[['職業數值','classes']],roster:[['夥伴清單','companions']],partnerRoster:[['夥伴清單','companions']]}[page]||[];
+ const page=typeof tab==='string'?tab:'',lists={battle:[['地圖清單','maps'],['怪物清單','monsters']],skills:[['技能清單','skills']],equipment:[['裝備清單','equipment'],['道具清單','items'],['信物清單','tokens']],worn:[['裝備清單','equipment'],['信物清單','tokens']],forge:[['裝備清單','equipment']],shop:[['商店商品','shop'],['道具清單','items']],character:[['職業數值','classes']],roster:[['夥伴清單','companions']],partnerRoster:[['夥伴清單','companions'],['信物清單','tokens']],quests:[['委託清單','quests']],'story-side':[['委託清單','quests']]}[page]||[];
  let bar=document.querySelector('.dev-page-tools');
  if(!lists.length){bar?.remove();return;}
  const sig=page+':'+lists.map(x=>x[1]).join(',');if(bar?.dataset.sig===sig)return;
  bar?.remove();bar=document.createElement('div');bar.className='dev-page-tools';bar.dataset.sig=sig;bar.setAttribute('role','group');bar.setAttribute('aria-label','開發者清單');
  bar.style.cssText='position:fixed;right:14px;bottom:72px;z-index:2147483000;display:flex;gap:6px;padding:6px;border:1px dashed var(--gold,#dfc18b);border-radius:10px;background:var(--panel,#211e2c);box-shadow:0 6px 20px #0006';
- for(const [label,list] of lists){const b=document.createElement('button');b.type='button';b.textContent='🛠 '+label;b.dataset.devList=list;b.style.cssText='font-size:12px;padding:5px 10px;border:1px solid var(--gold,#dfc18b);background:transparent;color:inherit;border-radius:7px;cursor:pointer';b.onclick=e=>{e.preventDefault();e.stopPropagation();const job=typeof party!=='undefined'&&party?.members?.[0]?Number(party.members[0].job)||0:0;send({kind:'dreaming-abyss-dev-edit',target:{list,job}});};bar.append(b);}
+ for(const [label,list] of lists){const b=document.createElement('button');b.type='button';b.textContent='🛠 '+label;b.dataset.devList=list;b.style.cssText='font-size:12px;padding:5px 10px;border:1px solid var(--gold,#dfc18b);background:transparent;color:inherit;border-radius:7px;cursor:pointer';b.onclick=e=>{e.preventDefault();e.stopPropagation();
+  // The list opens on the current class, or on the current map for the monster list and on side quests from the side story page.
+  const job=list==='monsters'?Number(typeof party!=='undefined'?party?.map:state?.map)||0:list==='quests'&&page==='story-side'?'side':typeof party!=='undefined'&&party?.members?.[0]?Number(party.members[0].job)||0:0;send({kind:'dreaming-abyss-dev-edit',target:{list,job}});};bar.append(b);}
  document.body.append(bar);
 }
 const watch=setInterval(()=>{

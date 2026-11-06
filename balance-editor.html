@@ -2894,13 +2894,16 @@ ensureArrays();requestEditorInitialRender();
     try{const out=fn();const issues=validateData();if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('地圖彈窗');render();return {ok:true,...out};}
     catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}
   }
-  const MONSTER_FIELDS=['name','element','race','hpMultiplier','attackMultiplier','defenseMultiplier','spawnWeight','maxDrops','enabled','eliteEnabled'];
+  const MONSTER_FIELDS=['name','element','race','hpMultiplier','attackMultiplier','defenseMultiplier','spawnWeight','maxDrops','enabled','eliteEnabled','kind','baseStats.hp','baseStats.attack','baseStats.defense'];
   function monsterRow(id){const m=data.balanceSettings.monsters.catalog.find(x=>x.id===id);if(!m)throw Error('找不到怪物 '+id);return m;}
   function applyMonsterPatch(id,patch){
     const m=monsterRow(id);
     for(const [k,raw] of Object.entries(patch||{})){
       if(k==='attackIntervalSeconds'){const n=Number(raw);if(!Number.isFinite(n)||n<=0||n>3600)throw Error('普攻間隔需大於 0 秒');m.timing={...(m.timing||{}),baseIntervalSeconds:n};continue;}
       if(!MONSTER_FIELDS.includes(k))throw Error('不支援的怪物欄位：'+k);
+      // Developer-mode dialogs: kind goes through the monster designer (drop kinds follow); blank base stats use the level formula.
+      if(k==='kind'){if(raw!==m.kind)__EMBERWILD_MONSTER_DESIGNER.changeKind(m.id,String(raw));continue;}
+      if(k.startsWith('baseStats.')){const key=k.slice(10),fallback=key==='defense'?-1:0,blank=raw===null||raw===''||Number.isNaN(raw),n=blank?fallback:Number(raw);if(!blank&&(!Number.isFinite(n)||n<(key==='defense'?0:1)))throw Error('個別'+({hp:'生命',attack:'攻擊',defense:'防禦'}[key])+'數值無效');m.baseStats={hp:0,attack:0,defense:-1,...(m.baseStats||{}),[key]:n};continue;}
       let v=raw;if(['hpMultiplier','attackMultiplier','defenseMultiplier','spawnWeight'].includes(k))v=Number(raw);else if(k==='maxDrops')v=Math.round(Number(raw));else if(['enabled','eliteEnabled'].includes(k))v=raw===true||raw==='true';else v=String(raw??'');
       if(typeof v==='number'&&(!Number.isFinite(v)||v<0))throw Error('怪物欄位數值無效：'+k);
       if(k==='name'&&!v.trim())throw Error('怪物名稱不可空白');
@@ -2913,7 +2916,23 @@ ensureArrays();requestEditorInitialRender();
     monster(id){const m=structuredClone(monsterRow(id)),map=data.balanceSettings.maps.catalog[m.mapIndex];
       // Seconds combat (game v0.074): the monster's own basic attack interval and its assigned skills' initial/reuse cooldowns.
       const timers=(m.skillAssignments||[]).map(r=>data.skillSystem.definitions.find(s=>s.id===r.skillId)).filter(s=>s&&['active','support'].includes(s.type)).map(s=>s.name+' 初始 '+EmberwildSecondsSchema.initialCooldownSeconds(s)+' 秒／再使用 '+s.timing.cooldownSeconds+' 秒');
-      return {...m,attackIntervalSeconds:m.timing?.baseIntervalSeconds,skillTimers:timers,mapName:map?.name||'',elements:ELEMENTS.map(v=>[v,ELEMENT_LABELS[v]||v])};},
+      const base={hp:0,attack:0,defense:-1,...(m.baseStats||{})},finalMap=isFinalMapRow(map),kinds=Object.entries(MONSTER_KIND_LABELS).filter(([k])=>k!==(finalMap?'boss':'final'));
+      return {...m,attackIntervalSeconds:m.timing?.baseIntervalSeconds,skillTimers:timers,mapName:map?.name||'',elements:ELEMENTS.map(v=>[v,ELEMENT_LABELS[v]||v]),kinds,'baseStats.hp':base.hp>0?base.hp:null,'baseStats.attack':base.attack>0?base.attack:null,'baseStats.defense':base.defense>=0?base.defense:null,skillAssignments:structuredClone(m.skillAssignments||[]),skillNames:(m.skillAssignments||[]).map(a=>sharedCoreSkillEditorPool().find(s=>s.id===a.skillId)?.name||a.skillId)};},
+    // Monsters of one map, for the developer-mode monster list.
+    monsters(mapIndex){ensureArrays();return data.balanceSettings.monsters.catalog.filter(m=>m.mapIndex===Number(mapIndex)).map(m=>({id:m.id,name:m.name,kind:m.kind,kindName:MONSTER_KIND_LABELS[m.kind]||m.kind,enabled:m.enabled!==false,element:ELEMENT_LABELS[m.element]||m.element,hpMultiplier:m.hpMultiplier,attackMultiplier:m.attackMultiplier,defenseMultiplier:m.defenseMultiplier,skills:(m.skillAssignments||[]).length}));},
+    // Skills this monster may cast: the same pool and usage-scope rules as the 地圖與怪物 page.
+    monsterSkillPool(id){const m=monsterRow(id);return sharedCoreSkillEditorPool().filter(s=>s.supported&&(s.usageScope==='character'||scopeAllowsMonsterRow(s.usageScope,m.kind))).map(s=>[s.id,s.name+'（'+(data.classes[s.job]?.name||'')+'）']);},
+    setMonsterSkills(id,skillIds){return guardedMapChange(()=>{const m=monsterRow(id),list=[...(skillIds||[])].map(String).filter(Boolean);if(new Set(list).size!==list.length)throw Error('不可重複指定相同技能');m.skillAssignments=[];for(const skillId of list)__EMBERWILD_MONSTER_DESIGNER.assignSkill(m.id,skillId);selected.worldMap=m.mapIndex;return {id};});},
+    deleteMonster(id){return guardedMapChange(()=>{const monsters=data.balanceSettings.monsters.catalog,i=monsters.findIndex(x=>x.id===id);if(i<0)throw Error('找不到怪物 '+id);const m=monsters[i];
+      if(['boss','final'].includes(m.kind)&&monsters.filter(x=>x.mapIndex===m.mapIndex&&x.kind===m.kind).length<=1)throw Error('這是此地圖唯一的'+(m.kind==='final'?'最終首領':'BOSS')+'，不能刪除；可改為停用或先新增其他首領。');
+      if(m.kind==='normal'&&monsters.filter(x=>x.mapIndex===m.mapIndex&&x.kind==='normal').length<=1&&!isFinalMapRow(data.balanceSettings.maps.catalog[m.mapIndex]))throw Error('一般地圖至少要保留 1 隻普通怪。');
+      monsters.splice(i,1);__EMBERWILD_MONSTER_DESIGNER.removeReferences(m.id);selected.worldMap=m.mapIndex;return {id,mapIndex:m.mapIndex};});},
+    // Deleting a map from a dialog also deletes its monsters; later map indices move forward like the page's 刪除地圖.
+    deleteMap(index){return guardedMapChange(()=>{index=Number(index);const maps=data.balanceSettings.maps.catalog;if(!maps[index])throw Error('找不到地圖 '+index);if(index<=LEGACY_GATE_INDEX)throw Error('前 7 張核心地圖（包含終焉王座）為相容性保留區，不能刪除；可改名稱與數值。');
+      const monsters=data.balanceSettings.monsters.catalog,removed=monsters.filter(m=>m.mapIndex===index);data.balanceSettings.monsters.catalog=monsters.filter(m=>m.mapIndex!==index);for(const m of removed)__EMBERWILD_MONSTER_DESIGNER.removeReferences(m.id);
+      maps.splice(index,1);MAP_NAMES.splice(index,1);for(const m of data.balanceSettings.monsters.catalog)if(m.mapIndex>index)m.mapIndex--;
+      for(const d of [data.companionTokens?.drop,...(data.companionTokens?.catalog||[]).map(t=>t.drop)])if(Array.isArray(d?.maps))d.maps=d.maps.filter(i=>i!==index).map(i=>i>index?i-1:i);
+      selected.worldMap=Math.max(LEGACY_GATE_INDEX+1,index-1);if(!maps[selected.worldMap])selected.worldMap=0;data.balanceSettings.maps.levelRanges=maps.map(m=>({min:m.min,max:m.max}));return {index:selected.worldMap,removedMonsters:removed.length};});},
     updateMonster(id,patch){return guardedMapChange(()=>{applyMonsterPatch(id,patch);const m=monsterRow(id);selected.worldMap=m.mapIndex;selected.worldMonsterSearch=m.id;return {id};});},
     createMonster(mapIndex,patch){return guardedMapChange(()=>{const before=new Set(data.balanceSettings.monsters.catalog.map(x=>x.id));addNormalMonster(mapIndex);const row=data.balanceSettings.monsters.catalog.find(x=>!before.has(x.id));if(!row)throw Error('新增怪物失敗');applyMonsterPatch(row.id,patch);selected.worldMap=mapIndex;return {id:row.id,mapIndex};});},
     fields:MAP_FIELDS.slice(),
@@ -12779,7 +12798,9 @@ function newRowSecondsTiming(kind,row){
     list(job){return formsOf(job).map((slot,s)=>({slot:s,slotName:SLOT_NAMES[s],forms:slot.map((f,i)=>({index:i,id:f.id,name:f.name,effects:(f.fixedEffects||[]).map(fx=>(EQUIPMENT_FIXED_EFFECT_DEFS.find(d=>d.key===fx.key)?.label||fx.key)+' '+fx.value).join('、')}))}));},
     form(job,slot,index){return {job,slot,index,...copy(form(job,slot,index))};},
     update(job,slot,index,patch){return guarded(()=>{applyForm(form(job,slot,index),patch);return {job,slot,index};});},
-    create(job,slot,patch){return guarded(()=>{const list=formsOf(job)[slot];if(!list)throw Error('部位無效');const i=list.length,allJobs=data.classes.map((_,j)=>j);list.push({id:`job${job}-slot${slot}-form${i}`,name:'新裝備',wearableJobs:slot===1?allJobs:[job],fixedEffects:[{key:'flatAttack',value:0}],...(list[0]?.weaponType?{weaponType:list[0].weaponType}:{})});applyForm(list[i],patch);return {job,slot,index:i};});}
+    create(job,slot,patch){return guarded(()=>{const list=formsOf(job)[slot];if(!list)throw Error('部位無效');const i=list.length,allJobs=data.classes.map((_,j)=>j);list.push({id:`job${job}-slot${slot}-form${i}`,name:'新裝備',wearableJobs:slot===1?allJobs:[job],fixedEffects:[{key:'flatAttack',value:0}],...(list[0]?.weaponType?{weaponType:list[0].weaponType}:{})});applyForm(list[i],patch);return {job,slot,index:i};});},
+    // Same rule as the equipment page's 刪除: each class keeps at least one form per slot. References elsewhere fail validation and roll back.
+    remove(job,slot,index){return guarded(()=>{const list=formsOf(job)[slot];if(!list?.[index])throw Error('找不到裝備');if(list.length<=1)throw Error('每個職業的每個部位至少必須保留 1 種裝備變體。');list.splice(index,1);return {job,slot};});}
   };
   const COMPANION_STATS=['hp','atk','def'];
   function companion(id){const p=(data.companions||[]).find(x=>x.id===Number(id));if(!p)throw Error('找不到夥伴 '+id);return p;}
@@ -12798,7 +12819,12 @@ function newRowSecondsTiming(kind,row){
     update(id,patch){return guarded(()=>{applyCompanion(companion(id),patch);return {id:Number(id)};});},
     // New companions reuse the companion page's own 新增角色 button so they get the same defaults.
     // Same defaults as the companion page's 新增角色 (hidden until edited, no skills yet).
-    create(job=0,patch){return guarded(()=>{const list=data.companions||(data.companions=[]);if(list.length>=64)throw Error('夥伴已達上限');job=Number(job);if(!data.classes[job])throw Error('職業無效');const id=Math.max(9,...list.map(p=>p.id))+1,weapon=data.equipmentForms[job]?.[0]?.[0]?.weaponType||'';list.push({id,job,name:uniqueCompanionName('新夥伴'+id),availability:'hidden',description:'',points:[0,0,1],core:[],active:[],proc:[],support:[],passives:[],weapon});applyCompanion(list.at(-1),patch);return {id};});}
+    create(job=0,patch){return guarded(()=>{const list=data.companions||(data.companions=[]);if(list.length>=64)throw Error('夥伴已達上限');job=Number(job);if(!data.classes[job])throw Error('職業無效');const id=Math.max(9,...list.map(p=>p.id))+1,weapon=data.equipmentForms[job]?.[0]?.[0]?.weaponType||'';list.push({id,job,name:uniqueCompanionName('新夥伴'+id),availability:'hidden',description:'',points:[0,0,1],core:[],active:[],proc:[],support:[],passives:[],weapon});applyCompanion(list.at(-1),patch);return {id};});},
+    // The companion's own skills go with it: its loadout is cleared, then each of its skills is deleted in the canonical skill
+    // system and released from the companion, so no projected skill row still names a missing companion.
+    remove(id){return guarded(()=>{const p=companion(id),S=globalThis.__EMBERWILD_SKILL_SYSTEM_EDITOR;Object.assign(p,{core:[],active:[],proc:[],support:[],passives:[]});
+      for(const s of (data.skillSystem?.definitions||[]).filter(s=>s.partnerId===p.id&&!s.deleted)){const refs=S.references(s.id);if(refs.length)throw Error('夥伴技能「'+s.name+'」仍被引用：'+refs.join('、'));S.updateSkill(s.id,{partnerId:null,disabled:true,deleted:true});}
+      data.companions=data.companions.filter(x=>x.id!==p.id);return {id:p.id};});}
   };
   const S=()=>globalThis.__EMBERWILD_SKILL_SYSTEM_EDITOR,TYPES={active:'主動',proc:'觸發',support:'輔助',passive:'被動'};
   globalThis.__EMBERWILD_SKILL_DIALOG={
@@ -12819,7 +12845,9 @@ function newRowSecondsTiming(kind,row){
       try{S().updateSkill(id,patch);render();return {ok:true,id};}catch(e){return {ok:false,error:e.message};}
     },
     create(job,type){try{const id=S().addSkill(job,type);render();return {ok:true,id};}catch(e){return {ok:false,error:e.message};}},
-    duplicate(id){try{const out=S().duplicateSkill(id);render();return {ok:true,id:out};}catch(e){return {ok:false,error:e.message};}}
+    duplicate(id){try{const out=S().duplicateSkill(id);render();return {ok:true,id:out};}catch(e){return {ok:false,error:e.message};}},
+    // Deleting keeps the skill system's rule: a skill still referenced (slots, monsters, items, unlocks) cannot be deleted.
+    remove(id){try{S().deleteSkill(id);render();return {ok:true,id};}catch(e){return {ok:false,error:e.message};}}
   };
   // Protagonist classes: names and natural stats (初始值、每級成長). LV1 hp/atk/def stay in sync with the legacy top-level fields,
   // as on the class growth page. Step growth, advancement bonuses and stat points stay in control mode.
@@ -12870,7 +12898,158 @@ function newRowSecondsTiming(kind,row){
       });
       if(out.ok&&String(v.description||'').trim()){try{__EMBERWILD_INVENTORY_ICON_EDITOR.edit(out.itemKind+':'+out.key,{description:String(v.description).trim()});}catch(e){return {...out,warning:'道具已建立，說明未儲存：'+e.message};}}
       return out;
+    },
+    materials(){return (data.balanceSettings.economy.materialPrices||[]).map(r=>({id:'material:'+r.key,key:r.key,name:r.key,meta:'素材 · 售價 '+(r.sellPrice??0)}));},
+    // Effect values of a healing potion or a timed boost, edited next to the item's name and prices.
+    stats(id){const i=(data.items||[]).find(x=>x.id===id);if(!i)return {};if(i.type==='healPotion')return {itemType:'potion',healAmount:i.healAmount,cooldownSeconds:i.timing?.cooldownSeconds??i.cooldown};if(i.type==='timedBoost')return {itemType:'timed',boostType:i.boostType,bonusPercent:i.bonusPercent,durationMinutes:i.durationMinutes,boostTypes:EmberwildTimedBoosts.KINDS.map(k=>[k,EmberwildTimedBoosts.LABELS[k]||k])};return {};},
+    updateStats(id,values){return guarded(()=>{const i=(data.items||[]).find(x=>x.id===id);if(!i)throw Error('找不到道具 '+id);const v=values||{};
+      if(i.type==='healPotion'){if(v.healAmount!==undefined)i.healAmount=Math.round(num(v.healAmount,'回復量',1));if(v.cooldownSeconds!==undefined){i.timing={durationSeconds:0,...(i.timing||{}),cooldownSeconds:num(v.cooldownSeconds,'冷卻秒數',0)};i.cooldown=i.timing.cooldownSeconds;}}
+      else if(i.type==='timedBoost'){if(v.boostType!==undefined){if(!EmberwildTimedBoosts.KINDS.includes(v.boostType))throw Error('增益類型無效');i.boostType=v.boostType;}if(v.bonusPercent!==undefined)i.bonusPercent=Math.round(num(v.bonusPercent,'增益百分比',1));if(v.durationMinutes!==undefined)i.durationMinutes=Math.round(num(v.durationMinutes,'持續分鐘',1));}
+      else if(Object.keys(v).length)throw Error('此道具沒有可在彈窗調整的效果數值');
+      return {id};});},
+    // Deleting an item also removes its shop rules. Any other reference (quests, drops, recipes, starter packs) blocks the delete.
+    remove(kind,id){
+      if(kind==='material'){try{const row=__EMBERWILD_INVENTORY_ICON_EDITOR.entries().find(r=>r.id==='material:'+id);if(!row)throw Error('找不到素材 '+id);__EMBERWILD_INVENTORY_ICON_EDITOR.removeMaterial(row);render();return {ok:true};}catch(e){return {ok:false,error:e.message};}}
+      return guarded(()=>{const i=(data.items||[]).find(x=>x.id===id);if(!i)throw Error('找不到道具 '+id);
+        if(i.type==='healPotion'&&consumables('healPotion').length<=1)throw Error('至少要保留 1 種治療藥水。');
+        if(!['healPotion','timedBoost'].includes(i.type))throw Error('此類道具請在總控模式的道具頁停用或刪除。');
+        for(const pool of [data.shopSettings?.randomOffers?.entries,data.shopSettings?.fixedOffers?.entries])if(Array.isArray(pool))for(let n=pool.length-1;n>=0;n--)if(pool[n].type==='item'&&pool[n].key===id)pool.splice(n,1);
+        data.items=data.items.filter(x=>x!==i);if(Array.isArray(data.inventoryIcons))data.inventoryIcons=data.inventoryIcons.filter(r=>!(r.kind==='item'&&r.key===id));
+        const refs=globalThis.__EMBERWILD_FIND_REFERENCES?.(id,['items'])||[];if(refs.length)throw Error('此道具仍被引用：'+refs.slice(0,5).join('、'));
+        return {id};});
     }
+  };
+})();
+</script>
+
+<script id="dev-inline-crud-api">
+/* Developer-mode dialogs (開發者模式): list, add, edit and delete quests, shop offers and companion tokens with the same
+   data and rules as the editor pages. Every write validates the whole document and restores the previous draft when rejected. */
+(function installDeveloperCrudApi(){
+  const copy=v=>structuredClone(v);
+  function guarded(fn){const snapshot=copy(data);try{const out=fn();ensureArrays();const issues=validateData();if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('開發者模式彈窗');render();return {ok:true,...(out||{})};}catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}}
+  const int=(v,label,min=0,max=1e9)=>{const n=Math.round(Number(v));if(!Number.isFinite(n)||n<min||n>max)throw Error(label+'需為 '+min+'～'+max+' 的整數');return n;};
+  const num=(v,label,min=0,max=1e9)=>{const n=Number(v);if(!Number.isFinite(n)||n<min||n>max)throw Error(label+'需為 '+min+'～'+max+' 的數字');return n;};
+  const text=(v,label,max=80)=>{const t=String(v??'').trim();if(!t||Array.from(t).length>max)throw Error(label+'需 1～'+max+' 字');if(/[<>]/.test(t))throw Error(label+'不可包含 < 或 >');return t;};
+  // Paths whose string value equals the id, outside the listed top-level keys (used to block deleting referenced records).
+  function findReferences(id,skip=[]){const out=[];const walk=(v,path)=>{if(out.length>20)return;if(typeof v==='string'){if(v===id)out.push(path);return;}if(Array.isArray(v)){v.forEach((x,i)=>walk(x,path+'.'+i));return;}if(v&&typeof v==='object')for(const [k,x] of Object.entries(v))walk(x,path?path+'.'+k:k);};for(const [k,v] of Object.entries(data))if(!skip.includes(k))walk(v,k);return out;}
+  globalThis.__EMBERWILD_FIND_REFERENCES=findReferences;
+  const maps=()=>data.balanceSettings.maps.catalog.map((m,i)=>[String(i),i+'｜'+m.name]);
+  // ------------------------------------------------------------ quests (每日委託／支線)
+  const QM=EmberwildQuestDesign,Q=()=>__EMBERWILD_QUEST_EDITOR.design();
+  const QUEST_TYPES={material:'材料交付',potion:'治療藥水交付',item:'道具交付',kill:'指定怪物累計擊殺',totalKills:'全怪物累計擊殺',level:'主角等級',region:'地區開放',bossKill:'BOSS 累計擊殺',eliteKill:'菁英累計擊殺',nearKill:'相近等級怪物討伐',salvage:'開始後分解裝備',enhance:'開始後強化裝備'};
+  const SIDE_ONLY_EXCLUDED=['nearKill','salvage','enhance'];
+  function questRef(id){const d=Q();let q=d.daily.entries.find(x=>x.id===id);if(q)return {q,kind:'daily',list:d.daily.entries};q=d.side.find(x=>x.id===id);if(q)return {q,kind:'side',list:d.side};throw Error('找不到任務 '+id);}
+  function questId(kind){const d=Q(),ids=new Set([...d.daily.entries,...d.side].map(q=>q.id)),prefix=kind==='daily'?'daily_':'side_';let n=1;while(ids.has(prefix+n))n++;return prefix+n;}
+  function objectiveChoices(kind){
+    const items=pred=>(data.items||[]).filter(pred).map(x=>[x.id,x.name]),materials=[...new Set([...(data.balanceSettings.economy.materialPrices||[]).map(x=>x.key),...data.balanceSettings.monsters.catalog.map(m=>m.material).filter(Boolean)])];
+    return {
+      types:Object.entries(QUEST_TYPES).filter(([k])=>kind==='daily'||!SIDE_ONLY_EXCLUDED.includes(k)),
+      keys:{material:{mode:'text',suggest:kind==='daily'?['@currentMap',...materials]:materials,fallback:'紅色草'},kill:{mode:'text',suggest:materials,fallback:data.balanceSettings.monsters.catalog[0]?.material||''},
+        potion:{mode:'select',options:items(x=>x.type==='healPotion')},item:{mode:'select',options:items(x=>x.type!=='healPotion')},
+        region:{mode:'select',options:maps(),number:true},bossKill:{mode:'select',options:[['-1','全部地區'],...maps()],number:true},eliteKill:{mode:'select',options:[['-1','全部地區'],...maps()],number:true},
+        nearKill:{mode:'fixed',value:'@nearLevel'},level:{mode:'none'},totalKills:{mode:'none'},salvage:{mode:'none'},enhance:{mode:'none'}}
+    };
+  }
+  function questView(q,kind){const r=q.rewards;return {id:q.id,kind,title:q.title,description:q.description||'',enabled:!!q.enabled,minLevel:q.minLevel,maxLevel:q.maxLevel,weight:q.weight,'rewards.gold':r.gold,'rewards.xp':r.xp,'rewards.ore':r.ore,'rewards.dust':r.dust,'rewards.randomGems':r.randomGems,objectives:q.objectives.map(o=>({type:o.type,key:o.key,quantity:o.quantity})),objectiveChoices:objectiveChoices(kind),prerequisites:q.prerequisites.length,mapIndices:q.mapIndices.length};}
+  function applyQuest(q,kind,v){
+    for(const [k,raw] of Object.entries(v||{})){
+      if(k==='title')q.title=text(raw,'任務名稱',80);
+      else if(k==='description'){const t=String(raw??'');if(t.length>2000||/[<>]/.test(t))throw Error('任務說明最多 2000 字且不可包含 < 或 >');q.description=t;}
+      else if(k==='enabled')q.enabled=!!raw;
+      else if(k==='minLevel')q.minLevel=int(raw,'最低等級',1,1000);
+      else if(k==='maxLevel')q.maxLevel=int(raw,'最高等級（0＝不限）',0,1000);
+      else if(k==='weight')q.weight=num(raw,'抽取權重',0,1e6);
+      else if(/^rewards\.(gold|xp|ore|dust|randomGems)$/.test(k))q.rewards[k.slice(8)]=int(raw,'獎勵數值',0);
+      else if(k==='objectives'){
+        if(!Array.isArray(raw)||!raw.length||raw.length>16)throw Error('任務需要 1～16 個需求');const choices=objectiveChoices(kind);
+        q.objectives=raw.map((o,i)=>{const type=String(o.type);if(!choices.types.some(([t])=>t===type))throw Error('需求類型無效：'+type);const spec=choices.keys[type],quantity=int(o.quantity,'需求數量',1,1e6);
+          let key=spec.mode==='none'?'':spec.mode==='fixed'?spec.value:spec.number?Number(o.key):String(o.key??'').trim();if(spec.mode==='text'&&!key)throw Error('請填寫需求的素材名稱');
+          const old=q.objectives[i];return old&&old.type===type?{...old,key,quantity,quantityMax:Math.max(quantity,Number(old.quantityMax)||quantity)}:QM.objective(type,key,quantity);});
+      }
+      else throw Error('不支援的任務欄位：'+k);
+    }
+    if(q.maxLevel&&q.maxLevel<q.minLevel)throw Error('最高等級不可低於最低等級');
+  }
+  globalThis.__EMBERWILD_QUEST_DIALOG={
+    kinds:{daily:'每日委託',side:'支線任務'},
+    list(kind){ensureArrays();const d=Q(),rows=kind==='daily'?d.daily.entries:d.side;return rows.map(q=>({id:q.id,title:q.title,enabled:!!q.enabled,meta:'LV'+q.minLevel+'～'+(q.maxLevel||'不限')+' · '+q.objectives.map(o=>QUEST_TYPES[o.type]+' ×'+o.quantity).join('、')+(kind==='daily'?' · 權重 '+q.weight:'')+(q.enabled?'':' · 停用')}));},
+    get(id){ensureArrays();const {q,kind}=questRef(id);return questView(copy(q),kind);},
+    blank(kind){ensureArrays();const q=QM.entry('new',kind==='daily'?'新每日委託':'新支線');return {...questView(q,kind),id:''};},
+    update(id,values){return guarded(()=>{const {q,kind}=questRef(id);applyQuest(q,kind,values);return {id};});},
+    create(kind,values){return guarded(()=>{if(!['daily','side'].includes(kind))throw Error('任務類型無效');const d=Q(),list=kind==='daily'?d.daily.entries:d.side;if(list.length>=(kind==='daily'?150:120))throw Error('任務數已達上限');const q=QM.entry(questId(kind),kind==='daily'?'新每日委託':'新支線');applyQuest(q,kind,values);list.push(q);return {id:q.id};});},
+    // Same rule as the quest page: a quest still used as a prerequisite or skill unlock cannot be deleted.
+    remove(id){return guarded(()=>{const {q,list}=questRef(id),refs=__EMBERWILD_QUEST_EDITOR.references(id);if(refs.length)throw Error('此任務仍被引用，請先移除前置條件：'+refs.join('、'));list.splice(list.indexOf(q),1);return {id};});}
+  };
+  // ------------------------------------------------------------ shop offers (商店)
+  const SC=()=>EmberwildShopCatalog,SHOP_TYPES={ore:'鍛鐵',dust:'粉塵',gem:'技能寶石',material:'素材',item:'消耗道具'};
+  const pools=()=>({random:data.shopSettings.randomOffers.entries,fixed:data.shopSettings.fixedOffers.entries});
+  function shopRef(pool,id){const list=pools()[pool];if(!list)throw Error('商品池無效');const r=list.find(x=>x.id===id);if(!r)throw Error('找不到商品 '+id);return {r,list};}
+  const itemName=key=>(data.items||[]).find(x=>x.id===key)?.name;
+  const offerName=r=>r.name||(r.type==='item'?itemName(r.key):r.type==='gem'&&['0','1','2'].includes(String(r.key))?['赤焰石','疾風石','共鳴石'][Number(r.key)]:r.type==='material'&&r.key!=='region'?r.key:SHOP_TYPES[r.type])||r.key;
+  function shopKeys(pool){return {item:{mode:'select',options:(data.items||[]).map(x=>[x.id,x.name])},gem:{mode:'select',options:[...(pool==='random'?[['random','任一技能寶石']]:[]),['0','赤焰石'],['1','疾風石'],['2','共鳴石']]},material:{mode:'text',fallback:pool==='random'?'region':'素材',suggest:[...(pool==='random'?['region']:[]),...(data.balanceSettings.economy.materialPrices||[]).map(x=>x.key)]},ore:{mode:'none'},dust:{mode:'none'}};}
+  function shopView(r,pool){const out={...copy(r),pool,poolName:pool==='random'?'隨機商品':'固定商品',unitPrice:r.unitPrice??null,keyChoices:shopKeys(pool),types:Object.entries(SHOP_TYPES)};if(pool==='random')out.chance=r.chance;return out;}
+  function applyOffer(r,pool,v){
+    const random=pool==='random';
+    if(v.type!==undefined&&v.type!==r.type){if(!SHOP_TYPES[v.type])throw Error('商品類型無效');r.type=v.type;const spec=shopKeys(pool)[r.type];r.key=spec.mode==='select'?spec.options[0]?.[0]??'':spec.mode==='text'?spec.fallback:'';r.unitPrice=r.type==='item'?null:1;}
+    for(const [k,raw] of Object.entries(v||{})){
+      if(k==='type')continue;
+      if(k==='enabled')r.enabled=!!raw;
+      else if(k==='key'){const spec=shopKeys(pool)[r.type];if(spec.mode==='none')continue;const key=String(raw??'').trim();if(!key)throw Error('請指定商品內容');if(spec.mode==='select'&&!spec.options.some(([x])=>x===key))throw Error('商品內容無效：'+key);r.key=key;}
+      else if(k==='name'){const t=String(raw??'').trim();if(Array.from(t).length>40||/[<>]/.test(t))throw Error('商店顯示名稱最多 40 字');r.name=t;}
+      else if(k==='unitPrice')r.unitPrice=raw===null||raw===''||Number.isNaN(raw)?(r.type==='item'?null:(()=>{throw Error('此類商品需要單價');})()):int(raw,'單價',0);
+      else if(k==='quantity'&&!random)r.quantity=int(raw,'數量',1,999);
+      else if(['quantityMin','quantityMax'].includes(k)&&random)r[k]=int(raw,k==='quantityMin'?'最小數量':'最大數量',1,999);
+      else if(k==='weight'&&random)r.weight=num(raw,'出現權重',0,1e6);
+      else if(k==='selection'&&random){if(!['weighted','extra'].includes(raw))throw Error('出現方式無效');r.selection=raw;}
+      else if(k==='chance'&&random)r.chance=num(raw,'追加機率',0,1);
+      else throw Error('不支援的商品欄位：'+k);
+    }
+    if(random&&r.quantityMin>r.quantityMax)throw Error('最小數量不可大於最大數量');
+  }
+  function offerId(pool){const used=new Set(pools()[pool].map(x=>x.id));let n=1;while(used.has(pool+'_offer_'+n))n++;return pool+'_offer_'+n;}
+  globalThis.__EMBERWILD_SHOP_DIALOG={
+    pools:{random:'隨機商品',fixed:'固定商品'},types:SHOP_TYPES,
+    list(pool){ensureArrays();const random=pool==='random';return pools()[pool].map(r=>({id:r.id,name:offerName(r),enabled:!!r.enabled,meta:SHOP_TYPES[r.type]+' · '+(random?r.quantityMin+'～'+r.quantityMax:r.quantity)+' 個 · 單價 '+(r.unitPrice??'沿用道具')+(random?(r.selection==='extra'?' · 追加 '+Math.round(r.chance*10000)/100+'%':' · 權重 '+r.weight):'')+(r.enabled?'':' · 停用')}));},
+    get(pool,id){ensureArrays();return shopView(shopRef(pool,id).r,pool);},
+    blank(pool){ensureArrays();const key=(data.items||[]).find(x=>x.shopEnabled!==false)?.id||data.items?.[0]?.id||'';return shopView(SC().normalizeRule({id:'new',type:'item',key},0,pool==='random'),pool);},
+    update(pool,id,values){return guarded(()=>{applyOffer(shopRef(pool,id).r,pool,values);return {pool,id};});},
+    create(pool,values){return guarded(()=>{if(!pools()[pool])throw Error('商品池無效');const list=pools()[pool],key=(data.items||[]).find(x=>x.shopEnabled!==false)?.id||data.items?.[0]?.id;if(!key)throw Error('請先建立道具資料');const r=SC().normalizeRule({id:offerId(pool),type:'item',key},list.length,pool==='random');applyOffer(r,pool,values);list.push(r);return {pool,id:r.id};});},
+    remove(pool,id){return guarded(()=>{const {r,list}=shopRef(pool,id);list.splice(list.indexOf(r),1);return {pool,id};});}
+  };
+  // ------------------------------------------------------------ companion tokens (信物)
+  const TM=EmberwildTokens,TC=()=>globalThis.__EMBERWILD_TOKEN_EDITOR_CHOICES;
+  const TOKEN_TARGETS={elementDamagePct:'element',elementResistPct:'element',raceDamagePct:'race',skillEffectPct:'skill',skillCooldownReduction:'skill'};
+  const TOKEN_ELEMENTS=[['physical','物理'],['fire','火'],['ice','冰'],['wind','風'],['light','光'],['shadow','暗']],TOKEN_RACES=[['beast','野獸'],['plant','植物'],['undead','不死'],['construct','構造'],['demon','惡魔'],['spirit','精靈']];
+  const tokens=()=>data.companionTokens.catalog;
+  function tokenRef(id){const t=tokens().find(x=>x.id===id);if(!t)throw Error('找不到信物 '+id);return t;}
+  function tokenView(t){return {id:t.id,name:t.name,description:t.description||'',job:t.job===undefined||t.job==='all'?'all':String(t.job),quality:String(t.quality??1),qualityFixed:!!t.qualityFixed,'drop.enabled':!!t.drop?.enabled,'drop.weight':t.drop?.weight??1,'drop.minLevel':t.drop?.minLevel??1,'drop.maxLevel':t.drop?.maxLevel??60,fixedEffects:copy(t.effects||[]),effectMin:0,effectMax:32,effectDefs:TM.effectKeys.map(k=>({key:k,label:TC()?.labels?.[k]||k,target:TOKEN_TARGETS[k]||null})),elements:TOKEN_ELEMENTS,races:TOKEN_RACES,classes:data.classes.map((c,i)=>({job:i,name:c.name})),abilityText:t.ability?(TC()?.eventLabels?.[t.ability.event]||t.ability.event)+' → '+(TC()?.actionLabels?.[t.ability.action]||t.ability.action):''};}
+  function applyToken(t,v){
+    for(const [k,raw] of Object.entries(v||{})){
+      if(k==='name')t.name=text(raw,'信物名稱',40);
+      else if(k==='description'){const s=String(raw??'');if(s.length>2000||/[<>]/.test(s))throw Error('說明最多 2000 字且不可包含 < 或 >');t.description=s;}
+      else if(k==='job'){if(raw==='all')t.job='all';else{const j=Number(raw);if(!Number.isInteger(j)||!data.classes[j])throw Error('職業無效');t.job=String(j);}}
+      else if(k==='quality')t.quality=int(raw,'品質',0,3);
+      else if(k==='qualityFixed')t.qualityFixed=!!raw;
+      else if(k==='drop.enabled')t.drop.enabled=!!raw;
+      else if(k==='drop.weight')t.drop.weight=num(raw,'個別掉落權重',0,1e6);
+      else if(k==='drop.minLevel')t.drop.minLevel=int(raw,'最低怪物等級',1,1000);
+      else if(k==='drop.maxLevel')t.drop.maxLevel=int(raw,'最高怪物等級',1,1000);
+      else if(k==='fixedEffects')t.effects=TM.validateEffects((raw||[]).map(fx=>{const out={key:fx.key,value:fx.key==='basicElement'?String(fx.value):Number(fx.value)};const target=TOKEN_TARGETS[fx.key];if(target==='element')out.element=fx.element||'fire';if(target==='race')out.race=fx.race||'beast';if(target==='skill')out.skill=Math.max(0,Math.round(Number(fx.skill)||0));return out;}));
+      else throw Error('不支援的信物欄位：'+k);
+    }
+    if(t.drop.minLevel>t.drop.maxLevel)throw Error('最低怪物等級不可高於最高怪物等級');
+  }
+  function tokenId(){let n=1;while(tokens().some(t=>t.id==='token_'+n))n++;return 'token_'+n;}
+  globalThis.__EMBERWILD_TOKEN_DIALOG={
+    list(){ensureArrays();return tokens().map(t=>({id:t.id,name:t.name,meta:(t.job==='all'||t.job===undefined?'通用':data.classes[Number(t.job)]?.name||'')+' · '+['普通','精良','稀有','傳說'][t.quality??1]+' · '+(t.effects||[]).map(fx=>(TC()?.labels?.[fx.key]||fx.key)+' '+fx.value).join('、')+(t.drop?.enabled?'':' · 不掉落')}));},
+    get(id){ensureArrays();return tokenView(tokenRef(id));},
+    blank(){ensureArrays();const t=copy(TM.defaults.catalog[0]);t.name='新信物';return {...tokenView(t),id:''};},
+    update(id,values){return guarded(()=>{applyToken(tokenRef(id),values);return {id};});},
+    create(values){return guarded(()=>{const t=copy(TM.defaults.catalog[0]);t.id=tokenId();t.name='新信物';newRowSecondsTiming('token',t);applyToken(t,values);tokens().push(t);return {id:t.id};});},
+    duplicate(id){return guarded(()=>{const t=copy(tokenRef(id));t.id=tokenId();t.name=(t.name+' 副本').slice(0,40);tokens().push(t);return {id:t.id};});},
+    // A token still named by drops, quests, starter packs or other settings cannot be deleted.
+    remove(id){return guarded(()=>{const t=tokenRef(id);data.companionTokens.catalog=tokens().filter(x=>x!==t);if(Array.isArray(data.inventoryIcons))data.inventoryIcons=data.inventoryIcons.filter(r=>!(r.kind==='token'&&r.key===id));const refs=findReferences(id,['companionTokens']);if(refs.length)throw Error('此信物仍被引用：'+refs.slice(0,5).join('、'));return {id};});}
   };
 })();
 </script>
