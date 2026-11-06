@@ -121,6 +121,19 @@ EDITORS.newItem={
  save(t,v,shell){const out=api(shell,'__EMBERWILD_ITEM_DIALOG').create(t.itemType,v);if(out?.ok&&out.warning)shell.status(out.warning);return out;},
  context:()=>({})
 };
+// Any fixed text on the game screen (game textOverrides). The same original wording changes everywhere.
+EDITORS.text={
+ title:()=>'修改畫面文字',section:'uiText',
+ note:(t,r)=>'原文的數字以 {#} 表示，新文字中的 {#} 會依序填回原本的數字。遊戲中所有相同的原文會一起修改。'+(r.overridden?'':' 目前尚未修改。'),
+ load(t,shell){const source=String(t.source||'').trim();if(!source)throw Error('沒有可修改的文字');const existing=api(shell,'__EMBERWILD_TEXT_OVERRIDE_EDITOR').get(source);return {name:source,source,shown:String(t.current||''),text:existing??source,overridden:existing!==null};},
+ fields:[
+  {key:'source',label:'原文',type:'text',readonly:true,wide:true},
+  {key:'shown',label:'目前畫面顯示',type:'text',readonly:true,wide:true},
+  {key:'text',label:'新文字',type:'textarea',wide:true}
+ ],
+ actions:[{label:'還原原文',run(t,r,shell){const out=api(shell,'__EMBERWILD_TEXT_OVERRIDE_EDITOR').remove(r.source);if(!out?.ok)throw Error(out?.error||'無法還原');shell.apply();shell.status('已還原原文並套用至預覽：'+r.source+'。尚未發布。');dialog().close();}}],
+ save(t,v,shell){return api(shell,'__EMBERWILD_TEXT_OVERRIDE_EDITOR').set(current.record.source,String(v.text??''));}
+};
 // ---------------------------------------------------------------- list dialogs
 const LISTS={
  items:{
@@ -174,10 +187,10 @@ function input(f,v,r,shell){
  const id='devInline-'+f.key.replace(/\W/g,'_'),wide=f.wide?' wide':'';
  if(f.type==='check')return `<label class="check${wide}"><input id="${id}" type="checkbox" data-key="${f.key}" ${v?'checked':''}>${esc(f.label)}</label>`;
  if(f.type==='select')return `<label class="${wide}">${esc(f.label)}<select id="${id}" data-key="${f.key}">${opts(f,r,shell).map(([k,n])=>`<option value="${esc(k)}" ${String(v)===String(k)?'selected':''}>${esc(n)}</option>`).join('')}</select></label>`;
- if(f.type==='textarea')return `<label class="${wide}">${esc(f.label)}<textarea id="${id}" data-key="${f.key}">${esc(v)}</textarea></label>`;
+ if(f.type==='textarea')return `<label class="${wide}">${esc(f.label)}<textarea id="${id}" data-key="${f.key}"${f.readonly?' readonly':''}>${esc(v)}</textarea></label>`;
  if(f.type==='jobs')return `<div class="${wide}"><label>${esc(f.label)}</label><div class="dev-jobs" id="${id}">${r.classes.map(c=>`<label><input type="checkbox" data-job="${c.job}" ${(v||[]).includes(c.job)?'checked':''}>${esc(c.name)}</label>`).join('')}</div></div>`;
  if(f.type==='effects')return `<div class="${wide}"><label>${esc(f.label)}</label><div id="devInlineEffects">${effectsHTML(r)}</div></div>`;
- const attrs=['min','max','step'].filter(a=>f[a]!==undefined).map(a=>`${a}="${f[a]}"`).join(' ');
+ const attrs=['min','max','step'].filter(a=>f[a]!==undefined).map(a=>`${a}="${f[a]}"`).join(' ')+(f.readonly?' readonly':'');
  return `<label class="${wide}">${esc(f.label)}<input id="${id}" data-key="${f.key}" type="${f.type==='number'?'number':f.type==='color'?'color':'text'}" ${attrs} value="${esc(v)}"></label>`;
 }
 function visible(f){const {target,record}=current;return (!f.create||target.create)&&(!f.when||f.when(record));}
