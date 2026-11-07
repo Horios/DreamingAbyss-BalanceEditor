@@ -1,6 +1,8 @@
 /* Hosted GitHub App credentials never enter HTML, JSON documents or browser storage. */
 const encoder=new TextEncoder(),decoder=new TextDecoder();
 export class GithubError extends Error{constructor(status,message){super(message);this.status=status;}}
+// The game repository was renamed from Horios/Emberwild. Installations keep it by repository id, so only the name changes here.
+export const REPOSITORY_OWNER='Horios',REPOSITORY_NAME='DreamingAbyss',REPOSITORY=REPOSITORY_OWNER+'/'+REPOSITORY_NAME,REPOSITORY_PATH='/repos/'+REPOSITORY;
 export const randomToken=()=>[...crypto.getRandomValues(new Uint8Array(32))].map(n=>n.toString(16).padStart(2,'0')).join('');
 export const digest=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(s)))].map(n=>n.toString(16).padStart(2,'0')).join('');
 export function b64url(bytes){return btoa(String.fromCharCode(...bytes)).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');}
@@ -15,10 +17,10 @@ export async function makeAppJwt(env){
 export function createHostedGithubApp(env,{fetchImpl=(...args)=>globalThis.fetch(...args)}={}){
  const configured=Boolean(env.EMBERWILD_GITHUB_APP_ID&&env.EMBERWILD_GITHUB_INSTALLATION_ID&&env.EMBERWILD_GITHUB_PRIVATE_KEY);
  let token=null,expires=0;
- async function request(path,{method='GET',body,auth}={}){
-  if(path!=='/repos/Horios/Emberwild'&&!path.startsWith('/repos/Horios/Emberwild/')&&!/^\/app\/installations\/\d+\/access_tokens$/.test(path))throw new GithubError(403,'不允許此 GitHub 目標');
+ async function request(path,{method='GET',body,auth,purpose=''}={}){
+  if(path!==REPOSITORY_PATH&&!path.startsWith(REPOSITORY_PATH+'/')&&!/^\/app\/installations\/\d+\/access_tokens$/.test(path))throw new GithubError(403,'不允許此 GitHub 目標');
   let r;try{r=await fetchImpl('https://api.github.com'+path,{method,headers:{Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'Emberwild-Online-Publisher','Content-Type':'application/json',...(auth?{Authorization:'Bearer '+auth}:{})},body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(20000),cache:'no-store'});}catch{throw new GithubError(502,'GitHub 連線失敗或逾時；請先核對線上版本，勿重複上傳');}
-  if(!r.ok){const n=r.status;throw new GithubError(n,n===401?'GitHub App 授權失效':n===403||n===429?'GitHub 權限不足或 API 用量限制':n===404?'Repository、版本或檔案不存在':n===409||n===422?'線上版本已更新；請重新取得並比較':'GitHub API 失敗（HTTP '+n+'）');}
+  if(!r.ok){const n=r.status;if(purpose==='token')throw new GithubError(n,n===401?'GitHub App 授權失效；請到 GitHub 連線設定重新連結':n===404?'找不到 GitHub App 安裝；請到 GitHub 連線設定重新安裝':'無法取得 GitHub 存取權杖（HTTP '+n+'）：App 安裝範圍需包含 '+REPOSITORY+'，並授予 Contents 寫入、Actions 唯讀');throw new GithubError(n,n===401?'GitHub App 授權失效':n===403||n===429?'GitHub 權限不足或 API 用量限制':n===404?'Repository、版本或檔案不存在':n===409||n===422?'線上版本已更新；請重新取得並比較（HTTP '+n+'）':'GitHub API 失敗（HTTP '+n+'）');}
   return r.status===204?null:r.json();
  }
  async function access(){
@@ -26,7 +28,7 @@ export function createHostedGithubApp(env,{fetchImpl=(...args)=>globalThis.fetch
   if(token&&expires>Date.now()+60000)return token;
   if(!/^\d+$/.test(String(env.EMBERWILD_GITHUB_INSTALLATION_ID)))throw new GithubError(503,'GitHub App Installation ID 設定無效');
   const jwt=await makeAppJwt(env);
-  const out=await request('/app/installations/'+env.EMBERWILD_GITHUB_INSTALLATION_ID+'/access_tokens',{method:'POST',auth:jwt,body:{repositories:['Emberwild'],permissions:{contents:'write',actions:'read'}}});
+  const out=await request('/app/installations/'+env.EMBERWILD_GITHUB_INSTALLATION_ID+'/access_tokens',{method:'POST',auth:jwt,purpose:'token',body:{repositories:[REPOSITORY_NAME],permissions:{contents:'write',actions:'read'}}});
   token=out.token;expires=Date.parse(out.expires_at);return token;
  }
  const api=async(path,options={})=>{const method=options.method||'GET';if(method!=='GET'&&!configured)throw new GithubError(503,'尚未設定 GitHub App，禁止上傳');return request(path,{...options,auth:configured?await access():undefined});};

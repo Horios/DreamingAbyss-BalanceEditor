@@ -1,5 +1,5 @@
 import {GithubConnection,connectionConfig,setupHTML} from './connect.mjs';
-import {createHostedGithubApp,randomToken,digest,decodeGitContent,b64url} from './github-app.mjs';
+import {createHostedGithubApp,randomToken,digest,decodeGitContent,b64url,REPOSITORY} from './github-app.mjs';
 import {D1TicketStore} from './tickets.mjs';
 import {createGameValidator} from './game-validator.mjs';
 import {ReleaseService} from './release-service.mjs';
@@ -18,7 +18,7 @@ export function createWorker({githubFactory=createHostedGithubApp,validatorFacto
    // Sites provides the owner-private access boundary and trusted identity headers.
    if(request.method==='GET'&&url.pathname==='/api/health'){
     const schema=env.DB?await env.DB.prepare("SELECT COUNT(*) AS n FROM sqlite_master WHERE type = 'table' AND name IN ('release_tickets', 'github_connection', 'github_connect_flows')").bind().first():null;
-    const health={ok:true,repository:'Horios/Emberwild',validatorCommit,online:true,databaseReady:schema?.n===3,sessionSecretConfigured:Boolean(env.EMBERWILD_SESSION_SECRET&&env.EMBERWILD_SESSION_SECRET.length>=32)};
+    const health={ok:true,repository:REPOSITORY,validatorCommit,online:true,databaseReady:schema?.n===3,sessionSecretConfigured:Boolean(env.EMBERWILD_SESSION_SECRET&&env.EMBERWILD_SESSION_SECRET.length>=32)};
     if(url.searchParams.get('probe')==='github'){
      health.runtime={abortTimeout:typeof AbortSignal?.timeout==='function'};
      try{const remote=await fetch('https://api.github.com/rate_limit',{headers:{Accept:'application/vnd.github+json','User-Agent':'Emberwild-Online-Publisher'},signal:AbortSignal.timeout(10000)});const value=await remote.json();health.github={status:remote.status,remaining:value.resources?.core?.remaining,message:typeof value.message==='string'?value.message.slice(0,200):undefined};}
@@ -45,7 +45,7 @@ export function createWorker({githubFactory=createHostedGithubApp,validatorFacto
    }
    const runtimeEnv=await connectionConfig(env,user);
    const api=githubFactory(runtimeEnv),capabilities={publishing:api.configured&&Boolean(env.DB),readOnly:!api.configured,validatorCommit};
-   if(request.method==='GET'&&url.pathname==='/api/session')return json(200,{csrf:await csrf(secret,user,Date.now()+23*3600000),repository:'Horios/Emberwild',capabilities});
+   if(request.method==='GET'&&url.pathname==='/api/session')return json(200,{csrf:await csrf(secret,user,Date.now()+23*3600000),repository:REPOSITORY,capabilities});
    if(request.method!=='POST'||request.headers.get('Origin')!==url.origin||!/^application\/json/.test(request.headers.get('Content-Type')||'')||!await csrfValid(secret,user,request.headers.get('X-Emberwild-CSRF')))return json(403,{error:'請求未通過來源或 CSRF 檢查'});
    const method=url.pathname.replace(/^\/api\//,'');
    if(!url.pathname.startsWith('/api/')||!['snapshot','history','prepare','commit','deployment','validate','connect','connect-check'].includes(method))return json(404,{error:'未知操作'});

@@ -16,7 +16,7 @@ function createServer({service,editorRoot=path.resolve(__dirname,'..'),port=4318
    const id=(req.headers.cookie||'').match(/(?:^|;\s*)ew-release=([a-f0-9]{64})(?:;|$)/)?.[1],session=sessions.get(id);
    if(!session||session.expires<Date.now()){json(res,401,{error:'尚未登入本機發布工作台，請從首頁開啟'});return;}
    if(req.headers.origin&&req.headers.origin!==origin){json(res,403,{error:'不允許跨來源請求'});return;}
-   if(req.method==='GET'&&url.pathname==='/api/session'){json(res,200,{csrf:session.csrf,repository:'Horios/Emberwild'});return;}
+   if(req.method==='GET'&&url.pathname==='/api/session'){json(res,200,{csrf:session.csrf,repository:'Horios/DreamingAbyss'});return;}
    if(req.method!=='POST'||req.headers.origin!==origin||req.headers['x-emberwild-csrf']!==session.csrf||!/^application\/json/.test(req.headers['content-type']||'')){json(res,403,{error:'請求未通過 CSRF／來源檢查'});return;}
    let raw='';for await(const chunk of req){raw+=chunk;if(Buffer.byteLength(raw)>4000000){json(res,413,{error:'JSON 過大'});return;}}
    const body=JSON.parse(raw||'{}'),method=url.pathname.slice('/api/'.length);

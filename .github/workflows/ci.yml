@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       game_ref:
-        description: Horios/Emberwild branch, tag or commit to verify against
+        description: Horios/DreamingAbyss branch, tag or commit to verify against
         required: false
         default: chatgpt-dev
 
@@ -37,14 +37,14 @@ jobs:
           path: emberwild-balance
       - uses: actions/checkout@v4
         with:
-          repository: Horios/Emberwild
+          repository: Horios/DreamingAbyss
           ref: ${{ env.GAME_REF }}
           path: Emberwild
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Record the game revision under test
-        run: echo "Game Horios/Emberwild@$(git -C Emberwild rev-parse HEAD) ($GAME_REF)" | tee -a "$GITHUB_STEP_SUMMARY"
+        run: echo "Game Horios/DreamingAbyss@$(git -C Emberwild rev-parse HEAD) ($GAME_REF)" | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Run every repository test except the game contract
         working-directory: emberwild-balance
         run: |
@@ -62,7 +62,7 @@ jobs:
           path: emberwild-balance
       - uses: actions/checkout@v4
         with:
-          repository: Horios/Emberwild
+          repository: Horios/DreamingAbyss
           ref: ${{ env.GAME_REF }}
           path: Emberwild
       - uses: actions/setup-node@v4
@@ -95,7 +95,7 @@ jobs:
           path: emberwild-balance
       - uses: actions/checkout@v4
         with:
-          repository: Horios/Emberwild
+          repository: Horios/DreamingAbyss
           ref: ${{ env.GAME_REF }}
           path: Emberwild
       - uses: actions/setup-node@v4
