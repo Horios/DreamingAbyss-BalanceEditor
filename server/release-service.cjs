@@ -1,7 +1,7 @@
 'use strict';
 const crypto=require('node:crypto'),D=require('./balance-diff.cjs'),CM=require('../scripts/combat-migration-audit.cjs');
 class ReleaseService{
- constructor({api,validate,ticketStore=null}){this.api=api;this.validateDocument=validate;this.base='/repos/Horios/DreamingAbyss';this.tickets=ticketStore||new Map();}
+ constructor({api,validate,effective=null,ticketStore=null}){this.api=api;this.validateDocument=validate;this.effectiveDocument=effective;this.base='/repos/Horios/DreamingAbyss';this.tickets=ticketStore||new Map();}
  branch(value){if(!['main','chatgpt-dev'].includes(value))throw Error('僅允許 main／chatgpt-dev');return value;}
  async validate({data}){CM.assertSupported(data);return {data:CM.assertSupported(this.validateDocument(data)),valid:true};}
  async requireMonsterRuntime(target,candidate){
@@ -12,6 +12,8 @@ class ReleaseService{
   if(!/monsterDesignVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援怪物個別設定、物品連結或多種 BOSS 陣容。請先升級該分支遊戲程式，再發布平衡 JSON。');
  }
  async requireLifeRuntime(target,candidate){
+  // Game v0.119: on-screen text overrides. Older game code keeps the field but never applies it, so publishing would change nothing.
+  if(candidate.textOverrides?.entries?.length){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/textOverridesVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援文字覆寫（textOverrides）；請先將遊戲程式升級至 v0.119 以上，再發布這份平衡 JSON。');}
   if(candidate.balanceSettings?.meta?.combatTimingVersion===1){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/combatTimingVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援秒數／MP 戰鬥；請先升級該分支程式，禁止把新資料寫入舊回合制正式版。');const c=candidate.balanceSettings.combat?.seconds,m=candidate.balanceSettings.meta;if((m.independentActionsVersion===1||c?.actionModel==='independent')&&!/independentActionsVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援獨立普攻與瞬發技能；請先升級該分支程式。');if((m.continuousExplorationVersion===1||c?.recovery)&&!/continuousExplorationVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援連續探索與脫戰恢復；請先升級該分支程式。');}
 
   if(candidate.wishingLake){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/wishingLakeVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援許願湖，請先升級遊戲程式，再發布設定。');}
@@ -90,7 +92,12 @@ class ReleaseService{
   if(target.commit!==expectedCommit)throw Object.assign(Error('線上版本已更新，請重新取得最新版並重新比較。'),{status:409});
   if(typeof message!=='string'||message.trim().length<4||message.length>300||/[\u0000-\u001f]/.test(message)||/^update(?: json)?$/i.test(message.trim()))throw Error('請輸入至少四個字的具體版本說明');
   CM.assertSupported(data);
-  const candidate=CM.assertSupported(this.validateDocument(data)),diff=D.diff(target.data,candidate);if(!diff.total)throw Error('沒有有效設定差異，禁止建立空白發布 commit');
+  // Compare like with like: the stored JSON is not normalized, the candidate is. Both sides go through the same game load
+  // (effective) or validator, so format-only differences (projections the game fills in, migrated starter packs, explicit
+  // defaults) stay out of the summary and a publish with no real change is still refused.
+  const candidate=CM.assertSupported(this.validateDocument(data)),view=doc=>{const copy=JSON.parse(JSON.stringify(doc));return this.effectiveDocument?this.effectiveDocument(copy):this.validateDocument(copy);};
+  let baseline=target.data,after=candidate;try{baseline=view(target.data);after=view(candidate);}catch{baseline=target.data;after=candidate;}
+  const diff=D.diff(baseline,after);if(!diff.total)throw Error('沒有有效設定差異，禁止建立空白發布 commit');
   await this.requireLifeRuntime(target,candidate);
   const ticket=crypto.randomBytes(32).toString('hex'),nextVersion=crypto.createHash('sha256').update(D.stable(candidate)).digest('hex').slice(0,12);
   if(this.tickets.prune)await this.tickets.prune();else for(const [id,t] of this.tickets)if(t.expires<Date.now())this.tickets.delete(id);
@@ -123,7 +130,7 @@ class ReleaseService{
  async deployment({branch,commit}){
   branch=this.branch(branch);if(!/^[a-f0-9]{40}$/.test(commit))throw Error('commit SHA 無效');
   // Preview dispatch runs from main, so workflow head_sha alone cannot prove deployment.
-  const prefix=branch==='main'?'':'preview/',url='https://horios.github.io/Emberwild/'+prefix;
+  const prefix=branch==='main'?'':'preview/',url='https://horios.github.io/DreamingAbyss/'+prefix;
   const expected=await this.snapshot({branch,ref:commit});
   try{
    const response=await fetch(url+'data/build.json?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(10000)});

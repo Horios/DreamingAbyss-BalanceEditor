@@ -47,6 +47,12 @@ EMBERWILD_GAME_ROOT=../Emberwild node scripts/sync-game.cjs
 
 遊戲 repository 從 `Horios/Emberwild` 改名為 `Horios/DreamingAbyss` 後，後端仍以舊名稱申請 GitHub 存取權杖，GitHub 回 HTTP 422，原本被誤顯示成「線上版本已更新；請重新取得並比較」，取得版本與發布都會失敗。後端已改用新名稱。GitHub App 安裝是以 repository ID 記錄選取範圍，改名不需要重新安裝；重新部署 Sites 後即可使用。若仍顯示「無法取得 GitHub 存取權杖」，到 GitHub App 安裝設定確認選取的是 `DreamingAbyss`，且權限為 Contents 寫入、Actions 唯讀。
 
+GitHub Pages 同時搬到 `https://horios.github.io/DreamingAbyss/`（測試版 `/preview/`）；「檢查部署狀態」與「開啟正式版／測試版」連結已改用新網址。
+
+## 發布摘要與差異比較
+
+GitHub 上的 `data/balance.json` 是未正規化的原始檔，編輯器匯出的是正規化後的文件（含技能秒數投影、新手禮包新格式與明確預設值）。發布摘要先把線上版本與候選資料都經過同一個遊戲驗證程式實際載入後再比較；「差異比較」則把線上版本經過編輯器同一套匯入與匯出流程後再比較。只改一個數值時摘要只列那一筆，沒有實際修改的發布會被拒絕。
+
 ## 首次啟用上傳
 
 1. 開啟工作台的「GitHub 連線設定」。

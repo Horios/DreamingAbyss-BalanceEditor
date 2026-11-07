@@ -53,7 +53,7 @@ export function createWorker({githubFactory=createHostedGithubApp,validatorFacto
    const body=await bodyJSON(request);
    if(['connect','connect-check'].includes(method)){if(!env.DB)return json(503,{error:'GitHub 連線儲存尚未配置'});const connection=new GithubConnection(env,user,url.origin);return json(200,await (method==='connect'?connection.begin():connection.verify()));}
    const runtime=['validate','prepare','commit'].includes(method)?validatorFactory():null;
-   const service=new ReleaseService({api,validate:input=>runtime.validate(input),ticketStore:env.DB?new D1TicketStore(env.DB):null});
+   const service=new ReleaseService({api,validate:input=>runtime.validate(input),effective:input=>runtime.effective(input),ticketStore:env.DB?new D1TicketStore(env.DB):null});
    return json(200,await service[method](body,user));
   }catch(err){if(url.pathname.startsWith('/api/github/'))return new Response(setupHTML({},err.message,Boolean(err.retryable)),{status:err.status>=400&&err.status<=599?err.status:400,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store'}});return json(err.status>=400&&err.status<=599?err.status:400,{error:err.message,issues:err.issues||[]});}
  }

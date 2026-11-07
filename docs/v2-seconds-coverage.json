@@ -1,10 +1,10 @@
 {
   "formatVersion": 1,
-  "gameCommit": "fdbd70c8710876fe165d9fad32968e8d744f631e",
-  "balanceSha256": "6430deee8057da55cdff097a4fde7e93807814a4357f96916a1a573ac31505e2",
+  "gameCommit": "c9c51aa182aabff5aa85e00ed9a5fedc3a13bb4b",
+  "balanceSha256": "02b2b55e8133a28ce33bde2719ab3db7d4e5aca8e973d5fd23328691c9994ea0",
   "scope": "Representative field shapes in the existing canonical seconds UI, including optional MP/equipment fields. Not every object instance or every editor page.",
   "summary": {
-    "ui-export-game-verified": 46,
+    "ui-export-game-verified": 47,
     "intentional-readonly": 2,
     "permanent-preserved": 1,
     "inapplicable-hidden": 3
@@ -247,7 +247,7 @@
       ],
       "variant": "editable",
       "result": "ui-export-game-verified",
-      "value": 3.125
+      "value": 2.125
     },
     {
       "path": "skillSystem.definitions[].timing.minTargets",
@@ -385,6 +385,19 @@
       "value": "injured"
     },
     {
+      "path": "skillSystem.definitions[].timing.initialCooldownSeconds",
+      "parts": [
+        "skillSystem",
+        "definitions",
+        0,
+        "timing",
+        "initialCooldownSeconds"
+      ],
+      "variant": "editable",
+      "result": "ui-export-game-verified",
+      "value": 3.125
+    },
+    {
       "path": "skillSystem.definitions[].timing.mpCost",
       "variant": "free-trigger",
       "result": "intentional-readonly"
@@ -484,7 +497,7 @@
       ],
       "variant": "editable",
       "result": "ui-export-game-verified",
-      "value": 3.125
+      "value": 2.425
     },
     {
       "path": "companionTokens.catalog[].ability.timing.cooldownSeconds",

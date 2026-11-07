@@ -10,7 +10,9 @@
 
  // ---- baseline: an export of the chosen document, produced by the same validator/normalizer as the current data.
  let baseline=null,notice='',expanded=new Set(),openRecords=new Set();
- function normalizedExport(doc){const keep=data;try{data=__EMBERWILD_VALIDATE_DOCUMENT(copy(doc));ensureArrays();return __EMBERWILD_RELEASE_EDITOR.current();}finally{data=keep;}}
+ // Restoring data also restores derived editor state (map names and the like) that ensureArrays rebuilt for the other document.
+ function normalizedExport(doc){const keep=data;try{data=__EMBERWILD_VALIDATE_DOCUMENT(copy(doc));ensureArrays();return __EMBERWILD_RELEASE_EDITOR.current();}finally{data=keep;ensureArrays();}}
+ globalThis.__EMBERWILD_NORMALIZED_EXPORT=normalizedExport;
  function defaultBaseline(){
   const src=globalThis.__EMBERWILD_SOURCE_DOCUMENT?.original,meta=globalThis.__EMBERWILD_EDITOR_WORKSPACE_META;
   return src?{label:'本次載入的文件'+(meta?.source&&meta.source!=='內建預設'?'（'+meta.source+'）':''),doc:normalizedExport(src)}:{label:'內建發布資料',doc:normalizedExport(ORIGINAL_DATA)};
