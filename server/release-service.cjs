@@ -62,8 +62,10 @@ class ReleaseService{
  async snapshot({branch,ref}){
   branch=this.branch(branch);if(ref&&!/^[a-f0-9]{40}$/.test(ref))throw Error('commit SHA 格式錯誤');
   const head=await this.api(this.base+'/git/ref/heads/'+branch),commit=ref||head.object.sha;
-  const f=await this.api(this.base+'/contents/data/balance.json?ref='+commit);
-  if(f.type!=='file'||f.encoding!=='base64')throw Error('JSON 檔案格式無效');
+  let f=await this.api(this.base+'/contents/data/balance.json?ref='+commit);
+  if(f.type!=='file')throw Error('線上 data/balance.json 不是檔案');
+  // The contents API leaves out the content of files over 1 MB (encoding "none"); read the same blob from the Git API instead.
+  if(f.encoding!=='base64'||!f.content){if(!/^[a-f0-9]{40}$/.test(f.sha||''))throw Error('JSON 檔案格式無效');const blob=await this.api(this.base+'/git/blobs/'+f.sha);if(blob.encoding!=='base64'||typeof blob.content!=='string')throw Error('JSON 檔案格式無效（Git blob 編碼 '+blob.encoding+'）');f={...f,content:blob.content,encoding:'base64'};}
   let data;try{data=JSON.parse(Buffer.from(f.content.replace(/\s/g,''),'base64').toString('utf8'));}catch{throw Error('線上 JSON 無法解析');}
   return {branch,commit,head:head.object.sha,blob:f.sha,data};
  }
