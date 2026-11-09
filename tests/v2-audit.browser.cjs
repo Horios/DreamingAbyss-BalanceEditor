@@ -1,9 +1,9 @@
 /* Read-only developer entry; reuse the game's pinned browser/runtime harness. */
 const assert=require('node:assert/strict'),path=require('node:path');
 // CI installs Playwright in the adjacent game checkout, not in this repository.
-process.env.NODE_PATH=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||path.resolve(__dirname,'../../Emberwild/node_modules');
+process.env.NODE_PATH=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES||path.resolve(__dirname,'../../DreamingAbyss/node_modules');
 require('node:module').Module._initPaths();
-const {openRuntime}=require('../../Emberwild/tests/runtime.cjs');
+const {openRuntime}=require('../../DreamingAbyss/tests/runtime.cjs');
 (async()=>{
  const g=await openRuntime(path.resolve(__dirname,'..'),'balance-audit.html'),p=g.page;
  try{

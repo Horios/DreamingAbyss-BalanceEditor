@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-/* Reports whether the editor's recorded game commit matches the game checkout (default ../Emberwild).
+/* Reports whether the editor's recorded game commit matches the game checkout (default ../DreamingAbyss).
    In GitHub Actions a mismatch becomes a warning annotation; --strict turns it into a failure. */
 'use strict';
 const cp=require('node:child_process'),path=require('node:path'),fs=require('node:fs');
-const root=path.resolve(__dirname,'..'),game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(root,'../Emberwild'));
+const root=path.resolve(__dirname,'..'),game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(root,'../DreamingAbyss'));
 const read=f=>JSON.parse(fs.readFileSync(path.join(root,f),'utf8'));
 const head=cp.execFileSync('git',['-C',game,'rev-parse','HEAD'],{encoding:'utf8'}).trim();
 const version=JSON.parse(fs.readFileSync(path.join(game,'data/preview-version.json'),'utf8')).version;

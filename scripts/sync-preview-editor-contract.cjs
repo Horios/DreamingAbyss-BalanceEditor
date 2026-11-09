@@ -1,7 +1,7 @@
 /* Keep new-workspace fallback and shared models on the actual preview contract.
    This does not replace browser drafts or mutate the published game JSON. */
 const fs=require('node:fs'),path=require('node:path');
-const root=path.resolve(__dirname,'..'),game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(root,'../Emberwild')),file=path.join(root,'balance-editor.html');
+const root=path.resolve(__dirname,'..'),game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(root,'../DreamingAbyss')),file=path.join(root,'balance-editor.html');
 let html=fs.readFileSync(file,'utf8');
 const source=JSON.parse(fs.readFileSync(path.join(game,'data/balance.json'),'utf8'));
 // Reuse the existing embedded document, rather than add a second catalog.
@@ -14,7 +14,7 @@ delete settings.meta.activeCooldownFloorVersion;
 for(const k of ['independentActionsVersion','continuousExplorationVersion'])delete settings.meta[k];
 for(const k of ['actionModel','recovery'])delete settings.combat.seconds[k];
 html=html.replace(/^const BALANCE_SETTINGS_DEFAULTS = .+;$/m,()=> 'const BALANCE_SETTINGS_DEFAULTS = '+JSON.stringify(settings)+';');
-for(const [id,sourcePath] of [['companion-model-v1','js/character/companion-model.js'],['progression-model-v2','js/balance/progression-model.js'],['companion-token-model-v1','js/items/companion-token-model.js'],['team-model-v1','js/character/team-model.js']]){
+for(const [id,sourcePath] of [['balance-document-v1','js/balance/balance-document.js'],['companion-model-v1','js/character/companion-model.js'],['progression-model-v2','js/balance/progression-model.js'],['companion-token-model-v1','js/items/companion-token-model.js'],['team-model-v1','js/character/team-model.js']]){
  const marker=new RegExp('(<script id="'+id+'">)[\\s\\S]*?(<\\/script>)');
  if(!marker.test(html))throw Error('Missing shared model '+id);
  html=html.replace(marker,(_all,start,end)=>start+'\n'+fs.readFileSync(path.join(game,sourcePath),'utf8')+'\n'+end);

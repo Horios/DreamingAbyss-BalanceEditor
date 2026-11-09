@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {createRequire} from 'node:module';import {createGameValidator} from '../server/online/game-validator.mjs';
-const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs');const published=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json','utf8'));
+const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs');const published=JSON.parse(fs.readFileSync('../DreamingAbyss/data/balance.json','utf8'));
 test('manager saves descriptions to the same canonical field for every kind, including blank and reroll',()=>{
  const r=loadRuntime(process.cwd());r.ctx.doc=published;r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(doc);ensureArrays();');const E=r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR;
  for(const id of ['material:紅色草','item:heal_small','item:power_tier_reroll','item:level_scroll','gem:0','token:berserk','equipment:form:0:0:0']){

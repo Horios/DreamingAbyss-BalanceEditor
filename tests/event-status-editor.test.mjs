@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import {createRequire} from 'node:module';
 import {createGameValidator} from '../server/online/game-validator.mjs';
 const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs');
-const source=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json','utf8'));
+const source=JSON.parse(fs.readFileSync('../DreamingAbyss/data/balance.json','utf8'));
 const read=(r,code)=>JSON.parse(r.run('JSON.stringify('+code+')'));
 function boot(){const r=loadRuntime(process.cwd());r.ctx.source=structuredClone(source);r.run('__EMBERWILD_RELEASE_EDITOR.load(source)');return r;}
 test('published clearing skills load, compare without differences and retain event settings through export/reload',()=>{

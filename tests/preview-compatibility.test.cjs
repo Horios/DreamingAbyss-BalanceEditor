@@ -1,6 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),crypto=require('node:crypto');
-const {loadRuntime}=require('./headless-editor.cjs'),{loadRuntime:loadGame}=require('../../Emberwild/tests/headless-runtime.cjs'),D=require('../server/balance-diff.cjs');
-const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../Emberwild'),html=fs.readFileSync(path.join(root,'balance-editor.html'),'utf8');
+const {loadRuntime}=require('./headless-editor.cjs'),{loadRuntime:loadGame}=require('../../DreamingAbyss/tests/headless-runtime.cjs'),D=require('../server/balance-diff.cjs');
+const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../DreamingAbyss'),html=fs.readFileSync(path.join(root,'balance-editor.html'),'utf8');
 const plain=x=>JSON.parse(JSON.stringify(x));
 test('the editor is complete and every inline script parses, including its final canonical skill editor',()=>{
  const blocks=[...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)];

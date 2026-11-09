@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      # The tests resolve the game as a sibling directory: ../Emberwild.
+      # The tests resolve the game as a sibling directory: ../DreamingAbyss.
       - uses: actions/checkout@v4
         with:
           path: emberwild-balance
@@ -39,12 +39,12 @@ jobs:
         with:
           repository: Horios/DreamingAbyss
           ref: ${{ env.GAME_REF }}
-          path: Emberwild
+          path: DreamingAbyss
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Record the game revision under test
-        run: echo "Game Horios/DreamingAbyss@$(git -C Emberwild rev-parse HEAD) ($GAME_REF)" | tee -a "$GITHUB_STEP_SUMMARY"
+        run: echo "Game Horios/DreamingAbyss@$(git -C DreamingAbyss rev-parse HEAD) ($GAME_REF)" | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Run every repository test except the game contract
         working-directory: emberwild-balance
         run: |
@@ -64,7 +64,7 @@ jobs:
         with:
           repository: Horios/DreamingAbyss
           ref: ${{ env.GAME_REF }}
-          path: Emberwild
+          path: DreamingAbyss
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -97,56 +97,64 @@ jobs:
         with:
           repository: Horios/DreamingAbyss
           ref: ${{ env.GAME_REF }}
-          path: Emberwild
+          path: DreamingAbyss
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       # Playwright comes from the game repository's pinned devDependency.
       - name: Install Playwright Chromium
-        working-directory: Emberwild
+        working-directory: DreamingAbyss
         run: |
           npm ci
           npx playwright install --with-deps chromium
       - name: Workbench smoke test on a local HTTP server
         working-directory: emberwild-balance
         env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/global-item-workbench.browser.cjs
       - name: Read-only V2 audit entry
         working-directory: emberwild-balance
         env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/v2-audit.browser.cjs
       - name: Canonical seconds controls export to the real game
         working-directory: emberwild-balance
         env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node scripts/audit-seconds-browser.cjs
       - name: Game interface with contextual developer settings
         working-directory: emberwild-balance
         env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/v2-game.browser.cjs
       - name: Developer-mode simulations of the draft
         working-directory: emberwild-balance
         env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/v2-simulation.browser.cjs
       - name: Developer-mode dialogs on the game screen
         working-directory: emberwild-balance
         env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/v2-inline-edit.browser.cjs
       - name: Developer-mode add, edit and delete on every page
         working-directory: emberwild-balance
         env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/v2-inline-crud.browser.cjs
+
+      - name: Incremental editing timings (one monster HP edit vs full-document operations)
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
+        run: |
+          node scripts/bench-incremental.cjs | tee bench.json
+          { echo "### 增量編輯量測"; echo '```json'; cat bench.json; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Seconds authoring consistency
         working-directory: emberwild-balance
         env:
-          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/Emberwild/node_modules
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/seconds-authoring.browser.cjs
 
   sites-artifact:

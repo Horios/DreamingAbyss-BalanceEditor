@@ -2,7 +2,7 @@
    Static references are evidence candidates, not proof of editable coverage. */
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),cp=require('node:child_process');
-const root=path.resolve(__dirname,'..'),game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(root,'../Emberwild'));
+const root=path.resolve(__dirname,'..'),game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(root,'../DreamingAbyss'));
 const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
 const native={exports:{}};
 new Function('module','exports',process.binding('natives')['internal/deps/acorn/acorn/dist/acorn'])(native,native.exports);
@@ -90,7 +90,7 @@ function audit(){
  const modules=analyzeHTML(html),refs=modules.flatMap(m=>m.dataReferences.map(r=>({...r,module:m.id}))),schema=fs.readFileSync(path.join(game,'js/combat/seconds-schema.js'),'utf8');
  const fields=shapes(doc).map(r=>({...r,role:temporal(r.path),editorReferenceCandidates:refs.filter(x=>x.path===r.path).map(x=>({module:x.module,line:x.line})),editingVerified:false}));
  const optionalFields=optional.map(([p,needle])=>{const at=schema.indexOf(needle);if(at<0)throw Error('Optional-field evidence changed: '+p);return {path:p,present:fields.some(x=>x.path===p),source:'js/combat/seconds-schema.js',line:schema.slice(0,at).split('\n').length,editingVerified:false};});
- const g=require('../../Emberwild/tests/headless-runtime.cjs').loadRuntime(game),effective=JSON.parse(JSON.stringify(g.run('exportableBalance()')));
+ const g=require('../../DreamingAbyss/tests/headless-runtime.cjs').loadRuntime(game),effective=JSON.parse(JSON.stringify(g.run('exportableBalance()')));
  const r=require('../tests/headless-editor.cjs').loadRuntime(root);
  const exported=importForAudit(r,doc),roundTrip=differences(doc,exported);
  const canonicalExport=importForAudit(r,effective),canonicalDiff=differences(effective,canonicalExport);

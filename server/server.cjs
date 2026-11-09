@@ -26,7 +26,7 @@ function createServer({service,editorRoot=path.resolve(__dirname,'..'),port=4318
  });
 }
 if(require.main===module){
- const gameRoot=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(__dirname,'../../Emberwild'));
+ const gameRoot=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(__dirname,'../../DreamingAbyss'));
  const {ReleaseService}=require('./release-service.cjs');
  const configPath=process.env.EMBERWILD_RELEASE_CONFIG||path.join(os.homedir(),'.config','emberwild-release','app-settings.json');
  const config=fs.existsSync(configPath)?JSON.parse(fs.readFileSync(configPath,'utf8')):{};

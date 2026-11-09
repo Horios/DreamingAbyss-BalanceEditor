@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {createRequire} from 'node:module';
-const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs'),published=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json'));
+const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs'),published=JSON.parse(fs.readFileSync('../DreamingAbyss/data/balance.json'));
 function editor(doc=published){const r=loadRuntime(process.cwd());r.ctx.doc=doc;r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(doc);ensureArrays();__EMBERWILD_INVENTORY_ICON_EDITOR.open();');return r;}
 test('category hierarchy is nested, counted from regular items and collapses without rebuilding the catalogue',()=>{
  const r=editor(),E=r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR,before=r.run('JSON.stringify(data)'),metrics=E.diagnostics;

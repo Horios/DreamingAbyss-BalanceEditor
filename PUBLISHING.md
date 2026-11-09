@@ -25,12 +25,32 @@
 
 只修改開發者外殼（`balance-editor-v2.html`、`scripts/v2-*.js`、V2 文件）而沒有遊戲 checkout 時，用 `node scripts/repack-v2-shell.cjs` 更新 `server/online/v2-assets.mjs`；遊戲檔案保持原樣，並更新 `docs/v2-game-provenance.json` 的橋接雜湊。遊戲有新版本時仍用下方的同步指令。
 
+## 模組化平衡資料（遊戲 v0.120 起）
+
+遊戲的平衡資料來源改為 `data/balance/<分類>/<模組>.json`（35 個模組），`data/balance.json` 由模組自動產生。模組配置與拆分程式 `scripts/balance-modules.cjs` 由 `sync-game.cjs` 從遊戲的 `js/balance/balance-modules.js` 複製，兩邊使用同一份程式（來源雜湊記錄在 `docs/balance-modules-provenance.json`）。
+
+編輯：
+- 每次修改後，工作台只序列化目前頁面負責的模組，找出實際改變的模組、記錄與欄位；頁面未登記或寫入落在其他模組時，自動擴大為全模組掃描（只做變更偵測）。
+- 驗證分三級：輸入欄位時只檢查該欄位；模組改變時只檢查改變的記錄；修改被其他模組引用的欄位（怪物 ID、所在地圖、類型、材料等）或新增／刪除記錄時，才執行讀取它的跨模組規則與引用檢查。錯誤標示模組、物件與欄位。
+- 頂部「模組」狀態顯示已修改模組、變更記錄、驗證結果與是否可發布；V2 開發者模式的草稿狀態列同步顯示。
+- 本機自動草稿改為每個模組一個儲存鍵，只寫入內容有變的模組；舊格式草稿仍可讀取，下次儲存時轉成新格式。
+- 「本次變更」只比較文字不同的模組。
+
+發布：
+- 只送出與線上快照不同的模組，以及每個模組修改時依據的雜湊。後端以 Git tree 與 manifest 核對目標分支的模組、manifest 與整合檔屬於同一個 commit。
+- 同一個 commit 寫入變更的模組、manifest、重新產生的 `data/balance.json`，測試版另外遞增 `data/preview-version.json`；未變更的模組不會重寫。
+- 他人已發布新版本時：本次修改的模組沒被動過就套用到新版本上；有重疊就停止並列出衝突模組，不覆寫。
+- 目標分支的整合檔與模組不一致（舊版發布器只寫了整合檔）時拒絕發布，須先在遊戲 Repository 執行 `node scripts/balance-modules.cjs resync`。
+- 正式版升級複製測試版同一個 commit 的模組、manifest 與整合檔；還原從單一歷史 commit 取得資料再寫成新 commit。歷史紀錄可指定模組（`history` 的 `module` 參數）。
+- 目標分支尚未模組化（例如正式版仍是 v0.118）時，維持只寫入 `data/balance.json` 的舊流程。
+- 發布時仍以遊戲驗證器檢查完整文件；這是唯一保留的整份處理。
+
 ## 同步遊戲新版本
 
 遊戲資料或程式更新後，用一個指令完成全部同步步驟（內建資料與共用模型、許願湖、發布驗證器、V2 核心與遊戲預覽、線上包）：
 
 ```bash
-EMBERWILD_GAME_ROOT=../Emberwild node scripts/sync-game.cjs
+EMBERWILD_GAME_ROOT=../DreamingAbyss node scripts/sync-game.cjs
 ```
 
 - 遊戲的 js／css／data／index.html 有未提交修改時會停止，避免來源紀錄對不上 commit；確定要用工作中的檔案時加 `--allow-dirty`。

@@ -1,8 +1,8 @@
 // Every skill definition and every equipment form edited through the editor must survive release validation
 // and reach the game unchanged, and the edits must change seconds combat and character stats.
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
-const {loadRuntime}=require('./headless-editor.cjs'),{loadRuntime:loadGame}=require('../../Emberwild/tests/headless-runtime.cjs');
-const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../Emberwild');
+const {loadRuntime}=require('./headless-editor.cjs'),{loadRuntime:loadGame}=require('../../DreamingAbyss/tests/headless-runtime.cjs');
+const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../DreamingAbyss');
 const plain=x=>JSON.parse(JSON.stringify(x)),round=v=>+v.toFixed(4);
 const SKILL_FIELDS={power:v=>round(v+0.07),procBaseChance:v=>Math.min(1,round(v+0.01)),maxTargets:v=>v+1,baseCritRate:v=>round(v+0.01),baseCritDamage:v=>round(v+0.05),defensePenetration:v=>round(v+0.01),slowPct:v=>round(v+0.01),damageReduction:v=>round(v+0.01),skipChance:v=>round(v+0.01),hitCount:v=>v+1,powerPerLevel:v=>round(v+0.01),value:v=>round(v+1),requiredLevel:v=>v+1};
 const TIMING_FIELDS={cooldownSeconds:v=>v+1,mpCost:v=>v>0?round(v+1):v,priority:v=>v+1,durationSeconds:v=>v>0?v+1:v,bossDurationSeconds:v=>v>0?v+1:v,castSeconds:v=>v>0?round(v+0.1):v};

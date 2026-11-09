@@ -2,7 +2,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const {ReleaseService}=require('../server/release-service.cjs');
 test('story publication requires target runtime and compiled validator preserves editable story',async()=>{
  const head='a'.repeat(40),source='b'.repeat(40);let supported=false;
- const data=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json','utf8'));
+ const data=JSON.parse(fs.readFileSync('../DreamingAbyss/data/balance.json','utf8'));
  const {createGameValidator}=await import('../server/online/game-validator.mjs');
  assert.deepEqual(createGameValidator().validate(data).story,data.story);
  const candidate={story:data.story};

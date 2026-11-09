@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {createRequire} from 'node:module';import {createGameValidator} from '../server/online/game-validator.mjs';
-const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs'),published=createGameValidator().canonicalize(JSON.parse(fs.readFileSync('../Emberwild/data/balance.json')));
+const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs'),published=createGameValidator().canonicalize(JSON.parse(fs.readFileSync('../DreamingAbyss/data/balance.json')));
 function editor(){const r=loadRuntime(process.cwd());r.ctx.doc=published;r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(doc);ensureArrays()');return r;}
 test('starter configuration exposes only a weapon per class, while all inventory kinds can be added without a type limit',()=>{
  const r=editor(),E=r.ctx.__EMBERWILD_STARTER_EDITOR;

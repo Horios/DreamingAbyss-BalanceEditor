@@ -1,7 +1,7 @@
 /* Package the unchanged current game for the private developer preview. */
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),zlib=require('node:zlib'),cp=require('node:child_process');
-const root=path.resolve(__dirname,'..'),game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(root,'../Emberwild'));
+const root=path.resolve(__dirname,'..'),game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(root,'../DreamingAbyss'));
 const hash=s=>crypto.createHash('sha256').update(s).digest('hex'),read=f=>fs.readFileSync(path.join(root,f),'utf8');
 function inject(html,code){const script='<script>'+code+'</script>';return /<\/body>/i.test(html)?html.replace(/<\/body>/i,script+'</body>'):html+script;}
 function build(){

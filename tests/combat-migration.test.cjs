@@ -27,7 +27,7 @@ test('new seconds and MP markers are rejected; legacy values and real-time items
 test('backend validation and prepare reject unsupported documents before domain conversion or ticket creation',async()=>{
  let validationCalls=0;const service=new ReleaseService({api:async()=>{throw Error('unexpected API');},validate:d=>(validationCalls++,d)});
  await assert.rejects(service.validate({data:{skillSystem:{definitions:[{mpCost:2}]}}}),/秒數／MP/);assert.equal(validationCalls,0);
- service.snapshot=async()=>({branch:'chatgpt-dev',commit:'a'.repeat(40),data:{}});
+ service.read=service.snapshot=async()=>({branch:'chatgpt-dev',commit:'a'.repeat(40),data:{}});
  await assert.rejects(service.prepare({data:{timeUnits:{cooldown:'seconds'}},expectedCommit:'a'.repeat(40),message:'技能秒數改版'},'owner'),/秒數／MP/);
  assert.equal(validationCalls,0);assert.equal(service.tickets.size,0);
 });

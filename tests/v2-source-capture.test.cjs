@@ -1,7 +1,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {loadRuntime}=require('./headless-editor.cjs'),{importForAudit,differences}=require('../scripts/audit-v2.cjs');
 test('audit uses the actual source-preserving import flow for the repository document and future fields',()=>{
- const root=path.resolve(__dirname,'..'),doc=JSON.parse(fs.readFileSync(path.join(root,'../Emberwild/data/balance.json')));
+ const root=path.resolve(__dirname,'..'),doc=JSON.parse(fs.readFileSync(path.join(root,'../DreamingAbyss/data/balance.json')));
  doc.futureAuditSetting={enabled:true,nested:[{value:7}]};doc.notes=['Source notes must remain exact'];
  const before=structuredClone(doc),r=loadRuntime(root),out=importForAudit(r,doc);
  assert.deepEqual(differences(before,out),[]);

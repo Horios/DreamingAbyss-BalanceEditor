@@ -5,6 +5,7 @@ function service({blobEncoding='base64'}={}){
  const data={schemaVersion:1,filler:'x'.repeat(1100000)},blob='b'.repeat(40),calls=[];
  const api=async p=>{calls.push(p);
   if(p.includes('/git/ref/heads/'))return {object:{sha:'a'.repeat(40)}};
+  if(p.includes('/contents/data/balance/manifest.json'))throw Object.assign(Error('Not Found'),{status:404});
   if(p.includes('/contents/data/balance.json'))return {type:'file',encoding:'none',content:'',size:1165818,sha:blob};
   if(p.endsWith('/git/blobs/'+blob))return {sha:blob,encoding:blobEncoding,content:Buffer.from(JSON.stringify(data)).toString('base64'),size:1165818};
   throw Error('Unexpected '+p);};

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import {createRequire} from 'node:module';
 import {createGameValidator} from '../server/online/game-validator.mjs';
 const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs');
-const doc=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json'));
+const doc=JSON.parse(fs.readFileSync('../DreamingAbyss/data/balance.json'));
 const plain=x=>JSON.parse(JSON.stringify(x));
 function editor(){const r=loadRuntime(process.cwd());r.ctx.doc=doc;r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(doc);ensureArrays();');return r;}
 test('selecting existing items keeps the catalogue intact and local shared-drop edits preserve other monsters',()=>{

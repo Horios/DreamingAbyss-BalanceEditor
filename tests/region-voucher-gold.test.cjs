@@ -1,7 +1,7 @@
 /* Region vouchers: the per-map overlevelVoucherGold is edited here, validated by the compiled game and used by the game. */
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
-const {loadRuntime}=require('./headless-editor.cjs'),{loadRuntime:loadGame}=require('../../Emberwild/tests/headless-runtime.cjs');
-const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../Emberwild'),plain=x=>JSON.parse(JSON.stringify(x));
+const {loadRuntime}=require('./headless-editor.cjs'),{loadRuntime:loadGame}=require('../../DreamingAbyss/tests/headless-runtime.cjs');
+const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../DreamingAbyss'),plain=x=>JSON.parse(JSON.stringify(x));
 test('overlevel voucher gold defaults per level band, survives editor round-trips, validation and game application',async()=>{
  const {createGameValidator}=await import('../server/online/game-validator.mjs'),validator=createGameValidator();
  const g=loadGame(game),r=loadRuntime(root);r.ctx.input=plain(g.run('exportableBalance()'));r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(input);ensureArrays()');

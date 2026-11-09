@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http');
 const moduleRoot=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
 const {chromium}=require(moduleRoot?path.join(moduleRoot,'playwright'):'playwright');
 const root=path.resolve(__dirname,'..');
-const doc=JSON.parse(fs.readFileSync(path.resolve(root,'../Emberwild/data/balance.json')));
+const doc=JSON.parse(fs.readFileSync(path.resolve(root,'../DreamingAbyss/data/balance.json')));
 (async()=>{
  const server=http.createServer((_req,res)=>{res.setHeader('Content-Type','text/html; charset=utf-8');res.end(fs.readFileSync(path.join(root,'balance-editor.html')));});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));

@@ -1,8 +1,8 @@
 // Developer-mode dialog APIs: protagonist class stats and new items validate the whole draft, roll back on rejection
 // and reach the game unchanged.
 const test=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
-const {loadRuntime}=require('./headless-editor.cjs'),{loadRuntime:loadGame}=require('../../Emberwild/tests/headless-runtime.cjs');
-const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../Emberwild'),plain=x=>JSON.parse(JSON.stringify(x));
+const {loadRuntime}=require('./headless-editor.cjs'),{loadRuntime:loadGame}=require('../../DreamingAbyss/tests/headless-runtime.cjs');
+const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../DreamingAbyss'),plain=x=>JSON.parse(JSON.stringify(x));
 function editor(){const g=loadGame(game),e=loadRuntime(root);e.ctx.input=plain(g.run('exportableBalance()'));e.run('data=__EMBERWILD_VALIDATE_DOCUMENT(input);ensureArrays()');return e;}
 const call=(e,code,args)=>{e.ctx.args=args;return plain(e.run(code));};
 function inGame(e){const g=loadGame(game);g.ctx.input=plain(e.run('__EMBERWILD_RELEASE_EDITOR.current()'));g.run('applyBalanceConfig(input,{persist:false})');assert.deepEqual(g.errors,[]);return g;}

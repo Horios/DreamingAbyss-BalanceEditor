@@ -1,5 +1,5 @@
 const test=require('node:test'),assert=require('node:assert/strict');
-const {loadRuntime}=require('./headless-editor.cjs'),seed=require('../../Emberwild/data/balance.json');
+const {loadRuntime}=require('./headless-editor.cjs'),seed=require('../../DreamingAbyss/data/balance.json');
 function editor(){const r=loadRuntime(process.cwd());r.ctx.seed=structuredClone(seed);r.run('data=EmberwildInventoryIcons.migrateDescriptions(structuredClone(seed),{hydrate:true});ensureArrays();');return r;}
 const json=(r,code)=>JSON.parse(r.run('JSON.stringify('+code+')'));
 test('equipment stages, T/boss rules and source references survive editor import/export',()=>{

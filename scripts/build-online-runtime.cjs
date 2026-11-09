@@ -1,6 +1,6 @@
 /* Compile the existing game scripts into a static, isolated validator. No runtime eval. */
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
-const game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(__dirname,'../../Emberwild'));
+const game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(__dirname,'../../DreamingAbyss'));
 const html=fs.readFileSync(path.join(game,'index.html'),'utf8');
 const scripts=[];
 for(const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){

@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {createRequire} from 'node:module';import {createGameValidator} from '../server/online/game-validator.mjs';
-const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs'),published=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json'));
+const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs'),published=JSON.parse(fs.readFileSync('../DreamingAbyss/data/balance.json'));
 function editor(saved={}){const r=loadRuntime(process.cwd(),'balance-editor.html',saved);r.ctx.doc=published;r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(doc);ensureArrays();');return r;}
 const fire=(r,id,value,event='change')=>{const el=r.ctx.document.getElementById(id);if(['managerHealAmount','managerCooldown','managerBuyPrice'].includes(id))el.type='number';const result=el['on'+event]({target:{value,checked:value===true}});r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR.save();return result;};
 test('global editor lists the complete reviewed catalogue, combines filters, sorts, paginates and restores view after a jump/reload',()=>{

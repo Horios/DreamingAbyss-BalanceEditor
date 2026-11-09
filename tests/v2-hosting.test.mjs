@@ -20,10 +20,10 @@ test('V2 game and editor routes stay behind the existing private identity bounda
 });
 test('packaged game assets match the pinned real game source and isolation runs first',async()=>{
  const provenance=JSON.parse(fs.readFileSync(path.join(root,'docs/v2-game-provenance.json')));
- for(const file of provenance.files){const body=fs.readFileSync(path.join(root,'../Emberwild',file.path));assert.equal(crypto.createHash('sha256').update(body).digest('hex'),file.sha256,file.path);}
+ for(const file of provenance.files){const body=fs.readFileSync(path.join(root,'../DreamingAbyss',file.path));assert.equal(crypto.createHash('sha256').update(body).digest('hex'),file.sha256,file.path);}
  const entry=await worker.fetch(request('/v2-game/','owner'),{},{}),html=await entry.text();
  assert(html.indexOf('function memoryStorage')<html.indexOf('js/ui/themes.js'));
  const schema=await worker.fetch(request('/v2-game/js/combat/seconds-schema.js','owner'),{},{});
- assert.equal(await schema.text(),fs.readFileSync(path.join(root,'../Emberwild/js/combat/seconds-schema.js'),'utf8'));
+ assert.equal(await schema.text(),fs.readFileSync(path.join(root,'../DreamingAbyss/js/combat/seconds-schema.js'),'utf8'));
  assert.equal((await worker.fetch(request('/v2-game/not-a-file','owner'),{},{})).status,404);
 });

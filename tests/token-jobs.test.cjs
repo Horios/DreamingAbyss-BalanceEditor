@@ -1,7 +1,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs');
 const {loadRuntime}=require('./headless-editor.cjs');
 test('editor job selector persists all five choices and preserves token settings on round-trip',()=>{
- const r=loadRuntime(process.cwd());r.ctx.published=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json'));
+ const r=loadRuntime(process.cwd());r.ctx.published=JSON.parse(fs.readFileSync('../DreamingAbyss/data/balance.json'));
  r.run("data=__EMBERWILD_VALIDATE_DOCUMENT(published);ensureArrays();currentSection='companionTokens';render();");
  const app=r.elements.get('app'),field=r.ctx.document.createElement('select');field.dataset.tokenField='catalog.0.job';field.type='select-one';
  app.querySelectorAll=selector=>selector==='[data-token-field]'?[field]:[];

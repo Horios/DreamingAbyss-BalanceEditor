@@ -1,7 +1,7 @@
 /* Exercise existing seconds controls; only in-memory fixtures are edited. */
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),http=require('node:http'),crypto=require('node:crypto');
-const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../Emberwild');
+const root=path.resolve(__dirname,'..'),game=path.resolve(root,'../DreamingAbyss');
 const moduleRoot=process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES;
 const {chromium}=require(moduleRoot?path.join(moduleRoot,'playwright'):'playwright');
 const get=(doc,parts)=>parts.reduce((v,k)=>v?.[k],doc),shape=parts=>parts.map(p=>typeof p==='number'?'[]':'.'+p).join('').replace(/^\./,'');
@@ -74,7 +74,7 @@ async function run(){
   results.push({path:'balanceSettings.combat.seconds.groupWeights',parts:['balanceSettings','combat','seconds','groupWeights'],variant:'editable',result:'edited-and-exported',value:weights});
   const out=await p.evaluate(()=>__EMBERWILD_RELEASE_EDITOR.current());
   const {createGameValidator}=await import('../server/online/game-validator.mjs');createGameValidator().validate(out);
-  const g=require('../../Emberwild/tests/headless-runtime.cjs').loadRuntime(game);g.ctx.input=out;g.run('applyBalanceConfig(input,{persist:false})');
+  const g=require('../../DreamingAbyss/tests/headless-runtime.cjs').loadRuntime(game);g.ctx.input=out;g.run('applyBalanceConfig(input,{persist:false})');
   const effective=JSON.parse(JSON.stringify(g.run('exportableBalance()')));
   for(const r of results)if(r.result==='edited-and-exported'){
    assert.deepEqual(get(out,r.parts),r.value,r.path+' exported');

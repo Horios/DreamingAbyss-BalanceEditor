@@ -3,7 +3,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),{ReleaseService}=require('../server/release-service.cjs');
 test('deployment status reads build.json from the renamed Pages site',async()=>{
  const commit='c'.repeat(40),blob='b'.repeat(40),seen=[],realFetch=globalThis.fetch;
- const s=new ReleaseService({validate:d=>d,api:async p=>{if(p.includes('/contents/data/balance.json'))return {type:'file',encoding:'base64',sha:blob,content:Buffer.from('{}').toString('base64')};if(p.includes('/git/ref/heads/'))return {object:{sha:commit}};throw Error('Unexpected '+p);}});
+ const s=new ReleaseService({validate:d=>d,api:async p=>{if(p.includes('/contents/data/balance/manifest.json'))throw Object.assign(Error('Not Found'),{status:404});if(p.includes('/contents/data/balance.json'))return {type:'file',encoding:'base64',sha:blob,content:Buffer.from('{}').toString('base64')};if(p.includes('/git/ref/heads/'))return {object:{sha:commit}};throw Error('Unexpected '+p);}});
  globalThis.fetch=async url=>{seen.push(String(url));return {ok:true,json:async()=>({branch:'chatgpt-dev',commit,balanceBlob:blob})};};
  try{
   const out=await s.deployment({branch:'chatgpt-dev',commit});

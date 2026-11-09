@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import fs from 'node:fs';
 const require=createRequire(import.meta.url),{loadRuntime}=require('./headless-editor.cjs');
-const doc=JSON.parse(fs.readFileSync('../Emberwild/data/balance.json'));
+const doc=JSON.parse(fs.readFileSync('../DreamingAbyss/data/balance.json'));
 function editor(saved={}){const r=loadRuntime(process.cwd(),'balance-editor.html',saved);r.ctx.doc=doc;r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(doc);ensureArrays();');return r;}
 function click(r,id){return r.ctx.document.getElementById(id).onclick?.({target:r.ctx.document.getElementById(id)});}
 test('all original and canonical pages remain reachable; common controls do not change the exported balance',()=>{

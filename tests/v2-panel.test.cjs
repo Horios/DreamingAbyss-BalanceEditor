@@ -28,7 +28,7 @@ test('context panel reuses all editor routes, tracks changes, and preserves the 
 test('every game navigation page has editable shared data routes with existing document paths',()=>{
  const root=path.resolve(__dirname,'..'),r=loadRuntime(root),vm=require('node:vm');
  r.run(fs.readFileSync(path.join(root,'scripts/v2-page-context.js'),'utf8'));
- const contexts=r.run('DreamingAbyssPageContexts'),source=fs.readFileSync(path.join(root,'../Emberwild/js/ui/navigation-tree.js'),'utf8');
+ const contexts=r.run('DreamingAbyssPageContexts'),source=fs.readFileSync(path.join(root,'../DreamingAbyss/js/ui/navigation-tree.js'),'utf8');
  const pages=vm.runInNewContext('('+source.match(/const PAGES=({[\s\S]*?});/)[1]+')');
  for(const id of [...Object.keys(pages),'creation'])assert(contexts[id]?.sections.length,id+' has data editing routes');
  const available=new Set(r.run('SECTION_META.map(s=>s[0])'));

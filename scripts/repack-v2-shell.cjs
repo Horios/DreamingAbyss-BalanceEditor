@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* Refresh the developer shell inside server/online/v2-assets.mjs without a game checkout.
-   build-v2-assets.cjs packages the game and the shell together and needs ../Emberwild. When only the shell changed
+   build-v2-assets.cjs packages the game and the shell together and needs ../DreamingAbyss. When only the shell changed
    (balance-editor-v2.html, scripts/v2-*.js, the V2 docs), this keeps the packaged game files byte for byte, swaps the
    shell files and the game bridge script in the game entry, and updates the bridge hashes in docs/v2-game-provenance.json.
    Usage: node scripts/repack-v2-shell.cjs */

@@ -3,13 +3,14 @@
 // unchanged publish was not refused. Both the publish summary and 差異比較 compare normalized forms.
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{ReleaseService}=require('../server/release-service.cjs'),{loadRuntime}=require('./headless-editor.cjs');
-const root=path.resolve(path.dirname(new URL(import.meta.url).pathname),'..'),game=path.resolve(root,'../Emberwild'),plain=x=>JSON.parse(JSON.stringify(x));
+const root=path.resolve(path.dirname(new URL(import.meta.url).pathname),'..'),game=path.resolve(root,'../DreamingAbyss'),plain=x=>JSON.parse(JSON.stringify(x));
 const raw=JSON.parse(fs.readFileSync(path.join(game,'data/balance.json'),'utf8'));
 function editorWith(doc){const r=loadRuntime(root);r.ctx.input=doc;r.run('data=__EMBERWILD_VALIDATE_DOCUMENT(input);ensureArrays()');return r;}
 test('the publish summary lists only real changes and refuses an unchanged publish',async()=>{
  const {createGameValidator}=await import('../server/online/game-validator.mjs'),V=createGameValidator(),commit='a'.repeat(40);
  const s=new ReleaseService({validate:d=>V.validate(d),effective:d=>V.effective(d),api:async p=>{
   if(p.includes('/git/ref/heads/'))return {object:{sha:commit}};
+  if(p.includes('/contents/data/balance/manifest.json')||p.includes('/contents/data/preview-version.json'))throw Object.assign(Error('Not Found'),{status:404});
   if(p.includes('/contents/data/balance.json'))return {type:'file',encoding:'base64',sha:'b'.repeat(40),content:Buffer.from(JSON.stringify(raw)).toString('base64')};
   if(p.includes('/contents/js/'))return {type:'file',encoding:'base64',content:Buffer.from(fs.readFileSync(path.join(game,p.split('/contents/')[1].split('?')[0]),'utf8')).toString('base64')};
   throw Error('Unexpected '+p);}});

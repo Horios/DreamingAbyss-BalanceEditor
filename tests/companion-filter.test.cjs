@@ -1,7 +1,7 @@
 // The companion design list can show all, visible-only or hidden-only companions; hidden ones are marked.
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {loadRuntime}=require('./headless-editor.cjs');
-const root=path.resolve(__dirname,'..'),published=JSON.parse(fs.readFileSync(path.join(root,'../Emberwild/data/balance.json')));
+const root=path.resolve(__dirname,'..'),published=JSON.parse(fs.readFileSync(path.join(root,'../DreamingAbyss/data/balance.json')));
 test('hidden companions can be filtered and are labelled as not appearing in the game',()=>{
  const r=loadRuntime(root);r.ctx.published=published;r.run("data=__EMBERWILD_VALIDATE_DOCUMENT(published);ensureArrays();currentSection='companions';render();");
  const all=published.companions.length,hidden=published.companions.filter(p=>p.availability==='hidden').length;assert(hidden>0);

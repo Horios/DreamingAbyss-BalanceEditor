@@ -1,5 +1,5 @@
 const fs=require('node:fs'),path=require('node:path');
-const game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(__dirname,'../../Emberwild')),file=path.join(__dirname,'../balance-editor.html');
+const game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(__dirname,'../../DreamingAbyss')),file=path.join(__dirname,'../balance-editor.html');
 const model=fs.readFileSync(path.join(game,'js/skills/skill-system-model.js'),'utf8'),editor=fs.readFileSync(path.join(__dirname,'skill-system-editor.js'),'utf8'),mechanisms=fs.readFileSync(path.join(__dirname,'skill-mechanism-index.js'),'utf8');
 let html=fs.readFileSync(file,'utf8').replace(/\n<!-- canonical-skill-system:start -->[\s\S]*?<!-- canonical-skill-system:end -->\n?/g,'\n');
 const sourceRoundtrip=html.match(/\n<script id="balance-source-roundtrip-v1">[\s\S]*?<\/script>\n?/g)||[];

@@ -15,7 +15,7 @@ export function createGameValidator(){
  const MutationObserver=class{observe(){}disconnect(){}},ResizeObserver=MutationObserver;
  let seq=0;const setTimeout=()=>++seq,clearTimeout=()=>{},setInterval=()=>++seq,clearInterval=()=>{},requestAnimationFrame=()=>++seq,cancelAnimationFrame=()=>{},queueMicrotask=()=>{},addEventListener=()=>{},removeEventListener=()=>{},matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}}),getComputedStyle=()=>({lineHeight:'20px',fontSize:'16px',getPropertyValue:()=>''}),performance={now:()=>0},crypto={randomUUID:()=>String(++seq)},innerWidth=1440,innerHeight=900,scrollX=0,scrollY=0,alert=()=>{},confirm=()=>true,prompt=()=>null;
  Object.assign(globalThis,{document,localStorage,sessionStorage,location,navigator,crypto,window,self,addEventListener,removeEventListener,setTimeout,clearTimeout,setInterval,clearInterval,requestAnimationFrame,cancelAnimationFrame,matchMedia,getComputedStyle,performance});
- var setUITheme,uiThemeOptionsView,EmberwildSecondsSchema,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,recordCombatContribution,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,wornEquipmentSocketPanel,__EMBERWILD_TEAMS,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_OFFLINE_RULE_CACHE,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,__EMBERWILD_EQUIPMENT_SKILLS,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,defaultOverlevelVoucherGold,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classGrowthPerLevel,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_LUCIDE,__EMBERWILD_COMPANION_TEST_API,companionSkillDisabled,__EMBERWILD_TEAM_GAIN,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devMasterySetLevel,devMasterySetExp,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,recruitCompanion,companionUnlocked,acquireCompanion,confirmMemberReplacement,rememberCompanionRosterDetail,showCompanionRecruitment,companionUnlockText,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,__EMBERWILD_PUBLISHED_BALANCE,__EMBERWILD_PROGRESSION_TEST,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,isUtilityDialogOpen,companionPendingMail,companionTicketCount,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,recoverStoryRewards,completeStoryStage,storyNavigate,openStory,setStoryCategory,readStory,nextStoryDialogue,endStoryDialogue,storyReadyCount,setAlchemyAutoBuy,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,selectSkillEquipment,socketEquipmentGem,setEquipmentGemMode,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,toggleWornEquipmentSockets,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,__EMBERWILD_SKILL_SYSTEM_UI,querySelector,classList,querySelectorAll,children,insertBefore,setBattleEffects,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,EmberwildVisualColors,EmberwildMasteryBars,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides;
+ var setUITheme,uiThemeOptionsView,EmberwildSecondsSchema,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,EmberwildBalanceModules,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,recordCombatContribution,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,wornEquipmentSocketPanel,__EMBERWILD_TEAMS,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_OFFLINE_RULE_CACHE,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,__EMBERWILD_EQUIPMENT_SKILLS,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,defaultOverlevelVoucherGold,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classGrowthPerLevel,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_LUCIDE,__EMBERWILD_COMPANION_TEST_API,companionSkillDisabled,__EMBERWILD_TEAM_GAIN,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devMasterySetLevel,devMasterySetExp,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,recruitCompanion,companionUnlocked,acquireCompanion,confirmMemberReplacement,rememberCompanionRosterDetail,showCompanionRecruitment,companionUnlockText,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,__EMBERWILD_PUBLISHED_BALANCE,__EMBERWILD_PROGRESSION_TEST,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,isUtilityDialogOpen,companionPendingMail,companionTicketCount,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,recoverStoryRewards,completeStoryStage,storyNavigate,openStory,setStoryCategory,readStory,nextStoryDialogue,endStoryDialogue,storyReadyCount,setAlchemyAutoBuy,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,selectSkillEquipment,socketEquipmentGem,setEquipmentGemMode,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,toggleWornEquipmentSockets,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,__EMBERWILD_SKILL_SYSTEM_UI,querySelector,classList,querySelectorAll,children,insertBefore,setBattleEffects,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,EmberwildVisualColors,EmberwildMasteryBars,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides;
 
 /* js/ui/themes.js?v=20261016-themes1 */
 /* Browser-wide appearance preference, independent of character and balance data. */
@@ -791,7 +791,291 @@ EmberwildHealingPotions=globalThis.EmberwildHealingPotions??EmberwildHealingPoti
 
 EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;
 
-/* js/balance/balance-document.js?v=20261106-v0119-text1 */
+/* js/balance/balance-modules.js?v=20261109-v0120-modules1 */
+/* Modular balance sources: data/balance/<module>.json are the only edited sources; data/balance.json is
+   generated from them for the game. This file is shared by the game, its build tools and the balance editor.
+   It never changes values: split() and assemble() are exact inverses, including key order. */
+(function(root){
+ 'use strict';
+ const SCHEMA='dreaming-abyss-balance-modules-v1',FORMAT_VERSION=1,DOCUMENT_SCHEMA='emberwild-balance-v1';
+ const SOURCE_DIR='data/balance',INTEGRATED_FILE='data/balance.json',MANIFEST_FILE='data/balance/manifest.json';
+ // Containers whose children are kept in separate modules. '' is the document root.
+ const CONTAINERS=['','balanceSettings','skillSystem'];
+ // [id, title, container, key | keys[] | '*' (the container's keys not owned by another module)]
+ const LAYOUT=[
+  ['meta/document','文件版本與共用設定','', '*'],
+  ['meta/reference','欄位說明（僅供閱讀）','', '_reference'],
+  ['meta/notes','設計備註（僅供閱讀）','', 'notes'],
+  ['meta/balance-settings','平衡設定版本旗標','balanceSettings','*'],
+  ['interface/presentation','介面文字與圖示樣式','', ['uiText','textStyles','skillIcons','iconColorTemplates']],
+  ['interface/navigation','遊戲導覽','', 'navigation'],
+  ['world/maps','地圖','balanceSettings','maps'],
+  ['world/monsters','怪物','balanceSettings','monsters'],
+  ['world/drops','掉落規則','balanceSettings','drops'],
+  ['world/difficulty','難度','balanceSettings','difficulty'],
+  ['combat/rules','戰鬥規則與秒數','balanceSettings','combat'],
+  ['combat/skill-settings','技能共用設定','balanceSettings','skills'],
+  ['combat/skills','技能定義','skillSystem','definitions'],
+  ['combat/skill-system','技能系統規則與寶石','skillSystem','*'],
+  ['combat/statuses','自訂狀態','', 'statusDefinitions'],
+  ['characters/classes','職業','', 'classes'],
+  ['characters/support-skills','輔助技能','', 'supportSkills'],
+  ['characters/progression','等級與成長','balanceSettings','progression'],
+  ['characters/companions','夥伴','', 'companions'],
+  ['characters/passives','被動能力','', 'passiveDefinitions'],
+  ['characters/companion-settings','夥伴設定與信物','', ['companionSettings','companionTokens']],
+  ['equipment/forms','裝備型態','', 'equipmentForms'],
+  ['equipment/affix-pools','詞綴池與基礎戰鬥係數','', 'balance'],
+  ['equipment/power-system','裝備詞綴與強度','', 'equipmentPowerSystem'],
+  ['equipment/settings','裝備強化與分解','balanceSettings','equipment'],
+  ['items/items','消耗道具','', 'items'],
+  ['items/inventory-icons','全域物品目錄','', 'inventoryIcons'],
+  ['items/starter-packs','新手禮包','', 'starterPacks'],
+  ['systems/economy','經濟','balanceSettings','economy'],
+  ['systems/rewards','戰鬥獎勵','balanceSettings','rewards'],
+  ['systems/quests','委託與支線','balanceSettings','quests'],
+  ['systems/story','任務與劇情','', 'story'],
+  ['systems/shop','商店','', 'shopSettings'],
+  ['systems/life-skills','生活技能','', 'lifeSkills'],
+  ['systems/wishing-lake','許願湖','', 'wishingLake']
+ ];
+ const MODULES=LAYOUT.map(([id,title,container,own])=>Object.freeze({id,title,container,file:id+'.json',
+  key:typeof own==='string'&&own!=='*'?own:undefined,keys:Array.isArray(own)?Object.freeze(own.slice()):undefined,rest:own==='*'}));
+ const BY_ID=new Map(MODULES.map(m=>[m.id,m]));
+ // Arrays whose rows are records. Fields listed are "key fields": other modules or shared validators read them.
+ // A change limited to other fields stays inside the record's own module.
+ const RECORDS={
+  'balanceSettings.maps.catalog':{id:'id',label:'地圖',position:true,keys:['id','name','mapType','min','max','family','enabled']},
+  'balanceSettings.monsters.catalog':{id:'id',label:'怪物',keys:['id','name','mapIndex','kind','material','enabled','bossStageCount','timing']},
+  'balanceSettings.drops.entries':{id:'id',label:'掉落規則',keys:['id','name','type','key','sources','kinds','enabled']},
+  'balanceSettings.quests.design.side':{id:'id',label:'支線',keys:['id']},
+  'balanceSettings.quests.side':{id:'id',label:'支線',keys:['id']},
+  'balanceSettings.economy.materialPrices':{label:'材料價格',keys:[]},
+  'skillSystem.definitions':{id:'id',label:'技能',keys:['id','name','jobs','partnerId','usageScope','activation','type','disabled','deleted','timing']},
+  'statusDefinitions':{id:'id',label:'狀態',keys:['id']},
+  'classes':{id:'id',label:'職業',position:true,keys:['id','name']},
+  'supportSkills':{label:'輔助技能',position:true,keys:[]},
+  'companions':{id:'id',label:'夥伴',keys:['id','name','job','availability']},
+  'passiveDefinitions':{id:'id',label:'被動',keys:['id']},
+  'items':{id:'id',label:'道具',keys:['id','name','type','element','shopEnabled','timing']},
+  'inventoryIcons':{id:'id',label:'物品目錄',keys:['id']},
+  'story.quests':{id:'id',label:'任務',keys:['id','enabled']},
+  'shopSettings.equipmentStages':{id:'id',label:'裝備商店階段',keys:['id']},
+  'shopSettings.randomOffers.entries':{id:'id',label:'隨機商品',keys:['id']},
+  'shopSettings.fixedOffers.entries':{id:'id',label:'固定商品',keys:['id']},
+  'companionTokens.catalog':{id:'id',label:'信物',keys:['id']},
+  'lifeSkills.gathering':{id:'id',label:'採集',keys:['id']},
+  'equipmentPowerSystem.prefixes':{id:'id',label:'前綴',keys:['id']},
+  'equipmentPowerSystem.suffixes':{id:'id',label:'後綴',keys:['id']},
+  'equipmentPowerSystem.bossAffixes':{id:'id',label:'BOSS 詞綴',keys:['id']}
+ };
+ const RECORD_PATHS=Object.keys(RECORDS).map(p=>p.split('.')).sort((a,b)=>b.length-a.length);
+
+ const isObject=x=>!!x&&typeof x==='object'&&!Array.isArray(x),has=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+ const toPath=p=>Array.isArray(p)?p.map(String):p===''||p==null?[]:String(p).replace(/^\$\.?/,'').split('.').filter(x=>x!=='');
+ const pathText=p=>toPath(p).join('.');
+ const serialize=value=>JSON.stringify(value,null,2)+'\n';
+ function get(doc,path){let x=doc;for(const k of toPath(path)){if(x==null||typeof x!=='object')return undefined;x=x[k];}return x;}
+ function containerOf(doc,name){if(name==='')return isObject(doc)?doc:null;const v=isObject(doc)?doc[name]:undefined;return isObject(v)?v:null;}
+ const activeContainers=doc=>CONTAINERS.filter(c=>c===''||containerOf(doc,c));
+ function owned(container){const out=new Set();for(const m of MODULES)if(m.container===container){if(m.key)out.add(m.key);if(m.keys)m.keys.forEach(k=>out.add(k));}return out;}
+ const OWNED=new Map(CONTAINERS.map(c=>[c,owned(c)]));
+ function restKeys(doc,container){const obj=containerOf(doc,container);if(!obj)return [];const mine=OWNED.get(container),nested=new Set(container===''?activeContainers(doc).filter(Boolean):[]);return Object.keys(obj).filter(k=>!mine.has(k)&&!nested.has(k));}
+ function moduleValue(doc,m){
+  const obj=containerOf(doc,m.container);
+  if(m.key)return obj&&has(obj,m.key)?obj[m.key]:undefined;
+  const out={};if(!obj)return out;
+  for(const k of m.keys||restKeys(doc,m.container))if(has(obj,k))out[k]=obj[k];
+  return out;
+ }
+ // Split a complete document. Values are shared, not copied; callers serialize or clone as needed.
+ function split(doc){
+  if(!isObject(doc))throw Error('平衡資料必須為 JSON 物件');
+  const layout={};for(const c of activeContainers(doc))layout[c]=Object.keys(containerOf(doc,c));
+  const modules={};for(const m of MODULES)modules[m.id]=moduleValue(doc,m);
+  return {layout,modules};
+ }
+ // Exact inverse of split(): same keys, same order. Throws when two modules supply one key.
+ function assemble(modules,layout={}){
+  const entries=new Map(CONTAINERS.map(c=>[c,new Map()])),owner=new Map();
+  const put=(c,k,v,id)=>{const key=c+'\u0000'+k;if(owner.has(key))throw Object.assign(Error('資料「'+(c?c+'.':'')+k+'」同時由 '+owner.get(key)+' 與 '+id+' 維護'),{module:id,path:(c?c+'.':'')+k});owner.set(key,id);entries.get(c).set(k,v);};
+  for(const m of MODULES){
+   const v=modules[m.id];if(v===undefined)continue;
+   if(m.key){put(m.container,m.key,v,m.id);continue;}
+   if(!isObject(v))throw Object.assign(Error('模組 '+m.id+' 必須為物件'),{module:m.id});
+   const allowed=m.keys?new Set(m.keys):null,mine=OWNED.get(m.container);
+   for(const [k,x] of Object.entries(v)){
+    if(allowed&&!allowed.has(k))throw Object.assign(Error('模組 '+m.id+' 含有不屬於它的欄位：'+k),{module:m.id,path:k});
+    if(!allowed&&mine.has(k))throw Object.assign(Error('模組 '+m.id+' 含有應由其他模組維護的欄位：'+k),{module:m.id,path:k});
+    put(m.container,k,x,m.id);
+   }
+  }
+  const build=c=>{const map=entries.get(c),out={},order=layout[c]||[];for(const k of order)if(map.has(k))out[k]=map.get(k);for(const [k,v] of map)if(!has(out,k))out[k]=v;return out;};
+  const nested={};for(const c of CONTAINERS.slice(1)){if(entries.get(c).size||layout[c])nested[c]=build(c);}
+  for(const [c,v] of Object.entries(nested))put('',c,v,'(container '+c+')');
+  return build('');
+ }
+ function moduleForPath(path){
+  const p=toPath(path);if(!p.length)return null;
+  for(const c of CONTAINERS.slice(1))if(p[0]===c){if(p.length===1)return MODULES.filter(m=>m.container===c).map(m=>m.id);const k=p[1];return (MODULES.find(m=>m.container===c&&m.key===k)||MODULES.find(m=>m.container===c&&m.rest)).id;}
+  const k=p[0];return (MODULES.find(m=>m.container===''&&(m.key===k||m.keys?.includes(k)))||MODULES.find(m=>m.container===''&&m.rest)).id;
+ }
+ function modulePaths(id,doc){const m=BY_ID.get(id);if(!m)throw Error('未知模組：'+id);const base=m.container?[m.container]:[];if(m.key)return [pathText([...base,m.key])];if(m.keys)return m.keys.map(k=>pathText([...base,k]));return doc?restKeys(doc,m.container).map(k=>pathText([...base,k])):[pathText(base)||'(root)'];}
+ function sourceOf(m){return m.key?(m.container?m.container+'.':'')+m.key:m.keys?m.keys.map(k=>(m.container?m.container+'.':'')+k).join(', '):(m.container||'(root)')+'.*';}
+
+ // Paths that differ between two JSON values, as arrays. Record arrays recurse row by row only while row
+ // identities line up; an insertion, deletion or reorder reports the array itself (a structural change).
+ function changes(before,after,base=[]){
+  const out=[];
+  (function walk(a,b,p){
+   if(a===b)return;
+   if(Array.isArray(a)&&Array.isArray(b)){
+    const rec=recordInfo(p);
+    if(a.length!==b.length){out.push(p);return;}
+    if(rec?.id)for(let i=0;i<a.length;i++)if(a[i]?.[rec.id]!==b[i]?.[rec.id]){out.push(p);return;}
+    for(let i=0;i<a.length;i++)walk(a[i],b[i],[...p,String(i)]);return;
+   }
+   if(isObject(a)&&isObject(b)){
+    const ka=Object.keys(a),kb=Object.keys(b);
+    for(const k of kb)if(!has(a,k))out.push([...p,k]);
+    for(const k of ka){if(!has(b,k))out.push([...p,k]);else walk(a[k],b[k],[...p,k]);}
+    // Same members in another order changes the serialized source; report the object itself.
+    if(ka.length===kb.length&&ka.every(k=>has(b,k))&&ka.some((k,i)=>kb[i]!==k))out.push(p);
+    return;
+   }
+   if(typeof a==='number'&&typeof b==='number'&&Object.is(a,b))return;
+   out.push(p);
+  })(before,after,toPath(base));
+  return out;
+ }
+ function recordInfo(path){const p=toPath(path);for(const r of RECORD_PATHS)if(r.length===p.length&&r.every((k,i)=>k===p[i]))return RECORDS[r.join('.')];return null;}
+ function recordContext(path){
+  const p=toPath(path);
+  for(const r of RECORD_PATHS)if(p.length>=r.length&&r.every((k,i)=>k===p[i]))return {collection:r.join('.'),info:RECORDS[r.join('.')],index:p.length>r.length?Number(p[r.length]):null,field:p.length>r.length+1?p[r.length+1]:null,rest:p.slice(r.length+2)};
+  return null;
+ }
+ // Describe each changed path: module, record, field and whether other modules can observe it.
+ function classify(paths,{before,after}={}){
+  return paths.map(raw=>{
+   const p=toPath(raw),ctx=recordContext(p),mod=moduleForPath(p),modules=Array.isArray(mod)?mod:[mod];
+   let kind='value',record=null;
+   if(!ctx)kind=p.length<=2&&CONTAINERS.includes(p[0]||'')?'structure':'value';
+   else if(ctx.index===null)kind='structure';
+   else{
+    const row=get(after,[...ctx.collection.split('.'),String(ctx.index)])??get(before,[...ctx.collection.split('.'),String(ctx.index)]);
+    record={collection:ctx.collection,label:ctx.info.label,index:ctx.index,id:ctx.info.id?row?.[ctx.info.id]??null:null,field:ctx.field};
+    if(ctx.field===null||ctx.info.keys.includes(ctx.field))kind='key';
+   }
+   return {path:p.join('.'),modules,module:modules[0],kind,record};
+  });
+ }
+ // Scope object understood by EmberwildBalanceDocument.inspect(doc,{scope}).
+ // A read is {path, keys?:true, fields?:[...], shallow?:true}. A change matches when either path contains the
+ // other; below a record collection, keys/fields limit which fields of a row count.
+ function touches(change,read){
+  const c=toPath(change),r=toPath(read.path);const n=Math.min(c.length,r.length);
+  for(let i=0;i<n;i++)if(c[i]!==r[i])return false;
+  if(c.length<=r.length)return true;
+  if(read.shallow)return false;
+  if(!read.keys&&!read.fields)return true;
+  const info=RECORDS[r.join('.')];const rest=c.slice(r.length);
+  if(rest.length<2)return true;
+  const list=read.fields||info?.keys||[];return list.includes(rest[1]);
+ }
+ function scope(paths){
+  const list=paths.map(toPath);
+  return Object.freeze({changes:list,touches(reads){return list.some(c=>reads.some(r=>touches(c,r)));},full:false});
+ }
+
+ // References between records. Each rule names the module that holds the reference and the one it points to.
+ const REFERENCES=[
+  {id:'drop-source',from:'world/drops',to:'world/monsters',kind:'monster',label:'掉落來源怪物',each(d,add){(get(d,'balanceSettings.drops.entries')||[]).forEach((r,i)=>(Array.isArray(r?.sources)?r.sources:[]).forEach((id,j)=>add(id,'balanceSettings.drops.entries.'+i+'.sources.'+j,r)));}},
+  {id:'drop-item',from:'world/drops',to:'items/items',kind:'item',label:'掉落道具',each(d,add){(get(d,'balanceSettings.drops.entries')||[]).forEach((r,i)=>{if(r?.type==='item')add(r.key,'balanceSettings.drops.entries.'+i+'.key',r);});}},
+  {id:'monster-map',from:'world/monsters',to:'world/maps',kind:'map',label:'怪物所在地圖',each(d,add){(get(d,'balanceSettings.monsters.catalog')||[]).forEach((r,i)=>add(r?.mapIndex,'balanceSettings.monsters.catalog.'+i+'.mapIndex',r));}},
+  {id:'monster-skill',from:'world/monsters',to:'combat/skills',kind:'skill',label:'怪物技能',each(d,add){(get(d,'balanceSettings.monsters.catalog')||[]).forEach((r,i)=>(Array.isArray(r?.skillAssignments)?r.skillAssignments:[]).forEach((a,j)=>{if(a?.skillId)add(a.skillId,'balanceSettings.monsters.catalog.'+i+'.skillAssignments.'+j+'.skillId',r);}));}},
+  {id:'class-skill-quest',from:'characters/classes',to:'systems/quests',kind:'quest',label:'技能解鎖任務',each(d,add){(get(d,'classes')||[]).forEach((c,job)=>(Array.isArray(c?.skills)?c.skills:[]).forEach((s,i)=>(Array.isArray(s?.unlockConditions?.quests)?s.unlockConditions.quests:[]).forEach((q,j)=>add(q,'classes.'+job+'.skills.'+i+'.unlockConditions.quests.'+j,s))));}},
+  {id:'class-skill-map',from:'characters/classes',to:'world/maps',kind:'map',label:'技能解鎖地圖',each(d,add){(get(d,'classes')||[]).forEach((c,job)=>(Array.isArray(c?.skills)?c.skills:[]).forEach((s,i)=>{for(const key of ['bossKills','eliteKills','bossEquipment'])(Array.isArray(s?.unlockConditions?.[key])?s.unlockConditions[key]:[]).forEach((row,j)=>{if(row?.mapIndex!==-1)add(row?.mapIndex,'classes.'+job+'.skills.'+i+'.unlockConditions.'+key+'.'+j+'.mapIndex',s);});}));}},
+  {id:'skill-class',from:'combat/skills',to:'characters/classes',kind:'class',label:'技能職業',each(d,add){(get(d,'skillSystem.definitions')||[]).forEach((s,i)=>(Array.isArray(s?.jobs)?s.jobs:[]).forEach((job,j)=>add(job,'skillSystem.definitions.'+i+'.jobs.'+j,s)));}},
+  {id:'skill-companion',from:'combat/skills',to:'characters/companions',kind:'companion',label:'技能所屬夥伴',each(d,add){(get(d,'skillSystem.definitions')||[]).forEach((s,i)=>{if(s?.partnerId!=null)add(s.partnerId,'skillSystem.definitions.'+i+'.partnerId',s);});}},
+  {id:'life-item',from:'systems/life-skills',to:'items/items',kind:'item',label:'生活技能道具',each(d,add){const life=get(d,'lifeSkills')||{};(Array.isArray(life.gathering)?life.gathering:[]).forEach((r,i)=>{if(r?.outputType==='item')add(r.output,'lifeSkills.gathering.'+i+'.output',r);});for(const [id,r] of Object.entries(isObject(life.recipes)?life.recipes:{})){if(r?.outputType==='item')add(r.output,'lifeSkills.recipes.'+id+'.output',r);(Array.isArray(r?.inputs)?r.inputs:[]).forEach((row,j)=>{if(Array.isArray(row)&&row[2]==='item')add(row[0],'lifeSkills.recipes.'+id+'.inputs.'+j,r);});}}},
+  {id:'shop-item',from:'systems/shop',to:'items/items',kind:'item',label:'商店道具',each(d,add){for(const pool of ['randomOffers','fixedOffers'])(get(d,'shopSettings.'+pool+'.entries')||[]).forEach((r,i)=>{if(r?.type==='item')add(r.key,'shopSettings.'+pool+'.entries.'+i+'.key',r);});}},
+  {id:'shop-map',from:'systems/shop',to:'world/maps',kind:'mapId',label:'裝備商店地圖',each(d,add){(get(d,'shopSettings.equipmentStages')||[]).forEach((r,i)=>{if(r?.mapId)add(r.mapId,'shopSettings.equipmentStages.'+i+'.mapId',r);(Array.isArray(r?.unlockMapIds)?r.unlockMapIds:[]).forEach((id,j)=>add(id,'shopSettings.equipmentStages.'+i+'.unlockMapIds.'+j,r));});}},
+  {id:'story-gear-skill',from:'systems/story',to:'combat/skills',kind:'skill',label:'劇情裝備技能',each(d,add){(get(d,'story.gearRewards')||[]).forEach((r,i)=>{if(r?.skillId)add(r.skillId,'story.gearRewards.'+i+'.skillId',r);});}}
+ ];
+ const TARGETS={
+  monster:d=>new Set((get(d,'balanceSettings.monsters.catalog')||[]).map(r=>r?.id)),
+  item:d=>new Set((get(d,'items')||[]).map(r=>r?.id)),
+  map:d=>{const n=(get(d,'balanceSettings.maps.catalog')||[]).length;return {has:v=>Number.isInteger(v)&&v>=0&&v<n};},
+  mapId:d=>new Set((get(d,'balanceSettings.maps.catalog')||[]).map(r=>r?.id)),
+  skill:d=>new Set((get(d,'skillSystem.definitions')||[]).filter(s=>!s?.deleted).map(r=>r?.id)),
+  class:d=>{const n=(get(d,'classes')||[]).length;return {has:v=>Number.isInteger(v)&&v>=0&&v<n};},
+  companion:d=>new Set((get(d,'companions')||[]).map(r=>r?.id)),
+  quest:d=>new Set(['tutorial',...(get(d,'balanceSettings.quests.design.side')||get(d,'balanceSettings.quests.side')||[]).map(r=>r?.id)])
+ };
+ // Index of every reference: key "kind:id" -> [{rule, module, path, owner}]. Rebuilt per document version;
+ // reverse lookups then cost O(1) instead of a scan of every module.
+ function referenceIndex(doc,{rules=REFERENCES}={}){
+  const index=new Map();
+  for(const rule of rules)rule.each(doc,(id,path,owner)=>{const key=rule.kind+':'+id;if(!index.has(key))index.set(key,[]);index.get(key).push({rule:rule.id,label:rule.label,module:rule.from,target:rule.to,path,owner:owner?.id??owner?.name??null});});
+  return {index,referencesTo(kind,id){return index.get(kind+':'+id)||[];},
+   // References whose target is missing in `doc` (optionally only for rules touching the given modules).
+   broken(modules){const want=modules?new Set(modules):null,out=[],cache=new Map();for(const rule of rules){if(want&&!want.has(rule.from)&&!want.has(rule.to))continue;const t=cache.get(rule.kind)||TARGETS[rule.kind](doc);cache.set(rule.kind,t);rule.each(doc,(id,path,owner)=>{if(!t.has(id))out.push({rule:rule.id,label:rule.label,module:rule.from,target:rule.to,kind:rule.kind,id,path,owner:owner?.id??owner?.name??null});});}return out;}};
+ }
+ // Validators of the shared document check (EmberwildBalanceDocument.inspect) and the modules whose data they read.
+ const VALIDATORS={
+  'document-preflight':['meta/document'],'field-rules':['*'],'healing-potions':['items/items','world/drops'],'seconds-timing':['combat/rules','meta/balance-settings','world/monsters','systems/rewards','combat/skills','combat/statuses','items/items','characters/companion-settings','equipment/forms','meta/document'],
+  'skill-system':['combat/skills','combat/skill-system'],'status-definitions':['combat/statuses'],'equipment-effects':['equipment/power-system'],'drop-references':['world/drops','items/items','world/monsters'],
+  'class-unlocks':['characters/classes','systems/quests','world/maps'],'wishing-lake':['systems/wishing-lake','items/items','items/inventory-icons','characters/companions','equipment/settings','world/monsters','characters/progression','world/maps'],
+  'life-skills':['systems/life-skills','items/items'],'story':['systems/story','world/maps','world/monsters','items/items','systems/life-skills','combat/skills','equipment/forms'],
+  'inventory-catalogue':['items/inventory-icons','items/items','systems/shop','systems/life-skills','characters/companion-settings','equipment/power-system','characters/companions','characters/classes','equipment/forms','characters/support-skills','items/starter-packs','interface/presentation','world/drops','systems/economy','equipment/settings','world/maps','world/monsters','characters/progression','systems/quests','combat/skill-settings']
+ };
+ // Direct dependencies: modules whose key data a module's validation reads. Derived from REFERENCES and VALIDATORS,
+ // not maintained separately.
+ function dependencies(){
+  const deps=new Map(MODULES.map(m=>[m.id,new Set()]));
+  for(const r of REFERENCES)if(r.from!==r.to)deps.get(r.from).add(r.to);
+  for(const mods of Object.values(VALIDATORS)){if(mods.includes('*'))continue;const [owner,...reads]=mods;for(const m of reads)if(m!==owner)deps.get(owner).add(m);}
+  return new Map([...deps].map(([k,v])=>[k,[...v].sort()]));
+ }
+ function validatorsFor(id){return Object.entries(VALIDATORS).filter(([,m])=>m.includes(id)||m.includes('*')).map(([k])=>k);}
+ function dependents(id){const out=[];for(const [m,d] of dependencies())if(d.includes(id))out.push(m);return out.sort();}
+
+ // Manifest: module list, versions and content hashes. hashes = {moduleId:{sha256,bytes}|undefined}.
+ function createManifest({layout,hashes,integrated,previous=null}){
+  const prev=new Map((previous?.modules||[]).map(m=>[m.id,m])),deps=dependencies();let changed=false;
+  const modules=MODULES.map(m=>{
+   const h=hashes[m.id],p=prev.get(m.id),same=p&&h&&p.sha256===h.sha256&&p.present!==false||p&&!h&&p.present===false;
+   if(!same)changed=true;
+   const row={id:m.id,title:m.title,file:m.file,source:sourceOf(m),present:!!h,version:same?p.version:(p?.version||0)+1};
+   if(h){row.sha256=h.sha256;row.bytes=h.bytes;}
+   row.dependsOn=deps.get(m.id);row.validators=validatorsFor(m.id);
+   return row;
+  });
+  return {schema:SCHEMA,formatVersion:FORMAT_VERSION,documentSchema:DOCUMENT_SCHEMA,dataRevision:(previous?.dataRevision||0)+(changed||!previous?1:0),
+   integrated:{file:INTEGRATED_FILE,sha256:integrated.sha256,bytes:integrated.bytes},layout,
+   compatibility:{loader:'data/balance.json',positionalReferences:['balanceSettings.monsters.catalog[].mapIndex','classes[] (job index)','skillSystem.definitions[].jobs'],note:'data/balance.json 由模組自動產生，請勿直接修改。'},
+   modules};
+ }
+ function checkManifest(manifest){
+  const errors=[];
+  if(!isObject(manifest))return ['manifest 必須為物件'];
+  if(manifest.schema!==SCHEMA)errors.push('manifest schema 不支援：'+manifest.schema);
+  if(manifest.formatVersion!==FORMAT_VERSION)errors.push('manifest formatVersion 不支援：'+manifest.formatVersion);
+  const ids=new Set();for(const m of Array.isArray(manifest.modules)?manifest.modules:[]){if(!BY_ID.has(m.id))errors.push('manifest 含未知模組：'+m.id);if(ids.has(m.id))errors.push('manifest 模組重複：'+m.id);ids.add(m.id);if(BY_ID.get(m.id)&&BY_ID.get(m.id).file!==m.file)errors.push('模組 '+m.id+' 檔案路徑不符：'+m.file);}
+  for(const m of MODULES)if(!ids.has(m.id))errors.push('manifest 缺少模組：'+m.id);
+  if(!isObject(manifest.layout))errors.push('manifest 缺少 layout');
+  if(!/^[a-f0-9]{64}$/.test(manifest.integrated?.sha256||''))errors.push('manifest 缺少整合檔雜湊');
+  return errors;
+ }
+ const api={SCHEMA,FORMAT_VERSION,DOCUMENT_SCHEMA,SOURCE_DIR,INTEGRATED_FILE,MANIFEST_FILE,CONTAINERS,MODULES,RECORDS,REFERENCES,VALIDATORS,
+  module:id=>BY_ID.get(id),serialize,get,toPath,pathText,split,assemble,moduleForPath,modulePaths,sourceOf,changes,classify,recordContext,touches,scope,
+  referenceIndex,dependencies,dependents,validatorsFor,createManifest,checkManifest};
+ root.EmberwildBalanceModules=api;if(typeof module==='object'&&module.exports)module.exports=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+EmberwildBalanceModules=globalThis.EmberwildBalanceModules??EmberwildBalanceModules;
+
+/* js/balance/balance-document.js?v=20261106-v0120-modules1 */
 /* Shared document preflight. Runtime/editor validators remain the domain authorities. */
 (function(root){
  const VERSION=1,SCHEMA='emberwild-balance-v1';
@@ -849,26 +1133,43 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
   return errors;
  }
  function issue(path,reason,object){path=path.replace(/^\$\./,'');if(path.includes('.quests.'))reason='委託／支線：'+reason;return {system:({textStyles:'文字稀有度',skillIcons:'技能圖示',classes:'職業',companions:'夥伴',companionSettings:'夥伴',teamSettings:'隊伍',statusDefinitions:'自訂狀態',passiveDefinitions:'被動',items:'道具',equipmentPowerSystem:'裝備',equipmentForms:'裝備',balanceSettings:'平衡設定',lifeSkills:'生活技能'})[path.split('.')[0]]||(path.includes('.quests.')?'委託／支線':path.split('.')[0]),object:object?.name||object?.title||object?.id||'',field:path,reason};}
- function inspect(d,{complete=true}={}){
+ // Each block declares the data it reads. inspect(d,{scope}) runs only the blocks a change can affect and walks only
+ // the changed records; without a scope every block runs, exactly as before. The rules themselves are unchanged.
+ const READS={
+  preflight:[{path:'schema',shallow:true},{path:'schemaVersion',shallow:true},...REQUIRED.map(k=>({path:k,shallow:true}))],
+  arrays:['classes','supportSkills','equipmentForms','items','statusDefinitions','companions','passiveDefinitions'].map(k=>({path:k,shallow:true})),
+  healing:[{path:'items'},{path:'balanceSettings.drops.entries'}],
+  seconds:[{path:'balanceSettings.meta'},{path:'balanceSettings.combat'},{path:'balanceSettings.rewards'},{path:'balanceSettings.monsters.catalog',fields:['id','kind','timing']},{path:'skillSystem.definitions'},{path:'statusDefinitions'},{path:'items'},{path:'companionTokens'},{path:'equipmentForms'},{path:'timeUnits'}],
+  skillSystem:[{path:'skillSystem'}],
+  statuses:[{path:'statusDefinitions'}],
+  power:[{path:'equipmentPowerSystem.prefixes'},{path:'equipmentPowerSystem.suffixes'},{path:'equipmentPowerSystem.bossAffixes'}],
+  drops:[{path:'balanceSettings.drops.entries'},{path:'items',keys:true},{path:'balanceSettings.monsters.catalog',keys:true}],
+  unlocks:[{path:'classes'},{path:'balanceSettings.quests.design.side',keys:true},{path:'balanceSettings.quests.side',keys:true},{path:'balanceSettings.quests.design',shallow:true},{path:'balanceSettings.maps.catalog',shallow:true}],
+  wishingLake:[{path:'wishingLake'},{path:'items',keys:true},{path:'inventoryIcons'},{path:'companions',keys:true},{path:'balanceSettings.equipment'},{path:'balanceSettings.monsters.catalog',keys:true},{path:'balanceSettings.progression'},{path:'balanceSettings.maps.catalog',keys:true}],
+  life:[{path:'lifeSkills'},{path:'items',keys:true}],
+  story:[{path:'story'},{path:'balanceSettings.maps.catalog',keys:true},{path:'balanceSettings.monsters.catalog',keys:true},{path:'items',keys:true},{path:'lifeSkills.recipes'},{path:'skillSystem.definitions',keys:true},{path:'equipmentForms'}],
+  catalogue:[{path:'inventoryIcons'},{path:'items'},{path:'shopSettings'},{path:'lifeSkills'},{path:'companionTokens'},{path:'equipmentPowerSystem'},{path:'companions',keys:true},{path:'classes'},{path:'equipmentForms'},{path:'supportSkills'},{path:'starterPacks'},{path:'starterPackItems'},{path:'skillIcons'},{path:'balanceSettings.drops.entries'},{path:'balanceSettings.economy'},{path:'balanceSettings.equipment'},{path:'balanceSettings.maps.catalog',keys:true},{path:'balanceSettings.monsters.catalog',keys:true},{path:'balanceSettings.progression'},{path:'balanceSettings.quests'},{path:'balanceSettings.skills'}]
+ };
+ function inspect(d,{complete=true,scope=null,report=null}={}){
   const errors=[],add=(p,r,o)=>errors.push(issue(p,r,o));
   if(!d||typeof d!=='object'||Array.isArray(d))return [issue('$','必須為 JSON 物件')];
+  const ran=[],run=(name,fn)=>{if(scope&&!scope.touches(READS[name]))return;ran.push(name);fn();};
+  run('preflight',()=>{
   if(d.schema!==SCHEMA)add('schema','不支援的 schema');
   if(d.schemaVersion!==undefined&&d.schemaVersion!==VERSION)add('schemaVersion','不支援此版本；禁止自動降版');
   if(complete)for(const k of REQUIRED)if(d[k]===undefined)add(k,'缺少必要設定');
+  });
+  run('arrays',()=>{
   const arrays=['classes','supportSkills','equipmentForms','items','statusDefinitions','companions','passiveDefinitions'];
   for(const k of arrays)if(d[k]!==undefined&&!Array.isArray(d[k]))add(k,'必須為陣列');
+  });
+  run('healing',()=>{
   if(root.EmberwildHealingPotions){for(const [i,item] of array(d.items).entries())if(item.type==='healPotion'&&item.healFraction===undefined)for(const reason of root.EmberwildHealingPotions.issues(item))add('items.'+i,reason,item);for(const [i,rule] of array(d.balanceSettings?.drops?.entries).entries())for(const reason of root.EmberwildHealingPotions.dropIssues(rule))add('balanceSettings.drops.entries.'+i,reason,rule);}
+  });
   const chanceKey=/^(?:chance|.*Chance|.*ChancePerLevel|healFraction|critChance)$/;
   const nonnegative=/^(?:hp|atk|def|cost|sellPrice|unitPrice|cooldown|duration|durationMinutes|periodMs|requiredLevel|requiredMasteryLevel|power|powerPerLevel|quantity|quantityMin|quantityMax|minLevel|maxLevel|weight|hitCount|delayTurns|intervalTurns)$/;
   const enums={activation:['active','proc'],availability:['visible','locked','hidden'],kind:null};
-  function walk(x,p='',owner=null){
-   if(typeof x==='number'){if(!Number.isFinite(x))add(p,'必須為有限數值',owner);return;}
-   if(x===undefined||typeof x==='function'||typeof x==='bigint'){add(p,'不是合法 JSON 值',owner);return;}
-   if(!x||typeof x!=='object')return;
-   if(Array.isArray(x)){
-    const ids=new Set();for(let i=0;i<x.length;i++){const row=x[i];if(row&&typeof row==='object'&&!Array.isArray(row)&&row.id!==undefined){if(!['string','number'].includes(typeof row.id)||ids.has(row.id))add(p+'.'+i+'.id','ID 無效或重複',row);ids.add(row.id);}walk(row,p+'.'+i,row?.id!==undefined?row:owner);}return;
-   }
-   for(const [k,v] of Object.entries(x)){
+  function entry(k,v,p,owner){
     const field=p?p+'.'+k:k;
     if(['accessToken','personalAccessToken','githubToken','privateKey','clientSecret','password'].includes(k))add(field,'認證資料不得存入平衡 JSON',owner);
     if(['__proto__','constructor','prototype'].includes(k))add(field,'禁止的物件鍵',owner);
@@ -879,37 +1180,73 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
     if(k==='chanceByTier'&&(!Array.isArray(v)||v.length!==10||v.some(n=>!Number.isFinite(n)||n<0||n>100)))add(field,'十階機率必須介於 0～100',owner);
     if(enums[k]&&!enums[k].includes(v))add(field,(k==='availability'?'顯示狀態無效；':'')+'未知 enum：'+v,owner);
     walk(v,field,owner);
+  }
+  function ids(x,p){const seen=new Set();for(let i=0;i<x.length;i++){const row=x[i];if(row&&typeof row==='object'&&!Array.isArray(row)&&row.id!==undefined){if(!['string','number'].includes(typeof row.id)||seen.has(row.id))add(p+'.'+i+'.id','ID 無效或重複',row);seen.add(row.id);}}}
+  function walk(x,p='',owner=null){
+   if(typeof x==='number'){if(!Number.isFinite(x))add(p,'必須為有限數值',owner);return;}
+   if(x===undefined||typeof x==='function'||typeof x==='bigint'){add(p,'不是合法 JSON 值',owner);return;}
+   if(!x||typeof x!=='object')return;
+   if(Array.isArray(x)){
+    const seen=new Set();for(let i=0;i<x.length;i++){const row=x[i];if(row&&typeof row==='object'&&!Array.isArray(row)&&row.id!==undefined){if(!['string','number'].includes(typeof row.id)||seen.has(row.id))add(p+'.'+i+'.id','ID 無效或重複',row);seen.add(row.id);}walk(row,p+'.'+i,row?.id!==undefined?row:owner);}return;
    }
-  }walk(d);
+   for(const [k,v] of Object.entries(x))entry(k,v,p,owner);
+  }
+  // Field rules for one changed path: the nearest property entry, or the whole record for record rows.
+  function walkChange(change){
+   let owner=null,x=d;const rows=[];
+   for(let i=0;i<change.length;i++){if(Array.isArray(x)&&x[change[i]]&&typeof x[change[i]]==='object'&&x[change[i]].id!==undefined)rows.push(i);x=x==null?undefined:x[change[i]];}
+   for(let j=change.length;j>=1;j--){
+    const parent=j===1?d:change.slice(0,j-1).reduce((o,k)=>o==null?undefined:o[k],d),key=change[j-1],pp=change.slice(0,j-1).join('.');
+    if(parent===undefined||parent===null)continue;
+    if(Array.isArray(parent)){const row=parent[key];if(row&&typeof row==='object'&&!Array.isArray(row)&&row.id!==undefined){if(j===change.length||change[j]==='id')ids(parent,pp);walk(row,change.slice(0,j).join('.'),row);return;}continue;}
+    if(typeof parent==='object'){for(const i of rows)if(i<j-1){const r=change.slice(0,i+1).reduce((o,k)=>o?.[k],d);owner=r;}if(Object.prototype.hasOwnProperty.call(parent,key))entry(key,parent[key],pp,owner);return;}
+   }
+  }
+  if(scope){const seen=new Set();for(const c of scope.changes){const k=c.join('.');if(seen.has(k))continue;seen.add(k);walkChange(c);}ran.push('field-rules('+seen.size+')');}
+  else{walk(d);ran.push('field-rules');}
+  run('seconds',()=>{
   if(d.balanceSettings?.meta?.combatTimingVersion&&root.EmberwildSecondsSchema){try{root.EmberwildSecondsSchema.validateImport(d);}catch(e){add('balanceSettings.combat.seconds',e.message);}}
+  });
+  run('skillSystem',()=>{
   if(d.skillSystem&&root.EmberwildSkillSystem){try{root.EmberwildSkillSystem.validate(d.skillSystem);}catch(e){add('skillSystem',e.message);}}
+  });
   // Detect destructive sanitization using the existing final status normalizer.
   // Its allowed enums are maintained by the status module, including late extensions.
+  run('statuses',()=>{
   if(typeof normalizeStatusDefinition==='function')for(const [i,row] of (Array.isArray(d.statusDefinitions)?d.statusDefinitions:[]).entries()){
    const normalized=normalizeStatusDefinition(row,i);
    function unchanged(raw,value,p){if(Array.isArray(raw)&&Array.isArray(value)){if(raw.length!==value.length)add(p,'超出允許數量或含有未知 enum',row);for(let n=0;n<Math.min(raw.length,value.length);n++)unchanged(raw[n],value[n],p+'.'+n);}else if(raw&&value&&typeof raw==='object'&&typeof value==='object'){for(const k of Object.keys(raw))if(value[k]!==undefined)unchanged(raw[k],value[k],p+'.'+k);}else if(raw!==value)add(p,'非法值會被正規化改寫；請修正後再發布',row);}
    unchanged(row,normalized,'statusDefinitions.'+i);
   }
+  });
+  run('power',()=>{
   const livePowerKeys=root.__EMBERWILD_EQUIPMENT_IDENTITY?.effectKeys;
   if(livePowerKeys)for(const kind of ['prefixes','suffixes','bossAffixes'])for(const [i,row] of array(d.equipmentPowerSystem?.[kind]).entries()){
    const allowed=kind==='bossAffixes'?livePowerKeys:livePowerKeys.filter(k=>!['gearAtkPct','bossDamagePct'].includes(k));
    for(const effect of kind==='bossAffixes'?row.effects||[]:[row.effect])if(!effect||!allowed.includes(effect.key)||(effect.key==='basicElement'?!['physical','fire','ice','wind','light','shadow'].includes(effect.value):!Number.isFinite(effect.value)))add('equipmentPowerSystem.'+kind+'.'+i+'.effect','未知裝備效果或效果值型別錯誤',row);
   }
-  const mapCount=d.balanceSettings?.maps?.catalog?.length,monsterIds=new Set(array(d.balanceSettings?.monsters?.catalog).map(x=>x.id)),itemIds=new Set(array(d.items).map(x=>x.id));
+  });
+  run('drops',()=>{
+  const monsterIds=new Set(array(d.balanceSettings?.monsters?.catalog).map(x=>x.id)),itemIds=new Set(array(d.items).map(x=>x.id));
   for(const [i,row] of array(d.balanceSettings?.drops?.entries).entries()){
    if(row.type==='item'&&!itemIds.has(row.key))add('balanceSettings.drops.entries.'+i+'.key','引用不存在的道具',row);
    if(Array.isArray(row.sources)&&row.sources.some(id=>!monsterIds.has(id)))add('balanceSettings.drops.entries.'+i+'.sources','引用不存在的怪物',row);
   }
+  });
+  run('unlocks',()=>{
+  const mapCount=d.balanceSettings?.maps?.catalog?.length;
   const side=array(d.balanceSettings?.quests?.design?.side||d.balanceSettings?.quests?.side),questIds=new Set(['tutorial',...side.map(x=>x.id)]);
   for(const [job,c] of array(d.classes).entries())for(const [i,skill] of array(c?.skills).entries()){
    const u=skill.unlockConditions;if(!u)continue;
    for(const id of array(u.quests))if(!questIds.has(id))add('classes.'+job+'.skills.'+i+'.unlockConditions.quests','引用不存在的任務：'+id,skill);
    for(const key of ['bossKills','eliteKills','bossEquipment'])for(const row of array(u[key]))if(Number.isInteger(mapCount)&&(row.mapIndex<-1||row.mapIndex>=mapCount))add('classes.'+job+'.skills.'+i+'.unlockConditions.'+key,'引用不存在的地圖',skill);
   }
-  if(d.wishingLake!==undefined&&root.EmberwildWishingLake)for(const reason of root.EmberwildWishingLake.issues(d.wishingLake,d))errors.push(issue('wishingLake',reason));
-  if(d.lifeSkills!==undefined)errors.push(...lifeIssues(d.lifeSkills,array(d.items)));
-  if(d.story!==undefined&&root.EmberwildStory)for(const reason of root.EmberwildStory.issues(d.story,{maps:d.balanceSettings?.maps?.catalog,monsters:d.balanceSettings?.monsters?.catalog,items:array(d.items),recipes:d.lifeSkills?.recipes,skills:d.skillSystem?.definitions,forms:d.equipmentForms}))errors.push(issue('story',reason));
-  if(root.EmberwildInventoryIcons)errors.push(...root.EmberwildInventoryIcons.issues(d).map(reason=>issue('inventoryIcons',reason)));
+  });
+  run('wishingLake',()=>{if(d.wishingLake!==undefined&&root.EmberwildWishingLake)for(const reason of root.EmberwildWishingLake.issues(d.wishingLake,d))errors.push(issue('wishingLake',reason));});
+  run('life',()=>{if(d.lifeSkills!==undefined)errors.push(...lifeIssues(d.lifeSkills,array(d.items)));});
+  run('story',()=>{if(d.story!==undefined&&root.EmberwildStory)for(const reason of root.EmberwildStory.issues(d.story,{maps:d.balanceSettings?.maps?.catalog,monsters:d.balanceSettings?.monsters?.catalog,items:array(d.items),recipes:d.lifeSkills?.recipes,skills:d.skillSystem?.definitions,forms:d.equipmentForms}))errors.push(issue('story',reason));});
+  run('catalogue',()=>{if(root.EmberwildInventoryIcons)errors.push(...root.EmberwildInventoryIcons.issues(d).map(reason=>issue('inventoryIcons',reason)));});
+  if(report)report.blocks=ran;
   return errors;
  }
  function migrate(input,defaults){
@@ -924,7 +1261,7 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
   function types(v,b,p){if(b===null||b===undefined||v===undefined)return;if(v===null){if(['mastery','requiredMastery','partnerId','unitPrice','control','durationSeconds'].includes(p.split('.').at(-1)))return;typeErrors.push(issue(p,'此欄位不可為 null'));return;}if(Array.isArray(b)){if(!Array.isArray(v)){typeErrors.push(issue(p,'必須為陣列'));return;}for(let i=0;i<v.length;i++)types(v[i],b[i]??b[0],p+'.'+i);return;}if(typeof b==='object'){if(!v||typeof v!=='object'||Array.isArray(v)){typeErrors.push(issue(p,'必須為物件'));return;}for(const k of Object.keys(v))types(v[k],b[k],p+'.'+k);return;}if(!/\.(key|value)$/.test(p)&&typeof v!==typeof b)typeErrors.push(issue(p,'型別必須為 '+typeof b));}
   if(defaults)types(d,defaults,'$');if(typeErrors.length)throw Object.assign(Error(typeErrors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:typeErrors});
 if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Error(e.message),{issues:e.issues||[issue('domain',e.message)]});}}return d;}
- const api={textOverridesVersion:1,combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1,wishingLakeVersion:1,healingPotionVersion:1,equipmentGemModeVersion:2,storyEquipmentLessonsVersion:1,skillSystemVersion:1,questEncountersVersion:1,consumableClockVersion:1,equipmentAcquisitionVersion:1,storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
+ const api={READS,balanceModulesVersion:1,textOverridesVersion:1,combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1,wishingLakeVersion:1,healingPotionVersion:1,equipmentGemModeVersion:2,storyEquipmentLessonsVersion:1,skillSystemVersion:1,questEncountersVersion:1,consumableClockVersion:1,equipmentAcquisitionVersion:1,storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 
 EmberwildSecondsSchema=globalThis.EmberwildSecondsSchema??EmberwildSecondsSchema;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildStory=globalThis.EmberwildStory??EmberwildStory;EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;EmberwildHealingPotions=globalThis.EmberwildHealingPotions??EmberwildHealingPotions;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildBalanceDocument=globalThis.EmberwildBalanceDocument??EmberwildBalanceDocument;
