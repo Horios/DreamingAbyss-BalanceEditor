@@ -1,0 +1,13 @@
+{
+ "description": "數值欄位邊界值報表的說明。typeLeaks：文字或 null 能通過工作台、驗證器與遊戲的欄位，以及由誰擋下。changed：沒有錯誤但值被改變的欄位與原因。tests/boundary.test.cjs 要求每一筆都有對應說明。",
+ "typeLeaks": [
+  {"match": "^skillSystem\\.definitions\\.\\*\\.(powerPerLevel|hitCount|procChancePerLevel|statusMaxTargets)$", "note": "遊戲的技能驗證沒有檢查這些欄位的型別，工作台、驗證器與遊戲都會保留文字或 null。發布服務的數值型別檢查會在建立摘要時拒絕（tests/release-audit.test.cjs「B02」）。"}
+ ],
+ "changed": [
+  {"match": "^balanceSettings\\.skills\\.mastery\\.", "note": "精通設定被夾限到允許範圍（下限 0 或 1，等級取整數），工作台與驗證器結果相同。"},
+  {"match": "^statusDefinitions\\.\\*\\.(duration|uses|modifiers\\.\\*\\.targets)$", "note": "被夾限到允許範圍（上限 99）並取整數，工作台與驗證器結果相同。"},
+  {"match": "^starterPacks\\.", "note": "起始等級取整數，工作台與驗證器結果相同。"},
+  {"match": "^balance\\.affixes\\.poolBySlotRank\\.", "note": "驗證器把詞綴上限取整數，工作台保留小數；發布摘要顯示的是取整後的值。"},
+  {"match": "^(equipmentForms\\.\\*\\.\\*\\.\\*\\.fixedEffects\\.\\*\\.value|statusDefinitions\\.\\*\\.modifiers\\.\\*\\.value)$", "note": "文字被轉成 0，工作台匯入後即顯示為 0。"}
+ ]
+}

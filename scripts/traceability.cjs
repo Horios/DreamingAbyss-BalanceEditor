@@ -198,4 +198,4 @@ async function main(){
  const count={};for(const r of matrix.rows)count[r.status]=(count[r.status]||0)+1;console.log(JSON.stringify(count));
 }
 if(require.main===module)main().catch(e=>{console.error(e);process.exit(1);});
-module.exports={patterns,candidates,skeleton,STATUS,markdown,classify,observed,LOST};
+module.exports={patterns,candidates,skeleton,STATUS,markdown,classify,observed,LOST,pipelines};

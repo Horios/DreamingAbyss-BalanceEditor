@@ -3,6 +3,8 @@ const crypto=require('node:crypto'),D=require('./balance-diff.cjs'),CM=require('
 const utf8Length=text=>new TextEncoder().encode(text).length;
 // Field patterns of a JSON value: object keys joined by dots, array positions as *.
 const fieldPatterns=value=>{const out=new Set();(function walk(v,p){if(Array.isArray(v)){if(!v.length)out.add(p);for(const x of v)walk(x,p?p+'.*':'*');return;}if(v&&typeof v==='object'){const keys=Object.keys(v);if(!keys.length)out.add(p);for(const k of keys)walk(v[k],p?p+'.'+k:k);return;}out.add(p);})(value,'');return out;};
+// JSON types seen for each field pattern of a value (number, string, boolean or null leaves).
+const fieldTypes=value=>{const out=new Map();(function walk(v,p){if(Array.isArray(v)){for(const x of v)walk(x,p?p+'.*':'*');return;}if(v&&typeof v==='object'){for(const k of Object.keys(v))walk(v[k],p?p+'.'+k:k);return;}const t=v===null?'null':typeof v;if(!out.has(p))out.set(p,new Set());out.get(p).add(t);})(value,'');return out;};
 // Documentation modules: the game regenerates them on export, so their fields are never "lost".
 const REGENERATED_MODULES=new Set(['meta/reference','meta/notes']);
 class ReleaseService{
@@ -229,6 +231,22 @@ class ReleaseService{
      for(const p of fieldPatterns(online[c.id]))if(!have.has(p)&&!seen.has(p))unknown.push({module:c.id,field:p});
     }
     if(unknown.length)throw Object.assign(Error('線上資料含有工作台內建的遊戲版本不認得的欄位，這次發布會把它們刪除：'+unknown.slice(0,8).map(u=>u.module+' → '+u.field).join('、')+(unknown.length>8?'…等 '+unknown.length+' 個':'')+'。請先同步工作台（node scripts/sync-game.cjs）並重新部署，再發布。'),{status:409,layer:'契約',code:'unknown-fields',unknown});
+   }
+   if(kind==='preview'){
+    // A field that holds only numbers online (or numbers and null) must not become text, a boolean or, where it was
+    // never null, null. The game's own validation does not look at every numeric field of a record (for example a
+    // skill's hitCount), so such a value would otherwise be published and loaded.
+    const online=M.split(target.data).modules,mine=M.split(candidate).modules,issues=[];
+    for(const c of plan.changed){
+     if(c.removed||REGENERATED_MODULES.has(c.id)||online[c.id]===undefined)continue;
+     const before=fieldTypes(online[c.id]);
+     for(const [field,types] of fieldTypes(mine[c.id])){
+      const known=before.get(field);if(!known||!known.has('number')||known.has('string')||known.has('boolean'))continue;
+      const wrong=[...types].filter(t=>t!=='number'&&!known.has(t));
+      if(wrong.length)issues.push({system:'型別',object:c.title+'（'+c.id+'）',field,reason:'此欄位在線上資料中是數值，候選資料出現 '+wrong.map(t=>({string:'文字',boolean:'布林值',null:'null'})[t]||t).join('、')});
+     }
+    }
+    if(issues.length)throw Object.assign(Error('數值欄位的型別不正確：'+issues.slice(0,8).map(i=>i.object+' '+i.field+'：'+i.reason).join('；')+(issues.length>8?'…等 '+issues.length+' 項':'')),{status:400,layer:'驗證',code:'field-types',issues});
    }
    // The summary covers the changed modules only; unchanged modules are byte-identical to the target.
    const rows=[];

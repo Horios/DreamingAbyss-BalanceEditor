@@ -20,14 +20,23 @@
 | DEF-8 | 中 | D09 | 提交請求逾時或連線中斷時，工作台只顯示「發布結果尚未確認」，沒有任何方式判斷是否已寫入 | 沒有查核端點；摘要使用後即失效 | 新增 `outcome`：以摘要的基準 commit 與資料版本向 GitHub 查核，回報已提交／未提交／無法確認，不重送 | 「D09」 |
 | DEF-9 | 中 | H04、H05 | 發布完成後沒有可保存的紀錄；API 失敗沒有標示發生在哪個階段 | 未實作 | 提交回傳發布收據並可下載；部署檢查結果寫回收據；所有 API 失敗附 `layer` | 「H04」「H05」 |
 | DEF-10 | 低 | G04（遊戲端） | 部署 workflow 在 `deploy-pages` 結束後就算成功，沒有確認網站內容 | 未實作 | 遊戲 Repository 新增 `scripts/verify-deployment.cjs` 並接入 workflow | 遊戲 `tests/verify-deployment.test.cjs` |
+| DEF-11 | 高 | B12、H05 | V2 的「套用至遊戲預覽」在預覽隊伍探索或遭遇中時顯示「已套用至遊戲預覽」，草稿標示為已套用，但遊戲仍使用舊數值；彈窗的儲存與刪除同樣顯示「已更新並套用至預覽」。重現：預覽遊戲開始探索後修改任一數值並按套用 | 遊戲在探索中拒絕新文件時回傳 `false` 而不丟出錯誤，橋接程式沒有檢查回傳值 | `scripts/v2-game-bridge.js` 檢查回傳值並回報「無法套用」；外殼的 `apply()` 回傳是否成功，彈窗只在成功時顯示「套用至預覽」 | `tests/v2-apply-refused.browser.cjs`；`tests/v2-inline-crud.browser.cjs` 原本把草稿有既有問題、預覽實際拒絕時的「已更新並套用至預覽」當成預期結果，已改為「已更新草稿，未套用至預覽」 |
+| DEF-12 | 高 | B12 | 同一情境下預覽遊戲處於新舊混合狀態：被拒絕的文件中，秒數與 MP 等設定已經換成新值，隊伍相關設定仍是舊值。實測最大 MP 由 123 變成 124，但遊戲回傳未套用 | 拒絕的判斷位於包裝鏈內層（`team-runtime.js`），在它之後載入的 12 個模組已先套用新文件 | 橋接程式在被拒絕時把先前的文件重新套用一次並比對匯出結果，無法還原時要求重新整理。遊戲程式未修改（見下方） | 同上（確認被拒絕的文件沒有任何部分留在遊戲中） |
+| DEF-13 | 高 | B02 | 技能定義的 `hitCount`、`powerPerLevel`、`procChancePerLevel`、`statusMaxTargets` 填入文字或 null 時，工作台、發布驗證器與遊戲都接受並保留，可以發布到線上 | 遊戲的技能驗證沒有檢查這些欄位的型別；一般設定欄位靠與預設值比對型別，記錄陣列內的選用欄位沒有預設值可比 | 發布服務在建立摘要時比對線上模組與候選模組的欄位型別：線上只出現數值的欄位不得變成文字、布林值或新的 null | `tests/release-audit.test.cjs`「B02」、`tests/boundary.test.cjs` |
 
 修正所在：平衡器 `server/release-service.cjs`、`server/online/worker.mjs`、`server/server.cjs`、`scripts/check-game-sync.cjs`、`scripts/build-online-runtime.cjs`、`scripts/build-online.cjs`、`balance-editor.html`（發布頁的確認畫面、提交與部署檢查）；遊戲 `scripts/verify-deployment.cjs`、`.github/workflows/deploy-preview.yml`、`.github/workflows/test-skill-gems.yml`。
+
+第二輪（DEF-11 至 DEF-13）另外修改平衡器的 `scripts/v2-game-bridge.js`、`scripts/v2-inline-edit.js`、`balance-editor-v2.html`、`server/release-service.cjs`，新增 `scripts/boundary-probe.cjs`；遊戲新增 `tests/balance-effects-systems.test.cjs`。
 
 ### 已確認但未修改的現象
 
 - 工作台送出的發布內容在目前資料上一律是完整文件：草稿多出一個線上沒有的頂層鍵 `starterPackItems`，頂層鍵順序因此與線上不同，前端的「只送出異動模組」退回完整文件。後端修正後寫入範圍仍是正確的模組，所以沒有修改前端；影響是他人同時發布時不會自動合併，而是要求重新取得版本（安全，但較保守）。
 - 寫入的模組檔內容是正規化後的格式。第一次修改某個模組時，該檔案的 Git 差異會包含格式變化（例如怪物的明確預設值），不只有被修改的那一行；數值經載入比對確認沒有改變。
 - 遊戲的 `applyBalanceConfig` 一次約 4 秒（Node headless 環境），欄位級探測因此需要分批執行。
+- 遊戲端的部分套用（DEF-12 的根因）沒有修改：`applyBalanceConfig` 在探索中回傳 `false` 時，外層模組已換成新文件；核心的 `importBalanceJSON` 也沒有檢查回傳值，遊戲內開發工具在探索中匯入測試設定會顯示「測試設定已套用」。正式資料在啟動時、存檔載入之前套用，不經過這條路徑，所以不影響發布；修正需要改動遊戲程式並重新同步工作台，建議另開 issue。遊戲的 `tests/balance-effects-systems.test.cjs` 記錄了目前的回傳值約定。
+- 邊界值報表顯示 282 個數值欄位接受 -1、489 個接受 0、450 個接受 1e12（三個程式都保留）。探測無法判斷設計意圖，沒有新增範圍限制；各模組的數量列在 `docs/boundary-matrix.md` 最後一節，例如難度的生命倍率可以設為 0。
+- 有 81 個欄位的文字、94 個欄位的 null 能通過工作台匯入匯出，但被發布驗證器拒絕並附原因，發布停在驗證層。
+- `balance.affixes.poolBySlotRank` 的詞綴上限填小數時，工作台保留小數，驗證器取整數；發布摘要顯示的是取整後的值。
 
 ## 二、欄位級追溯（A03、A04、B01、B06、H01）
 
@@ -70,15 +79,15 @@
 | A07 | 失敗→已修正 | DEF-6 |
 | A08–A15 | 已覆蓋 | 35 個模組都在矩陣中，每個模組的欄位都有工作台匯入匯出、驗證器與遊戲載入的往返結果。實際遊戲數值的證據限於 F 區列出的代表欄位 |
 | B01 | 已覆蓋 | 矩陣：整數、小數、字串、布林四種型別共 875 個欄位樣式保留編輯值 |
-| B02 | 未完成 | 沒有逐欄位的邊界值測試。既有測試涵蓋部分欄位的無效值原子性（例如「fractional seconds and MP round-trip exactly; invalid updates leave original data intact」） |
+| B02 | 失敗→已修正 | `docs/boundary-matrix.json`：738 個數值欄位各嘗試 0、-1、1e12、整數加 0.5、文字、null，共 4133 個編輯，記錄共用規則、工作台、驗證器的結果與判定。發現 DEF-13 並修正。未涵蓋字串欄位的空字串、特殊字元與長文字 |
 | B03 | 已覆蓋 | 既有 `seconds-authoring`、`audit-seconds-browser`（通過）；遊戲 `balance-effects`：冷卻秒數加 7.5 秒後 `skillCooldown` 增加相同秒數 |
-| B04 | 已覆蓋（既有） | `v2-inline-edit.browser`、`v2-inline-crud.browser`、`v2-game.browser` 通過；未新增跨入口比對 |
+| B04 | 已覆蓋 | `tests/entry-points.test.cjs`：10 個欄位分別以就地編輯與整份匯入兩種入口修改，匯出文字相同，除被編輯欄位與其衍生欄位外沒有其他差異，再次匯出不變。瀏覽器層的 `v2-inline-edit`、`v2-inline-crud`、`v2-game` 通過 |
 | B05 | 失敗→已修正 | DEF-1、DEF-2；既有 `release-summary-noise` 通過 |
 | B06 | 已覆蓋 | 矩陣的遊戲欄結果 |
-| B07–B09 | 已覆蓋（既有） | `v2-inline-crud.browser`（各頁新增、編輯、刪除）通過；未新增調序與複製的測試 |
+| B07–B09 | 已覆蓋 | `v2-inline-crud.browser`（各頁新增、編輯、刪除）；`release-audit`「B08/B09」以真實驗證器確認調序（摘要一筆 `order`、一個模組）、重複 ID 被拒並定位、更名未更新引用被拒並列出引用欄位、連同引用一起更名時相關模組同次寫入、複製為新增 |
 | B10 | 已覆蓋（既有） | 「a write outside the page modules is still found (sweep) and an unknown page sweeps every module」 |
 | B11 | 已覆蓋（既有） | `online-baseline`、`workbench-experience`、「autosave writes only changed modules and a reload restores the draft from module keys」 |
-| B12 | 已覆蓋（既有） | `v2-game.browser`、`v2-hosting` 通過 |
+| B12 | 失敗→已修正 | DEF-11、DEF-12；`v2-game.browser`、`v2-hosting` 通過 |
 | C01 | 已覆蓋 | 遊戲 `test:balance-modules` 47 項通過；`balance-effects` 第一項確認模組重新整合後與 `data/balance.json` 逐位元組相同 |
 | C02 | 已覆蓋 | 同 A02 |
 | C03 | 已覆蓋（既有） | 遊戲 `balance-modules.test.cjs`、平衡器 `incremental-editing.test.cjs` |
@@ -94,7 +103,7 @@
 | D05 | 已覆蓋 | 「H02/G09」：一個 commit 寫入兩個模組、manifest、整合檔與版本號；提交後重新讀取核對一致 |
 | D06 | 已覆蓋 | 版本號取自提交當下的 HEAD，還原也遞增一次（「H02/G09」得到 v0.122）；資料發布不涉及 JS／CSS 快取參數 |
 | D07 | 失敗→已修正 | DEF-3 |
-| D08 | 已覆蓋（既有） | 「invalid data, empty changes, stale head, missing confirmation and write conflicts never report success」「release click … blocks duplicates」。個別 GitHub 狀態碼未逐一新增測試 |
+| D08 | 已覆蓋 | `release-audit`「D08」：提交過程中建立 blob（403）、tree（404）、commit（409）、更新分支（422）各自失敗時都不回報成功、分支不動、摘要不可重用、`outcome` 回報未提交。既有測試涵蓋過期、重複點擊與衝突 |
 | D09 | 失敗→已修正 | DEF-8 |
 | D10 | 已覆蓋 | 分支限定 `main`／`chatgpt-dev`（含新的 `outcome`）；路徑由後端固定；正式版只取測試版 commit（既有 `balance-release-promote`、`balance-release-security`） |
 | E01 | 已覆蓋（既有） | 「baseline is never the boot draft」「switching online reference never changes editing data」 |
@@ -105,17 +114,17 @@
 | E06 | 已覆蓋（既有） | 「failed refresh retains draft and marks baseline unavailable instead of reporting zero changes」 |
 | E07 | 已覆蓋 | 暫存複本：整合檔單獨修改後 `check` 失敗（含 `--allow-legacy-integrated`），`resync` 只改動 `world/monsters.json`、manifest 與整合檔，差異只有被修改的那個數值；後端同樣拒絕發布（既有測試） |
 | F01 | 部分覆蓋 | 遊戲以 `data/balance.json` 啟動，執行中的怪物、道具、職業、難度數值等於檔案內容。固定種子與歷史存檔語料未新增 |
-| F02 | 部分覆蓋 | 難度與怪物的生命、攻擊倍率改變生成的怪物。掉落率、遭遇與離線結算未新增測試 |
-| F03 | 部分覆蓋 | 技能冷卻秒數。倍率、MP、BUFF／DOT 與戰報未新增測試 |
-| F04 | 部分覆蓋 | 職業初始能力：現有角色、存檔重讀、新建角色。夥伴與技能解鎖未新增測試 |
-| F05 | 未完成 | 沒有新增測試；依賴遊戲既有的裝備與信物測試，未重跑完整回歸 |
-| F06 | 部分覆蓋 | 道具價格。供應池、獎勵與藥水效果未新增測試 |
-| F07 | 未完成 | 沒有新增測試 |
+| F02 | 已覆蓋 | 遊戲 `balance-effects`：難度與怪物倍率改變生成怪物的生命與攻擊。`balance-effects-systems`：掉落機率、數量與停用；離線結算的擊殺數與經驗隨設定改變。地圖遭遇組成未新增測試 |
+| F03 | 部分覆蓋 | 冷卻秒數（含小數）、MP 消耗、傷害倍率。BUFF／DOT 時長與間隔、控制效果、戰報文字未新增測試，依賴遊戲既有的秒數與技能效果測試 |
+| F04 | 已覆蓋 | 職業初始能力與每級成長、等級上限；夥伴初始能力對隊伍中既有夥伴與新招募者都生效。技能解鎖條件未新增測試 |
+| F05 | 部分覆蓋 | 強化消耗、售價、需求等級即時改變；基礎能力只影響之後生成的裝備；信物效果只影響之後建立的信物。詞綴、精煉、裝備技能未新增測試 |
+| F06 | 已覆蓋 | 道具價格、素材售價、商店刷新費用、生活素材購買價、委託板刷新費用。藥水與限時效果依賴遊戲既有測試 |
+| F07 | 部分覆蓋 | 地圖名稱與等級範圍、採集週期、許願湖每日次數、劇情階段獎勵。任務前置與解鎖、許願湖抽選結果未新增測試 |
 | F08 | 部分覆蓋 | 介面標題文字 |
-| F09 | 部分覆蓋 | 職業能力、怪物、價格、冷卻、文字屬於即時採用（已測）。「新生成時才採用」的清單尚未建立，也未寫入工作台 |
-| F10 | 未完成 | 沒有新增跨入口一致性測試 |
+| F09 | 已覆蓋 | 即時採用與只影響新生成內容的清單寫在遊戲 `DEVELOPMENT.md`（v0.122）與 `PUBLISHING.md`「套用至遊戲預覽」，工作台的部署檢查結果也會顯示這段說明 |
+| F10 | 部分覆蓋 | 線上生成的怪物與離線結算使用同一份設定（怪物生命 5 倍時線上生成值為 5 倍、離線擊殺數減少）；完整模擬與加速模擬結果一致。升級、商店等入口未逐一比對 |
 | G01 | 已覆蓋／待人工 | 本機執行等同 CI 的工作：`npm test` 全數通過、`game-contract` 的同步檢查與矩陣檢查通過、8 支瀏覽器測試通過、`build.sh` 與 `validate-artifact.mjs` 通過。`sites-deployment` 未驗證。GitHub Actions 的實際執行結果以推送後為準 |
-| G02 | 部分覆蓋 | 遊戲 `balance:check`、`balance:validate`、版本號檢查、`test:balance-modules`（41 項）與新增的 12 項通過。沒有重跑完整回歸 |
+| G02 | 已覆蓋 | 遊戲 `balance:check`、`balance:validate`、版本號檢查、`test:balance-modules`（41 項）與新增的 20 項通過。完整回歸（`node --test`，962 項）：未提供平衡器路徑時 895 項通過、56 項失敗、11 項略過，失敗集中在 32 個需要私有平衡器的檔案，都不在 CI 清單內；提供平衡器路徑後只剩 2 項：`balance-publisher.browser` 需要另一個正式版目錄 `../Emberwild-main`（環境），`companions-roster` 的「三十名角色捲動」畫面斷言（遊戲畫面測試，與資料發布無關，遊戲程式本次未修改）。GitHub Actions 的實際結果以推送後為準 |
 | G03 | 已覆蓋 | `chatgpt-dev` `aab17f6`：`data/balance.json` blob `897ea2fd…`、manifest blob `3332a902…`、整合檔 SHA-256 `02b2b55e…`、版本 v0.120；`main` `317abe9`：blob `a28e75b1…` |
 | G04、G05 | 失敗→已修正 | DEF-7、DEF-10。另以 `verify-deployment.cjs` 對真實網站唯讀檢查：測試版提供的確實是 `aab17f6`（6 項全過），正式版是 `317abe9`（4 項全過）。不同瀏覽器與 CDN 快取行為未測 |
 | G06 | 已覆蓋 | `verify-deployment.cjs` 比對 `index.html` 引用的程式與樣式（含快取參數）與檔案內容 |
@@ -150,7 +159,7 @@
 ## 四、驗收條件
 
 1. 完整性：35 個模組都有明確狀態；1508 個欄位樣式都有來源、編輯、輸出與遊戲載入的紀錄；不可編輯的欄位已標示。
-2. 正確性：單欄位、跨模組引用、新增與刪除、還原有對應測試；邊界值（B02）、歷史存檔語料與多數遊戲行為（F05、F07、F10）沒有完成。
+2. 正確性：單欄位、跨模組引用、新增、刪除、調序、更名、複製、還原與數值邊界值有對應測試；歷史存檔語料、字串欄位的邊界值，以及部分遊戲行為（BUFF／DOT、詞綴與精煉、任務解鎖）沒有新增測試。
 3. 一致性：發布寫入的模組、manifest、整合檔與版本號在同一個 commit，並在提交後重新讀取核對；無關模組不再被改寫。
 4. 可發布性：模擬發布、衝突、拒絕、回應遺失、還原、部署比對都可獨立執行。真實的工作台發布、Sites 部署與 GitHub App 授權待人工。
 5. 可維護性：遊戲新增或搬移欄位時，CI 的矩陣檢查會列出缺少紀錄的欄位。

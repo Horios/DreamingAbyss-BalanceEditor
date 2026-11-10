@@ -170,7 +170,11 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   assert.equal((await inEditor(()=>validateData())).filter(x=>/二選一需同時設計兩種獎勵/.test(x)).length,2);
   await inGame(()=>setTab('shop'));await listButton('shop').click();await dialog.waitFor();
   await p.locator('.dev-list-row').first().click();await p.locator('#devInline-weight').fill('2');await p.locator('#devInlineSave').click();await backToList(/商店商品/);
-  assert.match(await p.locator('#devStatus').innerText(),/已更新並套用至預覽[\s\S]*既有問題[\s\S]*二選一/,'existing problems are reported, not blocking');
+  // The record is saved to the draft. The preview game validates the whole draft and refuses it while those problems
+  // exist, so the status says the draft was updated and not applied (it used to claim 已更新並套用至預覽).
+  assert.match(await p.locator('#devStatus').innerText(),/已更新草稿，未套用至預覽[\s\S]*二選一[\s\S]*既有問題[\s\S]*二選一/,'existing problems do not block the save and are reported');
+  assert.doesNotMatch(await p.locator('#devStatus').innerText(),/並套用至預覽/);
+  assert.match(await p.locator('#devDraftState').innerText(),/尚未套用/,'the draft is not marked as applied');
   await p.locator('#devInlineCancel').click();
   await inGame(()=>setTab('quests'));await listButton('quests').click();await dialog.waitFor();
   const explore=await inEditor(()=>data.balanceSettings.quests.design.daily.entries.find(q=>q.id==='daily_explore').title);
