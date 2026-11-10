@@ -20,8 +20,9 @@ function createServer({service,editorRoot=path.resolve(__dirname,'..'),port=4318
    if(req.method!=='POST'||req.headers.origin!==origin||req.headers['x-emberwild-csrf']!==session.csrf||!/^application\/json/.test(req.headers['content-type']||'')){json(res,403,{error:'請求未通過 CSRF／來源檢查'});return;}
    let raw='';for await(const chunk of req){raw+=chunk;if(Buffer.byteLength(raw)>4000000){json(res,413,{error:'JSON 過大'});return;}}
    const body=JSON.parse(raw||'{}'),method=url.pathname.slice('/api/'.length);
-   if(!url.pathname.startsWith('/api/')||!['snapshot','history','prepare','commit','deployment','validate'].includes(method)){json(res,404,{error:'未知操作'});return;}
-   const result=await service[method](body,id);json(res,200,result);
+   if(!url.pathname.startsWith('/api/')||!['snapshot','history','prepare','commit','outcome','deployment','validate'].includes(method)){json(res,404,{error:'未知操作'});return;}
+   try{const result=await service[method](body,id);json(res,200,result);}
+   catch(e){json(res,e.status>=400&&e.status<=599?e.status:400,{error:e.message,issues:e.issues||[],layer:service.constructor.layerOf?.(method,e),conflicts:e.conflicts||undefined});}
   }catch(e){json(res,e.status>=400&&e.status<=599?e.status:400,{error:e.message,issues:e.issues||[]});}
  });
 }

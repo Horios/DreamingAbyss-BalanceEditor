@@ -30,7 +30,7 @@ function git(initial){
   if(parts[0]==='git'&&parts[1]==='trees'&&o.method==='POST'){const files={...trees.get(o.body.base_tree)};for(const e of o.body.tree){if(e.sha===null)delete files[e.path];else files[e.path]=blobs.get(e.sha);}return {sha:putTree(files),entries:o.body.tree};}
   if(parts[0]==='git'&&parts[1]==='trees'){const files=filesAt(parts[2]);return {truncated:false,tree:Object.entries(files).map(([p,t])=>({path:p,type:'blob',sha:sha1(t)}))};}
   if(parts[0]==='git'&&parts[1]==='commits'&&o.method==='POST'){const id=crypto.createHash('sha1').update(String(++n)).digest('hex');commits.set(id,{tree:o.body.tree,parent:o.body.parents[0],message:o.body.message});return {sha:id};}
-  if(parts[0]==='git'&&parts[1]==='commits')return {tree:{sha:commits.get(parts[2]).tree}};
+  if(parts[0]==='git'&&parts[1]==='commits'){const c=commits.get(parts[2]);return {tree:{sha:c.tree},parents:c.parent?[{sha:c.parent}]:[]};}
   if(parts[0]==='git'&&parts[1]==='refs'&&o.method==='PATCH'){const b=parts.slice(3).join('/');refs[b]=o.body.sha;return {object:{sha:o.body.sha}};}
   if(parts[0]==='compare'){const [from,to]=parts[1].split('...');let c=to;while(c){if(c===from)return {status:from===to?'identical':'ahead'};c=commits.get(c).parent;}return {status:'diverged'};}
   throw Error('Unexpected '+p);};

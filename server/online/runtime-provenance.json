@@ -510,5 +510,15 @@
       "path": "js/ui/text-overrides.js?v=20261106-v0119-text1",
       "sha256": "6b155f18ed6898508c4b230adf8d77d9f22affdcacc28ecfda5c81d52e014524"
     }
+  ],
+  "contract": [
+    {
+      "path": "js/balance/balance-modules.js",
+      "gitBlob": "ba9137c433f8c26bae4871e1621f0c17ed421c39"
+    },
+    {
+      "path": "js/balance/balance-document.js",
+      "gitBlob": "b7d9f5b5e5d6fc52a6ec6ead35142562a02ed59c"
+    }
   ]
 }

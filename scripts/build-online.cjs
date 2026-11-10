@@ -14,5 +14,5 @@ service=service.replace("async gitBlobSha(text){return crypto.createHash('sha1')
 service=service.replace('module.exports={ReleaseService};','export {ReleaseService};');
 fs.writeFileSync(path.join(out,'release-service.mjs'),service);
 const provenance=JSON.parse(fs.readFileSync(path.join(out,'runtime-provenance.json')));
-fs.writeFileSync(path.join(out,'editor.mjs'),'export const editorHTML='+JSON.stringify(fs.readFileSync(path.join(root,'balance-editor.html'),'utf8'))+';\nexport const validatorCommit='+JSON.stringify(provenance.sourceCommit)+';\n');
+fs.writeFileSync(path.join(out,'editor.mjs'),'export const editorHTML='+JSON.stringify(fs.readFileSync(path.join(root,'balance-editor.html'),'utf8'))+';\nexport const validatorCommit='+JSON.stringify(provenance.sourceCommit)+';\nexport const contractBlobs='+JSON.stringify(Object.fromEntries((provenance.contract||[]).map(c=>[c.path,c.gitBlob])))+';\n');
 console.log('Built online release module and private editor HTML');
