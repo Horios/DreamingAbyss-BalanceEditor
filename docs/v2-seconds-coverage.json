@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
-  "gameCommit": "39015f8672318845b89966303e1ed26935e5f299",
-  "balanceSha256": "8a9298374cac8526845d90efa6b23206bcd523523c24723237dc865a89775c35",
+  "gameCommit": "aac79751b3b53f08d53c32552d4cb95f5f6c96e6",
+  "balanceSha256": "e44f2ae3103f093b0a24d2eb1217cd3b702e331581b01fa777fe66759f5afb04",
   "scope": "Representative field shapes in the existing canonical seconds UI, including optional MP/equipment fields. Not every object instance or every editor page.",
   "summary": {
     "ui-export-game-verified": 47,
