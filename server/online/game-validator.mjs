@@ -434,7 +434,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
 
 EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;
 
-/* js/story/story-model.js?v=20261112-v0125-prologue1 */
+/* js/story/story-model.js?v=20261112-v0135-prologue1 */
 /* Shared, data-only story contract. No quest-specific execution rules. */
 (function(root){
  'use strict';
@@ -454,7 +454,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERW
   const out=[],add=m=>out.push('序章：'+m),p=q.prologue,text=(v,max=400)=>typeof v==='string'&&v.length<=max,line=x=>x&&['npc','player','narrator'].includes(x.kind)&&text(x.speaker,40)&&text(x.text,2000)&&(x.source===undefined||Object.hasOwn(PROLOGUE_SOURCES,x.source));
   if(q.id!=='prologue'||q.type!=='main')add('任務 ID 必須是 prologue，類型為主線');
   if(!p||p.version!==1||!Array.isArray(p.scenes)||p.scenes.length!==PROLOGUE_SCENES||p.scenes.some((s,i)=>!s||s.id!==i+1||!text(s.name,60)||!s.name.trim()||!text(s.description)))add('需要 '+PROLOGUE_SCENES+' 個場景（id 1～'+PROLOGUE_SCENES+'，含名稱與說明）');
-  if(!p||!p.helper||!text(p.helper.name,20)||!p.helper.name.trim()||!text(p.helper.title,40)||!text(p.helper.description)||!Array.isArray(p.helper.templates)||p.helper.templates.length!==4||p.helper.templates.some(id=>!Number.isInteger(id)||ctx.companions&&!ctx.companions.some(c=>c.id===id)))add('臨時隊友設定無效（名稱、說明與四個職業的範本夥伴）');
+  if(!p||!p.helper||!text(p.helper.name,20)||!p.helper.name.trim()||!text(p.helper.title,40)||!text(p.helper.description)||!Array.isArray(p.helper.templates)||p.helper.templates.length!==4||p.helper.templates.some(id=>!Number.isInteger(id)))add('臨時隊友設定無效（名稱、說明與四個職業的範本夥伴）');
   if(!p||!p.training||!text(p.training.name,20)||!p.training.name.trim())add('訓練對象名稱無效');
   if(!p||!p.gift||!text(p.gift.subject,60)||!text(p.gift.body))add('贈禮說明無效');
   if(!p||!p.chapter||!text(p.chapter.title,60)||!p.chapter.title.trim()||!Array.isArray(p.chapter.lines)||p.chapter.lines.some(x=>!line(x)))add('章節標題或轉場文字無效');
@@ -9097,7 +9097,7 @@ procSkillRows=globalThis.procSkillRows??procSkillRows;stopAutoReroll=globalThis.
 
 EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;companionTokenAbilityText=globalThis.companionTokenAbilityText??companionTokenAbilityText;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;setForgeSort=globalThis.setForgeSort??setForgeSort;toggleForgeSortDirection=globalThis.toggleForgeSortDirection??toggleForgeSortDirection;setForgeWearFilter=globalThis.setForgeWearFilter??setForgeWearFilter;changeForgePage=globalThis.changeForgePage??changeForgePage;companionTokenDescription=globalThis.companionTokenDescription??companionTokenDescription;
 
-/* js/skills/support-debuff.js?v=20261102-v0017-seconds1 */
+/* js/skills/support-debuff.js?v=20261112-v0131-numbers7 */
 
 /* Debuff mechanics v2:
    followup  = target is hit -> extra caster ATK% elemental damage; applies defense, element matchup and target damage reduction.
@@ -9188,7 +9188,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentTotalSummar
       followup=Math.max(minimumDamage,Math.round(followup*(1-Math.min(cap.guard,effectTotal(target.id,'guard')))));
       const dealt=Math.min(target.hp,followup);
       const visual=globalThis.EmberwildBattleEffects;
-      if(visual?.capturing)visual.scope({source:caster,mode:'damage',element},()=>{target.hp=Math.max(0,target.hp-dealt);});
+      if(visual?.capturing)visual.scope({source:caster,mode:'damage',element,critical:crit},()=>{target.hp=Math.max(0,target.hp-dealt);visual.result('resolved',target,caster,{critical:crit});});
       else target.hp=Math.max(0,target.hp-dealt);
       if(dealt>0)recordCombatContribution(caster,'damage',dealt);
       total+=dealt;
@@ -10237,7 +10237,7 @@ journalLootOpen=globalThis.journalLootOpen??journalLootOpen;journalLootHeight=gl
 
 inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldOpen;inventoryDisposeFoldOpen=globalThis.inventoryDisposeFoldOpen??inventoryDisposeFoldOpen;setInventoryFoldState=globalThis.setInventoryFoldState??setInventoryFoldState;
 
-/* js/balance/numeric-compression-formula.js?v=20261102-v0017-seconds1 */
+/* js/balance/numeric-compression-formula.js?v=20261112-v0131-numbers7 */
 
 /* Numeric compression v1:
    - Low-number baseline for characters, monsters, equipment and skills.
@@ -10431,6 +10431,7 @@ inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldO
     if(resistance)d=Math.max(minimumDamage,Math.round(d*(1-resistance)));
     const absorb=Math.min(Math.max(0,Number(e.shield)||0),d);e.shield=Math.max(0,(Number(e.shield)||0)-absorb);d-=absorb;
     const actual=Math.min(e.hp,d);e.hp=Math.max(0,e.hp-d);
+    globalThis.EmberwildBattleEffects?.result('resolved',e,h,{critical:!!crit});
     if(actual>0)recordCombatContribution(h,'damage',actual);
     const beforeLifesteal=h.hp;h.hp=Math.min(v.hp,h.hp+healingAmount(h,actual*v.lifesteal));
     const healed=Math.max(0,h.hp-beforeLifesteal);if(healed>0)recordCombatContribution(h,'healing',healed);
@@ -13741,7 +13742,7 @@ rollAffixFromPool=globalThis.rollAffixFromPool??rollAffixFromPool;__EMBERWILD_AF
 
 classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPerLevel=globalThis.classGrowthPerLevel??classGrowthPerLevel;
 
-/* js/combat/control-status-summon.js?v=20261106-v0114-statistics1 */
+/* js/combat/control-status-summon.js?v=20261112-v0131-numbers7 */
 
 
 (function installControlStatusAndSummons(){
@@ -13825,7 +13826,7 @@ classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPer
 
   function applyPolymorph(e,shield,meta){
     if(!e||e.hp<=0)return false;
-    if(isBossEnemy(e)){globalThis.EmberwildBattleEffects?.result('resist',e);note(combatEnemyName(e)+' 對變形免疫。');return true;}
+    if(isBossEnemy(e)){globalThis.EmberwildBattleEffects?.result('resist',e,null,{label:'免疫'});note(combatEnemyName(e)+' 對變形免疫。');return true;}
     meta=normalizeControlMeta(meta,'polymorph');
     const s=stateFor(e.id),amount=Math.max(1,Math.round(Number(shield)||1));
     s.polymorph={turns:Math.max(1,meta.duration),total:Math.max(1,meta.duration),shield:amount,maxShield:amount};
@@ -13884,10 +13885,14 @@ classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPer
     const polymorph=stateFor(e?.id,false)?.polymorph;
     if(!polymorph||polymorph.shield<=0)return controlResolveHitBase(e,amount,h,element,crit,options);
     const proxy={...e,hp:polymorph.shield,maxhp:polymorph.maxShield,shield:0};
-    const dealt=controlResolveHitBase(proxy,amount,h,element,crit,options);
-    polymorph.shield=Math.max(0,proxy.hp);
-    if(polymorph.shield<=0){const s=stateFor(e.id,false);if(s)delete s.polymorph;cleanState(e.id);note(combatEnemyName(e)+' 的變形護盾被打破，變形解除。');}
-    return dealt;
+    const resolve=()=>{
+      const dealt=controlResolveHitBase(proxy,amount,h,element,crit,options);
+      polymorph.shield=Math.max(0,proxy.hp);
+      if(polymorph.shield<=0){const s=stateFor(e.id,false);if(s)delete s.polymorph;cleanState(e.id);note(combatEnemyName(e)+' 的變形護盾被打破，變形解除。');}
+      return dealt;
+    };
+    const visual=globalThis.EmberwildBattleEffects;
+    return visual?.capturing?visual.scope({shieldProxy:{target:e,unit:proxy}},resolve):resolve();
   };
 
   const controlCombatSpeedBase=combatSpeed;
@@ -13925,6 +13930,7 @@ classInitialStats=globalThis.classInitialStats??classInitialStats;classGrowthPer
     hit=Math.max(minimumDamage,Math.round(hit*(1-resist)));const absorb=Math.min(h.shield,hit);h.shield-=absorb;
     if(absorb>0&&typeof recordCombatContribution==='function')recordCombatContribution(h,'mitigation',absorb);
     const hpDamage=Math.max(0,hit-absorb);h.hp=Math.max(0,h.hp-hpDamage);
+    globalThis.EmberwildBattleEffects?.result('resolved',h,e,{critical});
     if(typeof recordCombatContribution==='function')recordCombatContribution(h,'taken',absorb+Math.max(0,beforeHp-h.hp));
     if(critical&&beforeHp>h.hp)globalThis.EmberwildBattleEffects?.result('critical',h,e);
     globalThis.EmberwildTokenRuntime?.afterDamage(h,e,beforeHp,h.hp);
@@ -14141,7 +14147,7 @@ EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;__
 
 __EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;hydrateEnemyCombatStats=globalThis.hydrateEnemyCombatStats??hydrateEnemyCombatStats;enemyBattleStats=globalThis.enemyBattleStats??enemyBattleStats;foes=globalThis.foes??foes;
 
-/* js/skills/status-maker.js?v=20261106-v0114-statistics1 */
+/* js/skills/status-maker.js?v=20261112-v0131-numbers7 */
 
 (()=>{
 /* STATUS_PURE_START */
@@ -14247,7 +14253,7 @@ function statusBasisValue(kind,source,target){
   return 0;
 }
 function statusApplyShieldAwareDamage(target,amount,bypassShield=false){
-  amount=Math.max(0,Math.round(amount));if(amount<=0)return 0;
+  amount=Math.max(0,Math.round(amount));if(amount<=0){globalThis.EmberwildBattleEffects?.result('resolved',target,null,{critical:false});return 0;}
   const before=Math.max(0,Number(target.hp)||0);let hpDamage=amount;
   if(!bypassShield&&statusIsHero(target)){
     const absorb=Math.min(Math.max(0,Number(target.shield)||0),amount);target.shield=Math.max(0,(Number(target.shield)||0)-absorb);hpDamage=Math.max(0,amount-absorb);if(absorb>0&&typeof recordCombatContribution==='function')recordCombatContribution(target,'mitigation',absorb);
@@ -14256,7 +14262,7 @@ function statusApplyShieldAwareDamage(target,amount,bypassShield=false){
     if(p?.shield>0){const absorb=Math.min(p.shield,amount);p.shield=Math.max(0,p.shield-absorb);hpDamage=Math.max(0,amount-absorb);if(p.shield<=0){delete api.states[target.id].polymorph;note(combatEnemyName(target)+' 的變形護盾被持續效果打破，變形解除。');}}
     const absorb=Math.min(Math.max(0,Number(target.shield)||0),hpDamage);target.shield=Math.max(0,(Number(target.shield)||0)-absorb);hpDamage-=absorb;
   }
-  target.hp=Math.max(0,before-hpDamage);const dealt=Math.max(0,before-target.hp);if(statusIsHero(target)){globalThis.EmberwildTokenRuntime?.afterDamage(target,null,before,target.hp);if(typeof recordCombatContribution==='function')recordCombatContribution(target,'taken',amount-hpDamage+dealt);}return dealt;
+  target.hp=Math.max(0,before-hpDamage);globalThis.EmberwildBattleEffects?.result('resolved',target,null,{critical:false});const dealt=Math.max(0,before-target.hp);if(statusIsHero(target)){globalThis.EmberwildTokenRuntime?.afterDamage(target,null,before,target.hp);if(typeof recordCombatContribution==='function')recordCombatContribution(target,'taken',amount-hpDamage+dealt);}return dealt;
 }
 function statusDamageAmount(raw,source,target,fx){
   const formula=GAMEPLAY_SETTINGS?.combat?.damageFormula||{},attackCoefficient=Number.isFinite(formula.attackCoefficient)?formula.attackCoefficient:1,defenseCoefficient=Number.isFinite(formula.defenseCoefficient)?formula.defenseCoefficient:(GAMEPLAY_SETTINGS?.combat?.defenseEffectiveness??.55),minimumDamage=Math.max(0,Number.isFinite(formula.minimumDamage)?formula.minimumDamage:1);
@@ -14599,7 +14605,7 @@ const visualPeriodicBase=executeStatusPeriodic;
 executeStatusPeriodic=function(inst,fx,...args){
   const visual=globalThis.EmberwildBattleEffects;
   if(!visual?.capturing)return visualPeriodicBase(inst,fx,...args);
-  return visual.scope({mode:fx.kind==='heal'?'regen':'damage',periodic:true,element:fx.resolution==='elemental'?fx.element:null},()=>visualPeriodicBase(inst,fx,...args));
+  return visual.scope({mode:fx.kind==='heal'?'regen':'damage',periodic:true,critical:false,element:fx.resolution==='elemental'?fx.element:null},()=>visualPeriodicBase(inst,fx,...args));
 };
 const visualStatusDamageBase=statusApplyShieldAwareDamage;
 statusApplyShieldAwareDamage=function(...args){
@@ -14635,7 +14641,7 @@ if(state)render();
 
 EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;
 
-/* js/combat/shared-skill-runtime.js?v=20261106-v0114-statistics1 */
+/* js/combat/shared-skill-runtime.js?v=20261112-v0131-numbers7 */
 /* Shared player/monster core-skill pool.
    Monsters keep only skillId references; definitions remain in CLASSES / SKILL_ELEMENTS. */
 (()=>{
@@ -14696,6 +14702,7 @@ EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;__
     hit=Math.max(min,Math.round(hit*(1-resist)));
     const absorb=Math.min(h.shield,hit);h.shield-=absorb;if(absorb>0&&typeof recordCombatContribution==='function')recordCombatContribution(h,'mitigation',absorb);
     const hpDamage=Math.max(0,hit-absorb),before=h.hp;h.hp=Math.max(0,h.hp-hpDamage);
+    globalThis.EmberwildBattleEffects?.result('resolved',h,e,{critical:crit});
     const dealt=Math.max(0,before-h.hp);if(typeof recordCombatContribution==='function')recordCombatContribution(h,'taken',absorb+dealt);if(crit&&dealt>0)globalThis.EmberwildBattleEffects?.result('critical',h,e);globalThis.EmberwildTokenRuntime?.afterDamage(h,e,before,h.hp);
     if(before>0&&h.hp<=0&&typeof recordBattleDeath==='function')recordBattleDeath(h,e,sk.name);
     return dealt;
@@ -14842,7 +14849,7 @@ EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;__
 
 EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;performEnemyActionCore=globalThis.performEnemyActionCore??performEnemyActionCore;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;sharedCoreSkillPool=globalThis.sharedCoreSkillPool??sharedCoreSkillPool;sharedSkillById=globalThis.sharedSkillById??sharedSkillById;sharedSkillScopeAllowsEnemy=globalThis.sharedSkillScopeAllowsEnemy??sharedSkillScopeAllowsEnemy;sharedSkillScopeAllowsHero=globalThis.sharedSkillScopeAllowsHero??sharedSkillScopeAllowsHero;sharedEnemySkillDamage=globalThis.sharedEnemySkillDamage??sharedEnemySkillDamage;EmberwildSkillEffectRuntime=globalThis.EmberwildSkillEffectRuntime??EmberwildSkillEffectRuntime;EmberwildInductionRuntime=globalThis.EmberwildInductionRuntime??EmberwildInductionRuntime;castEnemySharedSkill=globalThis.castEnemySharedSkill??castEnemySharedSkill;performSharedEnemyAction=globalThis.performSharedEnemyAction??performSharedEnemyAction;sharedEnemyActionLabel=globalThis.sharedEnemyActionLabel??sharedEnemyActionLabel;enemySharedSkillStatus=globalThis.enemySharedSkillStatus??enemySharedSkillStatus;coreSkillUsageScope=globalThis.coreSkillUsageScope??coreSkillUsageScope;coreSkillAvailableToHero=globalThis.coreSkillAvailableToHero??coreSkillAvailableToHero;EmberwildInduction=globalThis.EmberwildInduction??EmberwildInduction;
 
-/* js/ui/title-screen.js?v=20261112-v0125-prologue1 */
+/* js/ui/title-screen.js?v=20261112-v0135-prologue1 */
 /* Save slots are selected before boot; switching slots reloads the complete hydration chain. */
 (function(){
   let titleOpen=true,choosingCharacter=false,pendingCreation=null,approvedCreation=null,pendingDelete=null;
@@ -15219,7 +15226,7 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
 
 isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;__EMBERWILD_NAVIGATION_DRAGGING=globalThis.__EMBERWILD_NAVIGATION_DRAGGING??__EMBERWILD_NAVIGATION_DRAGGING;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;
 
-/* js/character/starter-pack.js?v=20261112-v0125-prologue1 */
+/* js/character/starter-pack.js?v=20261112-v0135-prologue1 */
 (function starterModule(){
   const clone=value=>JSON.parse(JSON.stringify(value));
   const SLOT_BY_POSITION=[0];
@@ -15812,7 +15819,7 @@ __EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWIL
 
 __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_GALLERY_EFFECTS;__EMBERWILD_TEXT_STYLES=globalThis.__EMBERWILD_TEXT_STYLES??__EMBERWILD_TEXT_STYLES;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;textRarityEquipmentRowColor=globalThis.textRarityEquipmentRowColor??textRarityEquipmentRowColor;textRarityEquipmentBlockPresentation=globalThis.textRarityEquipmentBlockPresentation??textRarityEquipmentBlockPresentation;
 
-/* js/character/companions.js?v=20261112-v0125-prologue1 */
+/* js/character/companions.js?v=20261112-v0135-prologue1 */
 /* Recruitable people have their own identity, name and fixed growth plan. */
 (()=>{
   const Model=EmberwildCompanions,Passive=EmberwildPassives,DEFAULT_PLANS=Model.defaultPlans;
@@ -16005,7 +16012,8 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
   const PROLOGUE_HELPER_ID=900000001;
   function addPrologueHelper(templateId,name){
     if(!party)return null;const existing=partyMember(PROLOGUE_HELPER_ID);if(existing)return existing;
-    const base=plans.find(p=>p.id===templateId);if(!base||typeof name!=='string'||!name.trim()||party.members.length>=513)return null;
+    // The template can be deleted from the catalogue later; any other companion of a different class than the player then stands in.
+    const base=plans.find(p=>p.id===templateId)||plans.find(p=>p.availability!=='hidden'&&p.job!==playerHero().job)||plans[0];if(!base||typeof name!=='string'||!name.trim()||party.members.length>=513)return null;
     ensureSharedGear();ensureAccountResources();ensureSharedItems();ensureAccountQuests();ensureRoster(party);resetEncounter();
     const plan={...copy(base),id:PROLOGUE_HELPER_ID,name:name.trim(),availability:'visible',unlockCondition:{type:'initial'}},h=initial(plan.job);
     h.companionId=PROLOGUE_HELPER_ID;h.name=plan.name;h.lv=playerHero().lv;h.won=false;
@@ -18264,7 +18272,7 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
 
 lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThis.gatheringView??gatheringView;alchemyView=globalThis.alchemyView??alchemyView;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;lifeMaterialPurchasePrice=globalThis.lifeMaterialPurchasePrice??lifeMaterialPurchasePrice;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;returnToTitle=globalThis.returnToTitle??returnToTitle;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;lifeShopMaterialsView=globalThis.lifeShopMaterialsView??lifeShopMaterialsView;lifeMaterialDescription=globalThis.lifeMaterialDescription??lifeMaterialDescription;setLifeStockFilter=globalThis.setLifeStockFilter??setLifeStockFilter;setLifeStockSort=globalThis.setLifeStockSort??setLifeStockSort;setLifeStockOpen=globalThis.setLifeStockOpen??setLifeStockOpen;__DEBUG_GEM_ALCHEMY=globalThis.__DEBUG_GEM_ALCHEMY??__DEBUG_GEM_ALCHEMY;hasShopVIP=globalThis.hasShopVIP??hasShopVIP;buyLifeMaterial=globalThis.buyLifeMaterial??buyLifeMaterial;selectLifeGatheringTarget=globalThis.selectLifeGatheringTarget??selectLifeGatheringTarget;startLifeGathering=globalThis.startLifeGathering??startLifeGathering;stopLifeGathering=globalThis.stopLifeGathering??stopLifeGathering;startLifeWork=globalThis.startLifeWork??startLifeWork;stopLifeWork=globalThis.stopLifeWork??stopLifeWork;recordLifeProgress=globalThis.recordLifeProgress??recordLifeProgress;recordStoryAcquisition=globalThis.recordStoryAcquisition??recordStoryAcquisition;recordGatheredItem=globalThis.recordGatheredItem??recordGatheredItem;tickLifeSkills=globalThis.tickLifeSkills??tickLifeSkills;alchemyVIPView=globalThis.alchemyVIPView??alchemyVIPView;emberwildLifeHeartbeat=globalThis.emberwildLifeHeartbeat??emberwildLifeHeartbeat;__EMBERWILD_LIFE_SKILLS=globalThis.__EMBERWILD_LIFE_SKILLS??__EMBERWILD_LIFE_SKILLS;
 
-/* js/character/companion-unlocks.js?v=20261112-v0125-prologue1 */
+/* js/character/companion-unlocks.js?v=20261112-v0135-prologue1 */
 /* Catalog rules are global; achievements, tickets and unlocks belong to one player save. */
 (()=>{
   const model=EmberwildCompanionSkills,A=EmberwildAchievements,copy=A.copy||((x)=>JSON.parse(JSON.stringify(x)));
@@ -18994,7 +19002,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=g
 
 __EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_VALIDATE_ITEM_IDS=globalThis.__EMBERWILD_VALIDATE_ITEM_IDS??__EMBERWILD_VALIDATE_ITEM_IDS;grantConfiguredToken=globalThis.grantConfiguredToken??grantConfiguredToken;
 
-/* js/story/story-runtime.js?v=20261112-v0125-prologue1 */
+/* js/story/story-runtime.js?v=20261112-v0135-prologue1 */
 /* Story orchestration reads existing account stores; only missing lifetime metrics live in progressStats. */
 (()=>{
  const M=EmberwildStory,copy=M.copy;
@@ -20430,7 +20438,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
 
 equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;wornEquipmentSocketPanel=globalThis.wornEquipmentSocketPanel??wornEquipmentSocketPanel;pageNewReminder=globalThis.pageNewReminder??pageNewReminder;EmberwildSecondsUI=globalThis.EmberwildSecondsUI??EmberwildSecondsUI;showSkillInformation=globalThis.showSkillInformation??showSkillInformation;openSkillCatalog=globalThis.openSkillCatalog??openSkillCatalog;toggleSkillSlotLocked=globalThis.toggleSkillSlotLocked??toggleSkillSlotLocked;openSkillSlot=globalThis.openSkillSlot??openSkillSlot;chooseSkillSlot=globalThis.chooseSkillSlot??chooseSkillSlot;selectEquipmentSocket=globalThis.selectEquipmentSocket??selectEquipmentSocket;toggleWornEquipmentSockets=globalThis.toggleWornEquipmentSockets??toggleWornEquipmentSockets;showWornEquipmentDetail=globalThis.showWornEquipmentDetail??showWornEquipmentDetail;newSkillCount=globalThis.newSkillCount??newSkillCount;dismissNewSkills=globalThis.dismissNewSkills??dismissNewSkills;equipNewSkill=globalThis.equipNewSkill??equipNewSkill;__EMBERWILD_SKILL_SYSTEM_UI=globalThis.__EMBERWILD_SKILL_SYSTEM_UI??__EMBERWILD_SKILL_SYSTEM_UI;
 
-/* js/ui/battle-summary.js?v=20261106-v0114-statistics1 */
+/* js/ui/battle-summary.js?v=20261112-v0131-numbers7 */
 /* Read-only combat presentation. HP and membership always come from combat units.
    Only previous visual samples, DOM nodes and a finished encounter's references
    are retained here; none of these values are saved or used by combat. */
@@ -20663,7 +20671,7 @@ equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSu
    // Stacked cards hold the portrait inside their first face; flat cards hold it directly.
    const slots=':scope > .battle-enemy-icon, :scope > .seconds-face-main > .battle-enemy-icon',portrait=old.querySelector(slots);
    if(portrait){const replaced=fresh.querySelector(slots);if(replaced)replaced.replaceWith(portrait);else fresh.prepend(portrait);}
-   for(const child of [...old.children])if(!child.matches('.battle-fx,.battle-fx-status'))child.remove();
+   for(const child of [...old.children])if(!child.matches('.battle-fx,.battle-fx-status,.battle-number-layer'))child.remove();
    old.append(...fresh.children);for(const a of [...fresh.attributes])old.setAttribute(a.name,a.value);old.className=fresh.className;old.style.cssText=fresh.style.cssText;fresh.replaceWith(old);
   }
   retainedField=document.querySelector('.squad-field')||retainedField;
@@ -20680,7 +20688,7 @@ equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSu
 
 __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;querySelector=globalThis.querySelector??querySelector;classList=globalThis.classList??classList;querySelectorAll=globalThis.querySelectorAll??querySelectorAll;children=globalThis.children??children;insertBefore=globalThis.insertBefore??insertBefore;
 
-/* js/ui/battle-effects.js?v=20261106-v0108-namespace1 */
+/* js/ui/battle-effects.js?v=20261112-v0134-numbers10 */
 /* Read-only presentation of the existing live timeline. No timers schedule combat.
    Nested scopes checkpoint actual HP/shield/status writes exactly once, including
    heals and procs inside damage resolvers. Offline events never open a frame. */
@@ -20688,7 +20696,16 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
  'use strict';
  const storageKey='emberwild-battle-effects',choices=['full','simple','off'];
  let preference='full',frame=null,pending=null,owner=null,encounter=null,sequence=0,staged=null,held=null;
- const timers=new Set();
+ const timers=new Set(),numberNodes=new Map();
+ const numberLimit=128,smallScreen=matchMedia('(max-width: 600px)');
+ const priority=e=>e.lethal?5:e.critical?4:e.kind==='heal'?3:['damage','absorb','shield','text'].includes(e.kind)?2:1;
+ // Bounded, ordered resolved values; particles may coalesce, numbers never merge.
+ function number(kind,target,amount,extra={}){
+  if(!frame||!target||frame.context.mode==='settlement')return;
+  const event={kind,target:String(target),amount,critical:!!frame.context.critical,periodic:!!frame.context.periodic,...extra};
+  if(frame.numbers.length>=numberLimit){let i=0;for(let n=1;n<frame.numbers.length;n++)if(priority(frame.numbers[n])<priority(frame.numbers[i]))i=n;if(priority(event)<priority(frame.numbers[i]))return;frame.numbers.splice(i,1);}
+  frame.numbers.push(event);
+ }
  function later(fn,ms){const timer=setTimeout(()=>{timers.delete(timer);fn();},ms);timers.add(timer);return timer;}
  const activeNodes=new Map(),markedNodes=new Set(),motion=matchMedia('(prefers-reduced-motion: reduce)');
  try{const saved=localStorage.getItem(storageKey);if(choices.includes(saved))preference=saved;}catch{}
@@ -20696,7 +20713,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
  const visible=()=>!!party&&tab==='battle'&&!document.hidden&&!$('modal')?.open&&!globalThis.isEmberwildTitleOpen?.()&&!globalThis.EmberwildOffline?.busy&&!party.offlineExploration?.receipt;
  const mode=()=>preference==='full'&&(motion.matches||battleRate>2)?'simple':preference;
  const control=u=>globalThis.EmberwildControlState?.states?.[u.id]||{};
- function shields(u){return Math.max(0,Number(u.shield)||0)+Math.max(0,Number(control(u).polymorph?.shield)||0);}
+ function shields(u){const proxy=frame?.context?.shieldProxy;return Math.max(0,Number(u.shield)||0)+Math.max(0,Number(proxy?.target===u?proxy.unit.hp:control(u).polymorph?.shield)||0);}
  function statuses(){
   const rows=new Map(),add=(key,target,polarity,ref,kind)=>rows.set(key,{target,polarity,ref,kind});
   for(const e of effects)if(e.until>partyClock)add(e,e.target,['weaken','fracture','vulnerable','damageAmp','followup','dotAttack','dotMaxHp','skillTaunt','slow','skillSlow'].includes(e.kind)?'debuff':'buff',e);
@@ -20731,13 +20748,13 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   for(const u of units()){
    const before=frame.vitals.get(u),after={hp:u.hp,shield:shields(u)};frame.vitals.set(u,after);if(!before||ctx.mode==='settlement')continue;
    const target=id(u);if(!target)continue;
-   if(after.shield>before.shield)enqueue('shield',target);
+   if(after.shield>before.shield){enqueue('shield',target);number('shield',target,after.shield-before.shield);}
    if(after.shield<before.shield){
-    const hit=ctx.mode==='damage';enqueue(hit?'absorb':'dissolve',target);
+    const hit=ctx.mode==='damage';enqueue(hit?'absorb':'dissolve',target);if(hit)number('absorb',target,before.shield-after.shield);
     if(hit&&after.shield<=0)enqueue('break',target);
    }
-   if(after.hp<before.hp){enqueue(ctx.periodic?'dot':attackType(ctx),target);enqueue('hit',target);}
-   else if(after.hp>before.hp){const kind=ctx.mode==='potion'?'potion':ctx.mode==='damage'||ctx.effect==='drain'?'drain':ctx.mode==='regen'?'regen':'heal';enqueue(kind,target,kind==='regen'?{label:'+'+Math.max(1,Math.round(after.hp-before.hp))+' HP'}:{});}
+   if(after.hp<before.hp){number(ctx.periodic?'dot':'damage',target,before.hp-after.hp,{lethal:after.hp<=0});enqueue(ctx.periodic?'dot':attackType(ctx),target);enqueue('hit',target);}
+   else if(after.hp>before.hp){number('heal',target,after.hp-before.hp,{critical:false});const kind=ctx.mode==='potion'?'potion':ctx.mode==='damage'||ctx.effect==='drain'?'drain':ctx.mode==='regen'?'regen':'heal';enqueue(kind,target,kind==='regen'?{label:'+'+Math.max(1,Math.round(after.hp-before.hp))+' HP'}:{});}
    // A shield-only attack has an impact on the shield, never a red HP hit.
 
   }
@@ -20764,12 +20781,25 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   pending=null;
   if(preference==='off'||!visible()){frame=null;return;}
   owner=party;encounter=foes;
-  frame={events:new Map(),initial:sample(),vitals:sample(),statuses:statuses(),context:{mode:'regen'},at:performance.now(),owner:party,encounter:foes};
+  frame={events:new Map(),numbers:[],initial:sample(),vitals:sample(),statuses:statuses(),context:{mode:'regen'},at:performance.now(),owner:party,encounter:foes};
  }
- function end(){if(!frame)return;checkpoint();if(frame.events.size)pending=frame;frame=null;}
- function result(type,target,source,details={}){if(frame)enqueue(type,id(target),{...details,source:source?id(source):null});}
+ function end(){if(!frame)return;checkpoint();if(frame.events.size||frame.numbers.length)pending=frame;frame=null;}
+ function result(type,target,source,details={}){
+  if(!frame)return;
+  if(type==='resolved'){
+   const proxy=frame.context.shieldProxy;if(proxy?.unit===target)target=proxy.target;
+   const before=frame.vitals.get(target);
+   // Called at the existing resolver's HP write, before lifesteal, retaliation or recovery procs.
+   const context=frame.context;frame.context={...context,critical:!!details.critical};checkpoint();frame.context=context;
+   if(before?.hp>0&&target.hp===before.hp&&shields(target)===before.shield){number('text',id(target),null,{label:'0',critical:false});enqueue('zero',id(target),{category:'shield'});}
+   return;
+  }
+  if(['evade','resist','miss','immune','block'].includes(type))number('text',id(target),null,{label:details.label||({evade:'閃避',resist:'抵抗',miss:'未命中',immune:'免疫',block:'格擋'}[type]),critical:false});
+  enqueue(type,id(target),{...details,source:source?id(source):null});
+ }
  function cleanNode(node){const entries=activeNodes.get(node);if(entries)for(const row of entries.values()){clearTimeout(row.timer);row.element.remove();}activeNodes.delete(node);}
- function clear(){frame=null;pending=null;staged=null;held=null;for(const t of timers)clearTimeout(t);timers.clear();for(const node of activeNodes.keys())cleanNode(node);for(const node of markedNodes){node.querySelector(':scope > .battle-fx-status')?.remove();delete node.dataset.fxShield;}markedNodes.clear();owner=null;encounter=null;}
+ function clearNumbers(node){const entries=numberNodes.get(node);if(entries)for(const row of entries.values())row.remove();numberNodes.delete(node);node.querySelector(':scope > .battle-number-layer')?.remove();}
+ function clear(){for(const node of numberNodes.keys())clearNumbers(node);frame=null;pending=null;staged=null;held=null;for(const t of timers)clearTimeout(t);timers.clear();for(const node of activeNodes.keys())cleanNode(node);for(const node of markedNodes){node.querySelector(':scope > .battle-fx-status')?.remove();delete node.dataset.fxShield;}markedNodes.clear();owner=null;encounter=null;}
  const palette={damage:{color:'#ff796f',rgb:'255,121,111'},buff:{color:'#f4d58b',rgb:'244,213,139'},shield:{color:'#f2f5ff',rgb:'242,245,255'},recovery:{color:'#87efad',rgb:'135,239,173'},debuff:{color:'#c495f0',rgb:'196,149,240'}};
  function eventCategory(type){
   if(['shield','absorb','break','dissolve','shield-impact','evade','resist'].includes(type))return 'shield';
@@ -20831,9 +20861,45 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   const row={element,timer:null,channel},remove=()=>{if(entries.get(eventKey)!==row)return;clearTimeout(row.timer);element.remove();entries.delete(eventKey);if(!entries.size)activeNodes.delete(node);};
   row.timer=setTimeout(remove,duration+80);entries.set(eventKey,row);element.addEventListener('animationend',e=>{if(e.target===element)remove();});
  }
+ // One centered number surface per combat individual, sized against the whole card.
+ function playNumber(node,event){
+  const simple=mode()==='simple',limit=smallScreen.matches||simple?32:64,perTarget=simple?2:3;
+  const all=[...numberNodes.values()].flatMap(rows=>[...rows.values()]),peers=[...(numberNodes.get(node)?.values()||[])];
+  for(const candidates of [peers.length>=perTarget?peers:[],all.length>=limit?all:[]])if(candidates.length){
+   const victim=candidates.reduce((a,b)=>priority(a.event)<=priority(b.event)?a:b);
+   if(priority(event)<priority(victim.event))return;victim.remove();
+  }
+  let entries=numberNodes.get(node);if(!entries){entries=new Map();numberNodes.set(node,entries);}
+  let layer=node.querySelector(':scope > .battle-number-layer');
+  if(!layer){layer=document.createElement('span');layer.className='battle-number-layer';layer.setAttribute('aria-hidden','true');node.append(layer);}
+  const used=new Set([...entries.values()].map(row=>row.slot)),slot=Array.from({length:perTarget},(_,i)=>i).find(i=>!used.has(i))??0;
+  const key=++sequence,element=document.createElement('b'),lane=slot===0?0:slot===1?-1:1;
+  element.className='battle-number';element.dataset.kind=event.kind;element.dataset.critical=String(event.critical);element.dataset.detail=simple?'simple':'full';element.dataset.target=event.target;
+  if(event.amount!==null)element.dataset.amount=String(event.amount);
+  const value=event.amount===null?'':event.amount.toLocaleString('en-US',{maximumFractionDigits:8});
+  element.textContent=event.label||(['heal','shield'].includes(event.kind)?'+'+value:value);
+  element.dataset.caption=event.kind==='absorb'?'吸收':event.kind==='shield'?'護盾':'';
+  const duration=simple?600:900;
+  element.style.setProperty('--number-time',duration+'ms');element.style.setProperty('--number-lane',lane);
+  layer.append(element);
+  // Measure the rendered text, so even a single digit spans at least half a card.
+  element.style.fontSize='100px';
+  const width=element.offsetWidth||100;
+  const ratio=event.critical?.64:event.kind==='dot'?.52:.56;
+  // Include the card's reserved scrollbar gutter in its visible width.
+  const size=100*node.offsetWidth*ratio/width;
+  element.style.fontSize=size+'px';
+  // Keep large single digits inside short cards without narrowing their width.
+  const height=size*.9,compression=Math.min(1,Math.max(1,layer.clientHeight-36)/height);
+  element.style.setProperty('--number-compression',compression);
+  element.style.setProperty('--number-lane-step',Math.max(0,Math.min(30,(layer.clientHeight-height*compression)/2-18))+'px');
+  const row={event,slot,timer:null,remove:()=>{if(!entries.has(key))return;clearTimeout(row.timer);element.remove();entries.delete(key);if(!entries.size){numberNodes.delete(node);layer.remove();}}};
+  entries.set(key,row);row.timer=setTimeout(row.remove,duration+80);element.addEventListener('animationend',e=>{if(e.target===element)row.remove();});
+ }
  function sync(s){
   if(preference==='off'||!visible()||owner&&owner!==party||staged&&staged.encounter!==foes&&!held){clear();return;}
   for(const node of activeNodes.keys())if(!node.isConnected)cleanNode(node);
+  for(const node of numberNodes.keys())if(!node.isConnected)clearNumbers(node);
   for(const node of markedNodes)if(!node.isConnected){node.querySelector(':scope > .battle-fx-status')?.remove();delete node.dataset.fxShield;markedNodes.delete(node);}
   const rows=[...s.allies,...s.units],byId=new Map(rows.map(row=>[String(row.id),row]));
   const nodes=new Map();document.querySelectorAll('#battleAllyIcons .unit [data-hero-id],#battleEnemyIcons .unit [data-enemy-id]').forEach(node=>nodes.set(node.dataset.heroId||node.dataset.enemyId,node));
@@ -20874,7 +20940,8 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   for(const event of events){event.eventId=batch.eventId;if(event.type==='cast')playEvent(event);}
   const impact=()=>{if(staged!==batch||!visible())return;batch.impacted=true;
    EmberwildBattleSummary.sync({animate:false});
-   for(const event of events)if(event.type!=='cast'&&byId.has(event.target))playEvent(event);
+   for(const event of events)if(!['cast','zero'].includes(event.type)&&byId.has(event.target))playEvent(event);
+   for(const event of batch.numbers){const node=healthNodes.get(event.target);if(node&&byId.has(event.target))playNumber(node,event);}
   };
   batch.commitImpact=impact;
   if(batch.delay)later(impact,batch.delay);else impact();
@@ -20934,10 +21001,10 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
  // fresh pre-impact samples, or sync() treats its whole batch as a stale encounter and clears it.
  const spawnBase=spawnGroup;spawnGroup=function(...args){
   const out=spawnBase.apply(this,args);
-  if(frame&&!frame.events.size&&frame.encounter!==foes&&frame.owner===party){frame.encounter=foes;encounter=foes;frame.initial=sample();frame.vitals=sample();frame.statuses=statuses();}
+  if(frame&&!frame.events.size&&!frame.numbers.length&&frame.encounter!==foes&&frame.owner===party){frame.encounter=foes;encounter=foes;frame.initial=sample();frame.vitals=sample();frame.statuses=statuses();}
   return out;
  };
- globalThis.EmberwildBattleEffects={begin,end,scope,quiet,result,sync,clear,present,get holdingEncounter(){return !!held&&held.encounter!==foes&&performance.now()<held.until;},get capturing(){return !!frame;},get preference(){return preference;},get pendingEvents(){return pending?[...pending.events.values()].map(e=>({...e})):[];},get activeCount(){return [...activeNodes.values()].reduce((n,m)=>n+m.size,0);}};
+ globalThis.EmberwildBattleEffects={begin,end,scope,quiet,result,sync,clear,present,get holdingEncounter(){return !!held&&held.encounter!==foes&&performance.now()<held.until;},get capturing(){return !!frame;},get preference(){return preference;},get pendingEvents(){return pending?[...pending.events.values()].map(e=>({...e})):[];},get pendingNumbers(){return pending?pending.numbers.map(e=>({...e})):[];},get numberCount(){return [...numberNodes.values()].reduce((n,m)=>n+m.size,0);},get activeCount(){return [...activeNodes.values()].reduce((n,m)=>n+m.size,0);}};
  globalThis.setBattleEffects=function(value){if(!choices.includes(value))return false;preference=value;clear();try{localStorage.setItem(storageKey,value);}catch{toast('特效已套用，但瀏覽器無法保存設定。');}document.querySelectorAll('[data-battle-effects]').forEach(select=>select.value=value);EmberwildBattleSummary.sync({animate:false});return true;};
  globalThis.battleEffectsOptionsView=()=>'<section class="panel option-row"><div><h2>戰鬥特效</h2><p class="small">調整探索圖示與血條區塊動畫；保留目前行動者金框；減少動態效果時自動簡化。</p></div><select data-battle-effects aria-label="戰鬥特效" onchange="setBattleEffects(this.value)">'+choices.map((value,i)=>'<option value="'+value+'" '+(preference===value?'selected':'')+'>'+['完整','簡化','關閉'][i]+'</option>').join('')+'</select></section>';
  const modal=document.getElementById('modal');if(modal)new MutationObserver(()=>{if(modal.open)clear();}).observe(modal,{attributes:true,attributeFilter:['open']});
@@ -21279,7 +21346,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;
 
-/* js/combat/seconds-runtime.js?v=20261106-v0114-statistics1 */
+/* js/combat/seconds-runtime.js?v=20261112-v0131-numbers7 */
 /* The shared live/offline seconds driver. Existing damage, targeting, equipment,
    death-chain and reward handlers remain authoritative. No round generator runs. */
 (()=>{
@@ -21431,7 +21498,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
   for(const h of heroes()){h.healPotionCooldownRemaining=Math.max(0,(h.healPotionCooldownRemaining||0)-delta);h.manaPotionCooldownRemaining=Math.max(0,(h.manaPotionCooldownRemaining||0)-delta);for(const id of Object.keys(h.eventPassiveCooldowns||{}))h.eventPassiveCooldowns[id]=Math.max(0,h.eventPassiveCooldowns[id]-delta);const b=h.imbue;if(b?.remainingTurns){b.remainingTurns=Math.max(0,b.remainingTurns-delta);if(!b.remainingTurns)h.imbue=null;}}
   for(const c of Object.values(EmberwildControlState.states))for(const s of Object.values(c))if(s.secondsUntil!==undefined)s.turns=Math.max(0,s.secondsUntil-at);
  }
- function periodic(event){
+ function periodicBody(event){
   const p=event.payload,x=unit(event.actorId);if(!p)return;
   if(event.type==='statusExpire'){
    if(p.kind==='supply')automaticSupplies();else if(p.kind==='control')EmberwildControlState.clear(x,p.control);
@@ -21453,6 +21520,11 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
    const api=__EMBERWILD_TOKEN_TEST,g=api.item(x);if(g&&g.snapshot.ability.event==='round')api.trigger(x,'round');
   }
  }
+ function periodic(event){
+  const visual=globalThis.EmberwildBattleEffects;
+  return visual?.capturing?visual.scope({mode:event.type==='statusExpire'?'skill':'damage',periodic:event.type!=='statusExpire',critical:false},()=>periodicBody(event)):periodicBody(event);
+ }
+
  function castResolved(x,s){
   const d=skill(s.id),before=new Set(effects),t=timing(d);currentTiming=t;
   let ok;
@@ -22608,7 +22680,7 @@ globalThis.EmberwildTextOverrides=Object.freeze({
 
 nodeType=globalThis.nodeType??nodeType;EmberwildTextOverrides=globalThis.EmberwildTextOverrides??EmberwildTextOverrides;
 
-/* js/story/prologue-runtime.js?v=20261112-v0125-prologue1 */
+/* js/story/prologue-runtime.js?v=20261112-v0135-prologue1 */
 /* Prologue presentation. The script is the `prologue` quest in the story design (all text is balance data); this file only
    plays it and runs the fixed system actions named by EmberwildStory.PROLOGUE_ACTIONS. Progress after character creation
    is the ordinary story record; before that a small per-slot draft keeps the name and the stage. */
@@ -22739,8 +22811,8 @@ nodeType=globalThis.nodeType??nodeType;EmberwildTextOverrides=globalThis.Emberwi
   }else if(cursor.phase==='action'&&a==='chooseClass'){
    body=`<div class="prologue-box"><p class="prologue-hint">${esc(s.prologue.hint)}</p><div class="prologue-options" role="radiogroup">${s.prologue.options.map(o=>`<button type="button" role="radio" aria-checked="${chosenJob===o.job}" class="prologue-option${chosenJob===o.job?' selected':''}" data-job="${o.job}" onclick="prologuePickClass(${o.job})"><b>${esc(o.text)}</b><span>${esc(o.description)}</span></button>`).join('')}</div><div class="actions"><button class="primary" onclick="prologueConfirmClass()" ${CLASSES[chosenJob]?'':'disabled'}>${esc(ui('classConfirm'))}</button></div></div>`;
   }else if(cursor.phase==='action'&&a==='recruitHelper'&&!HELPER().member()){
-   const cfg=p.helper,plan=EmberwildCompanions.defaultPlans.find(x=>x.id===cfg.templates[playerHero().job]),doc=globalThis.__EMBERWILD_COMPANION_TEST_API?.plans.find(x=>x.id===cfg.templates[playerHero().job])||plan;
-   body=`<div class="prologue-box"><p class="prologue-hint">${esc(s.prologue.hint)}</p><article class="prologue-helper"><h3>${esc(cfg.name)} <span class="tag">${esc(CLASSES[doc.job].name)}</span></h3><p class="small">${esc(cfg.title)}</p><p>${esc(cfg.description)}</p></article><div class="actions"><button class="primary" onclick="prologueAcceptHelper()">${esc(ui('helperAccept'))}</button></div></div>`;
+   const cfg=p.helper;
+   body=`<div class="prologue-box"><p class="prologue-hint">${esc(s.prologue.hint)}</p><article class="prologue-helper"><h3>${esc(cfg.name)}</h3><p class="small">${esc(cfg.title)}</p><p>${esc(cfg.description)}</p></article><div class="actions"><button class="primary" onclick="prologueAcceptHelper()">${esc(ui('helperAccept'))}</button></div></div>`;
   }else if(cursor.phase==='action'){
    body=`<div class="prologue-box"><p class="prologue-hint">${esc(s.prologue.hint)}</p><div class="actions"><button class="primary" onclick="prologueOpenTask()">${esc(ui('toTask'))}</button></div></div>`;
   }else if(!line){
@@ -22793,6 +22865,6 @@ nodeType=globalThis.nodeType??nodeType;EmberwildTextOverrides=globalThis.Emberwi
  draw();
 })();
 
-__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;__EMBERWILD_TITLE=globalThis.__EMBERWILD_TITLE??__EMBERWILD_TITLE;__EMBERWILD_STARTER_PACK=globalThis.__EMBERWILD_STARTER_PACK??__EMBERWILD_STARTER_PACK;__EMBERWILD_PROLOGUE_HELPER=globalThis.__EMBERWILD_PROLOGUE_HELPER??__EMBERWILD_PROLOGUE_HELPER;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;prologueNext=globalThis.prologueNext??prologueNext;prologueConfirmName=globalThis.prologueConfirmName??prologueConfirmName;prologuePickClass=globalThis.prologuePickClass??prologuePickClass;prologueConfirmClass=globalThis.prologueConfirmClass??prologueConfirmClass;prologueAcceptHelper=globalThis.prologueAcceptHelper??prologueAcceptHelper;prologueStartBattle=globalThis.prologueStartBattle??prologueStartBattle;prologueOpenTask=globalThis.prologueOpenTask??prologueOpenTask;prologueReturn=globalThis.prologueReturn??prologueReturn;prologueEnter=globalThis.prologueEnter??prologueEnter;
+__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_TITLE=globalThis.__EMBERWILD_TITLE??__EMBERWILD_TITLE;__EMBERWILD_STARTER_PACK=globalThis.__EMBERWILD_STARTER_PACK??__EMBERWILD_STARTER_PACK;__EMBERWILD_PROLOGUE_HELPER=globalThis.__EMBERWILD_PROLOGUE_HELPER??__EMBERWILD_PROLOGUE_HELPER;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;prologueNext=globalThis.prologueNext??prologueNext;prologueConfirmName=globalThis.prologueConfirmName??prologueConfirmName;prologuePickClass=globalThis.prologuePickClass??prologuePickClass;prologueConfirmClass=globalThis.prologueConfirmClass??prologueConfirmClass;prologueAcceptHelper=globalThis.prologueAcceptHelper??prologueAcceptHelper;prologueStartBattle=globalThis.prologueStartBattle??prologueStartBattle;prologueOpenTask=globalThis.prologueOpenTask??prologueOpenTask;prologueReturn=globalThis.prologueReturn??prologueReturn;prologueEnter=globalThis.prologueEnter??prologueEnter;
 const defaults=exportableBalance();return {defaults,canonicalize(input){return EmberwildInventoryIcons.migrateDescriptions(validateBalanceConfig(EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults)));},validate(input){const document=EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults);validateBalanceConfig(structuredClone(document));return EmberwildInventoryIcons.migrateDescriptions(document);},effective(input){const document=EmberwildBalanceDocument.validate(input,validateBalanceConfig,defaults);applyBalanceConfig(EmberwildInventoryIcons.migrateDescriptions(structuredClone(document)),{persist:false});return structuredClone(exportableBalance());}};
 }
