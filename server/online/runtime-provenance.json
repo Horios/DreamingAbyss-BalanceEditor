@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "aab17f6c043161a7e22a41fee4cc50d5caede16f",
+  "sourceCommit": "39015f8672318845b89966303e1ed26935e5f299",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -104,7 +104,7 @@
     },
     {
       "path": "js/core/game-catalog.js?v=20261022-core-catalog1",
-      "sha256": "a93e46c664eafb40ddf884db5c9cff6036fad139cd09579e679ce555accc25a1"
+      "sha256": "187ae23f5743306fd04f22a18788ae3285d89f057ab9be8e0b40a69b60349141"
     },
     {
       "path": "js/balance/game-balance-defaults.js?v=20261022-core-catalog1",

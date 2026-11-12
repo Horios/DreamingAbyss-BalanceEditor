@@ -1,5 +1,5 @@
 {
-  "gameCommit": "aab17f6c043161a7e22a41fee4cc50d5caede16f",
+  "gameCommit": "39015f8672318845b89966303e1ed26935e5f299",
   "files": [
     {
       "path": "js/balance/balance-diff.js",
@@ -159,7 +159,7 @@
     },
     {
       "path": "js/core/game-catalog.js",
-      "sha256": "a93e46c664eafb40ddf884db5c9cff6036fad139cd09579e679ce555accc25a1"
+      "sha256": "187ae23f5743306fd04f22a18788ae3285d89f057ab9be8e0b40a69b60349141"
     },
     {
       "path": "js/core/save-validation.js",
@@ -763,7 +763,7 @@
     },
     {
       "path": "data/balance/items/inventory-icons.json",
-      "sha256": "ed629a100b50fc0df5c65833563b90c47a5fc63187e0de839832858a20ef000d"
+      "sha256": "aad0e601f3c2090e350cf92eeb92b16a8c3e1d620c4e21244448bdc024ba633c"
     },
     {
       "path": "data/balance/items/items.json",
@@ -775,7 +775,7 @@
     },
     {
       "path": "data/balance/manifest.json",
-      "sha256": "bfc1d605aeeae2b86bd692e8042e370e4c8554b8d1559ef76354aa0f2ef06cd9"
+      "sha256": "735f293a3bfdb23098f10d0e10b5929843c8f25933ff1ce061e0a3a7bac5be81"
     },
     {
       "path": "data/balance/meta/balance-settings.json",
@@ -839,7 +839,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "02b2b55e8133a28ce33bde2719ab3db7d4e5aca8e973d5fd23328691c9994ea0"
+      "sha256": "8a9298374cac8526845d90efa6b23206bcd523523c24723237dc865a89775c35"
     },
     {
       "path": "data/build.json",
@@ -847,7 +847,7 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "bcc52510288ad3a49c2bc88306bbfcda69823819ad65e4e8f6adabf1557567c5"
+      "sha256": "d8a713bd7ab7f31992536acfd1bd8b555596ac3ee5a7de707f8380930fc106cd"
     },
     {
       "path": "index.html",
