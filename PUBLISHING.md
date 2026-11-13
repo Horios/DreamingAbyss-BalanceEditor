@@ -27,7 +27,7 @@
 
 ## 模組化平衡資料（遊戲 v0.120 起）
 
-遊戲的平衡資料來源改為 `data/balance/<分類>/<模組>.json`（35 個模組），`data/balance.json` 由模組自動產生。模組配置與拆分程式 `scripts/balance-modules.cjs` 由 `sync-game.cjs` 從遊戲的 `js/balance/balance-modules.js` 複製，兩邊使用同一份程式（來源雜湊記錄在 `docs/balance-modules-provenance.json`）。
+遊戲的平衡資料來源改為 `data/balance/<分類>/<模組>.json`（遊戲 v0.144 起 36 個模組，新增 `systems/tutorials`），`data/balance.json` 由模組自動產生。模組配置與拆分程式 `scripts/balance-modules.cjs` 由 `sync-game.cjs` 從遊戲的 `js/balance/balance-modules.js` 複製，兩邊使用同一份程式（來源雜湊記錄在 `docs/balance-modules-provenance.json`）。
 
 編輯：
 - 每次修改後，工作台只序列化目前頁面負責的模組，找出實際改變的模組、記錄與欄位；頁面未登記或寫入落在其他模組時，自動擴大為全模組掃描（只做變更偵測）。
@@ -44,6 +44,18 @@
 - 正式版升級複製測試版同一個 commit 的模組、manifest 與整合檔；還原從單一歷史 commit 取得資料再寫成新 commit。歷史紀錄可指定模組（`history` 的 `module` 參數）。
 - 目標分支尚未模組化（例如正式版仍是 v0.118）時，維持只寫入 `data/balance.json` 的舊流程。
 - 發布時仍以遊戲驗證器檢查完整文件；這是唯一保留的整份處理。
+
+## 教學管理（遊戲 v0.144 起）
+
+「委託與支線」群組下的「教學管理」編輯 `tutorials`。規則與可選類型來自遊戲的 `js/story/tutorial-model.js`，由 `scripts/sync-tutorials.cjs` 嵌入（`sync-game.cjs` 會執行）。
+
+- 列表：名稱、所屬系統、類型、啟用／實裝狀態、觸發、步驟數與修訂版本；可新增、編輯、停用、調整順序（順序就是同時觸發時的優先順序）。已發布的教學 ID 不能改、不能刪除，只能停用。新增的教學預設停用、未實裝。
+- 內容：標題、說明、步驟順序、提示位置、高亮目標、所在頁面、下一步條件（下一步、點擊目標、遊戲事件、狀態成立、進入頁面）、可略過、可執行條件、略過條件、重播時只說明。觸發方式、通知文字、前置條件與完成條件都只能選遊戲支援的類型。修訂版本由按鈕遞增；「新版本時再提示」開啟時，遊戲對完成舊版的玩家顯示一次更新通知。
+- 驗證：與遊戲相同的 `issues()`，檢查 ID 重複、缺少欄位、無效目標、不支援的條件與事件、前置教學不存在、循環依賴、等待自己完成等無法結束的流程。錯誤列在頁首，同時進入 `validateData()` 與共用文件檢查，無法套用或發布。
+- 在遊戲預覽中測試：只在開發者模式（V2）可用。編輯器透過 `dreaming-abyss-dev-tutorial` 訊息請外殼先套用草稿（遊戲拒絕套用時回報失敗，不開始測試），再呼叫預覽的 `__EMBERWILD_TUTORIAL.test()`。可從第一步或指定步驟開始、重複目前步驟、上一步、下一步、暫停、繼續、結束，並顯示目標定位、下一步條件、可執行條件、前置與完成條件。測試不寫入教學進度；預覽存檔本來就在記憶體中。需要裝備、技能等狀態時，在預覽中實際取得，測試不另外發放物品。測試開始時預覽會切換成遊玩測試，讓點擊直接操作遊戲。
+- 套用預覽：`v2-game-bridge.js` 的 `apply()` 在遊戲回傳拒絕（隊伍探索或戰鬥中）時改為丟出錯誤，外殼顯示「無法套用」，不再顯示已套用。
+- 發布：文件含 `tutorials` 時，目標分支的 `balance-document.js` 必須公布 `tutorialsVersion:1`，否則拒絕發布。
+- 測試：`tests/tutorial-editor.test.cjs`（headless）、`tests/tutorial-preview.browser.cjs`（V2 預覽中實際測試）。
 
 ## 同步遊戲新版本
 

@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "c3448455ecbcc9717aac1fca249449f889103921",
+  "sourceCommit": "b0359b5702e61ded8f53b122bc85842c5f2a1ce3",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -23,6 +23,10 @@
       "sha256": "fbfedae12ee5a406a48c9e1c9386eb96b3067624632ff5869394c346168ffdb2"
     },
     {
+      "path": "js/story/tutorial-model.js?v=20261113-v0144-tutorial1",
+      "sha256": "c63184c511809b8c3b14668425ed85a6213ad3652d408e8e6b7adc50d57940c5"
+    },
+    {
       "path": "js/skills/skill-system-model.js",
       "sha256": "551b2465ed277e9d5881183b86cd40aaad72e96480425eac1bd4e2728a90e694"
     },
@@ -35,12 +39,12 @@
       "sha256": "7a54a3cc618adf56bedc7af5af33c8dbc5b61f7aa5c31743d2ae6abad59cadf8"
     },
     {
-      "path": "js/balance/balance-modules.js?v=20261109-v0120-modules1",
-      "sha256": "ddfbfa393f954f6a04bd49d235691990cd18a525379347c4d16d614d2e179f01"
+      "path": "js/balance/balance-modules.js?v=20261113-v0144-tutorial1",
+      "sha256": "42c970ca76d3e51339d0d87ee11348040fbf412c33d35550fcfd563d93c0eedd"
     },
     {
-      "path": "js/balance/balance-document.js?v=20261106-v0120-modules1",
-      "sha256": "d0025ebfbd45db36e2948802cce721688ee6f2c5eb7f46b3d30d3d169dd15d72"
+      "path": "js/balance/balance-document.js?v=20261113-v0144-tutorial1",
+      "sha256": "8615f7fc914c0690f1c65adbf08741dde81278770d1deaa5a32fff994a1ff4a7"
     },
     {
       "path": "inline",
@@ -339,8 +343,8 @@
       "sha256": "e78ffa44cca2813e48176b43e15070d87ef057c6915a65fdb281672449b2ff48"
     },
     {
-      "path": "js/ui/options.js?v=20261113-v0142-window1",
-      "sha256": "37a5684414e1683bd306902b9703fabeb19146c3a443a60abd14f3797c53f6a4"
+      "path": "js/ui/options.js?v=20261113-v0144-tutorial1",
+      "sha256": "3ac02ec10691817330f82852175f238262210929a5a80a350a5da0ee47ee875c"
     },
     {
       "path": "js/items/timed-boost-runtime.js?v=20261102-v0023-speed-removal1",
@@ -517,6 +521,10 @@
     {
       "path": "js/story/prologue-runtime.js?v=20261113-v0143-spot1",
       "sha256": "593616cf69f349c3f02742051e630f2c1d95fc346c1c1bd0c9b76f0956f4330f"
+    },
+    {
+      "path": "js/story/tutorial-runtime.js?v=20261113-v0144-tutorial1",
+      "sha256": "511bd4ac1129c797ec26439660dfb0fb175d50e778204c723fa386a509b133b6"
     },
     {
       "path": "js/balance/apply-guard.js?v=20261113-v0137-prologue3",

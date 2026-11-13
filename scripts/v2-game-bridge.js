@@ -10,7 +10,9 @@ if(SIM){const Real=Date;class SimDate extends Real{constructor(...a){super(...(a
 let ready=false,lastContext,lastTheme,inspecting=true,hooked=false,mode='developer';const send=data=>parent.postMessage(data,location.origin);
 const context=()=>({page:typeof state==='undefined'||!state?'creation':tab,mapIndex:typeof party!=='undefined'?party?.map:state?.map,job:typeof state!=='undefined'?state?.job:undefined});
 function notify(navigated=false){const value=context(),key=JSON.stringify(value);if(navigated||key!==lastContext){lastContext=key;send({kind:'dreaming-abyss-dev-page',...value,navigated});}}
-globalThis.__EMBERWILD_V2_GAME=Object.freeze({inspect(value){inspecting=!!value;devTools();},setMode(value){if(['developer','control'].includes(value))mode=value;devTools();},get mode(){return mode;},selectMap(index){if(typeof selectExplorationMap==='function'){setTab('battle');selectExplorationMap(index);}},apply(doc){if(!ready)throw Error('遊戲仍在載入');const checked=validateBalanceConfig(structuredClone(doc));applyBalanceConfig(checked,{persist:false});return true;}});
+globalThis.__EMBERWILD_V2_GAME=Object.freeze({inspect(value){inspecting=!!value;devTools();},setMode(value){if(['developer','control'].includes(value))mode=value;devTools();},get mode(){return mode;},selectMap(index){if(typeof selectExplorationMap==='function'){setTab('battle');selectExplorationMap(index);}},apply(doc){if(!ready)throw Error('遊戲仍在載入');const checked=validateBalanceConfig(structuredClone(doc));
+ // The game turns an update down while the team is exploring or fighting; that is a failure, not a success.
+ if(applyBalanceConfig(checked,{persist:false})===false)throw Error('遊戲拒絕套用：隊伍正在探索或戰鬥。請先在預覽中停止探索，再套用一次。');return true;}});
 // Capture only definitions with stable game IDs. Other controls retain their normal behavior.
 document.addEventListener('click',event=>{
  if(!ready||!inspecting)return;const node=event.target.closest?.('[data-skill-id],[data-skill-slot],[data-seconds-skill],[data-item-kind],[data-enemy-id],[data-hero-id]');if(!node)return;const d=node.dataset;let target;

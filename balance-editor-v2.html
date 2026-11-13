@@ -33,7 +33,7 @@ function route(id){if(!editorReady)return;DreamingAbyssSimulation.hide();try{con
 function current(){const available=new Set(sections().flatMap(g=>g.pages.map(p=>p.id)));return context()[1].find(([id])=>available.has(id))?.[0]||'overview';}
 function open(currentPage=true){$('devDock').hidden=false;$('devOpen').setAttribute('aria-expanded','true');if(currentPage){$('devFollow').checked=true;$('devSettingsRow').hidden=true;route(current());}else{title();tabs();}}
 function close(){$('devDock').hidden=true;$('devOpen').setAttribute('aria-expanded','false');$('devOpen').focus();}
-function apply(){if(!editorReady||!gameReady)return;try{const doc=bridge().current();bridge().validate(doc);game.contentWindow.__EMBERWILD_V2_GAME.apply(doc);appliedRevision=revision;draft();status('已套用至遊戲預覽。尚未發布至 GitHub。');}catch(e){status('無法套用：'+e.message);}}
+function apply(){if(!editorReady||!gameReady)return false;try{const doc=bridge().current();bridge().validate(doc);game.contentWindow.__EMBERWILD_V2_GAME.apply(doc);appliedRevision=revision;draft();status('已套用至遊戲預覽。尚未發布至 GitHub。');return true;}catch(e){status('無法套用：'+e.message);return e;}}
 $('devPlay').onclick=()=>{editing=!editing;$('devPlay').textContent=editing?'遊玩測試':'返回資料編輯';game.contentWindow.__EMBERWILD_V2_GAME.inspect(editing);if(editing&&mode==='control')open();else if(!$('devDock').hidden)close();};
 $('modeDeveloper').onclick=()=>setMode('developer');$('modeControl').onclick=()=>setMode('control');$('devQuickSave').onclick=()=>$('devSave').click();$('devQuickPublish').onclick=()=>{setMode('control');$('devFollow').checked=false;route('releases');};$('devOpen').onclick=()=>open();$('devClose').onclick=close;$('devAll').onclick=()=>{$('devFollow').checked=false;$('devSettingsRow').hidden=false;$('devSettings').focus();};$('devSettings').onchange=()=>route($('devSettings').value);$('devFollow').onchange=()=>{if($('devFollow').checked){$('devSettingsRow').hidden=true;route(current());}};$('devApply').onclick=apply;$('devSim').onclick=()=>DreamingAbyssSimulation.toggle();$('devSave').onclick=()=>{try{bridge().save();status('已儲存目前工作草稿。');}catch(e){status('無法儲存：'+e.message);}};$('devPublish').onclick=()=>{$('devFollow').checked=false;route('releases');};
 function editorInit(){const deadline=Date.now()+30000;const check=()=>{try{if(bridge()){editorReady=true;bridge().theme(document.documentElement.dataset.uiTheme||'ember');for(const id of ['devAll','devSave','devPublish'])$(id).disabled=false;DreamingAbyssSimulation.enable(bridge);$('devApply').disabled=!gameReady;$('devOpen').disabled=false;$('devSettings').replaceChildren();for(const group of sections()){const g=document.createElement('optgroup');g.label=group.label;for(const page of group.pages){const o=document.createElement('option');o.value=page.id;o.textContent=page.label;g.append(o);}$('devSettings').append(g);}revision++;draft();tabs();if(gameReady&&editing&&mode==='control')open();for(const id of ['devQuickSave','devQuickPublish'])$(id).disabled=false;return;}}catch{}if(Date.now()<deadline)setTimeout(check,50);else status('編輯器尚未完成載入，請重新整理。');};check();}
@@ -43,6 +43,24 @@ function setMode(next){mode=next==='control'?'control':'developer';try{localStor
 setMode(mode);
 const shell={bridge,apply,status,game:()=>game,editor:()=>editor.contentWindow,open(id,ctx={}){if(!editorReady)return;setMode('control');open(false);try{gameContext={...gameContext,...ctx};section=bridge().open(id,gameContext);title();tabs();$('devSettings').value=section;}catch(e){status('無法開啟設定：'+e.message);}}};
 globalThis.DreamingAbyssShell=shell;
+// 教學管理 → preview: apply the draft, then run one tutorial module in the game frame. Replies go back to the editor.
+window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==editor.contentWindow)return;const m=event.data;if(m?.kind!=='dreaming-abyss-dev-tutorial')return;
+ const reply=data=>editor.contentWindow.postMessage({kind:'dreaming-abyss-dev-tutorial-result',id:m.id,...data},location.origin);
+ const T=()=>game.contentWindow.__EMBERWILD_TUTORIAL;
+ if(!editorReady||!gameReady||!T())return reply({ok:false,error:'遊戲預覽尚未就緒'});
+ try{
+  if(m.action==='test'){
+   const applied=apply();if(applied!==true)return reply({ok:false,error:'草稿無法套用到預覽：'+(applied?.message||'預覽尚未就緒'),status:T().status()});
+   // Clicks must reach the game during a test, so leave the click-to-edit mode.
+   if(editing){editing=false;$('devPlay').textContent='返回資料編輯';game.contentWindow.__EMBERWILD_V2_GAME.inspect(false);}
+   const out=T().test(String(m.tutorialId),{step:Number(m.step)||0});status(out.ok?'教學測試中：預覽已切換為遊玩測試，點擊會直接操作遊戲。':'無法開始教學測試：'+out.error);
+   return reply({ok:out.ok,error:out.error,status:T().status(),module:T().module(String(m.tutorialId))});
+  }
+  if(m.action==='control'){const done=T().control(String(m.control));return reply({ok:true,changed:done,status:T().status(),module:m.tutorialId?T().module(String(m.tutorialId)):null});}
+  if(m.action==='status')return reply({ok:true,status:T().status(),module:m.tutorialId?T().module(String(m.tutorialId)):null});
+  reply({ok:false,error:'未知的測試指令'});
+ }catch(e){reply({ok:false,error:e.message});}
+});
 window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==game.contentWindow)return;const m=event.data;if(m?.kind!=='dreaming-abyss-dev-edit')return;if(!editorReady||!gameReady)return status('編輯器尚未就緒');if(!editing||mode!=='developer')return;if(m.target?.list)DreamingAbyssInlineEdit.openList(m.target.list,shell,m.target.job);else DreamingAbyssInlineEdit.open(m.target,shell);});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('devDock').hidden&&!document.getElementById('devInlineDialog')?.open)close();});
 })();

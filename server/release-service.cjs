@@ -42,6 +42,10 @@ class ReleaseService{
    const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
    if(!/storyVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援任務／劇情系統，請先升級該分支遊戲程式。');
   }
+  if(candidate.tutorials!==undefined){
+   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
+   if(!/tutorialsVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援教學系統（需要遊戲 v0.144 以上），請先升級該分支遊戲程式。');
+  }
   const encounters=candidate.story?.quests?.some(q=>q.stages?.some(s=>s.encounter?.enabled));
   if(encounters||candidate.timeUnits?.consumableClock==='exploration'){
    const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';

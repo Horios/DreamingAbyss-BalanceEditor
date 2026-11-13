@@ -1,5 +1,5 @@
 {
-  "gameCommit": "c3448455ecbcc9717aac1fca249449f889103921",
+  "gameCommit": "b0359b5702e61ded8f53b122bc85842c5f2a1ce3",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -11,11 +11,11 @@
     },
     {
       "path": "js/balance/balance-document.js",
-      "sha256": "d0025ebfbd45db36e2948802cce721688ee6f2c5eb7f46b3d30d3d169dd15d72"
+      "sha256": "8615f7fc914c0690f1c65adbf08741dde81278770d1deaa5a32fff994a1ff4a7"
     },
     {
       "path": "js/balance/balance-modules.js",
-      "sha256": "ddfbfa393f954f6a04bd49d235691990cd18a525379347c4d16d614d2e179f01"
+      "sha256": "42c970ca76d3e51339d0d87ee11348040fbf412c33d35550fcfd563d93c0eedd"
     },
     {
       "path": "js/balance/balance-runtime.js",
@@ -326,6 +326,14 @@
       "sha256": "e24ba8a34e72c930e0bcf89bd083fabc478a94d0acd4182eac63003321a88d26"
     },
     {
+      "path": "js/story/tutorial-model.js",
+      "sha256": "c63184c511809b8c3b14668425ed85a6213ad3652d408e8e6b7adc50d57940c5"
+    },
+    {
+      "path": "js/story/tutorial-runtime.js",
+      "sha256": "511bd4ac1129c797ec26439660dfb0fb175d50e778204c723fa386a509b133b6"
+    },
+    {
       "path": "js/ui/battle-effects.js",
       "sha256": "005e794ab6d8c81537f0a2b65e473f819f398c5b7a3c227a7594fbf7911b7cf1"
     },
@@ -411,7 +419,7 @@
     },
     {
       "path": "js/ui/options.js",
-      "sha256": "37a5684414e1683bd306902b9703fabeb19146c3a443a60abd14f3797c53f6a4"
+      "sha256": "3ac02ec10691817330f82852175f238262210929a5a80a350a5da0ee47ee875c"
     },
     {
       "path": "js/ui/page-readability.js",
@@ -698,6 +706,10 @@
       "sha256": "fad488c65b3753617f5b9343f6fcf970d9d91f9884cc74f880043e09f0f9c6ea"
     },
     {
+      "path": "css/tutorial.css",
+      "sha256": "cbcedaefff71cb1902ae616dfd13147be20d8ce38ae75969081f558552d262e1"
+    },
+    {
       "path": "css/utility-navigation.css",
       "sha256": "9d81e83cd82626ac84e0dea3bea5c8a52f7902a4ea70a9ca4ce9b4991b9bf0c6"
     },
@@ -791,7 +803,7 @@
     },
     {
       "path": "data/balance/manifest.json",
-      "sha256": "c2db8e2d0e5af8a40e96762a6bde2bfa26173a36ca4863d0f588aa62b7168a7c"
+      "sha256": "75ffd9843c5ca43ef0bfa5656ec635fca24164f502634deae264004611156218"
     },
     {
       "path": "data/balance/meta/balance-settings.json",
@@ -834,6 +846,10 @@
       "sha256": "7a97704f26936dbd1a06fef5e0ebd7285f791e79e7d5a1a7295d0be890ae6868"
     },
     {
+      "path": "data/balance/systems/tutorials.json",
+      "sha256": "4a014b56edc74cfe77a826c5a5aac5cf57fedafe8660d10aa5058885dcd1fa8e"
+    },
+    {
       "path": "data/balance/systems/wishing-lake.json",
       "sha256": "7ed956186e2c6c3f80bae8498be22bbd801035bd03b5216d5a5dc4b561cbb5ff"
     },
@@ -855,7 +871,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "f7507d9992bab4703711dd684af437dfdeba578af08e6933bde30edac341d3d3"
+      "sha256": "9587509ea0f063c249c9ffa4cb2a324fab97d4b72deda87ca3b254ec27eab769"
     },
     {
       "path": "data/build.json",
@@ -863,14 +879,14 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "1a390b2216008906a4497607369e34a79e463820a28f91fc0a2f4f806246b4d6"
+      "sha256": "f6f14b5d3e65a4a2c8374369a6a4e3fe49901fc743afae9f4b505cfc79431c2b"
     },
     {
       "path": "index.html",
-      "sha256": "7ebe18fc92c1a8dcc8dbcf1341d8b90fd25f6425a96786c9827464ea23541e5d"
+      "sha256": "894f0f98109224ba5ee2a140e68acd2c0a5c6168e08ae35d89325a878116015d"
     }
   ],
-  "gameBridgeSha256": "144a5bd22305e343c72a0a52a568ad4eddea3898232d40e2cb617b705449640e",
+  "gameBridgeSha256": "6638faf7764987a9f1c30cc57718c4f832b9729c2f0ff93493e41b4e9675d7bd",
   "editorBridgeSha256": "f3459f81bf758a193e32d257cf81f1bb24bd612be8c326c590731844d5c2cfb0",
-  "entrySha256": "f168cdc441669f15430d6b906cdf4de4081c68226f150594b6851716aa2949ce"
+  "entrySha256": "5669dce245f4ca9a5074643710cb00eb478c3b78bc3f7393c8129b85f2011ca4"
 }

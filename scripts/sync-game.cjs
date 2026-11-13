@@ -12,7 +12,7 @@ const dirty=git('status','--porcelain','--','js','css','data','index.html');
 if(dirty&&!process.argv.includes('--allow-dirty'))throw Error('遊戲的 js／css／data／index.html 有未提交的修改；來源紀錄會對不上 '+commit.slice(0,7)+'。請先提交，或加上 --allow-dirty。\n'+dirty);
 const version=JSON.parse(fs.readFileSync(path.join(game,'data/preview-version.json'),'utf8')).version;
 const env={...process.env,EMBERWILD_GAME_ROOT:game,EMBERWILD_GAME_COMMIT:commit};
-const steps=['sync-preview-editor-contract.cjs','sync-wishing-lake.cjs','sync-prologue.cjs','sync-incremental-editing.cjs','build-online-runtime.cjs','build-v2-core.cjs','build-v2-assets.cjs','build-online.cjs'];
+const steps=['sync-preview-editor-contract.cjs','sync-wishing-lake.cjs','sync-prologue.cjs','sync-tutorials.cjs','sync-incremental-editing.cjs','build-online-runtime.cjs','build-v2-core.cjs','build-v2-assets.cjs','build-online.cjs'];
 console.log(`同步遊戲 ${version}（${commit.slice(0,7)}）`);
 for(const step of steps){
  process.stdout.write('  '+step+' … ');
