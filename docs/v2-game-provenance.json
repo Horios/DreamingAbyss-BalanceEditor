@@ -1,5 +1,5 @@
 {
-  "gameCommit": "12acf07bba231d02d231ff8afcb67c0f21e5bdb7",
+  "gameCommit": "6b7283ceeb8cff0b8c4cf5fb7ef9d75899b7af0d",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -79,7 +79,7 @@
     },
     {
       "path": "js/character/starter-pack.js",
-      "sha256": "216f1af90261db57ada8742a1d61b59bd2679441d9a8a0780e9270f2b990f174"
+      "sha256": "98015d0102befb8f11e4f154c2cdfc898a9ad48013a5ae21d5dba57d619b4c2a"
     },
     {
       "path": "js/character/team-model.js",
@@ -323,7 +323,7 @@
     },
     {
       "path": "js/ui/battle-effects.js",
-      "sha256": "dd49fbe26f679b5b0c46f7ca03730673314e8f7b81b5a551eaa78be393ee2c55"
+      "sha256": "005e794ab6d8c81537f0a2b65e473f819f398c5b7a3c227a7594fbf7911b7cf1"
     },
     {
       "path": "js/ui/battle-summary.js",
@@ -539,7 +539,7 @@
     },
     {
       "path": "css/battle-effects.css",
-      "sha256": "432aef86ac8e253d84e678ee1a6c854eadfa698c6a2b2a16f76a1fa150eb3640"
+      "sha256": "af7b9a1bcd7a3b18745e7d3d398478054377436a36747b193ce7fbc224a35380"
     },
     {
       "path": "css/battle-journal-controls.css",
@@ -859,11 +859,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "104b3b76eda51b7a415ad3a0ba22538c0555561ffb7e1b46e237ea91dc914366"
+      "sha256": "c2f39bffb39ef6c1288644e104a378ef9b15fdeb5a6c6ffa76a441736e564539"
     },
     {
       "path": "index.html",
-      "sha256": "d1cedfe07002bf89229fcb4cb17d1118cd61dbc21db714f2884d4f2579e918b5"
+      "sha256": "634bdb746862c7d36fd189265702ebf902627ccee69e355bf36c6a08aedcf40e"
     }
   ],
   "gameBridgeSha256": "144a5bd22305e343c72a0a52a568ad4eddea3898232d40e2cb617b705449640e",

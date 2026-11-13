@@ -15228,7 +15228,7 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
 
 isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;__EMBERWILD_NAVIGATION_DRAGGING=globalThis.__EMBERWILD_NAVIGATION_DRAGGING??__EMBERWILD_NAVIGATION_DRAGGING;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;
 
-/* js/character/starter-pack.js?v=20261113-v0136-prologue2 */
+/* js/character/starter-pack.js?v=20261113-v0138-prologue4 */
 (function starterModule(){
   const clone=value=>JSON.parse(JSON.stringify(value));
   const SLOT_BY_POSITION=[0];
@@ -15654,8 +15654,9 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
     hero.equipped=[null,null,null,null,null];
     for(const [position,slot] of [0,1,2,3,3].entries()){
       const entry=defaultStarterEntry(job,slot,position);
-      // Prologue creation: the second accessory position stays empty; the goddess hands over the charm (the story reward) with the starter weapon.
-      if(options.prologue&&position===4)continue;
+      // Prologue creation: no weapon and no second accessory. The goddess hands over the starter weapon and the charm (the story
+      // reward) in the gear lesson, so the player never holds an old and a new weapon at the same time.
+      if(options.prologue&&(position===0||position===4))continue;
       const g=createStarterGear(job,position,{...entry,baseAttack:undefined});
       delete g.starterPack;g.affix=[];
       hero.bag.push(g);hero.equipped[position]=g.id;
@@ -20691,7 +20692,7 @@ equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSu
 
 __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;querySelector=globalThis.querySelector??querySelector;classList=globalThis.classList??classList;querySelectorAll=globalThis.querySelectorAll??querySelectorAll;children=globalThis.children??children;insertBefore=globalThis.insertBefore??insertBefore;
 
-/* js/ui/battle-effects.js?v=20261112-v0134-numbers10 */
+/* js/ui/battle-effects.js?v=20261113-v0138-numbers11 */
 /* Read-only presentation of the existing live timeline. No timers schedule combat.
    Nested scopes checkpoint actual HP/shield/status writes exactly once, including
    heals and procs inside damage resolvers. Offline events never open a frame. */
@@ -20884,11 +20885,13 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   element.dataset.caption=event.kind==='absorb'?'吸收':event.kind==='shield'?'護盾':'';
   const duration=simple?600:900;
   element.style.setProperty('--number-time',duration+'ms');element.style.setProperty('--number-lane',lane);
+  // The number leaves the card upwards: it travels most of the card's height from the centre before it is gone.
+  element.style.setProperty('--number-rise',Math.max(24,Math.round((node.offsetHeight||64)*.8))+'px');
   layer.append(element);
-  // Measure the rendered text, so even a single digit spans at least half a card.
+  // Measure the rendered text and size it against the card. Ordinary numbers are about 30% smaller than a critical hit, which keeps the large size.
   element.style.fontSize='100px';
   const width=element.offsetWidth||100;
-  const ratio=event.critical?.64:event.kind==='dot'?.52:.56;
+  const ratio=event.critical?.64:event.kind==='dot'?.36:.39;
   // Include the card's reserved scrollbar gutter in its visible width.
   const size=100*node.offsetWidth*ratio/width;
   element.style.fontSize=size+'px';

@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "12acf07bba231d02d231ff8afcb67c0f21e5bdb7",
+  "sourceCommit": "6b7283ceeb8cff0b8c4cf5fb7ef9d75899b7af0d",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -311,8 +311,8 @@
       "sha256": "9b876d8f2ff16449d1c124e6d58691bd71c68da76f5a283dc9d8ea602a06584d"
     },
     {
-      "path": "js/character/starter-pack.js?v=20261113-v0136-prologue2",
-      "sha256": "216f1af90261db57ada8742a1d61b59bd2679441d9a8a0780e9270f2b990f174"
+      "path": "js/character/starter-pack.js?v=20261113-v0138-prologue4",
+      "sha256": "98015d0102befb8f11e4f154c2cdfc898a9ad48013a5ae21d5dba57d619b4c2a"
     },
     {
       "path": "js/ui/text-rarity-runtime.js",
@@ -467,8 +467,8 @@
       "sha256": "ad1a4e5bc2b940d97982bbabd562df726e10020e9e91c8c6f788ae7e4e370449"
     },
     {
-      "path": "js/ui/battle-effects.js?v=20261112-v0134-numbers10",
-      "sha256": "dd49fbe26f679b5b0c46f7ca03730673314e8f7b81b5a551eaa78be393ee2c55"
+      "path": "js/ui/battle-effects.js?v=20261113-v0138-numbers11",
+      "sha256": "005e794ab6d8c81537f0a2b65e473f819f398c5b7a3c227a7594fbf7911b7cf1"
     },
     {
       "path": "js/world/wishing-lake.js?v=20261104-v0062-bottom1",
