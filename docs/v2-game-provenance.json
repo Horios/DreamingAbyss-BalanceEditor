@@ -1,5 +1,5 @@
 {
-  "gameCommit": "a4343119d6e2334227fbac55cd8e81e20d38664b",
+  "gameCommit": "9b63d7f4236e27aa21ffbe47674c857b1758d7fc",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -859,7 +859,7 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "4fc820a3e310eeb354bf651f861d5df297f6190cb4f45c4cdf88d913fca86780"
+      "sha256": "63db5d5f2959e8cf8166a26953c2aeb6adc730041d7bfacd497fbbc23f639b3f"
     },
     {
       "path": "index.html",
