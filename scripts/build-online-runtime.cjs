@@ -17,7 +17,8 @@ const properties=new Set();
 for(const s of scripts)for(const m of s.code.matchAll(/(?:globalThis|root|window)\.([A-Za-z_$][\w$]*)/g))properties.add(m[1]);
 const harness=fs.readFileSync(path.join(game,'tests/headless-runtime.cjs'),'utf8');
 const element=harness.slice(harness.indexOf('class Element'),harness.indexOf('function loadRuntime'));
-const reserved=new Set(['window','self','globalThis','document','location','navigator','console','crypto','Date','addEventListener','removeEventListener']);
+// Every name the prelude below declares itself; a game script reading one through globalThis must not add a second declaration.
+const reserved=new Set(['window','self','globalThis','document','location','navigator','console','crypto','Date','addEventListener','removeEventListener','Element','elements','values','node','localStorage','sessionStorage','HTMLElement','HTMLDialogElement','HTMLInputElement','HTMLSelectElement','HTMLTextAreaElement','MutationObserver','ResizeObserver','seq','setTimeout','clearTimeout','setInterval','clearInterval','requestAnimationFrame','cancelAnimationFrame','queueMicrotask','matchMedia','getComputedStyle','performance','innerWidth','innerHeight','scrollX','scrollY','alert','confirm','prompt']);
 const props=[...properties].filter(n=>!reserved.has(n));
 const prelude=`
  const globalThis={},window=globalThis,self=globalThis;
