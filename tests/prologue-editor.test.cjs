@@ -20,7 +20,7 @@ test('the embedded story contract is the game file and the section is in the nav
 test('all eight scenes render their lines, system events are shown as fixed, sources are marked',()=>{
  const r=editor(),q=r.E.quest();
  for(let n=1;n<=8;n++){r.E.open(n);const html=r.html();assert.match(html,new RegExp('data-pl-scene="'+n+'" class="primary"'));for(const s of q.stages.filter(s=>s.prologue.scene===n)){assert(html.includes('data-stage="'+s.id+'"'),s.id);for(const l of [...s.dialogue,...s.prologue.after])assert(html.includes('>'+l.text.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea>'),l.text);}}
- r.E.open(1);let html=r.html();assert.match(html,/系統事件：角色命名（固定）/);assert.match(html,/開發者原文 3 句/);assert.match(html,/prologue-line-original/);assert.match(html,/prologue-line-draft/);
+ r.E.open(1);let html=r.html();assert.match(html,/系統事件：角色命名（固定）/);assert.match(html,/開發者原文 14 句/);assert.match(html,/prologue-line-original/);assert.match(html,/prologue-line-draft/);
  assert.doesNotMatch(html,/data-pl="[^"]*&quot;(action|next|id|scene)&quot;\]"/,'no control edits a system binding');
  r.E.open(3);html=r.html();assert.match(html,/系統事件：選擇初始職業（固定）/);for(const c of published.classes)assert(html.includes('<b>'+c.name+'</b>'),c.name);
  r.E.open(4);assert.match(r.html(),/系統事件：發放並穿戴新手裝備（固定）/);
@@ -31,7 +31,7 @@ test('all eight scenes render their lines, system events are shown as fixed, sou
 
 test('editing, adding, deleting and reordering text exports a document the game contract accepts',()=>{
  const r=editor(),creation=stageIndex(r,'creation'),calling=stageIndex(r,'calling'),skills=stageIndex(r,'skills');r.E.open(1);
- r.E.set(['stages',creation,'dialogue',0,'text'],'改寫的開場旁白。');r.E.set(['stages',creation,'dialogue',3,'speaker'],'創世女神');r.E.set(['stages',creation,'dialogue',4,'source'],'original');
+ r.E.set(['stages',creation,'dialogue',0,'text'],'改寫的開場旁白。');r.E.set(['stages',creation,'dialogue',9,'speaker'],'創世女神');r.E.set(['stages',creation,'dialogue',17,'source'],'original');
  r.E.addLine(['stages',creation,'dialogue'],{text:'新增的一句。'});const n=r.E.quest().stages[creation].dialogue.length;r.E.moveLine(['stages',creation,'dialogue'],n-1,-1);r.E.removeLine(['stages',creation,'dialogue'],1);
  r.E.set(['stages',calling,'prologue','options',0,'text'],'劍士');r.E.set(['stages',calling,'prologue','hint'],'新的職業提示');r.E.set(['stages',skills,'prologue','steps'],['第一步','第二步']);r.E.set(['stages',skills,'name'],'技能練習');
  r.E.set(['prologue','scenes',0,'name'],'造物之初');r.E.set(['prologue','chapter','title'],'第一章：新標題');r.E.set(['prologue','helper','name'],'光之助手');r.E.set(['prologue','ui','continue'],'往下');r.E.addLine(['prologue','chapter','lines'],{kind:'narrator',speaker:'旁白',text:'多一句轉場。'});

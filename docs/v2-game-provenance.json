@@ -1,5 +1,5 @@
 {
-  "gameCommit": "93d7e891baafdc013abcb3005959f7e8ead15b46",
+  "gameCommit": "a4343119d6e2334227fbac55cd8e81e20d38664b",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -787,7 +787,7 @@
     },
     {
       "path": "data/balance/manifest.json",
-      "sha256": "cdae91d7ebd068eb938ae6b65fbfbc1706d22738d7477599e7c689f1e2393382"
+      "sha256": "c2db8e2d0e5af8a40e96762a6bde2bfa26173a36ca4863d0f588aa62b7168a7c"
     },
     {
       "path": "data/balance/meta/balance-settings.json",
@@ -827,7 +827,7 @@
     },
     {
       "path": "data/balance/systems/story.json",
-      "sha256": "a2712f79b5aa71fcdb37b41d54f7377b8f74d3c2bfaf5eb0e03de3323a464ebc"
+      "sha256": "7a97704f26936dbd1a06fef5e0ebd7285f791e79e7d5a1a7295d0be890ae6868"
     },
     {
       "path": "data/balance/systems/wishing-lake.json",
@@ -851,7 +851,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "6fa17bae8394ffb8438035b4aa1dba35a6ad8008f98cc195e0dbea0ac0e4948e"
+      "sha256": "f7507d9992bab4703711dd684af437dfdeba578af08e6933bde30edac341d3d3"
     },
     {
       "path": "data/build.json",
@@ -859,7 +859,7 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "a83a289f387aab6ba03c28802ac938bfb527f38285278a860f88116c1109b6aa"
+      "sha256": "4fc820a3e310eeb354bf651f861d5df297f6190cb4f45c4cdf88d913fca86780"
     },
     {
       "path": "index.html",
