@@ -46,7 +46,7 @@ test('autosave writes only changed modules and a reload restores the draft from 
  r.exec("document.getElementById('cacheBtn')?.onclick?.()");
  const first=r.run('globalThis.__EMBERWILD_WORKSPACE_MODULES');assert(first&&first.written>0);
  r.exec("currentSection='world';data.balanceSettings.monsters.catalog[0].hpMultiplier=2.5;markDirty('改');document.getElementById('cacheBtn').onclick();");
- assert.deepEqual(r.run('globalThis.__EMBERWILD_WORKSPACE_MODULES'),{written:1,total:35});
+ assert.deepEqual(r.run('globalThis.__EMBERWILD_WORKSPACE_MODULES'),{written:1,total:36});
  const saved=Object.fromEntries(r.values),box=JSON.parse(saved['emberwild-balance-workspace-v2']);
  assert.equal(box.moduleFormat,1);assert.equal(box.data,undefined,'the index no longer carries a full copy');
  const again=loadRuntime(root,'balance-editor.html',saved);

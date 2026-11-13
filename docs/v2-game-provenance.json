@@ -1,5 +1,5 @@
 {
-  "gameCommit": "b0359b5702e61ded8f53b122bc85842c5f2a1ce3",
+  "gameCommit": "ebab426d39ce7c3ad9147495eb6072b2f8c926ed",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -331,7 +331,7 @@
     },
     {
       "path": "js/story/tutorial-runtime.js",
-      "sha256": "511bd4ac1129c797ec26439660dfb0fb175d50e778204c723fa386a509b133b6"
+      "sha256": "022e69f94d4488321158f12a0f368b7f3a3744dde8be895c16621b48a65b2379"
     },
     {
       "path": "js/ui/battle-effects.js",
@@ -879,11 +879,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "f6f14b5d3e65a4a2c8374369a6a4e3fe49901fc743afae9f4b505cfc79431c2b"
+      "sha256": "3953752aaccff9ae1fd9ffb01ba7edeb614f9c380db0db026bc89985f178633d"
     },
     {
       "path": "index.html",
-      "sha256": "894f0f98109224ba5ee2a140e68acd2c0a5c6168e08ae35d89325a878116015d"
+      "sha256": "9145a31e6b48f4d283c8a42e7d1e96a79599300c69bf1ac4599379fec2b432ce"
     }
   ],
   "gameBridgeSha256": "6638faf7764987a9f1c30cc57718c4f832b9729c2f0ff93493e41b4e9675d7bd",

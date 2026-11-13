@@ -23270,7 +23270,7 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;storyTextOptionsView=gl
 
 EmberwildStory=globalThis.EmberwildStory??EmberwildStory;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_TITLE=globalThis.__EMBERWILD_TITLE??__EMBERWILD_TITLE;__EMBERWILD_STARTER_PACK=globalThis.__EMBERWILD_STARTER_PACK??__EMBERWILD_STARTER_PACK;__EMBERWILD_PROLOGUE_HELPER=globalThis.__EMBERWILD_PROLOGUE_HELPER??__EMBERWILD_PROLOGUE_HELPER;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;EmberwildStoryWindow=globalThis.EmberwildStoryWindow??EmberwildStoryWindow;prologueNext=globalThis.prologueNext??prologueNext;prologueConfirmName=globalThis.prologueConfirmName??prologueConfirmName;prologuePickClass=globalThis.prologuePickClass??prologuePickClass;prologueConfirmClass=globalThis.prologueConfirmClass??prologueConfirmClass;prologueAcceptHelper=globalThis.prologueAcceptHelper??prologueAcceptHelper;prologueStartBattle=globalThis.prologueStartBattle??prologueStartBattle;prologueOpenTask=globalThis.prologueOpenTask??prologueOpenTask;prologueReturn=globalThis.prologueReturn??prologueReturn;prologueEnter=globalThis.prologueEnter??prologueEnter;
 
-/* js/story/tutorial-runtime.js?v=20261113-v0144-tutorial1 */
+/* js/story/tutorial-runtime.js?v=20261113-v0145-tutorial2 */
 /* Tutorial manager. Plays the modules of the `tutorials` balance data (rules: js/story/tutorial-model.js) on top of the
    ordinary game screens: it highlights a control, explains it and waits for the game's own handler to report success.
    It never changes values, items, costs or unlocks. Player progress lives in party.tutorials, apart from the story. */
@@ -23318,7 +23318,10 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;__EMBERWILD_SKILLS=glob
  function ensure(){if(!party)return null;if(!party.tutorials){if(creating)party.tutorials=fresh();else migrate();}return party.tutorials;}
  const rec=id=>{const t=ensure();return t?(t.records[id]??={triggered:false,completed:false,skipped:false,step:-1}):null;};
  const peek=id=>party?.tutorials?.records?.[id]||null;
- const persist=()=>{try{return save()!==false;}catch{return false;}};
+ // Tutorial progress is saved on its own tick, never inside the render or the game action that changed it: the action's
+ // own transaction and save stay exactly as they were (one save per action), and a rolled-back action keeps nothing.
+ let persistQueued=false;
+ const persist=()=>{if(persistQueued)return true;persistQueued=true;setTimeout(()=>{persistQueued=false;if(party&&state&&!globalThis.EmberwildOffline?.busy){try{save();}catch{}}else if(party)setTimeout(persist,1000);},0);return true;};
 
  // ---------- conditions ----------
  const hero=()=>party?.members?.[0]||null;
@@ -23677,7 +23680,7 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;__EMBERWILD_SKILLS=glob
  draw();
 })();
 
-EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;tutorialReviewView=globalThis.tutorialReviewView??tutorialReviewView;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;querySelector=globalThis.querySelector??querySelector;running=globalThis.running??running;CSS=globalThis.CSS??CSS;tutorialControl=globalThis.tutorialControl??tutorialControl;tutorialNotice=globalThis.tutorialNotice??tutorialNotice;replayTutorial=globalThis.replayTutorial??replayTutorial;toggleTutorialReview=globalThis.toggleTutorialReview??toggleTutorialReview;__EMBERWILD_TUTORIAL=globalThis.__EMBERWILD_TUTORIAL??__EMBERWILD_TUTORIAL;
+EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;tutorialReviewView=globalThis.tutorialReviewView??tutorialReviewView;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;querySelector=globalThis.querySelector??querySelector;running=globalThis.running??running;CSS=globalThis.CSS??CSS;tutorialControl=globalThis.tutorialControl??tutorialControl;tutorialNotice=globalThis.tutorialNotice??tutorialNotice;replayTutorial=globalThis.replayTutorial??replayTutorial;toggleTutorialReview=globalThis.toggleTutorialReview??toggleTutorialReview;__EMBERWILD_TUTORIAL=globalThis.__EMBERWILD_TUTORIAL??__EMBERWILD_TUTORIAL;
 
 /* js/balance/apply-guard.js?v=20261113-v0137-prologue3 */
 /* Loaded last. A balance update that is turned down (the team is exploring or fighting) must change nothing.

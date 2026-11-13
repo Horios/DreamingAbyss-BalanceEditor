@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "b0359b5702e61ded8f53b122bc85842c5f2a1ce3",
+  "sourceCommit": "ebab426d39ce7c3ad9147495eb6072b2f8c926ed",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -523,8 +523,8 @@
       "sha256": "593616cf69f349c3f02742051e630f2c1d95fc346c1c1bd0c9b76f0956f4330f"
     },
     {
-      "path": "js/story/tutorial-runtime.js?v=20261113-v0144-tutorial1",
-      "sha256": "511bd4ac1129c797ec26439660dfb0fb175d50e778204c723fa386a509b133b6"
+      "path": "js/story/tutorial-runtime.js?v=20261113-v0145-tutorial2",
+      "sha256": "022e69f94d4488321158f12a0f368b7f3a3744dde8be895c16621b48a65b2379"
     },
     {
       "path": "js/balance/apply-guard.js?v=20261113-v0137-prologue3",
