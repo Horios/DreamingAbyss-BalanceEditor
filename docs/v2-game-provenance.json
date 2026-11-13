@@ -1,5 +1,5 @@
 {
-  "gameCommit": "6b48df20adeb5b7229a34664b41484ef9f501772",
+  "gameCommit": "c3448455ecbcc9717aac1fca249449f889103921",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -311,7 +311,7 @@
     },
     {
       "path": "js/story/prologue-runtime.js",
-      "sha256": "a2563af784e59e11d83a6eac1dc43d51b17d1be08b01b97400f0a04d060d9b59"
+      "sha256": "593616cf69f349c3f02742051e630f2c1d95fc346c1c1bd0c9b76f0956f4330f"
     },
     {
       "path": "js/story/story-model.js",
@@ -639,7 +639,7 @@
     },
     {
       "path": "css/prologue.css",
-      "sha256": "e15fbdf516179662319caad5d7d9863d885d7cde049ef974ad3c86e57e911141"
+      "sha256": "7fd5ed4a9a166012295e63ce68016fc700de259622a16fa7ef6a4d500b39877d"
     },
     {
       "path": "css/quest-design.css",
@@ -863,11 +863,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "e48df3daab7267bb0c8975e1435954a0d8905f99b13f05744ce336bf6812fef2"
+      "sha256": "1a390b2216008906a4497607369e34a79e463820a28f91fc0a2f4f806246b4d6"
     },
     {
       "path": "index.html",
-      "sha256": "1cda2417ffa010685b69bd48e1fd1fb0aa90e7c2f526b7224fd46d910a1d6318"
+      "sha256": "7ebe18fc92c1a8dcc8dbcf1341d8b90fd25f6425a96786c9827464ea23541e5d"
     }
   ],
   "gameBridgeSha256": "144a5bd22305e343c72a0a52a568ad4eddea3898232d40e2cb617b705449640e",

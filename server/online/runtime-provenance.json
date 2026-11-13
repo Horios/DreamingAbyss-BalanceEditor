@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "6b48df20adeb5b7229a34664b41484ef9f501772",
+  "sourceCommit": "c3448455ecbcc9717aac1fca249449f889103921",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -511,12 +511,12 @@
       "sha256": "6b155f18ed6898508c4b230adf8d77d9f22affdcacc28ecfda5c81d52e014524"
     },
     {
-      "path": "js/story/story-window.js?v=20261113-v0142-window1",
+      "path": "js/story/story-window.js?v=20261113-v0143-spot1",
       "sha256": "e24ba8a34e72c930e0bcf89bd083fabc478a94d0acd4182eac63003321a88d26"
     },
     {
-      "path": "js/story/prologue-runtime.js?v=20261113-v0142-window1",
-      "sha256": "a2563af784e59e11d83a6eac1dc43d51b17d1be08b01b97400f0a04d060d9b59"
+      "path": "js/story/prologue-runtime.js?v=20261113-v0143-spot1",
+      "sha256": "593616cf69f349c3f02742051e630f2c1d95fc346c1c1bd0c9b76f0956f4330f"
     },
     {
       "path": "js/balance/apply-guard.js?v=20261113-v0137-prologue3",
