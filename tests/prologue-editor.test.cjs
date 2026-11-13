@@ -23,7 +23,8 @@ test('all eight scenes render their lines, system events are shown as fixed, sou
  r.E.open(1);let html=r.html();assert.match(html,/系統事件：角色命名（固定）/);assert.match(html,/開發者原文 3 句/);assert.match(html,/prologue-line-original/);assert.match(html,/prologue-line-draft/);
  assert.doesNotMatch(html,/data-pl="[^"]*&quot;(action|next|id|scene)&quot;\]"/,'no control edits a system binding');
  r.E.open(3);html=r.html();assert.match(html,/系統事件：選擇初始職業（固定）/);for(const c of published.classes)assert(html.includes('<b>'+c.name+'</b>'),c.name);
- r.E.open(5);assert.match(r.html(),/系統事件：訓練戰鬥（戰鬥練習，2 個訓練對象）（固定）/);
+ r.E.open(4);assert.match(r.html(),/系統事件：發放並穿戴新手裝備（固定）/);
+ r.E.open(6);assert.match(r.html(),/系統事件：訓練戰鬥（戰鬥練習，2 個訓練對象）（固定）/);
  assert.match(r.html(),/播放順序預覽（\d+ 句）/);assert.match(r.html(),/〔系統事件〕角色命名/);assert.match(r.html(),/第一章：斷絕的商路/);
  assert.deepEqual(r.errors,[]);
 });
@@ -54,5 +55,5 @@ test('system bindings cannot be changed here, and a broken prologue blocks valid
  // The general story designer can still restructure the quest; the shared contract then reports it and validation fails.
  r.run("__EMBERWILD_STORY_EDITOR.select('prologue');const q=__EMBERWILD_STORY_EDITOR.design().quests.find(q=>q.prologue),i=q.stages.findIndex(s=>s.id==='skills');q.stages[i-1].next=q.stages[i].next;q.stages.splice(i,1);");
  assert.match(r.E.issues().join('\n'),/系統事件必須各出現一次並依序排列/);assert.match(r.run('validateData()').join('\n'),/序章：系統事件必須各出現一次/);
- r.E.open(4);assert.match(r.html(),/序章資料有 \d+ 個問題，修正前無法發布/);
+ r.E.open(5);assert.match(r.html(),/序章資料有 \d+ 個問題，修正前無法發布/);
 });

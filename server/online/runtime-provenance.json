@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "6b7283ceeb8cff0b8c4cf5fb7ef9d75899b7af0d",
+  "sourceCommit": "93d7e891baafdc013abcb3005959f7e8ead15b46",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -19,8 +19,8 @@
       "sha256": "cafee74e80833c7f6555ba236810892ff062c7e07f754f08b72bfead39bd9368"
     },
     {
-      "path": "js/story/story-model.js?v=20261113-v0136-prologue2",
-      "sha256": "6547050df884ba6d53c65df060c8afd142ce69c14264700ce536c00dc9fc6020"
+      "path": "js/story/story-model.js?v=20261113-v0139-prologue5",
+      "sha256": "d9ce42f64e32c24bb65a691b023007bb993c31afb49872cd4775c276a1f89187"
     },
     {
       "path": "js/skills/skill-system-model.js",
