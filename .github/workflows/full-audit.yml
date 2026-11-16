@@ -1,5 +1,5 @@
 name: Full game and editor audit
-run-name: Full audit · ${{ inputs.game_commit || '618868a28e7ea8a5e99893e25d837361b9c23904' }}
+run-name: Full audit · ${{ inputs.game_commit || '18c682984a5a426dc77713c3860894b8ef47f942' }}
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
       game_commit:
         description: Exact game commit to synchronize and test
         required: true
-        default: '618868a28e7ea8a5e99893e25d837361b9c23904'
+        default: '18c682984a5a426dc77713c3860894b8ef47f942'
         type: string
 
 permissions:
@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GAME_COMMIT: ${{ inputs.game_commit || '618868a28e7ea8a5e99893e25d837361b9c23904' }}
+  GAME_COMMIT: ${{ inputs.game_commit || '18c682984a5a426dc77713c3860894b8ef47f942' }}
 
 jobs:
   prepare:
