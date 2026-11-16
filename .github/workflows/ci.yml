@@ -76,6 +76,12 @@ jobs:
       - name: Shared models, validator provenance and data round-trip
         working-directory: emberwild-balance
         run: node --test tests/preview-compatibility.test.cjs
+      # Every field of the game's balance document has a row in docs/traceability-matrix.json (module, pages,
+      # what the workbench, the release validator and the game do with an edit). A new or moved field fails here
+      # until the matrix is regenerated with node scripts/traceability.cjs.
+      - name: Field-level traceability matrix covers the game data under test
+        working-directory: emberwild-balance
+        run: node scripts/traceability.cjs --check
       - name: Explain a contract mismatch
         if: failure()
         run: |

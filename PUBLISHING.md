@@ -57,6 +57,78 @@
 - 發布：文件含 `tutorials` 時，目標分支的 `balance-document.js` 必須公布 `tutorialsVersion:1`，否則拒絕發布。
 - 測試：`tests/tutorial-editor.test.cjs`（headless）、`tests/tutorial-preview.browser.cjs`（V2 預覽中實際測試）。
 
+## 發布驗收流程（issue #2）
+
+發布分成六個層級，各自有獨立的證據；前一層通過不代表後一層通過，任何一層未通過時畫面與收據都標示該層級，不顯示為發布成功。
+
+| 層級 | 由誰判定 | 通過的依據 |
+|---|---|---|
+| 編輯 | 工作台 | 欄位在 `docs/traceability-matrix.json` 的狀態為 `effective`；`derived` 的欄位要改它的來源欄位 |
+| 驗證 | 工作台＋後端 | 增量驗證與完整遊戲驗證器都通過；錯誤標示模組、記錄與欄位 |
+| 提交 | 後端 | 同一個 commit 寫入異動模組、manifest、`data/balance.json` 與版本號，提交後重新讀取核對 |
+| CI | 遊戲 Repository 的 Actions | `Regression gate` 通過（含 `tests/balance-effects.test.cjs`） |
+| 部署、載入 | 後端「檢查部署狀態」、遊戲的 `scripts/verify-deployment.cjs` | `build.json` 的分支、commit、資料 blob 相符，且網站實際提供的 `data/balance.json` 就是該 blob |
+| 生效 | 擁有者在遊戲內確認 | 自動化只能證明遊戲讀到新資料，實際遊玩結果需人工確認 |
+
+可重複的檢查指令：
+
+```bash
+node scripts/check-game-sync.cjs --strict
+```
+
+```bash
+node scripts/traceability.cjs --check
+```
+
+```bash
+npm test
+```
+
+```bash
+bash scripts/build.sh && node scripts/validate-artifact.mjs
+```
+
+### 欄位級追溯矩陣
+
+`node scripts/traceability.cjs` 讀取遊戲的 `data/balance.json`，把每個欄位樣式（陣列索引以 `*` 表示）的第一筆資料改一次值，依序交給工作台（匯入→匯出）、發布驗證器（canonicalize）與真正的遊戲（`applyBalanceConfig`→`exportableBalance`），記錄三個程式是否保留編輯值。輸出 `docs/traceability-matrix.json`（完整資料：模組、V2 頁面與區段、欄位型別、嘗試的編輯、三個程式的結果、提到該欄位的遊戲程式檔、狀態）與 `docs/traceability-matrix.md`（各模組統計與需要注意的欄位）。所有編輯只在記憶體中進行，不寫入任何平衡資料。
+
+狀態：`effective`（三個程式都保留）、`normalized`（保留但值被正規化）、`constrained`（列舉、ID 或引用，驗證器不接受任意值）、`derived`（由其他欄位衍生，修改來源欄位才會生效）、`fixed-by-game`（遊戲程式固定此值）、`read-only`（`meta/reference`、`meta/notes`）、`no-value`（目前為空），以及尚未說明的遺失：`ignored-by-game`、`dropped-by-editor`、`dropped-by-validator`。
+
+`docs/traceability-known.json` 記錄盲目探測無法得知的事：範圍較窄的欄位要嘗試的有效值（`edits`）、衍生關係與來源（`derived`）、遊戲固定值（`fixed`）、沒有第二個有效值的列舉（`constrained`），每一項都附原因。只需要重新探測少數欄位時用 `--only <regex>`；只修改說明時用 `--reclassify`，兩者都沿用既有結果。
+
+遊戲新增、移除或搬移欄位後，CI 的 `game-contract` 以 `--check` 比對矩陣與目前資料，缺少紀錄時失敗並列出欄位；重新執行 `node scripts/traceability.cjs`（完整一次約 40 分鐘）並檢查新欄位的狀態後提交。`tests/traceability.test.cjs` 要求每個 `ignored-by-game`、`dropped-by-*` 的欄位都在 `docs/traceability-known.json` 有說明，未說明的遺失會讓測試失敗。
+
+### 只寫入有實際差異的模組
+
+線上的模組檔是未正規化的原始資料，工作台匯出的是正規化後的文件，兩者文字不同但遊戲載入後數值相同的情況很常見（重新產生的備註、明確寫出的預設值、技能秒數投影）。後端以同一個遊戲驗證程式載入線上版本與候選資料：
+
+- 兩邊載入結果完全相同時拒絕發布（沒有有效設定差異），即使檔案文字不同。
+- 載入結果相同的模組保留線上原檔，只寫入有實際差異的模組。保留前會把「線上原檔＋有差異的模組」重新整合並再載入一次，結果必須與完整候選資料完全相同才採用。
+- 若不相同（被保留的模組帶有其他模組依賴的格式遷移），所有文字不同的模組一併寫入，摘要的 `formatOnly` 與確認畫面會列出哪些模組沒有數值差異。
+
+### 他人已發布新版本時
+
+- 送出的模組都必須附上修改時依據的雜湊（`baseModules`）；缺少依據的模組在分支已前進時一律拒絕。
+- 送出的是完整文件時，只採用有附依據的模組，其餘模組保留新版本的內容，不會以舊文件覆寫他人的修改。
+- 合併後的完整文件仍經過遊戲驗證器；他人刪除了本次修改仍引用的資料時，以引用錯誤拒絕並列出記錄與欄位。
+
+### 契約不相容時停止
+
+- 目標分支的模組清單不是工作台認得的版本（schema、formatVersion、模組集合不同）時，讀取與發布都停止，不退回只寫整合檔的舊流程。
+- 目標分支的 `js/balance/balance-modules.js` 或 `js/balance/balance-document.js` 與工作台建置時記錄的 Git blob 不同時，測試版的發布與還原停止，訊息列出檔案並要求先同步工作台。讀取、比較與下載不受影響。正式版升級複製的是已在測試版驗證過的資料，不受此檢查限制。
+- 線上模組含有某個欄位、候選資料沒有，而且工作台內建的遊戲版本載入線上資料時也不會保留它：代表目標分支的遊戲認得工作台不認得的新欄位。這種刪除不會出現在差異摘要（兩邊載入後都沒有該欄位），所以發布在這裡停止並列出模組與欄位。`meta/reference` 與 `meta/notes` 由遊戲匯出時重新產生，不在此檢查範圍。
+- `check-game-sync.cjs` 比對三份來源紀錄的 commit、每個記錄檔案的 SHA-256，以及工作台自己的複本。只有資料檔或無關檔案變更時回報「落後」；程式檔不同時回報「來源不相容」並列出檔案。`--strict` 對兩者都失敗，`--json` 輸出完整結果。
+
+### 發布收據與回應遺失
+
+提交成功後回傳 `receipt`（`dreaming-abyss-release-receipt-v1`），確認畫面提供「下載發布收據」：目標分支、commit、父 commit、提交時間、版本說明、工作台驗證器來源 commit、異動模組與版本、欄位新增／修改／刪除數、資料修訂、資料版本、遊戲版本號、整合檔的 Git blob 與 SHA-256、各層級狀態，以及還原入口（父 commit）。「檢查部署狀態」會把 `build.json` 與網站 `data/balance.json` 的比對結果寫回收據的部署與載入層級；CI 與生效層級維持「未驗證」，由人工補上。
+
+提交請求沒有收到回應時（逾時、連線中斷），工作台不會重送，而是以摘要的基準 commit 與資料版本向 GitHub 查核（`outcome`）：仍停在基準 commit 為「未提交」；分支上找得到相同資料版本的 commit 為「已提交」；分支已被其他提交推進且找不到這次資料為「無法確認」。
+
+### 部署判定
+
+「檢查部署狀態」回傳三項獨立結果：`build.json`（分支、commit、資料 blob）、網站實際提供的 `data/balance.json`（重新計算 Git blob 後比對），以及部署工作的狀態。只有前兩項都相符才顯示部署成功；`build.json` 相符但資料檔不符時顯示「部署未完成」並標示載入層級；部署工作顯示完成但 `build.json` 不符時仍是「等待部署」。遊戲 Repository 的部署 workflow 另外以 `scripts/verify-deployment.cjs` 檢查模組清單與 `index.html` 引用的程式檔。
+
 ## 同步遊戲新版本
 
 遊戲資料或程式更新後，用一個指令完成全部同步步驟（內建資料與共用模型、許願湖、發布驗證器、V2 核心與遊戲預覽、線上包）：

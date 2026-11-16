@@ -10767,7 +10767,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
   try{
    if(!state.csrf){const r=await fetch('/api/session',{cache:'no-store',signal:controller?.signal});const v=await r.json();if(!r.ok)throw Error(v.error);state.csrf=v.csrf;state.capabilities=v.capabilities||{publishing:true};}
    const response=await fetch('/api/'+method,{method:'POST',headers:{'Content-Type':'application/json','X-Emberwild-CSRF':state.csrf},body:JSON.stringify(body),cache:'no-store',signal:controller?.signal}),result=await response.json();
-   if(!response.ok)throw Object.assign(Error(result.error||'API 失敗'),{status:response.status,issues:result.issues});return result;
+   if(!response.ok)throw Object.assign(Error(result.error||'API 失敗'),{status:response.status,issues:result.issues,layer:result.layer,conflicts:result.conflicts});return result;
   }catch(err){
    if(controller?.signal.aborted)err=Error('連線逾時，工作臺沒有收到完整回應。');
    if(method==='commit'&&!err.status)err.message+=' 發布結果尚未確認；請先取得線上版本核對，勿重複發布。';
@@ -10787,7 +10787,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
   state.busy=true;state.feedbackKind='busy';state.status=pending;showFeedback();
   const button=id&&document.getElementById(id);if(button?.tagName==='BUTTON')button.textContent='處理中…';
   try{await fn();if(state.status===pending)state.status=state.prepared?'發布摘要已建立。請檢查完整差異，再勾選確認並發布。':'操作已完成。';state.feedbackKind='success';}
-  catch(err){state.feedbackKind='error';state.status='操作未完成：'+err.message+(err.issues?.length?'\n'+err.issues.map(i=>[i.system,i.object,i.field,i.reason].join(' · ')).join('\n'):'');state.prepared=null;}
+  catch(err){state.feedbackKind='error';state.status='操作未完成：'+err.message+(err.issues?.length?'\n'+err.issues.map(i=>[i.system,i.object,i.field,i.reason].join(' · ')).join('\n'):'')+(err.layer?'\n失敗層級：'+err.layer:'');state.prepared=null;}
   finally{state.busy=false;document.getElementById('app')?.removeAttribute('aria-busy');render();}
  }
  function download(doc,name='emberwild-balance-backup.json'){downloadText(name,JSON.stringify(doc,null,2),'application/json;charset=utf-8');}
@@ -10798,7 +10798,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
    card('差異比較',diffHTML(state.comparison)||'<p>取得目標版本後比較。</p>')+
    card('發布至測試版','<label>版本說明<input id="releaseMessage" maxlength="300" placeholder="例如：調整採集材料售價與藥水成本" value="'+e(state.message)+'"></label><p>完整驗證 → 取得測試版 → 查看摘要 → 確認發布。</p><button id="releasePreview">建立測試版發布摘要</button><button id="releasePreBackup">發布前下載備份</button>')+
    '<div id="release-promote-panel"></div>'+ 
-   (prepared?card('發布前確認','<p>目標：'+(prepared.branch==='main'?'正式版':'測試版')+' · '+e(prepared.branch)+'</p><p>目前版本：'+e(prepared.currentVersion)+'<br>即將建立資料版本：'+e(prepared.nextVersion)+(prepared.previewVersion?'<br>遊戲測試版版本號：'+e(prepared.previewVersion.from)+' → '+e(prepared.previewVersion.to):'')+(prepared.layout==='modular'?'<br>資料格式：模組化（只寫入異動模組、manifest 與整合檔，同一個 commit）':'')+'（commit 於提交時建立）</p><p>'+e(prepared.message)+'</p>'+diffHTML(prepared.diff)+'<label><input type="checkbox" id="releaseConfirm">我已檢查完整差異與目標分支</label><div id="release-final-warning"></div><button id="releaseCommit">確認發布</button><button id="releaseCancel">取消</button>'):'')+
+   (prepared?card('發布前確認','<p>目標：'+(prepared.branch==='main'?'正式版':'測試版')+' · '+e(prepared.branch)+'</p><p>目前版本：'+e(prepared.currentVersion)+'<br>即將建立資料版本：'+e(prepared.nextVersion)+(prepared.previewVersion?'<br>遊戲測試版版本號：'+e(prepared.previewVersion.from)+' → '+e(prepared.previewVersion.to):'')+(prepared.layout==='modular'?'<br>資料格式：模組化（只寫入異動模組、manifest 與整合檔，同一個 commit）<br>寫入模組：'+e((prepared.modules||[]).map(m=>m.title+'（'+m.id+'）').join('、'))+(prepared.formatOnly?.length?'<br>其中 '+e(prepared.formatOnly.map(m=>m.title).join('、'))+' 沒有數值差異，因資料格式遷移必須與本次修改一併寫入':''):'')+'（commit 於提交時建立）</p><p>'+e(prepared.message)+'</p>'+diffHTML(prepared.diff)+'<label><input type="checkbox" id="releaseConfirm">我已檢查完整差異與目標分支</label><div id="release-final-warning"></div><button id="releaseCommit">確認發布</button><button id="releaseCancel">取消</button>'):'')+
    card('版本紀錄','<button id="releaseHistory">取得 '+e(state.target)+' 版本紀錄</button>'+ (state.history?.versions.map(v=>'<details><summary>'+e(v.date)+' · '+e(v.commit.slice(0,10))+' · '+e(v.message.split('\n')[0])+(v.current?' · 目前版本':'')+'</summary><p>'+e(v.branch)+'</p><div class="toolbar"><button data-release-version="'+v.commit+'" data-action="compare">'+(state.historyReference?'與歷史比較基準比較':'與線上目前版本比較')+'</button><button data-release-version="'+v.commit+'" data-action="local">與本地編輯比較</button><button data-release-version="'+v.commit+'" data-action="reference">設為歷史比較基準</button><button data-release-version="'+v.commit+'" data-action="changes">查看此版本修改摘要</button><button data-release-version="'+v.commit+'" data-action="load">載入至編輯器</button><button data-release-version="'+v.commit+'" data-action="download">下載 JSON</button><button data-release-version="'+v.commit+'" data-action="restore">還原至此版本</button></div></details>').join('')||'')+(state.history?.hasMore?'<button id="releaseMore">更多歷史版本</button>':''))+
    '';
   document.getElementById('releaseMessage').oninput=ev=>{state.message=ev.target.value;state.prepared=null;};
@@ -10823,9 +10823,22 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
   document.getElementById('releaseCommit')?.addEventListener('click',()=>action(async()=>{
    if(!document.getElementById('releaseConfirm').checked)throw Error('請先勾選確認完整發布摘要');
    const body={ticket:state.prepared.ticket,confirmed:true};if(state.prepared.branch==='main')body.productionConfirmation=document.getElementById('releaseProductionConfirm')?.value;
-   const out=await api('commit',body);state.status=out.message+'\ncommit：'+out.commit;state.lastCommit=out;state.prepared=null;try{state.snapshots[out.branch]=await api('snapshot',{branch:out.branch});__EMBERWILD_SET_ONLINE_BASELINE(state.snapshots[out.branch]);}catch(err){state.status+='\n資料已提交，但更新比較快照失敗：'+err.message+'。請重新取得線上版本，勿重複發布。';}
+   const summary=state.prepared;let out;
+   try{out=await api('commit',body);}
+   catch(err){
+    // No HTTP status: the request may have reached GitHub while its response was lost. Ask GitHub, never resubmit.
+    if(err.status||!summary?.currentVersion||!summary?.nextVersion)throw err;
+    let seen;try{seen=await api('outcome',{branch:summary.branch,baseCommit:summary.currentVersion,nextVersion:summary.nextVersion});}catch{throw err;}
+    if(!seen.committed)throw Object.assign(Error(err.message.replace(/ 發布結果尚未確認；請先取得線上版本核對，勿重複發布。$/,'')+' 已向 GitHub 查核：'+seen.message),{layer:'提交'});
+    out={commit:seen.commit,branch:seen.branch,committed:true,message:'工作臺沒有收到提交回應，但已向 GitHub 查核：'+seen.message,receipt:null};
+   }
+   state.status=out.message+'\ncommit：'+out.commit;state.lastCommit=out;state.receipt=out.receipt||null;state.prepared=null;try{state.snapshots[out.branch]=await api('snapshot',{branch:out.branch});__EMBERWILD_SET_ONLINE_BASELINE(state.snapshots[out.branch]);}catch(err){state.status+='\n資料已提交，但更新比較快照失敗：'+err.message+'。請重新取得線上版本，勿重複發布。';}
   }));
-  if(state.lastCommit){document.getElementById('releaseStatus').insertAdjacentHTML('afterend','<button id="releaseDeployment">檢查部署狀態</button><a target="_blank" rel="noopener" href="https://horios.github.io/DreamingAbyss/'+(state.lastCommit.branch==='main'?'':'preview/')+'">開啟'+(state.lastCommit.branch==='main'?'正式版':'測試版')+'</a>');document.getElementById('releaseDeployment').onclick=()=>action(async()=>{const out=await api('deployment',state.lastCommit);state.status=out.state+'\ncommit：'+out.commit;});}
+  if(state.lastCommit){document.getElementById('releaseStatus').insertAdjacentHTML('afterend','<button id="releaseDeployment">檢查部署狀態</button><a target="_blank" rel="noopener" href="https://horios.github.io/DreamingAbyss/'+(state.lastCommit.branch==='main'?'':'preview/')+'">開啟'+(state.lastCommit.branch==='main'?'正式版':'測試版')+'</a>');document.getElementById('releaseDeployment').onclick=()=>action(async()=>{const out=await api('deployment',{branch:state.lastCommit.branch,commit:state.lastCommit.commit}),c=out.checks||{};
+    state.status=out.state+'\ncommit：'+out.commit+(c.build?'\nbuild.json：'+c.build.state+(c.build.commit?'（'+String(c.build.commit).slice(0,10)+'）':''):'')+(c.data?'\n網站 data/balance.json：'+c.data.state:'')+(c.run?.url?'\n部署工作：'+c.run.url:'')+(out.layer?'\n尚未完成的層級：'+out.layer:'')+'\n遊戲內是否生效仍須實際開啟遊戲確認。';
+    if(state.receipt){const set=(layer,value,extra={})=>{const s=state.receipt.stages.find(x=>x.layer===layer);if(s)Object.assign(s,{state:value,checkedAt:new Date().toISOString()},extra);};
+     set('部署',c.build?.state==='相符'?'通過':out.state,{build:c.build||null,run:c.run||null});set('載入',c.data?.state==='相符'?'通過':c.data?.state==='不符'?'不符':'未驗證',{data:c.data||null,expectedBlob:c.expectedBlob||null});}});
+   if(state.receipt){document.getElementById('releaseDeployment').insertAdjacentHTML('afterend','<button id="releaseReceipt">下載發布收據</button>');document.getElementById('releaseReceipt').onclick=()=>downloadText('release-receipt-'+state.receipt.commit.slice(0,12)+'.json',JSON.stringify(state.receipt,null,2),'application/json;charset=utf-8');}}
   if(state.busy)document.querySelectorAll('#app button').forEach(b=>b.disabled=true);
  }
  render=function(...args){if(currentSection==='releases'){renderPage();globalThis.__EMBERWILD_RENDER_RELEASE_EXTRA?.();return;}return oldRender(...args);};

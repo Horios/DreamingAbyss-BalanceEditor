@@ -1,0 +1,113 @@
+{
+ "description": "欄位級追溯矩陣的補充說明：盲目探測無法得知的有效值、衍生關係與遊戲固定值。每一項都附原因；scripts/traceability.cjs 產生矩陣時套用，tests/traceability.test.cjs 檢查沒有未說明的遺失。",
+ "edits": {
+  "equipmentPowerSystem.prefixes.*.tierMax": 9,
+  "equipmentPowerSystem.suffixes.*.tierMax": 9,
+  "statusDefinitions.*.duration": 5,
+  "statusDefinitions.*.polarity": "debuff",
+  "statusDefinitions.*.modifiers.*.element": "fire",
+  "timeUnits.consumableClock": "exploration",
+  "equipmentForms.*.*.*.weaponType": "axe"
+ },
+ "derived": [
+  {
+   "match": "^classes\\.\\*\\.skills\\.",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "match": "^supportSkills\\.",
+   "source": "skillSystem.definitions",
+   "note": "輔助技能陣列由技能定義投影產生。已確認修改來源技能的 value 後此處同步改變。"
+  },
+  {
+   "match": "^passiveDefinitions\\.",
+   "source": "skillSystem.definitions",
+   "note": "被動陣列由技能定義投影產生。已確認修改來源技能的 name 後此處同步改變。"
+  },
+  {
+   "match": "^classes\\.\\*\\.(hp|atk|def)$",
+   "source": "classes.*.initialStats",
+   "note": "舊版 LV1 數值欄位，與 initialStats 同步。已確認修改 initialStats.hp 後此處同步改變。"
+  },
+  {
+   "match": "^items\\.\\*\\.shopEnabled$",
+   "source": "shopSettings.fixedOffers.entries",
+   "note": "是否在商店販售由固定商品清單決定（js/items/shop-inventory.js）。"
+  },
+  {
+   "match": "^balanceSettings\\.maps\\.levelRanges\\.",
+   "source": "balanceSettings.maps.catalog",
+   "note": "等級範圍由地圖清單的 min／max 重新產生（js/world/dynamic-world.js）。"
+  }
+ ],
+ "fixed": [
+  {
+   "match": "^classes\\.\\*\\.id$",
+   "note": "職業 id 等於陣列位置，職業數量由遊戲固定。"
+  },
+  {
+   "match": "^balanceSettings\\.(monsters\\.encounter|maps\\.catalog\\.\\*)\\.bossChance$",
+   "note": "一般地圖不隨機遭遇 BOSS，遊戲固定為 0（js/combat/manual-boss.js）。"
+  },
+  {
+   "match": "^balanceSettings\\.quests\\.tutorial\\.skillLevelRequirement$",
+   "note": "遊戲固定為 1（js/skills/mastery-core.js）。"
+  },
+  {
+   "match": "^balanceSettings\\.maps\\.catalog\\.\\*\\.progressionGate$",
+   "note": "進度關卡的位置由遊戲依既有地圖決定（js/world/dynamic-world.js）。"
+  },
+  {
+   "match": "^equipmentPowerSystem\\.rerollItem\\.(id|cost|shopEnabled|dropRuleInitialized)$",
+   "note": "強度重鑄石的識別碼、cost、shopEnabled 與掉落初始化旗標由遊戲固定（js/equipment/equipment-identity.js）；售價與出現率使用 shopPrice、shopChance。"
+  },
+  {
+   "match": "^equipmentPowerSystem\\.bossAffixes\\.\\*\\.(id|group|family|high)$",
+   "note": "探測的第一筆屬於 legacy 群組，其識別欄位由遊戲重建。parallel 群組未個別探測。"
+  },
+  {
+   "match": "^balanceSettings\\.meta\\.\\w+Version$",
+   "note": "資料格式版本旗標，由遊戲在載入與匯出時設定。"
+  },
+  {
+   "match": "^equipmentPowerSystem\\.(schemaVersion|strength\\.acquisitionVersion)$",
+   "note": "資料格式版本旗標，由遊戲設定。"
+  },
+  {
+   "match": "^skillSystem\\.gemSlotRuleVersion$",
+   "note": "資料格式版本旗標，由遊戲設定。"
+  },
+  {
+   "match": "^timeUnits\\.(supportDuration|itemDuration|combat|skillCooldown|statusDuration|elementPotionDuration|timedBoostDuration)$",
+   "note": "時間單位標示，由遊戲匯出時寫入。"
+  },
+  {
+   "match": "^masteryTypes\\.",
+   "note": "精通類型由遊戲定義。"
+  },
+  {
+   "match": "^timeUnits\\.consumableClock$",
+   "note": "遊戲在限時道具正規化時固定為 wall（js/items/timed-boosts.js），工作台內嵌同一份規則。遊戲匯出會原樣帶出文件中的值，但執行時不採用。"
+  }
+ ],
+ "constrained": [
+  {
+   "match": "^balanceSettings\\.maps\\.catalog\\.\\*\\.mapType$",
+   "note": "列舉值（normal／final）。改成 final 需要同時調整該地圖的首領與物品引用，單欄位編輯會被引用檢查拒絕。"
+  },
+  {
+   "match": "^equipmentForms\\.\\*\\.\\*\\.\\*\\.fixedEffects\\.\\*\\.key$",
+   "note": "能力鍵為列舉值，無效值會被正規化。"
+  },
+  {
+   "match": "^equipmentPowerSystem\\.(prefixes|suffixes)\\.\\*\\.id$",
+   "note": "識別碼會被正規化為允許的字元。"
+  },
+  {
+   "match": "^statusDefinitions\\.\\*\\.(tags\\.\\*|modifiers\\.\\*\\.kind)$",
+   "note": "列舉值；目前資料只使用一種值，沒有第二個有效值可供探測。"
+  }
+ ],
+ "fields": {}
+}

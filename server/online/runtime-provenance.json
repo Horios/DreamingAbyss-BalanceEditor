@@ -530,5 +530,15 @@
       "path": "js/balance/apply-guard.js?v=20261113-v0137-prologue3",
       "sha256": "4ea3f4f38eacebb702c18b336217dc00da402510167e755ae8d3cf2b541bf84d"
     }
+  ],
+  "contract": [
+    {
+      "path": "js/balance/balance-modules.js",
+      "gitBlob": "ba9137c433f8c26bae4871e1621f0c17ed421c39"
+    },
+    {
+      "path": "js/balance/balance-document.js",
+      "gitBlob": "b7d9f5b5e5d6fc52a6ec6ead35142562a02ed59c"
+    }
   ]
 }

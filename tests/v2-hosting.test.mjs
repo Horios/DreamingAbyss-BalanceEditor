@@ -20,7 +20,9 @@ test('V2 game and editor routes stay behind the existing private identity bounda
 });
 test('packaged game assets match the pinned real game source and isolation runs first',async()=>{
  const provenance=JSON.parse(fs.readFileSync(path.join(root,'docs/v2-game-provenance.json')));
- for(const file of provenance.files){const body=fs.readFileSync(path.join(root,'../DreamingAbyss',file.path));assert.equal(crypto.createHash('sha256').update(body).digest('hex'),file.sha256,file.path);}
+ // Program files must be the pinned source byte for byte. data/ moves with every balance publish (the workbench reads
+ // live data at run time); scripts/check-game-sync.cjs reports that as behind, not as an incompatible source.
+ for(const file of provenance.files){if(file.path.startsWith('data/'))continue;const body=fs.readFileSync(path.join(root,'../DreamingAbyss',file.path));assert.equal(crypto.createHash('sha256').update(body).digest('hex'),file.sha256,file.path);}
  const entry=await worker.fetch(request('/v2-game/','owner'),{},{}),html=await entry.text();
  assert(html.indexOf('function memoryStorage')<html.indexOf('js/ui/themes.js'));
  const schema=await worker.fetch(request('/v2-game/js/combat/seconds-schema.js','owner'),{},{});

@@ -1,8 +1,12 @@
 'use strict';
 const crypto=require('node:crypto'),D=require('./balance-diff.cjs'),CM=require('../scripts/combat-migration-audit.cjs'),M=require('../scripts/balance-modules.cjs');
 const utf8Length=text=>new TextEncoder().encode(text).length;
+// Field patterns of a JSON value: object keys joined by dots, array positions as *.
+const fieldPatterns=value=>{const out=new Set();(function walk(v,p){if(Array.isArray(v)){if(!v.length)out.add(p);for(const x of v)walk(x,p?p+'.*':'*');return;}if(v&&typeof v==='object'){const keys=Object.keys(v);if(!keys.length)out.add(p);for(const k of keys)walk(v[k],p?p+'.'+k:k);return;}out.add(p);})(value,'');return out;};
+// Documentation modules: the game regenerates them on export, so their fields are never "lost".
+const REGENERATED_MODULES=new Set(['meta/reference','meta/notes']);
 class ReleaseService{
- constructor({api,validate,effective=null,ticketStore=null}){this.api=api;this.validateDocument=validate;this.effectiveDocument=effective;this.base='/repos/Horios/DreamingAbyss';this.tickets=ticketStore||new Map();}
+ constructor({api,validate,effective=null,ticketStore=null,validatorCommit=null,contract=null}){this.api=api;this.validatorCommit=validatorCommit;this.contract=contract&&Object.keys(contract).length?contract:null;this.validateDocument=validate;this.effectiveDocument=effective;this.base='/repos/Horios/DreamingAbyss';this.tickets=ticketStore||new Map();}
  branch(value){if(!['main','chatgpt-dev'].includes(value))throw Error('僅允許 main／chatgpt-dev');return value;}
  async validate({data}){CM.assertSupported(data);return {data:CM.assertSupported(this.validateDocument(data)),valid:true};}
  async requireMonsterRuntime(target,candidate){
@@ -88,8 +92,12 @@ class ReleaseService{
   let data;try{data=JSON.parse(integrated.text);}catch{throw Error('線上 JSON 無法解析');}
   const out={branch,commit,head:head.object.sha,blob:integrated.sha,data,layout:'legacy'};
   let manifest=null;try{manifest=manifestFile&&JSON.parse(manifestFile.text);}catch{throw Error('線上模組清單無法解析');}
-  if(!manifest||manifest.schema!==M.SCHEMA)return out;
-  const problems=M.checkManifest(manifest);if(problems.length)throw Error('線上模組清單無效：'+problems.join('；'));
+  // No manifest, or a file there that is not a module manifest at all: the branch predates modules (legacy flow).
+  if(!manifest||!(manifest.schema===M.SCHEMA||typeof manifest.schema==='string'&&manifest.schema.startsWith('dreaming-abyss-balance-modules-')))return out;
+  // A manifest this workbench cannot read means the game moved to a newer module contract. Falling back to the
+  // legacy single-file flow would write data/balance.json without its modules, so it stops here instead.
+  const problems=M.checkManifest(manifest);
+  if(problems.length)throw Object.assign(Error('工作台的模組契約與 '+branch+' 分支不相容（'+problems.slice(0,4).join('；')+(problems.length>4?'…等 '+problems.length+' 項':'')+'）。請先同步工作台（node scripts/sync-game.cjs）並重新部署，再取得版本或發布。'),{status:409,layer:'契約',code:'contract',problems});
   const tree=await this.api(this.base+'/git/trees/'+commit+'?recursive=1'),blobs=new Map((tree.tree||[]).filter(x=>x.type==='blob').map(x=>[x.path,x.sha]));
   if(tree.truncated)throw Error('Git tree 過大，無法核對模組');
   const parts=M.split(data),modules={},mismatched=[],integratedHash=await this.sha256(integrated.text);
@@ -101,7 +109,9 @@ class ReleaseService{
    modules[row.id]=entry;
   }
   const consistency=integratedHash!==manifest.integrated.sha256?'integrated-newer':mismatched.length?'modules-mismatch':'consistent';
-  return {...out,layout:'modular',manifest,modules,mismatched,consistency,blobs:Object.fromEntries([...blobs].filter(([p])=>p.startsWith(M.SOURCE_DIR+'/')))};
+  // Files that define the data contract, compared with the copies this workbench was built from.
+  const contractDrift=this.contract?Object.entries(this.contract).filter(([file,sha])=>blobs.get(file)!==sha).map(([file])=>file):[];
+  return {...out,layout:'modular',manifest,modules,mismatched,consistency,contractDrift,blobs:Object.fromEntries([...blobs].filter(([p])=>p.startsWith(M.SOURCE_DIR+'/')))};
  }
  // Public view of a snapshot for the browser: module texts and the tree map stay on the server.
  view(snapshot){if(!snapshot||snapshot.layout!=='modular')return snapshot;const {blobs,modules,...rest}=snapshot;return {...rest,modules:Object.fromEntries(Object.entries(modules).map(([id,m])=>[id,{id,title:m.title,version:m.version,sha256:m.sha256,present:m.present}]))};}
@@ -151,7 +161,26 @@ class ReleaseService{
    if(!['ahead','identical'].includes(lineage.status))throw Error('歷史版本不屬於此分支');
    const old=await this.read({branch:target.branch,ref:restoreCommit});data=old.data;message='restore balance data to '+restoreCommit;
   }
+  // A workbench built from other contract files would validate by old rules and can miss new fields. Promotion
+  // copies data already validated on the test branch, so it is not held back by the production branch's code.
+  if(kind!=='promote'&&target.contractDrift?.length)throw Object.assign(Error('工作台內建的遊戲資料契約與 '+target.branch+' 分支不同（'+target.contractDrift.join('、')+'）。請先同步工作台（node scripts/sync-game.cjs）並重新部署，再發布。'),{status:409,layer:'契約',code:'contract',files:target.contractDrift});
   if(target.layout==='modular'&&target.consistency!=='consistent')throw Object.assign(Error('目標分支的 data/balance.json 與來源模組不一致（'+(target.consistency==='integrated-newer'?'舊版發布器只寫入了整合檔':'模組 '+target.mismatched.join('、'))+'）。請先在遊戲 Repository 執行 node scripts/balance-modules.cjs resync，再重新比較。'),{status:409,consistency:target.consistency});
+  if(target.commit!==expectedCommit){
+   // Another publish moved the branch. Continue only when none of the modules this draft changes moved too.
+   const known=kind==='preview'&&target.layout==='modular'&&baseModules&&typeof baseModules==='object'&&!Array.isArray(baseModules);
+   if(!known)throw Object.assign(Error('線上版本已更新，請重新取得最新版並重新比較。'),{status:409});
+   for(const id of Object.keys(baseModules))if(!M.module(id))throw Error('未知模組：'+id);
+   const conflicts=Object.entries(baseModules).filter(([id,sha])=>target.modules[id]?.sha256!==sha).map(([id])=>({id,title:target.modules[id]?.title||id,version:target.modules[id]?.version}));
+   if(conflicts.length)throw Object.assign(Error('線上版本已更新，且以下模組已被其他發布修改：'+conflicts.map(c=>c.title+'（'+c.id+' v'+c.version+'）').join('、')+'。請重新取得最新版並重新比較，不會覆寫他人的修改。'),{status:409,conflicts});
+   if(data!==undefined){
+    // A complete document built on the older commit also carries the old text of every other module. Only the
+    // modules this session declared a base for are taken from it; the rest stay as the newer commit has them.
+    const mine=M.split(data).modules;modules=Object.fromEntries(Object.keys(baseModules).map(id=>[id,mine[id]]));data=undefined;
+   }else{
+    const unbased=Object.keys(modules||{}).filter(id=>!Object.prototype.hasOwnProperty.call(baseModules,id));
+    if(unbased.length)throw Object.assign(Error('線上版本已更新，而模組 '+unbased.join('、')+' 沒有附上修改依據的版本，無法確認是否覆寫他人的修改。請重新取得最新版並重新比較。'),{status:409,unbased});
+   }
+  }
   // Modules sent without a full document are applied onto the target's own modules.
   if(kind==='preview'&&modules&&data===undefined){
    if(target.layout!=='modular')throw Error('目標分支尚未使用模組化平衡資料，請送出完整 JSON');
@@ -159,28 +188,58 @@ class ReleaseService{
    for(const [id,value] of Object.entries(modules)){if(!M.module(id))throw Error('未知模組：'+id);next[id]=value;}
    data=M.assemble(next,parts.layout);
   }
-  if(target.commit!==expectedCommit){
-   // Another publish moved the branch. Continue only when none of the modules this draft changes moved too.
-   const conflicts=target.layout==='modular'&&baseModules&&typeof baseModules==='object'?Object.entries(baseModules).filter(([id,sha])=>target.modules[id]?.sha256!==sha).map(([id])=>({id,title:target.modules[id]?.title||id,version:target.modules[id]?.version})):null;
-   if(!conflicts)throw Object.assign(Error('線上版本已更新，請重新取得最新版並重新比較。'),{status:409});
-   if(conflicts.length)throw Object.assign(Error('線上版本已更新，且以下模組已被其他發布修改：'+conflicts.map(c=>c.title+'（'+c.id+' v'+c.version+'）').join('、')+'。請重新取得最新版並重新比較，不會覆寫他人的修改。'),{status:409,conflicts});
-  }
   if(typeof message!=='string'||message.trim().length<4||message.length>300||/[\u0000-\u001f]/.test(message)||/^update(?: json)?$/i.test(message.trim()))throw Error('請輸入至少四個字的具體版本說明');
   CM.assertSupported(data);
   // Compare like with like: the stored JSON is not normalized, the candidate is. Both sides go through the same game load
   // (effective) or validator, so format-only differences (projections the game fills in, migrated starter packs, explicit
   // defaults) stay out of the summary and a publish with no real change is still refused.
-  const candidate=CM.assertSupported(this.validateDocument(data)),view=doc=>{const copy=JSON.parse(JSON.stringify(doc));return this.effectiveDocument?this.effectiveDocument(copy):this.validateDocument(copy);};
-  let baseline=target.data,after=candidate;try{baseline=view(target.data);after=view(candidate);}catch{baseline=target.data;after=candidate;}
-  let plan=null,diff;
+  let candidate=CM.assertSupported(this.validateDocument(data)),comparable=true;const view=doc=>{const copy=JSON.parse(JSON.stringify(doc));return this.effectiveDocument?this.effectiveDocument(copy):this.validateDocument(copy);};
+  let baseline=target.data,after=candidate;try{baseline=view(target.data);after=view(candidate);}catch{baseline=target.data;after=candidate;comparable=false;}
+  // Both sides loaded by the same game and equal: there is nothing to publish, whatever the file texts look like.
+  if(comparable&&kind!=='promote'&&D.stable(baseline)===D.stable(after))throw Error('沒有有效設定差異，禁止建立空白發布 commit');
+  let plan=null,diff,formatOnly=[];
   if(target.layout==='modular'){
    plan=await this.plan(target,candidate,kind==='promote'&&source?.layout==='modular'?{manifestFrom:source.manifest,source}:{});
+   if(comparable&&kind!=='promote'){
+    // The stored modules are not normalized, the candidate is: a module can differ in text while the game loads the
+    // same values from both (regenerated notes, explicit defaults, projections). Such modules keep the target's file,
+    // but only when the document built that way loads to exactly the same game state as the full candidate. If it
+    // does not (a skipped module carries a migration the others rely on), every differing module is written as before.
+    const eb=M.split(baseline).modules,ea=M.split(after).modules,text=v=>v===undefined?null:M.serialize(v);
+    const same=plan.changed.filter(c=>text(eb[c.id])===text(ea[c.id]));
+    if(same.length&&same.length<plan.changed.length){
+     const mine=M.split(candidate),theirs=M.split(target.data),mixedModules={...mine.modules};
+     for(const c of same)mixedModules[c.id]=theirs.modules[c.id];
+     let mixed=null;
+     try{
+      const keys=cont=>Object.keys(cont===''?M.assemble(mixedModules,mine.layout):M.assemble(mixedModules,mine.layout)[cont]||{});
+      const layout=Object.fromEntries(Object.keys(mine.layout).map(cont=>[cont,theirs.layout[cont]&&keys(cont).every(k=>theirs.layout[cont].includes(k))?theirs.layout[cont]:mine.layout[cont]]));
+      mixed=M.assemble(mixedModules,layout);CM.assertSupported(mixed);
+      // view() validates and loads the document; an invalid mix throws and is discarded.
+      if(D.stable(view(mixed))!==D.stable(after))mixed=null;
+     }catch{mixed=null;}
+     if(mixed){candidate=mixed;plan=await this.plan(target,candidate,{});}
+     else formatOnly=same.map(c=>({id:c.id,title:c.title}));
+    }
+   }
+   if(comparable&&kind==='preview'){
+    // A field the online module has, the candidate lacks and this workbench's game build does not keep when it loads
+    // the online data: the game on the branch knows a field this workbench does not. The deletion would not appear
+    // in the summary (both loaded sides lack it), so the publish stops instead of removing it silently.
+    const online=M.split(target.data).modules,mine=M.split(candidate).modules,loaded=M.split(baseline).modules,unknown=[];
+    for(const c of plan.changed){
+     if(c.removed||REGENERATED_MODULES.has(c.id)||online[c.id]===undefined)continue;
+     const have=fieldPatterns(mine[c.id]),seen=fieldPatterns(loaded[c.id]);
+     for(const p of fieldPatterns(online[c.id]))if(!have.has(p)&&!seen.has(p))unknown.push({module:c.id,field:p});
+    }
+    if(unknown.length)throw Object.assign(Error('線上資料含有工作台內建的遊戲版本不認得的欄位，這次發布會把它們刪除：'+unknown.slice(0,8).map(u=>u.module+' → '+u.field).join('、')+(unknown.length>8?'…等 '+unknown.length+' 個':'')+'。請先同步工作台（node scripts/sync-game.cjs）並重新部署，再發布。'),{status:409,layer:'契約',code:'unknown-fields',unknown});
+   }
    // The summary covers the changed modules only; unchanged modules are byte-identical to the target.
    const rows=[];
    for(const c of plan.changed)for(const p of M.modulePaths(c.id,candidate).concat(M.modulePaths(c.id,target.data)).filter((x,i,l)=>l.indexOf(x)===i)){const d=D.diff({[p]:M.get(baseline,p)},{[p]:M.get(after,p)});rows.push(...d.rows.map(r=>({...r,module:c.id})));}
    if(!plan.changed.length)throw Error('沒有有效設定差異，禁止建立空白發布 commit');
    // A module whose file changes only through the game's normalization still counts; its rows may be empty.
-   diff={rows,total:rows.length||plan.changed.length,added:rows.filter(r=>r.type==='新增').length,modified:rows.filter(r=>r.type==='修改').length,deleted:rows.filter(r=>r.type==='刪除').length,modules:plan.changed};
+   diff={rows,total:rows.length||plan.changed.length,added:rows.filter(r=>r.type==='新增').length,modified:rows.filter(r=>r.type==='修改').length,deleted:rows.filter(r=>r.type==='刪除').length,modules:plan.changed,formatOnly};
   }else{diff=D.diff(baseline,after);if(!diff.total)throw Error('沒有有效設定差異，禁止建立空白發布 commit');}
   await this.requireLifeRuntime(target,candidate);
   const version=await this.nextPreviewVersion(target);
@@ -188,7 +247,7 @@ class ReleaseService{
   if(this.tickets.prune)await this.tickets.prune();else for(const [id,t] of this.tickets)if(t.expires<Date.now())this.tickets.delete(id);
   const stored={...target,modules:undefined,blobs:undefined,data:undefined};
   await this.tickets.set(ticket,{session,kind,restoreCommit,sourceCommit,target:stored,candidate,message:message.trim(),diff,nextVersion,version,plan:plan&&{changed:plan.changed,manifest:plan.manifest},expires:Date.now()+600000});
-  return {ticket,branch:target.branch,currentVersion:target.commit,nextVersion,diff,message:message.trim(),sourceCommit:kind==='promote'?sourceCommit:null,layout:target.layout,modules:plan?.changed||null,previewVersion:version&&{from:version.from,to:version.to}};
+  return {ticket,branch:target.branch,currentVersion:target.commit,nextVersion,diff,message:message.trim(),sourceCommit:kind==='promote'?sourceCommit:null,layout:target.layout,modules:plan?.changed||null,formatOnly,previewVersion:version&&{from:version.from,to:version.to}};
  }
  async commit({ticket,confirmed,productionConfirmation},session){
   const t=await this.tickets.get(ticket);if(!t||t.session!==session||t.expires<Date.now())throw Error('發布摘要已過期，請重新比較');
@@ -224,25 +283,71 @@ class ReleaseService{
   const checked=await this.read({branch:current.branch});
   if(checked.blob!==integratedBlob||checked.commit!==commit.sha)throw Error('無法確認線上資料；請重新取得版本，勿重複提交');
   if(checked.layout==='modular'&&checked.consistency!=='consistent')throw Error('已提交，但線上模組與整合檔核對不一致（'+checked.consistency+'）；請勿重複提交，改由遊戲 Repository 檢查');
-  return {commit:commit.sha,branch:current.branch,committed:true,deployment:'等待部署',message:'資料已提交，等待 GitHub Pages 部署。',modules:plan?.changed||null,previewVersion:t.version?.to||null};
+  // The receipt states what this commit wrote and what is still unverified. CI, Pages and the running game are
+  // separate stages: deployment() fills in the ones it can prove, the rest stay 未驗證.
+  const receipt={schema:'dreaming-abyss-release-receipt-v1',kind:t.kind,branch:current.branch,commit:commit.sha,parent:current.commit,committedAt:new Date().toISOString(),message:t.message,
+   validatorCommit:this.validatorCommit,sourceCommit:t.kind==='promote'?t.sourceCommit:null,restoreCommit:t.kind==='restore'?t.restoreCommit:null,
+   layout:current.layout,modules:plan?plan.changed.map(c=>({id:c.id,file:c.file,from:c.from??null,to:c.removed?null:c.to??null,removed:!!c.removed})):null,
+   fields:{total:t.diff?.total??null,added:t.diff?.added??null,modified:t.diff?.modified??null,deleted:t.diff?.deleted??null},
+   dataRevision:plan?.manifest?.dataRevision??null,dataVersion:t.nextVersion,previewVersion:t.version?{from:t.version.from,to:t.version.to}:null,
+   integrated:{file:'data/balance.json',blob:integratedBlob,sha256:plan?.manifest?.integrated?.sha256||await this.sha256(integratedText)},
+   stages:[{layer:'驗證',state:'通過'},{layer:'提交',state:'通過',commit:commit.sha},{layer:'CI',state:'未驗證'},{layer:'部署',state:'未驗證'},{layer:'載入',state:'未驗證'},{layer:'生效',state:'未驗證',note:'需在遊戲內實際確認'}],
+   restore:{branch:current.branch,commit:current.commit,note:'在版本紀錄選擇此 commit「還原至此版本」，會建立新的還原 commit'}};
+  return {commit:commit.sha,branch:current.branch,committed:true,deployment:'等待部署',message:'資料已提交，等待 GitHub Pages 部署。',modules:plan?.changed||null,previewVersion:t.version?.to||null,receipt};
+ }
+ // The commit request can succeed while its response is lost. This decides from GitHub alone whether the publish a
+ // summary described (its base commit and data version) is on the branch. It never writes.
+ async outcome({branch,baseCommit,nextVersion}){
+  branch=this.branch(branch);if(!/^[a-f0-9]{40}$/.test(baseCommit||'')||!/^[a-f0-9]{12}$/.test(nextVersion||''))throw Error('發布摘要資訊無效');
+  const head=(await this.api(this.base+'/git/ref/heads/'+branch)).object.sha;
+  if(head===baseCommit)return {branch,state:'未提交',committed:false,commit:null,head,message:'線上版本仍是發布前的 commit，本次發布沒有寫入。請重新建立摘要後再發布。'};
+  let sha=head;
+  for(let i=0;i<5&&sha&&sha!==baseCommit;i++){
+   const snap=await this.read({branch,ref:sha});
+   if((await this.sha256(D.stable(snap.data))).slice(0,12)===nextVersion)return {branch,state:'已提交',committed:true,commit:sha,head,message:'線上已有這次發布的 commit，不需要重新提交。'};
+   sha=(await this.api(this.base+'/git/commits/'+sha)).parents?.[0]?.sha||null;
+  }
+  return {branch,state:'無法確認',committed:false,commit:null,head,message:'線上版本已由其他提交更新，找不到這次發布的資料。請取得線上版本核對後再決定是否重新發布。'};
  }
  async deployment({branch,commit}){
   branch=this.branch(branch);if(!/^[a-f0-9]{40}$/.test(commit))throw Error('commit SHA 無效');
   // Preview dispatch runs from main, so workflow head_sha alone cannot prove deployment.
   const prefix=branch==='main'?'':'preview/',url='https://horios.github.io/DreamingAbyss/'+prefix;
   const expected=await this.read({branch,ref:commit});
+  // Three separate facts: build.json names this commit and blob, the served data/balance.json is that blob, and
+  // (otherwise) what the deployment workflow says. A green workflow alone never counts as deployed.
+  const checks={expectedBlob:expected.blob,build:{state:'未取得'},data:{state:'未取得'},run:null};let deployed='';
   try{
    const response=await fetch(url+'data/build.json?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(10000)});
-   if(response.ok){const build=await response.json();if(build.branch===branch&&build.balanceBlob===expected.blob){
-    if(build.commit===commit)return {commit,branch,url,state:'部署成功'};
-    if(/^[a-f0-9]{40}$/.test(build.commit)){const lineage=await this.api(this.base+'/compare/'+commit+'...'+build.commit);if(lineage.status==='ahead')return {commit,branch,url,state:'部署成功（後續版本已包含本次資料）'};}
-   }}
-  }catch{}
+   if(response.ok){const build=await response.json();checks.build={state:'不符',commit:build.commit??null,branch:build.branch??null,balanceBlob:build.balanceBlob??null};if(build.branch===branch&&build.balanceBlob===expected.blob){
+    if(build.commit===commit)deployed='部署成功';
+    else if(/^[a-f0-9]{40}$/.test(build.commit)){const lineage=await this.api(this.base+'/compare/'+commit+'...'+build.commit);if(lineage.status==='ahead')deployed='部署成功（後續版本已包含本次資料）';}
+    if(deployed)checks.build.state='相符';
+   }}else checks.build.status=response.status;
+  }catch(error){checks.build.error=String(error?.message||error).slice(0,120);}
+  if(deployed){
+   try{
+    const response=await fetch(url+'data/balance.json?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(20000)});
+    if(response.ok){const blob=await this.gitBlobSha(await response.text());checks.data={state:blob===expected.blob?'相符':'不符',blob};}else checks.data.status=response.status;
+   }catch(error){checks.data.error=String(error?.message||error).slice(0,120);}
+   if(checks.data.state==='相符')return {commit,branch,url,state:deployed,layer:null,checks};
+   return {commit,branch,url,state:checks.data.state==='不符'?'部署未完成：網站的 data/balance.json 還不是這次發布的內容':'部署未確認：無法讀取網站的 data/balance.json',layer:'載入',checks};
+  }
   const runs=await this.api(this.base+'/actions/workflows/deploy-preview.yml/runs?per_page=20');
   const relevant=runs.workflow_runs.filter(r=>r.head_sha===commit||r.display_title?.includes(commit));
-  const r=relevant[0];return {commit,branch,url,state:r?.conclusion==='failure'?'部署失敗':r?.status==='in_progress'?'部署中':'等待部署',runUrl:r?.html_url||null};
+  const r=relevant[0];checks.run=r?{status:r.status??null,conclusion:r.conclusion??null,url:r.html_url||null}:null;
+  return {commit,branch,url,state:r?.conclusion==='failure'?'部署失敗':r?.status==='in_progress'?'部署中':'等待部署',layer:'部署',runUrl:r?.html_url||null,checks};
  }
 
+ // Which stage an API failure belongs to, so the workbench never reports a later stage as reached.
+ static layerOf(method,error){
+  if(error?.layer)return error.layer;
+  if(method==='validate')return '驗證';
+  if(method==='prepare')return error?.issues?.length?'驗證':error?.status===409?'提交前核對':'驗證';
+  if(method==='commit'||method==='outcome')return '提交';
+  if(method==='deployment')return '部署';
+  return '讀取線上版本';
+ }
 }
 module.exports={ReleaseService};
 

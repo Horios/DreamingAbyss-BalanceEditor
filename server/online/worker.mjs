@@ -3,7 +3,7 @@ import {createHostedGithubApp,randomToken,digest,decodeGitContent,b64url,REPOSIT
 import {D1TicketStore} from './tickets.mjs';
 import {createGameValidator} from './game-validator.mjs';
 import {ReleaseService} from './release-service.mjs';
-import {editorHTML,validatorCommit} from './editor.mjs';
+import {editorHTML,validatorCommit,contractBlobs} from './editor.mjs';
 import {serveV2} from './v2-assets.mjs';
 const csrfEncoder=new TextEncoder();
 const JSON_HEADERS={'Content-Type':'application/json; charset=utf-8','Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'};
@@ -48,13 +48,14 @@ export function createWorker({githubFactory=createHostedGithubApp,validatorFacto
    if(request.method==='GET'&&url.pathname==='/api/session')return json(200,{csrf:await csrf(secret,user,Date.now()+23*3600000),repository:REPOSITORY,capabilities});
    if(request.method!=='POST'||request.headers.get('Origin')!==url.origin||!/^application\/json/.test(request.headers.get('Content-Type')||'')||!await csrfValid(secret,user,request.headers.get('X-Emberwild-CSRF')))return json(403,{error:'請求未通過來源或 CSRF 檢查'});
    const method=url.pathname.replace(/^\/api\//,'');
-   if(!url.pathname.startsWith('/api/')||!['snapshot','history','prepare','commit','deployment','validate','connect','connect-check'].includes(method))return json(404,{error:'未知操作'});
+   if(!url.pathname.startsWith('/api/')||!['snapshot','history','prepare','commit','outcome','deployment','validate','connect','connect-check'].includes(method))return json(404,{error:'未知操作'});
    if(['prepare','commit'].includes(method)&&!capabilities.publishing)return json(503,{error:'尚未設定線上 GitHub App 或摘要儲存，上傳未啟用'});
    const body=await bodyJSON(request);
    if(['connect','connect-check'].includes(method)){if(!env.DB)return json(503,{error:'GitHub 連線儲存尚未配置'});const connection=new GithubConnection(env,user,url.origin);return json(200,await (method==='connect'?connection.begin():connection.verify()));}
    const runtime=['validate','prepare','commit'].includes(method)?validatorFactory():null;
-   const service=new ReleaseService({api,validate:input=>runtime.validate(input),effective:input=>runtime.effective(input),ticketStore:env.DB?new D1TicketStore(env.DB):null});
-   return json(200,await service[method](body,user));
+   const service=new ReleaseService({api,validate:input=>runtime.validate(input),effective:input=>runtime.effective(input),ticketStore:env.DB?new D1TicketStore(env.DB):null,validatorCommit,contract:contractBlobs});
+   try{return json(200,await service[method](body,user));}
+   catch(err){return json(err.status>=400&&err.status<=599?err.status:400,{error:err.message,issues:err.issues||[],layer:ReleaseService.layerOf(method,err),conflicts:err.conflicts||undefined});}
   }catch(err){if(url.pathname.startsWith('/api/github/'))return new Response(setupHTML({},err.message,Boolean(err.retryable)),{status:err.status>=400&&err.status<=599?err.status:400,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store'}});return json(err.status>=400&&err.status<=599?err.status:400,{error:err.message,issues:err.issues||[]});}
  }
 };}
