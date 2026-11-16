@@ -90,14 +90,78 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - group: game-headless
+          - group: game-headless-1
             stages: game-data,game-headless
-          - group: game-browser
+            part: 0
+            parts: 6
+          - group: game-headless-2
+            stages: game-data,game-headless
+            part: 1
+            parts: 6
+          - group: game-headless-3
+            stages: game-data,game-headless
+            part: 2
+            parts: 6
+          - group: game-headless-4
+            stages: game-data,game-headless
+            part: 3
+            parts: 6
+          - group: game-headless-5
+            stages: game-data,game-headless
+            part: 4
+            parts: 6
+          - group: game-headless-6
+            stages: game-data,game-headless
+            part: 5
+            parts: 6
+          - group: game-browser-1
             stages: game-browser
-          - group: editor
-            stages: editor-contract,editor-build,editor-headless,editor-browser,editor-artifact
-          - group: simulations
+            part: 0
+            parts: 4
+          - group: game-browser-2
+            stages: game-browser
+            part: 1
+            parts: 4
+          - group: game-browser-3
+            stages: game-browser
+            part: 2
+            parts: 4
+          - group: game-browser-4
+            stages: game-browser
+            part: 3
+            parts: 4
+          - group: editor-headless-1
+            stages: editor-build,editor-headless
+            part: 0
+            parts: 3
+          - group: editor-headless-2
+            stages: editor-build,editor-headless
+            part: 1
+            parts: 3
+          - group: editor-headless-3
+            stages: editor-build,editor-headless
+            part: 2
+            parts: 3
+          - group: editor-contract-browser-artifact
+            stages: editor-contract,editor-build,editor-browser,editor-artifact
+            part: 0
+            parts: 1
+          - group: simulation-1
             stages: long
+            part: 0
+            parts: 4
+          - group: simulation-2
+            stages: long
+            part: 1
+            parts: 4
+          - group: simulation-3
+            stages: long
+            part: 2
+            parts: 4
+          - group: simulation-4
+            stages: long
+            part: 3
+            parts: 4
     steps:
       - uses: actions/checkout@v4
         with:
@@ -123,7 +187,26 @@ jobs:
         working-directory: DreamingAbyss
         env:
           EMBERWILD_BALANCE_ROOT: ${{ github.workspace }}/editor
-        run: node scripts/full-test.cjs --long --stage "${{ matrix.stages }}" --jobs 2 --browser-jobs 1 --verbose
+          AUDIT_STAGES: ${{ matrix.stages }}
+          AUDIT_PART: ${{ matrix.part }}
+          AUDIT_PARTS: ${{ matrix.parts }}
+        run: |
+          node - <<'NODE'
+          const cp=require('node:child_process');
+          const stages=process.env.AUDIT_STAGES;
+          const args=['scripts/full-test.cjs','--long','--stage',stages];
+          const listing=cp.execFileSync(process.execPath,[...args,'--list'],{encoding:'utf8'});
+          const allowed=new Set(stages.split(','));
+          const rows=listing.split('\n').map(line=>/^(\S+)\s+(.+)$/.exec(line)).filter(m=>m&&allowed.has(m[1])).map(m=>({stage:m[1],id:m[2]}));
+          const build=rows.filter(r=>r.stage==='editor-build');
+          const pool=rows.filter(r=>r.stage!=='editor-build');
+          const selected=[...build,...pool.filter((_,i)=>i%Number(process.env.AUDIT_PARTS)===Number(process.env.AUDIT_PART))];
+          if(!selected.length)throw Error('Empty audit shard');
+          const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+          const pattern='^(?:'+selected.map(r=>escape(r.stage+' '+r.id)).join('|')+')$';
+          const result=cp.spawnSync(process.execPath,[...args,'--only',pattern,'--jobs','2','--browser-jobs','1','--verbose'],{stdio:'inherit'});
+          process.exit(result.status??1);
+          NODE
       - name: Publish report and failed test details
         if: always()
         working-directory: DreamingAbyss
