@@ -10,7 +10,7 @@ if(SIM){const Real=Date;class SimDate extends Real{constructor(...a){super(...(a
 let ready=false,lastContext,lastTheme,inspecting=true,hooked=false,mode='developer';const send=data=>parent.postMessage(data,location.origin);
 const context=()=>({page:typeof state==='undefined'||!state?'creation':tab,mapIndex:typeof party!=='undefined'?party?.map:state?.map,job:typeof state!=='undefined'?state?.job:undefined});
 function notify(navigated=false){const value=context(),key=JSON.stringify(value);if(navigated||key!==lastContext){lastContext=key;send({kind:'dreaming-abyss-dev-page',...value,navigated});}}
-globalThis.__EMBERWILD_V2_GAME=Object.freeze({inspect(value){inspecting=!!value;devTools();},setMode(value){if(['developer','control'].includes(value))mode=value;devTools();},get mode(){return mode;},selectMap(index){if(typeof selectExplorationMap==='function'){setTab('battle');selectExplorationMap(index);}},apply(doc){if(!ready)throw Error('遊戲仍在載入');const checked=validateBalanceConfig(structuredClone(doc));
+globalThis.__EMBERWILD_V2_GAME=Object.freeze({textPick(value){setTextPick(value);},get picking(){return textPick;},inspect(value){inspecting=!!value;devTools();},setMode(value){if(['developer','control'].includes(value))mode=value;devTools();},get mode(){return mode;},selectMap(index){if(typeof selectExplorationMap==='function'){setTab('battle');selectExplorationMap(index);}},apply(doc){if(!ready)throw Error('遊戲仍在載入');const checked=validateBalanceConfig(structuredClone(doc));
  // The game turns an update down while the team is exploring or fighting; that is a failure, not a success.
  if(applyBalanceConfig(checked,{persist:false})===false)throw Error('遊戲拒絕套用：隊伍正在探索或戰鬥。請先在預覽中停止探索，再套用一次。');return true;}});
 // Capture only definitions with stable game IDs. Other controls retain their normal behavior.
@@ -24,10 +24,46 @@ document.addEventListener('click',event=>{
  else if(d.heroId){const hero=typeof party!=='undefined'?party?.members.find(x=>String(heroKey(x))===d.heroId):null;if(hero)target=hero.companionId!==undefined&&mode==='developer'?{kind:'companion',id:hero.companionId}:{kind:'hero',job:hero.job};}
  if(!target)return;event.preventDefault();event.stopImmediatePropagation();send({kind:'dreaming-abyss-dev-inspect',target,context:context()});
 },true);
+// Text editing (開發者模式 · 改文字): while on, clicking any text on the game screen opens it for editing instead of
+// running the game control under it. The original wording comes from the game's text override layer.
+let textPick=false,hovered=null;
+const squash=s=>String(s??'').replace(/\s+/g,' ').trim();
+function setTextPick(on){
+ textPick=!!on;if(!textPick&&hovered){hovered.classList.remove('dev-text-hover');hovered=null;}
+ const b=document.querySelector('.dev-text-tool');if(b){b.setAttribute('aria-pressed',String(textPick));b.textContent=textPick?'✎ 改文字：開啟中（Esc 結束）':'✎ 改文字';}
+ document.documentElement.classList.toggle('dev-text-picking',textPick);
+}
+function textTool(){
+ if(!document.getElementById('dev-text-style')){const st=document.createElement('style');st.id='dev-text-style';st.textContent='.dev-text-picking body *{cursor:text!important}.dev-text-hover{outline:2px dashed var(--gold,#dfc18b)!important;outline-offset:2px}';document.head.append(st);}
+ if(document.querySelector('.dev-text-tool'))return;
+ const b=document.createElement('button');b.type='button';b.className='dev-text-tool';b.setAttribute('aria-pressed','false');b.title='開啟後點遊戲畫面上的任何文字即可修改；相同原文會一起修改';
+ b.style.cssText='position:fixed;left:14px;bottom:72px;z-index:2147483000;font-size:12px;padding:6px 11px;border:1px solid var(--gold,#dfc18b);background:var(--panel,#211e2c);color:inherit;border-radius:8px;cursor:pointer;box-shadow:0 6px 20px #0006';
+ b.onclick=e=>{e.preventDefault();e.stopPropagation();setTextPick(!textPick);};document.body.append(b);setTextPick(textPick);
+}
+const devChrome=el=>!!el?.closest?.('.dev-text-tool,.dev-inline-tools,.dev-page-tools');
+function textAt(event){
+ const x=event.clientX,y=event.clientY;let node=document.caretPositionFromPoint?.(x,y)?.offsetNode||document.caretRangeFromPoint?.(x,y)?.startContainer||null;
+ if(node?.nodeType!==3||!node.nodeValue.trim())node=[...(event.target?.childNodes||[])].find(n=>n.nodeType===3&&n.nodeValue.trim())||null;
+ if(node)return {original:globalThis.EmberwildTextOverrides?.originalOf(node)??node.nodeValue,current:node.nodeValue};
+ const el=event.target;for(const attr of ['placeholder','title','aria-label'])if(el?.getAttribute?.(attr))return {original:globalThis.EmberwildTextOverrides?.originalOf(el,attr)??el.getAttribute(attr),current:el.getAttribute(attr)};
+ return null;
+}
+window.addEventListener('click',event=>{
+ if(!ready||!textPick||!inspecting||mode!=='developer'||devChrome(event.target))return;
+ event.preventDefault();event.stopImmediatePropagation();
+ const found=textAt(event);if(!found||!squash(found.original))return;
+ const T=globalThis.EmberwildTextOverrides;if(!T){send({kind:'dreaming-abyss-dev-status',text:'這個遊戲版本不支援畫面文字修改'});return;}
+ send({kind:'dreaming-abyss-dev-edit',target:{kind:'text',source:T.templateOf(found.original),current:squash(found.current)}});
+},true);
+// Keep the game's own pointer handlers (interaction guard, drags) from reacting while picking text.
+for(const type of ['pointerdown','mousedown','dblclick'])window.addEventListener(type,event=>{if(textPick&&inspecting&&mode==='developer'&&!devChrome(event.target)){event.preventDefault();event.stopImmediatePropagation();}},true);
+window.addEventListener('mouseover',event=>{if(!textPick||devChrome(event.target))return;if(hovered)hovered.classList.remove('dev-text-hover');hovered=event.target;hovered.classList.add('dev-text-hover');},true);
+window.addEventListener('keydown',event=>{if(textPick&&event.key==='Escape'){event.preventDefault();setTextPick(false);}},true);
 // Developer editing mode: edit entry points next to the game's own controls. They post to the shell, which opens a dialog.
 function devTools(){
  // Edit entry points belong to developer mode only; control mode edits through its console, play mode shows none.
- if(SIM||!inspecting||mode!=='developer')return document.querySelectorAll('.dev-inline-tools,.dev-page-tools').forEach(n=>n.remove());
+ if(SIM||!inspecting||mode!=='developer'){setTextPick(false);return document.querySelectorAll('.dev-inline-tools,.dev-page-tools,.dev-text-tool').forEach(n=>n.remove());}
+ textTool();
  const select=document.querySelector('select[aria-label="探索地圖"]');
  if(select&&!select.parentElement.querySelector('.dev-inline-tools')){
   const box=document.createElement('span');box.className='dev-inline-tools';box.style.cssText='display:inline-flex;gap:6px;margin-top:6px;flex-wrap:wrap';
