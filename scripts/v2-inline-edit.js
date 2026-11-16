@@ -100,7 +100,7 @@ const EDITORS={
    {key:'description',label:'說明',type:'textarea',wide:true}
   ],
   note:()=>'自動施放依技能配置順序；初始冷卻每場戰鬥重新套用，再使用冷卻在施放後起算。效果機制、取得來源與狀態請在總控模式調整。',
-  actions:[{label:'複製為新技能',run(t,r,shell){const out=api(shell,'__EMBERWILD_SKILL_DIALOG').duplicate(t.id);if(!out.ok)throw Error(out.error);shell.apply();open({kind:'skill',id:out.id,fromList:!!list},shell);shell.status('已複製技能，請檢查取得來源後再發布。');}}],
+  actions:[{label:'複製為新技能',run(t,r,shell){const out=api(shell,'__EMBERWILD_SKILL_DIALOG').duplicate(t.id);if(!out.ok)throw Error(out.error);shell.apply();open({kind:'skill',id:out.id,fromList:!!list},shell);shell.status('已複製技能，請檢查取得來源後再發布。'+notApplied(shell));}}],
   removeWarning:(t,r)=>'刪除技能「'+r.name+'」？仍被技能槽、怪物、裝備或解鎖條件引用的技能不能刪除。',
   remove(t,r,shell){return api(shell,'__EMBERWILD_SKILL_DIALOG').remove(t.id);},
   save(t,v,shell){return api(shell,'__EMBERWILD_SKILL_DIALOG').update(t.id,v);},
@@ -187,7 +187,7 @@ const EDITORS={
    {key:'description',label:'說明',type:'textarea',wide:true}
   ],
   note:(t,r)=>'夥伴專用；品質與強化乘算屬性數值。'+(r.abilityText?'特殊能力：'+r.abilityText+'。':'')+'特殊能力、掉落地圖與怪物請在總控模式的夥伴信物調整。',
-  actions:[{label:'複製信物',run(t,r,shell){const out=ok(api(shell,'__EMBERWILD_TOKEN_DIALOG').duplicate(t.id));shell.apply();open({kind:'companionToken',id:out.id,fromList:!!list},shell);shell.status('已複製信物。');}}],
+  actions:[{label:'複製信物',run(t,r,shell){const out=ok(api(shell,'__EMBERWILD_TOKEN_DIALOG').duplicate(t.id));shell.apply();open({kind:'companionToken',id:out.id,fromList:!!list},shell);shell.status('已複製信物。'+notApplied(shell));}}],
   save(t,v,shell){const T=api(shell,'__EMBERWILD_TOKEN_DIALOG');return t.create?T.create(v):T.update(t.id,v);},
   removeWarning:(t,r)=>'刪除信物「'+r.name+'」？仍被掉落、任務或其他設定引用時不能刪除。',
   remove(t,r,shell){return api(shell,'__EMBERWILD_TOKEN_DIALOG').remove(t.id);},
@@ -265,7 +265,7 @@ const LISTS={
  skills:{
   title:'技能清單',section:'skillSystem',tabs:classTabs,
   rows(job,shell){return api(shell,'__EMBERWILD_SKILL_DIALOG').list(job).map(s=>({label:s.name,meta:s.typeName+' · LV'+s.requiredLevel+(s.cooldown?' · 冷卻 '+s.cooldown+' 秒':'')+(s.disabled?' · 停用':''),target:{kind:'skill',id:s.id},dim:s.disabled}));},
-  adds(job,shell){const D=api(shell,'__EMBERWILD_SKILL_DIALOG');return Object.entries(D.types).map(([type,label])=>({label:'＋ 新增'+label+'技能',run(){const out=D.create(job,type);if(!out.ok)throw Error(out.error);shell.apply();open({kind:'skill',id:out.id,fromList:true},shell);shell.status('已建立空白技能（預設停用），請設定後啟用。');}}));}
+  adds(job,shell){const D=api(shell,'__EMBERWILD_SKILL_DIALOG');return Object.entries(D.types).map(([type,label])=>({label:'＋ 新增'+label+'技能',run(){const out=D.create(job,type);if(!out.ok)throw Error(out.error);shell.apply();open({kind:'skill',id:out.id,fromList:true},shell);shell.status('已建立空白技能（預設停用），請設定後啟用。'+notApplied(shell));}}));}
  },
  equipment:{
   title:'裝備清單',section:'equipment',tabs:classTabs,
@@ -388,6 +388,8 @@ function bindSkills(){
  for(const el of host.querySelectorAll('[data-skill-del]'))el.onclick=()=>{r.skillIds.splice(Number(el.dataset.skillDel),1);redraw();};
  const add=$('devSkillAdd');if(add)add.onclick=()=>{const used=new Set(r.skillIds),next=r.skillPool.find(([k])=>!used.has(k));if(next){r.skillIds.push(next[0]);redraw();}};
 }
+// Suffix for statuses written after shell.apply(): empty when the preview took the draft.
+function notApplied(shell){const reason=shell.applyError?.();return reason?'（未套用至預覽：'+reason+'）':'';}
 function read(el){const f=current.editor.fields.find(x=>x.key===el.dataset.key);if(f.type==='check')return el.checked;if(f.type==='number')return el.value===''?(f.blank?null:NaN):Number(el.value);if(f.number)return Number(el.value);return el.value;}
 function values(){const out={};for(const f of current.editor.fields.filter(visible)){if(['effects','objectives','skillList','gear'].includes(f.type)||f.type==='jobs')out[f.key]=current.record[f.key==='wearableJobs'?'wearableJobs':f.key];else{const el=$('devInlineFields').querySelector(`[data-key="${f.key}"]`);if(el)out[f.key]=read(el);}}return out;}
 const recordName=(v,r)=>v.name||v.title||r.name||r.title||'';
@@ -395,8 +397,9 @@ function save(){
  if(!current)return false;const {editor,target,shell}=current,v=values();let result;
  try{result=editor.save(target,v,shell);}catch(e){result={ok:false,error:e.message};}
  if(!result?.ok){$('devInlineError').textContent='無法儲存：'+(result?.error||'未知錯誤');return false;}
- shell.apply();editor.after?.(target,result,shell);
- shell.status((target.create?'已新增並套用至預覽：':'已更新並套用至預覽：')+recordName(v,current.record)+'。尚未發布。'+(result.existingIssues?.length?'\n草稿中其他既有問題（未阻擋此次儲存）：'+result.existingIssues.join('；'):''));
+ const applied=shell.apply()!==false;editor.after?.(target,result,shell);
+ // The draft is saved either way; "套用" is only said when the preview game took it.
+ shell.status((applied?(target.create?'已新增並套用至預覽：':'已更新並套用至預覽：'):(target.create?'已新增至草稿，未套用至預覽：':'已更新草稿，未套用至預覽：'))+recordName(v,current.record)+'。'+(applied?'':(shell.applyError?.()||'')+'。')+'尚未發布。'+(result.existingIssues?.length?'\n草稿中其他既有問題（未阻擋此次儲存）：'+result.existingIssues.join('；'):''));
  if(list){openList(list.kind,list.shell,list.tab);}else dialog().close();return true;
 }
 // Delete asks for a second click on the same button instead of a browser confirm, so it works the same inside frames and tests.
@@ -406,8 +409,8 @@ function remove(){
  let result;try{result=editor.remove(target,record,shell);}catch(e){result={ok:false,error:e.message};}
  del.dataset.armed='false';del.textContent='刪除';
  if(!result?.ok){$('devInlineError').textContent='無法刪除：'+(result?.error||'未知錯誤');return false;}
- shell.apply();editor.afterRemove?.(target,result,shell);
- shell.status('已刪除並套用至預覽：'+recordName({},record)+'。尚未發布。');
+ const applied=shell.apply()!==false;editor.afterRemove?.(target,result,shell);
+ shell.status((applied?'已刪除並套用至預覽：':'已從草稿刪除，未套用至預覽：')+recordName({},record)+'。'+(applied?'':(shell.applyError?.()||'')+'。')+'尚未發布。');
  if(list){openList(list.kind,list.shell,list.tab);}else dialog().close();return true;
 }
 function open(target,shell){

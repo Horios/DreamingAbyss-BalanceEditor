@@ -38,7 +38,7 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   await game.locator('body').evaluate(()=>{setTab('battle');startSelectedExploration();});
   await editor.locator('[data-tu-test="first"]').click();
   await editor.locator('.tutorial-test .notice.bad').waitFor();
-  assert.match(await editor.locator('.tutorial-test .notice.bad').innerText(),/草稿無法套用到預覽：.*遊戲拒絕套用/);
+  assert.match(await editor.locator('.tutorial-test .notice.bad').innerText(),/草稿無法套用到預覽：.*沒有套用/);
   assert.equal(await game.locator('body').evaluate(()=>!!__EMBERWILD_TUTORIAL.status().active),false);
   assert.deepEqual(errors,[]);console.log('tutorial preview test passed');
  }finally{await browser?.close();server.close();}

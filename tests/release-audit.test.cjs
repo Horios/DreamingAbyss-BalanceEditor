@@ -223,3 +223,89 @@ test('H02/G09: a structural change across modules publishes atomically and a res
  assert.equal(JSON.parse(restored['data/preview-version.json']).version,'v0.122','one version step per commit, also for the restore');
  assert.equal((await s.snapshot({branch:'chatgpt-dev'})).consistency,'consistent');
 });
+
+// B07-B09 at the publish boundary, with the real game validator: what a reorder, a duplicate, a rename and a copy
+// become once they reach the release service, whatever page or dialog produced them.
+test('B08/B09: reorder, duplicate ID, rename with and without its references, and copy',async()=>{
+ const {createGameValidator}=await import('../server/online/game-validator.mjs'),v=createGameValidator();
+ const attempt=async change=>{const g=git({'chatgpt-dev':filesFor(seed)}),s=new ReleaseService({api:g.api,validate:d=>v.validate(d),effective:d=>v.effective(d)}),snap=await s.snapshot({branch:'chatgpt-dev'}),d=clone(seed);change(d);
+  try{return {plan:await s.prepare({expectedCommit:snap.commit,message:'集合操作測試',data:d},'u'),g};}catch(error){assert.equal(g.calls.filter(([m])=>m!=='GET').length,0,'a refused change writes nothing');return {error};}};
+ const monsters=d=>d.balanceSettings.monsters.catalog,first=seed.balanceSettings.monsters.catalog[0].id;
+ // Order is data: it is one row in the summary and one module.
+ let out=await attempt(d=>{const c=monsters(d);[c[0],c[1]]=[c[1],c[0]];});
+ assert.deepEqual(out.plan.modules.map(m=>m.id),['world/monsters']);assert.deepEqual(out.plan.diff.rows.map(r=>r.field),['order']);
+ // A second record with an existing ID is refused and located.
+ out=await attempt(d=>{monsters(d).push(clone(monsters(d)[0]));});
+ assert(out.error.issues.some(i=>/catalog\.\d+\.id$/.test(i.field)&&/重複/.test(i.reason)),out.error.message);
+ // Renaming an ID others refer to is refused with every referring field...
+ out=await attempt(d=>{monsters(d)[0].id='audit_renamed';});
+ assert(out.error.issues.length>=2&&out.error.issues.every(i=>i.field&&i.reason),out.error.message);assert(out.error.issues.some(i=>/引用不存在的怪物/.test(i.reason)));assert(out.error.issues.some(i=>/^balanceSettings\.drops\.entries\.\d+\.sources$/.test(i.field)));
+ // ...and accepted when the references move with it: every module that named the ID is written in the same publish.
+ const rename=x=>{if(Array.isArray(x)){for(let i=0;i<x.length;i++){if(x[i]===first)x[i]='audit_renamed';else rename(x[i]);}}else if(x&&typeof x==='object')for(const k of Object.keys(x)){if(x[k]===first)x[k]='audit_renamed';else rename(x[k]);}};
+ out=await attempt(rename);
+ assert(out.plan.modules.map(m=>m.id).includes('world/monsters')&&out.plan.modules.map(m=>m.id).includes('world/drops'),out.plan.modules.map(m=>m.id).join());
+ assert(!out.plan.modules.some(m=>['items/items','characters/classes','combat/skills'].includes(m.id)),'modules that never named the monster are not written');
+ // A copy under a new ID is an addition; the item catalogue gains its entry in the same publish.
+ out=await attempt(d=>{d.items.push({...clone(d.items[0]),id:'audit_copy',name:'排查用複製品'});});
+ assert(out.plan.modules.map(m=>m.id).includes('items/items'));assert(out.plan.diff.rows.some(r=>r.type==='新增'&&r.id==='audit_copy'));assert.equal(out.plan.diff.rows.filter(r=>r.type==='刪除').length,0);
+});
+
+// D08/D09: GitHub failures at each write step. Nothing is reported as published, the branch is not moved by a failed
+// step, the consumed summary cannot be replayed, and outcome() tells the two endings apart.
+test('D08: 403, 404, 409 and 422 from GitHub during the commit never report success or move the branch',async()=>{
+ const steps=[['POST','/git/blobs',403,'Resource not accessible by integration'],['POST','/git/trees',404,'Not Found'],['POST','/git/commits',409,'Git Repository is empty'],['PATCH','/git/refs/heads/chatgpt-dev',422,'Update is not a fast forward']];
+ for(const [method,suffix,status,message] of steps){
+  const g=git({'chatgpt-dev':filesFor(seed)}),real=g.api;let failed=0;
+  const api=async(p,o={})=>{if((o.method||'GET')===method&&p.endsWith(suffix)){failed++;throw Object.assign(Error(message),{status});}return real(p,o);};
+  const s=new ReleaseService({api,validate:d=>{const e=inspect(d);if(e.length)throw Object.assign(Error('invalid'),{issues:e});return clone(d);}}),old=s.view(await s.snapshot({branch:'chatgpt-dev'}));
+  const body={expectedCommit:old.commit,message:'調整苔原史萊姆生命',modules:{'world/monsters':part(edit(seed),'world/monsters')},baseModules:{'world/monsters':old.modules['world/monsters'].sha256}};
+  const p=await s.prepare(body,'u');
+  await assert.rejects(()=>s.commit({ticket:p.ticket,confirmed:true},'u'),e=>e.status===status,method+' '+suffix);
+  assert(failed>=1);assert.equal(g.refs['chatgpt-dev'],old.commit,status+': the branch still points at the previous commit');
+  assert.equal((await s.outcome({branch:'chatgpt-dev',baseCommit:old.commit,nextVersion:p.nextVersion})).state,'未提交');
+  await assert.rejects(()=>s.commit({ticket:p.ticket,confirmed:true},'u'),/過期|已使用/,'the used summary is not replayed');
+  assert.equal(ReleaseService.layerOf('commit',Object.assign(Error(message),{status})),'提交');
+ }
+});
+
+test('D09: a failure after the branch moved is not a success message, and GitHub shows the publish is there',async()=>{
+ const g=git({'chatgpt-dev':filesFor(seed)}),real=g.api;let moved=false;
+ // The ref update succeeds; every later read fails (connection lost before the verification read).
+ const api=async(p,o={})=>{if(moved&&(o.method||'GET')==='GET'&&!globalThis.__auditOnline)throw Error('network down');const out=await real(p,o);if(o.method==='PATCH')moved=true;return out;};
+ const s=new ReleaseService({api,validate:d=>clone(d)}),old=s.view(await s.snapshot({branch:'chatgpt-dev'}));
+ const p=await s.prepare({expectedCommit:old.commit,message:'調整苔原史萊姆生命',modules:{'world/monsters':part(edit(seed),'world/monsters')},baseModules:{'world/monsters':old.modules['world/monsters'].sha256}},'u');
+ await assert.rejects(()=>s.commit({ticket:p.ticket,confirmed:true},'u'),/network down/);
+ assert.notEqual(g.refs['chatgpt-dev'],old.commit,'the write did happen');
+ globalThis.__auditOnline=true;
+ try{const seen=await s.outcome({branch:'chatgpt-dev',baseCommit:old.commit,nextVersion:p.nextVersion});assert.equal(seen.state,'已提交');assert.equal(seen.commit,g.refs['chatgpt-dev']);
+  assert.equal(g.calls.filter(([m,u])=>m==='POST'&&u.endsWith('/git/commits')).length,1,'one commit, never a second attempt');}
+ finally{delete globalThis.__auditOnline;}
+});
+
+// B02: docs/boundary-matrix.json shows fields where text or null passes the workbench, the validator and the game.
+test('B02: a numeric field cannot be published as text, a boolean or a new null, even where the game validator does not check it',async()=>{
+ const {createGameValidator}=await import('../server/online/game-validator.mjs'),v=createGameValidator(),fs=require('node:fs'),path=require('node:path');
+ const boundary=JSON.parse(fs.readFileSync(path.join(__dirname,'../docs/boundary-matrix.json'),'utf8'));
+ const leaks=[];for(const f of boundary.fields)for(const [kind,c] of Object.entries(f.cases))if(['string','null'].includes(kind)&&(c.validator==='preserved'))leaks.push([f.pattern,c.to]);
+ assert(leaks.length>0,'the probe found values the game validator lets through');
+ const g=git({'chatgpt-dev':filesFor(seed)}),s=new ReleaseService({api:g.api,validate:d=>v.validate(d),effective:d=>v.effective(d)}),snap=await s.snapshot({branch:'chatgpt-dev'});
+ let caught=0;
+ for(const [pattern,value] of leaks){
+  const d=clone(seed);
+  // The probed instance is the first record that has the field.
+  const instance=JSON.parse(fs.readFileSync(path.join(__dirname,'../docs/traceability-matrix.json'),'utf8')).rows.find(r=>r.pattern===pattern).instance.split('.');
+  let x=d;for(const k of instance.slice(0,-1))x=x[k];x[instance.at(-1)]=value;
+  // Refused in every case: by the type check, by a validator issue, or because the game load turns the value back
+  // into the online one (nothing to publish). Fields no validator rule covers must be caught by the type check.
+  const error=await s.prepare({expectedCommit:snap.commit,message:'錯誤型別測試',data:d},'u').then(()=>null,e=>e);
+  assert(error,pattern+' = '+JSON.stringify(value)+' must not be publishable');
+  if(pattern.startsWith('skillSystem.definitions.')){assert.equal(error.code,'field-types',pattern+': '+error.message);assert.equal(error.layer,'驗證');assert(error.issues.some(i=>i.field.endsWith(pattern.split('.').at(-1))));caught++;}
+ }
+ assert(caught>=4,'the skill fields the game validator does not check are caught by the type check');
+ assert.equal(g.calls.filter(([m])=>m!=='GET').length,0,'nothing is written');
+ // A number stays publishable, and a field that is already null online for some records may be null.
+ const ok=clone(seed);ok.skillSystem.definitions[0].hitCount=3;
+ assert.deepEqual((await s.prepare({expectedCommit:snap.commit,message:'命中次數改為三次',data:ok},'u')).modules.map(m=>m.id).includes('combat/skills'),true);
+ const offers=clone(seed).shopSettings.fixedOffers.entries,nullable=offers.findIndex(o=>o.unitPrice===null),priced=offers.findIndex(o=>typeof o.unitPrice==='number');
+ if(nullable>=0&&priced>=0){const d=clone(seed);d.shopSettings.fixedOffers.entries[priced].unitPrice=null;const p=await s.prepare({expectedCommit:snap.commit,message:'固定商品改用預設價格',data:d},'u').catch(e=>e);assert.notEqual(p.code,'field-types','null is allowed where the online data already uses it');}
+});

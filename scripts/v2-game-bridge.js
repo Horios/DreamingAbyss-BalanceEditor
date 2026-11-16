@@ -11,8 +11,17 @@ let ready=false,lastContext,lastTheme,inspecting=true,hooked=false,mode='develop
 const context=()=>({page:typeof state==='undefined'||!state?'creation':tab,mapIndex:typeof party!=='undefined'?party?.map:state?.map,job:typeof state!=='undefined'?state?.job:undefined});
 function notify(navigated=false){const value=context(),key=JSON.stringify(value);if(navigated||key!==lastContext){lastContext=key;send({kind:'dreaming-abyss-dev-page',...value,navigated});}}
 globalThis.__EMBERWILD_V2_GAME=Object.freeze({textPick(value){setTextPick(value);},get picking(){return textPick;},inspect(value){inspecting=!!value;devTools();},setMode(value){if(['developer','control'].includes(value))mode=value;devTools();},get mode(){return mode;},selectMap(index){if(typeof selectExplorationMap==='function'){setTab('battle');selectExplorationMap(index);}},apply(doc){if(!ready)throw Error('遊戲仍在載入');const checked=validateBalanceConfig(structuredClone(doc));
- // The game turns an update down while the team is exploring or fighting; that is a failure, not a success.
- if(applyBalanceConfig(checked,{persist:false})===false)throw Error('遊戲拒絕套用：隊伍正在探索或戰鬥。請先在預覽中停止探索，再套用一次。');return true;}});
+ // While the team is exploring or in an encounter the game refuses a new document and returns false without throwing.
+ // Reporting that as applied would leave the preview on the old values.
+ const before=exportableBalance();
+ if(applyBalanceConfig(checked,{persist:false})===false){
+  // The refusal comes from the team rules deep in the chain; modules wrapped around them (seconds and MP, story,
+  // wishing lake, interface text) have already switched to the new document. Applying the previous document again
+  // puts those back, so the preview is not left running a mix of old and new values.
+  let restored=false;try{applyBalanceConfig(before,{persist:false});restored=JSON.stringify(exportableBalance())===JSON.stringify(before);}catch{}
+  throw Error('遊戲預覽正在探索或戰鬥中，沒有套用。'+(restored?'':'預覽中有部分設定已換成新值而無法還原，請重新整理頁面。')+'請先在遊戲內停止探索並結束目前遭遇，再套用一次');
+ }
+ return true;}});
 // Capture only definitions with stable game IDs. Other controls retain their normal behavior.
 document.addEventListener('click',event=>{
  if(!ready||!inspecting)return;const node=event.target.closest?.('[data-skill-id],[data-skill-slot],[data-seconds-skill],[data-item-kind],[data-enemy-id],[data-hero-id]');if(!node)return;const d=node.dataset;let target;

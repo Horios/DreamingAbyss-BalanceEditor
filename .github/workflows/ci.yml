@@ -133,6 +133,11 @@ jobs:
         env:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/v2-game.browser.cjs
+      - name: A draft the exploring preview refuses is reported as not applied
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
+        run: node tests/v2-apply-refused.browser.cjs
       - name: Developer-mode simulations of the draft
         working-directory: emberwild-balance
         env:
