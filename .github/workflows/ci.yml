@@ -148,6 +148,11 @@ jobs:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/tutorial-preview.browser.cjs
 
+      - name: Developer mode text editing (改文字)
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
+        run: node tests/v2-text-edit.browser.cjs
       - name: Incremental editing timings (one monster HP edit vs full-document operations)
         working-directory: emberwild-balance
         env:
