@@ -2139,6 +2139,7 @@ function renderClasses(){
         ${inputField("角色 ID（識別用）","id",c.id,"number","step=1",false,"遊戲套用角色時依陣列索引，不使用此 id；建議保持原值。",true)}
         ${inputField("職業名稱","name",c.name||"","text","",false,"角色名稱、裝備職業標示等顯示用。")}
         ${inputField("二轉名稱","advanced",c.advanced||"","text","",false,"只改二轉顯示名稱；LV15、生命+18%、攻擊+22%、防禦+15%及二轉成本仍由 HTML 固定。")}
+        ${inputField("戰鬥卡片顏色","cardColor",c.cardColor||(["#c4563a","#7d5fd0","#4f9a55","#c9a540"][selected.class]||"#6f8a9a"),"color","",false,"遊戲 v0.079：此職業的主角與夥伴在戰鬥畫面的卡片底色。")}
         ${inputField("主要屬性名稱","main",c.main||"","text","",false,"名稱只作顯示；能力點效果請至「角色成長設定」。預設每點攻擊 +1、生命 +3、防禦 +1。")}
         ${inputField("角色基礎生命","hp",c.hp??0,"number","min=0.0001 step=1",false,"角色 1 級未計裝備與能力點時的基礎生命；必須大於 0。")}
         ${inputField("角色基礎攻擊","atk",c.atk??0,"number","min=0.0001 step=1",false,"角色 1 級未計裝備與能力點時的基礎攻擊；必須大於 0。")}
@@ -3059,7 +3060,9 @@ ensureArrays();requestEditorInitialRender();
       eliteEnabled:final?false:(typeof src.eliteEnabled==='boolean'?src.eliteEnabled:def.eliteEnabled!==false),eliteChance:final?0:(Number.isFinite(src.eliteChance)?src.eliteChance:Number(def.eliteChance??.12)),
       bossEnabled:final?true:(typeof src.bossEnabled==='boolean'?src.bossEnabled:def.bossEnabled!==false),bossChance:final?1:(Number.isFinite(src.bossChance)?src.bossChance:Number(def.bossChance??.05)),
       // Region vouchers: fixed gold per ticket once the hero exceeds this map's max level (game default 100 + 300 per 5-level band).
-      overlevelVoucherGold:Number.isFinite(src.overlevelVoucherGold)&&src.overlevelVoucherGold>=0?Math.round(src.overlevelVoucherGold):defaultOverlevelVoucherGold(Number.isFinite(src.min)?Math.round(src.min):(Number(def.min)||1))
+      overlevelVoucherGold:Number.isFinite(src.overlevelVoucherGold)&&src.overlevelVoucherGold>=0?Math.round(src.overlevelVoucherGold):defaultOverlevelVoucherGold(Number.isFinite(src.min)?Math.round(src.min):(Number(def.min)||1)),
+      // Game v0.079: battlefield backdrop of this region (#RRGGBB); unset uses the map color.
+      ...(typeof src.battlefieldColor==='string'&&/^#[0-9a-fA-F]{6}$/.test(src.battlefieldColor)?{battlefieldColor:src.battlefieldColor.toLowerCase()}:{})
     };
   }
   function defaultOverlevelVoucherGold(min){return 100+300*Math.max(0,Math.floor((Math.max(1,min)-1)/5));}
@@ -3158,7 +3161,7 @@ ensureArrays();requestEditorInitialRender();
       <label>生成權重<input class="world-monster-field" data-key="spawnWeight" type="number" min="0.0001" step="0.1" value="${esc(m.spawnWeight)}"></label><label>最大掉落物數<input class="world-monster-field" data-key="maxDrops" type="number" min="0" max="100" step="1" value="${esc(m.maxDrops)}"></label>
       ${finalMap?`<label>關卡數量<input class="world-monster-field" data-key="stageCount" type="number" min="1" max="20" step="1" value="${isBoss?1:esc(m.stageCount)}" ${isBoss?'disabled':''}></label><label>關卡型態<select class="world-monster-field" data-key="stageElite" ${isBoss?'disabled':''}><option value="false" ${!m.stageElite?'selected':''}>普通</option><option value="true" ${m.stageElite?'selected':''}>菁英</option></select></label><label>隊列順序<input class="world-monster-field" data-key="stageOrder" type="number" min="0" max="999" step="1" value="${esc(m.stageOrder)}"></label>`:''}
       <label>生命倍率<input class="world-monster-field" data-key="hpMultiplier" type="number" min="0.01" step="0.05" value="${esc(m.hpMultiplier)}"></label><label>攻擊倍率<input class="world-monster-field" data-key="attackMultiplier" type="number" min="0.01" step="0.05" value="${esc(m.attackMultiplier)}"></label><label>防禦倍率<input class="world-monster-field" data-key="defenseMultiplier" type="number" min="0.01" step="0.05" value="${esc(m.defenseMultiplier)}"></label>
-      <label>主要素材（連結既有道具）<div class="toolbar"><input value="${esc(m.material)}" readonly><button class="small monster-material-pick">選取素材</button></div></label><label>元素<select class="world-monster-field" data-key="element">${ELEMENTS.map(v=>`<option value="${v}" ${m.element===v?'selected':''}>${esc(ELEMENT_LABELS[v]||v)}</option>`).join('')}</select></label><label>種族<select class="world-monster-field" data-key="race">${Object.entries(RACE_LABELS).map(([v,l])=>`<option value="${v}" ${m.race===v?'selected':''}>${l}</option>`).join('')}</select></label>
+      <label>主要素材（連結既有道具）<div class="toolbar"><input value="${esc(m.material)}" readonly><button class="small monster-material-pick">選取素材</button></div></label><label>元素<select class="world-monster-field" data-key="element">${ELEMENTS.map(v=>`<option value="${v}" ${m.element===v?'selected':''}>${esc(ELEMENT_LABELS[v]||v)}</option>`).join('')}</select></label><label>戰鬥卡片顏色<input type="color" class="world-monster-field" data-key="cardColor" value="${esc(m.cardColor||MONSTER_CARD_DEFAULTS[m.element]||'#3f6a56')}" title="遊戲戰鬥畫面的卡片底色；未設定時依元素"></label><label>種族<select class="world-monster-field" data-key="race">${Object.entries(RACE_LABELS).map(([v,l])=>`<option value="${v}" ${m.race===v?'selected':''}>${l}</option>`).join('')}</select></label>
     </div><details><summary>個別生命、攻擊與防禦</summary><div class="world-fields">${[['hp','基礎生命',0],['attack','基礎攻擊',0],['defense','基礎防禦',-1]].map(([key,label,fallback])=>`<label>${label}<input class="monster-base-stat" data-key="${key}" type="number" min="${fallback===-1?0:1}" step="1" placeholder="留空沿用公式" value="${m.baseStats[key]===fallback?'':esc(m.baseStats[key])}"></label>`).join('')}</div><p class="mini-note">留空沿用等級公式；個別數值會再套用此怪倍率、覺醒與難度倍率。</p></details>${monsterCombatStatsEditorHTML(m)}${monsterSharedSkillAssignmentsHTML(m)}${isBoss?'<p class="mini-note">BOSS 只在 BOSS 關卡出現；可切換類型、移動地圖、複製變體，並個別設定權重。</p>':''}${globalThis.__EMBERWILD_MONSTER_DESIGNER?.dropHTML(m)||''}</article>`;
   }
   function rewriteDropKindsForBoss(monsterId,fromKind,toKind){globalThis.__EMBERWILD_MONSTER_DESIGNER?.rewriteKinds(monsterId,fromKind,toKind);}
@@ -3183,7 +3186,9 @@ ensureArrays();requestEditorInitialRender();
   function deleteMap(index){if(index<=LEGACY_GATE_INDEX)return alert('前 7 張核心地圖（包含終焉王座）為相容性保留區，不能刪除；可改名稱與數值。');const assigned=data.balanceSettings.monsters.catalog.filter(m=>m.mapIndex===index);if(assigned.length)return alert(`此地圖仍有 ${assigned.length} 隻怪物。請先移動／刪除怪物與首領後再刪除。`);if(!confirmDelete(`刪除地圖「${data.balanceSettings.maps.catalog[index].name}」？後續地圖索引會自動前移。`))return;data.balanceSettings.maps.catalog.splice(index,1);for(const m of data.balanceSettings.monsters.catalog)if(m.mapIndex>index)m.mapIndex--;selected.worldMap=Math.max(LEGACY_GATE_INDEX+1,index-1);data.balanceSettings.maps.levelRanges=data.balanceSettings.maps.catalog.map(m=>({min:m.min,max:m.max}));markDirty();render();}
 
   // Developer-mode dialogs edit maps through the same rules as this page. A rejected change restores the whole draft.
-  const MAP_FIELDS=['name','mapType','min','max','family','icon','color','parallel','eliteEnabled','eliteChance','bossEnabled','overlevelVoucherGold'];
+  // Unset battlefield colors use the map color (game v0.079, js/ui/visual-colors.js).
+  function defaultBattlefieldColor(m){return /^#[0-9a-fA-F]{6}$/.test(m?.color||'')?m.color.toLowerCase():'#34483a';}
+  const MAP_FIELDS=['name','mapType','min','max','family','icon','color','parallel','eliteEnabled','eliteChance','bossEnabled','overlevelVoucherGold','battlefieldColor'];
   function applyMapPatch(index,patch){
     const maps=data.balanceSettings.maps.catalog,map=maps[index];if(!map)throw Error('找不到地圖 '+index);const final=()=>isFinalMapRow(map);
     for(const k of Object.keys(patch||{}))if(!MAP_FIELDS.includes(k))throw Error('不支援的地圖欄位：'+k);
@@ -3193,6 +3198,7 @@ ensureArrays();requestEditorInitialRender();
       let v=raw;if(['min','max','family'].includes(k))v=Math.round(Number(raw));else if(k==='eliteChance')v=Number(raw);else if(k==='overlevelVoucherGold')v=Math.round(Number(raw));else if(['parallel','eliteEnabled','bossEnabled'].includes(k))v=raw===true||raw==='true';else v=String(raw??'');
       if(typeof v==='number'&&!Number.isFinite(v))throw Error('地圖欄位數值無效：'+k);
       if(k==='name'&&!v.trim())throw Error('地圖名稱不可空白');if(k==='overlevelVoucherGold'&&v<0)throw Error('超等收益券金幣不可小於 0');
+      if(k==='battlefieldColor'){if(!v){delete map.battlefieldColor;continue;}if(!/^#[0-9a-fA-F]{6}$/.test(v))throw Error('戰場底色必須是 #RRGGBB 色碼');v=v.toLowerCase();if(!map.battlefieldColor&&v===defaultBattlefieldColor(map))continue;}
       map[k]=v;if(k==='name')MAP_NAMES[index]=v;
     }
     if(map.min>map.max)throw Error('最低等級不可高於最高等級');
@@ -3204,7 +3210,9 @@ ensureArrays();requestEditorInitialRender();
     try{const out=fn();const all=validateData(),issues=all.filter(x=>!before.has(x));if(issues.length)throw Error(issues.slice(0,3).join('\n'));markDirty('地圖彈窗');render();return {ok:true,...out,...(all.length?{existingIssues:all.slice(0,3)}:{})};}
     catch(e){data=snapshot;ensureArrays();render();return {ok:false,error:e.message};}
   }
-  const MONSTER_FIELDS=['name','element','race','hpMultiplier','attackMultiplier','defenseMultiplier','spawnWeight','maxDrops','enabled','eliteEnabled','kind','baseStats.hp','baseStats.attack','baseStats.defense'];
+  const MONSTER_FIELDS=['name','element','race','hpMultiplier','attackMultiplier','defenseMultiplier','spawnWeight','maxDrops','enabled','eliteEnabled','kind','baseStats.hp','baseStats.attack','baseStats.defense','cardColor'];
+  // Game v0.079 default monster card colors by element (js/ui/visual-colors.js).
+  const MONSTER_CARD_DEFAULTS={physical:'#3f6a56',fire:'#8a3d2e',ice:'#2f5f86',wind:'#3d7a4a',light:'#8a7a36',shadow:'#5a3d7a'};
   function monsterRow(id){const m=data.balanceSettings.monsters.catalog.find(x=>x.id===id);if(!m)throw Error('找不到怪物 '+id);return m;}
   function applyMonsterPatch(id,patch){
     const m=monsterRow(id);
@@ -3214,6 +3222,7 @@ ensureArrays();requestEditorInitialRender();
       // Developer-mode dialogs: kind goes through the monster designer (drop kinds follow); blank base stats use the level formula.
       if(k==='kind'){if(raw!==m.kind)__EMBERWILD_MONSTER_DESIGNER.changeKind(m.id,String(raw));continue;}
       if(k.startsWith('baseStats.')){const key=k.slice(10),fallback=key==='defense'?-1:0,blank=raw===null||raw===''||Number.isNaN(raw),n=blank?fallback:Number(raw);if(!blank&&(!Number.isFinite(n)||n<(key==='defense'?0:1)))throw Error('個別'+({hp:'生命',attack:'攻擊',defense:'防禦'}[key])+'數值無效');m.baseStats={hp:0,attack:0,defense:-1,...(m.baseStats||{}),[key]:n};continue;}
+      if(k==='cardColor'){const c=String(raw??'');if(!c){delete m.cardColor;continue;}if(!/^#[0-9a-fA-F]{6}$/.test(c))throw Error('怪物卡片顏色必須是 #RRGGBB 色碼');if(!m.cardColor&&c.toLowerCase()===(MONSTER_CARD_DEFAULTS[m.element]||'#3f6a56'))continue;m.cardColor=c.toLowerCase();continue;}
       let v=raw;if(['hpMultiplier','attackMultiplier','defenseMultiplier','spawnWeight'].includes(k))v=Number(raw);else if(k==='maxDrops')v=Math.round(Number(raw));else if(['enabled','eliteEnabled'].includes(k))v=raw===true||raw==='true';else v=String(raw??'');
       if(typeof v==='number'&&(!Number.isFinite(v)||v<0))throw Error('怪物欄位數值無效：'+k);
       if(k==='name'&&!v.trim())throw Error('怪物名稱不可空白');
@@ -3227,7 +3236,7 @@ ensureArrays();requestEditorInitialRender();
       // Seconds combat (game v0.074): the monster's own basic attack interval and its assigned skills' initial/reuse cooldowns.
       const timers=(m.skillAssignments||[]).map(r=>data.skillSystem.definitions.find(s=>s.id===r.skillId)).filter(s=>s&&['active','support'].includes(s.type)).map(s=>s.name+' 初始 '+EmberwildSecondsSchema.initialCooldownSeconds(s)+' 秒／再使用 '+s.timing.cooldownSeconds+' 秒');
       const base={hp:0,attack:0,defense:-1,...(m.baseStats||{})},finalMap=isFinalMapRow(map),kinds=Object.entries(MONSTER_KIND_LABELS).filter(([k])=>k!==(finalMap?'boss':'final'));
-      return {...m,attackIntervalSeconds:m.timing?.baseIntervalSeconds,skillTimers:timers,mapName:map?.name||'',elements:ELEMENTS.map(v=>[v,ELEMENT_LABELS[v]||v]),kinds,'baseStats.hp':base.hp>0?base.hp:null,'baseStats.attack':base.attack>0?base.attack:null,'baseStats.defense':base.defense>=0?base.defense:null,skillAssignments:structuredClone(m.skillAssignments||[]),skillNames:(m.skillAssignments||[]).map(a=>sharedCoreSkillEditorPool().find(s=>s.id===a.skillId)?.name||a.skillId)};},
+      return {...m,cardColor:m.cardColor||MONSTER_CARD_DEFAULTS[m.element]||'#3f6a56',attackIntervalSeconds:m.timing?.baseIntervalSeconds,skillTimers:timers,mapName:map?.name||'',elements:ELEMENTS.map(v=>[v,ELEMENT_LABELS[v]||v]),kinds,'baseStats.hp':base.hp>0?base.hp:null,'baseStats.attack':base.attack>0?base.attack:null,'baseStats.defense':base.defense>=0?base.defense:null,skillAssignments:structuredClone(m.skillAssignments||[]),skillNames:(m.skillAssignments||[]).map(a=>sharedCoreSkillEditorPool().find(s=>s.id===a.skillId)?.name||a.skillId)};},
     // Monsters of one map, for the developer-mode monster list.
     monsters(mapIndex){ensureArrays();return data.balanceSettings.monsters.catalog.filter(m=>m.mapIndex===Number(mapIndex)).map(m=>({id:m.id,name:m.name,kind:m.kind,kindName:MONSTER_KIND_LABELS[m.kind]||m.kind,enabled:m.enabled!==false,element:ELEMENT_LABELS[m.element]||m.element,hpMultiplier:m.hpMultiplier,attackMultiplier:m.attackMultiplier,defenseMultiplier:m.defenseMultiplier,skills:(m.skillAssignments||[]).length}));},
     // Skills this monster may cast: the same pool and usage-scope rules as the 地圖與怪物 page.
@@ -3246,7 +3255,7 @@ ensureArrays();requestEditorInitialRender();
     updateMonster(id,patch){return guardedMapChange(()=>{applyMonsterPatch(id,patch);const m=monsterRow(id);selected.worldMap=m.mapIndex;selected.worldMonsterSearch=m.id;return {id};});},
     createMonster(mapIndex,patch){return guardedMapChange(()=>{const before=new Set(data.balanceSettings.monsters.catalog.map(x=>x.id));addNormalMonster(mapIndex);const row=data.balanceSettings.monsters.catalog.find(x=>!before.has(x.id));if(!row)throw Error('新增怪物失敗');applyMonsterPatch(row.id,patch);selected.worldMap=mapIndex;return {id:row.id,mapIndex};});},
     fields:MAP_FIELDS.slice(),
-    maps(){ensureArrays();return data.balanceSettings.maps.catalog.map((m,i)=>({index:i,...structuredClone(m),overlevelVoucherGold:m.overlevelVoucherGold??defaultOverlevelVoucherGold(m.min),final:isFinalMapRow(m),core:i<=LEGACY_GATE_INDEX,monsters:data.balanceSettings.monsters.catalog.filter(x=>x.mapIndex===i).length}));},
+    maps(){ensureArrays();return data.balanceSettings.maps.catalog.map((m,i)=>({index:i,...structuredClone(m),overlevelVoucherGold:m.overlevelVoucherGold??defaultOverlevelVoucherGold(m.min),battlefieldColor:m.battlefieldColor||defaultBattlefieldColor(m),final:isFinalMapRow(m),core:i<=LEGACY_GATE_INDEX,monsters:data.balanceSettings.monsters.catalog.filter(x=>x.mapIndex===i).length}));},
     update(index,patch){return guardedMapChange(()=>{applyMapPatch(index,patch);selected.worldMap=index;return {index};});},
     create(type,patch){return guardedMapChange(()=>{if(!['normal','final'].includes(type))throw Error('地圖類型無效');ensureArrays();const before=data.balanceSettings.maps.catalog.length;addMap(type);const index=data.balanceSettings.maps.catalog.length-1;if(index!==before)throw Error('新增地圖失敗');const {mapType,...rest}=patch||{};applyMapPatch(index,rest);selected.worldMap=index;return {index};});}
   };
@@ -3259,7 +3268,7 @@ ensureArrays();requestEditorInitialRender();
         <label>地圖類型<select class="world-map-field" data-key="mapType" ${mi<=LEGACY_GATE_INDEX?'disabled':''}><option value="normal" ${map.mapType==='normal'?'selected':''}>一般地圖</option><option value="final" ${map.mapType==='final'?'selected':''}>終局地圖（自訂首領關卡）</option></select></label><label>等級突破關卡<input value="${map.progressionGate?'是':'否'}" readonly></label>
         <label>最低等級<input class="world-map-field" data-key="min" type="number" min="1" step="1" value="${esc(map.min)}"></label><label>最高等級${final&&!map.progressionGate?'（同時作為終局首領等級）':''}<input class="world-map-field" data-key="max" type="number" min="1" step="1" value="${esc(map.max)}"></label>
         <label>區域家族<select class="world-map-field" data-key="family">${[0,1,2,3,4,5].map(v=>`<option value="${v}" ${map.family===v?'selected':''}>${v}｜${['林地／風','礦坑／物理','沼澤／暗','山脊／冰','熔火／火','星隕／暗'][v]}</option>`).join('')}</select></label><label>圖示文字<input class="world-map-field" data-key="icon" value="${esc(map.icon)}"></label>
-        <label>介面色碼<input class="world-map-field" data-key="color" value="${esc(map.color)}"></label><label>平行／追加區域<select class="world-map-field" data-key="parallel"><option value="true" ${map.parallel?'selected':''}>是</option><option value="false" ${!map.parallel?'selected':''}>否</option></select></label>
+        <label>介面色碼<input class="world-map-field" data-key="color" value="${esc(map.color)}"></label><label>戰場底色<input type="color" class="world-map-field" data-key="battlefieldColor" value="${esc(map.battlefieldColor||defaultBattlefieldColor(map))}" title="遊戲戰鬥畫面的背景色；未設定時使用介面色碼"></label><label>平行／追加區域<select class="world-map-field" data-key="parallel"><option value="true" ${map.parallel?'selected':''}>是</option><option value="false" ${!map.parallel?'selected':''}>否</option></select></label>
         <label>啟用菁英<select class="world-map-field" data-key="eliteEnabled" ${final?'disabled':''}><option value="true" ${map.eliteEnabled?'selected':''}>是</option><option value="false" ${!map.eliteEnabled?'selected':''}>否</option></select></label><label>菁英遭遇率（0~1）<input class="world-map-field" data-key="eliteChance" type="number" min="0" max="1" step="0.001" value="${esc(map.eliteChance)}" ${final?'disabled':''}></label>
         <label>啟用 BOSS<select class="world-map-field" data-key="bossEnabled" ${final?'disabled':''}><option value="true" ${map.bossEnabled?'selected':''}>是</option><option value="false" ${!map.bossEnabled?'selected':''}>否</option></select></label>${final?'<label>終局固定關卡<input value="1 名最終首領與設定的隨從" readonly></label>':`<label>超等收益券金幣（每張）<input class="world-map-field" data-key="overlevelVoucherGold" type="number" min="0" step="1" value="${esc(map.overlevelVoucherGold??defaultOverlevelVoucherGold(map.min))}" title="主角等級超過此地圖最高等級後，此地區的 30 分鐘收益券只兌換這個固定金幣"></label>`}
       </div><div class="world-map-summary"><span class="pill">地圖類型 ${final?'終局':'一般'}</span><span class="pill">${final?'關卡小怪 '+assigned.filter(x=>x.m.kind==='normal'&&x.m.enabled!==false).reduce((sum,x)=>sum+(Number(x.m.stageCount)||1),0)+' 隻':'普通怪資料 '+normalCount}</span><span class="pill">${final?'最終首領':'BOSS'}資料 ${assigned.filter(x=>x.m.kind===bossKind).length}</span></div></div></section>
@@ -4627,6 +4636,20 @@ ensureArrays();requestEditorInitialRender();
     return issues;
   };
   globalThis.__EMBERWILD_REGION_VOUCHER_SETTINGS={DEFAULTS,LIMITS,OPTIONAL_LIMITS};
+})();
+</script>
+<script id="visual-colors-editor">
+/* Game v0.079 display colors: maps[].battlefieldColor, monsters[].cardColor, classes[].cardColor must be #RRGGBB when set. */
+(function installVisualColorChecks(){
+  const HEX=/^#[0-9a-fA-F]{6}$/,bad=v=>v!==undefined&&v!==null&&v!==''&&!(typeof v==='string'&&HEX.test(v));
+  const validateBase=validateData;
+  validateData=function(...args){
+    const issues=validateBase(...args);
+    for(const m of data?.balanceSettings?.maps?.catalog||[])if(bad(m?.battlefieldColor))issues.push(`地圖「${m.name}」戰場底色必須是 #RRGGBB 色碼`);
+    for(const m of data?.balanceSettings?.monsters?.catalog||[])if(bad(m?.cardColor))issues.push(`怪物「${m.name}」卡片顏色必須是 #RRGGBB 色碼`);
+    (data?.classes||[]).forEach(c=>{if(bad(c?.cardColor))issues.push(`職業「${c.name}」卡片顏色必須是 #RRGGBB 色碼`);});
+    return issues;
+  };
 })();
 </script>
 <style id="equipment-identity-editor-style">

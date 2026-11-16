@@ -22,7 +22,7 @@ const EDITORS={
   fields:[
    {key:'mapType',label:'地圖類型',type:'select',options:[['normal','一般地圖'],['final','終局地圖（自訂首領關卡）']],create:true,redraw:true},
    {key:'name',label:'顯示名稱',type:'text'},{key:'min',label:'最低等級',type:'number',min:1,step:1},{key:'max',label:'最高等級',type:'number',min:1,step:1},
-   {key:'family',label:'區域家族',type:'select',options:FAMILIES.map((n,i)=>[String(i),i+'｜'+n]),number:true},{key:'icon',label:'圖示文字',type:'text'},{key:'color',label:'介面色碼',type:'color'},
+   {key:'family',label:'區域家族',type:'select',options:FAMILIES.map((n,i)=>[String(i),i+'｜'+n]),number:true},{key:'icon',label:'圖示文字',type:'text'},{key:'color',label:'介面色碼',type:'color'},{key:'battlefieldColor',label:'戰場底色',type:'color'},
    {key:'parallel',label:'平行／追加區域',type:'check'},{key:'eliteEnabled',label:'啟用菁英',type:'check',when:notHidden},
    {key:'eliteChance',label:'菁英遭遇率（0～1）',type:'number',min:0,max:1,step:.001,when:notHidden},{key:'bossEnabled',label:'啟用 BOSS',type:'check',when:notHidden},
    {key:'overlevelVoucherGold',label:'超等收益券金幣（每張）',type:'number',min:0,step:1,when:notHidden}
@@ -43,7 +43,7 @@ const EDITORS={
    const r=W.monster(t.id);return {...r,skillIds:r.skillAssignments.map(a=>a.skillId),skillPool:W.monsterSkillPool(t.id),originalSkills:r.skillAssignments.map(a=>a.skillId).join('|')};},
   fields:[
    {key:'name',label:'名稱',type:'text'},{key:'kind',label:'類型',type:'select',options:r=>r.kinds,when:r=>!!r.kinds},
-   {key:'element',label:'元素',type:'select',options:r=>r.elements},{key:'race',label:'種族',type:'select',options:RACES},
+   {key:'element',label:'元素',type:'select',options:r=>r.elements},{key:'race',label:'種族',type:'select',options:RACES},{key:'cardColor',label:'戰鬥卡片顏色',type:'color'},
    {key:'hpMultiplier',label:'生命倍率',type:'number',min:0,step:.01},{key:'attackMultiplier',label:'攻擊倍率',type:'number',min:0,step:.01},{key:'defenseMultiplier',label:'防禦倍率',type:'number',min:0,step:.01},
    {key:'baseStats.hp',label:'個別基礎生命（留空＝等級公式）',type:'number',min:1,step:1,blank:true},{key:'baseStats.attack',label:'個別基礎攻擊（留空＝等級公式）',type:'number',min:1,step:1,blank:true},{key:'baseStats.defense',label:'個別基礎防禦（留空＝等級公式）',type:'number',min:0,step:1,blank:true},
    {key:'spawnWeight',label:'出現權重',type:'number',min:0,step:.01},{key:'maxDrops',label:'最大掉落物數',type:'number',min:0,step:1},
