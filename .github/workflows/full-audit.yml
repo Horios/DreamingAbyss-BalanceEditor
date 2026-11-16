@@ -1,0 +1,150 @@
+name: Full game and editor audit
+run-name: Full audit · ${{ inputs.game_commit || '718ce6e480795e436f3003eae8fc56ec47c5c234' }}
+
+on:
+  push:
+    branches: ['audit/full-regression-20261117']
+    paths: ['.github/workflows/full-audit.yml']
+  workflow_dispatch:
+    inputs:
+      game_commit:
+        description: Exact game commit to synchronize and test
+        required: true
+        default: '718ce6e480795e436f3003eae8fc56ec47c5c234'
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: full-audit-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  GAME_COMMIT: ${{ inputs.game_commit || '718ce6e480795e436f3003eae8fc56ec47c5c234' }}
+
+jobs:
+  prepare:
+    name: Synchronize game and regenerate field audits
+    if: startsWith(github.ref, 'refs/heads/audit/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    outputs:
+      editor_commit: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          path: editor
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: Horios/DreamingAbyss
+          ref: ${{ env.GAME_COMMIT }}
+          path: DreamingAbyss
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser dependencies
+        working-directory: DreamingAbyss
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Synchronize embedded game, validators and field reports
+        working-directory: editor
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
+          NODE_PATH: ${{ github.workspace }}/DreamingAbyss/node_modules
+        run: |
+          node scripts/sync-game.cjs
+          node scripts/traceability.cjs
+          node scripts/boundary-probe.cjs
+          node scripts/audit-seconds-browser.cjs
+          node scripts/build-v2-assets.cjs
+          node scripts/check-game-sync.cjs --strict
+          node scripts/traceability.cjs --check
+      - name: Commit generated candidate to audit branch only
+        id: commit
+        working-directory: editor
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u
+          if ! git diff --cached --quiet; then
+            git diff --cached --stat
+            git commit -m "Synchronize editor and regenerate audits for game $GAME_COMMIT"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  regression:
+    name: Full regression / ${{ matrix.group }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: game-headless
+            stages: game-data,game-headless
+          - group: game-browser
+            stages: game-browser
+          - group: editor
+            stages: editor-contract,editor-build,editor-headless,editor-browser,editor-artifact
+          - group: simulations
+            stages: long
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.prepare.outputs.editor_commit }}
+          path: editor
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: Horios/DreamingAbyss
+          ref: ${{ env.GAME_COMMIT }}
+          path: DreamingAbyss
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser dependencies
+        working-directory: DreamingAbyss
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Run complete stage selection without skipped cases
+        working-directory: DreamingAbyss
+        env:
+          EMBERWILD_BALANCE_ROOT: ${{ github.workspace }}/editor
+        run: node scripts/full-test.cjs --long --stage "${{ matrix.stages }}" --jobs 2 --browser-jobs 1 --verbose
+      - name: Publish report and failed test details
+        if: always()
+        working-directory: DreamingAbyss
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs'),path=require('node:path');
+          const root='.audit-results/full-test',file=path.join(root,'results.json');
+          if(!fs.existsSync(file))process.exit(0);
+          const result=JSON.parse(fs.readFileSync(file,'utf8'));
+          console.log(JSON.stringify(result.meta,null,2));
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,fs.readFileSync(path.join(root,'REPORT.md'),'utf8'));
+          for(const row of result.results.filter(x=>x.status!=='pass')){
+            console.log('::group::'+row.id);
+            console.log(fs.readFileSync(path.join(root,row.log),'utf8'));
+            console.log('::endgroup::');
+          }
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-audit-${{ matrix.group }}-${{ github.run_id }}
+          path: DreamingAbyss/.audit-results/full-test/
+          include-hidden-files: true
+          retention-days: 14
