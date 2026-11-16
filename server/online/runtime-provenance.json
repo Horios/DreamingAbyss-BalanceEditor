@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "9b8b95ff118014a0c463da35a69f5c2ceef669fd",
+  "sourceCommit": "05eabe9b89d5f6792bda7191eb0da9b71eb05797",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -534,11 +534,11 @@
   "contract": [
     {
       "path": "js/balance/balance-modules.js",
-      "gitBlob": "ba9137c433f8c26bae4871e1621f0c17ed421c39"
+      "gitBlob": "2d0a50974a2b52c1df0341c5199d411bb31c190d"
     },
     {
       "path": "js/balance/balance-document.js",
-      "gitBlob": "b7d9f5b5e5d6fc52a6ec6ead35142562a02ed59c"
+      "gitBlob": "f70813dd2205538f8c70bf6d8a63eacc4349e45e"
     }
   ]
 }

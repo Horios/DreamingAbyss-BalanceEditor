@@ -1,8 +1,8 @@
 {
  "schema": "dreaming-abyss-boundary-v1",
  "game": {
-  "dataCommit": "c9c51aa182aabff5aa85e00ed9a5fedc3a13bb4b",
-  "dataSha256": "02b2b55e8133a28ce33bde2719ab3db7d4e5aca8e973d5fd23328691c9994ea0"
+  "dataCommit": "b0359b5702e61ded8f53b122bc85842c5f2a1ce3",
+  "dataSha256": "9587509ea0f063c249c9ffa4cb2a324fab97d4b72deda87ca3b254ec27eab769"
  },
  "kinds": {
   "zero": "0",
@@ -34021,6 +34021,44 @@
    }
   },
   {
+   "pattern": "story.quests.*.stages.*.conditions.conditions.*.count",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
    "pattern": "story.quests.*.stages.*.rewards.gold",
    "module": "systems/story",
    "type": "integer",
@@ -34087,48 +34125,10 @@
    }
   },
   {
-   "pattern": "story.quests.*.stages.*.conditions.conditions.*.count",
-   "module": "systems/story",
-   "type": "integer",
-   "from": 2,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 2.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "story.quests.*.rewards.gold",
    "module": "systems/story",
    "type": "integer",
-   "from": 200,
+   "from": 300,
    "cases": {
     "zero": {
      "to": 0,
@@ -34148,7 +34148,7 @@
      "verdict": "rejected"
     },
     "fraction": {
-     "to": 200.5,
+     "to": 300.5,
      "rules": "rejected",
      "verdict": "rejected"
     },
@@ -34168,8 +34168,15 @@
    "pattern": "story.quests.*.rewards.ore",
    "module": "systems/story",
    "type": "integer",
-   "from": 0,
+   "from": 20,
    "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
     "negative": {
      "to": -1,
      "rules": "rejected",
@@ -34181,7 +34188,7 @@
      "verdict": "rejected"
     },
     "fraction": {
-     "to": 0.5,
+     "to": 20.5,
      "rules": "rejected",
      "verdict": "rejected"
     },
@@ -34340,6 +34347,88 @@
     },
     "fraction": {
      "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "story.quests.*.stages.*.prologue.scene",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "story.quests.*.prologue.helper.templates.*",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 13,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "fraction": {
+     "to": 13.5,
      "rules": "rejected",
      "verdict": "rejected"
     },
@@ -37466,6 +37555,204 @@
     },
     "fraction": {
      "to": 5.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "tutorials.modules.*.prerequisites.conditions.*.count",
+   "module": "systems/tutorials",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "tutorials.modules.*.steps.*.advance.condition.count",
+   "module": "systems/tutorials",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "tutorials.modules.*.revision",
+   "module": "systems/tutorials",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "tutorials.modules.*.steps.*.requires.conditions.*.count",
+   "module": "systems/tutorials",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "tutorials.modules.*.steps.*.skipIf.conditions.*.count",
+   "module": "systems/tutorials",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
      "rules": "rejected",
      "verdict": "rejected"
     },

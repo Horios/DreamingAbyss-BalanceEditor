@@ -15,9 +15,9 @@ test('the matrix has a row for every field pattern of the current game data, in 
  assert.deepEqual({missing,moved,stale},{missing:[],moved:[],stale:[]},'run node scripts/traceability.cjs and review the new rows');
 });
 
-test('all 35 modules are present and each has an explicit status for every row',()=>{
+test('all 36 modules are present and each has an explicit status for every row',()=>{
  const by=new Map();for(const r of matrix.rows){assert(Object.prototype.hasOwnProperty.call(T.STATUS,r.status),r.pattern+' has no known status: '+r.status);by.set(r.module,(by.get(r.module)||0)+1);}
- assert.deepEqual([...by.keys()].sort(),M.MODULES.map(m=>m.id).sort());assert.equal(M.MODULES.length,35);
+ assert.deepEqual([...by.keys()].sort(),M.MODULES.map(m=>m.id).sort());assert.equal(M.MODULES.length,36);
  for(const r of matrix.rows.filter(x=>x.edit)){for(const k of ['editor','validator','game'])assert.match(r[k],/^(preserved|transformed|reverted|removed|rejected)$/,r.pattern+' '+k);}
 });
 

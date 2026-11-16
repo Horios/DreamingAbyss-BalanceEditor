@@ -1,5 +1,5 @@
 {
-  "gameCommit": "9b8b95ff118014a0c463da35a69f5c2ceef669fd",
+  "gameCommit": "05eabe9b89d5f6792bda7191eb0da9b71eb05797",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -715,7 +715,7 @@
     },
     {
       "path": "css/visual-standard.css",
-      "sha256": "27bcaa01fa906b3ffa3031e5a00c28b9ff075875d2724e3eca9dfbc8ca6a7d19"
+      "sha256": "39d0906661d0b6f8866c9e57545edac47cbcc18ad5ca1a6991c0b617689a9973"
     },
     {
       "path": "css/wishing-lake.css",
@@ -879,14 +879,14 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "b6a495f770a0d49a71607f5c5a28c48dd12e758428fbe7f92dacfaba1ce962e8"
+      "sha256": "0524d359a48175fda2801f662b91067fb117e9be86ea2f2d9f1aaf21a4103ad6"
     },
     {
       "path": "index.html",
       "sha256": "edc7d8111db621ad3c02a081e79497bb2110644b6afd80ea5bfb06a7e316edfe"
     }
   ],
-  "gameBridgeSha256": "81dfc467542ff25a9d14fff49e2ca9e3847ea31b7c073e790e13c07003c50660",
+  "gameBridgeSha256": "2ae38f846e8802727b3b82c264edf8d8ed3dbb7e099a8fce6fd891e792af4157",
   "editorBridgeSha256": "f3459f81bf758a193e32d257cf81f1bb24bd612be8c326c590731844d5c2cfb0",
-  "entrySha256": "877f2f27617169bd2c78b569a862b19f1d55950ffd5fca3e688126d66c96e7d3"
+  "entrySha256": "caf791934d29d646ea0fb41a57c27ba546c15d27d5a92d238a9b43d2bc3b368a"
 }

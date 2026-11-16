@@ -2,7 +2,7 @@
 
 由 `node scripts/traceability.cjs` 產生，請勿手動修改。完整資料在 `traceability-matrix.json`。
 
-遊戲資料 commit `c9c51aa`（`data/balance.json` SHA-256 `02b2b55e8133…`），1508 個欄位樣式，33187 個欄位值，35 個模組。
+遊戲資料 commit `b0359b5`（`data/balance.json` SHA-256 `9587509ea0f0…`），1601 個欄位樣式，33849 個欄位值，36 個模組。
 
 每個欄位樣式取第一筆資料改一次值，依序交給工作台（匯入→匯出）、發布驗證器（canonicalize）與遊戲（`applyBalanceConfig`→`exportableBalance`）。
 
@@ -51,11 +51,12 @@
 | `systems/shop` | 23 | 0 | 15 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
 | `systems/life-skills` | 21 | 0 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `items/inventory-icons` | 4 | 0 | 4 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `systems/story` | 30 | 0 | 35 | 0 | 0 | 0 | 0 | 0 | 0 | 14 |
+| `systems/story` | 66 | 0 | 45 | 0 | 0 | 0 | 0 | 0 | 0 | 16 |
 | `interface/navigation` | 4 | 0 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `combat/skill-system` | 20 | 0 | 16 | 0 | 0 | 0 | 0 | 1 | 0 | 5 |
 | `combat/skills` | 53 | 0 | 27 | 0 | 0 | 0 | 0 | 0 | 0 | 12 |
 | `systems/wishing-lake` | 24 | 0 | 25 | 0 | 0 | 0 | 0 | 0 | 0 | 3 |
+| `systems/tutorials` | 19 | 0 | 24 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
 
 ## 由其他欄位衍生，修改來源欄位才會生效（99）
 
