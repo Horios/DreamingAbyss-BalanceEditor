@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "626b4b52cdcc0dda6f972bed67a18bd758e06252",
+  "sourceCommit": "9b8b95ff118014a0c463da35a69f5c2ceef669fd",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -467,8 +467,8 @@
       "sha256": "74b83504f364e6e8333ed1bf467d3ff742d81e7936901b4238632683e874acce"
     },
     {
-      "path": "js/ui/battle-summary.js?v=20261112-v0131-numbers7",
-      "sha256": "ad1a4e5bc2b940d97982bbabd562df726e10020e9e91c8c6f788ae7e4e370449"
+      "path": "js/ui/battle-summary.js?v=20261116-v0148-cardcolor1",
+      "sha256": "2a9b8a279c967c09eec339fe321c144a688c2c2286dfece53b7f4301a534691f"
     },
     {
       "path": "js/ui/battle-effects.js?v=20261113-v0138-numbers11",

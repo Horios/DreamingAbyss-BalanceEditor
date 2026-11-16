@@ -20679,7 +20679,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
 
 equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;wornEquipmentSocketPanel=globalThis.wornEquipmentSocketPanel??wornEquipmentSocketPanel;pageNewReminder=globalThis.pageNewReminder??pageNewReminder;EmberwildSecondsUI=globalThis.EmberwildSecondsUI??EmberwildSecondsUI;showSkillInformation=globalThis.showSkillInformation??showSkillInformation;openSkillCatalog=globalThis.openSkillCatalog??openSkillCatalog;toggleSkillSlotLocked=globalThis.toggleSkillSlotLocked??toggleSkillSlotLocked;openSkillSlot=globalThis.openSkillSlot??openSkillSlot;chooseSkillSlot=globalThis.chooseSkillSlot??chooseSkillSlot;selectEquipmentSocket=globalThis.selectEquipmentSocket??selectEquipmentSocket;toggleWornEquipmentSockets=globalThis.toggleWornEquipmentSockets??toggleWornEquipmentSockets;showWornEquipmentDetail=globalThis.showWornEquipmentDetail??showWornEquipmentDetail;newSkillCount=globalThis.newSkillCount??newSkillCount;dismissNewSkills=globalThis.dismissNewSkills??dismissNewSkills;equipNewSkill=globalThis.equipNewSkill??equipNewSkill;__EMBERWILD_SKILL_SYSTEM_UI=globalThis.__EMBERWILD_SKILL_SYSTEM_UI??__EMBERWILD_SKILL_SYSTEM_UI;
 
-/* js/ui/battle-summary.js?v=20261112-v0131-numbers7 */
+/* js/ui/battle-summary.js?v=20261116-v0148-cardcolor1 */
 /* Read-only combat presentation. HP and membership always come from combat units.
    Only previous visual samples, DOM nodes and a finished encounter's references
    are retained here; none of these values are saved or used by combat. */
@@ -20913,7 +20913,10 @@ equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSu
    const slots=':scope > .battle-enemy-icon, :scope > .seconds-face-main > .battle-enemy-icon',portrait=old.querySelector(slots);
    if(portrait){const replaced=fresh.querySelector(slots);if(replaced)replaced.replaceWith(portrait);else fresh.prepend(portrait);}
    for(const child of [...old.children])if(!child.matches('.battle-fx,.battle-fx-status,.battle-number-layer'))child.remove();
-   old.append(...fresh.children);for(const a of [...fresh.attributes])old.setAttribute(a.name,a.value);old.className=fresh.className;old.style.cssText=fresh.style.cssText;fresh.replaceWith(old);
+   old.append(...fresh.children);
+   // Copy the raw style attribute: it carries the card color (--vs-card). Re-serializing through
+   // style.cssText can drop custom properties, which turns the card back to the fallback gray.
+   for(const a of [...fresh.attributes])old.setAttribute(a.name,a.value);if(!fresh.hasAttribute('style'))old.removeAttribute('style');fresh.replaceWith(old);
   }
   retainedField=document.querySelector('.squad-field')||retainedField;
   sync();return out;
