@@ -1,8 +1,8 @@
 {
  "schema": "dreaming-abyss-boundary-v1",
  "game": {
-  "dataCommit": "b0359b5702e61ded8f53b122bc85842c5f2a1ce3",
-  "dataSha256": "9587509ea0f063c249c9ffa4cb2a324fab97d4b72deda87ca3b254ec27eab769"
+  "dataCommit": "6b6e6845086d5296b368ad6448456f16dabfdca4",
+  "dataSha256": "ea0e6baec8555e72fca3b9f9a4e59056fffa653750a511164a1313ffacfd86e9"
  },
  "kinds": {
   "zero": "0",
@@ -14051,9 +14051,9 @@
      "to": 1000000000000,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "BOSS 出場數須為 1～20，且不可超過候選數量：苔光林地",
+     "editorReason": "BOSS 出場數須為 1～20，且不可超過候選數量：無名密林",
      "validator": "rejected",
-     "validatorReason": "BOSS 出場數須為 1～20，且不可超過候選數量：苔光林地",
+     "validatorReason": "BOSS 出場數須為 1～20，且不可超過候選數量：無名密林",
      "verdict": "rejected"
     },
     "fraction": {
@@ -24775,7 +24775,7 @@
      "to": 0,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "苔光林地 的等級範圍無效。",
+     "editorReason": "無名密林 的等級範圍無效。",
      "validator": "rejected",
      "validatorReason": "地圖資料無效：map0",
      "verdict": "rejected"
@@ -24784,7 +24784,7 @@
      "to": -1,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "苔光林地 的等級範圍無效。",
+     "editorReason": "無名密林 的等級範圍無效。",
      "validator": "rejected",
      "validatorReason": "地圖資料無效：map0",
      "verdict": "rejected"
@@ -24836,7 +24836,7 @@
      "to": 0,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "苔光林地 的等級範圍無效。",
+     "editorReason": "無名密林 的等級範圍無效。",
      "validator": "rejected",
      "validatorReason": "地圖資料無效：map0",
      "verdict": "rejected"
@@ -24845,7 +24845,7 @@
      "to": -1,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "苔光林地 的等級範圍無效。",
+     "editorReason": "無名密林 的等級範圍無效。",
      "validator": "rejected",
      "validatorReason": "地圖資料無效：map0",
      "verdict": "rejected"
@@ -34426,6 +34426,170 @@
      "editor": "preserved",
      "validator": "preserved",
      "verdict": "accepted"
+    },
+    "fraction": {
+     "to": 13.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "story.quests.*.unlock.conditions.*.count",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "story.quests.*.stages.*.chapter.scene",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "story.quests.*.chapter.allies.*.template",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 10,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "劇情：chapter1：章節：臨時隊友範本不存在：0",
+     "verdict": "blocked"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "劇情：chapter1：章節：臨時隊友範本不存在：1000000000000",
+     "verdict": "blocked"
+    },
+    "fraction": {
+     "to": 10.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "story.quests.*.chapter.companion",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 13,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "劇情：chapter1：章節：加入的夥伴範本不存在",
+     "verdict": "blocked"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "劇情：chapter1：章節：加入的夥伴範本不存在",
+     "verdict": "blocked"
     },
     "fraction": {
      "to": 13.5,

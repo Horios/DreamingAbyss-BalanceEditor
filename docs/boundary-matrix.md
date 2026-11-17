@@ -2,16 +2,16 @@
 
 由 `node scripts/boundary-probe.cjs` 產生，請勿手動修改。完整資料在 `boundary-matrix.json`。
 
-745 個數值欄位（追溯矩陣中狀態為 `effective` 者），每個欄位取第一筆資料嘗試下列編輯。資料 SHA-256 `9587509ea0f0…`。
+749 個數值欄位（追溯矩陣中狀態為 `effective` 者），每個欄位取第一筆資料嘗試下列編輯。資料 SHA-256 `ea0e6baec855…`。
 
 | 編輯 | 三個程式都保留 | 被拒絕 | 工作台保留、驗證器拒絕（發布停在驗證） | 工作台較嚴格 | 沒有錯誤但值被改變 |
 |---|--:|--:|--:|--:|--:|
-| 0 | 495 | 104 | 12 | 16 | 4 |
-| -1 | 283 | 378 | 44 | 29 | 9 |
-| 1e12 | 451 | 255 | 13 | 23 | 3 |
-| 整數加 0.5 | 402 | 138 | 2 | 18 | 7 |
-| 字串 "x" | 3 | 654 | 81 | 5 | 2 |
-| null | 4 | 642 | 94 | 5 | 0 |
+| 0 | 495 | 106 | 14 | 16 | 4 |
+| -1 | 283 | 382 | 44 | 29 | 9 |
+| 1e12 | 451 | 257 | 15 | 23 | 3 |
+| 整數加 0.5 | 402 | 142 | 2 | 18 | 7 |
+| 字串 "x" | 3 | 658 | 81 | 5 | 2 |
+| null | 4 | 646 | 94 | 5 | 0 |
 
 ## 錯誤型別或 null 被整條鏈路保留（7）
 
@@ -55,7 +55,7 @@
 | `statusDefinitions.*.uses` | `combat/statuses` | 1 | 整數加 0.5 | 改為 2 | 改為 2 |  |
 | `starterPacks.*.*.growth.startLevel` | `items/starter-packs` | 1 | 整數加 0.5 | 改為 1（還原） | 改為 1（還原） |  |
 
-## 工作台保留、驗證器拒絕（246）
+## 工作台保留、驗證器拒絕（250）
 
 | 欄位 | 模組 | 原值 | 編輯 | 驗證器 | 遊戲 |
 |---|---|---|---|---|---|
@@ -283,6 +283,10 @@
 | `companionSettings.activeLimit` | `characters/companion-settings` | 6 | null | 拒絕：夥伴  companionSettings.activeLimit：此欄位不可為 null |  |
 | `companionSettings.ratings.maxBaseGapPercent` | `characters/companion-settings` | 18 | null | 拒絕：夥伴  companionSettings.ratings.maxBaseGapPercent：此欄位不可為 null |  |
 | `companionSettings.ratings.maxGrowthGapPercent` | `characters/companion-settings` | 13 | null | 拒絕：夥伴  companionSettings.ratings.maxGrowthGapPercent：此欄位不可為 null |  |
+| `story.quests.*.chapter.allies.*.template` | `systems/story` | 10 | 0 | 拒絕：劇情：chapter1：章節：臨時隊友範本不存在：0 |  |
+| `story.quests.*.chapter.allies.*.template` | `systems/story` | 10 | 1e12 | 拒絕：劇情：chapter1：章節：臨時隊友範本不存在：1000000000000 |  |
+| `story.quests.*.chapter.companion` | `systems/story` | 13 | 0 | 拒絕：劇情：chapter1：章節：加入的夥伴範本不存在 |  |
+| `story.quests.*.chapter.companion` | `systems/story` | 13 | 1e12 | 拒絕：劇情：chapter1：章節：加入的夥伴範本不存在 |  |
 | `skillSystem.definitions.*.unlockConditions.classMasteryLevel` | `combat/skills` | 0 | null | 拒絕：skillSystem  skillSystem.definitions.0.unlockConditions.classMasteryLevel：此欄位不可為 null |  |
 | `skillSystem.definitions.*.bossDuration` | `combat/skills` | 1 | 字串 "x" | 拒絕：skillSystem  skillSystem.definitions.6.bossDuration：型別必須為 number |  |
 | `skillSystem.definitions.*.bossDuration` | `combat/skills` | 1 | null | 拒絕：skillSystem  skillSystem.definitions.6.bossDuration：此欄位不可為 null |  |

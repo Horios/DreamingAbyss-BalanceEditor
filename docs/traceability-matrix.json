@@ -1,10 +1,10 @@
 {
  "schema": "dreaming-abyss-traceability-v1",
  "game": {
-  "dataCommit": "b0359b5702e61ded8f53b122bc85842c5f2a1ce3",
-  "dataSha256": "9587509ea0f063c249c9ffa4cb2a324fab97d4b72deda87ca3b254ec27eab769"
+  "dataCommit": "6b6e6845086d5296b368ad6448456f16dabfdca4",
+  "dataSha256": "ea0e6baec8555e72fca3b9f9a4e59056fffa653750a511164a1313ffacfd86e9"
  },
- "leaves": 33849,
+ "leaves": 35182,
  "statuses": {
   "effective": "可編輯，三個程式都保留編輯值",
   "normalized": "可編輯，但值會被正規化（四捨五入、夾限或衍生）",
@@ -442,7 +442,7 @@
    "pages": [],
    "reader": {
     "key": "active",
-    "files": 66,
+    "files": 69,
     "sample": [
      "js/ui/themes.js",
      "js/character/companion-model.js",
@@ -462,7 +462,7 @@
    "pages": [],
    "reader": {
     "key": "proc",
-    "files": 33,
+    "files": 34,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -562,7 +562,7 @@
    "pages": [],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -1535,7 +1535,7 @@
    "pages": [],
    "reader": {
     "key": "entries",
-    "files": 70,
+    "files": 71,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -1791,7 +1791,7 @@
    "pages": [],
    "reader": {
     "key": "entries",
-    "files": 70,
+    "files": 71,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -1811,7 +1811,7 @@
    "pages": [],
    "reader": {
     "key": "entries",
-    "files": 70,
+    "files": 71,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -1946,7 +1946,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2006,7 +2006,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2066,7 +2066,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2126,7 +2126,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2186,7 +2186,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2246,7 +2246,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2306,7 +2306,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2366,7 +2366,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2426,7 +2426,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2486,7 +2486,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2546,7 +2546,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2606,7 +2606,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2666,7 +2666,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2726,7 +2726,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2786,7 +2786,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2846,7 +2846,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2906,7 +2906,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2966,7 +2966,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -3026,7 +3026,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -3160,7 +3160,7 @@
    "pages": [],
    "reader": {
     "key": "stats",
-    "files": 34,
+    "files": 35,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -3289,7 +3289,7 @@
    ],
    "reader": {
     "key": "same",
-    "files": 40,
+    "files": 42,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/timed-boosts.js",
@@ -3549,7 +3549,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -3673,7 +3673,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -3893,7 +3893,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -3921,7 +3921,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -3949,7 +3949,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -3977,7 +3977,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4005,7 +4005,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4033,7 +4033,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4061,7 +4061,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4089,7 +4089,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4145,7 +4145,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4257,7 +4257,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4369,7 +4369,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4481,7 +4481,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4593,7 +4593,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4705,7 +4705,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4817,7 +4817,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4929,7 +4929,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5041,7 +5041,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5153,7 +5153,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5265,7 +5265,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5377,7 +5377,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5489,7 +5489,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5655,7 +5655,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -5717,7 +5717,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -5748,7 +5748,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -5776,7 +5776,7 @@
    ],
    "reader": {
     "key": "skill",
-    "files": 55,
+    "files": 56,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -5806,7 +5806,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -5837,7 +5837,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -5867,7 +5867,7 @@
    ],
    "reader": {
     "key": "advanced",
-    "files": 22,
+    "files": 23,
     "sample": [
      "js/character/team-model.js",
      "js/core/game-catalog.js",
@@ -5993,7 +5993,7 @@
    ],
    "reader": {
     "key": "main",
-    "files": 15,
+    "files": 17,
     "sample": [
      "js/core/game-catalog.js",
      "js/ui/core-screen-views.js",
@@ -6023,7 +6023,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -6055,7 +6055,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -6334,7 +6334,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -6494,7 +6494,7 @@
    ],
    "reader": {
     "key": "mastery",
-    "files": 18,
+    "files": 19,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/companion-skill-model.js",
@@ -6755,7 +6755,7 @@
    ],
    "reader": {
     "key": "quests",
-    "files": 29,
+    "files": 31,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -7393,7 +7393,7 @@
    ],
    "reader": {
     "key": "target",
-    "files": 57,
+    "files": 58,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/passive-model.js",
@@ -7448,7 +7448,7 @@
    ],
    "reader": {
     "key": "skills",
-    "files": 61,
+    "files": 63,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/companion-skill-model.js",
@@ -7771,7 +7771,7 @@
    ],
    "reader": {
     "key": "every",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -7981,7 +7981,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -8009,7 +8009,7 @@
    "pages": [],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -8037,7 +8037,7 @@
    "pages": [],
    "reader": {
     "key": "target",
-    "files": 57,
+    "files": 58,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/passive-model.js",
@@ -8065,7 +8065,7 @@
    "pages": [],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -8093,7 +8093,7 @@
    "pages": [],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -8233,7 +8233,7 @@
    "pages": [],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -8373,7 +8373,7 @@
    "pages": [],
    "reader": {
     "key": "mastery",
-    "files": 18,
+    "files": 19,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/companion-skill-model.js",
@@ -8514,7 +8514,7 @@
    "pages": [],
    "reader": {
     "key": "quests",
-    "files": 29,
+    "files": 31,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -8656,7 +8656,7 @@
    "pages": [],
    "reader": {
     "key": "count",
-    "files": 54,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
@@ -8826,7 +8826,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -8862,7 +8862,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -8931,7 +8931,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -8965,7 +8965,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -9061,7 +9061,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -9130,7 +9130,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -9243,7 +9243,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -9783,7 +9783,7 @@
    ],
    "reader": {
     "key": "base",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -10666,7 +10666,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -10954,7 +10954,7 @@
    ],
    "reader": {
     "key": "support",
-    "files": 32,
+    "files": 33,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -11403,7 +11403,7 @@
    ],
    "reader": {
     "key": "base",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -12856,7 +12856,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -13788,7 +13788,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -13814,7 +13814,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -13873,7 +13873,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -14962,7 +14962,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -16107,7 +16107,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -16194,7 +16194,7 @@
    ],
    "reader": {
     "key": "base",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -16280,7 +16280,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -16367,7 +16367,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -16569,7 +16569,7 @@
    ],
    "reader": {
     "key": "base",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -16627,7 +16627,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -17477,7 +17477,7 @@
    "pages": [],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -17503,7 +17503,7 @@
    "pages": [],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -17861,7 +17861,7 @@
    "pages": [],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -19021,7 +19021,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -19044,7 +19044,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -19074,7 +19074,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -19097,7 +19097,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -19127,7 +19127,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -19150,7 +19150,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -19180,7 +19180,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -19203,7 +19203,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -19233,7 +19233,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -19256,7 +19256,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -19286,7 +19286,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -19309,7 +19309,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -19635,7 +19635,7 @@
    ],
    "reader": {
     "key": "gem",
-    "files": 42,
+    "files": 43,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -19785,7 +19785,7 @@
    ],
    "reader": {
     "key": "gem",
-    "files": 42,
+    "files": 43,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -20645,7 +20645,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -20675,7 +20675,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -20708,7 +20708,7 @@
    ],
    "reader": {
     "key": "title",
-    "files": 56,
+    "files": 57,
     "sample": [
      "js/core/startup-guard.js",
      "js/character/achievement-model.js",
@@ -20738,7 +20738,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -20768,7 +20768,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -20932,7 +20932,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -20965,7 +20965,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -21428,7 +21428,7 @@
    ],
    "reader": {
     "key": "gear",
-    "files": 47,
+    "files": 48,
     "sample": [
      "js/items/companion-token-model.js",
      "js/character/achievement-model.js",
@@ -21451,7 +21451,7 @@
    ],
    "reader": {
     "key": "choice",
-    "files": 12,
+    "files": 14,
     "sample": [
      "js/ui/themes.js",
      "js/world/quest-design-model.js",
@@ -21512,7 +21512,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -21542,7 +21542,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -21572,7 +21572,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -21602,7 +21602,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -21635,7 +21635,7 @@
    ],
    "reader": {
     "key": "title",
-    "files": 56,
+    "files": 57,
     "sample": [
      "js/core/startup-guard.js",
      "js/character/achievement-model.js",
@@ -21665,7 +21665,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -21695,7 +21695,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -21859,7 +21859,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -21892,7 +21892,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -22358,7 +22358,7 @@
    ],
    "reader": {
     "key": "gear",
-    "files": 47,
+    "files": 48,
     "sample": [
      "js/items/companion-token-model.js",
      "js/character/achievement-model.js",
@@ -22381,7 +22381,7 @@
    ],
    "reader": {
     "key": "choice",
-    "files": 12,
+    "files": 14,
     "sample": [
      "js/ui/themes.js",
      "js/world/quest-design-model.js",
@@ -22653,7 +22653,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -22688,7 +22688,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -22721,7 +22721,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -22747,7 +22747,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -22757,8 +22757,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": "苔光林地",
-    "to": "苔光林地·測"
+    "from": "無名密林",
+    "to": "無名密林·測"
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -22780,7 +22780,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -22813,7 +22813,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -23027,9 +23027,9 @@
    "editor": "rejected",
    "validator": "rejected",
    "game": "rejected",
-   "editorReason": "BOSS 關卡模式無效：苔光林地",
-   "validatorReason": "BOSS 關卡模式無效：苔光林地",
-   "gameReason": "BOSS 關卡模式無效：苔光林地"
+   "editorReason": "BOSS 關卡模式無效：無名密林",
+   "validatorReason": "BOSS 關卡模式無效：無名密林",
+   "gameReason": "BOSS 關卡模式無效：無名密林"
   },
   {
    "pattern": "balanceSettings.maps.catalog.*.bossStageRandomCount",
@@ -23243,7 +23243,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -23277,7 +23277,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -23308,7 +23308,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -23339,7 +23339,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -23373,7 +23373,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -23648,7 +23648,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -23955,7 +23955,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -24367,7 +24367,7 @@
    "pages": [],
    "reader": {
     "key": "combat",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/passive-model.js",
@@ -24480,7 +24480,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -24511,7 +24511,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -24683,7 +24683,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -24706,7 +24706,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -24729,7 +24729,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -24760,7 +24760,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -24932,7 +24932,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -24955,7 +24955,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -24985,7 +24985,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -25016,7 +25016,7 @@
    ],
    "reader": {
     "key": "group",
-    "files": 35,
+    "files": 36,
     "sample": [
      "js/ui/themes.js",
      "js/combat/seconds-schema.js",
@@ -25109,7 +25109,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -25139,7 +25139,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -25162,7 +25162,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -25391,7 +25391,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -25422,7 +25422,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -25659,7 +25659,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -25688,7 +25688,7 @@
    "pages": [],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -25714,7 +25714,7 @@
    "pages": [],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -25770,7 +25770,7 @@
    "pages": [],
    "reader": {
     "key": "x",
-    "files": 91,
+    "files": 93,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -25796,7 +25796,7 @@
    "pages": [],
    "reader": {
     "key": "y",
-    "files": 10,
+    "files": 11,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-battle-journal.js",
@@ -25900,7 +25900,7 @@
    "pages": [],
    "reader": {
     "key": "size",
-    "files": 48,
+    "files": 49,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -26239,7 +26239,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -26268,7 +26268,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -26356,7 +26356,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -26386,7 +26386,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -26473,7 +26473,7 @@
    ],
    "reader": {
     "key": "control",
-    "files": 23,
+    "files": 24,
     "sample": [
      "js/skills/skill-effect-schema.js",
      "js/combat/seconds-schema.js",
@@ -26517,7 +26517,7 @@
    ],
    "reader": {
     "key": "uses",
-    "files": 15,
+    "files": 16,
     "sample": [
      "js/skills/companion-skill-model.js",
      "js/equipment/equipment-stat-source.js",
@@ -26882,7 +26882,7 @@
    ],
    "reader": {
     "key": "target",
-    "files": 57,
+    "files": 58,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/passive-model.js",
@@ -27001,7 +27001,7 @@
    ],
    "reader": {
     "key": "group",
-    "files": 35,
+    "files": 36,
     "sample": [
      "js/ui/themes.js",
      "js/combat/seconds-schema.js",
@@ -27032,7 +27032,7 @@
    ],
    "reader": {
     "key": "slot",
-    "files": 54,
+    "files": 55,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-schema.js",
@@ -27119,7 +27119,7 @@
    ],
    "reader": {
     "key": "plus",
-    "files": 28,
+    "files": 29,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -27251,7 +27251,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -27436,7 +27436,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -27512,7 +27512,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -27585,7 +27585,7 @@
    ],
    "reader": {
     "key": "active",
-    "files": 66,
+    "files": 69,
     "sample": [
      "js/ui/themes.js",
      "js/character/companion-model.js",
@@ -27623,7 +27623,7 @@
    ],
    "reader": {
     "key": "proc",
-    "files": 33,
+    "files": 34,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -27661,7 +27661,7 @@
    ],
    "reader": {
     "key": "support",
-    "files": 32,
+    "files": 33,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -27763,7 +27763,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -28713,7 +28713,7 @@
    ],
    "reader": {
     "key": "every",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -28889,7 +28889,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -28985,7 +28985,7 @@
    ],
    "reader": {
     "key": "proc",
-    "files": 33,
+    "files": 34,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -29004,7 +29004,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -29032,7 +29032,7 @@
    "pages": [],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -29060,7 +29060,7 @@
    "pages": [],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -29088,7 +29088,7 @@
    "pages": [],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -29116,7 +29116,7 @@
    "pages": [],
    "reader": {
     "key": "target",
-    "files": 57,
+    "files": 58,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/passive-model.js",
@@ -29144,7 +29144,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -29172,7 +29172,7 @@
    "pages": [],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -29359,7 +29359,7 @@
    "pages": [],
    "reader": {
     "key": "mastery",
-    "files": 18,
+    "files": 19,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/companion-skill-model.js",
@@ -29406,7 +29406,7 @@
    "pages": [],
    "reader": {
     "key": "quests",
-    "files": 29,
+    "files": 31,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -30444,7 +30444,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30473,7 +30473,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30502,7 +30502,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30531,7 +30531,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30560,7 +30560,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30589,7 +30589,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30618,7 +30618,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30647,7 +30647,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30676,7 +30676,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30705,7 +30705,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30734,7 +30734,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30763,7 +30763,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30792,7 +30792,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30821,7 +30821,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30850,7 +30850,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30879,7 +30879,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30908,7 +30908,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30937,7 +30937,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30966,7 +30966,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30995,7 +30995,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31024,7 +31024,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31053,7 +31053,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31082,7 +31082,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31111,7 +31111,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31140,7 +31140,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31169,7 +31169,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31198,7 +31198,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31227,7 +31227,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31371,7 +31371,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31403,7 +31403,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -31432,7 +31432,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31464,7 +31464,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -31496,7 +31496,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31641,7 +31641,7 @@
    ],
    "reader": {
     "key": "selection",
-    "files": 10,
+    "files": 11,
     "sample": [
      "js/items/timed-boosts.js",
      "js/core/core-game.js",
@@ -31758,7 +31758,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31790,7 +31790,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -31819,7 +31819,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31851,7 +31851,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -31883,7 +31883,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31963,7 +31963,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31995,7 +31995,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -32194,7 +32194,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -32507,7 +32507,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -32673,7 +32673,7 @@
    ],
    "reader": {
     "key": "maps",
-    "files": 33,
+    "files": 34,
     "sample": [
      "js/items/companion-token-model.js",
      "js/character/achievement-model.js",
@@ -32760,7 +32760,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -32785,7 +32785,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -32849,7 +32849,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -32884,7 +32884,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -32951,7 +32951,7 @@
    ],
    "reader": {
     "key": "action",
-    "files": 32,
+    "files": 34,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -32986,7 +32986,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -33307,7 +33307,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -33438,7 +33438,7 @@
    ],
    "reader": {
     "key": "maps",
-    "files": 33,
+    "files": 34,
     "sample": [
      "js/items/companion-token-model.js",
      "js/character/achievement-model.js",
@@ -33665,7 +33665,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33688,7 +33688,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33973,7 +33973,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34168,7 +34168,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34407,7 +34407,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34444,7 +34444,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -34474,7 +34474,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -34539,7 +34539,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34632,7 +34632,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34651,7 +34651,7 @@
    "pages": [],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34717,7 +34717,7 @@
    "pattern": "story.quests.*.id",
    "module": "systems/story",
    "type": "string",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.id",
    "pages": [
     "creation/story",
@@ -34729,7 +34729,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34743,7 +34743,7 @@
    "pattern": "story.quests.*.name",
    "module": "systems/story",
    "type": "string",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.name",
    "pages": [
     "creation/story",
@@ -34755,7 +34755,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34776,7 +34776,7 @@
    "pattern": "story.quests.*.type",
    "module": "systems/story",
    "type": "string",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.type",
    "pages": [
     "creation/story",
@@ -34788,7 +34788,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34802,7 +34802,7 @@
    "pattern": "story.quests.*.npc",
    "module": "systems/story",
    "type": "string",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.npc",
    "pages": [
     "creation/story",
@@ -34834,7 +34834,7 @@
    "pattern": "story.quests.*.description",
    "module": "systems/story",
    "type": "string",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.description",
    "pages": [
     "creation/story",
@@ -34846,7 +34846,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34867,7 +34867,7 @@
    "pattern": "story.quests.*.enabled",
    "module": "systems/story",
    "type": "boolean",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.enabled",
    "pages": [
     "creation/story",
@@ -34879,7 +34879,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -34900,7 +34900,7 @@
    "pattern": "story.quests.*.hidden",
    "module": "systems/story",
    "type": "boolean",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.hidden",
    "pages": [
     "creation/story",
@@ -34912,7 +34912,7 @@
    ],
    "reader": {
     "key": "hidden",
-    "files": 40,
+    "files": 41,
     "sample": [
      "js/ui/themes.js",
      "js/skills/companion-skill-model.js",
@@ -34933,7 +34933,7 @@
    "pattern": "story.quests.*.unlock.mode",
    "module": "systems/story",
    "type": "string",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.unlock.mode",
    "pages": [
     "creation/story",
@@ -34945,7 +34945,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -34971,7 +34971,7 @@
    ],
    "reader": {
     "key": "conditions",
-    "files": 9,
+    "files": 11,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -34985,7 +34985,7 @@
    "pattern": "story.quests.*.prerequisites",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.prerequisites",
    "pages": [
     "creation/story",
@@ -35011,7 +35011,7 @@
    "pattern": "story.quests.*.entry",
    "module": "systems/story",
    "type": "string",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.entry",
    "pages": [
     "creation/story",
@@ -35023,7 +35023,7 @@
    ],
    "reader": {
     "key": "entry",
-    "files": 20,
+    "files": 21,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/core-game.js",
@@ -35037,7 +35037,7 @@
    "pattern": "story.quests.*.stages.*.id",
    "module": "systems/story",
    "type": "string",
-   "count": 24,
+   "count": 52,
    "instance": "story.quests.0.stages.0.id",
    "pages": [
     "creation/story",
@@ -35049,7 +35049,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35063,7 +35063,7 @@
    "pattern": "story.quests.*.stages.*.name",
    "module": "systems/story",
    "type": "string",
-   "count": 24,
+   "count": 52,
    "instance": "story.quests.0.stages.0.name",
    "pages": [
     "creation/story",
@@ -35075,7 +35075,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35085,8 +35085,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": "巡查苔光林地",
-    "to": "巡查苔光林地·測"
+    "from": "巡查無名密林",
+    "to": "巡查無名密林·測"
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -35096,7 +35096,7 @@
    "pattern": "story.quests.*.stages.*.speaker",
    "module": "systems/story",
    "type": "string",
-   "count": 24,
+   "count": 52,
    "instance": "story.quests.0.stages.0.speaker",
    "pages": [
     "creation/story",
@@ -35108,7 +35108,7 @@
    ],
    "reader": {
     "key": "speaker",
-    "files": 5,
+    "files": 6,
     "sample": [
      "js/ui/lucide-catalog.js",
      "js/story/story-model.js",
@@ -35129,7 +35129,7 @@
    "pattern": "story.quests.*.stages.*.description",
    "module": "systems/story",
    "type": "string",
-   "count": 24,
+   "count": 52,
    "instance": "story.quests.0.stages.0.description",
    "pages": [
     "creation/story",
@@ -35141,7 +35141,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35151,8 +35151,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": "前往苔光林地並擊敗 2 隻怪物。",
-    "to": "前往苔光林地並擊敗 2 隻怪物。·測"
+    "from": "前往無名密林並擊敗 2 隻怪物。",
+    "to": "前往無名密林並擊敗 2 隻怪物。·測"
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -35162,7 +35162,7 @@
    "pattern": "story.quests.*.stages.*.dialogue.*.kind",
    "module": "systems/story",
    "type": "string",
-   "count": 76,
+   "count": 205,
    "instance": "story.quests.0.stages.0.dialogue.0.kind",
    "pages": [
     "creation/story",
@@ -35174,7 +35174,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -35188,7 +35188,7 @@
    "pattern": "story.quests.*.stages.*.dialogue.*.speaker",
    "module": "systems/story",
    "type": "string",
-   "count": 76,
+   "count": 205,
    "instance": "story.quests.0.stages.0.dialogue.0.speaker",
    "pages": [
     "creation/story",
@@ -35200,7 +35200,7 @@
    ],
    "reader": {
     "key": "speaker",
-    "files": 5,
+    "files": 6,
     "sample": [
      "js/ui/lucide-catalog.js",
      "js/story/story-model.js",
@@ -35221,7 +35221,7 @@
    "pattern": "story.quests.*.stages.*.dialogue.*.text",
    "module": "systems/story",
    "type": "string",
-   "count": 76,
+   "count": 205,
    "instance": "story.quests.0.stages.0.dialogue.0.text",
    "pages": [
     "creation/story",
@@ -35233,7 +35233,7 @@
    ],
    "reader": {
     "key": "text",
-    "files": 45,
+    "files": 47,
     "sample": [
      "js/character/achievement-model.js",
      "js/world/quest-design-model.js",
@@ -35243,8 +35243,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": "前往苔光林地並擊敗 2 隻怪物。",
-    "to": "前往苔光林地並擊敗 2 隻怪物。·測"
+    "from": "前往無名密林並擊敗 2 隻怪物。",
+    "to": "前往無名密林並擊敗 2 隻怪物。·測"
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -35254,7 +35254,7 @@
    "pattern": "story.quests.*.stages.*.conditions.mode",
    "module": "systems/story",
    "type": "string",
-   "count": 24,
+   "count": 52,
    "instance": "story.quests.0.stages.0.conditions.mode",
    "pages": [
     "creation/story",
@@ -35266,7 +35266,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -35280,7 +35280,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.type",
    "module": "systems/story",
    "type": "string",
-   "count": 25,
+   "count": 27,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.type",
    "pages": [
     "creation/story",
@@ -35292,7 +35292,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35306,7 +35306,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.key",
    "module": "systems/story",
    "type": "string",
-   "count": 25,
+   "count": 27,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.key",
    "pages": [
     "creation/story",
@@ -35318,7 +35318,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -35332,7 +35332,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.count",
    "module": "systems/story",
    "type": "integer",
-   "count": 25,
+   "count": 27,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.count",
    "pages": [
     "creation/story",
@@ -35344,7 +35344,7 @@
    ],
    "reader": {
     "key": "count",
-    "files": 54,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
@@ -35365,7 +35365,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.mode",
    "module": "systems/story",
    "type": "string",
-   "count": 25,
+   "count": 27,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.mode",
    "pages": [
     "creation/story",
@@ -35377,7 +35377,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -35391,7 +35391,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.itemType",
    "module": "systems/story",
    "type": "string",
-   "count": 25,
+   "count": 27,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.itemType",
    "pages": [
     "creation/story",
@@ -35417,7 +35417,7 @@
    "pattern": "story.quests.*.stages.*.rewards.gold",
    "module": "systems/story",
    "type": "integer",
-   "count": 24,
+   "count": 52,
    "instance": "story.quests.0.stages.0.rewards.gold",
    "pages": [
     "creation/story",
@@ -35450,7 +35450,7 @@
    "pattern": "story.quests.*.stages.*.rewards.ore",
    "module": "systems/story",
    "type": "integer",
-   "count": 24,
+   "count": 52,
    "instance": "story.quests.0.stages.0.rewards.ore",
    "pages": [
     "creation/story",
@@ -35483,7 +35483,7 @@
    "pattern": "story.quests.*.stages.*.rewards.items",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 20,
+   "count": 48,
    "instance": "story.quests.0.stages.0.rewards.items",
    "pages": [
     "creation/story",
@@ -35509,7 +35509,7 @@
    "pattern": "story.quests.*.stages.*.effects",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 24,
+   "count": 50,
    "instance": "story.quests.0.stages.0.effects",
    "pages": [
     "creation/story",
@@ -35535,7 +35535,7 @@
    "pattern": "story.quests.*.stages.*.next",
    "module": "systems/story",
    "type": "string",
-   "count": 24,
+   "count": 52,
    "instance": "story.quests.0.stages.0.next",
    "pages": [
     "creation/story",
@@ -35547,7 +35547,7 @@
    ],
    "reader": {
     "key": "next",
-    "files": 49,
+    "files": 51,
     "sample": [
      "js/skills/companion-skill-model.js",
      "js/combat/seconds-timeline.js",
@@ -35561,7 +35561,7 @@
    "pattern": "story.quests.*.stages.*.branches",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 24,
+   "count": 52,
    "instance": "story.quests.0.stages.0.branches",
    "pages": [
     "creation/story",
@@ -35585,7 +35585,7 @@
    "pattern": "story.quests.*.stages.*.choices",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 23,
+   "count": 45,
    "instance": "story.quests.0.stages.0.choices",
    "pages": [
     "creation/story",
@@ -35597,7 +35597,7 @@
    ],
    "reader": {
     "key": "choices",
-    "files": 13,
+    "files": 14,
     "sample": [
      "js/ui/themes.js",
      "js/ui/item-presentation.js",
@@ -35611,7 +35611,7 @@
    "pattern": "story.quests.*.stages.*.guides.*",
    "module": "systems/story",
    "type": "string",
-   "count": 26,
+   "count": 29,
    "instance": "story.quests.0.stages.0.guides.0",
    "pages": [
     "creation/story",
@@ -35623,12 +35623,12 @@
    ],
    "reader": {
     "key": "guides",
-    "files": 4,
+    "files": 5,
     "sample": [
      "js/story/story-model.js",
      "js/story/story-runtime.js",
      "js/story/prologue-runtime.js",
-     "js/story/tutorial-runtime.js"
+     "js/story/chapter-runtime.js"
     ]
    },
    "status": "constrained"
@@ -35637,7 +35637,7 @@
    "pattern": "story.quests.*.rewards.gold",
    "module": "systems/story",
    "type": "integer",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.rewards.gold",
    "pages": [
     "creation/story",
@@ -35670,7 +35670,7 @@
    "pattern": "story.quests.*.rewards.ore",
    "module": "systems/story",
    "type": "integer",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.rewards.ore",
    "pages": [
     "creation/story",
@@ -35703,7 +35703,7 @@
    "pattern": "story.quests.*.rewards.items",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 3,
+   "count": 4,
    "instance": "story.quests.0.rewards.items",
    "pages": [
     "creation/story",
@@ -35729,7 +35729,7 @@
    "pattern": "story.quests.*.effects",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 3,
+   "count": 4,
    "instance": "story.quests.0.effects",
    "pages": [
     "creation/story",
@@ -35755,7 +35755,7 @@
    "pattern": "story.quests.*.nextQuests",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 4,
+   "count": 5,
    "instance": "story.quests.0.nextQuests",
    "pages": [
     "creation/story",
@@ -35779,7 +35779,7 @@
    "pattern": "story.quests.*.stages.*.encounter.enabled",
    "module": "systems/story",
    "type": "boolean",
-   "count": 3,
+   "count": 31,
    "instance": "story.quests.1.stages.0.encounter.enabled",
    "pages": [
     "creation/story",
@@ -35791,7 +35791,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -35812,7 +35812,7 @@
    "pattern": "story.quests.*.stages.*.encounter.name",
    "module": "systems/story",
    "type": "string",
-   "count": 3,
+   "count": 31,
    "instance": "story.quests.1.stages.0.encounter.name",
    "pages": [
     "creation/story",
@@ -35824,7 +35824,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35845,7 +35845,7 @@
    "pattern": "story.quests.*.stages.*.encounter.mapIndex",
    "module": "systems/story",
    "type": "integer",
-   "count": 3,
+   "count": 31,
    "instance": "story.quests.1.stages.0.encounter.mapIndex",
    "pages": [
     "creation/story",
@@ -35871,7 +35871,7 @@
    "pattern": "story.quests.*.stages.*.encounter.repeatable",
    "module": "systems/story",
    "type": "boolean",
-   "count": 3,
+   "count": 31,
    "instance": "story.quests.1.stages.0.encounter.repeatable",
    "pages": [
     "creation/story",
@@ -35904,7 +35904,7 @@
    "pattern": "story.quests.*.stages.*.encounter.enemies.*.monsterId",
    "module": "systems/story",
    "type": "string",
-   "count": 3,
+   "count": 4,
    "instance": "story.quests.1.stages.0.encounter.enemies.0.monsterId",
    "pages": [
     "creation/story",
@@ -35930,7 +35930,7 @@
    "pattern": "story.quests.*.stages.*.encounter.enemies.*.count",
    "module": "systems/story",
    "type": "integer",
-   "count": 3,
+   "count": 4,
    "instance": "story.quests.1.stages.0.encounter.enemies.0.count",
    "pages": [
     "creation/story",
@@ -35942,7 +35942,7 @@
    ],
    "reader": {
     "key": "count",
-    "files": 54,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
@@ -35963,7 +35963,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 8,
+   "count": 34,
    "instance": "story.quests.1.stages.4.conditions.conditions",
    "pages": [
     "creation/story",
@@ -35975,7 +35975,7 @@
    ],
    "reader": {
     "key": "conditions",
-    "files": 9,
+    "files": 11,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -35989,7 +35989,7 @@
    "pattern": "story.quests.*.stages.*.choices.*.id",
    "module": "systems/story",
    "type": "string",
-   "count": 1,
+   "count": 17,
    "instance": "story.quests.1.stages.4.choices.0.id",
    "pages": [
     "creation/story",
@@ -36001,7 +36001,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36015,7 +36015,7 @@
    "pattern": "story.quests.*.stages.*.choices.*.text",
    "module": "systems/story",
    "type": "string",
-   "count": 1,
+   "count": 17,
    "instance": "story.quests.1.stages.4.choices.0.text",
    "pages": [
     "creation/story",
@@ -36027,7 +36027,7 @@
    ],
    "reader": {
     "key": "text",
-    "files": 45,
+    "files": 47,
     "sample": [
      "js/character/achievement-model.js",
      "js/world/quest-design-model.js",
@@ -36048,7 +36048,7 @@
    "pattern": "story.quests.*.stages.*.choices.*.conditions.mode",
    "module": "systems/story",
    "type": "string",
-   "count": 1,
+   "count": 17,
    "instance": "story.quests.1.stages.4.choices.0.conditions.mode",
    "pages": [
     "creation/story",
@@ -36060,7 +36060,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -36074,7 +36074,7 @@
    "pattern": "story.quests.*.stages.*.choices.*.conditions.conditions",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 1,
+   "count": 17,
    "instance": "story.quests.1.stages.4.choices.0.conditions.conditions",
    "pages": [
     "creation/story",
@@ -36086,7 +36086,7 @@
    ],
    "reader": {
     "key": "conditions",
-    "files": 9,
+    "files": 11,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -36100,7 +36100,7 @@
    "pattern": "story.quests.*.stages.*.choices.*.effects",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 1,
+   "count": 17,
    "instance": "story.quests.1.stages.4.choices.0.effects",
    "pages": [
     "creation/story",
@@ -36126,7 +36126,7 @@
    "pattern": "story.quests.*.stages.*.choices.*.next",
    "module": "systems/story",
    "type": "string",
-   "count": 1,
+   "count": 17,
    "instance": "story.quests.1.stages.4.choices.0.next",
    "pages": [
     "creation/story",
@@ -36138,7 +36138,7 @@
    ],
    "reader": {
     "key": "next",
-    "files": 49,
+    "files": 51,
     "sample": [
      "js/skills/companion-skill-model.js",
      "js/combat/seconds-timeline.js",
@@ -36152,7 +36152,7 @@
    "pattern": "story.quests.*.stages.*.choices.*.nextQuests",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 1,
+   "count": 17,
    "instance": "story.quests.1.stages.4.choices.0.nextQuests",
    "pages": [
     "creation/story",
@@ -36176,7 +36176,7 @@
    "pattern": "story.quests.*.stages.*.guides",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 5,
+   "count": 30,
    "instance": "story.quests.1.stages.4.guides",
    "pages": [
     "creation/story",
@@ -36188,12 +36188,12 @@
    ],
    "reader": {
     "key": "guides",
-    "files": 4,
+    "files": 5,
     "sample": [
      "js/story/story-model.js",
      "js/story/story-runtime.js",
      "js/story/prologue-runtime.js",
-     "js/story/tutorial-runtime.js"
+     "js/story/chapter-runtime.js"
     ]
    },
    "status": "no-value"
@@ -36214,7 +36214,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36240,7 +36240,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -36273,7 +36273,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -36299,7 +36299,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36325,7 +36325,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -36565,7 +36565,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36591,7 +36591,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -36643,7 +36643,7 @@
    ],
    "reader": {
     "key": "slot",
-    "files": 54,
+    "files": 55,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-schema.js",
@@ -36702,11 +36702,12 @@
    ],
    "reader": {
     "key": "scene",
-    "files": 3,
+    "files": 4,
     "sample": [
      "js/story/story-model.js",
      "js/story/story-window.js",
-     "js/story/prologue-runtime.js"
+     "js/story/prologue-runtime.js",
+     "js/story/chapter-runtime.js"
     ]
    },
    "status": "effective",
@@ -36734,7 +36735,7 @@
    ],
    "reader": {
     "key": "action",
-    "files": 32,
+    "files": 34,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -36760,7 +36761,7 @@
    ],
    "reader": {
     "key": "hint",
-    "files": 6,
+    "files": 7,
     "sample": [
      "js/equipment/equipment-identity.js",
      "js/ui/mastery-ui.js",
@@ -36793,7 +36794,7 @@
    ],
    "reader": {
     "key": "steps",
-    "files": 11,
+    "files": 12,
     "sample": [
      "js/balance/progression-model.js",
      "js/ui/text-rarity-style.js",
@@ -36819,7 +36820,7 @@
    ],
    "reader": {
     "key": "speaker",
-    "files": 5,
+    "files": 6,
     "sample": [
      "js/ui/lucide-catalog.js",
      "js/story/story-model.js",
@@ -36852,7 +36853,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -36878,7 +36879,7 @@
    ],
    "reader": {
     "key": "text",
-    "files": 45,
+    "files": 47,
     "sample": [
      "js/character/achievement-model.js",
      "js/world/quest-design-model.js",
@@ -36937,7 +36938,7 @@
    ],
    "reader": {
     "key": "after",
-    "files": 41,
+    "files": 43,
     "sample": [
      "js/items/timed-boosts.js",
      "js/combat/seconds-schema.js",
@@ -36989,7 +36990,7 @@
    ],
    "reader": {
     "key": "text",
-    "files": 45,
+    "files": 47,
     "sample": [
      "js/character/achievement-model.js",
      "js/world/quest-design-model.js",
@@ -37022,7 +37023,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -37055,7 +37056,7 @@
    ],
    "reader": {
     "key": "steps",
-    "files": 11,
+    "files": 12,
     "sample": [
      "js/balance/progression-model.js",
      "js/ui/text-rarity-style.js",
@@ -37096,6 +37097,98 @@
     ]
    },
    "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.stages.*.effects.*.type",
+   "module": "systems/story",
+   "type": "string",
+   "count": 6,
+   "instance": "story.quests.3.stages.8.effects.0.type",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "type",
+    "files": 89,
+    "sample": [
+     "js/ui/themes.js",
+     "js/items/companion-token-model.js",
+     "js/character/achievement-model.js",
+     "js/skills/companion-skill-model.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.stages.*.effects.*.key",
+   "module": "systems/story",
+   "type": "string",
+   "count": 6,
+   "instance": "story.quests.3.stages.8.effects.0.key",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "key",
+    "files": 101,
+    "sample": [
+     "js/ui/themes.js",
+     "js/balance/progression-model.js",
+     "js/items/companion-token-model.js",
+     "js/character/companion-model.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "chapter1_start",
+    "to": "chapter1_start·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.stages.*.effects.*.value",
+   "module": "systems/story",
+   "type": "boolean",
+   "count": 6,
+   "instance": "story.quests.3.stages.8.effects.0.value",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "value",
+    "files": 74,
+    "sample": [
+     "js/balance/progression-model.js",
+     "js/items/companion-token-model.js",
+     "js/skills/passive-model.js",
+     "js/character/achievement-model.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": true,
+    "to": false
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
   },
   {
    "pattern": "story.quests.*.prologue.version",
@@ -37139,7 +37232,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -37165,7 +37258,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -37198,7 +37291,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -37231,7 +37324,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -37264,7 +37357,7 @@
    ],
    "reader": {
     "key": "title",
-    "files": 56,
+    "files": 57,
     "sample": [
      "js/core/startup-guard.js",
      "js/character/achievement-model.js",
@@ -37297,7 +37390,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -37363,7 +37456,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -37396,7 +37489,7 @@
    ],
    "reader": {
     "key": "title",
-    "files": 56,
+    "files": 57,
     "sample": [
      "js/core/startup-guard.js",
      "js/character/achievement-model.js",
@@ -37406,19 +37499,19 @@
    },
    "status": "effective",
    "edit": {
-    "from": "第一章：斷絕的商路",
-    "to": "第一章：斷絕的商路·測"
+    "from": "第一章：初臨艾斯蘭",
+    "to": "第一章：初臨艾斯蘭·測"
    },
    "editor": "preserved",
    "validator": "preserved",
    "game": "preserved"
   },
   {
-   "pattern": "story.quests.*.prologue.chapter.lines.*.speaker",
+   "pattern": "story.quests.*.prologue.chapter.lines",
    "module": "systems/story",
-   "type": "string",
-   "count": 3,
-   "instance": "story.quests.3.prologue.chapter.lines.0.speaker",
+   "type": "empty-array",
+   "count": 1,
+   "instance": "story.quests.3.prologue.chapter.lines",
    "pages": [
     "creation/story",
     "shop/story",
@@ -37428,108 +37521,16 @@
     "gather/story"
    ],
    "reader": {
-    "key": "speaker",
-    "files": 5,
+    "key": "lines",
+    "files": 11,
     "sample": [
+     "js/core/core-game.js",
+     "js/equipment/equipment-identity.js",
      "js/ui/lucide-catalog.js",
-     "js/story/story-model.js",
-     "js/story/story-runtime.js",
-     "js/story/story-window.js"
+     "js/items/companion-tokens.js"
     ]
    },
-   "status": "effective",
-   "edit": {
-    "from": "旁白",
-    "to": "旁白·測"
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "story.quests.*.prologue.chapter.lines.*.kind",
-   "module": "systems/story",
-   "type": "string",
-   "count": 3,
-   "instance": "story.quests.3.prologue.chapter.lines.0.kind",
-   "pages": [
-    "creation/story",
-    "shop/story",
-    "story-main/story",
-    "story-side/story",
-    "story-npc/story",
-    "gather/story"
-   ],
-   "reader": {
-    "key": "kind",
-    "files": 84,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/items/companion-token-model.js",
-     "js/skills/passive-model.js",
-     "js/character/achievement-model.js"
-    ]
-   },
-   "status": "constrained"
-  },
-  {
-   "pattern": "story.quests.*.prologue.chapter.lines.*.text",
-   "module": "systems/story",
-   "type": "string",
-   "count": 3,
-   "instance": "story.quests.3.prologue.chapter.lines.0.text",
-   "pages": [
-    "creation/story",
-    "shop/story",
-    "story-main/story",
-    "story-side/story",
-    "story-npc/story",
-    "gather/story"
-   ],
-   "reader": {
-    "key": "text",
-    "files": 45,
-    "sample": [
-     "js/character/achievement-model.js",
-     "js/world/quest-design-model.js",
-     "js/ui/core-screen-views.js",
-     "js/ui/core-battle-journal.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": "光芒逐漸消散。",
-    "to": "光芒逐漸消散。·測"
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "story.quests.*.prologue.chapter.lines.*.source",
-   "module": "systems/story",
-   "type": "string",
-   "count": 3,
-   "instance": "story.quests.3.prologue.chapter.lines.0.source",
-   "pages": [
-    "creation/story",
-    "shop/story",
-    "story-main/story",
-    "story-side/story",
-    "story-npc/story",
-    "gather/story"
-   ],
-   "reader": {
-    "key": "source",
-    "files": 48,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/items/companion-token-model.js",
-     "js/skills/companion-skill-model.js",
-     "js/items/timed-boosts.js"
-    ]
-   },
-   "status": "constrained"
+   "status": "no-value"
   },
   {
    "pattern": "story.quests.*.prologue.ui.place",
@@ -37547,12 +37548,12 @@
    ],
    "reader": {
     "key": "place",
-    "files": 6,
+    "files": 8,
     "sample": [
+     "js/story/story-model.js",
      "js/ui/toast-layer.js",
      "js/world/wishing-lake.js",
-     "js/combat/battle-configuration.js",
-     "js/story/story-window.js"
+     "js/combat/battle-configuration.js"
     ]
    },
    "status": "effective",
@@ -37580,7 +37581,7 @@
    ],
    "reader": {
     "key": "continue",
-    "files": 62,
+    "files": 64,
     "sample": [
      "js/character/companion-model.js",
      "js/character/achievement-model.js",
@@ -37853,9 +37854,10 @@
    ],
    "reader": {
     "key": "startBattle",
-    "files": 1,
+    "files": 2,
     "sample": [
-     "js/story/prologue-runtime.js"
+     "js/story/prologue-runtime.js",
+     "js/story/chapter-runtime.js"
     ]
    },
    "status": "effective",
@@ -37883,9 +37885,10 @@
    ],
    "reader": {
     "key": "retryBattle",
-    "files": 1,
+    "files": 2,
     "sample": [
-     "js/story/prologue-runtime.js"
+     "js/story/prologue-runtime.js",
+     "js/story/chapter-runtime.js"
     ]
    },
    "status": "effective",
@@ -37913,9 +37916,10 @@
    ],
    "reader": {
     "key": "battleRunning",
-    "files": 1,
+    "files": 2,
     "sample": [
-     "js/story/prologue-runtime.js"
+     "js/story/prologue-runtime.js",
+     "js/story/chapter-runtime.js"
     ]
    },
    "status": "effective",
@@ -38033,7 +38037,7 @@
    ],
    "reader": {
     "key": "locked",
-    "files": 28,
+    "files": 29,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -38149,6 +38153,1201 @@
    "game": "preserved"
   },
   {
+   "pattern": "story.quests.*.skippable",
+   "module": "systems/story",
+   "type": "boolean",
+   "count": 1,
+   "instance": "story.quests.4.skippable",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "skippable",
+    "files": 4,
+    "sample": [
+     "js/story/story-model.js",
+     "js/story/tutorial-model.js",
+     "js/story/story-runtime.js",
+     "js/story/tutorial-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": false,
+    "to": true
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.unlock.conditions.*.type",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.unlock.conditions.0.type",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "type",
+    "files": 89,
+    "sample": [
+     "js/ui/themes.js",
+     "js/items/companion-token-model.js",
+     "js/character/achievement-model.js",
+     "js/skills/companion-skill-model.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.unlock.conditions.*.key",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.unlock.conditions.0.key",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "key",
+    "files": 101,
+    "sample": [
+     "js/ui/themes.js",
+     "js/balance/progression-model.js",
+     "js/items/companion-token-model.js",
+     "js/character/companion-model.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "chapter1_start",
+    "to": "chapter1_start·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.unlock.conditions.*.count",
+   "module": "systems/story",
+   "type": "integer",
+   "count": 1,
+   "instance": "story.quests.4.unlock.conditions.0.count",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "count",
+    "files": 56,
+    "sample": [
+     "js/balance/progression-model.js",
+     "js/character/achievement-model.js",
+     "js/skills/companion-skill-model.js",
+     "js/character/team-model.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": 1,
+    "to": 2
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.unlock.conditions.*.mode",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.unlock.conditions.0.mode",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "mode",
+    "files": 40,
+    "sample": [
+     "js/balance/progression-model.js",
+     "js/combat/seconds-schema.js",
+     "js/balance/gameplay-settings-schema.js",
+     "js/ui/core-screen-views.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.unlock.conditions.*.itemType",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.unlock.conditions.0.itemType",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "itemType",
+    "files": 4,
+    "sample": [
+     "js/story/story-model.js",
+     "js/story/tutorial-model.js",
+     "js/story/story-runtime.js",
+     "js/story/tutorial-runtime.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.stages.*.encounter.enemies",
+   "module": "systems/story",
+   "type": "empty-array",
+   "count": 27,
+   "instance": "story.quests.4.stages.0.encounter.enemies",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "enemies",
+    "files": 27,
+    "sample": [
+     "js/skills/passive-model.js",
+     "js/skills/skill-effect-schema.js",
+     "js/combat/seconds-schema.js",
+     "js/core/game-catalog.js"
+    ]
+   },
+   "status": "no-value"
+  },
+  {
+   "pattern": "story.quests.*.stages.*.chapter.scene",
+   "module": "systems/story",
+   "type": "integer",
+   "count": 28,
+   "instance": "story.quests.4.stages.0.chapter.scene",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "scene",
+    "files": 4,
+    "sample": [
+     "js/story/story-model.js",
+     "js/story/story-window.js",
+     "js/story/prologue-runtime.js",
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": 1,
+    "to": 2
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.stages.*.chapter.hint",
+   "module": "systems/story",
+   "type": "string",
+   "count": 28,
+   "instance": "story.quests.4.stages.0.chapter.hint",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "hint",
+    "files": 7,
+    "sample": [
+     "js/equipment/equipment-identity.js",
+     "js/ui/mastery-ui.js",
+     "js/ui/team-builds.js",
+     "js/story/story-model.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "在無名密林探索並擊敗魔物。沿著小道前進一段路之後，劇情會繼續。",
+    "to": "在無名密林探索並擊敗魔物。沿著小道前進一段路之後，劇情會繼續。·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.stages.*.chapter.action",
+   "module": "systems/story",
+   "type": "string",
+   "count": 28,
+   "instance": "story.quests.4.stages.0.chapter.action",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "action",
+    "files": 34,
+    "sample": [
+     "js/items/companion-token-model.js",
+     "js/combat/seconds-timeline.js",
+     "js/ui/core-equipment-views.js",
+     "js/core/core-game.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.stages.*.dialogue",
+   "module": "systems/story",
+   "type": "empty-array",
+   "count": 1,
+   "instance": "story.quests.4.stages.13.dialogue",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "dialogue",
+    "files": 6,
+    "sample": [
+     "js/ui/interaction-guard.js",
+     "js/story/story-model.js",
+     "js/story/story-runtime.js",
+     "js/story/story-window.js"
+    ]
+   },
+   "status": "no-value"
+  },
+  {
+   "pattern": "story.quests.*.stages.*.chapter.actionLabel",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.stages.13.chapter.actionLabel",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "actionLabel",
+    "files": 2,
+    "sample": [
+     "js/story/story-model.js",
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "與商隊交談，前往村莊",
+    "to": "與商隊交談，前往村莊·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.version",
+   "module": "systems/story",
+   "type": "integer",
+   "count": 1,
+   "instance": "story.quests.4.chapter.version",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "version",
+    "files": 41,
+    "sample": [
+     "js/items/companion-token-model.js",
+     "js/character/achievement-model.js",
+     "js/skills/companion-skill-model.js",
+     "js/character/team-model.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.chapter.title",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.title",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "title",
+    "files": 57,
+    "sample": [
+     "js/core/startup-guard.js",
+     "js/character/achievement-model.js",
+     "js/world/quest-design-model.js",
+     "js/core/game-catalog.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "第一章：初臨艾斯蘭",
+    "to": "第一章：初臨艾斯蘭·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.gate",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.gate",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "gate",
+    "files": 7,
+    "sample": [
+     "js/world/dynamic-world.js",
+     "js/world/final-map.js",
+     "js/world/custom-final-stage.js",
+     "js/character/team-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "chapter_gate",
+    "to": "chapter_gate·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.scenes.*.id",
+   "module": "systems/story",
+   "type": "integer",
+   "count": 5,
+   "instance": "story.quests.4.chapter.scenes.0.id",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "id",
+    "files": 111,
+    "sample": [
+     "js/ui/themes.js",
+     "js/items/companion-token-model.js",
+     "js/character/companion-model.js",
+     "js/skills/passive-model.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.chapter.scenes.*.name",
+   "module": "systems/story",
+   "type": "string",
+   "count": 5,
+   "instance": "story.quests.4.chapter.scenes.0.name",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "name",
+    "files": 100,
+    "sample": [
+     "js/ui/themes.js",
+     "js/items/companion-token-model.js",
+     "js/skills/passive-model.js",
+     "js/character/achievement-model.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "林間小道",
+    "to": "林間小道·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.scenes.*.place",
+   "module": "systems/story",
+   "type": "string",
+   "count": 5,
+   "instance": "story.quests.4.chapter.scenes.0.place",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "place",
+    "files": 8,
+    "sample": [
+     "js/story/story-model.js",
+     "js/ui/toast-layer.js",
+     "js/world/wishing-lake.js",
+     "js/combat/battle-configuration.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "無名密林",
+    "to": "無名密林·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.openPages.*",
+   "module": "systems/story",
+   "type": "string",
+   "count": 8,
+   "instance": "story.quests.4.chapter.openPages.0",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "openPages",
+    "files": 2,
+    "sample": [
+     "js/story/story-model.js",
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "battle",
+    "to": "battle·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.allies.*.id",
+   "module": "systems/story",
+   "type": "integer",
+   "count": 2,
+   "instance": "story.quests.4.chapter.allies.0.id",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "id",
+    "files": 111,
+    "sample": [
+     "js/ui/themes.js",
+     "js/items/companion-token-model.js",
+     "js/character/companion-model.js",
+     "js/skills/passive-model.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.chapter.allies.*.name",
+   "module": "systems/story",
+   "type": "string",
+   "count": 2,
+   "instance": "story.quests.4.chapter.allies.0.name",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "name",
+    "files": 100,
+    "sample": [
+     "js/ui/themes.js",
+     "js/items/companion-token-model.js",
+     "js/skills/passive-model.js",
+     "js/character/achievement-model.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "商隊護衛",
+    "to": "商隊護衛·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.allies.*.template",
+   "module": "systems/story",
+   "type": "integer",
+   "count": 2,
+   "instance": "story.quests.4.chapter.allies.0.template",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "template",
+    "files": 15,
+    "sample": [
+     "js/ui/core-battle-journal.js",
+     "js/core/core-game.js",
+     "js/world/monster-drop-tables.js",
+     "js/ui/ui-text-config.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": 10,
+    "to": 11
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.companion",
+   "module": "systems/story",
+   "type": "integer",
+   "count": 1,
+   "instance": "story.quests.4.chapter.companion",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "companion",
+    "files": 26,
+    "sample": [
+     "js/character/achievement-model.js",
+     "js/character/team-model.js",
+     "js/core/save-validation.js",
+     "js/core/core-game.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": 13,
+    "to": 14
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.continue",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.continue",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "continue",
+    "files": 64,
+    "sample": [
+     "js/character/companion-model.js",
+     "js/character/achievement-model.js",
+     "js/skills/companion-skill-model.js",
+     "js/items/timed-boosts.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "繼續",
+    "to": "繼續·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.startBattle",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.startBattle",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "startBattle",
+    "files": 2,
+    "sample": [
+     "js/story/prologue-runtime.js",
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "開始戰鬥",
+    "to": "開始戰鬥·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.retryBattle",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.retryBattle",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "retryBattle",
+    "files": 2,
+    "sample": [
+     "js/story/prologue-runtime.js",
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "再試一次",
+    "to": "再試一次·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.battleRunning",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.battleRunning",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "battleRunning",
+    "files": 2,
+    "sample": [
+     "js/story/prologue-runtime.js",
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "戰鬥進行中",
+    "to": "戰鬥進行中·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.resume",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.resume",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "resume",
+    "files": 4,
+    "sample": [
+     "js/combat/action-turn-cooldown.js",
+     "js/ui/title-screen.js",
+     "js/story/chapter-runtime.js",
+     "js/story/tutorial-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "繼續劇情",
+    "to": "繼續劇情·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.locked",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.locked",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "locked",
+    "files": 29,
+    "sample": [
+     "js/items/companion-token-model.js",
+     "js/skills/companion-skill-model.js",
+     "js/ui/core-screen-views.js",
+     "js/core/core-game.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "這個功能還沒有開放，隨著劇情進行會逐步解鎖。",
+    "to": "這個功能還沒有開放，隨著劇情進行會逐步解鎖。·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.modeLocked",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.modeLocked",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "modeLocked",
+    "files": 1,
+    "sample": [
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "目前只能以單怪模式探索。",
+    "to": "目前只能以單怪模式探索。·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.regionLocked",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.regionLocked",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "regionLocked",
+    "files": 1,
+    "sample": [
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "目前只能在無名密林探索。",
+    "to": "目前只能在無名密林探索。·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.alliesJoined",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.alliesJoined",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "alliesJoined",
+    "files": 1,
+    "sample": [
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "護衛與牧師暫時加入了隊伍。",
+    "to": "護衛與牧師暫時加入了隊伍。·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.companionJoined",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.companionJoined",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "companionJoined",
+    "files": 1,
+    "sample": [
+     "js/story/chapter-runtime.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "艾琳加入了隊伍。",
+    "to": "艾琳加入了隊伍。·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ui.reward",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ui.reward",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "reward",
+    "files": 18,
+    "sample": [
+     "js/balance/progression-model.js",
+     "js/world/quest-design-model.js",
+     "js/balance/gameplay-defaults.js",
+     "js/core/core-game.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "獲得商隊謝禮：",
+    "to": "獲得商隊謝禮：·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ending.title",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ending.title",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "title",
+    "files": 57,
+    "sample": [
+     "js/core/startup-guard.js",
+     "js/character/achievement-model.js",
+     "js/world/quest-design-model.js",
+     "js/core/game-catalog.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "第一章：初臨艾斯蘭　完",
+    "to": "第一章：初臨艾斯蘭　完·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ending.button",
+   "module": "systems/story",
+   "type": "string",
+   "count": 1,
+   "instance": "story.quests.4.chapter.ending.button",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "button",
+    "files": 60,
+    "sample": [
+     "js/ui/themes.js",
+     "js/ui/core-screen-views.js",
+     "js/ui/core-equipment-views.js",
+     "js/ui/core-battle-journal.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "結束",
+    "to": "結束·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ending.lines.*.speaker",
+   "module": "systems/story",
+   "type": "string",
+   "count": 5,
+   "instance": "story.quests.4.chapter.ending.lines.0.speaker",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "speaker",
+    "files": 6,
+    "sample": [
+     "js/ui/lucide-catalog.js",
+     "js/story/story-model.js",
+     "js/story/story-runtime.js",
+     "js/story/story-window.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "旁白",
+    "to": "旁白·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ending.lines.*.kind",
+   "module": "systems/story",
+   "type": "string",
+   "count": 5,
+   "instance": "story.quests.4.chapter.ending.lines.0.kind",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "kind",
+    "files": 85,
+    "sample": [
+     "js/balance/progression-model.js",
+     "js/items/companion-token-model.js",
+     "js/skills/passive-model.js",
+     "js/character/achievement-model.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "story.quests.*.chapter.ending.lines.*.text",
+   "module": "systems/story",
+   "type": "string",
+   "count": 5,
+   "instance": "story.quests.4.chapter.ending.lines.0.text",
+   "pages": [
+    "creation/story",
+    "shop/story",
+    "story-main/story",
+    "story-side/story",
+    "story-npc/story",
+    "gather/story"
+   ],
+   "reader": {
+    "key": "text",
+    "files": 47,
+    "sample": [
+     "js/character/achievement-model.js",
+     "js/world/quest-design-model.js",
+     "js/ui/core-screen-views.js",
+     "js/ui/core-battle-journal.js"
+    ]
+   },
+   "status": "effective",
+   "edit": {
+    "from": "馬車停在倉庫前，商人們忙著卸貨。",
+    "to": "馬車停在倉庫前，商人們忙著卸貨。·測"
+   },
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
+  },
+  {
    "pattern": "story.gearRewards.*.id",
    "module": "systems/story",
    "type": "string",
@@ -38164,7 +39363,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -38190,7 +39389,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -38431,7 +39630,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -38459,7 +39658,7 @@
    ],
    "reader": {
     "key": "label",
-    "files": 67,
+    "files": 68,
     "sample": [
      "js/ui/themes.js",
      "js/combat/seconds-timeline.js",
@@ -38515,7 +39714,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -38546,7 +39745,7 @@
    ],
    "reader": {
     "key": "label",
-    "files": 67,
+    "files": 68,
     "sample": [
      "js/ui/themes.js",
      "js/combat/seconds-timeline.js",
@@ -38612,7 +39811,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -38643,7 +39842,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -38984,7 +40183,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -39174,7 +40373,7 @@
    ],
    "reader": {
     "key": "mastery",
-    "files": 18,
+    "files": 19,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/companion-skill-model.js",
@@ -39503,7 +40702,7 @@
    ],
    "reader": {
     "key": "quests",
-    "files": 29,
+    "files": 31,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -39658,7 +40857,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -39751,7 +40950,7 @@
    ],
    "reader": {
     "key": "index",
-    "files": 45,
+    "files": 46,
     "sample": [
      "js/skills/companion-skill-model.js",
      "js/items/timed-boosts.js",
@@ -39782,7 +40981,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -39813,7 +41012,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -40144,7 +41343,7 @@
    ],
    "reader": {
     "key": "condition",
-    "files": 7,
+    "files": 8,
     "sample": [
      "js/combat/seconds-schema.js",
      "js/story/story-model.js",
@@ -40613,7 +41812,7 @@
    ],
    "reader": {
     "key": "disabled",
-    "files": 41,
+    "files": 43,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/ui/core-equipment-views.js",
@@ -40689,7 +41888,7 @@
    ],
    "reader": {
     "key": "target",
-    "files": 57,
+    "files": 58,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/passive-model.js",
@@ -40729,7 +41928,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -40770,7 +41969,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -40958,7 +42157,7 @@
    ],
    "reader": {
     "key": "count",
-    "files": 54,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
@@ -41193,7 +42392,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -41234,7 +42433,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -41591,7 +42790,7 @@
    ],
    "reader": {
     "key": "index",
-    "files": 45,
+    "files": 46,
     "sample": [
      "js/skills/companion-skill-model.js",
      "js/items/timed-boosts.js",
@@ -41632,7 +42831,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -42100,7 +43299,7 @@
    ],
    "reader": {
     "key": "active",
-    "files": 66,
+    "files": 69,
     "sample": [
      "js/ui/themes.js",
      "js/character/companion-model.js",
@@ -42136,7 +43335,7 @@
    ],
    "reader": {
     "key": "proc",
-    "files": 33,
+    "files": 34,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -42172,7 +43371,7 @@
    ],
    "reader": {
     "key": "support",
-    "files": 32,
+    "files": 33,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -42208,7 +43407,7 @@
    ],
    "reader": {
     "key": "active",
-    "files": 66,
+    "files": 69,
     "sample": [
      "js/ui/themes.js",
      "js/character/companion-model.js",
@@ -42244,7 +43443,7 @@
    ],
    "reader": {
     "key": "proc",
-    "files": 33,
+    "files": 34,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -42280,7 +43479,7 @@
    ],
    "reader": {
     "key": "support",
-    "files": 32,
+    "files": 33,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -42316,7 +43515,7 @@
    ],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -42625,7 +43824,7 @@
    ],
    "reader": {
     "key": "maps",
-    "files": 33,
+    "files": 34,
     "sample": [
      "js/items/companion-token-model.js",
      "js/character/achievement-model.js",
@@ -42925,7 +44124,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -43048,7 +44247,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -43282,7 +44481,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -43549,7 +44748,7 @@
    ],
    "reader": {
     "key": "equipment",
-    "files": 59,
+    "files": 60,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -43577,7 +44776,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -43598,7 +44797,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -43619,7 +44818,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -43647,7 +44846,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -43825,7 +45024,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -43846,7 +45045,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -43867,7 +45066,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -43888,7 +45087,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -43935,7 +45134,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -43956,7 +45155,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -44015,7 +45214,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44036,7 +45235,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 98,
+    "files": 100,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44064,7 +45263,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44085,7 +45284,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44106,7 +45305,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -44205,7 +45404,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 84,
+    "files": 85,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -44226,7 +45425,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -44247,7 +45446,7 @@
    ],
    "reader": {
     "key": "min",
-    "files": 86,
+    "files": 87,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -44275,7 +45474,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 95,
+    "files": 96,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -44475,12 +45674,12 @@
    "pattern": "tutorials.modules.*.id",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.id",
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44494,12 +45693,12 @@
    "pattern": "tutorials.modules.*.title",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.title",
    "pages": [],
    "reader": {
     "key": "title",
-    "files": 56,
+    "files": 57,
     "sample": [
      "js/core/startup-guard.js",
      "js/character/achievement-model.js",
@@ -44520,7 +45719,7 @@
    "pattern": "tutorials.modules.*.category",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.category",
    "pages": [],
    "reader": {
@@ -44539,12 +45738,12 @@
    "pattern": "tutorials.modules.*.type",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.type",
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44558,12 +45757,12 @@
    "pattern": "tutorials.modules.*.enabled",
    "module": "systems/tutorials",
    "type": "boolean",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.enabled",
    "pages": [],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 41,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -44584,7 +45783,7 @@
    "pattern": "tutorials.modules.*.implemented",
    "module": "systems/tutorials",
    "type": "boolean",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.implemented",
    "pages": [],
    "reader": {
@@ -44610,12 +45809,12 @@
    "pattern": "tutorials.modules.*.description",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.description",
    "pages": [],
    "reader": {
     "key": "description",
-    "files": 41,
+    "files": 42,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44636,12 +45835,12 @@
    "pattern": "tutorials.modules.*.trigger.type",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.trigger.type",
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44655,12 +45854,12 @@
    "pattern": "tutorials.modules.*.trigger.page",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.trigger.page",
    "pages": [],
    "reader": {
     "key": "page",
-    "files": 30,
+    "files": 32,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -44674,7 +45873,7 @@
    "pattern": "tutorials.modules.*.trigger.notify",
    "module": "systems/tutorials",
    "type": "boolean",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.trigger.notify",
    "pages": [],
    "reader": {
@@ -44693,7 +45892,7 @@
    "pattern": "tutorials.modules.*.trigger.notifyText",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.trigger.notifyText",
    "pages": [],
    "reader": {
@@ -44717,12 +45916,12 @@
    "pattern": "tutorials.modules.*.prerequisites.mode",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.prerequisites.mode",
    "pages": [],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -44736,12 +45935,12 @@
    "pattern": "tutorials.modules.*.prerequisites.conditions.*.type",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 4,
+   "count": 8,
    "instance": "tutorials.modules.0.prerequisites.conditions.0.type",
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44755,12 +45954,12 @@
    "pattern": "tutorials.modules.*.prerequisites.conditions.*.key",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 4,
+   "count": 8,
    "instance": "tutorials.modules.0.prerequisites.conditions.0.key",
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -44781,12 +45980,12 @@
    "pattern": "tutorials.modules.*.prerequisites.conditions.*.count",
    "module": "systems/tutorials",
    "type": "integer",
-   "count": 4,
+   "count": 8,
    "instance": "tutorials.modules.0.prerequisites.conditions.0.count",
    "pages": [],
    "reader": {
     "key": "count",
-    "files": 54,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
@@ -44807,12 +46006,12 @@
    "pattern": "tutorials.modules.*.steps.*.id",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.id",
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 109,
+    "files": 111,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44826,12 +46025,12 @@
    "pattern": "tutorials.modules.*.steps.*.title",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.title",
    "pages": [],
    "reader": {
     "key": "title",
-    "files": 56,
+    "files": 57,
     "sample": [
      "js/core/startup-guard.js",
      "js/character/achievement-model.js",
@@ -44852,12 +46051,12 @@
    "pattern": "tutorials.modules.*.steps.*.text",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.text",
    "pages": [],
    "reader": {
     "key": "text",
-    "files": 45,
+    "files": 47,
     "sample": [
      "js/character/achievement-model.js",
      "js/world/quest-design-model.js",
@@ -44878,12 +46077,12 @@
    "pattern": "tutorials.modules.*.steps.*.page",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.page",
    "pages": [],
    "reader": {
     "key": "page",
-    "files": 30,
+    "files": 32,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -44897,12 +46096,12 @@
    "pattern": "tutorials.modules.*.steps.*.target",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.target",
    "pages": [],
    "reader": {
     "key": "target",
-    "files": 57,
+    "files": 58,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/passive-model.js",
@@ -44916,7 +46115,7 @@
    "pattern": "tutorials.modules.*.steps.*.placement",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.placement",
    "pages": [],
    "reader": {
@@ -44933,12 +46132,12 @@
    "pattern": "tutorials.modules.*.steps.*.advance.type",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.advance.type",
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -44952,7 +46151,7 @@
    "pattern": "tutorials.modules.*.steps.*.optional",
    "module": "systems/tutorials",
    "type": "boolean",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.optional",
    "pages": [],
    "reader": {
@@ -44978,12 +46177,12 @@
    "pattern": "tutorials.modules.*.steps.*.requires.mode",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.requires.mode",
    "pages": [],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -44997,12 +46196,12 @@
    "pattern": "tutorials.modules.*.steps.*.requires.conditions",
    "module": "systems/tutorials",
    "type": "empty-array",
-   "count": 9,
+   "count": 15,
    "instance": "tutorials.modules.0.steps.0.requires.conditions",
    "pages": [],
    "reader": {
     "key": "conditions",
-    "files": 9,
+    "files": 11,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -45016,7 +46215,7 @@
    "pattern": "tutorials.modules.*.steps.*.onReplay",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.onReplay",
    "pages": [],
    "reader": {
@@ -45033,12 +46232,12 @@
    "pattern": "tutorials.modules.*.steps.*.skipIf.mode",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 14,
+   "count": 20,
    "instance": "tutorials.modules.0.steps.0.skipIf.mode",
    "pages": [],
    "reader": {
     "key": "mode",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -45052,12 +46251,12 @@
    "pattern": "tutorials.modules.*.steps.*.skipIf.conditions",
    "module": "systems/tutorials",
    "type": "empty-array",
-   "count": 10,
+   "count": 16,
    "instance": "tutorials.modules.0.steps.0.skipIf.conditions",
    "pages": [],
    "reader": {
     "key": "conditions",
-    "files": 9,
+    "files": 11,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -45076,7 +46275,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -45095,7 +46294,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -45121,7 +46320,7 @@
    "pages": [],
    "reader": {
     "key": "count",
-    "files": 54,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
@@ -45142,12 +46341,12 @@
    "pattern": "tutorials.modules.*.completion.type",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.completion.type",
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -45161,7 +46360,7 @@
    "pattern": "tutorials.modules.*.replayable",
    "module": "systems/tutorials",
    "type": "boolean",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.replayable",
    "pages": [],
    "reader": {
@@ -45185,7 +46384,7 @@
    "pattern": "tutorials.modules.*.skippable",
    "module": "systems/tutorials",
    "type": "boolean",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.skippable",
    "pages": [],
    "reader": {
@@ -45211,7 +46410,7 @@
    "pattern": "tutorials.modules.*.interrupt",
    "module": "systems/tutorials",
    "type": "string",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.interrupt",
    "pages": [],
    "reader": {
@@ -45230,7 +46429,7 @@
    "pattern": "tutorials.modules.*.revision",
    "module": "systems/tutorials",
    "type": "integer",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.revision",
    "pages": [],
    "reader": {
@@ -45254,7 +46453,7 @@
    "pattern": "tutorials.modules.*.reprompt",
    "module": "systems/tutorials",
    "type": "boolean",
-   "count": 3,
+   "count": 5,
    "instance": "tutorials.modules.0.reprompt",
    "pages": [],
    "reader": {
@@ -45283,7 +46482,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -45302,7 +46501,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -45321,7 +46520,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -45347,7 +46546,7 @@
    "pages": [],
    "reader": {
     "key": "count",
-    "files": 54,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
@@ -45373,7 +46572,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 87,
+    "files": 89,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -45392,7 +46591,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 99,
+    "files": 101,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -45411,7 +46610,7 @@
    "pages": [],
    "reader": {
     "key": "count",
-    "files": 54,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
