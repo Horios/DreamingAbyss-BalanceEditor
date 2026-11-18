@@ -4,6 +4,7 @@
   {"match": "^skillSystem\\.definitions\\.\\*\\.(powerPerLevel|hitCount|procChancePerLevel|statusMaxTargets)$", "note": "遊戲的技能驗證沒有檢查這些欄位的型別，工作台、驗證器與遊戲都會保留文字或 null。發布服務的數值型別檢查會在建立摘要時拒絕（tests/release-audit.test.cjs「B02」）。"}
  ],
  "changed": [
+  {"match": "^balanceSettings\\.progression\\.advance\\.masteryLevel$", "note": "二轉需求的職業精通等級被夾限為 0 到精通上限之間的整數（v0.161），工作台與驗證器結果相同。"},
   {"match": "^balanceSettings\\.skills\\.mastery\\.", "note": "精通設定被夾限到允許範圍（下限 0 或 1，等級取整數），工作台與驗證器結果相同。"},
   {"match": "^statusDefinitions\\.\\*\\.(duration|uses|modifiers\\.\\*\\.targets)$", "note": "被夾限到允許範圍（上限 99）並取整數，工作台與驗證器結果相同。"},
   {"match": "^starterPacks\\.", "note": "起始等級取整數，工作台與驗證器結果相同。"},
