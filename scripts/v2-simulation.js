@@ -5,7 +5,7 @@ const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,
 const STAT_LABELS={hp:'生命',atk:'攻擊',def:'防禦',crit:'暴擊率',critDamage:'暴擊傷害',pierce:'穿透',defenseIgnore:'無視防禦',lifesteal:'吸血',evasion:'閃避',elementBonus:'屬性加成',bossDamage:'首領傷害',speed:'速度',mp:'魔力'};
 const FIXED_LABELS={gearAtkPct:'此裝備基礎攻擊 %',gearHpPct:'此裝備基礎生命 %',gearDefPct:'此裝備基礎防禦 %',attackPct:'角色總攻擊力 %',crit:'暴擊率 %',critDamage:'暴擊傷害 %',pierce:'防禦穿透（固定）',defenseIgnore:'防禦無視 %',lifesteal:'生命竊取 %',evasion:'閃避率 %',elementBonus:'全元素傷害 %',flatHp:'固定生命',basicElement:'普通攻擊屬性'};
 const SLOT_LABELS=['武器','頭部','身體','手部','飾品'];
-const HELP={level:'從新存檔開始探索第一個地區，記錄主角每次升級的時間。三人隊伍會加入前兩位可招募的夥伴。',skill:'主角只裝這一個技能，對高血量標靶打指定秒數，記錄施放次數與間隔。被動技能改為比較開關前後的能力值。',equipment:'讓對應職業穿上這個裝備型態（無詞綴），比較穿戴前後的能力值。'};
+const HELP={level:'從新存檔開始探索第一個地區，記錄主角目前職業精通每次升級的時間。三人隊伍會加入前兩位可招募的夥伴。',skill:'主角只裝這一個技能，對高血量標靶打指定秒數，記錄施放次數與間隔。被動技能改為比較開關前後的能力值。',equipment:'讓對應職業穿上這個裝備型態（無詞綴），比較穿戴前後的能力值。'};
 let mode='level',busy=false,bridge=()=>null,doc=()=>null;
 function stat(key){return STAT_LABELS[key]||key;}
 function num(v){return typeof v==='number'?(Math.abs(v)<10&&!Number.isInteger(v)?v.toFixed(3).replace(/0+$/,'').replace(/\.$/,''):String(Math.round(v*100)/100)):'—';}
@@ -42,10 +42,10 @@ async function runOne(label,draft,request,share,offset,pending){
  }finally{f.remove();}
 }
 function levelTable(rows){
- const levels=[...new Set(rows.flatMap(r=>r.result.reached.map(x=>x.level)))].sort((a,b)=>a-b).filter(l=>l>1);
+ const levels=[...new Set(rows.flatMap(r=>r.result.reached.map(x=>x.level)))].sort((a,b)=>a-b).filter(l=>l>0);
  const first=rows[0].result;
- return `<p>${esc(first.companions.length?'隊伍：主角、'+first.companions.join('、'):'隊伍：主角單人')} · 試算 ${first.minutes} 分鐘</p><table><thead><tr><th>等級</th>${rows.map(r=>`<th>${esc(r.label)}</th>`).join('')}</tr></thead><tbody>${levels.map(l=>`<tr><td>Lv${l}</td>${rows.map(r=>`<td>${time(r.result.reached.find(x=>x.level===l)?.seconds)}</td>`).join('')}</tr>`).join('')}</tbody></table>`
-  +rows.map(r=>`<p>${esc(r.label)}：最後 Lv${r.result.finalLevel}，擊殺 ${r.result.kills}${r.result.stoppedAt!=null?`，<span class="sim-error">隊伍在 ${time(r.result.stoppedAt)} 停止探索</span>`:''}</p>`).join('');
+ return `<p>${esc(first.companions.length?'隊伍：主角、'+first.companions.join('、'):'隊伍：主角單人')} · 試算 ${first.minutes} 分鐘</p><table><thead><tr><th>職業精通</th>${rows.map(r=>`<th>${esc(r.label)}</th>`).join('')}</tr></thead><tbody>${levels.map(l=>`<tr><td>精通 Lv${l}</td>${rows.map(r=>`<td>${time(r.result.reached.find(x=>x.level===l)?.seconds)}</td>`).join('')}</tr>`).join('')}</tbody></table>`
+  +rows.map(r=>`<p>${esc(r.label)}：最後精通 Lv${r.result.finalLevel}，擊殺 ${r.result.kills}${r.result.stoppedAt!=null?`，<span class="sim-error">隊伍在 ${time(r.result.stoppedAt)} 停止探索</span>`:''}</p>`).join('');
 }
 function changeTable(title,rows,pick){
  const keys=[...new Set(rows.flatMap(r=>pick(r.result).map(x=>x.key)))];

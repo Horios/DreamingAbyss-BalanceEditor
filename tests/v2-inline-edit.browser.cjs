@@ -106,9 +106,9 @@ await p.waitForFunction(()=>/技能清單/.test(document.getElementById('devInli
   assert.equal(await p.locator('.dev-list-row').count(),await editor.locator('body').evaluate(()=>data.classes.length));
   await p.locator('.dev-list-row').first().click();await p.locator('#devInline-initialStats_hp').waitFor();
   assert.match(await p.locator('#devInlineTitle').innerText(),/主角職業數值 · 戰士/);
-  await p.locator('#devInline-initialStats_hp').fill(String(hp+10));await p.locator('#devInline-growthPerLevel_atk').fill('2');await p.locator('#devInlineSave').click();
+  await p.locator('#devInline-initialStats_hp').fill(String(hp+10));await p.locator('#devInline-initialStats_atk').fill('21');await p.locator('#devInlineSave').click();
   await p.waitForFunction(()=>/主角職業數值$/.test(document.getElementById('devInlineTitle').textContent),{},{timeout:10000});
-  assert.deepEqual(await game.locator('body').evaluate(()=>{const c=exportableBalance().classes[0];return [c.initialStats.hp,c.hp,c.growthPerLevel.atk];}),[hp+10,hp+10,2],'the preview uses the new class stats');
+  assert.deepEqual(await game.locator('body').evaluate(()=>{const c=exportableBalance().classes[0];return [c.initialStats.hp,c.hp,c.initialStats.atk];}),[hp+10,hp+10,21],'the preview uses the new class stats');
   await p.locator('#devInlineCancel').click();
   await game.locator('body').evaluate(()=>{setTab('battle');render();});
   await game.locator('.seconds-protagonist [data-hero-id]').first().click();await p.locator('#devInline-initialStats_hp').waitFor();

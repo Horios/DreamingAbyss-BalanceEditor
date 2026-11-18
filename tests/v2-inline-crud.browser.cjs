@@ -124,7 +124,8 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   assert.equal(await inEditor(()=>data.companions.length),companions);
   assert.equal(await inGame(()=>exportableBalance().companions.some(c=>c.name==='待刪夥伴')),false);
   // An existing companion with its own skills: the skills are deleted with it and the document stays valid.
-  const owner=await inEditor(()=>data.companions.find(c=>data.skillSystem.definitions.some(s=>s.partnerId===c.id&&!s.deleted)));
+  // Story chapters borrow some companions as temporary allies; deleting those is refused, so pick one the story does not use.
+  const owner=await inEditor(()=>{const allies=new Set([...JSON.stringify(data.story||{}).matchAll(/"template":(\d+)/g)].map(m=>m[1]));return data.companions.find(c=>!allies.has(String(c.id))&&data.skillSystem.definitions.some(s=>s.partnerId===c.id&&!s.deleted));});
   await p.locator('#devInlineTabs [data-list-job="'+owner.job+'"]').click();await p.locator('.dev-list-row',{hasText:owner.name}).click();await removeRecord();await backToList(/夥伴清單/);
   assert.equal(await inEditor((_,id)=>data.skillSystem.definitions.some(s=>s.partnerId===id&&!s.deleted),owner.id),false,'its skills are deleted');
   assert.equal(await inGame((_,name)=>exportableBalance().companions.some(c=>c.name===name),owner.name),false,'the preview no longer has the companion');
@@ -136,16 +137,16 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   await p.locator('.dev-list-adds button',{hasText:'新增每日委託'}).click();await p.locator('#devInline-title').fill('測試委託');
   await p.locator('#devInlineObjectives [data-part="type"]').first().selectOption('potion');
   await p.locator('#devInlineObjectives [data-part="quantity"]').first().fill('4');
-  await p.locator('#devObjAdd').click();await p.locator('#devInlineObjectives [data-part="type"]').nth(1).selectOption('level');
+  await p.locator('#devObjAdd').click();await p.locator('#devInlineObjectives [data-part="type"]').nth(1).selectOption('totalKills');
   await p.locator('#devInline-rewards_gold').fill('555');await p.locator('#devInlineSave').click();await backToList(/委託清單 · 每日委託/);
   assert.equal(await p.locator('.dev-list-row').count(),daily+1);
   const quest=await inEditor(()=>data.balanceSettings.quests.design.daily.entries.find(q=>q.title==='測試委託'));
-  assert.deepEqual(quest.objectives.map(o=>[o.type,o.quantity]),[['potion',4],['level',1]]);assert.equal(quest.rewards.gold,555);
+  assert.deepEqual(quest.objectives.map(o=>[o.type,o.quantity]),[['potion',4],['totalKills',1]]);assert.equal(quest.rewards.gold,555);
   assert.equal(await inGame(()=>exportableBalance().balanceSettings.quests.design.daily.entries.some(q=>q.title==='測試委託')),true,'the preview has the quest');
-  await p.locator('.dev-list-row',{hasText:'測試委託'}).click();await p.locator('#devInline-minLevel').fill('20');await p.locator('#devInline-maxLevel').fill('10');await p.locator('#devInlineSave').click();
-  assert.match(await p.locator('#devInlineError').innerText(),/最高等級不可低於最低等級/);
-  await p.locator('#devInline-maxLevel').fill('0');await p.locator('#devInlineSave').click();await backToList(/委託清單/);
-  assert.equal(await inEditor((_,id)=>data.balanceSettings.quests.design.daily.entries.find(q=>q.id===id).minLevel,quest.id),20);
+  // v0.161: commissions have no level range any more.
+  await p.locator('.dev-list-row',{hasText:'測試委託'}).click();assert.equal(await p.locator('#devInline-minLevel').count(),0,'no level fields');
+  await p.locator('#devInline-rewards_gold').fill('600');await p.locator('#devInlineSave').click();await backToList(/委託清單/);
+  assert.equal(await inEditor((_,id)=>data.balanceSettings.quests.design.daily.entries.find(q=>q.id===id).rewards.gold,quest.id),600);
   await p.locator('.dev-list-row',{hasText:'測試委託'}).click();await removeRecord();await backToList(/委託清單/);
   assert.equal(await p.locator('.dev-list-row').count(),daily);
   await p.locator('#devInlineTabs button',{hasText:'支線任務'}).click();assert.match(await title(),/委託清單 · 支線任務/);
