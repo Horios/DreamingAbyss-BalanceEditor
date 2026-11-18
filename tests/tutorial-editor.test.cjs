@@ -26,12 +26,12 @@ test('the list and the module editor show every field; only supported types can 
 test('adding, editing, reordering and disabling reach the exported document and pass the game rules',()=>{
  const r=editor();r.E.open('skill_basics');
  r.E.set(['modules',2,'steps',0,'text'],'改寫的技能槽說明。');r.E.moveStep(0,1);r.E.set(['modules',2,'trigger','notify'],true);r.E.set(['modules',2,'trigger','notifyText'],'技能頁開放了。');
- const id=r.E.addModule();r.E.set(['modules',3,'title'],'夥伴');r.E.set(['modules',3,'category'],'companions');r.E.set(['modules',3,'trigger','type'],'pageEnter');r.E.set(['modules',3,'trigger','page'],'partnerRoster');
- r.E.set(['modules',3,'prerequisites','conditions',0,'type'],'companions');r.E.set(['modules',3,'prerequisites','conditions',0,'count'],1);
- r.E.moveModule(3,-1);r.E.set(['modules',0,'enabled'],false);
+ const ids=plain(r.run('data.tutorials.modules.map(m=>m.id)')),id=r.E.addModule(),n=ids.length;r.E.set(['modules',n,'title'],'夥伴');r.E.set(['modules',n,'category'],'companions');r.E.set(['modules',n,'trigger','type'],'pageEnter');r.E.set(['modules',n,'trigger','page'],'partnerRoster');
+ r.E.set(['modules',n,'prerequisites','conditions',0,'type'],'companions');r.E.set(['modules',n,'prerequisites','conditions',0,'count'],1);
+ for(let i=n;i>2;i--)r.E.moveModule(i,-1);r.E.set(['modules',0,'enabled'],false);
  assert.deepEqual(plain(r.E.issues()),[]);
  const out=r.out(),t=out.tutorials;assert.deepEqual(M.issues(t,{quests:out.story.quests,items:out.items}),[]);
- assert.deepEqual(t.modules.map(m=>m.id),['explore_basics','equipment_basics',id,'skill_basics']);
+ assert.deepEqual(t.modules.map(m=>m.id),[...ids.slice(0,2),id,...ids.slice(2)]);
  assert.equal(t.modules[0].enabled,false);assert.equal(t.modules[3].steps[1].text,'改寫的技能槽說明。');assert.equal(t.modules[3].trigger.notifyText,'技能頁開放了。');
  assert.deepEqual(t.modules[2].prerequisites.conditions[0],{type:'companions',key:'',count:1});assert.equal(t.modules[2].implemented,false,'a new module is not implemented until marked');
  assert.equal(r.run("validateData().filter(x=>x.startsWith('教學')).length"),0);

@@ -51,18 +51,19 @@
   el('mechanismConfirm').onclick=()=>{try{if(!preview||preview.revision!==revision||preview.input!==JSON.stringify(input()))throw Error('設定或資料已變更，請重新預覽');const r=build(input());commitResult(r,'已從既有技能取用機制');recent.unshift(...r.changes.map(c=>c.mechanism));recent.splice(20);host.close();host.remove();render();}catch(e){err(e);}};el('mechanismCancel').onclick=()=>{host.close();host.remove();};host.oncancel=()=>host.remove();refresh();host.showModal();
  }
  function page(){
-  const s=ensure(data),app=document.getElementById('app'),tabs=[['skills','技能資料庫'],['mechanisms','機制積木箱'],['classRules','職業解鎖與槽位'],['equipment','裝備技能與孔數'],['gems','寶石雙模式']];
+  const s=ensure(data),app=document.getElementById('app'),tabs=[['skills','技能資料庫'],['mechanisms','機制積木箱'],['tree','技能樹'],['classRules','職業解鎖與槽位'],['equipment','裝備技能與孔數'],['gems','寶石雙模式']];
   let body='';
   if(section==='skills'){
    const list=s.definitions.filter(x=>!x.deleted&&(!query||(x.name+' '+x.id+' '+x.type+' '+x.sources.map(s=>s.type).join(' ')).toLowerCase().includes(query.toLowerCase()))),sk=s.definitions.find(x=>x.id===selection)||list[0];selection=sk?.id||'';
    body=`<div class="canonical-editor-layout"><section class="card"><div class="card-b"><input id="canonicalSkillSearch" aria-label="搜尋技能" placeholder="搜尋名稱、ID、類型或來源" value="${esc(query)}"><label>新增技能職業<select id="canonicalNewJob">${data.classes.map((c,j)=>`<option value="${j}">${esc(c.name)}</option>`).join('')}</select></label><label>新增技能類型<select id="canonicalNewType">${Object.entries(labels).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></label><button id="canonicalAddSkill">建立空白技能</button><button id="canonicalNewFromMechanisms">從既有技能取用機制</button><div class="canonical-skill-list">${list.map(x=>`<div class="canonical-list-entry"><button type="button" data-canonical-skill="${esc(x.id)}" aria-pressed="${x.id===selection}"><b>${esc(x.name)}</b><small>${labels[x.type]} · ${x.sources.map(y=>sourceLabels[y.type]).join('／')}${x.disabled?' · 已停用':''}</small></button><button data-duplicate-skill="${esc(x.id)}" aria-label="複製 ${esc(x.name)}">複製技能</button></div>`).join('')}</div></div></section><section class="card"><div class="card-b">${sk?skillForm(sk):'尚無技能'}</div></section></div>`;
-  }else if(section==='mechanisms'){body=mechanismPage();}else{
-   const help={classRules:'各職業 initial／advanced 以 skillId 引用技能；level 設定解鎖等級。slots.first／advanced 設定一轉與二轉槽數。',equipment:'chanceByDifficulty 是三難度附技機率；pool 設定技能、職業、部位、等級、地區、怪物、BOSS、權重及商店／製作限制。formRules 可指定 formId、固定 skillId、allowSkill、skillChance。socketBands／sourceRules 設定等級與來源的零至三孔機率。',gems:'五種寶石保留三階。base 設定 stat、unit（flat／ratio）及 values；skill 設定效果 key、三階 values、相容 types／effects、可用 slots（只允許 0＝第一孔）；第二、第三孔固定基礎數值；cap 設定加成上限。'};
+  }else if(section==='mechanisms'){body=mechanismPage();}else if(section==='tree'){body=treePage();}else{
+   const help={classRules:'各職業 initial／advanced 以 skillId 引用技能；masteryLevel 設定解鎖所需職業精通等級，prerequisites 為前置技能、position 為技能樹位置（建議改用「技能樹」分頁編輯）。slots.first／advanced 設定一轉與二轉槽數。',equipment:'chanceByDifficulty 是三難度附技機率；pool 設定技能、職業、部位、等級、地區、怪物、BOSS、權重及商店／製作限制。formRules 可指定 formId、固定 skillId、allowSkill、skillChance。socketBands／sourceRules 設定等級與來源的零至三孔機率。',gems:'五種寶石保留三階。base 設定 stat、unit（flat／ratio）及 values；skill 設定效果 key、三階 values、相容 types／effects、可用 slots（只允許 0＝第一孔）；第二、第三孔固定基礎數值；cap 設定加成上限。'};
    body=`<section class="card"><div class="card-b"><p>${help[section]}</p><textarea id="canonicalPartJSON" class="canonical-json" spellcheck="false">${esc(JSON.stringify(s[section],null,2))}</textarea><button id="canonicalPartApply">驗證並套用</button></div></section>`;
   }
   app.innerHTML=sectionHead('技能、裝備與寶石','技能 ID 是共用引用；此頁編輯後沿用既有草稿、匯入匯出、差異比較及發布管理。','')+`<div class="actions">${tabs.map(([id,label])=>`<button data-canonical-tab="${id}" class="${id===section?'primary':''}">${label}</button>`).join('')}</div><button id="canonicalBack" ${history.length?'':'disabled'}>返回上一頁</button><p id="canonicalError" role="status">${esc(notice)}</p>`+body;
   app.querySelectorAll('[data-canonical-tab]').forEach(b=>b.onclick=()=>{route(b.dataset.canonicalTab);});
   const bind=(id,fn)=>{const b=document.getElementById(id);if(b)b.onclick=()=>{try{fn();render();}catch(e){document.getElementById('canonicalError').textContent=e.message;}};};
+  if(section==='tree')bindTree(app);
   if(section==='skills'){
    const sk=s.definitions.find(x=>x.id===selection);if(sk)__EMBERWILD_COLOR_EDITOR.bind('skillPalette',iconMetadata(sk),patch=>{const a=sk.adapter;__EMBERWILD_INVENTORY_ICON_EDITOR.set('skill',`${a.kind}:${a.job}:${a.index}`,iconMetadata(sk).iconType||'auto',patch);});
    document.getElementById('canonicalSkillSearch').oninput=e=>{query=e.target.value;page();const box=document.getElementById('canonicalSkillSearch');box.focus();box.setSelectionRange?.(query.length,query.length);};
@@ -95,7 +96,80 @@
  const renderBase=render;render=function(...args){if(lastSection==='skillSystem'&&currentSection!=='skillSystem'&&drafts.size&&!warnDraft())currentSection='skillSystem';lastSection=currentSection;if(['skills','passives'].includes(currentSection)){const kind=currentSection==='passives'?'passive':selected.skillTab==='support'?'support':'core',job=kind==='support'?selected.supportClass:selected.skillClass,index=kind==='passive'?selected.passive:kind==='support'?selected.support:selected.skill;const sk=data.skillSystem.definitions.find(x=>x.adapter.kind===kind&&x.adapter.job===job&&x.adapter.index===index);if(sk)selection=sk.id;section='skills';currentSection='skillSystem';}if(currentSection!=='skillSystem'){const out=renderBase(...args);if(externalReturn){document.getElementById('app').insertAdjacentHTML('afterbegin','<button id="returnSkillMechanisms">返回技能機制</button>');document.getElementById('returnSkillMechanisms').onclick=()=>{externalReturn=false;currentSection='skillSystem';render();};}if(!document.getElementById('app').innerHTML.includes('class="workbench-route"')){globalThis.__EMBERWILD_EXPERIENCE?.refreshSearch();globalThis.__EMBERWILD_EXPERIENCE?.afterPage();}return out;}ensureArrays();renderNav(true);page();globalThis.__EMBERWILD_EXPERIENCE?.refreshSearch();globalThis.__EMBERWILD_EXPERIENCE?.afterPage();};
  const countBase=count;count=function(key,...args){return key==='skillSystem'?data.skillSystem?.definitions.filter(x=>!x.deleted).length||0:countBase(key,...args);};
  const designer=globalThis.__EMBERWILD_MONSTER_DESIGNER,assignBase=designer?.assignSkill;if(assignBase)designer.assignSkill=function(monster,id,...args){const sk=data.skillSystem.definitions.find(x=>x.id===id),previous=sk?.usageScope;if(sk){sk.usageScope='shared';M.project(data);}try{return assignBase(monster,id,...args);}catch(e){if(sk){sk.usageScope=previous;M.project(data);}throw e;}};
- globalThis.__EMBERWILD_SKILL_SYSTEM_EDITOR={system:()=>ensure(data),updateSkill,addSkill,deleteSkill,applyPart,references,issues:issueList,duplicateSkill,index:()=>ix(),transfer(source,keys,target,options){requireApplied(source);requireApplied(target);return commitResult(K.transfer(data,source,keys,target,options),'已取用機制');},editMechanism,removeMechanism,picker,select:route,selected:()=>selection,check:checkSkill};
+
+ // ---------- v0.161 skill tree: class rows unlock by class mastery and prerequisites ----------
+ let treeJob=0,treeNode='';
+ const STAGE={initial:'初始職業',advanced:'二轉後'};
+ function masteryMax(d=data){return Math.max(1,Math.floor(Number(d.balanceSettings?.skills?.mastery?.maxLevel)||30));}
+ // Issues that make a node impossible to unlock, beyond the shared model's structural checks.
+ function treeIssues(d=data){
+  const out=[],max=masteryMax(d),defs=new Map((d.skillSystem?.definitions||[]).map(x=>[x.id,x]));
+  for(const rule of d.skillSystem?.classRules||[]){
+   const rows=[...rule.initial.map(r=>[r,'initial']),...rule.advanced.map(r=>[r,'advanced'])],byId=new Map(rows.map(([r])=>[r.skillId,r])),cls=d.classes?.[rule.job]?.name||('職業 '+rule.job);
+   const need=(id,seen=new Set())=>{if(seen.has(id))return Infinity;seen.add(id);const r=byId.get(id);if(!r)return Infinity;return Math.max(Number(r.masteryLevel)||0,...(r.prerequisites||[]).map(p=>need(p,new Set(seen))));};
+   for(const [r] of rows){
+    const sk=defs.get(r.skillId),label=cls+'技能樹「'+(sk?.name||r.skillId)+'」';
+    if(!sk){out.push(label+'引用不存在的技能');continue;}
+    if(!sk.jobs.includes(rule.job))out.push(label+'不屬於此職業');
+    if((Number(r.masteryLevel)||0)>max)out.push(label+'需要精通 Lv'+r.masteryLevel+'，超過精通上限 Lv'+max+'，永遠無法解鎖');
+    else if(need(r.skillId)>max)out.push(label+'的前置鏈需要超過精通上限的等級，永遠無法解鎖');
+    for(const p of r.prerequisites||[])if(defs.get(p)?.disabled)out.push(label+'的前置技能已停用，永遠無法解鎖');
+   }
+  }
+  return out;
+ }
+ function treeWarnings(d=data){const out=[];for(const rule of d.skillSystem?.classRules||[]){const inTree=new Set([...rule.initial,...rule.advanced].map(r=>r.skillId)),cls=d.classes?.[rule.job]?.name||('職業 '+rule.job);for(const sk of d.skillSystem.definitions)if(!sk.deleted&&!sk.disabled&&sk.partnerId==null&&sk.jobs.includes(rule.job)&&sk.sources.length&&sk.sources.every(x=>['class','advanced'].includes(x.type))&&!inTree.has(sk.id))out.push(cls+'的職業技能「'+sk.name+'」不在技能樹中，玩家無法取得');}return out;}
+ const treeValidateBase=validateData;validateData=function(){return [...new Set([...treeValidateBase(),...treeIssues()])];};
+ function treeRows(){const rule=data.skillSystem.classRules.find(r=>r.job===treeJob);return rule?[...rule.initial.map(row=>({row,stage:'initial'})),...rule.advanced.map(row=>({row,stage:'advanced'}))]:[];}
+ // Same layout as the game's skill tree page: explicit position, else one row per (stage, mastery level).
+ function treeLayout(nodes){
+  const keys=[...new Set(nodes.filter(n=>!n.row.position).map(n=>(n.stage==='advanced'?1000:0)+(Number(n.row.masteryLevel)||0)))].sort((a,b)=>a-b);
+  const placed=nodes.map(n=>({...n,r:n.row.position?.row??keys.indexOf((n.stage==='advanced'?1000:0)+(Number(n.row.masteryLevel)||0))}));
+  const rows=new Map();for(const n of placed){if(!rows.has(n.r))rows.set(n.r,[]);rows.get(n.r).push(n);}
+  const order=[...rows.keys()].sort((a,b)=>a-b);let cols=1;for(const list of rows.values()){list.forEach((n,i)=>{n.c=n.row.position?.col??i;});cols=Math.max(cols,...list.map(n=>n.c+1));}
+  for(const n of placed){n.y=order.indexOf(n.r);n.x=(n.c+.5)/cols*100;}return {nodes:placed,height:Math.max(1,order.length)*80};
+ }
+ function treePreview(nodes){
+  const {nodes:p,height}=treeLayout(nodes),byId=new Map(p.map(n=>[n.row.skillId,n])),defs=new Map(data.skillSystem.definitions.map(x=>[x.id,x]));
+  const lines=p.flatMap(n=>(n.row.prerequisites||[]).map(id=>{const q=byId.get(id);return q?`<line x1="${q.x}" y1="${q.y*80+40}" x2="${n.x}" y2="${n.y*80+40}" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>`:'';})).join('');
+  const boxes=p.map(n=>`<button type="button" data-tree-pick="${esc(n.row.skillId)}" aria-pressed="${n.row.skillId===treeNode}" style="position:absolute;left:${n.x}%;top:${n.y*80+40}px;transform:translate(-50%,-50%);width:min(150px,30%);min-height:48px;padding:4px 6px;${n.row.skillId===treeNode?'outline:2px solid #e6c36a;':''}${n.stage==='advanced'?'border-style:dashed;':''}"><b>${esc(defs.get(n.row.skillId)?.name||n.row.skillId)}</b><br><small>${labels[defs.get(n.row.skillId)?.type]||''} · 精通 Lv${Number(n.row.masteryLevel)||0}</small></button>`).join('');
+  return `<div class="skill-tree-preview" style="position:relative;height:${height}px;border:1px solid rgba(255,255,255,.15);border-radius:10px;opacity:.95"><svg viewBox="0 0 100 ${height}" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;color:#8a90a8" aria-hidden="true">${lines}</svg>${boxes}</div>`;
+ }
+ function treePage(){
+  const rule=data.skillSystem.classRules.find(r=>r.job===treeJob)||data.skillSystem.classRules[0];treeJob=rule.job;
+  const nodes=treeRows(),defs=data.skillSystem.definitions,inTree=new Set(nodes.map(n=>n.row.skillId)),pick=nodes.find(n=>n.row.skillId===treeNode)||nodes[0];treeNode=pick?.row.skillId||'';
+  const candidates=defs.filter(x=>!x.deleted&&x.jobs.includes(treeJob)&&x.partnerId==null&&!inTree.has(x.id));
+  const issues=treeIssues().filter(x=>x.startsWith(data.classes[treeJob]?.name||'職業 '+treeJob));const warnings=treeWarnings().filter(x=>x.startsWith(data.classes[treeJob]?.name||'職業 '+treeJob));
+  const sk=pick&&defs.find(x=>x.id===pick.row.skillId);
+  const form=pick?`<h3>${esc(sk?.name||pick.row.skillId)}</h3><p class="mini-note">ID：${esc(pick.row.skillId)} · ${labels[sk?.type]||''}</p>
+   <label>需求職業精通等級<input type="number" id="treeMastery" min="0" max="${masteryMax()}" step="1" value="${Number(pick.row.masteryLevel)||0}"></label>
+   <label>階段<select id="treeStage">${Object.entries(STAGE).map(([k,v])=>`<option value="${k}" ${k===pick.stage?'selected':''}>${v}</option>`).join('')}</select></label>
+   <fieldset><legend>前置技能（全部解鎖後才解鎖）</legend>${nodes.filter(n=>n.row.skillId!==pick.row.skillId).map(n=>`<label><input type="checkbox" data-tree-prereq="${esc(n.row.skillId)}" ${(pick.row.prerequisites||[]).includes(n.row.skillId)?'checked':''}>${esc(defs.find(x=>x.id===n.row.skillId)?.name||n.row.skillId)}（${STAGE[n.stage]} · Lv${Number(n.row.masteryLevel)||0}）</label>`).join('')||'<p class="mini-note">此職業沒有其他節點。</p>'}</fieldset>
+   <label><input type="checkbox" id="treeManual" ${pick.row.position?'checked':''}>手動位置</label>${pick.row.position?`<label>列（0–40）<input type="number" id="treeRow" min="0" max="40" value="${pick.row.position.row}"></label><label>欄（0–7）<input type="number" id="treeCol" min="0" max="7" value="${pick.row.position.col}"></label>`:''}
+   <div class="actions"><button id="treeRemove">從技能樹移除</button></div>`:'<p>此職業技能樹沒有節點。</p>';
+  return `<section class="card"><div class="card-b"><h2>職業精通技能樹</h2><p class="mini-note">達到需求職業精通等級並完成全部前置技能後自動解鎖，不消耗點數；二轉後節點另需完成二轉。解鎖不會自動裝備，玩家仍要放入技能槽。精通上限 Lv${masteryMax()}。</p>
+   <label>職業<select id="treeJob">${data.classes.map((c,j)=>`<option value="${j}" ${j===treeJob?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>
+   <p id="treeIssues" class="mini-note" role="status" style="${issues.length?'color:#e49a8a':''}">${issues.length?'無法發布：'+esc(issues.join('；')):'檢查通過：沒有循環、無效引用或永遠無法解鎖的節點。'}</p>${warnings.length?`<p class="mini-note" data-tree-warnings>提醒：${esc(warnings.join('；'))}</p>`:''}
+   <div class="canonical-editor-layout"><section>${treePreview(nodes)}<div class="actions"><select id="treeAddSkill" aria-label="加入技能">${candidates.map(x=>`<option value="${esc(x.id)}">${esc(x.name)}（${labels[x.type]}）</option>`).join('')}</select><button id="treeAdd" ${candidates.length?'':'disabled'}>加入技能樹</button></div></section><section>${form}</section></div></div></section>`;
+ }
+ // Every edit is applied to a copy and committed only when the whole document still validates.
+ function editTree(fn,message){const next=copy(data),rule=next.skillSystem.classRules.find(r=>r.job===treeJob);fn(rule,next);commit(next,message);}
+ function findRow(rule,id){for(const k of ['initial','advanced']){const i=rule[k].findIndex(r=>r.skillId===id);if(i>=0)return {k,i,row:rule[k][i]};}return null;}
+ function bindTree(app){
+  const fail=e=>{const box=document.getElementById('treeIssues');if(box){box.textContent='無法套用：'+e.message;box.style.color='#e49a8a';}};
+  const run=(fn,msg)=>{try{editTree(fn,msg);render();}catch(e){fail(e);}};
+  document.getElementById('treeJob').onchange=e=>{treeJob=Number(e.target.value);treeNode='';render();};
+  app.querySelectorAll('[data-tree-pick]').forEach(b=>b.onclick=()=>{treeNode=b.dataset.treePick;render();});
+  document.getElementById('treeAdd')?.addEventListener('click',()=>{const id=document.getElementById('treeAddSkill').value;run(rule=>{rule.initial.push({skillId:id,masteryLevel:0});},'技能樹加入節點');treeNode=id;});
+  if(!treeNode)return;
+  document.getElementById('treeMastery')?.addEventListener('change',e=>run(rule=>{findRow(rule,treeNode).row.masteryLevel=Math.max(0,Math.floor(Number(e.target.value)||0));},'技能樹精通需求'));
+  document.getElementById('treeStage')?.addEventListener('change',e=>run(rule=>{const f=findRow(rule,treeNode);rule[f.k].splice(f.i,1);rule[e.target.value].push(f.row);},'技能樹階段'));
+  app.querySelectorAll('[data-tree-prereq]').forEach(el=>el.onchange=()=>run(rule=>{const r=findRow(rule,treeNode).row,set=new Set(r.prerequisites||[]);el.checked?set.add(el.dataset.treePrereq):set.delete(el.dataset.treePrereq);if(set.size)r.prerequisites=[...set];else delete r.prerequisites;},'技能樹前置技能'));
+  document.getElementById('treeManual')?.addEventListener('change',e=>run(rule=>{const r=findRow(rule,treeNode).row;if(e.target.checked)r.position={row:0,col:0};else delete r.position;},'技能樹位置'));
+  for(const [id,key,max] of [['treeRow','row',40],['treeCol','col',7]])document.getElementById(id)?.addEventListener('change',e=>run(rule=>{findRow(rule,treeNode).row.position[key]=Math.max(0,Math.min(max,Math.floor(Number(e.target.value)||0)));},'技能樹位置'));
+  document.getElementById('treeRemove')?.addEventListener('click',()=>run(rule=>{const f=findRow(rule,treeNode);rule[f.k].splice(f.i,1);for(const k of ['initial','advanced'])for(const r of rule[k])if(r.prerequisites){r.prerequisites=r.prerequisites.filter(x=>x!==treeNode);if(!r.prerequisites.length)delete r.prerequisites;}},'技能樹移除節點'));
+ }
+ globalThis.__EMBERWILD_SKILL_SYSTEM_EDITOR={system:()=>ensure(data),updateSkill,addSkill,deleteSkill,applyPart,references,issues:issueList,duplicateSkill,index:()=>ix(),transfer(source,keys,target,options){requireApplied(source);requireApplied(target);return commitResult(K.transfer(data,source,keys,target,options),'已取用機制');},editMechanism,removeMechanism,picker,select:route,selected:()=>selection,check:checkSkill,treeIssues,treeWarnings,tree:{select(job,id=''){treeJob=Number(job);treeNode=id;section='tree';currentSection='skillSystem';render();},edit:(fn,msg)=>editTree(fn,msg)}};
  const oldImport=ensureArrays;ensureArrays=function(...args){const r=oldImport(...args);invalidate();return r;};
  const clean=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=function(){if(drafts.size)throw Error('技能有未套用草稿，請先套用或捨棄');return clean();};
  window.addEventListener('beforeunload',e=>{if(drafts.size){e.preventDefault();e.returnValue='';}});

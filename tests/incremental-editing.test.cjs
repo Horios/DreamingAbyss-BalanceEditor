@@ -22,7 +22,7 @@ test('a monster HP edit marks one module and one record, checks one record and s
 
 test('deleting a referenced monster runs cross-module checks and locates every broken drop by module, record and field',()=>{
  const r=loadRuntime(root);
- r.exec("currentSection='world';const c=data.balanceSettings.monsters.catalog;globalThis.__gone=c[1].id;c.splice(1,1);markDirty('刪除');");
+ r.exec("currentSection='world';const c=data.balanceSettings.monsters.catalog,story=JSON.stringify(data.story||{});const i=c.findIndex(m=>data.balanceSettings.drops.entries.some(d=>d.sources.includes(m.id))&&!story.includes(JSON.stringify(m.id)));globalThis.__gone=c[i].id;c.splice(i,1);markDirty('刪除');");
  const s=r.run('__EMBERWILD_INCREMENTAL.refresh()');
  assert.equal(s.crossModule,true);assert.equal(s.canPublish,false);
  assert(s.last.blocks.includes('drops'),'drop references checked');

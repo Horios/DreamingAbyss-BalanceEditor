@@ -25,7 +25,7 @@ test('all eight scenes render their lines, system events are shown as fixed, sou
  r.E.open(3);html=r.html();assert.match(html,/系統事件：選擇初始職業（固定）/);for(const c of published.classes)assert(html.includes('<b>'+c.name+'</b>'),c.name);
  r.E.open(4);assert.match(r.html(),/系統事件：發放並穿戴新手裝備（固定）/);
  r.E.open(6);assert.match(r.html(),/系統事件：訓練戰鬥（戰鬥練習，2 個訓練對象）（固定）/);
- assert.match(r.html(),/播放順序預覽（\d+ 句）/);assert.match(r.html(),/〔系統事件〕角色命名/);assert.match(r.html(),/第一章：斷絕的商路/);
+ assert.match(r.html(),/播放順序預覽（\d+ 句）/);assert.match(r.html(),/〔系統事件〕角色命名/);assert(r.html().includes(q.prologue.chapter.title),'chapter title');
  assert.deepEqual(r.errors,[]);
 });
 

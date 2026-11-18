@@ -60,7 +60,7 @@ function fight(doc,id,type){
  const r=doc?applied(doc):loadGame(game);r.ctx.setTimeout=fn=>setImmediate(fn);
  // Fixed random seed: proc counts are compared between runs.
  r.run(`selectSaveSlot(1);start(0);closeModal();globalThis.__times=[];{let seed=17;Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};}
-  {const h=playerHero();h.lv=30;h.advanced=true;h.won=false;for(const k of Object.keys(h.mastery||{}))h.mastery[k]=1e9;}
+  {const h=playerHero();setClassMasteryLevel(30,h);h.advanced=true;h.won=false;for(const k of Object.keys(h.mastery||{}))h.mastery[k]=1e9;}
   const sp=spawnGroup;spawnGroup=function(...a){const o=sp.apply(this,a);for(const e of foes){e.maxhp=e.hp=1e7;e.atk=1;}return o;};
   const name=__EMBERWILD_SKILLS.byId(${JSON.stringify(id)}).name,rec=recordAction;recordAction=function(i,n,t){if(${JSON.stringify(type)}==='active'&&String(i)===String(heroKey(playerHero()))&&t===name)__times.push(Date.now());return rec.apply(this,arguments);};
   const cp=castPartySkill;castPartySkill=function(h,i){const d=__EMBERWILD_SKILLS.byPosition(h?.job,'core',i),o=cp.apply(this,arguments);if(${JSON.stringify(type)}==='proc'&&h===playerHero()&&o!==false&&d?.id===${JSON.stringify(id)})__times.push(Date.now());return o;};
@@ -89,7 +89,7 @@ test('an edited equipment fixed effect changes the stats of a character wearing 
  e.run('data.equipmentForms[0][0][0].fixedEffects=data.equipmentForms[0][0][0].fixedEffects.map(x=>x.key==="critDamage"?{...x,value:x.value+30}:x);markDirty("roundtrip")');
  const doc=plain(e.run('__EMBERWILD_RELEASE_EDITOR.current()'));
  // Base quality, no affixes and a fixed random seed, so only the edited fixed effect differs.
- const crit=g=>plain(g.run(`selectSaveSlot(1);start(0);closeModal();(()=>{let seed=11;Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};const h=playerHero();h.lv=30;h.equipped=Array(5).fill(null);const bare=stats(h).critDamage,it=gear(5,0,0,0);Object.assign(it,{job:0,formJob:0,form:0,slot:0,affix:[]});h.bag.push(it);h.equipped[0]=it.id;return stats(h).critDamage-bare;})()`));
+ const crit=g=>plain(g.run(`selectSaveSlot(1);start(0);closeModal();(()=>{let seed=11;Math.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};const h=playerHero();h.equipped=Array(5).fill(null);const bare=stats(h).critDamage,it=gear(5,0,0,0);Object.assign(it,{job:0,formJob:0,form:0,slot:0,affix:[]});h.bag.push(it);h.equipped[0]=it.id;return stats(h).critDamage-bare;})()`));
  // Each runtime reports what wearing the item adds, so unrelated differences cancel out.
  const before=crit(loadGame(game)),after=crit(applied(doc));
  assert(Math.abs(after-before-0.3)<1e-9,JSON.stringify({before,after}));
