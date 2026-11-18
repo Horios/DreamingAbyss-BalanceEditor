@@ -75,7 +75,7 @@
    "note": "資料格式版本旗標，由遊戲設定。"
   },
   {
-   "match": "^skillSystem\\.gemSlotRuleVersion$",
+   "match": "^skillSystem\\.(gemSlotRuleVersion|masteryGateVersion)$",
    "note": "資料格式版本旗標，由遊戲設定。"
   },
   {
