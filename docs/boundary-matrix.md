@@ -2,16 +2,16 @@
 
 由 `node scripts/boundary-probe.cjs` 產生，請勿手動修改。完整資料在 `boundary-matrix.json`。
 
-700 個數值欄位（追溯矩陣中狀態為 `effective` 者），每個欄位取第一筆資料嘗試下列編輯。資料 SHA-256 `d12a698a019d…`。
+686 個數值欄位（追溯矩陣中狀態為 `effective` 者），每個欄位取第一筆資料嘗試下列編輯。資料 SHA-256 `d49198e7dc93…`。
 
 | 編輯 | 三個程式都保留 | 被拒絕 | 工作台保留、驗證器拒絕（發布停在驗證） | 工作台較嚴格 | 沒有錯誤但值被改變 |
 |---|--:|--:|--:|--:|--:|
-| 0 | 469 | 96 | 5 | 16 | 3 |
-| -1 | 267 | 362 | 30 | 29 | 10 |
-| 1e12 | 405 | 248 | 15 | 24 | 8 |
-| 整數加 0.5 | 376 | 128 | 2 | 18 | 8 |
-| 字串 "x" | 3 | 609 | 81 | 5 | 2 |
-| null | 4 | 602 | 89 | 5 | 0 |
+| 0 | 454 | 96 | 5 | 18 | 3 |
+| -1 | 261 | 355 | 30 | 30 | 8 |
+| 1e12 | 402 | 237 | 15 | 25 | 7 |
+| 整數加 0.5 | 370 | 126 | 2 | 19 | 6 |
+| 字串 "x" | 3 | 595 | 81 | 5 | 2 |
+| null | 4 | 588 | 89 | 5 | 0 |
 
 ## 錯誤型別或 null 被整條鏈路保留（7）
 
@@ -25,15 +25,12 @@
 | `skillSystem.definitions.*.statusMaxTargets` | `combat/skills` | 3 | 字串 "x" | preserved |
 | `skillSystem.definitions.*.statusMaxTargets` | `combat/skills` | 3 | null | preserved |
 
-## 沒有錯誤但值被改變（31）
+## 沒有錯誤但值被改變（26）
 
 | 欄位 | 模組 | 原值 | 編輯 | 工作台 | 驗證器 | 遊戲 |
 |---|---|---|---|---|---|---|
 | `balance.affixes.poolBySlotRank.*.*.*.max` | `equipment/affix-pools` | 1 | 整數加 0.5 | preserved | 改為 2 |  |
 | `equipmentForms.*.*.*.fixedEffects.*.value` | `equipment/forms` | 5 | 字串 "x" | 改為 0 | 改為 0 |  |
-| `balanceSettings.progression.advance.masteryLevel` | `characters/progression` | 15 | -1 | 改為 15（還原） | 改為 15（還原） |  |
-| `balanceSettings.progression.advance.masteryLevel` | `characters/progression` | 15 | 1e12 | 改為 15（還原） | 改為 15（還原） |  |
-| `balanceSettings.progression.advance.masteryLevel` | `characters/progression` | 15 | 整數加 0.5 | 改為 15（還原） | 改為 15（還原） |  |
 | `balanceSettings.skills.mastery.xpBase` | `combat/skill-settings` | 8 | 0 | 改為 1 | 改為 1 |  |
 | `balanceSettings.skills.mastery.xpBase` | `combat/skill-settings` | 8 | -1 | 改為 1 | 改為 1 |  |
 | `balanceSettings.skills.mastery.xpLinear` | `combat/skill-settings` | 5 | -1 | 改為 0 | 改為 0 |  |
@@ -41,8 +38,6 @@
 | `balanceSettings.skills.mastery.skillUseXp` | `combat/skill-settings` | 2 | -1 | 改為 0 | 改為 0 |  |
 | `balanceSettings.skills.mastery.basicAttackXp` | `combat/skill-settings` | 1 | -1 | 改為 0 | 改為 0 |  |
 | `balanceSettings.skills.mastery.maxLevel` | `combat/skill-settings` | 30 | 整數加 0.5 | 改為 30（還原） | 改為 30（還原） |  |
-| `balanceSettings.skills.mastery.advanceRequiredLevel` | `combat/skill-settings` | 4 | -1 | 改為 0 | 改為 0 |  |
-| `balanceSettings.skills.mastery.advanceRequiredLevel` | `combat/skill-settings` | 4 | 整數加 0.5 | 改為 4（還原） | 改為 4（還原） |  |
 | `balanceSettings.skills.mastery.classBonus.*.hp` | `combat/skill-settings` | 3 | 1e12 | 改為 3（還原） | 改為 3（還原） |  |
 | `balanceSettings.skills.mastery.classBonus.*.atk` | `combat/skill-settings` | 0 | 1e12 | 改為 0（還原） | 改為 0（還原） |  |
 | `balanceSettings.skills.mastery.classBonus.*.def` | `combat/skill-settings` | 0.5 | 1e12 | 改為 0.5（還原） | 改為 0.5（還原） |  |
@@ -288,7 +283,7 @@
 | `skillSystem.definitions.*.level` | `combat/skills` | 0 | 字串 "x" | 拒絕：skillSystem  skillSystem.definitions.35.level：型別必須為 number |  |
 | `skillSystem.definitions.*.level` | `combat/skills` | 0 | null | 拒絕：skillSystem  skillSystem.definitions.35.level：此欄位不可為 null |  |
 
-## 工作台較嚴格（97）
+## 工作台較嚴格（102）
 
 | 欄位 | 模組 | 原值 | 編輯 | 工作台 |
 |---|---|---|---|---|
@@ -302,6 +297,7 @@
 | `items.*.bonusPercent` | `items/items` | 100 | 整數加 0.5 | 拒絕：限時增益百分比必須為正整數：exp_100_30m |
 | `items.*.cooldown` | `items/items` | 2 | 1e12 | 拒絕：治療藥水 heal_small 的冷卻必須是 0~99 的整數自身回合。 |
 | `items.*.cooldown` | `items/items` | 2 | 整數加 0.5 | 改為 3 |
+| `balanceSettings.skills.mastery.maxLevel` | `combat/skill-settings` | 30 | 0 | 拒絕：戰士技能樹「減傷」需要精通 Lv2，超過精通上限 Lv1，永遠無法解鎖 |
 | `balanceSettings.equipment.baseStats.weaponAttackPerTier` | `equipment/settings` | 3 | 1e12 | 拒絕：戰士新手禮包「武器」的基礎攻擊無效。 |
 | `balanceSettings.monsters.catalog.*.combatStats.crit` | `world/monsters` | 0 | -1 | 改為 0（還原） |
 | `balanceSettings.monsters.catalog.*.combatStats.critDamage` | `world/monsters` | 1.5 | 0 | 改為 1 |
@@ -340,6 +336,10 @@
 | `balanceSettings.rewards.regionVouchers.maxGapMinutes` | `systems/rewards` | 10 | null | 改為 10（還原） |
 | `balanceSettings.rewards.regionVouchers.averageMinutes` | `systems/rewards` | 180 | 字串 "x" | 改為 180（還原） |
 | `balanceSettings.rewards.regionVouchers.averageMinutes` | `systems/rewards` | 180 | null | 改為 180（還原） |
+| `balanceSettings.maps.levelRanges.*.max` | `world/maps` | 5 | 0 | 改為 5（還原） |
+| `balanceSettings.maps.levelRanges.*.max` | `world/maps` | 5 | -1 | 改為 5（還原） |
+| `balanceSettings.maps.levelRanges.*.max` | `world/maps` | 5 | 1e12 | 改為 5（還原） |
+| `balanceSettings.maps.levelRanges.*.max` | `world/maps` | 5 | 整數加 0.5 | 改為 5（還原） |
 | `balanceSettings.maps.catalog.*.min` | `world/maps` | 1 | 整數加 0.5 | 改為 2 |
 | `balanceSettings.maps.catalog.*.max` | `world/maps` | 5 | 整數加 0.5 | 改為 6 |
 | `balanceSettings.maps.catalog.*.family` | `world/maps` | 0 | 整數加 0.5 | 改為 0（還原） |
@@ -400,13 +400,13 @@
 | `characters/classes` | 3 | 0 | 5 |
 | `equipment/forms` | 1 | 1 | 1 |
 | `items/items` | 6 | 0 | 4 |
-| `characters/progression` | 13 | 13 | 13 |
-| `combat/skill-settings` | 15 | 7 | 14 |
+| `characters/progression` | 6 | 7 | 7 |
+| `combat/skill-settings` | 14 | 7 | 13 |
 | `equipment/settings` | 47 | 33 | 39 |
 | `world/monsters` | 25 | 40 | 57 |
 | `world/difficulty` | 11 | 5 | 6 |
 | `systems/rewards` | 30 | 19 | 19 |
-| `combat/rules` | 57 | 36 | 38 |
+| `combat/rules` | 56 | 36 | 38 |
 | `systems/quests` | 46 | 39 | 45 |
 | `meta/balance-settings` | 1 | 1 | 1 |
 | `world/maps` | 2 | 1 | 2 |
@@ -416,12 +416,12 @@
 | `interface/presentation` | 0 | 4 | 0 |
 | `combat/statuses` | 4 | 0 | 1 |
 | `characters/companions` | 10 | 0 | 27 |
-| `characters/companion-settings` | 45 | 0 | 37 |
+| `characters/companion-settings` | 44 | 0 | 41 |
 | `systems/shop` | 5 | 0 | 0 |
 | `systems/life-skills` | 6 | 0 | 3 |
-| `systems/story` | 7 | 1 | 1 |
+| `systems/story` | 6 | 1 | 1 |
 | `combat/skills` | 24 | 9 | 14 |
-| `combat/skill-system` | 12 | 0 | 0 |
+| `combat/skill-system` | 8 | 0 | 0 |
 | `systems/wishing-lake` | 8 | 0 | 0 |
 | `systems/tutorials` | 4 | 0 | 0 |
 

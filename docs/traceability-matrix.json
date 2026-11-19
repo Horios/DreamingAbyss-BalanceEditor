@@ -1,10 +1,10 @@
 {
  "schema": "dreaming-abyss-traceability-v1",
  "game": {
-  "dataCommit": "caa67081be467d66dad2063b0f29fa975ca595ce",
-  "dataSha256": "d12a698a019d21e116466aea69b961a3cc09c42941a287a87d15b869b453a684"
+  "dataCommit": "8d5c80e864711086613c41b309fe534ae0b4469a",
+  "dataSha256": "d49198e7dc93b2eabdb068924135b66b52aa9cf43fd29c79df2beb12a7c6ea57"
  },
- "leaves": 35112,
+ "leaves": 35514,
  "statuses": {
   "effective": "可編輯，三個程式都保留編輯值",
   "normalized": "可編輯，但值會被正規化（四捨五入、夾限或衍生）",
@@ -64,7 +64,7 @@
    "pages": [],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -143,7 +143,7 @@
    "pages": [],
    "reader": {
     "key": "cooldown",
-    "files": 27,
+    "files": 25,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -501,7 +501,7 @@
    "pages": [],
    "reader": {
     "key": "heal",
-    "files": 26,
+    "files": 23,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/skill-effect-schema.js",
@@ -521,7 +521,7 @@
    "pages": [],
    "reader": {
     "key": "shield",
-    "files": 45,
+    "files": 44,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/skill-effect-schema.js",
@@ -1937,7 +1937,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -1957,7 +1957,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -1977,7 +1977,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -1997,7 +1997,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2017,7 +2017,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2037,7 +2037,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2057,7 +2057,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2077,7 +2077,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2097,7 +2097,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2117,7 +2117,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2137,7 +2137,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2157,7 +2157,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2177,7 +2177,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2197,7 +2197,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2217,7 +2217,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2237,7 +2237,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2257,7 +2257,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2277,7 +2277,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2297,7 +2297,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2317,7 +2317,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2337,7 +2337,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2357,7 +2357,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2377,7 +2377,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2397,7 +2397,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2417,7 +2417,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2437,7 +2437,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2457,7 +2457,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2477,7 +2477,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2497,7 +2497,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2517,7 +2517,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2537,7 +2537,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2557,7 +2557,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2577,7 +2577,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2597,7 +2597,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2617,7 +2617,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2637,7 +2637,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2657,7 +2657,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2677,7 +2677,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2697,7 +2697,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2717,7 +2717,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2737,7 +2737,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2757,7 +2757,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2777,7 +2777,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2797,7 +2797,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2817,7 +2817,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2837,7 +2837,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2857,7 +2857,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2877,7 +2877,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2897,7 +2897,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2917,7 +2917,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2937,7 +2937,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2957,7 +2957,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -2977,7 +2977,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -2997,7 +2997,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -3017,7 +3017,7 @@
    "pages": [],
    "reader": {
     "key": "status",
-    "files": 41,
+    "files": 40,
     "sample": [
      "js/combat/seconds-timeline.js",
      "js/ui/core-screen-views.js",
@@ -3037,7 +3037,7 @@
    "pages": [],
    "reader": {
     "key": "replacement",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/core/core-game.js",
      "js/balance/balance-schema.js",
@@ -3057,7 +3057,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 45,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -3188,7 +3188,7 @@
    "pages": [],
    "reader": {
     "key": "boss",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -3208,7 +3208,7 @@
    "pages": [],
    "reader": {
     "key": "effects",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -3280,7 +3280,7 @@
    ],
    "reader": {
     "key": "same",
-    "files": 45,
+    "files": 46,
     "sample": [
      "js/items/timed-boosts.js",
      "js/balance/game-balance-defaults.js",
@@ -4108,7 +4108,7 @@
    ],
    "reader": {
     "key": "cap",
-    "files": 17,
+    "files": 16,
     "sample": [
      "js/balance/game-balance-defaults.js",
      "js/core/core-game.js",
@@ -5677,7 +5677,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -5767,7 +5767,7 @@
    ],
    "reader": {
     "key": "skill",
-    "files": 58,
+    "files": 56,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -5858,12 +5858,12 @@
    ],
    "reader": {
     "key": "advanced",
-    "files": 25,
+    "files": 20,
     "sample": [
      "js/character/team-model.js",
      "js/core/game-catalog.js",
      "js/core/save-validation.js",
-     "js/ui/core-screen-views.js"
+     "js/core/core-game.js"
     ]
    },
    "status": "effective",
@@ -5888,7 +5888,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -6005,7 +6005,7 @@
    "pattern": "classes.*.skills.*.id",
    "module": "characters/classes",
    "type": "string",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.id",
    "pages": [
     "creation/classes",
@@ -6037,7 +6037,7 @@
    "pattern": "classes.*.skills.*.name",
    "module": "characters/classes",
    "type": "string",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.name",
    "pages": [
     "creation/classes",
@@ -6069,7 +6069,7 @@
    "pattern": "classes.*.skills.*.activation",
    "module": "characters/classes",
    "type": "string",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.activation",
    "pages": [
     "creation/classes",
@@ -6092,7 +6092,7 @@
    "pattern": "classes.*.skills.*.requiredLevel",
    "module": "characters/classes",
    "type": "integer",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.requiredLevel",
    "pages": [
     "creation/classes",
@@ -6124,7 +6124,7 @@
    "pattern": "classes.*.skills.*.cooldown",
    "module": "characters/classes",
    "type": "integer",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.cooldown",
    "pages": [
     "creation/classes",
@@ -6133,7 +6133,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 27,
+    "files": 25,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -6156,7 +6156,7 @@
    "pattern": "classes.*.skills.*.power",
    "module": "characters/classes",
    "type": "number",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.power",
    "pages": [
     "creation/classes",
@@ -6188,7 +6188,7 @@
    "pattern": "classes.*.skills.*.effect",
    "module": "characters/classes",
    "type": "string",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.effect",
    "pages": [
     "creation/classes",
@@ -6197,7 +6197,7 @@
    ],
    "reader": {
     "key": "effect",
-    "files": 39,
+    "files": 37,
     "sample": [
      "js/skills/skill-effect-schema.js",
      "js/combat/seconds-schema.js",
@@ -6220,7 +6220,7 @@
    "pattern": "classes.*.skills.*.element",
    "module": "characters/classes",
    "type": "string",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.element",
    "pages": [
     "creation/classes",
@@ -6252,7 +6252,7 @@
    "pattern": "classes.*.skills.*.maxTargets",
    "module": "characters/classes",
    "type": "integer",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.maxTargets",
    "pages": [
     "creation/classes",
@@ -6284,7 +6284,7 @@
    "pattern": "classes.*.skills.*.requiresAdvanced",
    "module": "characters/classes",
    "type": "boolean",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.requiresAdvanced",
    "pages": [
     "creation/classes",
@@ -6293,12 +6293,12 @@
    ],
    "reader": {
     "key": "requiresAdvanced",
-    "files": 8,
+    "files": 7,
     "sample": [
      "js/skills/companion-skill-model.js",
-     "js/ui/core-screen-views.js",
      "js/core/core-game.js",
-     "js/combat/control-status-summon.js"
+     "js/combat/control-status-summon.js",
+     "js/story/story-model.js"
     ]
    },
    "status": "derived",
@@ -6316,7 +6316,7 @@
    "pattern": "classes.*.skills.*.description",
    "module": "characters/classes",
    "type": "string",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.description",
    "pages": [
     "creation/classes",
@@ -6348,7 +6348,7 @@
    "pattern": "classes.*.skills.*.baseCritRate",
    "module": "characters/classes",
    "type": "integer",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.baseCritRate",
    "pages": [
     "creation/classes",
@@ -6380,7 +6380,7 @@
    "pattern": "classes.*.skills.*.baseCritDamage",
    "module": "characters/classes",
    "type": "number",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.baseCritDamage",
    "pages": [
     "creation/classes",
@@ -6412,7 +6412,7 @@
    "pattern": "classes.*.skills.*.defensePenetration",
    "module": "characters/classes",
    "type": "integer",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.defensePenetration",
    "pages": [
     "creation/classes",
@@ -6444,7 +6444,7 @@
    "pattern": "classes.*.skills.*.defenseIgnore",
    "module": "characters/classes",
    "type": "integer",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.defenseIgnore",
    "pages": [
     "creation/classes",
@@ -6476,7 +6476,7 @@
    "pattern": "classes.*.skills.*.mastery",
    "module": "characters/classes",
    "type": "string",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.mastery",
    "pages": [
     "creation/classes",
@@ -6508,7 +6508,7 @@
    "pattern": "classes.*.skills.*.requiredMastery",
    "module": "characters/classes",
    "type": "null",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.requiredMastery",
    "pages": [
     "creation/classes",
@@ -6531,7 +6531,7 @@
    "pattern": "classes.*.skills.*.requiredMasteryLevel",
    "module": "characters/classes",
    "type": "integer",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.requiredMasteryLevel",
    "pages": [
     "creation/classes",
@@ -6595,7 +6595,7 @@
    "pattern": "classes.*.skills.*.iconType",
    "module": "characters/classes",
    "type": "string",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.iconType",
    "pages": [
     "creation/classes",
@@ -6627,7 +6627,7 @@
    "pattern": "classes.*.skills.*.usageScope",
    "module": "characters/classes",
    "type": "string",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.usageScope",
    "pages": [
     "creation/classes",
@@ -6659,7 +6659,7 @@
    "pattern": "classes.*.skills.*.partnerId",
    "module": "characters/classes",
    "type": "null",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.partnerId",
    "pages": [
     "creation/classes",
@@ -6705,7 +6705,7 @@
    "pattern": "classes.*.skills.*.unlockConditions.classMasteryLevel",
    "module": "characters/classes",
    "type": "integer",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.unlockConditions.classMasteryLevel",
    "pages": [
     "creation/classes",
@@ -6718,8 +6718,8 @@
     "sample": [
      "js/character/team-model.js",
      "js/core/core-game.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/skills/skill-tooltip-reroll.js"
+     "js/skills/skill-tooltip-reroll.js",
+     "js/skills/mastery-core.js"
     ]
    },
    "status": "derived",
@@ -6737,7 +6737,7 @@
    "pattern": "classes.*.skills.*.unlockConditions.quests",
    "module": "characters/classes",
    "type": "empty-array",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.unlockConditions.quests",
    "pages": [
     "creation/classes",
@@ -6760,7 +6760,7 @@
    "pattern": "classes.*.skills.*.unlockConditions.materials",
    "module": "characters/classes",
    "type": "empty-array",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.unlockConditions.materials",
    "pages": [
     "creation/classes",
@@ -6783,7 +6783,7 @@
    "pattern": "classes.*.skills.*.unlockConditions.bossKills",
    "module": "characters/classes",
    "type": "empty-array",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.unlockConditions.bossKills",
    "pages": [
     "creation/classes",
@@ -6806,7 +6806,7 @@
    "pattern": "classes.*.skills.*.unlockConditions.eliteKills",
    "module": "characters/classes",
    "type": "empty-array",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.unlockConditions.eliteKills",
    "pages": [
     "creation/classes",
@@ -6829,7 +6829,7 @@
    "pattern": "classes.*.skills.*.unlockConditions.bossEquipment",
    "module": "characters/classes",
    "type": "empty-array",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.unlockConditions.bossEquipment",
    "pages": [
     "creation/classes",
@@ -6852,7 +6852,7 @@
    "pattern": "classes.*.skills.*.powerPerLevel",
    "module": "characters/classes",
    "type": "integer",
-   "count": 117,
+   "count": 129,
    "instance": "classes.0.skills.0.powerPerLevel",
    "pages": [
     "creation/classes",
@@ -6948,7 +6948,7 @@
    "pattern": "classes.*.skills.*.weaponTypes",
    "module": "characters/classes",
    "type": "empty-array",
-   "count": 29,
+   "count": 41,
    "instance": "classes.0.skills.6.weaponTypes",
    "pages": [
     "creation/classes",
@@ -7000,7 +7000,7 @@
    "pattern": "classes.*.skills.*.duration",
    "module": "characters/classes",
    "type": "integer",
-   "count": 16,
+   "count": 24,
    "instance": "classes.0.skills.6.duration",
    "pages": [
     "creation/classes",
@@ -7249,7 +7249,7 @@
    "pattern": "classes.*.skills.*.hitCount",
    "module": "characters/classes",
    "type": "integer",
-   "count": 18,
+   "count": 30,
    "instance": "classes.0.skills.35.hitCount",
    "pages": [
     "creation/classes",
@@ -7281,7 +7281,7 @@
    "pattern": "classes.*.skills.*.commonEffectKeys.*",
    "module": "characters/classes",
    "type": "string",
-   "count": 14,
+   "count": 30,
    "instance": "classes.0.skills.35.commonEffectKeys.0",
    "pages": [
     "creation/classes",
@@ -7313,7 +7313,7 @@
    "pattern": "classes.*.skills.*.targetLimit",
    "module": "characters/classes",
    "type": "boolean",
-   "count": 13,
+   "count": 25,
    "instance": "classes.0.skills.35.targetLimit",
    "pages": [
     "creation/classes",
@@ -7343,7 +7343,7 @@
    "pattern": "classes.*.skills.*.systemEffect",
    "module": "characters/classes",
    "type": "string",
-   "count": 4,
+   "count": 12,
    "instance": "classes.0.skills.35.systemEffect",
    "pages": [
     "creation/classes",
@@ -7375,7 +7375,7 @@
    "pattern": "classes.*.skills.*.target",
    "module": "characters/classes",
    "type": "string",
-   "count": 18,
+   "count": 30,
    "instance": "classes.0.skills.35.target",
    "pages": [
     "creation/classes",
@@ -7439,7 +7439,7 @@
    ],
    "reader": {
     "key": "skills",
-    "files": 65,
+    "files": 64,
     "sample": [
      "js/balance/progression-model.js",
      "js/skills/companion-skill-model.js",
@@ -7448,6 +7448,321 @@
     ]
    },
    "status": "no-value"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.cooldownSeconds",
+   "module": "characters/classes",
+   "type": "integer",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.cooldownSeconds",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "cooldownSeconds",
+    "files": 7,
+    "sample": [
+     "js/items/companion-token-model.js",
+     "js/combat/seconds-timeline.js",
+     "js/combat/seconds-schema.js",
+     "js/items/healing-potions.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": 21,
+    "to": 22
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.mpCost",
+   "module": "characters/classes",
+   "type": "integer",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.mpCost",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "mpCost",
+    "files": 4,
+    "sample": [
+     "js/combat/seconds-timeline.js",
+     "js/combat/seconds-schema.js",
+     "js/combat/seconds-runtime.js",
+     "js/ui/seconds-battle.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": 5,
+    "to": 6
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.castSeconds",
+   "module": "characters/classes",
+   "type": "integer",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.castSeconds",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "castSeconds",
+    "files": 4,
+    "sample": [
+     "js/combat/seconds-timeline.js",
+     "js/combat/seconds-schema.js",
+     "js/combat/seconds-runtime.js",
+     "js/ui/seconds-battle.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": 0,
+    "to": 1
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.actionCostSeconds",
+   "module": "characters/classes",
+   "type": "integer",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.actionCostSeconds",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "actionCostSeconds",
+    "files": 3,
+    "sample": [
+     "js/combat/seconds-timeline.js",
+     "js/combat/seconds-schema.js",
+     "js/combat/seconds-runtime.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": 0,
+    "to": 1
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.priority",
+   "module": "characters/classes",
+   "type": "integer",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.priority",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "priority",
+    "files": 7,
+    "sample": [
+     "js/combat/seconds-timeline.js",
+     "js/combat/seconds-schema.js",
+     "js/ui/core-battle-journal.js",
+     "js/items/healing-potions.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": 1,
+    "to": 2
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.durationSeconds",
+   "module": "characters/classes",
+   "type": "integer",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.durationSeconds",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "durationSeconds",
+    "files": 9,
+    "sample": [
+     "js/items/companion-token-model.js",
+     "js/combat/seconds-timeline.js",
+     "js/combat/seconds-schema.js",
+     "js/skills/skill-presentation-metadata.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": 6,
+    "to": 7
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.bossDurationSeconds",
+   "module": "characters/classes",
+   "type": "integer",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.bossDurationSeconds",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "bossDurationSeconds",
+    "files": 2,
+    "sample": [
+     "js/combat/seconds-schema.js",
+     "js/combat/seconds-runtime.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": 0,
+    "to": 1
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.tickIntervalSeconds",
+   "module": "characters/classes",
+   "type": "integer",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.tickIntervalSeconds",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "tickIntervalSeconds",
+    "files": 3,
+    "sample": [
+     "js/combat/seconds-schema.js",
+     "js/combat/seconds-runtime.js",
+     "js/ui/seconds-battle.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": 6,
+    "to": 7
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.condition",
+   "module": "characters/classes",
+   "type": "string",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.condition",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "condition",
+    "files": 8,
+    "sample": [
+     "js/combat/seconds-schema.js",
+     "js/story/story-model.js",
+     "js/story/tutorial-model.js",
+     "js/story/story-runtime.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": "missingEffect",
+    "to": "missingEffect·測"
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
+  },
+  {
+   "pattern": "classes.*.skills.*.timing.initialCooldownSeconds",
+   "module": "characters/classes",
+   "type": "integer",
+   "count": 12,
+   "instance": "classes.0.skills.39.timing.initialCooldownSeconds",
+   "pages": [
+    "creation/classes",
+    "roster/classes",
+    "character/classes"
+   ],
+   "reader": {
+    "key": "initialCooldownSeconds",
+    "files": 3,
+    "sample": [
+     "js/combat/seconds-schema.js",
+     "js/combat/seconds-runtime.js",
+     "js/ui/seconds-battle.js"
+    ]
+   },
+   "status": "derived",
+   "edit": {
+    "from": 0,
+    "to": 1
+   },
+   "editor": "reverted",
+   "validator": "reverted",
+   "game": "reverted",
+   "source": "skillSystem.definitions",
+   "note": "舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。"
   },
   {
    "pattern": "classes.*.initialStats.hp",
@@ -7462,7 +7777,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -7814,7 +8129,7 @@
    "pages": [],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -7870,7 +8185,7 @@
    "pages": [],
    "reader": {
     "key": "cooldown",
-    "files": 27,
+    "files": 25,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -7898,12 +8213,12 @@
    "pages": [],
    "reader": {
     "key": "level",
-    "files": 55,
+    "files": 54,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
-     "js/character/team-model.js",
-     "js/world/quest-design-model.js"
+     "js/world/quest-design-model.js",
+     "js/core/game-catalog.js"
     ]
    },
    "status": "derived",
@@ -8211,8 +8526,8 @@
     "sample": [
      "js/character/team-model.js",
      "js/core/core-game.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/skills/skill-tooltip-reroll.js"
+     "js/skills/skill-tooltip-reroll.js",
+     "js/skills/mastery-core.js"
     ]
    },
    "status": "derived",
@@ -8349,7 +8664,7 @@
    "pages": [],
    "reader": {
     "key": "mapIndex",
-    "files": 26,
+    "files": 25,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -8535,7 +8850,7 @@
    "pattern": "equipmentForms.*.*.*.id",
    "module": "equipment/forms",
    "type": "string",
-   "count": 29,
+   "count": 32,
    "instance": "equipmentForms.0.0.0.id",
    "pages": [
     "skills/equipment",
@@ -8571,7 +8886,7 @@
    "pattern": "equipmentForms.*.*.*.name",
    "module": "equipment/forms",
    "type": "string",
-   "count": 29,
+   "count": 32,
    "instance": "equipmentForms.0.0.0.name",
    "pages": [
     "skills/equipment",
@@ -8604,7 +8919,7 @@
    "pattern": "equipmentForms.*.*.*.wearableJobs.*",
    "module": "equipment/forms",
    "type": "integer",
-   "count": 56,
+   "count": 68,
    "instance": "equipmentForms.0.0.0.wearableJobs.0",
    "pages": [
     "skills/equipment",
@@ -8640,7 +8955,7 @@
    "pattern": "equipmentForms.*.*.*.fixedEffects.*.key",
    "module": "equipment/forms",
    "type": "string",
-   "count": 54,
+   "count": 57,
    "instance": "equipmentForms.0.0.0.fixedEffects.0.key",
    "pages": [
     "skills/equipment",
@@ -8674,7 +8989,7 @@
    "pattern": "equipmentForms.*.*.*.fixedEffects.*.value",
    "module": "equipment/forms",
    "type": "integer",
-   "count": 54,
+   "count": 57,
    "instance": "equipmentForms.0.0.0.fixedEffects.0.value",
    "pages": [
     "skills/equipment",
@@ -8686,7 +9001,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -8740,7 +9055,7 @@
    "pattern": "equipmentForms.*.*",
    "module": "equipment/forms",
    "type": "empty-array",
-   "count": 3,
+   "count": 1,
    "instance": "equipmentForms.4.0",
    "pages": [
     "skills/equipment",
@@ -9329,7 +9644,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 27,
+    "files": 25,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -9672,216 +9987,6 @@
    "game": "preserved"
   },
   {
-   "pattern": "balanceSettings.progression.advance.gold",
-   "module": "characters/progression",
-   "type": "integer",
-   "count": 1,
-   "instance": "balanceSettings.progression.advance.gold",
-   "pages": [
-    "roster/balanceSettings:progression",
-    "character/balanceSettings:progression",
-    "guide/balanceSettings:progression"
-   ],
-   "reader": {
-    "key": "gold",
-    "files": 46,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/world/quest-design-model.js",
-     "js/core/game-catalog.js",
-     "js/balance/gameplay-defaults.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 500,
-    "to": 501
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.ore",
-   "module": "characters/progression",
-   "type": "integer",
-   "count": 1,
-   "instance": "balanceSettings.progression.advance.ore",
-   "pages": [
-    "roster/balanceSettings:progression",
-    "character/balanceSettings:progression",
-    "guide/balanceSettings:progression"
-   ],
-   "reader": {
-    "key": "ore",
-    "files": 34,
-    "sample": [
-     "js/world/quest-design-model.js",
-     "js/core/game-catalog.js",
-     "js/balance/gameplay-defaults.js",
-     "js/core/save-validation.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 20,
-    "to": 21
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.materialCount",
-   "module": "characters/progression",
-   "type": "integer",
-   "count": 1,
-   "instance": "balanceSettings.progression.advance.materialCount",
-   "pages": [
-    "roster/balanceSettings:progression",
-    "character/balanceSettings:progression",
-    "guide/balanceSettings:progression"
-   ],
-   "reader": {
-    "key": "materialCount",
-    "files": 12,
-    "sample": [
-     "js/balance/gameplay-defaults.js",
-     "js/ui/core-screen-views.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/ui/item-presentation.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 3,
-    "to": 4
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.hpMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "count": 1,
-   "instance": "balanceSettings.progression.advance.hpMultiplier",
-   "pages": [
-    "roster/balanceSettings:progression",
-    "character/balanceSettings:progression",
-    "guide/balanceSettings:progression"
-   ],
-   "reader": {
-    "key": "hpMultiplier",
-    "files": 5,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/balance/gameplay-defaults.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/world/dynamic-world.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 1.12,
-    "to": 1.232
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.attackMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "count": 1,
-   "instance": "balanceSettings.progression.advance.attackMultiplier",
-   "pages": [
-    "roster/balanceSettings:progression",
-    "character/balanceSettings:progression",
-    "guide/balanceSettings:progression"
-   ],
-   "reader": {
-    "key": "attackMultiplier",
-    "files": 5,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/balance/gameplay-defaults.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/world/dynamic-world.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 1.15,
-    "to": 1.265
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.defenseMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "count": 1,
-   "instance": "balanceSettings.progression.advance.defenseMultiplier",
-   "pages": [
-    "roster/balanceSettings:progression",
-    "character/balanceSettings:progression",
-    "guide/balanceSettings:progression"
-   ],
-   "reader": {
-    "key": "defenseMultiplier",
-    "files": 5,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/balance/gameplay-defaults.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/world/dynamic-world.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 1.12,
-    "to": 1.232
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.masteryLevel",
-   "module": "characters/progression",
-   "type": "integer",
-   "count": 1,
-   "instance": "balanceSettings.progression.advance.masteryLevel",
-   "pages": [
-    "roster/balanceSettings:progression",
-    "character/balanceSettings:progression",
-    "guide/balanceSettings:progression"
-   ],
-   "reader": {
-    "key": "masteryLevel",
-    "files": 12,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/balance/gameplay-defaults.js",
-     "js/ui/core-screen-views.js",
-     "js/ui/ui-text-config.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 15,
-    "to": 16
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
    "pattern": "balanceSettings.progression.regionTierLevels",
    "module": "characters/progression",
    "type": "integer",
@@ -9921,7 +10026,7 @@
    ],
    "reader": {
     "key": "core",
-    "files": 33,
+    "files": 32,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -9970,7 +10075,7 @@
    ],
    "reader": {
     "key": "support",
-    "files": 34,
+    "files": 33,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -10305,7 +10410,7 @@
    ],
    "reader": {
     "key": "maxLevel",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -10323,32 +10428,6 @@
    "game": "preserved"
   },
   {
-   "pattern": "balanceSettings.skills.mastery.advanceRequiredLevel",
-   "module": "combat/skill-settings",
-   "type": "integer",
-   "count": 1,
-   "instance": "balanceSettings.skills.mastery.advanceRequiredLevel",
-   "pages": [
-    "skills/balanceSettings:skills"
-   ],
-   "reader": {
-    "key": "advanceRequiredLevel",
-    "files": 2,
-    "sample": [
-     "js/skills/mastery-core.js",
-     "js/ui/mastery-ui.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 4,
-    "to": 5
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
    "pattern": "balanceSettings.skills.mastery.classBonus.*.hp",
    "module": "combat/skill-settings",
    "type": "integer",
@@ -10359,7 +10438,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -10784,7 +10863,7 @@
    ],
    "reader": {
     "key": "maxLevel",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -10877,7 +10956,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -10970,7 +11049,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -11747,12 +11826,11 @@
    ],
    "reader": {
     "key": "skillChance",
-    "files": 5,
+    "files": 3,
     "sample": [
      "js/balance/gameplay-defaults.js",
      "js/balance/gameplay-settings-schema.js",
-     "js/balance/balance-schema.js",
-     "js/skills/skill-system-model.js"
+     "js/balance/balance-schema.js"
     ]
    },
    "status": "effective",
@@ -11958,7 +12036,7 @@
    ],
    "reader": {
     "key": "maxLevel",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -12443,12 +12521,12 @@
    ],
    "reader": {
     "key": "level",
-    "files": 55,
+    "files": 54,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
-     "js/character/team-model.js",
-     "js/world/quest-design-model.js"
+     "js/world/quest-design-model.js",
+     "js/core/game-catalog.js"
     ]
    },
    "status": "effective",
@@ -12476,7 +12554,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -12575,7 +12653,7 @@
    ],
    "reader": {
     "key": "threshold",
-    "files": 9,
+    "files": 8,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -12735,11 +12813,10 @@
    ],
    "reader": {
     "key": "defenseMultiplier",
-    "files": 5,
+    "files": 3,
     "sample": [
      "js/balance/progression-model.js",
      "js/balance/gameplay-defaults.js",
-     "js/equipment/equipment-stat-source.js",
      "js/world/dynamic-world.js"
     ]
    },
@@ -12827,7 +12904,7 @@
    ],
    "reader": {
     "key": "mapIndex",
-    "files": 26,
+    "files": 25,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -12889,7 +12966,7 @@
    ],
    "reader": {
     "key": "material",
-    "files": 33,
+    "files": 32,
     "sample": [
      "js/character/achievement-model.js",
      "js/world/quest-design-model.js",
@@ -14040,11 +14117,9 @@
    ],
    "reader": {
     "key": "hpMultiplier",
-    "files": 5,
+    "files": 2,
     "sample": [
      "js/balance/progression-model.js",
-     "js/balance/gameplay-defaults.js",
-     "js/equipment/equipment-stat-source.js",
      "js/world/dynamic-world.js"
     ]
    },
@@ -14073,11 +14148,9 @@
    ],
    "reader": {
     "key": "attackMultiplier",
-    "files": 5,
+    "files": 2,
     "sample": [
      "js/balance/progression-model.js",
-     "js/balance/gameplay-defaults.js",
-     "js/equipment/equipment-stat-source.js",
      "js/world/dynamic-world.js"
     ]
    },
@@ -14106,11 +14179,10 @@
    ],
    "reader": {
     "key": "defenseMultiplier",
-    "files": 5,
+    "files": 3,
     "sample": [
      "js/balance/progression-model.js",
      "js/balance/gameplay-defaults.js",
-     "js/equipment/equipment-stat-source.js",
      "js/world/dynamic-world.js"
     ]
    },
@@ -14328,7 +14400,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -14609,7 +14681,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15117,7 +15189,7 @@
    ],
    "reader": {
     "key": "boss",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15289,7 +15361,7 @@
    ],
    "reader": {
     "key": "boss",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -16014,7 +16086,7 @@
    "pages": [],
    "reader": {
     "key": "guard",
-    "files": 27,
+    "files": 26,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -16683,7 +16755,7 @@
    "pages": [],
    "reader": {
     "key": "boss",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -17791,7 +17863,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -17814,7 +17886,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -17844,7 +17916,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -17867,7 +17939,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -17897,7 +17969,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -17920,7 +17992,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -17950,7 +18022,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -17973,60 +18045,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/items/companion-token-model.js",
-     "js/skills/passive-model.js",
-     "js/character/achievement-model.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 3,
-    "to": 4
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "balanceSettings.combat.seconds.cooldownReduction.sources.onCast.mode",
-   "module": "combat/rules",
-   "type": "string",
-   "count": 1,
-   "instance": "balanceSettings.combat.seconds.cooldownReduction.sources.onCast.mode",
-   "pages": [
-    "battle/combatMigration",
-    "statistics/combatMigration",
-    "skills/combatMigration"
-   ],
-   "reader": {
-    "key": "mode",
-    "files": 40,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/combat/seconds-schema.js",
-     "js/balance/gameplay-settings-schema.js",
-     "js/ui/core-screen-views.js"
-    ]
-   },
-   "status": "constrained"
-  },
-  {
-   "pattern": "balanceSettings.combat.seconds.cooldownReduction.sources.onCast.value",
-   "module": "combat/rules",
-   "type": "integer",
-   "count": 1,
-   "instance": "balanceSettings.combat.seconds.cooldownReduction.sources.onCast.value",
-   "pages": [
-    "battle/combatMigration",
-    "statistics/combatMigration",
-    "skills/combatMigration"
-   ],
-   "reader": {
-    "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -18056,7 +18075,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -18079,7 +18098,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -18405,7 +18424,7 @@
    ],
    "reader": {
     "key": "gem",
-    "files": 43,
+    "files": 41,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -18555,7 +18574,7 @@
    ],
    "reader": {
     "key": "gem",
-    "files": 43,
+    "files": 41,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -19568,7 +19587,7 @@
    ],
    "reader": {
     "key": "weight",
-    "files": 18,
+    "files": 15,
     "sample": [
      "js/items/companion-token-model.js",
      "js/items/timed-boosts.js",
@@ -20405,7 +20424,7 @@
    ],
    "reader": {
     "key": "weight",
-    "files": 18,
+    "files": 15,
     "sample": [
      "js/items/companion-token-model.js",
      "js/items/timed-boosts.js",
@@ -20550,17 +20569,14 @@
      "js/ui/item-presentation.js"
     ]
    },
-   "status": "constrained",
+   "status": "effective",
    "edit": {
     "from": 5,
     "to": 6
    },
-   "editor": "rejected",
-   "validator": "rejected",
-   "game": "rejected",
-   "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
-   "validatorReason": "支線 wolves：需求類型、數量或消耗設定無效",
-   "gameReason": "支線 wolves：需求類型、數量或消耗設定無效"
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
   },
   {
    "pattern": "balanceSettings.quests.design.side.*.objectives.*.quantityMax",
@@ -20583,17 +20599,14 @@
      "js/balance/balance-schema.js"
     ]
    },
-   "status": "constrained",
+   "status": "effective",
    "edit": {
     "from": 5,
     "to": 6
    },
-   "editor": "rejected",
-   "validator": "rejected",
-   "game": "rejected",
-   "editorReason": "支線 wolves：支線或已抽取需求使用固定數量",
-   "validatorReason": "支線 wolves：支線或已抽取需求使用固定數量",
-   "gameReason": "支線 wolves：支線或已抽取需求使用固定數量"
+   "editor": "preserved",
+   "validator": "preserved",
+   "game": "preserved"
   },
   {
    "pattern": "balanceSettings.quests.design.side.*.objectives.*.perTier",
@@ -21285,16 +21298,14 @@
      "js/character/team-model.js"
     ]
    },
-   "status": "derived",
+   "status": "effective",
    "edit": {
     "from": 5,
     "to": 6
    },
-   "editor": "reverted",
+   "editor": "preserved",
    "validator": "preserved",
-   "game": "preserved",
-   "source": "balanceSettings.maps.catalog",
-   "note": "等級範圍由地圖清單的 min／max 重新產生（js/world/dynamic-world.js）。"
+   "game": "preserved"
   },
   {
    "pattern": "balanceSettings.maps.catalog.*.id",
@@ -21503,7 +21514,7 @@
    ],
    "reader": {
     "key": "color",
-    "files": 22,
+    "files": 23,
     "sample": [
      "js/core/game-catalog.js",
      "js/core/core-game.js",
@@ -21856,7 +21867,7 @@
    "pattern": "balanceSettings.drops.entries.*.id",
    "module": "world/drops",
    "type": "string",
-   "count": 211,
+   "count": 217,
    "instance": "balanceSettings.drops.entries.0.id",
    "pages": [
     "battle/balanceSettings:drops",
@@ -21890,7 +21901,7 @@
    "pattern": "balanceSettings.drops.entries.*.name",
    "module": "world/drops",
    "type": "string",
-   "count": 211,
+   "count": 217,
    "instance": "balanceSettings.drops.entries.0.name",
    "pages": [
     "battle/balanceSettings:drops",
@@ -21921,7 +21932,7 @@
    "pattern": "balanceSettings.drops.entries.*.enabled",
    "module": "world/drops",
    "type": "boolean",
-   "count": 211,
+   "count": 217,
    "instance": "balanceSettings.drops.entries.0.enabled",
    "pages": [
     "battle/balanceSettings:drops",
@@ -21952,7 +21963,7 @@
    "pattern": "balanceSettings.drops.entries.*.type",
    "module": "world/drops",
    "type": "string",
-   "count": 211,
+   "count": 217,
    "instance": "balanceSettings.drops.entries.0.type",
    "pages": [
     "battle/balanceSettings:drops",
@@ -21986,7 +21997,7 @@
    "pattern": "balanceSettings.drops.entries.*.key",
    "module": "world/drops",
    "type": "string",
-   "count": 211,
+   "count": 217,
    "instance": "balanceSettings.drops.entries.0.key",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22017,7 +22028,7 @@
    "pattern": "balanceSettings.drops.entries.*.kinds.*",
    "module": "world/drops",
    "type": "string",
-   "count": 219,
+   "count": 225,
    "instance": "balanceSettings.drops.entries.0.kinds.0",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22051,7 +22062,7 @@
    "pattern": "balanceSettings.drops.entries.*.chanceByDifficulty.*",
    "module": "world/drops",
    "type": "number",
-   "count": 633,
+   "count": 651,
    "instance": "balanceSettings.drops.entries.0.chanceByDifficulty.0",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22061,7 +22072,7 @@
    ],
    "reader": {
     "key": "chanceByDifficulty",
-    "files": 11,
+    "files": 10,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/monster-drop-tables.js",
@@ -22082,7 +22093,7 @@
    "pattern": "balanceSettings.drops.entries.*.quantityMin",
    "module": "world/drops",
    "type": "integer",
-   "count": 211,
+   "count": 217,
    "instance": "balanceSettings.drops.entries.0.quantityMin",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22113,7 +22124,7 @@
    "pattern": "balanceSettings.drops.entries.*.quantityMax",
    "module": "world/drops",
    "type": "integer",
-   "count": 211,
+   "count": 217,
    "instance": "balanceSettings.drops.entries.0.quantityMax",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22144,7 +22155,7 @@
    "pattern": "balanceSettings.drops.entries.*.sources.*",
    "module": "world/drops",
    "type": "string",
-   "count": 1409,
+   "count": 1415,
    "instance": "balanceSettings.drops.entries.0.sources.0",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22154,7 +22165,7 @@
    ],
    "reader": {
     "key": "sources",
-    "files": 22,
+    "files": 23,
     "sample": [
      "js/combat/seconds-schema.js",
      "js/core/core-game.js",
@@ -22178,7 +22189,7 @@
    ],
    "reader": {
     "key": "minLevel",
-    "files": 7,
+    "files": 6,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -22209,7 +22220,7 @@
    ],
    "reader": {
     "key": "maxLevel",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -23001,7 +23012,7 @@
    ],
    "reader": {
     "key": "weight",
-    "files": 18,
+    "files": 15,
     "sample": [
      "js/items/companion-token-model.js",
      "js/items/timed-boosts.js",
@@ -23059,7 +23070,7 @@
    ],
    "reader": {
     "key": "slots",
-    "files": 29,
+    "files": 28,
     "sample": [
      "js/character/team-model.js",
      "js/core/save-validation.js",
@@ -23112,7 +23123,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -23250,7 +23261,7 @@
    ],
    "reader": {
     "key": "weight",
-    "files": 18,
+    "files": 15,
     "sample": [
      "js/items/companion-token-model.js",
      "js/items/timed-boosts.js",
@@ -23308,7 +23319,7 @@
    ],
    "reader": {
     "key": "slots",
-    "files": 29,
+    "files": 28,
     "sample": [
      "js/character/team-model.js",
      "js/core/save-validation.js",
@@ -23361,7 +23372,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -23568,7 +23579,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -24278,7 +24289,7 @@
    "pages": [],
    "reader": {
     "key": "color",
-    "files": 22,
+    "files": 23,
     "sample": [
      "js/core/game-catalog.js",
      "js/core/core-game.js",
@@ -24456,7 +24467,7 @@
    "pages": [],
    "reader": {
     "key": "effect",
-    "files": 39,
+    "files": 37,
     "sample": [
      "js/skills/skill-effect-schema.js",
      "js/combat/seconds-schema.js",
@@ -24559,7 +24570,7 @@
    "pages": [],
    "reader": {
     "key": "types",
-    "files": 12,
+    "files": 11,
     "sample": [
      "js/core/core-game.js",
      "js/world/monster-drop-tables.js",
@@ -24792,7 +24803,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -24879,7 +24890,7 @@
    ],
    "reader": {
     "key": "control",
-    "files": 24,
+    "files": 23,
     "sample": [
      "js/skills/skill-effect-schema.js",
      "js/combat/seconds-schema.js",
@@ -25227,7 +25238,7 @@
    ],
    "reader": {
     "key": "effect",
-    "files": 39,
+    "files": 37,
     "sample": [
      "js/skills/skill-effect-schema.js",
      "js/combat/seconds-schema.js",
@@ -25710,7 +25721,7 @@
    ],
    "reader": {
     "key": "maxLevel",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -25741,7 +25752,7 @@
    ],
    "reader": {
     "key": "effects",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -25953,7 +25964,7 @@
    ],
    "reader": {
     "key": "core",
-    "files": 33,
+    "files": 32,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -26067,7 +26078,7 @@
    ],
    "reader": {
     "key": "support",
-    "files": 34,
+    "files": 33,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -26279,7 +26290,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -26699,7 +26710,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -27154,7 +27165,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -27578,7 +27589,7 @@
    "pages": [],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -27690,12 +27701,12 @@
    "pages": [],
    "reader": {
     "key": "requiresAdvanced",
-    "files": 8,
+    "files": 7,
     "sample": [
      "js/skills/companion-skill-model.js",
-     "js/ui/core-screen-views.js",
      "js/core/core-game.js",
-     "js/combat/control-status-summon.js"
+     "js/combat/control-status-summon.js",
+     "js/story/story-model.js"
     ]
    },
    "status": "derived",
@@ -27788,8 +27799,8 @@
     "sample": [
      "js/character/team-model.js",
      "js/core/core-game.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/skills/skill-tooltip-reroll.js"
+     "js/skills/skill-tooltip-reroll.js",
+     "js/skills/mastery-core.js"
     ]
    },
    "status": "derived",
@@ -27991,7 +28002,7 @@
    "pages": [],
    "reader": {
     "key": "cooldown",
-    "files": 27,
+    "files": 25,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -28215,7 +28226,7 @@
    "pages": [],
    "reader": {
     "key": "effect",
-    "files": 39,
+    "files": 37,
     "sample": [
      "js/skills/skill-effect-schema.js",
      "js/combat/seconds-schema.js",
@@ -28243,7 +28254,7 @@
    "pages": [],
    "reader": {
     "key": "effects",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -28392,7 +28403,7 @@
    "pages": [],
    "reader": {
     "key": "cooldown",
-    "files": 27,
+    "files": 25,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -28450,7 +28461,7 @@
    ],
    "reader": {
     "key": "hp",
-    "files": 57,
+    "files": 56,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -30018,7 +30029,7 @@
    ],
    "reader": {
     "key": "weight",
-    "files": 18,
+    "files": 15,
     "sample": [
      "js/items/companion-token-model.js",
      "js/items/timed-boosts.js",
@@ -30079,7 +30090,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -30462,12 +30473,12 @@
    ],
    "reader": {
     "key": "level",
-    "files": 55,
+    "files": 54,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
-     "js/character/team-model.js",
-     "js/world/quest-design-model.js"
+     "js/world/quest-design-model.js",
+     "js/core/game-catalog.js"
     ]
    },
    "status": "effective",
@@ -30946,7 +30957,7 @@
    ],
    "reader": {
     "key": "chanceByDifficulty",
-    "files": 11,
+    "files": 10,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/monster-drop-tables.js",
@@ -31010,7 +31021,7 @@
    ],
    "reader": {
     "key": "minLevel",
-    "files": 7,
+    "files": 6,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -31043,7 +31054,7 @@
    ],
    "reader": {
     "key": "maxLevel",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -31079,7 +31090,7 @@
    ],
    "reader": {
     "key": "maps",
-    "files": 35,
+    "files": 33,
     "sample": [
      "js/items/companion-token-model.js",
      "js/character/achievement-model.js",
@@ -31105,7 +31116,7 @@
    ],
    "reader": {
     "key": "monsters",
-    "files": 42,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -31290,7 +31301,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -31392,7 +31403,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -31424,7 +31435,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -31488,7 +31499,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 27,
+    "files": 25,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -31550,7 +31561,7 @@
    ],
    "reader": {
     "key": "threshold",
-    "files": 9,
+    "files": 8,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -31745,7 +31756,7 @@
    ],
    "reader": {
     "key": "weight",
-    "files": 18,
+    "files": 15,
     "sample": [
      "js/items/companion-token-model.js",
      "js/items/timed-boosts.js",
@@ -31777,7 +31788,7 @@
    ],
    "reader": {
     "key": "minLevel",
-    "files": 7,
+    "files": 6,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -31809,7 +31820,7 @@
    ],
    "reader": {
     "key": "maxLevel",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -31844,7 +31855,7 @@
    ],
    "reader": {
     "key": "maps",
-    "files": 35,
+    "files": 33,
     "sample": [
      "js/items/companion-token-model.js",
      "js/character/achievement-model.js",
@@ -31869,7 +31880,7 @@
    ],
    "reader": {
     "key": "monsters",
-    "files": 42,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -32153,7 +32164,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -32349,7 +32360,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -32514,7 +32525,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -32633,7 +32644,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -32982,7 +32993,7 @@
    ],
    "reader": {
     "key": "color",
-    "files": 22,
+    "files": 23,
     "sample": [
      "js/core/game-catalog.js",
      "js/core/core-game.js",
@@ -33083,7 +33094,7 @@
    "pages": [],
    "reader": {
     "key": "color",
-    "files": 22,
+    "files": 23,
     "sample": [
      "js/core/game-catalog.js",
      "js/core/core-game.js",
@@ -33351,7 +33362,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -33443,7 +33454,7 @@
    "pattern": "story.quests.*.stages.*.id",
    "module": "systems/story",
    "type": "string",
-   "count": 52,
+   "count": 51,
    "instance": "story.quests.0.stages.0.id",
    "pages": [
     "creation/story",
@@ -33469,7 +33480,7 @@
    "pattern": "story.quests.*.stages.*.name",
    "module": "systems/story",
    "type": "string",
-   "count": 52,
+   "count": 51,
    "instance": "story.quests.0.stages.0.name",
    "pages": [
     "creation/story",
@@ -33502,7 +33513,7 @@
    "pattern": "story.quests.*.stages.*.speaker",
    "module": "systems/story",
    "type": "string",
-   "count": 52,
+   "count": 51,
    "instance": "story.quests.0.stages.0.speaker",
    "pages": [
     "creation/story",
@@ -33535,7 +33546,7 @@
    "pattern": "story.quests.*.stages.*.description",
    "module": "systems/story",
    "type": "string",
-   "count": 52,
+   "count": 51,
    "instance": "story.quests.0.stages.0.description",
    "pages": [
     "creation/story",
@@ -33568,7 +33579,7 @@
    "pattern": "story.quests.*.stages.*.dialogue.*.kind",
    "module": "systems/story",
    "type": "string",
-   "count": 205,
+   "count": 202,
    "instance": "story.quests.0.stages.0.dialogue.0.kind",
    "pages": [
     "creation/story",
@@ -33594,7 +33605,7 @@
    "pattern": "story.quests.*.stages.*.dialogue.*.speaker",
    "module": "systems/story",
    "type": "string",
-   "count": 205,
+   "count": 202,
    "instance": "story.quests.0.stages.0.dialogue.0.speaker",
    "pages": [
     "creation/story",
@@ -33627,7 +33638,7 @@
    "pattern": "story.quests.*.stages.*.dialogue.*.text",
    "module": "systems/story",
    "type": "string",
-   "count": 205,
+   "count": 202,
    "instance": "story.quests.0.stages.0.dialogue.0.text",
    "pages": [
     "creation/story",
@@ -33660,7 +33671,7 @@
    "pattern": "story.quests.*.stages.*.conditions.mode",
    "module": "systems/story",
    "type": "string",
-   "count": 52,
+   "count": 51,
    "instance": "story.quests.0.stages.0.conditions.mode",
    "pages": [
     "creation/story",
@@ -33672,7 +33683,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -33686,7 +33697,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.type",
    "module": "systems/story",
    "type": "string",
-   "count": 27,
+   "count": 22,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.type",
    "pages": [
     "creation/story",
@@ -33712,7 +33723,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.key",
    "module": "systems/story",
    "type": "string",
-   "count": 27,
+   "count": 22,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.key",
    "pages": [
     "creation/story",
@@ -33738,7 +33749,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.count",
    "module": "systems/story",
    "type": "integer",
-   "count": 27,
+   "count": 22,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.count",
    "pages": [
     "creation/story",
@@ -33771,7 +33782,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.mode",
    "module": "systems/story",
    "type": "string",
-   "count": 27,
+   "count": 22,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.mode",
    "pages": [
     "creation/story",
@@ -33783,7 +33794,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -33797,7 +33808,7 @@
    "pattern": "story.quests.*.stages.*.conditions.conditions.*.itemType",
    "module": "systems/story",
    "type": "string",
-   "count": 27,
+   "count": 22,
    "instance": "story.quests.0.stages.0.conditions.conditions.0.itemType",
    "pages": [
     "creation/story",
@@ -33823,7 +33834,7 @@
    "pattern": "story.quests.*.stages.*.rewards.gold",
    "module": "systems/story",
    "type": "integer",
-   "count": 52,
+   "count": 51,
    "instance": "story.quests.0.stages.0.rewards.gold",
    "pages": [
     "creation/story",
@@ -33856,7 +33867,7 @@
    "pattern": "story.quests.*.stages.*.rewards.ore",
    "module": "systems/story",
    "type": "integer",
-   "count": 52,
+   "count": 51,
    "instance": "story.quests.0.stages.0.rewards.ore",
    "pages": [
     "creation/story",
@@ -33915,7 +33926,7 @@
    "pattern": "story.quests.*.stages.*.effects",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 50,
+   "count": 49,
    "instance": "story.quests.0.stages.0.effects",
    "pages": [
     "creation/story",
@@ -33927,7 +33938,7 @@
    ],
    "reader": {
     "key": "effects",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -33941,7 +33952,7 @@
    "pattern": "story.quests.*.stages.*.next",
    "module": "systems/story",
    "type": "string",
-   "count": 52,
+   "count": 51,
    "instance": "story.quests.0.stages.0.next",
    "pages": [
     "creation/story",
@@ -33967,7 +33978,7 @@
    "pattern": "story.quests.*.stages.*.branches",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 52,
+   "count": 51,
    "instance": "story.quests.0.stages.0.branches",
    "pages": [
     "creation/story",
@@ -33991,7 +34002,7 @@
    "pattern": "story.quests.*.stages.*.choices",
    "module": "systems/story",
    "type": "empty-array",
-   "count": 45,
+   "count": 44,
    "instance": "story.quests.0.stages.0.choices",
    "pages": [
     "creation/story",
@@ -34017,7 +34028,7 @@
    "pattern": "story.quests.*.stages.*.guides.*",
    "module": "systems/story",
    "type": "string",
-   "count": 29,
+   "count": 27,
    "instance": "story.quests.0.stages.0.guides.0",
    "pages": [
     "creation/story",
@@ -34147,7 +34158,7 @@
    ],
    "reader": {
     "key": "effects",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -34263,7 +34274,7 @@
    ],
    "reader": {
     "key": "mapIndex",
-    "files": 26,
+    "files": 25,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -34322,7 +34333,7 @@
    ],
    "reader": {
     "key": "monsterId",
-    "files": 20,
+    "files": 19,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/monster-drop-tables.js",
@@ -34466,7 +34477,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -34518,7 +34529,7 @@
    ],
    "reader": {
     "key": "effects",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -34679,7 +34690,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -34948,8 +34959,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": 2,
-    "to": 3
+    "from": 1,
+    "to": 2
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -34959,7 +34970,7 @@
    "pattern": "story.quests.*.stages.*.rewards.items.*.type",
    "module": "systems/story",
    "type": "string",
-   "count": 4,
+   "count": 3,
    "instance": "story.quests.2.stages.0.rewards.items.0.type",
    "pages": [
     "creation/story",
@@ -34985,7 +34996,7 @@
    "pattern": "story.quests.*.stages.*.rewards.items.*.key",
    "module": "systems/story",
    "type": "string",
-   "count": 4,
+   "count": 3,
    "instance": "story.quests.2.stages.0.rewards.items.0.key",
    "pages": [
     "creation/story",
@@ -35011,7 +35022,7 @@
    "pattern": "story.quests.*.stages.*.rewards.items.*.quantity",
    "module": "systems/story",
    "type": "integer",
-   "count": 4,
+   "count": 3,
    "instance": "story.quests.2.stages.0.rewards.items.0.quantity",
    "pages": [
     "creation/story",
@@ -35038,7 +35049,7 @@
    "module": "systems/story",
    "type": "integer",
    "count": 1,
-   "instance": "story.quests.2.stages.3.conditions.conditions.0.slot",
+   "instance": "story.quests.2.stages.2.conditions.conditions.0.slot",
    "pages": [
     "creation/story",
     "shop/story",
@@ -35059,8 +35070,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": 1,
-    "to": 2
+    "from": 0,
+    "to": 1
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -35167,12 +35178,12 @@
    ],
    "reader": {
     "key": "hint",
-    "files": 8,
+    "files": 7,
     "sample": [
      "js/equipment/equipment-identity.js",
-     "js/ui/mastery-ui.js",
      "js/ui/team-builds.js",
-     "js/story/story-model.js"
+     "js/story/story-model.js",
+     "js/story/story-runtime.js"
     ]
    },
    "status": "effective",
@@ -35579,7 +35590,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -36443,7 +36454,7 @@
    ],
    "reader": {
     "key": "locked",
-    "files": 30,
+    "files": 31,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -36699,7 +36710,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -36810,12 +36821,12 @@
    ],
    "reader": {
     "key": "hint",
-    "files": 8,
+    "files": 7,
     "sample": [
      "js/equipment/equipment-identity.js",
-     "js/ui/mastery-ui.js",
      "js/ui/team-builds.js",
-     "js/story/story-model.js"
+     "js/story/story-model.js",
+     "js/story/story-runtime.js"
     ]
    },
    "status": "effective",
@@ -37200,7 +37211,7 @@
    ],
    "reader": {
     "key": "template",
-    "files": 15,
+    "files": 16,
     "sample": [
      "js/ui/core-battle-journal.js",
      "js/core/core-game.js",
@@ -37425,7 +37436,7 @@
    ],
    "reader": {
     "key": "locked",
-    "files": 30,
+    "files": 31,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -37911,12 +37922,12 @@
    ],
    "reader": {
     "key": "level",
-    "files": 55,
+    "files": 54,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
-     "js/character/team-model.js",
-     "js/world/quest-design-model.js"
+     "js/world/quest-design-model.js",
+     "js/core/game-catalog.js"
     ]
    },
    "status": "effective",
@@ -38200,7 +38211,7 @@
    "pattern": "skillSystem.definitions.*.id",
    "module": "combat/skills",
    "type": "string",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.id",
    "pages": [
     "creation/skillSystem",
@@ -38231,7 +38242,7 @@
    "pattern": "skillSystem.definitions.*.name",
    "module": "combat/skills",
    "type": "string",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.name",
    "pages": [
     "creation/skillSystem",
@@ -38269,7 +38280,7 @@
    "pattern": "skillSystem.definitions.*.activation",
    "module": "combat/skills",
    "type": "string",
-   "count": 114,
+   "count": 117,
    "instance": "skillSystem.definitions.0.activation",
    "pages": [
     "creation/skillSystem",
@@ -38300,7 +38311,7 @@
    "pattern": "skillSystem.definitions.*.requiredLevel",
    "module": "combat/skills",
    "type": "integer",
-   "count": 136,
+   "count": 139,
    "instance": "skillSystem.definitions.0.requiredLevel",
    "pages": [
     "creation/skillSystem",
@@ -38338,7 +38349,7 @@
    "pattern": "skillSystem.definitions.*.cooldown",
    "module": "combat/skills",
    "type": "integer",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.cooldown",
    "pages": [
     "creation/skillSystem",
@@ -38355,7 +38366,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 27,
+    "files": 25,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -38376,7 +38387,7 @@
    "pattern": "skillSystem.definitions.*.power",
    "module": "combat/skills",
    "type": "number",
-   "count": 116,
+   "count": 119,
    "instance": "skillSystem.definitions.0.power",
    "pages": [
     "creation/skillSystem",
@@ -38414,7 +38425,7 @@
    "pattern": "skillSystem.definitions.*.effect",
    "module": "combat/skills",
    "type": "string",
-   "count": 116,
+   "count": 119,
    "instance": "skillSystem.definitions.0.effect",
    "pages": [
     "creation/skillSystem",
@@ -38431,7 +38442,7 @@
    ],
    "reader": {
     "key": "effect",
-    "files": 39,
+    "files": 37,
     "sample": [
      "js/skills/skill-effect-schema.js",
      "js/combat/seconds-schema.js",
@@ -38455,7 +38466,7 @@
    "pattern": "skillSystem.definitions.*.element",
    "module": "combat/skills",
    "type": "string",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.element",
    "pages": [
     "creation/skillSystem",
@@ -38496,7 +38507,7 @@
    "pattern": "skillSystem.definitions.*.maxTargets",
    "module": "combat/skills",
    "type": "integer",
-   "count": 116,
+   "count": 119,
    "instance": "skillSystem.definitions.0.maxTargets",
    "pages": [
     "creation/skillSystem",
@@ -38534,7 +38545,7 @@
    "pattern": "skillSystem.definitions.*.requiresAdvanced",
    "module": "combat/skills",
    "type": "boolean",
-   "count": 116,
+   "count": 119,
    "instance": "skillSystem.definitions.0.requiresAdvanced",
    "pages": [
     "creation/skillSystem",
@@ -38551,12 +38562,12 @@
    ],
    "reader": {
     "key": "requiresAdvanced",
-    "files": 8,
+    "files": 7,
     "sample": [
      "js/skills/companion-skill-model.js",
-     "js/ui/core-screen-views.js",
      "js/core/core-game.js",
-     "js/combat/control-status-summon.js"
+     "js/combat/control-status-summon.js",
+     "js/story/story-model.js"
     ]
    },
    "status": "effective",
@@ -38572,7 +38583,7 @@
    "pattern": "skillSystem.definitions.*.description",
    "module": "combat/skills",
    "type": "string",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.description",
    "pages": [
     "creation/skillSystem",
@@ -38610,7 +38621,7 @@
    "pattern": "skillSystem.definitions.*.baseCritRate",
    "module": "combat/skills",
    "type": "integer",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.baseCritRate",
    "pages": [
     "creation/skillSystem",
@@ -38648,7 +38659,7 @@
    "pattern": "skillSystem.definitions.*.baseCritDamage",
    "module": "combat/skills",
    "type": "number",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.baseCritDamage",
    "pages": [
     "creation/skillSystem",
@@ -38686,7 +38697,7 @@
    "pattern": "skillSystem.definitions.*.defensePenetration",
    "module": "combat/skills",
    "type": "integer",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.defensePenetration",
    "pages": [
     "creation/skillSystem",
@@ -38724,7 +38735,7 @@
    "pattern": "skillSystem.definitions.*.defenseIgnore",
    "module": "combat/skills",
    "type": "integer",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.defenseIgnore",
    "pages": [
     "creation/skillSystem",
@@ -38762,7 +38773,7 @@
    "pattern": "skillSystem.definitions.*.mastery",
    "module": "combat/skills",
    "type": "string",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.mastery",
    "pages": [
     "creation/skillSystem",
@@ -38803,7 +38814,7 @@
    "pattern": "skillSystem.definitions.*.requiredMastery",
    "module": "combat/skills",
    "type": "null",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.requiredMastery",
    "pages": [
     "creation/skillSystem",
@@ -38834,7 +38845,7 @@
    "pattern": "skillSystem.definitions.*.requiredMasteryLevel",
    "module": "combat/skills",
    "type": "integer",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.requiredMasteryLevel",
    "pages": [
     "creation/skillSystem",
@@ -38914,7 +38925,7 @@
    "pattern": "skillSystem.definitions.*.iconType",
    "module": "combat/skills",
    "type": "string",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.iconType",
    "pages": [
     "creation/skillSystem",
@@ -38952,7 +38963,7 @@
    "pattern": "skillSystem.definitions.*.usageScope",
    "module": "combat/skills",
    "type": "string",
-   "count": 116,
+   "count": 119,
    "instance": "skillSystem.definitions.0.usageScope",
    "pages": [
     "creation/skillSystem",
@@ -38991,7 +39002,7 @@
    "pattern": "skillSystem.definitions.*.partnerId",
    "module": "combat/skills",
    "type": "null",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.partnerId",
    "pages": [
     "creation/skillSystem",
@@ -39053,7 +39064,7 @@
    "pattern": "skillSystem.definitions.*.unlockConditions.classMasteryLevel",
    "module": "combat/skills",
    "type": "integer",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.unlockConditions.classMasteryLevel",
    "pages": [
     "creation/skillSystem",
@@ -39074,8 +39085,8 @@
     "sample": [
      "js/character/team-model.js",
      "js/core/core-game.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/skills/skill-tooltip-reroll.js"
+     "js/skills/skill-tooltip-reroll.js",
+     "js/skills/mastery-core.js"
     ]
    },
    "status": "effective",
@@ -39091,7 +39102,7 @@
    "pattern": "skillSystem.definitions.*.unlockConditions.quests",
    "module": "combat/skills",
    "type": "empty-array",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.unlockConditions.quests",
    "pages": [
     "creation/skillSystem",
@@ -39122,7 +39133,7 @@
    "pattern": "skillSystem.definitions.*.unlockConditions.materials",
    "module": "combat/skills",
    "type": "empty-array",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.unlockConditions.materials",
    "pages": [
     "creation/skillSystem",
@@ -39153,7 +39164,7 @@
    "pattern": "skillSystem.definitions.*.unlockConditions.bossKills",
    "module": "combat/skills",
    "type": "empty-array",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.unlockConditions.bossKills",
    "pages": [
     "creation/skillSystem",
@@ -39184,7 +39195,7 @@
    "pattern": "skillSystem.definitions.*.unlockConditions.eliteKills",
    "module": "combat/skills",
    "type": "empty-array",
-   "count": 157,
+   "count": 160,
    "instance": "skillSystem.definitions.0.unlockConditions.eliteKills",
    "pages": [
     "creation/skillSystem",
@@ -39215,7 +39226,7 @@
    "pattern": "skillSystem.definitions.*.unlockConditions.bossEquipment",
    "module": "combat/skills",
    "type": "empty-array",
-   "count": 165,
+   "count": 168,
    "instance": "skillSystem.definitions.0.unlockConditions.bossEquipment",
    "pages": [
     "creation/skillSystem",
@@ -39246,7 +39257,7 @@
    "pattern": "skillSystem.definitions.*.type",
    "module": "combat/skills",
    "type": "string",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.type",
    "pages": [
     "creation/skillSystem",
@@ -39277,7 +39288,7 @@
    "pattern": "skillSystem.definitions.*.jobs.*",
    "module": "combat/skills",
    "type": "integer",
-   "count": 188,
+   "count": 200,
    "instance": "skillSystem.definitions.0.jobs.0",
    "pages": [
     "creation/skillSystem",
@@ -39294,7 +39305,7 @@
    ],
    "reader": {
     "key": "jobs",
-    "files": 18,
+    "files": 16,
     "sample": [
      "js/combat/seconds-schema.js",
      "js/core/core-game.js",
@@ -39308,7 +39319,7 @@
    "pattern": "skillSystem.definitions.*.adapter.job",
    "module": "combat/skills",
    "type": "integer",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.adapter.job",
    "pages": [
     "creation/skillSystem",
@@ -39339,7 +39350,7 @@
    "pattern": "skillSystem.definitions.*.adapter.index",
    "module": "combat/skills",
    "type": "integer",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.adapter.index",
    "pages": [
     "creation/skillSystem",
@@ -39370,7 +39381,7 @@
    "pattern": "skillSystem.definitions.*.adapter.kind",
    "module": "combat/skills",
    "type": "string",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.adapter.kind",
    "pages": [
     "creation/skillSystem",
@@ -39398,11 +39409,11 @@
    "status": "constrained"
   },
   {
-   "pattern": "skillSystem.definitions.*.sources.*.type",
+   "pattern": "skillSystem.definitions.*.sources",
    "module": "combat/skills",
-   "type": "string",
-   "count": 185,
-   "instance": "skillSystem.definitions.0.sources.0.type",
+   "type": "empty-array",
+   "count": 23,
+   "instance": "skillSystem.definitions.0.sources",
    "pages": [
     "creation/skillSystem",
     "battle/skillSystem",
@@ -39417,22 +39428,22 @@
     "story-main/skillSystem"
    ],
    "reader": {
-    "key": "type",
-    "files": 90,
+    "key": "sources",
+    "files": 23,
     "sample": [
-     "js/ui/themes.js",
-     "js/items/companion-token-model.js",
-     "js/character/achievement-model.js",
-     "js/skills/companion-skill-model.js"
+     "js/combat/seconds-schema.js",
+     "js/core/core-game.js",
+     "js/equipment/equipment-stat-source.js",
+     "js/world/monster-drop-tables.js"
     ]
    },
-   "status": "constrained"
+   "status": "no-value"
   },
   {
    "pattern": "skillSystem.definitions.*.timing.cooldownSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.timing.cooldownSeconds",
    "pages": [
     "creation/skillSystem",
@@ -39470,7 +39481,7 @@
    "pattern": "skillSystem.definitions.*.timing.mpCost",
    "module": "combat/skills",
    "type": "number",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.timing.mpCost",
    "pages": [
     "creation/skillSystem",
@@ -39508,7 +39519,7 @@
    "pattern": "skillSystem.definitions.*.timing.castSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.timing.castSeconds",
    "pages": [
     "creation/skillSystem",
@@ -39546,7 +39557,7 @@
    "pattern": "skillSystem.definitions.*.timing.actionCostSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.timing.actionCostSeconds",
    "pages": [
     "creation/skillSystem",
@@ -39583,7 +39594,7 @@
    "pattern": "skillSystem.definitions.*.timing.priority",
    "module": "combat/skills",
    "type": "integer",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.timing.priority",
    "pages": [
     "creation/skillSystem",
@@ -39621,7 +39632,7 @@
    "pattern": "skillSystem.definitions.*.timing.durationSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.timing.durationSeconds",
    "pages": [
     "creation/skillSystem",
@@ -39659,7 +39670,7 @@
    "pattern": "skillSystem.definitions.*.timing.bossDurationSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.timing.bossDurationSeconds",
    "pages": [
     "creation/skillSystem",
@@ -39695,7 +39706,7 @@
    "pattern": "skillSystem.definitions.*.timing.tickIntervalSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.timing.tickIntervalSeconds",
    "pages": [
     "creation/skillSystem",
@@ -39732,7 +39743,7 @@
    "pattern": "skillSystem.definitions.*.timing.condition",
    "module": "combat/skills",
    "type": "string",
-   "count": 185,
+   "count": 188,
    "instance": "skillSystem.definitions.0.timing.condition",
    "pages": [
     "creation/skillSystem",
@@ -39763,7 +39774,7 @@
    "pattern": "skillSystem.definitions.*.timing.initialCooldownSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 126,
+   "count": 129,
    "instance": "skillSystem.definitions.0.timing.initialCooldownSeconds",
    "pages": [
     "creation/skillSystem",
@@ -39795,6 +39806,37 @@
    "editor": "preserved",
    "validator": "preserved",
    "game": "preserved"
+  },
+  {
+   "pattern": "skillSystem.definitions.*.sources.*.type",
+   "module": "combat/skills",
+   "type": "string",
+   "count": 165,
+   "instance": "skillSystem.definitions.1.sources.0.type",
+   "pages": [
+    "creation/skillSystem",
+    "battle/skillSystem",
+    "roster/skillSystem",
+    "partnerRoster/skillSystem",
+    "character/skillSystem",
+    "skills/skillSystem",
+    "skills/combatMigration",
+    "equipment/skillSystem",
+    "worn/skillSystem",
+    "forge/skillSystem",
+    "story-main/skillSystem"
+   ],
+   "reader": {
+    "key": "type",
+    "files": 90,
+    "sample": [
+     "js/ui/themes.js",
+     "js/items/companion-token-model.js",
+     "js/character/achievement-model.js",
+     "js/skills/companion-skill-model.js"
+    ]
+   },
+   "status": "constrained"
   },
   {
    "pattern": "skillSystem.definitions.*.procBaseChance",
@@ -39838,7 +39880,7 @@
    "pattern": "skillSystem.definitions.*.weaponTypes",
    "module": "combat/skills",
    "type": "empty-array",
-   "count": 77,
+   "count": 80,
    "instance": "skillSystem.definitions.6.weaponTypes",
    "pages": [
     "creation/skillSystem",
@@ -39904,7 +39946,7 @@
    "pattern": "skillSystem.definitions.*.duration",
    "module": "combat/skills",
    "type": "integer",
-   "count": 65,
+   "count": 67,
    "instance": "skillSystem.definitions.6.duration",
    "pages": [
     "creation/skillSystem",
@@ -40218,7 +40260,7 @@
    ],
    "reader": {
     "key": "disabled",
-    "files": 44,
+    "files": 43,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/ui/core-equipment-views.js",
@@ -40277,7 +40319,7 @@
    "pattern": "skillSystem.definitions.*.target",
    "module": "combat/skills",
    "type": "string",
-   "count": 86,
+   "count": 89,
    "instance": "skillSystem.definitions.35.target",
    "pages": [
     "creation/skillSystem",
@@ -40375,7 +40417,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -40413,12 +40455,12 @@
    ],
    "reader": {
     "key": "level",
-    "files": 55,
+    "files": 54,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
-     "js/character/team-model.js",
-     "js/world/quest-design-model.js"
+     "js/world/quest-design-model.js",
+     "js/core/game-catalog.js"
     ]
    },
    "status": "effective",
@@ -40525,7 +40567,7 @@
    ],
    "reader": {
     "key": "mapIndex",
-    "files": 26,
+    "files": 25,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -40839,7 +40881,7 @@
    ],
    "reader": {
     "key": "value",
-    "files": 75,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -40877,12 +40919,12 @@
    ],
    "reader": {
     "key": "masteryLevel",
-    "files": 12,
+    "files": 7,
     "sample": [
-     "js/balance/progression-model.js",
-     "js/balance/gameplay-defaults.js",
      "js/ui/core-screen-views.js",
-     "js/ui/ui-text-config.js"
+     "js/character/companions.js",
+     "js/character/team-runtime.js",
+     "js/skills/skill-system-model.js"
     ]
    },
    "status": "effective",
@@ -40898,7 +40940,7 @@
    "pattern": "skillSystem.definitions.*.powerPerLevel",
    "module": "combat/skills",
    "type": "integer",
-   "count": 17,
+   "count": 20,
    "instance": "skillSystem.definitions.168.powerPerLevel",
    "pages": [
     "creation/skillSystem",
@@ -40936,7 +40978,7 @@
    "pattern": "skillSystem.definitions.*.hitCount",
    "module": "combat/skills",
    "type": "integer",
-   "count": 17,
+   "count": 20,
    "instance": "skillSystem.definitions.168.hitCount",
    "pages": [
     "creation/skillSystem",
@@ -40974,7 +41016,7 @@
    "pattern": "skillSystem.definitions.*.commonEffectKeys.*",
    "module": "combat/skills",
    "type": "string",
-   "count": 14,
+   "count": 18,
    "instance": "skillSystem.definitions.168.commonEffectKeys.0",
    "pages": [
     "creation/skillSystem",
@@ -41012,7 +41054,7 @@
    "pattern": "skillSystem.definitions.*.targetLimit",
    "module": "combat/skills",
    "type": "boolean",
-   "count": 13,
+   "count": 16,
    "instance": "skillSystem.definitions.168.targetLimit",
    "pages": [
     "creation/skillSystem",
@@ -41048,7 +41090,7 @@
    "pattern": "skillSystem.definitions.*.systemEffect",
    "module": "combat/skills",
    "type": "string",
-   "count": 4,
+   "count": 6,
    "instance": "skillSystem.definitions.168.systemEffect",
    "pages": [
     "creation/skillSystem",
@@ -41148,7 +41190,7 @@
    "pattern": "skillSystem.definitions.*.adapters.*.job",
    "module": "combat/skills",
    "type": "integer",
-   "count": 4,
+   "count": 16,
    "instance": "skillSystem.definitions.180.adapters.0.job",
    "pages": [
     "creation/skillSystem",
@@ -41179,7 +41221,7 @@
    "pattern": "skillSystem.definitions.*.adapters.*.index",
    "module": "combat/skills",
    "type": "integer",
-   "count": 4,
+   "count": 16,
    "instance": "skillSystem.definitions.180.adapters.0.index",
    "pages": [
     "creation/skillSystem",
@@ -41207,20 +41249,20 @@
    "status": "constrained",
    "edit": {
     "from": 38,
-    "to": 39
+    "to": 48
    },
    "editor": "rejected",
    "validator": "rejected",
    "game": "rejected",
-   "editorReason": "核心技能 ID 重複：tutorial_echo-job0。",
-   "validatorReason": "職業 追擊 classes.0.skills.39.id：ID 無效或重複",
-   "gameReason": "職業 追擊 classes.0.skills.39.id：ID 無效或重複"
+   "editorReason": "技能引擎對照不可跳號：tutorial_echo",
+   "validatorReason": "技能引擎對照不可跳號：tutorial_echo",
+   "gameReason": "技能引擎對照不可跳號：tutorial_echo"
   },
   {
    "pattern": "skillSystem.definitions.*.adapters.*.kind",
    "module": "combat/skills",
    "type": "string",
-   "count": 4,
+   "count": 16,
    "instance": "skillSystem.definitions.180.adapters.0.kind",
    "pages": [
     "creation/skillSystem",
@@ -41299,7 +41341,7 @@
    ],
    "reader": {
     "key": "effects",
-    "files": 48,
+    "files": 47,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -41474,7 +41516,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 27,
+    "files": 25,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -41604,12 +41646,12 @@
    ],
    "reader": {
     "key": "masteryLevel",
-    "files": 12,
+    "files": 7,
     "sample": [
-     "js/balance/progression-model.js",
-     "js/balance/gameplay-defaults.js",
      "js/ui/core-screen-views.js",
-     "js/ui/ui-text-config.js"
+     "js/character/companions.js",
+     "js/character/team-runtime.js",
+     "js/skills/skill-system-model.js"
     ]
    },
    "status": "effective",
@@ -41669,12 +41711,12 @@
    ],
    "reader": {
     "key": "masteryLevel",
-    "files": 12,
+    "files": 7,
     "sample": [
-     "js/balance/progression-model.js",
-     "js/balance/gameplay-defaults.js",
      "js/ui/core-screen-views.js",
-     "js/ui/ui-text-config.js"
+     "js/character/companions.js",
+     "js/character/team-runtime.js",
+     "js/skills/skill-system-model.js"
     ]
    },
    "status": "effective",
@@ -41777,7 +41819,7 @@
    ],
    "reader": {
     "key": "support",
-    "files": 34,
+    "files": 33,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -41885,7 +41927,7 @@
    ],
    "reader": {
     "key": "support",
-    "files": 34,
+    "files": 33,
     "sample": [
      "js/character/companion-model.js",
      "js/skills/companion-skill-model.js",
@@ -41939,75 +41981,40 @@
    "game": "preserved"
   },
   {
-   "pattern": "skillSystem.equipment.chanceByDifficulty.*",
-   "module": "combat/skill-system",
-   "type": "number",
-   "count": 3,
-   "instance": "skillSystem.equipment.chanceByDifficulty.0",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "chanceByDifficulty",
-    "files": 11,
-    "sample": [
-     "js/items/companion-token-model.js",
-     "js/world/monster-drop-tables.js",
-     "js/balance/balance-schema.js",
-     "js/equipment/economy-salvage.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 0.15,
-    "to": 0.165
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.equipment.formRules",
-   "module": "combat/skill-system",
-   "type": "empty-array",
-   "count": 1,
-   "instance": "skillSystem.equipment.formRules",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "formRules",
-    "files": 3,
-    "sample": [
-     "js/skills/skill-system-model.js",
-     "js/equipment/equipment-skill-runtime.js",
-     "js/ui/skill-system-ui.js"
-    ]
-   },
-   "status": "no-value"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.skillId",
+   "pattern": "skillSystem.equipment.formRules.*.formId",
    "module": "combat/skill-system",
    "type": "string",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.skillId",
+   "count": 3,
+   "instance": "skillSystem.equipment.formRules.0.formId",
+   "pages": [
+    "battle/skillSystem",
+    "roster/skillSystem",
+    "partnerRoster/skillSystem",
+    "character/skillSystem",
+    "skills/skillSystem",
+    "equipment/skillSystem",
+    "worn/skillSystem",
+    "forge/skillSystem",
+    "story-main/skillSystem"
+   ],
+   "reader": {
+    "key": "formId",
+    "files": 8,
+    "sample": [
+     "js/items/shop-catalog.js",
+     "js/equipment/equipment-shop.js",
+     "js/ui/inventory-icon-model.js",
+     "js/story/story-model.js"
+    ]
+   },
+   "status": "constrained"
+  },
+  {
+   "pattern": "skillSystem.equipment.formRules.*.skillId",
+   "module": "combat/skill-system",
+   "type": "string",
+   "count": 3,
+   "instance": "skillSystem.equipment.formRules.0.skillId",
    "pages": [
     "battle/skillSystem",
     "roster/skillSystem",
@@ -42032,278 +42039,11 @@
    "status": "constrained"
   },
   {
-   "pattern": "skillSystem.equipment.pool.*.jobs.*",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.jobs.0",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "jobs",
-    "files": 18,
-    "sample": [
-     "js/combat/seconds-schema.js",
-     "js/core/core-game.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/character/companions.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 0,
-    "to": 1
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.slots.*",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "count": 92,
-   "instance": "skillSystem.equipment.pool.0.slots.0",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "slots",
-    "files": 29,
-    "sample": [
-     "js/character/team-model.js",
-     "js/core/save-validation.js",
-     "js/core/core-game.js",
-     "js/ui/item-presentation.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 0,
-    "to": 1
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.minLevel",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.minLevel",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "minLevel",
-    "files": 7,
-    "sample": [
-     "js/items/companion-token-model.js",
-     "js/world/quest-design-model.js",
-     "js/world/monster-drop-tables.js",
-     "js/skills/skill-system-model.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 1,
-    "to": 2
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.maxLevel",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.maxLevel",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "maxLevel",
-    "files": 21,
-    "sample": [
-     "js/items/companion-token-model.js",
-     "js/world/quest-design-model.js",
-     "js/balance/gameplay-defaults.js",
-     "js/core/save-validation.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 999,
-    "to": 998
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.weight",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.weight",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "weight",
-    "files": 18,
-    "sample": [
-     "js/items/companion-token-model.js",
-     "js/items/timed-boosts.js",
-     "js/world/quest-design-model.js",
-     "js/core/core-game.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 1,
-    "to": 2
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.maps",
-   "module": "combat/skill-system",
-   "type": "empty-array",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.maps",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "maps",
-    "files": 35,
-    "sample": [
-     "js/items/companion-token-model.js",
-     "js/character/achievement-model.js",
-     "js/skills/companion-skill-model.js",
-     "js/world/commission-model.js"
-    ]
-   },
-   "status": "no-value"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.monsters",
-   "module": "combat/skill-system",
-   "type": "empty-array",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.monsters",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "monsters",
-    "files": 42,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/items/companion-token-model.js",
-     "js/combat/seconds-schema.js",
-     "js/balance/gameplay-defaults.js"
-    ]
-   },
-   "status": "no-value"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.bosses",
-   "module": "combat/skill-system",
-   "type": "empty-array",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.bosses",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "bosses",
-    "files": 8,
-    "sample": [
-     "js/world/monster-drop-tables.js",
-     "js/world/custom-final-stage.js",
-     "js/combat/manual-boss.js",
-     "js/equipment/equipment-shop.js"
-    ]
-   },
-   "status": "no-value"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.allowShop",
+   "pattern": "skillSystem.equipment.formRules.*.dropOnly",
    "module": "combat/skill-system",
    "type": "boolean",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.allowShop",
+   "count": 3,
+   "instance": "skillSystem.equipment.formRules.0.dropOnly",
    "pages": [
     "battle/skillSystem",
     "roster/skillSystem",
@@ -42316,43 +42056,10 @@
     "story-main/skillSystem"
    ],
    "reader": {
-    "key": "allowShop",
-    "files": 2,
+    "key": "dropOnly",
+    "files": 3,
     "sample": [
-     "js/skills/skill-system-model.js",
-     "js/equipment/equipment-skill-runtime.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": true,
-    "to": false
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.allowCraft",
-   "module": "combat/skill-system",
-   "type": "boolean",
-   "count": 23,
-   "instance": "skillSystem.equipment.pool.0.allowCraft",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "allowCraft",
-    "files": 2,
-    "sample": [
+     "js/ui/inventory-icon-model.js",
      "js/skills/skill-system-model.js",
      "js/equipment/equipment-skill-runtime.js"
     ]
@@ -42385,7 +42092,7 @@
    ],
    "reader": {
     "key": "minLevel",
-    "files": 7,
+    "files": 6,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -42414,7 +42121,7 @@
    ],
    "reader": {
     "key": "maxLevel",
-    "files": 21,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/quest-design-model.js",
@@ -42633,227 +42340,6 @@
    "editor": "preserved",
    "validator": "preserved",
    "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.gems.*.skill.key",
-   "module": "combat/skill-system",
-   "type": "string",
-   "count": 5,
-   "instance": "skillSystem.gems.0.skill.key",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "key",
-    "files": 102,
-    "sample": [
-     "js/ui/themes.js",
-     "js/balance/progression-model.js",
-     "js/items/companion-token-model.js",
-     "js/character/companion-model.js"
-    ]
-   },
-   "status": "constrained"
-  },
-  {
-   "pattern": "skillSystem.gems.*.skill.values.*",
-   "module": "combat/skill-system",
-   "type": "number",
-   "count": 15,
-   "instance": "skillSystem.gems.0.skill.values.0",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "values",
-    "files": 41,
-    "sample": [
-     "js/character/companion-model.js",
-     "js/character/team-model.js",
-     "js/ui/core-equipment-views.js",
-     "js/core/core-game.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 0.02,
-    "to": 0.022
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.gems.*.skill.types.*",
-   "module": "combat/skill-system",
-   "type": "string",
-   "count": 12,
-   "instance": "skillSystem.gems.0.skill.types.0",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "types",
-    "files": 12,
-    "sample": [
-     "js/core/core-game.js",
-     "js/world/monster-drop-tables.js",
-     "js/balance/balance-schema.js",
-     "js/equipment/economy-salvage.js"
-    ]
-   },
-   "status": "constrained"
-  },
-  {
-   "pattern": "skillSystem.gems.*.skill.effects",
-   "module": "combat/skill-system",
-   "type": "empty-array",
-   "count": 5,
-   "instance": "skillSystem.gems.0.skill.effects",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "effects",
-    "files": 48,
-    "sample": [
-     "js/balance/progression-model.js",
-     "js/items/companion-token-model.js",
-     "js/skills/passive-model.js",
-     "js/skills/companion-skill-model.js"
-    ]
-   },
-   "status": "no-value"
-  },
-  {
-   "pattern": "skillSystem.gems.*.skill.slots.*",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "count": 5,
-   "instance": "skillSystem.gems.0.skill.slots.0",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "slots",
-    "files": 29,
-    "sample": [
-     "js/character/team-model.js",
-     "js/core/save-validation.js",
-     "js/core/core-game.js",
-     "js/ui/item-presentation.js"
-    ]
-   },
-   "status": "constrained"
-  },
-  {
-   "pattern": "skillSystem.gems.*.cap",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "count": 5,
-   "instance": "skillSystem.gems.0.cap",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "worn/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "cap",
-    "files": 17,
-    "sample": [
-     "js/balance/game-balance-defaults.js",
-     "js/core/core-game.js",
-     "js/equipment/equipment-stat-source.js",
-     "js/world/final-map.js"
-    ]
-   },
-   "status": "effective",
-   "edit": {
-    "from": 1,
-    "to": 2
-   },
-   "editor": "preserved",
-   "validator": "preserved",
-   "game": "preserved"
-  },
-  {
-   "pattern": "skillSystem.gemSlotRuleVersion",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "count": 1,
-   "instance": "skillSystem.gemSlotRuleVersion",
-   "pages": [
-    "battle/skillSystem",
-    "roster/skillSystem",
-    "partnerRoster/skillSystem",
-    "character/skillSystem",
-    "skills/skillSystem",
-    "equipment/skillSystem",
-    "forge/skillSystem",
-    "story-main/skillSystem"
-   ],
-   "reader": {
-    "key": "gemSlotRuleVersion",
-    "files": 1,
-    "sample": [
-     "js/skills/skill-system-model.js"
-    ]
-   },
-   "status": "fixed-by-game",
-   "edit": {
-    "from": 2,
-    "to": 3
-   },
-   "editor": "reverted",
-   "validator": "reverted",
-   "game": "reverted",
-   "note": "資料格式版本旗標，由遊戲設定。"
   },
   {
    "pattern": "skillSystem.masteryGateVersion",
@@ -43159,7 +42645,7 @@
    ],
    "reader": {
     "key": "item",
-    "files": 59,
+    "files": 60,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
@@ -43313,7 +42799,7 @@
    ],
    "reader": {
     "key": "weight",
-    "files": 18,
+    "files": 15,
     "sample": [
      "js/items/companion-token-model.js",
      "js/items/timed-boosts.js",
@@ -43772,7 +43258,7 @@
    ],
    "reader": {
     "key": "weight",
-    "files": 18,
+    "files": 15,
     "sample": [
      "js/items/companion-token-model.js",
      "js/items/timed-boosts.js",
@@ -44298,7 +43784,7 @@
    "pages": [],
    "reader": {
     "key": "page",
-    "files": 35,
+    "files": 33,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -44360,7 +43846,7 @@
    "pages": [],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -44521,7 +44007,7 @@
    "pages": [],
    "reader": {
     "key": "page",
-    "files": 35,
+    "files": 33,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -44621,7 +44107,7 @@
    "pages": [],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -44676,7 +44162,7 @@
    "pages": [],
    "reader": {
     "key": "mode",
-    "files": 40,
+    "files": 38,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",

@@ -1,8 +1,8 @@
 {
  "schema": "dreaming-abyss-boundary-v1",
  "game": {
-  "dataCommit": "caa67081be467d66dad2063b0f29fa975ca595ce",
-  "dataSha256": "d12a698a019d21e116466aea69b961a3cc09c42941a287a87d15b869b453a684"
+  "dataCommit": "8d5c80e864711086613c41b309fe534ae0b4469a",
+  "dataSha256": "d49198e7dc93b2eabdb068924135b66b52aa9cf43fd29c79df2beb12a7c6ea57"
  },
  "kinds": {
   "zero": "0",
@@ -5391,389 +5391,6 @@
    }
   },
   {
-   "pattern": "balanceSettings.progression.advance.gold",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 500,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 500.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 500,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.gold：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 500,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.gold：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.ore",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 20,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 20.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 20,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.ore：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 20,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.ore：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.materialCount",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 3,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 3.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 3,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.materialCount：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 3,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.materialCount：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.hpMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 1.12,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.hpMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.hpMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.attackMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 1.15,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.attackMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.attackMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.defenseMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 1.12,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.defenseMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.defenseMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.masteryLevel",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 15,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 15,
-     "editorReverted": true,
-     "validator": "changed",
-     "validatorBecame": 15,
-     "validatorReverted": true,
-     "verdict": "changed"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 15,
-     "editorReverted": true,
-     "validator": "changed",
-     "validatorBecame": 15,
-     "validatorReverted": true,
-     "verdict": "changed"
-    },
-    "fraction": {
-     "to": 15.5,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 15,
-     "editorReverted": true,
-     "validator": "changed",
-     "validatorBecame": 15,
-     "validatorReverted": true,
-     "verdict": "changed"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.masteryLevel：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.masteryLevel：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "balanceSettings.progression.regionTierLevels",
    "module": "characters/progression",
    "type": "integer",
@@ -6533,11 +6150,10 @@
      "to": 0,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "二轉精通需求不可高於精通最高等級。",
-     "validator": "rejected",
+     "editorReason": "戰士技能樹「減傷」需要精通 Lv2，超過精通上限 Lv1，永遠無法解鎖",
+     "validator": "changed",
      "validatorBecame": 1,
-     "validatorReason": "二轉精通需求不可高於精通最高等級",
-     "verdict": "rejected"
+     "verdict": "editor-stricter"
     },
     "negative": {
      "to": -1,
@@ -6580,68 +6196,6 @@
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.skills.mastery.maxLevel：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.skills.mastery.advanceRequiredLevel",
-   "module": "combat/skill-settings",
-   "type": "integer",
-   "from": 4,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0,
-     "validator": "changed",
-     "validatorBecame": 0,
-     "verdict": "changed"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 4.5,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 4,
-     "editorReverted": true,
-     "validator": "changed",
-     "validatorBecame": 4,
-     "validatorReverted": true,
-     "verdict": "changed"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 4,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.skills.mastery.advanceRequiredLevel：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 4,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.skills.mastery.advanceRequiredLevel：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -18696,48 +18250,6 @@
    }
   },
   {
-   "pattern": "balanceSettings.combat.seconds.cooldownReduction.sources.onCast.value",
-   "module": "combat/rules",
-   "type": "integer",
-   "from": 3,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 3.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "balanceSettings.combat.seconds.cooldownReduction.sources.enemyDeath.value",
    "module": "combat/rules",
    "type": "integer",
@@ -21867,6 +21379,122 @@
    }
   },
   {
+   "pattern": "balanceSettings.quests.design.side.*.objectives.*.quantity",
+   "module": "systems/quests",
+   "type": "integer",
+   "from": 5,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "verdict": "rejected"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 5.5,
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.objectives.0.quantity：委託／支線：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.objectives.0.quantity：委託／支線：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.quests.design.side.*.objectives.*.quantityMax",
+   "module": "systems/quests",
+   "type": "integer",
+   "from": 5,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "verdict": "rejected"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 5.5,
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.objectives.0.quantityMax：委託／支線：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "rejected",
+     "editorReason": "支線 wolves：需求類型、數量或消耗設定無效",
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.objectives.0.quantityMax：委託／支線：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
    "pattern": "balanceSettings.quests.design.side.*.rewards.gold",
    "module": "systems/quests",
    "type": "integer",
@@ -22347,6 +21975,70 @@
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.meta.progressionCurveVersion：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.maps.levelRanges.*.max",
+   "module": "world/maps",
+   "type": "integer",
+   "from": 5,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "preserved",
+     "verdict": "editor-stricter"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "preserved",
+     "verdict": "editor-stricter"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "preserved",
+     "verdict": "editor-stricter"
+    },
+    "fraction": {
+     "to": 5.5,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "preserved",
+     "verdict": "editor-stricter"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.maps.levelRanges.0.max：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.maps.levelRanges.0.max：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -28050,11 +27742,9 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "夥伴評級建議範圍無效：C",
-     "validator": "rejected",
-     "validatorReason": "夥伴評級建議範圍無效：C",
-     "verdict": "rejected"
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
@@ -28150,11 +27840,9 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "夥伴評級建議範圍無效：B",
-     "validator": "rejected",
-     "validatorReason": "夥伴評級建議範圍無效：B",
-     "verdict": "rejected"
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
@@ -28544,11 +28232,9 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "夥伴評級建議範圍無效：S",
-     "validator": "rejected",
-     "validatorReason": "夥伴評級建議範圍無效：S",
-     "verdict": "rejected"
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
@@ -28644,11 +28330,9 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "夥伴評級建議範圍無效：S",
-     "validator": "rejected",
-     "validatorReason": "夥伴評級建議範圍無效：S",
-     "verdict": "rejected"
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
@@ -28973,9 +28657,11 @@
     "zero": {
      "to": 0,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "夥伴評級建議範圍無效：SSS",
+     "validator": "rejected",
+     "validatorReason": "夥伴評級建議範圍無效：SSS",
+     "verdict": "rejected"
     },
     "negative": {
      "to": -1,
@@ -31627,46 +31313,6 @@
    "pattern": "story.quests.*.recovery.gemQuantity",
    "module": "systems/story",
    "type": "integer",
-   "from": 2,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 2.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "story.quests.*.stages.*.conditions.conditions.*.slot",
-   "module": "systems/story",
-   "type": "integer",
    "from": 1,
    "cases": {
     "zero": {
@@ -31688,6 +31334,39 @@
     },
     "fraction": {
      "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "story.quests.*.stages.*.conditions.conditions.*.slot",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 0,
+   "cases": {
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 0.5,
      "rules": "rejected",
      "verdict": "rejected"
     },
@@ -34236,225 +33915,6 @@
    }
   },
   {
-   "pattern": "skillSystem.equipment.chanceByDifficulty.*",
-   "module": "combat/skill-system",
-   "type": "number",
-   "from": 0.15,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.jobs.*",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.slots.*",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.minLevel",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.maxLevel",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 999,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 999.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.weight",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "skillSystem.gems.*.base.values.*",
    "module": "combat/skill-system",
    "type": "integer",
@@ -34479,83 +33939,6 @@
     },
     "fraction": {
      "to": 2.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.gems.*.skill.values.*",
-   "module": "combat/skill-system",
-   "type": "number",
-   "from": 0.02,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.gems.*.cap",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 1.5,
      "rules": "accepted",
      "editor": "preserved",
      "validator": "preserved",

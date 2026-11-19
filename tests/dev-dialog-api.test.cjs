@@ -10,8 +10,8 @@ function inGame(e){const g=loadGame(game);g.ctx.input=plain(e.run('__EMBERWILD_R
 test('protagonist class initial stats keep the legacy fields in sync and reject invalid values atomically',()=>{
  const e=editor(),before=call(e,'__EMBERWILD_CLASS_DIALOG.get(1)');
  assert.equal(before.name,plain(e.run('data.classes[1].name')));
- assert.deepEqual(call(e,'__EMBERWILD_CLASS_DIALOG.update(1,args)',{'initialStats.hp':before['initialStats.hp']+7,'initialStats.def':4,advanced:'測試二轉'}),{ok:true,job:1});
- assert.deepEqual(plain(e.run('[data.classes[1].hp,data.classes[1].initialStats.hp,data.classes[1].initialStats.def,data.classes[1].advanced]')),[before['initialStats.hp']+7,before['initialStats.hp']+7,4,'測試二轉']);
+ assert.deepEqual(call(e,'__EMBERWILD_CLASS_DIALOG.update(1,args)',{'initialStats.hp':before['initialStats.hp']+7,'initialStats.def':4,name:'測試職業'}),{ok:true,job:1});
+ assert.deepEqual(plain(e.run('[data.classes[1].hp,data.classes[1].initialStats.hp,data.classes[1].initialStats.def,data.classes[1].name]')),[before['initialStats.hp']+7,before['initialStats.hp']+7,4,'測試職業']);
  const saved=plain(e.run('data.classes'));
  for(const bad of [{'initialStats.atk':-1},{name:''},{'growthPerLevel.hp':'x'},{unknown:1}]){const out=call(e,'__EMBERWILD_CLASS_DIALOG.update(1,args)',bad);assert.equal(out.ok,false,JSON.stringify(bad));}
  assert.deepEqual(plain(e.run('data.classes')),saved,'rejected edits change nothing');
@@ -85,9 +85,11 @@ test('cooldown reduction rules are editable per source and reach the game',()=>{
  e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.select('combat','cdr:affixAll')");
  e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:affixAll',{mode:'percent',value:8})");
  e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdrDiminishing',{thresholdSeconds:6,factor:.4,minimumSeconds:2.5})");
- assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:onCast',{mode:'turns'})"));
- assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:onCast',{mode:'percent',value:150})"));
- assert.deepEqual(plain(e.run('data.balanceSettings.combat.seconds.cooldownReduction.sources.onCast')),{mode:'flat',value:3},'rejected edits roll back');
+ // v0.163 removed the gem 'onCast' source; enemyDeath is still a per-source rule.
+ const kept=plain(e.run('data.balanceSettings.combat.seconds.cooldownReduction.sources.enemyDeath'));
+ assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:enemyDeath',{mode:'turns'})"));
+ assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:enemyDeath',{mode:'percent',value:150})"));
+ assert.deepEqual(plain(e.run('data.balanceSettings.combat.seconds.cooldownReduction.sources.enemyDeath')),kept,'rejected edits roll back');
  assert.deepEqual(plain(e.run('validateData()')),[]);
  const doc=plain(e.run('__EMBERWILD_RELEASE_EDITOR.current()')),r=doc.balanceSettings.combat.seconds.cooldownReduction;
  assert.deepEqual(r.sources.affixAll,{mode:'percent',value:8});assert.deepEqual(r.diminishing,{thresholdSeconds:6,factor:.4,minimumSeconds:2.5});
