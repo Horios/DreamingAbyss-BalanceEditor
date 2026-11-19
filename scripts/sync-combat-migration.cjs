@@ -1,5 +1,7 @@
 const fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'..'),file=path.join(root,'balance-editor.html');
+const game=path.resolve(process.env.EMBERWILD_GAME_ROOT||path.join(root,'../DreamingAbyss'));
+fs.copyFileSync(path.join(game,'js/combat/seconds-schema.js'),path.join(root,'scripts/seconds-schema.cjs'));
 let html=fs.readFileSync(file,'utf8');
 for(const id of ['combat-migration-model','combat-migration-editor','seconds-schema-model'])html=html.replace(new RegExp('\\n?<script id="'+id+'">[\\s\\S]*?<\\/script>\\n?','g'),'\n');
 const model=fs.readFileSync(path.join(__dirname,'combat-migration-audit.cjs'),'utf8');

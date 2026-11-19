@@ -7,16 +7,16 @@ function editor(){const g=loadGame(game),e=loadRuntime(root);e.ctx.input=plain(g
 const call=(e,code,args)=>{e.ctx.args=args;return plain(e.run(code));};
 function inGame(e){const g=loadGame(game);g.ctx.input=plain(e.run('__EMBERWILD_RELEASE_EDITOR.current()'));g.run('applyBalanceConfig(input,{persist:false})');assert.deepEqual(g.errors,[]);return g;}
 
-test('protagonist class stats keep the legacy LV1 fields in sync and reject invalid values atomically',()=>{
+test('protagonist fixed class stats stay in sync and reject invalid values atomically',()=>{
  const e=editor(),before=call(e,'__EMBERWILD_CLASS_DIALOG.get(1)');
  assert.equal(before.name,plain(e.run('data.classes[1].name')));
- assert.deepEqual(call(e,'__EMBERWILD_CLASS_DIALOG.update(1,args)',{'initialStats.hp':before['initialStats.hp']+7,'growthPerLevel.def':2,advanced:'測試二轉'}),{ok:true,job:1});
- assert.deepEqual(plain(e.run('[data.classes[1].hp,data.classes[1].initialStats.hp,data.classes[1].growthPerLevel.def,data.classes[1].advanced]')),[before['initialStats.hp']+7,before['initialStats.hp']+7,2,'測試二轉']);
+ assert.deepEqual(call(e,'__EMBERWILD_CLASS_DIALOG.update(1,args)',{'initialStats.hp':before['initialStats.hp']+7,'initialStats.def':2}),{ok:true,job:1});
+ assert.deepEqual(plain(e.run('[data.classes[1].hp,data.classes[1].initialStats.hp,data.classes[1].initialStats.def]')),[before['initialStats.hp']+7,before['initialStats.hp']+7,2]);
  const saved=plain(e.run('data.classes'));
- for(const bad of [{'initialStats.atk':-1},{name:''},{'growthPerLevel.hp':'x'},{unknown:1}]){const out=call(e,'__EMBERWILD_CLASS_DIALOG.update(1,args)',bad);assert.equal(out.ok,false,JSON.stringify(bad));}
+ for(const bad of [{'initialStats.atk':-1},{name:''},{'growthPerLevel.hp':1},{advanced:'舊二轉'},{unknown:1}]){const out=call(e,'__EMBERWILD_CLASS_DIALOG.update(1,args)',bad);assert.equal(out.ok,false,JSON.stringify(bad));}
  assert.deepEqual(plain(e.run('data.classes')),saved,'rejected edits change nothing');
  assert.deepEqual(plain(e.run('validateData()')),[]);
- const g=inGame(e);assert.deepEqual(plain(g.run('[exportableBalance().classes[1].initialStats.hp,exportableBalance().classes[1].growthPerLevel.def]')),[before['initialStats.hp']+7,2]);
+ const g=inGame(e);assert.deepEqual(plain(g.run('[exportableBalance().classes[1].initialStats.hp,exportableBalance().classes[1].initialStats.def]')),[before['initialStats.hp']+7,2]);
 });
 
 test('new materials, healing potions and timed boost tickets pass validation and arrive in the game',()=>{
@@ -85,9 +85,9 @@ test('cooldown reduction rules are editable per source and reach the game',()=>{
  e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.select('combat','cdr:affixAll')");
  e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:affixAll',{mode:'percent',value:8})");
  e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdrDiminishing',{thresholdSeconds:6,factor:.4,minimumSeconds:2.5})");
- assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:onCast',{mode:'turns'})"));
- assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:onCast',{mode:'percent',value:150})"));
- assert.deepEqual(plain(e.run('data.balanceSettings.combat.seconds.cooldownReduction.sources.onCast')),{mode:'flat',value:3},'rejected edits roll back');
+ assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:enemyDeath',{mode:'turns'})"));
+ assert.throws(()=>e.run("__EMBERWILD_COMBAT_MIGRATION_AUDIT.update('cdr:enemyDeath',{mode:'percent',value:150})"));
+ assert.deepEqual(plain(e.run('data.balanceSettings.combat.seconds.cooldownReduction.sources.enemyDeath')),{mode:'flat',value:3},'rejected edits roll back');
  assert.deepEqual(plain(e.run('validateData()')),[]);
  const doc=plain(e.run('__EMBERWILD_RELEASE_EDITOR.current()')),r=doc.balanceSettings.combat.seconds.cooldownReduction;
  assert.deepEqual(r.sources.affixAll,{mode:'percent',value:8});assert.deepEqual(r.diminishing,{thresholdSeconds:6,factor:.4,minimumSeconds:2.5});

@@ -37,7 +37,7 @@ const {createPreviewServer}=require('../scripts/serve-v2.cjs');
   assert.notEqual(crit[0],crit[1],'the draft fixed effect changes worn stats: '+crit.join(' / '));
 
   await p.locator('#simTabs [data-sim="level"]').click();await p.locator('#simMinutes').selectOption('10');await p.locator('#simCompare').uncheck();await p.locator('#simRun').click();await finished();
-  assert.match(await p.locator('#simResult').innerText(),/Lv2\s+\d+ 分 \d+ 秒/,'level pace lists the time each level is reached');
+  assert.match(await p.locator('#simResult').innerText(),/職業精通 Lv1\s+\d+ (?:分|秒)/,'class mastery pace lists the time each mastery level is reached');
 
   assert.equal(await game.locator('body').evaluate(()=>__EMBERWILD_SKILLS.byId('job0-core0').timing.cooldownSeconds),cooldown,'simulating never applies the draft to the preview');
   assert.equal(await p.locator('iframe[title="模擬用遊戲"]').count(),0,'hidden simulation games are removed');

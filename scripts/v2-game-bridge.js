@@ -119,19 +119,19 @@ if(SIM){
  const numericStats=h=>Object.fromEntries(Object.entries(stats(h)).filter(([,v])=>typeof v==='number'&&Number.isFinite(v)));
  async function levelPace(doc,{job=0,companions=0,minutes=30}={},progress){
   prepare(doc,job);const members=recruit(companions);startSelectedExploration();closeModal();
-  const reached=[{level:hero().lv,seconds:0}],total=minutes*60*2;let stopped=null;
+  const reached=[{level:classMasteryLevel(hero()),seconds:0}],total=minutes*60*2;let stopped=null;
   for(let i=1;i<=total;i++){
-   step(500);if(hero().lv>reached.at(-1).level)reached.push({level:hero().lv,seconds:i/2});
+   step(500);if(classMasteryLevel(hero())>reached.at(-1).level)reached.push({level:classMasteryLevel(hero()),seconds:i/2});
    if(!running&&stopped===null)stopped=i/2;
    if(i%1200===0){progress?.(i/total);await pause();}
   }
-  return {job,companions:members,minutes,reached,finalLevel:hero().lv,kills:state.totalKills||0,stoppedAt:stopped};
+  return {job,companions:members,minutes,reached,finalLevel:classMasteryLevel(hero()),kills:state.totalKills||0,stoppedAt:stopped};
  }
  async function skillTrial(doc,{skillId,seconds=60}={},progress){
   const def=(doc?.skillSystem||__EMBERWILD_SKILLS.system()).definitions.find(s=>s.id===skillId);
   if(!def)throw Error('找不到技能：'+skillId);if(def.partnerId!=null)throw Error('夥伴專屬技能請在夥伴隊伍中試打');
   prepare(doc,def.jobs?.[0]??0);
-  const h=hero();h.lv=Math.max(h.lv,60);h.advanced=true;h.won=false;for(const k of Object.keys(h.mastery||{}))h.mastery[k]=1e9;
+  const h=hero();setClassMasteryLevel(30,h);h.won=false;for(const k of Object.keys(h.mastery||{}))h.mastery[k]=1e9;
   const sk=__EMBERWILD_SKILLS.byId(skillId);sk.unlockConditions={};sk.requiredMastery=null;sk.weaponTypes=[];sk.sources=[{type:'quest',rewardOnly:true}];
   h.acquiredSkillIds=[sk.id];for(const k of ['active','proc','support'])h.skillLoadout[k]=h.skillLoadout[k].map(()=>null);__EMBERWILD_SKILLS.refreshHero(h);
   if(sk.type==='passive'){
@@ -154,7 +154,7 @@ if(SIM){
   const m=/^job(\d+)-slot(\d+)-form(\d+)$/.exec(String(formId));if(!m)throw Error('裝備型態 ID 無效：'+formId);
   const [job,slot,form]=m.slice(1).map(Number);prepare(doc,Math.min(job,3));
   const h=hero(),it=gear(Math.max(1,Number(tier)||1),slot,0,job);Object.assign(it,{job,formJob:job,form,slot,affix:[]});
-  h.lv=Math.max(h.lv,gearRequiredLevel(it));h.equipped=Array(5).fill(null);const before=numericStats(h);
+  h.equipped=Array(5).fill(null);const before=numericStats(h);
   h.bag.push(it);h.equipped[slot]=it.id;const after=numericStats(h);
   return {formId,name:itemForm(it)?.name||it.name,tier:it.tier,requiredLevel:gearRequiredLevel(it),fixedEffects:itemForm(it)?.fixedEffects||[],changes:Object.keys(after).filter(k=>after[k]!==before[k]).map(k=>({key:k,before:before[k],after:after[k]}))};
  }
