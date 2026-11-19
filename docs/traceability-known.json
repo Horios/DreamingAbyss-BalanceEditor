@@ -89,6 +89,10 @@
   {
    "match": "^timeUnits\\.consumableClock$",
    "note": "遊戲在限時道具正規化時固定為 wall（js/items/timed-boosts.js），工作台內嵌同一份規則。遊戲匯出會原樣帶出文件中的值，但執行時不採用。"
+  },
+  {
+   "match": "^skillSystem\\.masteryGateVersion$",
+   "note": "技能精通解鎖的資料遷移版本，由共用技能模型 migrateMasteryGates 固定為目前版本（js/skills/skill-system-model.js）。"
   }
  ],
  "constrained": [

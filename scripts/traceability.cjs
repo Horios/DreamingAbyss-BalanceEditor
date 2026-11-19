@@ -66,12 +66,15 @@ function readerIndex(){
 async function pipelines(){
  const {loadRuntime}=require(path.join(root,'tests/headless-editor.cjs')),{loadRuntime:loadGame}=require(path.join(game,'tests/headless-runtime.cjs'));
  const {createGameValidator}=await import(path.join(root,'server/online/game-validator.mjs'));
- const g=loadGame(game),e=loadRuntime(root),v=createGameValidator();
+ // A rejected probe can leave intermediate module state behind. Start the next probe from a clean runtime.
+ const freshGame=()=>{const runtime=loadGame(game);runtime.run=code=>vm.runInContext(code,runtime.ctx,{timeout:30000});return runtime;};
+ const baseline=JSON.parse(fs.readFileSync(path.join(game,'data/balance.json'),'utf8'));
+ let g=freshGame();const e=loadRuntime(root),v=createGameValidator();
  return {
   inspect:d=>{g.ctx.__TRACE=d;return g.run('EmberwildBalanceDocument.inspect(__TRACE).length');},
   editor:d=>{e.ctx.input=plain(d);e.run('data=__EMBERWILD_VALIDATE_DOCUMENT(input);ensureArrays()');return plain(e.run('__EMBERWILD_RELEASE_EDITOR.current()'));},
   validator:d=>v.canonicalize(plain(d)),
-  game:d=>{g.ctx.__TRACE=plain(d);g.run('applyBalanceConfig(__TRACE,{persist:false})');return plain(g.run('exportableBalance()'));}
+  game:d=>{g.ctx.__TRACE=plain(d);try{g.run('validateBalanceConfig(__TRACE)');}catch(error){if(error.code==='ERR_SCRIPT_EXECUTION_TIMEOUT')g=freshGame();throw error;}try{g.run('applyBalanceConfig(__TRACE,{persist:false})');return plain(g.run('exportableBalance()'));}catch(error){if(error.code==='ERR_SCRIPT_EXECUTION_TIMEOUT')g=freshGame();else try{g.ctx.__TRACE=plain(baseline);g.run('applyBalanceConfig(__TRACE,{persist:false})');g.run('exportableBalance()');}catch{g=freshGame();}throw error;}}
  };
 }
 const outcome=(out,base,p,value)=>{const x=get(out,p);return same(x,value)?'preserved':x===undefined?'removed':same(x,get(base,p))?'reverted':'transformed';};
