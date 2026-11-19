@@ -14,7 +14,29 @@
  function requireApplied(id){if(drafts.has(id))throw Error('請先套用或捨棄該技能的未儲存修改，再複製或取用。');}
 
  let section='skills',selection='',query='';
- function ensure(d){if(!d.skillSystem)d.skillSystem=M.fromLegacy(d);M.project(d);return d.skillSystem;}
+ // Companion skill pages still edit the projected class rows. Their edits are written back to
+ // the canonical definition (see #skill-row-sync); projection keeps row objects stable so
+ // handlers bound before an export, validation or count pass still edit the live row.
+ const projected=new WeakMap(),PROJECTION_ONLY=new Set(['id','activation','requiresAdvanced']);
+ function rowList(d,kind,job){return kind==='passive'?d.passiveDefinitions:kind==='core'?d.classes?.[job]?.skills:d.supportSkills?.[job];}
+ function remember(d){
+   const previous=new Map((projected.get(d)||[]).map(x=>[x.kind+':'+x.job+':'+x.index,x.row])),rows=[];
+   for(const sk of d.skillSystem?.definitions||[])for(const {job,index,kind} of M.adapters(sk)){
+     const list=rowList(d,kind,job);let row=list?.[index];if(!row||typeof row!=='object')continue;
+     const old=previous.get(kind+':'+job+':'+index);
+     if(old&&old!==row){for(const k of Object.keys(old))delete old[k];Object.assign(old,row);list[index]=row=old;}
+     rows.push({row,id:sk.id,kind,job,index});
+   }
+   projected.set(d,rows);
+ }
+ function writeRow(d,row,snapshot){
+   const entry=(projected.get(d)||[]).find(x=>x.row===row),sk=entry&&d.skillSystem?.definitions?.find(x=>x.id===entry.id);if(!sk)return false;
+   const before=JSON.parse(snapshot),after=JSON.parse(JSON.stringify(row));
+   for(const k of new Set([...Object.keys(before),...Object.keys(after)])){if(PROJECTION_ONLY.has(k)||JSON.stringify(before[k])===JSON.stringify(after[k]))continue;if(after[k]===undefined)delete sk[k];else sk[k]=after[k];}
+   return true;
+ }
+ globalThis.__EMBERWILD_SKILL_ROW_SYNC={writeRow};
+ function ensure(d){if(!d.skillSystem)d.skillSystem=M.fromLegacy(d);M.project(d);remember(d);return d.skillSystem;}
  ensure(ORIGINAL_DATA);ensure(data);
  const ensureBase=ensureArrays;ensureArrays=function(...args){const out=ensureBase(...args);ensure(data);return out;};
  function issueList(){try{M.project(copy(data));return [];}catch(e){return [e.message];}}
