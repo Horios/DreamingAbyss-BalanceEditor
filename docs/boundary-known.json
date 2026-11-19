@@ -1,6 +1,7 @@
 {
  "description": "數值欄位邊界值報表的說明。typeLeaks：文字或 null 能通過工作台、驗證器與遊戲的欄位，以及由誰擋下。changed：沒有錯誤但值被改變的欄位與原因。tests/boundary.test.cjs 要求每一筆都有對應說明。",
  "typeLeaks": [
+  {"match": "^story\\.quests\\.\\*\\.(stages\\.\\*\\.prologue\\.scene|prologue\\.scenes\\.\\*\\.id)$", "note": "v0.167 起新手引導改在遊戲畫面內進行，任務驗證走操作引導的分支，不再檢查場景編號；遊戲執行時也不讀取這些欄位，保留文字或 null 不影響遊戲。"},
   {"match": "^skillSystem\\.definitions\\.\\*\\.(powerPerLevel|hitCount|procChancePerLevel|statusMaxTargets)$", "note": "遊戲的技能驗證沒有檢查這些欄位的型別，工作台、驗證器與遊戲都會保留文字或 null。發布服務的數值型別檢查會在建立摘要時拒絕（tests/release-audit.test.cjs「B02」）。"}
  ],
  "changed": [

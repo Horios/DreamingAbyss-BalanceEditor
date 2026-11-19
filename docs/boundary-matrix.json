@@ -1,8 +1,8 @@
 {
  "schema": "dreaming-abyss-boundary-v1",
  "game": {
-  "dataCommit": "8d5c80e864711086613c41b309fe534ae0b4469a",
-  "dataSha256": "d49198e7dc93b2eabdb068924135b66b52aa9cf43fd29c79df2beb12a7c6ea57"
+  "dataCommit": "bac8a618613b408570a2397f93d56693c7dd5743",
+  "dataSha256": "2f768c2ac3160de16afcc0980b3809e7d15628f2cd77ee26df5f82442850915b"
  },
  "kinds": {
   "zero": "0",
@@ -31390,41 +31390,55 @@
    "cases": {
     "zero": {
      "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "negative": {
      "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "huge": {
      "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "fraction": {
      "to": 1.5,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "game": "preserved",
+     "verdict": "accepted"
     },
     "null": {
      "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "game": "preserved",
+     "verdict": "accepted"
     }
    }
   },
   {
-   "pattern": "story.quests.*.prologue.helper.templates.*",
+   "pattern": "story.quests.*.prologue.scenes.*.id",
    "module": "systems/story",
    "type": "integer",
-   "from": 13,
+   "from": 1,
    "cases": {
     "zero": {
      "to": 0,
@@ -31448,14 +31462,19 @@
      "verdict": "accepted"
     },
     "fraction": {
-     "to": 13.5,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "to": 1.5,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "game": "preserved",
+     "verdict": "accepted"
     },
     "null": {
      "to": null,
@@ -31487,132 +31506,6 @@
     },
     "fraction": {
      "to": 1.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "story.quests.*.stages.*.chapter.scene",
-   "module": "systems/story",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "story.quests.*.chapter.allies.*.template",
-   "module": "systems/story",
-   "type": "integer",
-   "from": 10,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "劇情：chapter1：章節：臨時隊友範本不存在：0",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "劇情：chapter1：章節：臨時隊友範本不存在：1000000000000",
-     "verdict": "blocked"
-    },
-    "fraction": {
-     "to": 10.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "story.quests.*.chapter.companion",
-   "module": "systems/story",
-   "type": "integer",
-   "from": 13,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "劇情：chapter1：章節：加入的夥伴範本不存在",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "劇情：chapter1：章節：加入的夥伴範本不存在",
-     "verdict": "blocked"
-    },
-    "fraction": {
-     "to": 13.5,
      "rules": "rejected",
      "verdict": "rejected"
     },

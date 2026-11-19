@@ -24,7 +24,7 @@
   const active=isActive(skill),power=Math.abs(Number(skill.power??skill.value)||1),area=skill.target==='enemies'||skill.target==='allies'||Number(skill.maxTargets)>1;
   const control=['polymorph','freeze','frost','fear','tauntRage','summonFreezeTrap','summonMorphTrap'].includes(skill.effect);
   const mp=active?round(config.mana.maxMp*Math.min(.25,Math.max(.08,.08*Math.sqrt(power)+(area?.04:0)+(control?.04:0)))):0;
-  const heal=skill.effect==='heal'||skill.effect==='revive'||skill.kind==='regen',buff=skill.type==='support'||['guard','regen','taunt'].includes(skill.systemEffect)||skill.effect==='shield';
+  const heal=skill.effect==='heal'||skill.effect==='revive'||skill.kind==='regen',buff=skill.type==='support'||['guard','regen','taunt','haste'].includes(skill.systemEffect)||skill.effect==='shield';
   return {cooldownSeconds:active?round((Math.max(0,Number(skill.cooldown)||0)+(Number(skill.cooldown)>0?1:0))*interval):0,
    mpCost:mp,castSeconds:0,actionCostSeconds:0,priority:heal?0:buff?1:2,
    durationSeconds:round(Math.max(0,Number(skill.duration)||0)*(control?interval:config.durationReferenceSeconds)),
@@ -41,7 +41,7 @@
   if(e==='shield'||e==='revive'||e==='cleanse'||k==='guard'||se==='guard')return 'defense';
   if(e==='heal'||k==='regen'||se==='regen')return 'heal';
   if(e==='tauntRage'||se==='taunt')return 'taunt';
-  if(['polymorph','freeze','frost','fear','summonFreezeTrap','summonMorphTrap'].includes(e)||se==='slow')return 'control';
+  if(['polymorph','freeze','frost','fear','summonFreezeTrap','summonMorphTrap'].includes(e)||se==='slow'||se==='bind')return 'control';
   if(skill.type==='support')return ['fracture','weaken','damageAmp'].includes(k)?'debuff':'buff';
   if(e==='applyStatus')return skill.statusTarget==='enemies'||skill.statusTarget==='enemy'?'debuff':'buff';
   if(skill.target==='enemies'||Number(skill.maxTargets)>1)return 'area';
@@ -197,7 +197,7 @@
       if(sk.type==='support'&&a.kind!=='support'||['active','proc'].includes(sk.type)&&a.kind!=='core')fail('技能類型與引擎對照不符：'+sk.id);
       for(const key of ['power','cooldown','duration','requiredLevel','procBaseChance','baseCritRate','defenseIgnore'])if(sk[key]!==undefined&&!finite(sk[key],0,key.includes('Chance')||['baseCritRate','defenseIgnore'].includes(key)?1:1e9))fail('技能數值無效：'+sk.id+' '+key);
       if(sk.eventPassive){const e=sk.eventPassive;if(sk.type!=='passive'||!['kill','enemyDeath'].includes(e.event)||e.event==='kill'&&(!finite(e.power,0,100)||!integer(e.maxAttacks,1,99))||e.event==='enemyDeath'&&(!integer(e.reduction,0,99)||!integer(e.cooldown,0,99)))fail('事件型被動設定無效：'+sk.id);}
-      if(sk.systemEffect!==undefined&&!['taunt','guard','slow','regen'].includes(sk.systemEffect))fail('未知特殊效果：'+sk.id);
+      if(sk.systemEffect!==undefined&&!['taunt','guard','slow','regen','haste','bind'].includes(sk.systemEffect))fail('未知特殊效果：'+sk.id);
       if(sk.systemEffect&&(!integer(sk.duration,1,999)||!finite(sk.power,0,1)))fail('特殊效果持續時間或倍率無效：'+sk.id);
       for(const src of sk.sources)if(src.level!==undefined||src.masteryLevel!==undefined&&!integer(src.masteryLevel,0,100))fail('技能取得精通等級無效：'+sk.id);
       ids.set(sk.id,sk);positions.add(`${a.job}:${a.kind}:${a.index}`);
@@ -314,9 +314,10 @@ const mainKeys=['effect','systemEffect','power','powerPerLevel','duration','elem
 const supportKeys=['kind','value','effectPerLevel','duration','element','statusId','statusTarget','statusTargetStat','statusTargetOrder','statusTargetIncludeSelf','baseCritRate','baseCritDamage','defensePenetration','defenseIgnore'];
 const commonKeys=['target','hitCount','powerBasis','damageResolution','healResolution','drainRate','onHitStatusId','onHitStatusChance','dispelCount','reviveHpRatio'];
 function define(id,name,category,description,source,reusable=true){if(!defs.has(id))defs.set(id,{id,name,category,description,source,reusable});return defs.get(id);}
-const names={damage:'直接傷害',drain:'傷害轉治療',heal:'恢復生命',shield:'生成護盾',cleanse:'淨化減益',dispel:'驅散增益',revive:'復活',applyStatus:'施加自訂狀態',taunt:'嘲諷',guard:'減傷',slow:'緩速',regen:'持續恢復',polymorph:'變形',freeze:'凍結',frost:'冰霜',rage:'狂暴',summonMorphTrap:'變形陷阱',summonFreezeTrap:'冰凍陷阱',fear:'恐懼',tauntRage:'嘲諷狂暴',nextActiveDamage:'下次主動技能增傷',advanceNextRound:'下回合行動提前',shieldLowest:'最低生命護盾'};
+const names={damage:'直接傷害',drain:'傷害轉治療',heal:'恢復生命',shield:'生成護盾',cleanse:'淨化減益',dispel:'驅散增益',revive:'復活',applyStatus:'施加自訂狀態',taunt:'嘲諷',guard:'減傷',slow:'緩速',regen:'持續恢復',haste:'普攻加速',bind:'綑綁（普攻重新蓄力）',polymorph:'變形',freeze:'凍結',frost:'冰霜',rage:'狂暴',summonMorphTrap:'變形陷阱',summonFreezeTrap:'冰凍陷阱',fear:'恐懼',tauntRage:'嘲諷狂暴',nextActiveDamage:'下次主動技能增傷',advanceNextRound:'下回合行動提前',shieldLowest:'最低生命護盾'};
 for(const e of common.concat('applyStatus'))define('core.'+e,names[e],['heal','revive'].includes(e)?'治療':['shield','applyStatus','cleanse','dispel'].includes(e)?'狀態':'傷害','核心技能主要效果；同一技能只有一個主效果槽。','js/combat/skill-effect-runtime.js / js/skills/status-maker.js');
 for(const e of ['taunt','guard','slow','regen'])define('system.'+e,names[e],'狀態','職業特殊效果覆蓋一般主要效果，限人物核心技能。','js/skills/skill-system-runtime.js');
+for(const e of ['haste','bind'])define('system.'+e,names[e],'狀態','裝備技能特殊效果：普攻加速縮短自身普攻間隔；綑綁讓隨機一名敵人的普攻重新蓄力。','js/skills/gear-skills.js');
 for(const e of ['polymorph','freeze','frost','rage','summonMorphTrap','summonFreezeTrap','fear','tauntRage','nextActiveDamage','advanceNextRound','shieldLowest'])define('exclusive.'+e,names[e],'特殊機制','專屬處理器；尚未拆成可獨立取用的積木。完整複製保留此處理器及原職業限制。','js/combat/control-status-summon.js / js/core/core-game.js',false);
 define('core.target','目標篩選','目標','核心共用效果的目標及數量上限。','js/combat/skill-effect-runtime.js');
 define('core.hitCount','多段傷害','傷害','每個目標執行指定段數。','js/combat/skill-effect-runtime.js');

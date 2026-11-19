@@ -2,7 +2,7 @@
 
 由 `node scripts/traceability.cjs` 產生，請勿手動修改。完整資料在 `traceability-matrix.json`。
 
-遊戲資料 commit `8d5c80e`（`data/balance.json` SHA-256 `d49198e7dc93…`），1572 個欄位樣式，35514 個欄位值，36 個模組。
+遊戲資料 commit `bac8a61`（`data/balance.json` SHA-256 `2f768c2ac316…`），1505 個欄位樣式，35116 個欄位值，36 個模組。
 
 每個欄位樣式取第一筆資料改一次值，依序交給工作台（匯入→匯出）、發布驗證器（canonicalize）與遊戲（`applyBalanceConfig`→`exportableBalance`）。
 
@@ -27,7 +27,7 @@
 | `equipment/affix-pools` | 83 | 0 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `characters/classes` | 8 | 0 | 1 | 0 | 0 | 0 | 53 | 1 | 0 | 11 |
 | `characters/support-skills` | 0 | 0 | 0 | 0 | 0 | 0 | 24 | 0 | 0 | 9 |
-| `equipment/forms` | 3 | 0 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+| `equipment/forms` | 3 | 0 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `items/items` | 13 | 0 | 5 | 0 | 0 | 0 | 1 | 0 | 0 | 1 |
 | `characters/progression` | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `combat/skill-settings` | 18 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
@@ -51,7 +51,7 @@
 | `systems/shop` | 23 | 0 | 15 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
 | `systems/life-skills` | 21 | 0 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `items/inventory-icons` | 4 | 0 | 4 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `systems/story` | 95 | 0 | 52 | 0 | 0 | 0 | 0 | 0 | 0 | 19 |
+| `systems/story` | 41 | 0 | 41 | 0 | 0 | 0 | 0 | 0 | 0 | 18 |
 | `interface/navigation` | 4 | 0 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `combat/skill-system` | 11 | 0 | 14 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
 | `combat/skills` | 53 | 0 | 27 | 0 | 0 | 0 | 0 | 0 | 0 | 13 |
