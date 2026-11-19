@@ -29,15 +29,45 @@
   (p.chapter?.lines||[]).forEach(l=>row(l));if(!draftOnly&&p.chapter?.title)out.push(`<li class="prologue-preview-scene"><b>${esc(p.chapter.title)}</b></li>`);
   return `<details class="prologue-preview" open><summary>播放順序預覽（${n} 句）</summary><label><input type="checkbox" id="prologueDraftOnly" ${draftOnly?'checked':''}> 只看暫定續寫</label><ol>${out.join('')}</ol></details>`;
  }
+ /* Version 2 (game v0.167+): the onboarding runs inside the game screen. The game reads the goddess's opening lines
+    (first stage), each stage's name and description (the task bar) and the class option texts; nothing else is shown. */
+ const V2_EVENTS={practice:'首次探索戰鬥（贏得一場戰鬥）'};
+ const v2=q=>q?.prologue?.version===2;
+ const v2Event=s=>s.prologue?.action?M.PROLOGUE_ACTIONS[s.prologue.action]:V2_EVENTS[s.id]||'';
+ function stageV2(q,si){
+  const s=q.stages[si],base=['stages',si],event=v2Event(s);
+  return `<article class="prologue-stage" data-stage="${esc(s.id)}"><h3>${esc(s.name)} <small>${esc(s.id)}</small></h3>${event?`<p class="prologue-event" title="系統事件由遊戲程式執行，固定綁定在這個階段，不能在這裡移除或改成其他行為。">系統事件：${esc(event)}（固定）</p>`:''}<div class="prologue-fields">${input('階段名稱',[...base,'name'])}${input('任務提示列文字',[...base,'description'],{area:true})}</div>${s.prologue?.action==='chooseClass'?`<fieldset><legend>職業選項（對應遊戲的四個初始職業，數量與順序固定）</legend><div class="prologue-fields">${s.prologue.options.map((o,i)=>`<div class="prologue-option-edit"><b>${esc(data.classes?.[o.job]?.name||'職業 '+o.job)}</b>${input('選項文字',[...base,'prologue','options',i,'text'])}${input('選項說明',[...base,'prologue','options',i,'description'])}</div>`).join('')}</div></fieldset>`:''}${si===0?lines('命名畫面的女神開場',[...base,'dialogue']):''}</article>`;
+ }
+ function previewV2(q){
+  const out=[];let n=0;
+  q.stages.forEach((s,si)=>{if(si===0)for(const l of s.dialogue){if(draftOnly&&l.source!=='draft')continue;n++;out.push(`<li class="prologue-preview-${esc(l.kind)}"><span class="tag">${esc(M.PROLOGUE_SOURCES[l.source]||'未標記')}</span> ${l.kind==='narrator'?'':`<b>${esc(l.kind==='player'?'（玩家名字）':l.speaker)}</b>：`}${esc(l.text)}</li>`);}
+   const event=v2Event(s);if(event&&!draftOnly)out.push(`<li class="prologue-preview-event">〔系統事件〕${esc(event)}　任務提示：${esc(s.description||s.name)}</li>`);});
+  return `<details class="prologue-preview" open><summary>播放順序預覽（${n} 句）</summary><label><input type="checkbox" id="prologueDraftOnly" ${draftOnly?'checked':''}> 只看暫定續寫</label><ol>${out.join('')}</ol></details>`;
+ }
+ function pageV2(app,q){
+  const errors=M.prologueIssues(q,{classes:data.classes,companions:data.companions}),all=q.stages[0]?.dialogue||[],original=all.filter(l=>l.source==='original').length;
+  app.innerHTML=sectionHead('序章劇情','修改命名畫面的女神開場、新手引導各階段的名稱與任務提示列文字、職業選項文字。系統事件（命名、選職業、穿戴新手裝備、首次探索戰鬥、招募夥伴、完成）由遊戲程式執行，固定綁定在各階段。',`<span class="pill">開發者原文 ${original} 句</span><span class="pill">暫定續寫 ${all.length-original} 句</span>`)
+   +(errors.length?`<div class="notice bad prologue-errors"><b>序章資料有 ${errors.length} 個問題，修正前無法發布：</b><ul>${errors.map(e=>`<li>${esc(e)}</li>`).join('')}</ul></div>`:'')
+   +`<section class="prologue-scene-edit">${q.stages.map((s,i)=>stageV2(q,i)).join('')}</section>`+previewV2(q);
+ }
+ // Fields of a version 2 prologue the game reads; everything else is fixed.
+ function editableV2(path){
+  const q=quest(),[a,i,k,...rest]=path;if(a!=='stages'||!Number.isInteger(i)||!q.stages[i])return false;
+  if(rest.length===0)return k==='name'||k==='description';
+  if(k==='dialogue')return i===0&&rest.length===2&&Number.isInteger(rest[0])&&['speaker','kind','text','source'].includes(rest[1]);
+  return k==='prologue'&&rest[0]==='options'&&q.stages[i].prologue?.action==='chooseClass'&&Number.isInteger(rest[1])&&['text','description'].includes(rest[2]);
+ }
  function page(){
   const app=document.getElementById('app'),q=quest();
   if(!q){app.innerHTML=sectionHead('序章劇情','造物室的對話、選項、教學提示與轉場文字')+'<p class="notice bad">目前的資料沒有序章任務。載入遊戲 v0.125 以上版本的資料，或加入內建的預設序章後再修改。</p><button id="prologueSeed" class="primary">加入預設序章</button>';document.getElementById('prologueSeed').onclick=seed;return;}
+  if(v2(q))pageV2(app,q);else{
   if(scene<1||scene>M.PROLOGUE_SCENES)scene=1;
   const errors=M.prologueIssues(q,{classes:data.classes,companions:data.companions}),p=q.prologue,all=q.stages.flatMap(s=>[...(s.dialogue||[]),...(s.prologue?.after||[])]).concat(p.chapter?.lines||[]),original=all.filter(l=>l.source==='original').length;
   app.innerHTML=sectionHead('序章劇情','修改造物室的旁白、對話、選項文字、教學提示與轉場文字。系統事件（命名、選職業、技能教學、訓練戰、臨時隊友、發放裝備、降臨）由遊戲程式執行，固定綁定在各階段。',`<span class="pill">開發者原文 ${original} 句</span><span class="pill">暫定續寫 ${all.length-original} 句</span>`)
    +(errors.length?`<div class="notice bad prologue-errors"><b>序章資料有 ${errors.length} 個問題，修正前無法發布：</b><ul>${errors.map(e=>`<li>${esc(e)}</li>`).join('')}</ul></div>`:'')
    +`<nav class="prologue-scenes" aria-label="場景">${p.scenes.map(s=>`<button data-pl-scene="${s.id}" class="${s.id===scene?'primary':''}">${s.id}. ${esc(s.name)}</button>`).join('')}</nav>`
    +`<section class="prologue-scene-edit"><div class="prologue-fields">${input('場景名稱',['prologue','scenes',scene-1,'name'])}${input('場景說明',['prologue','scenes',scene-1,'description'],{area:true})}</div>${q.stages.map((s,i)=>s.prologue.scene===scene?stageHTML(q,i):'').join('')}</section>`+sharedHTML(q)+previewHTML(q);
+  }
   app.querySelectorAll('[data-pl-scene]').forEach(el=>el.onclick=()=>{scene=Number(el.dataset.plScene);render();});
   app.querySelectorAll('[data-pl]').forEach(el=>el.onchange=()=>{const path=JSON.parse(el.dataset.pl),key=path.at(-1);set(path,el.value,el.tagName==='SELECT'||path.includes('scenes')||key==='name');});
   app.querySelectorAll('[data-pl-steps]').forEach(el=>el.onchange=()=>set(JSON.parse(el.dataset.plSteps),el.value.split('\n').map(t=>t.trim()).filter(Boolean),false));
@@ -48,8 +78,8 @@
  }
  // The same operations the controls use; text only. Stage ids, order and system bindings are not reachable from here.
  const changed=(message,redraw=true)=>{markDirty(message);if(redraw&&currentSection==='prologue')render();};
- const lineList=path=>{const a=get(path),k=path.at(-1);if(!Array.isArray(a)||!['dialogue','after','lines'].includes(k))throw Error('不是可編輯的對話清單');return a;};
- function set(path,value,redraw=true){const parent=get(path.slice(0,-1)),key=path.at(-1);if(!parent||!Object.hasOwn(parent,key)||typeof parent[key]==='object'&&!(key==='steps'&&Array.isArray(value))||['id','next','action','scene','job','version','type','entry'].includes(key))throw Error('這個欄位不能在序章劇情編輯');parent[key]=value;changed('已修改序章文字',redraw);}
+ const lineList=path=>{const a=get(path),k=path.at(-1);if(!Array.isArray(a)||!['dialogue','after','lines'].includes(k)||v2(quest())&&!(path.length===3&&path[0]==='stages'&&path[1]===0&&k==='dialogue'))throw Error('不是可編輯的對話清單');return a;};
+ function set(path,value,redraw=true){const parent=get(path.slice(0,-1)),key=path.at(-1);if(v2(quest())&&!editableV2(path)||!parent||!Object.hasOwn(parent,key)||typeof parent[key]==='object'&&!(key==='steps'&&Array.isArray(value))||['id','next','action','scene','job','version','type','entry'].includes(key))throw Error('這個欄位不能在序章劇情編輯');parent[key]=value;changed('已修改序章文字',redraw);}
  function addLine(path,line={}){lineList(path).push({speaker:quest().npc||'女神',kind:'npc',text:'',source:'draft',...line});changed('已新增序章對話');}
  function removeLine(path,index){lineList(path).splice(index,1);changed('已刪除序章對話');}
  function moveLine(path,index,delta){const a=lineList(path),j=index+delta;if(j<0||j>=a.length)return;[a[index],a[j]]=[a[j],a[index]];changed('已調整序章對話順序');}
