@@ -1,5 +1,5 @@
 {
-  "gameCommit": "55ef236f44f56be34b5e8c0114cae3f1705d4447",
+  "gameCommit": "115f0df0f6de260fb9b39359398193452c800666",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -87,11 +87,11 @@
     },
     {
       "path": "js/character/team-model.js",
-      "sha256": "fb6d8d5cf4222176217976b3793d79b2a21502876a5bf8e154e1e4b52a3e2343"
+      "sha256": "988656c2b2cd2e3865ab1ce683ae6889a2e2d2d79e7f3fcaeb69b6b04f246803"
     },
     {
       "path": "js/character/team-runtime.js",
-      "sha256": "4f4bc8123196687ef89b5666d023b41e082c526352fdc1893bb8b8a4517e99c9"
+      "sha256": "216481d006444f82a0dce82d2545f12397f1e4e574969d4314e2481cda95c165"
     },
     {
       "path": "js/combat/action-turn-cooldown.js",
@@ -163,7 +163,7 @@
     },
     {
       "path": "js/core/core-game.js",
-      "sha256": "e49a33e5f59a05dc8aec6b2d8cee80af037cdfdba046e198e2a10ab5d40cc19a"
+      "sha256": "9a6761803edff51146a612e83485bea66b05e933a93b7068d798cac034c92725"
     },
     {
       "path": "js/core/game-catalog.js",
@@ -359,7 +359,7 @@
     },
     {
       "path": "js/ui/class-mastery-tree.js",
-      "sha256": "7a0b791473d8b86a51be391a35eff69bbe6fb8beb7e0bad76ca95f9ca687762b"
+      "sha256": "c91b337213aafcb032cb7c80ab0db41b1a863f834a93307174a4da8a63a85608"
     },
     {
       "path": "js/ui/core-battle-journal.js",
@@ -371,7 +371,7 @@
     },
     {
       "path": "js/ui/core-screen-views.js",
-      "sha256": "debc3c75745cbad9156e4070a0225ab9bbbdcb693d9a4cafaea5eb3611ff7924"
+      "sha256": "2603e252414473edb02ad2ac85c6dcdc863f7a09ac65918ba786ea7eea25e107"
     },
     {
       "path": "js/ui/expedition-density.js",
@@ -451,7 +451,7 @@
     },
     {
       "path": "js/ui/seconds-battle.js",
-      "sha256": "99a6efeb1d7d4c0f96b394cf79fb642f36ad582d6aede5718f91967434404e2b"
+      "sha256": "e7b2dc100fe0b96c04d488a8115ba8f20c844917d47f98624523c20414fa3af0"
     },
     {
       "path": "js/ui/skill-icon-library.js",
@@ -695,7 +695,7 @@
     },
     {
       "path": "css/skill-system.css",
-      "sha256": "cd3c92eb84a66d983dbaf351ad4d729bdc94ff6fff5d79adce0aec4b2f2a1da3"
+      "sha256": "ea6dc1705669727ae2d74af5294277d635bcc3ebbaae39e1a33562af8a8a8aba"
     },
     {
       "path": "css/skill-tooltip-reroll.css",
@@ -907,7 +907,7 @@
     },
     {
       "path": "index.html",
-      "sha256": "28cb4aa60a151b610ae59228ff316ac6d3b704e35b9f9f33bb0b57c16ce48232"
+      "sha256": "0159e2bc11bc1ae292176146859ad442e6dda4d7b9b6561dfd716024e2dc968e"
     }
   ],
   "gameBridgeSha256": "0d24042aaff017d334ade5aec772ef794c5887cbcf6846358ee8df9e0d696fcd",
