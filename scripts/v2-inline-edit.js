@@ -16,7 +16,7 @@ const EDITORS={
  map:{
   title:(t,r)=>t.create?'新增地圖':'編輯地圖 · '+r.name,section:'world',
   load(t,shell){
-   if(t.create){const maps=shell.bridge().maps(),last=maps.filter(m=>!m.final).at(-1)||{min:1,max:5,family:0};return {mapType:'normal',name:'新地圖',min:last.max+1,max:last.max+5,family:(last.family+1)%6,icon:'',color:'#34324a',parallel:true,eliteEnabled:true,eliteChance:.12,bossEnabled:true,overlevelVoucherGold:100+300*Math.floor(last.max/5)};}
+   if(t.create){const maps=shell.bridge().maps(),last=maps.filter(m=>!m.final).at(-1)||{min:1,max:5,family:0};return {mapType:'normal',name:'新地圖',min:last.max+1,max:last.max+5,family:(last.family+1)%6,icon:'',color:'#34324a',parallel:true,eliteEnabled:true,eliteChance:.12,bossEnabled:true,recommendedGearLevel:Math.max(1,(last.recommendedGearLevel||1)+1)};}
    const row=shell.bridge().maps()[t.index];if(!row)throw Error('找不到地圖 '+t.index);return row;
   },
   fields:[
@@ -25,7 +25,7 @@ const EDITORS={
    {key:'family',label:'區域家族',type:'select',options:FAMILIES.map((n,i)=>[String(i),i+'｜'+n]),number:true},{key:'icon',label:'圖示文字',type:'text'},{key:'color',label:'介面色碼',type:'color'},{key:'battlefieldColor',label:'戰場底色',type:'color'},
    {key:'parallel',label:'平行／追加區域',type:'check'},{key:'eliteEnabled',label:'啟用菁英',type:'check',when:notHidden},
    {key:'eliteChance',label:'菁英遭遇率（0～1）',type:'number',min:0,max:1,step:.001,when:notHidden},{key:'bossEnabled',label:'啟用 BOSS',type:'check',when:notHidden},
-   {key:'overlevelVoucherGold',label:'超等收益券金幣（每張）',type:'number',min:0,step:1,when:notHidden}
+   {key:'recommendedGearLevel',label:'推薦裝等',type:'number',min:1,step:1}
   ],
   note:(t,r)=>t.create?'新地圖會自動建立 1 隻普通怪與 BOSS。':r.core?'前 7 張核心地圖不能變更類型或刪除。':'怪物 '+r.monsters+' 隻；用「此地圖的怪物」新增、編輯或刪除怪物。',
   save(t,v,shell){const {mapType,...patch}=v;return t.create?shell.bridge().createMap(mapType,patch):shell.bridge().saveMap(t.index,patch);},
@@ -138,9 +138,8 @@ const EDITORS={
   fields:[
    {key:'title',label:'任務名稱',type:'text',wide:true},{key:'enabled',label:'啟用',type:'check'},
    {key:'weight',label:'抽取權重',type:'number',min:0,step:.01,when:r=>r.kind==='daily'},
-   {key:'minLevel',label:'最低等級',type:'number',min:1,step:1},{key:'maxLevel',label:'最高等級（0＝不限）',type:'number',min:0,step:1},
    {key:'objectives',label:'完成需求（1～16 個）',type:'objectives',wide:true},
-   {key:'rewards.gold',label:'金幣獎勵',type:'number',min:0,step:1},{key:'rewards.xp',label:'主角 EXP',type:'number',min:0,step:1},
+   {key:'rewards.gold',label:'金幣獎勵',type:'number',min:0,step:1},
    {key:'rewards.ore',label:'鍛鐵',type:'number',min:0,step:1},{key:'rewards.dust',label:'粉塵',type:'number',min:0,step:1},{key:'rewards.randomGems',label:'隨機寶石數',type:'number',min:0,step:1},
    {key:'rewards.gemCounts.0',label:'指定赤焰石',type:'number',min:0,step:1},{key:'rewards.gemCounts.1',label:'指定疾風石',type:'number',min:0,step:1},{key:'rewards.gemCounts.2',label:'指定共鳴石',type:'number',min:0,step:1},
    {key:'rewards.choice',label:'裝備與寶石結算',type:'select',options:[['all','所有獎勵全部發放'],['gearOrGems','裝備／寶石二選一']],redraw:true},
