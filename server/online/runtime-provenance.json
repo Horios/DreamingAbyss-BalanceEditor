@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "dc2b78eee7ffe08d520f5895b266a3ba68d4dbcd",
+  "sourceCommit": "2bdc1bdc6a2d109e02694a27f8d361eb13028ce9",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -15,16 +15,16 @@
       "sha256": "1bd26fb858cf44bcb0c6cf370dff0b152b2daa1df86f7b0021411cd755930398"
     },
     {
-      "path": "js/ui/inventory-icon-model.js?v=20261119-v0169",
-      "sha256": "cff58061994ba5c5ce7d323f515fc57111c98789d21b69c3bf40ecdb60d28bab"
+      "path": "js/ui/inventory-icon-model.js?v=20261120-v0178",
+      "sha256": "bf0d153b24dfb0a16143cc8bdb9be9367d920fae7843bef529052017304e612d"
     },
     {
       "path": "js/story/story-model.js?v=20261119-v0169",
       "sha256": "aa0d6e1f8363dc076e94e47611ce1cff3e945ba8fc0eb9e3618e12aace7ecaf5"
     },
     {
-      "path": "js/story/tutorial-model.js?v=20261120-v0176",
-      "sha256": "67b4e0650fcc3556c0471b1947acf9ee27d1a91a9e1d66f6869ca3edb138dd20"
+      "path": "js/story/tutorial-model.js?v=20261120-v0178",
+      "sha256": "e76c6965beec7ab5596e2b5e4d83d39085df873374fdd5937ac23f6c521065d0"
     },
     {
       "path": "js/skills/skill-system-model.js?v=20261119-v0172",
@@ -179,8 +179,8 @@
       "sha256": "37603e70fd591392dae8a4e3a18f4a34799b30c2b47314c31f6db9ad113956b3"
     },
     {
-      "path": "js/ui/item-presentation.js?v=20261119-v0169",
-      "sha256": "90dd72ed0ac52ce147b5a2c3e844d1329c66a3fc9bb0f24ff54e01329b0b04f5"
+      "path": "js/ui/item-presentation.js?v=20261120-v0178",
+      "sha256": "3889dd1712b20aab2bf923c0a2d4756c4e38b775139c1f958361b24df642652a"
     },
     {
       "path": "js/ui/ui-text-config.js?v=20261119-v0169",
@@ -323,8 +323,8 @@
       "sha256": "9a723950cc991d3cafc4fa4d67d76aaf5f11a0561a13c4e4f6c6ca79ae4bb7d5"
     },
     {
-      "path": "js/character/companions.js?v=20261119-v0173",
-      "sha256": "a98d60a2ac7fdf72806afbe5747f66839d2c6c5acf01ef6aa6b9c06e6c5a89db"
+      "path": "js/character/companions.js?v=20261120-v0178",
+      "sha256": "c0fcaa3bfad48feeab3f7b2813fa9dc8ef620bc44206458bd0cf695af9ee78a2"
     },
     {
       "path": "js/balance/progression-runtime.js?v=20261119-v0169",
@@ -363,8 +363,8 @@
       "sha256": "f4cf5ce73c54af9b35838f812bfa11ec8a965f0c552e2df73c8bd28965d73a2b"
     },
     {
-      "path": "js/items/companion-tokens.js?v=20261119-v0173",
-      "sha256": "1d99b1a76e8fbe8560d1ea6b2479ba472323faf35114be7662123db137932b89"
+      "path": "js/items/companion-tokens.js?v=20261120-v0178",
+      "sha256": "c7ba6d7e7ae4967dcb33d277032d765e40f23298246d37648ef25f02977af54a"
     },
     {
       "path": "js/character/team-runtime.js?v=20261119-v0173",
@@ -375,8 +375,8 @@
       "sha256": "cba44650f8a88d223c43aa5bfbc84a6845c76babd4ab5f99c824e97b512c15de"
     },
     {
-      "path": "js/items/skill-extraction.js?v=20261119-v0172",
-      "sha256": "505ea82f809028f9f24b7d8072d3af81be7d226678bdf41e5a5e61e9a89414b2"
+      "path": "js/items/skill-extraction.js?v=20261120-v0178",
+      "sha256": "ae5d85145552ecb47f4d7c041dee83c5a0f661b4a70f16aa4c6fb2574999417f"
     },
     {
       "path": "js/ui/team-builds.js?v=20261119-v0173",
@@ -403,8 +403,8 @@
       "sha256": "6e4fea69149b245b112d8ff2c3dbedb9d10159ecf87191fd402efe2eee417f04"
     },
     {
-      "path": "js/character/companion-unlocks.js?v=20261119-v0169",
-      "sha256": "228705d0a561bf93abaff79d56ac368742003706a617b8d9356e3cb9a8d625ab"
+      "path": "js/character/companion-unlocks.js?v=20261120-v0178",
+      "sha256": "737df742e07f2e47b31f2c17dfa0776931e9edb95ef234be1e57332d57442560"
     },
     {
       "path": "js/world/quest-design-settings.js?v=20261019-daily-speed2",
@@ -439,8 +439,8 @@
       "sha256": "eb5b20c600ddb6cb573330885f5898735f29fdbf000efa11fb4dfe38e4d6f0de"
     },
     {
-      "path": "js/story/story-runtime.js?v=20261119-v0173",
-      "sha256": "43ac037eac62e75f9ba64468b3d8b94ba7fe74ae6fdf8155507de4a2f69bff3a"
+      "path": "js/story/story-runtime.js?v=20261120-v0178",
+      "sha256": "c91ab4a842935f146a791fead9f4adde65d37e60b9105299421392104cf7d878"
     },
     {
       "path": "js/ui/mobile-layout.js?v=20261118-v0158-merge1",
@@ -531,8 +531,8 @@
       "sha256": "7d61da59b67b47fe62ad494190e40a6215f9cdb20a4288f652ae319535d0e954"
     },
     {
-      "path": "js/story/prologue-runtime.js?v=20261119-v0173",
-      "sha256": "128aa2b1461041291b4037019dc73164e8c39034bafc8dd7d39d100def08fbe5"
+      "path": "js/story/prologue-runtime.js?v=20261120-v0178",
+      "sha256": "91ccb25dcb2683bf6068729502455e9f5fcfcd7ab009138588336f507cbf80b6"
     },
     {
       "path": "js/story/chapter-runtime.js?v=20261119-v0165-summary",
@@ -543,8 +543,8 @@
       "sha256": "21c47cca1c628555bdf2ecbd6591bdeda4e59f76b9ab0816ff5633257e8fa7b7"
     },
     {
-      "path": "js/story/tutorial-runtime.js?v=20261120-v0176",
-      "sha256": "637c1647fb8ae3fd3bce2a2e702c9f84578306f46edd3adbb53e59426021efc3"
+      "path": "js/story/tutorial-runtime.js?v=20261120-v0178",
+      "sha256": "38621bc0e9a569e4e43bd7875e318e3b68d3661ef9d67140c68e6f2ec28d0212"
     },
     {
       "path": "js/balance/apply-guard.js?v=20261113-v0137-prologue3",

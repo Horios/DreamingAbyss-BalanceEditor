@@ -1,5 +1,5 @@
 {
-  "gameCommit": "dc2b78eee7ffe08d520f5895b266a3ba68d4dbcd",
+  "gameCommit": "2bdc1bdc6a2d109e02694a27f8d361eb13028ce9",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -71,11 +71,11 @@
     },
     {
       "path": "js/character/companion-unlocks.js",
-      "sha256": "228705d0a561bf93abaff79d56ac368742003706a617b8d9356e3cb9a8d625ab"
+      "sha256": "737df742e07f2e47b31f2c17dfa0776931e9edb95ef234be1e57332d57442560"
     },
     {
       "path": "js/character/companions.js",
-      "sha256": "a98d60a2ac7fdf72806afbe5747f66839d2c6c5acf01ef6aa6b9c06e6c5a89db"
+      "sha256": "c0fcaa3bfad48feeab3f7b2813fa9dc8ef620bc44206458bd0cf695af9ee78a2"
     },
     {
       "path": "js/character/level-removal.js",
@@ -223,7 +223,7 @@
     },
     {
       "path": "js/items/companion-tokens.js",
-      "sha256": "1d99b1a76e8fbe8560d1ea6b2479ba472323faf35114be7662123db137932b89"
+      "sha256": "c7ba6d7e7ae4967dcb33d277032d765e40f23298246d37648ef25f02977af54a"
     },
     {
       "path": "js/items/healing-potion-model.js",
@@ -247,7 +247,7 @@
     },
     {
       "path": "js/items/skill-extraction.js",
-      "sha256": "505ea82f809028f9f24b7d8072d3af81be7d226678bdf41e5a5e61e9a89414b2"
+      "sha256": "ae5d85145552ecb47f4d7c041dee83c5a0f661b4a70f16aa4c6fb2574999417f"
     },
     {
       "path": "js/items/timed-boost-runtime.js",
@@ -323,7 +323,7 @@
     },
     {
       "path": "js/story/prologue-runtime.js",
-      "sha256": "128aa2b1461041291b4037019dc73164e8c39034bafc8dd7d39d100def08fbe5"
+      "sha256": "91ccb25dcb2683bf6068729502455e9f5fcfcd7ab009138588336f507cbf80b6"
     },
     {
       "path": "js/story/quest-lesson-runtime.js",
@@ -335,7 +335,7 @@
     },
     {
       "path": "js/story/story-runtime.js",
-      "sha256": "43ac037eac62e75f9ba64468b3d8b94ba7fe74ae6fdf8155507de4a2f69bff3a"
+      "sha256": "c91ab4a842935f146a791fead9f4adde65d37e60b9105299421392104cf7d878"
     },
     {
       "path": "js/story/story-window.js",
@@ -343,11 +343,11 @@
     },
     {
       "path": "js/story/tutorial-model.js",
-      "sha256": "67b4e0650fcc3556c0471b1947acf9ee27d1a91a9e1d66f6869ca3edb138dd20"
+      "sha256": "e76c6965beec7ab5596e2b5e4d83d39085df873374fdd5937ac23f6c521065d0"
     },
     {
       "path": "js/story/tutorial-runtime.js",
-      "sha256": "637c1647fb8ae3fd3bce2a2e702c9f84578306f46edd3adbb53e59426021efc3"
+      "sha256": "38621bc0e9a569e4e43bd7875e318e3b68d3661ef9d67140c68e6f2ec28d0212"
     },
     {
       "path": "js/ui/battle-effects.js",
@@ -403,7 +403,7 @@
     },
     {
       "path": "js/ui/inventory-icon-model.js",
-      "sha256": "cff58061994ba5c5ce7d323f515fc57111c98789d21b69c3bf40ecdb60d28bab"
+      "sha256": "bf0d153b24dfb0a16143cc8bdb9be9367d920fae7843bef529052017304e612d"
     },
     {
       "path": "js/ui/inventory-icons-runtime.js",
@@ -411,7 +411,7 @@
     },
     {
       "path": "js/ui/item-presentation.js",
-      "sha256": "90dd72ed0ac52ce147b5a2c3e844d1329c66a3fc9bb0f24ff54e01329b0b04f5"
+      "sha256": "3889dd1712b20aab2bf923c0a2d4756c4e38b775139c1f958361b24df642652a"
     },
     {
       "path": "js/ui/journal-split.js",
@@ -819,7 +819,7 @@
     },
     {
       "path": "data/balance/items/inventory-icons.json",
-      "sha256": "92ccc991ca5f366de5848a086349b04e5fe1ee409560861232d7e7ae25eabfc2"
+      "sha256": "88bd2547886b21b03a1516d849836fd6f3cb18c5a5f50e65421d721abfa1b573"
     },
     {
       "path": "data/balance/items/items.json",
@@ -831,7 +831,7 @@
     },
     {
       "path": "data/balance/manifest.json",
-      "sha256": "a23eadf3251dafa3481e2dfc4a0850d80cafc4d1e647be56a65ac7832042e257"
+      "sha256": "03a23101b6466af27e230314ebd6b848bf23c572d15fefefc5bc2e1d1889c48c"
     },
     {
       "path": "data/balance/meta/balance-settings.json",
@@ -871,11 +871,11 @@
     },
     {
       "path": "data/balance/systems/story.json",
-      "sha256": "1e4aa7a56d7e5c8019fa993f19747c5f59126ce6075ad32b921a44e914a7e8ad"
+      "sha256": "631751b5003fc83389524d0535918fba827bd4203da90a255ebcbeed0c6ba5a5"
     },
     {
       "path": "data/balance/systems/tutorials.json",
-      "sha256": "8b8c2b4d68c293ffbfa41b4b622169c12114c05885913c77448d68a18436c6a2"
+      "sha256": "4179aa52e56eeaed3e58cd579552c64abbe0f51c4567babf830eef4890fd1c0a"
     },
     {
       "path": "data/balance/systems/wishing-lake.json",
@@ -899,7 +899,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "37f8737189c2d1427c85c23482a304ba7d216f7063b44bdb3826abd473992ffe"
+      "sha256": "138593ac06d610cc2d600968b207c22996b2fee3e5a28d29746dd1c263200909"
     },
     {
       "path": "data/build.json",
@@ -907,11 +907,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "a0ef51df7c1d3737cf81a6046f89c10e65e068116bcc115baf97f16d0c54e256"
+      "sha256": "f6d3ef841dbb6fed8b03982b3eaa1d72ec02801c560f046175ea188819e4278d"
     },
     {
       "path": "index.html",
-      "sha256": "6d8f8c6eb1f7252e7e52453905e43d8d06699ee639e499ee2895518267e6dd48"
+      "sha256": "905083322537e06a7e8afb0754256e1bcd3cafe5736a5aff67bc3af615fdd298"
     }
   ],
   "gameBridgeSha256": "0d24042aaff017d334ade5aec772ef794c5887cbcf6846358ee8df9e0d696fcd",
