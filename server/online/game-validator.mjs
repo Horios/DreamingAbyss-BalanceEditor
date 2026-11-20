@@ -15,7 +15,7 @@ export function createGameValidator(){
  const MutationObserver=class{observe(){}disconnect(){}},ResizeObserver=MutationObserver;
  let seq=0;const setTimeout=()=>++seq,clearTimeout=()=>{},setInterval=()=>++seq,clearInterval=()=>{},requestAnimationFrame=()=>++seq,cancelAnimationFrame=()=>{},queueMicrotask=()=>{},addEventListener=()=>{},removeEventListener=()=>{},matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}}),getComputedStyle=()=>({lineHeight:'20px',fontSize:'16px',getPropertyValue:()=>''}),performance={now:()=>0},crypto={randomUUID:()=>String(++seq)},innerWidth=1440,innerHeight=900,scrollX=0,scrollY=0,alert=()=>{},confirm=()=>true,prompt=()=>null;
  Object.assign(globalThis,{document,localStorage,sessionStorage,location,navigator,crypto,window,self,addEventListener,removeEventListener,setTimeout,clearTimeout,setInterval,clearInterval,requestAnimationFrame,cancelAnimationFrame,matchMedia,getComputedStyle,performance});
- var setUITheme,uiThemeOptionsView,EmberwildSecondsSchema,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildTutorial,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,EmberwildBalanceModules,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_ERROR,saveFailureText,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,__EMBERWILD_EQUIPMENT_SKILLS,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,wornEquipmentSocketPanel,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_OFFLINE_RULE_CACHE,__EMBERWILD_MASTERY_LISTENERS,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,recordCombatContribution,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,__EMBERWILD_TEAMS,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classMasteryBonus,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_LUCIDE,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_COMPANION_TEST_API,__EMBERWILD_TOKEN_SKILL,companionSkillDisabled,__EMBERWILD_COMPANION_MASTERY_GAIN,__EMBERWILD_TEAM_GAIN,__EMBERWILD_SKILL_REFRESH,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devClassMasterySet,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,__EMBERWILD_TITLE,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,__EMBERWILD_STARTER_PACK,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,recruitCompanion,__EMBERWILD_PROLOGUE,companionUnlocked,__EMBERWILD_RECRUIT_FOR_STORY,acquireCompanion,__EMBERWILD_PROLOGUE_HELPER,__EMBERWILD_TEMP_ALLY,confirmMemberReplacement,rememberCompanionRosterDetail,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,storyTextOptionsView,tutorialReviewView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,__EMBERWILD_DISPOSE_GEAR,extractSkillToToken,openSkillExtraction,__EMBERWILD_SKILL_EXTRACTION,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,isUtilityDialogOpen,companionPendingMail,companionTicketCount,companionUnlockText,companionTicketName,grantCompanionTicket,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,grantStarterPackDirect,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,recoverStoryRewards,completeStoryStage,__EMBERWILD_CHAPTER,storyNavigate,openStory,setStoryCategory,readStory,completeStoryDialogue,nextStoryDialogue,endStoryDialogue,js,skipStoryDialogue,storyReadyCount,storyReplayable,setAlchemyAutoBuy,dismissStoryHint,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,__EMBERWILD_GEAR_SKILL_IDS,__EMBERWILD_GEAR_REGEN,__EMBERWILD_GEAR_REGEN_RATE,__EMBERWILD_GEAR_SKILLS,socketEquipmentGem,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,toggleWornEquipmentSockets,__EMBERWILD_WORN_SOCKET_TARGET,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,__EMBERWILD_SKILL_SYSTEM_UI,openSkillTreeDetail,selectSkillTreeNode,classMasteryTreeHTML,querySelector,classList,querySelectorAll,children,insertBefore,setBattleEffects,setBattleNumberSize,battleNumberSize,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,setClassMasteryLevel,setPartyClassMasteryLevel,__EMBERWILD_LEVEL_REMOVAL,EmberwildVisualColors,EmberwildMasteryBars,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides,visualViewport,storyWindowSummarize,storyWindowContinue,storyWindowShowAll,storyWindowToggleFast,storyWindowSpeed,storyWindowSkip,EmberwildStoryWindow,__EMBERWILD_TUTORIAL,prologueConfirmName,prologuePickClass,prologueConfirmClass,prologueNext,prologueOpenTask,prologueReturn,chapterNext,chapterChoose,chapterStartBattle,chapterAction,chapterResume,chapterBegin,storyReplay,storyReplayNext,storyReplayEnd,chapterEndNext,chapterEndClose,questLessonReport,__EMBERWILD_QUEST_LESSON,CSS,tutorialCloseTip,tutorialControl,tutorialNotice,replayTutorial,toggleTutorialReview,toggleUtilityMore,isUtilityMoreOpen,setBossCraftRegion,setCreationClass,toggleJournalCollapsed,toggleTokenFilters,closeDetailSheet,openDetailSheet,currentDetailSheet;
+ var setUITheme,uiThemeOptionsView,EmberwildSecondsSchema,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildTutorial,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,EmberwildBalanceModules,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_ERROR,saveFailureText,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,__EMBERWILD_EQUIPMENT_SKILLS,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,wornEquipmentSocketPanel,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_OFFLINE_RULE_CACHE,__EMBERWILD_MASTERY_LISTENERS,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,recordCombatContribution,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,__EMBERWILD_TEAMS,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classMasteryBonus,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_LUCIDE,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_COMPANION_TEST_API,__EMBERWILD_TOKEN_SKILL,companionSkillDisabled,__EMBERWILD_MASTERY_BATTLE_NOTE,__EMBERWILD_COMPANION_MASTERY_GAIN,__EMBERWILD_TEAM_GAIN,__EMBERWILD_SKILL_REFRESH,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devClassMasterySet,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,__EMBERWILD_TITLE,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,__EMBERWILD_STARTER_PACK,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,recruitCompanion,__EMBERWILD_PROLOGUE,companionUnlocked,__EMBERWILD_RECRUIT_FOR_STORY,acquireCompanion,__EMBERWILD_PROLOGUE_HELPER,__EMBERWILD_TEMP_ALLY,confirmMemberReplacement,rememberCompanionRosterDetail,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,storyTextOptionsView,tutorialReviewView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,__EMBERWILD_DISPOSE_GEAR,extractSkillToToken,openSkillExtraction,__EMBERWILD_SKILL_EXTRACTION,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,__EMBERWILD_MASTERY_DAMAGE,__EMBERWILD_CLASS_MASTERY_BONUS_UI,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,__EMBERWILD_SET_EXTRA_TICKET_SOURCES,isUtilityDialogOpen,companionPendingMail,companionTicketCount,__EMBERWILD_EXTRA_TICKET_SOURCES,companionUnlockText,companionTicketName,grantCompanionTicket,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,grantStarterPackDirect,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,recoverStoryRewards,completeStoryStage,__EMBERWILD_CHAPTER,storyNavigate,openStory,setStoryCategory,readStory,completeStoryDialogue,nextStoryDialogue,endStoryDialogue,js,skipStoryDialogue,storyReadyCount,storyReplayable,setAlchemyAutoBuy,dismissStoryHint,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,__EMBERWILD_GEAR_SKILL_IDS,__EMBERWILD_GEAR_REGEN,__EMBERWILD_GEAR_REGEN_RATE,__EMBERWILD_GEAR_SKILLS,socketEquipmentGem,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,toggleWornEquipmentSockets,__EMBERWILD_WORN_SOCKET_TARGET,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,__EMBERWILD_SKILL_SYSTEM_UI,openSkillTreeDetail,selectSkillTreeNode,classMasteryTreeHTML,querySelector,classList,querySelectorAll,children,insertBefore,setBattleEffects,setBattleNumberSize,battleNumberSize,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,classMasterySources,masterySubClass,setMasterySubClass,setClassMasteryLevel,setPartyClassMasteryLevel,__EMBERWILD_LEVEL_REMOVAL,EmberwildVisualColors,EmberwildMasteryBars,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides,visualViewport,storyWindowSummarize,storyWindowContinue,storyWindowShowAll,storyWindowToggleFast,storyWindowSpeed,storyWindowSkip,EmberwildStoryWindow,__EMBERWILD_TUTORIAL,prologueConfirmName,prologuePickClass,prologueConfirmClass,prologueNext,prologueOpenTask,prologueReturn,chapterNext,chapterChoose,chapterStartBattle,chapterAction,chapterResume,chapterBegin,storyReplay,storyReplayNext,storyReplayEnd,chapterEndNext,chapterEndClose,questLessonReport,__EMBERWILD_QUEST_LESSON,CSS,tutorialCloseTip,tutorialControl,tutorialNotice,replayTutorial,toggleTutorialReview,toggleUtilityMore,isUtilityMoreOpen,setBossCraftRegion,setCreationClass,toggleJournalCollapsed,toggleTokenFilters,closeDetailSheet,openDetailSheet,currentDetailSheet;
 
 /* js/ui/themes.js?v=20261016-themes1 */
 /* Browser-wide appearance preference, independent of character and balance data. */
@@ -56,7 +56,7 @@ export function createGameValidator(){
 
 setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThemeOptionsView=globalThis.uiThemeOptionsView??uiThemeOptionsView;
 
-/* js/combat/seconds-schema.js?v=20261119-v0172 */
+/* js/combat/seconds-schema.js?v=20261120-v0179 */
 /* Canonical seconds/MP extension. Legacy positional timing is a derived adapter,
    retained for old import validators, never used by the seconds scheduler. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.EmberwildSecondsSchema=api;})(globalThis,()=>{
@@ -73,7 +73,7 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
    advanceStepSeconds:(p.actionIntervalMs||1500)/1000,encounterDelaySeconds:(p.actionIntervalMs||1500)/1000,healThreshold:.75,
    mana:{maxMp:100,regenPerSecond:round(100/(reference*10)),costMultiplier:1},
    classes:[0,1,2,3].map(job=>({job,baseIntervalSeconds:actionReference})),
-   groupWeights:[1,1,1],finalBoss:{enrageAfterSeconds:(combat.finalBoss?.enrageAfterTurn??45)*actionReference,specialIntervalSeconds:(combat.finalBoss?.specialEveryTurns||5)*actionReference},migration:{version:1,source:'actor-turns',resourceBudget:100,recoveryReferencePeriods:10}};
+   groupWeights:[6,3,1],finalBoss:{enrageAfterSeconds:(combat.finalBoss?.enrageAfterTurn??45)*actionReference,specialIntervalSeconds:(combat.finalBoss?.specialEveryTurns||5)*actionReference},migration:{version:1,source:'actor-turns',resourceBudget:100,recoveryReferencePeriods:10}};
  }
  function timing(skill,job,config){
   const interval=config.classes.find(c=>c.job===job)?.baseIntervalSeconds||config.actionReferenceSeconds;
@@ -610,7 +610,7 @@ function validate(d,ctx){d=migrateLevelConditions(copy(d));const e=issues(d,ctx)
 
 EmberwildStory=globalThis.EmberwildStory??EmberwildStory;
 
-/* js/story/tutorial-model.js?v=20261120-v0178 */
+/* js/story/tutorial-model.js?v=20261120-v0179 */
 /* Tutorial contract shared by the game and the balance editor (embedded there by scripts/sync-tutorials.cjs).
    Content (text, steps, triggers) is balance data in `tutorials`; behaviour is limited to the fixed condition, event,
    target and trigger types declared here. No free JavaScript is ever read from the data. */
@@ -663,7 +663,6 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;
   'battle.categories':{label:'關卡分類按鈕',page:'battle'},
   'battle.mapSelect':{label:'探索地圖選單',page:'battle'},
   'battle.start':{label:'開始／停止探索按鈕',page:'battle'},
-  'battle.huntMode':{label:'單怪／群怪切換',page:'battle'},
   'battle.allies':{label:'我方戰鬥卡片',page:'battle'},
   'battle.enemies':{label:'敵方戰鬥卡片',page:'battle'},
   'bag.categories':{label:'背包分類按鈕',page:'equipment'},
@@ -2311,12 +2310,12 @@ EmberwildPassives=globalThis.EmberwildPassives??EmberwildPassives;
 
 EmberwildAchievements=globalThis.EmberwildAchievements??EmberwildAchievements;
 
-/* js/skills/companion-skill-model.js?v=20261119-v0173 */
+/* js/skills/companion-skill-model.js?v=20261120-v0179 */
 /* Ownership uses the existing skill pools and stable indices; migration only appends. */
 (function(root,factory){const api=factory(typeof module==='object'&&module.exports?require('../character/achievement-model.js'):root.EmberwildAchievements);if(typeof module==='object'&&module.exports)module.exports=api;else root.EmberwildCompanionSkills=api;})(globalThis,function(Achievements){
   const copy=x=>JSON.parse(JSON.stringify(x));
   const availabilityLabels={visible:'顯示',hidden:'隱藏'};
-  const unlockTypes={initial:'初始開放',achievement:'達成指定成就',ticket:'商店隨機招募券'};
+  const unlockTypes={initial:'初始開放',achievement:'達成指定成就（目前不發放招募券）',ticket:'商店隨機招募券（目前不上架）'};
   function availability(p){let value=p.availability??(p.id>=15&&p.id<=29?'hidden':'visible');if(['unlocked','locked'].includes(value))value='visible';if(!Object.hasOwn(availabilityLabels,value))throw Error('夥伴顯示狀態無效：'+p.id);return value;}
   function duplicateTicketGold(p){const value=p.duplicateTicketGold??100;if(!Number.isSafeInteger(value)||value<0||value>1e9)throw Error('重複招募券轉換金幣無效：'+p.id);return value;}
   function unlockCondition(p,maps){
@@ -3680,7 +3679,7 @@ function restoreBattleLogScroll(position){
 
 EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;
 
-/* js/core/core-game.js?v=20261119-v0173 */
+/* js/core/core-game.js?v=20261120-v0179 */
 'use strict';
 // Published data is supplied before any runtime module or player save loads.
 // Legacy browser balance caches never override a published build implicitly.
@@ -5273,7 +5272,7 @@ solo.validateSave=dynamicValidateSave;validateSave=dynamicValidateSave;
 // Update 10: fixed-row chronological battle journal with incremental DOM updates.
 const BATTLE_LOG_VISIBLE_ROWS=12;
 let battleLogGeneration=0,battleLogSequence=0,battleReportPaused=false,battleLogFilter='all';
-const BATTLE_LOG_FILTERS={all:'全部顯示',playerDamage:'玩家造成傷害',enemyDamage:'怪物造成傷害',exp:'獲得經驗',item:'獲得物品'};
+const BATTLE_LOG_FILTERS={all:'全部顯示',playerDamage:'玩家造成傷害',enemyDamage:'怪物造成傷害',exp:'獲得精通經驗',item:'獲得物品'};
 
 
 
@@ -12913,7 +12912,7 @@ __EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;
 
 EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;
 
-/* js/skills/mastery-core.js?v=20261119-v0172 */
+/* js/skills/mastery-core.js?v=20261120-v0179 */
 
 (()=>{
 const clone=v=>JSON.parse(JSON.stringify(v));
@@ -13006,7 +13005,9 @@ const SUPPORT_PLAN=[
 ];
 const MASTERY_DEFAULTS={xpBase:8,xpLinear:5,xpQuadratic:1,skillUseXp:2,basicAttackXp:1,maxLevel:30};
 // v0.161: stats each class mastery level adds to a character of that class (capped by maxLevel; only the current class counts).
-const CLASS_MASTERY_BONUS_DEFAULTS=[{hp:3,atk:0,def:.5,crit:0},{hp:1,atk:.6,def:0,crit:0},{hp:1,atk:.5,def:0,crit:.001},{hp:2,atk:.3,def:.2,crit:0}];
+// Class mastery per level (v0.179): warrior leans on defense, mage on attack, archer is balanced, priest leans on HP. No crit.
+// Only the main class (the class played) and one chosen sub-class count (js/character/level-removal.js).
+const CLASS_MASTERY_BONUS_DEFAULTS=[{hp:2,atk:.2,def:.6,crit:0},{hp:1,atk:.7,def:.1,crit:0},{hp:1.5,atk:.5,def:.3,crit:0},{hp:3.5,atk:.2,def:.2,crit:0}];
 
 function ensureMasterySettings(settings){
   if(!settings||typeof settings!=='object')return settings;
@@ -13244,14 +13245,28 @@ let currentBattleMastery={},lastBattleMastery={};
 const masteryBoostCarry=new WeakMap();
 function boostedMastery(h,amount){const bonus=globalThis.EmberwildTimedBoosts&&party?EmberwildTimedBoosts.bonus(party,'exp'):0;if(!bonus)return amount;const total=amount*(1+bonus/100)+(masteryBoostCarry.get(h)||0),whole=Math.floor(total+1e-9);masteryBoostCarry.set(h,total-whole);return whole;}
 function masteryGainKey(h,key){return `${memberKey(h)}:${key}`;}
+/* v0.179: mastery experience gained in the current encounter, per member, for the battle log (filter 「獲得精通經驗」).
+   One line per member is written when the encounter ends (EmberwildBattleSummary.finish → __EMBERWILD_MASTERY_BATTLE_NOTE). */
+let battleMasteryLog=new Map();
+function logMasteryGain(h,classAmount,key,keyAmount){
+  if(!h||!(classAmount>0||keyAmount>0))return;const k=memberKey(h);let row=battleMasteryLog.get(k);
+  if(!row){row={hero:h,cls:0,keys:{}};battleMasteryLog.set(k,row);}
+  row.cls+=classAmount||0;if(key&&keyAmount>0)row.keys[key]=(row.keys[key]||0)+keyAmount;
+}
+globalThis.__EMBERWILD_MASTERY_BATTLE_NOTE=function(){
+  const rows=[...battleMasteryLog.values()];battleMasteryLog=new Map();
+  for(const r of rows){const h=r.hero,parts=Object.entries(r.keys).map(([key,n])=>(MASTERY_LABELS[key]||key)+' +'+n);
+   note(`${characterName(h)}・獲得精通經驗 ${CLASSES[h.job]?.name||'職業'} +${r.cls}${parts.length?'（'+parts.join('、')+'）':''}`,'exp');}
+  return rows.length;
+};
 function gainMastery(h,key,amount){
-  if(isCompanionHero(h)){delete h.mastery;return globalThis.__EMBERWILD_COMPANION_MASTERY_GAIN?.(h,boostedMastery(h,Math.max(0,Math.floor(Number(amount)||0))))||0;}
+  if(isCompanionHero(h)){delete h.mastery;const got=globalThis.__EMBERWILD_COMPANION_MASTERY_GAIN?.(h,boostedMastery(h,Math.max(0,Math.floor(Number(amount)||0))))||0;logMasteryGain(h,got);return got;}
   if(!h||!key||!validMasteries(h.job).includes(key))return 0;
   ensureHeroMastery(h);const requested=boostedMastery(h,Math.max(0,Math.floor(Number(amount)||0))),cap=masteryMaxXp(),add=Math.min(requested,Math.max(0,cap-h.mastery[key]));
   const classBefore=classMasteryLevel(h);
   if(add){const before=masteryLevelFromXp(h.mastery[key]);h.mastery[key]+=add;const after=masteryLevelFromXp(h.mastery[key]);if(after>before)note(`${characterName(h)}・${MASTERY_LABELS[key]||key}精通提升至 Lv${after}`);}
   // Class mastery follows every weapon/element gain, even once that weapon mastery is full.
-  globalThis.__EMBERWILD_TEAM_GAIN?.(h,requested);
+  globalThis.__EMBERWILD_TEAM_GAIN?.(h,requested);logMasteryGain(h,requested,key,add);
   const classAfter=classMasteryLevel(h);
   for(const fn of globalThis.__EMBERWILD_MASTERY_LISTENERS||[])fn(h,requested,classBefore,classAfter);
   if(classAfter>classBefore){note(`${characterName(h)}・${CLASSES[h.job]?.name||''}職業精通提升至 Lv${classAfter}`);globalThis.__EMBERWILD_SKILL_REFRESH?.();}
@@ -13464,7 +13479,7 @@ globalThis.__EMBERWILD_MASTERY={
 globalThis.__EMBERWILD_MASTERY.resetBattleGain=()=>{if(Object.keys(currentBattleMastery).length)lastBattleMastery=currentBattleMastery;currentBattleMastery={};};
 })();
 
-__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_MASTERY_LISTENERS=globalThis.__EMBERWILD_MASTERY_LISTENERS??__EMBERWILD_MASTERY_LISTENERS;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;classMasteryLevel=globalThis.classMasteryLevel??classMasteryLevel;classMasteryXp=globalThis.classMasteryXp??classMasteryXp;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;__EMBERWILD_TOKEN_SKILL=globalThis.__EMBERWILD_TOKEN_SKILL??__EMBERWILD_TOKEN_SKILL;companionSkillDisabled=globalThis.companionSkillDisabled??companionSkillDisabled;__EMBERWILD_COMPANION_MASTERY_GAIN=globalThis.__EMBERWILD_COMPANION_MASTERY_GAIN??__EMBERWILD_COMPANION_MASTERY_GAIN;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;__EMBERWILD_SKILL_REFRESH=globalThis.__EMBERWILD_SKILL_REFRESH??__EMBERWILD_SKILL_REFRESH;
+__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_MASTERY_LISTENERS=globalThis.__EMBERWILD_MASTERY_LISTENERS??__EMBERWILD_MASTERY_LISTENERS;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;classMasteryLevel=globalThis.classMasteryLevel??classMasteryLevel;classMasteryXp=globalThis.classMasteryXp??classMasteryXp;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;__EMBERWILD_TOKEN_SKILL=globalThis.__EMBERWILD_TOKEN_SKILL??__EMBERWILD_TOKEN_SKILL;companionSkillDisabled=globalThis.companionSkillDisabled??companionSkillDisabled;__EMBERWILD_MASTERY_BATTLE_NOTE=globalThis.__EMBERWILD_MASTERY_BATTLE_NOTE??__EMBERWILD_MASTERY_BATTLE_NOTE;__EMBERWILD_COMPANION_MASTERY_GAIN=globalThis.__EMBERWILD_COMPANION_MASTERY_GAIN??__EMBERWILD_COMPANION_MASTERY_GAIN;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;__EMBERWILD_SKILL_REFRESH=globalThis.__EMBERWILD_SKILL_REFRESH??__EMBERWILD_SKILL_REFRESH;
 
 /* js/ui/mastery-ui.js?v=20261119-v0173 */
 
@@ -18254,6 +18269,45 @@ setBossCraftClass=globalThis.setBossCraftClass??setBossCraftClass;
 
 
 
+/* js/ui/class-mastery-bonus-ui.js?v=20261120-v0179 */
+/* v0.179: 角色能力 page, 「精通加成」 panel. The main class mastery (the class being played) and one sub-class mastery give
+   HP / attack / defense per level; the sub-class is chosen here and can be changed at any time. Every class row shows
+   what one level gives and what it leans on. Weapon and element masteries are listed with the damage they add. */
+(()=>{
+  'use strict';
+  const STATS=[['hp','生命'],['atk','攻擊'],['def','防禦']];
+  const num=v=>Math.round(v*100)/100;
+  const statText=b=>STATS.filter(([k])=>b[k]>0).map(([k,n])=>n+' +'+num(b[k])).join('、')||'無';
+  // What a class leans on: its stat furthest above the average of all classes (balanced when none stands out).
+  function emphasis(rows,j){
+    const avg=k=>rows.reduce((n,r)=>n+(Number(r?.[k])||0),0)/Math.max(1,rows.length);
+    let best=null,ratio=0;for(const [k,n] of STATS){const a=avg(k),r=a>0?(Number(rows[j]?.[k])||0)/a:0;if(r>ratio){ratio=r;best=n;}}
+    return ratio>=1.3?'偏重'+best:'均衡';
+  }
+  function panelHTML(){
+    const h=playerHero();if(!h||h.companionId!==undefined)return '';
+    const rows=GAMEPLAY_SETTINGS.skills?.mastery?.classBonus||[],M=__EMBERWILD_MASTERY,perm=globalThis.__EMBERWILD_TEAMS?.build?.()?.permanent;
+    const sources=classMasterySources(h),main=sources.find(s=>s.role==='main'),sub=sources.find(s=>s.role==='sub');
+    const trained=CLASSES.map((c,j)=>({j,name:c.name,on:!!perm?.classes?.[j]?.activated,level:M.masteryLevelFromXp(perm?.classes?.[j]?.xp||0)}));
+    const options=trained.filter(t=>t.j!==h.job&&t.on);
+    const line=(s,label)=>`<li><b>${label}：${esc(CLASSES[s.job].name)}精通 Lv${s.level}</b><span>每級 ${esc(statText(s.perLevel))}，目前 ${esc(statText({hp:s.perLevel.hp*s.level,atk:s.perLevel.atk*s.level,def:s.perLevel.def*s.level}))}</span></li>`;
+    const select=`<label class="mastery-sub-select">副職業精通 <select aria-label="副職業精通" onchange="setMasterySubClass(this.value===''?null:Number(this.value))"><option value="" ${sub?'':'selected'}>不啟用</option>${options.map(t=>`<option value="${t.j}" ${sub?.job===t.j?'selected':''}>${esc(t.name)}精通 Lv${t.level}</option>`).join('')}</select></label>`;
+    const table=`<table class="mastery-class-table"><thead><tr><th>職業精通</th><th>每級生命</th><th>每級攻擊</th><th>每級防禦</th><th>特色</th><th>目前</th></tr></thead><tbody>${trained.map(t=>`<tr${t.j===h.job?' class="mastery-main-row"':sub?.job===t.j?' class="mastery-sub-row"':''}><td>${esc(t.name)}${t.on?' Lv'+t.level:'（未修練）'}</td>${STATS.map(([k])=>`<td>+${num(Number(rows[t.j]?.[k])||0)}</td>`).join('')}<td>${emphasis(rows,t.j)}</td><td>${t.j===h.job?'主職業':sub?.job===t.j?'副職業':'—'}</td></tr>`).join('')}</tbody></table>`;
+    const dmg=(globalThis.__EMBERWILD_MASTERY_DAMAGE?.summary(h)||[]).map(r=>{const n=M.masteryLabels[r.key]||r.key;return `<li><b>${esc(n)}精通 Lv${r.level}</b><span>${r.kind==='weapon'?`使用${esc(n)}時傷害 +${Math.round(r.bonus*100)}%${r.active?'':'（目前未持有）'}`:`${esc(n)}屬性法術傷害 +${Math.round(r.bonus*100)}%`}</span></li>`;}).join('');
+    return `<section class="panel class-mastery-bonus-panel" aria-label="精通加成"><h2>精通加成</h2>
+      <p class="small">職業精通提供生命、攻擊與防禦：主職業（目前職業）自動套用，另可選一個已修練的職業作為副職業，兩者同時生效。副職業可隨時切換，立即生效。</p>
+      <ul class="mastery-bonus-lines">${line(main,'主職業')}${sub?line(sub,'副職業'):''}</ul>${select}
+      <p class="mastery-bonus-total">職業精通合計：${esc(statText(classMasteryBonus(h)))}</p>${table}
+      <h3>武器與元素精通</h3><p class="small">武器精通：每級 +1% 使用該武器時的傷害。元素精通：每級 +1% 同屬性法術的傷害（普攻不算法術）。</p>
+      <ul class="mastery-bonus-lines">${dmg||'<li><span>尚未修練武器或元素精通。</span></li>'}</ul></section>`;
+  }
+  const base=characterView;
+  characterView=function(){const html=base();const h=playerHero(),plan=globalThis.__EMBERWILD_TEAMS?.plan?.();if(!h||plan?.job===null)return html;return html+panelHTML();};
+  globalThis.__EMBERWILD_CLASS_MASTERY_BONUS_UI={panelHTML,emphasis};
+})();
+
+__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_MASTERY_DAMAGE=globalThis.__EMBERWILD_MASTERY_DAMAGE??__EMBERWILD_MASTERY_DAMAGE;__EMBERWILD_CLASS_MASTERY_BONUS_UI=globalThis.__EMBERWILD_CLASS_MASTERY_BONUS_UI??__EMBERWILD_CLASS_MASTERY_BONUS_UI;
+
 /* js/ui/character-avatars.js?v=20261119-v0173 */
 /* Cosmetic member portraits. All artwork comes from this trusted SVG catalog. */
 (()=>{
@@ -18527,12 +18581,18 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
 
 lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThis.gatheringView??gatheringView;alchemyView=globalThis.alchemyView??alchemyView;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;lifeMaterialPurchasePrice=globalThis.lifeMaterialPurchasePrice??lifeMaterialPurchasePrice;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;returnToTitle=globalThis.returnToTitle??returnToTitle;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;lifeShopMaterialsView=globalThis.lifeShopMaterialsView??lifeShopMaterialsView;lifeMaterialDescription=globalThis.lifeMaterialDescription??lifeMaterialDescription;setLifeStockFilter=globalThis.setLifeStockFilter??setLifeStockFilter;setLifeStockSort=globalThis.setLifeStockSort??setLifeStockSort;setLifeStockOpen=globalThis.setLifeStockOpen??setLifeStockOpen;__DEBUG_GEM_ALCHEMY=globalThis.__DEBUG_GEM_ALCHEMY??__DEBUG_GEM_ALCHEMY;hasShopVIP=globalThis.hasShopVIP??hasShopVIP;buyLifeMaterial=globalThis.buyLifeMaterial??buyLifeMaterial;selectLifeGatheringTarget=globalThis.selectLifeGatheringTarget??selectLifeGatheringTarget;startLifeGathering=globalThis.startLifeGathering??startLifeGathering;stopLifeGathering=globalThis.stopLifeGathering??stopLifeGathering;startLifeWork=globalThis.startLifeWork??startLifeWork;stopLifeWork=globalThis.stopLifeWork??stopLifeWork;recordLifeProgress=globalThis.recordLifeProgress??recordLifeProgress;recordStoryAcquisition=globalThis.recordStoryAcquisition??recordStoryAcquisition;recordGatheredItem=globalThis.recordGatheredItem??recordGatheredItem;tickLifeSkills=globalThis.tickLifeSkills??tickLifeSkills;alchemyVIPView=globalThis.alchemyVIPView??alchemyVIPView;emberwildLifeHeartbeat=globalThis.emberwildLifeHeartbeat??emberwildLifeHeartbeat;__EMBERWILD_LIFE_SKILLS=globalThis.__EMBERWILD_LIFE_SKILLS??__EMBERWILD_LIFE_SKILLS;
 
-/* js/character/companion-unlocks.js?v=20261120-v0178 */
+/* js/character/companion-unlocks.js?v=20261120-v0179 */
 /* Catalog rules are global; achievements, tickets and unlocks belong to one player save. */
 (()=>{
   const model=EmberwildCompanionSkills,A=EmberwildAchievements,copy=A.copy||((x)=>JSON.parse(JSON.stringify(x)));
   const plans=()=>__EMBERWILD_COMPANION_TEST_API.plans,validateProgress=model.validateUnlockProgress;
   const catalog=()=>{const cache=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE;if(!cache)return A.catalog(GAMEPLAY_SETTINGS.maps.catalog);return cache.achievements??=A.catalog(GAMEPLAY_SETTINGS.maps.catalog);};
+  /* v0.179: only the story hands out companion tickets (艾琳 at the start, 洛恩 after the caravan story). Achievements no
+     longer mail tickets and the shop no longer offers them, whatever a companion's unlock rule says. Tickets already held
+     or waiting in the mailbox keep working. Set to true to bring both sources back. */
+  let EXTRA_TICKET_SOURCES=false;
+  // Tests of the mailbox and shop mechanics (tickets already issued still go through them) switch the sources back on.
+  globalThis.__EMBERWILD_SET_EXTRA_TICKET_SOURCES=on=>{EXTRA_TICKET_SOURCES=!!on;return EXTRA_TICKET_SOURCES;};
   let syncing=false;
   const announced=new Set(party?.mailbox?.messages.map(m=>m.id)||[]);
   function syncUnlocks(){
@@ -18552,7 +18612,7 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
         if(p.availability==='hidden'||progress.unlocked.includes(p.id))continue;
         const c=p.unlockCondition;
         if(c.type==='initial')progress.unlocked.push(p.id);
-        else if(c.type==='achievement'&&!a.rewardCompanions.includes(p.id)&&c.achievementIds.some(id=>completed.has(id))){
+        else if(EXTRA_TICKET_SOURCES&&c.type==='achievement'&&!a.rewardCompanions.includes(p.id)&&c.achievementIds.some(id=>completed.has(id))){
           a.rewardCompanions.push(p.id);
           if(!a.tickets[p.id]&&!mailbox.messages.some(m=>m.rewardKey==='companion-'+p.id)){const achievement=catalog().find(x=>c.achievementIds.includes(x.id)&&completed.has(x.id));mailbox.serial++;mailbox.messages.push({id:mailbox.serial,rewardKey:'companion-'+p.id,subject:'夥伴招募券 - '+p.name+'（成就獎勵）',body:`已達成「${achievement?.name||'指定成就'}」。請領取附件，夥伴招募券 - ${p.name}將存入背包 → 道具，使用後${p.name}直接加入隊伍。`,at:Date.now(),read:false,claimed:false,attachments:[{type:'companionTicket',companionId:p.id,quantity:1,name:p.name+'招募券'}]});}
         }
@@ -18564,6 +18624,7 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
   globalThis.companionPendingMail=function(id){syncUnlocks();return party?.mailbox?.messages.some(m=>!m.claimed&&m.attachments.some(x=>x.companionId===id))||false;};
   globalThis.companionUnlocked=function(id){syncUnlocks();return !!party?.companionUnlocks?.unlocked.includes(id);};
   globalThis.companionTicketCount=function(id){syncUnlocks();return party?.achievements?.tickets[id]||0;};
+  globalThis.__EMBERWILD_EXTRA_TICKET_SOURCES=()=>EXTRA_TICKET_SOURCES;
   globalThis.companionUnlockText=function(p){
     syncUnlocks();if(companionUnlocked(p.id))return '已解鎖，可招募';if(companionTicketCount(p.id))return '已持有夥伴招募券，請到背包 → 道具使用';if(companionPendingMail(p.id))return '招募券已寄到信箱，請領取附件';
     const c=p.unlockCondition;
@@ -18616,11 +18677,12 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
     if(duplicate){$('modal').innerHTML=`<h2>夥伴已在隊伍中</h2><p>「${esc(p.name)}」已在隊伍中，${esc(companionTicketName(id))} ×1 已轉換為 <b>${value} 金幣</b>。</p><button onclick="closeModal()">確認</button>`;$('modal').showModal();toast(`招募券已轉換為 ${value} 金幣`);}
     else toast(p.name+(party.enlisted.includes(id)?'已加入隊伍':'已加入名冊；現役夥伴已達上限'));return true;
   };
-  const candidates=()=>plans().filter(p=>p.availability==='visible'&&p.unlockCondition.type==='ticket'&&!companionUnlocked(p.id)&&!companionTicketCount(p.id)&&!companionPendingMail(p.id));
+  const candidates=()=>!EXTRA_TICKET_SOURCES?[]:plans().filter(p=>p.availability==='visible'&&p.unlockCondition.type==='ticket'&&!companionUnlocked(p.id)&&!companionTicketCount(p.id)&&!companionPendingMail(p.id));
   globalThis.hasCompanionRecruitmentOffers=()=>!!party&&candidates().length>0;
   const baseGenerate=generateMarket;
   generateMarket=function(){const market=baseGenerate();for(const p of candidates()){if(market.offers.length>=100)break;const c=p.unlockCondition;if(Math.random()<c.chance)market.offers.push({id:`${market.serial}-${market.offers.length}`,kind:'material',key:`夥伴招募券-${p.id}`,qty:1,price:c.price,sold:false,ruleId:`companion-recruit-${p.id}`});}return market;};
-  function ticketPlan(o){return o?.ruleId?.startsWith('companion-recruit-')?plans().find(p=>p.id===Number(o.ruleId.slice(18))&&p.availability==='visible'&&p.unlockCondition.type==='ticket'&&o.kind==='material'&&o.key===`夥伴招募券-${p.id}`&&o.qty===1&&o.price===p.unlockCondition.price):null;}
+  // An offer left in a saved market from before v0.179 is no longer shown or sold.
+  function ticketPlan(o){return EXTRA_TICKET_SOURCES&&o?.ruleId?.startsWith('companion-recruit-')?plans().find(p=>p.id===Number(o.ruleId.slice(18))&&p.availability==='visible'&&p.unlockCondition.type==='ticket'&&o.kind==='material'&&o.key===`夥伴招募券-${p.id}`&&o.qty===1&&o.price===p.unlockCondition.price):null;}
   const baseCards=marketCards;
   marketCards=function(){const extra=(party.market?.offers||[]).map(o=>{const p=ticketPlan(o);if(!p)return '';const done=o.sold||companionUnlocked(p.id)||companionTicketCount(p.id)||companionPendingMail(p.id);return `<article class="shop-product-row icon-product random-shop-row">${itemSlotHTML('item','companion-ticket-'+p.id,{count:1,context:'shop',detailLabel:'商品數量',price:globalThis.shopPayablePrice?.(o.price)??o.price,shopType:'market',shopId:o.id,sold:done,soldLabel:'已取得'})}</article>`;}).join('');const base=baseCards();return (extra&&base.includes('本批沒有隨機商品')?'':base)+extra;};
   const baseBuy=buyMarketOffer;
@@ -18727,7 +18789,7 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
   globalThis.__EMBERWILD_COMPANION_UNLOCK_TEST={validateProgress,syncUnlocks,ticketPlan,catalog};
 })();
 
-achievementsView=globalThis.achievementsView??achievementsView;mailboxView=globalThis.mailboxView??mailboxView;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;accountItemsView=globalThis.accountItemsView??accountItemsView;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;companionUnlocked=globalThis.companionUnlocked??companionUnlocked;hasCompanionRecruitmentOffers=globalThis.hasCompanionRecruitmentOffers??hasCompanionRecruitmentOffers;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;isUtilityDialogOpen=globalThis.isUtilityDialogOpen??isUtilityDialogOpen;companionPendingMail=globalThis.companionPendingMail??companionPendingMail;companionTicketCount=globalThis.companionTicketCount??companionTicketCount;companionUnlockText=globalThis.companionUnlockText??companionUnlockText;companionTicketName=globalThis.companionTicketName??companionTicketName;grantCompanionTicket=globalThis.grantCompanionTicket??grantCompanionTicket;useCompanionRecruitmentTicket=globalThis.useCompanionRecruitmentTicket??useCompanionRecruitmentTicket;mailboxLabel=globalThis.mailboxLabel??mailboxLabel;openMailboxMail=globalThis.openMailboxMail??openMailboxMail;sendStarterPackMail=globalThis.sendStarterPackMail??sendStarterPackMail;claimMailboxAttachments=globalThis.claimMailboxAttachments??claimMailboxAttachments;grantStarterPackDirect=globalThis.grantStarterPackDirect??grantStarterPackDirect;claimAllMailboxAttachments=globalThis.claimAllMailboxAttachments??claimAllMailboxAttachments;markAllMailRead=globalThis.markAllMailRead??markAllMailRead;toggleMailLock=globalThis.toggleMailLock??toggleMailLock;deleteReadClaimedMail=globalThis.deleteReadClaimedMail??deleteReadClaimedMail;setAchievementFilter=globalThis.setAchievementFilter??setAchievementFilter;__EMBERWILD_COMPANION_UNLOCK_TEST=globalThis.__EMBERWILD_COMPANION_UNLOCK_TEST??__EMBERWILD_COMPANION_UNLOCK_TEST;
+achievementsView=globalThis.achievementsView??achievementsView;mailboxView=globalThis.mailboxView??mailboxView;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;accountItemsView=globalThis.accountItemsView??accountItemsView;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;companionUnlocked=globalThis.companionUnlocked??companionUnlocked;hasCompanionRecruitmentOffers=globalThis.hasCompanionRecruitmentOffers??hasCompanionRecruitmentOffers;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;__EMBERWILD_SET_EXTRA_TICKET_SOURCES=globalThis.__EMBERWILD_SET_EXTRA_TICKET_SOURCES??__EMBERWILD_SET_EXTRA_TICKET_SOURCES;isUtilityDialogOpen=globalThis.isUtilityDialogOpen??isUtilityDialogOpen;companionPendingMail=globalThis.companionPendingMail??companionPendingMail;companionTicketCount=globalThis.companionTicketCount??companionTicketCount;__EMBERWILD_EXTRA_TICKET_SOURCES=globalThis.__EMBERWILD_EXTRA_TICKET_SOURCES??__EMBERWILD_EXTRA_TICKET_SOURCES;companionUnlockText=globalThis.companionUnlockText??companionUnlockText;companionTicketName=globalThis.companionTicketName??companionTicketName;grantCompanionTicket=globalThis.grantCompanionTicket??grantCompanionTicket;useCompanionRecruitmentTicket=globalThis.useCompanionRecruitmentTicket??useCompanionRecruitmentTicket;mailboxLabel=globalThis.mailboxLabel??mailboxLabel;openMailboxMail=globalThis.openMailboxMail??openMailboxMail;sendStarterPackMail=globalThis.sendStarterPackMail??sendStarterPackMail;claimMailboxAttachments=globalThis.claimMailboxAttachments??claimMailboxAttachments;grantStarterPackDirect=globalThis.grantStarterPackDirect??grantStarterPackDirect;claimAllMailboxAttachments=globalThis.claimAllMailboxAttachments??claimAllMailboxAttachments;markAllMailRead=globalThis.markAllMailRead??markAllMailRead;toggleMailLock=globalThis.toggleMailLock??toggleMailLock;deleteReadClaimedMail=globalThis.deleteReadClaimedMail??deleteReadClaimedMail;setAchievementFilter=globalThis.setAchievementFilter??setAchievementFilter;__EMBERWILD_COMPANION_UNLOCK_TEST=globalThis.__EMBERWILD_COMPANION_UNLOCK_TEST??__EMBERWILD_COMPANION_UNLOCK_TEST;
 
 /* js/world/quest-design-settings.js?v=20261019-daily-speed2 */
 /* Retain the complete quest design document through legacy balance normalizers. */
@@ -19744,7 +19806,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;equipmentNumericFields=globalThis.equipmentNumericFields??equipmentNumericFields;setGearInventoryFilter=globalThis.setGearInventoryFilter??setGearInventoryFilter;clearGearInventoryFilters=globalThis.clearGearInventoryFilters??clearGearInventoryFilters;setGearInventorySort=globalThis.setGearInventorySort??setGearInventorySort;setGearInventoryFold=globalThis.setGearInventoryFold??setGearInventoryFold;toggleGearInventoryDirection=globalThis.toggleGearInventoryDirection??toggleGearInventoryDirection;toggleGearInventoryMulti=globalThis.toggleGearInventoryMulti??toggleGearInventoryMulti;toggleGearInventorySelected=globalThis.toggleGearInventorySelected??toggleGearInventorySelected;selectVisibleGear=globalThis.selectVisibleGear??selectVisibleGear;clearSelectedGear=globalThis.clearSelectedGear??clearSelectedGear;openGearInventoryFilters=globalThis.openGearInventoryFilters??openGearInventoryFilters;finishGearInventoryFilters=globalThis.finishGearInventoryFilters??finishGearInventoryFilters;setGearInventoryAdvanced=globalThis.setGearInventoryAdvanced??setGearInventoryAdvanced;requestGearInventoryBatch=globalThis.requestGearInventoryBatch??requestGearInventoryBatch;confirmGearInventoryBatch=globalThis.confirmGearInventoryBatch??confirmGearInventoryBatch;openInventoryWear=globalThis.openInventoryWear??openInventoryWear;openWornWearHelp=globalThis.openWornWearHelp??openWornWearHelp;__EMBERWILD_GEAR_INVENTORY=globalThis.__EMBERWILD_GEAR_INVENTORY??__EMBERWILD_GEAR_INVENTORY;
 
-/* js/combat/offline-exploration.js?v=20261119-v0173 */
+/* js/combat/offline-exploration.js?v=20261120-v0179 */
 /* One event timeline for visible play, background throttling and cold saves.
    Party, combat cursor and pending receipt are committed by one KEY setItem. */
 (()=>{
@@ -19967,7 +20029,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
  let analysis=null,observed=null,metrics=null,replayCache=null,modelSeed=0;
  function sampleRandom(){modelSeed=(Math.imul(modelSeed,1664525)+1013904223)>>>0;return modelSeed/4294967296;}
  function fastReason(reason){if(metrics)metrics.fallbacks[reason]=(metrics.fallbacks[reason]||0)+1;return false;}
- function combatKey(){return JSON.stringify([party.map,party.difficulty,party.active,battleRate,party.members.map(h=>[memberKey(h),classMasteryLevel(h),h.job,h.advanced,h.stats,h.skills,h.active,h.procSlots,h.supportSlots,h.passiveEnabled,h.recoveryHealing===true,equipment(h),stats(h)]),buffs().filter(b=>b.enabled&&b.remainingMs>0).map(b=>[b.name,b.boostType,b.bonusPercent,b.effectPercent])]);}
+ function combatKey(){return JSON.stringify([party.map,party.difficulty,party.active,battleRate,party.members.map(h=>[memberKey(h),classMasteryLevel(h),/* v0.179: weapon/element mastery levels change damage */Object.entries(h.mastery||{}).map(([k,x])=>[k,__EMBERWILD_MASTERY.masteryLevelFromXp(x)]),h.job,h.advanced,h.stats,h.skills,h.active,h.procSlots,h.supportSlots,h.passiveEnabled,h.recoveryHealing===true,equipment(h),stats(h)]),buffs().filter(b=>b.enabled&&b.remainingMs>0).map(b=>[b.name,b.boostType,b.bonusPercent,b.effectPercent])]);}
  function simpleCombat(){
   if(globalThis.EmberwildSecondsCombat?.active)return 'seconds-event-model';
   if(party.questChallenge||party.bossChallenge?.active||isFinalMap(party.map))return 'special-stage';
@@ -20043,6 +20105,8 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
   // A class mastery level-up can unlock skills and change the fight: finish that battle in full mode.
   const h=playerHero(),gain=Object.values(sample.mastery||{}).reduce((n,v)=>n+Math.max(0,v),0);
   if(gain>0&&__EMBERWILD_MASTERY.masteryLevelFromXp(classMasteryXp(h)+gain)!==classMasteryLevel(h))return fastReason('mastery-boundary');
+  // v0.179: a weapon or element mastery level-up changes damage (js/skills/mastery-damage.js): also a full battle.
+  if(Object.entries(sample.mastery||{}).some(([k,n])=>n>0&&h.mastery&&__EMBERWILD_MASTERY.masteryLevelFromXp((h.mastery[k]||0)+n)!==__EMBERWILD_MASTERY.masteryLevelFromXp(h.mastery[k]||0)))return fastReason('mastery-boundary');
   // Require a large HP reserve even with twice the longest sampled battle,
   // no evasion, healing, shield or beneficial status. Special attacks are excluded.
   const v=stats(h),formula=GAMEPLAY_SETTINGS.combat.damageFormula||{},maxRounds=Math.max(...p.rows.map(x=>x.rounds))*2;
@@ -20791,7 +20855,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
 
 equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;wornEquipmentSocketPanel=globalThis.wornEquipmentSocketPanel??wornEquipmentSocketPanel;pageNewReminder=globalThis.pageNewReminder??pageNewReminder;EmberwildSecondsUI=globalThis.EmberwildSecondsUI??EmberwildSecondsUI;showSkillInformation=globalThis.showSkillInformation??showSkillInformation;openSkillCatalog=globalThis.openSkillCatalog??openSkillCatalog;toggleSkillSlotLocked=globalThis.toggleSkillSlotLocked??toggleSkillSlotLocked;openSkillSlot=globalThis.openSkillSlot??openSkillSlot;chooseSkillSlot=globalThis.chooseSkillSlot??chooseSkillSlot;selectEquipmentSocket=globalThis.selectEquipmentSocket??selectEquipmentSocket;toggleWornEquipmentSockets=globalThis.toggleWornEquipmentSockets??toggleWornEquipmentSockets;__EMBERWILD_WORN_SOCKET_TARGET=globalThis.__EMBERWILD_WORN_SOCKET_TARGET??__EMBERWILD_WORN_SOCKET_TARGET;showWornEquipmentDetail=globalThis.showWornEquipmentDetail??showWornEquipmentDetail;newSkillCount=globalThis.newSkillCount??newSkillCount;dismissNewSkills=globalThis.dismissNewSkills??dismissNewSkills;equipNewSkill=globalThis.equipNewSkill??equipNewSkill;__EMBERWILD_SKILL_SYSTEM_UI=globalThis.__EMBERWILD_SKILL_SYSTEM_UI??__EMBERWILD_SKILL_SYSTEM_UI;
 
-/* js/ui/class-mastery-tree.js?v=20261119-v0173 */
+/* js/ui/class-mastery-tree.js?v=20261120-v0179 */
 /* v0.161 class mastery / class skill panel on the skills page (v0.168: no second class; v0.173: a list, details in a dialog).
    The tree is the current class's skillSystem.classRules rows (initial and former second-class rows alike). Each node
    unlocks by itself once class mastery and its prerequisite nodes are reached; the same
@@ -20813,7 +20877,12 @@ equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSu
     return 'prereq';
   }
   const STATE_TEXT={equipped:'已解鎖・使用中',unlocked:'已解鎖',mastery:'未達精通需求',prereq:'前置技能未解鎖'};
-  function bonusText(h){const b=classMasteryBonus(h);const parts=Object.entries(b).filter(([,v])=>v>0).map(([k,v])=>STAT[k]+' +'+(k==='crit'?Math.round(v*1000)/10+'%':Math.round(v*10)/10));return parts.length?parts.join('、'):'無';}
+  // v0.179: class masteries add HP / attack / defense per level (main class + one sub-class); weapon and element
+  // masteries add damage only (js/skills/mastery-damage.js).
+  function bonusText(h){const L=__EMBERWILD_MASTERY.masteryLabels||{},b=classMasteryBonus(h),rows=globalThis.__EMBERWILD_MASTERY_DAMAGE?.summary(h)||[];
+    const stats=[['hp','生命'],['atk','攻擊'],['def','防禦']].filter(([k])=>b[k]>0).map(([k,n])=>n+' +'+Math.round(b[k]*10)/10);
+    const dmg=rows.map(r=>`${L[r.key]||r.key}精通 Lv${r.level}：${r.kind==='weapon'?'使用'+(L[r.key]||r.key)+'時傷害':(L[r.key]||r.key)+'屬性法術傷害'} +${Math.round(r.bonus*100)}%${r.kind==='weapon'&&!r.active?'（目前未持有）':''}`);
+    return [stats.length?'職業精通（主職業＋副職業）'+stats.join('、'):'',...dmg].filter(Boolean).join('；')||'無';}
   function headHTML(h){
     const p=M.masteryProgress(classMasteryXp(h)),job=CLASSES[h.job].name,full=p.level>=p.max,width=full?100:Math.round(p.current/Math.max(1,p.next)*100);
     return `<div class="class-mastery-head"><div><h2>${esc(job)}精通 <b>Lv.${p.level}</b> <small>/ ${p.max}</small></h2><p class="small">精通加成：${esc(bonusText(h))}</p></div><div class="class-mastery-bar" role="progressbar" aria-label="${esc(job)}精通經驗" aria-valuemin="0" aria-valuemax="${full?1:p.next}" aria-valuenow="${full?1:p.current}"><span style="width:${width}%"></span><small>${full?'已達上限':`${p.current} / ${p.next}`}</small></div></div>`;
@@ -20849,9 +20918,9 @@ equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSu
   };
 })();
 
-__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;openSkillTreeDetail=globalThis.openSkillTreeDetail??openSkillTreeDetail;selectSkillTreeNode=globalThis.selectSkillTreeNode??selectSkillTreeNode;classMasteryTreeHTML=globalThis.classMasteryTreeHTML??classMasteryTreeHTML;
+__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_MASTERY_DAMAGE=globalThis.__EMBERWILD_MASTERY_DAMAGE??__EMBERWILD_MASTERY_DAMAGE;openSkillTreeDetail=globalThis.openSkillTreeDetail??openSkillTreeDetail;selectSkillTreeNode=globalThis.selectSkillTreeNode??selectSkillTreeNode;classMasteryTreeHTML=globalThis.classMasteryTreeHTML??classMasteryTreeHTML;
 
-/* js/ui/battle-summary.js?v=20261119-v0173 */
+/* js/ui/battle-summary.js?v=20261120-v0179 */
 /* Read-only combat presentation. HP and membership always come from combat units.
    Only previous visual samples, DOM nodes and a finished encounter's references
    are retained here; none of these values are saved or used by combat. */
@@ -20870,6 +20939,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
   // Keep the actual array, including its final HP, even if result cleanup clears
   // the global foes binding. This is O(1), including during offline simulation.
   terminal={owner:party,units:foes,name:currentExplorationName(),result};
+  globalThis.__EMBERWILD_MASTERY_BATTLE_NOTE?.();
  }
  function snapshot(){return globalThis.EmberwildBattleConfiguration?EmberwildBattleConfiguration.combat(snapshotCore):snapshotCore();}
  function snapshotCore(){
@@ -21102,7 +21172,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
  if(party)render();
 })();
 
-__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;querySelector=globalThis.querySelector??querySelector;classList=globalThis.classList??classList;querySelectorAll=globalThis.querySelectorAll??querySelectorAll;children=globalThis.children??children;insertBefore=globalThis.insertBefore??insertBefore;
+__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;__EMBERWILD_MASTERY_BATTLE_NOTE=globalThis.__EMBERWILD_MASTERY_BATTLE_NOTE??__EMBERWILD_MASTERY_BATTLE_NOTE;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;querySelector=globalThis.querySelector??querySelector;classList=globalThis.classList??classList;querySelectorAll=globalThis.querySelectorAll??querySelectorAll;children=globalThis.children??children;insertBefore=globalThis.insertBefore??insertBefore;
 
 /* js/ui/battle-effects.js?v=20261119-v0173 */
 /* Read-only presentation of the existing live timeline. No timers schedule combat.
@@ -21772,7 +21842,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;
 
-/* js/combat/seconds-runtime.js?v=20261119-v0172 */
+/* js/combat/seconds-runtime.js?v=20261120-v0179 */
 /* The shared live/offline seconds driver. Existing damage, targeting, equipment,
    death-chain and reward handlers remain authoritative. No round generator runs. */
 (()=>{
@@ -22122,15 +22192,15 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
   actorCooldowns=cds;supportCooldowns=supports;needsRoster=true;return out;
  };
  const oldPack=packParty,oldPartyValidate=validateParty;
- packParty=function(){const out=oldPack();if(party){out.huntingMode=party.huntingMode||'single';out.currentHuntingMode=party.currentHuntingMode||out.huntingMode;if(party.explorationRecovery)out.explorationRecovery=copy(party.explorationRecovery);}return out;};
- validateParty=function(raw){if(raw?.huntingMode!==undefined&&!['single','group'].includes(raw.huntingMode))throw Error('狩獵模式無效');const out=oldPartyValidate(raw);out.huntingMode=raw?.huntingMode||'single';out.currentHuntingMode=raw?.currentHuntingMode||out.huntingMode;if(raw?.explorationRecovery!==undefined){const r=raw.explorationRecovery;if(!r||['minimumHpRatio','minimumMpRatio'].some(k=>typeof r[k]!=='number'||!Number.isFinite(r[k])||r[k]<0||r[k]>1))throw Error('探索恢復門檻無效');out.explorationRecovery=copy(r);}return out;};
+ packParty=function(){const out=oldPack();if(party){out.huntingMode=party.huntingMode||'group';out.currentHuntingMode=party.currentHuntingMode||out.huntingMode;if(party.explorationRecovery)out.explorationRecovery=copy(party.explorationRecovery);}return out;};
+ validateParty=function(raw){if(raw?.huntingMode!==undefined&&!['single','group'].includes(raw.huntingMode))throw Error('狩獵模式無效');const out=oldPartyValidate(raw);/* v0.179: the single-enemy mode is gone for players; a save that chose it explores in groups again. */out.huntingMode='group';out.currentHuntingMode=raw?.currentHuntingMode==='single'?'group':raw?.currentHuntingMode||'group';if(raw?.explorationRecovery!==undefined){const r=raw.explorationRecovery;if(!r||['minimumHpRatio','minimumMpRatio'].some(k=>typeof r[k]!=='number'||!Number.isFinite(r[k])||r[k]<0||r[k]>1))throw Error('探索恢復門檻無效');out.explorationRecovery=copy(r);}return out;};
  const baseSupplyDetail=supplyDetail;supplyDetail=function(item){let text=baseSupplyDetail(item);if(item?.type==='imbue')text=text.replace(/持續 \d+(?:\.\d+)? ?(?:戰鬥)? ?回合/g,'持續 '+item.timing.durationSeconds+' 秒');return text;};
  const baseSupplyDetails=supplyBuffDetails;supplyBuffDetails=function(b,k){const d=baseSupplyDetails(b,k);if(k==='imbue'){d.time=Number(b.remainingTurns.toFixed(1))+' / '+Number(b.totalTurns.toFixed(1))+' 秒';d.clock='戰鬥秒數';}return d;};
  const baseSupplyStatus=supplyStatus;supplyStatus=function(h){return baseSupplyStatus(h).replace(/回合/g,'秒');};
  globalThis.setRecoveryThresholds=function(hp,mp){if(!party||![hp,mp].every(x=>Number.isFinite(x)&&x>=0&&x<=1))return false;EmberwildOffline.sync();if(EmberwildOffline.busy||EmberwildOffline.failed)return false;party.explorationRecovery={minimumHpRatio:hp,minimumMpRatio:mp};save();render();return true;};
  globalThis.setHuntingMode=function(mode){if(!party||!['single','group'].includes(mode))return false;EmberwildOffline.sync();if(EmberwildOffline.busy||EmberwildOffline.failed)return false;party.huntingMode=mode;save();render();return true;};
  globalThis.EmberwildSecondsCombat={active:true,maxEncounterSize:MAX_FOES,config,thresholds,get phase(){return phase;},get nextSimulationAt(){return scheduledAt;},get continuing(){return continuing;},resourceProfile:mana,step,pack,restore,migrateLegacy,tokenTiming,statusApplied:scheduleStatus,get timeline(){return engine;},get source(){return source;},ensure,sync:syncResources,
-  encounterSize(){party.currentHuntingMode=party.huntingMode||'single';if(party.currentHuntingMode==='single')return 1;const weights=config().groupWeights,total=weights.reduce((a,b)=>a+b,0);let pick=Math.random()*total;for(let i=0;i<weights.length;i++)if((pick-=weights[i])<0)return i+3;return 5;},
+  encounterSize(){party.currentHuntingMode=party.huntingMode||'group';if(party.currentHuntingMode==='single')return 1;const weights=config().groupWeights,total=weights.reduce((a,b)=>a+b,0);let pick=Math.random()*total;for(let i=0;i<weights.length;i++)if((pick-=weights[i])<0)return i+3;return 5;},
   validateSnapshot(raw){if(raw!==null){if(raw.phase!==undefined&&!['combat','recovery'].includes(raw.phase)||raw.recoveryUntil!==undefined&&(!Number.isFinite(raw.recoveryUntil)||raw.recoveryUntil<0)||raw.version!==1||!Number.isSafeInteger(raw.serial)||raw.serial<0||typeof raw.ended!=='boolean'||!Number.isFinite(raw.encounterStart)||raw.scheduledAt!==undefined&&(!Number.isFinite(raw.scheduledAt)||raw.scheduledAt<0)||raw.uidSerial!==undefined&&(!Number.isSafeInteger(raw.uidSerial)||raw.uidSerial<0))throw Error('秒數快照無效');E.restore(raw.timeline);}},
   // Enemy-death passives cut the remaining cooldowns by their rule: fixed seconds, or a percent of each skill's reuse cooldown.
   reduceCooldowns(h,points){if(!engine?.actors.some(a=>a.definition.id===key(h)))return;const r=cdr().sources.enemyDeath,a=engine.find(key(h)),now=engine.now;
@@ -22678,7 +22748,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;EmberwildTimedBoosts
 
 __EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_VIRTUAL_ITEM=globalThis.__EMBERWILD_VIRTUAL_ITEM??__EMBERWILD_VIRTUAL_ITEM;__EMBERWILD_VIRTUAL_MAIL_KEY=globalThis.__EMBERWILD_VIRTUAL_MAIL_KEY??__EMBERWILD_VIRTUAL_MAIL_KEY;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;EmberwildRegionVouchers=globalThis.EmberwildRegionVouchers??EmberwildRegionVouchers;claimMailboxAttachments=globalThis.claimMailboxAttachments??claimMailboxAttachments;claimAllMailboxAttachments=globalThis.claimAllMailboxAttachments??claimAllMailboxAttachments;EmberwildIdleStatistics=globalThis.EmberwildIdleStatistics??EmberwildIdleStatistics;useRegionVouchers=globalThis.useRegionVouchers??useRegionVouchers;confirmRegionVouchers=globalThis.confirmRegionVouchers??confirmRegionVouchers;
 
-/* js/character/level-removal.js?v=20261119-v0169 */
+/* js/character/level-removal.js?v=20261120-v0179 */
 /* v0.161: character levels and character XP were removed. This module holds the save compatibility for that change
    and the one rule every skill gate shares:
    - party.legacySkillLevel: the protagonist's level in an old save (companions always matched it). Anything the old
@@ -22708,10 +22778,12 @@ __EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER
     const found=Math.max(0,...out.members.map(h=>Number.isSafeInteger(h.legacyLevel)?h.legacyLevel:0));
     for(const h of out.members)delete h.legacyLevel;
     const level=own??(found||undefined);if(level)out.legacySkillLevel=level;else delete out.legacySkillLevel;
+    const sub=data?.masterySubClass;if(sub!==undefined&&sub!==null&&!(Number.isInteger(sub)&&sub>=0&&sub<CLASSES.length))throw Error('副職業精通無效');
+    out.masterySubClass=sub??null;
     return out;
   };
   const packBase=packParty;
-  packParty=function(){const out=packBase();if(out&&party){if(legacyLevel())out.legacySkillLevel=legacyLevel();else delete out.legacySkillLevel;for(const h of out.members||[])delete h.legacyLevel;}return out;};
+  packParty=function(){const out=packBase();if(out&&party){out.masterySubClass=party.masterySubClass??null;if(legacyLevel())out.legacySkillLevel=legacyLevel();else delete out.legacySkillLevel;for(const h of out.members||[])delete h.legacyLevel;}return out;};
 
   function refundScrolls(){
     if(!party||!state)return 0;const n=materialCount(SCROLL);if(!(n>0))return 0;
@@ -22729,11 +22801,35 @@ __EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER
   // A save hydrated during boot (before this module loaded) still carries the old level on its members.
   if(party){const found=Math.max(0,...party.members.map(h=>Number.isSafeInteger(h.legacyLevel)?h.legacyLevel:0));for(const h of party.members)delete h.legacyLevel;if(found&&!party.legacySkillLevel)party.legacySkillLevel=found;if(refundScrolls())save();}
   // Class mastery stat bonus: per level of the character's current class mastery (companions: their own mastery).
-  function classMasteryBonus(h){
-    const row=GAMEPLAY_SETTINGS.skills?.mastery?.classBonus?.[h?.job],level=h?classMasteryLevel(h):0;
-    return Object.fromEntries(['hp','atk','def','crit'].map(k=>[k,(Number(row?.[k])||0)*level]));
+  /* v0.179: class mastery gives HP, attack and defense per level from its class's row of the classBonus table (no crit).
+     The protagonist uses two class masteries at a time: the main class (the class being played) and one sub-class chosen
+     on the character page (party.masterySubClass, any other class already trained; null for none). Switching takes
+     effect at once. A companion has one class mastery, its own. Weapon and element masteries add damage only
+     (js/skills/mastery-damage.js). */
+  const classes=()=>globalThis.__EMBERWILD_TEAMS?.build?.()?.permanent?.classes||null;
+  const trainedLevel=j=>{const c=classes()?.[j];return c?.activated?__EMBERWILD_MASTERY.masteryLevelFromXp(c.xp||0):0;};
+  function subClass(h){const j=party?.masterySubClass;return Number.isInteger(j)&&j!==h?.job&&classes()?.[j]?.activated?j:null;}
+  // The class masteries that count for h, with their levels and per-level rows.
+  function classMasterySources(h){
+    if(!h)return [];const rows=GAMEPLAY_SETTINGS.skills?.mastery?.classBonus||[],row=j=>({hp:Number(rows[j]?.hp)||0,atk:Number(rows[j]?.atk)||0,def:Number(rows[j]?.def)||0});
+    const out=[{job:h.job,role:'main',level:classMasteryLevel(h),perLevel:row(h.job)}];
+    if(h.companionId===undefined&&typeof playerHero==='function'&&h===playerHero()){const s=subClass(h);if(s!==null)out.push({job:s,role:'sub',level:trainedLevel(s),perLevel:row(s)});}
+    return out;
   }
-  // The bonus is added to the class's natural stats inside stats() (equipment-identity.js), before percentage effects.
+  function classMasteryBonus(h){
+    const out={hp:0,atk:0,def:0,crit:0};
+    for(const s of classMasterySources(h))for(const k of ['hp','atk','def'])out[k]+=s.perLevel[k]*s.level;
+    return out;
+  }
+  globalThis.classMasterySources=classMasterySources;
+  globalThis.masterySubClass=()=>party?subClass(playerHero()):null;
+  globalThis.setMasterySubClass=function(j){
+    if(!party)return false;const h=playerHero();
+    if(j!==null&&(!Number.isInteger(j)||j===h.job||!classes()?.[j]?.activated))return false;
+    const old=party.masterySubClass??null;party.masterySubClass=j;
+    if(save()===false){party.masterySubClass=old;return false;}
+    h.hp=Math.min(h.hp,stats(h).hp);render();return true;
+  };
   globalThis.classMasteryBonus=classMasteryBonus;
   // Developer/test helper: put a character's current class mastery at exactly `level` and refresh what it unlocks.
   globalThis.setClassMasteryLevel=function(level,h=state){
@@ -22747,9 +22843,9 @@ __EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER
   globalThis.__EMBERWILD_LEVEL_REMOVAL={refundScrolls,masteryRequirementMet,legacyLevel,classMasteryBonus};
 })();
 
-classMasteryBonus=globalThis.classMasteryBonus??classMasteryBonus;__EMBERWILD_SKILL_REFRESH=globalThis.__EMBERWILD_SKILL_REFRESH??__EMBERWILD_SKILL_REFRESH;masteryRequirementMet=globalThis.masteryRequirementMet??masteryRequirementMet;legacySkillLevel=globalThis.legacySkillLevel??legacySkillLevel;setClassMasteryLevel=globalThis.setClassMasteryLevel??setClassMasteryLevel;setPartyClassMasteryLevel=globalThis.setPartyClassMasteryLevel??setPartyClassMasteryLevel;__EMBERWILD_LEVEL_REMOVAL=globalThis.__EMBERWILD_LEVEL_REMOVAL??__EMBERWILD_LEVEL_REMOVAL;
+__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;classMasteryBonus=globalThis.classMasteryBonus??classMasteryBonus;__EMBERWILD_SKILL_REFRESH=globalThis.__EMBERWILD_SKILL_REFRESH??__EMBERWILD_SKILL_REFRESH;masteryRequirementMet=globalThis.masteryRequirementMet??masteryRequirementMet;legacySkillLevel=globalThis.legacySkillLevel??legacySkillLevel;classMasterySources=globalThis.classMasterySources??classMasterySources;masterySubClass=globalThis.masterySubClass??masterySubClass;setMasterySubClass=globalThis.setMasterySubClass??setMasterySubClass;setClassMasteryLevel=globalThis.setClassMasteryLevel??setClassMasteryLevel;setPartyClassMasteryLevel=globalThis.setPartyClassMasteryLevel??setPartyClassMasteryLevel;__EMBERWILD_LEVEL_REMOVAL=globalThis.__EMBERWILD_LEVEL_REMOVAL??__EMBERWILD_LEVEL_REMOVAL;
 
-/* js/ui/seconds-battle.js?v=20261119-v0173 */
+/* js/ui/seconds-battle.js?v=20261120-v0179 */
 /* Seconds presentation reads the shared scheduler; animation never advances it. */
 (()=>{
  'use strict';
@@ -22818,17 +22914,16 @@ classMasteryBonus=globalThis.classMasteryBonus??classMasteryBonus;__EMBERWILD_SK
  }
  initiativeView=()=>'';
  const base=battleView;battleView=function(){
-  const mode=party.huntingMode||'single',current=party.currentHuntingMode||mode;
+  const mode=party.huntingMode||'group',current=party.currentHuntingMode||mode;
   let html=replaceField(base());
   html=html.replace(/<p class="small combat-rule">[\s\S]*?<\/p>/,'<p class="small combat-rule">各單位依秒數獨立行動；角色自動依條件與優先級施放技能。普攻與技能獨立計時；技能依裝備順序施放並消耗 MP。</p>');
   html=html.replace(/群怪 · 3～6 隻/g,current==='single'?'單怪 · 1 隻':'群怪 · 3～5 隻');
   const special=!!(party.questChallenge||party.bossChallenge?.active),category=globalThis.selectedExplorationCategory?.()||'explore',locked=special||category!=='explore',lockNote=special?'目前在'+(party.questChallenge?'任務':'BOSS')+'關卡，依關卡規則生成敵人':'BOSS／任務關卡依關卡規則生成敵人';
-  const r=C.thresholds(),control=`<details class="seconds-recovery-settings" open><summary>遭遇前恢復</summary><div><label>隊伍最低 HP <input aria-label="下一場最低 HP" type="number" min="0" max="100" step="1" value="${Math.round(r.minimumHpRatio*100)}" onchange="setRecoveryThresholds(Number(this.value)/100,EmberwildSecondsCombat.thresholds().minimumMpRatio)">%</label><label>隊伍最低 MP <input aria-label="下一場最低 MP" type="number" min="0" max="100" step="1" value="${Math.round(r.minimumMpRatio*100)}" onchange="setRecoveryThresholds(EmberwildSecondsCombat.thresholds().minimumHpRatio,Number(this.value)/100)">%</label><small>一般探索勝利後持續恢復，全部上陣成員達到門檻再出發。冷卻與狀態持續計時；特殊關卡依入場規則。</small><button type="button" onclick="openHealingSettings()">${svg('flask-conical')} 自動藥水</button></div></details><label class="seconds-mode-control">狩獵模式<select aria-label="狩獵模式" ${locked?'disabled':''} onchange="setHuntingMode(this.value)"><option value="single" ${mode==='single'?'selected':''}>單怪 · 1 隻</option><option value="group" ${mode==='group'?'selected':''}>群怪 · 3～5 隻</option></select><small>${locked?lockNote:(mode===current?'下一次遭遇依此模式生成':'已變更，下一場生效')+' · BOSS／任務依關卡規則'}</small></label>`;
+  const r=C.thresholds(),control=`<details class="seconds-recovery-settings" open><summary>遭遇前恢復</summary><div><label>隊伍最低 HP <input aria-label="下一場最低 HP" type="number" min="0" max="100" step="1" value="${Math.round(r.minimumHpRatio*100)}" onchange="setRecoveryThresholds(Number(this.value)/100,EmberwildSecondsCombat.thresholds().minimumMpRatio)">%</label><label>隊伍最低 MP <input aria-label="下一場最低 MP" type="number" min="0" max="100" step="1" value="${Math.round(r.minimumMpRatio*100)}" onchange="setRecoveryThresholds(EmberwildSecondsCombat.thresholds().minimumHpRatio,Number(this.value)/100)">%</label><small>一般探索勝利後持續恢復，全部上陣成員達到門檻再出發。冷卻與狀態持續計時；特殊關卡依入場規則。</small><button type="button" onclick="openHealingSettings()">${svg('flask-conical')} 自動藥水</button></div></details><p class="small seconds-mode-note">每場遭遇 3～5 隻敵人（3 隻最常見）· BOSS／任務關卡依關卡規則生成敵人</p>`;
   html=html.includes('<div class="exploration-categories"')?html.replace('<div class="exploration-categories"',control+'<div class="exploration-categories"'):html.replace('<div class="control-grid">','<div class="control-grid">'+control);
   const h=playerHero(),mp=h?__EMBERWILD_MASTERY.masteryProgress(classMasteryXp(h)):null,xp=mp?(mp.next?Math.min(100,mp.current/mp.next*100):100):0;
-  const nextMode=(party.huntingMode||'single')==='group'?'single':'group',controls=explorationControlButtons().replace(/(<button[^>]*onclick="stopTeamExploration\(\)"[^>]*>(?:<svg[\s\S]*?<\/svg>)?)停止/,'$1重置');
-  const modeHint=mode=>mode==='group'?'群怪：每場遭遇 3～5 隻敵人':'單怪：每場遭遇 1 隻敵人';
-  const toolbar=`<section class="seconds-adventure-toolbar seconds-battle-header" aria-label="冒險狀態與快捷操作"><div class="seconds-battle-title"><h2>${esc(MAPS[party.map]?.name||'荒野')}</h2><div class="seconds-battle-xp" title="${mp.next?`職業精通經驗 ${mp.current.toLocaleString()} / ${mp.next.toLocaleString()}`:'職業精通已達上限'}"><b>${esc(characterName(h))} · ${esc(CLASSES[h.job].name)}精通 Lv.${mp.level}</b><progress aria-label="職業精通經驗" value="${xp}" max="100"></progress>${globalThis.EmberwildMasteryBars?.current(h)||''}<span class="seconds-party-gold" data-party-gold>金幣 ${(party.members[0].gold||0).toLocaleString()}</span></div></div><div class="seconds-toolbar-actions">${controls}<button type="button" data-hunting-switch ${locked?'disabled':''} onclick="setHuntingMode('${nextMode}')" title="${locked?lockNote:modeHint(current)+'（目前）。點擊切換為'+modeHint(nextMode)+'，下一場遭遇生效。'}">${svg('repeat')}切換：${nextMode==='group'?'群怪':'單怪'}</button><button type="button" data-adventure-config onclick="openAdventureConfig()">${svg('sliders-horizontal')}冒險配置</button></div></section>`;
+  const controls=explorationControlButtons().replace(/(<button[^>]*onclick="stopTeamExploration\(\)"[^>]*>(?:<svg[\s\S]*?<\/svg>)?)停止/,'$1重置');
+  const toolbar=`<section class="seconds-adventure-toolbar seconds-battle-header" aria-label="冒險狀態與快捷操作"><div class="seconds-battle-title"><h2>${esc(MAPS[party.map]?.name||'荒野')}</h2><div class="seconds-battle-xp" title="${mp.next?`職業精通經驗 ${mp.current.toLocaleString()} / ${mp.next.toLocaleString()}`:'職業精通已達上限'}"><b>${esc(characterName(h))} · ${esc(CLASSES[h.job].name)}精通 Lv.${mp.level}</b><progress aria-label="職業精通經驗" value="${xp}" max="100"></progress>${globalThis.EmberwildMasteryBars?.current(h)||''}<span class="seconds-party-gold" data-party-gold>金幣 ${(party.members[0].gold||0).toLocaleString()}</span></div></div><div class="seconds-toolbar-actions">${controls}<button type="button" data-adventure-config onclick="openAdventureConfig()">${svg('sliders-horizontal')}冒險配置</button></div></section>`;
   html=html.replace(/第 (\d+(?:\.\d+)?) (?:回合|秒)/g,(_m,n)=>'戰鬥 '+fmt(+n)+' 秒');
   // v0.063: 探索與挑戰 (destinations, recovery, hunting mode, boosts, difficulty) lives in the 冒險配置 dialog.
   const cut=takeSection(html,'<section class="panel battle-map-column expedition-control-card">');
@@ -23452,7 +23547,7 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;storyTextOptionsView=gl
 
 EmberwildStory=globalThis.EmberwildStory??EmberwildStory;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_TITLE=globalThis.__EMBERWILD_TITLE??__EMBERWILD_TITLE;__EMBERWILD_STARTER_PACK=globalThis.__EMBERWILD_STARTER_PACK??__EMBERWILD_STARTER_PACK;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;__EMBERWILD_PROLOGUE_HELPER=globalThis.__EMBERWILD_PROLOGUE_HELPER??__EMBERWILD_PROLOGUE_HELPER;__EMBERWILD_TEMP_ALLY=globalThis.__EMBERWILD_TEMP_ALLY??__EMBERWILD_TEMP_ALLY;EmberwildStoryWindow=globalThis.EmberwildStoryWindow??EmberwildStoryWindow;__EMBERWILD_TUTORIAL=globalThis.__EMBERWILD_TUTORIAL??__EMBERWILD_TUTORIAL;prologueConfirmName=globalThis.prologueConfirmName??prologueConfirmName;prologuePickClass=globalThis.prologuePickClass??prologuePickClass;prologueConfirmClass=globalThis.prologueConfirmClass??prologueConfirmClass;prologueNext=globalThis.prologueNext??prologueNext;prologueOpenTask=globalThis.prologueOpenTask??prologueOpenTask;prologueReturn=globalThis.prologueReturn??prologueReturn;
 
-/* js/story/chapter-runtime.js?v=20261119-v0165-summary */
+/* js/story/chapter-runtime.js?v=20261120-v0179 */
 /* Chapter presentation (v0.150). A chapter is an ordinary story quest that carries a `chapter` field (all text is balance
    data, see docs/CHAPTER1.md). This file plays its stages in the shared story window, runs the few fixed stage actions
    (`allies` temporary allies for a fight, `talk` a button that moves the story on, `recruit` the companion joins), and
@@ -23622,7 +23717,6 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;__EMBERWILD_STORY=globa
    if(!pageOpen(b.dataset.page)){const p=open[0];b.dataset.page=p.id;b.setAttribute('onclick',p.id.startsWith('story-')?`openStory('','${p.id.slice(6)}')`:`setTab('${p.id}')`);}
   }
   for(const id of ['mailbox','achievements'])if(!pageOpen(id)){const b=document.getElementById('utilityButton-'+id);if(b)disable(b);}
-  if(huntLocked()){for(const b of document.querySelectorAll('[data-hunting-switch]'))disable(b);for(const s of document.querySelectorAll('select[aria-label="狩獵模式"]'))disable(s);}
   if(regionLocked()){
    for(const s of document.querySelectorAll('select[aria-label="探索地圖"]'))for(const o of s.options)if(o.value!=='0')o.disabled=true;
    for(const b of document.querySelectorAll('main [onclick^="setExplorationCategory"]'))if(!/'explore'/.test(b.getAttribute('onclick')))disable(b);
@@ -23630,7 +23724,6 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;__EMBERWILD_STORY=globa
  }
  function draw(){
   if(!party||!state)return;
-  if(gated()&&huntLocked()&&party.huntingMode!=='single'){party.huntingMode='single';save();}
   lockControls();
   const c=current();if(!c){return;}
   const {q,s,r}=c;
@@ -23654,7 +23747,6 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;__EMBERWILD_STORY=globa
  const baseCategory=setStoryCategory;setStoryCategory=function(type){if(gated()&&!pageOpen('story-'+type)){toast(ui('locked'));return false;}return baseCategory(type);};
  const baseOpenStory=openStory;openStory=function(id='',type=''){const t=S()?.questType(id)||type||globalThis.currentStoryCategory?.()||'main';if(gated()&&!pageOpen('story-'+t)){toast(ui('locked'));return false;}return baseOpenStory(id,type);};
  const baseUtility=openUtilityPanel;openUtilityPanel=function(id){if(gated()&&['mailbox','achievements'].includes(id)&&!pageOpen(id)){toast(ui('locked'));return false;}return baseUtility(id);};
- const baseHunt=setHuntingMode;setHuntingMode=function(mode){if(huntLocked()&&mode!=='single'){toast(ui('modeLocked'));return false;}return baseHunt(mode);};
  const baseChoose=chooseMap;chooseMap=function(mi){if(regionLocked()&&mi!==0){toast(ui('regionLocked'));return false;}return baseChoose(mi);};
  const baseSelect=selectExplorationMap;selectExplorationMap=function(mi){if(regionLocked()&&mi!==0){toast(ui('regionLocked'));return render();}return baseSelect(mi);};
  const baseCat=setExplorationCategory;setExplorationCategory=function(cat){if(regionLocked()&&cat!=='explore'){toast(ui('locked'));return false;}return baseCat(cat);};
@@ -23782,7 +23874,46 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_TITLE=globalThis.__EMBERWILD_TITLE??__EMBERWILD_TITLE;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;__EMBERWILD_TUTORIAL=globalThis.__EMBERWILD_TUTORIAL??__EMBERWILD_TUTORIAL;questLessonReport=globalThis.questLessonReport??questLessonReport;__EMBERWILD_QUEST_LESSON=globalThis.__EMBERWILD_QUEST_LESSON??__EMBERWILD_QUEST_LESSON;
 
-/* js/story/tutorial-runtime.js?v=20261120-v0178 */
+/* js/skills/mastery-damage.js?v=20261120-v0179 */
+/* v0.179 mastery damage. Masteries give damage only, never HP or defense (class mastery no longer adds stats; it still
+   unlocks skills):
+   - weapon mastery (劍／斧／槌／弓／弩): total damage +1% per level while a weapon of that type is equipped;
+   - element mastery (火／冰／風／光／暗): +1% per level on spells of that element only; basic attacks (and their
+     follow-up hits) are not spells, even when their weapon or a potion gives them an element.
+   Only the protagonist has weapon and element masteries; companions grow class mastery only.
+   Loaded after every resolveHit override, so this wrapper sees all hits. */
+(()=>{
+  'use strict';
+  const PER_LEVEL=0.01,WEAPONS=['sword','axe','hammer','bow','crossbow'],ELEMENTS=['fire','ice','wind','light','shadow'];
+  const M=()=>globalThis.__EMBERWILD_MASTERY;
+  const level=(h,key)=>h?.mastery?M().masteryLevelFromXp(h.mastery[key]||0):0;
+  let basicDepth=0;
+  function weaponBonus(h){if(!h||h.companionId!==undefined)return 0;const type=M().currentWeaponType(h);return WEAPONS.includes(type)?level(h,type)*PER_LEVEL:0;}
+  function elementBonus(h,element){if(!h||h.companionId!==undefined||!ELEMENTS.includes(element))return 0;return level(h,element)*PER_LEVEL;}
+  // The multiplier for one hit of hero h: weapon always (when held), element only for a spell of that element.
+  function multiplier(h,element,{basic=false}={}){return (1+weaponBonus(h))*(1+(basic?0:elementBonus(h,element)));}
+  const isHero=h=>!!h&&Array.isArray(party?.members)&&party.members.includes(h);
+  const baseHit=resolveHit;
+  resolveHit=function(e,amount,h,element,crit,options={},...rest){
+    if(isHero(h)&&Number.isFinite(amount)){const m=multiplier(h,element,{basic:basicDepth>0||!!options?.tokenExtra});if(m!==1)amount=amount*m;}
+    return baseHit.call(this,e,amount,h,element,crit,options,...rest);
+  };
+  const baseBasic=performHeroBasic;
+  performHeroBasic=function(...args){basicDepth++;try{return baseBasic.apply(this,args);}finally{basicDepth--;}};
+  // Text for the mastery pages: what each mastery adds right now.
+  function summary(h){
+    if(!h||h.companionId!==undefined)return [];
+    const out=[];const type=M().currentWeaponType(h);
+    for(const k of WEAPONS){const lv=level(h,k);if(lv>0)out.push({key:k,kind:'weapon',level:lv,bonus:lv*PER_LEVEL,active:k===type});}
+    for(const k of ELEMENTS){const lv=level(h,k);if(lv>0)out.push({key:k,kind:'element',level:lv,bonus:lv*PER_LEVEL,active:true});}
+    return out;
+  }
+  globalThis.__EMBERWILD_MASTERY_DAMAGE={PER_LEVEL,weaponBonus,elementBonus,multiplier,summary};
+})();
+
+__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_MASTERY_DAMAGE=globalThis.__EMBERWILD_MASTERY_DAMAGE??__EMBERWILD_MASTERY_DAMAGE;
+
+/* js/story/tutorial-runtime.js?v=20261120-v0179 */
 /* Tutorial manager. Plays the modules of the `tutorials` balance data (rules: js/story/tutorial-model.js) on top of the
    ordinary game screens: it highlights a control, explains it and waits for the game's own handler to report success.
    It never changes values, items, costs or unlocks. Player progress lives in party.tutorials, apart from the story. */
@@ -23931,7 +24062,6 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
   'battle.categories':()=>$q('main [onclick^="setExplorationCategory"]')?.parentElement||null,
   'battle.mapSelect':()=>$q('main select[aria-label="探索地圖"]'),
   'battle.start':()=>$q('main [onclick="startSelectedExploration()"]')||$q('main .seconds-adventure-toolbar [onclick="toggleBattle()"]'),
-  'battle.huntMode':()=>$q('main [onclick^="setHuntingMode"]'),
   'battle.allies':()=>$q('main .seconds-side-ally')||$q('main .party-combat'),
   'battle.enemies':()=>$q('main .seconds-side-enemy'),
   'bag.categories':()=>$q('main [onclick^="setInventoryCategory"]')?.parentElement||null,
