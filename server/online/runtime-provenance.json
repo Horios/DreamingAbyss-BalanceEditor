@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "56b7821f806a2700768aa1638e4ca340a81e821d",
+  "sourceCommit": "89163c819f752e04aa5dc5b5e3b37d72929b19ae",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -67,8 +67,8 @@
       "sha256": "554d7873222212849433adbac5e88e23b6ee4ec8949bac5ca9f463ce9a6be42a"
     },
     {
-      "path": "js/skills/passive-model.js?v=20261119-v0172",
-      "sha256": "d5cc9b29a0295b41482286388d55faf9c7dced722ca4712e4a5691f31dc3832b"
+      "path": "js/skills/passive-model.js?v=20261120-v0183",
+      "sha256": "c4eea0a8f8c8f56ac6063940626dddbf44f0eb6088dd69365448d7a5e64cb2d4"
     },
     {
       "path": "js/character/achievement-model.js?v=20261012-utility1",
@@ -116,7 +116,7 @@
     },
     {
       "path": "js/balance/gameplay-defaults.js?v=20261120-v0180",
-      "sha256": "daab5c7067cadb0d4d67e1090be60aed445e950668a2cce15b53bf2f3d160d92"
+      "sha256": "63db432cb04f46d104a6fd242e71fc6c9a496d998bcc85b4a43c7c2f4768994b"
     },
     {
       "path": "js/core/save-validation.js?v=20261119-v0169",
@@ -155,8 +155,8 @@
       "sha256": "a7faa067c14dbc34f5ac8550e54d993d1b1292eca0dcddf475e31f1697bec63e"
     },
     {
-      "path": "js/equipment/enhancement-rules.js?v=20261120-v0180",
-      "sha256": "a2ea59831a777334c325ce1f7755709c70b7b8bc4f12e3c5043a1846066cfbe0"
+      "path": "js/equipment/enhancement-rules.js?v=20261120-v0181",
+      "sha256": "383380a10fbcc1e2d23823fa84da862875d8e6d32963804c13e2b05e5138dadc"
     },
     {
       "path": "js/combat/battle-statistics.js?v=20261119-v0169",
@@ -219,8 +219,8 @@
       "sha256": "2780f087144f6173e1910cb6e01f9e97627a61ca3766e8b5389fd710ea956d80"
     },
     {
-      "path": "js/ui/expedition-ui.js?v=20261119-v0169",
-      "sha256": "48ded7ca34e8fc40d60a5e0a8c55bb321f0ba6732ebeba3b5c4622d6d200b804"
+      "path": "js/ui/expedition-ui.js?v=20261120-v0182",
+      "sha256": "f1920f325d418b6e7383b0f5e50762b8d7b46e9ef4263aaa737eb098c24616f5"
     },
     {
       "path": "js/ui/expedition-density.js",
@@ -331,8 +331,8 @@
       "sha256": "c0fcaa3bfad48feeab3f7b2813fa9dc8ef620bc44206458bd0cf695af9ee78a2"
     },
     {
-      "path": "js/balance/progression-runtime.js?v=20261119-v0169",
-      "sha256": "e8ae1cee1cd69e8ab434b7d6ce3097b9abe9e29d94032080af2aee93eceed2ad"
+      "path": "js/balance/progression-runtime.js?v=20261120-v0181",
+      "sha256": "9bb489074be497fec5e95893855cb8e022cc117fca1cc1d4259298cf131291f6"
     },
     {
       "path": "js/items/shop-catalog.js?v=20261118-v0163-gear",
@@ -367,8 +367,8 @@
       "sha256": "f4cf5ce73c54af9b35838f812bfa11ec8a965f0c552e2df73c8bd28965d73a2b"
     },
     {
-      "path": "js/items/companion-tokens.js?v=20261120-v0178",
-      "sha256": "c7ba6d7e7ae4967dcb33d277032d765e40f23298246d37648ef25f02977af54a"
+      "path": "js/items/companion-tokens.js?v=20261120-v0181",
+      "sha256": "3ffcc9a543b59cf01e3342fd891b8a3c73974428b2a0e0eaf49f5cad0c8b1343"
     },
     {
       "path": "js/character/team-runtime.js?v=20261119-v0173",
@@ -467,8 +467,8 @@
       "sha256": "60c8ee31ff2cc7e6822c6d7ac408d1bd4d8f4b978dfd8f40637a66380f6f5550"
     },
     {
-      "path": "js/skills/gear-skills.js?v=20261119-v0170",
-      "sha256": "cac27afe5038e50056fe76db5fd1f2cf2000d24f033a7404da0707528c5182d7"
+      "path": "js/skills/gear-skills.js?v=20261120-v0183",
+      "sha256": "c785809176f583c22983a926ef4b4c17326159b0225bd7aedb45a7831fc21ecc"
     },
     {
       "path": "js/equipment/equipment-skill-runtime.js?v=20261119-v0173",
@@ -519,8 +519,8 @@
       "sha256": "fc179ee3fec67d1cd68744acf48a7b8aab352c56538750ca73777e66ff1e3d7f"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261120-v0179",
-      "sha256": "1e08fb3a3eae983e715de5fe643d0c19036910d781a7ccf1f4356f3780a814d6"
+      "path": "js/ui/seconds-battle.js?v=20261120-v0182",
+      "sha256": "fa7a3f5a74fe9c9b8004f3a6c1668a70c347de06047427e3ecfa2c0e20025f30"
     },
     {
       "path": "js/ui/visual-colors.js?v=20261105-v0079-field1",
@@ -559,8 +559,8 @@
       "sha256": "4dba62b7123f759f829c717cc3849b12e99a79f192cf8d2902ac80131fb46d5b"
     },
     {
-      "path": "js/ui/loot-effects.js?v=20261120-v0182-4",
-      "sha256": "81bece84833055bd6c528e479a29262d5f4568cf110339149928242225f9ce93"
+      "path": "js/ui/loot-effects.js?v=20261120-v0182-size",
+      "sha256": "21a805e4e12f2524567d6e61e59e0ffc1c6ed6d4fb73efb38488b3eac2d19453"
     },
     {
       "path": "js/ui/enhancement-effects.js?v=20261120-v0183-2",

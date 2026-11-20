@@ -1,10 +1,10 @@
 {
  "schema": "dreaming-abyss-traceability-v1",
  "game": {
-  "dataCommit": "56b7821f806a2700768aa1638e4ca340a81e821d",
-  "dataSha256": "761368af80f643802b0807ef4096de6d6f9c36fa4fc1aa6339ff9f6fca6ccdc7"
+  "dataCommit": "89163c819f752e04aa5dc5b5e3b37d72929b19ae",
+  "dataSha256": "52063ebbe2efee0d7fc75709fcf6b48f4faa68012877a8cade56610d1dbef5d2"
  },
- "leaves": 35426,
+ "leaves": 35488,
  "statuses": {
   "effective": "可編輯，三個程式都保留編輯值",
   "normalized": "可編輯，但值會被正規化（四捨五入、夾限或衍生）",
@@ -144,7 +144,7 @@
    "pages": [],
    "reader": {
     "key": "cooldown",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -482,7 +482,7 @@
    "pages": [],
    "reader": {
     "key": "damage",
-    "files": 27,
+    "files": 28,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/skill-effect-schema.js",
@@ -3282,7 +3282,7 @@
    ],
    "reader": {
     "key": "same",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/items/timed-boosts.js",
      "js/balance/game-balance-defaults.js",
@@ -3914,7 +3914,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -3970,7 +3970,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4026,7 +4026,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4082,7 +4082,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -5741,7 +5741,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -6135,7 +6135,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -7464,7 +7464,7 @@
    ],
    "reader": {
     "key": "cooldownSeconds",
-    "files": 7,
+    "files": 8,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -8187,7 +8187,7 @@
    "pages": [],
    "reader": {
     "key": "cooldown",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -8852,7 +8852,7 @@
    "pattern": "equipmentForms.*.*.*.id",
    "module": "equipment/forms",
    "type": "string",
-   "count": 34,
+   "count": 35,
    "instance": "equipmentForms.0.0.0.id",
    "pages": [
     "skills/equipment",
@@ -8888,7 +8888,7 @@
    "pattern": "equipmentForms.*.*.*.name",
    "module": "equipment/forms",
    "type": "string",
-   "count": 34,
+   "count": 35,
    "instance": "equipmentForms.0.0.0.name",
    "pages": [
     "skills/equipment",
@@ -8921,7 +8921,7 @@
    "pattern": "equipmentForms.*.*.*.wearableJobs.*",
    "module": "equipment/forms",
    "type": "integer",
-   "count": 76,
+   "count": 80,
    "instance": "equipmentForms.0.0.0.wearableJobs.0",
    "pages": [
     "skills/equipment",
@@ -8957,7 +8957,7 @@
    "pattern": "equipmentForms.*.*.*.fixedEffects.*.key",
    "module": "equipment/forms",
    "type": "string",
-   "count": 59,
+   "count": 60,
    "instance": "equipmentForms.0.0.0.fixedEffects.0.key",
    "pages": [
     "skills/equipment",
@@ -8991,7 +8991,7 @@
    "pattern": "equipmentForms.*.*.*.fixedEffects.*.value",
    "module": "equipment/forms",
    "type": "integer",
-   "count": 59,
+   "count": 60,
    "instance": "equipmentForms.0.0.0.fixedEffects.0.value",
    "pages": [
     "skills/equipment",
@@ -9181,7 +9181,7 @@
    ],
    "reader": {
     "key": "cost",
-    "files": 28,
+    "files": 29,
     "sample": [
      "js/items/timed-boosts.js",
      "js/combat/seconds-timeline.js",
@@ -9396,7 +9396,7 @@
    ],
    "reader": {
     "key": "cooldownSeconds",
-    "files": 7,
+    "files": 8,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -9620,7 +9620,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -10872,12 +10872,12 @@
    ],
    "reader": {
     "key": "statPerLevel",
-    "files": 6,
+    "files": 7,
     "sample": [
      "js/balance/progression-model.js",
      "js/balance/gameplay-defaults.js",
      "js/equipment/equipment-stat-source.js",
-     "js/equipment/equipment-identity.js"
+     "js/equipment/enhancement-rules.js"
     ]
    },
    "status": "effective",
@@ -11420,7 +11420,7 @@
    ],
    "reader": {
     "key": "failure",
-    "files": 6,
+    "files": 7,
     "sample": [
      "js/balance/gameplay-defaults.js",
      "js/core/core-game.js",
@@ -12368,8 +12368,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": 0.12,
-    "to": 0.132
+    "from": 0.06,
+    "to": 0.066
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -12627,8 +12627,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": 1.6,
-    "to": 1.76
+    "from": 2.08,
+    "to": 2.288
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -12691,8 +12691,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": 1.2,
-    "to": 1.32
+    "from": 1.56,
+    "to": 1.716
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -12722,8 +12722,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": 1.1,
-    "to": 1.21
+    "from": 1.43,
+    "to": 1.573
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -12908,7 +12908,7 @@
    ],
    "reader": {
     "key": "threshold",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15091,8 +15091,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": 0.04,
-    "to": 0.044
+    "from": 0.044,
+    "to": 0.0484
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -15178,7 +15178,7 @@
    },
    "status": "effective",
    "edit": {
-    "from": 0.0006,
+    "from": 0.00066,
     "to": 0.0007
    },
    "editor": "preserved",
@@ -15963,8 +15963,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": 0.22,
-    "to": 0.242
+    "from": 0.242,
+    "to": 0.2662
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -16630,7 +16630,7 @@
    "pages": [],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -20557,7 +20557,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -21582,7 +21582,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -21709,7 +21709,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -22051,8 +22051,8 @@
    },
    "status": "effective",
    "edit": {
-    "from": 0.12,
-    "to": 0.132
+    "from": 0.06,
+    "to": 0.066
    },
    "editor": "preserved",
    "validator": "preserved",
@@ -22161,7 +22161,7 @@
    "pattern": "balanceSettings.drops.entries.*.id",
    "module": "world/drops",
    "type": "string",
-   "count": 217,
+   "count": 218,
    "instance": "balanceSettings.drops.entries.0.id",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22195,7 +22195,7 @@
    "pattern": "balanceSettings.drops.entries.*.name",
    "module": "world/drops",
    "type": "string",
-   "count": 217,
+   "count": 218,
    "instance": "balanceSettings.drops.entries.0.name",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22226,7 +22226,7 @@
    "pattern": "balanceSettings.drops.entries.*.enabled",
    "module": "world/drops",
    "type": "boolean",
-   "count": 217,
+   "count": 218,
    "instance": "balanceSettings.drops.entries.0.enabled",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22257,7 +22257,7 @@
    "pattern": "balanceSettings.drops.entries.*.type",
    "module": "world/drops",
    "type": "string",
-   "count": 217,
+   "count": 218,
    "instance": "balanceSettings.drops.entries.0.type",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22291,7 +22291,7 @@
    "pattern": "balanceSettings.drops.entries.*.key",
    "module": "world/drops",
    "type": "string",
-   "count": 217,
+   "count": 218,
    "instance": "balanceSettings.drops.entries.0.key",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22322,7 +22322,7 @@
    "pattern": "balanceSettings.drops.entries.*.kinds.*",
    "module": "world/drops",
    "type": "string",
-   "count": 225,
+   "count": 226,
    "instance": "balanceSettings.drops.entries.0.kinds.0",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22356,7 +22356,7 @@
    "pattern": "balanceSettings.drops.entries.*.chanceByDifficulty.*",
    "module": "world/drops",
    "type": "number",
-   "count": 651,
+   "count": 654,
    "instance": "balanceSettings.drops.entries.0.chanceByDifficulty.0",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22387,7 +22387,7 @@
    "pattern": "balanceSettings.drops.entries.*.quantityMin",
    "module": "world/drops",
    "type": "integer",
-   "count": 217,
+   "count": 218,
    "instance": "balanceSettings.drops.entries.0.quantityMin",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22418,7 +22418,7 @@
    "pattern": "balanceSettings.drops.entries.*.quantityMax",
    "module": "world/drops",
    "type": "integer",
-   "count": 217,
+   "count": 218,
    "instance": "balanceSettings.drops.entries.0.quantityMax",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22449,7 +22449,7 @@
    "pattern": "balanceSettings.drops.entries.*.sources.*",
    "module": "world/drops",
    "type": "string",
-   "count": 1415,
+   "count": 1416,
    "instance": "balanceSettings.drops.entries.0.sources.0",
    "pages": [
     "battle/balanceSettings:drops",
@@ -22459,7 +22459,7 @@
    ],
    "reader": {
     "key": "sources",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/combat/seconds-schema.js",
      "js/core/core-game.js",
@@ -24163,7 +24163,7 @@
    ],
    "reader": {
     "key": "cost",
-    "files": 28,
+    "files": 29,
     "sample": [
      "js/items/timed-boosts.js",
      "js/combat/seconds-timeline.js",
@@ -24533,7 +24533,7 @@
    "pages": [],
    "reader": {
     "key": "scale",
-    "files": 6,
+    "files": 7,
     "sample": [
      "js/core/core-game.js",
      "js/ui/lucide-catalog.js",
@@ -27711,7 +27711,7 @@
    "pattern": "passiveDefinitions.*.id",
    "module": "characters/passives",
    "type": "string",
-   "count": 23,
+   "count": 24,
    "instance": "passiveDefinitions.0.id",
    "pages": [],
    "reader": {
@@ -27739,7 +27739,7 @@
    "pattern": "passiveDefinitions.*.name",
    "module": "characters/passives",
    "type": "string",
-   "count": 23,
+   "count": 24,
    "instance": "passiveDefinitions.0.name",
    "pages": [],
    "reader": {
@@ -27767,7 +27767,7 @@
    "pattern": "passiveDefinitions.*.description",
    "module": "characters/passives",
    "type": "string",
-   "count": 23,
+   "count": 24,
    "instance": "passiveDefinitions.0.description",
    "pages": [],
    "reader": {
@@ -27795,7 +27795,7 @@
    "pattern": "passiveDefinitions.*.kind",
    "module": "characters/passives",
    "type": "string",
-   "count": 23,
+   "count": 24,
    "instance": "passiveDefinitions.0.kind",
    "pages": [],
    "reader": {
@@ -27823,7 +27823,7 @@
    "pattern": "passiveDefinitions.*.target",
    "module": "characters/passives",
    "type": "string",
-   "count": 23,
+   "count": 24,
    "instance": "passiveDefinitions.0.target",
    "pages": [],
    "reader": {
@@ -27851,7 +27851,7 @@
    "pattern": "passiveDefinitions.*.effects.*.key",
    "module": "characters/passives",
    "type": "string",
-   "count": 21,
+   "count": 22,
    "instance": "passiveDefinitions.0.effects.0.key",
    "pages": [],
    "reader": {
@@ -27879,7 +27879,7 @@
    "pattern": "passiveDefinitions.*.effects.*.value",
    "module": "characters/passives",
    "type": "integer",
-   "count": 21,
+   "count": 22,
    "instance": "passiveDefinitions.0.effects.0.value",
    "pages": [],
    "reader": {
@@ -27907,7 +27907,7 @@
    "pattern": "passiveDefinitions.*.requiredLevel",
    "module": "characters/passives",
    "type": "integer",
-   "count": 23,
+   "count": 24,
    "instance": "passiveDefinitions.0.requiredLevel",
    "pages": [],
    "reader": {
@@ -28297,7 +28297,7 @@
    "pages": [],
    "reader": {
     "key": "cooldown",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -28698,7 +28698,7 @@
    "pages": [],
    "reader": {
     "key": "cooldown",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -29185,7 +29185,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29243,7 +29243,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29301,7 +29301,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29359,7 +29359,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29417,7 +29417,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29475,7 +29475,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29533,7 +29533,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29591,7 +29591,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29649,7 +29649,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29707,7 +29707,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29765,7 +29765,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29823,7 +29823,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29881,7 +29881,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29939,7 +29939,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -31060,7 +31060,7 @@
    ],
    "reader": {
     "key": "canEnhance",
-    "files": 10,
+    "files": 9,
     "sample": [
      "js/core/save-validation.js",
      "js/ui/core-equipment-views.js",
@@ -31794,7 +31794,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -31856,7 +31856,7 @@
    ],
    "reader": {
     "key": "threshold",
-    "files": 8,
+    "files": 9,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -31891,7 +31891,7 @@
    ],
    "reader": {
     "key": "cooldownSeconds",
-    "files": 7,
+    "files": 8,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -33073,7 +33073,7 @@
    "pattern": "inventoryIcons.*.iconType",
    "module": "items/inventory-icons",
    "type": "string",
-   "count": 364,
+   "count": 365,
    "instance": "inventoryIcons.0.iconType",
    "pages": [
     "equipment/inventoryIcons",
@@ -33140,7 +33140,7 @@
    "pattern": "inventoryIcons.*.kind",
    "module": "items/inventory-icons",
    "type": "string",
-   "count": 364,
+   "count": 365,
    "instance": "inventoryIcons.0.kind",
    "pages": [
     "equipment/inventoryIcons",
@@ -33170,7 +33170,7 @@
    "pattern": "inventoryIcons.*.key",
    "module": "items/inventory-icons",
    "type": "string",
-   "count": 364,
+   "count": 365,
    "instance": "inventoryIcons.0.key",
    "pages": [
     "equipment/inventoryIcons",
@@ -33235,7 +33235,7 @@
    "pattern": "inventoryIcons.*.description",
    "module": "items/inventory-icons",
    "type": "string",
-   "count": 364,
+   "count": 365,
    "instance": "inventoryIcons.0.description",
    "pages": [
     "equipment/inventoryIcons",
@@ -33273,7 +33273,7 @@
    "module": "items/inventory-icons",
    "type": "string",
    "count": 15,
-   "instance": "inventoryIcons.289.color",
+   "instance": "inventoryIcons.290.color",
    "pages": [
     "equipment/inventoryIcons",
     "bossCraft/inventoryIcons",
@@ -33303,7 +33303,7 @@
    "module": "items/inventory-icons",
    "type": "string",
    "count": 15,
-   "instance": "inventoryIcons.289.displayName",
+   "instance": "inventoryIcons.290.displayName",
    "pages": [
     "equipment/inventoryIcons",
     "bossCraft/inventoryIcons",
@@ -33735,7 +33735,7 @@
    ],
    "reader": {
     "key": "entry",
-    "files": 20,
+    "files": 21,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/core-game.js",
@@ -35538,7 +35538,7 @@
    ],
    "reader": {
     "key": "after",
-    "files": 50,
+    "files": 51,
     "sample": [
      "js/items/timed-boosts.js",
      "js/combat/seconds-schema.js",
@@ -36473,7 +36473,7 @@
    "pattern": "skillSystem.definitions.*.id",
    "module": "combat/skills",
    "type": "string",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.id",
    "pages": [
     "creation/skillSystem",
@@ -36504,7 +36504,7 @@
    "pattern": "skillSystem.definitions.*.name",
    "module": "combat/skills",
    "type": "string",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.name",
    "pages": [
     "creation/skillSystem",
@@ -36573,7 +36573,7 @@
    "pattern": "skillSystem.definitions.*.requiredLevel",
    "module": "combat/skills",
    "type": "integer",
-   "count": 140,
+   "count": 141,
    "instance": "skillSystem.definitions.0.requiredLevel",
    "pages": [
     "creation/skillSystem",
@@ -36628,7 +36628,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -36845,7 +36845,7 @@
    "pattern": "skillSystem.definitions.*.description",
    "module": "combat/skills",
    "type": "string",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.description",
    "pages": [
     "creation/skillSystem",
@@ -37264,7 +37264,7 @@
    "pattern": "skillSystem.definitions.*.partnerId",
    "module": "combat/skills",
    "type": "null",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.partnerId",
    "pages": [
     "creation/skillSystem",
@@ -37519,7 +37519,7 @@
    "pattern": "skillSystem.definitions.*.type",
    "module": "combat/skills",
    "type": "string",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.type",
    "pages": [
     "creation/skillSystem",
@@ -37550,7 +37550,7 @@
    "pattern": "skillSystem.definitions.*.jobs.*",
    "module": "combat/skills",
    "type": "integer",
-   "count": 204,
+   "count": 208,
    "instance": "skillSystem.definitions.0.jobs.0",
    "pages": [
     "creation/skillSystem",
@@ -37581,7 +37581,7 @@
    "pattern": "skillSystem.definitions.*.adapter.job",
    "module": "combat/skills",
    "type": "integer",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.adapter.job",
    "pages": [
     "creation/skillSystem",
@@ -37612,7 +37612,7 @@
    "pattern": "skillSystem.definitions.*.adapter.index",
    "module": "combat/skills",
    "type": "integer",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.adapter.index",
    "pages": [
     "creation/skillSystem",
@@ -37643,7 +37643,7 @@
    "pattern": "skillSystem.definitions.*.adapter.kind",
    "module": "combat/skills",
    "type": "string",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.adapter.kind",
    "pages": [
     "creation/skillSystem",
@@ -37691,7 +37691,7 @@
    ],
    "reader": {
     "key": "sources",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/combat/seconds-schema.js",
      "js/core/core-game.js",
@@ -37705,7 +37705,7 @@
    "pattern": "skillSystem.definitions.*.timing.cooldownSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.timing.cooldownSeconds",
    "pages": [
     "creation/skillSystem",
@@ -37722,7 +37722,7 @@
    ],
    "reader": {
     "key": "cooldownSeconds",
-    "files": 7,
+    "files": 8,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -37743,7 +37743,7 @@
    "pattern": "skillSystem.definitions.*.timing.mpCost",
    "module": "combat/skills",
    "type": "number",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.timing.mpCost",
    "pages": [
     "creation/skillSystem",
@@ -37781,7 +37781,7 @@
    "pattern": "skillSystem.definitions.*.timing.castSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.timing.castSeconds",
    "pages": [
     "creation/skillSystem",
@@ -37819,7 +37819,7 @@
    "pattern": "skillSystem.definitions.*.timing.actionCostSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.timing.actionCostSeconds",
    "pages": [
     "creation/skillSystem",
@@ -37856,7 +37856,7 @@
    "pattern": "skillSystem.definitions.*.timing.priority",
    "module": "combat/skills",
    "type": "integer",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.timing.priority",
    "pages": [
     "creation/skillSystem",
@@ -37894,7 +37894,7 @@
    "pattern": "skillSystem.definitions.*.timing.durationSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.timing.durationSeconds",
    "pages": [
     "creation/skillSystem",
@@ -37932,7 +37932,7 @@
    "pattern": "skillSystem.definitions.*.timing.bossDurationSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.timing.bossDurationSeconds",
    "pages": [
     "creation/skillSystem",
@@ -37968,7 +37968,7 @@
    "pattern": "skillSystem.definitions.*.timing.tickIntervalSeconds",
    "module": "combat/skills",
    "type": "integer",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.timing.tickIntervalSeconds",
    "pages": [
     "creation/skillSystem",
@@ -38005,7 +38005,7 @@
    "pattern": "skillSystem.definitions.*.timing.condition",
    "module": "combat/skills",
    "type": "string",
-   "count": 189,
+   "count": 190,
    "instance": "skillSystem.definitions.0.timing.condition",
    "pages": [
     "creation/skillSystem",
@@ -38073,7 +38073,7 @@
    "pattern": "skillSystem.definitions.*.sources.*.type",
    "module": "combat/skills",
    "type": "string",
-   "count": 166,
+   "count": 167,
    "instance": "skillSystem.definitions.1.sources.0.type",
    "pages": [
     "creation/skillSystem",
@@ -38581,7 +38581,7 @@
    "pattern": "skillSystem.definitions.*.target",
    "module": "combat/skills",
    "type": "string",
-   "count": 90,
+   "count": 91,
    "instance": "skillSystem.definitions.35.target",
    "pages": [
     "creation/skillSystem",
@@ -38621,7 +38621,7 @@
    "pattern": "skillSystem.definitions.*.kind",
    "module": "combat/skills",
    "type": "string",
-   "count": 72,
+   "count": 73,
    "instance": "skillSystem.definitions.35.kind",
    "pages": [
     "creation/skillSystem",
@@ -39085,7 +39085,7 @@
    "pattern": "skillSystem.definitions.*.effects.*.key",
    "module": "combat/skills",
    "type": "string",
-   "count": 21,
+   "count": 22,
    "instance": "skillSystem.definitions.148.effects.0.key",
    "pages": [
     "creation/skillSystem",
@@ -39126,7 +39126,7 @@
    "pattern": "skillSystem.definitions.*.effects.*.value",
    "module": "combat/skills",
    "type": "integer",
-   "count": 21,
+   "count": 22,
    "instance": "skillSystem.definitions.148.effects.0.value",
    "pages": [
     "creation/skillSystem",
@@ -39778,7 +39778,7 @@
    ],
    "reader": {
     "key": "cooldown",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/items/companion-token-model.js",
      "js/combat/seconds-timeline.js",
@@ -40246,7 +40246,7 @@
    "pattern": "skillSystem.equipment.formRules.*.formId",
    "module": "combat/skill-system",
    "type": "string",
-   "count": 5,
+   "count": 6,
    "instance": "skillSystem.equipment.formRules.0.formId",
    "pages": [
     "battle/skillSystem",
@@ -40275,7 +40275,7 @@
    "pattern": "skillSystem.equipment.formRules.*.skillId",
    "module": "combat/skill-system",
    "type": "string",
-   "count": 5,
+   "count": 6,
    "instance": "skillSystem.equipment.formRules.0.skillId",
    "pages": [
     "battle/skillSystem",
@@ -40304,7 +40304,7 @@
    "pattern": "skillSystem.equipment.formRules.*.dropOnly",
    "module": "combat/skill-system",
    "type": "boolean",
-   "count": 5,
+   "count": 6,
    "instance": "skillSystem.equipment.formRules.0.dropOnly",
    "pages": [
     "battle/skillSystem",
@@ -40984,7 +40984,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -41033,7 +41033,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -41342,7 +41342,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -41661,7 +41661,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 101,
+    "files": 102,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
