@@ -2,7 +2,7 @@
 
 由 `node scripts/traceability.cjs` 產生，請勿手動修改。完整資料在 `traceability-matrix.json`。
 
-遊戲資料 commit `bac8a61`（`data/balance.json` SHA-256 `2f768c2ac316…`），1505 個欄位樣式，35116 個欄位值，36 個模組。
+遊戲資料 commit `56b7821`（`data/balance.json` SHA-256 `761368af80f6…`），1515 個欄位樣式，35426 個欄位值，36 個模組。
 
 每個欄位樣式取第一筆資料改一次值，依序交給工作台（匯入→匯出）、發布驗證器（canonicalize）與遊戲（`applyBalanceConfig`→`exportableBalance`）。
 
@@ -31,14 +31,14 @@
 | `items/items` | 13 | 0 | 5 | 0 | 0 | 0 | 1 | 0 | 0 | 1 |
 | `characters/progression` | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `combat/skill-settings` | 18 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
-| `equipment/settings` | 48 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+| `equipment/settings` | 53 | 0 | 5 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
 | `world/monsters` | 74 | 0 | 5 | 0 | 0 | 0 | 0 | 1 | 0 | 1 |
 | `world/difficulty` | 11 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `systems/rewards` | 36 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `systems/rewards` | 37 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `combat/rules` | 71 | 0 | 8 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| `systems/quests` | 76 | 0 | 11 | 0 | 0 | 0 | 0 | 1 | 0 | 12 |
+| `systems/quests` | 74 | 0 | 13 | 0 | 0 | 0 | 0 | 1 | 0 | 12 |
 | `meta/balance-settings` | 1 | 0 | 3 | 0 | 0 | 0 | 0 | 5 | 0 | 0 |
-| `world/maps` | 13 | 0 | 3 | 0 | 0 | 0 | 1 | 2 | 0 | 0 |
+| `world/maps` | 12 | 0 | 3 | 0 | 0 | 0 | 2 | 2 | 0 | 0 |
 | `world/drops` | 9 | 0 | 4 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `systems/economy` | 5 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `interface/presentation` | 20 | 0 | 10 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
@@ -58,7 +58,7 @@
 | `systems/wishing-lake` | 24 | 0 | 25 | 0 | 0 | 0 | 0 | 0 | 0 | 3 |
 | `systems/tutorials` | 19 | 0 | 24 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
 
-## 由其他欄位衍生，修改來源欄位才會生效（109）
+## 由其他欄位衍生，修改來源欄位才會生效（110）
 
 | 欄位 | 數量 | 來源 | 說明 |
 |---|--:|---|---|
@@ -66,7 +66,7 @@
 | `classes.*…` | 50 | `skillSystem.definitions` | 舊版位置式技能陣列，由技能定義投影產生。已確認修改來源技能的 power 後此處同步改變。 |
 | `supportSkills.*…` | 24 | `skillSystem.definitions` | 輔助技能陣列由技能定義投影產生。已確認修改來源技能的 value 後此處同步改變。 |
 | `items.*…` | 1 | `shopSettings.fixedOffers.entries` | 是否在商店販售由固定商品清單決定（js/items/shop-inventory.js）。 |
-| `balanceSettings.maps.levelRanges.*…` | 1 | `balanceSettings.maps.catalog` | 等級範圍由地圖清單的 min／max 重新產生（js/world/dynamic-world.js）。 |
+| `balanceSettings.maps.levelRanges.*…` | 2 | `balanceSettings.maps.catalog` | 等級範圍由地圖清單的 min／max 重新產生（js/world/dynamic-world.js）。 |
 | `passiveDefinitions.*…` | 30 | `skillSystem.definitions` | 被動陣列由技能定義投影產生。已確認修改來源技能的 name 後此處同步改變。 |
 
 ## 遊戲程式固定此值，資料中的值不會被採用（31）
