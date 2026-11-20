@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "bac8a618613b408570a2397f93d56693c7dd5743",
+  "sourceCommit": "dc2b78eee7ffe08d520f5895b266a3ba68d4dbcd",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -23,8 +23,8 @@
       "sha256": "aa0d6e1f8363dc076e94e47611ce1cff3e945ba8fc0eb9e3618e12aace7ecaf5"
     },
     {
-      "path": "js/story/tutorial-model.js?v=20261119-v0173",
-      "sha256": "1df70ac62986303bc629ec94c525de65a63beae42e047ce928a1330921743fb0"
+      "path": "js/story/tutorial-model.js?v=20261120-v0176",
+      "sha256": "67b4e0650fcc3556c0471b1947acf9ee27d1a91a9e1d66f6869ca3edb138dd20"
     },
     {
       "path": "js/skills/skill-system-model.js?v=20261119-v0172",
@@ -543,8 +543,8 @@
       "sha256": "21c47cca1c628555bdf2ecbd6591bdeda4e59f76b9ab0816ff5633257e8fa7b7"
     },
     {
-      "path": "js/story/tutorial-runtime.js?v=20261119-v0173",
-      "sha256": "a001a1aeefe5ba175d06f69d10f064204afb860f685179c55762576ca8ac7225"
+      "path": "js/story/tutorial-runtime.js?v=20261120-v0176",
+      "sha256": "637c1647fb8ae3fd3bce2a2e702c9f84578306f46edd3adbb53e59426021efc3"
     },
     {
       "path": "js/balance/apply-guard.js?v=20261113-v0137-prologue3",
