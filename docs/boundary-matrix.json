@@ -1,8 +1,8 @@
 {
  "schema": "dreaming-abyss-boundary-v1",
  "game": {
-  "dataCommit": "89163c819f752e04aa5dc5b5e3b37d72929b19ae",
-  "dataSha256": "52063ebbe2efee0d7fc75709fcf6b48f4faa68012877a8cade56610d1dbef5d2"
+  "dataCommit": "bf705c4393a17a100ab2916487fa75d21d945d0a",
+  "dataSha256": "360c995c2c66e4af622f3e352ea8aaa7957f70f2e2c1626dc11335a1fac4f1b0"
  },
  "kinds": {
   "zero": "0",

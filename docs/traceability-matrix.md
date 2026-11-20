@@ -2,7 +2,7 @@
 
 由 `node scripts/traceability.cjs` 產生，請勿手動修改。完整資料在 `traceability-matrix.json`。
 
-遊戲資料 commit `89163c8`（`data/balance.json` SHA-256 `52063ebbe2ef…`），1515 個欄位樣式，35488 個欄位值，36 個模組。
+遊戲資料 commit `bf705c4`（`data/balance.json` SHA-256 `360c995c2c66…`），1515 個欄位樣式，35490 個欄位值，36 個模組。
 
 每個欄位樣式取第一筆資料改一次值，依序交給工作台（匯入→匯出）、發布驗證器（canonicalize）與遊戲（`applyBalanceConfig`→`exportableBalance`）。
 

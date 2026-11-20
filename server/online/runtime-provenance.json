@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "89163c819f752e04aa5dc5b5e3b37d72929b19ae",
+  "sourceCommit": "bf705c4393a17a100ab2916487fa75d21d945d0a",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -219,8 +219,8 @@
       "sha256": "2780f087144f6173e1910cb6e01f9e97627a61ca3766e8b5389fd710ea956d80"
     },
     {
-      "path": "js/ui/expedition-ui.js?v=20261120-v0182",
-      "sha256": "f1920f325d418b6e7383b0f5e50762b8d7b46e9ef4263aaa737eb098c24616f5"
+      "path": "js/ui/expedition-ui.js?v=20261120-v0185",
+      "sha256": "bc88dbb874ab7f518efd2a2afd3ebe67d3ee0b2e786f16ea4f56a1ee3d54f9fd"
     },
     {
       "path": "js/ui/expedition-density.js",
@@ -435,8 +435,8 @@
       "sha256": "406f402c0e46dd216633176ac2e5c51c477a3e8e5ad876bf5758d23d8e8ddb83"
     },
     {
-      "path": "js/ui/navigation-tree.js?v=20261106-nosettings1",
-      "sha256": "c74c0f064383d959ecd413af5b9662250005ecb97c69c1d09a5dee01366bf6a2"
+      "path": "js/ui/navigation-tree.js?v=20261120-v0185",
+      "sha256": "9b0f5a6d9b37e6f0fd38b8febd5f3934b76cdd35536f1ef880278804708a8fea"
     },
     {
       "path": "js/ui/inventory-icons-runtime.js?v=20261118-v0163-gear",
@@ -447,16 +447,16 @@
       "sha256": "eb5b20c600ddb6cb573330885f5898735f29fdbf000efa11fb4dfe38e4d6f0de"
     },
     {
-      "path": "js/story/story-runtime.js?v=20261120-v0178",
-      "sha256": "c91ab4a842935f146a791fead9f4adde65d37e60b9105299421392104cf7d878"
+      "path": "js/story/story-runtime.js?v=20261120-v0184",
+      "sha256": "8b05d386e9e235b42d015df64b58a2dd0ce3cbc738076570bdd042d7fb58a843"
     },
     {
       "path": "js/ui/mobile-layout.js?v=20261118-v0158-merge1",
       "sha256": "4747386082ecedcae4a5b33a4dee81a6de489c2703840112d889de43bbed808d"
     },
     {
-      "path": "js/equipment/gear-inventory.js?v=20261119-v0173",
-      "sha256": "d485a4f62541101f4993ad85451b5d0890c516ea0b45bcc150bb5c22d51c5020"
+      "path": "js/equipment/gear-inventory.js?v=20261120-v0184",
+      "sha256": "ce6ac8503733450533db94d4b7c9ebc3cbaa28e2e1e872e1b27284ea3421bedc"
     },
     {
       "path": "js/combat/offline-exploration.js?v=20261120-v0180",
@@ -519,8 +519,8 @@
       "sha256": "fc179ee3fec67d1cd68744acf48a7b8aab352c56538750ca73777e66ff1e3d7f"
     },
     {
-      "path": "js/ui/seconds-battle.js?v=20261120-v0182",
-      "sha256": "fa7a3f5a74fe9c9b8004f3a6c1668a70c347de06047427e3ecfa2c0e20025f30"
+      "path": "js/ui/seconds-battle.js?v=20261120-v0185b",
+      "sha256": "12f0f40f26e1fbbbb58305b6b68693ce2bee7b953685c87e7f69e2729edeb658"
     },
     {
       "path": "js/ui/visual-colors.js?v=20261105-v0079-field1",
@@ -539,8 +539,8 @@
       "sha256": "7d61da59b67b47fe62ad494190e40a6215f9cdb20a4288f652ae319535d0e954"
     },
     {
-      "path": "js/story/prologue-runtime.js?v=20261120-v0178",
-      "sha256": "91ccb25dcb2683bf6068729502455e9f5fcfcd7ab009138588336f507cbf80b6"
+      "path": "js/story/prologue-runtime.js?v=20261120-v0185",
+      "sha256": "61f5b6a47fd82acfb79e7bfea4da7e9fd15d3803e2eec1ef235ec6eb9e9f1761"
     },
     {
       "path": "js/story/chapter-runtime.js?v=20261120-v0179",
@@ -557,6 +557,10 @@
     {
       "path": "js/story/tutorial-runtime.js?v=20261120-v0179",
       "sha256": "4dba62b7123f759f829c717cc3849b12e99a79f192cf8d2902ac80131fb46d5b"
+    },
+    {
+      "path": "js/ui/bestiary.js?v=20261120-v0185",
+      "sha256": "4e9c22b046c3947f06f82ffbfd68010250bffed642b60054a50a2d12e8f4b3a6"
     },
     {
       "path": "js/ui/loot-effects.js?v=20261120-v0182-size",

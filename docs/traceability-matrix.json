@@ -1,10 +1,10 @@
 {
  "schema": "dreaming-abyss-traceability-v1",
  "game": {
-  "dataCommit": "89163c819f752e04aa5dc5b5e3b37d72929b19ae",
-  "dataSha256": "52063ebbe2efee0d7fc75709fcf6b48f4faa68012877a8cade56610d1dbef5d2"
+  "dataCommit": "bf705c4393a17a100ab2916487fa75d21d945d0a",
+  "dataSha256": "360c995c2c66e4af622f3e352ea8aaa7957f70f2e2c1626dc11335a1fac4f1b0"
  },
- "leaves": 35488,
+ "leaves": 35490,
  "statuses": {
   "effective": "可編輯，三個程式都保留編輯值",
   "normalized": "可編輯，但值會被正規化（四捨五入、夾限或衍生）",
@@ -64,7 +64,7 @@
    "pages": [],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 22,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -302,7 +302,7 @@
    "pages": [],
    "reader": {
     "key": "shadow",
-    "files": 28,
+    "files": 29,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -562,7 +562,7 @@
    "pages": [],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -602,7 +602,7 @@
    "pages": [],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -1535,7 +1535,7 @@
    "pages": [],
    "reader": {
     "key": "entries",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -1784,7 +1784,7 @@
    "pages": [],
    "reader": {
     "key": "entries",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -1804,7 +1804,7 @@
    "pages": [],
    "reader": {
     "key": "entries",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -1864,7 +1864,7 @@
    "pages": [],
    "reader": {
     "key": "rates",
-    "files": 4,
+    "files": 5,
     "sample": [
      "js/items/timed-boosts.js",
      "js/core/core-game.js",
@@ -1979,7 +1979,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2039,7 +2039,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2099,7 +2099,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2159,7 +2159,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2219,7 +2219,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2279,7 +2279,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2339,7 +2339,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2399,7 +2399,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2459,7 +2459,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2519,7 +2519,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2579,7 +2579,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2639,7 +2639,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2699,7 +2699,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2759,7 +2759,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2819,7 +2819,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2879,7 +2879,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2939,7 +2939,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -2999,7 +2999,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -3059,7 +3059,7 @@
    "pages": [],
    "reader": {
     "key": "note",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -3153,7 +3153,7 @@
    "pages": [],
    "reader": {
     "key": "stats",
-    "files": 44,
+    "files": 45,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -3190,7 +3190,7 @@
    "pages": [],
    "reader": {
     "key": "boss",
-    "files": 49,
+    "files": 50,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -3542,7 +3542,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -3604,7 +3604,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -3666,7 +3666,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -3722,7 +3722,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -3914,7 +3914,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -3970,7 +3970,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4026,7 +4026,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4082,7 +4082,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -4138,7 +4138,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4194,7 +4194,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -4250,7 +4250,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4306,7 +4306,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -4362,7 +4362,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4418,7 +4418,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -4474,7 +4474,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4530,7 +4530,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -4586,7 +4586,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4642,7 +4642,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -4698,7 +4698,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4754,7 +4754,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -4810,7 +4810,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4866,7 +4866,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -4922,7 +4922,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -4978,7 +4978,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -5034,7 +5034,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5090,7 +5090,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -5146,7 +5146,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5202,7 +5202,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -5258,7 +5258,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5314,7 +5314,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -5370,7 +5370,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5426,7 +5426,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -5482,7 +5482,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5538,7 +5538,7 @@
    ],
    "reader": {
     "key": "rare",
-    "files": 9,
+    "files": 10,
     "sample": [
      "js/core/game-catalog.js",
      "js/balance/game-balance-defaults.js",
@@ -5648,7 +5648,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -5679,7 +5679,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 22,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -5741,7 +5741,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -5799,7 +5799,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -5830,7 +5830,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -5922,7 +5922,7 @@
    ],
    "reader": {
     "key": "atk",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -5986,7 +5986,7 @@
    ],
    "reader": {
     "key": "main",
-    "files": 22,
+    "files": 23,
     "sample": [
      "js/core/game-catalog.js",
      "js/ui/core-screen-views.js",
@@ -6016,7 +6016,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -6048,7 +6048,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -6231,7 +6231,7 @@
    ],
    "reader": {
     "key": "element",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -7809,7 +7809,7 @@
    ],
    "reader": {
     "key": "atk",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -8019,7 +8019,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -8047,7 +8047,7 @@
    "pages": [],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -8103,7 +8103,7 @@
    "pages": [],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -8243,7 +8243,7 @@
    "pages": [],
    "reader": {
     "key": "element",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -8666,7 +8666,7 @@
    "pages": [],
    "reader": {
     "key": "mapIndex",
-    "files": 25,
+    "files": 26,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -8864,7 +8864,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -8900,7 +8900,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -8969,7 +8969,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -9073,7 +9073,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -9103,7 +9103,7 @@
    ],
    "reader": {
     "key": "element",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -9142,7 +9142,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -9255,7 +9255,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -9825,7 +9825,7 @@
    ],
    "reader": {
     "key": "ore",
-    "files": 37,
+    "files": 39,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/game-catalog.js",
@@ -9855,7 +9855,7 @@
    ],
    "reader": {
     "key": "dust",
-    "files": 34,
+    "files": 35,
     "sample": [
      "js/world/quest-design-model.js",
      "js/balance/gameplay-defaults.js",
@@ -9885,7 +9885,7 @@
    ],
    "reader": {
     "key": "potions",
-    "files": 25,
+    "files": 26,
     "sample": [
      "js/world/quest-design-model.js",
      "js/balance/gameplay-defaults.js",
@@ -9915,7 +9915,7 @@
    ],
    "reader": {
     "key": "default",
-    "files": 17,
+    "files": 18,
     "sample": [
      "js/character/companion-model.js",
      "js/balance/gameplay-defaults.js",
@@ -10442,7 +10442,7 @@
    ],
    "reader": {
     "key": "atk",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -10903,7 +10903,7 @@
    ],
    "reader": {
     "key": "atk",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -10996,7 +10996,7 @@
    ],
    "reader": {
     "key": "atk",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -11296,7 +11296,7 @@
    ],
    "reader": {
     "key": "dust",
-    "files": 34,
+    "files": 35,
     "sample": [
      "js/world/quest-design-model.js",
      "js/balance/gameplay-defaults.js",
@@ -11327,7 +11327,7 @@
    ],
    "reader": {
     "key": "ore",
-    "files": 37,
+    "files": 39,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/game-catalog.js",
@@ -13100,7 +13100,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -13126,7 +13126,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -13159,7 +13159,7 @@
    ],
    "reader": {
     "key": "mapIndex",
-    "files": 25,
+    "files": 26,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -13185,7 +13185,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -13221,7 +13221,7 @@
    ],
    "reader": {
     "key": "material",
-    "files": 34,
+    "files": 35,
     "sample": [
      "js/character/achievement-model.js",
      "js/world/quest-design-model.js",
@@ -13254,7 +13254,7 @@
    ],
    "reader": {
     "key": "element",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -13290,7 +13290,7 @@
    ],
    "reader": {
     "key": "race",
-    "files": 25,
+    "files": 26,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -13819,7 +13819,7 @@
    ],
    "reader": {
     "key": "shadow",
-    "files": 28,
+    "files": 29,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -14215,7 +14215,7 @@
    ],
    "reader": {
     "key": "shadow",
-    "files": 28,
+    "files": 29,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -14274,7 +14274,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15139,7 +15139,7 @@
    ],
    "reader": {
     "key": "ore",
-    "files": 37,
+    "files": 39,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/game-catalog.js",
@@ -15197,11 +15197,12 @@
    ],
    "reader": {
     "key": "goldMultiplier",
-    "files": 3,
+    "files": 4,
     "sample": [
      "js/balance/progression-model.js",
      "js/balance/gameplay-defaults.js",
-     "js/balance/progression-runtime.js"
+     "js/balance/progression-runtime.js",
+     "js/ui/seconds-battle.js"
     ]
    },
    "status": "effective",
@@ -15386,7 +15387,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15415,7 +15416,7 @@
    ],
    "reader": {
     "key": "elite",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15444,7 +15445,7 @@
    ],
    "reader": {
     "key": "boss",
-    "files": 49,
+    "files": 50,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15558,7 +15559,7 @@
    ],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15587,7 +15588,7 @@
    ],
    "reader": {
     "key": "elite",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15616,7 +15617,7 @@
    ],
    "reader": {
     "key": "boss",
-    "files": 49,
+    "files": 50,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15645,7 +15646,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -15924,7 +15925,7 @@
    ],
    "reader": {
     "key": "chanceFactor",
-    "files": 4,
+    "files": 5,
     "sample": [
      "js/balance/gameplay-defaults.js",
      "js/balance/gameplay-settings-schema.js",
@@ -16630,7 +16631,7 @@
    "pages": [],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -16987,7 +16988,7 @@
    "pages": [],
    "reader": {
     "key": "normal",
-    "files": 36,
+    "files": 37,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -17013,7 +17014,7 @@
    "pages": [],
    "reader": {
     "key": "elite",
-    "files": 26,
+    "files": 27,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -17039,7 +17040,7 @@
    "pages": [],
    "reader": {
     "key": "boss",
-    "files": 49,
+    "files": 50,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -17065,7 +17066,7 @@
    "pages": [],
    "reader": {
     "key": "final",
-    "files": 34,
+    "files": 35,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -18149,7 +18150,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -18202,7 +18203,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -18255,7 +18256,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -18308,7 +18309,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -18361,7 +18362,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -18680,7 +18681,7 @@
    ],
    "reader": {
     "key": "ore",
-    "files": 37,
+    "files": 39,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/game-catalog.js",
@@ -18710,7 +18711,7 @@
    ],
    "reader": {
     "key": "gem",
-    "files": 43,
+    "files": 44,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -18800,7 +18801,7 @@
    ],
    "reader": {
     "key": "ore",
-    "files": 37,
+    "files": 39,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/game-catalog.js",
@@ -18830,7 +18831,7 @@
    ],
    "reader": {
     "key": "dust",
-    "files": 34,
+    "files": 35,
     "sample": [
      "js/world/quest-design-model.js",
      "js/balance/gameplay-defaults.js",
@@ -18860,7 +18861,7 @@
    ],
    "reader": {
     "key": "gem",
-    "files": 43,
+    "files": 44,
     "sample": [
      "js/character/achievement-model.js",
      "js/character/team-model.js",
@@ -19720,7 +19721,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -19750,7 +19751,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -19843,7 +19844,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -19947,7 +19948,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -19980,7 +19981,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -20196,7 +20197,7 @@
    ],
    "reader": {
     "key": "ore",
-    "files": 37,
+    "files": 39,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/game-catalog.js",
@@ -20256,7 +20257,7 @@
    ],
    "reader": {
     "key": "dust",
-    "files": 34,
+    "files": 35,
     "sample": [
      "js/world/quest-design-model.js",
      "js/balance/gameplay-defaults.js",
@@ -20367,7 +20368,7 @@
    ],
    "reader": {
     "key": "potions",
-    "files": 25,
+    "files": 26,
     "sample": [
      "js/world/quest-design-model.js",
      "js/balance/gameplay-defaults.js",
@@ -20390,7 +20391,7 @@
    ],
    "reader": {
     "key": "items",
-    "files": 54,
+    "files": 55,
     "sample": [
      "js/character/team-model.js",
      "js/items/timed-boosts.js",
@@ -20497,7 +20498,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -20557,7 +20558,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -20587,7 +20588,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -20680,7 +20681,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -20784,7 +20785,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -20817,7 +20818,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -21036,7 +21037,7 @@
    ],
    "reader": {
     "key": "ore",
-    "files": 37,
+    "files": 39,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/game-catalog.js",
@@ -21096,7 +21097,7 @@
    ],
    "reader": {
     "key": "dust",
-    "files": 34,
+    "files": 35,
     "sample": [
      "js/world/quest-design-model.js",
      "js/balance/gameplay-defaults.js",
@@ -21207,7 +21208,7 @@
    ],
    "reader": {
     "key": "potions",
-    "files": 25,
+    "files": 26,
     "sample": [
      "js/world/quest-design-model.js",
      "js/balance/gameplay-defaults.js",
@@ -21230,7 +21231,7 @@
    ],
    "reader": {
     "key": "items",
-    "files": 54,
+    "files": 55,
     "sample": [
      "js/character/team-model.js",
      "js/items/timed-boosts.js",
@@ -21582,7 +21583,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -21617,7 +21618,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -21643,7 +21644,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -21709,7 +21710,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -22171,7 +22172,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -22205,7 +22206,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -22236,7 +22237,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -22267,7 +22268,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -22301,7 +22302,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -22666,7 +22667,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -23191,7 +23192,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -23222,7 +23223,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -23394,7 +23395,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -23440,7 +23441,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -23471,7 +23472,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -23643,7 +23644,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -23696,7 +23697,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -23727,7 +23728,7 @@
    ],
    "reader": {
     "key": "group",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/ui/themes.js",
      "js/combat/seconds-schema.js",
@@ -23820,7 +23821,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -23850,7 +23851,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -24102,7 +24103,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -24133,7 +24134,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -24370,7 +24371,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -24399,7 +24400,7 @@
    "pages": [],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -24425,7 +24426,7 @@
    "pages": [],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -24481,7 +24482,7 @@
    "pages": [],
    "reader": {
     "key": "x",
-    "files": 94,
+    "files": 96,
     "sample": [
      "js/items/companion-token-model.js",
      "js/character/companion-model.js",
@@ -24950,7 +24951,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -24979,7 +24980,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -25067,7 +25068,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -25126,7 +25127,7 @@
    ],
    "reader": {
     "key": "element",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -25626,7 +25627,7 @@
    ],
    "reader": {
     "key": "element",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -25713,7 +25714,7 @@
    ],
    "reader": {
     "key": "group",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/ui/themes.js",
      "js/combat/seconds-schema.js",
@@ -25963,7 +25964,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -26148,7 +26149,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -26475,7 +26476,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -26620,7 +26621,7 @@
    ],
    "reader": {
     "key": "atk",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -27040,7 +27041,7 @@
    ],
    "reader": {
     "key": "atk",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -27495,7 +27496,7 @@
    ],
    "reader": {
     "key": "atk",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -27601,7 +27602,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -27716,7 +27717,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -27744,7 +27745,7 @@
    "pages": [],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -27800,7 +27801,7 @@
    "pages": [],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -27856,7 +27857,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -28325,7 +28326,7 @@
    "pages": [],
    "reader": {
     "key": "element",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -28785,7 +28786,7 @@
    ],
    "reader": {
     "key": "atk",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -29185,7 +29186,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29243,7 +29244,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29301,7 +29302,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29359,7 +29360,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29417,7 +29418,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29475,7 +29476,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29533,7 +29534,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29591,7 +29592,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29649,7 +29650,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29707,7 +29708,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29765,7 +29766,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29823,7 +29824,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29881,7 +29882,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -29939,7 +29940,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -30083,7 +30084,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -30115,7 +30116,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -30144,7 +30145,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -30176,7 +30177,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -30208,7 +30209,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -30385,7 +30386,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 22,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -30470,7 +30471,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -30502,7 +30503,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -30531,7 +30532,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -30563,7 +30564,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -30595,7 +30596,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -30675,7 +30676,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -30707,7 +30708,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -30906,7 +30907,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31219,7 +31220,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -31411,7 +31412,7 @@
    ],
    "reader": {
     "key": "monsters",
-    "files": 40,
+    "files": 42,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -31472,7 +31473,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31497,7 +31498,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -31561,7 +31562,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -31730,7 +31731,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 22,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -32019,7 +32020,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -32175,7 +32176,7 @@
    ],
    "reader": {
     "key": "monsters",
-    "files": 40,
+    "files": 42,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -32235,7 +32236,7 @@
    ],
    "reader": {
     "key": "element",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -32377,7 +32378,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -32400,7 +32401,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -32459,7 +32460,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 22,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -32655,7 +32656,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 22,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -32685,7 +32686,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -32820,7 +32821,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 22,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -32880,7 +32881,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -32939,7 +32940,7 @@
    ],
    "reader": {
     "key": "chance",
-    "files": 21,
+    "files": 22,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/companion-skill-model.js",
@@ -33119,7 +33120,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33156,7 +33157,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -33186,7 +33187,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -33344,7 +33345,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33363,7 +33364,7 @@
    "pages": [],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33441,7 +33442,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33467,7 +33468,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33500,7 +33501,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33591,7 +33592,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -33657,7 +33658,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -33761,7 +33762,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33787,7 +33788,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -33886,7 +33887,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -33978,7 +33979,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -34004,7 +34005,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34030,7 +34031,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -34089,7 +34090,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -34174,7 +34175,7 @@
    ],
    "reader": {
     "key": "ore",
-    "files": 37,
+    "files": 39,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/game-catalog.js",
@@ -34207,7 +34208,7 @@
    ],
    "reader": {
     "key": "items",
-    "files": 54,
+    "files": 55,
     "sample": [
      "js/character/team-model.js",
      "js/items/timed-boosts.js",
@@ -34394,7 +34395,7 @@
    ],
    "reader": {
     "key": "ore",
-    "files": 37,
+    "files": 39,
     "sample": [
      "js/world/quest-design-model.js",
      "js/core/game-catalog.js",
@@ -34427,7 +34428,7 @@
    ],
    "reader": {
     "key": "items",
-    "files": 54,
+    "files": 55,
     "sample": [
      "js/character/team-model.js",
      "js/items/timed-boosts.js",
@@ -34503,7 +34504,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -34536,7 +34537,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34569,7 +34570,7 @@
    ],
    "reader": {
     "key": "mapIndex",
-    "files": 25,
+    "files": 26,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -34628,7 +34629,7 @@
    ],
    "reader": {
     "key": "monsterId",
-    "files": 19,
+    "files": 20,
     "sample": [
      "js/items/companion-token-model.js",
      "js/world/monster-drop-tables.js",
@@ -34713,7 +34714,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34772,7 +34773,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -34926,7 +34927,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -34952,7 +34953,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -35011,7 +35012,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35037,7 +35038,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -35277,7 +35278,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35303,7 +35304,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -35479,7 +35480,7 @@
    ],
    "reader": {
     "key": "hint",
-    "files": 6,
+    "files": 7,
     "sample": [
      "js/equipment/equipment-identity.js",
      "js/character/companions.js",
@@ -35538,7 +35539,7 @@
    ],
    "reader": {
     "key": "after",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/timed-boosts.js",
      "js/combat/seconds-schema.js",
@@ -35740,7 +35741,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35773,7 +35774,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35872,7 +35873,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -35898,7 +35899,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -35964,7 +35965,7 @@
    ],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -36042,7 +36043,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36068,7 +36069,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36309,7 +36310,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36337,7 +36338,7 @@
    ],
    "reader": {
     "key": "label",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/ui/themes.js",
      "js/combat/seconds-timeline.js",
@@ -36386,14 +36387,14 @@
    "pattern": "navigation.groups.*.pages.*.id",
    "module": "interface/navigation",
    "type": "string",
-   "count": 18,
+   "count": 19,
    "instance": "navigation.groups.0.pages.0.id",
    "pages": [
     "guide/navigation"
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36417,14 +36418,14 @@
    "pattern": "navigation.groups.*.pages.*.label",
    "module": "interface/navigation",
    "type": "string",
-   "count": 18,
+   "count": 19,
    "instance": "navigation.groups.0.pages.0.label",
    "pages": [
     "guide/navigation"
    ],
    "reader": {
     "key": "label",
-    "files": 73,
+    "files": 74,
     "sample": [
      "js/ui/themes.js",
      "js/combat/seconds-timeline.js",
@@ -36490,7 +36491,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36521,7 +36522,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -36745,7 +36746,7 @@
    ],
    "reader": {
     "key": "element",
-    "files": 51,
+    "files": 52,
     "sample": [
      "js/items/companion-token-model.js",
      "js/skills/passive-model.js",
@@ -37536,7 +37537,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -37629,7 +37630,7 @@
    ],
    "reader": {
     "key": "index",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/skills/companion-skill-model.js",
      "js/items/timed-boosts.js",
@@ -37660,7 +37661,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -38090,7 +38091,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -38638,7 +38639,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -38829,7 +38830,7 @@
    ],
    "reader": {
     "key": "mapIndex",
-    "files": 25,
+    "files": 26,
     "sample": [
      "js/character/achievement-model.js",
      "js/skills/companion-skill-model.js",
@@ -39102,7 +39103,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -39500,7 +39501,7 @@
    ],
    "reader": {
     "key": "index",
-    "files": 46,
+    "files": 47,
     "sample": [
      "js/skills/companion-skill-model.js",
      "js/items/timed-boosts.js",
@@ -39541,7 +39542,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -40499,7 +40500,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -40586,7 +40587,7 @@
    ],
    "reader": {
     "key": "values",
-    "files": 42,
+    "files": 43,
     "sample": [
      "js/character/companion-model.js",
      "js/character/team-model.js",
@@ -40668,7 +40669,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -40907,7 +40908,7 @@
    ],
    "reader": {
     "key": "item",
-    "files": 65,
+    "files": 67,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/achievement-model.js",
@@ -40935,7 +40936,7 @@
    ],
    "reader": {
     "key": "equipment",
-    "files": 65,
+    "files": 66,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -40984,7 +40985,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -41033,7 +41034,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -41211,7 +41212,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -41232,7 +41233,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -41253,7 +41254,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -41274,7 +41275,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -41342,7 +41343,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -41401,7 +41402,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -41422,7 +41423,7 @@
    ],
    "reader": {
     "key": "name",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -41450,7 +41451,7 @@
    ],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -41471,7 +41472,7 @@
    ],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -41492,7 +41493,7 @@
    ],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -41591,7 +41592,7 @@
    ],
    "reader": {
     "key": "kind",
-    "files": 89,
+    "files": 90,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -41612,7 +41613,7 @@
    ],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -41661,7 +41662,7 @@
    ],
    "reader": {
     "key": "max",
-    "files": 102,
+    "files": 103,
     "sample": [
      "js/balance/progression-model.js",
      "js/character/companion-model.js",
@@ -41866,7 +41867,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -41930,7 +41931,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -41949,7 +41950,7 @@
    "pages": [],
    "reader": {
     "key": "enabled",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/balance/progression-model.js",
      "js/items/companion-token-model.js",
@@ -42027,7 +42028,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -42046,7 +42047,7 @@
    "pages": [],
    "reader": {
     "key": "page",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -42108,7 +42109,7 @@
    "pages": [],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -42127,7 +42128,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -42146,7 +42147,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -42198,7 +42199,7 @@
    "pages": [],
    "reader": {
     "key": "id",
-    "files": 118,
+    "files": 119,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -42269,7 +42270,7 @@
    "pages": [],
    "reader": {
     "key": "page",
-    "files": 39,
+    "files": 40,
     "sample": [
      "js/ui/core-screen-views.js",
      "js/core/core-game.js",
@@ -42324,7 +42325,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -42369,7 +42370,7 @@
    "pages": [],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -42424,7 +42425,7 @@
    "pages": [],
    "reader": {
     "key": "mode",
-    "files": 38,
+    "files": 39,
     "sample": [
      "js/balance/progression-model.js",
      "js/combat/seconds-schema.js",
@@ -42462,7 +42463,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -42481,7 +42482,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -42533,7 +42534,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -42670,7 +42671,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -42689,7 +42690,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -42708,7 +42709,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
@@ -42760,7 +42761,7 @@
    "pages": [],
    "reader": {
     "key": "type",
-    "files": 94,
+    "files": 95,
     "sample": [
      "js/ui/themes.js",
      "js/items/companion-token-model.js",
@@ -42779,7 +42780,7 @@
    "pages": [],
    "reader": {
     "key": "key",
-    "files": 107,
+    "files": 108,
     "sample": [
      "js/ui/themes.js",
      "js/balance/progression-model.js",
