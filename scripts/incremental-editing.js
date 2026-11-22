@@ -38,7 +38,7 @@
  function rebase(reason){
   state.tracked=data;state.base.clear();state.baseValue.clear();state.current.clear();state.modules.clear();state.candidates.clear();
   for(const [id,t] of texts(data,ALL)){state.base.set(id,t);state.current.set(id,t);state.baseValue.set(id,t===null?undefined:JSON.parse(t));}
-  state.baseReason=reason;publishState();
+  state.orphanIssues=[];state.baseReason=reason;publishState();
  }
  // Field rules for one input, immediately: only that path is checked.
  function validateField(path){
@@ -87,7 +87,7 @@
  }
  function summary(){
   const modules=[...state.modules.values()],issues=modules.flatMap(m=>m.issues).concat(state.orphanIssues||[]);
-  return {dirty:modules.length>0,modules:modules.map(m=>({id:m.id,title:m.title,kinds:m.kinds,records:m.records,changes:m.changes.length,issues:m.issues})),issues,
+  return {dirty:modules.length>0,modules:modules.map(m=>({id:m.id,title:m.title,kinds:m.kinds,records:m.records,changes:m.changes.length,issues:m.issues})),issues,orphanIssues:state.orphanIssues||[],
    canSave:true,canPublish:modules.length>0&&issues.length===0,crossModule:modules.some(m=>m.kinds.some(k=>k!=='value')),source:state.source,base:state.baseReason,last:state.lastRefresh,stats:{...state.stats}};
  }
  function schedule(){if(state.timer)return;const run=()=>refresh();state.timer=setTimeout(()=>{if(typeof requestIdleCallback==='function')requestIdleCallback(run,{timeout:400});else run();},180);}

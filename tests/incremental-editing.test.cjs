@@ -27,10 +27,19 @@ test('deleting a referenced monster runs cross-module checks and locates every b
  assert.equal(s.crossModule,true);assert.equal(s.canPublish,false);
  assert(s.last.blocks.includes('drops'),'drop references checked');
  assert(s.issues.length>0);assert(s.issues.every(x=>x.module==='world/drops'&&/^balanceSettings\.drops\.entries\.\d+\.sources$/.test(x.field)));
+ assert.deepEqual(s.orphanIssues,s.issues,'errors in an unchanged dependent module are exposed to the panel');
+ const panel=r.exec("document.getElementById('moduleStatePanel').innerHTML");
+ assert.match(panel,/sources/,'the panel shows where the blocking reference error is');
  // Removing the referencing drop rules fixes it; the drops module is now changed too and both pass.
  r.exec("data.balanceSettings.drops.entries=data.balanceSettings.drops.entries.map(d=>({...d,sources:d.sources.filter(id=>id!==__gone)})).filter(d=>d.sources.length);markDirty('修正');");
  const fixed=r.run('__EMBERWILD_INCREMENTAL.refresh()');
  assert.deepEqual(fixed.modules.map(m=>m.id).sort(),['world/drops','world/monsters']);assert.equal(fixed.issues.length,0);assert.equal(fixed.canPublish,true);
+});
+
+test('rebasing a corrected document clears old dependent-module errors immediately',()=>{
+ const r=loadRuntime(root);
+ r.exec("__EMBERWILD_INCREMENTAL._internal.orphanIssues=[{field:'balanceSettings.drops.entries.0.sources',reason:'old error'}];__EMBERWILD_INCREMENTAL.rebase('載入已修正版本');");
+ assert.deepEqual(r.run('__EMBERWILD_INCREMENTAL.state().issues'),[]);
 });
 
 test('a write outside the page modules is still found (sweep) and an unknown page sweeps every module',()=>{

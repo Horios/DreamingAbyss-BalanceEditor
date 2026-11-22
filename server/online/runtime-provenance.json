@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "bf705c4393a17a100ab2916487fa75d21d945d0a",
+  "sourceCommit": "6d409aefd34b7386dbd07adb3a2a96a0664c6497",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -375,8 +375,8 @@
       "sha256": "d1ef389c8c17ae057a39edf96cf77fa5686affbb9b5125d7b5aec88a544b17e5"
     },
     {
-      "path": "js/equipment/team-references.js?v=20261119-v0172",
-      "sha256": "cba44650f8a88d223c43aa5bfbc84a6845c76babd4ab5f99c824e97b512c15de"
+      "path": "js/equipment/team-references.js?v=20261121-v0186",
+      "sha256": "7f5d7a5087af385fe17d03ba22c8357c4c1f1abd7fd95d602125b9f13bb9d208"
     },
     {
       "path": "js/items/skill-extraction.js?v=20261120-v0178",
@@ -559,8 +559,8 @@
       "sha256": "4dba62b7123f759f829c717cc3849b12e99a79f192cf8d2902ac80131fb46d5b"
     },
     {
-      "path": "js/ui/bestiary.js?v=20261120-v0185",
-      "sha256": "4e9c22b046c3947f06f82ffbfd68010250bffed642b60054a50a2d12e8f4b3a6"
+      "path": "js/ui/bestiary.js?v=20261121-v0186",
+      "sha256": "3944a32dcd06c913be5d26ef4aab923f8abc3356258dca4adfab9d19a2aebb41"
     },
     {
       "path": "js/ui/loot-effects.js?v=20261120-v0182-size",

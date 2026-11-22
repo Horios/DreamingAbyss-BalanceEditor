@@ -1,5 +1,5 @@
 {
-  "gameCommit": "bf705c4393a17a100ab2916487fa75d21d945d0a",
+  "gameCommit": "6d409aefd34b7386dbd07adb3a2a96a0664c6497",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -219,7 +219,7 @@
     },
     {
       "path": "js/equipment/team-references.js",
-      "sha256": "cba44650f8a88d223c43aa5bfbc84a6845c76babd4ab5f99c824e97b512c15de"
+      "sha256": "7f5d7a5087af385fe17d03ba22c8357c4c1f1abd7fd95d602125b9f13bb9d208"
     },
     {
       "path": "js/items/companion-token-model.js",
@@ -367,7 +367,7 @@
     },
     {
       "path": "js/ui/bestiary.js",
-      "sha256": "4e9c22b046c3947f06f82ffbfd68010250bffed642b60054a50a2d12e8f4b3a6"
+      "sha256": "3944a32dcd06c913be5d26ef4aab923f8abc3356258dca4adfab9d19a2aebb41"
     },
     {
       "path": "js/ui/character-avatars.js",
@@ -943,11 +943,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "636c46a7934d49ba0c14391b40768fee0986d6f3399d65d1c629b67deaf112fb"
+      "sha256": "c9f88c5378f0c5c82acaead8d3b6b365e7fe369b3a1d1c0bcf4f18603e5511f8"
     },
     {
       "path": "index.html",
-      "sha256": "ffcd06153483d760768346bfea9c7ce991f5d6112e321f2aad251713ee3bbe44"
+      "sha256": "de9d96e4560118ac25a2f90fa47a064ee9cd1eb3c6bbe20c82adb624e10790ef"
     }
   ],
   "gameBridgeSha256": "0d24042aaff017d334ade5aec772ef794c5887cbcf6846358ee8df9e0d696fcd",

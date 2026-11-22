@@ -18115,7 +18115,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;changePlayerClass=globalThis.changePlayerClass??changePlayerClass;addTeamPlan=globalThis.addTeamPlan??addTeamPlan;copyTeamPlan=globalThis.copyTeamPlan??copyTeamPlan;renameTeamPlan=globalThis.renameTeamPlan??renameTeamPlan;switchTeamPlan=globalThis.switchTeamPlan??switchTeamPlan;clearTeamPlan=globalThis.clearTeamPlan??clearTeamPlan;deleteTeamPlan=globalThis.deleteTeamPlan??deleteTeamPlan;resetSkills=globalThis.resetSkills??resetSkills;unlockTeamSkill=globalThis.unlockTeamSkill??unlockTeamSkill;stopTeamExploration=globalThis.stopTeamExploration??stopTeamExploration;
 
-/* js/equipment/team-references.js?v=20261119-v0172 */
+/* js/equipment/team-references.js?v=20261121-v0186 */
 /* All manual disposal paths share the existing prices/reward functions and the
    same reference audit. Battle overflow stays in the bag and pauses exploration. */
 (()=>{
@@ -18147,17 +18147,19 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
     const b=copy(T.build()),bag=state.bag,selected=party.selected,hp=party.members.map(h=>h.hp),memberGear=party.members.map(x=>({equipped:copy(x.equipped),tokenId:x.tokenId})),h=T.player(),resource={};
     for(const k of ['gold','ore','dust','gems','materials','potions','consumables'])resource[k]=copy(h[k]);
     const healingPotions=copy(healingInventory()),oldBoard=copy(h.board);
-    const removed=new Set(items.map(g=>g.id));
+    const removed=new Set(items.map(g=>g.id));let total=0;
     try{
       M.clearReferences(T.build(),[...removed]);
       for(const x of party.members){x.equipped=x.equipped.map(id=>removed.has(id)?null:id);if(removed.has(x.tokenId))x.tokenId=null;}
-      let total=0;for(const g of items){globalThis.__EMBERWILD_EQUIPMENT_SKILLS?.refund(g,h);if(mode==='extract')continue;if(mode==='sell'){const price=equipmentSellPrice(g);h.gold+=price;total+=price;}else grantSalvageRewards(g,includeEnhance);}
+      for(const g of items){globalThis.__EMBERWILD_EQUIPMENT_SKILLS?.refund(g,h);if(mode==='extract')continue;if(mode==='sell'){const price=equipmentSellPrice(g);h.gold+=price;total+=price;}else grantSalvageRewards(g,includeEnhance);}
       // v0.172: a skill extraction moves the skill onto a token inside this same transaction (rolled back with it).
       if(mode==='extract')options.apply?.();
       state.bag=bag.filter(g=>!removed.has(g.id));if(mode==='salvage')globalThis.recordDailyProgress?.('salvage','',items.length);
       for(const x of party.members)x.hp=Math.min(x.hp,stats(x).hp);
-      if(save()===false)throw Error('儲存失敗');pruneGearSelections();render();toast(mode==='extract'?(options.message||'已萃取'):`已${verb} ${items.length} 件装備${mode==='sell'?'，獲得 '+total+' 金幣':''}${blocked.length?'；略過 '+blocked.length+' 件目前戰鬥隊伍裝備':''}`);return true;
+      if(save()===false)throw Error('儲存失敗');
     }catch(e){h.board=oldBoard;party.buildSystem=b;state.bag=bag;for(const k of Object.keys(resource))h[k]=resource[k];const inv=healingInventory();for(const k of Object.keys(inv))delete inv[k];Object.assign(inv,healingPotions);party.selected=selected;state=partyMember(selected)||h;party.members.forEach((x,i)=>{x.equipped=copy(memberGear[i].equipped);x.tokenId=memberGear[i].tokenId;x.hp=hp[i];});toast('操作未保存：'+e.message);return false;}
+    // The save is committed. A rendering error must not restore items/resources only in memory.
+    pruneGearSelections();render();toast(mode==='extract'?(options.message||'已萃取'):`已${verb} ${items.length} 件装備${mode==='sell'?'，獲得 '+total+' 金幣':''}${blocked.length?'；略過 '+blocked.length+' 件目前戰鬥隊伍裝備':''}`);return true;
   }
   globalThis.__EMBERWILD_DISPOSE_GEAR=dispose;
   salvage=id=>dispose([id],'salvage');globalThis.sellGear=id=>dispose([id],'sell');
@@ -24675,7 +24677,7 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERW
 
 EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;__EMBERWILD_STARTER_PACK=globalThis.__EMBERWILD_STARTER_PACK??__EMBERWILD_STARTER_PACK;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;tutorialReviewView=globalThis.tutorialReviewView??tutorialReviewView;companionTicketCount=globalThis.companionTicketCount??companionTicketCount;__EMBERWILD_WORN_SOCKET_TARGET=globalThis.__EMBERWILD_WORN_SOCKET_TARGET??__EMBERWILD_WORN_SOCKET_TARGET;querySelector=globalThis.querySelector??querySelector;__EMBERWILD_TUTORIAL=globalThis.__EMBERWILD_TUTORIAL??__EMBERWILD_TUTORIAL;running=globalThis.running??running;CSS=globalThis.CSS??CSS;tutorialCloseTip=globalThis.tutorialCloseTip??tutorialCloseTip;tutorialControl=globalThis.tutorialControl??tutorialControl;tutorialNotice=globalThis.tutorialNotice??tutorialNotice;replayTutorial=globalThis.replayTutorial??replayTutorial;toggleTutorialReview=globalThis.toggleTutorialReview??toggleTutorialReview;
 
-/* js/ui/bestiary.js?v=20261120-v0185 */
+/* js/ui/bestiary.js?v=20261121-v0186 */
 /* v0.185: 怪物圖鑑 page (探索 → 怪物圖鑑). One region at a time: each monster with the artwork it has in battle and a
    short, plain drop list grouped as 常見 / 少見 / 稀有 at the current difficulty. Replaces the 地區圖鑑 dialog that sat
    on the exploration page. */
@@ -24700,8 +24702,10 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=g
     const foe={monsterId:m.id,kind,lv:Number(MAPS[m.mapIndex]?.max)||1,region:m.mapIndex,difficulty:party.difficulty||0,mat:m.material||m.mat};
     const groups={常見:[],少見:[],稀有:[]};
     const material=foe.mat;if(material&&kind!=='boss')groups['常見'].push(material);
-    if(kind!=='boss')groups[GAMEPLAY_SETTINGS.rewards?.ore?.chanceFactor>=.1||kind==='elite'?'常見':'少見'].push('粉塵');
-    for(const r of configuredDropRules(foe))groups[tier(chance(r,kind))].push(ruleName(r));
+    const ore=GAMEPLAY_SETTINGS.rewards?.ore||{},factor=Math.max(0,Math.min(1,Number(ore.chanceFactor??1)));
+    const dustChance=(kind==='normal'?(ore.normalChanceByDifficulty?.[foe.difficulty]??1):1)*factor;
+    if(dustChance>0)groups[tier(dustChance)].push('粉塵');
+    for(const r of configuredDropRules(foe)){const c=chance(r,kind);if(c>0)groups[tier(c)].push(ruleName(r));}
     // Each item is listed once, in its most likely group.
     const seen=new Set();return Object.fromEntries(Object.entries(groups).map(([k,v])=>[k,unique(v).filter(x=>!seen.has(x)&&seen.add(x))]));
   }
