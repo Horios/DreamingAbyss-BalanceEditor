@@ -1,5 +1,5 @@
 {
-  "gameCommit": "4378e150832ec89739a0deb019d106edc0a15d8d",
+  "gameCommit": "2976193007ce197d1a1c6e9e9a5b84d9b8b8ee45",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -871,7 +871,7 @@
     },
     {
       "path": "data/balance/manifest.json",
-      "sha256": "bd086a6fa93fffa7a138ddb7236e95df29db2d3328b9c9800cf89c09088a2461"
+      "sha256": "59147e1a4e367cbe78f475b75aebe8bd3d6396e5698e276947cb46734aebff19"
     },
     {
       "path": "data/balance/meta/balance-settings.json",
@@ -887,7 +887,7 @@
     },
     {
       "path": "data/balance/meta/reference.json",
-      "sha256": "d64810b4293ca354ef6372d0d150574f317b01f08ab95262ea7f51297ab6a135"
+      "sha256": "341c926a187e4834979f7a1fa49e06062869312b7ef43b705432a8014c93f5b8"
     },
     {
       "path": "data/balance/systems/economy.json",
@@ -939,7 +939,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "7d34e86ae62789ad4e4a8d4479e54f0ce2ff539cbaca9d93faa979883c5dcccd"
+      "sha256": "01d62254aac6022a659c2140c75880d1857884f40c828c25e33e3117a6ab5316"
     },
     {
       "path": "data/build.json",
@@ -947,7 +947,7 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "135afa8b8039ae0bb2d39a167377a375708562769cc5beec864f0ab00fa159f9"
+      "sha256": "3e11bbaa695789c746fa3d1f77395c29504f9c5b1f912d19ce7d7f95a9d5f757"
     },
     {
       "path": "index.html",
