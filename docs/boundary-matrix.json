@@ -1,8 +1,8 @@
 {
  "schema": "dreaming-abyss-boundary-v1",
  "game": {
-  "dataCommit": "b0359b5702e61ded8f53b122bc85842c5f2a1ce3",
-  "dataSha256": "9587509ea0f063c249c9ffa4cb2a324fab97d4b72deda87ca3b254ec27eab769"
+  "dataCommit": "bf705c4393a17a100ab2916487fa75d21d945d0a",
+  "dataSha256": "360c995c2c66e4af622f3e352ea8aaa7957f70f2e2c1626dc11335a1fac4f1b0"
  },
  "kinds": {
   "zero": "0",
@@ -4244,7 +4244,7 @@
      "editor": "rejected",
      "editorReason": "角色 0 基礎生命必須大於 0。",
      "validator": "rejected",
-     "validatorReason": "職業初始／成長資料無效：0",
+     "validatorReason": "職業初始能力資料無效：0",
      "verdict": "rejected"
     },
     "negative": {
@@ -4299,7 +4299,7 @@
      "editor": "rejected",
      "editorReason": "角色 0 基礎攻擊必須大於 0。",
      "validator": "rejected",
-     "validatorReason": "職業初始／成長資料無效：0",
+     "validatorReason": "職業初始能力資料無效：0",
      "verdict": "rejected"
     },
     "negative": {
@@ -4413,7 +4413,7 @@
      "editor": "rejected",
      "editorReason": "角色 0 的初始爆擊率不可小於 0。",
      "validator": "rejected",
-     "validatorReason": "職業初始／成長資料無效：0",
+     "validatorReason": "職業初始能力資料無效：0",
      "verdict": "rejected"
     },
     "huge": {
@@ -4462,7 +4462,7 @@
      "editor": "rejected",
      "editorReason": "角色 0 的初始爆擊傷害不可小於 0。",
      "validator": "rejected",
-     "validatorReason": "職業初始／成長資料無效：0",
+     "validatorReason": "職業初始能力資料無效：0",
      "verdict": "rejected"
     },
     "huge": {
@@ -4489,469 +4489,6 @@
      "validator": "rejected",
      "validatorReason": "職業  classes.0.initialStats.critDamage：此欄位不可為 null",
      "verdict": "blocked"
-    }
-   }
-  },
-  {
-   "pattern": "classes.*.growthPerLevel.hp",
-   "module": "characters/classes",
-   "type": "integer",
-   "from": 5,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 5.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 4,
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.hp：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.hp：此欄位不可為 null",
-     "verdict": "blocked"
-    }
-   }
-  },
-  {
-   "pattern": "classes.*.growthPerLevel.atk",
-   "module": "characters/classes",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.atk：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.atk：此欄位不可為 null",
-     "verdict": "blocked"
-    }
-   }
-  },
-  {
-   "pattern": "classes.*.growthPerLevel.def",
-   "module": "characters/classes",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.def：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.def：此欄位不可為 null",
-     "verdict": "blocked"
-    }
-   }
-  },
-  {
-   "pattern": "classes.*.growthPerLevel.crit",
-   "module": "characters/classes",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "角色 0 的每級爆擊率成長不可小於 0。",
-     "validator": "rejected",
-     "validatorReason": "職業初始／成長資料無效：0",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.crit：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.crit：此欄位不可為 null",
-     "verdict": "blocked"
-    }
-   }
-  },
-  {
-   "pattern": "classes.*.growthPerLevel.critDamage",
-   "module": "characters/classes",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "角色 0 的每級爆擊傷害成長不可小於 0。",
-     "validator": "rejected",
-     "validatorReason": "職業初始／成長資料無效：0",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.critDamage：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthPerLevel.critDamage：此欄位不可為 null",
-     "verdict": "blocked"
-    }
-   }
-  },
-  {
-   "pattern": "classes.*.growthSteps.*.every",
-   "module": "characters/classes",
-   "type": "integer",
-   "from": 3,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "整數階梯成長無效：0",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "整數階梯成長無效：0",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "整數階梯成長無效：0",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 3.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "整數階梯成長無效：0",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthSteps.0.every：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthSteps.0.every：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "classes.*.growthSteps.*.hp",
-   "module": "characters/classes",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "整數階梯成長無效：0",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthSteps.0.hp：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthSteps.0.hp：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "classes.*.growthSteps.*.atk",
-   "module": "characters/classes",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "整數階梯成長無效：0",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthSteps.0.atk：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthSteps.0.atk：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "classes.*.growthSteps.*.def",
-   "module": "characters/classes",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "整數階梯成長無效：0",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthSteps.0.def：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "職業 0 的整數階梯成長無效。",
-     "validator": "rejected",
-     "validatorReason": "職業  classes.0.growthSteps.0.def：此欄位不可為 null",
-     "verdict": "rejected"
     }
    }
   },
@@ -5539,493 +5076,6 @@
    }
   },
   {
-   "pattern": "balanceSettings.progression.xpCurve.base",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 24,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "成長／EXP 設定無效：progression.xpCurve.base",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 24.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 24,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.base：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 24,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.base：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpCurve.linear",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 18,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "成長／EXP 設定無效：progression.xpCurve.linear",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 18.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 18,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.linear：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 18,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.linear：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpCurve.quadratic",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 8,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "成長／EXP 設定無效：progression.xpCurve.quadratic",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 8.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 8,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.quadratic：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 8,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.quadratic：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpCurve.multiplierBase",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 16,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "成長／EXP 設定無效：progression.xpCurve.multiplierBase",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "成長／EXP 設定無效：progression.xpCurve.multiplierBase",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 16.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.multiplierBase：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.multiplierBase：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpCurve.multiplierPerLevel",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "成長／EXP 設定無效：progression.xpCurve.multiplierPerLevel",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.multiplierPerLevel：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.multiplierPerLevel：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpCurve.lateStart",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 30,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 30.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 30,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.lateStart：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 30,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.lateStart：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpCurve.latePerLevel",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 0.05,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.05,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.latePerLevel：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.05,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.latePerLevel：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpCurve.endStart",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 45,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 45.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 45,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.endStart：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 45,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.endStart：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpCurve.endPerLevel",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 0.075,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.075,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.endPerLevel：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.075,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpCurve.endPerLevel：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "balanceSettings.progression.starting.gold",
    "module": "characters/progression",
    "type": "integer",
@@ -6085,6 +5135,55 @@
    "pattern": "balanceSettings.progression.starting.ore",
    "module": "characters/progression",
    "type": "integer",
+   "from": 0,
+   "cases": {
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "fraction": {
+     "to": 0.5,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.progression.starting.ore：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.progression.starting.ore：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.progression.starting.dust",
+   "module": "characters/progression",
+   "type": "integer",
    "from": 12,
    "cases": {
     "zero": {
@@ -6122,55 +5221,6 @@
      "editorBecame": 12,
      "editorReverted": true,
      "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.starting.ore：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.starting.ore：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.starting.dust",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0,
-     "editorReverted": true,
-     "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.progression.starting.dust：型別必須為 number",
      "verdict": "rejected"
     },
@@ -6178,7 +5228,7 @@
      "to": null,
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0,
+     "editorBecame": 12,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.progression.starting.dust：此欄位不可為 null",
@@ -6238,289 +5288,6 @@
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.progression.starting.potions：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.levelCaps.beforeClear",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 30,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "等級上限設定無效",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "等級上限設定無效",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 30.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 30,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.levelCaps.beforeClear：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 30,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.levelCaps.beforeClear：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.levelCaps.afterClear",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 60,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "等級上限設定無效",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "戰士新手禮包「武器」的成長等級範圍無效。",
-     "validator": "rejected",
-     "validatorReason": "等級上限設定無效",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 60.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 60,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.levelCaps.afterClear：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 60,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.levelCaps.afterClear：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.statsPerLevel.hp",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 4,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 4.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 4,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.statsPerLevel.hp：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 4,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.statsPerLevel.hp：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.statsPerLevel.attack",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.statsPerLevel.attack：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.statsPerLevel.attack：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.statsPerLevel.defense",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.statsPerLevel.defense：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.statsPerLevel.defense：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -6624,377 +5391,6 @@
    }
   },
   {
-   "pattern": "balanceSettings.progression.advance.level",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 15,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 15.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.level：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.level：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.gold",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 500,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 500.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 500,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.gold：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 500,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.gold：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.ore",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 20,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 20.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 20,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.ore：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 20,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.ore：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.materialCount",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 3,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 3.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 3,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.materialCount：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 3,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.materialCount：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.hpMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 1.12,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.hpMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.hpMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.attackMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 1.15,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.attackMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.attackMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.advance.defenseMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 1.12,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.defenseMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.advance.defenseMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "balanceSettings.progression.regionTierLevels",
    "module": "characters/progression",
    "type": "integer",
@@ -7046,417 +5442,6 @@
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.progression.regionTierLevels：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.mapAheadAllowance",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 5,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 5.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.mapAheadAllowance：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.mapAheadAllowance：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpLevelGap.freeLevels",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 2,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 2.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 2,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.freeLevels：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 2,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.freeLevels：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpLevelGap.midGap",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 3,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 3.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 3,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.midGap：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 3,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.midGap：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpLevelGap.midMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 0.5,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減 midMultiplier 必須介於 0～1。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減 midMultiplier 必須介於 0～1。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.midMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.midMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpLevelGap.highGap",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 5,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "blocked"
-    },
-    "fraction": {
-     "to": 5.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減等級差必須依序遞增：0 ≤ freeLevels < midGap < highGap。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.highGap：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.highGap：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpLevelGap.highMultiplier",
-   "module": "characters/progression",
-   "type": "number",
-   "from": 0.2,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減 highMultiplier 必須介於 0～1。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "經驗衰減 highMultiplier 必須介於 0～1。",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.2,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.highMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.2,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.highMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.progression.xpLevelGap.zeroGap",
-   "module": "characters/progression",
-   "type": "integer",
-   "from": 10,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 10.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "經驗等級差懲罰設定無效",
-     "verdict": "blocked"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 10,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.zeroGap：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 10,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.progression.xpLevelGap.zeroGap：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -7864,70 +5849,6 @@
    }
   },
   {
-   "pattern": "balanceSettings.skills.mastery.characterXpMultiplier",
-   "module": "combat/skill-settings",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "changed",
-     "validatorBecame": 1,
-     "validatorReverted": true,
-     "verdict": "changed"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "changed",
-     "validatorBecame": 1,
-     "validatorReverted": true,
-     "verdict": "changed"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.skills.mastery.characterXpMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.skills.mastery.characterXpMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "balanceSettings.skills.mastery.xpBase",
    "module": "combat/skill-settings",
    "type": "integer",
@@ -8229,10 +6150,10 @@
      "to": 0,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "二轉精通需求不可高於精通最高等級。",
-     "validator": "rejected",
-     "validatorReason": "二轉精通需求不可高於精通最高等級",
-     "verdict": "rejected"
+     "editorReason": "戰士技能樹「減傷」需要精通 Lv2，超過精通上限 Lv1，永遠無法解鎖",
+     "validator": "changed",
+     "validatorBecame": 1,
+     "verdict": "editor-stricter"
     },
     "negative": {
      "to": -1,
@@ -8280,10 +6201,10 @@
    }
   },
   {
-   "pattern": "balanceSettings.skills.mastery.advanceRequiredLevel",
+   "pattern": "balanceSettings.skills.mastery.classBonus.*.hp",
    "module": "combat/skill-settings",
    "type": "integer",
-   "from": 4,
+   "from": 2,
    "cases": {
     "zero": {
      "to": 0,
@@ -8294,28 +6215,71 @@
     },
     "negative": {
      "to": -1,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0,
-     "validator": "changed",
-     "validatorBecame": 0,
-     "verdict": "changed"
+     "rules": "rejected",
+     "verdict": "rejected"
     },
     "huge": {
      "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 3,
+     "validator": "changed",
+     "validatorBecame": 2,
+     "validatorReverted": true,
+     "verdict": "changed"
+    },
+    "fraction": {
+     "to": 2.5,
      "rules": "accepted",
      "editor": "preserved",
      "validator": "preserved",
      "verdict": "accepted"
     },
-    "fraction": {
-     "to": 4.5,
+    "string": {
+     "to": "x",
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 4,
-     "editorReverted": true,
+     "editorBecame": 3,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.skills.mastery.classBonus.0.hp：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.skills.mastery.classBonus.0.hp：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.skills.mastery.classBonus.*.atk",
+   "module": "combat/skill-settings",
+   "type": "number",
+   "from": 0.2,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
      "validator": "changed",
-     "validatorBecame": 4,
+     "validatorBecame": 0.2,
      "validatorReverted": true,
      "verdict": "changed"
     },
@@ -8323,20 +6287,123 @@
      "to": "x",
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 4,
-     "editorReverted": true,
+     "editorBecame": 0,
      "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.skills.mastery.advanceRequiredLevel：型別必須為 number",
+     "validatorReason": "平衡設定  balanceSettings.skills.mastery.classBonus.0.atk：型別必須為 number",
      "verdict": "rejected"
     },
     "null": {
      "to": null,
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 4,
+     "editorBecame": 0,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.skills.mastery.classBonus.0.atk：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.skills.mastery.classBonus.*.def",
+   "module": "combat/skill-settings",
+   "type": "number",
+   "from": 0.6,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0.5,
+     "validator": "changed",
+     "validatorBecame": 0.6,
+     "validatorReverted": true,
+     "verdict": "changed"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0.5,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.skills.mastery.classBonus.0.def：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.skills.mastery.classBonus.0.def：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.skills.mastery.classBonus.*.crit",
+   "module": "combat/skill-settings",
+   "type": "integer",
+   "from": 0,
+   "cases": {
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "changed",
+     "validatorBecame": 0,
+     "validatorReverted": true,
+     "verdict": "changed"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "changed",
+     "validatorBecame": 0,
+     "validatorReverted": true,
+     "verdict": "changed"
+    },
+    "fraction": {
+     "to": 0.5,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
      "editorReverted": true,
      "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.skills.mastery.advanceRequiredLevel：此欄位不可為 null",
+     "validatorReason": "平衡設定  balanceSettings.skills.mastery.classBonus.0.crit：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.skills.mastery.classBonus.0.crit：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -8898,62 +6965,6 @@
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.equipment.baseStats.offhandHpPerTier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.equipment.enhance.maxLevel",
-   "module": "equipment/settings",
-   "type": "integer",
-   "from": 10,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 10.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "強化最高等級必須是非負整數。",
-     "validator": "rejected",
-     "validatorReason": "強化上限必須是非負整數",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 10,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.maxLevel：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 10,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.maxLevel：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -9572,6 +7583,326 @@
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.equipment.enhance.etherCost：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.equipment.enhance.costLevelStep",
+   "module": "equipment/settings",
+   "type": "integer",
+   "from": 5,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化材料倍增的裝等間隔必須是 1 以上的整數",
+     "verdict": "blocked"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化材料倍增的裝等間隔必須是 1 以上的整數",
+     "verdict": "blocked"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化材料倍增的裝等間隔必須是 1 以上的整數",
+     "verdict": "blocked"
+    },
+    "fraction": {
+     "to": 5.5,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化材料倍增的裝等間隔必須是 1 以上的整數",
+     "verdict": "blocked"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.costLevelStep：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.costLevelStep：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.equipment.enhance.levels.*.cost.dust",
+   "module": "equipment/settings",
+   "type": "integer",
+   "from": 2,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化表 +1：材料數量必須是非負整數",
+     "verdict": "blocked"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "fraction": {
+     "to": 2.5,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化表 +1：材料數量必須是非負整數",
+     "verdict": "blocked"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 2,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.cost.dust：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 2,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.cost.dust：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.equipment.enhance.levels.*.cost.ore",
+   "module": "equipment/settings",
+   "type": "integer",
+   "from": 0,
+   "cases": {
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化表 +1：材料數量必須是非負整數",
+     "verdict": "blocked"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "fraction": {
+     "to": 0.5,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化表 +1：材料數量必須是非負整數",
+     "verdict": "blocked"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.cost.ore：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.cost.ore：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.equipment.enhance.levels.*.cost.ether",
+   "module": "equipment/settings",
+   "type": "integer",
+   "from": 0,
+   "cases": {
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化表 +1：材料數量必須是非負整數",
+     "verdict": "blocked"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "fraction": {
+     "to": 0.5,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化表 +1：材料數量必須是非負整數",
+     "verdict": "blocked"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.cost.ether：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.cost.ether：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.equipment.enhance.levels.*.failureLevel",
+   "module": "equipment/settings",
+   "type": "integer",
+   "from": 0,
+   "cases": {
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "fraction": {
+     "to": 0.5,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.failureLevel：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.failureLevel：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.equipment.enhance.levels.*.baseBonus",
+   "module": "equipment/settings",
+   "type": "number",
+   "from": 0.05,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化表 +1：基礎能力加成無效",
+     "verdict": "blocked"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "強化表 +1：基礎能力加成無效",
+     "verdict": "blocked"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0.05,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.baseBonus：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0.05,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.equipment.enhance.levels.0.baseBonus：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -10834,159 +9165,58 @@
    }
   },
   {
-   "pattern": "balanceSettings.equipment.dropLevelGap.freeLevels",
+   "pattern": "balanceSettings.equipment.maxLevel",
    "module": "equipment/settings",
    "type": "integer",
-   "from": 5,
+   "from": 60,
    "cases": {
     "zero": {
      "to": 0,
      "rules": "accepted",
      "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "validator": "rejected",
+     "validatorReason": "裝備等級上限設定無效",
+     "verdict": "blocked"
     },
     "negative": {
      "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "裝備掉落等級差設定無效",
-     "verdict": "blocked"
+     "rules": "rejected",
+     "verdict": "rejected"
     },
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
      "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "validator": "rejected",
+     "validatorReason": "裝備等級上限設定無效",
+     "verdict": "blocked"
     },
     "fraction": {
-     "to": 5.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.equipment.dropLevelGap.freeLevels：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.equipment.dropLevelGap.freeLevels：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.equipment.dropLevelGap.penaltyPerLevel",
-   "module": "equipment/settings",
-   "type": "number",
-   "from": 0.4,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
+     "to": 60.5,
      "rules": "accepted",
      "editor": "preserved",
      "validator": "rejected",
-     "validatorReason": "裝備掉落等級差設定無效",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.4,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.equipment.dropLevelGap.penaltyPerLevel：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.4,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.equipment.dropLevelGap.penaltyPerLevel：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.equipment.dropLevelGap.minimumMultiplier",
-   "module": "equipment/settings",
-   "type": "number",
-   "from": 0.05,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "裝備掉落等級差設定無效",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "裝備掉落等級差設定無效",
+     "validatorReason": "裝備等級上限設定無效",
      "verdict": "blocked"
     },
     "string": {
      "to": "x",
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.05,
+     "editorBecame": 60,
      "editorReverted": true,
      "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.equipment.dropLevelGap.minimumMultiplier：型別必須為 number",
+     "validatorReason": "平衡設定  balanceSettings.equipment.maxLevel：型別必須為 number",
      "verdict": "rejected"
     },
     "null": {
      "to": null,
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.05,
+     "editorBecame": 60,
      "editorReverted": true,
      "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.equipment.dropLevelGap.minimumMultiplier：此欄位不可為 null",
+     "validatorReason": "平衡設定  balanceSettings.equipment.maxLevel：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -10995,7 +9225,7 @@
    "pattern": "balanceSettings.monsters.encounter.eliteChance",
    "module": "world/monsters",
    "type": "number",
-   "from": 0.12,
+   "from": 0.06,
    "cases": {
     "zero": {
      "to": 0,
@@ -11018,7 +9248,7 @@
      "to": "x",
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.12,
+     "editorBecame": 0.06,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.monsters.encounter.eliteChance：型別必須為 number",
@@ -11028,72 +9258,10 @@
      "to": null,
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.12,
+     "editorBecame": 0.06,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.monsters.encounter.eliteChance：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.monsters.encounter.levelLeadInterval",
-   "module": "world/monsters",
-   "type": "integer",
-   "from": 5,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "怪物領先等級間隔必須為 0～60 整數",
-     "validator": "rejected",
-     "validatorReason": "怪物領先等級間隔必須為 0～60 整數",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "怪物領先等級間隔必須為 0～60 整數",
-     "validator": "rejected",
-     "validatorReason": "怪物領先等級間隔必須為 0～60 整數",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 5.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "怪物領先等級間隔必須為 0～60 整數",
-     "validator": "rejected",
-     "validatorReason": "怪物領先等級間隔必須為 0～60 整數",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.monsters.encounter.levelLeadInterval：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.monsters.encounter.levelLeadInterval：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -11473,7 +9641,7 @@
    "pattern": "balanceSettings.monsters.kindMultipliers.eliteHp",
    "module": "world/monsters",
    "type": "number",
-   "from": 1.6,
+   "from": 2.08,
    "cases": {
     "zero": {
      "to": 0,
@@ -11501,7 +9669,6 @@
      "rules": "accepted",
      "editor": "changed",
      "editorBecame": 1.6,
-     "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.monsters.kindMultipliers.eliteHp：型別必須為 number",
      "verdict": "rejected"
@@ -11511,7 +9678,6 @@
      "rules": "accepted",
      "editor": "changed",
      "editorBecame": 1.6,
-     "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.monsters.kindMultipliers.eliteHp：此欄位不可為 null",
      "verdict": "rejected"
@@ -11578,7 +9744,7 @@
    "pattern": "balanceSettings.monsters.kindMultipliers.eliteAttack",
    "module": "world/monsters",
    "type": "number",
-   "from": 1.2,
+   "from": 1.56,
    "cases": {
     "zero": {
      "to": 0,
@@ -11606,7 +9772,6 @@
      "rules": "accepted",
      "editor": "changed",
      "editorBecame": 1.2,
-     "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.monsters.kindMultipliers.eliteAttack：型別必須為 number",
      "verdict": "rejected"
@@ -11616,7 +9781,6 @@
      "rules": "accepted",
      "editor": "changed",
      "editorBecame": 1.2,
-     "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.monsters.kindMultipliers.eliteAttack：此欄位不可為 null",
      "verdict": "rejected"
@@ -11627,7 +9791,7 @@
    "pattern": "balanceSettings.monsters.kindMultipliers.eliteDefense",
    "module": "world/monsters",
    "type": "number",
-   "from": 1.1,
+   "from": 1.43,
    "cases": {
     "zero": {
      "to": 0,
@@ -11657,7 +9821,6 @@
      "rules": "accepted",
      "editor": "changed",
      "editorBecame": 1.1,
-     "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.monsters.kindMultipliers.eliteDefense：型別必須為 number",
      "verdict": "rejected"
@@ -11667,7 +9830,6 @@
      "rules": "accepted",
      "editor": "changed",
      "editorBecame": 1.1,
-     "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.monsters.kindMultipliers.eliteDefense：此欄位不可為 null",
      "verdict": "rejected"
@@ -14051,9 +12213,9 @@
      "to": 1000000000000,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "BOSS 出場數須為 1～20，且不可超過候選數量：苔光林地",
+     "editorReason": "BOSS 出場數須為 1～20，且不可超過候選數量：無名密林",
      "validator": "rejected",
-     "validatorReason": "BOSS 出場數須為 1～20，且不可超過候選數量：苔光林地",
+     "validatorReason": "BOSS 出場數須為 1～20，且不可超過候選數量：無名密林",
      "verdict": "rejected"
     },
     "fraction": {
@@ -14906,7 +13068,7 @@
    "pattern": "balanceSettings.difficulty.modes.*.gemChance.*",
    "module": "world/difficulty",
    "type": "number",
-   "from": 0.04,
+   "from": 0.044,
    "cases": {
     "zero": {
      "to": 0,
@@ -14935,7 +13097,7 @@
      "to": "x",
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.04,
+     "editorBecame": 0.044,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.difficulty.modes.0.gemChance.0：型別必須為 number",
@@ -14945,7 +13107,7 @@
      "to": null,
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.04,
+     "editorBecame": 0.044,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.difficulty.modes.0.gemChance.0：此欄位不可為 null",
@@ -15058,7 +13220,7 @@
    "pattern": "balanceSettings.difficulty.modes.*.legendaryGearChance",
    "module": "world/difficulty",
    "type": "number",
-   "from": 0.0006,
+   "from": 0.00066,
    "cases": {
     "zero": {
      "to": 0,
@@ -15081,7 +13243,7 @@
      "to": "x",
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.0006,
+     "editorBecame": 0.00066,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.difficulty.modes.0.legendaryGearChance：型別必須為 number",
@@ -15091,70 +13253,10 @@
      "to": null,
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.0006,
+     "editorBecame": 0.00066,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.difficulty.modes.0.legendaryGearChance：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.difficulty.modes.*.xpMultiplier",
-   "module": "world/difficulty",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "難度 EXP 倍率必須大於 0",
-     "validator": "rejected",
-     "validatorReason": "難度 EXP 倍率必須大於 0",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "難度 EXP 倍率必須大於 0",
-     "validator": "rejected",
-     "validatorReason": "難度 EXP 倍率必須大於 0",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.difficulty.modes.0.xpMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.difficulty.modes.0.xpMultiplier：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -16313,287 +14415,6 @@
    }
   },
   {
-   "pattern": "balanceSettings.rewards.xp.base",
-   "module": "systems/rewards",
-   "type": "integer",
-   "from": 18,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "成長／EXP 設定無效：rewards.xp.base",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 18.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 18,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.base：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 18,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.base：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.rewards.xp.perLevel",
-   "module": "systems/rewards",
-   "type": "integer",
-   "from": 9,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "成長／EXP 設定無效：rewards.xp.perLevel",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 9.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 9,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.perLevel：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 9,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.perLevel：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.rewards.xp.kindMultiplier.normal",
-   "module": "systems/rewards",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "EXP 遭遇倍率必須大於 0",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "EXP 遭遇倍率必須大於 0",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.kindMultiplier.normal：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.kindMultiplier.normal：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.rewards.xp.kindMultiplier.elite",
-   "module": "systems/rewards",
-   "type": "number",
-   "from": 2.2,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "EXP 遭遇倍率必須大於 0",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "EXP 遭遇倍率必須大於 0",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 2.2,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.kindMultiplier.elite：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 2.2,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.kindMultiplier.elite：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.rewards.xp.kindMultiplier.boss",
-   "module": "systems/rewards",
-   "type": "integer",
-   "from": 10,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "EXP 遭遇倍率必須大於 0",
-     "verdict": "blocked"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "EXP 遭遇倍率必須大於 0",
-     "verdict": "blocked"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 10.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 10,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.kindMultiplier.boss：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 10,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.rewards.xp.kindMultiplier.boss：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "balanceSettings.rewards.ore.normalKindMultiplier",
    "module": "systems/rewards",
    "type": "number",
@@ -16741,10 +14562,61 @@
    }
   },
   {
+   "pattern": "balanceSettings.rewards.ore.chanceFactor",
+   "module": "systems/rewards",
+   "type": "number",
+   "from": 0.7,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "平衡設定機率需介於 0~1：rewards.ore.chanceFactor",
+     "verdict": "blocked"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "rejected",
+     "validatorReason": "平衡設定機率需介於 0~1：rewards.ore.chanceFactor",
+     "verdict": "blocked"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0.7,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.rewards.ore.chanceFactor：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 0.7,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.rewards.ore.chanceFactor：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
    "pattern": "balanceSettings.rewards.equipmentQuality.rareChance",
    "module": "systems/rewards",
    "type": "number",
-   "from": 0.22,
+   "from": 0.242,
    "cases": {
     "zero": {
      "to": 0,
@@ -16767,7 +14639,7 @@
      "to": "x",
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.22,
+     "editorBecame": 0.242,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.rewards.equipmentQuality.rareChance：型別必須為 number",
@@ -16777,7 +14649,7 @@
      "to": null,
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.22,
+     "editorBecame": 0.242,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.rewards.equipmentQuality.rareChance：此欄位不可為 null",
@@ -17304,9 +15176,8 @@
      "to": 0,
      "rules": "accepted",
      "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "首次 BOSS 以太鍛鐵範圍無效",
-     "verdict": "blocked"
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "negative": {
      "to": -1,
@@ -17641,55 +15512,6 @@
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.combat.caps.resistance：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.combat.levelGapDamagePerLevel",
-   "module": "combat/rules",
-   "type": "number",
-   "from": 0.12,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.combat.levelGapDamagePerLevel：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.12,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.combat.levelGapDamagePerLevel：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -18044,9 +15866,11 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "遭遇怪物數量的最小／最大值無效。",
+     "validator": "rejected",
+     "validatorReason": "群怪數量範圍無效",
+     "verdict": "rejected"
     },
     "fraction": {
      "to": 3.5,
@@ -19967,7 +17791,7 @@
    "pattern": "balanceSettings.combat.seconds.groupWeights.*",
    "module": "combat/rules",
    "type": "integer",
-   "from": 1,
+   "from": 6,
    "cases": {
     "zero": {
      "to": 0,
@@ -19987,7 +17811,7 @@
      "verdict": "rejected"
     },
     "fraction": {
-     "to": 1.5,
+     "to": 6.5,
      "rules": "accepted",
      "editor": "preserved",
      "validator": "preserved",
@@ -20687,48 +18511,6 @@
   },
   {
    "pattern": "balanceSettings.combat.seconds.cooldownReduction.sources.fixedSkill.value",
-   "module": "combat/rules",
-   "type": "integer",
-   "from": 3,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 3.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.combat.seconds.cooldownReduction.sources.onCast.value",
    "module": "combat/rules",
    "type": "integer",
    "from": 3,
@@ -23095,9 +20877,9 @@
      "to": 0,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
+     "editorReason": "每日委託 daily_hunt：抽選權重無效",
      "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
+     "validatorReason": "每日委託 daily_hunt：抽選權重無效",
      "verdict": "rejected"
     },
     "negative": {
@@ -23109,9 +20891,9 @@
      "to": 1000000000000,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
+     "editorReason": "每日委託 daily_hunt：抽選權重無效",
      "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
+     "validatorReason": "每日委託 daily_hunt：抽選權重無效",
      "verdict": "rejected"
     },
     "fraction": {
@@ -23125,7 +20907,7 @@
      "to": "x",
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
+     "editorReason": "每日委託 daily_hunt：抽選權重無效",
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.quests.design.daily.entries.0.weight：委託／支線：型別必須為 number",
      "verdict": "rejected"
@@ -23134,116 +20916,9 @@
      "to": null,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
+     "editorReason": "每日委託 daily_hunt：抽選權重無效",
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.quests.design.daily.entries.0.weight：委託／支線：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.quests.design.daily.entries.*.minLevel",
-   "module": "systems/quests",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.daily.entries.0.minLevel：委託／支線：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.daily.entries.0.minLevel：委託／支線：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.quests.design.daily.entries.*.maxLevel",
-   "module": "systems/quests",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.daily.entries.0.maxLevel：委託／支線：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.daily.entries.0.maxLevel：委託／支線：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -23677,59 +21352,6 @@
    }
   },
   {
-   "pattern": "balanceSettings.quests.design.daily.entries.*.rewards.xp",
-   "module": "systems/quests",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：獎勵 xp 必須為非負整數",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：獎勵 xp 必須為非負整數",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "每日委託 daily_hunt：獎勵 xp 必須為非負整數",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.daily.entries.0.rewards.xp：委託／支線：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "每日委託 daily_hunt：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.daily.entries.0.rewards.xp：委託／支線：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "balanceSettings.quests.design.daily.entries.*.rewards.randomGems",
    "module": "systems/quests",
    "type": "integer",
@@ -24012,9 +21634,9 @@
      "to": 0,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
+     "editorReason": "支線 wolves：抽選權重無效",
      "validator": "rejected",
-     "validatorReason": "支線 wolves：等級範圍或抽選權重無效",
+     "validatorReason": "支線 wolves：抽選權重無效",
      "verdict": "rejected"
     },
     "negative": {
@@ -24026,9 +21648,9 @@
      "to": 1000000000000,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
+     "editorReason": "支線 wolves：抽選權重無效",
      "validator": "rejected",
-     "validatorReason": "支線 wolves：等級範圍或抽選權重無效",
+     "validatorReason": "支線 wolves：抽選權重無效",
      "verdict": "rejected"
     },
     "fraction": {
@@ -24042,7 +21664,7 @@
      "to": "x",
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
+     "editorReason": "支線 wolves：抽選權重無效",
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.weight：委託／支線：型別必須為 number",
      "verdict": "rejected"
@@ -24051,116 +21673,9 @@
      "to": null,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
+     "editorReason": "支線 wolves：抽選權重無效",
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.weight：委託／支線：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.quests.design.side.*.minLevel",
-   "module": "systems/quests",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.minLevel：委託／支線：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.minLevel：委託／支線：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.quests.design.side.*.maxLevel",
-   "module": "systems/quests",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.maxLevel：委託／支線：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：等級範圍或抽選權重無效",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.maxLevel：委託／支線：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -24439,59 +21954,6 @@
    }
   },
   {
-   "pattern": "balanceSettings.quests.design.side.*.rewards.xp",
-   "module": "systems/quests",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "支線 wolves：獎勵 xp 必須為非負整數",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "支線 wolves：獎勵 xp 必須為非負整數",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "支線 wolves：獎勵 xp 必須為非負整數",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.rewards.xp：委託／支線：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "支線 wolves：獎勵 xp 必須為非負整數",
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.quests.design.side.0.rewards.xp：委託／支線：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "balanceSettings.quests.design.side.*.rewards.randomGems",
    "module": "systems/quests",
    "type": "integer",
@@ -24704,68 +22166,6 @@
    }
   },
   {
-   "pattern": "balanceSettings.maps.levelRanges.*.max",
-   "module": "world/maps",
-   "type": "integer",
-   "from": 5,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "preserved",
-     "verdict": "editor-stricter"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "preserved",
-     "verdict": "editor-stricter"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 5.5,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "preserved",
-     "verdict": "editor-stricter"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.maps.levelRanges.0.max：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.maps.levelRanges.0.max：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "balanceSettings.maps.catalog.*.min",
    "module": "world/maps",
    "type": "integer",
@@ -24775,7 +22175,7 @@
      "to": 0,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "苔光林地 的等級範圍無效。",
+     "editorReason": "無名密林 的等級範圍無效。",
      "validator": "rejected",
      "validatorReason": "地圖資料無效：map0",
      "verdict": "rejected"
@@ -24784,7 +22184,7 @@
      "to": -1,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "苔光林地 的等級範圍無效。",
+     "editorReason": "無名密林 的等級範圍無效。",
      "validator": "rejected",
      "validatorReason": "地圖資料無效：map0",
      "verdict": "rejected"
@@ -24792,9 +22192,11 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "無名密林 的等級範圍無效。",
+     "validator": "rejected",
+     "validatorReason": "地圖資料無效：map0",
+     "verdict": "rejected"
     },
     "fraction": {
      "to": 1.5,
@@ -24836,7 +22238,7 @@
      "to": 0,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "苔光林地 的等級範圍無效。",
+     "editorReason": "無名密林 的等級範圍無效。",
      "validator": "rejected",
      "validatorReason": "地圖資料無效：map0",
      "verdict": "rejected"
@@ -24845,7 +22247,7 @@
      "to": -1,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "苔光林地 的等級範圍無效。",
+     "editorReason": "無名密林 的等級範圍無效。",
      "validator": "rejected",
      "validatorReason": "地圖資料無效：map0",
      "verdict": "rejected"
@@ -25002,7 +22404,7 @@
    "pattern": "balanceSettings.maps.catalog.*.eliteChance",
    "module": "world/maps",
    "type": "number",
-   "from": 0.12,
+   "from": 0.06,
    "cases": {
     "zero": {
      "to": 0,
@@ -25025,7 +22427,7 @@
      "to": "x",
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.12,
+     "editorBecame": 0.06,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.maps.catalog.0.eliteChance：型別必須為 number",
@@ -25035,10 +22437,74 @@
      "to": null,
      "rules": "accepted",
      "editor": "changed",
-     "editorBecame": 0.12,
+     "editorBecame": 0.06,
      "editorReverted": true,
      "validator": "rejected",
      "validatorReason": "平衡設定  balanceSettings.maps.catalog.0.eliteChance：此欄位不可為 null",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "balanceSettings.maps.catalog.*.recommendedGearLevel",
+   "module": "world/maps",
+   "type": "integer",
+   "from": 5,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "preserved",
+     "verdict": "editor-stricter"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "preserved",
+     "verdict": "editor-stricter"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "preserved",
+     "verdict": "editor-stricter"
+    },
+    "fraction": {
+     "to": 5.5,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "preserved",
+     "verdict": "editor-stricter"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.maps.catalog.0.recommendedGearLevel：型別必須為 number",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "accepted",
+     "editor": "changed",
+     "editorBecame": 5,
+     "editorReverted": true,
+     "validator": "rejected",
+     "validatorReason": "平衡設定  balanceSettings.maps.catalog.0.recommendedGearLevel：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -25272,321 +22738,6 @@
     "null": {
      "to": null,
      "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.drops.levelGap.freeLevels",
-   "module": "world/drops",
-   "type": "integer",
-   "from": 5,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 5.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.freeLevels：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.freeLevels：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.drops.levelGap.midGap",
-   "module": "world/drops",
-   "type": "integer",
-   "from": 10,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 10.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 10,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.midGap：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 10,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.midGap：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.drops.levelGap.midMultiplier",
-   "module": "world/drops",
-   "type": "number",
-   "from": 0.5,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.midMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.5,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.midMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.drops.levelGap.highGap",
-   "module": "world/drops",
-   "type": "integer",
-   "from": 15,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "fraction": {
-     "to": 15.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.highGap：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 15,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.highGap：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.drops.levelGap.highMultiplier",
-   "module": "world/drops",
-   "type": "number",
-   "from": 0.2,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.2,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.highMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.2,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.highMultiplier：此欄位不可為 null",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "balanceSettings.drops.levelGap.minimumMultiplier",
-   "module": "world/drops",
-   "type": "number",
-   "from": 0.1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.minimumMultiplier：型別必須為 number",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "accepted",
-     "editor": "changed",
-     "editorBecame": 0.1,
-     "editorReverted": true,
-     "validator": "rejected",
-     "validatorReason": "平衡設定  balanceSettings.drops.levelGap.minimumMultiplier：此欄位不可為 null",
      "verdict": "rejected"
     }
    }
@@ -27998,7 +25149,7 @@
      "to": -1,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "戰士新手禮包「武器」的初始強化值必須為 0～10。",
+     "editorReason": "戰士新手禮包「武器」的初始強化值必須為 0～12。",
      "validator": "rejected",
      "validatorReason": "starterPacks[0][0] 的初始強化值無效",
      "verdict": "rejected"
@@ -28007,7 +25158,7 @@
      "to": 1000000000000,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "戰士新手禮包「武器」的初始強化值必須為 0～10。",
+     "editorReason": "戰士新手禮包「武器」的初始強化值必須為 0～12。",
      "validator": "rejected",
      "validatorReason": "starterPacks[0][0] 的初始強化值無效",
      "verdict": "rejected"
@@ -29395,7 +26546,7 @@
      "editor": "rejected",
      "editorReason": "夥伴階梯成長無效：10",
      "validator": "rejected",
-     "validatorReason": "夥伴  companions.0.growthSteps.0.every：型別必須為 number",
+     "validatorReason": "夥伴階梯成長無效：10",
      "verdict": "rejected"
     },
     "null": {
@@ -29404,7 +26555,7 @@
      "editor": "rejected",
      "editorReason": "夥伴階梯成長無效：10",
      "validator": "rejected",
-     "validatorReason": "夥伴  companions.0.growthSteps.0.every：此欄位不可為 null",
+     "validatorReason": "夥伴階梯成長無效：10",
      "verdict": "rejected"
     }
    }
@@ -29442,7 +26593,7 @@
      "editor": "rejected",
      "editorReason": "夥伴階梯成長無效：10",
      "validator": "rejected",
-     "validatorReason": "夥伴  companions.0.growthSteps.0.hp：型別必須為 number",
+     "validatorReason": "夥伴階梯成長無效：10",
      "verdict": "rejected"
     },
     "null": {
@@ -29451,7 +26602,7 @@
      "editor": "rejected",
      "editorReason": "夥伴階梯成長無效：10",
      "validator": "rejected",
-     "validatorReason": "夥伴  companions.0.growthSteps.0.hp：此欄位不可為 null",
+     "validatorReason": "夥伴階梯成長無效：10",
      "verdict": "rejected"
     }
    }
@@ -29496,7 +26647,7 @@
      "editor": "rejected",
      "editorReason": "夥伴階梯成長無效：10",
      "validator": "rejected",
-     "validatorReason": "夥伴  companions.0.growthSteps.0.atk：型別必須為 number",
+     "validatorReason": "夥伴階梯成長無效：10",
      "verdict": "rejected"
     },
     "null": {
@@ -29505,7 +26656,7 @@
      "editor": "rejected",
      "editorReason": "夥伴階梯成長無效：10",
      "validator": "rejected",
-     "validatorReason": "夥伴  companions.0.growthSteps.0.atk：此欄位不可為 null",
+     "validatorReason": "夥伴階梯成長無效：10",
      "verdict": "rejected"
     }
    }
@@ -29543,7 +26694,7 @@
      "editor": "rejected",
      "editorReason": "夥伴階梯成長無效：10",
      "validator": "rejected",
-     "validatorReason": "夥伴  companions.0.growthSteps.0.def：型別必須為 number",
+     "validatorReason": "夥伴階梯成長無效：10",
      "verdict": "rejected"
     },
     "null": {
@@ -29552,7 +26703,7 @@
      "editor": "rejected",
      "editorReason": "夥伴階梯成長無效：10",
      "validator": "rejected",
-     "validatorReason": "夥伴  companions.0.growthSteps.0.def：此欄位不可為 null",
+     "validatorReason": "夥伴階梯成長無效：10",
      "verdict": "rejected"
     }
    }
@@ -30419,9 +27570,11 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "夥伴評級建議範圍無效：D",
+     "validator": "rejected",
+     "validatorReason": "夥伴評級建議範圍無效：D",
+     "verdict": "rejected"
     },
     "string": {
      "to": "x",
@@ -30811,9 +27964,11 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "夥伴評級建議範圍無效：B",
+     "validator": "rejected",
+     "validatorReason": "夥伴評級建議範圍無效：B",
+     "verdict": "rejected"
     },
     "string": {
      "to": "x",
@@ -30909,9 +28064,11 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "夥伴評級建議範圍無效：B",
+     "validator": "rejected",
+     "validatorReason": "夥伴評級建議範圍無效：B",
+     "verdict": "rejected"
     },
     "string": {
      "to": "x",
@@ -31301,9 +28458,11 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "夥伴評級建議範圍無效：S",
+     "validator": "rejected",
+     "validatorReason": "夥伴評級建議範圍無效：S",
+     "verdict": "rejected"
     },
     "string": {
      "to": "x",
@@ -31334,9 +28493,11 @@
     "zero": {
      "to": 0,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "夥伴評級建議範圍無效：S",
+     "validator": "rejected",
+     "validatorReason": "夥伴評級建議範圍無效：S",
+     "verdict": "rejected"
     },
     "negative": {
      "to": -1,
@@ -31399,9 +28560,11 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "夥伴評級建議範圍無效：SS",
+     "validator": "rejected",
+     "validatorReason": "夥伴評級建議範圍無效：SS",
+     "verdict": "rejected"
     },
     "string": {
      "to": "x",
@@ -31432,9 +28595,11 @@
     "zero": {
      "to": 0,
      "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
+     "editor": "rejected",
+     "editorReason": "夥伴評級建議範圍無效：SS",
+     "validator": "rejected",
+     "validatorReason": "夥伴評級建議範圍無效：SS",
+     "verdict": "rejected"
     },
     "negative": {
      "to": -1,
@@ -31497,11 +28662,9 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "夥伴評級建議範圍無效：SS",
-     "validator": "rejected",
-     "validatorReason": "夥伴評級建議範圍無效：SS",
-     "verdict": "rejected"
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
@@ -31597,11 +28760,9 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "夥伴評級建議範圍無效：SSS",
-     "validator": "rejected",
-     "validatorReason": "夥伴評級建議範圍無效：SSS",
-     "verdict": "rejected"
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
@@ -31697,11 +28858,9 @@
     "huge": {
      "to": 1000000000000,
      "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "夥伴評級建議範圍無效：SSS",
-     "validator": "rejected",
-     "validatorReason": "夥伴評級建議範圍無效：SSS",
-     "verdict": "rejected"
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
@@ -34286,46 +31445,6 @@
    "pattern": "story.quests.*.recovery.gemQuantity",
    "module": "systems/story",
    "type": "integer",
-   "from": 2,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 2.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "story.quests.*.stages.*.conditions.conditions.*.slot",
-   "module": "systems/story",
-   "type": "integer",
    "from": 1,
    "cases": {
     "zero": {
@@ -34347,6 +31466,39 @@
     },
     "fraction": {
      "to": 1.5,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "string": {
+     "to": "x",
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "story.quests.*.stages.*.conditions.conditions.*.slot",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 0,
+   "cases": {
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 0.5,
      "rules": "rejected",
      "verdict": "rejected"
     },
@@ -34370,41 +31522,55 @@
    "cases": {
     "zero": {
      "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "negative": {
      "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "huge": {
      "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "fraction": {
      "to": 1.5,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "string": {
      "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "game": "preserved",
+     "verdict": "accepted"
     },
     "null": {
      "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "game": "preserved",
+     "verdict": "accepted"
     }
    }
   },
   {
-   "pattern": "story.quests.*.prologue.helper.templates.*",
+   "pattern": "story.quests.*.prologue.scenes.*.id",
    "module": "systems/story",
    "type": "integer",
-   "from": 13,
+   "from": 1,
    "cases": {
     "zero": {
      "to": 0,
@@ -34428,7 +31594,50 @@
      "verdict": "accepted"
     },
     "fraction": {
-     "to": 13.5,
+     "to": 1.5,
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
+    },
+    "string": {
+     "to": "x",
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "game": "preserved",
+     "verdict": "accepted"
+    },
+    "null": {
+     "to": null,
+     "rules": "rejected",
+     "verdict": "rejected"
+    }
+   }
+  },
+  {
+   "pattern": "story.quests.*.unlock.conditions.*.count",
+   "module": "systems/story",
+   "type": "integer",
+   "from": 1,
+   "cases": {
+    "zero": {
+     "to": 0,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "negative": {
+     "to": -1,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "huge": {
+     "to": 1000000000000,
+     "rules": "rejected",
+     "verdict": "rejected"
+    },
+    "fraction": {
+     "to": 1.5,
      "rules": "rejected",
      "verdict": "rejected"
     },
@@ -34597,17 +31806,8 @@
    "pattern": "skillSystem.definitions.*.requiredLevel",
    "module": "combat/skills",
    "type": "integer",
-   "from": 1,
+   "from": 0,
    "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "rejected",
-     "editorReason": "角色 0 技能 0 的需求等級必須是至少 1 的整數。",
-     "validator": "rejected",
-     "validatorReason": "技能資料無效：0-0",
-     "verdict": "rejected"
-    },
     "negative": {
      "to": -1,
      "rules": "rejected",
@@ -34619,10 +31819,10 @@
      "verdict": "rejected"
     },
     "fraction": {
-     "to": 1.5,
+     "to": 0.5,
      "rules": "accepted",
      "editor": "rejected",
-     "editorReason": "角色 0 技能 0 的需求等級必須是至少 1 的整數。",
+     "editorReason": "角色 0 技能 0 的需求職業精通等級必須是 0 以上的整數。",
      "validator": "rejected",
      "validatorReason": "技能資料無效：0-0",
      "verdict": "rejected"
@@ -35835,22 +33035,14 @@
    "pattern": "skillSystem.definitions.*.level",
    "module": "combat/skills",
    "type": "integer",
-   "from": 1,
+   "from": 0,
    "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "rejected",
-     "validatorReason": "輔助技能回合／等級無效：0-0",
-     "verdict": "blocked"
-    },
     "negative": {
      "to": -1,
      "rules": "accepted",
      "editor": "preserved",
      "validator": "rejected",
-     "validatorReason": "輔助技能回合／等級無效：0-0",
+     "validatorReason": "輔助技能回合／精通等級無效：0-0",
      "verdict": "blocked"
     },
     "huge": {
@@ -35861,11 +33053,11 @@
      "verdict": "accepted"
     },
     "fraction": {
-     "to": 1.5,
+     "to": 0.5,
      "rules": "accepted",
      "editor": "preserved",
      "validator": "rejected",
-     "validatorReason": "輔助技能回合／等級無效：0-0",
+     "validatorReason": "輔助技能回合／精通等級無效：0-0",
      "verdict": "blocked"
     },
     "string": {
@@ -36063,16 +33255,11 @@
    }
   },
   {
-   "pattern": "skillSystem.definitions.*.sources.*.level",
+   "pattern": "skillSystem.definitions.*.sources.*.masteryLevel",
    "module": "combat/skills",
    "type": "integer",
-   "from": 1,
+   "from": 0,
    "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
     "negative": {
      "to": -1,
      "rules": "rejected",
@@ -36084,7 +33271,7 @@
      "verdict": "rejected"
     },
     "fraction": {
-     "to": 1.5,
+     "to": 0.5,
      "rules": "rejected",
      "verdict": "rejected"
     },
@@ -36440,16 +33627,11 @@
    }
   },
   {
-   "pattern": "skillSystem.classRules.*.initial.*.level",
+   "pattern": "skillSystem.classRules.*.initial.*.masteryLevel",
    "module": "combat/skill-system",
    "type": "integer",
-   "from": 1,
+   "from": 0,
    "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
     "negative": {
      "to": -1,
      "rules": "rejected",
@@ -36461,7 +33643,7 @@
      "verdict": "rejected"
     },
     "fraction": {
-     "to": 1.5,
+     "to": 0.5,
      "rules": "rejected",
      "verdict": "rejected"
     },
@@ -36478,15 +33660,17 @@
    }
   },
   {
-   "pattern": "skillSystem.classRules.*.advanced.*.level",
+   "pattern": "skillSystem.classRules.*.advanced.*.masteryLevel",
    "module": "combat/skill-system",
    "type": "integer",
-   "from": 15,
+   "from": 14,
    "cases": {
     "zero": {
      "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
+     "rules": "accepted",
+     "editor": "preserved",
+     "validator": "preserved",
+     "verdict": "accepted"
     },
     "negative": {
      "to": -1,
@@ -36499,7 +33683,7 @@
      "verdict": "rejected"
     },
     "fraction": {
-     "to": 15.5,
+     "to": 14.5,
      "rules": "rejected",
      "verdict": "rejected"
     },
@@ -36756,225 +33940,6 @@
    }
   },
   {
-   "pattern": "skillSystem.equipment.chanceByDifficulty.*",
-   "module": "combat/skill-system",
-   "type": "number",
-   "from": 0.15,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.jobs.*",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.slots.*",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 0,
-   "cases": {
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 0.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.minLevel",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.maxLevel",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 999,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 999.5,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.equipment.pool.*.weight",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 1.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
    "pattern": "skillSystem.gems.*.base.values.*",
    "module": "combat/skill-system",
    "type": "integer",
@@ -36999,83 +33964,6 @@
     },
     "fraction": {
      "to": 2.5,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.gems.*.skill.values.*",
-   "module": "combat/skill-system",
-   "type": "number",
-   "from": 0.02,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "string": {
-     "to": "x",
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "null": {
-     "to": null,
-     "rules": "rejected",
-     "verdict": "rejected"
-    }
-   }
-  },
-  {
-   "pattern": "skillSystem.gems.*.cap",
-   "module": "combat/skill-system",
-   "type": "integer",
-   "from": 1,
-   "cases": {
-    "zero": {
-     "to": 0,
-     "rules": "accepted",
-     "editor": "preserved",
-     "validator": "preserved",
-     "verdict": "accepted"
-    },
-    "negative": {
-     "to": -1,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "huge": {
-     "to": 1000000000000,
-     "rules": "rejected",
-     "verdict": "rejected"
-    },
-    "fraction": {
-     "to": 1.5,
      "rules": "accepted",
      "editor": "preserved",
      "validator": "preserved",

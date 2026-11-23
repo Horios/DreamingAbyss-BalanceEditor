@@ -20,8 +20,8 @@ test('game navigation editor supplies and exports the complete default tree',()=
   assert.deepEqual(defaults.groups.map(group=>group.label),['探索與冒險','角色與隊伍','裝備與製作','主要任務','生活技能']);
   assert.deepEqual(defaults.groups.find(group=>group.id==='missions').pages.map(page=>page.label),['主線','支線','NPC 任務','委託','許願湖']);
   assert.deepEqual(defaults.groups.find(group=>group.id==='life').pages.map(page=>page.label),['採集','煉金']);
-  // The adventure guide is a header dialog since game v0.047 and the wishing lake a 任務 page since v0.062: 18 pages.
-  assert.equal(defaults.groups.flatMap(group=>group.pages).length,18);assert(!defaults.groups.some(group=>group.pages.some(page=>page.id==='guide')));
+  // The adventure guide is a header dialog since game v0.047 the wishing lake a 任務 page since v0.062 and 怪物圖鑑 an 探索 page since v0.185: 19 pages.
+  assert.equal(defaults.groups.flatMap(group=>group.pages).length,19);assert(!defaults.groups.some(group=>group.pages.some(page=>page.id==='guide')));
   assert.deepEqual(json(runtime,'validateData()'),[]);
   assert.deepEqual(json(runtime,'__EMBERWILD_MASTERY_EDITOR.cleanExport().navigation'),defaults);
   runtime.run('__EMBERWILD_NAVIGATION_EDITOR.select()');
@@ -39,4 +39,9 @@ test('navigation labels, group assignment and order round-trip while incomplete 
   runtime.run("data.navigation.groups.at(-1).pages=data.navigation.groups.at(-1).pages.filter(page=>page.id!=='battle')");
   assert(json(runtime,'validateData()').some(issue=>issue.includes('battle')));
   assert.deepEqual(runtime.errors,[]);
+});
+
+test('older documents receive the current bestiary page after statistics',()=>{
+ const r=loadRuntime(process.cwd());r.run("data.navigation=__EMBERWILD_NAVIGATION_EDITOR.defaults();for(const g of data.navigation.groups)g.pages=g.pages.filter(p=>p.id!=='bestiary');ensureArrays()");
+ const pages=json(r,"data.navigation.groups.find(g=>g.pages.some(p=>p.id==='statistics')).pages.map(p=>p.id)");assert.equal(pages[pages.indexOf('statistics')+1],'bestiary');assert.deepEqual(json(r,'validateData()'),[]);
 });

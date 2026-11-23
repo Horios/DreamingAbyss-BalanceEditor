@@ -2,21 +2,24 @@
 
 由 `node scripts/boundary-probe.cjs` 產生，請勿手動修改。完整資料在 `boundary-matrix.json`。
 
-745 個數值欄位（追溯矩陣中狀態為 `effective` 者），每個欄位取第一筆資料嘗試下列編輯。資料 SHA-256 `9587509ea0f0…`。
+686 個數值欄位（追溯矩陣中狀態為 `effective` 者），每個欄位取第一筆資料嘗試下列編輯。資料 SHA-256 `360c995c2c66…`。
 
 | 編輯 | 三個程式都保留 | 被拒絕 | 工作台保留、驗證器拒絕（發布停在驗證） | 工作台較嚴格 | 沒有錯誤但值被改變 |
 |---|--:|--:|--:|--:|--:|
-| 0 | 495 | 104 | 12 | 16 | 4 |
-| -1 | 283 | 378 | 44 | 29 | 9 |
-| 1e12 | 451 | 255 | 13 | 23 | 3 |
-| 整數加 0.5 | 402 | 138 | 2 | 18 | 7 |
-| 字串 "x" | 3 | 654 | 81 | 5 | 2 |
-| null | 4 | 642 | 94 | 5 | 0 |
+| 0 | 457 | 93 | 4 | 17 | 3 |
+| -1 | 264 | 348 | 35 | 29 | 8 |
+| 1e12 | 402 | 238 | 15 | 24 | 7 |
+| 整數加 0.5 | 372 | 118 | 6 | 18 | 6 |
+| 字串 "x" | 5 | 593 | 81 | 5 | 2 |
+| null | 5 | 587 | 89 | 5 | 0 |
 
-## 錯誤型別或 null 被整條鏈路保留（7）
+## 錯誤型別或 null 被整條鏈路保留（10）
 
 | 欄位 | 模組 | 原值 | 編輯 | 遊戲 |
 |---|---|---|---|---|
+| `story.quests.*.stages.*.prologue.scene` | `systems/story` | 1 | 字串 "x" | preserved |
+| `story.quests.*.stages.*.prologue.scene` | `systems/story` | 1 | null | preserved |
+| `story.quests.*.prologue.scenes.*.id` | `systems/story` | 1 | 字串 "x" | preserved |
 | `skillSystem.definitions.*.powerPerLevel` | `combat/skills` | 0 | 字串 "x" | preserved |
 | `skillSystem.definitions.*.powerPerLevel` | `combat/skills` | 0 | null | preserved |
 | `skillSystem.definitions.*.hitCount` | `combat/skills` | 1 | 字串 "x" | preserved |
@@ -25,14 +28,12 @@
 | `skillSystem.definitions.*.statusMaxTargets` | `combat/skills` | 3 | 字串 "x" | preserved |
 | `skillSystem.definitions.*.statusMaxTargets` | `combat/skills` | 3 | null | preserved |
 
-## 沒有錯誤但值被改變（25）
+## 沒有錯誤但值被改變（26）
 
 | 欄位 | 模組 | 原值 | 編輯 | 工作台 | 驗證器 | 遊戲 |
 |---|---|---|---|---|---|---|
 | `balance.affixes.poolBySlotRank.*.*.*.max` | `equipment/affix-pools` | 1 | 整數加 0.5 | preserved | 改為 2 |  |
 | `equipmentForms.*.*.*.fixedEffects.*.value` | `equipment/forms` | 5 | 字串 "x" | 改為 0 | 改為 0 |  |
-| `balanceSettings.skills.mastery.characterXpMultiplier` | `combat/skill-settings` | 1 | 0 | 改為 1（還原） | 改為 1（還原） |  |
-| `balanceSettings.skills.mastery.characterXpMultiplier` | `combat/skill-settings` | 1 | -1 | 改為 1（還原） | 改為 1（還原） |  |
 | `balanceSettings.skills.mastery.xpBase` | `combat/skill-settings` | 8 | 0 | 改為 1 | 改為 1 |  |
 | `balanceSettings.skills.mastery.xpBase` | `combat/skill-settings` | 8 | -1 | 改為 1 | 改為 1 |  |
 | `balanceSettings.skills.mastery.xpLinear` | `combat/skill-settings` | 5 | -1 | 改為 0 | 改為 0 |  |
@@ -40,8 +41,11 @@
 | `balanceSettings.skills.mastery.skillUseXp` | `combat/skill-settings` | 2 | -1 | 改為 0 | 改為 0 |  |
 | `balanceSettings.skills.mastery.basicAttackXp` | `combat/skill-settings` | 1 | -1 | 改為 0 | 改為 0 |  |
 | `balanceSettings.skills.mastery.maxLevel` | `combat/skill-settings` | 30 | 整數加 0.5 | 改為 30（還原） | 改為 30（還原） |  |
-| `balanceSettings.skills.mastery.advanceRequiredLevel` | `combat/skill-settings` | 4 | -1 | 改為 0 | 改為 0 |  |
-| `balanceSettings.skills.mastery.advanceRequiredLevel` | `combat/skill-settings` | 4 | 整數加 0.5 | 改為 4（還原） | 改為 4（還原） |  |
+| `balanceSettings.skills.mastery.classBonus.*.hp` | `combat/skill-settings` | 2 | 1e12 | 改為 3 | 改為 2（還原） |  |
+| `balanceSettings.skills.mastery.classBonus.*.atk` | `combat/skill-settings` | 0.2 | 1e12 | 改為 0 | 改為 0.2（還原） |  |
+| `balanceSettings.skills.mastery.classBonus.*.def` | `combat/skill-settings` | 0.6 | 1e12 | 改為 0.5 | 改為 0.6（還原） |  |
+| `balanceSettings.skills.mastery.classBonus.*.crit` | `combat/skill-settings` | 0 | -1 | 改為 0（還原） | 改為 0（還原） |  |
+| `balanceSettings.skills.mastery.classBonus.*.crit` | `combat/skill-settings` | 0 | 1e12 | 改為 0（還原） | 改為 0（還原） |  |
 | `statusDefinitions.*.duration` | `combat/statuses` | 99 | 0 | 改為 1 | 改為 1 |  |
 | `statusDefinitions.*.duration` | `combat/statuses` | 99 | 1e12 | 改為 99（還原） | 改為 99（還原） |  |
 | `statusDefinitions.*.duration` | `combat/statuses` | 99 | 整數加 0.5 | 改為 99（還原） | 改為 99（還原） |  |
@@ -55,7 +59,7 @@
 | `statusDefinitions.*.uses` | `combat/statuses` | 1 | 整數加 0.5 | 改為 2 | 改為 2 |  |
 | `starterPacks.*.*.growth.startLevel` | `items/starter-packs` | 1 | 整數加 0.5 | 改為 1（還原） | 改為 1（還原） |  |
 
-## 工作台保留、驗證器拒絕（246）
+## 工作台保留、驗證器拒絕（230）
 
 | 欄位 | 模組 | 原值 | 編輯 | 驗證器 | 遊戲 |
 |---|---|---|---|---|---|
@@ -224,53 +228,39 @@
 | `classes.*.initialStats.def` | `characters/classes` | 6 | null | 拒絕：職業  classes.0.initialStats.def：此欄位不可為 null |  |
 | `classes.*.initialStats.crit` | `characters/classes` | 0.07 | null | 拒絕：職業  classes.0.initialStats.crit：此欄位不可為 null |  |
 | `classes.*.initialStats.critDamage` | `characters/classes` | 1.5 | null | 拒絕：職業  classes.0.initialStats.critDamage：此欄位不可為 null |  |
-| `classes.*.growthPerLevel.hp` | `characters/classes` | 5 | null | 拒絕：職業  classes.0.growthPerLevel.hp：此欄位不可為 null |  |
-| `classes.*.growthPerLevel.atk` | `characters/classes` | 1 | null | 拒絕：職業  classes.0.growthPerLevel.atk：此欄位不可為 null |  |
-| `classes.*.growthPerLevel.def` | `characters/classes` | 1 | null | 拒絕：職業  classes.0.growthPerLevel.def：此欄位不可為 null |  |
-| `classes.*.growthPerLevel.crit` | `characters/classes` | 0 | null | 拒絕：職業  classes.0.growthPerLevel.crit：此欄位不可為 null |  |
-| `classes.*.growthPerLevel.critDamage` | `characters/classes` | 0 | null | 拒絕：職業  classes.0.growthPerLevel.critDamage：此欄位不可為 null |  |
-| `balanceSettings.progression.xpCurve.base` | `characters/progression` | 24 | -1 | 拒絕：成長／EXP 設定無效：progression.xpCurve.base |  |
-| `balanceSettings.progression.xpCurve.linear` | `characters/progression` | 18 | -1 | 拒絕：成長／EXP 設定無效：progression.xpCurve.linear |  |
-| `balanceSettings.progression.xpCurve.quadratic` | `characters/progression` | 8 | -1 | 拒絕：成長／EXP 設定無效：progression.xpCurve.quadratic |  |
-| `balanceSettings.progression.xpCurve.multiplierBase` | `characters/progression` | 16 | 0 | 拒絕：成長／EXP 設定無效：progression.xpCurve.multiplierBase |  |
-| `balanceSettings.progression.xpCurve.multiplierBase` | `characters/progression` | 16 | -1 | 拒絕：成長／EXP 設定無效：progression.xpCurve.multiplierBase |  |
-| `balanceSettings.progression.xpCurve.multiplierPerLevel` | `characters/progression` | 0 | -1 | 拒絕：成長／EXP 設定無效：progression.xpCurve.multiplierPerLevel |  |
-| `balanceSettings.progression.levelCaps.beforeClear` | `characters/progression` | 30 | 0 | 拒絕：等級上限設定無效 |  |
-| `balanceSettings.progression.levelCaps.beforeClear` | `characters/progression` | 30 | -1 | 拒絕：等級上限設定無效 |  |
-| `balanceSettings.progression.levelCaps.afterClear` | `characters/progression` | 60 | 0 | 拒絕：等級上限設定無效 |  |
-| `balanceSettings.progression.xpLevelGap.midMultiplier` | `characters/progression` | 0.5 | 0 | 拒絕：經驗等級差懲罰設定無效 |  |
-| `balanceSettings.progression.xpLevelGap.highGap` | `characters/progression` | 5 | 1e12 | 拒絕：經驗等級差懲罰設定無效 |  |
-| `balanceSettings.progression.xpLevelGap.zeroGap` | `characters/progression` | 10 | 0 | 拒絕：經驗等級差懲罰設定無效 |  |
-| `balanceSettings.progression.xpLevelGap.zeroGap` | `characters/progression` | 10 | -1 | 拒絕：經驗等級差懲罰設定無效 |  |
-| `balanceSettings.progression.xpLevelGap.zeroGap` | `characters/progression` | 10 | 整數加 0.5 | 拒絕：經驗等級差懲罰設定無效 |  |
+| `balanceSettings.equipment.enhance.costLevelStep` | `equipment/settings` | 5 | 0 | 拒絕：強化材料倍增的裝等間隔必須是 1 以上的整數 |  |
+| `balanceSettings.equipment.enhance.costLevelStep` | `equipment/settings` | 5 | -1 | 拒絕：強化材料倍增的裝等間隔必須是 1 以上的整數 |  |
+| `balanceSettings.equipment.enhance.costLevelStep` | `equipment/settings` | 5 | 1e12 | 拒絕：強化材料倍增的裝等間隔必須是 1 以上的整數 |  |
+| `balanceSettings.equipment.enhance.costLevelStep` | `equipment/settings` | 5 | 整數加 0.5 | 拒絕：強化材料倍增的裝等間隔必須是 1 以上的整數 |  |
+| `balanceSettings.equipment.enhance.levels.*.cost.dust` | `equipment/settings` | 2 | -1 | 拒絕：強化表 +1：材料數量必須是非負整數 |  |
+| `balanceSettings.equipment.enhance.levels.*.cost.dust` | `equipment/settings` | 2 | 整數加 0.5 | 拒絕：強化表 +1：材料數量必須是非負整數 |  |
+| `balanceSettings.equipment.enhance.levels.*.cost.ore` | `equipment/settings` | 0 | -1 | 拒絕：強化表 +1：材料數量必須是非負整數 |  |
+| `balanceSettings.equipment.enhance.levels.*.cost.ore` | `equipment/settings` | 0 | 整數加 0.5 | 拒絕：強化表 +1：材料數量必須是非負整數 |  |
+| `balanceSettings.equipment.enhance.levels.*.cost.ether` | `equipment/settings` | 0 | -1 | 拒絕：強化表 +1：材料數量必須是非負整數 |  |
+| `balanceSettings.equipment.enhance.levels.*.cost.ether` | `equipment/settings` | 0 | 整數加 0.5 | 拒絕：強化表 +1：材料數量必須是非負整數 |  |
+| `balanceSettings.equipment.enhance.levels.*.baseBonus` | `equipment/settings` | 0.05 | -1 | 拒絕：強化表 +1：基礎能力加成無效 |  |
+| `balanceSettings.equipment.enhance.levels.*.baseBonus` | `equipment/settings` | 0.05 | 1e12 | 拒絕：強化表 +1：基礎能力加成無效 |  |
 | `balanceSettings.equipment.difficultyAffix.hardFineThreshold` | `equipment/settings` | 0.7 | -1 | 拒絕：平衡設定機率需介於 0~1：equipment.difficultyAffix.hardFineThreshold |  |
 | `balanceSettings.equipment.difficultyAffix.hardFineThreshold` | `equipment/settings` | 0.7 | 1e12 | 拒絕：平衡設定機率需介於 0~1：equipment.difficultyAffix.hardFineThreshold |  |
 | `balanceSettings.equipment.difficultyAffix.hellFineThreshold` | `equipment/settings` | 0.35 | -1 | 拒絕：平衡設定機率需介於 0~1：equipment.difficultyAffix.hellFineThreshold |  |
 | `balanceSettings.equipment.difficultyAffix.hellFineThreshold` | `equipment/settings` | 0.35 | 1e12 | 拒絕：平衡設定機率需介於 0~1：equipment.difficultyAffix.hellFineThreshold |  |
 | `balanceSettings.equipment.difficultyAffix.hellRareThreshold` | `equipment/settings` | 0.85 | -1 | 拒絕：平衡設定機率需介於 0~1：equipment.difficultyAffix.hellRareThreshold |  |
 | `balanceSettings.equipment.difficultyAffix.hellRareThreshold` | `equipment/settings` | 0.85 | 1e12 | 拒絕：平衡設定機率需介於 0~1：equipment.difficultyAffix.hellRareThreshold |  |
-| `balanceSettings.equipment.dropLevelGap.freeLevels` | `equipment/settings` | 5 | -1 | 拒絕：裝備掉落等級差設定無效 |  |
-| `balanceSettings.equipment.dropLevelGap.penaltyPerLevel` | `equipment/settings` | 0.4 | -1 | 拒絕：裝備掉落等級差設定無效 |  |
-| `balanceSettings.equipment.dropLevelGap.minimumMultiplier` | `equipment/settings` | 0.05 | -1 | 拒絕：裝備掉落等級差設定無效 |  |
-| `balanceSettings.equipment.dropLevelGap.minimumMultiplier` | `equipment/settings` | 0.05 | 1e12 | 拒絕：裝備掉落等級差設定無效 |  |
-| `balanceSettings.monsters.kindMultipliers.eliteDefense` | `world/monsters` | 1.1 | 0 | 拒絕：精英／BOSS 防禦倍率必須大於 0 |  |
-| `balanceSettings.monsters.kindMultipliers.eliteDefense` | `world/monsters` | 1.1 | -1 | 拒絕：精英／BOSS 防禦倍率必須大於 0 |  |
+| `balanceSettings.equipment.maxLevel` | `equipment/settings` | 60 | 0 | 拒絕：裝備等級上限設定無效 |  |
+| `balanceSettings.equipment.maxLevel` | `equipment/settings` | 60 | 1e12 | 拒絕：裝備等級上限設定無效 |  |
+| `balanceSettings.equipment.maxLevel` | `equipment/settings` | 60 | 整數加 0.5 | 拒絕：裝備等級上限設定無效 |  |
+| `balanceSettings.monsters.kindMultipliers.eliteDefense` | `world/monsters` | 1.43 | 0 | 拒絕：精英／BOSS 防禦倍率必須大於 0 |  |
+| `balanceSettings.monsters.kindMultipliers.eliteDefense` | `world/monsters` | 1.43 | -1 | 拒絕：精英／BOSS 防禦倍率必須大於 0 |  |
 | `balanceSettings.monsters.kindMultipliers.bossDefense` | `world/monsters` | 1.2 | 0 | 拒絕：精英／BOSS 防禦倍率必須大於 0 |  |
 | `balanceSettings.monsters.kindMultipliers.bossDefense` | `world/monsters` | 1.2 | -1 | 拒絕：精英／BOSS 防禦倍率必須大於 0 |  |
 | `balanceSettings.difficulty.modes.*.equipmentChance.*` | `world/difficulty` | 0.002 | -1 | 拒絕：難度掉落率需介於 0~1 |  |
 | `balanceSettings.difficulty.modes.*.equipmentChance.*` | `world/difficulty` | 0.002 | 1e12 | 拒絕：難度掉落率需介於 0~1 |  |
-| `balanceSettings.difficulty.modes.*.gemChance.*` | `world/difficulty` | 0.04 | -1 | 拒絕：難度掉落率需介於 0~1 |  |
-| `balanceSettings.difficulty.modes.*.gemChance.*` | `world/difficulty` | 0.04 | 1e12 | 拒絕：難度掉落率需介於 0~1 |  |
+| `balanceSettings.difficulty.modes.*.gemChance.*` | `world/difficulty` | 0.044 | -1 | 拒絕：難度掉落率需介於 0~1 |  |
+| `balanceSettings.difficulty.modes.*.gemChance.*` | `world/difficulty` | 0.044 | 1e12 | 拒絕：難度掉落率需介於 0~1 |  |
 | `balanceSettings.difficulty.materialChance.*` | `world/difficulty` | 0.025 | -1 | 拒絕：素材掉落率需介於 0~1 |  |
 | `balanceSettings.difficulty.materialChance.*` | `world/difficulty` | 0.025 | 1e12 | 拒絕：素材掉落率需介於 0~1 |  |
-| `balanceSettings.rewards.xp.base` | `systems/rewards` | 18 | -1 | 拒絕：成長／EXP 設定無效：rewards.xp.base |  |
-| `balanceSettings.rewards.xp.perLevel` | `systems/rewards` | 9 | -1 | 拒絕：成長／EXP 設定無效：rewards.xp.perLevel |  |
-| `balanceSettings.rewards.xp.kindMultiplier.normal` | `systems/rewards` | 1 | 0 | 拒絕：EXP 遭遇倍率必須大於 0 |  |
-| `balanceSettings.rewards.xp.kindMultiplier.normal` | `systems/rewards` | 1 | -1 | 拒絕：EXP 遭遇倍率必須大於 0 |  |
-| `balanceSettings.rewards.xp.kindMultiplier.elite` | `systems/rewards` | 2.2 | 0 | 拒絕：EXP 遭遇倍率必須大於 0 |  |
-| `balanceSettings.rewards.xp.kindMultiplier.elite` | `systems/rewards` | 2.2 | -1 | 拒絕：EXP 遭遇倍率必須大於 0 |  |
-| `balanceSettings.rewards.xp.kindMultiplier.boss` | `systems/rewards` | 10 | 0 | 拒絕：EXP 遭遇倍率必須大於 0 |  |
-| `balanceSettings.rewards.xp.kindMultiplier.boss` | `systems/rewards` | 10 | -1 | 拒絕：EXP 遭遇倍率必須大於 0 |  |
+| `balanceSettings.rewards.ore.chanceFactor` | `systems/rewards` | 0.7 | -1 | 拒絕：平衡設定機率需介於 0~1：rewards.ore.chanceFactor |  |
+| `balanceSettings.rewards.ore.chanceFactor` | `systems/rewards` | 0.7 | 1e12 | 拒絕：平衡設定機率需介於 0~1：rewards.ore.chanceFactor |  |
 | `balanceSettings.rewards.ether.eliteBase` | `systems/rewards` | 0.01 | -1 | 拒絕：平衡設定機率需介於 0~1：rewards.ether.eliteBase |  |
 | `balanceSettings.rewards.ether.eliteBase` | `systems/rewards` | 0.01 | 1e12 | 拒絕：平衡設定機率需介於 0~1：rewards.ether.eliteBase |  |
 | `balanceSettings.rewards.ether.elitePerTier` | `systems/rewards` | 0.004 | -1 | 拒絕：平衡設定機率需介於 0~1：rewards.ether.elitePerTier |  |
@@ -279,7 +269,6 @@
 | `balanceSettings.rewards.ether.eliteCap` | `systems/rewards` | 0.06 | 1e12 | 拒絕：平衡設定機率需介於 0~1：rewards.ether.eliteCap |  |
 | `balanceSettings.rewards.ether.bossRepeat` | `systems/rewards` | 0.01 | -1 | 拒絕：平衡設定機率需介於 0~1：rewards.ether.bossRepeat |  |
 | `balanceSettings.rewards.ether.bossRepeat` | `systems/rewards` | 0.01 | 1e12 | 拒絕：平衡設定機率需介於 0~1：rewards.ether.bossRepeat |  |
-| `balanceSettings.rewards.ether.firstBossMax` | `systems/rewards` | 2 | 0 | 拒絕：首次 BOSS 以太鍛鐵範圍無效 |  |
 | `companionSettings.activeLimit` | `characters/companion-settings` | 6 | null | 拒絕：夥伴  companionSettings.activeLimit：此欄位不可為 null |  |
 | `companionSettings.ratings.maxBaseGapPercent` | `characters/companion-settings` | 18 | null | 拒絕：夥伴  companionSettings.ratings.maxBaseGapPercent：此欄位不可為 null |  |
 | `companionSettings.ratings.maxGrowthGapPercent` | `characters/companion-settings` | 13 | null | 拒絕：夥伴  companionSettings.ratings.maxGrowthGapPercent：此欄位不可為 null |  |
@@ -300,13 +289,12 @@
 | `skillSystem.definitions.*.trapHp` | `combat/skills` | 1 | null | 拒絕：skillSystem  skillSystem.definitions.6.trapHp：此欄位不可為 null |  |
 | `skillSystem.definitions.*.sources.*.companionId` | `combat/skills` | 10 | 字串 "x" | 拒絕：skillSystem  skillSystem.definitions.7.sources.0.companionId：型別必須為 number |  |
 | `skillSystem.definitions.*.sources.*.companionId` | `combat/skills` | 10 | null | 拒絕：skillSystem  skillSystem.definitions.7.sources.0.companionId：此欄位不可為 null |  |
-| `skillSystem.definitions.*.level` | `combat/skills` | 1 | 0 | 拒絕：輔助技能回合／等級無效：0-0 |  |
-| `skillSystem.definitions.*.level` | `combat/skills` | 1 | -1 | 拒絕：輔助技能回合／等級無效：0-0 |  |
-| `skillSystem.definitions.*.level` | `combat/skills` | 1 | 整數加 0.5 | 拒絕：輔助技能回合／等級無效：0-0 |  |
-| `skillSystem.definitions.*.level` | `combat/skills` | 1 | 字串 "x" | 拒絕：skillSystem  skillSystem.definitions.35.level：型別必須為 number |  |
-| `skillSystem.definitions.*.level` | `combat/skills` | 1 | null | 拒絕：skillSystem  skillSystem.definitions.35.level：此欄位不可為 null |  |
+| `skillSystem.definitions.*.level` | `combat/skills` | 0 | -1 | 拒絕：輔助技能回合／精通等級無效：0-0 |  |
+| `skillSystem.definitions.*.level` | `combat/skills` | 0 | 整數加 0.5 | 拒絕：輔助技能回合／精通等級無效：0-0 |  |
+| `skillSystem.definitions.*.level` | `combat/skills` | 0 | 字串 "x" | 拒絕：skillSystem  skillSystem.definitions.35.level：型別必須為 number |  |
+| `skillSystem.definitions.*.level` | `combat/skills` | 0 | null | 拒絕：skillSystem  skillSystem.definitions.35.level：此欄位不可為 null |  |
 
-## 工作台較嚴格（96）
+## 工作台較嚴格（98）
 
 | 欄位 | 模組 | 原值 | 編輯 | 工作台 |
 |---|---|---|---|---|
@@ -320,6 +308,7 @@
 | `items.*.bonusPercent` | `items/items` | 100 | 整數加 0.5 | 拒絕：限時增益百分比必須為正整數：exp_100_30m |
 | `items.*.cooldown` | `items/items` | 2 | 1e12 | 拒絕：治療藥水 heal_small 的冷卻必須是 0~99 的整數自身回合。 |
 | `items.*.cooldown` | `items/items` | 2 | 整數加 0.5 | 改為 3 |
+| `balanceSettings.skills.mastery.maxLevel` | `combat/skill-settings` | 30 | 0 | 拒絕：戰士技能樹「減傷」需要精通 Lv2，超過精通上限 Lv1，永遠無法解鎖 |
 | `balanceSettings.equipment.baseStats.weaponAttackPerTier` | `equipment/settings` | 3 | 1e12 | 拒絕：戰士新手禮包「武器」的基礎攻擊無效。 |
 | `balanceSettings.monsters.catalog.*.combatStats.crit` | `world/monsters` | 0 | -1 | 改為 0（還原） |
 | `balanceSettings.monsters.catalog.*.combatStats.critDamage` | `world/monsters` | 1.5 | 0 | 改為 1 |
@@ -358,12 +347,13 @@
 | `balanceSettings.rewards.regionVouchers.maxGapMinutes` | `systems/rewards` | 10 | null | 改為 10（還原） |
 | `balanceSettings.rewards.regionVouchers.averageMinutes` | `systems/rewards` | 180 | 字串 "x" | 改為 180（還原） |
 | `balanceSettings.rewards.regionVouchers.averageMinutes` | `systems/rewards` | 180 | null | 改為 180（還原） |
-| `balanceSettings.maps.levelRanges.*.max` | `world/maps` | 5 | 0 | 改為 5（還原） |
-| `balanceSettings.maps.levelRanges.*.max` | `world/maps` | 5 | -1 | 改為 5（還原） |
-| `balanceSettings.maps.levelRanges.*.max` | `world/maps` | 5 | 整數加 0.5 | 改為 5（還原） |
 | `balanceSettings.maps.catalog.*.min` | `world/maps` | 1 | 整數加 0.5 | 改為 2 |
 | `balanceSettings.maps.catalog.*.max` | `world/maps` | 5 | 整數加 0.5 | 改為 6 |
 | `balanceSettings.maps.catalog.*.family` | `world/maps` | 0 | 整數加 0.5 | 改為 0（還原） |
+| `balanceSettings.maps.catalog.*.recommendedGearLevel` | `world/maps` | 5 | 0 | 改為 5（還原） |
+| `balanceSettings.maps.catalog.*.recommendedGearLevel` | `world/maps` | 5 | -1 | 改為 5（還原） |
+| `balanceSettings.maps.catalog.*.recommendedGearLevel` | `world/maps` | 5 | 1e12 | 改為 5（還原） |
+| `balanceSettings.maps.catalog.*.recommendedGearLevel` | `world/maps` | 5 | 整數加 0.5 | 改為 5（還原） |
 | `equipmentPowerSystem.prefixes.*.tierMin` | `equipment/power-system` | 1 | 0 | 改為 1（還原） |
 | `equipmentPowerSystem.prefixes.*.tierMin` | `equipment/power-system` | 1 | -1 | 改為 1（還原） |
 | `equipmentPowerSystem.prefixes.*.tierMin` | `equipment/power-system` | 1 | 1e12 | 改為 10 |
@@ -414,31 +404,31 @@
 | 模組 | 0 | -1 | 1e12 |
 |---|--:|--:|--:|
 | `equipment/affix-pools` | 72 | 57 | 74 |
-| `characters/classes` | 7 | 0 | 13 |
+| `characters/classes` | 3 | 0 | 5 |
 | `equipment/forms` | 1 | 1 | 1 |
 | `items/items` | 6 | 0 | 4 |
-| `characters/progression` | 26 | 21 | 30 |
-| `combat/skill-settings` | 13 | 7 | 15 |
-| `equipment/settings` | 50 | 33 | 41 |
-| `world/monsters` | 26 | 40 | 57 |
-| `world/difficulty` | 11 | 5 | 7 |
-| `systems/rewards` | 31 | 20 | 25 |
-| `combat/rules` | 58 | 37 | 39 |
+| `characters/progression` | 6 | 7 | 7 |
+| `combat/skill-settings` | 15 | 7 | 13 |
+| `equipment/settings` | 48 | 34 | 42 |
+| `world/monsters` | 25 | 40 | 57 |
+| `world/difficulty` | 11 | 5 | 6 |
+| `systems/rewards` | 31 | 20 | 20 |
+| `combat/rules` | 56 | 36 | 37 |
 | `systems/quests` | 46 | 39 | 45 |
 | `meta/balance-settings` | 1 | 1 | 1 |
-| `world/maps` | 2 | 1 | 4 |
-| `world/drops` | 8 | 6 | 6 |
+| `world/maps` | 2 | 1 | 2 |
+| `world/drops` | 2 | 0 | 0 |
 | `systems/economy` | 4 | 0 | 4 |
 | `equipment/power-system` | 9 | 1 | 0 |
 | `interface/presentation` | 0 | 4 | 0 |
 | `combat/statuses` | 4 | 0 | 1 |
 | `characters/companions` | 10 | 0 | 27 |
-| `characters/companion-settings` | 45 | 0 | 39 |
+| `characters/companion-settings` | 43 | 0 | 37 |
 | `systems/shop` | 5 | 0 | 0 |
 | `systems/life-skills` | 6 | 0 | 3 |
-| `systems/story` | 7 | 1 | 1 |
+| `systems/story` | 7 | 2 | 2 |
 | `combat/skills` | 24 | 9 | 14 |
-| `combat/skill-system` | 11 | 0 | 0 |
+| `combat/skill-system` | 8 | 0 | 0 |
 | `systems/wishing-lake` | 8 | 0 | 0 |
 | `systems/tutorials` | 4 | 0 | 0 |
 
