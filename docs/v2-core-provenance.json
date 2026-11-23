@@ -1,5 +1,5 @@
 {
-  "editorSha256": "84a733374ac43afe27ec93125190aee585c13bbb2e6a4c2c863b0309ca3c6b36",
+  "editorSha256": "1ca2178bb47e241a6ac0913eed5667da46a5efba290bf2d5881c5c6db6da92c0",
   "bundleSha256": "50ae1d01f2fdb3262fb3f71c691bc841a0598aaa8c7c483d5794a4a32e8fa4b9",
   "models": [
     {
@@ -14,12 +14,12 @@
     },
     {
       "name": "EmberwildSkillSystem",
-      "line": 13614,
+      "line": 13615,
       "sha256": "81273aaa18998416de6c017cbb9bdd18271d5ad28f255d2853454473b273e7f0"
     },
     {
       "name": "EmberwildMechanisms",
-      "line": 13802,
+      "line": 13803,
       "sha256": "9bfae17d382c8fc6fb23ec313c2738e9a2ca0eb5490968041412ea03b84a6665"
     },
     {

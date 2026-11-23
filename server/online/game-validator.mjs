@@ -24425,7 +24425,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
 
 __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_MASTERY_DAMAGE=globalThis.__EMBERWILD_MASTERY_DAMAGE??__EMBERWILD_MASTERY_DAMAGE;
 
-/* js/story/tutorial-runtime.js?v=20261123-v0194-workshop1 */
+/* js/story/tutorial-runtime.js?v=20261123-v0198-gear */
 /* Tutorial manager. Plays the modules of the `tutorials` balance data (rules: js/story/tutorial-model.js) on top of the
    ordinary game screens: it highlights a control, explains it and waits for the game's own handler to report success.
    It never changes values, items, costs or unlocks. Player progress lives in party.tutorials, apart from the story. */
@@ -24746,6 +24746,9 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERW
   let n=0;for(const g of allGear())if(!known.has(g.id)){known.add(g.id);if(normalGear(g)&&g.acquiredAt!==undefined)n++;}
   if(n){const t=ensure();t.events.gearAcquired=Math.min(1e9,(t.events.gearAcquired||0)+n);}return n>0;
  }
+ // v0.198: count gear when it enters the bag, so the counter is part of the same save as the gear (an offline checkpoint
+ // or a reload no longer depends on whether a redraw ran in between).
+ {const addBase=addGear;addGear=function(...args){const out=addBase.apply(this,args);if(knownOwner===party&&known)trackGear();return out;};}
  // Pages opened by a developer test run are not the player's visits.
  function notePage(page){if(session?.mode==='test')return false;const t=party&&ensure();if(!t||!Object.hasOwn(M.PAGES,page)||t.pages[page])return false;t.pages[page]=1;return true;}
  function evaluate(){
@@ -24910,7 +24913,7 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERW
  // ---------- save ----------
  const validatePartyBase=validateParty;validateParty=function(raw){const p=validatePartyBase(raw);const t=validateProgress(raw?.tutorials);if(t)p.tutorials=t;else delete p.tutorials;return p;};
  const packBase=packParty;packParty=function(){const out=packBase();if(party?.tutorials)out.tutorials=copy(party.tutorials);return out;};
- const loadBase=loadParty;loadParty=function(...args){const out=loadBase(...args);session=null;tip=null;known=null;snoozed.clear();notices.clear();lastTab=null;ensure();return out;};
+ const loadBase=loadParty;loadParty=function(...args){const out=loadBase(...args);session=null;tip=null;/* v0.198: the gear baseline is the loaded save, so gear gained by the offline settlement that follows the load still counts. */known=party?new Set(allGear().map(g=>g.id)):null;knownOwner=party;snoozed.clear();notices.clear();lastTab=null;ensure();return out;};
  // Only a character made through the prologue gets automatic guides; one made by a direct start(job) (old flow, tests)
  // is treated as already arrived, like the prologue does.
  // The prologue creates its character through the starter pack's asPrologue(); that marks it.
