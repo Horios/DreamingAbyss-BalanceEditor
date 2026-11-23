@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "84fea8b434558476a8d2c9a1cf210f60312d8858",
+  "sourceCommit": "88d0aa7ed78e950a14ba9a741184e6a92ed6194f",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -23,8 +23,8 @@
       "sha256": "aa0d6e1f8363dc076e94e47611ce1cff3e945ba8fc0eb9e3618e12aace7ecaf5"
     },
     {
-      "path": "js/story/tutorial-model.js?v=20261120-v0179",
-      "sha256": "e385b718ff5161c93ed6f16b8acde56ef1ab65e3e005700572712c9ea4695c27"
+      "path": "js/story/tutorial-model.js?v=20261123-v0194-workshop1",
+      "sha256": "617eb7962be60914efb711f12cd0b4f8f61d219d6e876262fd6d7d17f4f22272"
     },
     {
       "path": "js/skills/skill-system-model.js?v=20261119-v0172",
@@ -131,8 +131,8 @@
       "sha256": "ceaa407ee18c595de8055b4606dabba3768cadeecf00863c205253f1bcb5fe7f"
     },
     {
-      "path": "js/ui/core-screen-views.js?v=20261119-v0173",
-      "sha256": "667614764bc457b0ad404257f01d41d1aa709aaea6c428ce4c46f04747eb51e1"
+      "path": "js/ui/core-screen-views.js?v=20261123-v0194-workshop1",
+      "sha256": "763885b476969b6e88cd97288b1bb072293cef8ae339bf048bcdcecf66d4d7df"
     },
     {
       "path": "js/ui/core-equipment-views.js?v=20261119-v0169",
@@ -143,16 +143,16 @@
       "sha256": "55dd50049948e2311ff0202e6537ee2042168dc071ba73ccf51bb911c26859ac"
     },
     {
-      "path": "js/core/core-game.js?v=20261120-v0180",
-      "sha256": "f8d01de2421c1c425cbf0e9cfe5a8aab799a83c0af7fe79c45553bababfe6e9d"
+      "path": "js/core/core-game.js?v=20261123-v0194-workshop1",
+      "sha256": "ccdffa19eecbb5f76c16d1acc1fe78f21511070ecaf8baf721bbefedaf8bf4ae"
     },
     {
       "path": "js/ui/text-rarity-style.js",
       "sha256": "eb3736d0c0ce5c486de6f4ad4c280800b1b68acbf2df09d80ffbdacd93056733"
     },
     {
-      "path": "js/equipment/equipment-stat-source.js?v=20261120-v0180",
-      "sha256": "a7faa067c14dbc34f5ac8550e54d993d1b1292eca0dcddf475e31f1697bec63e"
+      "path": "js/equipment/equipment-stat-source.js?v=20261123-v0194-workshop1",
+      "sha256": "6e63d3eb998f4b541e4e16085e31cdf214fc95ab37529834df4a06fc71cef7d5"
     },
     {
       "path": "js/equipment/enhancement-rules.js?v=20261123-v0192-floor",
@@ -183,8 +183,8 @@
       "sha256": "37603e70fd591392dae8a4e3a18f4a34799b30c2b47314c31f6db9ad113956b3"
     },
     {
-      "path": "js/ui/item-presentation.js?v=20261120-v0178",
-      "sha256": "3889dd1712b20aab2bf923c0a2d4756c4e38b775139c1f958361b24df642652a"
+      "path": "js/ui/item-presentation.js?v=20261123-v0194-workshop1",
+      "sha256": "76fc1cd86c50d7ec957415c0a967d19db61ab32c5e6f5488bb92e9823f7932c0"
     },
     {
       "path": "js/ui/ui-text-config.js?v=20261119-v0169",
@@ -243,16 +243,16 @@
       "sha256": "691ac3c85f0d3adbc07ebfadd7f3899a8ccb12a5588b77695453602232a80e27"
     },
     {
-      "path": "js/equipment/forge-navigation.js?v=20261123-v0192-floor",
-      "sha256": "f75f6ad212b995e49307e3b20195431168f03b5b8b9a4b11ca9eac22ad1fced6"
+      "path": "js/equipment/forge-navigation.js?v=20261123-v0194-workshop1",
+      "sha256": "779747e8c22d0298615287768b662ffc86d5eb8f3f24cac284799ced359a091e"
     },
     {
       "path": "js/skills/support-debuff.js?v=20261119-v0169",
       "sha256": "7e6ec55f349132983f1580309f26f0cd13cdc14a44526d0f57ff534639ee4380"
     },
     {
-      "path": "js/equipment/equipment-identity.js?v=20261119-v0173",
-      "sha256": "a9f4888a497a67b83bcc458e8b7dd5c084a1e01a61c50475cb3bcd159e9cabe0"
+      "path": "js/equipment/equipment-identity.js?v=20261123-v0194-workshop1",
+      "sha256": "f6cf714ba12e10e76b296eeab049d7c568f621b82aaf0283566ad7503925caaf"
     },
     {
       "path": "js/ui/journal-split.js?v=20261015-loot-fold1",
@@ -279,8 +279,8 @@
       "sha256": "627eb60e5e7c32fd348258dc9ab40c944ebc921fd136ec0567f03d8d7f558d00"
     },
     {
-      "path": "js/ui/mastery-ui.js?v=20261119-v0173",
-      "sha256": "e11318a9c4737c5e00cb682216ef836d907d9672f37afc9fe2641f4c02f73373"
+      "path": "js/ui/mastery-ui.js?v=20261123-v0194-workshop1",
+      "sha256": "e588a2302d8c41fb8f8bead342d422ea1c777823c111a615187827ea3ef9e877"
     },
     {
       "path": "js/skills/mastery-cleanup.js?v=20261119-v0169",
@@ -367,8 +367,8 @@
       "sha256": "f4cf5ce73c54af9b35838f812bfa11ec8a965f0c552e2df73c8bd28965d73a2b"
     },
     {
-      "path": "js/items/companion-tokens.js?v=20261120-v0181",
-      "sha256": "3ffcc9a543b59cf01e3342fd891b8a3c73974428b2a0e0eaf49f5cad0c8b1343"
+      "path": "js/items/companion-tokens.js?v=20261123-v0194-workshop1",
+      "sha256": "144c750ec081bf12c49a3c6c1775d0c9d9f252e8b7943cc84d8647bd144e01a0"
     },
     {
       "path": "js/character/team-runtime.js?v=20261119-v0173",
@@ -379,8 +379,8 @@
       "sha256": "7f5d7a5087af385fe17d03ba22c8357c4c1f1abd7fd95d602125b9f13bb9d208"
     },
     {
-      "path": "js/items/skill-extraction.js?v=20261120-v0178",
-      "sha256": "ae5d85145552ecb47f4d7c041dee83c5a0f661b4a70f16aa4c6fb2574999417f"
+      "path": "js/items/skill-extraction.js?v=20261123-v0194-workshop1",
+      "sha256": "8dc617ac4bd24b0a7232328ea8dcb69a6c4f58c80108ba5a80f2ab5dccf8e832"
     },
     {
       "path": "js/ui/team-builds.js?v=20261119-v0173",
@@ -435,8 +435,8 @@
       "sha256": "406f402c0e46dd216633176ac2e5c51c477a3e8e5ad876bf5758d23d8e8ddb83"
     },
     {
-      "path": "js/ui/navigation-tree.js?v=20261120-v0185",
-      "sha256": "9b0f5a6d9b37e6f0fd38b8febd5f3934b76cdd35536f1ef880278804708a8fea"
+      "path": "js/ui/navigation-tree.js?v=20261123-v0194-workshop1",
+      "sha256": "6dc6441595bde2257760e543222e8ed3d5fdeae22dc8a3037e3e7cf9dc0f7439"
     },
     {
       "path": "js/ui/inventory-icons-runtime.js?v=20261118-v0163-gear",
@@ -455,8 +455,8 @@
       "sha256": "4747386082ecedcae4a5b33a4dee81a6de489c2703840112d889de43bbed808d"
     },
     {
-      "path": "js/equipment/gear-inventory.js?v=20261122-v0187",
-      "sha256": "490660497fbf696478dd37a3667fe9c2cd72337724680c5fc135de9b741a2fe5"
+      "path": "js/equipment/gear-inventory.js?v=20261123-v0194-workshop1",
+      "sha256": "13b5dbd393fd452c6c413a9938b128281d2dd8ebba2d6e405756d7578f7631b1"
     },
     {
       "path": "js/combat/offline-exploration.js?v=20261120-v0180",
@@ -475,8 +475,8 @@
       "sha256": "5b13b9daefec86033d7d8900b41cd417442de33bd084041374249b6b31bd8f4f"
     },
     {
-      "path": "js/ui/skill-system-ui.js?v=20261119-v0173",
-      "sha256": "f7c6fa76110e57584f31bbbe47a34c05288fb7df607241b974398a0047a516fc"
+      "path": "js/ui/skill-system-ui.js?v=20261123-v0194-workshop1",
+      "sha256": "e9bc679476099df86d7943fe9f7d501e8754f60eb8249455bead969163049eb1"
     },
     {
       "path": "js/ui/class-mastery-tree.js?v=20261120-v0179",
@@ -555,8 +555,8 @@
       "sha256": "03c84bade7306849037a1b2b8c766dc2140443ac2218ffba4492e12fa5945cf0"
     },
     {
-      "path": "js/story/tutorial-runtime.js?v=20261120-v0179",
-      "sha256": "4dba62b7123f759f829c717cc3849b12e99a79f192cf8d2902ac80131fb46d5b"
+      "path": "js/story/tutorial-runtime.js?v=20261123-v0194-workshop1",
+      "sha256": "736e493f2e83b57f36f90c0b4d94ec33c8f71baf6c1dab4e3663639977665e2b"
     },
     {
       "path": "js/ui/bestiary.js?v=20261121-v0186",
@@ -575,8 +575,8 @@
       "sha256": "4ea3f4f38eacebb702c18b336217dc00da402510167e755ae8d3cf2b541bf84d"
     },
     {
-      "path": "js/ui/responsive-shell.js?v=20261119-v0169",
-      "sha256": "12877c70b29aff44abba966bbd2e7e8cb91f40829c8d17cf513a989a692912c1"
+      "path": "js/ui/responsive-shell.js?v=20261123-v0194-workshop1",
+      "sha256": "04f7a5627f68e9eedeb8b1f0018846461e7e0838cb7be489737f8069568604ab"
     }
   ],
   "contract": [
