@@ -15,7 +15,7 @@ export function createGameValidator(){
  const MutationObserver=class{observe(){}disconnect(){}},ResizeObserver=MutationObserver;
  let seq=0;const setTimeout=()=>++seq,clearTimeout=()=>{},setInterval=()=>++seq,clearInterval=()=>{},requestAnimationFrame=()=>++seq,cancelAnimationFrame=()=>{},queueMicrotask=()=>{},addEventListener=()=>{},removeEventListener=()=>{},matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}}),getComputedStyle=()=>({lineHeight:'20px',fontSize:'16px',getPropertyValue:()=>''}),performance={now:()=>0},crypto={randomUUID:()=>String(++seq)},innerWidth=1440,innerHeight=900,scrollX=0,scrollY=0,alert=()=>{},confirm=()=>true,prompt=()=>null;
  Object.assign(globalThis,{document,localStorage,sessionStorage,location,navigator,crypto,window,self,addEventListener,removeEventListener,setTimeout,clearTimeout,setInterval,clearInterval,requestAnimationFrame,cancelAnimationFrame,matchMedia,getComputedStyle,performance});
- var setUITheme,uiThemeOptionsView,EmberwildSecondsSchema,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildTutorial,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,EmberwildBalanceModules,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_ERROR,saveFailureText,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,__EMBERWILD_EQUIPMENT_SKILLS,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_TEAMS,__EMBERWILD_ENHANCE,__EMBERWILD_OFFLINE_RULE_CACHE,__EMBERWILD_MASTERY_LISTENERS,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,recordCombatContribution,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,explorationBossBlock,explorationCompactSupply,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,__EMBERWILD_LUCIDE,__EMBERWILD_SKILL_EXTRACTION,equipmentPowerRerollHTML,__EMBERWILD_SKILL_SYSTEM_UI,setWorkshopCategory,toggleWorkshopPicker,clearWorkshopSlot,setWorkshopAction,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,moveToWorkshop,__EMBERWILD_WORKSHOP,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classMasteryBonus,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_COMPANION_TEST_API,__EMBERWILD_TOKEN_SKILL,companionSkillDisabled,__EMBERWILD_MASTERY_BATTLE_NOTE,__EMBERWILD_COMPANION_MASTERY_GAIN,__EMBERWILD_TEAM_GAIN,__EMBERWILD_SKILL_REFRESH,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devClassMasterySet,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,__EMBERWILD_TITLE,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,__EMBERWILD_STARTER_PACK,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,__EMBERWILD_COMPANION_BATTLE_MASTERY,recruitCompanion,__EMBERWILD_PROLOGUE,companionUnlocked,__EMBERWILD_RECRUIT_FOR_STORY,acquireCompanion,__EMBERWILD_PROLOGUE_HELPER,__EMBERWILD_TEMP_ALLY,confirmMemberReplacement,rememberCompanionRosterDetail,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,storyTextOptionsView,tutorialReviewView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,__EMBERWILD_DISPOSE_GEAR,extractSkillToToken,openSkillExtraction,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,__EMBERWILD_MASTERY_DAMAGE,__EMBERWILD_CLASS_MASTERY_BONUS_UI,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,__EMBERWILD_SET_EXTRA_TICKET_SOURCES,isUtilityDialogOpen,companionPendingMail,companionTicketCount,__EMBERWILD_EXTRA_TICKET_SOURCES,companionUnlockText,companionTicketName,grantCompanionTicket,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,grantStarterPackDirect,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,recoverStoryRewards,completeStoryStage,__EMBERWILD_CHAPTER,storyNavigate,openStory,setStoryCategory,readStory,completeStoryDialogue,nextStoryDialogue,endStoryDialogue,js,skipStoryDialogue,storyReadyCount,storyReplayable,setAlchemyAutoBuy,dismissStoryHint,goQuestEncounter,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,__EMBERWILD_GEAR_SKILL_IDS,__EMBERWILD_GEAR_REGEN,__EMBERWILD_GEAR_REGEN_RATE,__EMBERWILD_GEAR_SKILLS,socketEquipmentGem,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,openSkillTreeDetail,selectSkillTreeNode,classMasteryTreeHTML,querySelector,classList,querySelectorAll,children,insertBefore,setBattleEffects,setBattleNumberSize,battleNumberSize,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,classMasterySources,masterySubClass,setMasterySubClass,setClassMasteryLevel,setPartyClassMasteryLevel,__EMBERWILD_LEVEL_REMOVAL,EmberwildVisualColors,EmberwildMasteryBars,setMapDifficulty,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides,visualViewport,storyWindowSummarize,storyWindowContinue,storyWindowShowAll,storyWindowToggleFast,storyWindowSpeed,storyWindowSkip,EmberwildStoryWindow,__EMBERWILD_TUTORIAL,prologueConfirmName,prologuePickClass,prologueConfirmClass,prologueNext,prologueOpenTask,prologueReturn,prologueFinishIntro,chapterNext,chapterChoose,chapterStartBattle,chapterAction,chapterResume,chapterBegin,storyReplay,storyReplayNext,storyReplayEnd,chapterEndNext,chapterEndClose,questLessonReport,__EMBERWILD_QUEST_LESSON,CSS,tutorialCloseTip,tutorialControl,tutorialNotice,replayTutorial,toggleTutorialReview,setBestiaryRegion,bestiaryView,setLootEffectSize,setLootEffects,EmberwildLootEffects,EmberwildEnhancementEffects,toggleUtilityMore,isUtilityMoreOpen,setBossCraftRegion,setCreationClass,toggleJournalCollapsed,toggleTokenFilters,closeDetailSheet,openDetailSheet,currentDetailSheet;
+ var setUITheme,uiThemeOptionsView,EmberwildAttackSpeed,EmberwildSecondsSchema,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildTutorial,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,EmberwildBalanceModules,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_ERROR,saveFailureText,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,__EMBERWILD_EQUIPMENT_SKILLS,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_TEAMS,__EMBERWILD_ENHANCE,__EMBERWILD_OFFLINE_RULE_CACHE,__EMBERWILD_MASTERY_LISTENERS,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,recordCombatContribution,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,explorationBossBlock,explorationCompactSupply,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,__EMBERWILD_LUCIDE,__EMBERWILD_SKILL_EXTRACTION,equipmentPowerRerollHTML,__EMBERWILD_SKILL_SYSTEM_UI,setWorkshopCategory,toggleWorkshopPicker,clearWorkshopSlot,setWorkshopAction,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,moveToWorkshop,__EMBERWILD_WORKSHOP,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classMasteryBonus,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_COMPANION_TEST_API,__EMBERWILD_TOKEN_SKILL,companionSkillDisabled,__EMBERWILD_MASTERY_BATTLE_NOTE,__EMBERWILD_COMPANION_MASTERY_GAIN,__EMBERWILD_TEAM_GAIN,__EMBERWILD_SKILL_REFRESH,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devClassMasterySet,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,__EMBERWILD_TITLE,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,__EMBERWILD_STARTER_PACK,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,__EMBERWILD_COMPANION_BATTLE_MASTERY,recruitCompanion,__EMBERWILD_PROLOGUE,companionUnlocked,__EMBERWILD_RECRUIT_FOR_STORY,acquireCompanion,__EMBERWILD_PROLOGUE_HELPER,__EMBERWILD_TEMP_ALLY,confirmMemberReplacement,rememberCompanionRosterDetail,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,storyTextOptionsView,tutorialReviewView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,__EMBERWILD_DISPOSE_GEAR,extractSkillToToken,openSkillExtraction,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,__EMBERWILD_MASTERY_DAMAGE,__EMBERWILD_CLASS_MASTERY_BONUS_UI,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,__EMBERWILD_SET_EXTRA_TICKET_SOURCES,isUtilityDialogOpen,companionPendingMail,companionTicketCount,__EMBERWILD_EXTRA_TICKET_SOURCES,companionUnlockText,companionTicketName,grantCompanionTicket,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,grantStarterPackDirect,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,recoverStoryRewards,completeStoryStage,__EMBERWILD_CHAPTER,storyNavigate,openStory,setStoryCategory,readStory,completeStoryDialogue,nextStoryDialogue,endStoryDialogue,js,skipStoryDialogue,storyReadyCount,storyReplayable,setAlchemyAutoBuy,dismissStoryHint,goQuestEncounter,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,__EMBERWILD_GEAR_SKILL_IDS,__EMBERWILD_GEAR_REGEN,__EMBERWILD_GEAR_REGEN_RATE,__EMBERWILD_GEAR_SKILLS,socketEquipmentGem,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,openSkillTreeDetail,selectSkillTreeNode,classMasteryTreeHTML,querySelector,classList,querySelectorAll,children,insertBefore,setBattleEffects,setBattleNumberSize,battleNumberSize,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,classMasterySources,masterySubClass,setMasterySubClass,setClassMasteryLevel,setPartyClassMasteryLevel,__EMBERWILD_LEVEL_REMOVAL,EmberwildVisualColors,EmberwildMasteryBars,setMapDifficulty,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides,visualViewport,storyWindowSummarize,storyWindowContinue,storyWindowShowAll,storyWindowToggleFast,storyWindowSpeed,storyWindowSkip,EmberwildStoryWindow,__EMBERWILD_TUTORIAL,prologueConfirmName,prologuePickClass,prologueConfirmClass,prologueNext,prologueOpenTask,prologueReturn,prologueFinishIntro,chapterNext,chapterChoose,chapterStartBattle,chapterAction,chapterResume,chapterBegin,storyReplay,storyReplayNext,storyReplayEnd,chapterEndNext,chapterEndClose,questLessonReport,__EMBERWILD_QUEST_LESSON,CSS,tutorialCloseTip,tutorialControl,tutorialNotice,replayTutorial,toggleTutorialReview,setBestiaryRegion,bestiaryView,setLootEffectSize,setLootEffects,EmberwildLootEffects,EmberwildEnhancementEffects,toggleUtilityMore,isUtilityMoreOpen,setBossCraftRegion,setCreationClass,toggleJournalCollapsed,toggleTokenFilters,closeDetailSheet,openDetailSheet,currentDetailSheet;
 
 /* js/ui/themes.js?v=20261016-themes1 */
 /* Browser-wide appearance preference, independent of character and balance data. */
@@ -56,7 +56,56 @@ export function createGameValidator(){
 
 setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThemeOptionsView=globalThis.uiThemeOptionsView??uiThemeOptionsView;
 
-/* js/combat/seconds-schema.js?v=20261120-v0179 */
+/* js/combat/attack-speed.js?v=20261123-v0196-aspd */
+/* v0.196 attack speed. Every player character and companion uses one rule:
+     total bonus  = sum of every attackSpeedPct source (gear, gems, tokens, passives, skills), in percent points
+     interval     = max(minimum, class base interval / (1 + bonus / 100))
+     minimum      = 1 / maxAttacksPerSecond (2/3 s at 1.5 attacks per second)
+   The bonus is clamped below at minimumBonusPct (-90) so the divisor stays positive; there is no upper clamp, the
+   minimum interval caps the result instead. Internal values keep full precision; only the timeline conversion to
+   integer microseconds rounds, and the minimum is rounded up (666667 µs) so a discrete clock never exceeds the cap.
+   Monsters keep their own speed formula; nothing here applies to them. The same file is loaded by the game, the
+   offline settlement (same driver) and the balance editor. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.EmberwildAttackSpeed=api;})(globalThis,()=>{
+ 'use strict';
+ const SCALE=1000000,FIELD='attackSpeedPct';
+ const DEFAULTS=Object.freeze({maxAttacksPerSecond:1.5,minimumBonusPct:-90});
+ const CLASS_INTERVALS=Object.freeze([2,2.65,1.4,2.65]);
+ const finite=v=>typeof v==='number'&&Number.isFinite(v);
+ const fail=s=>{throw Error('攻擊速度：'+s);};
+ function settings(cfg){
+  const c={...DEFAULTS,...(cfg||{})};
+  if(!finite(c.maxAttacksPerSecond)||c.maxAttacksPerSecond<=0||c.maxAttacksPerSecond>100)fail('最高普攻頻率必須為 0～100 的正數');
+  if(!finite(c.minimumBonusPct)||c.minimumBonusPct<=-100||c.minimumBonusPct>0)fail('最低有效加成必須大於 -100% 且不大於 0%');
+  return c;
+ }
+ function validate(cfg){settings(cfg);return true;}
+ // A single source value: a finite number of percent points. Strings, NaN and Infinity are rejected, never coerced.
+ function checkPct(value,label='attackSpeedPct'){if(!finite(value))fail(label+' 必須是有限數字（百分點，10 = +10%）');if(Math.abs(value)>10000)fail(label+' 超出範圍');return value;}
+ function sum(values){let total=0;for(const v of values||[])total+=checkPct(v);return total;}
+ function effectivePct(total,cfg){return Math.max(settings(cfg).minimumBonusPct,checkPct(total,'總攻擊速度'));}
+ // The exact formula constant: 1/1.5 is the double nearest 2/3.
+ function minimumIntervalSeconds(cfg){return 1/settings(cfg).maxAttacksPerSecond;}
+ // Rounded up so maxAttacksPerSecond is never exceeded on the microsecond clock (1.5/s -> 666667 µs).
+ function minimumIntervalMicros(cfg){return Math.ceil(SCALE/settings(cfg).maxAttacksPerSecond-1e-7);}
+ function checkBase(base){if(!finite(base)||base<=0||base>3600)fail('基礎普攻間隔必須為正秒數');return base;}
+ function rawIntervalSeconds(base,total,cfg){return checkBase(base)/(1+effectivePct(total,cfg)/100);}
+ function intervalSeconds(base,total,cfg){return Math.max(minimumIntervalSeconds(cfg),rawIntervalSeconds(base,total,cfg));}
+ function intervalMicros(base,total,cfg){return Math.max(minimumIntervalMicros(cfg),Math.round(rawIntervalSeconds(base,total,cfg)*SCALE));}
+ function attacksPerSecond(base,total,cfg){return 1/intervalSeconds(base,total,cfg);}
+ function capped(base,total,cfg){return rawIntervalSeconds(base,total,cfg)<=minimumIntervalSeconds(cfg);}
+ // Bonus needed to reach the cap: base x maxAttacksPerSecond - 1, in percent points (warrior 2 s -> 200).
+ function requiredPctForCap(base,cfg){return Math.max(0,(checkBase(base)*settings(cfg).maxAttacksPerSecond-1)*100);}
+ function summary(base,total,cfg){const pct=checkPct(total,'總攻擊速度'),interval=intervalSeconds(base,pct,cfg);return {bonusPct:pct,effectivePct:effectivePct(pct,cfg),intervalSeconds:interval,attacksPerSecond:1/interval,capped:capped(base,pct,cfg),requiredPctForCap:requiredPctForCap(base,cfg)};}
+ const round=(n,d=3)=>Number(n.toFixed(d));
+ function formatPct(total){const n=round(checkPct(total),2);return (n>=0?'+':'')+n+'%';}
+ function label(total){return '攻擊速度 '+formatPct(total);}
+ return Object.freeze({SCALE,FIELD,DEFAULTS,CLASS_INTERVALS,settings,validate,checkPct,sum,effectivePct,minimumIntervalSeconds,minimumIntervalMicros,rawIntervalSeconds,intervalSeconds,intervalMicros,attacksPerSecond,capped,requiredPctForCap,summary,formatPct,label});
+});
+
+EmberwildAttackSpeed=globalThis.EmberwildAttackSpeed??EmberwildAttackSpeed;
+
+/* js/combat/seconds-schema.js?v=20261123-v0196-aspd */
 /* Canonical seconds/MP extension. Legacy positional timing is a derived adapter,
    retained for old import validators, never used by the seconds scheduler. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.EmberwildSecondsSchema=api;})(globalThis,()=>{
@@ -64,6 +113,8 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
  const VERSION=1,copy=x=>JSON.parse(JSON.stringify(x)),round=n=>Math.round(n*1e6)/1e6;
  const finite=(v,min=0,max=1e9)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
  const fail=s=>{throw Error('秒數戰鬥設定：'+s);};
+ // The browser and the editor load attack-speed.js first; Node loads it next to this file (.cjs where the folder is ESM).
+ const AS=()=>{if(globalThis.EmberwildAttackSpeed)return globalThis.EmberwildAttackSpeed;if(typeof require==='function')for(const f of ['./attack-speed.js','./attack-speed.cjs']){try{const m=require(f);if(m&&m.intervalMicros)return m;if(globalThis.EmberwildAttackSpeed)return globalThis.EmberwildAttackSpeed;}catch{}}return fail('缺少攻擊速度模組');};
  const isActive=s=>s.type==='active'||s.type==='support';
  function assertJSON(input){JSON.stringify(input,(_k,v)=>{if(v===undefined||['function','bigint','symbol'].includes(typeof v)||typeof v==='number'&&!Number.isFinite(v))throw Error('不是合法 JSON 值');return v;});return input;}
  function defaults(doc){
@@ -72,7 +123,7 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
    actionReferenceSeconds:actionReference,durationReferenceSeconds:reference,periodicIntervalSeconds:reference,triggerIntervalSeconds:actionReference,
    advanceStepSeconds:(p.actionIntervalMs||1500)/1000,encounterDelaySeconds:(p.actionIntervalMs||1500)/1000,healThreshold:.75,
    mana:{maxMp:100,regenPerSecond:round(100/(reference*10)),costMultiplier:1},
-   classes:[0,1,2,3].map(job=>({job,baseIntervalSeconds:actionReference})),
+   classes:[0,1,2,3].map(job=>({job,baseIntervalSeconds:actionReference})),attackSpeed:{...AS().DEFAULTS},
    groupWeights:[6,3,1],finalBoss:{enrageAfterSeconds:(combat.finalBoss?.enrageAfterTurn??45)*actionReference,specialIntervalSeconds:(combat.finalBoss?.specialEveryTurns||5)*actionReference},migration:{version:1,source:'actor-turns',resourceBudget:100,recoveryReferencePeriods:10}};
  }
  function timing(skill,job,config){
@@ -128,6 +179,8 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
   c.finalBoss??={enrageAfterSeconds:(doc.balanceSettings.combat.finalBoss?.enrageAfterTurn??45)*c.actionReferenceSeconds,specialIntervalSeconds:(doc.balanceSettings.combat.finalBoss?.specialEveryTurns||5)*c.actionReferenceSeconds};
   c.advanceStepSeconds??=(doc.balanceSettings.combat.pacing?.actionIntervalMs||1500)/1000;
   c.actionModel??='independent';
+  // v0.196: player characters and companions use attack speed percent; the shared cap and the lowest effective bonus.
+  c.attackSpeed??={...AS().DEFAULTS};
   c.cooldownReduction??=defaultCooldownReduction();
   delete c.cooldownReduction.sources?.onCast;
   c.recovery??={hpFractionPerSecond:round((doc.balanceSettings.rewards?.postVictoryHeal??.12)/c.durationReferenceSeconds),mpRegenMultiplier:1,minimumHpRatio:1,minimumMpRatio:0};
@@ -149,6 +202,8 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
   if(!c.recovery||!finite(c.recovery.hpFractionPerSecond)||!finite(c.recovery.mpRegenMultiplier)||!finite(c.recovery.minimumHpRatio,0,1)||!finite(c.recovery.minimumMpRatio,0,1))fail('脫戰恢復與遭遇門檻無效');
   if(c.cooldownReduction!==undefined)validateCooldownReduction(c.cooldownReduction);
   if(!c.mana||!finite(c.mana.maxMp,1)||!finite(c.mana.regenPerSecond)||!finite(c.mana.costMultiplier))fail('魔力預算無效');
+  if(!c.attackSpeed||typeof c.attackSpeed!=='object'||Array.isArray(c.attackSpeed)||Object.keys(c.attackSpeed).some(k=>!['maxAttacksPerSecond','minimumBonusPct'].includes(k)))fail('攻擊速度設定無效');
+  try{AS().validate(c.attackSpeed);}catch(e){fail(e.message);}
   if(!Array.isArray(c.classes)||c.classes.length!==4||new Set(c.classes.map(x=>x.job)).size!==4||c.classes.some(x=>!Number.isInteger(x.job)||x.job<0||x.job>3||!finite(x.baseIntervalSeconds,.000001,3600)))fail('職業間隔需各一筆');
   if(!Array.isArray(c.groupWeights)||c.groupWeights.length!==3||c.groupWeights.some(x=>!finite(x))||!c.groupWeights.some(x=>x>0))fail('群怪 3／4／5 隻權重無效');
   for(const s of doc.skillSystem?.definitions||[]){if(['mpCost','manaCost','cooldownSeconds','castSeconds','actionCostSeconds'].some(k=>Object.hasOwn(s,k)))fail(s.id+' 秒數／MP 欄位必須放在 timing');const t=s.timing;if(!t)fail(s.id+' 缺少時間設定');for(const k of ['cooldownSeconds','mpCost','castSeconds','actionCostSeconds','durationSeconds','bossDurationSeconds'])if(!finite(t[k]))fail(s.id+' '+k+' 無效');if(!finite(t.tickIntervalSeconds,.000001)||!Number.isSafeInteger(t.priority)||t.priority<0||t.priority>99||!['always','injured','missingEffect'].includes(t.condition))fail(s.id+' 條件／優先級無效');if(t.initialCooldownSeconds!==undefined&&!finite(t.initialCooldownSeconds,0,86400))fail(s.id+' initialCooldownSeconds 無效');if(t.minTargets!==undefined&&(!Number.isSafeInteger(t.minTargets)||t.minTargets<1||t.minTargets>99))fail(s.id+' 目標數門檻無效');if(t.requiredTargetStatusId!=null&&!doc.statusDefinitions?.some(x=>x.id===t.requiredTargetStatusId))fail(s.id+' 連動狀態不存在');if(!isActive(s)&&t.mpCost!==0)fail(s.id+' 被動／觸發技能不能新增耗魔');}
@@ -183,7 +238,7 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
  return {VERSION,copy,assertJSON,defaults,timing,normalize,validate,validateImport,legacy,attach,INITIAL_ROLES,initialCooldownRole,defaultInitialCooldownSeconds,initialCooldownSeconds,COOLDOWN_REDUCTION_SOURCES,COOLDOWN_REDUCTION_LABELS,defaultCooldownReduction,cooldownReductionTotals,finalizeCooldown,applyCooldownReduction,cooldownReductionText};
 });
 
-EmberwildSecondsSchema=globalThis.EmberwildSecondsSchema??EmberwildSecondsSchema;
+EmberwildAttackSpeed=globalThis.EmberwildAttackSpeed??EmberwildAttackSpeed;EmberwildSecondsSchema=globalThis.EmberwildSecondsSchema??EmberwildSecondsSchema;
 
 /* js/ui/icon-color-palette.js?v=20261014-palette1 */
 /* Shared named icon colors. Template IDs remain stable when labels or colors change. */
@@ -988,7 +1043,7 @@ EmberwildStory=globalThis.EmberwildStory??EmberwildStory;
 
 EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;
 
-/* js/skills/skill-system-model.js?v=20261119-v0172 */
+/* js/skills/skill-system-model.js?v=20261123-v0196-aspd */
 /* Stable skill IDs are authoritative. Positional rows are generated adapters for
    the existing effect engine and legacy affixes, never a second skill catalog. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.EmberwildSkillSystem=api;})(globalThis,()=>{
@@ -1023,7 +1078,7 @@ EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;
       definitions.push(sk);classRules[job].initial.push({skillId:id,level:sk.requiredLevel});
     }
     for(const sk of definitions)if(sk.sources.some(s=>s.type==='advanced'))classRules[sk.jobs[0]].advanced.push({skillId:sk.id,level:Math.max(15,sk.requiredLevel??sk.level??1)});
-    const gems=[['atk','flat',[2,4,6]],['speed','flat',[1,2,3]],['crit','ratio',[.01,.02,.03]],['hp','flat',[10,20,30]],['def','flat',[1,2,3]]].map(([stat,unit,values],kind)=>({kind,base:{stat,unit,values}}));
+    const gems=[['atk','flat',[2,4,6]],['attackSpeedPct','percent',[1,2,3]],['crit','ratio',[.01,.02,.03]],['hp','flat',[10,20,30]],['def','flat',[1,2,3]]].map(([stat,unit,values],kind)=>({kind,base:{stat,unit,values}}));
     return addClearingSkills({version:VERSION,definitions,classRules,equipment:{formRules:[],socketBands:[{minLevel:1,maxLevel:10,weights:[.7,.3,0,0]},{minLevel:11,maxLevel:20,weights:[.35,.5,.15,0]},{minLevel:21,maxLevel:999,weights:[.1,.35,.35,.2]}],sourceRules:[{source:'starter',weights:[1,0,0,0]},{source:'boss',weights:[0,.3,.4,.3]}]},gems},d);
   }
   function clearingStatus(){return {"id":"holy-prison-mark","name":"神聖光牢","tags":[],"polarity":"debuff","dispellable":true,"duration":99,"permanent":true,"durationClock":"target","stackable":true,"uses":1,"removeOnTrigger":true,"modifiers":[],"control":null,"periodic":[],"triggers":[{"event":"targetTurnEnd","effect":"damage","power":0.5,"target":"enemies","element":"light","allowDeathChain":true,"chainMultiplier":1},{"event":"targetDeath","effect":"damage","power":0.3,"target":"enemies","element":"light","allowDeathChain":true,"chainMultiplier":1}]};}
@@ -1059,6 +1114,9 @@ EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;
       if(sk.eventPassive){const e=sk.eventPassive;if(sk.type!=='passive'||!['kill','enemyDeath'].includes(e.event)||e.event==='kill'&&(!finite(e.power,0,100)||!integer(e.maxAttacks,1,99))||e.event==='enemyDeath'&&(!integer(e.reduction,0,99)||!integer(e.cooldown,0,99)))fail('事件型被動設定無效：'+sk.id);}
       if(sk.systemEffect!==undefined&&!['taunt','guard','slow','regen','haste','bind'].includes(sk.systemEffect))fail('未知特殊效果：'+sk.id);
       if(sk.systemEffect&&(!integer(sk.duration,1,999)||!finite(sk.power,0,1)))fail('特殊效果持續時間或倍率無效：'+sk.id);
+      // v0.196: 'haste' grants attack speed percent points (18 = +18%); power is not read for it.
+      if(sk.systemEffect==='haste'&&(typeof sk.attackSpeedPct!=='number'||!Number.isFinite(sk.attackSpeedPct)||sk.attackSpeedPct<=0||sk.attackSpeedPct>1000))fail('攻擊速度加成必須是 0～1000 的百分點：'+sk.id);
+      if(sk.systemEffect!=='haste'&&sk.attackSpeedPct!==undefined)fail('只有攻速技能可以設定 attackSpeedPct：'+sk.id);
       for(const src of sk.sources)if(src.level!==undefined||src.masteryLevel!==undefined&&!integer(src.masteryLevel,0,100))fail('技能取得精通等級無效：'+sk.id);
       ids.set(sk.id,sk);positions.add(`${a.job}:${a.kind}:${a.index}`);
     }
@@ -1088,7 +1146,7 @@ EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;
     let end=0;for(const row of e.socketBands){if(!integer(row.minLevel,1,999)||row.minLevel!==end+1||!integer(row.maxLevel,row.minLevel,999)||!weights(row))fail('孔數等級區間必須連續且機率總和為 1');end=row.maxLevel;}if(end!==999)fail('孔數分布需涵蓋 LV1～999');
     for(const row of e.sourceRules)if(!['starter','boss','drop','shop','craft','legacy'].includes(row.source)||!weights(row))fail('來源孔數機率無效');
     if(!Array.isArray(s.gems)||s.gems.length!==5||new Set(s.gems.map(g=>g.kind)).size!==5)fail('寶石定義無效');
-    for(const g of s.gems)if(!integer(g.kind,0,4)||!['atk','hp','def','speed','crit'].includes(g.base?.stat)||!['flat','ratio'].includes(g.base?.unit)||!Array.isArray(g.base.values)||g.base.values.length!==3||g.base.values.some(v=>!finite(v,0,1e6))||Object.hasOwn(g,'skill')||Object.hasOwn(g,'cap'))fail('屬性寶石數值或階級無效');
+    for(const g of s.gems)if(!integer(g.kind,0,4)||!['atk','hp','def','attackSpeedPct','crit'].includes(g.base?.stat)||!(g.base.stat==='attackSpeedPct'?['percent']:['flat','ratio']).includes(g.base?.unit)||!Array.isArray(g.base.values)||g.base.values.length!==3||g.base.values.some(v=>!finite(v,0,1e6))||Object.hasOwn(g,'skill')||Object.hasOwn(g,'cap'))fail('屬性寶石數值或階級無效');
     for(const sk of s.definitions)for(const target of sk.induction?.targets||[])if(target.kind==='skill'&&!ids.has(target.skillId))fail('誘發技能引用不存在：'+target.skillId);
     return s;
   }
@@ -1122,6 +1180,7 @@ EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;
   // masteryLevel; skills keep it in requiredLevel (support skills in level). masteryGateVersion marks the conversion.
   const MASTERY_GATE_VERSION=1,toMastery=v=>Math.max(0,Math.floor(Number(v)||1)-1);
   function migrateMasteryGates(s){
+    if(s.masteryGateVersion===MASTERY_GATE_VERSION)migrateAttackSpeed(s);
     // Rows or sources written in the old shape after the conversion (an older editor, a test fixture) still carry `level`.
     if(s.masteryGateVersion===MASTERY_GATE_VERSION){for(const rule of s.classRules||[])for(const k of ['initial','advanced'])for(const row of rule[k]||[])if(row.level!==undefined&&row.masteryLevel===undefined){row.masteryLevel=toMastery(row.level);delete row.level;}for(const sk of s.definitions||[])for(const src of sk.sources||[])if(src.level!==undefined&&src.masteryLevel===undefined){src.masteryLevel=toMastery(src.level);delete src.level;}return s;}
     for(const sk of s.definitions){
@@ -1130,7 +1189,16 @@ EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;
       for(const src of sk.sources||[])if(src.level!==undefined){src.masteryLevel=toMastery(src.level);delete src.level;}
     }
     for(const rule of s.classRules)for(const k of ['initial','advanced'])for(const row of rule[k]||[])if(row.level!==undefined){row.masteryLevel=toMastery(row.level);delete row.level;}
-    s.masteryGateVersion=MASTERY_GATE_VERSION;return s;
+    s.masteryGateVersion=MASTERY_GATE_VERSION;return migrateAttackSpeed(s);
+  }
+  // v0.196 attack speed: speed points are gone. Documents written before it (an older editor or published file) carry the
+  // speed gem as {stat:'speed',unit:'flat'} and haste as an interval cut in power (0.15 = -15% interval). They convert
+  // once: the gem keeps its values as percent points (+1/+2/+3 -> +1%/+2%/+3%) and haste becomes the attack speed with the
+  // same frequency, rounded to a whole percent (0.15 -> 1/0.85-1 = 17.6% -> 18). Other shapes are left to validation.
+  function migrateAttackSpeed(s){
+    for(const g of s?.gems||[])if(g?.base?.stat==='speed'&&g.base.unit==='flat'){g.base.stat='attackSpeedPct';g.base.unit='percent';}
+    for(const sk of s?.definitions||[])if(sk?.systemEffect==='haste'&&sk.attackSpeedPct===undefined&&typeof sk.power==='number'&&sk.power>0&&sk.power<1){sk.attackSpeedPct=Math.round((1/(1-sk.power)-1)*100);sk.power=0;}
+    return s;
   }
   function normalizeDocument(input){const d=copy(input);d.skillSystem??=fromLegacy(d);if(!d.skillSystem.clearingSkillsVersion)addClearingSkills(d.skillSystem,d);migrateMasteryGates(d.skillSystem);return project(d);}
   function slots(system,job,advanced){return copy(system.classRules.find(r=>r.job===job)?.slots[advanced?'advanced':'first']||{active:3,proc:1,support:1});}
@@ -1159,7 +1227,7 @@ EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;
     const ids=new Set();for(const member of members)for(const g of member.bag||[]){if(ids.has(g.id))throw Error('重複裝備 ID：'+g.id);ids.add(g.id);gear(g,{legacy:true,source:'legacy',system});}
     d.skillSystemVersion=VERSION;return d;
   }
-  return {VERSION,MASTERY_GATE_VERSION,migrateMasteryGates,copy,adapters,adapterFor,types,sources,emptyConditions,fromLegacy,clearingStatus,addClearingSkills,validate,project,normalizeDocument,slots,gear,migrateSave};
+  return {VERSION,MASTERY_GATE_VERSION,migrateMasteryGates,migrateAttackSpeed,copy,adapters,adapterFor,types,sources,emptyConditions,fromLegacy,clearingStatus,addClearingSkills,validate,project,normalizeDocument,slots,gear,migrateSave};
 });
 
 EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;
@@ -2053,13 +2121,13 @@ EmberwildSecondsSchema=globalThis.EmberwildSecondsSchema??EmberwildSecondsSchema
 
 EmberwildProgression=globalThis.EmberwildProgression??EmberwildProgression;
 
-/* js/items/companion-token-model.js?v=20261119-v0172 */
+/* js/items/companion-token-model.js?v=20261123-v0196-aspd */
 /* Shared token contract; loaded before save validation and embedded in the editor. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.EmberwildTokens=api;})(globalThis,function(){
   'use strict';
   const TYPE='companionToken',VERSION=1,copy=x=>JSON.parse(JSON.stringify(x));
-  const stats=['hp','atk','def','crit','critDamage','speed','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage'];
-  const effectKeys=['flatAttack','flatHp','flatDefense','attackPct','hpPct','defensePct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamagePct','speed','allCooldownReduction','dropRateBonus','basicAdvanceNextRound','basicElement','elementDamagePct','elementResistPct','raceDamagePct','skillEffectPct','skillCooldownReduction'];
+  const stats=['hp','atk','def','crit','critDamage','attackSpeedPct','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage'];
+  const effectKeys=['flatAttack','flatHp','flatDefense','attackPct','hpPct','defensePct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamagePct','attackSpeedPct','allCooldownReduction','dropRateBonus','basicElement','elementDamagePct','elementResistPct','raceDamagePct','skillEffectPct','skillCooldownReduction'];
   const events=['battleStart','kill','receivedHit','basicHit','activeSkill','procSkill','skillCast','sameTarget','lowHealth','damage','round'];
   const actions=['attack','guard','critical','power','heal','shield','extraDamage','damageBonus','healingBonus'];
   const elements=['physical','fire','ice','wind','light','shadow'],races=['beast','plant','undead','construct','demon','spirit'];
@@ -2069,17 +2137,20 @@ EmberwildProgression=globalThis.EmberwildProgression??EmberwildProgression;
   const defaults={schemaVersion:VERSION,qualityMultipliers:[1,1.12,1.25,1.4],drop:{enabled:true,chanceByDifficulty:[.008,.012,.016],qualityWeights:[61,26,11,2],minLevel:1,maxLevel:60,maps:[],monsters:[],kinds:['normal','elite','boss','final']},catalog:[
     token('berserk','狂戰信物',[fx('flatAttack',2),fx('critDamage',5),fx('flatHp',6)],ability('kill','attack',.12)),
     token('guardian','守護信物',[fx('flatHp',10),fx('flatDefense',2),fx('elementResistPct',3)],ability('receivedHit','guard',.10,{cooldown:2})),
-    token('pursuit','追擊信物',[fx('flatAttack',2),fx('speed',2),fx('crit',2)],ability('basicHit','extraDamage',.35,{chance:.18,duration:0})),
+    token('pursuit','追擊信物',[fx('flatAttack',2),fx('attackSpeedPct',2),fx('crit',2)],ability('basicHit','extraDamage',.35,{chance:.18,duration:0})),
     token('arcane','魔導信物',[fx('flatAttack',3),fx('pierce',1),fx('critDamage',3)],ability('activeSkill','damageBonus',.08,{duration:0,cooldown:0})),
-    token('echo','迴響信物',[fx('flatAttack',2),fx('speed',3),fx('flatHp',4)],ability('skillCast','power',.08,{cooldown:2})),
+    token('echo','迴響信物',[fx('flatAttack',2),fx('attackSpeedPct',3),fx('flatHp',4)],ability('skillCast','power',.08,{cooldown:2})),
     token('hunt','狩獵信物',[fx('flatAttack',2),fx('crit',2),fx('critDamage',5)],ability('sameTarget','damageBonus',.10,{threshold:3,duration:0,cooldown:0})),
     token('prayer','祈禱信物',[fx('flatAttack',2),fx('flatHp',8),fx('flatDefense',1)],ability('activeSkill','healingBonus',.12,{duration:0,cooldown:0})),
     token('revival','復甦信物',[fx('flatHp',12),fx('flatDefense',2),fx('evasion',1)],ability('lowHealth','shield',.18,{threshold:.3,maxTriggers:1,duration:0})),
-    token('plunder','掠奪信物',[fx('flatAttack',2),fx('flatHp',6),fx('speed',1)],ability('damage','heal',.04,{chance:.15,duration:0})),
+    token('plunder','掠奪信物',[fx('flatAttack',2),fx('flatHp',6),fx('attackSpeedPct',1)],ability('damage','heal',.04,{chance:.15,duration:0})),
     token('endurance','持久信物',[fx('flatHp',10),fx('flatAttack',1),fx('flatDefense',1)],ability('round','attack',.10,{threshold:4,duration:3,maxTriggers:1}))
   ]};
   defaults.catalog[1].effects[2].element='physical';
   function assert(ok,message){if(!ok)throw Error(message);}
+  // v0.196: the fixed speed effect became attack speed percent points (+1/+2/+3 -> +1%/+2%/+3%). Older catalogs and the
+  // snapshots copied into owned tokens are renamed once; the value is kept. Running it again changes nothing.
+  function migrateEffectList(list){if(Array.isArray(list))for(const e of list)if(e&&e.key==='speed')e.key='attackSpeedPct';return list;}
   const number=(n,lo=0,hi=1e6)=>typeof n==='number'&&Number.isFinite(n)&&n>=lo&&n<=hi;
   const integer=(n,lo=0,hi=1e6)=>Number.isSafeInteger(n)&&n>=lo&&n<=hi;
   const ident=s=>typeof s==='string'&&/^[a-zA-Z0-9_-]{1,100}$/.test(s);
@@ -2109,31 +2180,32 @@ EmberwildProgression=globalThis.EmberwildProgression??EmberwildProgression;
   function normalize(raw){
     if(raw===undefined)return copy(defaults);
     assert(raw&&raw.schemaVersion===VERSION&&Array.isArray(raw.catalog)&&raw.catalog.length<=512&&Array.isArray(raw.qualityMultipliers)&&raw.qualityMultipliers.length===4&&raw.qualityMultipliers.every(x=>number(x,.01,10)),'信物設定無效');
-    const out={...copy(raw),catalog:raw.catalog.map(validateDefinition),drop:validateDrop(raw.drop,true)};
+    const out={...copy(raw),catalog:raw.catalog.map(d=>{const c=copy(d);migrateEffectList(c?.effects);return validateDefinition(c);}),drop:validateDrop(raw.drop,true)};
     assert(new Set(out.catalog.map(x=>x.id)).size===out.catalog.length,'信物定義 ID 重複');return out;
   }
   const isToken=g=>g?.type===TYPE;
   const canEquip=(g,h)=>isToken(g)&&h?.companionId!==undefined&&(g.snapshot.job===undefined||g.snapshot.job==='all'||g.snapshot.job===String(h.job));
   function validateItem(g,maxPlus=10){assert(isToken(g)&&ident(g.id)&&ident(g.tokenId)&&g.slot===4&&integer(g.job,0,0)&&integer(g.tier,1,12)&&integer(g.rar,0,3)&&integer(g.plus,0,maxPlus)&&typeof g.name==='string'&&g.name.length<=80&&!/[<>]/.test(g.name)&&Array.isArray(g.affix)&&g.affix.length===0&&(g.locked===undefined||typeof g.locked==='boolean')&&(g.extractedSkillId===undefined||ident(g.extractedSkillId))&&(g.extractedPrefix===undefined||typeof g.extractedPrefix==='string'&&g.extractedPrefix.length<=8&&!/[<>]/.test(g.extractedPrefix))&&(g.extractedSkillId===undefined)===(g.extractedPrefix===undefined),'存檔信物無效');validateDefinition(g.snapshot);assert(g.snapshot.id===g.tokenId,'信物快照 ID 不符');assert(Array.isArray(g.qualityMultipliers)&&g.qualityMultipliers.length===4&&g.qualityMultipliers.every(x=>number(x,.01,10)),'信物品質快照無效');return g;}
-  function effectsFor(g,enhance=.05){const factor=g.qualityMultipliers[g.rar]*(1+g.plus*enhance);return g.snapshot.effects.map(e=>({...e,value:['basicElement','allCooldownReduction','skillCooldownReduction','basicAdvanceNextRound'].includes(e.key)?e.value:Number((e.value*factor).toFixed(6)),source:'token'}));}
+  function effectsFor(g,enhance=.05){const factor=g.qualityMultipliers[g.rar]*(1+g.plus*enhance);return g.snapshot.effects.map(e=>({...e,value:['basicElement','allCooldownReduction','skillCooldownReduction'].includes(e.key)?e.value:Number((e.value*factor).toFixed(6)),source:'token'}));}
   function eligible(d,e){return d.enabled&&e.lv>=d.minLevel&&e.lv<=d.maxLevel&&(!d.maps.length||d.maps.includes(e.region))&&(!d.monsters.length||d.monsters.includes(e.monsterId))&&d.kinds.includes(e.kind);}
   function weighted(list,weights,rng=Math.random){const sum=weights.reduce((a,b)=>a+b,0);if(sum<=0)return null;let v=rng()*sum;for(let i=0;i<list.length;i++){v-=weights[i];if(v<0)return list[i];}return list.at(-1);}
   function prepareSave(raw,capacity){
     if(raw?.version!==3)return raw;
     const data=copy(raw);if(!Array.isArray(data.members))return data;
+    for(const h of data.members)for(const g of [...(Array.isArray(h?.bag)?h.bag:[]),...(Array.isArray(h?.equipped)?h.equipped:[])])if(isToken(g))migrateEffectList(g.snapshot?.effects);
     for(const h of data.members.slice(1))if(Array.isArray(h.equipped))h.equipped=h.equipped.map(()=>null);
     // Preserve excess legacy gear in the shared bag; exploration pauses until space is available.
     data.companionEquipmentVersion=VERSION;return data;
   }
-  return {TYPE,VERSION,stats,effectKeys,events,actions,defaults,copy,isToken,canEquip,normalize,validateEffects,validateAbility,validateItem,effectsFor,eligible,weighted,prepareSave};
+  return {TYPE,VERSION,stats,effectKeys,migrateEffectList,events,actions,defaults,copy,isToken,canEquip,normalize,validateEffects,validateAbility,validateItem,effectsFor,eligible,weighted,prepareSave};
 });
 
 EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
 
-/* js/character/companion-model.js?v=20261119-v0169 */
+/* js/character/companion-model.js?v=20261123-v0196-aspd */
 /* Shared game/editor contract. Ratings classify design; budgets only emit warnings. */
 (function(root,factory){const node=typeof module==='object'&&module.exports,api=factory(node?require('../balance/progression-model.js'):root.EmberwildProgression);if(node)module.exports=api;else root.EmberwildCompanions=api;})(globalThis,function(Progression){
-  const ratings=['D','C','B','A','S','SS','SSS'],statKeys=['hp','atk','def','crit','critDamage','speed','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage'];
+  const ratings=['D','C','B','A','S','SS','SSS'],statKeys=['hp','atk','def','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage'];
   const copy=x=>JSON.parse(JSON.stringify(x));
   const defaultPlans=[
     {id:10,job:0,role:'攻擊戰士',description:'劍術輸出、戰吼與破甲；優先提升攻擊。',names:['洛恩','雷昂','凱斯','艾伯'],core:[0,2,4],active:[4,0],proc:[2],support:[0,2],weapon:'sword'},
@@ -2143,8 +2215,10 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
     {id:14,job:2,role:'弓箭手',description:'穿透箭、連射與鷹眼指引；優先提升攻擊。',names:['希雅','凜羽','緹亞','菲爾'],core:[0,2,4],active:[4,0],proc:[2],support:[0,1],weapon:'bow'}
   ].map(p=>({...p,rating:'D'}));
   function definition(plan,classes,settings){
-    const cls=classes[plan.job],speed=settings?.combat?.speed||{},per=settings?.progression?.statsPerLevel||{};
-    const out={initialStats:{...Object.fromEntries(statKeys.map(k=>[k,0])),hp:cls.hp,atk:cls.atk,def:cls.def,crit:plan.job===2?(settings?.progression?.baseCrit?.archer??.17):(settings?.progression?.baseCrit?.default??.07),critDamage:settings?.combat?.baseCritDamage??1.5,...cls.initialStats,speed:cls.initialStats?.speed??(speed.heroBase||[102,108,116,96])[plan.job]+(speed.heroPerLevel??.5),...plan.initialStats},growthPerLevel:{...Object.fromEntries(statKeys.map(k=>[k,0])),hp:per.hp??4,atk:per.attack??1,def:per.defense??1,...cls.growthPerLevel,speed:cls.growthPerLevel?.speed??speed.heroPerLevel??.5,...plan.growthPerLevel},growthSteps:copy(plan.growthSteps??cls.growthSteps??[])};
+    const cls=classes[plan.job],per=settings?.progression?.statsPerLevel||{};
+    // v0.196: companions have no speed stat; their basic attack interval is their class's, changed only by attack speed percent.
+    const strip=v=>{if(v&&typeof v==='object'){const {speed:_legacySpeed,...rest}=v;return rest;}return v;};
+    const out={initialStats:{...Object.fromEntries(statKeys.map(k=>[k,0])),hp:cls.hp,atk:cls.atk,def:cls.def,crit:plan.job===2?(settings?.progression?.baseCrit?.archer??.17):(settings?.progression?.baseCrit?.default??.07),critDamage:settings?.combat?.baseCritDamage??1.5,...strip(cls.initialStats),...strip(plan.initialStats)},growthPerLevel:{...Object.fromEntries(statKeys.map(k=>[k,0])),hp:per.hp??4,atk:per.attack??1,def:per.defense??1,...strip(cls.growthPerLevel),...strip(plan.growthPerLevel)},growthSteps:copy(plan.growthSteps??cls.growthSteps??[])};
     // Old definitions keep their custom growth and gain a conservative equipment
     // budget once. Explicit v1 definitions contain that budget in their own fields.
     if(plan.id!==undefined&&plan.equipmentInternalized!==1){const b=({10:[17,6,2,1.1,.65,.2],11:[21,5,3,1.5,.4,.35],12:[14,6,2,.85,.7,.18],13:[20,5,2,1.25,.5,.25],14:[15,6,2,.95,.65,.2]})[plan.statTemplateId??plan.id]||[17,6,2,1,.6,.2];['hp','atk','def'].forEach((k,i)=>{out.initialStats[k]+=b[i];out.growthPerLevel[k]+=b[i+3];});}
@@ -2154,7 +2228,10 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
     if(p.statTemplateId!==undefined&&(!Number.isInteger(p.statTemplateId)||p.statTemplateId<10||p.statTemplateId>1000000000))throw Error('夥伴原有成長來源無效：'+p.id);
     if(p.rating!==undefined&&!ratings.includes(p.rating))throw Error('夥伴評級無效：'+p.id);
     if(p.equipmentInternalized!==undefined&&p.equipmentInternalized!==1)throw Error('夥伴裝備內化版本無效：'+p.id);
+    p=copy(p);
     for(const field of ['initialStats','growthPerLevel'])if(p[field]!==undefined){
+      // v0.196: speed points were removed; a legacy speed entry is dropped (attack speed comes from percent sources).
+      if(p[field]&&typeof p[field]==='object'&&!Array.isArray(p[field])&&Object.hasOwn(p[field],'speed')&&Number.isFinite(p[field].speed))delete p[field].speed;
       const values=p[field];if(!values||typeof values!=='object'||Array.isArray(values)||Object.entries(values).some(([k,v])=>!statKeys.includes(k)||!Number.isFinite(v)||v<0)||field==='initialStats'&&['hp','atk'].some(k=>values[k]!==undefined&&values[k]<=0))throw Error('夥伴初始／成長資料無效：'+p.id);
     }
     if(p.growthSteps!==undefined&&(!Array.isArray(p.growthSteps)||p.growthSteps.length>12||p.growthSteps.some(s=>!s||!Number.isInteger(s.every)||s.every<1||s.every>60||['hp','atk','def'].some(k=>!Number.isInteger(s[k])||s[k]<0))))throw Error('夥伴階梯成長無效：'+p.id);
@@ -2171,7 +2248,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
     return {base:sum(base),growth:sum(growth),baseStats:base,effectiveGrowth:growth,rawBase:base.hp+base.atk+base.def,rawGrowth:growth.hp+growth.atk+growth.def};
   }
   function defaults(classes,settings){
-    const weights={...Object.fromEntries(statKeys.map(k=>[k,0])),hp:1/3,atk:1,def:1,crit:100,critDamage:10,speed:.1};
+    const weights={...Object.fromEntries(statKeys.map(k=>[k,0])),hp:1/3,atk:1,def:1,crit:100,critDamage:10};
     const rows=defaultPlans.map(p=>totals(p,classes,settings,weights)),range=key=>({min:Math.floor(Math.min(...rows.map(r=>r[key]))*100)/100,max:Math.ceil(Math.max(...rows.map(r=>r[key]))*100)/100}),base=range('base'),growth=range('growth');
     const gap=key=>Math.ceil((Math.max(...rows.map(r=>r[key]))/Math.min(...rows.map(r=>r[key]))-1)*100);
     return {activeLimit:6,ratings:{weights,maxBaseGapPercent:gap('base'),maxGrowthGapPercent:gap('growth'),ranges:Object.fromEntries(ratings.map(r=>[r,{base:copy(base),growth:copy(growth)}]))}};
@@ -2181,7 +2258,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
     if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('夥伴平衡設定無效');
     out.activeLimit=raw.activeLimit??out.activeLimit;
     if(!Number.isInteger(out.activeLimit)||out.activeLimit<3||out.activeLimit>512)throw Error('現役上限需為 3～512 人');
-    const r=raw.ratings||{};Object.assign(out.ratings.weights,r.weights||{});
+    const r=raw.ratings||{};Object.assign(out.ratings.weights,r.weights||{});delete out.ratings.weights.speed;
     for(const k of statKeys)if(!Number.isFinite(out.ratings.weights[k])||out.ratings.weights[k]<0)throw Error('夥伴總量權重無效');
     for(const k of ['maxBaseGapPercent','maxGrowthGapPercent']){out.ratings[k]=r[k]??out.ratings[k];if(!Number.isFinite(out.ratings[k])||out.ratings[k]<0)throw Error('夥伴評級最大差距無效');}
     for(const grade of ratings)for(const metric of ['base','growth']){Object.assign(out.ratings.ranges[grade][metric],r.ranges?.[grade]?.[metric]||{});const v=out.ratings.ranges[grade][metric];if(!Number.isFinite(v.min)||!Number.isFinite(v.max)||v.min<0||v.max<v.min)throw Error('夥伴評級建議範圍無效：'+grade);}
@@ -2199,12 +2276,12 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;
 
 EmberwildProgression=globalThis.EmberwildProgression??EmberwildProgression;EmberwildCompanions=globalThis.EmberwildCompanions??EmberwildCompanions;
 
-/* js/skills/passive-model.js?v=20261120-v0183 */
+/* js/skills/passive-model.js?v=20261123-v0196-aspd */
 /* Shared passive contract: permanent effects reuse existing stat and combat keys. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.EmberwildPassives=api;})(globalThis,function(){
   'use strict';
   const copy=x=>JSON.parse(JSON.stringify(x));
-  const labels={flatAttack:'攻擊（固定值）',flatDefense:'防禦（固定值）',flatHp:'生命（固定值）',attackPct:'攻擊 %',defensePct:'防禦 %',hpPct:'生命 %',healingPct:'治療量 %',crit:'暴擊率 %',critDamage:'暴擊傷害 %',speed:'速度（固定值）',pierce:'防禦穿透（固定值）',defenseIgnore:'防禦無視 %',lifesteal:'生命竊取 %',evasion:'閃避率 %',elementBonus:'全屬性增傷 %',bossDamagePct:'BOSS 增傷 %',elementDamagePct:'指定屬性增傷 %',elementResistPct:'指定屬性抗性 %',raceDamagePct:'指定種族增傷 %',guard:'受到傷害減少 %',power:'主動／觸發技能效果 %',procChance:'普攻觸發率 %',weaken:'敵方攻擊降低 %',fracture:'敵方防禦降低 %',damageAmp:'敵方承受傷害增加 %',regenPerSecond:'每秒恢復生命（固定值）',lowHpFullHeal:'低於此生命 % 時回滿（觸發後冷卻依技能設定）'};
+  const labels={flatAttack:'攻擊（固定值）',flatDefense:'防禦（固定值）',flatHp:'生命（固定值）',attackPct:'攻擊 %',defensePct:'防禦 %',hpPct:'生命 %',healingPct:'治療量 %',crit:'暴擊率 %',critDamage:'暴擊傷害 %',attackSpeedPct:'攻擊速度 %',pierce:'防禦穿透（固定值）',defenseIgnore:'防禦無視 %',lifesteal:'生命竊取 %',evasion:'閃避率 %',elementBonus:'全屬性增傷 %',bossDamagePct:'BOSS 增傷 %',elementDamagePct:'指定屬性增傷 %',elementResistPct:'指定屬性抗性 %',raceDamagePct:'指定種族增傷 %',guard:'受到傷害減少 %',power:'主動／觸發技能效果 %',procChance:'普攻觸發率 %',weaken:'敵方攻擊降低 %',fracture:'敵方防禦降低 %',damageAmp:'敵方承受傷害增加 %',regenPerSecond:'每秒恢復生命（固定值）',lowHpFullHeal:'低於此生命 % 時回滿（觸發後冷卻依技能設定）'};
   const combatKeys=['guard','power','weaken','fracture','damageAmp'],enemyKeys=['weaken','fracture','damageAmp'];
   const elements=['physical','fire','ice','wind','light','shadow'],races=['beast','plant','undead','construct','demon','spirit'];
   const targets={self:'自己',allies:'我方全體',enemies:'敵方全體'};
@@ -2228,6 +2305,8 @@ EmberwildProgression=globalThis.EmberwildProgression??EmberwildProgression;Ember
       assert(['buff','debuff'].includes(kind)&&Object.hasOwn(targets,target),'被動分類或目標無效：'+d.id);
       assert(Array.isArray(d.effects)&&(d.effects.length>=1||d.eventPassive)&&d.effects.length<=32,'被動需要 1～32 個效果：'+d.id);
       const effects=d.effects.map(e=>{
+        // v0.196: the fixed speed effect became attack speed percent points; older documents keep their value.
+        if(e?.key==='speed')e={...e,key:'attackSpeedPct'};
         assert(e&&Object.hasOwn(labels,e.key)&&Number.isFinite(e.value)&&Math.abs(e.value)<=1e6,'被動效果無效：'+d.id);
         assert(target==='enemies'?enemyKeys.includes(e.key):!enemyKeys.includes(e.key),'被動效果與目標不相容：'+d.id);
         const out={key:e.key,value:e.value};
@@ -2246,7 +2325,7 @@ EmberwildProgression=globalThis.EmberwildProgression??EmberwildProgression;Ember
     return [...list];
   }
   function effectText(e){
-    const fixed=['flatAttack','flatDefense','flatHp','speed','pierce'].includes(e.key),extra=e.element?' · '+e.element:e.race?' · '+e.race:'';
+    const fixed=['flatAttack','flatDefense','flatHp','pierce'].includes(e.key),extra=e.element?' · '+e.element:e.race?' · '+e.race:'';
     return labels[e.key].replace(' %','')+extra+' '+(e.value>=0?'+':'')+e.value+(fixed?'':'%');
   }
   return {copy,labels,combatKeys,enemyKeys,elements,races,targets,defaults,defaultAssignments,normalize,assignments,effectText};
@@ -2714,7 +2793,7 @@ EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;
 
 EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
 
-/* js/combat/seconds-timeline.js?v=20261105-v0074-initialcd1 */
+/* js/combat/seconds-timeline.js?v=20261123-v0196-aspd */
 /* Phase 1 scheduling kernel. No game globals, wall clock, random source, damage
    formulas, rewards or balance defaults. The legacy runtime is not switched by
    loading this module. Time in public data is seconds; internal time is integer
@@ -2725,7 +2804,11 @@ EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
   else root.EmberwildSecondsTimeline=api;
 })(globalThis,function(){
   'use strict';
-  const SCALE=1000000,VERSION=2;
+  const SCALE=1000000,VERSION=3;
+  // v0.196: player characters and companions (definitions with attackSpeedPct) use the shared attack speed rule;
+  // monsters (definitions with speed) keep base × referenceSpeed ÷ speed.
+  // The browser and the editor load attack-speed.js first; Node loads it next to this file (.cjs where the folder is ESM).
+  const AS=()=>{if(globalThis.EmberwildAttackSpeed)return globalThis.EmberwildAttackSpeed;if(typeof require==='function')for(const f of ['./attack-speed.js','./attack-speed.cjs']){try{const m=require(f);if(m&&m.intervalMicros)return m;if(globalThis.EmberwildAttackSpeed)return globalThis.EmberwildAttackSpeed;}catch{}}return fail('attack speed module missing');};
   const copy=x=>JSON.parse(JSON.stringify(x,(_key,value)=>{
     if(typeof value==='number'&&!Number.isFinite(value))fail('non-finite JSON value');
     return value;
@@ -2759,22 +2842,37 @@ EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
     constructor(config,actors=[],handlers={}){
       this.config=copy(config);positiveTime(config.minimumActionIntervalSeconds,'minimumActionIntervalSeconds');
       number(config.referenceSpeed,'referenceSpeed',Number.MIN_VALUE);
+      if(config.attackSpeed!==undefined)AS().validate(config.attackSpeed);
       this.handlers=handlers;this.now=0;this.serial=0;this.actors=[];this.statuses=[];
       this.executing=false;this.triggering=new Set();
       for(const actor of actors)this.addActor(actor);
     }
-    interval(a){return positiveTime(Math.max(this.config.minimumActionIntervalSeconds,a.definition.baseIntervalSeconds*this.config.referenceSpeed/a.speed),'actor interval');}
+    player(a){return a.definition.attackSpeedPct!==undefined;}
+    interval(a){
+      if(this.player(a))return AS().intervalMicros(a.definition.baseIntervalSeconds,a.attackSpeedPct,this.config.attackSpeed);
+      return positiveTime(Math.max(this.config.minimumActionIntervalSeconds,a.definition.baseIntervalSeconds*this.config.referenceSpeed/a.speed),'actor interval');
+    }
+    minimumBasic(){return AS().minimumIntervalMicros(this.config.attackSpeed);}
+    // The attack speed cap is enforced on the event clock, not only in the interval: whatever moved the basic deadline
+    // (speed change, rescale, an advance effect), two basic attacks of one player actor are never closer than the minimum.
+    floorBasic(a){if(this.player(a)&&a.lastBasicAt!==null&&a.lastBasicAt!==undefined)a.basicAt=Math.max(a.basicAt,safeAdd(a.lastBasicAt,this.minimumBasic()));}
+    rescaleBasic(a,oldInterval){
+      a.basicAt=safeAdd(this.now,Math.max(0,Math.round((a.basicAt-this.now)*this.interval(a)/oldInterval)));
+      a.actionSpeedAt=safeAdd(this.now,Math.max(0,Math.round((a.actionSpeedAt-this.now)*this.interval(a)/oldInterval)));
+      a.actionAt=Math.max(a.actionSpeedAt,a.actionFixedAt);this.floorBasic(a);
+    }
     addActor(definition){
       if(this.executing)fail('cannot change roster inside event callback');
       const d=copy(definition);id(d.id,'actor id');
       if(this.actors.some(a=>a.definition.id===d.id))fail('duplicate actor id');
-      positiveTime(d.baseIntervalSeconds,'baseIntervalSeconds');number(d.speed,'speed',Number.MIN_VALUE);
+      positiveTime(d.baseIntervalSeconds,'baseIntervalSeconds');
+      if(d.attackSpeedPct!==undefined){AS().checkPct(d.attackSpeedPct);if(d.speed!==undefined)fail('player actor cannot carry speed');}else number(d.speed,'speed',Number.MIN_VALUE);
       number(d.maxMp,'maxMp');number(d.mp,'mp');number(d.mpRegenPerSecond,'mpRegenPerSecond');
       if(d.mp>d.maxMp)fail('MP exceeds maximum');
       if(!Array.isArray(d.skills))fail('skills missing');
       d.skills=d.skills.map(skillDefinition);for(const s of d.skills)if(s.type==='active')s.cooldownSeconds=Math.max(s.cooldownSeconds,this.config.minimumActionIntervalSeconds);
       if(new Set(d.skills.map(s=>s.id)).size!==d.skills.length)fail('duplicate skill id');
-      const a={definition:d,speed:d.speed,alive:true,mp:d.mp,mpAt:this.now,mpCostMultiplier:1,actionAt:this.now,actionSpeedAt:this.now,actionFixedAt:this.now,basicAt:0,casting:null,ready:Object.create(null),retryAt:Object.create(null),readyArchive:Object.create(null)};
+      const a={definition:d,speed:d.speed,attackSpeedPct:d.attackSpeedPct,lastBasicAt:null,alive:true,mp:d.mp,mpAt:this.now,mpCostMultiplier:1,actionAt:this.now,actionSpeedAt:this.now,actionFixedAt:this.now,basicAt:0,casting:null,ready:Object.create(null),retryAt:Object.create(null),readyArchive:Object.create(null)};
       a.basicAt=safeAdd(this.now,this.interval(a));
       for(const s of d.skills)a.ready[s.id]=safeAdd(this.now,time(s.initialReadyInSeconds??0));
       this.actors.push(a);return this.actor(d.id);
@@ -2794,9 +2892,8 @@ EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
       const checked=new Timeline(this.config,definitions),old=new Map(this.actors.map(a=>[a.definition.id,a]));
       this.actors=checked.actors.map(fresh=>{
         const a=old.get(fresh.definition.id);if(!a){fresh.mpAt=this.now;fresh.actionAt=fresh.actionSpeedAt=fresh.actionFixedAt=this.now;fresh.basicAt=safeAdd(this.now,this.interval(fresh));for(const s of fresh.definition.skills)fresh.ready[s.id]=safeAdd(this.now,time(s.initialReadyInSeconds??0));return fresh;}
-        this.settleMana(a);const oldInterval=this.interval(a);a.definition=fresh.definition;a.speed=fresh.speed;a.mp=Math.min(a.mp,a.definition.maxMp);
-        a.basicAt=safeAdd(this.now,Math.max(0,Math.round((a.basicAt-this.now)*this.interval(a)/oldInterval)));
-        a.actionSpeedAt=safeAdd(this.now,Math.max(0,Math.round((a.actionSpeedAt-this.now)*this.interval(a)/oldInterval)));a.actionAt=Math.max(a.actionSpeedAt,a.actionFixedAt);
+        this.settleMana(a);const oldInterval=this.interval(a);a.definition=fresh.definition;a.speed=fresh.speed;a.attackSpeedPct=fresh.attackSpeedPct;a.lastBasicAt??=null;a.mp=Math.min(a.mp,a.definition.maxMp);
+        this.rescaleBasic(a,oldInterval);
         const allReady={...a.readyArchive,...a.ready},ready=Object.create(null);for(const s of a.definition.skills)ready[s.id]=allReady[s.id]??safeAdd(this.now,time(s.initialReadyInSeconds??0));a.readyArchive=Object.fromEntries(Object.entries(allReady).filter(([id,at])=>!Object.hasOwn(ready,id)&&at>this.now));a.ready=ready;a.retryAt=Object.fromEntries(Object.entries(a.retryAt||{}).filter(([id])=>Object.hasOwn(ready,id)));
         if(a.casting&&!a.definition.skills.some(s=>s.id===a.casting.skillId))a.casting=null;
         return a;
@@ -2805,7 +2902,7 @@ EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
     }
     actor(actorId){
       const a=this.find(actorId);
-      return {id:actorId,alive:a.alive,speed:a.speed,mp:this.mana(a,this.now),maxMp:a.definition.maxMp,
+      return {id:actorId,alive:a.alive,speed:a.speed,attackSpeedPct:a.attackSpeedPct,mp:this.mana(a,this.now),maxMp:a.definition.maxMp,
         intervalSeconds:seconds(this.interval(a)),actionReadyInSeconds:seconds(Math.max(0,a.actionAt-this.now)),
         basicReadyInSeconds:seconds(Math.max(0,a.basicAt-this.now)),casting:a.casting?{skillId:a.casting.skillId,remainingSeconds:seconds(Math.max(0,a.casting.at-this.now))}:null,
         skills:a.definition.skills.map(s=>({...copy(s),readyInSeconds:seconds(Math.max(0,a.ready[s.id]-this.now))}))};
@@ -2827,13 +2924,21 @@ EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
       for(const box of [a.ready,a.readyArchive])for(const key of Object.keys(box))box[key]=Math.max(this.now,box[key]-amount);
     }
     deferSkill(actorId,skillId,delaySeconds){const a=this.find(actorId);if(!Object.hasOwn(a.ready,skillId))fail('unknown skill');a.retryAt[skillId]=safeAdd(this.now,positiveTime(delaySeconds,'retry delay'));}
+    // Preserve the completed fraction of an in-progress basic attack charge: remaining × new interval ÷ old interval.
     setSpeed(actorId,value){
-      number(value,'speed',Number.MIN_VALUE);const a=this.find(actorId),old=this.interval(a);
-      a.speed=value;const next=this.interval(a);
-      // Preserve the completed fraction of an in-progress basic attack charge.
-      a.basicAt=safeAdd(this.now,Math.max(0,Math.round((a.basicAt-this.now)*next/old)));
-      a.actionSpeedAt=safeAdd(this.now,Math.max(0,Math.round((a.actionSpeedAt-this.now)*next/old)));
-      a.actionAt=Math.max(a.actionSpeedAt,a.actionFixedAt);
+      number(value,'speed',Number.MIN_VALUE);const a=this.find(actorId);if(this.player(a))fail('player actors use setAttackSpeed');
+      const old=this.interval(a);a.speed=value;this.rescaleBasic(a,old);
+    }
+    setAttackSpeed(actorId,value){
+      AS().checkPct(value);const a=this.find(actorId);if(!this.player(a))fail('monster actors use setSpeed');
+      if(value===a.attackSpeedPct)return;
+      const old=this.interval(a);a.attackSpeedPct=value;this.rescaleBasic(a,old);
+    }
+    // Moves the basic (and speed-scaled action) deadline earlier, never sooner than floorSeconds from now and, for a
+    // player actor, never sooner than the minimum interval after its previous basic attack.
+    advanceBasic(actorId,secondsEarlier,floorSeconds){
+      const a=this.find(actorId),amount=time(secondsEarlier,'advance'),floor=safeAdd(this.now,time(floorSeconds,'advance floor'));
+      a.basicAt=Math.max(floor,a.basicAt-amount);a.actionSpeedAt=Math.max(floor,a.actionSpeedAt-amount);a.actionAt=Math.max(a.actionSpeedAt,a.actionFixedAt);this.floorBasic(a);
     }
     context(){return {timeSeconds:seconds(this.now),timeline:this};}
     controlled(a){return this.statuses.some(s=>s.actorId===a.definition.id&&s.preventsAction);}
@@ -2933,7 +3038,7 @@ EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
         if(cast)a.casting={skillId:skill.id,at:safeAdd(this.now,cast)};
         this.emit(cast?'castStart':'skill',{actorId:a.definition.id,skillId:skill.id});
       }else{
-        a.basicAt=safeAdd(this.now,this.interval(a));
+        a.lastBasicAt=this.now;a.basicAt=safeAdd(this.now,this.interval(a));
         this.emit('basic',{actorId:a.definition.id});
       }
     }
@@ -2953,11 +3058,13 @@ EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
     snapshot(){return copy({version:VERSION,config:this.config,now:this.now,serial:this.serial,actors:this.actors,statuses:this.statuses});}
     static restore(snapshot,handlers={}){
       const s=copy(snapshot);
-      if(![1,VERSION].includes(s.version)||!Array.isArray(s.actors)||!Array.isArray(s.statuses)||!Number.isSafeInteger(s.now)||s.now<0||!Number.isSafeInteger(s.serial)||s.serial<0)fail('snapshot invalid');
+      if(![1,2,VERSION].includes(s.version)||!Array.isArray(s.actors)||!Array.isArray(s.statuses)||!Number.isSafeInteger(s.now)||s.now<0||!Number.isSafeInteger(s.serial)||s.serial<0)fail('snapshot invalid');
       const out=new Timeline(s.config,s.actors.map(a=>a.definition),handlers),ticks=(n,label)=>{if(!Number.isSafeInteger(n)||n<0)fail(label+' invalid');};
       for(const [i,a] of s.actors.entries()){
         const def=out.actors[i].definition;a.definition=def;
-        number(a.speed,'speed',Number.MIN_VALUE);number(a.mp,'mp');if(a.mp>def.maxMp||typeof a.alive!=='boolean')fail('actor snapshot invalid');
+        if(def.attackSpeedPct!==undefined){a.attackSpeedPct??=def.attackSpeedPct;AS().checkPct(a.attackSpeedPct);}else number(a.speed,'speed',Number.MIN_VALUE);
+        a.lastBasicAt??=null;if(a.lastBasicAt!==null&&(!Number.isSafeInteger(a.lastBasicAt)||a.lastBasicAt<0||a.lastBasicAt>s.now))fail('last basic clock invalid');
+        number(a.mp,'mp');if(a.mp>def.maxMp||typeof a.alive!=='boolean')fail('actor snapshot invalid');
         number(a.mpCostMultiplier,'mpCostMultiplier');
         for(const k of ['mpAt','actionAt','actionSpeedAt','actionFixedAt','basicAt'])ticks(a[k],k);
         if(a.actionAt!==Math.max(a.actionSpeedAt,a.actionFixedAt))fail('action lock invalid');
@@ -2984,7 +3091,7 @@ EmberwildSkillEffects=globalThis.EmberwildSkillEffects??EmberwildSkillEffects;
   return {VERSION,Timeline,create:(config,actors,handlers)=>new Timeline(config,actors,handlers),restore:Timeline.restore};
 });
 
-EmberwildSecondsTimeline=globalThis.EmberwildSecondsTimeline??EmberwildSecondsTimeline;
+EmberwildAttackSpeed=globalThis.EmberwildAttackSpeed??EmberwildAttackSpeed;EmberwildSecondsTimeline=globalThis.EmberwildSecondsTimeline??EmberwildSecondsTimeline;
 
 /* js/world/quest-design-model.js?v=20261119-v0169 */
 /* Shared, versioned quest contract. The standalone editor embeds this file verbatim. */
@@ -3125,7 +3232,7 @@ EmberwildCommissions=globalThis.EmberwildCommissions??EmberwildCommissions;
 
 EmberwildGearInventory=globalThis.EmberwildGearInventory??EmberwildGearInventory;
 
-/* js/core/game-catalog.js?v=20261118-v0163-gear */
+/* js/core/game-catalog.js?v=20261123-v0196-aspd */
 'use strict';
 // Built-in static catalog; game runtime keeps ownership of mutations and migrations.
 const CLASSES=[{name:'戰士',advanced:'破曉騎士',icon:'',desc:'堅守前線，以重擊與護盾承受攻勢。',hp:155,atk:19,def:9,main:'力量',skills:[['裂地斬','active',1,3,2.4,'damage'],['堅毅壁壘','active',4,6,1.6,'shield'],['反擊之刃','proc',7,0,.9,'damage'],['浴血重擊','proc',11,0,.45,'drain'],['聖鋼裁決','active',15,4,3.8,'damage'],['不屈戰意','proc',20,0,1.1,'shield']]},{name:'法師',advanced:'星火賢者',icon:'',desc:'法術普攻，以高倍率魔法突破敵人防線。',hp:105,atk:26,def:4,main:'智力',skills:[['火焰箭','active',1,3,2.8,'damage'],['冰霜護幕','active',4,5,1.5,'shield'],['餘燼爆發','proc',7,0,1.3,'damage'],['奧術汲取','proc',11,0,.5,'drain'],['隕星墜落','active',15,5,5.6,'damage'],['魔力迴響','proc',20,0,1.9,'damage']]},{name:'弓箭手',advanced:'逐風遊俠',icon:'',desc:'高暴擊遠程射擊，連續觸發追擊。',hp:120,atk:23,def:5,main:'敏捷',skills:[['穿透箭','active',1,3,2.6,'damage'],['林間休憩','active',4,5,1.3,'heal'],['連射','proc',7,0,1.2,'damage'],['獵手印記','proc',11,0,1.5,'damage'],['疾風箭雨','active',15,4,4,'damage'],['生命之箭','proc',20,0,.8,'drain']]},{name:'牧師',advanced:'晨光主教',icon:'',desc:'聖光普攻，治癒與庇護維持長期作戰。',hp:130,atk:20,def:7,main:'精神',skills:[['聖光審判','active',1,3,2.5,'damage'],['治癒禱言','active',4,4,1.8,'heal'],['懲戒','proc',7,0,1.1,'damage'],['生命泉源','proc',11,0,.8,'heal'],['黎明聖印','active',15,4,3.8,'damage'],['神聖庇護','proc',20,0,1.4,'shield']]}];
@@ -3136,7 +3243,7 @@ const GEM_COLORS=['#ec5555','#51b878','#a57be4','#e9eef7','#559ff0'];
 const GEM_KINDS=GEM_NAMES.length;
 const GEMS=Array.from({length:GEM_KINDS*3},(_,id)=>{
  const kind=id%GEM_KINDS,tier=Math.floor(id/GEM_KINDS);
- const desc=['攻擊 +'+2*(tier+1),'速度 +'+(tier+1),'暴擊率 +'+(tier+1)+'%','生命 +'+10*(tier+1),'防禦 +'+(tier+1)][kind];
+ const desc=['攻擊 +'+2*(tier+1),'攻擊速度 +'+(tier+1)+'%','暴擊率 +'+(tier+1)+'%','生命 +'+10*(tier+1),'防禦 +'+(tier+1)][kind];
  return {name:GEM_NAMES[kind]+'・'+(tier+1)+'階',desc,icon:'',color:GEM_COLORS[kind],kind,tier:tier+1};
 });
 
@@ -3241,10 +3348,10 @@ const GAME_BALANCE_DEFAULTS={
 
 
 
-/* js/balance/gameplay-defaults.js?v=20261120-v0180 */
+/* js/balance/gameplay-defaults.js?v=20261123-v0196-aspd */
 'use strict';
 // Built-in static catalog; game runtime keeps ownership of mutations and migrations.
-const GAMEPLAY_SETTINGS_DEFAULTS={"progression":{"starting":{"gold":150,"ore":0,"dust":12,"skillPoints":2,"potions":5},"baseCrit":{"default":0.07,"archer":0.17},"regionTierLevels":5},"skills":{"core":{"maxLevel":10,"initialCap":2,"capLevelsPerStep":3,"effectPerExtraLevel":0.4},"proc":{"baseChance":0.22,"perSkillLevel":0.025},"support":{"maxLevel":5,"effectPerExtraLevel":0.2},"gems":{"craftDust":12,"effectMultiplier":1.18,"cooldownReduction":1,"cooldownProcBonus":0.1,"hybridMultiplier":1.1,"hybridProcBonus":0.05,"hybridActiveHealAttack":0.15}},"equipment":{"bagCapacity":720,"requiredLevel":{"base":1,"perTier":5},"baseStats":{"weaponAttackPerTier":11,"armorHpPerTier":45,"armorDefensePerTier":4,"accessoryAttackPerTier":4,"accessoryHpPerTier":20},"enhance":{"maxLevel":12,"costLevelStep":5,"levels":[{"level":1,"cost":{"dust":2,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.05},{"level":2,"cost":{"dust":4,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.1},{"level":3,"cost":{"dust":6,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.15},{"level":4,"cost":{"dust":8,"ore":0,"ether":0},"successRate":0.9,"failure":"drop","failureLevel":2,"baseBonus":0.22},{"level":5,"cost":{"dust":0,"ore":2,"ether":0},"successRate":0.8,"failure":"drop","failureLevel":3,"baseBonus":0.3},{"level":6,"cost":{"dust":0,"ore":3,"ether":0},"successRate":0.7,"failure":"drop","failureLevel":4,"baseBonus":0.4},{"level":7,"cost":{"dust":0,"ore":4,"ether":0},"successRate":0.6,"failure":"drop","failureLevel":3,"baseBonus":0.55},{"level":8,"cost":{"dust":0,"ore":5,"ether":0},"successRate":0.5,"failure":"drop","failureLevel":3,"baseBonus":0.75},{"level":9,"cost":{"dust":0,"ore":6,"ether":0},"successRate":0.4,"failure":"drop","failureLevel":0,"baseBonus":1.0},{"level":10,"cost":{"dust":0,"ore":0,"ether":1},"successRate":0.3,"failure":"drop","failureLevel":0,"baseBonus":1.3},{"level":11,"cost":{"dust":0,"ore":0,"ether":2},"successRate":0.2,"failure":"destroy","failureLevel":0,"baseBonus":1.6},{"level":12,"cost":{"dust":0,"ore":0,"ether":3},"successRate":0.1,"failure":"destroy","failureLevel":0,"baseBonus":1.9}],"statPerLevel":0.12,"orePerTierPerLevel":2,"dustStartLevel":6,"dustPerTierPerLevelAboveStart":1,"etherStartLevel":10,"etherCost":1},"salvage":{"oreBasePerTier":3,"orePerQualityPerTier":2,"orePerEnhancePerTier":1,"dustBase":1,"dustPerQuality":1},"lootOwnerSameJobChance":0.75,"boss":{"baseLevelBonus":7,"powerByDifficulty":[1,1.25,1.55],"skillEffectByDifficulty":[30,40,55],"affixRankByDifficulty":[2,2,3],"craftGoldPerTier":250,"craftMaterialCount":5},"difficultyAffix":{"hardChance":0.65,"hellChance":0.9,"hardFineThreshold":0.7,"hardRareThreshold":0.95,"hellFineThreshold":0.35,"hellRareThreshold":0.85,"skillChance":0.4,"baseAttackPerTier":5,"baseHpPerTier":25,"defenseBasePerTier":3,"defensePerRankPerTier":1,"critBase":4,"critPerRank":3},"maxLevel":60},"monsters":{"encounter":{"bossChance":0.05,"eliteChance":0.06},"normal":{"hpBase":42,"hpPerLevel":15,"hpQuadratic":0.7,"attackBase":8,"attackPerLevel":3.3,"defensePerLevel":1.7},"kindMultipliers":{"bossHp":3,"eliteHp":1.65,"bossAttack":1.45,"eliteAttack":1.2},"finalBoss":{"level":40,"hp":180000,"attack":1000,"defense":110},"awakened":{"threshold":30,"hpBaseMultiplier":2,"hpPerLevel":0.1,"attackBaseMultiplier":2,"attackPerLevel":0.06,"defenseMultiplier":1.6}},"difficulty":{"modes":[{"hp":1,"attack":1,"defense":1,"reward":1,"equipmentChance":[0.002,0.006,0.2],"gemChance":[0.04,0.12,0.35],"bossGearChance":0.06,"ore":1,"legendaryGearChance":0.0006,"goldMultiplier":1},{"hp":1.8,"attack":1.35,"defense":1.2,"reward":1.3,"equipmentChance":[0.0027,0.008,0.25],"gemChance":[0.08,0.22,0.5],"bossGearChance":0.1,"ore":1.5,"legendaryGearChance":0.0016,"goldMultiplier":1.35},{"hp":3,"attack":1.8,"defense":1.45,"reward":1.65,"equipmentChance":[0.0034,0.01,0.3],"gemChance":[0.13,0.35,0.7],"bossGearChance":0.15,"ore":2,"legendaryGearChance":0.0032,"goldMultiplier":1.8}],"materialChance":[0.025,0.035,0.048]},"rewards":{"kindMultiplier":{"normal":1,"elite":1.7,"boss":3},"gold":{"base":2,"perLevel":0.45,"quadratic":0.003,"kindMultiplier":{"normal":1,"elite":2.6,"boss":7},"levelGap":{"enabled":true,"freeLevels":2,"midGap":3,"midMultiplier":0.5,"highGap":5,"highMultiplier":0.2,"zeroGap":10}},"ore":{"normalKindMultiplier":0.25,"eliteBossKindMultiplier":0.6,"normalChanceByDifficulty":[0.08,0.1,0.12],"chanceFactor":0.7},"equipmentQuality":{"rareChance":0.242,"fineConditionalChance":0.46},"potionDropChance":0.08,"postVictoryHeal":0.12,"radiant":{"normalElite":0.0004,"bossFinal":0.008},"ether":{"eliteBase":0.01,"elitePerTier":0.004,"eliteCap":0.06,"bossRepeat":0.01,"firstBossMin":1,"firstBossMax":2}},"combat":{"defenseEffectiveness":0.65,"baseCritDamage":1.5,"caps":{"fracture":0.75,"guard":0.75,"weaken":0.7,"resistance":0.75},"finalBoss":{"enrageAfterTurn":45,"enrageMultiplier":4,"specialEveryTurns":5,"specialMultiplier":1.65},"autoPotionThreshold":0.35,"defeatGoldLoss":0.05,"groupSize":{"min":3,"max":5},"speed":{"heroBase":[102,108,116,96],"heroPerLevel":0.5,"bonusCap":5,"evasionWeight":10,"critWeight":5,"enemyBase":106,"enemyPerLevel":0.5,"race":{"beast":5,"plant":-4,"undead":-2,"construct":-5,"demon":3,"spirit":4},"kind":{"normal":0,"elite":2,"boss":4,"final":6},"difficultyBonus":2},"pacing":{"actionIntervalMs":1500,"roundMinimumMs":6000},"supply":{"wardResistance":0.25,"elementTonicDamage":0.2}},"quests":{"tutorial":{"killRequirement":3,"skillLevelRequirement":2,"rewardGold":100,"rewardOre":10,"armorTier":1,"armorSlot":1,"armorQuality":1},"side":[{"required":5,"gold":300,"ore":20,"gem":1},{"required":2,"gold":800,"ore":55,"gem":1},{"required":3,"gold":2000,"ore":120,"gem":1}],"repeat":{"required":8,"goldPerTier":150,"ore":15,"dust":3,"gem":1},"board":{"refreshMinutes":20,"refreshGoldPerTier":150,"taskBase":8,"taskRandomRange":9,"taskPerTier":2,"goldPerTier":180,"orePerTier":8,"gemReward":2,"legendaryGearChance":0.2},"market":{"refreshCost":100,"offerCount":6,"oreMin":8,"oreRandomRange":13,"dustMin":3,"dustRandomRange":6,"gemMin":1,"gemRandomRange":2,"materialMin":3,"materialRandomRange":4,"oreUnit":12,"dustUnit":25,"gemUnit":180,"materialUnitPerTier":60},"potion":{"healFraction":0.45,"buyCost":75,"buyQuantity":5}}};
+const GAMEPLAY_SETTINGS_DEFAULTS={"progression":{"starting":{"gold":150,"ore":0,"dust":12,"skillPoints":2,"potions":5},"baseCrit":{"default":0.07,"archer":0.17},"regionTierLevels":5},"skills":{"core":{"maxLevel":10,"initialCap":2,"capLevelsPerStep":3,"effectPerExtraLevel":0.4},"proc":{"baseChance":0.22,"perSkillLevel":0.025},"support":{"maxLevel":5,"effectPerExtraLevel":0.2},"gems":{"craftDust":12,"effectMultiplier":1.18,"cooldownReduction":1,"cooldownProcBonus":0.1,"hybridMultiplier":1.1,"hybridProcBonus":0.05,"hybridActiveHealAttack":0.15}},"equipment":{"bagCapacity":720,"requiredLevel":{"base":1,"perTier":5},"baseStats":{"weaponAttackPerTier":11,"armorHpPerTier":45,"armorDefensePerTier":4,"accessoryAttackPerTier":4,"accessoryHpPerTier":20},"enhance":{"maxLevel":12,"costLevelStep":5,"levels":[{"level":1,"cost":{"dust":2,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.05},{"level":2,"cost":{"dust":4,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.1},{"level":3,"cost":{"dust":6,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.15},{"level":4,"cost":{"dust":8,"ore":0,"ether":0},"successRate":0.9,"failure":"drop","failureLevel":2,"baseBonus":0.22},{"level":5,"cost":{"dust":0,"ore":2,"ether":0},"successRate":0.8,"failure":"drop","failureLevel":3,"baseBonus":0.3},{"level":6,"cost":{"dust":0,"ore":3,"ether":0},"successRate":0.7,"failure":"drop","failureLevel":4,"baseBonus":0.4},{"level":7,"cost":{"dust":0,"ore":4,"ether":0},"successRate":0.6,"failure":"drop","failureLevel":3,"baseBonus":0.55},{"level":8,"cost":{"dust":0,"ore":5,"ether":0},"successRate":0.5,"failure":"drop","failureLevel":3,"baseBonus":0.75},{"level":9,"cost":{"dust":0,"ore":6,"ether":0},"successRate":0.4,"failure":"drop","failureLevel":0,"baseBonus":1.0},{"level":10,"cost":{"dust":0,"ore":0,"ether":1},"successRate":0.3,"failure":"drop","failureLevel":0,"baseBonus":1.3},{"level":11,"cost":{"dust":0,"ore":0,"ether":2},"successRate":0.2,"failure":"destroy","failureLevel":0,"baseBonus":1.6},{"level":12,"cost":{"dust":0,"ore":0,"ether":3},"successRate":0.1,"failure":"destroy","failureLevel":0,"baseBonus":1.9}],"statPerLevel":0.12,"orePerTierPerLevel":2,"dustStartLevel":6,"dustPerTierPerLevelAboveStart":1,"etherStartLevel":10,"etherCost":1},"salvage":{"oreBasePerTier":3,"orePerQualityPerTier":2,"orePerEnhancePerTier":1,"dustBase":1,"dustPerQuality":1},"lootOwnerSameJobChance":0.75,"boss":{"baseLevelBonus":7,"powerByDifficulty":[1,1.25,1.55],"skillEffectByDifficulty":[30,40,55],"affixRankByDifficulty":[2,2,3],"craftGoldPerTier":250,"craftMaterialCount":5},"difficultyAffix":{"hardChance":0.65,"hellChance":0.9,"hardFineThreshold":0.7,"hardRareThreshold":0.95,"hellFineThreshold":0.35,"hellRareThreshold":0.85,"skillChance":0.4,"baseAttackPerTier":5,"baseHpPerTier":25,"defenseBasePerTier":3,"defensePerRankPerTier":1,"critBase":4,"critPerRank":3},"maxLevel":60},"monsters":{"encounter":{"bossChance":0.05,"eliteChance":0.06},"normal":{"hpBase":42,"hpPerLevel":15,"hpQuadratic":0.7,"attackBase":8,"attackPerLevel":3.3,"defensePerLevel":1.7},"kindMultipliers":{"bossHp":3,"eliteHp":1.65,"bossAttack":1.45,"eliteAttack":1.2},"finalBoss":{"level":40,"hp":180000,"attack":1000,"defense":110},"awakened":{"threshold":30,"hpBaseMultiplier":2,"hpPerLevel":0.1,"attackBaseMultiplier":2,"attackPerLevel":0.06,"defenseMultiplier":1.6}},"difficulty":{"modes":[{"hp":1,"attack":1,"defense":1,"reward":1,"equipmentChance":[0.002,0.006,0.2],"gemChance":[0.04,0.12,0.35],"bossGearChance":0.06,"ore":1,"legendaryGearChance":0.0006,"goldMultiplier":1},{"hp":1.8,"attack":1.35,"defense":1.2,"reward":1.3,"equipmentChance":[0.0027,0.008,0.25],"gemChance":[0.08,0.22,0.5],"bossGearChance":0.1,"ore":1.5,"legendaryGearChance":0.0016,"goldMultiplier":1.35},{"hp":3,"attack":1.8,"defense":1.45,"reward":1.65,"equipmentChance":[0.0034,0.01,0.3],"gemChance":[0.13,0.35,0.7],"bossGearChance":0.15,"ore":2,"legendaryGearChance":0.0032,"goldMultiplier":1.8}],"materialChance":[0.025,0.035,0.048]},"rewards":{"kindMultiplier":{"normal":1,"elite":1.7,"boss":3},"gold":{"base":2,"perLevel":0.45,"quadratic":0.003,"kindMultiplier":{"normal":1,"elite":2.6,"boss":7},"levelGap":{"enabled":true,"freeLevels":2,"midGap":3,"midMultiplier":0.5,"highGap":5,"highMultiplier":0.2,"zeroGap":10}},"ore":{"normalKindMultiplier":0.25,"eliteBossKindMultiplier":0.6,"normalChanceByDifficulty":[0.08,0.1,0.12],"chanceFactor":0.7},"equipmentQuality":{"rareChance":0.242,"fineConditionalChance":0.46},"potionDropChance":0.08,"postVictoryHeal":0.12,"radiant":{"normalElite":0.0004,"bossFinal":0.008},"ether":{"eliteBase":0.01,"elitePerTier":0.004,"eliteCap":0.06,"bossRepeat":0.01,"firstBossMin":1,"firstBossMax":2}},"combat":{"defenseEffectiveness":0.65,"baseCritDamage":1.5,"caps":{"fracture":0.75,"guard":0.75,"weaken":0.7,"resistance":0.75},"finalBoss":{"enrageAfterTurn":45,"enrageMultiplier":4,"specialEveryTurns":5,"specialMultiplier":1.65},"autoPotionThreshold":0.35,"defeatGoldLoss":0.05,"groupSize":{"min":3,"max":5},"speed":{"enemyBase":106,"enemyPerLevel":0.5,"race":{"beast":5,"plant":-4,"undead":-2,"construct":-5,"demon":3,"spirit":4},"kind":{"normal":0,"elite":2,"boss":4,"final":6},"difficultyBonus":2},"pacing":{"actionIntervalMs":1500,"roundMinimumMs":6000},"supply":{"wardResistance":0.25,"elementTonicDamage":0.2}},"quests":{"tutorial":{"killRequirement":3,"skillLevelRequirement":2,"rewardGold":100,"rewardOre":10,"armorTier":1,"armorSlot":1,"armorQuality":1},"side":[{"required":5,"gold":300,"ore":20,"gem":1},{"required":2,"gold":800,"ore":55,"gem":1},{"required":3,"gold":2000,"ore":120,"gem":1}],"repeat":{"required":8,"goldPerTier":150,"ore":15,"dust":3,"gem":1},"board":{"refreshMinutes":20,"refreshGoldPerTier":150,"taskBase":8,"taskRandomRange":9,"taskPerTier":2,"goldPerTier":180,"orePerTier":8,"gemReward":2,"legendaryGearChance":0.2},"market":{"refreshCost":100,"offerCount":6,"oreMin":8,"oreRandomRange":13,"dustMin":3,"dustRandomRange":6,"gemMin":1,"gemRandomRange":2,"materialMin":3,"materialRandomRange":4,"oreUnit":12,"dustUnit":25,"gemUnit":180,"materialUnitPerTier":60},"potion":{"healFraction":0.45,"buyCost":75,"buyQuantity":5}}};
 
 
 
@@ -3459,7 +3566,7 @@ function normalizeGameplaySettings(input){return validateGameplaySettings(mergeG
 
 
 
-/* js/ui/core-screen-views.js?v=20261123-v0194-workshop1 */
+/* js/ui/core-screen-views.js?v=20261123-v0196-aspd */
 'use strict';
 // Presentation-only legacy functions extracted unchanged from core-game.js.
 function meter(n,max,cls=''){return `<div class="bar ${cls}"><i style="width:${Math.max(0,Math.min(100,n/max*100))}%"></i></div>`;}
@@ -3503,7 +3610,7 @@ $('app').innerHTML=`<div class="layout"><aside><section class="adventurer-summar
 function setTab(t){tab=t;render();}function heading(k,t,right=''){return `<div class="heading"><div><div class="eyebrow">${k}</div><h1>${t}</h1></div>${right}</div>`;}
 function tutorial(){if(state.tutorial>=3)return '';let texts=[['01 / 初次狩獵','在無名密林開始自動探索，擊敗 3 隻怪物。',state.totalKills>=3],['02 / 整理行囊','前往「裝備工坊」，將任一裝備強化一次。',state.bag.some(g=>g.plus>0)],['03 / 學習技能','前往「技能」，將初始主動技能提升至 2 級。',state.skills[0]>=2]][state.tutorial];return `<div class="tutorial"><div><b>${texts[0]}</b><p>${texts[1]}</p></div><button ${texts[2]?'':'disabled'} onclick="claimTutorial()">領取獎勵</button></div>`;}
 
-function characterView(){const v=stats();return heading('ADVENTURER / 角色能力',esc(characterName(state)))+`<div class="grid"><section class="panel"><h2>人物能力</h2><div class="stat-grid"><span>生命上限 <b class="gold">${v.hp}</b></span><span>攻擊力 <b class="gold">${v.atk}</b></span><span>防禦力 <b class="gold">${v.def}</b></span><span>暴擊率 <b class="gold">${Math.round(v.crit*100)}%</b></span><span>速度 <b class="gold">${v.speed}</b></span></div></section></div>`;}
+function characterView(){const v=stats();return heading('ADVENTURER / 角色能力',esc(characterName(state)))+`<div class="grid"><section class="panel"><h2>人物能力</h2><div class="stat-grid"><span>生命上限 <b class="gold">${v.hp}</b></span><span>攻擊力 <b class="gold">${v.atk}</b></span><span>防禦力 <b class="gold">${v.def}</b></span><span>暴擊率 <b class="gold">${Math.round(v.crit*100)}%</b></span>${typeof attackSpeedPanelHTML==='function'?attackSpeedPanelHTML(state):''}</div></section></div>`;}
 
 function skillsView(){let c=CLASSES[state.job];return heading('SKILLS / 技能','主動技能與普攻觸發技能','')+`<p>兩個主動槽獨立計算冷卻；普攻觸發技能必須配置於觸發槽才會啟用。每項技能最高 10 級，每點增加基礎效果 40%、可鑲嵌 1 顆寶石，替換時退還舊寶石。</p><div class="panel" style="margin-bottom:20px"><div class="row"><span>${GEMS.map((g,i)=>` ${esc(equipmentDisplayName(g))} ×${state.gems[i]}`).join('　')}</span><button onclick="craftGem()">合成隨機寶石 · 12 寶石粉塵</button></div></div><div class="cards">${c.skills.map((sk,i)=>{let locked=false,gem=state.sockets[i];return `<article class="card"><div class="row"><span class="icon">${sk[1]==='active'?'':'ϟ'}</span><span class="tag">${sk[1]==='active'?'主動':'普攻觸發'}</span></div><h2>${sk[0]} <span class="gold">${state.skills[i]}/${RULES.skillMax}</span></h2>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p>${skillDescription(i)}<br><span class="small">${sk[1]==='active'?`冷卻 ${skillCooldown(i)} 回合`:`每次普攻 ${Math.round(procChance(i)*100)}% 觸發`} · 職業精通 Lv${sk[2]}</span></p><button ${locked||state.skills[i]>=skillCap()?'disabled':''} onclick="learn(${i})">${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?`<button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},0)">${state.active[0]===i?' 槽 1':'設為槽 1'}</button><button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},1)">${state.active[1]===i?' 槽 2':'設為槽 2'}</button>`:'<p class="small">學會後需配置於觸發槽</p>'}<div class="divider"></div><div class="small">鑲嵌寶石</div><select aria-label="${sk[0]}寶石" style="width:100%;margin-top:8px" ${!state.skills[i]?'disabled':''} onchange="socket(${i},this.value)"><option value="-1">空插槽</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${(!gemCompatible(j,state.job,i)||state.gems[j]<1&&gem!==j)?'disabled':''}>${esc(equipmentDisplayName(g))} · ${g.desc}</option>`).join('')}</select></article>`;}).join('')}</div>`;}
 function skillDescription(i){let sk=CLASSES[state.job].skills[i];return `${{damage:'造成',heal:'恢復',shield:'獲得',drain:'造成傷害並吸取等量生命，倍率為'}[sk[5]]}攻擊力 ${Math.round(skillPower(i)*100)}%${{damage:'傷害',heal:'生命',shield:'護盾（無上限；重複施放與其他護盾來源只保留較高值）',drain:''}[sk[5]]}`;}
@@ -3687,7 +3794,7 @@ function restoreBattleLogScroll(position){
 
 EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;
 
-/* js/core/core-game.js?v=20261123-v0194-workshop1 */
+/* js/core/core-game.js?v=20261123-v0196-aspd */
 'use strict';
 // Published data is supplied before any runtime module or player save loads.
 // Legacy browser balance caches never override a published build implicitly.
@@ -4416,6 +4523,7 @@ function combatStatusDetail(e){
   regen:'每回合恢復最大生命 '+pct+'%（施放時也立即恢復一次）'
  }[e?.kind];
  if(detail)return detail;
+ if(e?.kind==='attackSpeedPct')return '攻擊速度 +'+Number((Number(e.value)||0).toFixed(2))+'%'+(e.stacks?'（'+e.stacks+' 層）':'');
  if(e?.kind==='followup')return '受到攻擊時追加來源角色攻擊力 '+pct+'% 的'+(ELEMENTS[e.element]||e.element||'無')+'屬性追打';
  return (EFFECT_NAMES[e?.kind]||e?.kind||'狀態效果')+(pct?' '+pct+'%':'');
 }
@@ -4428,10 +4536,10 @@ function combatStatusBadge(name,turns,detail,labelExtra=''){
 function effectBadges(key){return effects.filter(e=>e.target===key&&e.until>partyClock).map(e=>combatStatusBadge(e.name,e.until-partyClock,combatStatusDetail(e))).join('');}
 battleView=function(){const m=MAPS[party.map];
 const skillLine=(h,slots,list,cds)=>slots.map(i=>{if(i===null||!list[i])return '未配置';const left=Math.max(0,Math.floor(cds[memberKey(h)+'-'+i]||0));return esc(Array.isArray(list[i])?list[i][0]:list[i].name)+' <em>'+(left?left+' 回合':'就緒')+'</em>';}).join(' ／ ');
-return heading('EXPEDITION / 遠征手札',m.name,`<span class="tag">${running?'探索中':foes.length?'已暫停':'整備中'} · 第 ${partyClock} 秒</span>`)+`<div class="expedition-progress">${playerProgressView('exploration')}</div>`+modePicker()+`<div class="text-battle-layout"><section class="panel party-combat"><div class="actions"><span class="tag">群怪 · 3～6 隻</span><button class="primary" onclick="toggleBattle()">${running?'暫停戰鬥':'開始探索'}</button></div><p class="small combat-rule">1倍速每回合至少 6 秒 · 技能冷卻按各單位回合 · 集火首位存活敵人 · 戰後全隊回滿生命</p><div class="squad-field"><section class="squad-allies"><h3>出戰隊員 <small>${heroes().length} / 3</small></h3>${heroes().map(h=>{const v=solo.stats(h);return `<article data-combat-id="${heroKey(h)}" class="unit ${h.hp<=0?'fallen':''}" ${actionVisualStyle(heroKey(h))}><div class="unit-title"><b>${esc(characterName(h))}</b><span>${h.hp<=0?'倒下':'出戰'}</span></div><div class="unit-numbers"><span>生命 <b>${Math.ceil(h.hp)} / ${v.hp}</b></span><span>護盾 <b>${Math.round(h.shield)}</b> · ${ELEMENTS[weaponElement(h)]}普攻 · 速度 ${v.speed}</span></div>${battleHealthMeter(h.hp,v.hp,battleShieldValue(h))}<div class="unit-skills"><div>主動｜${skillLine(h,h.active,CLASSES[h.job].skills,actorCooldowns)}</div><div>輔助｜${skillLine(h,h.supportSlots,SUPPORT[h.job],supportCooldowns)}</div></div><div class="unit-effects">${effectBadges(heroKey(h))}<span class="small supply-countdown" data-job="${memberKey(h)}">${supplyStatus(h)}</span></div></article>`;}).join('')}</section><section class="squad-enemies"><h3>遭遇敵人 <small>${foes.filter(e=>e.hp>0).length} / ${foes.length}</small></h3>${foes.length?foes.map((e,i)=>`<article data-combat-id="${e.id}" class="unit ${e.hp<=0?'fallen':''}" ${actionVisualStyle(e.id)}><div class="unit-title"><b>${esc(enemyDisplayName(e))}</b><span>LV ${e.lv} · ${e.hp<=0?'已擊敗':e.kind==='boss'||e.kind==='final'?'首領':e.kind==='elite'?'菁英':'普通'}</span></div><div class="unit-numbers"><span>生命 <b>${Math.ceil(e.hp)} / ${e.maxhp}</b></span><span class="element-${e.element}">${ELEMENTS[e.element]} · ${RACES[e.race]} · 攻擊 ${e.atk} / 防禦 ${e.def} · 速度 ${combatSpeed(e)}</span></div>${battleHealthMeter(e.hp,e.maxhp,battleShieldValue(e))}<div class="unit-effects enemy-status-effects">${effectBadges(e.id)}</div><div class="enemy-action-status">${typeof enemySharedSkillStatus==='function'?enemySharedSkillStatus(e):''}</div></article>`).join(''):'<p class="empty">尚無遭遇<br>開始探索，遭遇3～6隻敵人。</p>'}</section></div></section></div>${battleBuffPanel()}<section class="panel expedition-tools"><div class="compact-supplies"><b>補給 · ${esc(characterName(state))}</b><button onclick="setTab('shop')">商店</button><button onclick="potion()" ${state.potions<1?'disabled':''}>喝藥 (${state.potions})</button><button onclick="buyPotion()" ${state.gold<75?'disabled':''}>藥水 +5／75 金幣</button><label class="auto-potion"><input type="checkbox" ${state.autoPotion?'checked':''} onchange="state.autoPotion=this.checked;save()">生命低於 35% 自動喝藥</label></div><div class="map-list-heading"><h2>探索地圖</h2><button onclick="showRegionBestiary()">圖鑑</button><span class="small">目前：${m.name} · 出戰全員須符合門檻</span></div><div class="compact-map-list" aria-label="探索地圖">${MAPS.map((area,i)=>`<button class="map-list-row ${party.map===i?'selected':''}" ${canVisit(i)?'':'disabled'} onclick="chooseMap(${i})"><span class="map-level">推薦裝等 ${mapRecommendedGearLevel(i)}</span><b>${area.name}</b><span class="map-access">${party.map===i?'目前區域':canVisit(i)?'前往':'未解鎖'}</span></button>`).join('')}</div><details><summary>區域圖鑑與掉落</summary>${m.mobs.concat([m.boss]).map(x=>`<p><b>${x[0]}</b> · ${ELEMENTS[species.get(x[2])?.element||'physical']}／${RACES[species.get(x[2])?.race||'beast']}<br>專屬掉落：${x[2]}</p>`).join('')}</details></section>`;};
+return heading('EXPEDITION / 遠征手札',m.name,`<span class="tag">${running?'探索中':foes.length?'已暫停':'整備中'} · 第 ${partyClock} 秒</span>`)+`<div class="expedition-progress">${playerProgressView('exploration')}</div>`+modePicker()+`<div class="text-battle-layout"><section class="panel party-combat"><div class="actions"><span class="tag">群怪 · 3～6 隻</span><button class="primary" onclick="toggleBattle()">${running?'暫停戰鬥':'開始探索'}</button></div><p class="small combat-rule">1倍速每回合至少 6 秒 · 技能冷卻按各單位回合 · 集火首位存活敵人 · 戰後全隊回滿生命</p><div class="squad-field"><section class="squad-allies"><h3>出戰隊員 <small>${heroes().length} / 3</small></h3>${heroes().map(h=>{const v=solo.stats(h);return `<article data-combat-id="${heroKey(h)}" class="unit ${h.hp<=0?'fallen':''}" ${actionVisualStyle(heroKey(h))}><div class="unit-title"><b>${esc(characterName(h))}</b><span>${h.hp<=0?'倒下':'出戰'}</span></div><div class="unit-numbers"><span>生命 <b>${Math.ceil(h.hp)} / ${v.hp}</b></span><span>護盾 <b>${Math.round(h.shield)}</b> · ${ELEMENTS[weaponElement(h)]}普攻 · 攻速 ${EmberwildAttackSpeed.formatPct(Number(battleStats(h).attackSpeedPct)||0)}</span></div>${battleHealthMeter(h.hp,v.hp,battleShieldValue(h))}<div class="unit-skills"><div>主動｜${skillLine(h,h.active,CLASSES[h.job].skills,actorCooldowns)}</div><div>輔助｜${skillLine(h,h.supportSlots,SUPPORT[h.job],supportCooldowns)}</div></div><div class="unit-effects">${effectBadges(heroKey(h))}<span class="small supply-countdown" data-job="${memberKey(h)}">${supplyStatus(h)}</span></div></article>`;}).join('')}</section><section class="squad-enemies"><h3>遭遇敵人 <small>${foes.filter(e=>e.hp>0).length} / ${foes.length}</small></h3>${foes.length?foes.map((e,i)=>`<article data-combat-id="${e.id}" class="unit ${e.hp<=0?'fallen':''}" ${actionVisualStyle(e.id)}><div class="unit-title"><b>${esc(enemyDisplayName(e))}</b><span>LV ${e.lv} · ${e.hp<=0?'已擊敗':e.kind==='boss'||e.kind==='final'?'首領':e.kind==='elite'?'菁英':'普通'}</span></div><div class="unit-numbers"><span>生命 <b>${Math.ceil(e.hp)} / ${e.maxhp}</b></span><span class="element-${e.element}">${ELEMENTS[e.element]} · ${RACES[e.race]} · 攻擊 ${e.atk} / 防禦 ${e.def} · 速度 ${combatSpeed(e)}</span></div>${battleHealthMeter(e.hp,e.maxhp,battleShieldValue(e))}<div class="unit-effects enemy-status-effects">${effectBadges(e.id)}</div><div class="enemy-action-status">${typeof enemySharedSkillStatus==='function'?enemySharedSkillStatus(e):''}</div></article>`).join(''):'<p class="empty">尚無遭遇<br>開始探索，遭遇3～6隻敵人。</p>'}</section></div></section></div>${battleBuffPanel()}<section class="panel expedition-tools"><div class="compact-supplies"><b>補給 · ${esc(characterName(state))}</b><button onclick="setTab('shop')">商店</button><button onclick="potion()" ${state.potions<1?'disabled':''}>喝藥 (${state.potions})</button><button onclick="buyPotion()" ${state.gold<75?'disabled':''}>藥水 +5／75 金幣</button><label class="auto-potion"><input type="checkbox" ${state.autoPotion?'checked':''} onchange="state.autoPotion=this.checked;save()">生命低於 35% 自動喝藥</label></div><div class="map-list-heading"><h2>探索地圖</h2><button onclick="showRegionBestiary()">圖鑑</button><span class="small">目前：${m.name} · 出戰全員須符合門檻</span></div><div class="compact-map-list" aria-label="探索地圖">${MAPS.map((area,i)=>`<button class="map-list-row ${party.map===i?'selected':''}" ${canVisit(i)?'':'disabled'} onclick="chooseMap(${i})"><span class="map-level">推薦裝等 ${mapRecommendedGearLevel(i)}</span><b>${area.name}</b><span class="map-access">${party.map===i?'目前區域':canVisit(i)?'前往':'未解鎖'}</span></button>`).join('')}</div><details><summary>區域圖鑑與掉落</summary>${m.mobs.concat([m.boss]).map(x=>`<p><b>${x[0]}</b> · ${ELEMENTS[species.get(x[2])?.element||'physical']}／${RACES[species.get(x[2])?.race||'beast']}<br>專屬掉落：${x[2]}</p>`).join('')}</details></section>`;};
 
 skillsView=function(){return `<section class="panel"><h2>輔助技能 · 額外兩槽</h2><p>不占原本兩個主動槽。每回合檢查冷卻，自動施放；最高 5 級。每級增加基礎效果 20%，持續時間與冷卻不變。同來源同技能刷新時間，不重複疊加；不同來源可相加。此類技能暫不鑲嵌寶石。</p><div class="actions">${state.supportSlots.map((id,i)=>`<span>槽 ${i+1}：${id===null?'空':esc(SUPPORT[state.job][id].name)+skillTypeBadges(state.job,id,'support')}<button onclick="slotSupport(null,${i})">清空</button></span>`).join('')}</div><div class="cards">${SUPPORT[state.job].map((sk,i)=>`<article class="card"><h3>${sk.name} [${ELEMENTS[sk.element]}] Lv.${state.supportLevels[i]}/${Math.max(1,Math.floor(GS('skills.support.maxLevel',5)))}</h3>${skillTypeBadges(state.job,i,'support')}${skillMechanicsDetails(state.job,i,'support')}<p>${TARGET_NAMES[sk.target]} · ${EFFECT_NAMES[sk.kind]} ${+(sk.value*(1+Math.max(0,state.supportLevels[i]-1)*GS('skills.support.effectPerExtraLevel',.2))*100).toFixed(1)}%<br>持續 ${sk.duration} 戰鬥回合 / 冷卻 ${sk.cooldown} 回合<br>需求精通 Lv${sk.level}</p><button onclick="learnSupport(${i})" ${state.supportLevels[i]>=Math.max(1,Math.floor(GS('skills.support.maxLevel',5)))?'disabled':''}>${state.supportLevels[i]?'升級1點':'學習'}</button>${[0,1].map(slot=>`<button onclick="slotSupport(${i},${slot})" ${state.supportLevels[i]?'':'disabled'}>設定槽 ${slot+1}</button>`).join('')}</article>`).join('')}</div></section>`+solo.skillsView();};
-guideView=function(){return `<section class="panel"><h2>3.0 · 小隊遠征</h2><p>建立一位自由培養的玩家角色，再從五位固定走向夥伴中招募；最多三人出戰。角色操作頁可獨立切換對象；金幣、材料、寶石、消耗品與背包由帳號共用，角色保有各自的穿戴及技能，任務由帳號共用。夥伴加入時依出戰最低等級配置固定技能，並帶來五件普通白板裝備；升級後自動成長。</p><p>固定群怪模式，每場3～6隻。終焉王座群怪模式為噬日者及最多五隻星隕護衛。每隻怪物只結算一次戰利品，隨機交給一位出戰角色；經驗由出戰成員平分，倒下成員也分得經驗，候補不分得。治療技能自動支援生命比例最低的存活隊員，吸血僅回復本人且不計溢出傷害。</p><p>每人有兩個主動槽、兩個輔助槽，以及已配置的普攻觸發技。輔助技能不消耗主要行動；輔助處理後，每名角色在自己的回合最多只會施放 1 個可用主動技能，若沒有可用主動技能才進行普攻與觸發判定。主動技能或普攻執行後即結束該角色回合。速度只決定行動先後，不增加每回合行動次數。BUFF／DEBUFF 以戰鬥回合計時，暫停和對話框不會推進；換圖、換出戰成員會清除遭遇及效果。全隊戰後回滿生命，倒下隊員可在戰後恢復。</p><p>多來源減傷最高 75%、破甲最高 75%、敵方攻擊降低最高 70%、戰鬥暴擊率最高 85%。存檔保存全隊養成、未確認洗鍊與消耗品剩餘回合；不保存當前敵人與戰鬥技能效果。</p></section>`+solo.guideView();};
+guideView=function(){return `<section class="panel"><h2>3.0 · 小隊遠征</h2><p>建立一位自由培養的玩家角色，再從五位固定走向夥伴中招募；最多三人出戰。角色操作頁可獨立切換對象；金幣、材料、寶石、消耗品與背包由帳號共用，角色保有各自的穿戴及技能，任務由帳號共用。夥伴加入時依出戰最低等級配置固定技能，並帶來五件普通白板裝備；升級後自動成長。</p><p>固定群怪模式，每場3～6隻。終焉王座群怪模式為噬日者及最多五隻星隕護衛。每隻怪物只結算一次戰利品，隨機交給一位出戰角色；經驗由出戰成員平分，倒下成員也分得經驗，候補不分得。治療技能自動支援生命比例最低的存活隊員，吸血僅回復本人且不計溢出傷害。</p><p>每人有兩個主動槽、兩個輔助槽，以及已配置的普攻觸發技。輔助技能不消耗主要行動；輔助處理後，每名角色在自己的回合最多只會施放 1 個可用主動技能，若沒有可用主動技能才進行普攻與觸發判定。主動技能或普攻執行後即結束該角色回合。攻擊速度縮短普攻間隔，最多每秒普攻 1.5 次；不縮短技能冷卻。BUFF／DEBUFF 以戰鬥回合計時，暫停和對話框不會推進；換圖、換出戰成員會清除遭遇及效果。全隊戰後回滿生命，倒下隊員可在戰後恢復。</p><p>多來源減傷最高 75%、破甲最高 75%、敵方攻擊降低最高 70%、戰鬥暴擊率最高 85%。存檔保存全隊養成、未確認洗鍊與消耗品剩餘回合；不保存當前敵人與戰鬥技能效果。</p></section>`+solo.guideView();};
 exportSave=function(){if(!state)return toast('請先建立角色');save();const blob=new Blob([JSON.stringify(packParty(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='dreaming-abyss-party.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
 importSave=async function(ev){const f=ev.target.files[0];ev.target.value='';if(!f)return;try{if(f.size>8e6)throw Error('存檔過大');const migrated=migrateWorldSave(JSON.parse(await f.text())),preview=validateParty(migrated);pendingImport=migrated;running=false;$('modal').innerHTML=`<h2>載入隊伍？</h2><p>${preview.members.map(h=>esc(characterName(h))).join('、')}</p><p>確認後取代目前全隊進度。</p><button onclick="acceptImport()">確認載入</button><button onclick="closeModal();pendingImport=null">取消</button>`;$('modal').showModal();}catch(e){pendingImport=null;console.warn('手動匯入存檔失敗',e);toast('匯入失敗：'+e.message);}};
 acceptImport=function(){if(!pendingImport)return;const data=pendingImport;try{loadParty(data);closeModal();const stored=save();pendingImport=null;render();toast(stored===false?'存檔已載入，但瀏覽器無法寫入；請先匯出 JSON 備份':'存檔已匯入');}catch(e){pendingImport=null;console.warn('套用匯入存檔失敗',e);toast('匯入失敗：'+e.message);}};
@@ -4776,10 +4884,15 @@ function confirmRename(job){const h=party?.members.find(h=>h.job===job);if(!h)re
 
 let lastActionOrder=[],actionVisualTime=0;
 const beforeSpeedStats=stats;
-stats=function(h=state){const v=beforeSpeedStats(h);v.speed=Math.round([102,108,116,96][h.job]+Math.min(5,(v.evasion||0)*10+(v.crit||0)*5));return v;};
+// v0.196: heroes and companions have no speed points; their basic attack interval comes from attack speed percent.
+stats=function(h=state){const v=beforeSpeedStats(h);delete v.speed;v.attackSpeedPct??=0;return v;};
 solo.stats=stats;
+function heroAttackSpeedSummary(h){const sec=globalThis.EmberwildSecondsCombat?.config?.()||GAMEPLAY_SETTINGS.combat?.seconds,base=sec?.classes?.find(c=>c.job===h.job)?.baseIntervalSeconds??EmberwildAttackSpeed.CLASS_INTERVALS[h.job]??2;return EmberwildAttackSpeed.summary(base,Number(battleStats(h).attackSpeedPct)||0,sec?.attackSpeed);}
+// Legacy round order only: a hero's place follows its basic attack frequency, on the enemies' speed scale.
+function heroInitiativeSpeed(h){const sec=globalThis.EmberwildSecondsCombat?.config?.()||GAMEPLAY_SETTINGS.combat?.seconds;return GAMEPLAY_SETTINGS.combat.speed.enemyBase*(sec?.actionReferenceSeconds??3)*heroAttackSpeedSummary(h).attacksPerSecond;}
+function attackSpeedPanelHTML(h){const a=heroAttackSpeedSummary(h);return `<span>攻擊速度 <b class="gold">${EmberwildAttackSpeed.formatPct(a.bonusPct)}</b></span><span>普攻間隔 <b class="gold">${a.intervalSeconds.toFixed(3)} 秒</b></span><span>普攻頻率 <b class="gold">${a.attacksPerSecond.toFixed(3)} 次／秒</b>${a.capped?' <small>已達上限</small>':''}</span>`;}
 function combatSpeed(e){return Math.round(106+e.lv*.5+({beast:5,plant:-4,undead:-2,construct:-5,demon:3,spirit:4}[e.race]||0)+(e.kind==='elite'?2:e.kind==='boss'?4:e.kind==='final'?6:0)+(e.difficulty||0)*2);}
-function initiativeOrder(){return [...living().map(h=>({actor:h,id:heroKey(h),side:'hero',speed:stats(h).speed})),...foes.filter(e=>e.hp>0).map(e=>({actor:e,id:e.id,side:'enemy',speed:combatSpeed(e)}))].map((u,i)=>({...u,tie:i})).sort((a,b)=>b.speed-a.speed||a.tie-b.tie);}
+function initiativeOrder(){return [...living().map(h=>({actor:h,id:heroKey(h),side:'hero',speed:heroInitiativeSpeed(h)})),...foes.filter(e=>e.hp>0).map(e=>({actor:e,id:e.id,side:'enemy',speed:combatSpeed(e)}))].map((u,i)=>({...u,tie:i})).sort((a,b)=>b.speed-a.speed||a.tie-b.tie);}
 function recordAction(id,name,type){lastActionOrder.push({id,name,type});actionVisualTime=Date.now();}
 function actionVisualStyle(id){const last=lastActionOrder.at(-1),age=Date.now()-actionVisualTime;if(!last||last.id!==id||age>420||!running)return '';return `style="animation:${id.startsWith('foe-')?'enemy-strike':'combat-strike'} .42s ease ${-age/1000}s both !important"`;}
 
@@ -4802,7 +4915,7 @@ function initiativeView(){
   return `<section class="panel initiative-panel compact-initiative"><div class="row"><h2 title="依速度排序；速度相同時維持穩定順序。">行動順序</h2></div><div class="initiative-track initiative-name-line">${order.length?order.map(u=>`<span class="initiative-token ${u.side}"><b>${esc(u.side==='hero'?characterName(u.actor):enemyDisplayName(u.actor))}</b></span>`).join(''):'<span class="small">開始探索後顯示</span>'}</div></section>`;
 }
 const beforeInitiativeBattle=battleView;battleView=function(){return beforeInitiativeBattle().replace('<div class="text-battle-layout">',initiativeView()+'<div class="text-battle-layout">');};
-const beforeSpeedCharacter=characterView;characterView=function(){const h=pageHero('character');return beforeSpeedCharacter().replace('<div class="page-owner-content">',`<div class="page-owner-content"><p class="speed-description">速度 <b>${stats(h).speed}</b></p>`);};
+const beforeSpeedCharacter=characterView;characterView=function(){const h=pageHero('character');return beforeSpeedCharacter().replace('<div class="page-owner-content">',`<div class="page-owner-content"><p class="speed-description">${attackSpeedPanelHTML(h)}</p>`);};
 const speedReset=resetEncounter;resetEncounter=function(){speedReset();lastActionOrder=[];actionVisualTime=0;};
 
 let battleRate=1,roundIterator=null,nextActionAt=0,roundStartedAt=0;
@@ -4814,7 +4927,7 @@ const beforePaceBattle=battleView;battleView=function(){return beforePaceBattle(
 
 guideView=function(){return heading('FIELD NOTES / 冒險指南','冒險指南')+`<section class="guide-scroll panel">
 ${uiHelp('成長與隊伍','每職業可招募一人，最多三人出戰。戰力主要來自裝備；主角與夥伴使用職業戰鬥時各自累積精通，精通等級解鎖技能。擊敗地圖首領開放下一張地圖，擊敗噬日者後開放覺醒地圖。背包、金幣、材料與道具共用，技能與穿戴各自配置。')}
-${uiHelp('戰鬥與速度','普攻依速度排序；同速依隊伍／遭遇順序。主動與輔助技能獨立施放。1× 每次出手間隔 0.9 秒，每回合至少 6 秒；2×、4× 分別縮短為一半、四分之一。速度受職業、等級、暴擊率與閃避率影響。')}
+${uiHelp('戰鬥與攻擊速度','普攻間隔＝職業基礎間隔 ÷（1＋攻擊速度%），最短 2/3 秒（每秒最多 1.5 次）。基礎間隔：戰士 2.00、法師 2.65、弓箭手 1.40、牧師 2.65 秒。攻擊速度來自裝備、寶石、信物與技能，全部加算；主動與輔助技能的冷卻不受攻擊速度影響。')}
 ${uiHelp('恢復與計時','遭遇結束後全隊回滿生命。戰敗扣除 5% 金幣並停止探索。暫停不會回復；換圖、換人或切換難度會放棄遭遇。BUFF／DEBUFF 持續時間使用戰鬥回合；消耗品只在角色出戰的戰鬥回合扣減。暫停與對話框都不會消耗回合。')}
 ${uiHelp('技能與寶石','主動技能、普攻觸發技能、輔助技能各自使用獨立槽位；普攻觸發技能只有配置於觸發槽時才會生效。主動技能耗魔，不足時暫緩施放。主動與觸發技能可鑲嵌寶石，替換時退還原寶石；輔助技能不鑲嵌寶石。效果、冷卻與需求請見技能頁。')}
 ${uiHelp('元素與能力上限','火剋風、風剋冰、冰剋火：×1.3；逆向 ×0.85；同屬性 ×0.8。光暗互剋 ×1.3，無屬性不參與剋制。附魔只改普攻。抗性、減傷與破甲上限 75%，穿透 65%，閃避 45%，裝備吸血 25%，敵方攻擊降低 70%，戰鬥暴擊率 85%。')}
@@ -4895,14 +5008,14 @@ function ensureAccountResources(){if(!party)return;if(!party.accountResources)Ob
 const beforeAccountPack=packParty;packParty=function(){ensureAccountResources();const data=beforeAccountPack();return {...data,members:data.members.map((h,i)=>({...h,gold:i===0?h.gold:0,ore:i===0?h.ore:0,dust:i===0?h.dust:0,gems:i===0?[...h.gems]:Array(GEMS.length).fill(0),materials:i===0?{...h.materials}:{}}))};};
 const beforeAccountRender=render;render=function(){ensureAccountResources();beforeAccountRender();};
 function armorProfile(){return null;}
-const beforeArmorStats=stats;stats=function(h=state){const v=beforeArmorStats(h);for(const g of equipment(h)){const p=armorProfile(g);if(p)for(const k of ['hp','def','crit','evasion'])v[k]=(v[k]||0)+(p[k]||0);}v.crit=Math.min(.85,v.crit);v.evasion=Math.min(.45,v.evasion);v.speed=Math.round([102,108,116,96][h.job]+Math.min(5,v.evasion*10+v.crit*5));return v;};solo.stats=stats;
+const beforeArmorStats=stats;stats=function(h=state){const v=beforeArmorStats(h);for(const g of equipment(h)){const p=armorProfile(g);if(p)for(const k of ['hp','def','crit','evasion'])v[k]=(v[k]||0)+(p[k]||0);}v.crit=Math.min(.85,v.crit);v.evasion=Math.min(.45,v.evasion);return v;};solo.stats=stats;
 const beforeArmorDesc=gearDesc;gearDesc=function(g){const p=armorProfile(g);return beforeArmorDesc(g)+(p?' / '+p.name+'加成：'+Object.entries(p).filter(([k])=>k!=='name').map(([k,v])=>({hp:'生命',def:'防禦',crit:'暴擊率',evasion:'閃避率'}[k])+' +'+(['crit','evasion'].includes(k)?+(v*100).toFixed(1)+'%':v)).join('、'):'');};
 const beforeArmorAffixLabel=affixLabel;affixLabel=function(a,g){return (g.slot===1&&[4,5].includes(a.type)?CLASSES[g.job].name+'專屬 · ':'')+beforeArmorAffixLabel(a,g);};
 equipmentView=function(){ensureSharedGear();if(filters.job==='own')filters.job='all';const h=pageHero('equipment');return heading('ACCOUNT INVENTORY / 帳號共用','裝備背包',`<span class="tag">${h.bag.length} / ${RULES.bagCapacity} 件</span>`)+`<section class="panel page-owner-panel"><div class="page-owner-content">${withHero(h,()=>ownerControls(inlineInventoryView(),memberKey(h)))}</div></section>`;};
 const accountShopView=shopView;shopView=function(){return accountShopView().replace('使用對象／付款角色：','道具使用對象：').replace('購買由上方角色付款，使用效果只施加到該角色；寶石及製作材料仍各自持有。','購買扣除帳號金幣，使用效果只施加到選取角色；寶石與製作材料也由帳號共用。');};
 
 function equipmentComparison(h,g,position=null){const afterHero={...h,equipped:[...h.equipped]};while(afterHero.equipped.length<5)afterHero.equipped.push(null);const positions=gearEquipPositions(g);let target=Number.isInteger(position)&&positions.includes(position)?position:positions.find(p=>!afterHero.equipped[p]);if(target===undefined)target=positions[0];afterHero.equipped[target]=g.id;const before=stats(h),after=stats(afterHero),rows=[];
- const labels={hp:'生命上限',atk:'攻擊力',def:'防禦力',crit:'暴擊率',critDamage:'暴擊傷害',pierce:'防禦穿透',lifesteal:'生命竊取',evasion:'閃避率',elementBonus:'全屬性增傷',speed:'速度'};
+ const labels={hp:'生命上限',atk:'攻擊力',def:'防禦力',crit:'暴擊率',critDamage:'暴擊傷害',pierce:'防禦穿透',lifesteal:'生命竊取',evasion:'閃避率',elementBonus:'全屬性增傷',attackSpeedPct:'攻擊速度（%）'};
  const percent=new Set(['crit','critDamage','pierce','lifesteal','evasion','elementBonus']);
  function add(label,a,b,isPercent=false,lowerBetter=false){const factor=isPercent?100:1;a=Number(((a||0)*factor).toFixed(2));b=Number(((b||0)*factor).toFixed(2));if(a===b)return;const d=Number((b-a).toFixed(2));rows.push({label,before:a,after:b,delta:d,percent:isPercent,good:lowerBetter?d<0:d>0});}
  for(const [key,label] of Object.entries(labels))add(label,before[key],after[key],percent.has(key));
@@ -5682,7 +5795,7 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
 
 __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_GALLERY_EFFECTS;__EMBERWILD_TEXT_STYLES=globalThis.__EMBERWILD_TEXT_STYLES??__EMBERWILD_TEXT_STYLES;textRarityStyleById=globalThis.textRarityStyleById??textRarityStyleById;setTextRarityStyles=globalThis.setTextRarityStyles??setTextRarityStyles;textRarityPresentation=globalThis.textRarityPresentation??textRarityPresentation;textRarityBlockPresentation=globalThis.textRarityBlockPresentation??textRarityBlockPresentation;textRarityFrameHTML=globalThis.textRarityFrameHTML??textRarityFrameHTML;textRarityItemHTML=globalThis.textRarityItemHTML??textRarityItemHTML;
 
-/* js/equipment/equipment-stat-source.js?v=20261123-v0194-workshop1 */
+/* js/equipment/equipment-stat-source.js?v=20261123-v0196-aspd */
 
 /* Final equipment source cleanup:
    - Base stats never change because of an equipment name/form.
@@ -5690,7 +5803,7 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
    - Boss equipment never inherits a hidden normal-form effect.
    - Equipment max-MP / MP-regen effects and affixes are removed; legacy ones migrate to small attack bonuses.
 */
-const EQUIPMENT_FIXED_EFFECT_KEYS=new Set(['flatAttack','flatHp','flatDefense','gearAtkPct','gearHpPct','gearDefPct','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamagePct','speed','allCooldownReduction','dropRateBonus','basicAdvanceNextRound','basicElement','elementDamagePct','elementResistPct','raceDamagePct','skillEffectPct','skillCooldownReduction']);
+const EQUIPMENT_FIXED_EFFECT_KEYS=new Set(['flatAttack','flatHp','flatDefense','gearAtkPct','gearHpPct','gearDefPct','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamagePct','attackSpeedPct','allCooldownReduction','dropRateBonus','basicAttackSpeedStack','basicElement','elementDamagePct','elementResistPct','raceDamagePct','skillEffectPct','skillCooldownReduction']);
 const EQUIPMENT_EFFECT_ELEMENTS=new Set(['physical','fire','ice','wind','light','shadow']);
 const EQUIPMENT_EFFECT_RACES=new Set(['beast','plant','undead','construct','demon','spirit']);
 function normalizeFixedEquipmentEffect(raw){
@@ -5825,7 +5938,6 @@ stats=function(h=state){
   }
   if(totalAttackPct)v.atk*=1+totalAttackPct/100;
   v.crit=Math.min(GAME_BALANCE.combat.statCaps.crit,v.crit);v.pierce=Math.min(GAME_BALANCE.combat.statCaps.pierce,v.pierce);v.evasion=Math.min(GAME_BALANCE.combat.statCaps.evasion,v.evasion);v.lifesteal=Math.min(GAME_BALANCE.combat.statCaps.lifesteal,v.lifesteal);
-  v.speed=Math.round([102,108,116,96][h.job]+Math.min(5,(v.evasion||0)*10+(v.crit||0)*5));
   for(const k of ['hp','atk','def'])v[k]=Math.round(v[k]);
   return v;
 };
@@ -5843,7 +5955,7 @@ equipmentComparison=function(h,g,position=null){
   const afterHero={...h,equipped:[...h.equipped]};while(afterHero.equipped.length<5)afterHero.equipped.push(null);const positions=gearEquipPositions(g);let target=Number.isInteger(position)&&positions.includes(position)?position:positions.find(p=>!afterHero.equipped[p]);if(target===undefined)target=positions[0];afterHero.equipped=afterHero.equipped.map(id=>id===g.id?null:id);afterHero.equipped[target]=g.id;
   const compare=()=>{
   const before=stats(h),after=stats(afterHero),rows=[];
-  const labels={hp:'生命上限',atk:'攻擊力',def:'防禦力',crit:'暴擊率',critDamage:'暴擊傷害',pierce:'防禦穿透',defenseIgnore:'防禦無視',lifesteal:'生命竊取',evasion:'閃避率',elementBonus:'全屬性增傷',bossDamage:'BOSS 增傷',speed:'速度'};
+  const labels={hp:'生命上限',atk:'攻擊力',def:'防禦力',crit:'暴擊率',critDamage:'暴擊傷害',pierce:'防禦穿透',defenseIgnore:'防禦無視',lifesteal:'生命竊取',evasion:'閃避率',elementBonus:'全屬性增傷',bossDamage:'BOSS 增傷',attackSpeedPct:'攻擊速度（%）'};
   const percent=new Set(['crit','critDamage','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage']);
   function add(label,a,b,isPercent=false,lowerBetter=false){const factor=isPercent?100:1;a=Number(((a||0)*factor).toFixed(2));b=Number(((b||0)*factor).toFixed(2));if(a===b)return;const d=Number((b-a).toFixed(2));rows.push({label,before:a,after:b,delta:d,percent:isPercent,good:lowerBetter?d<0:d>0});}
   for(const [key,label] of Object.entries(labels))add(label,before[key],after[key],percent.has(key));
@@ -5919,7 +6031,7 @@ stats=function(h=state){
     for(const a0 of g.affix){const a=convertLegacyManaAffix(a0,g);if(a.type<=3){const key=['atk','hp','def','crit'][a.type];v[key]+=a.value/(key==='crit'?100:1);}else if(a.type>=6&&a.type<=9)v[{6:'critDamage',7:'pierce',8:'lifesteal',9:'evasion'}[a.type]]+=a.value/100;else if(a.type===12)v.elementDamage[a.element]=(v.elementDamage[a.element]||0)+a.value/100;else if(a.type===13)v.raceDamage[a.race]=(v.raceDamage[a.race]||0)+a.value/100;else if(a.type===14)v.resist[a.element]=(v.resist[a.element]||0)+a.value/100;else if(a.type===15)totalAttackPct+=a.value;}
   }
   if(totalAttackPct)v.atk*=1+totalAttackPct/100;v.crit=Math.min(GAME_BALANCE.combat.statCaps.crit,v.crit);v.pierce=Math.min(GAME_BALANCE.combat.statCaps.pierce,v.pierce);v.evasion=Math.min(GAME_BALANCE.combat.statCaps.evasion,v.evasion);v.lifesteal=Math.min(GAME_BALANCE.combat.statCaps.lifesteal,v.lifesteal);
-  const heroBase=GS('combat.speed.heroBase',[102,108,116,96]);v.speed=Math.round((heroBase[h.job]??100)+Math.min(GS('combat.speed.bonusCap',5),(v.evasion||0)*GS('combat.speed.evasionWeight',10)+(v.crit||0)*GS('combat.speed.critWeight',5)));for(const k of ['hp','atk','def'])v[k]=Math.round(v[k]);return v;
+  for(const k of ['hp','atk','def'])v[k]=Math.round(v[k]);return v;
 };solo.stats=stats;
 
 skillPower=function(i,h=state){const sk=CLASSES[h.job].skills[i],perLevel=Number.isFinite(sk?.[6]?.powerPerLevel)?sk[6].powerPerLevel:GS('skills.core.effectPerExtraLevel',.4);return (sk[4]+Math.max(0,(Number(h.skills[i])||0)-1)*perLevel)*(1+bonusFor(i,4,h)/100);};
@@ -9872,7 +9984,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentTotalSummar
 
 EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs;__EMBERWILD_DEBUFF_MECHANICS=globalThis.__EMBERWILD_DEBUFF_MECHANICS??__EMBERWILD_DEBUFF_MECHANICS;
 
-/* js/equipment/equipment-identity.js?v=20261123-v0194-workshop1 */
+/* js/equipment/equipment-identity.js?v=20261123-v0196-aspd */
 
 /* Equipment identity v2.
    Normal gear: prefix + suffix + base + internal power tier.
@@ -9885,11 +9997,11 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   const POWER_ITEM_TYPE='gearTierReroll';
   const POWER_ITEM_ID='power_tier_reroll';
   const VALID_ELEMENTS=new Set(['physical','fire','ice','wind','light','shadow']);
-  const REGULAR_EFFECT_KEYS=new Set(['basicElement','basicAdvanceNextRound','flatHp','gearHpPct','hpPct','flatDefense','gearDefPct','defensePct','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','allCooldownReduction','dropRateBonus']);
+  const REGULAR_EFFECT_KEYS=new Set(['basicElement','basicAttackSpeedStack','attackSpeedPct','flatHp','gearHpPct','hpPct','flatDefense','gearDefPct','defensePct','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','allCooldownReduction','dropRateBonus']);
   const BOSS_EFFECT_KEYS=new Set([...REGULAR_EFFECT_KEYS,'gearAtkPct','gearHpPct','gearDefPct','bossDamagePct']);
   const EFFECT_LABELS={
-    flatAttack:'此裝備攻擊力',flatHp:'此裝備最大生命',flatDefense:'此裝備防禦',basicElement:'此武器攻擊屬性',basicAdvanceNextRound:'普攻後下回合前移',gearAtkPct:'此裝備基底攻擊力',gearHpPct:'此裝備基底生命',gearDefPct:'此裝備基底防禦',hpPct:'角色最大生命',defensePct:'角色總防禦',
-    attackPct:'角色總攻擊力',crit:'暴擊率',critDamage:'暴擊傷害',pierce:'防禦穿透',defenseIgnore:'防禦無視',lifesteal:'生命竊取',evasion:'閃避率',elementBonus:'全屬性增傷',bossDamagePct:'對 BOSS 傷害',speed:'速度',
+    flatAttack:'此裝備攻擊力',flatHp:'此裝備最大生命',flatDefense:'此裝備防禦',basicElement:'此武器攻擊屬性',basicAttackSpeedStack:'普攻後疾行',gearAtkPct:'此裝備基底攻擊力',gearHpPct:'此裝備基底生命',gearDefPct:'此裝備基底防禦',hpPct:'角色最大生命',defensePct:'角色總防禦',
+    attackPct:'角色總攻擊力',crit:'暴擊率',critDamage:'暴擊傷害',pierce:'防禦穿透',defenseIgnore:'防禦無視',lifesteal:'生命竊取',evasion:'閃避率',elementBonus:'全屬性增傷',bossDamagePct:'對 BOSS 傷害',attackSpeedPct:'攻擊速度',
     allCooldownReduction:'全主動／輔助技能冷卻',dropRateBonus:'掉寶率',elementDamagePct:'屬性傷害',elementResistPct:'屬性抗性',raceDamagePct:'種族增傷',skillEffectPct:'核心技能效果',skillCooldownReduction:'核心技能冷卻／觸發'
   };
   const LEGACY_BOSS_SERIES=['古木誓約','礦脈共鳴','暮沼咒印','永凍之誓','熔核意志','隕星遺產'];
@@ -9911,7 +10023,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     {id:'keen',name:'銳眼',tierMin:5,tierMax:10,weight:.7,slots:[0,2],effect:fx('crit',5)}
   ];
   const DEFAULT_SUFFIXES=[
-    {id:'traveler',name:'旅人',tierMin:1,tierMax:10,weight:1,slots:[0],effect:fx('basicAdvanceNextRound',1)},
+    {id:'traveler',name:'旅人',tierMin:1,tierMax:10,weight:1,slots:[0],effect:fx('basicAttackSpeedStack',3)},
     {id:'vanguard',name:'先鋒',tierMin:1,tierMax:10,weight:1,slots:[0,1,2],effect:fx('attackPct',4)},
     {id:'swift',name:'迅捷',tierMin:1,tierMax:10,weight:1,slots:[0,1,2],effect:fx('evasion',5)},
     {id:'eagleeye',name:'鷹眼',tierMin:2,tierMax:10,weight:1,slots:[0,2],effect:fx('crit',4)},
@@ -9980,6 +10092,8 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   }
   function normalizeEffect(src,allowed,def){
     const fallback=clone(def);
+    // v0.196: 旅人 used to advance the next action one step; it is now 疾行 (+3% attack speed per stack).
+    if(src?.key==='basicAdvanceNextRound'&&allowed.has('basicAttackSpeedStack'))return {key:'basicAttackSpeedStack',value:3};
     if(!src||typeof src!=='object'||Array.isArray(src)||!allowed.has(src.key))return fallback;
     const key=src.key;
     if(key==='basicElement'){
@@ -9987,7 +10101,8 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
       return {key,value};
     }
     let min=-100,max=500;
-    if(key==='basicAdvanceNextRound'){min=1;max=5;}
+    if(key==='basicAttackSpeedStack'){min=0;max=100;}
+    if(key==='attackSpeedPct'){min=-90;max=100;}
     if(key==='allCooldownReduction'){min=0;max=5;}
     if(key==='dropRateBonus'||key==='bossDamagePct'){min=0;max=500;}
     return {key,value:finite(src.value,fallback.value,min,max)};
@@ -10245,9 +10360,9 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     if(!effect)return '無效果';if(effect.ruleEffect)return effectText(effect.ruleEffect);
     const key=effect.key,value=effect.value,label=EFFECT_LABELS[key]||key;
     if(key==='basicElement')return '此武器攻擊屬性：'+(ELEMENTS[value]||value);
-    if(key==='basicAdvanceNextRound')return '普攻後，下回合行動往前 '+Math.round(Number(value)||0)+' 格';
+    if(key==='basicAttackSpeedStack'){const r=basicStackRule();return '普攻後獲得「疾行」，每層攻擊速度 +'+Number(value)+'%，持續 '+r.durationSeconds+' 秒，最多 '+r.maxStacks+' 層';}
     if(key==='allCooldownReduction'||key==='skillCooldownReduction')return (key==='skillCooldownReduction'?'核心技能 '+((effect.skill??0)+1)+' ':'')+label+' '+cdText(key==='skillCooldownReduction'?'fixedSkill':'fixedAll',Number(value));
-    if(['flatAttack','flatHp','flatDefense','pierce','speed'].includes(key))return label+' '+(Number(value)>=0?'+':'')+Number(value);
+    if(['flatAttack','flatHp','flatDefense','pierce'].includes(key))return label+' '+(Number(value)>=0?'+':'')+Number(value);
     if(key==='elementDamagePct')return (ELEMENTS[effect.element]||effect.element)+' '+label+' '+(Number(value)>=0?'+':'')+Number(value)+'%';
     if(key==='elementResistPct')return (ELEMENTS[effect.element]||effect.element)+' '+label+' '+(Number(value)>=0?'+':'')+Number(value)+'%';
     if(key==='raceDamagePct')return '對'+(RACES[effect.race]||effect.race)+' '+label+' '+(Number(value)>=0?'+':'')+Number(value)+'%';
@@ -10330,7 +10445,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     if(e.key==='flatAttack')v.atk+=n;
     else if(e.key==='flatHp')v.hp+=n;
     else if(e.key==='flatDefense')v.def+=n;
-    else if(e.key==='speed')attackBox.speed=(attackBox.speed||0)+n;
+    else if(e.key==='attackSpeedPct')attackBox.attackSpeedPct=(attackBox.attackSpeedPct||0)+n;
     else if(e.key==='elementDamagePct'&&e.element)v.elementDamage[e.element]=(v.elementDamage[e.element]||0)+n/100;
     else if(e.key==='elementResistPct'&&e.element)v.resist[e.element]=(v.resist[e.element]||0)+n/100;
     else if(e.key==='raceDamagePct'&&e.race)v.raceDamage[e.race]=(v.raceDamage[e.race]||0)+n/100;
@@ -10349,7 +10464,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   stats=function(h=state){
     const cls=typeof heroGrowthDefinition==='function'?heroGrowthDefinition(h):CLASSES[h.job],initial=typeof globalThis.classInitialStats==='function'?classInitialStats(cls,h.job):{hp:cls.hp,atk:cls.atk,def:cls.def,crit:h.job===2?GS('progression.baseCrit.archer',.17):GS('progression.baseCrit.default',.07),critDamage:GS('combat.baseCritDamage',1.5)},natural=EmberwildProgression.naturalStats({initialStats:initial}),mb=typeof globalThis.classMasteryBonus==='function'?classMasteryBonus(h):{hp:0,atk:0,def:0,crit:0},v={hp:natural.hp+mb.hp,atk:natural.atk+mb.atk,def:natural.def+mb.def,crit:initial.crit+mb.crit,critDamage:initial.critDamage,pierce:0,defenseIgnore:0,lifesteal:0,evasion:0,elementBonus:0,bossDamage:0,elementDamage:{},raceDamage:{},resist:{}};
     if(h.companionId!==undefined)for(const key of ['pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage'])v[key]=cls.initialStats?.[key]||0;
-    const attackBox={value:0,hp:0,defense:0};let fixedSpeed=0;
+    const attackBox={value:0,hp:0,defense:0};let attackSpeedPct=0;
     for(const g of equipment(h)){
       const base=gearBaseStats(g);v.atk+=base.atk;v.hp+=base.hp;v.def+=base.def;
       for(const e of identityEffectEntriesForGear(g)){
@@ -10357,11 +10472,11 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
         if(e.key==='flatAttack')v.atk+=n;
         else if(e.key==='flatHp')v.hp+=n;
         else if(e.key==='flatDefense')v.def+=n;
-        else if(e.key==='speed')fixedSpeed+=n;
+        else if(e.key==='attackSpeedPct')attackSpeedPct+=n;
         else if(e.key==='elementDamagePct'&&e.element)v.elementDamage[e.element]=(v.elementDamage[e.element]||0)+n/100;
         else if(e.key==='elementResistPct'&&e.element)v.resist[e.element]=(v.resist[e.element]||0)+n/100;
         else if(e.key==='raceDamagePct'&&e.race)v.raceDamage[e.race]=(v.raceDamage[e.race]||0)+n/100;
-        else if(!['gearAtkPct','gearHpPct','gearDefPct','basicElement','basicAdvanceNextRound','allCooldownReduction','dropRateBonus','skillEffectPct','skillCooldownReduction'].includes(e.key))applyIdentityStatEffect(v,e,attackBox);
+        else if(!['gearAtkPct','gearHpPct','gearDefPct','basicElement','basicAttackSpeedStack','allCooldownReduction','dropRateBonus','skillEffectPct','skillCooldownReduction'].includes(e.key))applyIdentityStatEffect(v,e,attackBox);
       }
       for(const a0 of g.affix||[]){
         const a=convertLegacyManaAffix(a0,g);
@@ -10379,14 +10494,15 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     }
     const passives=globalThis.companionPassiveStatEffects?.(h)||[];
     for(const e of passives)applyIdentityStatEffect(v,e,attackBox);
-    fixedSpeed+=attackBox.speed||0;
+    attackSpeedPct+=attackBox.attackSpeedPct||0;
     if(attackBox.value)v.atk*=1+attackBox.value/100;
     if(attackBox.hp)v.hp*=1+attackBox.hp/100;
     if(attackBox.defense)v.def*=1+attackBox.defense/100;
     v.crit=Math.min(GAME_BALANCE.combat.statCaps.crit,v.crit);v.pierce=Math.min(GAME_BALANCE.combat.statCaps.pierce,v.pierce);v.defenseIgnore=Math.min(GAME_BALANCE.combat.statCaps.defenseIgnore??.75,v.defenseIgnore);v.evasion=Math.min(GAME_BALANCE.combat.statCaps.evasion,v.evasion);v.lifesteal=Math.min(GAME_BALANCE.combat.statCaps.lifesteal,v.lifesteal);
-    const heroBase=GS('combat.speed.heroBase',[102,108,116,96]);v.speed=Math.round((initial.speed??(heroBase[h.job]??100)+GS('combat.speed.heroPerLevel',.5))+Math.min(GS('combat.speed.bonusCap',5),(v.evasion||0)*GS('combat.speed.evasionWeight',10)+(v.crit||0)*GS('combat.speed.critWeight',5))+fixedSpeed);
+    // v0.196: no speed points; equipment fixed effects and companion passives add attack speed percent points.
+    v.attackSpeedPct=attackSpeedPct;
     for(const k of ['hp','atk','def'])v[k]=Math.round(v[k]);
-    if(passives.length){v.hp=Math.max(1,v.hp);v.atk=Math.max(0,v.atk);v.def=Math.max(0,v.def);v.speed=Math.max(1,v.speed);v.critDamage=Math.max(1,v.critDamage);}
+    if(passives.length){v.hp=Math.max(1,v.hp);v.atk=Math.max(0,v.atk);v.def=Math.max(0,v.def);v.critDamage=Math.max(1,v.critDamage);}
     return v;
   };
   solo.stats=stats;
@@ -10397,22 +10513,34 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     for(const g of ordered){const hit=identityEffectEntriesForGear(g).find(e=>e.key==='basicElement'&&VALID_ELEMENTS.has(e.value));if(hit)return hit.value;}
     return 'physical';
   };
-  function basicAdvanceSteps(h){return Math.max(0,Math.min(5,Math.round(effectNumberForHero(h,'basicAdvanceNextRound'))));}
+  // v0.196 疾行: each hero basic attack adds one stack (attack speed +value% per stack) for durationSeconds, up to maxStacks;
+  // another basic attack refreshes the duration. Several items with the effect do not add up: the largest value is used.
+  function basicStackRule(){return {durationSeconds:5,maxStacks:3,...(globalThis.EmberwildSecondsCombat?.config?.().attackSpeed?.basicStack||{})};}
+  function basicStackPct(h){return Math.max(0,...identityEffectsForHero(h).filter(e=>e.key==='basicAttackSpeedStack').map(e=>Number(e.value)||0));}
+  const BASIC_STACK_SKILL='traveler-basic-stack',BASIC_STACK_NAME='疾行';
+  // Legacy round order only: a hero proc 'advanceNextRound' moves the hero forward in the next round's order.
   const identityInitiativeOrderBase=initiativeOrder;
   initiativeOrder=function(){
     const order=identityInitiativeOrderBase();
     for(let i=1;i<order.length;i++){
       const u=order[i];if(u.side!=='hero')continue;
-      const h=u.actor,basic=h.basicAdvanceRound===round?basicAdvanceSteps(h):0,proc=h.procAdvanceRound===round?Math.max(0,Math.min(5,Number(h.procAdvanceSteps)||0)):0,steps=Math.min(5,basic+proc);
-      if(steps){const to=Math.max(0,i-steps);if(to!==i){order.splice(i,1);order.splice(to,0,u);}}
-      if(proc){delete h.procAdvanceRound;delete h.procAdvanceSteps;}
+      const h=u.actor,proc=h.procAdvanceRound===round?Math.max(0,Math.min(5,Number(h.procAdvanceSteps)||0)):0;
+      if(proc){const to=Math.max(0,i-proc);if(to!==i){order.splice(i,1);order.splice(to,0,u);}delete h.procAdvanceRound;delete h.procAdvanceSteps;}
     }
     return order;
   };
   const identityPerformHeroBasicBase=performHeroBasic;
-  performHeroBasic=function(h){const out=identityPerformHeroBasicBase(h),steps=basicAdvanceSteps(h);if(steps)h.basicAdvanceRound=round+1;else delete h.basicAdvanceRound;return out;};
+  performHeroBasic=function(h){
+    const out=identityPerformHeroBasicBase(h),pct=basicStackPct(h);
+    if(pct>0&&party&&h.hp>0){
+      const key=heroKey(h),r=basicStackRule(),old=effects.find(e=>e.target===key&&e.skill===BASIC_STACK_SKILL&&e.until>partyClock),stacks=Math.min(r.maxStacks,(old?.stacks||0)+1);
+      effects=effects.filter(e=>!(e.target===key&&e.skill===BASIC_STACK_SKILL));
+      effects.push({source:memberKey(h),skill:BASIC_STACK_SKILL,target:key,kind:'attackSpeedPct',value:stacks*pct,stacks,until:partyClock+r.durationSeconds,name:BASIC_STACK_NAME});
+    }
+    return out;
+  };
   const identityResetEncounterBase=resetEncounter;
-  resetEncounter=function(){for(const h of party?.members||[]){delete h.basicAdvanceRound;delete h.procAdvanceRound;delete h.procAdvanceSteps;delete h.nextActiveDamageBonus;}return identityResetEncounterBase();};
+  resetEncounter=function(){for(const h of party?.members||[]){delete h.procAdvanceRound;delete h.procAdvanceSteps;delete h.nextActiveDamageBonus;}return identityResetEncounterBase();};
 
   function fixedSkillEffectNumber(h,key,i){return identityEffectsForHero(h).filter(e=>e.key===key&&Number(e.skill)===Number(i)).reduce((n,e)=>n+(Number(e.value)||0),0);}
   const identitySkillPowerBase=skillPower;
@@ -10434,12 +10562,14 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   };
 
   function sourceDifficulty(g){return MODES[Math.max(0,Math.min(2,Number(g?.difficulty)||0))]?.name||'普通';}
-  const PANEL_KEYS=['atk','hp','def','speed'];
-  const FLAT_PANEL_KEYS={flatAttack:'atk',flatHp:'hp',flatDefense:'def',speed:'speed'};
+  const PANEL_KEYS=['atk','hp','def'];
+  const FLAT_PANEL_KEYS={flatAttack:'atk',flatHp:'hp',flatDefense:'def'};
   const PCT_PANEL_KEYS={gearAtkPct:'atk',gearHpPct:'hp',gearDefPct:'def'};
-  const emptyPanel=()=>({atk:0,hp:0,def:0,speed:0});
+  const emptyPanel=()=>({atk:0,hp:0,def:0});
+  // Attack speed percent is summed like the other effect totals, under its own plain numeric key (shared with gems).
+  const numericKey=e=>e.key==='attackSpeedPct'?'attackSpeedPct':[e.key,e.element||'',e.race||'',e.skill??''].join(':');
   function statText(v){
-    const labels={atk:'攻擊',hp:'生命',def:'防禦',speed:'速度'},parts=[];
+    const labels={atk:'攻擊',hp:'生命',def:'防禦'},parts=[];
     for(const k of PANEL_KEYS){const n=Math.round(Number(v?.[k])||0);if(n)parts.push(labels[k]+' '+(n>=0?'+':'')+n);}
     return parts.join(' / ')||'—';
   }
@@ -10558,21 +10688,20 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
       // The existing skill formula multiplies its fixed and random bonus groups.
       if(e.key==='skillEffectPct')e.value=((1+e.fixedValue/100)*(1+e.affixValue/100)-1)*100;
       if(['allCooldownReduction','skillCooldownReduction'].includes(e.key))e.value=Math.max(0,Math.round(e.fixedValue))+e.affixValue;
-      if(e.key==='basicAdvanceNextRound')e.value=Math.max(0,Math.min(5,Math.round(e.value)));
       if(e.key!=='basicElement'){
         e.value=Number(e.value.toFixed(2));
         if(!e.value)continue;
       }
-      if(e.key!=='basicElement')numeric[[e.key,e.element||'',e.race||'',e.skill??''].join(':')]=e.value;
+      if(e.key!=='basicElement')numeric[numericKey(e)]=e.value;
       values.push(e.key==='skillProcChance'?'核心技能 '+((e.skill??0)+1)+' 觸發率 '+(e.value>=0?'+':'')+e.value+'%':e.key==='skillCooldownReduction'?'核心技能 '+((e.skill??0)+1)+' 冷卻 '+cdSummary({fixedSkill:Math.max(0,Math.round(e.fixedValue)),affixSkill:e.affixValue},e.value):e.key==='allCooldownReduction'?'全主動／輔助技能冷卻 '+cdSummary({fixedAll:Math.max(0,Math.round(e.fixedValue)),affixAll:e.affixValue},e.value):effectText(e));
     }
     const affixes=ledger.rows.filter(row=>row.affix).map(row=>({label:row.label.replace(' 加成',''),rule:row.rule,rank:row.affix.rank??0}));
     return {total:ledger.total,values,affixes,numeric};
   };
   globalThis.equipmentNumericFields=function(){
-    const fields=[{key:'atk',label:'攻擊'},{key:'def',label:'防禦'},{key:'hp',label:'生命'},{key:'speed',label:'速度'}];
+    const fields=[{key:'atk',label:'攻擊'},{key:'def',label:'防禦'},{key:'hp',label:'生命'},{key:'attackSpeedPct',label:'攻擊速度（%）'}];
     for(const [key,label] of Object.entries(EFFECT_LABELS)){
-      if(key==='basicElement'||FLAT_PANEL_KEYS[key]||PCT_PANEL_KEYS[key])continue;
+      if(key==='basicElement'||key==='attackSpeedPct'||FLAT_PANEL_KEYS[key]||PCT_PANEL_KEYS[key])continue;
       if(CHARACTER_EFFECT_KEYS.has(key)){fields.push({key,label:label+'加成（%）'});continue;}
       if(['elementDamagePct','elementResistPct'].includes(key)){for(const [target,name] of Object.entries(ELEMENTS))fields.push({key:[key,target,'',''].join(':'),label:name+' · '+label+'（%）'});}
       else if(key==='raceDamagePct'){for(const [target,name] of Object.entries(RACES))fields.push({key:[key,'',target,''].join(':'),label:name+' · '+label+'（%）'});}
@@ -10772,7 +10901,7 @@ journalLootOpen=globalThis.journalLootOpen??journalLootOpen;journalLootHeight=gl
 
 inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldOpen;inventoryDisposeFoldOpen=globalThis.inventoryDisposeFoldOpen??inventoryDisposeFoldOpen;setInventoryFoldState=globalThis.setInventoryFoldState??setInventoryFoldState;
 
-/* js/balance/numeric-compression-formula.js?v=20261119-v0169 */
+/* js/balance/numeric-compression-formula.js?v=20261123-v0196-aspd */
 
 /* Numeric compression v1:
    - Low-number baseline for characters, monsters, equipment and skills.
@@ -10783,7 +10912,7 @@ inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldO
 (()=>{
   const COMPRESSION_VERSION=1;
   const SKILL_META_DEFAULTS={baseCritRate:0,baseCritDamage:1.5,defensePenetration:0,defenseIgnore:0};
-  const ITEM_STAT_KEYS=['hp','attack','defense','attackPct','critRate','critDamage','defensePenetration','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage','speed'];
+  const ITEM_STAT_KEYS=['hp','attack','defense','attackPct','critRate','critDamage','defensePenetration','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage','attackSpeedPct'];
   const clone=v=>JSON.parse(JSON.stringify(v));
 
   function ensureCompressionSettings(s){
@@ -10833,6 +10962,8 @@ inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldO
   function normalizeStatEffects(raw){
     const out={};if(!raw||typeof raw!=='object'||Array.isArray(raw))return out;
     for(const key of ITEM_STAT_KEYS){const n=Number(raw[key]);if(Number.isFinite(n)&&n!==0)out[key]=n;}
+    // v0.196: a legacy fixed speed bonus on a consumable is read as attack speed percent points.
+    if(out.attackSpeedPct===undefined&&Number.isFinite(Number(raw.speed))&&Number(raw.speed)!==0)out.attackSpeedPct=Number(raw.speed);
     return out;
   }
   function compressDocument(doc){
@@ -10894,7 +11025,7 @@ inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldO
   // Temporary item stats are applied after the permanent character/equipment calculation.
   const compressionStatsBase=stats;
   stats=function(h=state){
-    const v=compressionStatsBase(h),effects={};let attackPct=0,speed=0;
+    const v=compressionStatsBase(h),effects={};let attackPct=0,attackSpeedPct=0;
     for(const key of ['imbue','ward','elementTonic'])for(const buff of activeSupplies(h,key)){
       const src=normalizeStatEffects(buff.statEffects);
       for(const [k,n] of Object.entries(src))effects[k]=(effects[k]||0)+n;
@@ -10902,14 +11033,14 @@ inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldO
     v.hp+=(effects.hp||0);v.atk+=(effects.attack||0);v.def+=(effects.defense||0);attackPct+=effects.attackPct||0;
     v.crit+=(effects.critRate||0)/100;v.critDamage+=(effects.critDamage||0)/100;
     v.pierce+=(effects.defensePenetration||0);v.defenseIgnore+=(effects.defenseIgnore||0)/100;
-    v.lifesteal+=(effects.lifesteal||0)/100;v.evasion+=(effects.evasion||0)/100;v.elementBonus+=(effects.elementBonus||0)/100;v.bossDamage+=(effects.bossDamage||0)/100;speed+=effects.speed||0;
+    v.lifesteal+=(effects.lifesteal||0)/100;v.evasion+=(effects.evasion||0)/100;v.elementBonus+=(effects.elementBonus||0)/100;v.bossDamage+=(effects.bossDamage||0)/100;attackSpeedPct+=effects.attackSpeedPct||0;
     if(attackPct)v.atk*=1+attackPct/100;
     v.crit=Math.min(GAME_BALANCE.combat.statCaps.crit,Math.max(0,v.crit));
     v.pierce=Math.min(GAME_BALANCE.combat.statCaps.pierce,Math.max(0,v.pierce));
     v.defenseIgnore=Math.min(GAME_BALANCE.combat.statCaps.defenseIgnore??.75,Math.max(0,v.defenseIgnore||0));
     v.lifesteal=Math.min(GAME_BALANCE.combat.statCaps.lifesteal,Math.max(0,v.lifesteal));
     v.evasion=Math.min(GAME_BALANCE.combat.statCaps.evasion,Math.max(0,v.evasion));
-    v.speed=Math.round((Number(v.speed)||0)+speed);
+    v.attackSpeedPct=(Number(v.attackSpeedPct)||0)+attackSpeedPct;
     for(const k of ['hp','atk','def'])v[k]=Math.max(0,Math.round(v[k]));
     return v;
   };
@@ -10999,7 +11130,7 @@ inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldO
     render();toast('已使用'+item.name);return true;
   };
   function itemStatText(item){
-    const s=normalizeStatEffects(item?.statEffects),labels={hp:'生命',attack:'攻擊',defense:'防禦',attackPct:'總攻擊',critRate:'暴擊率',critDamage:'暴擊傷害',defensePenetration:'防禦穿透',defenseIgnore:'防禦無視',lifesteal:'生命竊取',evasion:'閃避',elementBonus:'全屬性增傷',bossDamage:'BOSS 傷害',speed:'速度'},percent=new Set(['attackPct','critRate','critDamage','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage']);
+    const s=normalizeStatEffects(item?.statEffects),labels={hp:'生命',attack:'攻擊',defense:'防禦',attackPct:'總攻擊',critRate:'暴擊率',critDamage:'暴擊傷害',defensePenetration:'防禦穿透',defenseIgnore:'防禦無視',lifesteal:'生命竊取',evasion:'閃避',elementBonus:'全屬性增傷',bossDamage:'BOSS 傷害',attackSpeedPct:'攻擊速度'},percent=new Set(['attackPct','critRate','critDamage','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage','attackSpeedPct']);
     return Object.entries(s).map(([k,n])=>labels[k]+' '+(n>=0?'+':'')+n+(percent.has(k)?'%':'')).join('、');
   }
   const compressionSupplyDetailBase=supplyDetail;
@@ -16341,7 +16472,7 @@ __EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWIL
 
 __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_GALLERY_EFFECTS;__EMBERWILD_TEXT_STYLES=globalThis.__EMBERWILD_TEXT_STYLES??__EMBERWILD_TEXT_STYLES;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;textRarityEquipmentRowColor=globalThis.textRarityEquipmentRowColor??textRarityEquipmentRowColor;textRarityEquipmentBlockPresentation=globalThis.textRarityEquipmentBlockPresentation??textRarityEquipmentBlockPresentation;
 
-/* js/character/companions.js?v=20261122-v0187 */
+/* js/character/companions.js?v=20261123-v0196-aspd */
 /* Recruitable people have their own identity, name and fixed growth plan. */
 (()=>{
   const Model=EmberwildCompanions,Passive=EmberwildPassives,DEFAULT_PLANS=Model.defaultPlans;
@@ -16695,7 +16826,7 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
     const h=state,plan=companionPlan(h),v=stats(h),c=CLASSES[h.job];
     const percentage=n=>Math.round((n||0)*100);
     const detail=(items,labels)=>Object.entries(items||{}).map(([key,value])=>`${esc(labels[key]||key)} +${percentage(value)}%`).join(' / ');
-    return `<p class="companion-ability-intro">${esc(plan?.description||'原有隊員')} ${plan?'<span>依自身精通解鎖技能。</span>':''}</p><div class="companion-key-stats"><span>生命 <b>${v.hp}</b></span><span>攻擊 <b>${v.atk}</b></span><span>防禦 <b>${v.def}</b></span><span>暴擊 <b>${percentage(v.crit)}%</b></span><span>速度 <b>${v.speed}</b></span></div><details class="companion-ability-extra"><summary>查看進階詳細屬性</summary><div class="companion-extra-stats"><span>暴擊傷害 ${percentage(v.critDamage)}%</span><span>防禦穿透 ${Number((v.pierce||0).toFixed(1))}</span><span>防禦無視 ${percentage(v.defenseIgnore)}%</span><span>生命竊取 ${percentage(v.lifesteal)}%</span><span>閃避 ${percentage(v.evasion)}%</span><span>武器屬性 ${esc(ELEMENTS[weaponElement(h)])}</span><span>全屬性增傷 ${percentage(v.elementBonus)}%</span></div><p>${detail(v.elementDamage,ELEMENTS)}</p><p>${detail(v.raceDamage,RACES)}</p><p>${Object.entries(v.resist||{}).map(([key,value])=>`${esc(ELEMENTS[key]||key)}抗性 ${percentage(value)}%`).join(' / ')}</p></details>`;
+    return `<p class="companion-ability-intro">${esc(plan?.description||'原有隊員')} ${plan?'<span>依自身精通解鎖技能。</span>':''}</p><div class="companion-key-stats"><span>生命 <b>${v.hp}</b></span><span>攻擊 <b>${v.atk}</b></span><span>防禦 <b>${v.def}</b></span><span>暴擊 <b>${percentage(v.crit)}%</b></span>${typeof attackSpeedPanelHTML==='function'?attackSpeedPanelHTML(h):''}</div><details class="companion-ability-extra"><summary>查看進階詳細屬性</summary><div class="companion-extra-stats"><span>暴擊傷害 ${percentage(v.critDamage)}%</span><span>防禦穿透 ${Number((v.pierce||0).toFixed(1))}</span><span>防禦無視 ${percentage(v.defenseIgnore)}%</span><span>生命竊取 ${percentage(v.lifesteal)}%</span><span>閃避 ${percentage(v.evasion)}%</span><span>武器屬性 ${esc(ELEMENTS[weaponElement(h)])}</span><span>全屬性增傷 ${percentage(v.elementBonus)}%</span></div><p>${detail(v.elementDamage,ELEMENTS)}</p><p>${detail(v.raceDamage,RACES)}</p><p>${Object.entries(v.resist||{}).map(([key,value])=>`${esc(ELEMENTS[key]||key)}抗性 ${percentage(value)}%`).join(' / ')}</p></details>`;
   }
   function companionSkillsView(){
     const h=state,plan=companionPlan(h),mastery=globalThis.__EMBERWILD_MASTERY;
@@ -17674,7 +17805,7 @@ EmberwildInduction=globalThis.EmberwildInduction??EmberwildInduction;
 
 __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildInductionRuntime=globalThis.EmberwildInductionRuntime??EmberwildInductionRuntime;castEnemySharedSkill=globalThis.castEnemySharedSkill??castEnemySharedSkill;__EMBERWILD_BALANCE_FINAL_APPLY_PENDING=globalThis.__EMBERWILD_BALANCE_FINAL_APPLY_PENDING??__EMBERWILD_BALANCE_FINAL_APPLY_PENDING;EmberwildInduction=globalThis.EmberwildInduction??EmberwildInduction;
 
-/* js/items/companion-tokens.js?v=20261123-v0194-workshop1 */
+/* js/items/companion-tokens.js?v=20261123-v0196-aspd */
 /* Single companion slot, existing stat/loot/save paths, bounded combat events. */
 (()=>{
   'use strict';
@@ -17840,14 +17971,14 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;Emberwil
   function companionCards(){return `<section class="panel companion-token-panel"><h2>夥伴信物</h2><p class="small">夥伴各自累積職業精通，只使用一件信物；後備與名冊夥伴保留穿戴。更換或卸下信物會放棄目前遭遇。</p><div class="token-grid">${party.members.filter(companion).map(h=>{const g=item(h);return `<article class="card token-slot" data-token-owner="${memberKey(h)}"><h3>${esc(characterName(h))} · ${esc(CLASSES[h.job].name)}</h3>${g?gearSlotHTML(g):'<p class="empty">未穿戴信物</p>'}<div class="actions"><button onclick="showCompanionTokens(${memberKey(h)})">更換信物</button>${g?`<button onclick="unequipCompanionToken(${memberKey(h)})">卸下</button><button type="button" onclick="moveToWorkshop('${g.id}')">移到工坊</button><button type="button" onclick="showWornTokenDetail('${g.id}')">詳情</button>`:''}</div></article>`;}).join('')||'<p>招募夥伴後即可使用信物。</p>'}</div></section>`;}
   globalThis.showWornTokenDetail=function(id){const g=findGear(id);if(!M.isToken(g)||!gearWearer(id))return false;const modal=$('modal');modal.innerHTML=`<h2>信物詳情</h2>${detail(g)}<p class="small">品質：${AFFIX_RANK[g.rar]} · 強化 +${g.plus} · ${esc(companionTokenJobLabel(g))}</p><div class="actions"><button type="button" onclick="closeModal()">關閉</button></div>`;if(!modal.open)modal.showModal();return true;};
   globalThis.showCompanionTokens=function(key){const h=partyMember(key);if(!companion(h))return;const current=item(h);$('modal').innerHTML=`<div class="token-dialog-header"><h2>${esc(characterName(h))} · 信物管理</h2><button type="button" onclick="closeModal()">關閉</button></div>${current?detail(current):'<p>目前未穿戴信物</p>'}<div class="token-grid">${state.bag.filter(g=>M.canEquip(g,h)&&(!gearWearer(g.id)||gearWearer(g.id)===h)).map(g=>`<article class="card">${detail(g)}${comparison(h,g)}<button data-token-id="${g.id}" onclick="if(equipCompanionToken('${g.id}',${key}))closeModal()" ${g===current?'disabled':''}>${g===current?'已穿戴':'穿戴'}</button></article>`).join('')||'<p>背包目前沒有可穿戴的信物。</p>'}</div>`;$('modal').showModal();};
-  function comparison(h,g){const before=stats(h),after=stats({...h,tokenId:g.id});return `<p class="small">換裝比較：${['hp','atk','def','crit','critDamage','speed','pierce','defenseIgnore','lifesteal','evasion'].filter(k=>before[k]!==after[k]).map(k=>`${({hp:'HP',atk:'攻擊',def:'防禦',crit:'暴擊',critDamage:'暴傷',speed:'速度',pierce:'穿透',defenseIgnore:'無視',lifesteal:'竊取',evasion:'閃避'})[k]} ${Number(before[k].toFixed(3))} → ${Number(after[k].toFixed(3))}`).join(' / ')||'面板相同，請比較特殊效果'}</p>`;}
+  function comparison(h,g){const before=stats(h),after=stats({...h,tokenId:g.id});return `<p class="small">換裝比較：${['hp','atk','def','crit','critDamage','attackSpeedPct','pierce','defenseIgnore','lifesteal','evasion'].filter(k=>(before[k]||0)!==(after[k]||0)).map(k=>`${({hp:'HP',atk:'攻擊',def:'防禦',crit:'暴擊',critDamage:'暴傷',attackSpeedPct:'攻擊速度 %',pierce:'穿透',defenseIgnore:'無視',lifesteal:'竊取',evasion:'閃避'})[k]} ${Number((before[k]||0).toFixed(3))} → ${Number((after[k]||0).toFixed(3))}`).join(' / ')||'面板相同，請比較特殊效果'}</p>`;}
   const tokenDefaults=()=>({name:'',job:'all',quality:'all',locked:'all',worn:'all',plusMin:'',plusMax:'',stat:'',op:'gte',value:'',upper:''});
   let tokenFilter=tokenDefaults(),tokenSort='quality',tokenDirection='desc',tokenMulti=false,tokenAdvanced=false,tokenSelected=new Set(),tokenReview=null,tokenDetailId=null;
   const tokenOwned=g=>!!gearWearer(g.id)||!!globalThis.__EMBERWILD_TEAM_EQUIPMENT?.references(g.id).length;
   const tokenActionable=(g,mode)=>M.isToken(g)&&!g.locked&&!tokenOwned(g)&&(mode!=='sell'||globalThis.__EMBERWILD_CAN_SELL_GEAR?.(g)!==false);
   const tokenBound=(n,v,lower)=>v===''||Number.isFinite(Number(v))&&(lower?n>=Number(v):n<=Number(v));
   function tokenNumeric(g){
-    const totals={atk:0,hp:0,def:0,speed:0},flat={flatAttack:'atk',flatHp:'hp',flatDefense:'def',speed:'speed'};
+    const totals={atk:0,hp:0,def:0,attackSpeedPct:0},flat={flatAttack:'atk',flatHp:'hp',flatDefense:'def',attackSpeedPct:'attackSpeedPct'};
     for(const e of M.effectsFor(g,GS('equipment.enhance.statPerLevel',.05))){
       if(e.key==='basicElement')continue;
       const key=flat[e.key]||(['attackPct','hpPct','defensePct'].includes(e.key)?e.key:[e.key,e.element||'',e.race||'',e.skill??''].join(':'));
@@ -19633,7 +19764,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=g
 
 __EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_VALIDATE_ITEM_IDS=globalThis.__EMBERWILD_VALIDATE_ITEM_IDS??__EMBERWILD_VALIDATE_ITEM_IDS;grantConfiguredToken=globalThis.grantConfiguredToken??grantConfiguredToken;
 
-/* js/story/story-runtime.js?v=20261120-v0184 */
+/* js/story/story-runtime.js?v=20261123-v0196-aspd */
 /* Story orchestration reads existing account stores; only missing lifetime metrics live in progressStats. */
 (()=>{
  const M=EmberwildStory,copy=M.copy;
@@ -19734,7 +19865,7 @@ __EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_VA
   render();return true;
  };
  function conditionLabel(c){const m=GAMEPLAY_SETTINGS.monsters.catalog.find(x=>x.id===c.key);let key=c.key;if(['region','visit','explore','boss'].includes(c.type))key=MAPS[Number(c.key)]?.name||c.key;if(c.type==='kill')key=m?.name||c.key;if(c.type==='quest')key=design.quests.find(q=>q.id===c.key)?.name||c.key;if(c.type==='recipe')key=__EMBERWILD_LIFE_SKILLS.design.recipes[c.key]?.name||c.key;if(c.itemType==='item'&&['stock','acquired','gatherItem'].includes(c.type))key=SHOP.find(x=>x.id===c.key)?.name||c.key;if(['gearWorn','gearBaseGem'].includes(c.type))key=design.gearRewards.find(g=>g.id===c.key)?.name||c.key;if(c.type==='skillSlotted')key=__EMBERWILD_SKILLS.byId(c.key)?.name||c.key;if(c.type==='encounter')key=questEncounterRows().find(x=>x.key===c.key)?.name||c.key;return M.TYPES[c.type]+(key?' · '+key:'');}
- function lessonEffects(s){return s.conditions.conditions.filter(c=>c.type==='gearBaseGem').map(c=>{const id=wornReward(playerHero(),c.key)?.skillSockets?.gems[c.slot];if(id==null)return '<p>鑲嵌前：此孔加成 0。</p>';const {stat,unit,values}=__EMBERWILD_SKILLS.system().gems.find(x=>x.kind===id%5).base,v=values[Math.floor(id/5)];return '<p>目前：'+({atk:'攻擊',hp:'生命',def:'防禦',speed:'速度',crit:'暴擊率'}[stat])+' +'+v*(unit==='ratio'?100:1)+(unit==='ratio'?'%':'')+'</p>';}).join('');}
+ function lessonEffects(s){return s.conditions.conditions.filter(c=>c.type==='gearBaseGem').map(c=>{const id=wornReward(playerHero(),c.key)?.skillSockets?.gems[c.slot];if(id==null)return '<p>鑲嵌前：此孔加成 0。</p>';const {stat,unit,values}=__EMBERWILD_SKILLS.system().gems.find(x=>x.kind===id%5).base,v=values[Math.floor(id/5)];return '<p>目前：'+({atk:'攻擊',hp:'生命',def:'防禦',attackSpeedPct:'攻擊速度',crit:'暴擊率'}[stat])+' +'+v*(unit==='ratio'?100:1)+(unit==='ratio'||unit==='percent'?'%':'')+'</p>';}).join('');}
  const objectives=(g,r)=>`<p class="small">${g.mode==='any'?'任一達成':'全部達成'}</p><ul class="story-objectives">${g.conditions.map(c=>`<li class="${progress(c,r)>=c.count?'story-met':''}"><span>${esc(conditionLabel(c))}${c.mode==='stage'?'（本階段起算）':''}</span><b>${progress(c,r)} / ${c.count}</b></li>`).join('')||'<li>閱讀劇情即可繼續</li>'}</ul>`;
  const rewardName=x=>x.type==='gear'?design.gearRewards.find(g=>g.id===x.key)?.name:x.type==='gem'?GEMS[Number(x.key)]?.name:x.type==='skill'?__EMBERWILD_SKILLS.byId(x.key)?.name:x.type==='item'?SHOP.find(i=>i.id===x.key)?.name:x.key;
  const rewardText=r=>[r.gold?'金幣 ×'+r.gold:'',r.ore?'鍛鐵 ×'+r.ore:'',...r.items.filter(x=>(x.job===undefined||x.job===playerHero().job)&&!(x.type==='gear'&&ownedGear(x.key).length)).map(x=>(rewardName(x)||x.key)+' ×'+x.quantity)].filter(Boolean).join('、');
@@ -19954,14 +20085,14 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis
 
 __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;EmberwildNavigation=globalThis.EmberwildNavigation??EmberwildNavigation;toggleMobileJournal=globalThis.toggleMobileJournal??toggleMobileJournal;toggleMobileLoot=globalThis.toggleMobileLoot??toggleMobileLoot;toggleMobileReport=globalThis.toggleMobileReport??toggleMobileReport;
 
-/* js/equipment/gear-inventory.js?v=20261123-v0194-workshop1 */
+/* js/equipment/gear-inventory.js?v=20261123-v0196-aspd */
 /* Bag presentation uses immutable item identities and the existing stat ledger,
    sale transaction and salvage reward plan. No generated-stat cache is persisted. */
 (()=>{
   // The bag always hides worn equipment; manage worn gear on the equipment page.
   const defaults=()=>({job:'all',slot:'all',quality:'all',tMin:'',tMax:'',levelMin:'',levelMax:'',locked:'all',stat:'',op:'gte',value:'',upper:'',affixType:'',affixSkill:'',affixElement:'',affixRace:'',affixRank:'',affixOp:'gte',affixValue:''});
   let filter=defaults(),sort='quality',direction='desc',multi=false,advanced=false,selected=new Set(),review=null;
-  const folds={filters:false,sort:false},commonSortFields=['atk','def','hp','speed','crit'];
+  const folds={filters:false,sort:false},commonSortFields=['atk','def','hp','attackSpeedPct','crit'];
   const T=()=>globalThis.__EMBERWILD_TEAM_EQUIPMENT;
   const fields=()=>globalThis.equipmentNumericFields().filter(f=>!/^skill(?:EffectPct|CooldownReduction|ProcChance):/.test(f.key));
   const affixTypes=[[0,'攻擊'],[1,'生命'],[2,'防禦'],[3,'暴擊率'],[4,'技能效果'],[5,'技能冷卻／觸發率'],[6,'暴擊傷害'],[7,'防禦穿透'],[8,'生命竊取'],[9,'閃避率'],[12,'屬性增傷'],[13,'種族增傷'],[14,'屬性抗性'],[15,'攻擊加成'],[16,'全技能冷卻'],[17,'掉落率'],[18,'防禦無視']];
@@ -20064,7 +20195,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   function controls(){const active=JSON.stringify(filter)!==JSON.stringify(defaults());return `<div class="gear-management-toolbar"><button onclick="toggleGearInventoryMulti()" aria-pressed="${multi}">${multi?'結束多選':'多選裝備'}</button><button type="button" class="gear-filter-button" onclick="openGearInventoryFilters()">裝備篩選${active?' · 已套用':''}</button></div>`;}
   globalThis.setGearInventoryAdvanced=value=>{advanced=!!value;};
   function item(row){
-    const g=row.g,worn=gearWearer(g.id),can=actionable(g),stats=Object.entries(row.stats).filter(([key,n])=>['atk','def','hp','speed'].includes(key)&&n).map(([key,n])=>({atk:'攻',def:'防',hp:'生命',speed:'速度'}[key])+' '+n).join(' · ');
+    const g=row.g,worn=gearWearer(g.id),can=actionable(g),stats=Object.entries(row.stats).filter(([key,n])=>['atk','def','hp','attackSpeedPct'].includes(key)&&n).map(([key,n])=>key==='attackSpeedPct'?'攻速 +'+n+'%':({atk:'攻',def:'防',hp:'生命'}[key])+' '+n).join(' · ');
     return `<article class="gear-management-row" data-gear-id="${g.id}">${multi?`<label class="gear-selection"><input type="checkbox" aria-label="選取 ${esc(equipmentDisplayName(g))}" ${selected.has(g.id)?'checked':''} ${can?'':'disabled'} onchange="toggleGearInventorySelected('${g.id}',this.checked)"></label>`:''}<div class="gear-management-item">${gearSlotHTML(g,{selected:g.id===inventorySelectedGearId,className:'inventory-list-item',onclick:`selectInventoryGear('${g.id}')`})}<div class="gear-management-meta"><span class="effect-quality-${gearQualityRank(g)}">${esc(AFFIX_RANK[gearQualityRank(g)])}</span> · 裝等 ${gearRequiredLevel(g)} · ${esc(gearWearableJobsText(g))}${worn?' · '+esc(characterName(worn))+'已裝備':''}<br>${esc(stats||'無面板屬性')}</div></div><button class="gear-lock" onclick="toggleGearLock('${g.id}')" aria-pressed="${!!g.locked}" aria-label="${g.locked?'解除鎖定':'鎖定'} ${esc(equipmentDisplayName(g))}">${g.locked?'已鎖定':'鎖定'}</button></article>`;
   }
   function quote(items,mode){
@@ -20120,7 +20251,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;equipmentNumericFields=globalThis.equipmentNumericFields??equipmentNumericFields;setGearInventoryFilter=globalThis.setGearInventoryFilter??setGearInventoryFilter;clearGearInventoryFilters=globalThis.clearGearInventoryFilters??clearGearInventoryFilters;setGearInventorySort=globalThis.setGearInventorySort??setGearInventorySort;setGearInventoryFold=globalThis.setGearInventoryFold??setGearInventoryFold;toggleGearInventoryDirection=globalThis.toggleGearInventoryDirection??toggleGearInventoryDirection;toggleGearInventoryMulti=globalThis.toggleGearInventoryMulti??toggleGearInventoryMulti;toggleGearInventorySelected=globalThis.toggleGearInventorySelected??toggleGearInventorySelected;selectVisibleGear=globalThis.selectVisibleGear??selectVisibleGear;clearSelectedGear=globalThis.clearSelectedGear??clearSelectedGear;openGearInventoryFilters=globalThis.openGearInventoryFilters??openGearInventoryFilters;finishGearInventoryFilters=globalThis.finishGearInventoryFilters??finishGearInventoryFilters;setGearInventoryAdvanced=globalThis.setGearInventoryAdvanced??setGearInventoryAdvanced;requestGearInventoryBatch=globalThis.requestGearInventoryBatch??requestGearInventoryBatch;confirmGearInventoryBatch=globalThis.confirmGearInventoryBatch??confirmGearInventoryBatch;openInventoryWear=globalThis.openInventoryWear??openInventoryWear;openWornWearHelp=globalThis.openWornWearHelp??openWornWearHelp;__EMBERWILD_GEAR_INVENTORY=globalThis.__EMBERWILD_GEAR_INVENTORY??__EMBERWILD_GEAR_INVENTORY;
 
-/* js/combat/offline-exploration.js?v=20261120-v0180 */
+/* js/combat/offline-exploration.js?v=20261123-v0196-aspd */
 /* One event timeline for visible play, background throttling and cold saves.
    Party, combat cursor and pending receipt are committed by one KEY setItem. */
 (()=>{
@@ -20355,7 +20486,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
   if(h.tokenId||h.procSlots.some(x=>x!==null)||h.supportSlots.some(x=>x!==null)||h.skillLoadout?.active.some(id=>__EMBERWILD_SKILLS.byId(id)?.sources.some(s=>s.type==='equipment')))return 'special-skill';
   const simpleSkill=i=>{const sk=CLASSES[h.job].skills[i],m=sk?.[6];return /^class\d+-initial\d+$/.test(m?.id||'')&&['damage','tauntRage','shield','heal'].includes(sk[5])&&!m.onHitStatusId&&!m.statusId&&(!m.systemEffect||['taunt','guard','regen','slow'].includes(m.systemEffect))&&(m.commonEffectKeys||[]).every(k=>['target','hitCount'].includes(k));};
   if(h.active.some(i=>i!==null&&!simpleSkill(i)))return 'special-skill';
-  if(equipment(h).some(g=>itemForm(g)?.fixedEffects?.some(x=>['basicAdvanceNextRound'].includes(x.key))))return 'special-equipment';
+  if(equipment(h).some(g=>itemForm(g)?.fixedEffects?.some(x=>['basicAttackSpeedStack'].includes(x.key))))return 'special-equipment';
   if(api.ELEMENTAL_TYPES.some(k=>api.buffRows(h[k]).some(b=>b.remainingMs>0)))return 'elemental-supply';
   const rows=monsterCatalog().filter(m=>m.mapIndex===party.map&&m.enabled!==false&&m.kind==='normal');
   if(rows.some(m=>m.skillAssignments?.length))return 'enemy-skill';
@@ -20843,10 +20974,10 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;Emberwil
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;classMasteryLevel=globalThis.classMasteryLevel??classMasteryLevel;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;__EMBERWILD_TOKEN_SKILL=globalThis.__EMBERWILD_TOKEN_SKILL??__EMBERWILD_TOKEN_SKILL;__EMBERWILD_SKILL_REFRESH=globalThis.__EMBERWILD_SKILL_REFRESH??__EMBERWILD_SKILL_REFRESH;__EMBERWILD_BALANCE_FINAL_APPLY_PENDING=globalThis.__EMBERWILD_BALANCE_FINAL_APPLY_PENDING??__EMBERWILD_BALANCE_FINAL_APPLY_PENDING;configureSkill=globalThis.configureSkill??configureSkill;setPassiveSkillEnabled=globalThis.setPassiveSkillEnabled??setPassiveSkillEnabled;
 
-/* js/skills/gear-skills.js?v=20261120-v0183 */
+/* js/skills/gear-skills.js?v=20261123-v0196-aspd */
 /* v0.172 gear skills of the forest monsters' exclusive gear.
-   - 野狼怒吼 (systemEffect 'haste'): the caster's basic attack interval is shortened by `power` (0.15 = 15%) for `duration`
-     seconds. The interval is base × reference speed ÷ speed, so the speed is divided by (1 − power).
+   - 野狼怒吼 (systemEffect 'haste', v0.196): the caster gains 狼奔, attack speed +`attackSpeedPct` percent points (18 = +18%)
+     for `duration` seconds. It is an effect of kind 'attackSpeedPct'; recasting replaces it, it never stacks with itself.
    - 藤蔓纏繞 (systemEffect 'bind'): a random living enemy has its basic attack charge reset to a full interval, once.
    - 凝膠復原 (passive effect key 'regenPerSecond'): while worn (or carried by a companion's token) restores a fixed amount of HP
      each second, in and out of battle. The HP changes through EmberwildBattleEffects.quiet, without a healing effect, because
@@ -20859,7 +20990,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildBa
 (()=>{
   'use strict';
   const S=()=>globalThis.__EMBERWILD_SKILLS;
-  const HASTE='skillHaste';
+  const HASTE='attackSpeedPct',HASTE_NAME='狼奔';
   function gearSkillIds(h){
     const out=new Set();if(!h)return out;
     for(const g of S()?.worn?.(h)||[])if(g?.skillId)out.add(g.skillId);
@@ -20916,18 +21047,20 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildBa
     const alive=foes.filter(e=>e.hp>0);if(!alive.length)return false;
     if(sk.systemEffect==='haste'){
       const key=heroKey(h);effects=effects.filter(e=>!(e.target===key&&e.kind===HASTE&&e.skill===sk.id));
-      effects.push({source:memberKey(h),skill:sk.id,target:key,kind:HASTE,value:sk.power,until:partyClock+sk.duration,name:sk.name});
-      note(characterName(h)+'・'+sk.name+'：普攻間隔縮短 '+Math.round(sk.power*100)+'%，持續 '+sk.duration+' 秒');
+      const pct=EmberwildAttackSpeed.checkPct(sk.attackSpeedPct);
+      effects.push({source:memberKey(h),skill:sk.id,target:key,kind:HASTE,value:pct,until:partyClock+sk.duration,name:HASTE_NAME});
+      note(characterName(h)+'・'+sk.name+'：獲得「'+HASTE_NAME+'」，攻擊速度 +'+pct+'%，持續 '+sk.duration+' 秒');
     }else{
       const e=alive[Math.floor(Math.random()*alive.length)];bind(e);
       note(characterName(h)+'・'+sk.name+' → '+(globalThis.combatEnemyName?.(e)||e.name)+' 被綑綁，普通攻擊重新蓄力');
     }
     return true;
   };
+  // Timed attack speed effects (狼奔, 疾行, statuses with an attackSpeedPct modifier) add to the permanent total.
   const statsBase=battleStats;
   battleStats=function(h){
-    const v=statsBase(h),haste=effectTotal(heroKey(h),HASTE);
-    if(haste>0&&Number.isFinite(v.speed))v.speed=v.speed/(1-Math.min(.9,haste));
+    const v=statsBase(h);if(!h||!Object.hasOwn(h,'job'))return v;
+    v.attackSpeedPct=(Number(v.attackSpeedPct)||0)+effectTotal(heroKey(h),HASTE);
     return v;
   };
   // Old saves: 凝膠護甲 dropped in v0.163–v0.169 carries 凝膠緩衝 (gel-guard, now disabled); it now carries 凝膠復原. The item keeps
@@ -20940,7 +21073,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildBa
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;__EMBERWILD_TOKEN_SKILL=globalThis.__EMBERWILD_TOKEN_SKILL??__EMBERWILD_TOKEN_SKILL;__EMBERWILD_SKILL_REFRESH=globalThis.__EMBERWILD_SKILL_REFRESH??__EMBERWILD_SKILL_REFRESH;EmberwildTokenRuntime=globalThis.EmberwildTokenRuntime??EmberwildTokenRuntime;__EMBERWILD_GEAR_SKILL_IDS=globalThis.__EMBERWILD_GEAR_SKILL_IDS??__EMBERWILD_GEAR_SKILL_IDS;__EMBERWILD_GEAR_REGEN=globalThis.__EMBERWILD_GEAR_REGEN??__EMBERWILD_GEAR_REGEN;__EMBERWILD_GEAR_REGEN_RATE=globalThis.__EMBERWILD_GEAR_REGEN_RATE??__EMBERWILD_GEAR_REGEN_RATE;combatEnemyName=globalThis.combatEnemyName??combatEnemyName;__EMBERWILD_GEAR_SKILLS=globalThis.__EMBERWILD_GEAR_SKILLS??__EMBERWILD_GEAR_SKILLS;
 
-/* js/equipment/equipment-skill-runtime.js?v=20261119-v0173 */
+/* js/equipment/equipment-skill-runtime.js?v=20261123-v0196-aspd */
 /* Equipment owns gems. Cached effects read only the five worn instances; all
    gem changes and item disposal commit together with the existing save. */
 (()=>{
@@ -20968,7 +21101,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
   const out=summaryBase(g);
   for(const id of g.skillSockets?.gems||[]){
    if(id===null)continue;const d=rules().gems.find(x=>x.kind===id%5),tier=Math.floor(id/5);
-   const ratio=d.base.unit==='ratio',key=ratio&&d.base.stat!=='crit'?({atk:'attackPct',hp:'hpPct',def:'defensePct'}[d.base.stat]||d.base.stat):d.base.stat,v=d.base.values[tier]*(ratio?100:1);out.numeric[key]=(out.numeric[key]||0)+v;out.values.push(GEMS[id].name+'：'+({atk:'攻擊',hp:'生命',def:'防禦',crit:'暴擊率',speed:'速度'}[d.base.stat]||d.base.stat)+' +'+v+(ratio?'%':''));
+   const ratio=d.base.unit==='ratio',key=ratio&&d.base.stat!=='crit'?({atk:'attackPct',hp:'hpPct',def:'defensePct'}[d.base.stat]||d.base.stat):d.base.stat,v=d.base.values[tier]*(ratio?100:1);out.numeric[key]=(out.numeric[key]||0)+v;out.values.push(GEMS[id].name+'：'+({atk:'攻擊',hp:'生命',def:'防禦',crit:'暴擊率',attackSpeedPct:'攻擊速度'}[d.base.stat]||d.base.stat)+' +'+v+(ratio||d.base.unit==='percent'?'%':''));
   }
   return out;
  };
@@ -21020,7 +21153,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;createEquipmentShopGear=globalThis.createEquipmentShopGear??createEquipmentShopGear;socketEquipmentGem=globalThis.socketEquipmentGem??socketEquipmentGem;
 
-/* js/ui/skill-system-ui.js?v=20261123-v0194-workshop1 */
+/* js/ui/skill-system-ui.js?v=20261123-v0196-aspd */
 /* One loadout view and one equipment socket editor use the canonical catalog. */
 (()=>{
  'use strict';
@@ -21113,10 +21246,10 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  };
  globalThis.chooseSkillSlot=function(t,n,id){const h=party.members[0];return withHero(h,()=>{if(!configureSkill(t,n,id))return false;closeModal();return true;});};
  $('modal').addEventListener('close',()=>$('modal').classList.remove('skill-system-dialog','skill-slot-dialog','skill-catalog-dialog'));
- const statNames={atk:'攻擊',hp:'生命',def:'防禦',speed:'速度',crit:'暴擊'};
+ const statNames={atk:'攻擊',hp:'生命',def:'防禦',attackSpeedPct:'攻擊速度',crit:'暴擊'};
  function gemText(id){
   const {stat,unit,values}=S.system().gems.find(x=>x.kind===id%5).base,value=values[Math.floor(id/5)];
-  return statNames[stat]+' +'+(unit==='ratio'?Math.round(value*10000)/100+'%':value);
+  return statNames[stat]+' +'+(unit==='ratio'?Math.round(value*10000)/100+'%':unit==='percent'?value+'%':value);
  }
  let socketSelection=null;
  globalThis.selectEquipmentSocket=function(id,n){
@@ -21251,7 +21384,7 @@ equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSu
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_MASTERY_DAMAGE=globalThis.__EMBERWILD_MASTERY_DAMAGE??__EMBERWILD_MASTERY_DAMAGE;openSkillTreeDetail=globalThis.openSkillTreeDetail??openSkillTreeDetail;selectSkillTreeNode=globalThis.selectSkillTreeNode??selectSkillTreeNode;classMasteryTreeHTML=globalThis.classMasteryTreeHTML??classMasteryTreeHTML;
 
-/* js/ui/battle-summary.js?v=20261122-v0187 */
+/* js/ui/battle-summary.js?v=20261123-v0196-aspd */
 /* Read-only combat presentation. HP and membership always come from combat units.
    Only previous visual samples, DOM nodes and a finished encounter's references
    are retained here; none of these values are saved or used by combat. */
@@ -21440,8 +21573,10 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
  }
  function showUnit(id,side){
   const d=globalThis.EmberwildSecondsCombat?.active?globalThis.EmberwildBattleSummary.inspect(id,side):inspect(id,side);if(!d)return false;
-  const statNames={atk:'攻擊力',def:'防禦力',speed:'速度',crit:'暴擊率',critDamage:'暴擊傷害',pierce:'防禦穿透',defenseIgnore:'防禦無視',lifesteal:'生命竊取',evasion:'閃避率',elementBonus:'全屬性增傷',bossDamage:'BOSS 增傷'},ratios=new Set(['crit','critDamage','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage']);
+  // v0.196: allies show attack speed percent with the resulting interval and frequency; enemies keep their speed.
+  const ally=d.side==='ally',statNames={atk:'攻擊力',def:'防禦力',...(ally?{}:{speed:'速度'}),crit:'暴擊率',critDamage:'暴擊傷害',pierce:'防禦穿透',defenseIgnore:'防禦無視',lifesteal:'生命竊取',evasion:'閃避率',elementBonus:'全屬性增傷',bossDamage:'BOSS 增傷'},ratios=new Set(['crit','critDamage','defenseIgnore','lifesteal','evasion','elementBonus','bossDamage']);
   const statRows=Object.entries(statNames).map(([k,n])=>[n,ratios.has(k)?pct(d.stats[k]):fmt(finite(d.stats[k]))]);
+  if(ally){const h=party?.members.find(x=>heroKey(x)===d.id);if(h&&typeof heroAttackSpeedSummary==='function'){const a=heroAttackSpeedSummary(h);statRows.splice(2,0,['攻擊速度',EmberwildAttackSpeed.formatPct(a.bonusPct)],['普攻間隔',a.intervalSeconds.toFixed(3)+' 秒'],['普攻頻率',a.attacksPerSecond.toFixed(3)+' 次／秒']);}}
   for(const [k,label,names] of [['elementDamage','屬性增傷',ELEMENTS],['resist','屬性抗性',ELEMENTS],['raceDamage','種族增傷',RACES]])for(const [target,value] of Object.entries(d.stats[k]||{}))statRows.push([(names[target]||target)+' · '+label,pct(value)]);
   const labels={active:'主動',proc:'普攻觸發',support:'輔助',passive:'被動'},polarity={buff:'增益',debuff:'減益',neutral:'狀態'};
   const modal=$('modal');modal.classList.add('battle-unit-dialog');
@@ -22174,7 +22309,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;
 
-/* js/combat/seconds-runtime.js?v=20261120-v0179 */
+/* js/combat/seconds-runtime.js?v=20261123-v0196-aspd */
 /* The shared live/offline seconds driver. Existing damage, targeting, equipment,
    death-chain and reward handlers remain authoritative. No round generator runs. */
 (()=>{
@@ -22204,13 +22339,16 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
   return {maxMp:Math.max(1,(h.mana?.maxMp??c.maxMp)+extras.reduce((n,x)=>n+(Number(x.maxMp)||0),0)),regen:Math.max(0,(h.mana?.regenPerSecond??c.regenPerSecond)+extras.reduce((n,x)=>n+(Number(x.regenPerSecond)||0),0)),cost:Math.max(0,(h.mana?.costMultiplier??c.costMultiplier)-extras.reduce((n,x)=>n+(Number(x.costReduction)||0),0))};
  }
  function skillCooldownSeconds(h,s){return reducedCooldown(h,s);}
+ // v0.196: the total attack speed bonus of a hero or companion (percent points), from the finished battle stats.
+ function heroAttackSpeedPct(h){return EmberwildAttackSpeed.checkPct(battleStats(h).attackSpeedPct??0);}
+ const engineConfig=()=>({minimumActionIntervalSeconds:config().minimumActionIntervalSeconds,referenceSpeed:config().referenceSpeed,attackSpeed:copy(config().attackSpeed)});
  function definition(x){
   const hero=Object.hasOwn(x,'job'),m=mana(x);
   const rows=hero?[...x.active.filter(i=>i!==null).map(i=>S.byPosition(x.job,'core',i)),...x.supportSlots.filter(i=>i!==null).map(i=>S.byPosition(x.job,'support',i)),...(globalThis.__EMBERWILD_TOKEN_SKILL?.(x)?[S.byId(globalThis.__EMBERWILD_TOKEN_SKILL(x))]:[])].filter(s=>s&&['active','support'].includes(s.type)&&!s.disabled&&S.learned(x,s)):
    (GAMEPLAY_SETTINGS.monsters.catalog.find(m=>m.id===x.monsterId)?.skillAssignments||[]).map(r=>skill(r.skillId)).filter(s=>s?.type==='active'&&!s.disabled&&x.lv>=(s.requiredLevel||0)+1&&sharedSkillScopeAllowsEnemy(s.usageScope||'character',x.kind));
   const skills=[...new Map(rows.map(s=>[s.id,s])).values()].map(s=>{const t=timing(s);return {id:s.id,type:'active',cooldownSeconds:hero?skillCooldownSeconds(x,s):t.cooldownSeconds,initialReadyInSeconds:Schema.initialCooldownSeconds(s.timing?s:{...s,timing:t}),castSeconds:t.castSeconds,actionCostSeconds:t.actionCostSeconds,mpCost:t.mpCost,priority:t.priority};});
   return {id:key(x),baseIntervalSeconds:hero?actorInterval(x):source.balanceSettings.monsters.catalog.find(m=>m.id===x.monsterId)?.timing.baseIntervalSeconds??config().actionReferenceSeconds,
-   speed:hero?battleStats(x).speed:combatSpeed(x),mp:Math.max(0,Math.min(m.maxMp,Number.isFinite(x.mp)?x.mp:m.maxMp)),maxMp:m.maxMp,mpRegenPerSecond:m.regen,skills};
+   ...(hero?{attackSpeedPct:heroAttackSpeedPct(x)}:{speed:combatSpeed(x)}),mp:Math.max(0,Math.min(m.maxMp,Number.isFinite(x.mp)?x.mp:m.maxMp)),maxMp:m.maxMp,mpRegenPerSecond:m.regen,skills};
  }
  // Out-of-combat healing (v0.068): during recovery a hero whose 戰鬥外治療 option is on may cast equipped heal or regen
  // skills on allies below the recovery HP target. Nothing else acts while no enemy is present.
@@ -22242,12 +22380,12 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  function ensure(){
   if(!party)return null;
   if(owner!==party){engine=null;owner=party;ended=false;phase="combat";recoveryUntil=0;scheduledAt=partyClock;needsRoster=true;procReady={};}
-  if(!engine){engine=E.create({minimumActionIntervalSeconds:config().minimumActionIntervalSeconds,referenceSpeed:config().referenceSpeed},[],handlers);engine.now=Math.round(partyClock*1e6);}
+  if(!engine){engine=E.create(engineConfig(),[],handlers);engine.now=Math.round(partyClock*1e6);}
   return engine;
  }
  function syncRoster(){
   if(!ensure())return;
-  engine.config={minimumActionIntervalSeconds:config().minimumActionIntervalSeconds,referenceSpeed:config().referenceSpeed};
+  engine.config=engineConfig();
   engine.syncActors([...heroes(),...foes].map(definition));
   const retained=[...party.members,...foes].map(x=>key(x)+':');procReady=Object.fromEntries(Object.entries(procReady).filter(([id])=>retained.some(prefix=>id.startsWith(prefix))));
   for(const a of engine.actors){const x=unit(a.definition.id);a.alive=!!x&&x.hp>0;}
@@ -22261,7 +22399,8 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
   for(const a of engine.actors){const x=unit(a.definition.id);if(!x)continue;
    if(x.hp<=0&&a.alive)engine.setAlive(a.definition.id,false);else if(x.hp>0&&!a.alive)engine.setAlive(a.definition.id,true);
    {const m=mana(x);if(a.definition.maxMp!==m.maxMp)engine.setMaxMp(key(x),m.maxMp);engine.setMpRegen(key(x),m.regen*(phase==='recovery'&&Object.hasOwn(x,'job')?config().recovery.mpRegenMultiplier:1)*Math.max(0,1+effectTotal(key(x),'mpRegen')));engine.setMpCostMultiplier(key(x),Math.max(0,m.cost-effectTotal(key(x),'mpCostReduction')));}
-   const speed=Object.hasOwn(x,'job')?battleStats(x).speed:combatSpeed(x);if(speed!==a.speed)engine.setSpeed(key(x),speed);
+   if(Object.hasOwn(x,'job')){if(engine.player(a)){const pct=heroAttackSpeedPct(x);if(pct!==a.attackSpeedPct)engine.setAttackSpeed(key(x),pct);}else needsRoster=true;}
+   else{const speed=combatSpeed(x);if(speed!==a.speed)engine.setSpeed(key(x),speed);}
    x.mp=engine.mana(a,engine.now); // same value as engine.actor(id).mp without copying the actor view
    if(Object.hasOwn(x,'job'))for(const s of a.definition.skills){const d=skill(s.id);(d.type==='support'?supportCooldowns:actorCooldowns)[memberKey(x)+'-'+adapter(x,d).index]=Math.max(0,(a.ready[s.id]-engine.now)/1e6);}
   }
@@ -22387,7 +22526,9 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
    const s=engine.find(event.actorId).definition.skills.find(s=>s.id===event.skillId);if(s){if(castResolved(x,s))recordAction(event.actorId,Object.hasOwn(x,'job')?characterName(x):combatEnemyName(x),skill(s.id).name);}
   }
   scheduleEffects(new Set(effects.filter(f=>f.secondsId)),null,null);scheduleControls();
-  for(const a of engine.actors){const u=unit(a.definition.id);if(!u)continue;const steps=(u.procAdvanceSteps||0)+(u.basicAdvanceRound?1:0)+(u.sharedAdvanceSteps||0);if(steps){const advance=steps*config().advanceStepSeconds*1e6;a.basicAt=Math.max(engine.now+config().minimumActionIntervalSeconds*1e6,a.basicAt-advance);a.actionSpeedAt=Math.max(engine.now+config().minimumActionIntervalSeconds*1e6,a.actionSpeedAt-advance);a.actionAt=Math.max(a.actionSpeedAt,a.actionFixedAt);for(const k of ['procAdvanceSteps','basicAdvanceRound','procAdvanceRound','sharedAdvanceSteps','sharedAdvanceRound'])delete u[k];}}
+  // Advance effects (enemy shared skill 'advanceNextRound', the legacy hero proc option) move the basic deadline through the
+  // timeline, which keeps a player actor's basic attacks at least the minimum interval apart.
+  for(const a of engine.actors){const u=unit(a.definition.id);if(!u)continue;const steps=(u.procAdvanceSteps||0)+(u.basicAdvanceRound?1:0)+(u.sharedAdvanceSteps||0);if(steps){engine.advanceBasic(a.definition.id,steps*config().advanceStepSeconds,config().minimumActionIntervalSeconds);for(const k of ['procAdvanceSteps','basicAdvanceRound','procAdvanceRound','sharedAdvanceSteps','sharedAdvanceRound'])delete u[k];}}
  }
  // During recovery a hero acts only when a heal/regen skill is ready, affordable and allowed right now (v0.093). Otherwise the
  // timeline offered its basic attack, beforeAction refused it and the hero was "blocked" every attack interval: the card
@@ -22485,7 +22626,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  }
  function pack(){if(!party)return null;ensure();syncResources();return {version:1,timeline:engine.snapshot(),uidSerial,serial,ended,phase,recoveryUntil,encounterStart,scheduledAt,procReady:copy(procReady)};}
  function restore(raw){engine=null;owner=party;ended=false;phase="combat";recoveryUntil=0;pendingRestore=raw;
-  if(raw){engine=E.restore(raw.timeline,handlers);serial=raw.serial;if(raw.uidSerial!==undefined)uidSerial=raw.uidSerial;ended=raw.ended;phase=raw.phase||"combat";recoveryUntil=raw.recoveryUntil||0;encounterStart=raw.encounterStart;scheduledAt=raw.scheduledAt??engine.now/1e6;needsRoster=false;procReady=copy(raw.procReady);partyClock=engine.now/1e6;syncResources();}
+  if(raw){engine=E.restore(raw.timeline,handlers);serial=raw.serial;if(raw.uidSerial!==undefined)uidSerial=raw.uidSerial;ended=raw.ended;phase=raw.phase||"combat";recoveryUntil=raw.recoveryUntil||0;encounterStart=raw.encounterStart;scheduledAt=raw.scheduledAt??engine.now/1e6;needsRoster=false;procReady=copy(raw.procReady);partyClock=engine.now/1e6;/* v0.196: a snapshot from before attack speed holds heroes in the old speed mode; rebuild them from current stats on the next step. */if(engine.actors.some(a=>!engine.player(a)&&party?.members.some(h=>key(h)===a.definition.id)))needsRoster=true;syncResources();}
  }
  function migrateLegacy(){
   if(!party)return;const before=partyClock,oldCds=copy(actorCooldowns),oldSupports=copy(supportCooldowns);partyClock=0;scheduledAt=0;round=0;combatRoundProgress=null;roundIterator=null;restore(null);ensure();syncRoster();

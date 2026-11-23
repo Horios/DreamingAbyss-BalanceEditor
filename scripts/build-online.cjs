@@ -1,7 +1,8 @@
 const fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'..'),out=path.join(root,'server/online');
 const doc=fs.readFileSync(path.join(root,'server/balance-diff.cjs'),'utf8');
-const secondsSchema=fs.readFileSync(path.join(root,'scripts/seconds-schema.cjs'),'utf8').replace('})(globalThis,','})(root,');
+// The attack speed module registers itself on globalThis, where the seconds schema looks it up (game v0.196).
+const secondsSchema=fs.readFileSync(path.join(root,'scripts/attack-speed.cjs'),'utf8')+'\n'+fs.readFileSync(path.join(root,'scripts/seconds-schema.cjs'),'utf8').replace('})(globalThis,','})(root,');
 const combatMigration=fs.readFileSync(path.join(root,'scripts/combat-migration-audit.cjs'),'utf8');
 let service=fs.readFileSync(path.join(root,'server/release-service.cjs'),'utf8').replace(",M=require('../scripts/balance-modules.cjs');",';');
 service=service.replace("'use strict';\nconst crypto=require('node:crypto'),D=require('./balance-diff.cjs'),CM=require('../scripts/combat-migration-audit.cjs');", "import {randomToken,digest,decodeGitContent} from './github-app.mjs';\nconst root={};\n"+doc.replace(/\}\)\(globalThis\);\s*$/, '})(root);')+secondsSchema+combatMigration.replace(/\}\)\(globalThis\);\s*$/, '})(root);')+"\nconst D=root.EmberwildBalanceDiff,CM=root.EmberwildCombatMigration;");

@@ -3,14 +3,14 @@
 'use strict';
 const copy=x=>JSON.parse(JSON.stringify(x)),pick=(s,ks)=>Object.fromEntries(ks.filter(k=>s[k]!==undefined).map(k=>[k,copy(s[k])])),defs=new Map();
 const common=['damage','drain','heal','shield','cleanse','dispel','revive'];
-const mainKeys=['effect','systemEffect','power','powerPerLevel','duration','element','drainRate','healResolution','dispelCount','reviveHpRatio','statusId','statusTarget','statusTargetStat','statusTargetOrder','statusTargetIncludeSelf','statusMaxTargets'];
+const mainKeys=['effect','systemEffect','power','attackSpeedPct','powerPerLevel','duration','element','drainRate','healResolution','dispelCount','reviveHpRatio','statusId','statusTarget','statusTargetStat','statusTargetOrder','statusTargetIncludeSelf','statusMaxTargets'];
 const supportKeys=['kind','value','effectPerLevel','duration','element','statusId','statusTarget','statusTargetStat','statusTargetOrder','statusTargetIncludeSelf','baseCritRate','baseCritDamage','defensePenetration','defenseIgnore'];
 const commonKeys=['target','hitCount','powerBasis','damageResolution','healResolution','drainRate','onHitStatusId','onHitStatusChance','dispelCount','reviveHpRatio'];
 function define(id,name,category,description,source,reusable=true){if(!defs.has(id))defs.set(id,{id,name,category,description,source,reusable});return defs.get(id);}
-const names={damage:'直接傷害',drain:'傷害轉治療',heal:'恢復生命',shield:'生成護盾',cleanse:'淨化減益',dispel:'驅散增益',revive:'復活',applyStatus:'施加自訂狀態',taunt:'嘲諷',guard:'減傷',slow:'緩速',regen:'持續恢復',haste:'普攻加速',bind:'綑綁（普攻重新蓄力）',polymorph:'變形',freeze:'凍結',frost:'冰霜',rage:'狂暴',summonMorphTrap:'變形陷阱',summonFreezeTrap:'冰凍陷阱',fear:'恐懼',tauntRage:'嘲諷狂暴',nextActiveDamage:'下次主動技能增傷',advanceNextRound:'下回合行動提前',shieldLowest:'最低生命護盾'};
+const names={damage:'直接傷害',drain:'傷害轉治療',heal:'恢復生命',shield:'生成護盾',cleanse:'淨化減益',dispel:'驅散增益',revive:'復活',applyStatus:'施加自訂狀態',taunt:'嘲諷',guard:'減傷',slow:'緩速',regen:'持續恢復',haste:'攻擊速度增益',bind:'綑綁（普攻重新蓄力）',polymorph:'變形',freeze:'凍結',frost:'冰霜',rage:'狂暴',summonMorphTrap:'變形陷阱',summonFreezeTrap:'冰凍陷阱',fear:'恐懼',tauntRage:'嘲諷狂暴',nextActiveDamage:'下次主動技能增傷',advanceNextRound:'下回合行動提前',shieldLowest:'最低生命護盾'};
 for(const e of common.concat('applyStatus'))define('core.'+e,names[e],['heal','revive'].includes(e)?'治療':['shield','applyStatus','cleanse','dispel'].includes(e)?'狀態':'傷害','核心技能主要效果；同一技能只有一個主效果槽。','js/combat/skill-effect-runtime.js / js/skills/status-maker.js');
 for(const e of ['taunt','guard','slow','regen'])define('system.'+e,names[e],'狀態','職業特殊效果覆蓋一般主要效果，限人物核心技能。','js/skills/skill-system-runtime.js');
-for(const e of ['haste','bind'])define('system.'+e,names[e],'狀態','裝備技能特殊效果：普攻加速縮短自身普攻間隔；綑綁讓隨機一名敵人的普攻重新蓄力。','js/skills/gear-skills.js');
+for(const e of ['haste','bind'])define('system.'+e,names[e],'狀態','裝備技能特殊效果：攻擊速度增益讓施放者獲得 attackSpeedPct 百分點的攻擊速度（18 = +18%，與其他來源加算，普攻最多每秒 1.5 次）；綑綁讓隨機一名敵人的普攻重新蓄力。','js/skills/gear-skills.js');
 for(const e of ['polymorph','freeze','frost','rage','summonMorphTrap','summonFreezeTrap','fear','tauntRage','nextActiveDamage','advanceNextRound','shieldLowest'])define('exclusive.'+e,names[e],'特殊機制','專屬處理器；尚未拆成可獨立取用的積木。完整複製保留此處理器及原職業限制。','js/combat/control-status-summon.js / js/core/core-game.js',false);
 define('core.target','目標篩選','目標','核心共用效果的目標及數量上限。','js/combat/skill-effect-runtime.js');
 define('core.hitCount','多段傷害','傷害','每個目標執行指定段數。','js/combat/skill-effect-runtime.js');

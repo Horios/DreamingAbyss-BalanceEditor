@@ -60,8 +60,13 @@ test('seconds rhythm fields read, validate, export and reach the game',()=>{
  assert(Number.isFinite(sk.cooldownSeconds)&&sk.condition&&Number.isFinite(sk.actionCostSeconds));
  assert.equal(call(e,'__EMBERWILD_SKILL_DIALOG.update(args[0],args[1])',[id,{initialCooldownSeconds:1.5,cooldownSeconds:13,condition:'always',actionCostSeconds:.2}]).ok,true);
  for(const bad of [{initialCooldownSeconds:-1},{condition:'never'},{actionCostSeconds:'x'}])assert.equal(call(e,'__EMBERWILD_SKILL_DIALOG.update(args[0],args[1])',[id,bad]).ok,false,JSON.stringify(bad));
- const cls=call(e,'__EMBERWILD_CLASS_DIALOG.get(2)');assert.equal(cls.baseIntervalSeconds,1.6);assert(cls.speedBase>0&&cls.minimumActionIntervalSeconds>0);
- assert.deepEqual(call(e,'__EMBERWILD_CLASS_DIALOG.update(2,args)',{baseIntervalSeconds:1.7,speedBase:cls.speedBase+1}),{ok:true,job:2});
+ // Game v0.196: heroes have no speed points; the class dialog edits the base interval and the shared attack speed cap.
+ const cls=call(e,'__EMBERWILD_CLASS_DIALOG.get(2)');assert.equal(cls.baseIntervalSeconds,1.4);assert.equal(cls.speedBase,undefined);assert(cls.minimumActionIntervalSeconds>0);
+ assert.equal(cls.maxAttacksPerSecond,1.5);assert.equal(cls.minimumBonusPct,-90);assert.match(cls.attackSpeedPreview,/達上限需 \+110%/);
+ assert.deepEqual(call(e,'__EMBERWILD_CLASS_DIALOG.update(2,args)',{baseIntervalSeconds:1.7,maxAttacksPerSecond:1.6}),{ok:true,job:2});
+ assert.equal(plain(e.run('data.balanceSettings.combat.seconds.attackSpeed.maxAttacksPerSecond')),1.6);
+ for(const bad of [{maxAttacksPerSecond:0},{maxAttacksPerSecond:'abc'},{maxAttacksPerSecond:''},{minimumBonusPct:-100},{minimumBonusPct:5}])assert.equal(call(e,'__EMBERWILD_CLASS_DIALOG.update(2,args)',bad).ok,false,JSON.stringify(bad));
+ assert.equal(plain(e.run('data.balanceSettings.combat.seconds.attackSpeed.maxAttacksPerSecond')),1.6,'rejected values leave the cap unchanged');
  assert.equal(call(e,'__EMBERWILD_CLASS_DIALOG.update(2,args)',{baseIntervalSeconds:0}).ok,false);
  const monsterId=plain(e.run("data.balanceSettings.monsters.catalog.find(m=>m.kind==='normal').id")),mon=call(e,'__EMBERWILD_WORLD_EDITOR.monster(args)',monsterId);
  assert(mon.attackIntervalSeconds>=2.2&&mon.attackIntervalSeconds<=3.2);

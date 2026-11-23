@@ -1,8 +1,8 @@
-/* Reuse the exact four existing model bodies. No alternate data model. */
+/* Reuse the existing model bodies (the attack speed rule, game v0.196, precedes the seconds schema that reads it). No alternate data model. */
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..'),hash=s=>crypto.createHash('sha256').update(s).digest('hex');
-const names=['EmberwildSecondsSchema','EmberwildSkillSystem','EmberwildMechanisms','EmberwildBalanceDocument'];
+const names=['EmberwildAttackSpeed','EmberwildSecondsSchema','EmberwildSkillSystem','EmberwildMechanisms','EmberwildBalanceDocument'];
 function build(){
  const html=fs.readFileSync(path.join(root,'balance-editor.html'),'utf8'),blocks=[...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)];
  const parts=names.map(name=>{
