@@ -1,5 +1,5 @@
 {
-  "gameCommit": "30db4b940102aa285f01e60bf97949d17dc631bc",
+  "gameCommit": "f318f5fbb505039e1fe4a8576ac72f8577677a40",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -19,11 +19,11 @@
     },
     {
       "path": "js/balance/balance-runtime.js",
-      "sha256": "37603e70fd591392dae8a4e3a18f4a34799b30c2b47314c31f6db9ad113956b3"
+      "sha256": "3f3dccee7dbc2e16635f99e2b3f22a654870a222dcec3858ac44f9bc324ea7c8"
     },
     {
       "path": "js/balance/balance-schema.js",
-      "sha256": "e18a6b630538bd0c97e5816e602cc2a8e3868fde483d45c43949cae4259cba5c"
+      "sha256": "3bc78b13895ccb98be98eccb67bd72c58d732f0efb0eedd7d3b62bc26ccee48a"
     },
     {
       "path": "js/balance/game-balance-defaults.js",
@@ -31,11 +31,11 @@
     },
     {
       "path": "js/balance/gameplay-defaults.js",
-      "sha256": "907195f4d90e9f49f8270ef2ced90b4099fd04d200734213cf3b053f1ddc4852"
+      "sha256": "e14cd1c54e845d000ecc12aec55d98d44374dff58894d07053e9fce767a36d1a"
     },
     {
       "path": "js/balance/gameplay-settings-schema.js",
-      "sha256": "9d0e0cfbaa2ce9aaacd25ea560874d22ffc6e423b1fab1403a04dde6016fb631"
+      "sha256": "39db827f40a0aac5fa39498818917f112f6fc3ececfb1120f8c72195b5d0bba0"
     },
     {
       "path": "js/balance/numeric-compression-formula.js",
@@ -71,7 +71,7 @@
     },
     {
       "path": "js/character/companion-unlocks.js",
-      "sha256": "f056605a32b0509d407e8d8f18a2730bb8fd6bd6999f8bf25651ee514c0c9675"
+      "sha256": "4f72c1ab897de9725a87861b512ef5fe984cb55175d47ab1e75f56be79f7fb34"
     },
     {
       "path": "js/character/companions.js",
@@ -83,7 +83,7 @@
     },
     {
       "path": "js/character/starter-pack.js",
-      "sha256": "cc252575350d5006b6caf96fd1c768a772752824b5d8ff22d699307877b34e92"
+      "sha256": "4af4dd6307e542c989926f68eafac84e414350534e99e5f26aa7a85bf53ef9d8"
     },
     {
       "path": "js/character/team-model.js",
@@ -163,7 +163,7 @@
     },
     {
       "path": "js/core/core-game.js",
-      "sha256": "188a3941900f1c2b72b99f6940337a10de11967c3feaf2b3b0e255ce9601aa1f"
+      "sha256": "deaa62eadd294871c485b6a25b07ef9b023da50d80545537dd94fda7dafc89ce"
     },
     {
       "path": "js/core/game-catalog.js",
@@ -191,7 +191,7 @@
     },
     {
       "path": "js/equipment/enhancement-rules.js",
-      "sha256": "74be10ad2906961230562d23e9373f2b976d501b56fa1127cfbb92a00e25020a"
+      "sha256": "8d9ff7b1db7956e7333f74df1b039de4172becfa11cacccb0f720e852e45efd1"
     },
     {
       "path": "js/equipment/equipment-identity.js",
@@ -207,7 +207,7 @@
     },
     {
       "path": "js/equipment/equipment-stat-source.js",
-      "sha256": "a437bc3e5685b5768558a8f3334421ba2e3b2d91b673f677df08ae63090f7fc9"
+      "sha256": "d5120a0f49b81daa17891ebeb5cc544450bd968d39d2b14c711b0c6e7e250b70"
     },
     {
       "path": "js/equipment/forge-navigation.js",
@@ -219,7 +219,7 @@
     },
     {
       "path": "js/equipment/gear-inventory.js",
-      "sha256": "a8a1c0ba44dee46e8c09ab655db904748a75ea65fcf24195f73a0a2bbd0d7863"
+      "sha256": "3656d95d971063d5dc92ead0fe57ca02404d487649a7b7d61a2c958b008cb7cd"
     },
     {
       "path": "js/equipment/team-references.js",
@@ -231,11 +231,11 @@
     },
     {
       "path": "js/items/companion-tokens.js",
-      "sha256": "7c6595e8e138f2db207f77880c70677f8a7d164c0a9a8dcb0e59da606dcd4c77"
+      "sha256": "985adc0cda8244b94b9625fa8cf51ed3c66d226dbac2bdaeab1a175e6adb151d"
     },
     {
       "path": "js/items/healing-potion-model.js",
-      "sha256": "d9875933b36ae2242355e51d790b4e844514c8eed19b5d2d3d0a9ac61e6e63a3"
+      "sha256": "9553c8dea56140aeaa26345b7efe434c3291c3d6c93f94a1af674349b495f483"
     },
     {
       "path": "js/items/healing-potions.js",
@@ -243,11 +243,11 @@
     },
     {
       "path": "js/items/inventory-model.js",
-      "sha256": "7552c91ee72b93ed4f0a0538512185352cd76ed9bffbc4a0b4cb787f63be0aa3"
+      "sha256": "79d0539fcd3f14f6cbad927c2a3b45062a5fe4b9e1e5390d5233ac6e70bf70a9"
     },
     {
       "path": "js/items/inventory-runtime.js",
-      "sha256": "127d11d59a5542e103617de6987dc14815314fae3ee68bc08c571fe79447c244"
+      "sha256": "5147e416ea478e694b8d5a2e2acd7f9e69740f637b0092b85b6c43d83813ca84"
     },
     {
       "path": "js/items/life-skills.js",
@@ -367,7 +367,7 @@
     },
     {
       "path": "js/story/tutorial-runtime.js",
-      "sha256": "25530d71c1702f6ca1db0f45118ac7a737374ba68d4b9793c36b061b87990bb1"
+      "sha256": "4ae658d063fe69f163d058dfd8158ac2cedec45ad5f54a7d0b4f5bc33cb79f40"
     },
     {
       "path": "js/ui/battle-effect-templates.js",
@@ -383,7 +383,7 @@
     },
     {
       "path": "js/ui/bestiary.js",
-      "sha256": "3944a32dcd06c913be5d26ef4aab923f8abc3356258dca4adfab9d19a2aebb41"
+      "sha256": "45ddd44c93dde2233a32d97aec2a836b84fe2ff7c05d25adb37b2db5bb1cd04d"
     },
     {
       "path": "js/ui/character-avatars.js",
@@ -407,7 +407,7 @@
     },
     {
       "path": "js/ui/core-screen-views.js",
-      "sha256": "53dd6ca3eca514941c5b83443dce6e5ca32dffbd4d5c239148e43d8e982bf6d5"
+      "sha256": "99cc114563082a14d3ce7e5d42e1175a33fc11e188feda03067847039779c507"
     },
     {
       "path": "js/ui/enhancement-effects.js",
@@ -439,7 +439,7 @@
     },
     {
       "path": "js/ui/inventory-icon-model.js",
-      "sha256": "c65f311734af354a28cd844953f95eddc04b7ee948801b14a9614bac3316c970"
+      "sha256": "4bd29cc952f1c5b60b524cce9d763289aa8b22f6fb3147845416953a669d2153"
     },
     {
       "path": "js/ui/inventory-icons-runtime.js",
@@ -447,7 +447,7 @@
     },
     {
       "path": "js/ui/item-presentation.js",
-      "sha256": "76fc1cd86c50d7ec957415c0a967d19db61ab32c5e6f5488bb92e9823f7932c0"
+      "sha256": "43051fb16c7d769c4c58e89706554d861dc0f43fcb721d240d3c1477f846cba9"
     },
     {
       "path": "js/ui/journal-split.js",
@@ -455,7 +455,7 @@
     },
     {
       "path": "js/ui/loot-effects.js",
-      "sha256": "21a805e4e12f2524567d6e61e59e0ffc1c6ed6d4fb73efb38488b3eac2d19453"
+      "sha256": "e4e00b75b888632a028c668a482067b12dd65137465f56ec9b4632cca34f1fbc"
     },
     {
       "path": "js/ui/lucide-catalog.js",
@@ -558,12 +558,20 @@
       "sha256": "15e632c4a34050b1f6ca0c6084af8c394ec3a735b79e8ae1eda77f7ff1edb05c"
     },
     {
+      "path": "js/world/drop-rework-model.js",
+      "sha256": "e15a8abbd23b56280ad024be1bdcbf3f5f22338bc64a1b336121bc1fd5b7739e"
+    },
+    {
+      "path": "js/world/drop-rework.js",
+      "sha256": "3c2055926de2a591248cde520e2a54d26a76717af36971fab0b277c5f1654db9"
+    },
+    {
       "path": "js/world/dynamic-world.js",
-      "sha256": "4c7dddb81b734e99804a9afca3a183694ec37e9ec61f3929e0b67873d5d251eb"
+      "sha256": "fb86a92d45b1fd665f04b637aba22701b1d930254941fcc5e33b653574c12cf4"
     },
     {
       "path": "js/world/final-map.js",
-      "sha256": "940b6e22f1f77b1e174e3540be7380686b30decfcf2cf41891cfa14f8d6bfc06"
+      "sha256": "de45975d38b40246fed0789045ef46c951f9c4ba8da990c26e35ad022a5037f3"
     },
     {
       "path": "js/world/monster-design-model.js",
@@ -571,11 +579,11 @@
     },
     {
       "path": "js/world/monster-design-runtime.js",
-      "sha256": "eb5b20c600ddb6cb573330885f5898735f29fdbf000efa11fb4dfe38e4d6f0de"
+      "sha256": "163eaffad9a5e8aeac7679394d1521f5f0ea0fc5db3bc7b5158587169c6cc179"
     },
     {
       "path": "js/world/monster-drop-tables.js",
-      "sha256": "8b4b26e67967ce202759085f64d5df2054e29d1fd63d8219ba640fa5c27c20cf"
+      "sha256": "5471f4f045e207af4895bb5519f2d05b9c30702ae003ddd956c3800de3269e48"
     },
     {
       "path": "js/world/quest-design-model.js",
@@ -680,6 +688,10 @@
     {
       "path": "css/inventory-controls.css",
       "sha256": "c5fc8e124082a0dbb0256315dc8cabe6b41e32e23ca6a9a08e8801b3ca741b98"
+    },
+    {
+      "path": "css/inventory-identify.css",
+      "sha256": "2251f9c247ffe425387f2b219bfa06da9f95396776c862ba05a96281b5f5402c"
     },
     {
       "path": "css/item-slots.css",
@@ -831,7 +843,7 @@
     },
     {
       "path": "data/balance/combat/skill-settings.json",
-      "sha256": "e3b8bd05390e6bde46fe2d1e65e5ffa998db5f0f206fddad36192ae79d115e55"
+      "sha256": "a430042f7f98ba05150369a500050333c24426543b7d2b3dd41c26f9c9292723"
     },
     {
       "path": "data/balance/combat/skill-system.json",
@@ -859,7 +871,7 @@
     },
     {
       "path": "data/balance/equipment/settings.json",
-      "sha256": "1c339e3f21f7f843b1efdd93f80ead78ab32fedd6aa276d91f7d6ae7e254335e"
+      "sha256": "d3afd1bc558a426adb6adeb0b0340341596ec3e7e70b467123f1e833e482e280"
     },
     {
       "path": "data/balance/interface/navigation.json",
@@ -883,7 +895,7 @@
     },
     {
       "path": "data/balance/manifest.json",
-      "sha256": "4dfe7507730a51bd02469e43efa27373c77f5c13e1b6769b59e80f80ee5b7fee"
+      "sha256": "cc9e2e43d47cf0e638256a9fd2730c083577c5a235c2273a315f300f9d78266d"
     },
     {
       "path": "data/balance/meta/balance-settings.json",
@@ -915,7 +927,7 @@
     },
     {
       "path": "data/balance/systems/rewards.json",
-      "sha256": "a6e6570451dcf8dfa0b6d408695a6458c83d6b9f5194e69cec16d3de5525c05f"
+      "sha256": "b43ead484ca81128dc4051627da2d23113bc8a3e9c406df6f27efd023aa6c441"
     },
     {
       "path": "data/balance/systems/shop.json",
@@ -939,7 +951,7 @@
     },
     {
       "path": "data/balance/world/drops.json",
-      "sha256": "514e7e5127ff3090d4821ad884431cce4878b0f17bc9230aadd707c5ed0719e6"
+      "sha256": "b5dfc0b35b263cd29be79563ef4e9aa4db730bba026c42f3b52579189adb2fc7"
     },
     {
       "path": "data/balance/world/maps.json",
@@ -951,7 +963,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "6ef3bd57eb728e784f7c9afa0414e66130d61f82eca75945b2baaadeb8636aae"
+      "sha256": "81d05093959fc908f5d0dd25e1a7077e9c1af3a8a010d8a7972e2c46056f802c"
     },
     {
       "path": "data/build.json",
@@ -959,14 +971,14 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "7c882344ce33f0aa4dfdd4c184585985a87875451d5e6162659094a12892e40d"
+      "sha256": "5b0cdbf4409add1c0305a852c43ead575de17713d9d885497ae733fd0a0c7e55"
     },
     {
       "path": "index.html",
-      "sha256": "cc060250d8e1394358a761b0ccd8c6e16ef965bd86114c3d6b72b5123e0fd50b"
+      "sha256": "fa5108df6efdbbf49dfe519fd1522a64a3072e92a14c040e76516a14bb1f9d78"
     }
   ],
-  "gameBridgeSha256": "8cab379ca8192c20775bc5328d0e0309e83100028ac963a49b53976f079a6d5c",
-  "editorBridgeSha256": "f3459f81bf758a193e32d257cf81f1bb24bd612be8c326c590731844d5c2cfb0",
-  "entrySha256": "ee0d6b9eb58a0b9f2a97a39f5942fffcea5f75f957c3771e0677d817b74173d7"
+  "gameBridgeSha256": "5d41121bc4ecd0a746a13f35d72fe05549f01a5a4e8e996b134885231ed2cb87",
+  "editorBridgeSha256": "7ea614a3d97d07cc31b314a32114e66397f643ebe9c682eecbb4630937737af8",
+  "entrySha256": "85635c4e4695b17221dbb2c6137c605decafa64ca7826542c08da4f9c6f39d99"
 }

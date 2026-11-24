@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "30db4b940102aa285f01e60bf97949d17dc631bc",
+  "sourceCommit": "f318f5fbb505039e1fe4a8576ac72f8577677a40",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -19,8 +19,8 @@
       "sha256": "1bd26fb858cf44bcb0c6cf370dff0b152b2daa1df86f7b0021411cd755930398"
     },
     {
-      "path": "js/ui/inventory-icon-model.js?v=20261124-v0204-inventory",
-      "sha256": "c65f311734af354a28cd844953f95eddc04b7ee948801b14a9614bac3316c970"
+      "path": "js/ui/inventory-icon-model.js?v=20261124-v0206-drops",
+      "sha256": "4bd29cc952f1c5b60b524cce9d763289aa8b22f6fb3147845416953a669d2153"
     },
     {
       "path": "js/story/story-model.js?v=20261119-v0169",
@@ -35,8 +35,8 @@
       "sha256": "0a1893007777eb94c8209bf434e8dc8b4645c1a1680972d8f3aaff58ca51e632"
     },
     {
-      "path": "js/items/healing-potion-model.js?v=20261022-potions1",
-      "sha256": "d9875933b36ae2242355e51d790b4e844514c8eed19b5d2d3d0a9ac61e6e63a3"
+      "path": "js/items/healing-potion-model.js?v=20261124-v0206-drops",
+      "sha256": "9553c8dea56140aeaa26345b7efe434c3291c3d6c93f94a1af674349b495f483"
     },
     {
       "path": "js/world/wishing-lake-model.js?v=20261119-v0169",
@@ -111,8 +111,12 @@
       "sha256": "a263da9fdd89e31a992a90f03f96bd2e283f26f7c8cf74e18ed3a7555299bae1"
     },
     {
-      "path": "js/items/inventory-model.js?v=20261124-v0204-inventory",
-      "sha256": "7552c91ee72b93ed4f0a0538512185352cd76ed9bffbc4a0b4cb787f63be0aa3"
+      "path": "js/items/inventory-model.js?v=20261124-v0205-inventory-fix",
+      "sha256": "79d0539fcd3f14f6cbad927c2a3b45062a5fe4b9e1e5390d5233ac6e70bf70a9"
+    },
+    {
+      "path": "js/world/drop-rework-model.js?v=20261124-v0206-drops",
+      "sha256": "e15a8abbd23b56280ad024be1bdcbf3f5f22338bc64a1b336121bc1fd5b7739e"
     },
     {
       "path": "js/core/game-catalog.js?v=20261123-v0196-aspd",
@@ -123,8 +127,8 @@
       "sha256": "c51e799656f4a9b38dc7e686237c94973db69e39f91d7d75399e5c70221309a9"
     },
     {
-      "path": "js/balance/gameplay-defaults.js?v=20261124-v0204-inventory",
-      "sha256": "907195f4d90e9f49f8270ef2ced90b4099fd04d200734213cf3b053f1ddc4852"
+      "path": "js/balance/gameplay-defaults.js?v=20261124-v0206-drops",
+      "sha256": "e14cd1c54e845d000ecc12aec55d98d44374dff58894d07053e9fce767a36d1a"
     },
     {
       "path": "js/core/save-validation.js?v=20261119-v0169",
@@ -136,11 +140,11 @@
     },
     {
       "path": "js/balance/gameplay-settings-schema.js?v=20261124-v0204-inventory",
-      "sha256": "9d0e0cfbaa2ce9aaacd25ea560874d22ffc6e423b1fab1403a04dde6016fb631"
+      "sha256": "39db827f40a0aac5fa39498818917f112f6fc3ececfb1120f8c72195b5d0bba0"
     },
     {
-      "path": "js/ui/core-screen-views.js?v=20261123-v0196-aspd",
-      "sha256": "53dd6ca3eca514941c5b83443dce6e5ca32dffbd4d5c239148e43d8e982bf6d5"
+      "path": "js/ui/core-screen-views.js?v=20261124-v0206-drops",
+      "sha256": "99cc114563082a14d3ce7e5d42e1175a33fc11e188feda03067847039779c507"
     },
     {
       "path": "js/ui/core-equipment-views.js?v=20261119-v0169",
@@ -151,20 +155,20 @@
       "sha256": "55dd50049948e2311ff0202e6537ee2042168dc071ba73ccf51bb911c26859ac"
     },
     {
-      "path": "js/core/core-game.js?v=20261123-v0196-aspd",
-      "sha256": "188a3941900f1c2b72b99f6940337a10de11967c3feaf2b3b0e255ce9601aa1f"
+      "path": "js/core/core-game.js?v=20261124-v0206-drops",
+      "sha256": "deaa62eadd294871c485b6a25b07ef9b023da50d80545537dd94fda7dafc89ce"
     },
     {
       "path": "js/ui/text-rarity-style.js",
       "sha256": "eb3736d0c0ce5c486de6f4ad4c280800b1b68acbf2df09d80ffbdacd93056733"
     },
     {
-      "path": "js/equipment/equipment-stat-source.js?v=20261123-v0196-aspd",
-      "sha256": "a437bc3e5685b5768558a8f3334421ba2e3b2d91b673f677df08ae63090f7fc9"
+      "path": "js/equipment/equipment-stat-source.js?v=20261124-v0206-drops",
+      "sha256": "d5120a0f49b81daa17891ebeb5cc544450bd968d39d2b14c711b0c6e7e250b70"
     },
     {
-      "path": "js/equipment/enhancement-rules.js?v=20261123-v0192-floor",
-      "sha256": "74be10ad2906961230562d23e9373f2b976d501b56fa1127cfbb92a00e25020a"
+      "path": "js/equipment/enhancement-rules.js?v=20261124-v0206-drops",
+      "sha256": "8d9ff7b1db7956e7333f74df1b039de4172becfa11cacccb0f720e852e45efd1"
     },
     {
       "path": "js/combat/battle-statistics.js?v=20261119-v0169",
@@ -179,20 +183,20 @@
       "sha256": "dfa93bb8a6e3a0490dab5255996f1dc624930f2cbb87a660c09947b06a8b7963"
     },
     {
-      "path": "js/world/monster-drop-tables.js?v=20261120-v0180",
-      "sha256": "8b4b26e67967ce202759085f64d5df2054e29d1fd63d8219ba640fa5c27c20cf"
+      "path": "js/world/monster-drop-tables.js?v=20261124-v0206-drops",
+      "sha256": "5471f4f045e207af4895bb5519f2d05b9c30702ae003ddd956c3800de3269e48"
     },
     {
-      "path": "js/balance/balance-schema.js?v=20261119-v0169",
-      "sha256": "e18a6b630538bd0c97e5816e602cc2a8e3868fde483d45c43949cae4259cba5c"
+      "path": "js/balance/balance-schema.js?v=20261124-v0206-drops",
+      "sha256": "3bc78b13895ccb98be98eccb67bd72c58d732f0efb0eedd7d3b62bc26ccee48a"
     },
     {
-      "path": "js/balance/balance-runtime.js",
-      "sha256": "37603e70fd591392dae8a4e3a18f4a34799b30c2b47314c31f6db9ad113956b3"
+      "path": "js/balance/balance-runtime.js?v=20261124-v0208-inventory",
+      "sha256": "3f3dccee7dbc2e16635f99e2b3f22a654870a222dcec3858ac44f9bc324ea7c8"
     },
     {
-      "path": "js/ui/item-presentation.js?v=20261123-v0194-workshop1",
-      "sha256": "76fc1cd86c50d7ec957415c0a967d19db61ab32c5e6f5488bb92e9823f7932c0"
+      "path": "js/ui/item-presentation.js?v=20261124-v0206-drops",
+      "sha256": "43051fb16c7d769c4c58e89706554d861dc0f43fcb721d240d3c1477f846cba9"
     },
     {
       "path": "js/ui/ui-text-config.js?v=20261119-v0169",
@@ -203,16 +207,16 @@
       "sha256": "d60733b4e4c588f7f4417a3d755278e9005bca7fdaf539582add2357150e1ddd"
     },
     {
-      "path": "js/world/dynamic-world.js?v=20261119-v0173",
-      "sha256": "4c7dddb81b734e99804a9afca3a183694ec37e9ec61f3929e0b67873d5d251eb"
+      "path": "js/world/dynamic-world.js?v=20261124-v0206-drops",
+      "sha256": "fb86a92d45b1fd665f04b637aba22701b1d930254941fcc5e33b653574c12cf4"
     },
     {
       "path": "js/world/world-followup.js?v=20261019-daily-speed2",
       "sha256": "2d01c4d5783161086cf386d93a3a205cc82c5c755d7be1d96e214bd8bc517d39"
     },
     {
-      "path": "js/world/final-map.js?v=20261120-v0180",
-      "sha256": "940b6e22f1f77b1e174e3540be7380686b30decfcf2cf41891cfa14f8d6bfc06"
+      "path": "js/world/final-map.js?v=20261124-v0206-drops",
+      "sha256": "de45975d38b40246fed0789045ef46c951f9c4ba8da990c26e35ad022a5037f3"
     },
     {
       "path": "js/world/custom-final-stage.js?v=20261119-v0169",
@@ -327,8 +331,8 @@
       "sha256": "9b876d8f2ff16449d1c124e6d58691bd71c68da76f5a283dc9d8ea602a06584d"
     },
     {
-      "path": "js/character/starter-pack.js?v=20261119-v0169",
-      "sha256": "cc252575350d5006b6caf96fd1c768a772752824b5d8ff22d699307877b34e92"
+      "path": "js/character/starter-pack.js?v=20261124-v0206-drops",
+      "sha256": "4af4dd6307e542c989926f68eafac84e414350534e99e5f26aa7a85bf53ef9d8"
     },
     {
       "path": "js/ui/text-rarity-runtime.js",
@@ -375,8 +379,8 @@
       "sha256": "f4cf5ce73c54af9b35838f812bfa11ec8a965f0c552e2df73c8bd28965d73a2b"
     },
     {
-      "path": "js/items/companion-tokens.js?v=20261123-v0196-aspd",
-      "sha256": "7c6595e8e138f2db207f77880c70677f8a7d164c0a9a8dcb0e59da606dcd4c77"
+      "path": "js/items/companion-tokens.js?v=20261124-v0208-inventory",
+      "sha256": "985adc0cda8244b94b9625fa8cf51ed3c66d226dbac2bdaeab1a175e6adb151d"
     },
     {
       "path": "js/character/team-runtime.js?v=20261119-v0173",
@@ -419,8 +423,8 @@
       "sha256": "6e4fea69149b245b112d8ff2c3dbedb9d10159ecf87191fd402efe2eee417f04"
     },
     {
-      "path": "js/character/companion-unlocks.js?v=20261120-v0179",
-      "sha256": "f056605a32b0509d407e8d8f18a2730bb8fd6bd6999f8bf25651ee514c0c9675"
+      "path": "js/character/companion-unlocks.js?v=20261124-v0206-drops",
+      "sha256": "4f72c1ab897de9725a87861b512ef5fe984cb55175d47ab1e75f56be79f7fb34"
     },
     {
       "path": "js/world/quest-design-settings.js?v=20261019-daily-speed2",
@@ -451,12 +455,12 @@
       "sha256": "25ca9c70caf974753b9b359514243fa1189633bdedec655ef723495e630c6bce"
     },
     {
-      "path": "js/items/inventory-runtime.js?v=20261124-v0204-inventory",
-      "sha256": "127d11d59a5542e103617de6987dc14815314fae3ee68bc08c571fe79447c244"
+      "path": "js/items/inventory-runtime.js?v=20261124-v0205-inventory-fix",
+      "sha256": "5147e416ea478e694b8d5a2e2acd7f9e69740f637b0092b85b6c43d83813ca84"
     },
     {
-      "path": "js/world/monster-design-runtime.js?v=20261028-inventory-inspector1",
-      "sha256": "eb5b20c600ddb6cb573330885f5898735f29fdbf000efa11fb4dfe38e4d6f0de"
+      "path": "js/world/monster-design-runtime.js?v=20261124-v0206-drops",
+      "sha256": "163eaffad9a5e8aeac7679394d1521f5f0ea0fc5db3bc7b5158587169c6cc179"
     },
     {
       "path": "js/story/story-runtime.js?v=20261123-v0196-aspd",
@@ -467,8 +471,8 @@
       "sha256": "4747386082ecedcae4a5b33a4dee81a6de489c2703840112d889de43bbed808d"
     },
     {
-      "path": "js/equipment/gear-inventory.js?v=20261123-v0196-aspd",
-      "sha256": "a8a1c0ba44dee46e8c09ab655db904748a75ea65fcf24195f73a0a2bbd0d7863"
+      "path": "js/equipment/gear-inventory.js?v=20261124-v0206-drops",
+      "sha256": "3656d95d971063d5dc92ead0fe57ca02404d487649a7b7d61a2c958b008cb7cd"
     },
     {
       "path": "js/combat/offline-exploration.js?v=20261123-v0196-aspd",
@@ -571,20 +575,24 @@
       "sha256": "03c84bade7306849037a1b2b8c766dc2140443ac2218ffba4492e12fa5945cf0"
     },
     {
-      "path": "js/story/tutorial-runtime.js?v=20261123-v0198-gear",
-      "sha256": "25530d71c1702f6ca1db0f45118ac7a737374ba68d4b9793c36b061b87990bb1"
+      "path": "js/story/tutorial-runtime.js?v=20261124-v0206-drops",
+      "sha256": "4ae658d063fe69f163d058dfd8158ac2cedec45ad5f54a7d0b4f5bc33cb79f40"
     },
     {
-      "path": "js/ui/bestiary.js?v=20261121-v0186",
-      "sha256": "3944a32dcd06c913be5d26ef4aab923f8abc3356258dca4adfab9d19a2aebb41"
+      "path": "js/ui/bestiary.js?v=20261124-v0206-drops",
+      "sha256": "45ddd44c93dde2233a32d97aec2a836b84fe2ff7c05d25adb37b2db5bb1cd04d"
     },
     {
-      "path": "js/ui/loot-effects.js?v=20261120-v0182-size",
-      "sha256": "21a805e4e12f2524567d6e61e59e0ffc1c6ed6d4fb73efb38488b3eac2d19453"
+      "path": "js/ui/loot-effects.js?v=20261124-v0206-drops",
+      "sha256": "e4e00b75b888632a028c668a482067b12dd65137465f56ec9b4632cca34f1fbc"
     },
     {
       "path": "js/ui/enhancement-effects.js?v=20261123-v0188-1",
       "sha256": "a817a75ea409ee4023559965aa3deac5b8f520ead8ba9daaf843c1bb8e6af0bd"
+    },
+    {
+      "path": "js/world/drop-rework.js?v=20261124-v0206-drops",
+      "sha256": "3c2055926de2a591248cde520e2a54d26a76717af36971fab0b277c5f1654db9"
     },
     {
       "path": "js/balance/apply-guard.js?v=20261113-v0137-prologue3",

@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GAME_REF: ${{ github.event.inputs.game_ref || 'chatgpt-dev' }}
+  GAME_REF: ${{ github.event.inputs.game_ref || ((github.head_ref || github.ref_name) == 'feature/inventory-drop-rework' && 'feature/inventory-drop-rework') || 'chatgpt-dev' }}
 
 jobs:
   tests:
@@ -118,6 +118,14 @@ jobs:
         env:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
         run: node tests/global-item-workbench.browser.cjs
+      - name: Inventory stacks and monster drop pool editing
+        if: env.GAME_REF == 'feature/inventory-drop-rework'
+        working-directory: emberwild-balance
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: ${{ github.workspace }}/DreamingAbyss/node_modules
+        run: |
+          node tests/inventory-stack-fields.browser.cjs
+          node tests/drop-rework-editor.browser.cjs
       - name: Read-only V2 audit entry
         working-directory: emberwild-balance
         env:
@@ -212,3 +220,4 @@ jobs:
             echo "Anonymous HTTP status of the site entry: \`$code\` (informational only)."
             echo "Repository checks: tests=${{ needs.tests.result }}, game-contract=${{ needs.game-contract.result }}, browser=${{ needs.browser.result }}, sites-artifact=${{ needs.sites-artifact.result }}."
           } >> "$GITHUB_STEP_SUMMARY"
+
