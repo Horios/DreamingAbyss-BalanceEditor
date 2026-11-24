@@ -11112,7 +11112,14 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
     for(const t of Object.values(tabs))t.free=Math.max(0,t.capacity-t.used),t.over=Math.max(0,t.used-t.capacity);
     return {tabs,used:Object.values(tabs).reduce((n,t)=>n+t.used,0)};
   }
-  function serialize(store){return {version:VERSION,serial:store.serial,stacks:store.stacks.map(st=>({uid:st.uid,item:st.item,qty:st.qty}))};}
+  /* Only items whose stacks differ from the standard fill (cap, cap, …, rest) are written, e.g. after a split. The standard
+     layout is rebuilt from the item totals on load, so a rolled-back transaction or a reload writes identical bytes. */
+  function isStandard(store,id,capOf){const sizes=stackOrder(store,id).map(st=>st.qty),want=stackSizes(sizes.reduce((n,q)=>n+q,0),capChecked(capOf,id));return sizes.length===want.length&&sizes.every((q,i)=>q===want[i]);}
+  function serialize(store,capOf){
+    const custom=capOf?new Set(items(store).filter(id=>!isStandard(store,id,capOf))):null;
+    const stacks=store.stacks.filter(st=>!custom||custom.has(st.item)).map(st=>({uid:st.uid,item:st.item,qty:st.qty}));
+    return {version:VERSION,serial:custom?stacks.reduce((n,st)=>Math.max(n,Number(st.uid.slice(1))),0):store.serial,stacks};
+  }
   /* Saved layouts are structurally validated here; quantities are reconciled against item totals by the runtime. */
   function validateLayout(raw){
     if(raw===undefined||raw===null)return null;
@@ -11143,7 +11150,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
   function stackSizes(qty,cap){checkQty(qty);const out=[];while(qty>0){out.push(Math.min(cap,qty));qty-=Math.min(cap,qty);}return out;}
 
   const api={VERSION,TABS,CATEGORIES,DEFAULT_SETTINGS,MAX_STACK,parseId,itemId,validId,classify,normalizeSettings,settingsIssues,overrideIssues,definition,instanceDefinition,
-    createStore,total,items,stacksOf,add,remove,removeMany,setTotal,merge,split,normalize,slotUsage,serialize,validateLayout,reconcile,sortBySavedOrder,stackByUid,stackSizes};
+    createStore,total,items,stacksOf,isStandard,add,remove,removeMany,setTotal,merge,split,normalize,slotUsage,serialize,validateLayout,reconcile,sortBySavedOrder,stackByUid,stackSizes};
   root.EmberwildInventory=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 </script>
@@ -11207,9 +11214,10 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
       const label=r.name||r.key;
       if(r.type==='sourceMaterial')for(const m of targets)if(m.material)source('material',m.material,'monster',m.name+' · '+label,'balanceSettings:drops');
       if(['material','item','ore','dust','token','equipment'].includes(r.type))source(['ore','dust'].includes(r.type)?'material':r.type,r.type==='ore'?'鍛鐵':r.type==='dust'?'粉塵':r.key,'monster',label,'balanceSettings:drops');
-      if(r.type==='gem')for(let i=0;i<3;i++)if(r.key==='random'||String(i)===r.key)source('gem',i,'monster',label,'balanceSettings:drops');
-      if(r.type==='potion'){const item=(doc.items||[]).find(x=>x.id==='heal_standard')||(doc.items||[]).find(x=>x.type==='healPotion');if(item)source('item',item.id,'monster',label,'balanceSettings:drops');}
-      if(['gear','gearLegendary','bossGear'].includes(r.type))for(const row of out.filter(x=>x.kind==='equipment'))if(r.type==='bossGear'?row.region!==undefined&&targets.some(m=>m.mapIndex===row.region):row.index!==undefined&&!row.exclusive)source('equipment',row.key,'monster',label,'balanceSettings:drops');
+      if(r.type==='gem')source('gem',Number(r.key),'monster',label,'balanceSettings:drops');
+      if(r.type==='gemPool')for(const p of r.pool||[])source('gem',Number(p.key),'monster',label,'balanceSettings:drops');
+      if(r.type==='monsterGear')for(const p of r.pool||[]){const m=String(p.key).match(/^form:(\d+):(\d+):(\d+)$/);if(m)source('equipment','form:'+m[1]+':'+m[2]+':'+m[3],'monster',label,'balanceSettings:drops');}
+      if(r.type==='bossGear')for(const row of out.filter(x=>x.kind==='equipment'))if(r.type==='bossGear'?row.region!==undefined&&targets.some(m=>m.mapIndex===row.region):row.index!==undefined&&!row.exclusive)source('equipment',row.key,'monster',label,'balanceSettings:drops');
     }
     if(doc.companionTokens?.drop?.enabled!==false)for(const t of doc.companionTokens?.catalog||[])if(t.drop?.enabled!==false)source('token',t.id,'monster','信物掉落設定','companionTokens');
     for(const row of out)row.categoryPath=(doc.inventoryIcons||[]).find(x=>x.kind===row.kind&&String(x.key)===row.key)?.categoryPath||categoryPath(doc,row);
@@ -11305,9 +11313,10 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
         grant('equipment',r.key,m.name+' · '+({normal:'普通怪',elite:'菁英怪',boss:'首領',final:'終局首領'}[kind]||kind),{region:m.mapIndex,monsterId:m.id});
       }
       else if(['material','item','ore','dust','token'].includes(r.type))grant(['ore','dust'].includes(r.type)?'material':r.type,r.type==='ore'?'鍛鐵':r.type==='dust'?'粉塵':r.key,r.name||r.key);
-      else if(r.type==='gem')for(let g=0;g<3;g++)if(r.key==='random'||String(g)===r.key)grant('gem',g,r.name);
-      else if(r.type==='potion'){const item=doc.items?.find(x=>x.id==='heal_standard')||doc.items?.find(x=>x.type==='healPotion');if(item)grant('item',item.id,r.name);}
-      else if(['gear','gearLegendary','bossGear'].includes(r.type))for(const row of out.filter(x=>x.kind==='equipment'))if(r.type==='bossGear'?row.region!==undefined&&targets.some(m=>m.mapIndex===row.region):row.index!==undefined&&!row.exclusive)grant('equipment',row.key,r.name);
+      else if(r.type==='gem')grant('gem',Number(r.key),r.name);
+      else if(r.type==='gemPool')for(const p of r.pool||[])grant('gem',Number(p.key),r.name);
+      else if(r.type==='monsterGear')for(const p of r.pool||[])grant('equipment',p.key,r.name);
+      else if(r.type==='bossGear')for(const row of out.filter(x=>x.kind==='equipment'))if(r.type==='bossGear'?row.region!==undefined&&targets.some(m=>m.mapIndex===row.region):row.index!==undefined&&!row.exclusive)grant('equipment',row.key,r.name);
     }
     for(const row of out){
       if(row.kind==='equipment'&&row.region!==undefined){
@@ -11326,7 +11335,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
     for(const [i,r]of (doc.inventoryIcons||[]).entries())for(const [j,x]of (r.salvageRewards||[]).entries()){const key=x.type==='ore'?'鍛鐵':x.type==='dust'?'粉塵':x.key,kind=['ore','dust'].includes(x.type)?'material':x.type;add(kind,key,'salvage',(byId.get(r.kind+':'+r.key)?.name||r.key)+' 個別分解','inventoryIcons','inventoryIcons.'+i+'.salvageRewards.'+j,{quantity:x.quantity,refId:r.kind+':'+r.key});}
     for(const key of ['鍛鐵','粉塵'])add('material',key,'salvage','裝備與信物基本分解','balanceSettings:equipment','balanceSettings.equipment.salvage');
     for(const [key,label,path]of [['鍛鐵','裝備強化','equipment.enhance'],['以太鍛鐵','高階裝備強化','equipment.enhance'],['粉塵','強化／洗鍊／寶石合成','equipment.enhance'],['光輝碎塊','保留詞條洗鍊','equipment.salvage']])use('material',key,'upgrade',label,'balanceSettings:equipment','balanceSettings.'+path);
-    use('material','粉塵','craft','屬性寶石合成','balanceSettings:skills','balanceSettings.skills.gems',{quantity:doc.balanceSettings?.skills?.gems?.craftDust});
+    use('material','粉塵','craft','寶石粉塵升級','balanceSettings:skills','balanceSettings.skills.gems.dustUpgrade',{});
     const rewards=(r,label,path)=>{if(!r)return;for(const [kind,key,n]of [['material','鍛鐵',r.ore],['material','粉塵',r.dust],...((r.materials||[]).map(x=>['material',x.key,x.quantity])),...((r.items||[]).map(x=>['item',x.key,x.quantity])),...((r.potions||[]).map(x=>['item',x.key,x.quantity])),...((r.gemCounts||[]).map((n,i)=>['gem',String(i),n]))])if(n>0)add(kind,key,'quest',label,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:n});if(r.randomGems>0)for(let g=0;g<5;g++)add('gem',g,'quest',label,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:r.randomGems});};
     for(const [kind,quests]of [['daily',doc.balanceSettings?.quests?.design?.daily?.entries||[]],['side',doc.balanceSettings?.quests?.design?.side||[]]])for(const [i,q]of quests.entries()){
       const path='balanceSettings.quests.design.'+(kind==='daily'?'daily.entries.':'side.')+i;rewards(q.rewards,q.title,path+'.rewards');for(const o of q.objectives||[])if(o.type==='material'){const keys=o.key==='@currentMap'?monsters.filter(m=>m.kind==='normal').map(m=>m.material):[o.key];for(const key of keys)use('material',key,'quest',q.title,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:o.quantity,quantityMax:o.quantityMax,refId:q.id});}
@@ -14847,3 +14856,149 @@ const previous=render;render=function(...args){const out=previous(...args);if(!a
 
 </script>
 <!-- balance-modules:end -->
+<script id="drop-rework-model-v1">
+/* v0.206 monster drop rework: shared rules for the game, tests and the balance editor (no DOM, no save).
+   - monsterGear: each monster has its own pool of 1–2 general equipment forms ("form:<job>:<slot>:<index>").
+     One success of the rule picks one form by weight, so adding a second form never raises the total output.
+   - gemPool: map-bound gems. Normal/elite rules carry the map's single gem; boss rules carry up to three gems with weights.
+   - Removed sources: the shared random gear pools (gear, gearLegendary), random gems (gem with key "random") and direct
+     dust drops (dust). Older documents still load: migrateEntries drops those rules before validation. */
+(function(root){
+  'use strict';
+  const NEW_TYPES=['monsterGear','gemPool'];
+  const OBSOLETE_TYPES=new Set(['gear','gearLegendary','dust']);
+  const isObsolete=r=>!!r&&(OBSOLETE_TYPES.has(r.type)||r.type==='gem'&&r.key==='random'||r.type==='potion');
+  const FORM=/^form:([0-3]):([0-3]):(\d{1,2})$/;
+  function migrateEntries(entries){
+    if(!Array.isArray(entries))return {entries,removed:[]};
+    const removed=entries.filter(isObsolete).map(r=>r.id);
+    return {entries:removed.length?entries.filter(r=>!isObsolete(r)):entries,removed};
+  }
+  /* Returns a migrated shallow copy of a balance document (or of balanceSettings) without touching the input. */
+  function migrateDocument(doc){
+    if(!doc||typeof doc!=='object')return doc;
+    const settings=doc.balanceSettings&&typeof doc.balanceSettings==='object'?doc.balanceSettings:doc.drops?doc:null;
+    if(!settings||!Array.isArray(settings.drops?.entries))return doc;
+    const {entries,removed}=migrateEntries(settings.drops.entries);if(!removed.length)return doc;
+    const nextSettings={...settings,drops:{...settings.drops,entries}};
+    return settings===doc?nextSettings:{...doc,balanceSettings:nextSettings};
+  }
+  function parseForm(key){const m=String(key).match(FORM);return m?{job:Number(m[1]),slot:Number(m[2]),index:Number(m[3])}:null;}
+  /* formExists(ref) checks the general equipment catalogue (optional); gemCount is the number of gem ids. */
+  function ruleIssues(r,{formExists,gemCount=15}={}){
+    const out=[];if(!r||!NEW_TYPES.includes(r.type))return out;
+    const pool=r.pool,max=r.type==='monsterGear'?2:3;
+    if(!Array.isArray(pool)||pool.length<1||pool.length>max){out.push((r.type==='monsterGear'?'怪物一般裝備池需要 1～2 種裝備：':'寶石掉落池需要 1～3 種寶石：')+r.id);return out;}
+    const keys=new Set();
+    for(const p of pool){
+      if(!p||typeof p.key!=='string'||keys.has(p.key)||!Number.isFinite(p.weight)||p.weight<=0||p.weight>1e6){out.push('掉落池項目無效或重複：'+r.id);continue;}
+      keys.add(p.key);
+      if(r.type==='monsterGear'){const ref=parseForm(p.key);if(!ref||formExists&&!formExists(ref))out.push('怪物一般裝備池引用不存在的一般裝備：'+r.id+' '+p.key);}
+      else if(!/^\d{1,2}$/.test(p.key)||Number(p.key)>=gemCount)out.push('寶石掉落池引用不存在的寶石：'+r.id+' '+p.key);
+    }
+    if(r.type==='monsterGear'&&r.sources?.length!==1)out.push('怪物一般裝備池只能對應一種怪物：'+r.id);
+    return out;
+  }
+  function pick(pool,rng=Math.random){
+    const total=pool.reduce((n,p)=>n+p.weight,0);let x=rng()*total;
+    for(const p of pool){x-=p.weight;if(x<0)return p;}
+    return pool[pool.length-1];
+  }
+  /* Exclusive equipment enhancement: the material bound to the equipment definition and the quantity per target level. */
+  function exclusiveIssues(cfg){
+    const out=[];if(cfg===undefined)return out;
+    if(!cfg||typeof cfg!=='object'||Array.isArray(cfg))return ['怪物專屬裝備強化設定必須是物件'];
+    if(!Array.isArray(cfg.quantityByLevel)||cfg.quantityByLevel.some(n=>!Number.isSafeInteger(n)||n<0||n>9999))out.push('專屬素材消耗量必須是 0～9999 的整數陣列');
+    if(!Array.isArray(cfg.bindings))out.push('專屬素材對應必須是陣列');
+    else{const seen=new Set();for(const b of cfg.bindings){
+      if(!b||typeof b.equipment!=='string'||!/^(?:form:4:\d:\d{1,2}|boss:\d{1,2})$/.test(b.equipment)||seen.has(b.equipment)||typeof b.material!=='string'||!b.material.trim()||b.material.length>100||typeof b.monster!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(b.monster)){out.push('專屬素材對應無效或重複：'+(b?.equipment??''));continue;}
+      seen.add(b.equipment);}}
+    return out;
+  }
+  /* Gem upgrade with dust: cost = ceil(base dust of the target tier × multiplier). Tier is 1-based; targetTier 2 or 3. */
+  function gemUpgradeCost(settings,targetTier){
+    const base=Number(settings?.baseDustByTargetTier?.[targetTier-1]),mul=Number(settings?.multiplier);
+    if(!Number.isFinite(base)||base<=0||!Number.isFinite(mul)||mul<=0)return null;
+    return Math.ceil(base*mul-1e-9);
+  }
+  function gemUpgradeIssues(settings){
+    const out=[];if(settings===undefined)return out;
+    if(!Number.isFinite(settings?.multiplier)||settings.multiplier<=0||settings.multiplier>100)out.push('寶石粉塵升級倍率必須大於 0');
+    const b=settings?.baseDustByTargetTier;if(!Array.isArray(b)||b.length!==3||b.some(n=>!Number.isFinite(n)||n<0||n>1e9))out.push('寶石粉塵升級成本基準必須是 3 個非負數');
+    return out;
+  }
+  const api={NEW_TYPES,OBSOLETE_TYPES,isObsolete,migrateEntries,migrateDocument,parseForm,ruleIssues,pick,exclusiveIssues,gemUpgradeCost,gemUpgradeIssues};
+  root.EmberwildDropRework=api;if(typeof module==='object'&&module.exports)module.exports=api;
+})(globalThis);
+</script>
+<script id="drop-rework-editor-v1">
+/* v0.206 monster drop rework in the balance designer: per-monster general equipment pools (monsterGear), map gem pools
+   (gemPool), the six bag tabs and stack limits, gem dust upgrade and exclusive equipment enhancement materials.
+   Obsolete drop types (gear, gearLegendary, dust, potion, random gems) are no longer offered; the shared model
+   (drop-rework-model-v1) removes them from imported documents exactly as the game does. */
+(()=>{
+ 'use strict';
+ const D=globalThis.EmberwildDropRework;if(!D)return;
+ for(const k of ['dust','potion','gear','gearLegendary'])delete DROP_TYPE_LABELS[k];
+ Object.assign(DROP_TYPE_LABELS,{monsterGear:'怪物一般裝備池（未鑑定）',gemPool:'寶石掉落池'});
+ const SLOT=['武器','護甲','副手','飾品'],GEMNAMES=['赤焰石','疾風石','靈巧石','生息石','守護石'];
+ const gemName=i=>GEMNAMES[i%5]+'・'+(Math.floor(i/5)+1)+'階';
+ function formOptions(){const out=[];(data.equipmentForms||[]).slice(0,4).forEach((slots,job)=>(slots||[]).forEach((list,slot)=>(list||[]).forEach((f,index)=>out.push(['form:'+job+':'+slot+':'+index,(data.classes?.[job]?.name||('職業 '+job))+'｜'+SLOT[slot]+'｜'+(f.name||f.id)]))));return out;}
+ const migrate=doc=>{const next=D.migrateDocument(doc);return next;};
+ // Imported documents lose obsolete rules before the editor sees them.
+ if(typeof __EMBERWILD_VALIDATE_DOCUMENT==='function'){const base=__EMBERWILD_VALIDATE_DOCUMENT;globalThis.__EMBERWILD_VALIDATE_DOCUMENT=function(doc,...a){return base.call(this,migrate(doc),...a);};}
+ const baseEnsure=ensureArrays;ensureArrays=function(...a){const out=baseEnsure.apply(this,a);const e=data.balanceSettings?.drops?.entries;if(Array.isArray(e)){const r=D.migrateEntries(e);if(r.removed.length)data.balanceSettings.drops.entries=r.entries;}return out;};
+ // The binding list is free length: keep it whole instead of the default-length fill.
+ const baseFill=deepFillDefaults;deepFillDefaults=function(def,src,path=''){if(path==='equipment.exclusiveEnhance.bindings')return structuredClone(Array.isArray(src)?src:def);return baseFill.call(this,def,src,path);};
+ const hidden=p=>/^(?:balanceSettings\.)?difficulty\.modes\.\d+\.(?:equipmentChance|gemChance|bossGearChance|legendaryGearChance)(?:\.|$)/.test(p)||/^(?:balanceSettings\.)?rewards\.potionDropChance$/.test(p)||/^(?:balanceSettings\.)?equipment\.exclusiveEnhance\.bindings(?:\.|$)/.test(p);
+ const baseFlatten=flattenSettingLeaves;flattenSettingLeaves=function(v,path='',out=[]){const rows=baseFlatten.call(this,v,path,[]);for(const r of rows)if(!hidden(r[0]))out.push(r);return out;};
+ const TAB={equipment:'裝備',token:'信物',gem:'寶石',material:'素材',consumable:'消耗品',special:'特殊'};
+ const CAT={equipment:'裝備',token:'信物',gem:'寶石',monsterMaterial:'怪物專屬素材',enhancementMaterial:'裝備強化素材',material:'其他一般素材',rareMaterial:'稀有養成素材',consumable:'消耗品',special:'特殊道具',questItem:'任務道具'};
+ const baseMeta=settingMeta;settingMeta=function(path){
+  const p=String(path).replace(/^balanceSettings\./,'');let m;
+  if((m=p.match(/^inventory\.capacities\.(\w+)$/)))return {label:'背包容量・'+(TAB[m[1]]||m[1]),help:'此分頁的格數上限（目前只顯示，不限制取得）。各分頁獨立計算。'};
+  if((m=p.match(/^inventory\.stackLimits\.(\w+)$/)))return {label:'預設堆疊上限・'+(CAT[m[1]]||m[1]),help:m[1]==='equipment'||m[1]==='token'?'獨立物品，固定為 1。':'同一物品一格最多疊幾個；個別道具可在道具工作台覆寫。'};
+  if(p==='skills.gems.dustUpgrade.multiplier')return {label:'寶石粉塵升級倍率',help:'升級消耗 = 向上取整（目標等級的粉塵基準 × 此倍率），預設 1.5。'};
+  if((m=p.match(/^skills\.gems\.dustUpgrade\.baseDustByTargetTier\.(\d)$/)))return {label:'寶石粉塵升級基準・升至 '+(Number(m[1])+1)+' 階',help:Number(m[1])===0?'1 階不使用（寶石最低為 1 階）。':'乘上倍率後即為升到這一階的粉塵消耗。'};
+  if((m=p.match(/^equipment\.exclusiveEnhance\.quantityByLevel\.(\d+)$/)))return {label:'專屬素材消耗・強化至 +'+(Number(m[1])+1),help:'怪物專屬／BOSS 專屬裝備每次嘗試強化到這一級時，額外消耗的對應專屬素材數量。'};
+  return baseMeta.call(this,path);
+ };
+ /* ---- drop pools inside each managed drop row (global table and per-monster lists) ---- */
+ const POOL_TYPES=['monsterGear','gemPool'];
+ function poolOptions(d){return d.type==='monsterGear'?formOptions():Array.from({length:15},(_,g)=>[String(g),gemName(g)]);}
+ function poolHTML(d){
+  if(!POOL_TYPES.includes(d?.type))return '';
+  const max=d.type==='monsterGear'?2:3,opts=poolOptions(d),pool=Array.isArray(d.pool)?d.pool:[];
+  return `<div class="drop-pool" data-drop-pool="${esc(d.id)}"><b>${d.type==='monsterGear'?'一般裝備池（1～2 種，同一次成功只選一件；掉落時為未鑑定）':'寶石池（1～3 種，依權重選一）'}</b>${pool.map((p,j)=>`<div class="row drop-pool-row" data-pool-index="${j}"><select class="drop-pool-key" aria-label="掉落池項目">${opts.map(([v,l])=>`<option value="${esc(v)}" ${p.key===v?'selected':''}>${esc(l)}</option>`).join('')}</select><label>權重<input class="drop-pool-weight" type="number" min="0.01" step="0.01" value="${esc(p.weight)}"></label><button class="small danger drop-pool-remove" ${pool.length<=1?'disabled':''}>移除</button></div>`).join('')}<button class="small drop-pool-add" ${pool.length>=max?'disabled':''}>新增項目</button><p class="mini-note">${esc(D.ruleIssues(d).join('；')||'設定有效。')}</p></div>`;
+ }
+ function decoratePools(){
+  const drops=data.balanceSettings?.drops?.entries||[];
+  document.querySelectorAll('.monster-drop-row[data-managed-drop]').forEach(row=>{
+   const d=drops.find(x=>x.id===row.dataset.managedDrop);if(!POOL_TYPES.includes(d?.type)||row.querySelector('.drop-pool'))return;
+   row.insertAdjacentHTML('beforeend',poolHTML(d));const box=row.querySelector('.drop-pool');
+   box.querySelectorAll('.drop-pool-row').forEach(el=>{const j=Number(el.dataset.poolIndex);el.querySelector('.drop-pool-key').onchange=e=>{d.pool[j].key=e.target.value;markDirty();render();};el.querySelector('.drop-pool-weight').onchange=e=>{d.pool[j].weight=Number(e.target.value);markDirty();render();};el.querySelector('.drop-pool-remove').onclick=()=>{d.pool.splice(j,1);markDirty();render();};});
+   box.querySelector('.drop-pool-add').onclick=()=>{const used=new Set(d.pool.map(p=>p.key)),opts=poolOptions(d).map(x=>x[0]);d.pool.push({key:opts.find(k=>!used.has(k))||opts[0],weight:1});markDirty();render();};
+  });
+ }
+ const baseRenderAll=render;render=function(...a){const out=baseRenderAll.apply(this,a);try{decoratePools();}catch(e){console.warn(e);}return out;};
+ /* ---- exclusive equipment enhancement material bindings ---- */
+ function exclusiveKeys(){const out=[];((data.equipmentForms||[])[4]||[]).forEach((list,slot)=>(list||[]).forEach((f,i)=>out.push(['form:4:'+slot+':'+i,'專屬｜'+SLOT[slot]+'｜'+(f.name||f.id)])));(data.balanceSettings?.monsters?.catalog||[]).filter(m=>m.kind==='boss').forEach(m=>out.push(['boss:'+m.mapIndex,'BOSS 專屬模板｜'+(MAP_NAMES[m.mapIndex]||m.mapIndex)]));return out;}
+ function bindingsHTML(){
+  const cfg=data.balanceSettings.equipment.exclusiveEnhance||(data.balanceSettings.equipment.exclusiveEnhance={quantityByLevel:Array(12).fill(1),bindings:[]}),keys=exclusiveKeys(),mons=data.balanceSettings.monsters.catalog||[];
+  return `<section class="md-card exclusive-bindings"><h3>怪物專屬裝備強化素材</h3><p class="mini-note">每件怪物專屬裝備或 BOSS 專屬模板綁定一種專屬素材與來源怪物；強化時依上方「專屬素材消耗」逐級扣除。</p>${cfg.bindings.map((b,i)=>`<div class="row" data-exclusive-binding="${i}"><select class="xb-equipment" aria-label="專屬裝備">${keys.map(([v,l])=>`<option value="${esc(v)}" ${b.equipment===v?'selected':''}>${esc(l)}</option>`).join('')}</select><label>素材<input class="xb-material" value="${esc(b.material)}"></label><select class="xb-monster" aria-label="來源怪物">${mons.map(m=>`<option value="${esc(m.id)}" ${b.monster===m.id?'selected':''}>${esc(MAP_NAMES[m.mapIndex]||m.mapIndex)}｜${esc(m.name)}</option>`).join('')}</select><button class="small danger xb-remove">刪除</button></div>`).join('')}<button id="addExclusiveBinding">新增對應</button><p class="mini-note">${esc(D.exclusiveIssues(cfg).join('；')||'設定有效。')}</p></section>`;
+ }
+ function bindBindings(){
+  const cfg=data.balanceSettings.equipment.exclusiveEnhance;
+  document.querySelectorAll('[data-exclusive-binding]').forEach(row=>{const b=cfg.bindings[Number(row.dataset.exclusiveBinding)];row.querySelector('.xb-equipment').onchange=e=>{b.equipment=e.target.value;markDirty();render();};row.querySelector('.xb-material').onchange=e=>{b.material=e.target.value.trim();markDirty();render();};row.querySelector('.xb-monster').onchange=e=>{b.monster=e.target.value;const m=(data.balanceSettings.monsters.catalog||[]).find(x=>x.id===b.monster);if(m&&!b.material)b.material=m.material;markDirty();render();};row.querySelector('.xb-remove').onclick=()=>{cfg.bindings.splice(Number(row.dataset.exclusiveBinding),1);markDirty();render();};});
+  const add=document.getElementById('addExclusiveBinding');if(add)add.onclick=()=>{const used=new Set(cfg.bindings.map(b=>b.equipment)),key=exclusiveKeys().map(x=>x[0]).find(k=>!used.has(k));if(!key)return alert('所有專屬裝備都已有對應');const m=(data.balanceSettings.monsters.catalog||[])[0];cfg.bindings.push({equipment:key,material:m?.material||'',monster:m?.id||''});markDirty();render();};
+ }
+ const baseRender=renderBalanceSettings;renderBalanceSettings=function(...a){
+  const out=baseRender.apply(this,a);
+  const eq=[...document.querySelectorAll('.balance-tree details')].find(d=>/balanceSettings\.equipment\b/.test(d.querySelector('summary')?.textContent||''));
+  if(eq&&data.balanceSettings?.equipment){eq.querySelector('.inside')?.insertAdjacentHTML('beforeend',bindingsHTML());bindBindings();}
+  decoratePools();return out;
+ };
+ const baseValidate=validateData;validateData=function(...a){const issues=baseValidate.apply(this,a);for(const d of data.balanceSettings?.drops?.entries||[])issues.push(...D.ruleIssues(d,{formExists:ref=>!!data.equipmentForms?.[ref.job]?.[ref.slot]?.[ref.index]}));issues.push(...D.exclusiveIssues(data.balanceSettings?.equipment?.exclusiveEnhance),...D.gemUpgradeIssues(data.balanceSettings?.skills?.gems?.dustUpgrade));return issues;};
+ globalThis.__EMBERWILD_DROP_REWORK_EDITOR={formOptions,exclusiveKeys,poolHTML,decoratePools};
+})();
+</script>
