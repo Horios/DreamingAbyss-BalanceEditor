@@ -15,7 +15,7 @@ export function createGameValidator(){
  const MutationObserver=class{observe(){}disconnect(){}},ResizeObserver=MutationObserver;
  let seq=0;const setTimeout=()=>++seq,clearTimeout=()=>{},setInterval=()=>++seq,clearInterval=()=>{},requestAnimationFrame=()=>++seq,cancelAnimationFrame=()=>{},queueMicrotask=()=>{},addEventListener=()=>{},removeEventListener=()=>{},matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}}),getComputedStyle=()=>({lineHeight:'20px',fontSize:'16px',getPropertyValue:()=>''}),performance={now:()=>0},crypto={randomUUID:()=>String(++seq)},innerWidth=1440,innerHeight=900,scrollX=0,scrollY=0,alert=()=>{},confirm=()=>true,prompt=()=>null;
  Object.assign(globalThis,{document,localStorage,sessionStorage,location,navigator,crypto,window,self,addEventListener,removeEventListener,setTimeout,clearTimeout,setInterval,clearInterval,requestAnimationFrame,cancelAnimationFrame,matchMedia,getComputedStyle,performance});
- var setUITheme,uiThemeOptionsView,EmberwildAttackSpeed,EmberwildSecondsSchema,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildTutorial,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,EmberwildBalanceModules,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_ERROR,saveFailureText,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,__EMBERWILD_EQUIPMENT_SKILLS,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_TEAMS,__EMBERWILD_ENHANCE,__EMBERWILD_OFFLINE_RULE_CACHE,__EMBERWILD_MASTERY_LISTENERS,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,recordCombatContribution,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,explorationBossBlock,explorationCompactSupply,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,__EMBERWILD_LUCIDE,__EMBERWILD_SKILL_EXTRACTION,equipmentPowerRerollHTML,__EMBERWILD_SKILL_SYSTEM_UI,setWorkshopCategory,toggleWorkshopPicker,clearWorkshopSlot,setWorkshopAction,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,moveToWorkshop,__EMBERWILD_WORKSHOP,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classMasteryBonus,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_COMPANION_TEST_API,__EMBERWILD_TOKEN_SKILL,companionSkillDisabled,__EMBERWILD_MASTERY_BATTLE_NOTE,__EMBERWILD_COMPANION_MASTERY_GAIN,__EMBERWILD_TEAM_GAIN,__EMBERWILD_SKILL_REFRESH,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devClassMasterySet,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,__EMBERWILD_TITLE,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,__EMBERWILD_STARTER_PACK,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,__EMBERWILD_COMPANION_BATTLE_MASTERY,recruitCompanion,__EMBERWILD_PROLOGUE,companionUnlocked,__EMBERWILD_RECRUIT_FOR_STORY,acquireCompanion,__EMBERWILD_PROLOGUE_HELPER,__EMBERWILD_TEMP_ALLY,confirmMemberReplacement,rememberCompanionRosterDetail,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,storyTextOptionsView,tutorialReviewView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,__EMBERWILD_DISPOSE_GEAR,extractSkillToToken,openSkillExtraction,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,__EMBERWILD_MASTERY_DAMAGE,__EMBERWILD_CLASS_MASTERY_BONUS_UI,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,__EMBERWILD_SET_EXTRA_TICKET_SOURCES,isUtilityDialogOpen,companionPendingMail,companionTicketCount,__EMBERWILD_EXTRA_TICKET_SOURCES,companionUnlockText,companionTicketName,grantCompanionTicket,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,grantStarterPackDirect,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,recoverStoryRewards,completeStoryStage,__EMBERWILD_CHAPTER,storyNavigate,openStory,setStoryCategory,readStory,completeStoryDialogue,nextStoryDialogue,endStoryDialogue,js,skipStoryDialogue,storyReadyCount,storyReplayable,setAlchemyAutoBuy,dismissStoryHint,goQuestEncounter,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,__EMBERWILD_GEAR_SKILL_IDS,__EMBERWILD_GEAR_REGEN,__EMBERWILD_GEAR_REGEN_RATE,__EMBERWILD_GEAR_SKILLS,socketEquipmentGem,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,openSkillTreeDetail,selectSkillTreeNode,classMasteryTreeHTML,querySelector,classList,querySelectorAll,children,insertBefore,setBattleEffects,setBattleNumberSize,battleNumberSize,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,classMasterySources,masterySubClass,setMasterySubClass,setClassMasteryLevel,setPartyClassMasteryLevel,__EMBERWILD_LEVEL_REMOVAL,EmberwildVisualColors,EmberwildMasteryBars,setMapDifficulty,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides,visualViewport,storyWindowSummarize,storyWindowContinue,storyWindowShowAll,storyWindowToggleFast,storyWindowSpeed,storyWindowSkip,EmberwildStoryWindow,__EMBERWILD_TUTORIAL,prologueConfirmName,prologuePickClass,prologueConfirmClass,prologueNext,prologueOpenTask,prologueReturn,prologueFinishIntro,chapterNext,chapterChoose,chapterStartBattle,chapterAction,chapterResume,chapterBegin,storyReplay,storyReplayNext,storyReplayEnd,chapterEndNext,chapterEndClose,questLessonReport,__EMBERWILD_QUEST_LESSON,CSS,tutorialCloseTip,tutorialControl,tutorialNotice,replayTutorial,toggleTutorialReview,setBestiaryRegion,bestiaryView,setLootEffectSize,setLootEffects,EmberwildLootEffects,EmberwildEnhancementEffects,toggleUtilityMore,isUtilityMoreOpen,setBossCraftRegion,setCreationClass,toggleJournalCollapsed,toggleTokenFilters,closeDetailSheet,openDetailSheet,currentDetailSheet;
+ var setUITheme,uiThemeOptionsView,EmberwildAttackSpeed,EmberwildSecondsSchema,EmberwildIconColors,EmberwildInventory,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildTutorial,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,EmberwildBalanceModules,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_ERROR,saveFailureText,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,__EMBERWILD_EQUIPMENT_SKILLS,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_TEAMS,__EMBERWILD_ENHANCE,__EMBERWILD_OFFLINE_RULE_CACHE,__EMBERWILD_MASTERY_LISTENERS,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,recordCombatContribution,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,explorationBossBlock,explorationCompactSupply,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,__EMBERWILD_LUCIDE,__EMBERWILD_SKILL_EXTRACTION,equipmentPowerRerollHTML,__EMBERWILD_SKILL_SYSTEM_UI,setWorkshopCategory,toggleWorkshopPicker,clearWorkshopSlot,setWorkshopAction,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,moveToWorkshop,__EMBERWILD_WORKSHOP,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classMasteryBonus,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_COMPANION_TEST_API,__EMBERWILD_TOKEN_SKILL,companionSkillDisabled,__EMBERWILD_MASTERY_BATTLE_NOTE,__EMBERWILD_COMPANION_MASTERY_GAIN,__EMBERWILD_TEAM_GAIN,__EMBERWILD_SKILL_REFRESH,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devClassMasterySet,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,__EMBERWILD_TITLE,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,__EMBERWILD_STARTER_PACK,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,__EMBERWILD_COMPANION_BATTLE_MASTERY,recruitCompanion,__EMBERWILD_PROLOGUE,companionUnlocked,__EMBERWILD_RECRUIT_FOR_STORY,acquireCompanion,__EMBERWILD_PROLOGUE_HELPER,__EMBERWILD_TEMP_ALLY,confirmMemberReplacement,rememberCompanionRosterDetail,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,storyTextOptionsView,tutorialReviewView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,__EMBERWILD_DISPOSE_GEAR,extractSkillToToken,openSkillExtraction,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,__EMBERWILD_MASTERY_DAMAGE,__EMBERWILD_CLASS_MASTERY_BONUS_UI,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,__EMBERWILD_SET_EXTRA_TICKET_SOURCES,isUtilityDialogOpen,companionPendingMail,companionTicketCount,__EMBERWILD_EXTRA_TICKET_SOURCES,companionUnlockText,companionTicketName,grantCompanionTicket,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,grantStarterPackDirect,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,EmberwildItems,recoverStoryRewards,completeStoryStage,__EMBERWILD_CHAPTER,storyNavigate,openStory,setStoryCategory,readStory,completeStoryDialogue,nextStoryDialogue,endStoryDialogue,js,skipStoryDialogue,storyReadyCount,storyReplayable,setAlchemyAutoBuy,dismissStoryHint,goQuestEncounter,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,__EMBERWILD_GEAR_SKILL_IDS,__EMBERWILD_GEAR_REGEN,__EMBERWILD_GEAR_REGEN_RATE,__EMBERWILD_GEAR_SKILLS,socketEquipmentGem,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,openSkillTreeDetail,selectSkillTreeNode,classMasteryTreeHTML,querySelector,classList,querySelectorAll,children,insertBefore,EmberwildBattleEffectTemplates,setBattleEffects,setBattleNumberSize,battleNumberSize,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,classMasterySources,masterySubClass,setMasterySubClass,setClassMasteryLevel,setPartyClassMasteryLevel,__EMBERWILD_LEVEL_REMOVAL,EmberwildVisualColors,EmberwildMasteryBars,setMapDifficulty,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides,visualViewport,storyWindowSummarize,storyWindowContinue,storyWindowShowAll,storyWindowToggleFast,storyWindowSpeed,storyWindowSkip,EmberwildStoryWindow,__EMBERWILD_TUTORIAL,prologueConfirmName,prologuePickClass,prologueConfirmClass,prologueNext,prologueOpenTask,prologueReturn,prologueFinishIntro,chapterNext,chapterChoose,chapterStartBattle,chapterAction,chapterResume,chapterBegin,storyReplay,storyReplayNext,storyReplayEnd,chapterEndNext,chapterEndClose,questLessonReport,__EMBERWILD_QUEST_LESSON,CSS,tutorialCloseTip,tutorialControl,tutorialNotice,replayTutorial,toggleTutorialReview,setBestiaryRegion,bestiaryView,setLootEffectSize,setLootEffects,EmberwildLootEffects,EmberwildEnhancementEffects,toggleUtilityMore,isUtilityMoreOpen,setBossCraftRegion,setCreationClass,toggleJournalCollapsed,toggleTokenFilters,closeDetailSheet,openDetailSheet,currentDetailSheet;
 
 /* js/ui/themes.js?v=20261016-themes1 */
 /* Browser-wide appearance preference, independent of character and balance data. */
@@ -261,7 +261,7 @@ EmberwildAttackSpeed=globalThis.EmberwildAttackSpeed??EmberwildAttackSpeed;Ember
 
 EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
 
-/* js/ui/inventory-icon-model.js?v=20261120-v0178 */
+/* js/ui/inventory-icon-model.js?v=20261124-v0204-inventory */
 /* Shared inventory catalogue derived from the existing balance references. */
 (function(root){
   const kinds=['equipment','item','material','gem','token','skill'],copy=x=>structuredClone(x);
@@ -477,6 +477,14 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
     if(equipment){const cfg=doc.balanceSettings?.equipment?.salvage||{};salvage.push({type:'ore',key:'鍛鐵',quantity:Math.max(0,Math.round(tier*((cfg.oreBasePerTier||0)+quality*(cfg.orePerQualityPerTier||0)+enhance*(cfg.orePerEnhancePerTier||0))))},{type:'dust',key:'粉塵',quantity:Math.max(0,Math.round((cfg.dustBase||0)+quality*(cfg.dustPerQuality||0)))});salvage.push(...(cfg.extraRewards||[]).filter(x=>x.quality===quality));}
     const rewards=override?.salvageRewards??salvage;return {sellPrice,salvage:rewards,canSell:override?.saleEnabled??(!['gem','skill'].includes(row.kind)&&!row.key.startsWith('companion-ticket-'))};
   }
+  function inventoryModel(){if(root.EmberwildInventory)return root.EmberwildInventory;try{return typeof require==='function'?require('../items/inventory-model.js'):null;}catch{return null;}}
+  function stackOverrideIssues(r){
+    const M=inventoryModel();if(M)return M.overrideIssues(r);
+    const id=r.kind+':'+r.key,errors=[];
+    if(r.maxStack!==undefined&&(!Number.isSafeInteger(r.maxStack)||r.maxStack<1||r.maxStack>1e9))errors.push('個別堆疊上限必須是 1～1000000000 的整數：'+id);
+    for(const k of ['stackable','occupiesSlot'])if(r[k]!==undefined&&typeof r[k]!=='boolean')errors.push(k+' 必須是布林值：'+id);
+    return errors;
+  }
   function issues(doc,library=root.__EMBERWILD_SKILL_ICONS){
     const paletteErrors=root.EmberwildIconColors?.issues(doc)||[];
     if(doc.inventoryIcons===undefined)return paletteErrors;
@@ -496,6 +504,8 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
       if(r.saleEnabled!==undefined&&typeof r.saleEnabled!=='boolean')errors.push('販售資格必須是布林值：'+id);
       if(r.salvageRewards!==undefined){if(!['equipment','token'].includes(r.kind)||!Array.isArray(r.salvageRewards)||r.salvageRewards.length>20)errors.push('個別分解產物只能設於裝備／信物，最多 20 筆：'+id);else for(const x of r.salvageRewards)if(!x||!['ore','dust','material','item','potion','gem'].includes(x.type)||typeof x.key!=='string'||!Number.isSafeInteger(x.quantity)||x.quantity<1||x.quantity>999||x.type==='material'&&(!x.key.trim()||['__proto__','constructor','prototype'].includes(x.key))||x.type==='item'&&!customItemIds.has(x.key)||x.type==='gem'&&!['random','0','1','2'].includes(x.key))errors.push('個別分解產物名稱、數量或引用無效：'+id);}
       if(r.description!==undefined&&(typeof r.description!=='string'||r.description.length>2000))errors.push('道具圖示說明必須是最多 2000 字的文字：'+id);
+      // v0.204: per-item stack overrides (maxStack, stackable, occupiesSlot). Category defaults live in balanceSettings.inventory.
+      errors.push(...stackOverrideIssues(r));
       const type=r.iconType,valid=typeof type==='string'&&(type==='auto'||(type.startsWith('custom:')?custom.has(type.slice(7)):library?(type==='none'||library.hasIcon(type)):/^(?:lucide:)?[a-z][a-z0-9-]*$/.test(type)));
       if(!valid)errors.push('道具圖示引用不存在或無效的圖示：'+id);
     }
@@ -505,7 +515,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
   const api={itemDescription,migrateDescriptions,descriptionDefaults,VERSION:2,sourceLabels,itemDetailsVersion:2,kinds,entries,object,query,categoryPath,economics,fallback,issues,validate};root.EmberwildInventoryIcons=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 
-EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;
+EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;
 
 /* js/story/story-model.js?v=20261119-v0169 */
 /* Shared, data-only story contract. No quest-specific execution rules. */
@@ -1371,7 +1381,7 @@ EmberwildHealingPotions=globalThis.EmberwildHealingPotions??EmberwildHealingPoti
  if(typeof module==='object'&&module.exports)module.exports=root.EmberwildWishingLake;
 })(globalThis);
 
-EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;
 
 /* js/balance/balance-modules.js?v=20261113-v0144-tutorial1 */
 /* Modular balance sources: data/balance/<module>.json are the only edited sources; data/balance.json is
@@ -1850,7 +1860,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  const api={READS,balanceModulesVersion:1,tutorialsVersion:1,textOverridesVersion:1,combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1,wishingLakeVersion:1,healingPotionVersion:1,attributeGemsVersion:1,storyEquipmentLessonsVersion:1,skillSystemVersion:1,questEncountersVersion:1,consumableClockVersion:1,equipmentAcquisitionVersion:1,storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 
-EmberwildSecondsSchema=globalThis.EmberwildSecondsSchema??EmberwildSecondsSchema;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildStory=globalThis.EmberwildStory??EmberwildStory;EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;EmberwildHealingPotions=globalThis.EmberwildHealingPotions??EmberwildHealingPotions;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildBalanceDocument=globalThis.EmberwildBalanceDocument??EmberwildBalanceDocument;
+EmberwildSecondsSchema=globalThis.EmberwildSecondsSchema??EmberwildSecondsSchema;EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildStory=globalThis.EmberwildStory??EmberwildStory;EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;EmberwildHealingPotions=globalThis.EmberwildHealingPotions??EmberwildHealingPotions;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildBalanceDocument=globalThis.EmberwildBalanceDocument??EmberwildBalanceDocument;
 
 /* inline */
 
@@ -3232,6 +3242,232 @@ EmberwildCommissions=globalThis.EmberwildCommissions??EmberwildCommissions;
 
 EmberwildGearInventory=globalThis.EmberwildGearInventory??EmberwildGearInventory;
 
+/* js/items/inventory-model.js?v=20261124-v0204-inventory */
+/* v0.204 inventory foundation: item definitions, stack storage and slot counting.
+   Pure data model shared by the game runtime, tests and the balance editor. It never touches the DOM or the save.
+
+   Item identity is the catalogue id used by inventoryIcons: "material:<name>", "gem:<index>", "item:<id>".
+   Equipment and companion tokens are individual instances (they keep their own id inside the gear bag) and never stack.
+   Everything that can merge is described by its item id alone: gem tiers and boss-material difficulties already have
+   their own keys, so two items with the same display name but different ids never merge. */
+(function(root){
+  'use strict';
+  const VERSION=1;
+  // Category defaults. Balance data (balanceSettings.inventory.stackLimits) may change the numbers;
+  // a single item can still override them with inventoryIcons[].maxStack / .occupiesSlot / .stackable.
+  /* The bag has six tabs with their own capacity (default 100 each). Every category belongs to one tab. */
+  const TABS={
+    equipment:{label:'裝備',capacity:100},token:{label:'信物',capacity:100},gem:{label:'寶石',capacity:100},
+    material:{label:'素材',capacity:100},consumable:{label:'消耗品',capacity:100},special:{label:'特殊',capacity:100}
+  };
+  const CATEGORIES={
+    equipment:{label:'裝備',tab:'equipment',maxStack:1,stackable:false,occupiesSlot:true},
+    token:{label:'信物',tab:'token',maxStack:1,stackable:false,occupiesSlot:true},
+    gem:{label:'寶石',tab:'gem',maxStack:99,stackable:true,occupiesSlot:true},
+    monsterMaterial:{label:'怪物專屬素材',tab:'material',maxStack:999,stackable:true,occupiesSlot:true},
+    enhancementMaterial:{label:'裝備強化素材',tab:'material',maxStack:999,stackable:true,occupiesSlot:true},
+    material:{label:'其他一般素材',tab:'material',maxStack:999,stackable:true,occupiesSlot:true},
+    rareMaterial:{label:'稀有養成素材',tab:'material',maxStack:999,stackable:true,occupiesSlot:true},
+    consumable:{label:'消耗品',tab:'consumable',maxStack:99,stackable:true,occupiesSlot:true},
+    special:{label:'特殊道具',tab:'special',maxStack:999,stackable:true,occupiesSlot:true},
+    questItem:{label:'任務道具',tab:'special',maxStack:999,stackable:true,occupiesSlot:false}
+  };
+  const INSTANCE_CATEGORIES=new Set(['equipment','token']);
+  const DEFAULT_SETTINGS={capacities:Object.fromEntries(Object.entries(TABS).map(([k,v])=>[k,v.capacity])),stackLimits:Object.fromEntries(Object.entries(CATEGORIES).map(([k,v])=>[k,v.maxStack]))};
+  const MAX_STACK=1e9,MAX_TOTAL=1e12,UNSAFE=new Set(['__proto__','constructor','prototype']);
+  const ENHANCEMENT=new Set(['鍛鐵','粉塵']),RARE=new Set(['以太鍛鐵','光輝碎塊']),CONSUMABLE_MATERIALS=new Set(['升級卷軸']);
+  const STACK_KINDS=['material','gem','item'];
+
+  function parseId(id){
+    if(typeof id!=='string')return null;
+    const i=id.indexOf(':');if(i<1)return null;
+    const kind=id.slice(0,i),key=id.slice(i+1);
+    if(!STACK_KINDS.includes(kind)||!key||key.length>100||UNSAFE.has(key))return null;
+    if(kind==='gem'&&!/^\d{1,3}$/.test(key))return null;
+    return {kind,key};
+  }
+  function itemId(kind,key){const id=kind+':'+String(key);if(!parseId(id))throw Error('物品識別碼無效：'+id);return id;}
+  function validId(id){return !!parseId(id);}
+
+  /* ctx: {bossMaterials:Set, monsterMaterials:Set, itemTypes:Map(id→type)} built from the balance document. */
+  function classify(id,ctx={}){
+    const p=parseId(id);if(!p)throw Error('物品識別碼無效：'+id);
+    if(p.kind==='gem')return 'gem';
+    if(p.kind==='item')return p.key.startsWith('companion-ticket-')?'special':'consumable';
+    const key=p.key,plain=key.replace(/^【(?:困難|地獄)】/,'');
+    if(CONSUMABLE_MATERIALS.has(key))return 'consumable';
+    if(ENHANCEMENT.has(key))return 'enhancementMaterial';
+    if(RARE.has(key))return 'rareMaterial';
+    if(ctx.bossMaterials?.has(plain)||ctx.monsterMaterials?.has(plain))return 'monsterMaterial';
+    return 'material';
+  }
+  function normalizeSettings(raw){
+    const out={capacities:{...DEFAULT_SETTINGS.capacities},stackLimits:{...DEFAULT_SETTINGS.stackLimits}};
+    if(raw&&typeof raw==='object'){
+      for(const k of Object.keys(TABS)){const n=raw.capacities?.[k];if(Number.isSafeInteger(n)&&n>=1&&n<=100000)out.capacities[k]=n;}
+      for(const k of Object.keys(CATEGORIES)){const n=raw.stackLimits?.[k];if(!INSTANCE_CATEGORIES.has(k)&&Number.isSafeInteger(n)&&n>=1&&n<=MAX_STACK)out.stackLimits[k]=n;}
+    }
+    for(const k of INSTANCE_CATEGORIES)out.stackLimits[k]=1;
+    return out;
+  }
+  function settingsIssues(raw){
+    const errors=[];if(raw===undefined)return errors;
+    if(!raw||typeof raw!=='object'||Array.isArray(raw))return ['背包設定必須是物件'];
+    if(raw.capacities!==undefined){
+      if(!raw.capacities||typeof raw.capacities!=='object'||Array.isArray(raw.capacities))errors.push('背包分頁容量必須是物件');
+      else for(const [k,n] of Object.entries(raw.capacities)){if(!TABS[k]){errors.push('未知的背包分頁：'+k);continue;}if(!Number.isSafeInteger(n)||n<1||n>100000)errors.push('背包分頁容量必須是 1～100000 的整數：'+k);}
+    }
+    if(raw.stackLimits!==undefined){
+      if(!raw.stackLimits||typeof raw.stackLimits!=='object'||Array.isArray(raw.stackLimits))errors.push('堆疊上限必須是物件');
+      else for(const [k,n] of Object.entries(raw.stackLimits)){
+        if(!CATEGORIES[k]){errors.push('未知的堆疊分類：'+k);continue;}
+        if(INSTANCE_CATEGORIES.has(k)){if(n!==1)errors.push('裝備與信物不可堆疊，堆疊上限固定為 1：'+k);continue;}
+        if(!Number.isSafeInteger(n)||n<1||n>MAX_STACK)errors.push('堆疊上限必須是 1～'+MAX_STACK+' 的整數：'+k);
+      }
+    }
+    return errors;
+  }
+  /* Per-item override fields on an inventoryIcons row. */
+  function overrideIssues(row){
+    const errors=[],id=row?.kind+':'+row?.key;
+    if(row.maxStack!==undefined&&(!Number.isSafeInteger(row.maxStack)||row.maxStack<1||row.maxStack>MAX_STACK))errors.push('個別堆疊上限必須是 1～'+MAX_STACK+' 的整數：'+id);
+    if(row.stackable!==undefined&&typeof row.stackable!=='boolean')errors.push('是否可堆疊必須是布林值：'+id);
+    if(row.occupiesSlot!==undefined&&typeof row.occupiesSlot!=='boolean')errors.push('是否占用背包格必須是布林值：'+id);
+    if(['equipment','token'].includes(row.kind)&&(row.stackable===true||row.maxStack!==undefined&&row.maxStack!==1))errors.push('裝備與信物是獨立物品，不可設定堆疊：'+id);
+    return errors;
+  }
+  /* Resolve one definition. details(kind,key) returns the inventoryIcons override row (or undefined). */
+  function definition(id,{settings,ctx,details,name,description,icon,rarity,canSell,canUse,canSalvage}={}){
+    const p=parseId(id);if(!p)throw Error('物品識別碼無效：'+id);
+    const s=normalizeSettings(settings),category=classify(id,ctx),base=CATEGORIES[category],row=details?.(p.kind,p.key)||{};
+    const stackable=row.stackable===false?false:base.stackable;
+    const maxStack=stackable?(Number.isSafeInteger(row.maxStack)?row.maxStack:s.stackLimits[category]):1;
+    return {id,kind:p.kind,key:p.key,name:row.displayName||name||p.key,category,categoryLabel:base.label,tab:base.tab,tabLabel:TABS[base.tab].label,icon:icon??row.iconType??'auto',rarity:rarity??null,description:row.description??description??'',
+      stackable,maxStack,occupiesSlot:typeof row.occupiesSlot==='boolean'?row.occupiesSlot:base.occupiesSlot,
+      canSell:canSell??(row.saleEnabled??(p.kind!=='gem'&&!['questItem','special'].includes(category))),canSalvage:!!canSalvage,canUse:canUse??['consumable','questItem','special'].includes(category)};
+  }
+  function instanceDefinition(g,{isToken=false,details,name}={}){
+    const kind=isToken?'token':'equipment',row=details?.(kind,g?.tokenId??'')||{},c=CATEGORIES[kind];
+    return {id:g.id,kind,instance:true,name:name||row.displayName||g.name||'',category:kind,categoryLabel:c.label,tab:c.tab,tabLabel:TABS[c.tab].label,stackable:false,maxStack:1,occupiesSlot:true,canSell:true,canSalvage:true,canUse:false};
+  }
+
+  /* ---------- stack store ---------- */
+  function hidden(obj,key,value){Object.defineProperty(obj,key,{value,writable:true,configurable:true,enumerable:false});}
+  function createStore(){const s={version:VERSION,serial:0,stacks:[]};hidden(s,'byItem',new Map());return s;}
+  function index(store){if(!store.byItem){hidden(store,'byItem',new Map());for(const st of store.stacks){if(!store.byItem.has(st.item))store.byItem.set(st.item,[]);store.byItem.get(st.item).push(st);}}return store.byItem;}
+  function reindex(store){hidden(store,'byItem',null);return index(store);}
+  function stacksOf(store,id){return index(store).get(id)||[];}
+  function total(store,id){let n=0;for(const st of stacksOf(store,id))n+=st.qty;return n;}
+  function items(store){return [...index(store).keys()];}
+  function checkQty(n,label='數量'){if(!Number.isSafeInteger(n)||n<0)throw RangeError(label+'必須是非負整數');return n;}
+  function capChecked(capOf,id){const c=capOf(id);if(!Number.isSafeInteger(c)||c<1)throw RangeError('堆疊上限無效：'+id);return c;}
+  function newStack(store,id,qty){const st={uid:'s'+(++store.serial),item:id,qty};store.stacks.push(st);if(!index(store).has(id))store.byItem.set(id,[]);store.byItem.get(id).push(st);return st;}
+  function dropStack(store,st){const i=store.stacks.indexOf(st);if(i>=0)store.stacks.splice(i,1);const list=index(store).get(st.item);if(list){const j=list.indexOf(st);if(j>=0)list.splice(j,1);if(!list.length)store.byItem.delete(st.item);}}
+  function stackOrder(store,id){const list=stacksOf(store,id);return list.slice().sort((a,b)=>store.stacks.indexOf(a)-store.stacks.indexOf(b));}
+  /* Fill existing partial stacks of the same item first (in slot order), then open new stacks. Nothing is lost. */
+  function add(store,id,qty,capOf){
+    if(!validId(id))throw Error('物品識別碼無效：'+id);checkQty(qty);if(!qty)return 0;
+    if(total(store,id)+qty>MAX_TOTAL)throw RangeError('物品數量超出可保存範圍：'+id);
+    const cap=capChecked(capOf,id);let left=qty;
+    for(const st of stackOrder(store,id)){if(!left)break;const room=cap-st.qty;if(room>0){const n=Math.min(room,left);st.qty+=n;left-=n;}}
+    while(left>0){const n=Math.min(cap,left);newStack(store,id,n);left-=n;}
+    return qty;
+  }
+  /* All or nothing: when the stacks hold less than qty nothing changes and false is returned.
+     Takes from the last stacks first so the leading stacks stay full. */
+  function remove(store,id,qty){
+    if(!validId(id))throw Error('物品識別碼無效：'+id);checkQty(qty);if(!qty)return true;
+    if(total(store,id)<qty)return false;
+    let left=qty;for(const st of stackOrder(store,id).reverse()){if(!left)break;const n=Math.min(st.qty,left);st.qty-=n;left-=n;if(!st.qty)dropStack(store,st);}
+    return true;
+  }
+  function removeMany(store,cost){
+    const rows=Object.entries(cost||{}).filter(([,n])=>n>0);for(const [id,n] of rows){if(!validId(id))throw Error('物品識別碼無效：'+id);checkQty(n);}
+    const need=new Map();for(const [id,n] of rows)need.set(id,(need.get(id)||0)+n);
+    for(const [id,n] of need)if(total(store,id)<n)return false;
+    for(const [id,n] of need)remove(store,id,n);return true;
+  }
+  function setTotal(store,id,n,capOf){checkQty(n);const cur=total(store,id);if(n>cur)add(store,id,n-cur,capOf);else if(n<cur)remove(store,id,cur-n);return n;}
+  function stackByUid(store,uid){return store.stacks.find(st=>st.uid===uid)||null;}
+  /* Move as much as fits from one stack into another stack of the same item. Returns the moved quantity. */
+  function merge(store,fromUid,toUid,capOf){
+    const a=stackByUid(store,fromUid),b=stackByUid(store,toUid);
+    if(!a||!b||a===b)throw Error('找不到要合併的堆疊');
+    if(a.item!==b.item)throw Error('不同物品不能合併');
+    const cap=capChecked(capOf,a.item),n=Math.max(0,Math.min(a.qty,cap-b.qty));
+    a.qty-=n;b.qty+=n;if(!a.qty)dropStack(store,a);return n;
+  }
+  /* Take qty out of a stack into a new stack placed right after it. The item total does not change. */
+  function split(store,uid,qty){
+    const st=stackByUid(store,uid);if(!st)throw Error('找不到要拆分的堆疊');
+    if(!Number.isSafeInteger(qty)||qty<1||qty>=st.qty)throw RangeError('拆分數量必須介於 1 與堆疊數量減 1 之間');
+    st.qty-=qty;const created={uid:'s'+(++store.serial),item:st.item,qty};
+    store.stacks.splice(store.stacks.indexOf(st)+1,0,created);const list=index(store).get(st.item);list.splice(list.indexOf(st)+1,0,created);return created.uid;
+  }
+  /* Repair after a cap change or a damaged layout: drop empty stacks and split stacks above the cap in place. */
+  function normalize(store,capOf){
+    let changed=false;
+    for(let i=0;i<store.stacks.length;i++)if(!(store.stacks[i].qty>0)){store.stacks.splice(i--,1);changed=true;}
+    reindex(store);
+    for(const [id,list] of [...store.byItem]){
+      const cap=capChecked(capOf,id);if(list.every(st=>st.qty<=cap))continue;
+      // Re-flow this item only: keep its stacks (uids and positions), fill each to the cap, append what is left.
+      const ordered=stackOrder(store,id);let left=ordered.reduce((n,st)=>n+st.qty,0);
+      for(const st of ordered){if(left>0){st.qty=Math.min(cap,left);left-=st.qty;}else st.qty=0;}
+      let at=store.stacks.indexOf(ordered.at(-1));
+      while(left>0){const n=Math.min(cap,left);store.stacks.splice(++at,0,{uid:'s'+(++store.serial),item:id,qty:n});left-=n;}
+      changed=true;
+    }
+    for(let i=0;i<store.stacks.length;i++)if(!(store.stacks[i].qty>0))store.stacks.splice(i--,1);
+    reindex(store);return changed;
+  }
+  /* Slot usage per tab. tabOf(itemId) returns the tab of an occupying stack (or null); instances = {equipment:n, token:n};
+     extra = {tab:n} for stores kept outside the stack store (tickets, region vouchers). */
+  function slotUsage(store,{tabOf=()=>null,instances={},extra={},settings}={}){
+    const s=normalizeSettings(settings),tabs={};
+    for(const [k,t] of Object.entries(TABS))tabs[k]={label:t.label,used:0,capacity:s.capacities[k]};
+    for(const st of store.stacks){const t=tabOf(st.item);if(t&&tabs[t])tabs[t].used++;}
+    for(const [t,n] of [...Object.entries(instances),...Object.entries(extra)])if(tabs[t])tabs[t].used+=n;
+    for(const t of Object.values(tabs))t.free=Math.max(0,t.capacity-t.used),t.over=Math.max(0,t.used-t.capacity);
+    return {tabs,used:Object.values(tabs).reduce((n,t)=>n+t.used,0)};
+  }
+  function serialize(store){return {version:VERSION,serial:store.serial,stacks:store.stacks.map(st=>({uid:st.uid,item:st.item,qty:st.qty}))};}
+  /* Saved layouts are structurally validated here; quantities are reconciled against item totals by the runtime. */
+  function validateLayout(raw){
+    if(raw===undefined||raw===null)return null;
+    if(typeof raw!=='object'||Array.isArray(raw)||raw.version!==VERSION||!Array.isArray(raw.stacks)||raw.stacks.length>200000||!Number.isSafeInteger(raw.serial)||raw.serial<0)throw Error('背包堆疊資料無效');
+    const uids=new Set(),out=createStore();out.serial=raw.serial;
+    for(const st of raw.stacks){
+      if(!st||typeof st!=='object'||typeof st.uid!=='string'||!/^s\d{1,15}$/.test(st.uid)||uids.has(st.uid)||!validId(st.item)||!Number.isSafeInteger(st.qty)||st.qty<1||st.qty>MAX_STACK)throw Error('背包堆疊資料無效');
+      uids.add(st.uid);out.serial=Math.max(out.serial,Number(st.uid.slice(1)));out.stacks.push({uid:st.uid,item:st.item,qty:st.qty});
+    }
+    reindex(out);return out;
+  }
+  /* Rebuild one item so its stacks hold exactly `want`. Matching saved stacks keep their uid and order. */
+  function reconcile(store,layout,id,want,capOf){
+    for(const st of stacksOf(store,id).slice())dropStack(store,st);
+    if(!want)return;
+    const saved=layout?stackOrderFrom(layout,id):[];
+    if(saved.length&&saved.reduce((n,st)=>n+st.qty,0)===want){for(const st of saved){const copy={uid:st.uid,item:id,qty:st.qty};store.stacks.push(copy);if(!index(store).has(id))store.byItem.set(id,[]);store.byItem.get(id).push(copy);store.serial=Math.max(store.serial,Number(st.uid.slice(1)));}return;}
+    add(store,id,want,capOf);
+  }
+  function stackOrderFrom(layout,id){return layout.stacks.filter(st=>st.item===id);}
+  function sortBySavedOrder(store,layout){
+    if(!layout)return;const pos=new Map(layout.stacks.map((st,i)=>[st.uid,i]));
+    const keyed=store.stacks.map((st,i)=>({st,k:pos.has(st.uid)?pos.get(st.uid):layout.stacks.length+i}));
+    keyed.sort((a,b)=>a.k-b.k);store.stacks.splice(0,store.stacks.length,...keyed.map(x=>x.st));
+    reindex(store);
+  }
+  /* Split a quantity into stack sizes, e.g. 1500 at 999 → [999,501]. */
+  function stackSizes(qty,cap){checkQty(qty);const out=[];while(qty>0){out.push(Math.min(cap,qty));qty-=Math.min(cap,qty);}return out;}
+
+  const api={VERSION,TABS,CATEGORIES,DEFAULT_SETTINGS,MAX_STACK,parseId,itemId,validId,classify,normalizeSettings,settingsIssues,overrideIssues,definition,instanceDefinition,
+    createStore,total,items,stacksOf,add,remove,removeMany,setTotal,merge,split,normalize,slotUsage,serialize,validateLayout,reconcile,sortBySavedOrder,stackByUid,stackSizes};
+  root.EmberwildInventory=api;if(typeof module==='object'&&module.exports)module.exports=api;
+})(globalThis);
+
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;
+
 /* js/core/game-catalog.js?v=20261123-v0196-aspd */
 'use strict';
 // Built-in static catalog; game runtime keeps ownership of mutations and migrations.
@@ -3348,10 +3584,10 @@ const GAME_BALANCE_DEFAULTS={
 
 
 
-/* js/balance/gameplay-defaults.js?v=20261123-v0196-aspd */
+/* js/balance/gameplay-defaults.js?v=20261124-v0204-inventory */
 'use strict';
 // Built-in static catalog; game runtime keeps ownership of mutations and migrations.
-const GAMEPLAY_SETTINGS_DEFAULTS={"progression":{"starting":{"gold":150,"ore":0,"dust":12,"skillPoints":2,"potions":5},"baseCrit":{"default":0.07,"archer":0.17},"regionTierLevels":5},"skills":{"core":{"maxLevel":10,"initialCap":2,"capLevelsPerStep":3,"effectPerExtraLevel":0.4},"proc":{"baseChance":0.22,"perSkillLevel":0.025},"support":{"maxLevel":5,"effectPerExtraLevel":0.2},"gems":{"craftDust":12,"effectMultiplier":1.18,"cooldownReduction":1,"cooldownProcBonus":0.1,"hybridMultiplier":1.1,"hybridProcBonus":0.05,"hybridActiveHealAttack":0.15}},"equipment":{"bagCapacity":720,"requiredLevel":{"base":1,"perTier":5},"baseStats":{"weaponAttackPerTier":11,"armorHpPerTier":45,"armorDefensePerTier":4,"accessoryAttackPerTier":4,"accessoryHpPerTier":20},"enhance":{"maxLevel":12,"costLevelStep":5,"levels":[{"level":1,"cost":{"dust":2,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.05},{"level":2,"cost":{"dust":4,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.1},{"level":3,"cost":{"dust":6,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.15},{"level":4,"cost":{"dust":8,"ore":0,"ether":0},"successRate":0.9,"failure":"drop","failureLevel":2,"baseBonus":0.22},{"level":5,"cost":{"dust":0,"ore":2,"ether":0},"successRate":0.8,"failure":"drop","failureLevel":3,"baseBonus":0.3},{"level":6,"cost":{"dust":0,"ore":3,"ether":0},"successRate":0.7,"failure":"drop","failureLevel":4,"baseBonus":0.4},{"level":7,"cost":{"dust":0,"ore":4,"ether":0},"successRate":0.6,"failure":"drop","failureLevel":3,"baseBonus":0.55},{"level":8,"cost":{"dust":0,"ore":5,"ether":0},"successRate":0.5,"failure":"drop","failureLevel":3,"baseBonus":0.75},{"level":9,"cost":{"dust":0,"ore":6,"ether":0},"successRate":0.4,"failure":"drop","failureLevel":0,"baseBonus":1.0},{"level":10,"cost":{"dust":0,"ore":0,"ether":1},"successRate":0.3,"failure":"drop","failureLevel":0,"baseBonus":1.3},{"level":11,"cost":{"dust":0,"ore":0,"ether":2},"successRate":0.2,"failure":"destroy","failureLevel":0,"baseBonus":1.6},{"level":12,"cost":{"dust":0,"ore":0,"ether":3},"successRate":0.1,"failure":"destroy","failureLevel":0,"baseBonus":1.9}],"statPerLevel":0.12,"orePerTierPerLevel":2,"dustStartLevel":6,"dustPerTierPerLevelAboveStart":1,"etherStartLevel":10,"etherCost":1},"salvage":{"oreBasePerTier":3,"orePerQualityPerTier":2,"orePerEnhancePerTier":1,"dustBase":1,"dustPerQuality":1},"lootOwnerSameJobChance":0.75,"boss":{"baseLevelBonus":7,"powerByDifficulty":[1,1.25,1.55],"skillEffectByDifficulty":[30,40,55],"affixRankByDifficulty":[2,2,3],"craftGoldPerTier":250,"craftMaterialCount":5},"difficultyAffix":{"hardChance":0.65,"hellChance":0.9,"hardFineThreshold":0.7,"hardRareThreshold":0.95,"hellFineThreshold":0.35,"hellRareThreshold":0.85,"skillChance":0.4,"baseAttackPerTier":5,"baseHpPerTier":25,"defenseBasePerTier":3,"defensePerRankPerTier":1,"critBase":4,"critPerRank":3},"maxLevel":60},"monsters":{"encounter":{"bossChance":0.05,"eliteChance":0.06},"normal":{"hpBase":42,"hpPerLevel":15,"hpQuadratic":0.7,"attackBase":8,"attackPerLevel":3.3,"defensePerLevel":1.7},"kindMultipliers":{"bossHp":3,"eliteHp":1.65,"bossAttack":1.45,"eliteAttack":1.2},"finalBoss":{"level":40,"hp":180000,"attack":1000,"defense":110},"awakened":{"threshold":30,"hpBaseMultiplier":2,"hpPerLevel":0.1,"attackBaseMultiplier":2,"attackPerLevel":0.06,"defenseMultiplier":1.6}},"difficulty":{"modes":[{"hp":1,"attack":1,"defense":1,"reward":1,"equipmentChance":[0.002,0.006,0.2],"gemChance":[0.04,0.12,0.35],"bossGearChance":0.06,"ore":1,"legendaryGearChance":0.0006,"goldMultiplier":1},{"hp":1.8,"attack":1.35,"defense":1.2,"reward":1.3,"equipmentChance":[0.0027,0.008,0.25],"gemChance":[0.08,0.22,0.5],"bossGearChance":0.1,"ore":1.5,"legendaryGearChance":0.0016,"goldMultiplier":1.35},{"hp":3,"attack":1.8,"defense":1.45,"reward":1.65,"equipmentChance":[0.0034,0.01,0.3],"gemChance":[0.13,0.35,0.7],"bossGearChance":0.15,"ore":2,"legendaryGearChance":0.0032,"goldMultiplier":1.8}],"materialChance":[0.025,0.035,0.048]},"rewards":{"kindMultiplier":{"normal":1,"elite":1.7,"boss":3},"gold":{"base":2,"perLevel":0.45,"quadratic":0.003,"kindMultiplier":{"normal":1,"elite":2.6,"boss":7},"levelGap":{"enabled":true,"freeLevels":2,"midGap":3,"midMultiplier":0.5,"highGap":5,"highMultiplier":0.2,"zeroGap":10}},"ore":{"normalKindMultiplier":0.25,"eliteBossKindMultiplier":0.6,"normalChanceByDifficulty":[0.08,0.1,0.12],"chanceFactor":0.7},"equipmentQuality":{"rareChance":0.242,"fineConditionalChance":0.46},"potionDropChance":0.08,"postVictoryHeal":0.12,"radiant":{"normalElite":0.0004,"bossFinal":0.008},"ether":{"eliteBase":0.01,"elitePerTier":0.004,"eliteCap":0.06,"bossRepeat":0.01,"firstBossMin":1,"firstBossMax":2}},"combat":{"defenseEffectiveness":0.65,"baseCritDamage":1.5,"caps":{"fracture":0.75,"guard":0.75,"weaken":0.7,"resistance":0.75},"finalBoss":{"enrageAfterTurn":45,"enrageMultiplier":4,"specialEveryTurns":5,"specialMultiplier":1.65},"autoPotionThreshold":0.35,"defeatGoldLoss":0.05,"groupSize":{"min":3,"max":5},"speed":{"enemyBase":106,"enemyPerLevel":0.5,"race":{"beast":5,"plant":-4,"undead":-2,"construct":-5,"demon":3,"spirit":4},"kind":{"normal":0,"elite":2,"boss":4,"final":6},"difficultyBonus":2},"pacing":{"actionIntervalMs":1500,"roundMinimumMs":6000},"supply":{"wardResistance":0.25,"elementTonicDamage":0.2}},"quests":{"tutorial":{"killRequirement":3,"skillLevelRequirement":2,"rewardGold":100,"rewardOre":10,"armorTier":1,"armorSlot":1,"armorQuality":1},"side":[{"required":5,"gold":300,"ore":20,"gem":1},{"required":2,"gold":800,"ore":55,"gem":1},{"required":3,"gold":2000,"ore":120,"gem":1}],"repeat":{"required":8,"goldPerTier":150,"ore":15,"dust":3,"gem":1},"board":{"refreshMinutes":20,"refreshGoldPerTier":150,"taskBase":8,"taskRandomRange":9,"taskPerTier":2,"goldPerTier":180,"orePerTier":8,"gemReward":2,"legendaryGearChance":0.2},"market":{"refreshCost":100,"offerCount":6,"oreMin":8,"oreRandomRange":13,"dustMin":3,"dustRandomRange":6,"gemMin":1,"gemRandomRange":2,"materialMin":3,"materialRandomRange":4,"oreUnit":12,"dustUnit":25,"gemUnit":180,"materialUnitPerTier":60},"potion":{"healFraction":0.45,"buyCost":75,"buyQuantity":5}}};
+const GAMEPLAY_SETTINGS_DEFAULTS={"progression":{"starting":{"gold":150,"ore":0,"dust":12,"skillPoints":2,"potions":5},"baseCrit":{"default":0.07,"archer":0.17},"regionTierLevels":5},"skills":{"core":{"maxLevel":10,"initialCap":2,"capLevelsPerStep":3,"effectPerExtraLevel":0.4},"proc":{"baseChance":0.22,"perSkillLevel":0.025},"support":{"maxLevel":5,"effectPerExtraLevel":0.2},"gems":{"craftDust":12,"effectMultiplier":1.18,"cooldownReduction":1,"cooldownProcBonus":0.1,"hybridMultiplier":1.1,"hybridProcBonus":0.05,"hybridActiveHealAttack":0.15}},"equipment":{"bagCapacity":720,"requiredLevel":{"base":1,"perTier":5},"baseStats":{"weaponAttackPerTier":11,"armorHpPerTier":45,"armorDefensePerTier":4,"accessoryAttackPerTier":4,"accessoryHpPerTier":20},"enhance":{"maxLevel":12,"costLevelStep":5,"levels":[{"level":1,"cost":{"dust":2,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.05},{"level":2,"cost":{"dust":4,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.1},{"level":3,"cost":{"dust":6,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.15},{"level":4,"cost":{"dust":8,"ore":0,"ether":0},"successRate":0.9,"failure":"drop","failureLevel":2,"baseBonus":0.22},{"level":5,"cost":{"dust":0,"ore":2,"ether":0},"successRate":0.8,"failure":"drop","failureLevel":3,"baseBonus":0.3},{"level":6,"cost":{"dust":0,"ore":3,"ether":0},"successRate":0.7,"failure":"drop","failureLevel":4,"baseBonus":0.4},{"level":7,"cost":{"dust":0,"ore":4,"ether":0},"successRate":0.6,"failure":"drop","failureLevel":3,"baseBonus":0.55},{"level":8,"cost":{"dust":0,"ore":5,"ether":0},"successRate":0.5,"failure":"drop","failureLevel":3,"baseBonus":0.75},{"level":9,"cost":{"dust":0,"ore":6,"ether":0},"successRate":0.4,"failure":"drop","failureLevel":0,"baseBonus":1.0},{"level":10,"cost":{"dust":0,"ore":0,"ether":1},"successRate":0.3,"failure":"drop","failureLevel":0,"baseBonus":1.3},{"level":11,"cost":{"dust":0,"ore":0,"ether":2},"successRate":0.2,"failure":"destroy","failureLevel":0,"baseBonus":1.6},{"level":12,"cost":{"dust":0,"ore":0,"ether":3},"successRate":0.1,"failure":"destroy","failureLevel":0,"baseBonus":1.9}],"statPerLevel":0.12,"orePerTierPerLevel":2,"dustStartLevel":6,"dustPerTierPerLevelAboveStart":1,"etherStartLevel":10,"etherCost":1},"salvage":{"oreBasePerTier":3,"orePerQualityPerTier":2,"orePerEnhancePerTier":1,"dustBase":1,"dustPerQuality":1},"lootOwnerSameJobChance":0.75,"boss":{"baseLevelBonus":7,"powerByDifficulty":[1,1.25,1.55],"skillEffectByDifficulty":[30,40,55],"affixRankByDifficulty":[2,2,3],"craftGoldPerTier":250,"craftMaterialCount":5},"difficultyAffix":{"hardChance":0.65,"hellChance":0.9,"hardFineThreshold":0.7,"hardRareThreshold":0.95,"hellFineThreshold":0.35,"hellRareThreshold":0.85,"skillChance":0.4,"baseAttackPerTier":5,"baseHpPerTier":25,"defenseBasePerTier":3,"defensePerRankPerTier":1,"critBase":4,"critPerRank":3},"maxLevel":60},"monsters":{"encounter":{"bossChance":0.05,"eliteChance":0.06},"normal":{"hpBase":42,"hpPerLevel":15,"hpQuadratic":0.7,"attackBase":8,"attackPerLevel":3.3,"defensePerLevel":1.7},"kindMultipliers":{"bossHp":3,"eliteHp":1.65,"bossAttack":1.45,"eliteAttack":1.2},"finalBoss":{"level":40,"hp":180000,"attack":1000,"defense":110},"awakened":{"threshold":30,"hpBaseMultiplier":2,"hpPerLevel":0.1,"attackBaseMultiplier":2,"attackPerLevel":0.06,"defenseMultiplier":1.6}},"difficulty":{"modes":[{"hp":1,"attack":1,"defense":1,"reward":1,"equipmentChance":[0.002,0.006,0.2],"gemChance":[0.04,0.12,0.35],"bossGearChance":0.06,"ore":1,"legendaryGearChance":0.0006,"goldMultiplier":1},{"hp":1.8,"attack":1.35,"defense":1.2,"reward":1.3,"equipmentChance":[0.0027,0.008,0.25],"gemChance":[0.08,0.22,0.5],"bossGearChance":0.1,"ore":1.5,"legendaryGearChance":0.0016,"goldMultiplier":1.35},{"hp":3,"attack":1.8,"defense":1.45,"reward":1.65,"equipmentChance":[0.0034,0.01,0.3],"gemChance":[0.13,0.35,0.7],"bossGearChance":0.15,"ore":2,"legendaryGearChance":0.0032,"goldMultiplier":1.8}],"materialChance":[0.025,0.035,0.048]},"rewards":{"kindMultiplier":{"normal":1,"elite":1.7,"boss":3},"gold":{"base":2,"perLevel":0.45,"quadratic":0.003,"kindMultiplier":{"normal":1,"elite":2.6,"boss":7},"levelGap":{"enabled":true,"freeLevels":2,"midGap":3,"midMultiplier":0.5,"highGap":5,"highMultiplier":0.2,"zeroGap":10}},"ore":{"normalKindMultiplier":0.25,"eliteBossKindMultiplier":0.6,"normalChanceByDifficulty":[0.08,0.1,0.12],"chanceFactor":0.7},"equipmentQuality":{"rareChance":0.242,"fineConditionalChance":0.46},"potionDropChance":0.08,"postVictoryHeal":0.12,"radiant":{"normalElite":0.0004,"bossFinal":0.008},"ether":{"eliteBase":0.01,"elitePerTier":0.004,"eliteCap":0.06,"bossRepeat":0.01,"firstBossMin":1,"firstBossMax":2}},"combat":{"defenseEffectiveness":0.65,"baseCritDamage":1.5,"caps":{"fracture":0.75,"guard":0.75,"weaken":0.7,"resistance":0.75},"finalBoss":{"enrageAfterTurn":45,"enrageMultiplier":4,"specialEveryTurns":5,"specialMultiplier":1.65},"autoPotionThreshold":0.35,"defeatGoldLoss":0.05,"groupSize":{"min":3,"max":5},"speed":{"enemyBase":106,"enemyPerLevel":0.5,"race":{"beast":5,"plant":-4,"undead":-2,"construct":-5,"demon":3,"spirit":4},"kind":{"normal":0,"elite":2,"boss":4,"final":6},"difficultyBonus":2},"pacing":{"actionIntervalMs":1500,"roundMinimumMs":6000},"supply":{"wardResistance":0.25,"elementTonicDamage":0.2}},"quests":{"tutorial":{"killRequirement":3,"skillLevelRequirement":2,"rewardGold":100,"rewardOre":10,"armorTier":1,"armorSlot":1,"armorQuality":1},"side":[{"required":5,"gold":300,"ore":20,"gem":1},{"required":2,"gold":800,"ore":55,"gem":1},{"required":3,"gold":2000,"ore":120,"gem":1}],"repeat":{"required":8,"goldPerTier":150,"ore":15,"dust":3,"gem":1},"board":{"refreshMinutes":20,"refreshGoldPerTier":150,"taskBase":8,"taskRandomRange":9,"taskPerTier":2,"goldPerTier":180,"orePerTier":8,"gemReward":2,"legendaryGearChance":0.2},"market":{"refreshCost":100,"offerCount":6,"oreMin":8,"oreRandomRange":13,"dustMin":3,"dustRandomRange":6,"gemMin":1,"gemRandomRange":2,"materialMin":3,"materialRandomRange":4,"oreUnit":12,"dustUnit":25,"gemUnit":180,"materialUnitPerTier":60},"potion":{"healFraction":0.45,"buyCost":75,"buyQuantity":5}},"inventory":{"capacities":{"equipment":100,"token":100,"gem":100,"material":100,"consumable":100,"special":100},"stackLimits":{"equipment":1,"token":1,"gem":99,"monsterMaterial":999,"enhancementMaterial":999,"material":999,"rareMaterial":999,"consumable":99,"special":999,"questItem":999}}};
 
 
 
@@ -3535,7 +3771,7 @@ function skillMechanicsDetails(job,index,group='core'){
 
 
 
-/* js/balance/gameplay-settings-schema.js?v=20261120-v0180 */
+/* js/balance/gameplay-settings-schema.js?v=20261124-v0204-inventory */
 'use strict';
 // Extracted from core-game.js without changing exported globals or validation rules.
 function cloneGameplaySettings(v){return JSON.parse(JSON.stringify(v));}
@@ -3560,11 +3796,13 @@ function validateGameplaySettings(cfg){
   if(!Number.isInteger(cfg.equipment.maxLevel)||cfg.equipment.maxLevel<1||cfg.equipment.maxLevel>999)throw Error('裝備等級上限設定無效');
   if(cfg.rewards.ether.firstBossMax<cfg.rewards.ether.firstBossMin)throw Error('首次 BOSS 以太鍛鐵範圍無效');
   cfg.maps.levelRanges.forEach((m,i)=>{if(!Number.isFinite(m.min)||!Number.isFinite(m.max)||m.min<1||m.max<m.min)throw Error('地圖等級範圍無效：'+i);});
+  // v0.204: stack limits per item category and the planned bag capacity (not enforced yet).
+  if(globalThis.EmberwildInventory){const errors=EmberwildInventory.settingsIssues(cfg.inventory);if(errors.length)throw Error(errors.join('\n'));}
   return cfg;
 }
 function normalizeGameplaySettings(input){return validateGameplaySettings(mergeGameplayShape(GAMEPLAY_SETTINGS_DEFAULTS,input||{}));}
 
-
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;
 
 /* js/ui/core-screen-views.js?v=20261123-v0196-aspd */
 'use strict';
@@ -5716,7 +5954,7 @@ forgeEquipmentOptions=function(selectedId){const worn=[],spare=[];for(const g of
 // Normalize old saves in memory: legacy equipment rarity no longer has gameplay meaning.
 if(state?.bag)state.bag.forEach(g=>g.rar=0);
 
-EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_SIMULATION_MODAL=globalThis.__EMBERWILD_SIMULATION_MODAL??__EMBERWILD_SIMULATION_MODAL;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_READY;__EMBERWILD_SAVE_ERROR=globalThis.__EMBERWILD_SAVE_ERROR??__EMBERWILD_SAVE_ERROR;saveFailureText=globalThis.saveFailureText??saveFailureText;__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_RECOVERED_BACKUP_SESSION=globalThis.__EMBERWILD_RECOVERED_BACKUP_SESSION??__EMBERWILD_RECOVERED_BACKUP_SESSION;__EMBERWILD_UNREADABLE_PRIMARY_RAW=globalThis.__EMBERWILD_UNREADABLE_PRIMARY_RAW??__EMBERWILD_UNREADABLE_PRIMARY_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;scaleHeroHealing=globalThis.scaleHeroHealing??scaleHeroHealing;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;equipmentWearableJobsDetailsHTML=globalThis.equipmentWearableJobsDetailsHTML??equipmentWearableJobsDetailsHTML;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;emberwildBootComplete=globalThis.emberwildBootComplete??emberwildBootComplete;
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_SIMULATION_MODAL=globalThis.__EMBERWILD_SIMULATION_MODAL??__EMBERWILD_SIMULATION_MODAL;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_READY;__EMBERWILD_SAVE_ERROR=globalThis.__EMBERWILD_SAVE_ERROR??__EMBERWILD_SAVE_ERROR;saveFailureText=globalThis.saveFailureText??saveFailureText;__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_RECOVERED_BACKUP_SESSION=globalThis.__EMBERWILD_RECOVERED_BACKUP_SESSION??__EMBERWILD_RECOVERED_BACKUP_SESSION;__EMBERWILD_UNREADABLE_PRIMARY_RAW=globalThis.__EMBERWILD_UNREADABLE_PRIMARY_RAW??__EMBERWILD_UNREADABLE_PRIMARY_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;scaleHeroHealing=globalThis.scaleHeroHealing??scaleHeroHealing;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;equipmentWearableJobsDetailsHTML=globalThis.equipmentWearableJobsDetailsHTML??equipmentWearableJobsDetailsHTML;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;emberwildBootComplete=globalThis.emberwildBootComplete??emberwildBootComplete;
 
 /* js/ui/text-rarity-style.js */
 /* Shared presentation for user-defined text rarity presets. */
@@ -18369,7 +18607,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
   }catch(e){globalThis.__EMBERWILD_TEAM_READY=true;globalThis.__EMBERWILD_BOOT_SAVE_ERROR=e.message;console.warn('隊伍方案載入失敗；原始存檔保留',e);if(boot){state=null;party=null;globalThis.__EMBERWILD_BOOT_SAVE_RAW=boot;}render();}
 })();
 
-EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;changePlayerClass=globalThis.changePlayerClass??changePlayerClass;addTeamPlan=globalThis.addTeamPlan??addTeamPlan;copyTeamPlan=globalThis.copyTeamPlan??copyTeamPlan;renameTeamPlan=globalThis.renameTeamPlan??renameTeamPlan;switchTeamPlan=globalThis.switchTeamPlan??switchTeamPlan;clearTeamPlan=globalThis.clearTeamPlan??clearTeamPlan;deleteTeamPlan=globalThis.deleteTeamPlan??deleteTeamPlan;resetSkills=globalThis.resetSkills??resetSkills;unlockTeamSkill=globalThis.unlockTeamSkill??unlockTeamSkill;stopTeamExploration=globalThis.stopTeamExploration??stopTeamExploration;
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;changePlayerClass=globalThis.changePlayerClass??changePlayerClass;addTeamPlan=globalThis.addTeamPlan??addTeamPlan;copyTeamPlan=globalThis.copyTeamPlan??copyTeamPlan;renameTeamPlan=globalThis.renameTeamPlan??renameTeamPlan;switchTeamPlan=globalThis.switchTeamPlan??switchTeamPlan;clearTeamPlan=globalThis.clearTeamPlan??clearTeamPlan;deleteTeamPlan=globalThis.deleteTeamPlan??deleteTeamPlan;resetSkills=globalThis.resetSkills??resetSkills;unlockTeamSkill=globalThis.unlockTeamSkill??unlockTeamSkill;stopTeamExploration=globalThis.stopTeamExploration??stopTeamExploration;
 
 /* js/equipment/team-references.js?v=20261121-v0186 */
 /* All manual disposal paths share the existing prices/reward functions and the
@@ -19727,6 +19965,236 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;gameNavigationHTML=g
 })();
 
 EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_GEAR_SKILL_ICON=globalThis.__EMBERWILD_GEAR_SKILL_ICON??__EMBERWILD_GEAR_SKILL_ICON;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_ITEM_DETAILS=globalThis.__EMBERWILD_ITEM_DETAILS??__EMBERWILD_ITEM_DETAILS;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;__EMBERWILD_ICON_COLOR=globalThis.__EMBERWILD_ICON_COLOR??__EMBERWILD_ICON_COLOR;inventoryMaterialDescription=globalThis.inventoryMaterialDescription??inventoryMaterialDescription;lifeMaterialDescription=globalThis.lifeMaterialDescription??lifeMaterialDescription;__EMBERWILD_PUBLISHED_BALANCE=globalThis.__EMBERWILD_PUBLISHED_BALANCE??__EMBERWILD_PUBLISHED_BALANCE;inventoryGemSellPrice=globalThis.inventoryGemSellPrice??inventoryGemSellPrice;sellCatalogueGem=globalThis.sellCatalogueGem??sellCatalogueGem;sellCatalogueRecruitTicket=globalThis.sellCatalogueRecruitTicket??sellCatalogueRecruitTicket;__EMBERWILD_INVENTORY_ICONS=globalThis.__EMBERWILD_INVENTORY_ICONS??__EMBERWILD_INVENTORY_ICONS;
+
+/* js/items/inventory-runtime.js?v=20261124-v0204-inventory */
+/* v0.204 inventory foundation runtime.
+   One stack store per party holds every stackable item: materials (鍛鐵 = state.ore, 粉塵 = state.dust), gems,
+   consumables and healing potions. The fields older code reads and writes (state.ore, state.dust, state.gems[i],
+   state.materials[k], state.consumables[k], party.members[0].healingPotions[k]) are facades over that store: a read
+   returns the store total and a write goes through the stack rules (fill partial stacks, open new stacks, all-or-nothing
+   removal). No other copy of these quantities exists at runtime, so nothing can change a count without the stack rules.
+   Equipment and companion tokens remain individual instances in the shared gear bag (party.sharedGear).
+   Companion recruit tickets remain in party.achievements.tickets (quest items, no bag slot) and are reached through
+   the same API. The save keeps the existing per-item totals (old-save validation) plus `inventory`, the stack layout. */
+(()=>{
+  'use strict';
+  const M=EmberwildInventory,parties=new WeakMap(),heroes=new WeakSet();
+  const ORE='material:鍛鐵',DUST='material:粉塵',TICKET=/^item:companion-ticket-(\d{1,10})$/;
+  let defCache=new Map(),ctxCache=null;
+
+  /* ---------- definitions ---------- */
+  const gameplaySettingsRef=()=>typeof GAMEPLAY_SETTINGS!=='undefined'?GAMEPLAY_SETTINGS:null;
+  function settings(){return M.normalizeSettings(gameplaySettingsRef()?.inventory);}
+  function context(){
+    if(ctxCache)return ctxCache;
+    const monsters=gameplaySettingsRef()?.monsters?.catalog||[];
+    ctxCache={bossMaterials:new Set(monsters.filter(m=>m.kind==='boss'&&m.material).map(m=>m.material)),monsterMaterials:new Set(monsters.filter(m=>m.material).map(m=>m.material))};
+    return ctxCache;
+  }
+  const details=(kind,key)=>globalThis.__EMBERWILD_ITEM_DETAILS?.(kind,key);
+  function healIds(){try{return new Set((typeof healPotionItems==='function'?healPotionItems():[]).map(x=>x.id));}catch{return new Set();}}
+  function itemName(p){
+    if(p.kind==='gem')return GEMS?.[Number(p.key)]?.name||('寶石 '+p.key);
+    if(p.kind==='material')return p.key==='粉塵'?'寶石粉塵':p.key;
+    const shop=(typeof SHOP!=='undefined'?SHOP:[]).find(x=>x.id===p.key);if(shop)return shop.name;
+    const t=p.key.match(/^companion-ticket-(\d+)$/);return t?'夥伴招募券':p.key;
+  }
+  function definition(id){
+    if(defCache.has(id))return defCache.get(id);
+    const p=M.parseId(id);if(!p)throw Error('物品識別碼無效：'+id);
+    const name=globalThis.__EMBERWILD_ITEM_NAME?.(p.kind,p.key,itemName(p))||itemName(p);
+    let canSell;try{canSell=globalThis.__EMBERWILD_CAN_SELL?.(p.kind,p.key);}catch{}
+    const d=Object.freeze(M.definition(id,{settings:gameplaySettingsRef()?.inventory,ctx:context(),details,name,
+      description:globalThis.__EMBERWILD_ITEM_DESCRIPTION?.(p.kind,p.key)||'',rarity:p.kind==='gem'?Math.floor(Number(p.key)/5):null,canSell:typeof canSell==='boolean'?canSell:undefined}));
+    defCache.set(id,d);return d;
+  }
+  const capOf=id=>definition(id).maxStack;
+  const occupies=id=>definition(id).occupiesSlot;
+  function gearDefinition(g){const token=!!globalThis.EmberwildTokens?.isToken(g);return M.instanceDefinition(g,{isToken:token,details,name:typeof equipmentDisplayName==='function'?equipmentDisplayName(g):g.name});}
+  function invalidate(){defCache=new Map();ctxCache=null;}
+
+  /* ---------- store and facades ---------- */
+  function rt(){
+    if(!party)return null;let r=parties.get(party);
+    if(!r){r={store:M.createStore(),layout:null,account:null,shared:null,owner:null,views:{}};parties.set(party,r);}
+    if(Object.hasOwn(party,'inventory')){const raw=party.inventory;delete party.inventory;try{r.layout=M.validateLayout(raw);}catch(e){console.warn('背包堆疊資料無效，依物品總量重建',e);r.layout=null;}}
+    return r;
+  }
+  function checkCount(v,id){if(!Number.isSafeInteger(v)||v<0)throw TypeError('物品數量必須是非負整數：'+id+' = '+v);return v;}
+  function setCount(r,id,v){checkCount(v,id);const before=M.total(r.store,id);if(before===v)return;M.setTotal(r.store,id,v,capOf);refresh(r,id);}
+  function viewOf(id){
+    const p=M.parseId(id);if(!p)return null;
+    if(p.kind==='gem')return 'gems';
+    if(p.kind==='material')return id===ORE||id===DUST?null:'materials';
+    if(TICKET.test(id))return null;
+    return healIds().has(p.key)?'healingPotions':'consumables';
+  }
+  function refresh(r,id){
+    const p=M.parseId(id),n=M.total(r.store,id);
+    for(const name of ['materials','consumables','healingPotions']){const v=r.views[name];if(!v)continue;if(viewOf(id)===name&&n>0)v.target[p.key]=n;else delete v.target[p.key];}
+    if(p.kind==='gem'&&r.views.gems){const i=Number(p.key);if(i<r.views.gems.target.length)r.views.gems.target[i]=n;}
+  }
+  function refreshAll(r){
+    for(const name of ['materials','consumables','healingPotions'])if(r.views[name])for(const k of Object.keys(r.views[name].target))delete r.views[name].target[k];
+    if(r.views.gems)r.views.gems.target.fill(0);
+    for(const id of M.items(r.store))refresh(r,id);
+  }
+  function objectView(r,name,kind){
+    const target={},toId=k=>{const id=kind+':'+k;if(!M.validId(id))throw TypeError('物品名稱無效：'+k);return id;};
+    const proxy=new Proxy(target,{
+      set(t,k,v){if(typeof k==='symbol')return Reflect.set(t,k,v);setCount(r,toId(k),v);return true;},
+      deleteProperty(t,k){if(typeof k==='symbol')return Reflect.deleteProperty(t,k);const id=kind+':'+k;if(M.validId(id)&&viewOf(id)===name)setCount(r,id,0);return true;},
+      defineProperty(t,k,desc){if(typeof k==='symbol'||!('value' in desc))return Reflect.defineProperty(t,k,desc);setCount(r,toId(k),desc.value);return true;}
+    });
+    r.views[name]={target,proxy};return proxy;
+  }
+  function gemsView(r){
+    const target=Array(GEMS.length).fill(0);
+    const proxy=new Proxy(target,{
+      set(t,k,v){if(typeof k==='string'&&/^\d+$/.test(k)){const i=Number(k);if(i>=t.length)return true;setCount(r,'gem:'+i,v);return true;}return Reflect.set(t,k,v);},
+      deleteProperty(t,k){if(typeof k==='string'&&/^\d+$/.test(k)&&Number(k)<t.length){setCount(r,'gem:'+k,0);return true;}return Reflect.deleteProperty(t,k);}
+    });
+    r.views.gems={target,proxy};return proxy;
+  }
+  /* Replace every count of one view at once (snapshot restores, `materials = {...}`). Validates before changing anything. */
+  function replaceView(r,name,kind,value){
+    if(!value||typeof value!=='object')throw TypeError('物品資料必須是物件');
+    const next=new Map();
+    if(name==='gems'){for(let i=0;i<GEMS.length;i++)next.set('gem:'+i,checkCount(Number(value[i]??0),'gem:'+i));}
+    else{
+      for(const k of Object.keys(r.views[name].target))next.set(kind+':'+k,0);
+      for(const [k,v] of Object.entries(value)){const id=kind+':'+k;if(!M.validId(id))throw TypeError('物品名稱無效：'+k);if(v===undefined)continue;next.set(id,checkCount(v,id));}
+    }
+    for(const [id,v] of next)setCount(r,id,v);
+  }
+  function seed(r,id,qty){if(!qty)return;M.reconcile(r.store,r.layout,id,M.total(r.store,id)+qty,capOf);refresh(r,id);}
+  function installAccount(r){
+    const a=party.accountResources;if(!a||r.account===a)return;
+    const plain={ore:a.ore||0,dust:a.dust||0,gems:[...(a.gems||[])],materials:{...(a.materials||{})}};
+    seed(r,ORE,checkCount(plain.ore,ORE));seed(r,DUST,checkCount(plain.dust,DUST));
+    plain.gems.forEach((n,i)=>{if(i<GEMS.length)seed(r,'gem:'+i,checkCount(n||0,'gem:'+i));});
+    for(const [k,n] of Object.entries(plain.materials))seed(r,M.itemId('material',k),checkCount(n||0,'material:'+k));
+    const gems=r.views.gems?.proxy||gemsView(r),materials=r.views.materials?.proxy||objectView(r,'materials','material');
+    Object.defineProperty(a,'ore',{enumerable:true,configurable:true,get:()=>M.total(r.store,ORE),set:v=>setCount(r,ORE,v)});
+    Object.defineProperty(a,'dust',{enumerable:true,configurable:true,get:()=>M.total(r.store,DUST),set:v=>setCount(r,DUST,v)});
+    Object.defineProperty(a,'gems',{enumerable:true,configurable:true,get:()=>gems,set:v=>{if(v!==gems)replaceView(r,'gems','gem',v);}});
+    Object.defineProperty(a,'materials',{enumerable:true,configurable:true,get:()=>materials,set:v=>{if(v!==materials)replaceView(r,'materials','material',v);}});
+    r.account=a;refreshAll(r);
+  }
+  function installShared(r){
+    const s=party.sharedItems;if(!s||r.shared===s)return;
+    for(const [k,n] of Object.entries(s.consumables||{}))seed(r,M.itemId('item',k),checkCount(n||0,'item:'+k));
+    const consumables=r.views.consumables?.proxy||objectView(r,'consumables','item');
+    Object.defineProperty(s,'consumables',{enumerable:true,configurable:true,get:()=>consumables,set:v=>{if(v!==consumables)replaceView(r,'consumables','item',v);}});
+    r.shared=s;refreshAll(r);
+  }
+  function installOwner(r){
+    const h=party.members?.[0];if(!h||r.owner===h)return;
+    const raw=h.healingPotions&&typeof h.healingPotions==='object'&&!Array.isArray(h.healingPotions)?{...h.healingPotions}:{};
+    for(const [k,n] of Object.entries(raw))if(Number.isSafeInteger(n)&&n>0&&M.validId('item:'+k))seed(r,'item:'+k,n);
+    const heal=r.views.healingPotions?.proxy||objectView(r,'healingPotions','item');
+    Object.defineProperty(h,'healingPotions',{enumerable:true,configurable:true,get:()=>heal,set:v=>{if(v!==heal)replaceView(r,'healingPotions','item',v);}});
+    r.owner=h;heroes.add(h);refreshAll(r);
+  }
+  function ensureInventory(){
+    const r=rt();if(!r)return null;
+    installAccount(r);installShared(r);installOwner(r);
+    if(r.layout&&r.account&&r.shared&&r.owner){M.sortBySavedOrder(r.store,r.layout);r.layout=null;}
+    return r;
+  }
+  if(typeof ensureAccountResources==='function'){const base=ensureAccountResources;ensureAccountResources=function(...args){const out=base.apply(this,args);ensureInventory();return out;};}
+  if(typeof ensureSharedItems==='function'){const base=ensureSharedItems;ensureSharedItems=function(...args){const out=base.apply(this,args);ensureInventory();return out;};}
+
+  /* ---------- save ---------- */
+  const basePack=packParty;
+  packParty=function(...args){const out=basePack.apply(this,args);const r=party&&ensureInventory();if(out&&r)out.inventory=M.serialize(r.store);return out;};
+  const baseValidate=validateParty;
+  validateParty=function(data,...args){
+    const out=baseValidate.call(this,data,...args);
+    if(out&&data&&typeof data==='object'&&data.inventory!==undefined){
+      // A damaged layout never blocks a load: item totals stay authoritative and the stacks are rebuilt from them.
+      try{const layout=M.validateLayout(data.inventory);if(layout)Object.defineProperty(out,'inventory',{value:M.serialize(layout),enumerable:true,configurable:true,writable:true});}
+      catch(e){console.warn('背包堆疊資料無效，依物品總量重建',e);}
+    }
+    return out;
+  };
+  const baseLoad=loadParty;
+  loadParty=function(...args){const out=baseLoad.apply(this,args);ensureInventory();return out;};
+  if(typeof applyBalanceConfig==='function'){
+    const baseApply=applyBalanceConfig;
+    applyBalanceConfig=function(...args){const out=baseApply.apply(this,args);invalidate();const r=party&&parties.get(party);if(r){M.normalize(r.store,capOf);refreshAll(r);}return out;};
+  }
+
+  /* ---------- unified API ---------- */
+  function store(){const r=ensureInventory();if(!r)throw Error('尚未載入隊伍');return r;}
+  function ticketId(id){const m=String(id).match(TICKET);return m?Number(m[1]):null;}
+  function tickets(){if(typeof companionTicketCount==='function')companionTicketCount(0);return party?.achievements?.tickets||{};}
+  function count(id){
+    const t=ticketId(id);if(t!==null)return tickets()[t]||0;
+    if(!M.validId(id))throw Error('物品識別碼無效：'+id);return M.total(store().store,id);
+  }
+  function has(id,qty=1){return count(id)>=qty;}
+  function add(id,qty=1){
+    checkCount(qty,id);if(!qty)return 0;const t=ticketId(id);
+    if(t!==null){const map=tickets();map[t]=(map[t]||0)+qty;return qty;}
+    const r=store();M.add(r.store,id,qty,capOf);refresh(r,id);return qty;
+  }
+  function remove(id,qty=1){
+    checkCount(qty,id);const t=ticketId(id);
+    if(t!==null){const map=tickets();if((map[t]||0)<qty)return false;map[t]-=qty;if(!map[t])delete map[t];return true;}
+    const r=store();if(!M.remove(r.store,id,qty))return false;refresh(r,id);return true;
+  }
+  /* Several costs at once; nothing is deducted unless every item is available. */
+  function removeMany(cost){
+    const rows=Object.entries(cost||{}).filter(([,n])=>n>0);for(const [id,n] of rows)if(count(id)<checkCount(n,id))return false;
+    for(const [id,n] of rows)remove(id,n);return true;
+  }
+  function merge(fromUid,toUid){const r=store();const st=M.stackByUid(r.store,fromUid),moved=M.merge(r.store,fromUid,toUid,capOf);if(st)refresh(r,st.item);return moved;}
+  function split(uid,qty){const r=store();return M.split(r.store,uid,qty);}
+  function stacks(){return store().store.stacks.map(st=>({...st,definition:definition(st.item)}));}
+  function wearer(g){return typeof gearWearer==='function'?gearWearer(g.id):null;}
+  function gearBag(){if(typeof ensureSharedGear==='function')ensureSharedGear();return party?.sharedGear?.items||state?.bag||[];}
+  function getGear(id){return gearBag().find(g=>g.id===id)||null;}
+  function createGear(...args){return gear(...args);}
+  function addGearInstance(g){if(!g||typeof g.id!=='string')throw Error('裝備資料無效');if(getGear(g.id))throw Error('裝備識別碼重複：'+g.id);return addGear(g);}
+  /* Region vouchers keep their own ledger: each voucher stack carries locked snapshot values, so only identical
+     vouchers merge. Every ledger stack takes ceil(count / cap) slots of item:region-voucher's tab (消耗品). */
+  function ledgerSlots(id,counts){const d=definition(id);if(!d.occupiesSlot)return [d.tab,0];return [d.tab,counts.reduce((n,c)=>n+(Number.isSafeInteger(c)&&c>0?Math.ceil(c/d.maxStack):0),0)];}
+  /* Six tabs, each with its own capacity (balanceSettings.inventory.capacities, default 100). Not enforced yet. */
+  function slots(){
+    const r=store(),loose=gearBag().filter(g=>!wearer(g)),tokens=loose.filter(g=>globalThis.EmberwildTokens?.isToken(g)).length,extra={};
+    const add=([tab,n])=>{if(n)extra[tab]=(extra[tab]||0)+n;};
+    add(ledgerSlots('item:region-voucher',(party?.regionVouchers?.stacks||[]).map(v=>v?.count)));
+    for(const [t,n] of Object.entries(tickets()))add(ledgerSlots('item:companion-ticket-'+t,[n]));
+    const usage=M.slotUsage(r.store,{tabOf:id=>{const d=definition(id);return d.occupiesSlot?d.tab:null;},instances:{equipment:loose.length-tokens,token:tokens},extra,settings:gameplaySettingsRef()?.inventory});
+    return {...usage,enforced:false};
+  }
+  function byCategory(category){
+    if(!M.CATEGORIES[category])throw Error('未知的物品分類：'+category);
+    if(category==='equipment'||category==='token')return gearBag().filter(g=>!wearer(g)&&!!globalThis.EmberwildTokens?.isToken(g)===(category==='token')).map(g=>({instance:g,definition:gearDefinition(g)}));
+    const out=[];for(const id of M.items(store().store)){const d=definition(id);if(d.category===category)out.push({id,definition:d,quantity:M.total(store().store,id),stacks:M.stacksOf(store().store,id).map(st=>({...st}))});}
+    if(category==='special')for(const [t,n] of Object.entries(tickets()))if(n>0){const id='item:companion-ticket-'+t;out.push({id,definition:definition(id),quantity:n,stacks:[]});}
+    return out;
+  }
+  /* Consistency report used by tests and the developer console: stack sizes, caps, uids and facade totals. */
+  function audit(){
+    const r=store(),problems=[],uids=new Set(),h=party.members[0];
+    for(const st of r.store.stacks){if(uids.has(st.uid))problems.push('重複堆疊 '+st.uid);uids.add(st.uid);if(!(st.qty>0))problems.push('空堆疊 '+st.uid);if(st.qty>capOf(st.item))problems.push('超過堆疊上限 '+st.item+' '+st.qty);}
+    const expect=(id,v)=>{if(M.total(r.store,id)!==(v||0))problems.push('數量不一致 '+id+' '+M.total(r.store,id)+' ≠ '+v);};
+    expect(ORE,h.ore);expect(DUST,h.dust);for(let i=0;i<GEMS.length;i++)expect('gem:'+i,h.gems[i]);
+    for(const [k,v] of Object.entries(h.materials))expect('material:'+k,v);for(const [k,v] of Object.entries(h.consumables))expect('item:'+k,v);for(const [k,v] of Object.entries(h.healingPotions||{}))expect('item:'+k,v);
+    for(const id of M.items(r.store)){const p=M.parseId(id),view=viewOf(id),n=M.total(r.store,id);if(view==='materials'&&h.materials[p.key]!==n||view==='consumables'&&h.consumables[p.key]!==n||view==='healingPotions'&&h.healingPotions[p.key]!==n)problems.push('介面未同步 '+id);}
+    const ids=new Set();for(const g of gearBag()){if(ids.has(g.id))problems.push('裝備識別碼重複 '+g.id);ids.add(g.id);}
+    return problems;
+  }
+  const api={VERSION:M.VERSION,audit,model:M,definition,gearDefinition,count,has,add,remove,removeMany,merge,split,stacks,getGear,createGear,addGear:addGearInstance,slots,byCategory,settings,
+    ensure:ensureInventory,_debug:()=>parties.get(party)};
+  globalThis.EmberwildItems=api;
+  /* Existing bag page: show the computed slot usage next to the category tabs. Capacity is not enforced yet. */
+  if(typeof inventoryTabs==='function'){const baseTabs=inventoryTabs;inventoryTabs=function(...args){const html=baseTabs.apply(this,args);let note='';try{const s=slots();note=`<p class="small inventory-slot-usage">背包格數（目前不限制）：${Object.entries(s.tabs).map(([k,t])=>`<span data-inventory-tab="${k}" data-inventory-slots="${t.used}">${t.label} ${t.used} / ${t.capacity}</span>`).join('、')}</p>`;}catch{}return html+note;};}
+})();
+
+EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_ITEM_DETAILS=globalThis.__EMBERWILD_ITEM_DETAILS??__EMBERWILD_ITEM_DETAILS;EmberwildItems=globalThis.EmberwildItems??EmberwildItems;
 
 /* js/world/monster-design-runtime.js?v=20261028-inventory-inspector1 */
 /* Resolve explicit catalogue drops against the existing item definitions. */
@@ -21641,12 +22109,555 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
 
 __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;__EMBERWILD_MASTERY_BATTLE_NOTE=globalThis.__EMBERWILD_MASTERY_BATTLE_NOTE??__EMBERWILD_MASTERY_BATTLE_NOTE;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;__EMBERWILD_COMPANION_BATTLE_MASTERY=globalThis.__EMBERWILD_COMPANION_BATTLE_MASTERY??__EMBERWILD_COMPANION_BATTLE_MASTERY;querySelector=globalThis.querySelector??querySelector;classList=globalThis.classList??classList;querySelectorAll=globalThis.querySelectorAll??querySelectorAll;children=globalThis.children??children;insertBefore=globalThis.insertBefore??insertBefore;
 
-/* js/ui/battle-effects.js?v=20261119-v0173 */
+/* js/ui/battle-effect-templates.js?v=20261123-v0200-attackfx */
+/* Reusable visual effect templates for class basic attacks and skill casts.
+   Pure presentation data and pure resolvers: never mutates combat state or RNG. */
+(()=>{
+ 'use strict';
+ const hexToRgb=hex=>{
+  const clean=String(hex||'').replace('#','');
+  if(clean.length!==6)return '255,121,111';
+  return [0,2,4].map(i=>parseInt(clean.slice(i,i+2),16)).join(',');
+ };
+ const tone=(color,accent)=>Object.freeze({color,rgb:hexToRgb(color),accent:accent||color,accentRgb:hexToRgb(accent||color)});
+
+ // Semantic category fallbacks (used by persistent layers and neutral status events).
+ const CATEGORY_PALETTES=Object.freeze({
+  damage:tone('#ff796f','#b8c2cf'),
+  buff:tone('#f4d58b','#fff4cc'),
+  shield:tone('#f2f5ff','#b8ccf8'),
+  recovery:tone('#87efad','#e2ffef'),
+  debuff:tone('#c495f0','#ecd8ff')
+ });
+
+ // Element palettes shared by Mage basic attacks and elemental skills.
+ const ELEMENT_PALETTES=Object.freeze({
+  physical:tone('#ff796f','#b8c2cf'),
+  fire:tone('#ff6a3d','#ffd166'),
+  ice:tone('#5cc8ff','#dff6ff'),
+  lightning:tone('#ffd94a','#c5a3ff'),
+  wind:tone('#48e0b8','#c9fff0'),
+  light:tone('#f7cf52','#fff7d1'),
+  shadow:tone('#b980ff','#e8ccff'),
+  arcane:tone('#8b80ff','#d6d0ff')
+ });
+
+ // Class signature visual themes:
+ // 0 戰士: 紅、灰 | 1 法師: 依元素著色 | 2 弓箭手: 鮮綠色 | 3 牧師: 金色聖光
+ const CLASS_PALETTES=Object.freeze({
+  0:tone('#ff796f','#b8c2cf'),
+  1:ELEMENT_PALETTES.arcane,
+  2:tone('#39e56d','#c8ffa8'),
+  3:tone('#f7cf52','#fff7d1')
+ });
+
+ function normalizeElement(element){
+  if(!element)return null;
+  const key=String(element).toLowerCase();
+  if(key==='thunder')return 'lightning';
+  return Object.prototype.hasOwnProperty.call(ELEMENT_PALETTES,key)?key:null;
+ }
+
+ function elementPalette(element,fallback='arcane'){
+  const key=normalizeElement(element);
+  return ELEMENT_PALETTES[key]||ELEMENT_PALETTES[fallback]||CATEGORY_PALETTES.damage;
+ }
+
+ function classPalette(job,element){
+  if(job===0){
+   const el=normalizeElement(element);
+   if(el&&el!=='physical')return tone(ELEMENT_PALETTES[el].color,CLASS_PALETTES[0].accent);
+   return CLASS_PALETTES[0];
+  }
+  if(job===1){
+   const el=normalizeElement(element);
+   return elementPalette(el&&el!=='physical'?el:'arcane','arcane');
+  }
+  if(job===2){
+   const el=normalizeElement(element);
+   if(el&&el!=='physical'&&el!=='wind')return tone(CLASS_PALETTES[2].color,ELEMENT_PALETTES[el].accent);
+   return CLASS_PALETTES[2];
+  }
+  if(job===3){
+   const el=normalizeElement(element);
+   if(el==='shadow')return ELEMENT_PALETTES.shadow;
+   return CLASS_PALETTES[3];
+  }
+  return elementPalette(element,'physical');
+ }
+
+ // Shared 64x64 luminous SVG glyph artwork (consistent stroke-width/caps/glow language).
+ const ELEMENT_ART=Object.freeze({
+  fire:{
+   basic:'<path d="M32 6C42 23 52 25 48 43C44 57 19 59 15 43C10 29 25 28 25 16L32 27Z" fill="currentColor" fill-opacity=".35" stroke="currentColor" stroke-width="2"/><path d="M32 28Q44 45 31 53Q20 46 32 28Z" fill="var(--fx-accent)" fill-opacity=".8" stroke="var(--fx-accent)" stroke-width="1.4"/><path d="M11 16L6 8M52 15L58 7M54 42L61 46" stroke="var(--fx-accent)" stroke-width="1.8"/>',
+   blast:'<circle cx="32" cy="34" r="22" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4"/><path d="M32 4C44 21 56 26 51 45C46 60 18 60 13 45C8 27 22 24 23 12L32 25Z" fill="currentColor" fill-opacity=".38" stroke="currentColor" stroke-width="2"/><path d="M32 24Q47 44 32 54Q17 44 32 24Z" fill="var(--fx-accent)" fill-opacity=".85" stroke="var(--fx-accent)" stroke-width="1.4"/><path d="M8 14L4 6M56 14L60 6M7 48L2 52M57 48L62 52" stroke="var(--fx-accent)" stroke-width="2"/>'
+  },
+  ice:{
+   basic:'<path d="M32 5L43 24L32 58L21 24Z" fill="currentColor" fill-opacity=".28" stroke="currentColor" stroke-width="2"/><path d="M32 12L38 25L32 48L26 25Z" fill="var(--fx-accent)" fill-opacity=".65" stroke="var(--fx-accent)" stroke-width="1.2"/><path d="M6 28L20 38L11 54ZM52 26L60 41L46 54Z" stroke="currentColor" stroke-width="1.8"/><path d="M6 15L16 20M51 9L46 18" stroke="var(--fx-accent)" stroke-width="1.7"/>',
+   blast:'<path d="M32 4V60M8 18L56 46M56 18L8 46" stroke="currentColor" stroke-width="2"/><path d="M32 14L46 23V41L32 50L18 41V23Z" fill="currentColor" fill-opacity=".24" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M26 9L32 15L38 9M26 55L32 49L38 55M10 25L18 24L15 16M54 39L46 40L49 48" stroke="var(--fx-accent)" stroke-width="1.7"/>'
+  },
+  lightning:{
+   basic:'<path d="M41 4L16 33L32 30L22 60L51 23L34 26Z" fill="currentColor" fill-opacity=".42" stroke="currentColor" stroke-width="2"/><path d="M37 11L23 30L35 28L27 51" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M9 10L15 19M51 47L59 55M8 46L15 41" stroke="var(--fx-accent)" stroke-width="1.8"/>',
+   blast:'<circle cx="32" cy="32" r="24" stroke="var(--fx-accent)" stroke-width="1.5" stroke-dasharray="5 5"/><path d="M42 3L14 33L31 30L20 61L52 23L34 26Z" fill="currentColor" fill-opacity=".48" stroke="currentColor" stroke-width="2"/><path d="M10 14L20 20L14 28M54 38L44 43L50 53" stroke="var(--fx-accent)" stroke-width="1.9"/>'
+  },
+  wind:{
+   basic:'<path d="M8 22Q28 8 52 18Q36 25 18 28" stroke="currentColor" stroke-width="2.4"/><path d="M6 38Q30 22 57 34Q38 43 16 45" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="2.2"/><path d="M15 52Q36 42 54 50" stroke="var(--fx-accent)" stroke-width="1.9"/><path d="M44 12L55 17L47 24M48 28L58 34L49 40" stroke="var(--fx-accent)" stroke-width="1.6"/>',
+   blast:'<path d="M12 42Q6 20 28 11Q52 6 56 28Q58 50 34 54Q16 56 16 37Q16 22 33 22Q45 22 43 34" stroke="currentColor" stroke-width="2.4"/><path d="M6 26Q28 10 56 18M9 50Q34 40 58 46" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M28 6L35 12L27 16M35 58L28 53L36 48" stroke="var(--fx-accent)" stroke-width="1.6"/>'
+  },
+  light:{
+   basic:'<circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="1.8" opacity=".75"/><path d="M32 5L37 26L58 32L37 38L32 59L27 38L6 32L27 26Z" fill="currentColor" fill-opacity=".3" stroke="currentColor" stroke-width="2"/><path d="M32 14L35 29L50 32L35 35L32 50L29 35L14 32L29 29Z" fill="var(--fx-accent)" stroke="var(--fx-accent)" stroke-width="1.2"/>',
+   blast:'<circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="2"/><path d="M32 3L38 25L61 32L38 39L32 61L26 39L3 32L26 25Z" fill="currentColor" fill-opacity=".36" stroke="var(--fx-accent)" stroke-width="1.8"/><circle cx="32" cy="32" r="9" fill="var(--fx-accent)" fill-opacity=".65" stroke="currentColor" stroke-width="1.5"/>'
+  },
+  shadow:{
+   basic:'<path d="M44 12A22 22 0 1 0 48 50A17 17 0 1 1 44 12Z" fill="currentColor" fill-opacity=".38" stroke="currentColor" stroke-width="2"/><path d="M18 46Q34 32 52 16" stroke="var(--fx-accent)" stroke-width="2"/><path d="M11 19L19 25M48 44L56 51M24 56L28 48" stroke="var(--fx-accent)" stroke-width="1.7"/>',
+   blast:'<circle cx="32" cy="32" r="22" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="2" stroke-dasharray="8 4"/><path d="M44 11A22 22 0 1 0 48 51A16 16 0 1 1 44 11Z" fill="currentColor" fill-opacity=".42" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M14 50L50 14M16 18L26 28M38 36L50 48" stroke="var(--fx-accent)" stroke-width="1.8"/>'
+  },
+  arcane:{
+   basic:'<circle cx="32" cy="32" r="21" stroke="currentColor" stroke-width="1.8"/><path d="M32 6L37 26L58 32L37 38L32 58L27 38L6 32L27 26Z" fill="currentColor" fill-opacity=".28" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="7" fill="var(--fx-accent)" fill-opacity=".55" stroke="var(--fx-accent)" stroke-width="1.5"/><path d="M15 15L20 20M49 15L44 20M15 49L20 44M49 49L44 44" stroke="var(--fx-accent)" stroke-width="1.6"/>',
+   blast:'<circle cx="32" cy="32" r="25" stroke="currentColor" stroke-width="1.8" stroke-dasharray="6 3"/><polygon points="32,7 54,45 10,45" fill="currentColor" fill-opacity=".14" stroke="var(--fx-accent)" stroke-width="1.6"/><polygon points="32,57 54,19 10,19" fill="currentColor" fill-opacity=".14" stroke="currentColor" stroke-width="1.6"/><circle cx="32" cy="32" r="8" fill="var(--fx-accent)" fill-opacity=".65" stroke="var(--fx-accent)" stroke-width="1.4"/>'
+  }
+ });
+
+ const ELEMENT_GLYPH=Object.freeze({
+  fire:'fx-flame',
+  ice:'fx-shatter',
+  lightning:'fx-electric',
+  wind:'fx-gale',
+  light:'fx-holy',
+  shadow:'fx-void',
+  arcane:'fx-arcane'
+ });
+
+ // Built-in universal skill & attack effect templates.
+ const registry=new Map();
+
+ function registerTemplate(id,spec){
+  if(!id||typeof id!=='string'||!spec||typeof spec!=='object')throw TypeError('Invalid battle effect template');
+  const normalized={
+   id,
+   name:spec.name||id,
+   description:spec.description||'',
+   defaultCategory:spec.defaultCategory||'damage',
+   variants:Object.freeze([...(spec.variants||['basic'])]),
+   projectile:spec.projectile||'none',
+   motion:spec.motion||'fx-ring',
+   glyph:spec.glyph||'fx-impact',
+   palette:typeof spec.palette==='function'?spec.palette:()=>CATEGORY_PALETTES[spec.defaultCategory||'damage'],
+   svg:typeof spec.svg==='function'?spec.svg:()=>'',
+   castSvg:typeof spec.castSvg==='function'?spec.castSvg:null,
+   attackSvg:typeof spec.attackSvg==='function'?spec.attackSvg:null
+  };
+  registry.set(id,Object.freeze(normalized));
+  return normalized;
+ }
+
+ // 1. 斬擊技能模板（亦為戰士普攻基準：紅＋鋼鐵灰）
+ registerTemplate('slash',{
+  name:'斬擊技能',
+  description:'戰士普通攻擊與近戰斬擊／重劈／橫掃技能模板，以紅色弧光與鋼鐵灰劍鋒呈現。',
+  defaultCategory:'damage',
+  variants:['basic','heavy','aoe'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:v=>v==='heavy'||v==='aoe'?'fx-slash-heavy':'fx-slash',
+  palette:ctx=>classPalette(0,ctx?.element),
+  svg:(variant)=>{
+   if(variant==='aoe'){
+    return '<path d="M5 42Q32 8 59 38Q32 23 5 42Z" fill="currentColor" stroke="currentColor" stroke-width="2"/><path d="M7 48Q32 22 57 45" stroke="var(--fx-accent)" stroke-width="2.4"/><path d="M14 54Q32 35 50 52" stroke="var(--fx-accent)" stroke-width="1.6" opacity=".8"/><path d="M32 10V4M13 18L8 12M51 18L56 12" stroke="var(--fx-accent)" stroke-width="1.8"/>';
+   }
+   if(variant==='heavy'){
+    return '<path d="M8 50Q19 10 55 11Q31 21 8 50Z" fill="currentColor" stroke="currentColor" stroke-width="2"/><path d="M13 13Q36 22 54 51Q33 34 13 13Z" fill="var(--fx-accent)" fill-opacity=".42" stroke="var(--fx-accent)" stroke-width="2"/><path d="M9 54L55 9" stroke="var(--fx-accent)" stroke-width="2.4"/><path d="M15 56L56 17M42 7L49 3M57 24L62 21" stroke="var(--fx-accent)" stroke-width="1.6"/>';
+   }
+   // Default warrior basic attack: original iconic slash crescent enhanced with steel-gray edge & glints.
+   return '<path d="M9 49Q20 9 55 12Q30 20 9 49Z" fill="currentColor" stroke="currentColor" stroke-width="2"/><path d="M10 53L53 10" stroke="var(--fx-accent)" stroke-width="2.4"/><path d="M16 55Q32 28 57 18" stroke="var(--fx-accent)" stroke-width="1.5" opacity=".85"/><path d="M46 8L52 4M55 21L61 19M7 42L3 45" stroke="var(--fx-accent)" stroke-width="1.7"/>';
+  },
+  attackSvg:()=>'<path d="M12 46Q24 14 52 15" stroke="currentColor" stroke-width="3"/><path d="M15 51L53 13" stroke="var(--fx-accent)" stroke-width="2.2"/><path d="M43 10L54 11L53 22" stroke="var(--fx-accent)" stroke-width="2"/>',
+  castSvg:()=>'<path d="M10 47Q24 12 54 14" stroke="currentColor" stroke-width="2.6"/><path d="M14 52L54 12" stroke="var(--fx-accent)" stroke-width="2"/><circle cx="32" cy="32" r="24" stroke="var(--fx-accent)" stroke-width="1.4" stroke-dasharray="6 4"/>'
+ });
+
+ // 2. 箭矢技能模板（弓箭手普攻與箭術技能：鮮綠色）
+ registerTemplate('arrow',{
+  name:'箭矢技能',
+  description:'弓箭手普通攻擊與穿刺／狙擊／連射／箭雨技能模板，以鮮綠色疾風箭矢與箭形彈道呈現。',
+  defaultCategory:'damage',
+  variants:['basic','snipe','multi'],
+  projectile:'arrow',
+  motion:'fx-ring',
+  glyph:v=>v==='multi'?'fx-volley':'fx-pierce',
+  palette:ctx=>classPalette(2,ctx?.element),
+  svg:(variant)=>{
+   if(variant==='multi'){
+    return '<path d="M6 40L39 11M14 52L49 21M24 58L57 29" stroke="currentColor" stroke-width="2.2"/><path d="M30 11L41 9L39 20Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.3"/><path d="M40 21L51 19L49 30Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.3"/><path d="M48 29L59 27L57 38Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.3"/><path d="M6 34L12 36L11 42M14 46L20 48L19 54M24 52L30 54L29 60" stroke="var(--fx-accent)" stroke-width="1.5"/>';
+   }
+   if(variant==='snipe'){
+    return '<circle cx="38" cy="24" r="14" stroke="var(--fx-accent)" stroke-width="1.5" stroke-dasharray="5 3"/><path d="M38 6V12M38 36V42M20 24H26M50 24H56" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M6 55L53 10" stroke="currentColor" stroke-width="2.8"/><path d="M39 10L56 7L52 24L46 17Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.6"/><path d="M8 45L17 47L15 56" stroke="var(--fx-accent)" stroke-width="1.8"/>';
+   }
+   return '<path d="M8 52L51 13" stroke="currentColor" stroke-width="2.4"/><path d="M37 12L54 10L51 27L45 19Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.6"/><path d="M7 42L17 44L15 54M13 37L23 39L21 49" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M22 25Q34 17 44 13M26 43Q39 34 49 23" stroke="var(--fx-accent)" stroke-width="1.4" opacity=".8"/>';
+  },
+  attackSvg:()=>'<path d="M18 11Q48 32 18 53" stroke="currentColor" stroke-width="2.6"/><path d="M18 11L12 32L18 53" stroke="var(--fx-accent)" stroke-width="1.5"/><path d="M12 32H54M44 25L55 32L44 39" stroke="var(--fx-accent)" stroke-width="2.2"/>',
+  castSvg:()=>'<path d="M18 11Q48 32 18 53" stroke="currentColor" stroke-width="2.4"/><circle cx="34" cy="32" r="20" stroke="var(--fx-accent)" stroke-width="1.5" stroke-dasharray="5 4"/><path d="M14 32H54M45 26L55 32L45 38" stroke="var(--fx-accent)" stroke-width="2"/>'
+ });
+
+ // 3. 聖光技能模板（牧師普攻與神聖攻擊／審判／光牢技能：金色聖光）
+ registerTemplate('holy',{
+  name:'聖光技能',
+  description:'牧師普通攻擊與聖光／審判／光牢技能模板，以金色聖光星芒與降臨光柱呈現。',
+  defaultCategory:'damage',
+  variants:['basic','smite','prison'],
+  projectile:'holy',
+  motion:'fx-ring',
+  glyph:'fx-holy',
+  palette:()=>CLASS_PALETTES[3],
+  svg:(variant)=>{
+   if(variant==='prison'){
+    return '<ellipse cx="32" cy="14" rx="21" ry="6" stroke="currentColor" stroke-width="2"/><ellipse cx="32" cy="51" rx="21" ry="6" stroke="currentColor" stroke-width="2"/><path d="M14 16V49M26 19V54M38 19V54M50 16V49" stroke="var(--fx-accent)" stroke-width="2.2"/><path d="M32 23L35 32L44 35L35 38L32 47L29 38L20 35L29 32Z" fill="var(--fx-accent)" fill-opacity=".5" stroke="currentColor" stroke-width="1.4"/>';
+   }
+   if(variant==='smite'){
+    return '<path d="M23 4H41L38 56H26Z" fill="currentColor" fill-opacity=".22" stroke="none"/><path d="M26 4V52M38 4V52M32 3V59" stroke="var(--fx-accent)" stroke-width="2"/><ellipse cx="32" cy="49" rx="22" ry="8" stroke="currentColor" stroke-width="2"/><path d="M32 14L37 27L51 31L37 35L32 48L27 35L13 31L27 27Z" fill="var(--fx-accent)" fill-opacity=".5" stroke="currentColor" stroke-width="1.8"/>';
+   }
+   return '<circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="1.8" opacity=".78"/><path d="M32 5L37 26L58 32L37 38L32 59L27 38L6 32L27 26Z" fill="currentColor" fill-opacity=".3" stroke="currentColor" stroke-width="2"/><path d="M32 14L35 29L50 32L35 35L32 50L29 35L14 32L29 29Z" fill="var(--fx-accent)" stroke="var(--fx-accent)" stroke-width="1.2"/><path d="M16 16L22 22M48 16L42 22M16 48L22 42M48 48L42 42" stroke="var(--fx-accent)" stroke-width="1.6"/>';
+  },
+  attackSvg:()=>'<circle cx="32" cy="32" r="22" stroke="currentColor" stroke-width="2"/><path d="M32 8V56M12 32H52" stroke="var(--fx-accent)" stroke-width="2.2"/><circle cx="32" cy="32" r="7" fill="var(--fx-accent)" fill-opacity=".5" stroke="currentColor" stroke-width="1.8"/>',
+  castSvg:()=>'<circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="2"/><path d="M32 6L36 27L57 32L36 37L32 58L28 37L7 32L28 27Z" fill="var(--fx-accent)" fill-opacity=".3" stroke="var(--fx-accent)" stroke-width="1.6"/>'
+ });
+
+ // 4. 元素技能模板（法師普攻與所有火／冰／雷／風／光／暗／奧術元素技能）
+ registerTemplate('elemental',{
+  name:'元素技能',
+  description:'法師普通攻擊與各類元素法術通用模板，依元素（火／冰／雷／風／光／暗／奧術）自動切換色盤、紋樣與動畫。',
+  defaultCategory:'damage',
+  variants:['basic','blast'],
+  projectile:'orb',
+  motion:'fx-ring',
+  glyph:(_v,ctx)=>{
+   const el=normalizeElement(ctx?.element);
+   return ELEMENT_GLYPH[el&&el!=='physical'?el:'arcane']||'fx-arcane';
+  },
+  palette:ctx=>{
+   const el=normalizeElement(ctx?.element);
+   return elementPalette(el&&el!=='physical'?el:'arcane','arcane');
+  },
+  svg:(variant,ctx)=>{
+   const el=normalizeElement(ctx?.element);
+   const set=ELEMENT_ART[el&&el!=='physical'?el:'arcane']||ELEMENT_ART.arcane;
+   return variant==='blast'?set.blast:set.basic;
+  },
+  attackSvg:()=>'<circle cx="32" cy="32" r="22" stroke="currentColor" stroke-width="1.8"/><path d="M32 7L38 26L57 32L38 38L32 57L26 38L7 32L26 26Z" fill="var(--fx-accent)" fill-opacity=".35" stroke="var(--fx-accent)" stroke-width="1.6"/><circle cx="32" cy="32" r="6" fill="currentColor"/>',
+  castSvg:()=>'<circle cx="32" cy="32" r="25" stroke="currentColor" stroke-width="2" stroke-dasharray="7 3"/><circle cx="32" cy="32" r="15" stroke="var(--fx-accent)" stroke-width="1.6"/><path d="M32 5V14M32 50V59M5 32H14M50 32H59" stroke="var(--fx-accent)" stroke-width="2"/>'
+ });
+
+ // 5. 護盾技能模板
+ registerTemplate('shield',{
+  name:'護盾技能',
+  description:'護盾、壁壘、冰霜護幕與神聖庇護等防禦技能模板，保留晶白護盾主色並融入元素／職業邊緣高光。',
+  defaultCategory:'shield',
+  variants:['basic','barrier'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:'fx-shield',
+  palette:ctx=>{
+   const el=normalizeElement(ctx?.element);
+   if(el&&el!=='physical')return tone(CATEGORY_PALETTES.shield.color,ELEMENT_PALETTES[el].color);
+   if(ctx?.job===0)return tone(CATEGORY_PALETTES.shield.color,CLASS_PALETTES[0].accent);
+   if(ctx?.job===3)return tone(CATEGORY_PALETTES.shield.color,CLASS_PALETTES[3].color);
+   return CATEGORY_PALETTES.shield;
+  },
+  svg:(variant)=>{
+   if(variant==='barrier'){
+    return '<path d="M32 4L55 13V32Q53 50 32 60Q11 50 9 32V13Z" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="2.2"/><path d="M32 11L48 18V32Q46 45 32 52Q18 45 16 32V18Z" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M32 19V44M21 31H43" stroke="var(--fx-accent)" stroke-width="1.8"/>';
+   }
+   return '<path d="M32 5L54 13V31Q53 49 32 59Q11 49 10 31V13Z" fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-width="2"/><path d="M32 12L46 18V31Q45 43 32 51" stroke="var(--fx-accent)" stroke-width="2"/>';
+  },
+  castSvg:()=>'<path d="M32 6L53 14V32Q51 49 32 58Q13 49 11 32V14Z" fill="currentColor" fill-opacity=".14" stroke="var(--fx-accent)" stroke-width="2"/>'
+ });
+
+ // 6. 重擊／衝擊技能模板
+ registerTemplate('impact',{
+  name:'重擊／衝擊技能',
+  description:'物理重擊、震盪衝擊與嘲諷震波技能模板，以紅灰雙層震波表現打擊力道。',
+  defaultCategory:'damage',
+  variants:['basic','heavy'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:'fx-impact-heavy',
+  palette:ctx=>classPalette(ctx?.job??0,ctx?.element),
+  svg:(variant)=>{
+   if(variant==='heavy'){
+    return '<circle cx="32" cy="32" r="22" stroke="var(--fx-accent)" stroke-width="2" stroke-dasharray="7 4"/><path d="M32 6L38 22L56 17L43 31L57 46L39 41L32 58L25 41L7 46L21 31L8 17L26 22Z" fill="currentColor" fill-opacity=".38" stroke="currentColor" stroke-width="1.9"/><circle cx="32" cy="32" r="8" fill="var(--fx-accent)" fill-opacity=".65" stroke="var(--fx-accent)" stroke-width="1.5"/>';
+   }
+   return '<path d="M32 10L37 24L53 20L42 32L53 45L37 40L32 54L27 40L11 45L22 32L11 20L27 24Z" fill="currentColor" fill-opacity=".32" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="19" stroke="var(--fx-accent)" stroke-width="1.6" opacity=".8"/>';
+  }
+ });
+
+ // 7. 治療／恢復技能模板
+ registerTemplate('heal',{
+  name:'治療技能',
+  description:'單體與群體治療、持續恢復、生命汲取與藥水恢復模板，牧師與光屬治療會融合金色聖光高光。',
+  defaultCategory:'recovery',
+  variants:['basic','aoe','regen','drain'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:v=>v==='regen'?'fx-pulse':'fx-rise',
+  palette:ctx=>{
+   if(ctx?.job===3||normalizeElement(ctx?.element)==='light')return tone(CATEGORY_PALETTES.recovery.color,CLASS_PALETTES[3].color);
+   return CATEGORY_PALETTES.recovery;
+  },
+  svg:(variant)=>{
+   if(variant==='aoe'){
+    return '<circle cx="32" cy="32" r="26" stroke="var(--fx-accent)" stroke-width="1.8" opacity=".75"/><path d="M28 15H36V25H46V33H36V43H28V33H18V25H28Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.4"/><path d="M12 49V40M52 49V40M22 57V50M42 57V50" stroke="var(--fx-accent)" stroke-width="1.9"/>';
+   }
+   return '<path d="M28 17H36V26H45V34H36V43H28V34H19V26H28Z" fill="currentColor" stroke="none"/><path d="M10 49V42M52 47V37M21 58V52M43 57V51" stroke="var(--fx-accent)" stroke-width="1.8"/><circle cx="32" cy="32" r="27" stroke="var(--fx-accent)" opacity=".55"/>';
+  },
+  castSvg:()=>'<circle cx="32" cy="32" r="24" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M29 19H35V29H45V35H35V45H29V35H19V29H29Z" fill="currentColor" fill-opacity=".45" stroke="currentColor" stroke-width="1.5"/>'
+ });
+
+ // 8. 陷阱／控制技能模板
+ registerTemplate('trap',{
+  name:'陷阱／控制技能',
+  description:'繩索陷阱、冰凍陷阱、變形術與各類控制技模板，依職業或元素切換捕縛與符文樣式。',
+  defaultCategory:'debuff',
+  variants:['basic','snare','freeze','polymorph'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:v=>v==='freeze'?'fx-shatter':'fx-contract',
+  palette:ctx=>{
+   const el=normalizeElement(ctx?.element);
+   if(el==='ice')return ELEMENT_PALETTES.ice;
+   if(ctx?.job===2&&(!el||el==='physical'||el==='wind'))return CLASS_PALETTES[2];
+   if(ctx?.job===3&&el==='light')return CLASS_PALETTES[3];
+   return CATEGORY_PALETTES.debuff;
+  },
+  svg:(variant)=>{
+   if(variant==='polymorph'){
+    return '<path d="M12 42Q4 23 23 14Q44 4 53 26Q61 48 39 53Q21 57 20 38Q19 22 35 24Q47 26 40 37Q36 43 31 37" stroke="currentColor" stroke-width="2.2"/><path d="M8 10V20M3 15H13M50 48V60M44 54H56" stroke="var(--fx-accent)" stroke-width="1.8"/>';
+   }
+   if(variant==='freeze')return ELEMENT_ART.ice.blast;
+   return '<circle cx="32" cy="32" r="22" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/><path d="M14 20L24 28L18 39M50 20L40 28L46 39M22 49L32 41L42 49M22 15L32 23L42 15" stroke="var(--fx-accent)" stroke-width="2"/><circle cx="32" cy="32" r="5" fill="currentColor"/>';
+  }
+ });
+
+ // 9. 增益／戰吼技能模板
+ registerTemplate('buff',{
+  name:'增益技能',
+  description:'戰吼、守護誓言、奧術共鳴、鷹眼指引與光明祈願等隊伍增益技能模板。',
+  defaultCategory:'buff',
+  variants:['basic'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:'fx-rise',
+  palette:()=>CATEGORY_PALETTES.buff,
+  svg:()=>'<path d="M13 48V23M7 29L13 22L19 29M32 54V9M25 17L32 9L39 17M51 48V23M45 29L51 22L57 29" stroke="currentColor" stroke-width="2.1"/><circle cx="23" cy="38" r="2.2" fill="var(--fx-accent)" stroke="none"/><circle cx="42" cy="35" r="2.2" fill="var(--fx-accent)" stroke="none"/>'
+ });
+
+ // 10. 減益／削弱技能模板
+ registerTemplate('debuff',{
+  name:'減益技能',
+  description:'破甲怒吼、獵手標記、時間凝滯與苦痛蔓延等減益削弱技能模板。',
+  defaultCategory:'debuff',
+  variants:['basic'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:'fx-sink',
+  palette:()=>CATEGORY_PALETTES.debuff,
+  svg:()=>'<path d="M6 16Q32 4 58 16M12 30Q32 18 52 30M20 44Q32 36 44 44" stroke="currentColor" stroke-width="2"/><path d="M32 31V55M25 47L32 55L39 47" stroke="var(--fx-accent)" stroke-width="2.2"/>'
+ });
+
+ // Auxiliary feedback glyphs (status/shield/evade/resist/cast).
+ const FEEDBACK_SVG=Object.freeze({
+  absorb:'<ellipse cx="32" cy="32" rx="27" ry="23"/><circle cx="32" cy="32" r="15" stroke="var(--fx-accent)"/><path d="M23 32H41M32 23V41" stroke="var(--fx-accent)"/>',
+  break:'<path d="M22 8L28 23L12 21ZM39 7L53 19L36 24ZM8 34L24 30L18 51ZM39 31L57 39L45 55ZM28 43L36 47L30 61Z" fill="currentColor" fill-opacity=".6"/>',
+  evade:'<path d="M7 18H30M3 32H23M7 46H30"/><path d="M35 14L51 32L35 50" stroke="var(--fx-accent)" stroke-width="2.4"/>',
+  resist:'<path d="M32 5L53 13V32Q50 48 32 58Q14 48 11 32V13Z"/><path d="M21 31L29 39L44 23" stroke="var(--fx-accent)" stroke-width="2.4"/>',
+  cast:'<circle cx="32" cy="32" r="25"/><path d="M13 13L20 20M51 13L44 20M13 51L20 44M51 51L44 44" stroke="var(--fx-accent)"/>'
+ });
+
+ function resolveSkillTemplate(ctx={}){
+  const explicit=ctx.fxTemplate||ctx.template||ctx.skill?.fxTemplate||ctx.skill?.meta?.fxTemplate;
+  const el=normalizeElement(ctx.element);
+  const job=Number.isInteger(ctx.job)?ctx.job:Number.isInteger(ctx.source?.job)?ctx.source.job:null;
+  const name=String(ctx.skillName||ctx.skill?.name||ctx.skill?.[0]||'');
+  const effect=String(ctx.effect||ctx.skill?.effect||ctx.skill?.kind||ctx.skill?.[5]||'');
+  const target=String(ctx.targetMode||ctx.skill?.target||ctx.skill?.meta?.target||'');
+  const isAoE=target==='enemies'||target==='allies'||/魔爆|火球|隕星|新星|箭雨|裂地|光牢|癒合|橫掃/.test(name);
+
+  if(explicit&&registry.has(explicit)){
+   return {template:explicit,variant:ctx.variant||(isAoE?'aoe':'basic'),element:el,job};
+  }
+
+  // Effect-first resolution for non-damage utility skills.
+  if(effect==='shield'||effect==='shieldLowest')return {template:'shield',variant:ctx.actionKind==='skill'?'barrier':'basic',element:el,job};
+  if(effect==='heal'||effect==='regen'||effect==='revive')return {template:'heal',variant:effect==='regen'?'regen':isAoE?'aoe':'basic',element:el,job};
+  if(effect==='polymorph'||effect==='summonMorphTrap')return {template:'trap',variant:'polymorph',element:el,job};
+  if(effect==='summonFreezeTrap'||effect==='freeze'||effect==='frost')return {template:'trap',variant:'freeze',element:el||'ice',job};
+  if(/陷阱/.test(name))return {template:'trap',variant:'snare',element:el,job};
+  if(effect==='tauntRage')return {template:'impact',variant:'heavy',element:el||'physical',job};
+  if(effect==='fear')return {template:'debuff',variant:'basic',element:el||'shadow',job};
+
+  // Offensive / skill attack templates.
+  if(job===2||ctx.ranged||/箭|射|狙擊/.test(name)){
+   const variant=/雨|連射/.test(name)||isAoE?'multi':/狙擊|穿透/.test(name)?'snipe':'basic';
+   return {template:'arrow',variant,element:el,job:job??2};
+  }
+  if(job===0&&(/斬|刃|劈|劍|裁決|追擊/.test(name)||el==='physical'||!el)){
+   if(/重擊/.test(name)&&!/浴血/.test(name))return {template:'impact',variant:'heavy',element:el||'physical',job:0};
+   const variant=isAoE?'aoe':ctx.actionKind==='skill'?'heavy':'basic';
+   return {template:'slash',variant,element:el||'physical',job:0};
+  }
+  if(/斬|刃|劈|劍/.test(name)){
+   return {template:'slash',variant:isAoE?'aoe':'heavy',element:el||'physical',job};
+  }
+  if((job===3&&el!=='shadow')||el==='light'||/聖光|聖印|黎明|光牢|神聖/.test(name)){
+   const variant=/光牢/.test(name)?'prison':ctx.actionKind==='skill'||/審判|聖印|黎明|聖光/.test(name)?'smite':'basic';
+   return {template:'holy',variant,element:'light',job:job??3};
+  }
+  if(/重擊|撞擊|震盪/.test(name)){
+   return {template:'impact',variant:'heavy',element:el||'physical',job};
+  }
+  if(job===1||(el&&el!=='physical')){
+   return {template:'elemental',variant:isAoE?'blast':'basic',element:el&&el!=='physical'?el:'arcane',job};
+  }
+  if(['attack','power','guard','critical','nextActiveDamage','advanceNextRound'].includes(effect))return {template:'buff',variant:'basic',element:el,job};
+  if(['weaken','fracture','vulnerable','damageAmp','followup','dotAttack','dotMaxHp','slow','skillSlow','dispel'].includes(effect))return {template:'debuff',variant:'basic',element:el,job};
+  return {template:el==='physical'?'slash':'impact',variant:'basic',element:el,job};
+ }
+
+ function resolveAttack(ctx={}){
+  const el=normalizeElement(ctx.element);
+  const job=Number.isInteger(ctx.job)?ctx.job:Number.isInteger(ctx.source?.job)?ctx.source.job:null;
+
+  // 1. Hero basic attacks: distinct signature per class.
+  if(ctx.actionKind==='basic'&&job!==null){
+   if(job===0){
+    const type=el&&el!=='physical'?el:'slash';
+    return {type,template:'slash',variant:'basic',element:el||'physical',job:0};
+   }
+   if(job===1){
+    const activeEl=el&&el!=='physical'?el:'arcane';
+    const type=activeEl==='arcane'?'magic':activeEl;
+    return {type,template:'elemental',variant:'basic',element:activeEl,job:1};
+   }
+   if(job===2){
+    const type=el&&el!=='physical'?el:'ranged';
+    return {type,template:'arrow',variant:'basic',element:el||'physical',job:2};
+   }
+   if(job===3){
+    const type=el&&el!=='physical'?el:'light';
+    const tpl=el&&el!=='physical'&&el!=='light'?'elemental':'holy';
+    return {type,template:tpl,variant:'basic',element:el&&el!=='physical'?el:'light',job:3};
+   }
+  }
+
+  // 2. Skill attacks: route through the universal skill template resolver.
+  if(ctx.actionKind==='skill'||ctx.actionKind==='support'||ctx.fxTemplate||ctx.template){
+   const resolved=resolveSkillTemplate(ctx);
+   let type;
+   if(el&&el!=='physical')type=el;
+   else if(resolved.template==='arrow')type='ranged';
+   else if(resolved.template==='holy')type='light';
+   else if(resolved.template==='elemental')type=resolved.element&&resolved.element!=='arcane'?resolved.element:'magic';
+   else if(resolved.template==='impact')type='impact';
+   else type=el==='physical'?'slash':'impact';
+   return {type,...resolved};
+  }
+
+  // 3. Direct damage hits (e.g. enemy basics, procs without skill wrapper, direct resolveHit calls).
+  if(el&&el!=='physical'){
+   if(el==='light')return {type:'light',template:'holy',variant:'basic',element:'light',job};
+   return {type:el,template:'elemental',variant:'basic',element:el,job};
+  }
+  if(ctx.ranged)return {type:'ranged',template:'arrow',variant:'basic',element:'physical',job:job??2};
+  if(el==='physical')return {type:'slash',template:'slash',variant:'basic',element:'physical',job};
+  return {type:'impact',template:'impact',variant:'basic',element:null,job};
+ }
+
+ function resolveVisual(event={}){
+  const type=event.type||'magic';
+  const category=event.category||'damage';
+  const el=normalizeElement(event.element||(ELEMENT_PALETTES[type]?type:null));
+  const job=Number.isInteger(event.job)?event.job:null;
+
+  // Persistent/feedback non-template types.
+  if(type==='hit')return {template:'hit',variant:'basic',element:el,job,...CATEGORY_PALETTES.damage,svg:'',glyph:'fx-impact',motion:'fx-hit',projectile:'none'};
+  if(type==='absorb'||type==='shield-impact')return {template:'shield',variant:'absorb',element:el,job,...CATEGORY_PALETTES.shield,svg:FEEDBACK_SVG.absorb,glyph:'fx-ripple',motion:'fx-ring',projectile:'none'};
+  if(type==='break')return {template:'shield',variant:'break',element:el,job,...CATEGORY_PALETTES.shield,svg:FEEDBACK_SVG.break,glyph:'fx-shatter',motion:'fx-ring',projectile:'none'};
+  if(type==='dissolve')return {template:'shield',variant:'dissolve',element:el,job,...CATEGORY_PALETTES.shield,svg:registry.get('shield').svg('basic',event),glyph:'fx-dissolve',motion:'fx-ring',projectile:'none'};
+  if(type==='evade')return {template:'evade',variant:'basic',element:el,job,...CATEGORY_PALETTES.shield,svg:FEEDBACK_SVG.evade,glyph:'fx-evade',motion:'fx-ring',projectile:'none'};
+  if(type==='resist')return {template:'resist',variant:'basic',element:el,job,...CATEGORY_PALETTES.shield,svg:FEEDBACK_SVG.resist,glyph:'fx-impact',motion:'fx-ring',projectile:'none'};
+  if(type==='critical')return {template:'impact',variant:'heavy',element:el,job,...(job!==null?classPalette(job,el):CATEGORY_PALETTES.damage),svg:registry.get('impact').svg('heavy',event),glyph:'fx-shatter',motion:'fx-ring',projectile:'none'};
+  if(type==='dot')return {template:'elemental',variant:'basic',element:el||'arcane',job,...CATEGORY_PALETTES.damage,svg:ELEMENT_ART.arcane.basic,glyph:'fx-pulse',motion:'fx-ring',projectile:'none'};
+
+  // Cast / basic attack wind-up on the acting unit.
+  if(type==='attack'||type==='cast'){
+   const tplId=event.template&&(registry.has(event.template)?event.template:null)||(job===0?'slash':job===1?'elemental':job===2?'arrow':job===3?'holy':null);
+   const tpl=tplId?registry.get(tplId):null;
+   let colors;
+   if(type==='attack'){
+    colors=tpl?tpl.palette({element:el,job}):(job!==null?classPalette(job,el):CATEGORY_PALETTES.damage);
+   }else{
+    // Cast glow respects utility categories (recovery/shield/buff/debuff) while damage casts showcase class/element identity.
+    colors=category==='damage'&&tpl?tpl.palette({element:el,job}):CATEGORY_PALETTES[category]||CATEGORY_PALETTES.buff;
+   }
+   const svg=type==='attack'
+    ?(tpl?.attackSvg?.({element:el,job})||tpl?.svg?.('basic',{element:el,job})||FEEDBACK_SVG.cast)
+    :(tpl?.castSvg?.({element:el,job})||FEEDBACK_SVG.cast);
+   const glyph=type==='attack'?(tplId==='slash'?'fx-slash':tplId==='arrow'?'fx-pierce':tplId==='holy'?'fx-holy':'fx-pulse'):'fx-pulse';
+   return {template:tplId||type,variant:event.variant||'basic',element:el,job,...colors,svg,glyph,motion:'fx-ring',projectile:'none'};
+  }
+
+  // Standard template lookup.
+  let tplId=event.template&&registry.has(event.template)?event.template:null;
+  if(!tplId){
+   if(type==='slash')tplId='slash';
+   else if(type==='ranged')tplId='arrow';
+   else if(type==='light')tplId='holy';
+   else if(['fire','ice','lightning','wind','shadow','magic'].includes(type))tplId='elemental';
+   else if(type==='impact')tplId='impact';
+   else if(type==='shield')tplId='shield';
+   else if(['heal','regen','potion','drain'].includes(type))tplId='heal';
+   else if(['polymorph','freeze','frost'].includes(type))tplId='trap';
+   else if(['buff','rage'].includes(type))tplId='buff';
+   else if(['debuff','skip','fear','tauntRage'].includes(type))tplId='debuff';
+   else tplId='elemental';
+  }
+  const tpl=registry.get(tplId);
+  const variant=event.variant||(type==='regen'?'regen':type==='drain'?'drain':type==='polymorph'?'polymorph':type==='freeze'||type==='frost'?'freeze':'basic');
+  const ctx={element:el||(type==='magic'?'arcane':ELEMENT_PALETTES[type]?type:null),job,category,type,variant};
+  const colors=tpl.palette(ctx);
+  const glyph=typeof tpl.glyph==='function'?tpl.glyph(variant,ctx):tpl.glyph;
+  const svg=tpl.svg(variant,ctx);
+  const projectile=typeof tpl.projectile==='function'?tpl.projectile(variant,ctx):tpl.projectile;
+  return {template:tpl.id,variant,element:ctx.element,job,...colors,svg,glyph,motion:tpl.motion,projectile};
+ }
+
+ function listTemplates(){
+  return [...registry.values()].map(t=>({id:t.id,name:t.name,description:t.description,defaultCategory:t.defaultCategory,variants:[...t.variants],projectile:t.projectile}));
+ }
+
+ globalThis.EmberwildBattleEffectTemplates=Object.freeze({
+  CATEGORY_PALETTES,
+  ELEMENT_PALETTES,
+  CLASS_PALETTES,
+  normalizeElement,
+  elementPalette,
+  classPalette,
+  resolveSkillTemplate,
+  resolveAttack,
+  resolveVisual,
+  registerTemplate,
+  getTemplate:id=>registry.get(id)||null,
+  listTemplates,
+  get ids(){return Object.freeze([...registry.keys()]);}
+ });
+})();
+EmberwildBattleEffectTemplates=globalThis.EmberwildBattleEffectTemplates??EmberwildBattleEffectTemplates;
+
+/* js/ui/battle-effects.js?v=20261123-v0200-attackfx */
 /* Read-only presentation of the existing live timeline. No timers schedule combat.
    Nested scopes checkpoint actual HP/shield/status writes exactly once, including
    heals and procs inside damage resolvers. Offline events never open a frame. */
 (()=>{
  'use strict';
+ const T=globalThis.EmberwildBattleEffectTemplates;
  const storageKey='emberwild-battle-effects',choices=['full','simple','off'];
  let preference='full',frame=null,pending=null,owner=null,encounter=null,sequence=0,staged=null,held=null;
  const timers=new Set(),numberNodes=new Map();
@@ -21693,31 +22704,34 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   if(frame.events.size>=256)frame.events.delete(frame.events.keys().next().value);
   frame.events.set(key,{type,target:String(target),critical:!!frame.context.critical,periodic:!!frame.context.periodic,source:frame.context.source?String(id(frame.context.source)):null,category:eventCategory(type),...extra});
  }
- function attackType(ctx){
+ function attackMeta(ctx){
+  if(T)return T.resolveAttack(ctx);
   const element=ctx.element;
-  if(element&&element!=='physical')return ['fire','ice','lightning','thunder','wind','light','shadow'].includes(element)?(element==='thunder'?'lightning':element):'magic';
-  return ctx.ranged?'ranged':element==='physical'?'slash':'impact';
+  if(element&&element!=='physical')return {type:['fire','ice','lightning','thunder','wind','light','shadow'].includes(element)?(element==='thunder'?'lightning':element):'magic',template:'elemental',variant:'basic',element,job:ctx.job??null};
+  return {type:ctx.ranged?'ranged':element==='physical'?'slash':'impact',template:ctx.ranged?'arrow':element==='physical'?'slash':'impact',variant:'basic',element:element||null,job:ctx.job??null};
  }
  function checkpoint(){
   if(!frame)return;
   const ctx=frame.context;
+  const sourceJob=Number.isInteger(ctx.job)?ctx.job:Number.isInteger(ctx.source?.job)?ctx.source.job:null;
+  const atk=attackMeta(ctx);
   for(const u of units()){
    const before=frame.vitals.get(u),after={hp:u.hp,shield:shields(u)};frame.vitals.set(u,after);if(!before||ctx.mode==='settlement')continue;
    const target=id(u);if(!target)continue;
-   if(after.shield>before.shield){enqueue('shield',target);number('shield',target,after.shield-before.shield);}
+   if(after.shield>before.shield){enqueue('shield',target,{template:'shield',variant:ctx.actionKind==='skill'?'barrier':'basic',element:ctx.element||null,job:sourceJob});number('shield',target,after.shield-before.shield);}
    if(after.shield<before.shield){
-    const hit=ctx.mode==='damage';enqueue(hit?'absorb':'dissolve',target);if(hit)number('absorb',target,before.shield-after.shield);
+    const hit=ctx.mode==='damage';enqueue(hit?'absorb':'dissolve',target,hit?{attackTemplate:atk.template,attackElement:atk.element,attackJob:sourceJob}:{});if(hit)number('absorb',target,before.shield-after.shield);
     if(hit&&after.shield<=0)enqueue('break',target);
    }
-   if(after.hp<before.hp){number(ctx.periodic?'dot':'damage',target,before.hp-after.hp,{lethal:after.hp<=0});enqueue(ctx.periodic?'dot':attackType(ctx),target);enqueue('hit',target);}
-   else if(after.hp>before.hp){number('heal',target,after.hp-before.hp,{critical:false});const kind=ctx.mode==='potion'?'potion':ctx.mode==='damage'||ctx.effect==='drain'?'drain':ctx.mode==='regen'?'regen':'heal';enqueue(kind,target,kind==='regen'?{label:'+'+Math.max(1,Math.round(after.hp-before.hp))+' HP'}:{});}
+   if(after.hp<before.hp){number(ctx.periodic?'dot':'damage',target,before.hp-after.hp,{lethal:after.hp<=0});enqueue(ctx.periodic?'dot':atk.type,target,ctx.periodic?{element:ctx.element||null}:{template:atk.template,variant:atk.variant,element:atk.element,job:atk.job});enqueue('hit',target);}
+   else if(after.hp>before.hp){number('heal',target,after.hp-before.hp,{critical:false});const kind=ctx.mode==='potion'?'potion':ctx.mode==='damage'||ctx.effect==='drain'?'drain':ctx.mode==='regen'?'regen':'heal';enqueue(kind,target,{template:'heal',variant:kind==='regen'?'regen':kind==='drain'?'drain':ctx.targetMode==='allies'?'aoe':'basic',element:ctx.element||null,job:sourceJob,...(kind==='regen'?{label:'+'+Math.max(1,Math.round(after.hp-before.hp))+' HP'}:{})});}
    // A shield-only attack has an impact on the shield, never a red HP hit.
 
   }
   const next=statuses();
   for(const [key,row] of next)if(frame.statuses.get(key)?.ref!==row.ref&&row.polarity!=='neutral'){
    const unit=units().find(u=>String(id(u))===String(row.target));
-   if(unit?.hp>0)enqueue(row.polarity,row.target);
+   if(unit?.hp>0)enqueue(row.polarity,row.target,{element:ctx.element||null,job:sourceJob});
   }
   frame.statuses=next;
  }
@@ -21751,12 +22765,14 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
    return;
   }
   if(['evade','resist','miss','immune','block'].includes(type))number('text',id(target),null,{label:details.label||({evade:'閃避',resist:'抵抗',miss:'未命中',immune:'免疫',block:'格擋'}[type]),critical:false});
-  enqueue(type,id(target),{...details,source:source?id(source):null});
+  const extra={...details,source:source?id(source):null};
+  if(type==='evade'){const atk=attackMeta({...frame.context,source:source||frame.context.source,job:Number.isInteger(source?.job)?source.job:frame.context.job});extra.attackTemplate=atk.template;extra.attackElement=atk.element;extra.attackJob=atk.job;}
+  enqueue(type,id(target),extra);
  }
  function cleanNode(node){const entries=activeNodes.get(node);if(entries)for(const row of entries.values()){clearTimeout(row.timer);row.element.remove();}activeNodes.delete(node);}
  function clearNumbers(node){const entries=numberNodes.get(node);if(entries)for(const row of entries.values())row.remove();numberNodes.delete(node);node.querySelector(':scope > .battle-number-layer')?.remove();}
  function clear(){for(const node of numberNodes.keys())clearNumbers(node);frame=null;pending=null;staged=null;held=null;for(const t of timers)clearTimeout(t);timers.clear();for(const node of activeNodes.keys())cleanNode(node);for(const node of markedNodes){node.querySelector(':scope > .battle-fx-status')?.remove();delete node.dataset.fxShield;}markedNodes.clear();owner=null;encounter=null;}
- const palette={damage:{color:'#ff796f',rgb:'255,121,111'},buff:{color:'#f4d58b',rgb:'244,213,139'},shield:{color:'#f2f5ff',rgb:'242,245,255'},recovery:{color:'#87efad',rgb:'135,239,173'},debuff:{color:'#c495f0',rgb:'196,149,240'}};
+ const palette=T?.CATEGORY_PALETTES||{damage:{color:'#ff796f',rgb:'255,121,111'},buff:{color:'#f4d58b',rgb:'244,213,139'},shield:{color:'#f2f5ff',rgb:'242,245,255'},recovery:{color:'#87efad',rgb:'135,239,173'},debuff:{color:'#c495f0',rgb:'196,149,240'}};
  function eventCategory(type){
   if(['shield','absorb','break','dissolve','shield-impact','evade','resist'].includes(type))return 'shield';
   if(['heal','regen','potion','drain'].includes(type))return 'recovery';
@@ -21790,6 +22806,10 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   cast:'<circle cx="32" cy="32" r="25"/><path d="M13 13L20 20M51 13L44 20M13 51L20 44M51 51L44 44"/>'
  };
  function art(type){return graphics[type]||graphics[{critical:'magic',dot:'magic',skip:'debuff',hit:'magic',impact:'slash',wind:'magic',light:'magic',shadow:'magic',regen:'heal',potion:'heal',drain:'heal',dissolve:'shield','shield-impact':'absorb'}[type]]||graphics.magic;}
+ function persistentArt(tag){
+  if(T)return T.resolveVisual({type:tag,category:tag==='shield'?'shield':tag==='buff'||tag==='rage'?'buff':'debuff'}).svg;
+  return '<circle cx="32" cy="32" r="23"/>';
+ }
  function play(node,event,sourceNode){
   let entries=activeNodes.get(node);if(!entries){entries=new Map();activeNodes.set(node,entries);}
   const type=event.type,channel=type==='skip'?'control':type==='critical'?'critical':type==='dot'?'dot':type==='break'?'break':['heal','regen','potion','drain'].includes(type)?'recovery':['shield','absorb','break','dissolve','shield-impact'].includes(type)?'shield':type==='hit'?'hit':['buff','debuff'].includes(type)?type:type==='cast'?'cast':'action';
@@ -21797,21 +22817,31 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   const peers=[...entries].filter(([,row])=>row.channel===channel);
   if(peers.length>=2){const [key,old]=peers[0];clearTimeout(old.timer);old.element.remove();entries.delete(key);}
   const eventKey=++sequence;
-  const element=document.createElement('span');element.className='battle-fx battle-fx-'+type+(node.dataset.combatId?' battle-fx-health':'');
-  const category=event.category||eventCategory(type),color=palette[category];
-  element.dataset.fx=type;element.dataset.fxCategory=category;element.dataset.event=event.eventId||'';element.dataset.critical=String(!!event.critical);if(event.label)element.dataset.skill=event.label;element.dataset.detail=mode();element.setAttribute('aria-hidden','true');
+  const category=event.category||eventCategory(type);
+  const visual=T?T.resolveVisual({...event,type,category}):{template:type,variant:'basic',element:event.element||null,job:event.job??null,...palette[category],svg:persistentArt(type),glyph:'fx-impact',motion:'fx-ring',projectile:'none'};
+  const element=document.createElement('span');
+  element.className='battle-fx battle-fx-'+type+' battle-fx-tpl-'+visual.template+(visual.variant&&visual.variant!=='basic'?' battle-fx-var-'+visual.variant:'')+(node.dataset.combatId?' battle-fx-health':'');
+  element.dataset.fx=type;element.dataset.fxCategory=category;element.dataset.fxTemplate=visual.template;element.dataset.fxVariant=visual.variant||'basic';
+  if(visual.element)element.dataset.fxElement=visual.element;
+  if(Number.isInteger(visual.job))element.dataset.fxJob=String(visual.job);
+  element.dataset.event=event.eventId||'';element.dataset.critical=String(!!event.critical);if(event.label)element.dataset.skill=event.label;element.dataset.detail=mode();element.setAttribute('aria-hidden','true');
   const base=type==='cast'?(event.important?850:650):['buff','debuff'].includes(type)?750:['heal','regen','potion','drain','shield'].includes(type)?650:['slash','ranged','impact','hit','evade','resist','absorb','dot','critical'].includes(type)?500:600;
   const duration=Math.round(base*(battleRate===1?1.5:battleRate===2?.82:1));
   if(type==='hit'||type==='evade')node.style.setProperty('--fx-portrait-time',duration+'ms');
-  element.style.setProperty('--fx-time',duration+'ms');element.style.setProperty('--fx-color',color.color);element.style.setProperty('--fx-rgb',color.rgb);
+  element.style.setProperty('--fx-time',duration+'ms');
+  element.style.setProperty('--fx-color',visual.color);element.style.setProperty('--fx-rgb',visual.rgb);
+  element.style.setProperty('--fx-accent',visual.accent||visual.color);element.style.setProperty('--fx-accent-rgb',visual.accentRgb||visual.rgb);
   element.style.setProperty('--fx-direction',String(++sequence%2?-1:1));
-  element.innerHTML='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+art(type)+'</svg>';
+  if(visual.glyph&&mode()==='full')element.style.setProperty('--fx-glyph',visual.glyph);
+  element.innerHTML='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+visual.svg+'</svg>';
   const label=event.label||({critical:'暴擊',evade:'閃避',resist:'抵抗',skip:'無法行動',absorb:'格擋',heal:'治療',shield:'護盾',buff:'增益',debuff:'減益',dot:'持續傷害'}[type])||(event.critical?'暴擊':'');
   if(label){const text=document.createElement('b');text.textContent=label;element.append(text);}
-  if(mode()==='full'&&sourceNode&&sourceNode!==node&&['fire','ice','lightning','wind','light','shadow','magic','ranged'].includes(type)){
+  const hasProjectile=visual.projectile&&visual.projectile!=='none'||['fire','ice','lightning','wind','light','shadow','magic','ranged'].includes(type);
+  if(mode()==='full'&&sourceNode&&sourceNode!==node&&hasProjectile&&type!=='cast'&&type!=='attack'){
    const a=sourceNode.getBoundingClientRect(),b=node.getBoundingClientRect(),dx=a.x-b.x,dy=a.y-b.y,length=Math.hypot(dx,dy)||1;
    element.style.setProperty('--fx-from-x',Math.round(dx/length*24)+'px');element.style.setProperty('--fx-from-y',Math.round(dy/length*24)+'px');
-   const trail=document.createElement('i');trail.className='battle-fx-projectile';element.append(trail);
+   element.style.setProperty('--fx-angle',Math.round(Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI)+'deg');
+   const trail=document.createElement('i');trail.className='battle-fx-projectile';trail.dataset.projectile=visual.projectile&&visual.projectile!=='none'?visual.projectile:'orb';element.append(trail);
   }
   node.append(element);
   const row={element,timer:null,channel},remove=()=>{if(entries.get(eventKey)!==row)return;clearTimeout(row.timer);element.remove();entries.delete(eventKey);if(!entries.size)activeNodes.delete(node);};
@@ -21882,7 +22912,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
     const existing=new Map([...badge.children].map(n=>[n.dataset.fxPersistent,n]));
     for(const tag of labels){
      let layer=existing.get(tag);existing.delete(tag);
-     if(!layer){layer=document.createElement('i');layer.className='fx-status-'+tag;layer.dataset.fxPersistent=tag;layer.dataset.fxLayer=tag==='shield'?'protection':tag==='buff'?'enhancement':tag==='debuff'?'affliction':'control';layer.title=statusNames[tag]||tag;layer.innerHTML='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+art(tag)+'</svg>';badge.append(layer);}
+     if(!layer){layer=document.createElement('i');layer.className='fx-status-'+tag;layer.dataset.fxPersistent=tag;layer.dataset.fxLayer=tag==='shield'?'protection':tag==='buff'?'enhancement':tag==='debuff'?'affliction':'control';layer.title=statusNames[tag]||tag;layer.innerHTML='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+persistentArt(tag)+'</svg>';badge.append(layer);}
      const category=tag==='shield'?'shield':tag==='buff'||tag==='rage'?'buff':'debuff';layer.dataset.fxCategory=category;layer.style.setProperty('--fx-color',palette[category].color);layer.style.setProperty('--fx-rgb',palette[category].rgb);
     }
     for(const layer of existing.values())layer.remove();
@@ -21894,7 +22924,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   const playEvent=event=>playUnit(event.target,event,event.source);
   const events=[...batch.events.values()],sources=new Set(events.filter(e=>e.type==='cast').map(e=>e.target));
   for(const event of events)if(!sources.has(event.source)&&nodes.has(event.source)&&event.source!==event.target&&(event.category==='damage'&&!['critical','dot'].includes(event.type)||['evade','absorb','shield-impact'].includes(event.type))){
-   sources.add(event.source);playEvent({target:event.source,type:'attack',category:'damage',eventId:batch.eventId});
+   sources.add(event.source);playEvent({target:event.source,type:'attack',category:'damage',template:event.attackTemplate||event.template,variant:event.variant||'basic',element:event.attackElement||event.element,job:event.attackJob??event.job,eventId:batch.eventId});
   }
   for(const event of events){event.eventId=batch.eventId;if(event.type==='cast')playEvent(event);}
   const impact=()=>{if(staged!==batch||!visible())return;batch.impacted=true;
@@ -21941,19 +22971,34 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   }
  }
 
+ function skillScope(h,kind,i){
+  const def=globalThis.__EMBERWILD_SKILLS?.byPosition?.(h?.job,kind,i)||null;
+  const raw=kind==='core'?CLASSES[h?.job]?.skills?.[i]:SUPPORT[h?.job]?.[i];
+  const effect=def?.effect||def?.kind||(kind==='core'?raw?.[5]:raw?.kind)||'';
+  const element=kind==='core'?coreSkillElement(h.job,i):(def?.element||raw?.element||null);
+  const targetMode=def?.target||def?.meta?.target||(kind==='support'?raw?.target:'')||'';
+  return {
+   source:h,job:h?.job,actionKind:kind==='core'?'skill':'support',skill:def||raw,
+   skillName:def?.name||(kind==='core'?raw?.[0]:raw?.name)||'',skillId:def?.id||'',targetMode,
+   fxTemplate:def?.fxTemplate||def?.meta?.fxTemplate||null,
+   mode:kind==='core'&&['damage','drain'].includes(effect)?'damage':'skill',
+   element,effect,ranged:h?.job===2
+  };
+ }
+
  function wrap(name,context){const base=globalThis[name];if(typeof base!=='function')return;globalThis[name]=function(...args){if(!frame)return base.apply(this,args);return scope(context(...args),()=>base.apply(this,args));};}
- wrap('performHeroBasic',h=>({source:h,mode:'damage',element:weaponElement(h),ranged:h.job===2}));
- wrap('performEnemyBasic',e=>({source:e,mode:'damage',element:e.element}));
- wrap('resolveHit',(e,amount,h,element,critical)=>({source:h,mode:'damage',element,critical}));
- wrap('sharedEnemySkillDamage',(e,h,amount,element)=>({source:e,mode:'damage',element}));
- wrap('castPartySkill',(h,i)=>{const effect=CLASSES[h.job]?.skills?.[i]?.[5];return {source:h,mode:['damage','drain'].includes(effect)?'damage':'skill',element:coreSkillElement(h.job,i),effect,ranged:h.job===2};});
- wrap('castEnemySharedSkill',(e,sk)=>({source:e,mode:['damage','drain'].includes(sk.effect)?'damage':'skill',element:sk.element,effect:sk.effect}));
- wrap('castSupport',h=>({source:h,mode:'skill',element:null}));
+ wrap('performHeroBasic',h=>({source:h,job:h?.job,actionKind:'basic',skill:null,skillName:'',skillId:'',fxTemplate:null,targetMode:'enemy',mode:'damage',element:weaponElement(h),ranged:h?.job===2}));
+ wrap('performEnemyBasic',e=>({source:e,job:null,actionKind:'basic',skill:null,skillName:'',skillId:'',fxTemplate:null,mode:'damage',element:e?.element}));
+ wrap('resolveHit',(e,amount,h,element,critical)=>({source:h,...(Number.isInteger(h?.job)?{job:h.job}:{}),mode:'damage',element,critical}));
+ wrap('sharedEnemySkillDamage',(e,h,amount,element)=>({source:e,job:null,mode:'damage',element}));
+ wrap('castPartySkill',(h,i)=>skillScope(h,'core',i));
+ wrap('castEnemySharedSkill',(e,sk)=>({source:e,job:null,actionKind:'skill',skill:sk,skillName:sk?.name||'',skillId:sk?.id||'',targetMode:sk?.maxTargets>1?'enemies':'enemy',fxTemplate:sk?.fxTemplate||sk?.meta?.fxTemplate||null,mode:['damage','drain'].includes(sk?.effect)?'damage':'skill',element:sk?.element,effect:sk?.effect}));
+ wrap('castSupport',(h,i)=>skillScope(h,'support',i));
  wrap('potion',()=>({source:state,mode:'potion',element:null}));
  wrap('refillParty',()=>({mode:'settlement'}));
  wrap('applyPureShield',()=>({mode:'shield'}));
  // Cast glows are derived only from successful casts, never attempted cooldowns.
- for(const name of ['castPartySkill','castEnemySharedSkill','castSupport']){const base=globalThis[name];globalThis[name]=function(...args){const out=base.apply(this,args);if(frame&&out!==false){const source=args[0],sk=name==='castPartySkill'?CLASSES[source.job]?.skills?.[args[1]]:name==='castSupport'?SUPPORT[source.job]?.[args[1]]:args[1];enqueue('cast',id(source),{category:castCategory(sk),label:sk?.name||sk?.[0]||'技能',important:name==='castPartySkill'&&source.job===1&&(sk?.[0]==='魔爆'||sk?.name==='魔爆')});}return out;};}
+ for(const name of ['castPartySkill','castEnemySharedSkill','castSupport']){const base=globalThis[name];globalThis[name]=function(...args){const out=base.apply(this,args);if(frame&&out!==false){const source=args[0],sk=name==='castPartySkill'?CLASSES[source.job]?.skills?.[args[1]]:name==='castSupport'?SUPPORT[source.job]?.[args[1]]:args[1];const ctx=name==='castPartySkill'?skillScope(source,'core',args[1]):name==='castSupport'?skillScope(source,'support',args[1]):{source,job:null,actionKind:'skill',skill:sk,skillName:sk?.name||'',effect:sk?.effect,element:sk?.element,targetMode:sk?.maxTargets>1?'enemies':'enemy',fxTemplate:sk?.fxTemplate||sk?.meta?.fxTemplate||null};const resolved=T?T.resolveSkillTemplate(ctx):null;enqueue('cast',id(source),{category:castCategory(sk),label:ctx.skillName||sk?.name||sk?.[0]||'技能',template:resolved?.template||null,variant:resolved?.variant||'basic',element:resolved?.element||ctx.element||null,job:resolved?.job??ctx.job??null,important:name==='castPartySkill'&&source.job===1&&(sk?.[0]==='魔爆'||sk?.name==='魔爆')});}return out;};}
  for(const name of ['resetEncounter','resetSession','loadParty','stopTeamExploration']){const base=globalThis[name];if(typeof base==='function')globalThis[name]=function(...args){clear();return base.apply(this,args);};}
  // The seconds timeline spawns the next group and may cast an instant skill in the same step.
  // A frame that has not recorded anything yet belongs to the new encounter: rebind it and take
@@ -21963,7 +23008,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   if(frame&&!frame.events.size&&!frame.numbers.length&&frame.encounter!==foes&&frame.owner===party){frame.encounter=foes;encounter=foes;frame.initial=sample();frame.vitals=sample();frame.statuses=statuses();}
   return out;
  };
- globalThis.EmberwildBattleEffects={begin,end,scope,quiet,result,sync,clear,present,get holdingEncounter(){return !!held&&held.encounter!==foes&&performance.now()<held.until;},get capturing(){return !!frame;},get preference(){return preference;},get pendingEvents(){return pending?[...pending.events.values()].map(e=>({...e})):[];},get pendingNumbers(){return pending?pending.numbers.map(e=>({...e})):[];},get numberCount(){return [...numberNodes.values()].reduce((n,m)=>n+m.size,0);},get activeCount(){return [...activeNodes.values()].reduce((n,m)=>n+m.size,0);}};
+ globalThis.EmberwildBattleEffects={begin,end,scope,quiet,result,sync,clear,present,templates:T,resolveTemplate:ctx=>T?.resolveSkillTemplate(ctx)||null,registerTemplate:(key,spec)=>T?.registerTemplate(key,spec)||null,listTemplates:()=>T?.listTemplates()||[],get holdingEncounter(){return !!held&&held.encounter!==foes&&performance.now()<held.until;},get capturing(){return !!frame;},get preference(){return preference;},get pendingEvents(){return pending?[...pending.events.values()].map(e=>({...e})):[];},get pendingNumbers(){return pending?pending.numbers.map(e=>({...e})):[];},get numberCount(){return [...numberNodes.values()].reduce((n,m)=>n+m.size,0);},get activeCount(){return [...activeNodes.values()].reduce((n,m)=>n+m.size,0);}};
  globalThis.setBattleEffects=function(value){if(!choices.includes(value))return false;preference=value;clear();try{localStorage.setItem(storageKey,value);}catch{toast('特效已套用，但瀏覽器無法保存設定。');}document.querySelectorAll('[data-battle-effects]').forEach(select=>select.value=value);EmberwildBattleSummary.sync({animate:false});return true;};
  globalThis.setBattleNumberSize=function(value){if(!Object.hasOwn(NUMBER_SIZES,value))return false;numberSize=value;try{localStorage.setItem(numberSizeKey,value);}catch{toast('數字大小已套用，但瀏覽器無法保存設定。');}document.querySelectorAll('[data-battle-number-size]').forEach(select=>select.value=value);return true;};
  globalThis.battleNumberSize=()=>numberSize;
@@ -21977,7 +23022,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
  const renderBase=render;render=function(...args){if(!visible()||!running&&!frame&&!pending&&!held)clear();return renderBase.apply(this,args);};
 })();
 
-EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;battleEffectsOptionsView=globalThis.battleEffectsOptionsView??battleEffectsOptionsView;setBattleEffects=globalThis.setBattleEffects??setBattleEffects;setBattleNumberSize=globalThis.setBattleNumberSize??setBattleNumberSize;battleNumberSize=globalThis.battleNumberSize??battleNumberSize;
+__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;battleEffectsOptionsView=globalThis.battleEffectsOptionsView??battleEffectsOptionsView;EmberwildBattleEffectTemplates=globalThis.EmberwildBattleEffectTemplates??EmberwildBattleEffectTemplates;setBattleEffects=globalThis.setBattleEffects??setBattleEffects;setBattleNumberSize=globalThis.setBattleNumberSize??setBattleNumberSize;battleNumberSize=globalThis.battleNumberSize??battleNumberSize;
 
 /* js/world/wishing-lake.js?v=20261104-v0062-bottom1 */
 /* Permanent place; consumes and grants through the existing account stores. */

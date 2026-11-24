@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "ec4b7fe044443054554241e41b9ce33b2d26806a",
+  "sourceCommit": "30db4b940102aa285f01e60bf97949d17dc631bc",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -19,8 +19,8 @@
       "sha256": "1bd26fb858cf44bcb0c6cf370dff0b152b2daa1df86f7b0021411cd755930398"
     },
     {
-      "path": "js/ui/inventory-icon-model.js?v=20261120-v0178",
-      "sha256": "bf0d153b24dfb0a16143cc8bdb9be9367d920fae7843bef529052017304e612d"
+      "path": "js/ui/inventory-icon-model.js?v=20261124-v0204-inventory",
+      "sha256": "c65f311734af354a28cd844953f95eddc04b7ee948801b14a9614bac3316c970"
     },
     {
       "path": "js/story/story-model.js?v=20261119-v0169",
@@ -111,6 +111,10 @@
       "sha256": "a263da9fdd89e31a992a90f03f96bd2e283f26f7c8cf74e18ed3a7555299bae1"
     },
     {
+      "path": "js/items/inventory-model.js?v=20261124-v0204-inventory",
+      "sha256": "7552c91ee72b93ed4f0a0538512185352cd76ed9bffbc4a0b4cb787f63be0aa3"
+    },
+    {
       "path": "js/core/game-catalog.js?v=20261123-v0196-aspd",
       "sha256": "d84eabecaf812cdc004a18c2caf33de115d0d926710936ccd9cef453375f829b"
     },
@@ -119,8 +123,8 @@
       "sha256": "c51e799656f4a9b38dc7e686237c94973db69e39f91d7d75399e5c70221309a9"
     },
     {
-      "path": "js/balance/gameplay-defaults.js?v=20261123-v0196-aspd",
-      "sha256": "bd6a4c0e86e48966b210cb011f92c0764ec63c5bee240a6e8430586942201e54"
+      "path": "js/balance/gameplay-defaults.js?v=20261124-v0204-inventory",
+      "sha256": "907195f4d90e9f49f8270ef2ced90b4099fd04d200734213cf3b053f1ddc4852"
     },
     {
       "path": "js/core/save-validation.js?v=20261119-v0169",
@@ -131,8 +135,8 @@
       "sha256": "37fcb064723c4e4be763df2cc1b01f952637cedae72fed9d9751d06e111c8869"
     },
     {
-      "path": "js/balance/gameplay-settings-schema.js?v=20261120-v0180",
-      "sha256": "ceaa407ee18c595de8055b4606dabba3768cadeecf00863c205253f1bcb5fe7f"
+      "path": "js/balance/gameplay-settings-schema.js?v=20261124-v0204-inventory",
+      "sha256": "9d0e0cfbaa2ce9aaacd25ea560874d22ffc6e423b1fab1403a04dde6016fb631"
     },
     {
       "path": "js/ui/core-screen-views.js?v=20261123-v0196-aspd",
@@ -447,6 +451,10 @@
       "sha256": "25ca9c70caf974753b9b359514243fa1189633bdedec655ef723495e630c6bce"
     },
     {
+      "path": "js/items/inventory-runtime.js?v=20261124-v0204-inventory",
+      "sha256": "127d11d59a5542e103617de6987dc14815314fae3ee68bc08c571fe79447c244"
+    },
+    {
       "path": "js/world/monster-design-runtime.js?v=20261028-inventory-inspector1",
       "sha256": "eb5b20c600ddb6cb573330885f5898735f29fdbf000efa11fb4dfe38e4d6f0de"
     },
@@ -491,8 +499,12 @@
       "sha256": "3512862249de1804175b147adf36eaf85d9792bf732c2939392f9651fab86870"
     },
     {
-      "path": "js/ui/battle-effects.js?v=20261119-v0173",
-      "sha256": "a6c0815e461c94a6186070f2ee932882c169f0f8e8903958d51a65efe23be28e"
+      "path": "js/ui/battle-effect-templates.js?v=20261123-v0200-attackfx",
+      "sha256": "6b4c8fead45d27471f2b3896e96f6c55498c2107c6022386dc901a4758c3aae0"
+    },
+    {
+      "path": "js/ui/battle-effects.js?v=20261123-v0200-attackfx",
+      "sha256": "c17b30f54cd1fcf8c4978a80aa18e60b209c5476eadba8269afde832301557a8"
     },
     {
       "path": "js/world/wishing-lake.js?v=20261104-v0062-bottom1",
