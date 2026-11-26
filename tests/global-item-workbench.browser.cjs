@@ -25,24 +25,24 @@ const doc=JSON.parse(fs.readFileSync(path.resolve(root,'../DreamingAbyss/data/ba
   assert.equal(await page.evaluate(()=>data.items.find(x=>x.id==='heal_small').healAmount),40);
   assert.equal(await page.evaluate(()=>data.items.find(x=>x.id==='heal_small').name),'測試治療藥水');
   assert.equal(await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.diagnostics.indexBuilds),index);
-  await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.select('material:紅色草'));
+  await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.select('material:光輝碎塊'));
   assert.equal(await page.locator('[data-catalogue-tab="equipment"]').count(),0);
   await page.locator('[data-catalogue-tab="appearance"]').click();
   assert.equal(await page.locator('[data-inventory-lucide]').count(),0);
   await page.locator('#inventoryColorEnabled').check();await page.locator('#inventoryIconColor').fill('#2244ff');await page.locator('#catalogueSave').click();
-  assert.equal(await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.settings('material','紅色草').color),'#2244ff');
+  assert.equal(await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.settings('material','光輝碎塊').color),'#2244ff');
   await page.locator('[data-catalogue-tab="sources"]').click();await page.locator('[data-catalogue-reference]').first().click();await page.locator('#backToGlobalItems').click();
-  assert.equal(await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.state.selectedId),'material:紅色草');
-  await page.locator('#inventoryIconSearch').fill('material:紅色草');
+  assert.equal(await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.state.selectedId),'material:光輝碎塊');
+  await page.locator('#inventoryIconSearch').fill('material:光輝碎塊');
   // The match count follows the current catalogue; the batch summary must agree with it.
   await page.waitForFunction(()=>document.querySelectorAll('[data-inventory-icon-row]').length===__EMBERWILD_INVENTORY_ICON_EDITOR.query().length);
   const matches=await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.query().length);assert(matches>=1);
-  const price=await page.evaluate(()=>data.balanceSettings.economy.materialPrices.find(x=>x.key==='紅色草').sellPrice);
+  const price=await page.evaluate(()=>data.balanceSettings.economy.materialPrices.find(x=>x.key==='光輝碎塊').sellPrice);
   await page.locator('#catalogueSelectPage').click();await page.locator('#catalogueBatch').click();
   await page.locator('#catalogueBatchOperation').selectOption('price');await page.locator('#catalogueBatchValue').fill('17');await page.locator('#catalogueBatchPreview').click();
-  assert.equal(await page.evaluate(()=>data.balanceSettings.economy.materialPrices.find(x=>x.key==='紅色草').sellPrice),price);
+  assert.equal(await page.evaluate(()=>data.balanceSettings.economy.materialPrices.find(x=>x.key==='光輝碎塊').sellPrice),price);
   assert.match(await page.locator('#catalogueBatchSummary').textContent(),new RegExp(matches+' 件'));
-  await page.locator('#catalogueBatchConfirm').click();assert.equal(await page.evaluate(()=>data.balanceSettings.economy.materialPrices.find(x=>x.key==='紅色草').sellPrice),17);
+  await page.locator('#catalogueBatchConfirm').click();assert.equal(await page.evaluate(()=>data.balanceSettings.economy.materialPrices.find(x=>x.key==='光輝碎塊').sellPrice),17);
   await page.evaluate(()=>__EMBERWILD_INVENTORY_ICON_EDITOR.open('inventoryIcons','all','equipment:form:0:0:0'));
   assert.equal(await page.locator('#inventoryIconSearch').inputValue(),'');
   await page.locator('[data-catalogue-tab="equipment"]').click();await page.locator('#native-fixedEffects-0-key').selectOption('basicElement');
@@ -59,4 +59,5 @@ const doc=JSON.parse(fs.readFileSync(path.resolve(root,'../DreamingAbyss/data/ba
   console.log('Item workbench browser smoke passed: bounded DOM, lazy tabs, drafts/reload, edits, search, source return, batch confirmation and mobile width.');
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exit(1);});
+
 

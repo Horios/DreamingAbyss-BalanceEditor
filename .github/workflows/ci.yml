@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GAME_REF: ${{ github.event.inputs.game_ref || 'chatgpt-dev' }}
+  GAME_REF: ${{ github.event.inputs.game_ref || (github.ref_name == 'feature/material-economy-crafting' && 'feature/material-economy-crafting') || 'chatgpt-dev' }}
 
 jobs:
   tests:
@@ -212,3 +212,4 @@ jobs:
             echo "Anonymous HTTP status of the site entry: \`$code\` (informational only)."
             echo "Repository checks: tests=${{ needs.tests.result }}, game-contract=${{ needs.game-contract.result }}, browser=${{ needs.browser.result }}, sites-artifact=${{ needs.sites-artifact.result }}."
           } >> "$GITHUB_STEP_SUMMARY"
+

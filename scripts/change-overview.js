@@ -36,7 +36,7 @@
   ['monsters','怪物與 BOSS',p=>/^balanceSettings\.monsters/.test(p)],
   ['maps','地圖與遭遇',p=>/^balanceSettings\.(maps|difficulty)/.test(p)],
   ['drops','掉落與獎勵',p=>/^balanceSettings\.(drops|rewards|quests)|^wishingLake|^story/.test(p)],
-  ['economy','商店與經濟',p=>/^(items|shopSettings|inventoryIcons|lifeSkills|balanceSettings\.economy)/.test(p)],
+  ['economy','商店與經濟',p=>/^(items|shopSettings|inventoryIcons|crafting|balanceSettings\.economy)/.test(p)],
   ['other','其他系統設定',()=>true]
  ];
  const categoryOf=p=>CATEGORIES.find(c=>c[2](p))[0];
@@ -197,3 +197,4 @@
  const top=document.querySelector('.topbar');if(top&&!document.getElementById('changeOverviewBtn')){const b=document.createElement('button');b.id='changeOverviewBtn';b.type='button';b.textContent='變更總覽';b.onclick=()=>{currentSection='changeOverview';render();};top.insertBefore(b,document.getElementById('exportBtn')||null);}
  globalThis.__EMBERWILD_CHANGE_OVERVIEW={changes,summary,revert,locate,format,fieldLabel,setBaseline,baseline:()=>base(),categories:CATEGORIES.map(([id,label])=>({id,label}))};
 })();
+

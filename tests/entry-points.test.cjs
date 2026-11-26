@@ -15,7 +15,7 @@ const FIELDS=[
  ['balanceSettings.difficulty.modes.1.attack',v=>+(v+0.05).toFixed(2)],
  ['shopSettings.randomOffers.refreshBaseCost',v=>v+10],
  ['balanceSettings.drops.entries.0.quantityMax',v=>v+2],
- ['lifeSkills.gathering.0.periodMs',v=>v+500],
+ ['crafting.etherIron.dust',v=>v+1],
  ['uiText.gameTitle',v=>v+'·入口測試'],
  ['balanceSettings.maps.catalog.0.name',v=>v+'·入口測試'],
  ['wishingLake.dailyLimit',v=>v+1]
@@ -40,3 +40,4 @@ test('editing in place and importing the edited document export the same text; a
   open(inPlace);assert.equal(M.serialize(current()),M.serialize(inPlace),field+': exporting again is a fixed point');
  }
 });
+

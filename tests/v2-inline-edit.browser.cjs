@@ -80,10 +80,10 @@ await p.waitForFunction(()=>/技能清單/.test(document.getElementById('devInli
   assert.equal(await game.locator('body').evaluate(()=>exportableBalance().companions.some(c=>c.name==='測試法師夥伴'&&c.job===1)),true);
   await p.locator('#devInlineCancel').click();
   // Items: click a material slot in the bag.
-  await game.locator('body').evaluate(()=>{state.materials['紅色草']=3;setTab('equipment');setInventoryCategory('materials');render();});
-  const herb=game.locator('[data-item-kind="material"][data-item-key="紅色草"]').first();
+  await game.locator('body').evaluate(()=>{state.materials['光輝碎塊']=3;setTab('equipment');setInventoryCategory('materials');render();});
+  const herb=game.locator('[data-item-kind="material"][data-item-key="光輝碎塊"]').first();
   assert.equal(await herb.count(),1,'the bag lists the material');{await herb.click();await p.locator('#devInline-sellPrice').waitFor();await p.locator('#devInline-sellPrice').fill('4');await p.locator('#devInlineSave').click();
-   await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);assert.equal(await game.locator('body').evaluate(()=>materialSellPrice('紅色草')),4);}
+   await p.waitForFunction(()=>!document.getElementById('devInlineDialog').open);assert.equal(await game.locator('body').evaluate(()=>materialSellPrice('光輝碎塊')),4);}
   // New items from the bag's 道具清單: a healing potion and a material.
   await game.locator('body').evaluate(()=>{setTab('equipment');render();});await listButton('items').click();await dialog.waitFor();
   assert.match(await p.locator('#devInlineTitle').innerText(),/^道具清單$/);assert.equal(await p.locator('#devInlineTabs button').count(),0,'items are not split by class');
@@ -135,3 +135,4 @@ await p.waitForFunction(()=>/技能清單/.test(document.getElementById('devInli
   assert.deepEqual(errors,[]);console.log('V2 inline editing passed: maps, monsters, items (new potions and materials), skills, equipment, companions and protagonist class stats from the game screen');
  }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(e=>{console.error(e);process.exitCode=1;});
+
