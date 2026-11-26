@@ -60,7 +60,7 @@
  const COOLDOWN_REDUCTION_SOURCES=['affixAll','affixSkill','fixedAll','fixedSkill','enemyDeath'];
  const COOLDOWN_REDUCTION_LABELS={affixAll:'裝備詞條：全技能冷卻（每點）',affixSkill:'裝備詞條：指定技能冷卻（每點）',fixedAll:'裝備固定效果／信物：全技能冷卻（每點）',fixedSkill:'裝備固定效果：指定技能冷卻（每點）',enemyDeath:'敵人死亡被動：縮減目前冷卻（每點）'};
  function defaultCooldownReduction(){return {diminishing:{thresholdSeconds:5,factor:.5,minimumSeconds:2},sources:Object.fromEntries(COOLDOWN_REDUCTION_SOURCES.map(k=>[k,{mode:'flat',value:3}]))};}
- function cooldownReductionTotals(points,cfg){let percent=0,flat=0;for(const k of COOLDOWN_REDUCTION_SOURCES){const n=Number(points?.[k])||0,r=cfg.sources[k];if(!n||!r)continue;if(r.mode==='percent')percent+=n*r.value;else flat+=n*r.value;}return {percent,flat};}
+ function cooldownReductionTotals(points,cfg){let percent=0,flat=0;for(const k of COOLDOWN_REDUCTION_SOURCES){const n=Number(points?.[k])||0,r=cfg.sources[k];if(!n||!r)continue;if(r.mode==='percent')percent+=n*r.value;else flat+=n*r.value;}percent+=Math.max(0,Number(points?.directPercent)||0);return {percent,flat};}
  function finalizeCooldown(base,raw,cfg,minimumInterval=0){if(!(raw<base))return base;const d=cfg.diminishing,start=Math.min(base,d.thresholdSeconds),diminished=raw>=start?raw:start-(start-raw)*d.factor;return round(Math.max(diminished,Math.min(base,d.minimumSeconds),Math.min(base,minimumInterval)));}
  function applyCooldownReduction(base,points,cfg,minimumInterval=0){const {percent,flat}=cooldownReductionTotals(points,cfg);return finalizeCooldown(base,base*(1-Math.min(100,percent)/100)-flat,cfg,minimumInterval);}
  function cooldownReductionText(source,points,cfg){const r=cfg.sources[source],n=round((Number(points)||0)*r.value);return r.mode==='percent'?'−'+n+'%':'−'+n+' 秒';}

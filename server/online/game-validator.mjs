@@ -15,7 +15,7 @@ export function createGameValidator(){
  const MutationObserver=class{observe(){}disconnect(){}},ResizeObserver=MutationObserver;
  let seq=0;const setTimeout=()=>++seq,clearTimeout=()=>{},setInterval=()=>++seq,clearInterval=()=>{},requestAnimationFrame=()=>++seq,cancelAnimationFrame=()=>{},queueMicrotask=()=>{},addEventListener=()=>{},removeEventListener=()=>{},matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}}),getComputedStyle=()=>({lineHeight:'20px',fontSize:'16px',getPropertyValue:()=>''}),performance={now:()=>0},crypto={randomUUID:()=>String(++seq)},innerWidth=1440,innerHeight=900,scrollX=0,scrollY=0,alert=()=>{},confirm=()=>true,prompt=()=>null;
  Object.assign(globalThis,{document,localStorage,sessionStorage,location,navigator,crypto,window,self,addEventListener,removeEventListener,setTimeout,clearTimeout,setInterval,clearInterval,requestAnimationFrame,cancelAnimationFrame,matchMedia,getComputedStyle,performance});
- var setUITheme,uiThemeOptionsView,EmberwildAttackSpeed,EmberwildSecondsSchema,EmberwildIconColors,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildTutorial,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,EmberwildBalanceModules,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_ERROR,saveFailureText,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,__EMBERWILD_EQUIPMENT_SKILLS,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_TEAMS,__EMBERWILD_ENHANCE,__EMBERWILD_OFFLINE_RULE_CACHE,__EMBERWILD_MASTERY_LISTENERS,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,recordCombatContribution,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,explorationBossBlock,explorationCompactSupply,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,__EMBERWILD_LUCIDE,__EMBERWILD_SKILL_EXTRACTION,equipmentPowerRerollHTML,__EMBERWILD_SKILL_SYSTEM_UI,setWorkshopCategory,toggleWorkshopPicker,clearWorkshopSlot,setWorkshopAction,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,moveToWorkshop,__EMBERWILD_WORKSHOP,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classMasteryBonus,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_COMPANION_TEST_API,__EMBERWILD_TOKEN_SKILL,companionSkillDisabled,__EMBERWILD_MASTERY_BATTLE_NOTE,__EMBERWILD_COMPANION_MASTERY_GAIN,__EMBERWILD_TEAM_GAIN,__EMBERWILD_SKILL_REFRESH,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devClassMasterySet,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,__EMBERWILD_TITLE,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,__EMBERWILD_STARTER_PACK,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,__EMBERWILD_COMPANION_BATTLE_MASTERY,recruitCompanion,__EMBERWILD_PROLOGUE,companionUnlocked,__EMBERWILD_RECRUIT_FOR_STORY,acquireCompanion,__EMBERWILD_PROLOGUE_HELPER,__EMBERWILD_TEMP_ALLY,confirmMemberReplacement,rememberCompanionRosterDetail,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,storyTextOptionsView,tutorialReviewView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,__EMBERWILD_DISPOSE_GEAR,extractSkillToToken,openSkillExtraction,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,__EMBERWILD_MASTERY_DAMAGE,__EMBERWILD_CLASS_MASTERY_BONUS_UI,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,__EMBERWILD_SET_EXTRA_TICKET_SOURCES,isUtilityDialogOpen,companionPendingMail,companionTicketCount,__EMBERWILD_EXTRA_TICKET_SOURCES,companionUnlockText,companionTicketName,grantCompanionTicket,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,sendStarterPackMail,claimMailboxAttachments,grantStarterPackDirect,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,recoverStoryRewards,completeStoryStage,__EMBERWILD_CHAPTER,storyNavigate,openStory,setStoryCategory,readStory,completeStoryDialogue,nextStoryDialogue,endStoryDialogue,js,skipStoryDialogue,storyReadyCount,storyReplayable,setAlchemyAutoBuy,dismissStoryHint,goQuestEncounter,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,__EMBERWILD_GEAR_SKILL_IDS,__EMBERWILD_GEAR_REGEN,__EMBERWILD_GEAR_REGEN_RATE,__EMBERWILD_GEAR_SKILLS,socketEquipmentGem,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,openSkillTreeDetail,selectSkillTreeNode,classMasteryTreeHTML,querySelector,classList,querySelectorAll,children,insertBefore,setBattleEffects,setBattleNumberSize,battleNumberSize,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,classMasterySources,masterySubClass,setMasterySubClass,setClassMasteryLevel,setPartyClassMasteryLevel,__EMBERWILD_LEVEL_REMOVAL,EmberwildVisualColors,EmberwildMasteryBars,setMapDifficulty,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides,visualViewport,storyWindowSummarize,storyWindowContinue,storyWindowShowAll,storyWindowToggleFast,storyWindowSpeed,storyWindowSkip,EmberwildStoryWindow,__EMBERWILD_TUTORIAL,prologueConfirmName,prologuePickClass,prologueConfirmClass,prologueNext,prologueOpenTask,prologueReturn,prologueFinishIntro,chapterNext,chapterChoose,chapterStartBattle,chapterAction,chapterResume,chapterBegin,storyReplay,storyReplayNext,storyReplayEnd,chapterEndNext,chapterEndClose,questLessonReport,__EMBERWILD_QUEST_LESSON,CSS,tutorialCloseTip,tutorialControl,tutorialNotice,replayTutorial,toggleTutorialReview,setBestiaryRegion,bestiaryView,setLootEffectSize,setLootEffects,EmberwildLootEffects,EmberwildEnhancementEffects,toggleUtilityMore,isUtilityMoreOpen,setBossCraftRegion,setCreationClass,toggleJournalCollapsed,toggleTokenFilters,closeDetailSheet,openDetailSheet,currentDetailSheet;
+ var setUITheme,uiThemeOptionsView,EmberwildAttackSpeed,EmberwildSecondsSchema,EmberwildIconColors,EmberwildInventory,__EMBERWILD_SKILL_ICONS,EmberwildInventoryIcons,EmberwildStory,EmberwildTutorial,EmberwildSkillSystem,EmberwildHealingPotions,EmberwildWishingLake,EmberwildBalanceModules,__EMBERWILD_EQUIPMENT_IDENTITY,EmberwildBalanceDocument,EmberwildProgression,EmberwildTokens,EmberwildCompanions,EmberwildPassives,EmberwildAchievements,EmberwildCompanionSkills,EmberwildTeams,__EMBERWILD_SKILLS,EmberwildTimedBoosts,EmberwildSkillEffects,EmberwildSecondsTimeline,EmberwildQuestDesign,EmberwildCommissions,EmberwildGearInventory,EmberwildDropRework,EmberwildControlState,__EMBERWILD_MASTERY,numberBadgeHTML,gameNavigationHTML,partnerRosterView,storyView,achievementsView,mailboxView,lifeSkillsView,gatheringView,alchemyView,optionsView,gameSubtabsHTML,equipmentTotalSummaryHTML,equipmentAttributeDetailsHTML,equipmentTotalSummaryText,EmberwildSecondsCombat,__EMBERWILD_BALANCE_SOURCE,__EMBERWILD_GAMEPLAY_SETTINGS,__EMBERWILD_SIMULATION_MODAL,gearStatBreakdown,equipmentBaseRating,__EMBERWILD_TOKEN_READY,__EMBERWILD_SAVE_ERROR,saveFailureText,__EMBERWILD_SAVE_OWNER,__EMBERWILD_BALANCE_READY,__EMBERWILD_TEAM_BOOT_RAW,__EMBERWILD_TEAM_READY,__EMBERWILD_BOOT_SAVE_RAW,__EMBERWILD_RECOVERED_BACKUP_SESSION,__EMBERWILD_UNREADABLE_PRIMARY_RAW,EmberwildBattleConfiguration,scaleHeroHealing,__EMBERWILD_STORY,__EMBERWILD_EQUIPMENT_SKILLS,equipmentWearableJobsDetailsHTML,equipmentAffixComparison,__EMBERWILD_BOOT_SAVE_ERROR,__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE,emberwildBootComplete,__EMBERWILD_GALLERY_EFFECTS,__EMBERWILD_TEXT_STYLES,textRarityStyleById,setTextRarityStyles,textRarityPresentation,textRarityBlockPresentation,textRarityFrameHTML,textRarityItemHTML,__EMBERWILD_TEAM_EQUIPMENT,recordEnhancement,__EMBERWILD_TEAMS,__EMBERWILD_ENHANCE,__EMBERWILD_OFFLINE_RULE_CACHE,__EMBERWILD_MASTERY_LISTENERS,combatContributionData,requestResetMapBattleStatistics,confirmResetMapBattleStatistics,EmberwildCombatEvents,performEnemyActionCore,EmberwildBattleSummary,EmberwildMonsterDesign,__EMBERWILD_VALIDATE_ITEM_IDS,__EMBERWILD_DROP_TEST,setItemDisplayMode,itemDisplayOptionsView,__EMBERWILD_GEAR_CATALOGUE_KEY,__EMBERWILD_INVENTORY_STOCK,__EMBERWILD_VIRTUAL_ITEM,__EMBERWILD_VIRTUAL_MAIL_KEY,__EMBERWILD_ITEM_NAME,__EMBERWILD_INVENTORY_ICON,__EMBERWILD_GEAR_SKILL_ICON,itemSlotHTML,lifeMaterialPurchasePrice,gearSlotHTML,itemCostHTML,mailAttachmentSlot,mailAttachmentIcon,gearInfoDetailHTML,gearInfoHTML,__EMBERWILD_ITEM_DESCRIPTION,companionTokenAbilityText,__EMBERWILD_CAN_SELL,openItemSlotDetails,closeItemDetails,itemDetailsAction,setInventorySort,toggleInventorySortDirection,setInventoryVisibility,isFinalMap,EmberwildAutoRetry,forceGearQuality,__EMBERWILD_ITEM_DETAILS,equipmentSellPrice,materialSellPrice,itemSellPrice,materialCount,setMaterialCount,salvageRewardPlan,grantSalvageRewards,__EMBERWILD_CAN_SELL_GEAR,sellGear,sellAllGearByQuality,sellMaterial,sellMaterialFromControl,sellAllMaterialFromControl,setCommonMaterialRegion,setCommonMaterialSort,inventoryMaterialRegions,sellItem,sellItemFromControl,sellAllItemFromControl,accountItemsView,worldMapType,worldIsFinalMap,worldProgressionGateIndex,worldIsProgressionGateMap,normalizeMonsterCombatStats,worldMapConfig,isProgressionGateMap,worldNormalFallbackMap,configuredFinalStageRows,__EMBERWILD_FINAL_STAGE_CLEARED,expeditionChallengeResult,recordMapClear,EmberwildFinalEncounter,bossProgressEntry,configuredBossStageRows,startBossChallenge,leaveBossChallenge,EmberwildBossEncounter,created,__EMBERWILD_OFFLINE_SILENT,recordCombatContribution,resetCombatContribution,setCombatContributionMetric,recordRegenContribution,combatContributionPanel,restartExploration,selectedExplorationCategory,explorationBossBlock,explorationCompactSupply,selectedExplorationMap,explorationMapChoices,setExplorationCategory,selectExplorationMap,selectQuestEncounter,explorationStateText,currentExplorationName,explorationControlButtons,startSelectedExploration,startQuestEncounter,refreshExplorationStatus,questEncounterRows,showBattleEffects,isEmberwildUIInteracting,activeSupplies,supplyBuffDetails,__EMBERWILD_RESUMING_ROUND,EmberwildBattleEffects,useAutoHealingPotion,EmberwildAutoPotions,EmberwildOffline,setHeroAutoPotion,setHeroAutoPotionThreshold,setHeroAutoPotionItem,buyHealingPotion,healingPotionShopLock,setHeroRecoveryHealing,setHeroHealingFallback,moveHeroHealingFallback,setHeroManaPriority,setHeroManaSettings,openHealingSettings,ensureHealingPotionState,healPotionItems,isHealPotion,healPotionCount,setHealPotionCount,healingInventory,procSkillRows,stopAutoReroll,__EMBERWILD_LUCIDE,__EMBERWILD_SKILL_EXTRACTION,equipmentPowerRerollHTML,__EMBERWILD_SKILL_SYSTEM_UI,setWorkshopCategory,toggleWorkshopPicker,clearWorkshopSlot,setWorkshopAction,setForgeSort,toggleForgeSortDirection,setForgeWearFilter,changeForgePage,companionTokenDescription,moveToWorkshop,__EMBERWILD_WORKSHOP,triggerFollowupDebuffs,__EMBERWILD_DEBUFF_MECHANICS,__EMBERWILD_EQUIPMENT_POWER,equipmentBaseRatingHTML,equipmentPlayerItemDescription,equipmentIdentityEffectText,equipmentIdentityEffectNumber,classInitialStats,classMasteryBonus,companionPassiveStatEffects,equipmentStatContributions,equipmentStarterGrowthSources,weaponBaseLines,equipmentAbilitySummary,equipmentNumericFields,rerollEquipmentPowerTier,useInventoryItem,__EMBERWILD_PRE_CONTROL_SAVE_RAW,journalLootOpen,journalLootHeight,toggleJournalLoot,startJournalResize,inventoryFilterFoldOpen,inventoryDisposeFoldOpen,setInventoryFoldState,skillCombatProfile,__EMBERWILD_NUMERIC_COMPRESSION_TEST,__EMBERWILD_TEAM_MASTERY,__EMBERWILD_COMPANION_TEST_API,__EMBERWILD_TOKEN_SKILL,companionSkillDisabled,__EMBERWILD_MASTERY_BATTLE_NOTE,__EMBERWILD_COMPANION_MASTERY_GAIN,__EMBERWILD_TEAM_GAIN,__EMBERWILD_SKILL_REFRESH,__EMBERWILD_ICON_COLOR,setSkillTurn,selectSkillTile,__EMBERWILD_MASTERY_UI,devClassMasterySet,devMasterySet,devMasteryAdjust,devMasteryReset,devMasteryToggleCore,devMasteryToggleSupport,devMasteryWeapon,devMasterySimulate,rollAffixFromPool,__EMBERWILD_AFFIX_POOL,EmberwildTokenRuntime,EmberwildControlCombatState,__EMBERWILD_CONTROL_TEST_API,hydrateEnemyCombatStats,enemyBattleStats,EmberwildStatusCombatState,__EMBERWILD_STATUS_TEST_API,EmberwildEnemyCombatState,sharedCoreSkillPool,sharedSkillById,sharedSkillScopeAllowsEnemy,sharedSkillScopeAllowsHero,sharedEnemySkillDamage,EmberwildSkillEffectRuntime,EmberwildInductionRuntime,castEnemySharedSkill,performSharedEnemyAction,sharedEnemyActionLabel,enemySharedSkillStatus,coreSkillUsageScope,coreSkillAvailableToHero,isEmberwildTitleOpen,importTestJSONFromTitle,__EMBERWILD_TITLE,continueFromTitle,selectSaveSlot,openCharacterCreation,confirmTitleCreation,downloadRawLocalSave,retryImportFromTitle,backToTitle,returnToTitle,requestDeleteSlot,confirmDeleteSlotStep,deleteSaveSlot,__EMBERWILD_NAVIGATION_DRAGGING,__EMBERWILD_AFTER_RENDER,__EMBERWILD_STARTER_PACK,textRarityEquipmentRowColor,textRarityEquipmentBlockPresentation,__EMBERWILD_COMPANION_BATTLE_MASTERY,recruitCompanion,__EMBERWILD_PROLOGUE,companionUnlocked,__EMBERWILD_RECRUIT_FOR_STORY,acquireCompanion,__EMBERWILD_PROLOGUE_HELPER,__EMBERWILD_TEMP_ALLY,confirmMemberReplacement,rememberCompanionRosterDetail,isPartnerEnlisted,enlistedHeroes,sortedEnlistedHeroes,partnerRating,skillAllowedForPartner,heroGrowthDefinition,setPartnerEnlisted,prepareCompanionSkillDocument,setCompanionSkillEnabled,EmberwildShopCatalog,__EMBERWILD_SHOP_SETTINGS,currentRefreshCost,hasCompanionRecruitmentOffers,shopPayablePrice,createEquipmentShopGear,purchaseShopOffer,buyFixedShopOffer,setShopCategory,equipmentShopView,lifeShopMaterialsView,sellInventoryItem,sellInventoryItemFromButton,inventoryMaterialIcon,inventoryMaterialDescription,inventoryItemIcon,inventoryShopOfferIcon,inventoryGemIcon,EmberwildRegionVouchers,buyEquipmentShopOffer,setEquipmentShopFold,__EMBERWILD_EQUIPMENT_SHOP,isEmberwildPreview,setOptionsTab,numberReminderOptionsView,battleEffectsOptionsView,storyTextOptionsView,tutorialReviewView,setTimedBoostEnabled,timedBoostManagement,battleJournalStatus,__EMBERWILD_TIMED_BOOST_TEST,__EMBERWILD_BALANCE_FINAL_APPLY_PENDING,EmberwildInduction,EmberwildTokenCombatState,createCompanionToken,grantConfiguredToken,equipCompanionToken,unequipCompanionToken,__EMBERWILD_TOKEN_TEST,companionTokenJobLabel,showWornTokenDetail,showCompanionTokens,setTokenFilter,clearTokenFilters,setTokenSort,toggleTokenDirection,setTokenAdvanced,toggleTokenMulti,toggleTokenSelected,selectVisibleTokens,clearSelectedTokens,requestTokenBatch,confirmTokenBatch,openTokenWearPage,selectInventoryToken,__EMBERWILD_TOKEN_INVENTORY,changePlayerClass,addTeamPlan,copyTeamPlan,renameTeamPlan,switchTeamPlan,clearTeamPlan,deleteTeamPlan,resetSkills,unlockTeamSkill,stopTeamExploration,recordDailyProgress,__EMBERWILD_DISPOSE_GEAR,extractSkillToToken,openSkillExtraction,rememberTeamPlanPanel,rememberTeamPlanCard,browsePlayerSkillClass,selectTeamSkill,setBossCraftClass,__EMBERWILD_MASTERY_DAMAGE,__EMBERWILD_CLASS_MASTERY_BONUS_UI,showCharacterAvatarPicker,setCharacterAvatar,EmberwildAvatars,lifeMaterialDescription,setLifeStockFilter,setLifeStockSort,setLifeStockOpen,__DEBUG_GEM_ALCHEMY,hasShopVIP,buyLifeMaterial,selectLifeGatheringTarget,startLifeGathering,stopLifeGathering,startLifeWork,stopLifeWork,recordLifeProgress,recordStoryAcquisition,recordGatheredItem,tickLifeSkills,alchemyVIPView,emberwildLifeHeartbeat,__EMBERWILD_LIFE_SKILLS,__EMBERWILD_SET_EXTRA_TICKET_SOURCES,isUtilityDialogOpen,companionPendingMail,companionTicketCount,__EMBERWILD_EXTRA_TICKET_SOURCES,companionUnlockText,companionTicketName,grantCompanionTicket,useCompanionRecruitmentTicket,mailboxLabel,openMailboxMail,EmberwildItems,claimMailboxAttachments,grantStarterPackDirect,claimAllMailboxAttachments,markAllMailRead,toggleMailLock,deleteReadClaimedMail,setAchievementFilter,__EMBERWILD_COMPANION_UNLOCK_TEST,startDailyCommission,questReadyCount,sideQuestReminder,dailyQuestReminder,startSideQuest,setQuestSideFilter,sideQuestListHTML,__EMBERWILD_QUESTS,numberBadgeCounts,numberReminderCount,setNumberReminder,openUtilityPanel,__EMBERWILD_PUBLISHED_BALANCE,currentStoryCategory,storyCategoryReminder,wishingLakeReminder,taskReminderHTML,pageNewReminder,EmberwildNavigation,inventoryGemSellPrice,sellCatalogueGem,sellCatalogueRecruitTicket,__EMBERWILD_INVENTORY_ICONS,recoverStoryRewards,completeStoryStage,__EMBERWILD_CHAPTER,storyNavigate,openStory,setStoryCategory,readStory,completeStoryDialogue,nextStoryDialogue,endStoryDialogue,js,skipStoryDialogue,storyReadyCount,storyReplayable,setAlchemyAutoBuy,dismissStoryHint,goQuestEncounter,EmberwildQuestEncounter,toggleMobileJournal,toggleMobileLoot,toggleMobileReport,setGearInventoryFilter,clearGearInventoryFilters,setGearInventorySort,setGearInventoryFold,toggleGearInventoryDirection,toggleGearInventoryMulti,toggleGearInventorySelected,selectVisibleGear,clearSelectedGear,openGearInventoryFilters,finishGearInventoryFilters,setGearInventoryAdvanced,requestGearInventoryBatch,confirmGearInventoryBatch,openInventoryWear,openWornWearHelp,__EMBERWILD_GEAR_INVENTORY,EmberwildIdleStatistics,offerOfflineVouchers,changeOfflineGearPage,showOfflineGear,unidentifiedGearDetailHTML,acknowledgeOfflineExploration,__EMBERWILD_OFFLINE_FULL_ONLY,retryOfflineExploration,configureSkill,setPassiveSkillEnabled,__EMBERWILD_GEAR_SKILL_IDS,__EMBERWILD_GEAR_REGEN,__EMBERWILD_GEAR_REGEN_RATE,__EMBERWILD_GEAR_SKILLS,socketEquipmentGem,EmberwildSecondsUI,showSkillInformation,openSkillCatalog,toggleSkillSlotLocked,openSkillSlot,chooseSkillSlot,selectEquipmentSocket,showWornEquipmentDetail,newSkillCount,dismissNewSkills,equipNewSkill,openSkillTreeDetail,selectSkillTreeNode,classMasteryTreeHTML,querySelector,classList,querySelectorAll,children,insertBefore,EmberwildBattleEffectTemplates,setBattleEffects,setBattleNumberSize,battleNumberSize,selectLakeOffering,setLakeQuantity,openWishingLake,confirmLakeOffering,__EMBERWILD_WISHING_LAKE,setRecoveryThresholds,setHuntingMode,useRegionVouchers,confirmRegionVouchers,classMasterySources,masterySubClass,setMasterySubClass,setClassMasteryLevel,setPartyClassMasteryLevel,__EMBERWILD_LEVEL_REMOVAL,EmberwildVisualColors,EmberwildMasteryBars,setMapDifficulty,openAdventureConfig,isAdventureConfigOpen,adventureConfigHTML,__EMBERWILD_STATE_TIP,nodeType,EmberwildTextOverrides,visualViewport,storyWindowSummarize,storyWindowContinue,storyWindowShowAll,storyWindowToggleFast,storyWindowSpeed,storyWindowSkip,EmberwildStoryWindow,__EMBERWILD_TUTORIAL,prologueConfirmName,prologuePickClass,prologueConfirmClass,prologueNext,prologueOpenTask,prologueReturn,prologueFinishIntro,chapterNext,chapterChoose,chapterStartBattle,chapterAction,chapterResume,chapterBegin,storyReplay,storyReplayNext,storyReplayEnd,chapterEndNext,chapterEndClose,questLessonReport,__EMBERWILD_QUEST_LESSON,CSS,tutorialCloseTip,tutorialControl,tutorialNotice,replayTutorial,toggleTutorialReview,setBestiaryRegion,bestiaryView,setLootEffectSize,setLootEffects,EmberwildLootEffects,EmberwildEnhancementEffects,isUnidentifiedGear,unidentifiedGearName,dropRulePoolLabel,identifyGear,identifyAllGear,__EMBERWILD_IDENTIFY,gemUpgradeQuote,upgradeGemWithDust,openGemUpgrade,toggleUtilityMore,isUtilityMoreOpen,setBossCraftRegion,setCreationClass,toggleJournalCollapsed,toggleTokenFilters,closeDetailSheet,openDetailSheet,currentDetailSheet;
 
 /* js/ui/themes.js?v=20261016-themes1 */
 /* Browser-wide appearance preference, independent of character and balance data. */
@@ -105,7 +105,7 @@ setUITheme=globalThis.setUITheme??setUITheme;toast=globalThis.toast??toast;uiThe
 
 EmberwildAttackSpeed=globalThis.EmberwildAttackSpeed??EmberwildAttackSpeed;
 
-/* js/combat/seconds-schema.js?v=20261123-v0196-aspd */
+/* js/combat/seconds-schema.js?v=20261126-v0211-gear */
 /* Canonical seconds/MP extension. Legacy positional timing is a derived adapter,
    retained for old import validators, never used by the seconds scheduler. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.EmberwildSecondsSchema=api;})(globalThis,()=>{
@@ -168,7 +168,7 @@ EmberwildAttackSpeed=globalThis.EmberwildAttackSpeed??EmberwildAttackSpeed;
  const COOLDOWN_REDUCTION_SOURCES=['affixAll','affixSkill','fixedAll','fixedSkill','enemyDeath'];
  const COOLDOWN_REDUCTION_LABELS={affixAll:'裝備詞條：全技能冷卻（每點）',affixSkill:'裝備詞條：指定技能冷卻（每點）',fixedAll:'裝備固定效果／信物：全技能冷卻（每點）',fixedSkill:'裝備固定效果：指定技能冷卻（每點）',enemyDeath:'敵人死亡被動：縮減目前冷卻（每點）'};
  function defaultCooldownReduction(){return {diminishing:{thresholdSeconds:5,factor:.5,minimumSeconds:2},sources:Object.fromEntries(COOLDOWN_REDUCTION_SOURCES.map(k=>[k,{mode:'flat',value:3}]))};}
- function cooldownReductionTotals(points,cfg){let percent=0,flat=0;for(const k of COOLDOWN_REDUCTION_SOURCES){const n=Number(points?.[k])||0,r=cfg.sources[k];if(!n||!r)continue;if(r.mode==='percent')percent+=n*r.value;else flat+=n*r.value;}return {percent,flat};}
+ function cooldownReductionTotals(points,cfg){let percent=0,flat=0;for(const k of COOLDOWN_REDUCTION_SOURCES){const n=Number(points?.[k])||0,r=cfg.sources[k];if(!n||!r)continue;if(r.mode==='percent')percent+=n*r.value;else flat+=n*r.value;}percent+=Math.max(0,Number(points?.directPercent)||0);return {percent,flat};}
  function finalizeCooldown(base,raw,cfg,minimumInterval=0){if(!(raw<base))return base;const d=cfg.diminishing,start=Math.min(base,d.thresholdSeconds),diminished=raw>=start?raw:start-(start-raw)*d.factor;return round(Math.max(diminished,Math.min(base,d.minimumSeconds),Math.min(base,minimumInterval)));}
  function applyCooldownReduction(base,points,cfg,minimumInterval=0){const {percent,flat}=cooldownReductionTotals(points,cfg);return finalizeCooldown(base,base*(1-Math.min(100,percent)/100)-flat,cfg,minimumInterval);}
  function cooldownReductionText(source,points,cfg){const r=cfg.sources[source],n=round((Number(points)||0)*r.value);return r.mode==='percent'?'−'+n+'%':'−'+n+' 秒';}
@@ -261,7 +261,7 @@ EmberwildAttackSpeed=globalThis.EmberwildAttackSpeed??EmberwildAttackSpeed;Ember
 
 EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
 
-/* js/ui/inventory-icon-model.js?v=20261120-v0178 */
+/* js/ui/inventory-icon-model.js?v=20261126-v0211-gear */
 /* Shared inventory catalogue derived from the existing balance references. */
 (function(root){
   const kinds=['equipment','item','material','gem','token','skill'],copy=x=>structuredClone(x);
@@ -321,9 +321,10 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
       const label=r.name||r.key;
       if(r.type==='sourceMaterial')for(const m of targets)if(m.material)source('material',m.material,'monster',m.name+' · '+label,'balanceSettings:drops');
       if(['material','item','ore','dust','token','equipment'].includes(r.type))source(['ore','dust'].includes(r.type)?'material':r.type,r.type==='ore'?'鍛鐵':r.type==='dust'?'粉塵':r.key,'monster',label,'balanceSettings:drops');
-      if(r.type==='gem')for(let i=0;i<3;i++)if(r.key==='random'||String(i)===r.key)source('gem',i,'monster',label,'balanceSettings:drops');
-      if(r.type==='potion'){const item=(doc.items||[]).find(x=>x.id==='heal_standard')||(doc.items||[]).find(x=>x.type==='healPotion');if(item)source('item',item.id,'monster',label,'balanceSettings:drops');}
-      if(['gear','gearLegendary','bossGear'].includes(r.type))for(const row of out.filter(x=>x.kind==='equipment'))if(r.type==='bossGear'?row.region!==undefined&&targets.some(m=>m.mapIndex===row.region):row.index!==undefined&&!row.exclusive)source('equipment',row.key,'monster',label,'balanceSettings:drops');
+      if(r.type==='gem')source('gem',Number(r.key),'monster',label,'balanceSettings:drops');
+      if(r.type==='gemPool')for(const p of r.pool||[])source('gem',Number(p.key),'monster',label,'balanceSettings:drops');
+      if(r.type==='monsterGear')for(const p of r.pool||[]){const m=String(p.key).match(/^form:(\d+):(\d+):(\d+)$/);if(m)source('equipment','form:'+m[1]+':'+m[2]+':'+m[3],'monster',label,'balanceSettings:drops');}
+      if(r.type==='bossGear')for(const row of out.filter(x=>x.kind==='equipment'))if(r.type==='bossGear'?row.region!==undefined&&targets.some(m=>m.mapIndex===row.region):row.index!==undefined&&!row.exclusive)source('equipment',row.key,'monster',label,'balanceSettings:drops');
     }
     if(doc.companionTokens?.drop?.enabled!==false)for(const t of doc.companionTokens?.catalog||[])if(t.drop?.enabled!==false)source('token',t.id,'monster','信物掉落設定','companionTokens');
     for(const row of out)row.categoryPath=(doc.inventoryIcons||[]).find(x=>x.kind===row.kind&&String(x.key)===row.key)?.categoryPath||categoryPath(doc,row);
@@ -419,9 +420,10 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
         grant('equipment',r.key,m.name+' · '+({normal:'普通怪',elite:'菁英怪',boss:'首領',final:'終局首領'}[kind]||kind),{region:m.mapIndex,monsterId:m.id});
       }
       else if(['material','item','ore','dust','token'].includes(r.type))grant(['ore','dust'].includes(r.type)?'material':r.type,r.type==='ore'?'鍛鐵':r.type==='dust'?'粉塵':r.key,r.name||r.key);
-      else if(r.type==='gem')for(let g=0;g<3;g++)if(r.key==='random'||String(g)===r.key)grant('gem',g,r.name);
-      else if(r.type==='potion'){const item=doc.items?.find(x=>x.id==='heal_standard')||doc.items?.find(x=>x.type==='healPotion');if(item)grant('item',item.id,r.name);}
-      else if(['gear','gearLegendary','bossGear'].includes(r.type))for(const row of out.filter(x=>x.kind==='equipment'))if(r.type==='bossGear'?row.region!==undefined&&targets.some(m=>m.mapIndex===row.region):row.index!==undefined&&!row.exclusive)grant('equipment',row.key,r.name);
+      else if(r.type==='gem')grant('gem',Number(r.key),r.name);
+      else if(r.type==='gemPool')for(const p of r.pool||[])grant('gem',Number(p.key),r.name);
+      else if(r.type==='monsterGear')for(const p of r.pool||[])grant('equipment',p.key,r.name);
+      else if(r.type==='bossGear')for(const row of out.filter(x=>x.kind==='equipment'))if(r.type==='bossGear'?row.region!==undefined&&targets.some(m=>m.mapIndex===row.region):row.index!==undefined&&!row.exclusive)grant('equipment',row.key,r.name);
     }
     for(const row of out){
       if(row.kind==='equipment'&&row.region!==undefined){
@@ -432,7 +434,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
       if(row.kind==='token'){row.slot=4;const index=doc.companionTokens?.catalog?.findIndex(x=>x.id===row.key),t=doc.companionTokens?.catalog?.[index];add('token',row.key,'monster','信物掉落','companionTokens','companionTokens.catalog.'+index+'.drop',{chanceByDifficulty:doc.companionTokens?.drop?.chanceByDifficulty,refId:row.key},doc.companionTokens?.drop?.enabled!==false&&t?.drop?.enabled!==false);row.jobs=t?.job===undefined||t.job==='all'?(doc.classes||[]).map((_,i)=>i):[Number(t.job)];use('token',row.key,'equip','夥伴穿戴','companionTokens','companionTokens.catalog.'+index);}
       if(row.kind==='gem'){add('gem',row.key,'craft','粉塵合成隨機寶石','balanceSettings:skills','balanceSettings.skills.gems',{quantity:1});use('gem',row.key,'socket','裝備鑲嵌／卸除','balanceSettings:skills','balanceSettings.skills.gems');}
       if(row.kind==='item'){const item=doc.items?.find(x=>x.id===row.key);if(item){row.elements=item.element?[item.element]:[];row.storage=item.type==='healPotion'?'共用治療藥水庫':'共用消耗品庫';use('item',row.key,'consume',item.type==='healPotion'?'自動喝水':'使用消耗品',item.type==='healPotion'?'potions':item.type==='gearTierReroll'?'equipmentPower':'items','items.'+doc.items.indexOf(item),{quantity:1});}else if(row.key==='level_scroll'){row.storage='共用材料庫（升級卷軸）';use('item',row.key,'consume','已停用（角色等級已移除）','balanceSettings:progression','balanceSettings.progression');}else if(row.key.startsWith('companion-ticket-')){const p=doc.companions?.find(x=>'companion-ticket-'+x.id===row.key);row.storage='夥伴招募券庫';if(p){if(p.unlockCondition?.type==='achievement'){add('item',row.key,'quest','夥伴解鎖成就','companionUnlocks','companions.'+doc.companions.indexOf(p)+'.unlockCondition');add('item',row.key,'mail','成就信箱附件','companionUnlocks','companions.'+doc.companions.indexOf(p)+'.unlockCondition');}else add('item',row.key,'shop','指定夥伴招募券','companionUnlocks','companions.'+doc.companions.indexOf(p)+'.unlockCondition',{price:p.unlockCondition?.price});use('item',row.key,'consume','解鎖 '+p.name+'／重複券轉換','companionUnlocks','companions.'+doc.companions.indexOf(p)+'.unlockCondition');}}}
-      if(row.kind==='equipment'&&row.index!==undefined){const form=doc.equipmentForms?.[row.job]?.[row.slot]?.[row.index];row.jobs=form?.wearableJobs||[row.job];row.elements=(form?.fixedEffects||[]).filter(e=>e.key==='basicElement').map(e=>e.value);use('equipment',row.key,'equip','主角穿戴','equipment','equipmentForms.'+row.job+'.'+row.slot+'.'+row.index);if(row.name==='穿甲槍'&&row.weaponType==='sword'||row.name==='淨化槌'&&row.weaponType==='holyStaff')row.warnings.push('名稱與有效武器類型不同；分類沿用現有武器規則。');}
+      if(row.kind==='equipment'&&row.index!==undefined){const form=doc.equipmentForms?.[row.job]?.[row.slot]?.[row.index];row.jobs=form?.wearableJobs||[row.job];row.elements=(form?.fixedEffects||[]).filter(e=>e.key==='basicElement').map(e=>e.value);use('equipment',row.key,'equip','主角穿戴','equipment','equipmentForms.'+row.job+'.'+row.slot+'.'+row.index);}
     }
     for(const [job,pack]of (doc.starterPacks||[]).entries())for(const [i,g]of pack.entries())add('equipment','form:'+g.group+':'+g.slot+':'+g.form,'initial',(doc.classes?.[job]?.name||job)+' 初始裝備','starterPacks','starterPacks.'+job+'.'+i);
     for(const [job,rows]of (doc.starterPackItems||[]).entries())for(const [i,row]of rows.entries())add(row.kind,row.key,'initial',(doc.classes?.[job]?.name||job)+' 新手禮包','starterPacks','starterPackItems.'+job+'.'+i,{quantity:row.quantity});
@@ -440,7 +442,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
     for(const [i,r]of (doc.inventoryIcons||[]).entries())for(const [j,x]of (r.salvageRewards||[]).entries()){const key=x.type==='ore'?'鍛鐵':x.type==='dust'?'粉塵':x.key,kind=['ore','dust'].includes(x.type)?'material':x.type;add(kind,key,'salvage',(byId.get(r.kind+':'+r.key)?.name||r.key)+' 個別分解','inventoryIcons','inventoryIcons.'+i+'.salvageRewards.'+j,{quantity:x.quantity,refId:r.kind+':'+r.key});}
     for(const key of ['鍛鐵','粉塵'])add('material',key,'salvage','裝備與信物基本分解','balanceSettings:equipment','balanceSettings.equipment.salvage');
     for(const [key,label,path]of [['鍛鐵','裝備強化','equipment.enhance'],['以太鍛鐵','高階裝備強化','equipment.enhance'],['粉塵','強化／洗鍊／寶石合成','equipment.enhance'],['光輝碎塊','保留詞條洗鍊','equipment.salvage']])use('material',key,'upgrade',label,'balanceSettings:equipment','balanceSettings.'+path);
-    use('material','粉塵','craft','屬性寶石合成','balanceSettings:skills','balanceSettings.skills.gems',{quantity:doc.balanceSettings?.skills?.gems?.craftDust});
+    use('material','粉塵','craft','寶石粉塵升級','balanceSettings:skills','balanceSettings.skills.gems.dustUpgrade',{});
     const rewards=(r,label,path)=>{if(!r)return;for(const [kind,key,n]of [['material','鍛鐵',r.ore],['material','粉塵',r.dust],...((r.materials||[]).map(x=>['material',x.key,x.quantity])),...((r.items||[]).map(x=>['item',x.key,x.quantity])),...((r.potions||[]).map(x=>['item',x.key,x.quantity])),...((r.gemCounts||[]).map((n,i)=>['gem',String(i),n]))])if(n>0)add(kind,key,'quest',label,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:n});if(r.randomGems>0)for(let g=0;g<5;g++)add('gem',g,'quest',label,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:r.randomGems});};
     for(const [kind,quests]of [['daily',doc.balanceSettings?.quests?.design?.daily?.entries||[]],['side',doc.balanceSettings?.quests?.design?.side||[]]])for(const [i,q]of quests.entries()){
       const path='balanceSettings.quests.design.'+(kind==='daily'?'daily.entries.':'side.')+i;rewards(q.rewards,q.title,path+'.rewards');for(const o of q.objectives||[])if(o.type==='material'){const keys=o.key==='@currentMap'?monsters.filter(m=>m.kind==='normal').map(m=>m.material):[o.key];for(const key of keys)use('material',key,'quest',q.title,path.includes('.daily.')?'dailyQuests':'sideQuests',path,{quantity:o.quantity,quantityMax:o.quantityMax,refId:q.id});}
@@ -477,6 +479,14 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
     if(equipment){const cfg=doc.balanceSettings?.equipment?.salvage||{};salvage.push({type:'ore',key:'鍛鐵',quantity:Math.max(0,Math.round(tier*((cfg.oreBasePerTier||0)+quality*(cfg.orePerQualityPerTier||0)+enhance*(cfg.orePerEnhancePerTier||0))))},{type:'dust',key:'粉塵',quantity:Math.max(0,Math.round((cfg.dustBase||0)+quality*(cfg.dustPerQuality||0)))});salvage.push(...(cfg.extraRewards||[]).filter(x=>x.quality===quality));}
     const rewards=override?.salvageRewards??salvage;return {sellPrice,salvage:rewards,canSell:override?.saleEnabled??(!['gem','skill'].includes(row.kind)&&!row.key.startsWith('companion-ticket-'))};
   }
+  function inventoryModel(){if(root.EmberwildInventory)return root.EmberwildInventory;try{return typeof require==='function'?require('../items/inventory-model.js'):null;}catch{return null;}}
+  function stackOverrideIssues(r){
+    const M=inventoryModel();if(M)return M.overrideIssues(r);
+    const id=r.kind+':'+r.key,errors=[];
+    if(r.maxStack!==undefined&&(!Number.isSafeInteger(r.maxStack)||r.maxStack<1||r.maxStack>1e9))errors.push('個別堆疊上限必須是 1～1000000000 的整數：'+id);
+    for(const k of ['stackable','occupiesSlot'])if(r[k]!==undefined&&typeof r[k]!=='boolean')errors.push(k+' 必須是布林值：'+id);
+    return errors;
+  }
   function issues(doc,library=root.__EMBERWILD_SKILL_ICONS){
     const paletteErrors=root.EmberwildIconColors?.issues(doc)||[];
     if(doc.inventoryIcons===undefined)return paletteErrors;
@@ -496,6 +506,8 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
       if(r.saleEnabled!==undefined&&typeof r.saleEnabled!=='boolean')errors.push('販售資格必須是布林值：'+id);
       if(r.salvageRewards!==undefined){if(!['equipment','token'].includes(r.kind)||!Array.isArray(r.salvageRewards)||r.salvageRewards.length>20)errors.push('個別分解產物只能設於裝備／信物，最多 20 筆：'+id);else for(const x of r.salvageRewards)if(!x||!['ore','dust','material','item','potion','gem'].includes(x.type)||typeof x.key!=='string'||!Number.isSafeInteger(x.quantity)||x.quantity<1||x.quantity>999||x.type==='material'&&(!x.key.trim()||['__proto__','constructor','prototype'].includes(x.key))||x.type==='item'&&!customItemIds.has(x.key)||x.type==='gem'&&!['random','0','1','2'].includes(x.key))errors.push('個別分解產物名稱、數量或引用無效：'+id);}
       if(r.description!==undefined&&(typeof r.description!=='string'||r.description.length>2000))errors.push('道具圖示說明必須是最多 2000 字的文字：'+id);
+      // v0.204: per-item stack overrides (maxStack, stackable, occupiesSlot). Category defaults live in balanceSettings.inventory.
+      errors.push(...stackOverrideIssues(r));
       const type=r.iconType,valid=typeof type==='string'&&(type==='auto'||(type.startsWith('custom:')?custom.has(type.slice(7)):library?(type==='none'||library.hasIcon(type)):/^(?:lucide:)?[a-z][a-z0-9-]*$/.test(type)));
       if(!valid)errors.push('道具圖示引用不存在或無效的圖示：'+id);
     }
@@ -505,7 +517,7 @@ EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;
   const api={itemDescription,migrateDescriptions,descriptionDefaults,VERSION:2,sourceLabels,itemDetailsVersion:2,kinds,entries,object,query,categoryPath,economics,fallback,issues,validate};root.EmberwildInventoryIcons=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 
-EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;
+EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;
 
 /* js/story/story-model.js?v=20261119-v0169 */
 /* Shared, data-only story contract. No quest-specific execution rules. */
@@ -1232,7 +1244,7 @@ EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;
 
 EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;
 
-/* js/items/healing-potion-model.js?v=20261022-potions1 */
+/* js/items/healing-potion-model.js?v=20261124-v0206-drops */
 /* Shared potion definitions and one-time design migration. Player saves are untouched. */
 (function(root){
  const defaults=[
@@ -1257,7 +1269,8 @@ EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;
  }
  function migrateDrops(settings){const entries=settings?.drops?.entries;if(!Array.isArray(entries))return;
   const old=entries.findIndex(x=>x.id==='potion_all'&&x.type==='potion');if(old<0)return;
-  entries.splice(old,1,...dropDefaults(settings.monsters?.catalog).filter(x=>!entries.some(r=>r.id===x.id)));
+  // v0.206: monsters no longer drop healing potions; the shop and alchemy remain their sources. The legacy rule is removed.
+  entries.splice(old,1);
  }
  function migrate(doc){migrateItems(doc?.items);migrateDrops(doc?.balanceSettings);return doc;}
  function issues(item){const out=[];if(!Number.isSafeInteger(item.healAmount)||item.healAmount<1||item.healAmount>1e9)out.push('固定恢復 HP 必須為 1～1000000000 的整數');if(typeof item.shopAvailable!=='boolean')out.push('商店販售狀態必須為布林值');if(!Number.isSafeInteger(item.requiredVip)||item.requiredVip<0||item.requiredVip>99)out.push('VIP 等級必須為 0～99 的整數');if(item.healFraction!==undefined)out.push('請移除舊 healFraction 欄位');return out;}
@@ -1371,9 +1384,9 @@ EmberwildHealingPotions=globalThis.EmberwildHealingPotions??EmberwildHealingPoti
  if(typeof module==='object'&&module.exports)module.exports=root.EmberwildWishingLake;
 })(globalThis);
 
-EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;
 
-/* js/balance/balance-modules.js?v=20261113-v0144-tutorial1 */
+/* js/balance/balance-modules.js?v=20261126-v0211-gear */
 /* Modular balance sources: data/balance/<module>.json are the only edited sources; data/balance.json is
    generated from them for the game. This file is shared by the game, its build tools and the balance editor.
    It never changes values: split() and assemble() are exact inverses, including key order. */
@@ -1449,8 +1462,6 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
   'shopSettings.fixedOffers.entries':{id:'id',label:'固定商品',keys:['id']},
   'companionTokens.catalog':{id:'id',label:'信物',keys:['id']},
   'lifeSkills.gathering':{id:'id',label:'採集',keys:['id']},
-  'equipmentPowerSystem.prefixes':{id:'id',label:'前綴',keys:['id']},
-  'equipmentPowerSystem.suffixes':{id:'id',label:'後綴',keys:['id']},
   'equipmentPowerSystem.bossAffixes':{id:'id',label:'BOSS 詞綴',keys:['id']}
  };
  const RECORD_PATHS=Object.keys(RECORDS).map(p=>p.split('.')).sort((a,b)=>b.length-a.length);
@@ -1659,7 +1670,7 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
 
 EmberwildBalanceModules=globalThis.EmberwildBalanceModules??EmberwildBalanceModules;
 
-/* js/balance/balance-document.js?v=20261119-v0169 */
+/* js/balance/balance-document.js?v=20261126-v0211-gear */
 /* Shared document preflight. Runtime/editor validators remain the domain authorities. */
 (function(root){
  const VERSION=1,SCHEMA='emberwild-balance-v1';
@@ -1726,7 +1737,7 @@ EmberwildBalanceModules=globalThis.EmberwildBalanceModules??EmberwildBalanceModu
   seconds:[{path:'balanceSettings.meta'},{path:'balanceSettings.combat'},{path:'balanceSettings.rewards'},{path:'balanceSettings.monsters.catalog',fields:['id','kind','timing']},{path:'skillSystem.definitions'},{path:'statusDefinitions'},{path:'items'},{path:'companionTokens'},{path:'equipmentForms'},{path:'timeUnits'}],
   skillSystem:[{path:'skillSystem'}],
   statuses:[{path:'statusDefinitions'}],
-  power:[{path:'equipmentPowerSystem.prefixes'},{path:'equipmentPowerSystem.suffixes'},{path:'equipmentPowerSystem.bossAffixes'}],
+  power:[{path:'equipmentPowerSystem.bossAffixes'}],
   drops:[{path:'balanceSettings.drops.entries'},{path:'items',keys:true},{path:'balanceSettings.monsters.catalog',keys:true}],
   unlocks:[{path:'classes'},{path:'balanceSettings.quests.design.side',keys:true},{path:'balanceSettings.quests.side',keys:true},{path:'balanceSettings.quests.design',shallow:true},{path:'balanceSettings.maps.catalog',shallow:true}],
   wishingLake:[{path:'wishingLake'},{path:'items',keys:true},{path:'inventoryIcons'},{path:'companions',keys:true},{path:'balanceSettings.equipment'},{path:'balanceSettings.monsters.catalog',keys:true},{path:'balanceSettings.progression'},{path:'balanceSettings.maps.catalog',keys:true}],
@@ -1806,7 +1817,7 @@ EmberwildBalanceModules=globalThis.EmberwildBalanceModules??EmberwildBalanceModu
   });
   run('power',()=>{
   const livePowerKeys=root.__EMBERWILD_EQUIPMENT_IDENTITY?.effectKeys;
-  if(livePowerKeys)for(const kind of ['prefixes','suffixes','bossAffixes'])for(const [i,row] of array(d.equipmentPowerSystem?.[kind]).entries()){
+  if(livePowerKeys)for(const kind of ['bossAffixes'])for(const [i,row] of array(d.equipmentPowerSystem?.[kind]).entries()){
    const allowed=kind==='bossAffixes'?livePowerKeys:livePowerKeys.filter(k=>!['gearAtkPct','bossDamagePct'].includes(k));
    for(const effect of kind==='bossAffixes'?row.effects||[]:[row.effect])if(!effect||!allowed.includes(effect.key)||(effect.key==='basicElement'?!['physical','fire','ice','wind','light','shadow'].includes(effect.value):!Number.isFinite(effect.value)))add('equipmentPowerSystem.'+kind+'.'+i+'.effect','未知裝備效果或效果值型別錯誤',row);
   }
@@ -1850,7 +1861,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  const api={READS,balanceModulesVersion:1,tutorialsVersion:1,textOverridesVersion:1,combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1,wishingLakeVersion:1,healingPotionVersion:1,attributeGemsVersion:1,storyEquipmentLessonsVersion:1,skillSystemVersion:1,questEncountersVersion:1,consumableClockVersion:1,equipmentAcquisitionVersion:1,storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 
-EmberwildSecondsSchema=globalThis.EmberwildSecondsSchema??EmberwildSecondsSchema;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildStory=globalThis.EmberwildStory??EmberwildStory;EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;EmberwildHealingPotions=globalThis.EmberwildHealingPotions??EmberwildHealingPotions;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildBalanceDocument=globalThis.EmberwildBalanceDocument??EmberwildBalanceDocument;
+EmberwildSecondsSchema=globalThis.EmberwildSecondsSchema??EmberwildSecondsSchema;EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;EmberwildStory=globalThis.EmberwildStory??EmberwildStory;EmberwildTutorial=globalThis.EmberwildTutorial??EmberwildTutorial;EmberwildSkillSystem=globalThis.EmberwildSkillSystem??EmberwildSkillSystem;EmberwildHealingPotions=globalThis.EmberwildHealingPotions??EmberwildHealingPotions;EmberwildWishingLake=globalThis.EmberwildWishingLake??EmberwildWishingLake;__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildBalanceDocument=globalThis.EmberwildBalanceDocument??EmberwildBalanceDocument;
 
 /* inline */
 
@@ -3232,7 +3243,330 @@ EmberwildCommissions=globalThis.EmberwildCommissions??EmberwildCommissions;
 
 EmberwildGearInventory=globalThis.EmberwildGearInventory??EmberwildGearInventory;
 
-/* js/core/game-catalog.js?v=20261123-v0196-aspd */
+/* js/items/inventory-model.js?v=20261124-v0205-inventory-fix */
+/* v0.204 inventory foundation: item definitions, stack storage and slot counting.
+   Pure data model shared by the game runtime, tests and the balance editor. It never touches the DOM or the save.
+
+   Item identity is the catalogue id used by inventoryIcons: "material:<name>", "gem:<index>", "item:<id>".
+   Equipment and companion tokens are individual instances (they keep their own id inside the gear bag) and never stack.
+   Everything that can merge is described by its item id alone: gem tiers and boss-material difficulties already have
+   their own keys, so two items with the same display name but different ids never merge. */
+(function(root){
+  'use strict';
+  const VERSION=1;
+  // Category defaults. Balance data (balanceSettings.inventory.stackLimits) may change the numbers;
+  // a single item can still override them with inventoryIcons[].maxStack / .occupiesSlot / .stackable.
+  /* The bag has six tabs with their own capacity (default 100 each). Every category belongs to one tab. */
+  const TABS={
+    equipment:{label:'裝備',capacity:100},token:{label:'信物',capacity:100},gem:{label:'寶石',capacity:100},
+    material:{label:'素材',capacity:100},consumable:{label:'消耗品',capacity:100},special:{label:'特殊',capacity:100}
+  };
+  const CATEGORIES={
+    equipment:{label:'裝備',tab:'equipment',maxStack:1,stackable:false,occupiesSlot:true},
+    token:{label:'信物',tab:'token',maxStack:1,stackable:false,occupiesSlot:true},
+    gem:{label:'寶石',tab:'gem',maxStack:99,stackable:true,occupiesSlot:true},
+    monsterMaterial:{label:'怪物專屬素材',tab:'material',maxStack:999,stackable:true,occupiesSlot:true},
+    enhancementMaterial:{label:'裝備強化素材',tab:'material',maxStack:999,stackable:true,occupiesSlot:true},
+    material:{label:'其他一般素材',tab:'material',maxStack:999,stackable:true,occupiesSlot:true},
+    rareMaterial:{label:'稀有養成素材',tab:'material',maxStack:999,stackable:true,occupiesSlot:true},
+    consumable:{label:'消耗品',tab:'consumable',maxStack:99,stackable:true,occupiesSlot:true},
+    special:{label:'特殊道具',tab:'special',maxStack:999,stackable:true,occupiesSlot:true},
+    questItem:{label:'任務道具',tab:'special',maxStack:999,stackable:true,occupiesSlot:false}
+  };
+  const INSTANCE_CATEGORIES=new Set(['equipment','token']);
+  const DEFAULT_SETTINGS={capacities:Object.fromEntries(Object.entries(TABS).map(([k,v])=>[k,v.capacity])),stackLimits:Object.fromEntries(Object.entries(CATEGORIES).map(([k,v])=>[k,v.maxStack]))};
+  const MAX_STACK=1e9,MAX_TOTAL=1e12,UNSAFE=new Set(['__proto__','constructor','prototype']);
+  const ENHANCEMENT=new Set(['鍛鐵','粉塵']),RARE=new Set(['以太鍛鐵','光輝碎塊']),CONSUMABLE_MATERIALS=new Set(['升級卷軸']);
+  const STACK_KINDS=['material','gem','item'];
+
+  function parseId(id){
+    if(typeof id!=='string')return null;
+    const i=id.indexOf(':');if(i<1)return null;
+    const kind=id.slice(0,i),key=id.slice(i+1);
+    if(!STACK_KINDS.includes(kind)||!key||key.length>100||UNSAFE.has(key))return null;
+    if(kind==='gem'&&!/^\d{1,3}$/.test(key))return null;
+    return {kind,key};
+  }
+  function itemId(kind,key){const id=kind+':'+String(key);if(!parseId(id))throw Error('物品識別碼無效：'+id);return id;}
+  function validId(id){return !!parseId(id);}
+
+  /* ctx: {bossMaterials:Set, monsterMaterials:Set, itemTypes:Map(id→type)} built from the balance document. */
+  function classify(id,ctx={}){
+    const p=parseId(id);if(!p)throw Error('物品識別碼無效：'+id);
+    if(p.kind==='gem')return 'gem';
+    if(p.kind==='item')return p.key.startsWith('companion-ticket-')?'special':'consumable';
+    const key=p.key,plain=key.replace(/^【(?:困難|地獄)】/,'');
+    if(CONSUMABLE_MATERIALS.has(key))return 'consumable';
+    if(ENHANCEMENT.has(key))return 'enhancementMaterial';
+    if(RARE.has(key))return 'rareMaterial';
+    if(ctx.bossMaterials?.has(plain)||ctx.monsterMaterials?.has(plain))return 'monsterMaterial';
+    return 'material';
+  }
+  function normalizeSettings(raw){
+    const out={capacities:{...DEFAULT_SETTINGS.capacities},stackLimits:{...DEFAULT_SETTINGS.stackLimits}};
+    if(raw&&typeof raw==='object'){
+      for(const k of Object.keys(TABS)){const n=raw.capacities?.[k];if(Number.isSafeInteger(n)&&n>=1&&n<=100000)out.capacities[k]=n;}
+      for(const k of Object.keys(CATEGORIES)){const n=raw.stackLimits?.[k];if(!INSTANCE_CATEGORIES.has(k)&&Number.isSafeInteger(n)&&n>=1&&n<=MAX_STACK)out.stackLimits[k]=n;}
+    }
+    for(const k of INSTANCE_CATEGORIES)out.stackLimits[k]=1;
+    return out;
+  }
+  function settingsIssues(raw){
+    const errors=[];if(raw===undefined)return errors;
+    if(!raw||typeof raw!=='object'||Array.isArray(raw))return ['背包設定必須是物件'];
+    if(raw.capacities!==undefined){
+      if(!raw.capacities||typeof raw.capacities!=='object'||Array.isArray(raw.capacities))errors.push('背包分頁容量必須是物件');
+      else for(const [k,n] of Object.entries(raw.capacities)){if(!TABS[k]){errors.push('未知的背包分頁：'+k);continue;}if(!Number.isSafeInteger(n)||n<1||n>100000)errors.push('背包分頁容量必須是 1～100000 的整數：'+k);}
+    }
+    if(raw.stackLimits!==undefined){
+      if(!raw.stackLimits||typeof raw.stackLimits!=='object'||Array.isArray(raw.stackLimits))errors.push('堆疊上限必須是物件');
+      else for(const [k,n] of Object.entries(raw.stackLimits)){
+        if(!CATEGORIES[k]){errors.push('未知的堆疊分類：'+k);continue;}
+        if(INSTANCE_CATEGORIES.has(k)){if(n!==1)errors.push('裝備與信物不可堆疊，堆疊上限固定為 1：'+k);continue;}
+        if(!Number.isSafeInteger(n)||n<1||n>MAX_STACK)errors.push('堆疊上限必須是 1～'+MAX_STACK+' 的整數：'+k);
+      }
+    }
+    return errors;
+  }
+  /* Per-item override fields on an inventoryIcons row. */
+  function overrideIssues(row){
+    const errors=[],id=row?.kind+':'+row?.key;
+    if(row.maxStack!==undefined&&(!Number.isSafeInteger(row.maxStack)||row.maxStack<1||row.maxStack>MAX_STACK))errors.push('個別堆疊上限必須是 1～'+MAX_STACK+' 的整數：'+id);
+    if(row.stackable!==undefined&&typeof row.stackable!=='boolean')errors.push('是否可堆疊必須是布林值：'+id);
+    if(row.occupiesSlot!==undefined&&typeof row.occupiesSlot!=='boolean')errors.push('是否占用背包格必須是布林值：'+id);
+    if(['equipment','token'].includes(row.kind)&&(row.stackable===true||row.maxStack!==undefined&&row.maxStack!==1))errors.push('裝備與信物是獨立物品，不可設定堆疊：'+id);
+    return errors;
+  }
+  /* Resolve one definition. details(kind,key) returns the inventoryIcons override row (or undefined). */
+  function definition(id,{settings,ctx,details,name,description,icon,rarity,canSell,canUse,canSalvage}={}){
+    const p=parseId(id);if(!p)throw Error('物品識別碼無效：'+id);
+    const s=normalizeSettings(settings),category=classify(id,ctx),base=CATEGORIES[category],row=details?.(p.kind,p.key)||{};
+    const stackable=row.stackable===false?false:base.stackable;
+    const maxStack=stackable?(Number.isSafeInteger(row.maxStack)?row.maxStack:s.stackLimits[category]):1;
+    return {id,kind:p.kind,key:p.key,name:row.displayName||name||p.key,category,categoryLabel:base.label,tab:base.tab,tabLabel:TABS[base.tab].label,icon:icon??row.iconType??'auto',rarity:rarity??null,description:row.description??description??'',
+      stackable,maxStack,occupiesSlot:typeof row.occupiesSlot==='boolean'?row.occupiesSlot:base.occupiesSlot,
+      canSell:canSell??(row.saleEnabled??(p.kind!=='gem'&&!['questItem','special'].includes(category))),canSalvage:!!canSalvage,canUse:canUse??['consumable','questItem','special'].includes(category)};
+  }
+  function instanceDefinition(g,{isToken=false,details,name}={}){
+    const kind=isToken?'token':'equipment',row=details?.(kind,g?.tokenId??'')||{},c=CATEGORIES[kind];
+    return {id:g.id,kind,instance:true,name:name||row.displayName||g.name||'',category:kind,categoryLabel:c.label,tab:c.tab,tabLabel:TABS[c.tab].label,stackable:false,maxStack:1,occupiesSlot:true,canSell:true,canSalvage:true,canUse:false};
+  }
+
+  /* ---------- stack store ---------- */
+  function hidden(obj,key,value){Object.defineProperty(obj,key,{value,writable:true,configurable:true,enumerable:false});}
+  function createStore(){const s={version:VERSION,serial:0,stacks:[]};hidden(s,'byItem',new Map());return s;}
+  function index(store){if(!store.byItem){hidden(store,'byItem',new Map());for(const st of store.stacks){if(!store.byItem.has(st.item))store.byItem.set(st.item,[]);store.byItem.get(st.item).push(st);}}return store.byItem;}
+  function reindex(store){hidden(store,'byItem',null);return index(store);}
+  function stacksOf(store,id){return index(store).get(id)||[];}
+  function total(store,id){let n=0;for(const st of stacksOf(store,id))n+=st.qty;return n;}
+  function items(store){return [...index(store).keys()];}
+  function checkQty(n,label='數量'){if(!Number.isSafeInteger(n)||n<0)throw RangeError(label+'必須是非負整數');return n;}
+  function capChecked(capOf,id){const c=capOf(id);if(!Number.isSafeInteger(c)||c<1)throw RangeError('堆疊上限無效：'+id);return c;}
+  function newStack(store,id,qty){const st={uid:'s'+(++store.serial),item:id,qty};store.stacks.push(st);if(!index(store).has(id))store.byItem.set(id,[]);store.byItem.get(id).push(st);return st;}
+  function dropStack(store,st){const i=store.stacks.indexOf(st);if(i>=0)store.stacks.splice(i,1);const list=index(store).get(st.item);if(list){const j=list.indexOf(st);if(j>=0)list.splice(j,1);if(!list.length)store.byItem.delete(st.item);}}
+  function stackOrder(store,id){const list=stacksOf(store,id);return list.slice().sort((a,b)=>store.stacks.indexOf(a)-store.stacks.indexOf(b));}
+  /* Fill existing partial stacks of the same item first (in slot order), then open new stacks. Nothing is lost. */
+  function add(store,id,qty,capOf){
+    if(!validId(id))throw Error('物品識別碼無效：'+id);checkQty(qty);if(!qty)return 0;
+    if(total(store,id)+qty>MAX_TOTAL)throw RangeError('物品數量超出可保存範圍：'+id);
+    const cap=capChecked(capOf,id);let left=qty;
+    for(const st of stackOrder(store,id)){if(!left)break;const room=cap-st.qty;if(room>0){const n=Math.min(room,left);st.qty+=n;left-=n;}}
+    while(left>0){const n=Math.min(cap,left);newStack(store,id,n);left-=n;}
+    return qty;
+  }
+  /* All or nothing: when the stacks hold less than qty nothing changes and false is returned.
+     Takes from the last stacks first so the leading stacks stay full. */
+  function remove(store,id,qty){
+    if(!validId(id))throw Error('物品識別碼無效：'+id);checkQty(qty);if(!qty)return true;
+    if(total(store,id)<qty)return false;
+    let left=qty;for(const st of stackOrder(store,id).reverse()){if(!left)break;const n=Math.min(st.qty,left);st.qty-=n;left-=n;if(!st.qty)dropStack(store,st);}
+    return true;
+  }
+  function removeMany(store,cost){
+    const rows=Object.entries(cost||{}).filter(([,n])=>n>0);for(const [id,n] of rows){if(!validId(id))throw Error('物品識別碼無效：'+id);checkQty(n);}
+    const need=new Map();for(const [id,n] of rows)need.set(id,(need.get(id)||0)+n);
+    for(const [id,n] of need)if(total(store,id)<n)return false;
+    for(const [id,n] of need)remove(store,id,n);return true;
+  }
+  function setTotal(store,id,n,capOf){checkQty(n);const cur=total(store,id);if(n>cur)add(store,id,n-cur,capOf);else if(n<cur)remove(store,id,cur-n);return n;}
+  function stackByUid(store,uid){return store.stacks.find(st=>st.uid===uid)||null;}
+  /* Move as much as fits from one stack into another stack of the same item. Returns the moved quantity. */
+  function merge(store,fromUid,toUid,capOf){
+    const a=stackByUid(store,fromUid),b=stackByUid(store,toUid);
+    if(!a||!b||a===b)throw Error('找不到要合併的堆疊');
+    if(a.item!==b.item)throw Error('不同物品不能合併');
+    const cap=capChecked(capOf,a.item),n=Math.max(0,Math.min(a.qty,cap-b.qty));
+    a.qty-=n;b.qty+=n;if(!a.qty)dropStack(store,a);return n;
+  }
+  /* Take qty out of a stack into a new stack placed right after it. The item total does not change. */
+  function split(store,uid,qty){
+    const st=stackByUid(store,uid);if(!st)throw Error('找不到要拆分的堆疊');
+    if(!Number.isSafeInteger(qty)||qty<1||qty>=st.qty)throw RangeError('拆分數量必須介於 1 與堆疊數量減 1 之間');
+    st.qty-=qty;const created={uid:'s'+(++store.serial),item:st.item,qty};
+    store.stacks.splice(store.stacks.indexOf(st)+1,0,created);const list=index(store).get(st.item);list.splice(list.indexOf(st)+1,0,created);return created.uid;
+  }
+  /* Repair after a cap change or a damaged layout: drop empty stacks and split stacks above the cap in place. */
+  function normalize(store,capOf){
+    let changed=false;
+    for(let i=0;i<store.stacks.length;i++)if(!(store.stacks[i].qty>0)){store.stacks.splice(i--,1);changed=true;}
+    reindex(store);
+    for(const [id,list] of [...store.byItem]){
+      const cap=capChecked(capOf,id);if(list.every(st=>st.qty<=cap))continue;
+      // Re-flow this item only: keep its stacks (uids and positions), fill each to the cap, append what is left.
+      const ordered=stackOrder(store,id);let left=ordered.reduce((n,st)=>n+st.qty,0);
+      for(const st of ordered){if(left>0){st.qty=Math.min(cap,left);left-=st.qty;}else st.qty=0;}
+      let at=store.stacks.indexOf(ordered.at(-1));
+      while(left>0){const n=Math.min(cap,left);store.stacks.splice(++at,0,{uid:'s'+(++store.serial),item:id,qty:n});left-=n;}
+      changed=true;
+    }
+    for(let i=0;i<store.stacks.length;i++)if(!(store.stacks[i].qty>0))store.stacks.splice(i--,1);
+    reindex(store);return changed;
+  }
+  /* Slot usage per tab. tabOf(itemId) returns the tab of an occupying stack (or null); instances = {equipment:n, token:n};
+     extra = {tab:n} for stores kept outside the stack store (tickets, region vouchers). */
+  function slotUsage(store,{tabOf=()=>null,instances={},extra={},settings}={}){
+    const s=normalizeSettings(settings),tabs={};
+    for(const [k,t] of Object.entries(TABS))tabs[k]={label:t.label,used:0,capacity:s.capacities[k]};
+    for(const st of store.stacks){const t=tabOf(st.item);if(t&&tabs[t])tabs[t].used++;}
+    for(const [t,n] of [...Object.entries(instances),...Object.entries(extra)])if(tabs[t])tabs[t].used+=n;
+    for(const t of Object.values(tabs))t.free=Math.max(0,t.capacity-t.used),t.over=Math.max(0,t.used-t.capacity);
+    return {tabs,used:Object.values(tabs).reduce((n,t)=>n+t.used,0)};
+  }
+  /* Only items whose stacks differ from the standard fill (cap, cap, …, rest) are written, e.g. after a split. The standard
+     layout is rebuilt from the item totals on load, so a rolled-back transaction or a reload writes identical bytes. */
+  function isStandard(store,id,capOf){const sizes=stackOrder(store,id).map(st=>st.qty),want=stackSizes(sizes.reduce((n,q)=>n+q,0),capChecked(capOf,id));return sizes.length===want.length&&sizes.every((q,i)=>q===want[i]);}
+  function serialize(store,capOf){
+    const custom=capOf?new Set(items(store).filter(id=>!isStandard(store,id,capOf))):null;
+    const stacks=store.stacks.filter(st=>!custom||custom.has(st.item)).map(st=>({uid:st.uid,item:st.item,qty:st.qty}));
+    return {version:VERSION,serial:custom?stacks.reduce((n,st)=>Math.max(n,Number(st.uid.slice(1))),0):store.serial,stacks};
+  }
+  /* Saved layouts are structurally validated here; quantities are reconciled against item totals by the runtime. */
+  function validateLayout(raw){
+    if(raw===undefined||raw===null)return null;
+    if(typeof raw!=='object'||Array.isArray(raw)||raw.version!==VERSION||!Array.isArray(raw.stacks)||raw.stacks.length>200000||!Number.isSafeInteger(raw.serial)||raw.serial<0)throw Error('背包堆疊資料無效');
+    const uids=new Set(),out=createStore();out.serial=raw.serial;
+    for(const st of raw.stacks){
+      if(!st||typeof st!=='object'||typeof st.uid!=='string'||!/^s\d{1,15}$/.test(st.uid)||uids.has(st.uid)||!validId(st.item)||!Number.isSafeInteger(st.qty)||st.qty<1||st.qty>MAX_STACK)throw Error('背包堆疊資料無效');
+      uids.add(st.uid);out.serial=Math.max(out.serial,Number(st.uid.slice(1)));out.stacks.push({uid:st.uid,item:st.item,qty:st.qty});
+    }
+    reindex(out);return out;
+  }
+  /* Rebuild one item so its stacks hold exactly `want`. Matching saved stacks keep their uid and order. */
+  function reconcile(store,layout,id,want,capOf){
+    for(const st of stacksOf(store,id).slice())dropStack(store,st);
+    if(!want)return;
+    const saved=layout?stackOrderFrom(layout,id):[];
+    if(saved.length&&saved.reduce((n,st)=>n+st.qty,0)===want){for(const st of saved){const copy={uid:st.uid,item:id,qty:st.qty};store.stacks.push(copy);if(!index(store).has(id))store.byItem.set(id,[]);store.byItem.get(id).push(copy);store.serial=Math.max(store.serial,Number(st.uid.slice(1)));}return;}
+    add(store,id,want,capOf);
+  }
+  function stackOrderFrom(layout,id){return layout.stacks.filter(st=>st.item===id);}
+  function sortBySavedOrder(store,layout){
+    if(!layout)return;const pos=new Map(layout.stacks.map((st,i)=>[st.uid,i]));
+    const keyed=store.stacks.map((st,i)=>({st,k:pos.has(st.uid)?pos.get(st.uid):layout.stacks.length+i}));
+    keyed.sort((a,b)=>a.k-b.k);store.stacks.splice(0,store.stacks.length,...keyed.map(x=>x.st));
+    reindex(store);
+  }
+  /* Split a quantity into stack sizes, e.g. 1500 at 999 → [999,501]. */
+  function stackSizes(qty,cap){checkQty(qty);const out=[];while(qty>0){out.push(Math.min(cap,qty));qty-=Math.min(cap,qty);}return out;}
+
+  const api={VERSION,TABS,CATEGORIES,DEFAULT_SETTINGS,MAX_STACK,parseId,itemId,validId,classify,normalizeSettings,settingsIssues,overrideIssues,definition,instanceDefinition,
+    createStore,total,items,stacksOf,isStandard,add,remove,removeMany,setTotal,merge,split,normalize,slotUsage,serialize,validateLayout,reconcile,sortBySavedOrder,stackByUid,stackSizes};
+  root.EmberwildInventory=api;if(typeof module==='object'&&module.exports)module.exports=api;
+})(globalThis);
+
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;
+
+/* js/world/drop-rework-model.js?v=20261126-v0211-gear */
+/* v0.206 monster drop rework: shared rules for the game, tests and the balance editor (no DOM, no save).
+   - monsterGear: each monster has its own pool of 1–2 general equipment forms ("form:<job>:<slot>:<index>").
+     One success of the rule picks one form by weight, so adding a second form never raises the total output.
+   - gemPool: map-bound gems. Normal/elite rules carry the map's single gem; boss rules carry up to three gems with weights.
+   - Removed sources: the shared random gear pools (gear, gearLegendary), random gems (gem with key "random") and direct
+     dust drops (dust). Older documents still load: migrateEntries drops those rules before validation. */
+(function(root){
+  'use strict';
+  const NEW_TYPES=['monsterGear','gemPool'];
+  const OBSOLETE_TYPES=new Set(['gear','gearLegendary','dust']);
+  const isObsolete=r=>!!r&&(OBSOLETE_TYPES.has(r.type)||r.type==='gem'&&r.key==='random'||r.type==='potion');
+  const FORM=/^form:([0-3]):([0-3]):(\d{1,2})$/;
+  function migrateEntries(entries){
+    if(!Array.isArray(entries))return {entries,removed:[]};
+    const removed=entries.filter(isObsolete).map(r=>r.id);
+    return {entries:removed.length?entries.filter(r=>!isObsolete(r)):entries,removed};
+  }
+  /* Returns a migrated shallow copy of a balance document (or of balanceSettings) without touching the input. */
+  function migrateDocument(doc){
+    if(!doc||typeof doc!=='object')return doc;
+    const settings=doc.balanceSettings&&typeof doc.balanceSettings==='object'?doc.balanceSettings:doc.drops?doc:null;
+    if(!settings||!Array.isArray(settings.drops?.entries))return doc;
+    const {entries,removed}=migrateEntries(settings.drops.entries);if(!removed.length)return doc;
+    const nextSettings={...settings,drops:{...settings.drops,entries}};
+    return settings===doc?nextSettings:{...doc,balanceSettings:nextSettings};
+  }
+  function parseForm(key){const m=String(key).match(FORM);return m?{job:Number(m[1]),slot:Number(m[2]),index:Number(m[3])}:null;}
+  /* formExists(ref) checks the general equipment catalogue (optional); gemCount is the number of gem ids. */
+  function ruleIssues(r,{formExists,gemCount=15}={}){
+    const out=[];if(!r||!NEW_TYPES.includes(r.type))return out;
+    const pool=r.pool,max=r.type==='monsterGear'?2:3;
+    if(!Array.isArray(pool)||pool.length<1||pool.length>max){out.push((r.type==='monsterGear'?'怪物一般裝備池需要 1～2 種裝備：':'寶石掉落池需要 1～3 種寶石：')+r.id);return out;}
+    const keys=new Set();
+    for(const p of pool){
+      if(!p||typeof p.key!=='string'||keys.has(p.key)||!Number.isFinite(p.weight)||p.weight<=0||p.weight>1e6){out.push('掉落池項目無效或重複：'+r.id);continue;}
+      keys.add(p.key);
+      if(r.type==='monsterGear'){const ref=parseForm(p.key);if(!ref||formExists&&!formExists(ref))out.push('怪物一般裝備池引用不存在的一般裝備：'+r.id+' '+p.key);}
+      else if(!/^\d{1,2}$/.test(p.key)||Number(p.key)>=gemCount)out.push('寶石掉落池引用不存在的寶石：'+r.id+' '+p.key);
+    }
+    if(r.type==='monsterGear'&&r.sources?.length!==1)out.push('怪物一般裝備池只能對應一種怪物：'+r.id);
+    return out;
+  }
+  /* v0.211 class weights inside a monster gear pool. Weapons, armor and off-hands the player's current class can wear
+     weigh 70%, the others 10% (each other class); the pool keeps its forms, its total drop rate and the share of its
+     accessories (worn by every class), so only pools with two class gear entries change. formOf(ref) returns the form. */
+  const CLASS_WEIGHTS=Object.freeze({own:70,other:10});
+  function formWearable(form,ref,job){const jobs=Array.isArray(form?.wearableJobs)?form.wearableJobs:ref.slot===1?[0,1,2,3]:[ref.job];return jobs.includes(job);}
+  function classWeightedPool(pool,{job,formOf,weights=CLASS_WEIGHTS}={}){
+    if(!Array.isArray(pool)||!Number.isInteger(job)||typeof formOf!=='function')return pool;
+    const rows=pool.map(p=>{const ref=parseForm(p.key),form=ref&&formOf(ref);return {p,ref,form,classed:!!(ref&&form&&ref.slot!==3)};});
+    const classed=rows.filter(r=>r.classed);if(classed.length<2)return pool;
+    const before=classed.reduce((n,r)=>n+r.p.weight,0),scaled=classed.map(r=>r.p.weight*(formWearable(r.form,r.ref,job)?weights.own:weights.other)),after=scaled.reduce((n,w)=>n+w,0);
+    if(!(after>0))return pool;
+    let k=0;return rows.map(r=>r.classed?{key:r.p.key,weight:scaled[k++]*before/after}:{key:r.p.key,weight:r.p.weight});
+  }
+  function pick(pool,rng=Math.random){
+    const total=pool.reduce((n,p)=>n+p.weight,0);let x=rng()*total;
+    for(const p of pool){x-=p.weight;if(x<0)return p;}
+    return pool[pool.length-1];
+  }
+  /* Exclusive equipment enhancement: the material bound to the equipment definition and the quantity per target level. */
+  function exclusiveIssues(cfg){
+    const out=[];if(cfg===undefined)return out;
+    if(!cfg||typeof cfg!=='object'||Array.isArray(cfg))return ['怪物專屬裝備強化設定必須是物件'];
+    if(!Array.isArray(cfg.quantityByLevel)||cfg.quantityByLevel.some(n=>!Number.isSafeInteger(n)||n<0||n>9999))out.push('專屬素材消耗量必須是 0～9999 的整數陣列');
+    if(!Array.isArray(cfg.bindings))out.push('專屬素材對應必須是陣列');
+    else{const seen=new Set();for(const b of cfg.bindings){
+      if(!b||typeof b.equipment!=='string'||!/^(?:form:4:\d:\d{1,2}|boss:\d{1,2})$/.test(b.equipment)||seen.has(b.equipment)||typeof b.material!=='string'||!b.material.trim()||b.material.length>100||typeof b.monster!=='string'||!/^[a-zA-Z0-9_-]{1,100}$/.test(b.monster)){out.push('專屬素材對應無效或重複：'+(b?.equipment??''));continue;}
+      seen.add(b.equipment);}}
+    return out;
+  }
+  /* Gem upgrade with dust: cost = ceil(base dust of the target tier × multiplier). Tier is 1-based; targetTier 2 or 3. */
+  function gemUpgradeCost(settings,targetTier){
+    const base=Number(settings?.baseDustByTargetTier?.[targetTier-1]),mul=Number(settings?.multiplier);
+    if(!Number.isFinite(base)||base<=0||!Number.isFinite(mul)||mul<=0)return null;
+    return Math.ceil(base*mul-1e-9);
+  }
+  function gemUpgradeIssues(settings){
+    const out=[];if(settings===undefined)return out;
+    if(!Number.isFinite(settings?.multiplier)||settings.multiplier<=0||settings.multiplier>100)out.push('寶石粉塵升級倍率必須大於 0');
+    const b=settings?.baseDustByTargetTier;if(!Array.isArray(b)||b.length!==3||b.some(n=>!Number.isFinite(n)||n<0||n>1e9))out.push('寶石粉塵升級成本基準必須是 3 個非負數');
+    return out;
+  }
+  const api={NEW_TYPES,OBSOLETE_TYPES,isObsolete,migrateEntries,migrateDocument,parseForm,ruleIssues,CLASS_WEIGHTS,classWeightedPool,pick,exclusiveIssues,gemUpgradeCost,gemUpgradeIssues};
+  root.EmberwildDropRework=api;if(typeof module==='object'&&module.exports)module.exports=api;
+})(globalThis);
+
+EmberwildDropRework=globalThis.EmberwildDropRework??EmberwildDropRework;
+
+/* js/core/game-catalog.js?v=20261126-v0211-gear */
 'use strict';
 // Built-in static catalog; game runtime keeps ownership of mutations and migrations.
 const CLASSES=[{name:'戰士',advanced:'破曉騎士',icon:'',desc:'堅守前線，以重擊與護盾承受攻勢。',hp:155,atk:19,def:9,main:'力量',skills:[['裂地斬','active',1,3,2.4,'damage'],['堅毅壁壘','active',4,6,1.6,'shield'],['反擊之刃','proc',7,0,.9,'damage'],['浴血重擊','proc',11,0,.45,'drain'],['聖鋼裁決','active',15,4,3.8,'damage'],['不屈戰意','proc',20,0,1.1,'shield']]},{name:'法師',advanced:'星火賢者',icon:'',desc:'法術普攻，以高倍率魔法突破敵人防線。',hp:105,atk:26,def:4,main:'智力',skills:[['火焰箭','active',1,3,2.8,'damage'],['冰霜護幕','active',4,5,1.5,'shield'],['餘燼爆發','proc',7,0,1.3,'damage'],['奧術汲取','proc',11,0,.5,'drain'],['隕星墜落','active',15,5,5.6,'damage'],['魔力迴響','proc',20,0,1.9,'damage']]},{name:'弓箭手',advanced:'逐風遊俠',icon:'',desc:'高暴擊遠程射擊，連續觸發追擊。',hp:120,atk:23,def:5,main:'敏捷',skills:[['穿透箭','active',1,3,2.6,'damage'],['林間休憩','active',4,5,1.3,'heal'],['連射','proc',7,0,1.2,'damage'],['獵手印記','proc',11,0,1.5,'damage'],['疾風箭雨','active',15,4,4,'damage'],['生命之箭','proc',20,0,.8,'drain']]},{name:'牧師',advanced:'晨光主教',icon:'',desc:'聖光普攻，治癒與庇護維持長期作戰。',hp:130,atk:20,def:7,main:'精神',skills:[['聖光審判','active',1,3,2.5,'damage'],['治癒禱言','active',4,4,1.8,'heal'],['懲戒','proc',7,0,1.1,'damage'],['生命泉源','proc',11,0,.8,'heal'],['黎明聖印','active',15,4,3.8,'damage'],['神聖庇護','proc',20,0,1.4,'shield']]}];
@@ -3283,11 +3617,14 @@ const SIDE_REGIONS=[
 ];
 const HIGH_REGION_NAMES=['炎晶裂谷','深海祭壇','亡者王庭','風暴浮島','聖光禁林','日蝕深淵'];
 
+// v0.211: one template per slot and class (warrior, mage and archer keep one weapon per weapon type; mage and priest share
+// 布袍; accessories are worn by every class). Weapons and the two lighter armors carry their base difference; 皮盾 has
+// defense instead of attack (baseStat). weaponType comes from mastery-core's name table.
 const ITEM_FORMS=[
- [[{name:'闊刃劍',atk:1.2,critDamage:10},{name:'穿甲槍',atk:.95,pierce:12},{name:'汲血斧',atk:1.08,lifesteal:3}], [{name:'重型板甲',hp:1.15,def:1.25},{name:'決鬥鎧',hp:.9,def:.9,evasion:6}], [{name:'征戰旗',atk:1.2},{name:'守誓印',hp:1.3,exclusive:{attackPct:2}}]],
- [[{name:'炎晶杖',fixedEffects:[{key:'gearAtkPct',value:15},{key:'basicElement',value:'fire'}]},{name:'霜紋杖',fixedEffects:[{key:'attackPct',value:3},{key:'basicElement',value:'ice'}]},{name:'疾風法器',fixedEffects:[{key:'gearAtkPct',value:-5},{key:'attackPct',value:2},{key:'basicElement',value:'wind'}]}], [{name:'秘法袍',hp:1,exclusive:{attackPct:4}},{name:'月影袍',hp:.9,def:1,evasion:6}], [{name:'元素魔典',atk:1.15,elementBonus:8},{name:'回響符環',hp:1.1,exclusive:{attackPct:2}}]],
- [[{name:'狙擊長弓',atk:1.15,critDamage:12},{name:'穿雲弩',atk:1,pierce:12},{name:'風羽短弓',fixedEffects:[{key:'gearAtkPct',value:-5},{key:'evasion',value:4},{key:'basicElement',value:'wind'}]}], [{name:'獵手皮甲',hp:1,def:1.1},{name:'輕羽衣',hp:.9,def:.9,evasion:8}], [{name:'破甲箭袋',atk:1,pierce:8},{name:'鷹眼指環',atk:1.1,critDamage:15}]],
- [[{name:'晨光權杖',fixedEffects:[{key:'gearAtkPct',value:10},{key:'basicElement',value:'light'}]},{name:'淨化槌',atk:1,pierce:10},{name:'祈禱法杖',atk:.95,exclusive:{attackPct:5}}], [{name:'祝禱聖衣',hp:1.15,exclusive:{attackPct:3}},{name:'守護祭袍',hp:1,def:1.2}], [{name:'聖光徽記',atk:1.1,elementBonus:8},{name:'生命念珠',hp:1.25,exclusive:{attackPct:2}}]]
+ [[{id:'job0-slot0-form0',name:'長劍',fixedEffects:[{key:'flatAttack',value:0}]},{id:'job0-slot0-form2',name:'巨斧',fixedEffects:[{key:'gearAtkPct',value:10},{key:'attackSpeedPct',value:-10}]}], [{id:'job0-slot1-form0',name:'鐵甲',fixedEffects:[{key:'flatAttack',value:0}],wearableJobs:[0]}], [{id:'job0-slot2-form0',name:'皮盾',fixedEffects:[{key:'flatAttack',value:0}],baseStat:'defense'}], [{id:'job0-slot3-form0',name:'木腕甲',fixedEffects:[{key:'flatAttack',value:0}],wearableJobs:[0,1,2,3]}]],
+ [[{id:'job1-slot0-form0',name:'木杖',fixedEffects:[{key:'skillDamagePct',value:5}]},{id:'job1-slot0-form2',name:'水晶球',fixedEffects:[{key:'cooldownPct',value:5}]}], [{id:'job1-slot1-form0',name:'布袍',fixedEffects:[{key:'gearDefPct',value:-20}],wearableJobs:[1,3]}], [{id:'job1-slot2-form0',name:'法書',fixedEffects:[{key:'flatAttack',value:0}]}], [{id:'job1-slot3-form0',name:'硬木符印',fixedEffects:[{key:'flatAttack',value:0}],wearableJobs:[0,1,2,3]}]],
+ [[{id:'job2-slot0-form0',name:'長弓',fixedEffects:[{key:'gearAtkPct',value:10},{key:'attackSpeedPct',value:-10}]},{id:'job2-slot0-form1',name:'手弩',fixedEffects:[{key:'attackSpeedPct',value:10}]}], [{id:'job2-slot1-form0',name:'皮衣',fixedEffects:[{key:'gearDefPct',value:-10}],wearableJobs:[2]}], [{id:'job2-slot2-form0',name:'皮箭袋',fixedEffects:[{key:'flatAttack',value:0}]}], [{id:'job2-slot3-form0',name:'木戒指',fixedEffects:[{key:'flatAttack',value:0}],wearableJobs:[0,1,2,3]}]],
+ [[{id:'job3-slot0-form0',name:'權杖',fixedEffects:[{key:'defensePct',value:5}]}], [], [{id:'job3-slot2-form0',name:'聖徽',fixedEffects:[{key:'flatAttack',value:0}]}], [{id:'job3-slot3-form0',name:'手鍊',fixedEffects:[{key:'flatAttack',value:0}],wearableJobs:[0,1,2,3]}]]
 ];
 const EQUIP_POSITION_NAMES=['武器','護甲','副手','飾品 1','飾品 2'];
 
@@ -3348,18 +3685,56 @@ const GAME_BALANCE_DEFAULTS={
 
 
 
-/* js/balance/gameplay-defaults.js?v=20261123-v0196-aspd */
+/* js/balance/gameplay-defaults.js?v=20261124-v0206-drops */
 'use strict';
 // Built-in static catalog; game runtime keeps ownership of mutations and migrations.
-const GAMEPLAY_SETTINGS_DEFAULTS={"progression":{"starting":{"gold":150,"ore":0,"dust":12,"skillPoints":2,"potions":5},"baseCrit":{"default":0.07,"archer":0.17},"regionTierLevels":5},"skills":{"core":{"maxLevel":10,"initialCap":2,"capLevelsPerStep":3,"effectPerExtraLevel":0.4},"proc":{"baseChance":0.22,"perSkillLevel":0.025},"support":{"maxLevel":5,"effectPerExtraLevel":0.2},"gems":{"craftDust":12,"effectMultiplier":1.18,"cooldownReduction":1,"cooldownProcBonus":0.1,"hybridMultiplier":1.1,"hybridProcBonus":0.05,"hybridActiveHealAttack":0.15}},"equipment":{"bagCapacity":720,"requiredLevel":{"base":1,"perTier":5},"baseStats":{"weaponAttackPerTier":11,"armorHpPerTier":45,"armorDefensePerTier":4,"accessoryAttackPerTier":4,"accessoryHpPerTier":20},"enhance":{"maxLevel":12,"costLevelStep":5,"levels":[{"level":1,"cost":{"dust":2,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.05},{"level":2,"cost":{"dust":4,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.1},{"level":3,"cost":{"dust":6,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.15},{"level":4,"cost":{"dust":8,"ore":0,"ether":0},"successRate":0.9,"failure":"drop","failureLevel":2,"baseBonus":0.22},{"level":5,"cost":{"dust":0,"ore":2,"ether":0},"successRate":0.8,"failure":"drop","failureLevel":3,"baseBonus":0.3},{"level":6,"cost":{"dust":0,"ore":3,"ether":0},"successRate":0.7,"failure":"drop","failureLevel":4,"baseBonus":0.4},{"level":7,"cost":{"dust":0,"ore":4,"ether":0},"successRate":0.6,"failure":"drop","failureLevel":3,"baseBonus":0.55},{"level":8,"cost":{"dust":0,"ore":5,"ether":0},"successRate":0.5,"failure":"drop","failureLevel":3,"baseBonus":0.75},{"level":9,"cost":{"dust":0,"ore":6,"ether":0},"successRate":0.4,"failure":"drop","failureLevel":0,"baseBonus":1.0},{"level":10,"cost":{"dust":0,"ore":0,"ether":1},"successRate":0.3,"failure":"drop","failureLevel":0,"baseBonus":1.3},{"level":11,"cost":{"dust":0,"ore":0,"ether":2},"successRate":0.2,"failure":"destroy","failureLevel":0,"baseBonus":1.6},{"level":12,"cost":{"dust":0,"ore":0,"ether":3},"successRate":0.1,"failure":"destroy","failureLevel":0,"baseBonus":1.9}],"statPerLevel":0.12,"orePerTierPerLevel":2,"dustStartLevel":6,"dustPerTierPerLevelAboveStart":1,"etherStartLevel":10,"etherCost":1},"salvage":{"oreBasePerTier":3,"orePerQualityPerTier":2,"orePerEnhancePerTier":1,"dustBase":1,"dustPerQuality":1},"lootOwnerSameJobChance":0.75,"boss":{"baseLevelBonus":7,"powerByDifficulty":[1,1.25,1.55],"skillEffectByDifficulty":[30,40,55],"affixRankByDifficulty":[2,2,3],"craftGoldPerTier":250,"craftMaterialCount":5},"difficultyAffix":{"hardChance":0.65,"hellChance":0.9,"hardFineThreshold":0.7,"hardRareThreshold":0.95,"hellFineThreshold":0.35,"hellRareThreshold":0.85,"skillChance":0.4,"baseAttackPerTier":5,"baseHpPerTier":25,"defenseBasePerTier":3,"defensePerRankPerTier":1,"critBase":4,"critPerRank":3},"maxLevel":60},"monsters":{"encounter":{"bossChance":0.05,"eliteChance":0.06},"normal":{"hpBase":42,"hpPerLevel":15,"hpQuadratic":0.7,"attackBase":8,"attackPerLevel":3.3,"defensePerLevel":1.7},"kindMultipliers":{"bossHp":3,"eliteHp":1.65,"bossAttack":1.45,"eliteAttack":1.2},"finalBoss":{"level":40,"hp":180000,"attack":1000,"defense":110},"awakened":{"threshold":30,"hpBaseMultiplier":2,"hpPerLevel":0.1,"attackBaseMultiplier":2,"attackPerLevel":0.06,"defenseMultiplier":1.6}},"difficulty":{"modes":[{"hp":1,"attack":1,"defense":1,"reward":1,"equipmentChance":[0.002,0.006,0.2],"gemChance":[0.04,0.12,0.35],"bossGearChance":0.06,"ore":1,"legendaryGearChance":0.0006,"goldMultiplier":1},{"hp":1.8,"attack":1.35,"defense":1.2,"reward":1.3,"equipmentChance":[0.0027,0.008,0.25],"gemChance":[0.08,0.22,0.5],"bossGearChance":0.1,"ore":1.5,"legendaryGearChance":0.0016,"goldMultiplier":1.35},{"hp":3,"attack":1.8,"defense":1.45,"reward":1.65,"equipmentChance":[0.0034,0.01,0.3],"gemChance":[0.13,0.35,0.7],"bossGearChance":0.15,"ore":2,"legendaryGearChance":0.0032,"goldMultiplier":1.8}],"materialChance":[0.025,0.035,0.048]},"rewards":{"kindMultiplier":{"normal":1,"elite":1.7,"boss":3},"gold":{"base":2,"perLevel":0.45,"quadratic":0.003,"kindMultiplier":{"normal":1,"elite":2.6,"boss":7},"levelGap":{"enabled":true,"freeLevels":2,"midGap":3,"midMultiplier":0.5,"highGap":5,"highMultiplier":0.2,"zeroGap":10}},"ore":{"normalKindMultiplier":0.25,"eliteBossKindMultiplier":0.6,"normalChanceByDifficulty":[0.08,0.1,0.12],"chanceFactor":0.7},"equipmentQuality":{"rareChance":0.242,"fineConditionalChance":0.46},"potionDropChance":0.08,"postVictoryHeal":0.12,"radiant":{"normalElite":0.0004,"bossFinal":0.008},"ether":{"eliteBase":0.01,"elitePerTier":0.004,"eliteCap":0.06,"bossRepeat":0.01,"firstBossMin":1,"firstBossMax":2}},"combat":{"defenseEffectiveness":0.65,"baseCritDamage":1.5,"caps":{"fracture":0.75,"guard":0.75,"weaken":0.7,"resistance":0.75},"finalBoss":{"enrageAfterTurn":45,"enrageMultiplier":4,"specialEveryTurns":5,"specialMultiplier":1.65},"autoPotionThreshold":0.35,"defeatGoldLoss":0.05,"groupSize":{"min":3,"max":5},"speed":{"enemyBase":106,"enemyPerLevel":0.5,"race":{"beast":5,"plant":-4,"undead":-2,"construct":-5,"demon":3,"spirit":4},"kind":{"normal":0,"elite":2,"boss":4,"final":6},"difficultyBonus":2},"pacing":{"actionIntervalMs":1500,"roundMinimumMs":6000},"supply":{"wardResistance":0.25,"elementTonicDamage":0.2}},"quests":{"tutorial":{"killRequirement":3,"skillLevelRequirement":2,"rewardGold":100,"rewardOre":10,"armorTier":1,"armorSlot":1,"armorQuality":1},"side":[{"required":5,"gold":300,"ore":20,"gem":1},{"required":2,"gold":800,"ore":55,"gem":1},{"required":3,"gold":2000,"ore":120,"gem":1}],"repeat":{"required":8,"goldPerTier":150,"ore":15,"dust":3,"gem":1},"board":{"refreshMinutes":20,"refreshGoldPerTier":150,"taskBase":8,"taskRandomRange":9,"taskPerTier":2,"goldPerTier":180,"orePerTier":8,"gemReward":2,"legendaryGearChance":0.2},"market":{"refreshCost":100,"offerCount":6,"oreMin":8,"oreRandomRange":13,"dustMin":3,"dustRandomRange":6,"gemMin":1,"gemRandomRange":2,"materialMin":3,"materialRandomRange":4,"oreUnit":12,"dustUnit":25,"gemUnit":180,"materialUnitPerTier":60},"potion":{"healFraction":0.45,"buyCost":75,"buyQuantity":5}}};
+const GAMEPLAY_SETTINGS_DEFAULTS={"progression":{"starting":{"gold":150,"ore":0,"dust":12,"skillPoints":2,"potions":5},"baseCrit":{"default":0.07,"archer":0.17},"regionTierLevels":5},"skills":{"core":{"maxLevel":10,"initialCap":2,"capLevelsPerStep":3,"effectPerExtraLevel":0.4},"proc":{"baseChance":0.22,"perSkillLevel":0.025},"support":{"maxLevel":5,"effectPerExtraLevel":0.2},"gems":{"effectMultiplier":1.18,"cooldownReduction":1,"cooldownProcBonus":0.1,"hybridMultiplier":1.1,"hybridProcBonus":0.05,"hybridActiveHealAttack":0.15,"dustUpgrade":{"multiplier":1.5,"baseDustByTargetTier":[0,48,540]}}},"equipment":{"bagCapacity":720,"requiredLevel":{"base":1,"perTier":5},"baseStats":{"weaponAttackPerTier":11,"armorHpPerTier":45,"armorDefensePerTier":4,"accessoryAttackPerTier":4,"accessoryHpPerTier":20},"enhance":{"maxLevel":12,"costLevelStep":5,"levels":[{"level":1,"cost":{"dust":2,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.05},{"level":2,"cost":{"dust":4,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.1},{"level":3,"cost":{"dust":6,"ore":0,"ether":0},"successRate":1,"failure":"none","failureLevel":0,"baseBonus":0.15},{"level":4,"cost":{"dust":8,"ore":0,"ether":0},"successRate":0.9,"failure":"drop","failureLevel":2,"baseBonus":0.22},{"level":5,"cost":{"dust":0,"ore":2,"ether":0},"successRate":0.8,"failure":"drop","failureLevel":3,"baseBonus":0.3},{"level":6,"cost":{"dust":0,"ore":3,"ether":0},"successRate":0.7,"failure":"drop","failureLevel":4,"baseBonus":0.4},{"level":7,"cost":{"dust":0,"ore":4,"ether":0},"successRate":0.6,"failure":"drop","failureLevel":3,"baseBonus":0.55},{"level":8,"cost":{"dust":0,"ore":5,"ether":0},"successRate":0.5,"failure":"drop","failureLevel":3,"baseBonus":0.75},{"level":9,"cost":{"dust":0,"ore":6,"ether":0},"successRate":0.4,"failure":"drop","failureLevel":0,"baseBonus":1.0},{"level":10,"cost":{"dust":0,"ore":0,"ether":1},"successRate":0.3,"failure":"drop","failureLevel":0,"baseBonus":1.3},{"level":11,"cost":{"dust":0,"ore":0,"ether":2},"successRate":0.2,"failure":"destroy","failureLevel":0,"baseBonus":1.6},{"level":12,"cost":{"dust":0,"ore":0,"ether":3},"successRate":0.1,"failure":"destroy","failureLevel":0,"baseBonus":1.9}],"statPerLevel":0.12,"orePerTierPerLevel":2,"dustStartLevel":6,"dustPerTierPerLevelAboveStart":1,"etherStartLevel":10,"etherCost":1},"salvage":{"oreBasePerTier":3,"orePerQualityPerTier":2,"orePerEnhancePerTier":1,"dustBase":1,"dustPerQuality":1},"lootOwnerSameJobChance":0.75,"boss":{"baseLevelBonus":7,"powerByDifficulty":[1,1.25,1.55],"skillEffectByDifficulty":[30,40,55],"affixRankByDifficulty":[2,2,3],"craftGoldPerTier":250,"craftMaterialCount":5},"difficultyAffix":{"hardChance":0.65,"hellChance":0.9,"hardFineThreshold":0.7,"hardRareThreshold":0.95,"hellFineThreshold":0.35,"hellRareThreshold":0.85,"skillChance":0.4,"baseAttackPerTier":5,"baseHpPerTier":25,"defenseBasePerTier":3,"defensePerRankPerTier":1,"critBase":4,"critPerRank":3},"maxLevel":60,"exclusiveEnhance":{"quantityByLevel":[1,1,1,1,2,2,2,2,2,3,3,3],"bindings":[{"equipment":"form:4:0:0","material":"活性樹芯","monster":"map0_mob2"},{"equipment":"form:4:1:0","material":"黏稠凝膠","monster":"map0_mob0"},{"equipment":"form:4:2:0","material":"活性樹芯","monster":"map0_mob2"},{"equipment":"form:4:2:1","material":"古木年輪","monster":"map0_boss"},{"equipment":"form:4:3:1","material":"完整狼牙","monster":"map0_mob1"},{"equipment":"form:4:3:2","material":"黏稠凝膠","monster":"map0_mob0"},{"equipment":"boss:0","material":"古木年輪","monster":"map0_boss"},{"equipment":"boss:1","material":"礦脈之心","monster":"map1_boss"},{"equipment":"boss:2","material":"女巫符印","monster":"map2_boss"},{"equipment":"boss:3","material":"永凍結晶","monster":"map3_boss"},{"equipment":"boss:4","material":"熔核","monster":"map4_boss"},{"equipment":"boss:5","material":"星隕稜鏡","monster":"map5_boss"},{"equipment":"boss:7","material":"覺醒古木年輪","monster":"map7_boss"},{"equipment":"boss:8","material":"覺醒礦脈之心","monster":"map8_boss"},{"equipment":"boss:9","material":"覺醒女巫符印","monster":"map9_boss"},{"equipment":"boss:10","material":"覺醒永凍結晶","monster":"map10_boss"},{"equipment":"boss:11","material":"覺醒熔核","monster":"map11_boss"},{"equipment":"boss:12","material":"覺醒星隕稜鏡","monster":"map12_boss"},{"equipment":"boss:13","material":"炎靈心木","monster":"map13_boss"},{"equipment":"boss:14","material":"深潮齒輪","monster":"map14_boss"},{"equipment":"boss:15","material":"巫后骨印","monster":"map15_boss"},{"equipment":"boss:16","material":"獸王雷角","monster":"map16_boss"},{"equipment":"boss:17","material":"聖所徽核","monster":"map17_boss"},{"equipment":"boss:18","material":"冥視之瞳","monster":"map18_boss"},{"equipment":"boss:19","material":"上古炎靈心木","monster":"map19_boss"},{"equipment":"boss:20","material":"上古深潮齒輪","monster":"map20_boss"},{"equipment":"boss:21","material":"上古巫后骨印","monster":"map21_boss"},{"equipment":"boss:22","material":"上古獸王雷角","monster":"map22_boss"},{"equipment":"boss:23","material":"上古聖所徽核","monster":"map23_boss"},{"equipment":"boss:24","material":"上古冥視之瞳","monster":"map24_boss"}]}},"monsters":{"encounter":{"bossChance":0.05,"eliteChance":0.06},"normal":{"hpBase":42,"hpPerLevel":15,"hpQuadratic":0.7,"attackBase":8,"attackPerLevel":3.3,"defensePerLevel":1.7},"kindMultipliers":{"bossHp":3,"eliteHp":1.65,"bossAttack":1.45,"eliteAttack":1.2},"finalBoss":{"level":40,"hp":180000,"attack":1000,"defense":110},"awakened":{"threshold":30,"hpBaseMultiplier":2,"hpPerLevel":0.1,"attackBaseMultiplier":2,"attackPerLevel":0.06,"defenseMultiplier":1.6}},"difficulty":{"modes":[{"hp":1,"attack":1,"defense":1,"reward":1,"equipmentChance":[0.002,0.006,0.2],"gemChance":[0.04,0.12,0.35],"bossGearChance":0.06,"ore":1,"legendaryGearChance":0.0006,"goldMultiplier":1},{"hp":1.8,"attack":1.35,"defense":1.2,"reward":1.3,"equipmentChance":[0.0027,0.008,0.25],"gemChance":[0.08,0.22,0.5],"bossGearChance":0.1,"ore":1.5,"legendaryGearChance":0.0016,"goldMultiplier":1.35},{"hp":3,"attack":1.8,"defense":1.45,"reward":1.65,"equipmentChance":[0.0034,0.01,0.3],"gemChance":[0.13,0.35,0.7],"bossGearChance":0.15,"ore":2,"legendaryGearChance":0.0032,"goldMultiplier":1.8}],"materialChance":[0.025,0.035,0.048]},"rewards":{"kindMultiplier":{"normal":1,"elite":1.7,"boss":3},"gold":{"base":2,"perLevel":0.45,"quadratic":0.003,"kindMultiplier":{"normal":1,"elite":2.6,"boss":7},"levelGap":{"enabled":true,"freeLevels":2,"midGap":3,"midMultiplier":0.5,"highGap":5,"highMultiplier":0.2,"zeroGap":10}},"equipmentQuality":{"rareChance":0.242,"fineConditionalChance":0.46},"potionDropChance":0.08,"postVictoryHeal":0.12,"radiant":{"normalElite":0.0004,"bossFinal":0.008},"ether":{"eliteBase":0.01,"elitePerTier":0.004,"eliteCap":0.06,"bossRepeat":0.01,"firstBossMin":1,"firstBossMax":2}},"combat":{"defenseEffectiveness":0.65,"baseCritDamage":1.5,"caps":{"fracture":0.75,"guard":0.75,"weaken":0.7,"resistance":0.75},"finalBoss":{"enrageAfterTurn":45,"enrageMultiplier":4,"specialEveryTurns":5,"specialMultiplier":1.65},"autoPotionThreshold":0.35,"defeatGoldLoss":0.05,"groupSize":{"min":3,"max":5},"speed":{"enemyBase":106,"enemyPerLevel":0.5,"race":{"beast":5,"plant":-4,"undead":-2,"construct":-5,"demon":3,"spirit":4},"kind":{"normal":0,"elite":2,"boss":4,"final":6},"difficultyBonus":2},"pacing":{"actionIntervalMs":1500,"roundMinimumMs":6000},"supply":{"wardResistance":0.25,"elementTonicDamage":0.2}},"quests":{"tutorial":{"killRequirement":3,"skillLevelRequirement":2,"rewardGold":100,"rewardOre":10,"armorTier":1,"armorSlot":1,"armorQuality":1},"side":[{"required":5,"gold":300,"ore":20,"gem":1},{"required":2,"gold":800,"ore":55,"gem":1},{"required":3,"gold":2000,"ore":120,"gem":1}],"repeat":{"required":8,"goldPerTier":150,"ore":15,"dust":3,"gem":1},"board":{"refreshMinutes":20,"refreshGoldPerTier":150,"taskBase":8,"taskRandomRange":9,"taskPerTier":2,"goldPerTier":180,"orePerTier":8,"gemReward":2,"legendaryGearChance":0.2},"market":{"refreshCost":100,"offerCount":6,"oreMin":8,"oreRandomRange":13,"dustMin":3,"dustRandomRange":6,"gemMin":1,"gemRandomRange":2,"materialMin":3,"materialRandomRange":4,"oreUnit":12,"dustUnit":25,"gemUnit":180,"materialUnitPerTier":60},"potion":{"healFraction":0.45,"buyCost":75,"buyQuantity":5}},"inventory":{"capacities":{"equipment":100,"token":100,"gem":100,"material":100,"consumable":100,"special":100},"stackLimits":{"equipment":1,"token":1,"gem":99,"monsterMaterial":999,"enhancementMaterial":999,"material":999,"rareMaterial":999,"consumable":99,"special":999,"questItem":999}}};
 
 
 
-/* js/core/save-validation.js?v=20261119-v0169 */
+/* js/core/save-validation.js?v=20261126-v0211-gear */
 'use strict';
 // Extracted from core-game.js without changing exported globals or validation rules.
+// v0.211 general equipment slimming: saved gear refers to its form by index. Old weapons/armors whose form was removed,
+// and weapons whose index moved, are pointed at the kept template of the same class, slot and weapon type. Index 1 of
+// the warrior and mage weapons is ambiguous (old 穿甲槍／霜紋杖 or the new axe／grimoire), so it is told apart by the
+// stored weaponType. Armor follows its class group (the priest group uses 布袍); armor a member is wearing moves to the
+// armor of that member's class when the group's armor no longer fits it. Repeated runs leave migrated gear unchanged.
+// Runs only when the loaded catalogue is the slim one; target indexes are looked up by form id.
+const SLIM_REMOVED_FORM_IDS=new Set(['job0-slot0-form1','job0-slot1-form1','job1-slot0-form1','job1-slot1-form1','job2-slot0-form2','job2-slot1-form1','job3-slot0-form1','job3-slot0-form2','job3-slot1-form0','job3-slot1-form1']);
+const SLIM_ARMOR_BY_CLASS=['job0-slot1-form0','job1-slot1-form0','job2-slot1-form0','job1-slot1-form0'];
+function slimFormRef(id){if(typeof ITEM_FORMS==='undefined')return null;for(let group=0;group<ITEM_FORMS.length;group++)for(let slot=0;slot<(ITEM_FORMS[group]||[]).length;slot++){const index=(ITEM_FORMS[group][slot]||[]).findIndex(f=>f?.id===id);if(index>=0)return {group,slot,index,form:ITEM_FORMS[group][slot][index]};}return null;}
+function slimEquipmentTarget(g,wearerJob){
+ if(!g||typeof g!=='object'||g.boss!==undefined||g.tokenId!==undefined||g.devWeaponTypeOverride||!Number.isInteger(g.form)||!Number.isInteger(g.slot))return null;
+ const group=Number.isInteger(g.formJob)?g.formJob:Number(g.job);if(!Number.isInteger(group)||group<0||group>3)return null;
+ if(g.slot===1){
+  const id=SLIM_ARMOR_BY_CLASS[group],ref=slimFormRef(id);
+  if(Number.isInteger(wearerJob)&&ref&&Array.isArray(ref.form.wearableJobs)&&!ref.form.wearableJobs.includes(wearerJob))return SLIM_ARMOR_BY_CLASS[wearerJob]||id;
+  return id;
+ }
+ if(g.slot!==0)return null;
+ if(group===0)return g.form===2||g.form===1&&g.weaponType==='axe'?'job0-slot0-form2':'job0-slot0-form0';
+ if(group===1)return g.form===2||g.form===1&&g.weaponType==='grimoire'?'job1-slot0-form2':'job1-slot0-form0';
+ if(group===2)return g.form===1?'job2-slot0-form1':'job2-slot0-form0';
+ return 'job3-slot0-form0';
+}
+function migrateSlimEquipmentForms(list,{wearerJob=null,worn=null}={}){
+ if(!Array.isArray(list)||typeof ITEM_FORMS==='undefined')return list;
+ const forms=ITEM_FORMS.flat(2);if(forms.some(f=>SLIM_REMOVED_FORM_IDS.has(f?.id))||!forms.some(f=>f?.id==='job0-slot0-form2'))return list;
+ const wornIds=new Set(Array.isArray(worn)?worn.filter(Boolean):[]);
+ for(const g of list){
+  const id=slimEquipmentTarget(g,wornIds.has(g?.id)?wearerJob:null);if(!id)continue;
+  const ref=slimFormRef(id);if(!ref)continue;
+  if(g.formJob===ref.group&&g.form===ref.index)continue;
+  g.formJob=ref.group;g.form=ref.index;
+  if(ref.slot===0&&ref.form.weaponType)g.weaponType=ref.form.weaponType;
+ }
+ return list;
+}
+globalThis.migrateSlimEquipmentForms=migrateSlimEquipmentForms;
 function migrateLegacyEquipmentSlotsInSave(s){
  if(!s||!Array.isArray(s.bag))return s;
+ migrateSlimEquipmentForms(s.bag,{wearerJob:Number.isInteger(s.job)?s.job:null,worn:s.equipped});
  const movedToAccessory=new Set();
  for(const g of s.bag){
   if(g?.boss!==undefined){
@@ -3485,7 +3860,7 @@ function validateSave(input,{companion=false}={}) {
   return s;
 }
 
-__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;
+__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;migrateSlimEquipmentForms=globalThis.migrateSlimEquipmentForms??migrateSlimEquipmentForms;
 
 /* js/skills/skill-presentation-metadata.js?v=20261022-core-services1 */
 'use strict';
@@ -3535,7 +3910,7 @@ function skillMechanicsDetails(job,index,group='core'){
 
 
 
-/* js/balance/gameplay-settings-schema.js?v=20261120-v0180 */
+/* js/balance/gameplay-settings-schema.js?v=20261124-v0204-inventory */
 'use strict';
 // Extracted from core-game.js without changing exported globals or validation rules.
 function cloneGameplaySettings(v){return JSON.parse(JSON.stringify(v));}
@@ -3549,7 +3924,7 @@ function gameplayAt(root,path){return String(path).split('.').reduce((v,k)=>v?.[
 function validateGameplaySettings(cfg){
   const probs=[
    'equipment.lootOwnerSameJobChance','equipment.difficultyAffix.hardChance','equipment.difficultyAffix.hellChance','equipment.difficultyAffix.hardFineThreshold','equipment.difficultyAffix.hardRareThreshold','equipment.difficultyAffix.hellFineThreshold','equipment.difficultyAffix.hellRareThreshold','equipment.difficultyAffix.skillChance',
-   'monsters.encounter.bossChance','monsters.encounter.eliteChance','rewards.ore.chanceFactor','rewards.equipmentQuality.rareChance','rewards.equipmentQuality.fineConditionalChance','rewards.potionDropChance','rewards.postVictoryHeal','rewards.radiant.normalElite','rewards.radiant.bossFinal','rewards.ether.eliteBase','rewards.ether.elitePerTier','rewards.ether.eliteCap','rewards.ether.bossRepeat','combat.autoPotionThreshold','combat.defeatGoldLoss','combat.supply.wardResistance','combat.supply.elementTonicDamage'
+   'monsters.encounter.bossChance','monsters.encounter.eliteChance','rewards.equipmentQuality.rareChance','rewards.equipmentQuality.fineConditionalChance','rewards.potionDropChance','rewards.postVictoryHeal','rewards.radiant.normalElite','rewards.radiant.bossFinal','rewards.ether.eliteBase','rewards.ether.elitePerTier','rewards.ether.eliteCap','rewards.ether.bossRepeat','combat.autoPotionThreshold','combat.defeatGoldLoss','combat.supply.wardResistance','combat.supply.elementTonicDamage'
   ];
   for(const p of probs){const n=gameplayAt(cfg,p);if(!Number.isFinite(n)||n<0||n>1)throw Error('平衡設定機率需介於 0~1：'+p);}
   for(const mode of cfg.difficulty.modes)for(const p of [...mode.equipmentChance,...mode.gemChance,mode.bossGearChance,mode.legendaryGearChance])if(!Number.isFinite(p)||p<0||p>1)throw Error('難度掉落率需介於 0~1');
@@ -3560,13 +3935,15 @@ function validateGameplaySettings(cfg){
   if(!Number.isInteger(cfg.equipment.maxLevel)||cfg.equipment.maxLevel<1||cfg.equipment.maxLevel>999)throw Error('裝備等級上限設定無效');
   if(cfg.rewards.ether.firstBossMax<cfg.rewards.ether.firstBossMin)throw Error('首次 BOSS 以太鍛鐵範圍無效');
   cfg.maps.levelRanges.forEach((m,i)=>{if(!Number.isFinite(m.min)||!Number.isFinite(m.max)||m.min<1||m.max<m.min)throw Error('地圖等級範圍無效：'+i);});
+  // v0.204: stack limits per item category and the planned bag capacity (not enforced yet).
+  if(globalThis.EmberwildInventory){const errors=EmberwildInventory.settingsIssues(cfg.inventory);if(errors.length)throw Error(errors.join('\n'));}
   return cfg;
 }
 function normalizeGameplaySettings(input){return validateGameplaySettings(mergeGameplayShape(GAMEPLAY_SETTINGS_DEFAULTS,input||{}));}
 
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;
 
-
-/* js/ui/core-screen-views.js?v=20261123-v0196-aspd */
+/* js/ui/core-screen-views.js?v=20261124-v0206-drops */
 'use strict';
 // Presentation-only legacy functions extracted unchanged from core-game.js.
 function meter(n,max,cls=''){return `<div class="bar ${cls}"><i style="width:${Math.max(0,Math.min(100,n/max*100))}%"></i></div>`;}
@@ -3612,7 +3989,7 @@ function tutorial(){if(state.tutorial>=3)return '';let texts=[['01 / 初次狩�
 
 function characterView(){const v=stats();return heading('ADVENTURER / 角色能力',esc(characterName(state)))+`<div class="grid"><section class="panel"><h2>人物能力</h2><div class="stat-grid"><span>生命上限 <b class="gold">${v.hp}</b></span><span>攻擊力 <b class="gold">${v.atk}</b></span><span>防禦力 <b class="gold">${v.def}</b></span><span>暴擊率 <b class="gold">${Math.round(v.crit*100)}%</b></span>${typeof attackSpeedPanelHTML==='function'?attackSpeedPanelHTML(state):''}</div></section></div>`;}
 
-function skillsView(){let c=CLASSES[state.job];return heading('SKILLS / 技能','主動技能與普攻觸發技能','')+`<p>兩個主動槽獨立計算冷卻；普攻觸發技能必須配置於觸發槽才會啟用。每項技能最高 10 級，每點增加基礎效果 40%、可鑲嵌 1 顆寶石，替換時退還舊寶石。</p><div class="panel" style="margin-bottom:20px"><div class="row"><span>${GEMS.map((g,i)=>` ${esc(equipmentDisplayName(g))} ×${state.gems[i]}`).join('　')}</span><button onclick="craftGem()">合成隨機寶石 · 12 寶石粉塵</button></div></div><div class="cards">${c.skills.map((sk,i)=>{let locked=false,gem=state.sockets[i];return `<article class="card"><div class="row"><span class="icon">${sk[1]==='active'?'':'ϟ'}</span><span class="tag">${sk[1]==='active'?'主動':'普攻觸發'}</span></div><h2>${sk[0]} <span class="gold">${state.skills[i]}/${RULES.skillMax}</span></h2>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p>${skillDescription(i)}<br><span class="small">${sk[1]==='active'?`冷卻 ${skillCooldown(i)} 回合`:`每次普攻 ${Math.round(procChance(i)*100)}% 觸發`} · 職業精通 Lv${sk[2]}</span></p><button ${locked||state.skills[i]>=skillCap()?'disabled':''} onclick="learn(${i})">${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?`<button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},0)">${state.active[0]===i?' 槽 1':'設為槽 1'}</button><button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},1)">${state.active[1]===i?' 槽 2':'設為槽 2'}</button>`:'<p class="small">學會後需配置於觸發槽</p>'}<div class="divider"></div><div class="small">鑲嵌寶石</div><select aria-label="${sk[0]}寶石" style="width:100%;margin-top:8px" ${!state.skills[i]?'disabled':''} onchange="socket(${i},this.value)"><option value="-1">空插槽</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${(!gemCompatible(j,state.job,i)||state.gems[j]<1&&gem!==j)?'disabled':''}>${esc(equipmentDisplayName(g))} · ${g.desc}</option>`).join('')}</select></article>`;}).join('')}</div>`;}
+function skillsView(){let c=CLASSES[state.job];return heading('SKILLS / 技能','主動技能與普攻觸發技能','')+`<p>兩個主動槽獨立計算冷卻；普攻觸發技能必須配置於觸發槽才會啟用。每項技能最高 10 級，每點增加基礎效果 40%、可鑲嵌 1 顆寶石，替換時退還舊寶石。</p><div class="panel" style="margin-bottom:20px"><div class="row"><span>${GEMS.map((g,i)=>` ${esc(equipmentDisplayName(g))} ×${state.gems[i]}`).join('　')}</span></div></div><div class="cards">${c.skills.map((sk,i)=>{let locked=false,gem=state.sockets[i];return `<article class="card"><div class="row"><span class="icon">${sk[1]==='active'?'':'ϟ'}</span><span class="tag">${sk[1]==='active'?'主動':'普攻觸發'}</span></div><h2>${sk[0]} <span class="gold">${state.skills[i]}/${RULES.skillMax}</span></h2>${skillTypeBadges(state.job,i)}${skillMechanicsDetails(state.job,i)}<p>${skillDescription(i)}<br><span class="small">${sk[1]==='active'?`冷卻 ${skillCooldown(i)} 回合`:`每次普攻 ${Math.round(procChance(i)*100)}% 觸發`} · 職業精通 Lv${sk[2]}</span></p><button ${locked||state.skills[i]>=skillCap()?'disabled':''} onclick="learn(${i})">${locked?'尚未解鎖':state.skills[i]?'升級1點':'學習'}</button>${sk[1]==='active'?`<button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},0)">${state.active[0]===i?' 槽 1':'設為槽 1'}</button><button ${!state.skills[i]?'disabled':''} onclick="equipSkill(${i},1)">${state.active[1]===i?' 槽 2':'設為槽 2'}</button>`:'<p class="small">學會後需配置於觸發槽</p>'}<div class="divider"></div><div class="small">鑲嵌寶石</div><select aria-label="${sk[0]}寶石" style="width:100%;margin-top:8px" ${!state.skills[i]?'disabled':''} onchange="socket(${i},this.value)"><option value="-1">空插槽</option>${GEMS.map((g,j)=>`<option value="${j}" ${gem===j?'selected':''} ${(!gemCompatible(j,state.job,i)||state.gems[j]<1&&gem!==j)?'disabled':''}>${esc(equipmentDisplayName(g))} · ${g.desc}</option>`).join('')}</select></article>`;}).join('')}</div>`;}
 function skillDescription(i){let sk=CLASSES[state.job].skills[i];return `${{damage:'造成',heal:'恢復',shield:'獲得',drain:'造成傷害並吸取等量生命，倍率為'}[sk[5]]}攻擊力 ${Math.round(skillPower(i)*100)}%${{damage:'傷害',heal:'生命',shield:'護盾（無上限；重複施放與其他護盾來源只保留較高值）',drain:''}[sk[5]]}`;}
 
 function questView(){let m=MAPS[state.map===6?5:state.map],repeatMat=m.mobs[0][2];return heading('JOURNAL / 委託手札','荒野裡的小小約定。')+`<div class="cards">${QUESTS.map(q=>`<article class="card"><span class="tag">一次性支線</span><h2 style="margin-top:15px">${q.title}</h2><p>${q.desc}</p><p>${q.mat}　${state.materials[q.mat]||0} / ${q.n}</p><p class="gold">${q.gold} 金幣 · ${q.ore} 鍛鐵 · 隨機寶石 ×1</p><button class="primary" onclick="claimQuest('${q.id}')" ${state.claimed.includes(q.id)||(state.materials[q.mat]||0)<q.n?'disabled':''}>${state.claimed.includes(q.id)?'已完成':'交付材料'}</button></article>`).join('')}<article class="card"><span class="tag">可重複 · ${m.name}</span><h2 style="margin-top:15px">營地物資募集</h2><p>收集本地常見怪物的材料。切換地圖後會更新募集品項。</p><p>${repeatMat}　${state.materials[repeatMat]||0} / 8</p><p class="gold">${regionTier(questRegion())*150} 金幣 · 15 鍛鐵 · 3 粉塵</p><button class="primary" onclick="claimRepeat()" ${(state.materials[repeatMat]||0)<8?'disabled':''}>交付材料</button><p class="small">累計完成 ${state.repeat} 次</p></article></div>`;}
@@ -3623,7 +4000,7 @@ function logContent(){return `<div class="row"><h2>本回合戰況</h2><span cla
 
 function battleView(){const m=MAPS[state.map],v=stats(),shown=enemy||lastDefeatedEnemy,c=CLASSES[state.job],dead=state.hp<=0,phase=dead?'戰敗 · 請先戰後恢復':enemy?(running?'交戰中':'戰鬥暫停'):lastDefeatedEnemy?(running?'勝利 · 搜尋下一個敵人':'戰鬥結束'):'整備 · 尚未探索',procCount=c.skills.filter((s,i)=>s[1]==='proc'&&state.skills[i]>0).length;return heading('EXPEDITION / 荒野遠征',m.name,`<span class="tag encounter-status">${phase}</span>`)+`<div class="combat-layout"><section class="panel encounter-panel"><div class="encounter-topline"><span>推薦裝等 ${mapRecommendedGearLevel(state.map)}</span><span class="round-counter">第 <b>${round}</b> 回合</span><span>${shown?shown.kind==='final'?'終局首領':shown.kind==='boss'?'地圖首領':shown.kind==='elite'?'菁英遭遇':'普通遭遇':'等待出發'}</span></div><div class="battle-arena"><article class="combatant player-combatant"><div class="combatant-label"><b>${esc(characterName(state))}</b><span>${esc(CLASSES[state.job].name)}</span></div><div class="health-readout"><span>生命</span><b>${Math.ceil(state.hp)} <small>/ ${v.hp}</small></b></div>${battleHealthMeter(state.hp,v.hp,battleShieldValue(state))}<div class="combatant-art"><div class="sprite player-sprite ${running&&motion.player?'attack-pose':''} ${running&&motion.skill?'cast-pose':''}">${pixel(state.job)}</div></div><div class="combatant-foot"><span>攻擊 ${v.atk}</span><span>護盾 ${Math.ceil(state.shield)}</span></div></article><div class="combat-center"><span class="duel-mark"></span><span>${enemy?'交戰':lastDefeatedEnemy?'勝利':'遠征'}</span><small>${running?'自動戰鬥':dead?'需要休息':'等待指令'}</small></div><article class="combatant enemy-combatant"><div class="combatant-label"><b>${shown?esc(shown.name):'未知的相遇'}</b><span>${shown?'LV '+shown.lv:'—'}</span></div><div class="health-readout"><span>生命</span><b>${enemy?Math.ceil(enemy.hp):0} <small>/ ${shown?shown.maxhp:'—'}</small></b></div>${battleHealthMeter(enemy?enemy.hp:0,shown?shown.maxhp:1,battleShieldValue(enemy))}<div class="combatant-art"><div class="sprite enemy-sprite ${running&&enemy&&motion.enemy?'enemy-pose':''}">${enemyArt(enemy)}</div></div><div class="combatant-foot"><span>${shown?'防禦 '+shown.def:'探索時隨機遇敵'}</span><span>${shown?'攻擊 '+shown.atk:''}</span></div></article></div><div class="battle-command"><button class="primary battle-toggle" onclick="toggleBattle()" ${dead?'disabled':''}>${running?'Ⅱ 暫停探索':'▶ 開始自動探索'}</button><span class="small">1 秒／回合 · 對話框開啟時暫停</span></div><section class="battle-loadout"><div class="row"><h3>戰鬥技能</h3><span class="small">${procCount} 項普攻觸發技已啟用</span><button class="text-button" onclick="setTab('skills')">調整配置 ›</button></div><div class="skill-strip">${state.active.map((id,i)=>`<div class="skill-slot ${id!==null&&!cd[id]?'skill-ready':''}"><div class="row"><span class="small">主動槽 ${i+1}</span><span class="skill-cooldown">${id===null?'未配置':cd[id]>0?cd[id]+' 回合':'就緒'}</span></div><b>${id===null?'空的技能槽':c.skills[id][0]}</b><span class="small">${id===null?'前往技能頁選擇主動技能':'技能 Lv.'+state.skills[id]+(state.sockets[id]!==null?' · '+GEMS[state.sockets[id]].name:'')}</span></div>`).join('')}</div></section><section class="supply-bar"><div><b>治療藥水 <span class="gold">×${state.potions}</span></b><label><input type="checkbox" ${state.autoPotion?'checked':''} onchange="state.autoPotion=this.checked;save()"> 生命低於 35% 自動使用</label></div><div class="supply-actions"><button onclick="potion()" ${state.potions<1||state.hp>=v.hp?'disabled':''}>使用藥水</button><button onclick="buyPotion()" ${state.gold<75?'disabled':''}>補給 +5 · 75◈</button></div></section></section><section class="panel combat-journal"><div class="journal-heading"><span class="eyebrow">BATTLE JOURNAL</span><span class="small">即時紀錄</span></div><div id="liveLog" class="journal-content" role="log" aria-live="polite" aria-label="戰鬥紀錄">${logContent()}</div><div class="journal-note">戰鬥事件依普攻、技能與敵方行動順序列出。<br>展開歷史紀錄可回看掉落與升級。</div></section></div><section class="panel destination-panel"><div class="row"><div><span class="eyebrow">WORLD / 目的地</span><h2>選擇探索區域</h2></div><span class="small">切換地圖會停止探索並放棄當前遭遇</span></div><div class="destination-grid">${MAPS.map((x,i)=>`<button class="destination ${state.map===i?'selected':''}" onclick="chooseMap(${i})" ${!canVisit(i)?'disabled':''}><span class="destination-icon">${x.icon}</span><b>${x.name}</b><small>推薦裝等 ${mapRecommendedGearLevel(i)}${i===6?' · 終局':''}</small></button>`).join('')}</div><details class="region-bestiary"><summary>${m.name} · 怪物與掉落圖鑑</summary><div class="bestiary-grid">${m.mobs.concat([m.boss]).map(x=>`<article class="bestiary-item">${x[1]}<div><b>${x[0]}</b><small>${x[2]}</small></div></article>`).join('')}</div><p class="small">專屬素材：普通怪 65%、菁英與首領 100%。一般裝備 22% 起、屬性寶石 4% 起；地圖 BOSS 專屬裝備 25%，或以 5 份素材保底製作。</p></details></section>`;};
 
-function modePicker(){let mode=state.difficulty||0,d=MODES[mode];return `<section class="panel difficulty-panel"><div><span class="eyebrow">WORLD DIFFICULTY</span><label>探索難度 <select aria-label="探索難度" onchange="changeDifficulty(this.value)">${MODES.map((x,i)=>`<option value="${i}" ${mode===i?'selected':''}>${x.name}</option>`).join('')}</select></label></div><p>怪物生命 ×${d.hp} · 攻擊 ×${d.atk} · 防禦 ×${d.def}<br><span class="small">切換會結束目前遭遇；不會恢復生命。</span></p><p class="small">普通怪裝備 ${Math.round(d.equip[0]*100)}%／寶石 ${Math.round(d.gem[0]*100)}%<br>BOSS 專屬裝備 ${d.boss*100}% · 金幣／經驗 ×${d.xp}</p></section>`;}
+function modePicker(){let mode=state.difficulty||0,d=MODES[mode];return `<section class="panel difficulty-panel"><div><span class="eyebrow">WORLD DIFFICULTY</span><label>探索難度 <select aria-label="探索難度" onchange="changeDifficulty(this.value)">${MODES.map((x,i)=>`<option value="${i}" ${mode===i?'selected':''}>${x.name}</option>`).join('')}</select></label></div><p>怪物生命 ×${d.hp} · 攻擊 ×${d.atk} · 防禦 ×${d.def}<br><span class="small">切換會結束目前遭遇；不會恢復生命。</span></p><p class="small">各怪物的裝備與寶石掉落率見怪物圖鑑 · 金幣／經驗 ×${d.xp}</p></section>`;}
 
 function bossCraftView(){let mode=state.difficulty||0;return heading('BOSS WORKSHOP / 首領製作',MODES[mode].name+'模式專屬裝備')+modePicker()+`<section class="panel">${resourceLine()}${uiHelp('製作說明','須使用對應難度素材。困難：基礎能力 +25%、技能效果 +40%；地獄：基礎能力 +55%、傳說品質、技能效果 +55%。')}</section><div class="cards boss-recipes">${MAPS.map((m,i)=>{if(i===6)return '';let family=regionFamily(i),g={job:state.job,slot:bossEquipmentSlot(family),tier:regionTier(i),boss:family,region:i,difficulty:mode,rar:mode===2?3:2,plus:0,affix:[{type:4,rank:mode===2?3:2,skill:family,value:[30,40,55][mode]}]},mat=bossMaterial(i),n=state.materials[mat]||0,cost=g.tier*250*(mode+1),ready=canVisit(i)&&state.gold>=cost&&n>=5;return `<article class="card boss-recipe">${equipmentArt(g)}<span class="tag">${m.name}</span><h3>${equipmentNameHTML(g)}</h3><p class="small">${esc(characterName(state))} · 推薦裝等 ${mapRecommendedGearLevel(i)} · ${mode===2?'傳說':'稀有'}</p><p class="effect-quality-${mode===2?3:2}">${CLASSES[state.job].skills[family][0]} 效果 +${[30,40,55][mode]}%</p><div class="recipe-cost"><span>${mat} ${n}/5</span><span>◈ ${cost}</span></div><button class="primary" onclick="craftBoss(${i})" ${ready?'':'disabled'}>${!canVisit(i)?'尚未解鎖':ready?'製作裝備':'材料或金幣不足'}</button></article>`;}).join('')}</div>`;};
 
@@ -3794,7 +4171,7 @@ function restoreBattleLogScroll(position){
 
 EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;
 
-/* js/core/core-game.js?v=20261123-v0196-aspd */
+/* js/core/core-game.js?v=20261126-v0211-gear */
 'use strict';
 // Published data is supplied before any runtime module or player save loads.
 // Legacy browser balance caches never override a published build implicitly.
@@ -3877,7 +4254,7 @@ let saveReady=false;
 let migrateWorldSave=data=>data;
 const $=x=>x==='modal'&&globalThis.__EMBERWILD_SIMULATION_MODAL?globalThis.__EMBERWILD_SIMULATION_MODAL:document.getElementById(x);const rand=n=>Math.floor(Math.random()*n);let uidSerial=0;const uid=()=>{let id;do{id=Date.now().toString(36)+'-'+(++uidSerial).toString(36)+'-'+Math.random().toString(36).slice(2,8);}while(party?.members.some(h=>h.bag.some(g=>g.id===id)));return id;};
 
-function initial(job){let g=gear(1,0,0,job);return migrate({version:1,job,lv:1,xp:0,gold:150,ore:12,dust:0,hp:CLASSES[job].hp,shield:0,map:0,advanced:false,skills:[1,0,0,0,0,0],active:[0,null],procSlots:[null,null],gems:Array(GEMS.length).fill(0),sockets:[null,null,null,null,null,null],bag:[g],equipped:[g.id,null,null,null,null],materials:{},kills:{},totalKills:0,tutorial:0,claimed:[],repeat:0,won:false,autoPotion:true,potions:5,discovered:[],created:Date.now()});}
+function initial(job){return migrate({version:1,job,lv:1,xp:0,gold:150,ore:12,dust:0,hp:CLASSES[job].hp,shield:0,map:0,advanced:false,skills:[1,0,0,0,0,0],active:[0,null],procSlots:[null,null],gems:Array(GEMS.length).fill(0),sockets:[null,null,null,null,null,null],bag:[],equipped:[null,null,null,null,null],materials:{},kills:{},totalKills:0,tutorial:0,claimed:[],repeat:0,won:false,autoPotion:true,potions:5,discovered:[],created:Date.now()});}
 function equipment(s=state){return s.companionId!==undefined?s.bag.filter(g=>EmberwildTokens.isToken(g)&&g.id===s.tokenId):s.equipped.map(id=>s.bag.find(g=>g.id===id&&!EmberwildTokens.isToken(g))).filter(Boolean);}
 
 function note(t){logs.unshift(t);logs=logs.slice(0,65);}function toast(t){$('toast').textContent=t;$('toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').style.display='none',2800);}function esc(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -3928,7 +4305,7 @@ function claimTutorial(){if(state.tutorial===0&&state.bag.length>=RULES.bagCapac
 
 
 
-function equipSkill(i,slot){if(!Number.isInteger(i)||!CLASSES[state.job].skills[i]||CLASSES[state.job].skills[i][1]!=='active'||![0,1].includes(slot)||!state.skills[i])return;let other=1-slot;if(state.active[other]===i)state.active[other]=null;state.active[slot]=i;save();render();}function socket(i,value){let g=Number(value);if(!Number.isInteger(i)||i<0||i>=6||!state.skills[i]||!Number.isInteger(g)||g< -1||g>=GEMS.length||g>=0&&!gemCompatible(g,state.job,i))return;let old=state.sockets[i];if(g===old)return;if(g>=0&&state.gems[g]<1)return;if(old!==null)state.gems[old]++;state.sockets[i]=g<0?null:g;if(g>=0)state.gems[g]--;save();render();}function craftGem(){{const cost=Math.max(0,Math.round(GS('skills.gems.craftDust',12)));if(state.dust<cost)return toast('需要 '+cost+' 寶石粉塵');state.dust-=cost;}let i=rand(GEM_KINDS);state.gems[i]++;save();render();toast('合成了'+GEMS[i].name);}
+function equipSkill(i,slot){if(!Number.isInteger(i)||!CLASSES[state.job].skills[i]||CLASSES[state.job].skills[i][1]!=='active'||![0,1].includes(slot)||!state.skills[i])return;let other=1-slot;if(state.active[other]===i)state.active[other]=null;state.active[slot]=i;save();render();}function socket(i,value){let g=Number(value);if(!Number.isInteger(i)||i<0||i>=6||!state.skills[i]||!Number.isInteger(g)||g< -1||g>=GEMS.length||g>=0&&!gemCompatible(g,state.job,i))return;let old=state.sockets[i];if(g===old)return;if(g>=0&&state.gems[g]<1)return;if(old!==null)state.gems[old]++;state.sockets[i]=g<0?null:g;if(g>=0)state.gems[g]--;save();render();}
 (function installEquipmentAttributePresentation(){
   if(globalThis.equipmentAttributeDetailsHTML)return;
   const labels={atk:'攻擊',hp:'生命',def:'防禦'};
@@ -4467,7 +4844,7 @@ function loadParty(data){const validated=validateParty(data);resetSession();part
 start=function(job){party=null;solo.start(job);party=createParty(state);save();render();};
 resetEncounter=function(){solo.resetEncounter();foes=[];effects=[];partyClock=0;actorCooldowns={};supportCooldowns={};if(party)for(const h of party.members)h.shield=0;};
 function selectHero(key){if(!party)return;const h=partyMember(key);if(!h||typeof isPartnerEnlisted==='function'&&!isPartnerEnlisted(h))return;closeModal();party.selected=key;state=h;pendingAffix=null;forgeSelection=null;save();render();}
-function recruitHero(job){if(!party||party.members.some(h=>h.job===job)||!CLASSES[job])return;if(state.bag.length>=RULES.bagCapacity)return toast('背包已滿，請先整理再招募並領取初始武器');resetEncounter();const h=initial(job);h.won=!!party.cleared;h.hp=solo.stats(h).hp;party.members.push(h);if(party.active.length<3)party.active.push(job);syncParty();save();render();toast('新同伴已加入；技能與裝備需獨立配置');}
+function recruitHero(job){if(!party||party.members.some(h=>h.job===job)||!CLASSES[job])return;resetEncounter();const h=initial(job);h.won=!!party.cleared;h.hp=solo.stats(h).hp;party.members.push(h);if(party.active.length<3)party.active.push(job);syncParty();save();render();toast('新同伴已加入；技能與裝備需獨立配置');}
 function toggleMember(key){const h=partyMember(key);if(!h)return;const present=party.active.includes(key);if(present&&party.active.length===1)return toast('至少需要一名出戰角色');if(!present&&party.active.length>=3)return toast('最多三名出戰角色，請先將一人移至候補');if(!present&&!solo.canVisit(party.map,h))return toast('此角色未達目前地圖門檻，請先切換較低級地圖');const deferRoster=!!globalThis.EmberwildBattleConfiguration?.pending();if(!deferRoster)resetEncounter();else EmberwildBattleConfiguration.notify();if(present)party.active=party.active.filter(j=>j!==key);else party.active.push(key);save();render();}
 // The protagonist's exploration opens maps for the whole party.
 canVisit=function(mi,s=state){return party?solo.canVisit(mi,party.members[0]):solo.canVisit(mi,s);};
@@ -4627,7 +5004,13 @@ function equipmentFormGroup(g){const group=Number.isInteger(g?.formJob)?g.formJo
 function rollEquipmentForm(job,slot){const candidates=[];for(const group of [job,GLOBAL_EQUIPMENT_FORM_GROUP])for(let index=0;index<(ITEM_FORMS[group]?.[slot]?.length||0);index++){
  const id=ITEM_FORMS[group][slot][index].id;
  if(!globalThis.__EMBERWILD_STORY?.isRewardForm(id)&&!globalThis.__EMBERWILD_EQUIPMENT_SKILLS?.dropOnlyForm(id))candidates.push({group,index});
- }return candidates.length?candidates[rand(candidates.length)]:{group:job,index:0};}
+ }
+ // v0.211: a class may have no template of its own for a slot (armor is one shared template); use another class group's form this job can wear.
+ if(!candidates.length)for(let group=0;group<CLASSES.length;group++)if(group!==job)for(let index=0;index<(ITEM_FORMS[group]?.[slot]?.length||0);index++){
+  const form=ITEM_FORMS[group][slot][index];
+  if((form.wearableJobs||[]).includes(job)&&!globalThis.__EMBERWILD_STORY?.isRewardForm(form.id)&&!globalThis.__EMBERWILD_EQUIPMENT_SKILLS?.dropOnlyForm(form.id))candidates.push({group,index});
+ }
+ return candidates.length?candidates[rand(candidates.length)]:{group:job,index:0};}
 function gearEquipPositions(g){return g?.slot===3?[3,4]:Number.isInteger(g?.slot)&&g.slot>=0&&g.slot<=2?[g.slot]:[];}
 function bossEquipmentSlot(family){return [0,1,2,0,1,3][Math.max(0,Math.min(5,Number(family)||0))]??0;}
 function normalizeEquipmentFormWearability(){
@@ -5130,7 +5513,7 @@ const TEST_SUPPLY_CODE='781206';
 function showTestCodes(){if(!party)return;$('modal').innerHTML=`<h2>兌換碼</h2><label>兌換碼 <input id="test-code-input" maxlength="40" autocomplete="off" placeholder="輸入兌換碼" onkeydown="if(event.key==='Enter')redeemTestCode()"></label><button onclick="redeemTestCode()">兌換</button><button onclick="closeModal()">關閉</button>`;$('modal').showModal();}
 function redeemTestCode(value){if(!party)return;const code=String(value??$('test-code-input')?.value??'').trim();if(code!==TEST_SUPPLY_CODE)return toast('兌換碼無效');const prior={gold:state.gold,ore:state.ore,dust:state.dust,materials:{...state.materials}};state.gold+=999999;state.ore+=999;state.dust+=999;state.materials['以太鍛鐵']=(state.materials['以太鍛鐵']||0)+999;state.materials['光輝碎塊']=(state.materials['光輝碎塊']||0)+99;if(state.gold>1e12||state.ore>1e12||state.dust>1e12||Object.values(state.materials).some(n=>n>1e9)){state.gold=prior.gold;state.ore=prior.ore;state.dust=prior.dust;state.materials=prior.materials;return toast('資源已達保存上限');}if(!save()){state.gold=prior.gold;state.ore=prior.ore;state.dust=prior.dust;state.materials=prior.materials;return;}render();toast('已獲得所有測試用道具');}
 function upgradeMaterials(g){const next=g.plus+1;return {ore:enhanceCost(g),dust:next>=6?g.tier*(next-5):0,ether:next>=10?1:0};}
-function upgradeCostText(g){const c=upgradeMaterials(g);return c.ore+' 鍛鐵'+(c.dust?'＋'+c.dust+' 粉塵':'')+(c.ether?'＋'+c.ether+' 以太鍛鐵':'');}
+function upgradeCostText(g){const c=upgradeMaterials(g);return c.ore+' 鍛鐵'+(c.dust?'＋'+c.dust+' 粉塵':'')+(c.ether?'＋'+c.ether+' 以太鍛鐵':'')+(c.exclusive?'＋'+c.exclusive.quantity+' '+c.exclusive.material:'');}
 function canEnhance(g){const c=upgradeMaterials(g);return g.plus<RULES.enhanceMax&&state.ore>=c.ore&&state.dust>=c.dust&&(state.materials['以太鍛鐵']||0)>=c.ether;}
 enhance=function(id){const g=findGear(id);if(!g||g.plus>=RULES.enhanceMax)return;if(!canEnhance(g))return toast('材料不足：'+upgradeCostText(g));const c=upgradeMaterials(g),ether=state.materials['以太鍛鐵'];state.ore-=c.ore;state.dust-=c.dust;if(c.ether)state.materials['以太鍛鐵']=ether-c.ether;g.plus++;if(!save()){g.plus--;state.ore+=c.ore;state.dust+=c.dust;if(c.ether)state.materials['以太鍛鐵']=ether;return;}render();toast('已強化至 +'+g.plus);};
 function etherDropChance(e){
@@ -5143,7 +5526,7 @@ let inventoryCategory='equipment',massSalvageIds=null;
 function setInventoryCategory(category){if(category==='gems')category='items';if(!['equipment','materials','items'].includes(category))return;inventoryCategory=category;render();}
 function inventoryTabs(){return `<div class="actions inventory-category-tabs">${[['equipment','裝備'],['materials','材料'],['items','道具']].map(([id,name])=>`<button class="${inventoryCategory===id?'primary':''}" onclick="setInventoryCategory('${id}')">${name}</button>`).join('')}<button onclick="showTestCodes()">兌換碼</button></div>`;}
 function accountMaterialsView(){const entries=[['鍛鐵',state.ore],['粉塵',state.dust],['以太鍛鐵',state.materials['以太鍛鐵']||0],...Object.entries(state.materials).filter(([k,n])=>k!=='以太鍛鐵'&&n>0)];return heading('MATERIALS / 帳號共用','材料庫存')+`<section class="panel account-material-list">${entries.map(([name,n])=>`<div class="row"><b>${esc(name)}</b><span>× ${n.toLocaleString()}</span></div>`).join('')}</section>`;}
-function accountGemsView(){return heading('GEMS / 帳號共用','屬性寶石')+`<section class="panel account-gem-list"><div class="account-gem-slots">${GEMS.map((g,i)=>({g,i})).filter(({i})=>state.gems[i]>0).map(({g,i})=>`<div data-inventory-gem="${i}">${itemSlotHTML('gem',String(i),{count:state.gems[i],context:'inventory'})}</div>`).join('')}</div><div class="actions"><button onclick="craftGem()" ${state.dust<GS('skills.gems.craftDust',12)?'disabled':''}>合成隨機寶石 · ${Math.round(GS('skills.gems.craftDust',12))} 粉塵</button><button onclick="setTab('skills')">前往技能鑲嵌</button></div></section>`;}
+function accountGemsView(){return heading('GEMS / 帳號共用','屬性寶石')+`<section class="panel account-gem-list"><div class="account-gem-slots">${GEMS.map((g,i)=>({g,i})).filter(({i})=>state.gems[i]>0).map(({g,i})=>`<div data-inventory-gem="${i}">${itemSlotHTML('gem',String(i),{count:state.gems[i],context:'inventory'})}</div>`).join('')}</div><div class="actions"><button onclick="setTab('skills')">前往技能鑲嵌</button></div></section>`;}
 
 const categoriesEquipmentView=equipmentView;equipmentView=function(){return inventoryTabs()+(inventoryCategory==='materials'?accountMaterialsView():inventoryCategory==='gems'?accountGemsView():categoriesEquipmentView());};
 function toggleGearLock(id){const g=findGear(id);if(!g)return;g.locked=!g.locked;if(!save()){g.locked=!g.locked;return;}render();toast(g.locked?'已鎖定 '+equipmentDisplayName(g):'已解除鎖定 '+equipmentDisplayName(g));}
@@ -5373,7 +5756,10 @@ for(let job=0;job<data.classes.length;job++){
   };
   for(const owner of owners)visit(owner.type+':'+owner.index,new Set());
 }
-data.equipmentForms.forEach((jobs,job)=>{const global=job===CLASSES.length;if(!Array.isArray(jobs)||jobs.length!==4)throw Error('裝備部位資料無效：'+job);jobs.forEach((forms,slot)=>{if(!Array.isArray(forms)||(!global&&!forms.length))throw Error(`裝備類型不可為空：${job}-${slot}`);forms.forEach((f,i)=>{if(!f||typeof f.name!=='string')throw Error(`裝備資料無效：${job}-${slot}-${i}`);if(f.element!==undefined&&!elements.has(f.element))throw Error('裝備元素無效');if(f.wearableJobs!==undefined&&(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=CLASSES.length)))throw Error(`裝備可穿戴職業無效：${job}-${slot}-${i}`);for(const [k,v] of Object.entries(f)){if(['id','name','element','wearableJobs','exclusive','fixedEffects','textStyleId'].includes(k))continue;if(!legacyNumeric.has(k)||!Number.isFinite(v))throw Error(`未知或無效裝備欄位：${job}-${slot}-${i}-${k}`);}if(f.exclusive!==undefined){if(!f.exclusive||typeof f.exclusive!=='object'||Array.isArray(f.exclusive))throw Error(`裝備專屬屬性無效：${job}-${slot}-${i}`);for(const [k,v] of Object.entries(f.exclusive))if(!exclusiveKeys.has(k)||!Number.isFinite(v)||v<-100||v>500)throw Error(`裝備專屬屬性無效：${job}-${slot}-${i}-${k}`);}});});});return data;}
+data.equipmentForms.forEach((jobs,job)=>{const global=job===CLASSES.length;if(!Array.isArray(jobs)||jobs.length!==4)throw Error('裝備部位資料無效：'+job);jobs.forEach((forms,slot)=>{if(!Array.isArray(forms))throw Error(`裝備類型不可為空：${job}-${slot}`);forms.forEach((f,i)=>{if(!f||typeof f.name!=='string')throw Error(`裝備資料無效：${job}-${slot}-${i}`);if(f.element!==undefined&&!elements.has(f.element))throw Error('裝備元素無效');if(f.wearableJobs!==undefined&&(!Array.isArray(f.wearableJobs)||!f.wearableJobs.length||f.wearableJobs.some(j=>!Number.isInteger(j)||j<0||j>=CLASSES.length)))throw Error(`裝備可穿戴職業無效：${job}-${slot}-${i}`);for(const [k,v] of Object.entries(f)){if(['id','name','element','wearableJobs','exclusive','fixedEffects','textStyleId'].includes(k))continue;if(k==='baseStat'){if(v!=='defense'||slot!==2)throw Error(`裝備基礎數值類型無效：${job}-${slot}-${i}`);continue;}if(!legacyNumeric.has(k)||!Number.isFinite(v))throw Error(`未知或無效裝備欄位：${job}-${slot}-${i}-${k}`);}if(f.exclusive!==undefined){if(!f.exclusive||typeof f.exclusive!=='object'||Array.isArray(f.exclusive))throw Error(`裝備專屬屬性無效：${job}-${slot}-${i}`);for(const [k,v] of Object.entries(f.exclusive))if(!exclusiveKeys.has(k)||!Number.isFinite(v)||v<-100||v>500)throw Error(`裝備專屬屬性無效：${job}-${slot}-${i}-${k}`);}});});});
+ /* v0.211: a class group may leave a slot empty (armor is one shared template); every class still needs a template it can wear in each slot. */
+ for(let job=0;job<CLASSES.length;job++)for(let slot=0;slot<4;slot++)if(!data.equipmentForms.slice(0,CLASSES.length).some((slots,group)=>(slots[slot]||[]).some(f=>(Array.isArray(f.wearableJobs)?f.wearableJobs:(slot===1?CLASSES.map((_,i)=>i):[group])).includes(job))))throw Error(`裝備類型不可為空：${job}-${slot}`);
+ return data;}
 function validateBalanceConfig(data){return validateBalanceConfigCore(data);}
 function applyBalanceConfig(data,{persist=true}={}){data=validateBalanceConfig(JSON.parse(JSON.stringify(data)));GAME_BALANCE=cloneBalance(data.balance);data.classes.forEach((c,job)=>{const target=CLASSES[job];for(const k of ['name','advanced','hp','atk','def','main'])if(c[k]!==undefined)target[k]=c[k];target.skills=c.skills.map(sk=>[sk.name,sk.activation,sk.requiredLevel,sk.cooldown,sk.power,sk.effect,{commonEffectKeys:EmberwildSkillEffects.KEYS.filter(k=>sk[k]!==undefined),...Object.fromEntries(EmberwildSkillEffects.KEYS.filter(k=>sk[k]!==undefined).map(k=>[k,sk[k]])),target:sk.target??(sk.maxTargets>=99?'enemies':sk.effect==='heal'||sk.effect==='shieldLowest'?'weakest':sk.effect==='shield'||PROC_ONLY_EFFECTS.has(sk.effect)?'self':'enemy'),maxTargets:Math.max(1,Math.floor(sk.maxTargets)),requiresAdvanced:!!sk.requiresAdvanced,powerPerLevel:sk.powerPerLevel,prerequisites:balanceConfigPrerequisites(sk).slice(0,3).map(req=>({type:req?.type==='support'?'support':'core',skill:req.skill,level:req.level})),effects:[{kind:sk.effect}],...(sk.activation==='proc'?{procBaseChance:sk.procBaseChance,procChancePerLevel:sk.procChancePerLevel}:{})}]);SKILL_ELEMENTS[job]=c.skills.map(sk=>sk.element);});if(Array.isArray(data.supportSkills)&&data.supportSkills.length===SUPPORT.length)data.supportSkills.forEach((list,job)=>{if(Array.isArray(list))SUPPORT[job]=list.map(({id,...sk})=>({...sk,prerequisites:balanceConfigPrerequisites(sk).slice(0,3).map(req=>({type:req?.type==='support'?'support':'core',skill:req.skill,level:req.level}))}));});normalizeEquipmentFormsArray(data.equipmentForms);data.equipmentForms.forEach((jobs,job)=>jobs.forEach((forms,slot)=>{ITEM_FORMS[job][slot]=forms.map(form=>({...form}));}));normalizeEquipmentFormsArray(ITEM_FORMS);normalizeEquipmentFormWearability();normalizeEquippedWearability();syncAllHeroSkillArrays();if(persist)localStorage.setItem(BALANCE_KEY,JSON.stringify(data));if(state){for(const h of party?.members||[state])withHero(h,clampVitals);render();}}
 function exportBalanceJSON(){const blob=new Blob([JSON.stringify(exportableBalance(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='emberwild-balance-test.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('已匯出測試設定 JSON');}
@@ -5716,7 +6102,7 @@ forgeEquipmentOptions=function(selectedId){const worn=[],spare=[];for(const g of
 // Normalize old saves in memory: legacy equipment rarity no longer has gameplay meaning.
 if(state?.bag)state.bag.forEach(g=>g.rar=0);
 
-EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_SIMULATION_MODAL=globalThis.__EMBERWILD_SIMULATION_MODAL??__EMBERWILD_SIMULATION_MODAL;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_READY;__EMBERWILD_SAVE_ERROR=globalThis.__EMBERWILD_SAVE_ERROR??__EMBERWILD_SAVE_ERROR;saveFailureText=globalThis.saveFailureText??saveFailureText;__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_RECOVERED_BACKUP_SESSION=globalThis.__EMBERWILD_RECOVERED_BACKUP_SESSION??__EMBERWILD_RECOVERED_BACKUP_SESSION;__EMBERWILD_UNREADABLE_PRIMARY_RAW=globalThis.__EMBERWILD_UNREADABLE_PRIMARY_RAW??__EMBERWILD_UNREADABLE_PRIMARY_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;scaleHeroHealing=globalThis.scaleHeroHealing??scaleHeroHealing;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;equipmentWearableJobsDetailsHTML=globalThis.equipmentWearableJobsDetailsHTML??equipmentWearableJobsDetailsHTML;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;emberwildBootComplete=globalThis.emberwildBootComplete??emberwildBootComplete;
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_SIMULATION_MODAL=globalThis.__EMBERWILD_SIMULATION_MODAL??__EMBERWILD_SIMULATION_MODAL;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_TOKEN_READY=globalThis.__EMBERWILD_TOKEN_READY??__EMBERWILD_TOKEN_READY;__EMBERWILD_SAVE_ERROR=globalThis.__EMBERWILD_SAVE_ERROR??__EMBERWILD_SAVE_ERROR;saveFailureText=globalThis.saveFailureText??saveFailureText;__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_RECOVERED_BACKUP_SESSION=globalThis.__EMBERWILD_RECOVERED_BACKUP_SESSION??__EMBERWILD_RECOVERED_BACKUP_SESSION;__EMBERWILD_UNREADABLE_PRIMARY_RAW=globalThis.__EMBERWILD_UNREADABLE_PRIMARY_RAW??__EMBERWILD_UNREADABLE_PRIMARY_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;scaleHeroHealing=globalThis.scaleHeroHealing??scaleHeroHealing;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;equipmentWearableJobsDetailsHTML=globalThis.equipmentWearableJobsDetailsHTML??equipmentWearableJobsDetailsHTML;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE=globalThis.__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE??__EMBERWILD_DEFERRED_CUSTOM_FORM_SAVE;emberwildBootComplete=globalThis.emberwildBootComplete??emberwildBootComplete;
 
 /* js/ui/text-rarity-style.js */
 /* Shared presentation for user-defined text rarity presets. */
@@ -5795,7 +6181,7 @@ EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIc
 
 __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_GALLERY_EFFECTS;__EMBERWILD_TEXT_STYLES=globalThis.__EMBERWILD_TEXT_STYLES??__EMBERWILD_TEXT_STYLES;textRarityStyleById=globalThis.textRarityStyleById??textRarityStyleById;setTextRarityStyles=globalThis.setTextRarityStyles??setTextRarityStyles;textRarityPresentation=globalThis.textRarityPresentation??textRarityPresentation;textRarityBlockPresentation=globalThis.textRarityBlockPresentation??textRarityBlockPresentation;textRarityFrameHTML=globalThis.textRarityFrameHTML??textRarityFrameHTML;textRarityItemHTML=globalThis.textRarityItemHTML??textRarityItemHTML;
 
-/* js/equipment/equipment-stat-source.js?v=20261123-v0196-aspd */
+/* js/equipment/equipment-stat-source.js?v=20261126-v0211-gear */
 
 /* Final equipment source cleanup:
    - Base stats never change because of an equipment name/form.
@@ -5803,7 +6189,7 @@ __EMBERWILD_GALLERY_EFFECTS=globalThis.__EMBERWILD_GALLERY_EFFECTS??__EMBERWILD_
    - Boss equipment never inherits a hidden normal-form effect.
    - Equipment max-MP / MP-regen effects and affixes are removed; legacy ones migrate to small attack bonuses.
 */
-const EQUIPMENT_FIXED_EFFECT_KEYS=new Set(['flatAttack','flatHp','flatDefense','gearAtkPct','gearHpPct','gearDefPct','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamagePct','attackSpeedPct','allCooldownReduction','dropRateBonus','basicAttackSpeedStack','basicElement','elementDamagePct','elementResistPct','raceDamagePct','skillEffectPct','skillCooldownReduction']);
+const EQUIPMENT_FIXED_EFFECT_KEYS=new Set(['flatAttack','flatHp','flatDefense','gearAtkPct','gearHpPct','gearDefPct','attackPct','crit','critDamage','pierce','defenseIgnore','lifesteal','evasion','elementBonus','bossDamagePct','attackSpeedPct','allCooldownReduction','dropRateBonus','basicAttackSpeedStack','basicElement','elementDamagePct','elementResistPct','raceDamagePct','skillEffectPct','skillCooldownReduction','defensePct','skillDamagePct','cooldownPct']);
 const EQUIPMENT_EFFECT_ELEMENTS=new Set(['physical','fire','ice','wind','light','shadow']);
 const EQUIPMENT_EFFECT_RACES=new Set(['beast','plant','undead','construct','demon','spirit']);
 function normalizeFixedEquipmentEffect(raw){
@@ -5970,7 +6356,7 @@ equipmentComparison=function(h,g,position=null){
 // Test JSON accepts fixedEffects (1–5 rows) and transparently migrates legacy exclusive / mana / form fields.
 validateBalanceConfig=function(input){
   const data=validateBalanceConfigCore(input),elements=new Set(Object.keys(ELEMENTS));
-  data.equipmentForms.forEach((jobs,job)=>jobs.forEach((forms,slot)=>forms.forEach((form,i)=>{normalizeEquipmentFormObject(form);for(const key of Object.keys(form))if(!['id','name','wearableJobs','fixedEffects','textStyleId','mana'].includes(key))throw Error(`未知裝備欄位：${key}`);if(!Array.isArray(form.fixedEffects)||form.fixedEffects.length<1||form.fixedEffects.length>5)throw Error(`裝備固定屬性必須為 1～5 條：${job}-${slot}-${i}`);const wearJobs=Array.isArray(form.wearableJobs)?form.wearableJobs.filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length):(job<data.classes.length?[job]:data.classes.map((_,j)=>j)),skillCount=wearJobs.reduce((max,j)=>Math.max(max,(data.classes[j]?.skills||[]).length),0);for(const [j,fx] of form.fixedEffects.entries()){if(!fx||!EQUIPMENT_FIXED_EFFECT_KEYS.has(fx.key))throw Error(`裝備固定屬性無效：${job}-${slot}-${i}-${j}`);if(fx.key==='basicElement'){if(!EQUIPMENT_EFFECT_ELEMENTS.has(fx.value))throw Error('裝備普通攻擊屬性無效');}else if(!Number.isFinite(fx.value))throw Error(`裝備固定屬性數值無效：${job}-${slot}-${i}-${j}`);if(['elementDamagePct','elementResistPct'].includes(fx.key)&&(!EQUIPMENT_EFFECT_ELEMENTS.has(fx.element)||fx.element==='physical'))throw Error('裝備固定屬性的元素目標無效');if(fx.key==='raceDamagePct'&&!EQUIPMENT_EFFECT_RACES.has(fx.race))throw Error('裝備固定屬性的種族目標無效');if(['skillEffectPct','skillCooldownReduction'].includes(fx.key)&&(!Number.isInteger(fx.skill)||fx.skill<0||fx.skill>=skillCount))throw Error('裝備固定屬性的技能目標無效');}})));
+  data.equipmentForms.forEach((jobs,job)=>jobs.forEach((forms,slot)=>forms.forEach((form,i)=>{normalizeEquipmentFormObject(form);for(const key of Object.keys(form))if(!['id','name','wearableJobs','fixedEffects','textStyleId','mana','baseStat'].includes(key))throw Error(`未知裝備欄位：${key}`);if(form.baseStat!==undefined&&(form.baseStat!=='defense'||slot!==2))throw Error(`裝備基礎數值類型無效：${job}-${slot}-${i}`);if(!Array.isArray(form.fixedEffects)||form.fixedEffects.length<1||form.fixedEffects.length>5)throw Error(`裝備固定屬性必須為 1～5 條：${job}-${slot}-${i}`);const wearJobs=Array.isArray(form.wearableJobs)?form.wearableJobs.filter(j=>Number.isInteger(j)&&j>=0&&j<data.classes.length):(job<data.classes.length?[job]:data.classes.map((_,j)=>j)),skillCount=wearJobs.reduce((max,j)=>Math.max(max,(data.classes[j]?.skills||[]).length),0);for(const [j,fx] of form.fixedEffects.entries()){if(!fx||!EQUIPMENT_FIXED_EFFECT_KEYS.has(fx.key))throw Error(`裝備固定屬性無效：${job}-${slot}-${i}-${j}`);if(fx.key==='basicElement'){if(!EQUIPMENT_EFFECT_ELEMENTS.has(fx.value))throw Error('裝備普通攻擊屬性無效');}else if(!Number.isFinite(fx.value))throw Error(`裝備固定屬性數值無效：${job}-${slot}-${i}-${j}`);if(['elementDamagePct','elementResistPct'].includes(fx.key)&&(!EQUIPMENT_EFFECT_ELEMENTS.has(fx.element)||fx.element==='physical'))throw Error('裝備固定屬性的元素目標無效');if(fx.key==='raceDamagePct'&&!EQUIPMENT_EFFECT_RACES.has(fx.race))throw Error('裝備固定屬性的種族目標無效');if(['skillEffectPct','skillCooldownReduction'].includes(fx.key)&&(!Number.isInteger(fx.skill)||fx.skill<0||fx.skill>=skillCount))throw Error('裝備固定屬性的技能目標無效');}})));
   return data;
 };
 
@@ -6010,7 +6396,7 @@ stripLegacyManaState();
 if(state){for(const h of party?.members||[state])withHero(h,clampVitals);save();render();}
 
 // Update 12 final runtime hooks. These are deliberately last so every later compatibility layer uses the JSON settings.
-initial=function(job){let g=gear(1,0,0,job);return migrate({version:1,job,gold:Math.round(GS('progression.starting.gold',150)),ore:Math.round(GS('progression.starting.ore',12)),dust:Math.round(GS('progression.starting.dust',0)),hp:CLASSES[job].hp,shield:0,map:0,advanced:false, skills:[1,0,0,0,0,0],active:[0,null],procSlots:[null,null],gems:Array(GEMS.length).fill(0),sockets:[null,null,null,null,null,null],bag:[g],equipped:[g.id,null,null,null,null],materials:{},kills:{},totalKills:0,tutorial:0,claimed:[],repeat:0,won:false,autoPotion:true,potions:Math.round(GS('progression.starting.potions',5)),discovered:[],created:Date.now()});};
+initial=function(job){return migrate({version:1,job,gold:Math.round(GS('progression.starting.gold',150)),ore:Math.round(GS('progression.starting.ore',12)),dust:Math.round(GS('progression.starting.dust',0)),hp:CLASSES[job].hp,shield:0,map:0,advanced:false, skills:[1,0,0,0,0,0],active:[0,null],procSlots:[null,null],gems:Array(GEMS.length).fill(0),sockets:[null,null,null,null,null,null],bag:[],equipped:[null,null,null,null,null],materials:{},kills:{},totalKills:0,tutorial:0,claimed:[],repeat:0,won:false,autoPotion:true,potions:Math.round(GS('progression.starting.potions',5)),discovered:[],created:Date.now()});};
 solo.initial=initial;
 regionTier=function(mi){if(!MAPS[mi])return 1;return Math.max(1,Math.ceil(MAPS[mi].min/Math.max(1,GS('progression.regionTierLevels',5))));};
 skillCap=function(s=state){return Math.min(RULES.skillMax,Math.max(1,Math.floor(GS('skills.core.initialCap',2))));};
@@ -6192,7 +6578,7 @@ battleView=function(){let html=update12BattleViewConsistency(),pc=Math.round(GS(
 
 EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;__EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;recordEnhancement=globalThis.recordEnhancement??recordEnhancement;
 
-/* js/equipment/enhancement-rules.js?v=20261123-v0192-floor */
+/* js/equipment/enhancement-rules.js?v=20261124-v0206-drops */
 /* v0.180 equipment enhancement rules (+1 to +12). One table holds, for each target level, the material cost, the success
    rate, what a failure does and the cumulative bonus to the item's BASE attack / HP / defense (random affixes, gems,
    skills and fixed effects are not enhanced).
@@ -6230,6 +6616,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
       if(r.failure==='none'&&r.successRate<1)throw Error(at+'成功率低於 100% 時必須設定失敗結果');
       if(r.failure==='drop'&&(!Number.isInteger(r.failureLevel)||r.failureLevel<0||r.failureLevel>i))throw Error(at+'失敗後的等級必須介於 +0 與 +'+i);
       if(!Number.isFinite(r.baseBonus)||r.baseBonus<0||r.baseBonus>100)throw Error(at+'基礎能力加成無效');});
+    if(out.equipment.exclusiveEnhance&&out.equipment.exclusiveEnhance.quantityByLevel.length!==rows.length)throw Error('專屬素材消耗量的列數必須與強化表相同');
     return out;
   };
   const ACCESSORY_SLOT=3;
@@ -6239,7 +6626,14 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   const enhanceable=g=>!!g&&g.slot!==ACCESSORY_SLOT&&g.canEnhance!==false;
   // Cost multiplier from the item level (裝等): 1～5 ×1, 6～10 ×2, 11～15 ×3...
   const levelMultiplier=g=>Math.max(1,Math.ceil((Number(typeof gearRequiredLevel==='function'?gearRequiredLevel(g):g?.equipmentLevel)||1)/Math.max(1,Number(settings().costLevelStep)||5)));
-  const costOf=g=>{const r=row((g?.plus||0)+1),m=levelMultiplier(g);return {ore:(r?.cost.ore||0)*m,dust:(r?.cost.dust||0)*m,ether:(r?.cost.ether||0)*m};};
+  /* v0.206: monster-exclusive equipment (catalogue key form:4:* or a BOSS template boss:<region>) also spends the material
+     bound to it in balanceSettings.equipment.exclusiveEnhance.bindings, quantityByLevel[target-1] per attempt. */
+  const exclusiveKey=g=>!g||isToken(g)?null:g.boss!==undefined?'boss:'+g.boss:g.formJob===4&&Number.isInteger(g.form)?'form:4:'+g.slot+':'+g.form:null;
+  function exclusiveCost(g,target){
+    const key=exclusiveKey(g);if(!key)return null;const cfg=GAMEPLAY_SETTINGS.equipment?.exclusiveEnhance,b=cfg?.bindings?.find(x=>x.equipment===key);if(!b)return null;
+    return {material:b.material,monster:b.monster,quantity:Math.max(0,Math.floor(Number(cfg.quantityByLevel?.[target-1])||0))};
+  }
+  const costOf=g=>{const target=(g?.plus||0)+1,r=row(target),m=levelMultiplier(g),x=exclusiveCost(g,target);return {ore:(r?.cost.ore||0)*m,dust:(r?.cost.dust||0)*m,ether:(r?.cost.ether||0)*m,...(x&&x.quantity?{exclusive:x}:{})};};
   const failText=f=>f===null?'—':f==='destroy'?'裝備損毀':'退至 +'+f;
   const pct=n=>Math.round(n*100)+'%';
 
@@ -6257,7 +6651,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
 
   upgradeMaterials=function(g){return costOf(g);};
   globalThis.upgradeMaterials=upgradeMaterials;
-  const have=c=>state.dust>=c.dust&&state.ore>=c.ore&&(state.materials['以太鍛鐵']||0)>=c.ether;
+  const have=c=>state.dust>=c.dust&&state.ore>=c.ore&&(state.materials['以太鍛鐵']||0)>=c.ether&&(!c.exclusive||(state.materials[c.exclusive.material]||0)>=c.exclusive.quantity);
   canEnhance=function(g){return enhanceable(g)&&(g.plus||0)<maxLevel()&&have(costOf(g));};
   globalThis.canEnhance=canEnhance;
 
@@ -6279,14 +6673,14 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     if(!have(c)){toast('材料不足：'+upgradeCostText(g));return false;}
     if(r.fail==='destroy'&&!confirm(`強化至 +${target} 的成功率為 ${pct(r.rate)}，失敗時「${equipmentDisplayName(g)}」會損毀並消失，無法復原${gearWearer(g.id)?(isToken(g)?'（穿戴中的信物也會損毀）':'（穿戴中的裝備也會損毀）'):''}。\n確定強化？`))return false;
     const T=globalThis.__EMBERWILD_TEAMS,M=globalThis.EmberwildTeams;T?.capture?.();
-    const snap={ore:state.ore,dust:state.dust,ether:state.materials['以太鍛鐵']||0,plus,bag:state.bag,members:party.members.map(x=>({equipped:[...(x.equipped||[])],tokenId:x.tokenId,hp:x.hp})),build:T&&M?M.copy(T.build()):null,gems:[...(playerHero().gems||[])],progress:party.progressStats?JSON.parse(JSON.stringify(party.progressStats)):null,board:JSON.parse(JSON.stringify(playerHero().board||null))};
-    state.dust-=c.dust;state.ore-=c.ore;if(c.ether)state.materials['以太鍛鐵']=snap.ether-c.ether;
+    const snap={ore:state.ore,dust:state.dust,ether:state.materials['以太鍛鐵']||0,exclusive:c.exclusive?state.materials[c.exclusive.material]||0:0,plus,bag:state.bag,members:party.members.map(x=>({equipped:[...(x.equipped||[])],tokenId:x.tokenId,hp:x.hp})),build:T&&M?M.copy(T.build()):null,gems:[...(playerHero().gems||[])],progress:party.progressStats?JSON.parse(JSON.stringify(party.progressStats)):null,board:JSON.parse(JSON.stringify(playerHero().board||null))};
+    state.dust-=c.dust;state.ore-=c.ore;if(c.ether)state.materials['以太鍛鐵']=snap.ether-c.ether;if(c.exclusive)state.materials[c.exclusive.material]=snap.exclusive-c.exclusive.quantity;
     const ok=Math.random()<r.rate;let result;
     if(ok){g.plus=target;result='success';globalThis.recordEnhancement?.(g.plus);}
     else if(r.fail==='destroy'){destroy(g);result='destroyed';}
     else{g.plus=r.fail;result='failed';}
     if(save()===false){
-      state.ore=snap.ore;state.dust=snap.dust;state.materials['以太鍛鐵']=snap.ether;if(!state.materials['以太鍛鐵']&&!snap.ether)delete state.materials['以太鍛鐵'];
+      state.ore=snap.ore;state.dust=snap.dust;state.materials['以太鍛鐵']=snap.ether;if(!state.materials['以太鍛鐵']&&!snap.ether)delete state.materials['以太鍛鐵'];if(c.exclusive)state.materials[c.exclusive.material]=snap.exclusive;
       g.plus=snap.plus;state.bag=snap.bag;party.members.forEach((x,i)=>{x.equipped=snap.members[i].equipped;x.tokenId=snap.members[i].tokenId;x.hp=snap.members[i].hp;});
       if(snap.build)party.buildSystem=snap.build;playerHero().gems=snap.gems;if(snap.progress)party.progressStats=snap.progress;playerHero().board=snap.board;
       return false;
@@ -6325,7 +6719,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     const cost=c=>[c.dust?'粉塵 ×'+c.dust:'',c.ore?'鍛鐵 ×'+c.ore:'',c.ether?'以太鍛鐵 ×'+c.ether:''].filter(Boolean).join('、');
     return `<p class="small">表中為裝等 1～${settings().costLevelStep||5} 的消耗；裝等每高 ${settings().costLevelStep||5} 級，材料增加 1 倍。</p><table class="enhance-table"><thead><tr><th>強化目標</th><th>每次消耗</th><th>成功率</th><th>失敗結果</th><th>基礎能力累計加成</th></tr></thead><tbody>${levels().map(tableRow).map((r,i)=>`<tr${r.fail==='destroy'?' class="enhance-danger-row"':''}><td>+${i+1}</td><td>${cost(r.cost)}</td><td>${pct(r.rate)}</td><td>${failText(r.fail)}</td><td>${pct(r.bonus)}</td></tr>`).join('')}</tbody></table>`;
   }
-  globalThis.__EMBERWILD_ENHANCE={get table(){return levels().map(tableRow);},get max(){return maxLevel();},row,bonusAt,costOf,levelMultiplier,enhanceable,controlsHTML,tableHTML,ACCESSORY_SLOT};
+  globalThis.__EMBERWILD_ENHANCE={get table(){return levels().map(tableRow);},get max(){return maxLevel();},row,bonusAt,costOf,exclusiveCost,exclusiveKey,levelMultiplier,enhanceable,controlsHTML,tableHTML,ACCESSORY_SLOT};
 })();
 
 EmberwildProgression=globalThis.EmberwildProgression??EmberwildProgression;EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;EmberwildTeams=globalThis.EmberwildTeams??EmberwildTeams;__EMBERWILD_EQUIPMENT_SKILLS=globalThis.__EMBERWILD_EQUIPMENT_SKILLS??__EMBERWILD_EQUIPMENT_SKILLS;recordEnhancement=globalThis.recordEnhancement??recordEnhancement;upgradeMaterials=globalThis.upgradeMaterials??upgradeMaterials;canEnhance=globalThis.canEnhance??canEnhance;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;pruneGearSelections=globalThis.pruneGearSelections??pruneGearSelections;__EMBERWILD_ENHANCE=globalThis.__EMBERWILD_ENHANCE??__EMBERWILD_ENHANCE;
@@ -6668,12 +7062,12 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
 
 EmberwildMonsterDesign=globalThis.EmberwildMonsterDesign??EmberwildMonsterDesign;
 
-/* js/world/monster-drop-tables.js?v=20261120-v0180 */
+/* js/world/monster-drop-tables.js?v=20261126-v0211-gear */
 
 /* Update 15: data-driven monster catalog, per-monster drop tables and drop-rate affixes. */
 if(!SHOP.some(x=>x.type==='healPotion'))SHOP.push(...EmberwildHealingPotions.defaults.map(x=>structuredClone(x)));
 const DEFAULT_MONSTER_CATALOG=[{"id":"map0_mob0","name":"苔原史萊姆","mapIndex":0,"kind":"normal","material":"黏稠凝膠","element":"wind","race":"spirit","maxDrops":99},{"id":"map0_mob1","name":"林間野狼","mapIndex":0,"kind":"normal","material":"完整狼牙","element":"wind","race":"beast","maxDrops":99},{"id":"map0_mob2","name":"迷路樹精","mapIndex":0,"kind":"normal","material":"活性樹芯","element":"wind","race":"plant","maxDrops":99},{"id":"map0_boss","name":"古木守望者","mapIndex":0,"kind":"boss","material":"古木年輪","element":"wind","race":"plant","maxDrops":99},{"id":"map1_mob0","name":"洞穴蝙蝠","mapIndex":1,"kind":"normal","material":"薄翼膜","element":"physical","race":"beast","maxDrops":99},{"id":"map1_mob1","name":"岩背蜥蜴","mapIndex":1,"kind":"normal","material":"堅硬石鱗","element":"physical","race":"beast","maxDrops":99},{"id":"map1_mob2","name":"礦坑魔偶","mapIndex":1,"kind":"normal","material":"魔偶齒輪","element":"physical","race":"construct","maxDrops":99},{"id":"map1_boss","name":"礦脈巨人","mapIndex":1,"kind":"boss","material":"礦脈之心","element":"physical","race":"construct","maxDrops":99},{"id":"map2_mob0","name":"劇毒蛙","mapIndex":2,"kind":"normal","material":"劇毒腺體","element":"shadow","race":"beast","maxDrops":99},{"id":"map2_mob1","name":"幽光飛蛾","mapIndex":2,"kind":"normal","material":"微光鱗粉","element":"shadow","race":"spirit","maxDrops":99},{"id":"map2_mob2","name":"沼地亡魂","mapIndex":2,"kind":"normal","material":"怨念碎片","element":"shadow","race":"undead","maxDrops":99},{"id":"map2_boss","name":"泥沼女巫","mapIndex":2,"kind":"boss","material":"女巫符印","element":"shadow","race":"undead","maxDrops":99},{"id":"map3_mob0","name":"霜牙雪狼","mapIndex":3,"kind":"normal","material":"霜牙","element":"ice","race":"beast","maxDrops":99},{"id":"map3_mob1","name":"冰晶妖精","mapIndex":3,"kind":"normal","material":"冰晶翅片","element":"ice","race":"spirit","maxDrops":99},{"id":"map3_mob2","name":"雪原巨熊","mapIndex":3,"kind":"normal","material":"厚暖熊皮","element":"ice","race":"beast","maxDrops":99},{"id":"map3_boss","name":"凜冬巨獸","mapIndex":3,"kind":"boss","material":"永凍結晶","element":"ice","race":"beast","maxDrops":99},{"id":"map4_mob0","name":"熔岩蟲","mapIndex":4,"kind":"normal","material":"灼熱甲殼","element":"fire","race":"beast","maxDrops":99},{"id":"map4_mob1","name":"火羽渡鴉","mapIndex":4,"kind":"normal","material":"不熄火羽","element":"fire","race":"beast","maxDrops":99},{"id":"map4_mob2","name":"失控鎧甲","mapIndex":4,"kind":"normal","material":"焦黑鋼片","element":"fire","race":"construct","maxDrops":99},{"id":"map4_boss","name":"熔爐暴君","mapIndex":4,"kind":"boss","material":"熔核","element":"fire","race":"demon","maxDrops":99},{"id":"map5_mob0","name":"虛空獵犬","mapIndex":5,"kind":"normal","material":"虛空尖牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map5_mob1","name":"星塵水母","mapIndex":5,"kind":"normal","material":"星塵觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map5_mob2","name":"墜星魔像","mapIndex":5,"kind":"normal","material":"隕鐵核心","element":"shadow","race":"construct","maxDrops":99},{"id":"map5_boss","name":"星隕監視者","mapIndex":5,"kind":"boss","material":"星隕稜鏡","element":"shadow","race":"construct","maxDrops":99},{"id":"map6_boss","name":"噬日者・厄爾","mapIndex":6,"kind":"final","material":"日蝕王冠","element":"shadow","race":"demon","maxDrops":99},{"id":"map7_mob0","name":"覺醒・苔原史萊姆","mapIndex":7,"kind":"normal","material":"覺醒黏稠凝膠","element":"wind","race":"spirit","maxDrops":99},{"id":"map7_mob1","name":"覺醒・林間野狼","mapIndex":7,"kind":"normal","material":"覺醒完整狼牙","element":"wind","race":"beast","maxDrops":99},{"id":"map7_mob2","name":"覺醒・迷路樹精","mapIndex":7,"kind":"normal","material":"覺醒活性樹芯","element":"wind","race":"plant","maxDrops":99},{"id":"map7_boss","name":"覺醒・古木守望者","mapIndex":7,"kind":"boss","material":"覺醒古木年輪","element":"wind","race":"plant","maxDrops":99},{"id":"map8_mob0","name":"覺醒・洞穴蝙蝠","mapIndex":8,"kind":"normal","material":"覺醒薄翼膜","element":"physical","race":"beast","maxDrops":99},{"id":"map8_mob1","name":"覺醒・岩背蜥蜴","mapIndex":8,"kind":"normal","material":"覺醒堅硬石鱗","element":"physical","race":"beast","maxDrops":99},{"id":"map8_mob2","name":"覺醒・礦坑魔偶","mapIndex":8,"kind":"normal","material":"覺醒魔偶齒輪","element":"physical","race":"construct","maxDrops":99},{"id":"map8_boss","name":"覺醒・礦脈巨人","mapIndex":8,"kind":"boss","material":"覺醒礦脈之心","element":"physical","race":"construct","maxDrops":99},{"id":"map9_mob0","name":"覺醒・劇毒蛙","mapIndex":9,"kind":"normal","material":"覺醒劇毒腺體","element":"shadow","race":"beast","maxDrops":99},{"id":"map9_mob1","name":"覺醒・幽光飛蛾","mapIndex":9,"kind":"normal","material":"覺醒微光鱗粉","element":"shadow","race":"spirit","maxDrops":99},{"id":"map9_mob2","name":"覺醒・沼地亡魂","mapIndex":9,"kind":"normal","material":"覺醒怨念碎片","element":"shadow","race":"undead","maxDrops":99},{"id":"map9_boss","name":"覺醒・泥沼女巫","mapIndex":9,"kind":"boss","material":"覺醒女巫符印","element":"shadow","race":"undead","maxDrops":99},{"id":"map10_mob0","name":"覺醒・霜牙雪狼","mapIndex":10,"kind":"normal","material":"覺醒霜牙","element":"ice","race":"beast","maxDrops":99},{"id":"map10_mob1","name":"覺醒・冰晶妖精","mapIndex":10,"kind":"normal","material":"覺醒冰晶翅片","element":"ice","race":"spirit","maxDrops":99},{"id":"map10_mob2","name":"覺醒・雪原巨熊","mapIndex":10,"kind":"normal","material":"覺醒厚暖熊皮","element":"ice","race":"beast","maxDrops":99},{"id":"map10_boss","name":"覺醒・凜冬巨獸","mapIndex":10,"kind":"boss","material":"覺醒永凍結晶","element":"ice","race":"beast","maxDrops":99},{"id":"map11_mob0","name":"覺醒・熔岩蟲","mapIndex":11,"kind":"normal","material":"覺醒灼熱甲殼","element":"fire","race":"beast","maxDrops":99},{"id":"map11_mob1","name":"覺醒・火羽渡鴉","mapIndex":11,"kind":"normal","material":"覺醒不熄火羽","element":"fire","race":"beast","maxDrops":99},{"id":"map11_mob2","name":"覺醒・失控鎧甲","mapIndex":11,"kind":"normal","material":"覺醒焦黑鋼片","element":"fire","race":"construct","maxDrops":99},{"id":"map11_boss","name":"覺醒・熔爐暴君","mapIndex":11,"kind":"boss","material":"覺醒熔核","element":"fire","race":"demon","maxDrops":99},{"id":"map12_mob0","name":"覺醒・虛空獵犬","mapIndex":12,"kind":"normal","material":"覺醒虛空尖牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map12_mob1","name":"覺醒・星塵水母","mapIndex":12,"kind":"normal","material":"覺醒星塵觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map12_mob2","name":"覺醒・墜星魔像","mapIndex":12,"kind":"normal","material":"覺醒隕鐵核心","element":"shadow","race":"construct","maxDrops":99},{"id":"map12_boss","name":"覺醒・星隕監視者","mapIndex":12,"kind":"boss","material":"覺醒星隕稜鏡","element":"shadow","race":"construct","maxDrops":99},{"id":"map13_mob0","name":"燼翼火蛾","mapIndex":13,"kind":"normal","material":"燼翼粉","element":"fire","race":"spirit","maxDrops":99},{"id":"map13_mob1","name":"赤鬃山狼","mapIndex":13,"kind":"normal","material":"赤鬃毛皮","element":"fire","race":"beast","maxDrops":99},{"id":"map13_mob2","name":"焦根樹人","mapIndex":13,"kind":"normal","material":"焦根木髓","element":"fire","race":"plant","maxDrops":99},{"id":"map13_mob3","name":"炭殼魔偶","mapIndex":13,"kind":"normal","material":"炭殼碎片","element":"fire","race":"construct","maxDrops":99},{"id":"map13_boss","name":"赤楓炎靈","mapIndex":13,"kind":"boss","material":"炎靈心木","element":"fire","race":"spirit","maxDrops":99},{"id":"map14_mob0","name":"潮影蝙蝠","mapIndex":14,"kind":"normal","material":"潮影翼膜","element":"ice","race":"beast","maxDrops":99},{"id":"map14_mob1","name":"寒潮蜥蜴","mapIndex":14,"kind":"normal","material":"寒潮腺體","element":"ice","race":"beast","maxDrops":99},{"id":"map14_mob2","name":"海霧幽魂","mapIndex":14,"kind":"normal","material":"海霧結珠","element":"ice","race":"undead","maxDrops":99},{"id":"map14_mob3","name":"鹽晶魔像","mapIndex":14,"kind":"normal","material":"鹽晶塊","element":"ice","race":"construct","maxDrops":99},{"id":"map14_boss","name":"潮汐巨像","mapIndex":14,"kind":"boss","material":"深潮齒輪","element":"ice","race":"construct","maxDrops":99},{"id":"map15_mob0","name":"墓園亡魂","mapIndex":15,"kind":"normal","material":"亡者殘響","element":"shadow","race":"undead","maxDrops":99},{"id":"map15_mob1","name":"噬骨獵犬","mapIndex":15,"kind":"normal","material":"噬骨獠牙","element":"shadow","race":"beast","maxDrops":99},{"id":"map15_mob2","name":"墓火飛蛾","mapIndex":15,"kind":"normal","material":"墓火鱗片","element":"shadow","race":"spirit","maxDrops":99},{"id":"map15_mob3","name":"腐枝守衛","mapIndex":15,"kind":"normal","material":"腐枝黑核","element":"shadow","race":"plant","maxDrops":99},{"id":"map15_boss","name":"白骨巫后","mapIndex":15,"kind":"boss","material":"巫后骨印","element":"shadow","race":"undead","maxDrops":99},{"id":"map16_mob0","name":"雷牙蒼狼","mapIndex":16,"kind":"normal","material":"雷牙","element":"wind","race":"beast","maxDrops":99},{"id":"map16_mob1","name":"風暴妖精","mapIndex":16,"kind":"normal","material":"風暴晶羽","element":"wind","race":"spirit","maxDrops":99},{"id":"map16_mob2","name":"雷殼魔偶","mapIndex":16,"kind":"normal","material":"雷殼銅片","element":"wind","race":"construct","maxDrops":99},{"id":"map16_mob3","name":"高地巨熊","mapIndex":16,"kind":"normal","material":"高地熊膽","element":"wind","race":"beast","maxDrops":99},{"id":"map16_boss","name":"雷鳴獸王","mapIndex":16,"kind":"boss","material":"獸王雷角","element":"wind","race":"beast","maxDrops":99},{"id":"map17_mob0","name":"聖樹幼靈","mapIndex":17,"kind":"normal","material":"聖樹芽核","element":"light","race":"plant","maxDrops":99},{"id":"map17_mob1","name":"晶光妖精","mapIndex":17,"kind":"normal","material":"晶光翼","element":"light","race":"spirit","maxDrops":99},{"id":"map17_mob2","name":"聖羽渡鴉","mapIndex":17,"kind":"normal","material":"聖羽","element":"light","race":"beast","maxDrops":99},{"id":"map17_mob3","name":"失序聖鎧","mapIndex":17,"kind":"normal","material":"聖鎧殘片","element":"light","race":"construct","maxDrops":99},{"id":"map17_boss","name":"聖所守護者","mapIndex":17,"kind":"boss","material":"聖所徽核","element":"light","race":"construct","maxDrops":99},{"id":"map18_mob0","name":"冥界獵犬","mapIndex":18,"kind":"normal","material":"冥犬黑牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map18_mob1","name":"幽影水母","mapIndex":18,"kind":"normal","material":"幽影觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map18_mob2","name":"黑曜魔像","mapIndex":18,"kind":"normal","material":"黑曜脊核","element":"shadow","race":"construct","maxDrops":99},{"id":"map18_mob3","name":"游蕩冤魂","mapIndex":18,"kind":"normal","material":"邊境魂塵","element":"shadow","race":"undead","maxDrops":99},{"id":"map18_boss","name":"幽冥觀測者","mapIndex":18,"kind":"boss","material":"冥視之瞳","element":"shadow","race":"demon","maxDrops":99},{"id":"map19_mob0","name":"上古・燼翼火蛾","mapIndex":19,"kind":"normal","material":"上古燼翼粉","element":"fire","race":"spirit","maxDrops":99},{"id":"map19_mob1","name":"上古・赤鬃山狼","mapIndex":19,"kind":"normal","material":"上古赤鬃毛皮","element":"fire","race":"beast","maxDrops":99},{"id":"map19_mob2","name":"上古・焦根樹人","mapIndex":19,"kind":"normal","material":"上古焦根木髓","element":"fire","race":"plant","maxDrops":99},{"id":"map19_mob3","name":"上古・炭殼魔偶","mapIndex":19,"kind":"normal","material":"上古炭殼碎片","element":"fire","race":"construct","maxDrops":99},{"id":"map19_boss","name":"上古・赤楓炎靈","mapIndex":19,"kind":"boss","material":"上古炎靈心木","element":"fire","race":"spirit","maxDrops":99},{"id":"map20_mob0","name":"上古・潮影蝙蝠","mapIndex":20,"kind":"normal","material":"上古潮影翼膜","element":"ice","race":"beast","maxDrops":99},{"id":"map20_mob1","name":"上古・寒潮蜥蜴","mapIndex":20,"kind":"normal","material":"上古寒潮腺體","element":"ice","race":"beast","maxDrops":99},{"id":"map20_mob2","name":"上古・海霧幽魂","mapIndex":20,"kind":"normal","material":"上古海霧結珠","element":"ice","race":"undead","maxDrops":99},{"id":"map20_mob3","name":"上古・鹽晶魔像","mapIndex":20,"kind":"normal","material":"上古鹽晶塊","element":"ice","race":"construct","maxDrops":99},{"id":"map20_boss","name":"上古・潮汐巨像","mapIndex":20,"kind":"boss","material":"上古深潮齒輪","element":"ice","race":"construct","maxDrops":99},{"id":"map21_mob0","name":"上古・墓園亡魂","mapIndex":21,"kind":"normal","material":"上古亡者殘響","element":"shadow","race":"undead","maxDrops":99},{"id":"map21_mob1","name":"上古・噬骨獵犬","mapIndex":21,"kind":"normal","material":"上古噬骨獠牙","element":"shadow","race":"beast","maxDrops":99},{"id":"map21_mob2","name":"上古・墓火飛蛾","mapIndex":21,"kind":"normal","material":"上古墓火鱗片","element":"shadow","race":"spirit","maxDrops":99},{"id":"map21_mob3","name":"上古・腐枝守衛","mapIndex":21,"kind":"normal","material":"上古腐枝黑核","element":"shadow","race":"plant","maxDrops":99},{"id":"map21_boss","name":"上古・白骨巫后","mapIndex":21,"kind":"boss","material":"上古巫后骨印","element":"shadow","race":"undead","maxDrops":99},{"id":"map22_mob0","name":"上古・雷牙蒼狼","mapIndex":22,"kind":"normal","material":"上古雷牙","element":"wind","race":"beast","maxDrops":99},{"id":"map22_mob1","name":"上古・風暴妖精","mapIndex":22,"kind":"normal","material":"上古風暴晶羽","element":"wind","race":"spirit","maxDrops":99},{"id":"map22_mob2","name":"上古・雷殼魔偶","mapIndex":22,"kind":"normal","material":"上古雷殼銅片","element":"wind","race":"construct","maxDrops":99},{"id":"map22_mob3","name":"上古・高地巨熊","mapIndex":22,"kind":"normal","material":"上古高地熊膽","element":"wind","race":"beast","maxDrops":99},{"id":"map22_boss","name":"上古・雷鳴獸王","mapIndex":22,"kind":"boss","material":"上古獸王雷角","element":"wind","race":"beast","maxDrops":99},{"id":"map23_mob0","name":"上古・聖樹幼靈","mapIndex":23,"kind":"normal","material":"上古聖樹芽核","element":"light","race":"plant","maxDrops":99},{"id":"map23_mob1","name":"上古・晶光妖精","mapIndex":23,"kind":"normal","material":"上古晶光翼","element":"light","race":"spirit","maxDrops":99},{"id":"map23_mob2","name":"上古・聖羽渡鴉","mapIndex":23,"kind":"normal","material":"上古聖羽","element":"light","race":"beast","maxDrops":99},{"id":"map23_mob3","name":"上古・失序聖鎧","mapIndex":23,"kind":"normal","material":"上古聖鎧殘片","element":"light","race":"construct","maxDrops":99},{"id":"map23_boss","name":"上古・聖所守護者","mapIndex":23,"kind":"boss","material":"上古聖所徽核","element":"light","race":"construct","maxDrops":99},{"id":"map24_mob0","name":"上古・冥界獵犬","mapIndex":24,"kind":"normal","material":"上古冥犬黑牙","element":"shadow","race":"demon","maxDrops":99},{"id":"map24_mob1","name":"上古・幽影水母","mapIndex":24,"kind":"normal","material":"上古幽影觸鬚","element":"shadow","race":"spirit","maxDrops":99},{"id":"map24_mob2","name":"上古・黑曜魔像","mapIndex":24,"kind":"normal","material":"上古黑曜脊核","element":"shadow","race":"construct","maxDrops":99},{"id":"map24_mob3","name":"上古・游蕩冤魂","mapIndex":24,"kind":"normal","material":"上古邊境魂塵","element":"shadow","race":"undead","maxDrops":99},{"id":"map24_boss","name":"上古・幽冥觀測者","mapIndex":24,"kind":"boss","material":"上古冥視之瞳","element":"shadow","race":"demon","maxDrops":99}];
-const DEFAULT_DROP_ENTRIES=[{"id":"map0_mob0_material_normal","name":"黏稠凝膠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"map0_mob0_material_elite","name":"黏稠凝膠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"map0_mob1_material_normal","name":"完整狼牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"map0_mob1_material_elite","name":"完整狼牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"map0_mob2_material_normal","name":"活性樹芯","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"map0_mob2_material_elite","name":"活性樹芯（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"map0_boss_material","name":"古木年輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map0_boss"]},{"id":"map1_mob0_material_normal","name":"薄翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map1_mob0"]},{"id":"map1_mob0_material_elite","name":"薄翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob0"]},{"id":"map1_mob1_material_normal","name":"堅硬石鱗","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map1_mob1"]},{"id":"map1_mob1_material_elite","name":"堅硬石鱗（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob1"]},{"id":"map1_mob2_material_normal","name":"魔偶齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map1_mob2"]},{"id":"map1_mob2_material_elite","name":"魔偶齒輪（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob2"]},{"id":"map1_boss_material","name":"礦脈之心","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map1_boss"]},{"id":"map2_mob0_material_normal","name":"劇毒腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map2_mob0"]},{"id":"map2_mob0_material_elite","name":"劇毒腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob0"]},{"id":"map2_mob1_material_normal","name":"微光鱗粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map2_mob1"]},{"id":"map2_mob1_material_elite","name":"微光鱗粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob1"]},{"id":"map2_mob2_material_normal","name":"怨念碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map2_mob2"]},{"id":"map2_mob2_material_elite","name":"怨念碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob2"]},{"id":"map2_boss_material","name":"女巫符印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map2_boss"]},{"id":"map3_mob0_material_normal","name":"霜牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map3_mob0"]},{"id":"map3_mob0_material_elite","name":"霜牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob0"]},{"id":"map3_mob1_material_normal","name":"冰晶翅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map3_mob1"]},{"id":"map3_mob1_material_elite","name":"冰晶翅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob1"]},{"id":"map3_mob2_material_normal","name":"厚暖熊皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map3_mob2"]},{"id":"map3_mob2_material_elite","name":"厚暖熊皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob2"]},{"id":"map3_boss_material","name":"永凍結晶","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map3_boss"]},{"id":"map4_mob0_material_normal","name":"灼熱甲殼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map4_mob0"]},{"id":"map4_mob0_material_elite","name":"灼熱甲殼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob0"]},{"id":"map4_mob1_material_normal","name":"不熄火羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map4_mob1"]},{"id":"map4_mob1_material_elite","name":"不熄火羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob1"]},{"id":"map4_mob2_material_normal","name":"焦黑鋼片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map4_mob2"]},{"id":"map4_mob2_material_elite","name":"焦黑鋼片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob2"]},{"id":"map4_boss_material","name":"熔核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map4_boss"]},{"id":"map5_mob0_material_normal","name":"虛空尖牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map5_mob0"]},{"id":"map5_mob0_material_elite","name":"虛空尖牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob0"]},{"id":"map5_mob1_material_normal","name":"星塵觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map5_mob1"]},{"id":"map5_mob1_material_elite","name":"星塵觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob1"]},{"id":"map5_mob2_material_normal","name":"隕鐵核心","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map5_mob2"]},{"id":"map5_mob2_material_elite","name":"隕鐵核心（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob2"]},{"id":"map5_boss_material","name":"星隕稜鏡","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map5_boss"]},{"id":"map6_boss_material","name":"日蝕王冠","enabled":true,"type":"sourceMaterial","key":"","kinds":["final"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map6_boss"]},{"id":"map7_mob0_material_normal","name":"覺醒黏稠凝膠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map7_mob0"]},{"id":"map7_mob0_material_elite","name":"覺醒黏稠凝膠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob0"]},{"id":"map7_mob1_material_normal","name":"覺醒完整狼牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map7_mob1"]},{"id":"map7_mob1_material_elite","name":"覺醒完整狼牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob1"]},{"id":"map7_mob2_material_normal","name":"覺醒活性樹芯","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map7_mob2"]},{"id":"map7_mob2_material_elite","name":"覺醒活性樹芯（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob2"]},{"id":"map7_boss_material","name":"覺醒古木年輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map7_boss"]},{"id":"map8_mob0_material_normal","name":"覺醒薄翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map8_mob0"]},{"id":"map8_mob0_material_elite","name":"覺醒薄翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob0"]},{"id":"map8_mob1_material_normal","name":"覺醒堅硬石鱗","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map8_mob1"]},{"id":"map8_mob1_material_elite","name":"覺醒堅硬石鱗（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob1"]},{"id":"map8_mob2_material_normal","name":"覺醒魔偶齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map8_mob2"]},{"id":"map8_mob2_material_elite","name":"覺醒魔偶齒輪（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob2"]},{"id":"map8_boss_material","name":"覺醒礦脈之心","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map8_boss"]},{"id":"map9_mob0_material_normal","name":"覺醒劇毒腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map9_mob0"]},{"id":"map9_mob0_material_elite","name":"覺醒劇毒腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob0"]},{"id":"map9_mob1_material_normal","name":"覺醒微光鱗粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map9_mob1"]},{"id":"map9_mob1_material_elite","name":"覺醒微光鱗粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob1"]},{"id":"map9_mob2_material_normal","name":"覺醒怨念碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map9_mob2"]},{"id":"map9_mob2_material_elite","name":"覺醒怨念碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob2"]},{"id":"map9_boss_material","name":"覺醒女巫符印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map9_boss"]},{"id":"map10_mob0_material_normal","name":"覺醒霜牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map10_mob0"]},{"id":"map10_mob0_material_elite","name":"覺醒霜牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob0"]},{"id":"map10_mob1_material_normal","name":"覺醒冰晶翅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map10_mob1"]},{"id":"map10_mob1_material_elite","name":"覺醒冰晶翅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob1"]},{"id":"map10_mob2_material_normal","name":"覺醒厚暖熊皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map10_mob2"]},{"id":"map10_mob2_material_elite","name":"覺醒厚暖熊皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob2"]},{"id":"map10_boss_material","name":"覺醒永凍結晶","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map10_boss"]},{"id":"map11_mob0_material_normal","name":"覺醒灼熱甲殼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map11_mob0"]},{"id":"map11_mob0_material_elite","name":"覺醒灼熱甲殼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob0"]},{"id":"map11_mob1_material_normal","name":"覺醒不熄火羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map11_mob1"]},{"id":"map11_mob1_material_elite","name":"覺醒不熄火羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob1"]},{"id":"map11_mob2_material_normal","name":"覺醒焦黑鋼片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map11_mob2"]},{"id":"map11_mob2_material_elite","name":"覺醒焦黑鋼片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob2"]},{"id":"map11_boss_material","name":"覺醒熔核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map11_boss"]},{"id":"map12_mob0_material_normal","name":"覺醒虛空尖牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map12_mob0"]},{"id":"map12_mob0_material_elite","name":"覺醒虛空尖牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob0"]},{"id":"map12_mob1_material_normal","name":"覺醒星塵觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map12_mob1"]},{"id":"map12_mob1_material_elite","name":"覺醒星塵觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob1"]},{"id":"map12_mob2_material_normal","name":"覺醒隕鐵核心","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map12_mob2"]},{"id":"map12_mob2_material_elite","name":"覺醒隕鐵核心（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob2"]},{"id":"map12_boss_material","name":"覺醒星隕稜鏡","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map12_boss"]},{"id":"map13_mob0_material_normal","name":"燼翼粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map13_mob0"]},{"id":"map13_mob0_material_elite","name":"燼翼粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob0"]},{"id":"map13_mob1_material_normal","name":"赤鬃毛皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map13_mob1"]},{"id":"map13_mob1_material_elite","name":"赤鬃毛皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob1"]},{"id":"map13_mob2_material_normal","name":"焦根木髓","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map13_mob2"]},{"id":"map13_mob2_material_elite","name":"焦根木髓（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob2"]},{"id":"map13_mob3_material_normal","name":"炭殼碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map13_mob3"]},{"id":"map13_mob3_material_elite","name":"炭殼碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob3"]},{"id":"map13_boss_material","name":"炎靈心木","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map13_boss"]},{"id":"map14_mob0_material_normal","name":"潮影翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map14_mob0"]},{"id":"map14_mob0_material_elite","name":"潮影翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob0"]},{"id":"map14_mob1_material_normal","name":"寒潮腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map14_mob1"]},{"id":"map14_mob1_material_elite","name":"寒潮腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob1"]},{"id":"map14_mob2_material_normal","name":"海霧結珠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map14_mob2"]},{"id":"map14_mob2_material_elite","name":"海霧結珠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob2"]},{"id":"map14_mob3_material_normal","name":"鹽晶塊","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map14_mob3"]},{"id":"map14_mob3_material_elite","name":"鹽晶塊（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob3"]},{"id":"map14_boss_material","name":"深潮齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map14_boss"]},{"id":"map15_mob0_material_normal","name":"亡者殘響","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map15_mob0"]},{"id":"map15_mob0_material_elite","name":"亡者殘響（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob0"]},{"id":"map15_mob1_material_normal","name":"噬骨獠牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map15_mob1"]},{"id":"map15_mob1_material_elite","name":"噬骨獠牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob1"]},{"id":"map15_mob2_material_normal","name":"墓火鱗片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map15_mob2"]},{"id":"map15_mob2_material_elite","name":"墓火鱗片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob2"]},{"id":"map15_mob3_material_normal","name":"腐枝黑核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map15_mob3"]},{"id":"map15_mob3_material_elite","name":"腐枝黑核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob3"]},{"id":"map15_boss_material","name":"巫后骨印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map15_boss"]},{"id":"map16_mob0_material_normal","name":"雷牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map16_mob0"]},{"id":"map16_mob0_material_elite","name":"雷牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob0"]},{"id":"map16_mob1_material_normal","name":"風暴晶羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map16_mob1"]},{"id":"map16_mob1_material_elite","name":"風暴晶羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob1"]},{"id":"map16_mob2_material_normal","name":"雷殼銅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map16_mob2"]},{"id":"map16_mob2_material_elite","name":"雷殼銅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob2"]},{"id":"map16_mob3_material_normal","name":"高地熊膽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map16_mob3"]},{"id":"map16_mob3_material_elite","name":"高地熊膽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob3"]},{"id":"map16_boss_material","name":"獸王雷角","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map16_boss"]},{"id":"map17_mob0_material_normal","name":"聖樹芽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map17_mob0"]},{"id":"map17_mob0_material_elite","name":"聖樹芽核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob0"]},{"id":"map17_mob1_material_normal","name":"晶光翼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map17_mob1"]},{"id":"map17_mob1_material_elite","name":"晶光翼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob1"]},{"id":"map17_mob2_material_normal","name":"聖羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map17_mob2"]},{"id":"map17_mob2_material_elite","name":"聖羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob2"]},{"id":"map17_mob3_material_normal","name":"聖鎧殘片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map17_mob3"]},{"id":"map17_mob3_material_elite","name":"聖鎧殘片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob3"]},{"id":"map17_boss_material","name":"聖所徽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map17_boss"]},{"id":"map18_mob0_material_normal","name":"冥犬黑牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map18_mob0"]},{"id":"map18_mob0_material_elite","name":"冥犬黑牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob0"]},{"id":"map18_mob1_material_normal","name":"幽影觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map18_mob1"]},{"id":"map18_mob1_material_elite","name":"幽影觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob1"]},{"id":"map18_mob2_material_normal","name":"黑曜脊核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map18_mob2"]},{"id":"map18_mob2_material_elite","name":"黑曜脊核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob2"]},{"id":"map18_mob3_material_normal","name":"邊境魂塵","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map18_mob3"]},{"id":"map18_mob3_material_elite","name":"邊境魂塵（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob3"]},{"id":"map18_boss_material","name":"冥視之瞳","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map18_boss"]},{"id":"map19_mob0_material_normal","name":"上古燼翼粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map19_mob0"]},{"id":"map19_mob0_material_elite","name":"上古燼翼粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob0"]},{"id":"map19_mob1_material_normal","name":"上古赤鬃毛皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map19_mob1"]},{"id":"map19_mob1_material_elite","name":"上古赤鬃毛皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob1"]},{"id":"map19_mob2_material_normal","name":"上古焦根木髓","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map19_mob2"]},{"id":"map19_mob2_material_elite","name":"上古焦根木髓（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob2"]},{"id":"map19_mob3_material_normal","name":"上古炭殼碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map19_mob3"]},{"id":"map19_mob3_material_elite","name":"上古炭殼碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob3"]},{"id":"map19_boss_material","name":"上古炎靈心木","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map19_boss"]},{"id":"map20_mob0_material_normal","name":"上古潮影翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map20_mob0"]},{"id":"map20_mob0_material_elite","name":"上古潮影翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob0"]},{"id":"map20_mob1_material_normal","name":"上古寒潮腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map20_mob1"]},{"id":"map20_mob1_material_elite","name":"上古寒潮腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob1"]},{"id":"map20_mob2_material_normal","name":"上古海霧結珠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map20_mob2"]},{"id":"map20_mob2_material_elite","name":"上古海霧結珠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob2"]},{"id":"map20_mob3_material_normal","name":"上古鹽晶塊","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map20_mob3"]},{"id":"map20_mob3_material_elite","name":"上古鹽晶塊（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob3"]},{"id":"map20_boss_material","name":"上古深潮齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map20_boss"]},{"id":"map21_mob0_material_normal","name":"上古亡者殘響","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map21_mob0"]},{"id":"map21_mob0_material_elite","name":"上古亡者殘響（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob0"]},{"id":"map21_mob1_material_normal","name":"上古噬骨獠牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map21_mob1"]},{"id":"map21_mob1_material_elite","name":"上古噬骨獠牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob1"]},{"id":"map21_mob2_material_normal","name":"上古墓火鱗片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map21_mob2"]},{"id":"map21_mob2_material_elite","name":"上古墓火鱗片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob2"]},{"id":"map21_mob3_material_normal","name":"上古腐枝黑核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map21_mob3"]},{"id":"map21_mob3_material_elite","name":"上古腐枝黑核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob3"]},{"id":"map21_boss_material","name":"上古巫后骨印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map21_boss"]},{"id":"map22_mob0_material_normal","name":"上古雷牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map22_mob0"]},{"id":"map22_mob0_material_elite","name":"上古雷牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob0"]},{"id":"map22_mob1_material_normal","name":"上古風暴晶羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map22_mob1"]},{"id":"map22_mob1_material_elite","name":"上古風暴晶羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob1"]},{"id":"map22_mob2_material_normal","name":"上古雷殼銅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map22_mob2"]},{"id":"map22_mob2_material_elite","name":"上古雷殼銅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob2"]},{"id":"map22_mob3_material_normal","name":"上古高地熊膽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map22_mob3"]},{"id":"map22_mob3_material_elite","name":"上古高地熊膽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob3"]},{"id":"map22_boss_material","name":"上古獸王雷角","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map22_boss"]},{"id":"map23_mob0_material_normal","name":"上古聖樹芽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map23_mob0"]},{"id":"map23_mob0_material_elite","name":"上古聖樹芽核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob0"]},{"id":"map23_mob1_material_normal","name":"上古晶光翼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map23_mob1"]},{"id":"map23_mob1_material_elite","name":"上古晶光翼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob1"]},{"id":"map23_mob2_material_normal","name":"上古聖羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map23_mob2"]},{"id":"map23_mob2_material_elite","name":"上古聖羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob2"]},{"id":"map23_mob3_material_normal","name":"上古聖鎧殘片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map23_mob3"]},{"id":"map23_mob3_material_elite","name":"上古聖鎧殘片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob3"]},{"id":"map23_boss_material","name":"上古聖所徽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map23_boss"]},{"id":"map24_mob0_material_normal","name":"上古冥犬黑牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map24_mob0"]},{"id":"map24_mob0_material_elite","name":"上古冥犬黑牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob0"]},{"id":"map24_mob1_material_normal","name":"上古幽影觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map24_mob1"]},{"id":"map24_mob1_material_elite","name":"上古幽影觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob1"]},{"id":"map24_mob2_material_normal","name":"上古黑曜脊核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map24_mob2"]},{"id":"map24_mob2_material_elite","name":"上古黑曜脊核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob2"]},{"id":"map24_mob3_material_normal","name":"上古邊境魂塵","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map24_mob3"]},{"id":"map24_mob3_material_elite","name":"上古邊境魂塵（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob3"]},{"id":"map24_boss_material","name":"上古冥視之瞳","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map24_boss"]},{"id":"gear_normal","name":"一般裝備（普通怪）","enabled":true,"type":"gear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gear_elite","name":"一般裝備（菁英）","enabled":true,"type":"gear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gear_boss","name":"一般裝備（首領）","enabled":true,"type":"gear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]},{"id":"gear_legendary","name":"傳說詞條裝備","enabled":true,"type":"gearLegendary","key":"","kinds":["normal","elite","boss","final"],"chanceByDifficulty":[0.0006,0.0016,0.0032],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map0_boss","map1_mob0","map1_mob1","map1_mob2","map1_boss","map2_mob0","map2_mob1","map2_mob2","map2_boss","map3_mob0","map3_mob1","map3_mob2","map3_boss","map4_mob0","map4_mob1","map4_mob2","map4_boss","map5_mob0","map5_mob1","map5_mob2","map5_boss","map6_boss","map7_mob0","map7_mob1","map7_mob2","map7_boss","map8_mob0","map8_mob1","map8_mob2","map8_boss","map9_mob0","map9_mob1","map9_mob2","map9_boss","map10_mob0","map10_mob1","map10_mob2","map10_boss","map11_mob0","map11_mob1","map11_mob2","map11_boss","map12_mob0","map12_mob1","map12_mob2","map12_boss","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map13_boss","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map14_boss","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map15_boss","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map16_boss","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map17_boss","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map18_boss","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map19_boss","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map20_boss","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map21_boss","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map22_boss","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map23_boss","map24_mob0","map24_mob1","map24_mob2","map24_mob3","map24_boss"]},{"id":"boss_gear","name":"BOSS 專屬裝備","enabled":true,"type":"bossGear","key":"","kinds":["boss"],"chanceByDifficulty":[0.06,0.1,0.15],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss"]},{"id":"gem_normal","name":"隨機屬性寶石（普通怪）","enabled":true,"type":"gem","key":"random","kinds":["normal"],"chanceByDifficulty":[0.03,0.06,0.1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gem_elite","name":"隨機屬性寶石（菁英）","enabled":true,"type":"gem","key":"random","kinds":["elite"],"chanceByDifficulty":[0.09,0.17,0.27],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gem_boss","name":"隨機屬性寶石（首領）","enabled":true,"type":"gem","key":"random","kinds":["boss","final"],"chanceByDifficulty":[0.27,0.4,0.55],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]},{"id":"potion_all","name":"治療藥水","enabled":true,"type":"potion","key":"","kinds":["normal","elite","boss","final"],"chanceByDifficulty":[0.08,0.08,0.08],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map0_boss","map1_mob0","map1_mob1","map1_mob2","map1_boss","map2_mob0","map2_mob1","map2_mob2","map2_boss","map3_mob0","map3_mob1","map3_mob2","map3_boss","map4_mob0","map4_mob1","map4_mob2","map4_boss","map5_mob0","map5_mob1","map5_mob2","map5_boss","map6_boss","map7_mob0","map7_mob1","map7_mob2","map7_boss","map8_mob0","map8_mob1","map8_mob2","map8_boss","map9_mob0","map9_mob1","map9_mob2","map9_boss","map10_mob0","map10_mob1","map10_mob2","map10_boss","map11_mob0","map11_mob1","map11_mob2","map11_boss","map12_mob0","map12_mob1","map12_mob2","map12_boss","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map13_boss","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map14_boss","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map15_boss","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map16_boss","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map17_boss","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map18_boss","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map19_boss","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map20_boss","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map21_boss","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map22_boss","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map23_boss","map24_mob0","map24_mob1","map24_mob2","map24_mob3","map24_boss"]},{"id":"radiant_normal","name":"光輝碎塊（普通／菁英）","enabled":true,"type":"material","key":"光輝碎塊","kinds":["normal","elite"],"chanceByDifficulty":[0.0004,0.0004,0.0004],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"radiant_boss","name":"光輝碎塊（首領）","enabled":true,"type":"material","key":"光輝碎塊","kinds":["boss","final"],"chanceByDifficulty":[0.008,0.008,0.008],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]},{"id":"gear_legendary_normal","name":"傳說詞條裝備","enabled":true,"type":"gearLegendary","key":"","kinds":["normal"],"chanceByDifficulty":[6e-06,1.2e-05,2e-05],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gear_legendary_elite","name":"傳說詞條裝備","enabled":true,"type":"gearLegendary","key":"","kinds":["elite"],"chanceByDifficulty":[8e-06,1.8e-05,3.6e-05],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"cultivation_dust_normal","name":"粉塵","enabled":true,"type":"dust","key":"","kinds":["normal"],"chanceByDifficulty":[0.009,0.013,0.016],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"cultivation_dust_elite","name":"粉塵","enabled":true,"type":"dust","key":"","kinds":["elite"],"chanceByDifficulty":[0.07,0.09,0.11],"quantityMin":1,"quantityMax":2,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]}];
+const DEFAULT_DROP_ENTRIES=[{"id":"map0_mob0_material_normal","name":"黏稠凝膠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"map0_mob0_material_elite","name":"黏稠凝膠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"map0_mob1_material_normal","name":"完整狼牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"map0_mob1_material_elite","name":"完整狼牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"map0_mob2_material_normal","name":"活性樹芯","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"map0_mob2_material_elite","name":"活性樹芯（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"map0_boss_material","name":"古木年輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map0_boss"]},{"id":"map1_mob0_material_normal","name":"薄翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map1_mob0"]},{"id":"map1_mob0_material_elite","name":"薄翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob0"]},{"id":"map1_mob1_material_normal","name":"堅硬石鱗","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map1_mob1"]},{"id":"map1_mob1_material_elite","name":"堅硬石鱗（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob1"]},{"id":"map1_mob2_material_normal","name":"魔偶齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map1_mob2"]},{"id":"map1_mob2_material_elite","name":"魔偶齒輪（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map1_mob2"]},{"id":"map1_boss_material","name":"礦脈之心","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map1_boss"]},{"id":"map2_mob0_material_normal","name":"劇毒腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map2_mob0"]},{"id":"map2_mob0_material_elite","name":"劇毒腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob0"]},{"id":"map2_mob1_material_normal","name":"微光鱗粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map2_mob1"]},{"id":"map2_mob1_material_elite","name":"微光鱗粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob1"]},{"id":"map2_mob2_material_normal","name":"怨念碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map2_mob2"]},{"id":"map2_mob2_material_elite","name":"怨念碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map2_mob2"]},{"id":"map2_boss_material","name":"女巫符印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map2_boss"]},{"id":"map3_mob0_material_normal","name":"霜牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map3_mob0"]},{"id":"map3_mob0_material_elite","name":"霜牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob0"]},{"id":"map3_mob1_material_normal","name":"冰晶翅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map3_mob1"]},{"id":"map3_mob1_material_elite","name":"冰晶翅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob1"]},{"id":"map3_mob2_material_normal","name":"厚暖熊皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map3_mob2"]},{"id":"map3_mob2_material_elite","name":"厚暖熊皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map3_mob2"]},{"id":"map3_boss_material","name":"永凍結晶","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map3_boss"]},{"id":"map4_mob0_material_normal","name":"灼熱甲殼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map4_mob0"]},{"id":"map4_mob0_material_elite","name":"灼熱甲殼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob0"]},{"id":"map4_mob1_material_normal","name":"不熄火羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map4_mob1"]},{"id":"map4_mob1_material_elite","name":"不熄火羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob1"]},{"id":"map4_mob2_material_normal","name":"焦黑鋼片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map4_mob2"]},{"id":"map4_mob2_material_elite","name":"焦黑鋼片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map4_mob2"]},{"id":"map4_boss_material","name":"熔核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map4_boss"]},{"id":"map5_mob0_material_normal","name":"虛空尖牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map5_mob0"]},{"id":"map5_mob0_material_elite","name":"虛空尖牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob0"]},{"id":"map5_mob1_material_normal","name":"星塵觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map5_mob1"]},{"id":"map5_mob1_material_elite","name":"星塵觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob1"]},{"id":"map5_mob2_material_normal","name":"隕鐵核心","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map5_mob2"]},{"id":"map5_mob2_material_elite","name":"隕鐵核心（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map5_mob2"]},{"id":"map5_boss_material","name":"星隕稜鏡","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map5_boss"]},{"id":"map6_boss_material","name":"日蝕王冠","enabled":true,"type":"sourceMaterial","key":"","kinds":["final"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map6_boss"]},{"id":"map7_mob0_material_normal","name":"覺醒黏稠凝膠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map7_mob0"]},{"id":"map7_mob0_material_elite","name":"覺醒黏稠凝膠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob0"]},{"id":"map7_mob1_material_normal","name":"覺醒完整狼牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map7_mob1"]},{"id":"map7_mob1_material_elite","name":"覺醒完整狼牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob1"]},{"id":"map7_mob2_material_normal","name":"覺醒活性樹芯","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map7_mob2"]},{"id":"map7_mob2_material_elite","name":"覺醒活性樹芯（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map7_mob2"]},{"id":"map7_boss_material","name":"覺醒古木年輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map7_boss"]},{"id":"map8_mob0_material_normal","name":"覺醒薄翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map8_mob0"]},{"id":"map8_mob0_material_elite","name":"覺醒薄翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob0"]},{"id":"map8_mob1_material_normal","name":"覺醒堅硬石鱗","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map8_mob1"]},{"id":"map8_mob1_material_elite","name":"覺醒堅硬石鱗（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob1"]},{"id":"map8_mob2_material_normal","name":"覺醒魔偶齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map8_mob2"]},{"id":"map8_mob2_material_elite","name":"覺醒魔偶齒輪（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map8_mob2"]},{"id":"map8_boss_material","name":"覺醒礦脈之心","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map8_boss"]},{"id":"map9_mob0_material_normal","name":"覺醒劇毒腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map9_mob0"]},{"id":"map9_mob0_material_elite","name":"覺醒劇毒腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob0"]},{"id":"map9_mob1_material_normal","name":"覺醒微光鱗粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map9_mob1"]},{"id":"map9_mob1_material_elite","name":"覺醒微光鱗粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob1"]},{"id":"map9_mob2_material_normal","name":"覺醒怨念碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map9_mob2"]},{"id":"map9_mob2_material_elite","name":"覺醒怨念碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map9_mob2"]},{"id":"map9_boss_material","name":"覺醒女巫符印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map9_boss"]},{"id":"map10_mob0_material_normal","name":"覺醒霜牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map10_mob0"]},{"id":"map10_mob0_material_elite","name":"覺醒霜牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob0"]},{"id":"map10_mob1_material_normal","name":"覺醒冰晶翅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map10_mob1"]},{"id":"map10_mob1_material_elite","name":"覺醒冰晶翅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob1"]},{"id":"map10_mob2_material_normal","name":"覺醒厚暖熊皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map10_mob2"]},{"id":"map10_mob2_material_elite","name":"覺醒厚暖熊皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map10_mob2"]},{"id":"map10_boss_material","name":"覺醒永凍結晶","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map10_boss"]},{"id":"map11_mob0_material_normal","name":"覺醒灼熱甲殼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map11_mob0"]},{"id":"map11_mob0_material_elite","name":"覺醒灼熱甲殼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob0"]},{"id":"map11_mob1_material_normal","name":"覺醒不熄火羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map11_mob1"]},{"id":"map11_mob1_material_elite","name":"覺醒不熄火羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob1"]},{"id":"map11_mob2_material_normal","name":"覺醒焦黑鋼片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map11_mob2"]},{"id":"map11_mob2_material_elite","name":"覺醒焦黑鋼片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map11_mob2"]},{"id":"map11_boss_material","name":"覺醒熔核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map11_boss"]},{"id":"map12_mob0_material_normal","name":"覺醒虛空尖牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map12_mob0"]},{"id":"map12_mob0_material_elite","name":"覺醒虛空尖牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob0"]},{"id":"map12_mob1_material_normal","name":"覺醒星塵觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map12_mob1"]},{"id":"map12_mob1_material_elite","name":"覺醒星塵觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob1"]},{"id":"map12_mob2_material_normal","name":"覺醒隕鐵核心","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map12_mob2"]},{"id":"map12_mob2_material_elite","name":"覺醒隕鐵核心（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map12_mob2"]},{"id":"map12_boss_material","name":"覺醒星隕稜鏡","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map12_boss"]},{"id":"map13_mob0_material_normal","name":"燼翼粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map13_mob0"]},{"id":"map13_mob0_material_elite","name":"燼翼粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob0"]},{"id":"map13_mob1_material_normal","name":"赤鬃毛皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map13_mob1"]},{"id":"map13_mob1_material_elite","name":"赤鬃毛皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob1"]},{"id":"map13_mob2_material_normal","name":"焦根木髓","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map13_mob2"]},{"id":"map13_mob2_material_elite","name":"焦根木髓（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob2"]},{"id":"map13_mob3_material_normal","name":"炭殼碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map13_mob3"]},{"id":"map13_mob3_material_elite","name":"炭殼碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map13_mob3"]},{"id":"map13_boss_material","name":"炎靈心木","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map13_boss"]},{"id":"map14_mob0_material_normal","name":"潮影翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map14_mob0"]},{"id":"map14_mob0_material_elite","name":"潮影翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob0"]},{"id":"map14_mob1_material_normal","name":"寒潮腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map14_mob1"]},{"id":"map14_mob1_material_elite","name":"寒潮腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob1"]},{"id":"map14_mob2_material_normal","name":"海霧結珠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map14_mob2"]},{"id":"map14_mob2_material_elite","name":"海霧結珠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob2"]},{"id":"map14_mob3_material_normal","name":"鹽晶塊","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map14_mob3"]},{"id":"map14_mob3_material_elite","name":"鹽晶塊（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map14_mob3"]},{"id":"map14_boss_material","name":"深潮齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map14_boss"]},{"id":"map15_mob0_material_normal","name":"亡者殘響","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map15_mob0"]},{"id":"map15_mob0_material_elite","name":"亡者殘響（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob0"]},{"id":"map15_mob1_material_normal","name":"噬骨獠牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map15_mob1"]},{"id":"map15_mob1_material_elite","name":"噬骨獠牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob1"]},{"id":"map15_mob2_material_normal","name":"墓火鱗片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map15_mob2"]},{"id":"map15_mob2_material_elite","name":"墓火鱗片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob2"]},{"id":"map15_mob3_material_normal","name":"腐枝黑核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map15_mob3"]},{"id":"map15_mob3_material_elite","name":"腐枝黑核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map15_mob3"]},{"id":"map15_boss_material","name":"巫后骨印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map15_boss"]},{"id":"map16_mob0_material_normal","name":"雷牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map16_mob0"]},{"id":"map16_mob0_material_elite","name":"雷牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob0"]},{"id":"map16_mob1_material_normal","name":"風暴晶羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map16_mob1"]},{"id":"map16_mob1_material_elite","name":"風暴晶羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob1"]},{"id":"map16_mob2_material_normal","name":"雷殼銅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map16_mob2"]},{"id":"map16_mob2_material_elite","name":"雷殼銅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob2"]},{"id":"map16_mob3_material_normal","name":"高地熊膽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map16_mob3"]},{"id":"map16_mob3_material_elite","name":"高地熊膽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map16_mob3"]},{"id":"map16_boss_material","name":"獸王雷角","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map16_boss"]},{"id":"map17_mob0_material_normal","name":"聖樹芽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map17_mob0"]},{"id":"map17_mob0_material_elite","name":"聖樹芽核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob0"]},{"id":"map17_mob1_material_normal","name":"晶光翼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map17_mob1"]},{"id":"map17_mob1_material_elite","name":"晶光翼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob1"]},{"id":"map17_mob2_material_normal","name":"聖羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map17_mob2"]},{"id":"map17_mob2_material_elite","name":"聖羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob2"]},{"id":"map17_mob3_material_normal","name":"聖鎧殘片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map17_mob3"]},{"id":"map17_mob3_material_elite","name":"聖鎧殘片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map17_mob3"]},{"id":"map17_boss_material","name":"聖所徽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map17_boss"]},{"id":"map18_mob0_material_normal","name":"冥犬黑牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map18_mob0"]},{"id":"map18_mob0_material_elite","name":"冥犬黑牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob0"]},{"id":"map18_mob1_material_normal","name":"幽影觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map18_mob1"]},{"id":"map18_mob1_material_elite","name":"幽影觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob1"]},{"id":"map18_mob2_material_normal","name":"黑曜脊核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map18_mob2"]},{"id":"map18_mob2_material_elite","name":"黑曜脊核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob2"]},{"id":"map18_mob3_material_normal","name":"邊境魂塵","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map18_mob3"]},{"id":"map18_mob3_material_elite","name":"邊境魂塵（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map18_mob3"]},{"id":"map18_boss_material","name":"冥視之瞳","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map18_boss"]},{"id":"map19_mob0_material_normal","name":"上古燼翼粉","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map19_mob0"]},{"id":"map19_mob0_material_elite","name":"上古燼翼粉（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob0"]},{"id":"map19_mob1_material_normal","name":"上古赤鬃毛皮","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map19_mob1"]},{"id":"map19_mob1_material_elite","name":"上古赤鬃毛皮（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob1"]},{"id":"map19_mob2_material_normal","name":"上古焦根木髓","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map19_mob2"]},{"id":"map19_mob2_material_elite","name":"上古焦根木髓（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob2"]},{"id":"map19_mob3_material_normal","name":"上古炭殼碎片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map19_mob3"]},{"id":"map19_mob3_material_elite","name":"上古炭殼碎片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map19_mob3"]},{"id":"map19_boss_material","name":"上古炎靈心木","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map19_boss"]},{"id":"map20_mob0_material_normal","name":"上古潮影翼膜","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map20_mob0"]},{"id":"map20_mob0_material_elite","name":"上古潮影翼膜（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob0"]},{"id":"map20_mob1_material_normal","name":"上古寒潮腺體","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map20_mob1"]},{"id":"map20_mob1_material_elite","name":"上古寒潮腺體（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob1"]},{"id":"map20_mob2_material_normal","name":"上古海霧結珠","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map20_mob2"]},{"id":"map20_mob2_material_elite","name":"上古海霧結珠（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob2"]},{"id":"map20_mob3_material_normal","name":"上古鹽晶塊","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map20_mob3"]},{"id":"map20_mob3_material_elite","name":"上古鹽晶塊（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map20_mob3"]},{"id":"map20_boss_material","name":"上古深潮齒輪","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map20_boss"]},{"id":"map21_mob0_material_normal","name":"上古亡者殘響","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map21_mob0"]},{"id":"map21_mob0_material_elite","name":"上古亡者殘響（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob0"]},{"id":"map21_mob1_material_normal","name":"上古噬骨獠牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map21_mob1"]},{"id":"map21_mob1_material_elite","name":"上古噬骨獠牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob1"]},{"id":"map21_mob2_material_normal","name":"上古墓火鱗片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map21_mob2"]},{"id":"map21_mob2_material_elite","name":"上古墓火鱗片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob2"]},{"id":"map21_mob3_material_normal","name":"上古腐枝黑核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map21_mob3"]},{"id":"map21_mob3_material_elite","name":"上古腐枝黑核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map21_mob3"]},{"id":"map21_boss_material","name":"上古巫后骨印","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map21_boss"]},{"id":"map22_mob0_material_normal","name":"上古雷牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map22_mob0"]},{"id":"map22_mob0_material_elite","name":"上古雷牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob0"]},{"id":"map22_mob1_material_normal","name":"上古風暴晶羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map22_mob1"]},{"id":"map22_mob1_material_elite","name":"上古風暴晶羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob1"]},{"id":"map22_mob2_material_normal","name":"上古雷殼銅片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map22_mob2"]},{"id":"map22_mob2_material_elite","name":"上古雷殼銅片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob2"]},{"id":"map22_mob3_material_normal","name":"上古高地熊膽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map22_mob3"]},{"id":"map22_mob3_material_elite","name":"上古高地熊膽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map22_mob3"]},{"id":"map22_boss_material","name":"上古獸王雷角","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map22_boss"]},{"id":"map23_mob0_material_normal","name":"上古聖樹芽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map23_mob0"]},{"id":"map23_mob0_material_elite","name":"上古聖樹芽核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob0"]},{"id":"map23_mob1_material_normal","name":"上古晶光翼","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map23_mob1"]},{"id":"map23_mob1_material_elite","name":"上古晶光翼（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob1"]},{"id":"map23_mob2_material_normal","name":"上古聖羽","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map23_mob2"]},{"id":"map23_mob2_material_elite","name":"上古聖羽（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob2"]},{"id":"map23_mob3_material_normal","name":"上古聖鎧殘片","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map23_mob3"]},{"id":"map23_mob3_material_elite","name":"上古聖鎧殘片（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map23_mob3"]},{"id":"map23_boss_material","name":"上古聖所徽核","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map23_boss"]},{"id":"map24_mob0_material_normal","name":"上古冥犬黑牙","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map24_mob0"]},{"id":"map24_mob0_material_elite","name":"上古冥犬黑牙（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob0"]},{"id":"map24_mob1_material_normal","name":"上古幽影觸鬚","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map24_mob1"]},{"id":"map24_mob1_material_elite","name":"上古幽影觸鬚（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob1"]},{"id":"map24_mob2_material_normal","name":"上古黑曜脊核","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map24_mob2"]},{"id":"map24_mob2_material_elite","name":"上古黑曜脊核（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob2"]},{"id":"map24_mob3_material_normal","name":"上古邊境魂塵","enabled":true,"type":"sourceMaterial","key":"","kinds":["normal"],"chanceByDifficulty":[0.025,0.035,0.048],"quantityMin":1,"quantityMax":1,"sources":["map24_mob3"]},{"id":"map24_mob3_material_elite","name":"上古邊境魂塵（菁英）","enabled":true,"type":"sourceMaterial","key":"","kinds":["elite"],"chanceByDifficulty":[0.1,0.1,0.1],"quantityMin":1,"quantityMax":1,"sources":["map24_mob3"]},{"id":"map24_boss_material","name":"上古冥視之瞳","enabled":true,"type":"sourceMaterial","key":"","kinds":["boss"],"chanceByDifficulty":[0.2,0.2,0.2],"quantityMin":1,"quantityMax":1,"sources":["map24_boss"]},{"id":"boss_gear","name":"BOSS 專屬裝備","enabled":true,"type":"bossGear","key":"","kinds":["boss"],"chanceByDifficulty":[0.06,0.1,0.15],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss"]},{"id":"radiant_normal","name":"光輝碎塊（普通／菁英）","enabled":true,"type":"material","key":"光輝碎塊","kinds":["normal","elite"],"chanceByDifficulty":[0.0004,0.0004,0.0004],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"radiant_boss","name":"光輝碎塊（首領）","enabled":true,"type":"material","key":"光輝碎塊","kinds":["boss","final"],"chanceByDifficulty":[0.008,0.008,0.008],"quantityMin":1,"quantityMax":1,"sources":["map0_boss","map1_boss","map2_boss","map3_boss","map4_boss","map5_boss","map7_boss","map8_boss","map9_boss","map10_boss","map11_boss","map12_boss","map13_boss","map14_boss","map15_boss","map16_boss","map17_boss","map18_boss","map19_boss","map20_boss","map21_boss","map22_boss","map23_boss","map24_boss","map6_boss"]},{"id":"cultivation_dust_normal","name":"鍛鐵","enabled":true,"type":"ore","key":"","kinds":["normal"],"chanceByDifficulty":[0.0063,0.0091,0.0112],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"cultivation_dust_elite","name":"鍛鐵","enabled":true,"type":"ore","key":"","kinds":["elite"],"chanceByDifficulty":[0.049,0.063,0.077],"quantityMin":1,"quantityMax":2,"sources":["map0_mob0","map0_mob1","map0_mob2","map1_mob0","map1_mob1","map1_mob2","map2_mob0","map2_mob1","map2_mob2","map3_mob0","map3_mob1","map3_mob2","map4_mob0","map4_mob1","map4_mob2","map5_mob0","map5_mob1","map5_mob2","map7_mob0","map7_mob1","map7_mob2","map8_mob0","map8_mob1","map8_mob2","map9_mob0","map9_mob1","map9_mob2","map10_mob0","map10_mob1","map10_mob2","map11_mob0","map11_mob1","map11_mob2","map12_mob0","map12_mob1","map12_mob2","map13_mob0","map13_mob1","map13_mob2","map13_mob3","map14_mob0","map14_mob1","map14_mob2","map14_mob3","map15_mob0","map15_mob1","map15_mob2","map15_mob3","map16_mob0","map16_mob1","map16_mob2","map16_mob3","map17_mob0","map17_mob1","map17_mob2","map17_mob3","map18_mob0","map18_mob1","map18_mob2","map18_mob3","map19_mob0","map19_mob1","map19_mob2","map19_mob3","map20_mob0","map20_mob1","map20_mob2","map20_mob3","map21_mob0","map21_mob1","map21_mob2","map21_mob3","map22_mob0","map22_mob1","map22_mob2","map22_mob3","map23_mob0","map23_mob1","map23_mob2","map23_mob3","map24_mob0","map24_mob1","map24_mob2","map24_mob3"]},{"id":"gel-armor-normal","name":"凝膠護符","enabled":true,"type":"equipment","key":"form:4:3:2","kinds":["normal"],"chanceByDifficulty":[0.0004,0.0005,0.0006],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"gel-armor-elite","name":"凝膠護符","enabled":true,"type":"equipment","key":"form:4:3:2","kinds":["elite"],"chanceByDifficulty":[0.0012,0.0015,0.0018],"quantityMin":1,"quantityMax":1,"sources":["map0_mob0"]},{"id":"wolf-fang-pendant-normal","name":"狼牙綴飾","enabled":true,"type":"equipment","key":"form:4:3:1","kinds":["normal"],"chanceByDifficulty":[0.0004,0.0005,0.0006],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"wolf-fang-pendant-elite","name":"狼牙綴飾","enabled":true,"type":"equipment","key":"form:4:3:1","kinds":["elite"],"chanceByDifficulty":[0.0012,0.0015,0.0018],"quantityMin":1,"quantityMax":1,"sources":["map0_mob1"]},{"id":"living-core-talisman-normal","name":"纏藤法杖","enabled":true,"type":"equipment","key":"form:4:0:0","kinds":["normal"],"chanceByDifficulty":[0.0004,0.0005,0.0006],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"living-core-talisman-elite","name":"纏藤法杖","enabled":true,"type":"equipment","key":"form:4:0:0","kinds":["elite"],"chanceByDifficulty":[0.0012,0.0015,0.0018],"quantityMin":1,"quantityMax":1,"sources":["map0_mob2"]},{"id":"ancient-heart-bracer-boss","name":"古木之心護腕","enabled":true,"type":"equipment","key":"form:4:2:1","kinds":["boss"],"chanceByDifficulty":[0.05,0.08,0.12],"quantityMin":1,"quantityMax":1,"sources":["map0_boss"]},{"id":"gear_pool_map0_mob0_normal","name":"一般裝備（苔原史萊姆）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map0_mob0"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map0_mob0_elite","name":"一般裝備（菁英苔原史萊姆）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map0_mob0"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map0_mob1_normal","name":"一般裝備（林間野狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map0_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map0_mob1_elite","name":"一般裝備（菁英林間野狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map0_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map0_mob2_normal","name":"一般裝備（迷路樹精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map0_mob2"],"pool":[{"key":"form:1:0:1","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map0_mob2_elite","name":"一般裝備（菁英迷路樹精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map0_mob2"],"pool":[{"key":"form:1:0:1","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map0_boss","name":"一般裝備（古木守望者）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map0_boss"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map1_mob0_normal","name":"一般裝備（洞穴蝙蝠）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map1_mob0"],"pool":[{"key":"form:2:1:0","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map1_mob0_elite","name":"一般裝備（菁英洞穴蝙蝠）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map1_mob0"],"pool":[{"key":"form:2:1:0","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map1_mob1_normal","name":"一般裝備（岩背蜥蜴）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map1_mob1"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map1_mob1_elite","name":"一般裝備（菁英岩背蜥蜴）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map1_mob1"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map1_mob2_normal","name":"一般裝備（礦坑魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map1_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map1_mob2_elite","name":"一般裝備（菁英礦坑魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map1_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map1_boss","name":"一般裝備（礦脈巨人）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map1_boss"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:2:0","weight":1}]},{"id":"gear_pool_map2_mob0_normal","name":"一般裝備（劇毒蛙）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map2_mob0"],"pool":[{"key":"form:0:0:1","weight":1},{"key":"form:2:0:1","weight":1}]},{"id":"gear_pool_map2_mob0_elite","name":"一般裝備（菁英劇毒蛙）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map2_mob0"],"pool":[{"key":"form:0:0:1","weight":1},{"key":"form:2:0:1","weight":1}]},{"id":"gear_pool_map2_mob1_normal","name":"一般裝備（幽光飛蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map2_mob1"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:3:0","weight":1}]},{"id":"gear_pool_map2_mob1_elite","name":"一般裝備（菁英幽光飛蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map2_mob1"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:3:0","weight":1}]},{"id":"gear_pool_map2_mob2_normal","name":"一般裝備（沼地亡魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map2_mob2"],"pool":[{"key":"form:3:2:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map2_mob2_elite","name":"一般裝備（菁英沼地亡魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map2_mob2"],"pool":[{"key":"form:3:2:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map2_boss","name":"一般裝備（泥沼女巫）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map2_boss"],"pool":[{"key":"form:1:2:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map3_mob0_normal","name":"一般裝備（霜牙雪狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map3_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map3_mob0_elite","name":"一般裝備（菁英霜牙雪狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map3_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map3_mob1_normal","name":"一般裝備（冰晶妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map3_mob1"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map3_mob1_elite","name":"一般裝備（菁英冰晶妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map3_mob1"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map3_mob2_normal","name":"一般裝備（雪原巨熊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map3_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map3_mob2_elite","name":"一般裝備（菁英雪原巨熊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map3_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map3_boss","name":"一般裝備（凜冬巨獸）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map3_boss"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:3:0:0","weight":1}]},{"id":"gear_pool_map4_mob0_normal","name":"一般裝備（熔岩蟲）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map4_mob0"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:2:0","weight":1}]},{"id":"gear_pool_map4_mob0_elite","name":"一般裝備（菁英熔岩蟲）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map4_mob0"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:2:0","weight":1}]},{"id":"gear_pool_map4_mob1_normal","name":"一般裝備（火羽渡鴉）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map4_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map4_mob1_elite","name":"一般裝備（菁英火羽渡鴉）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map4_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map4_mob2_normal","name":"一般裝備（失控鎧甲）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map4_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:0","weight":1}]},{"id":"gear_pool_map4_mob2_elite","name":"一般裝備（菁英失控鎧甲）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map4_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:0","weight":1}]},{"id":"gear_pool_map4_boss","name":"一般裝備（熔爐暴君）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map4_boss"],"pool":[{"key":"form:0:2:0","weight":1},{"key":"form:3:2:0","weight":1}]},{"id":"gear_pool_map5_mob0_normal","name":"一般裝備（虛空獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map5_mob0"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map5_mob0_elite","name":"一般裝備（菁英虛空獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map5_mob0"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map5_mob1_normal","name":"一般裝備（星塵水母）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map5_mob1"],"pool":[{"key":"form:1:3:0","weight":1},{"key":"form:1:0:1","weight":1}]},{"id":"gear_pool_map5_mob1_elite","name":"一般裝備（菁英星塵水母）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map5_mob1"],"pool":[{"key":"form:1:3:0","weight":1},{"key":"form:1:0:1","weight":1}]},{"id":"gear_pool_map5_mob2_normal","name":"一般裝備（墜星魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map5_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map5_mob2_elite","name":"一般裝備（菁英墜星魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map5_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map5_boss","name":"一般裝備（星隕監視者）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map5_boss"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map6_boss","name":"一般裝備（噬日者・厄爾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map6_boss"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:3:0:0","weight":1}]},{"id":"gear_pool_map7_mob0_normal","name":"一般裝備（覺醒・苔原史萊姆）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map7_mob0"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map7_mob0_elite","name":"一般裝備（菁英覺醒・苔原史萊姆）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map7_mob0"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map7_mob1_normal","name":"一般裝備（覺醒・林間野狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map7_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map7_mob1_elite","name":"一般裝備（菁英覺醒・林間野狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map7_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map7_mob2_normal","name":"一般裝備（覺醒・迷路樹精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map7_mob2"],"pool":[{"key":"form:1:0:1","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map7_mob2_elite","name":"一般裝備（菁英覺醒・迷路樹精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map7_mob2"],"pool":[{"key":"form:1:0:1","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map7_boss","name":"一般裝備（覺醒・古木守望者）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map7_boss"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map8_mob0_normal","name":"一般裝備（覺醒・洞穴蝙蝠）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map8_mob0"],"pool":[{"key":"form:2:1:0","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map8_mob0_elite","name":"一般裝備（菁英覺醒・洞穴蝙蝠）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map8_mob0"],"pool":[{"key":"form:2:1:0","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map8_mob1_normal","name":"一般裝備（覺醒・岩背蜥蜴）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map8_mob1"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map8_mob1_elite","name":"一般裝備（菁英覺醒・岩背蜥蜴）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map8_mob1"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map8_mob2_normal","name":"一般裝備（覺醒・礦坑魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map8_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map8_mob2_elite","name":"一般裝備（菁英覺醒・礦坑魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map8_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map8_boss","name":"一般裝備（覺醒・礦脈巨人）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map8_boss"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:2:0","weight":1}]},{"id":"gear_pool_map9_mob0_normal","name":"一般裝備（覺醒・劇毒蛙）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map9_mob0"],"pool":[{"key":"form:0:0:1","weight":1},{"key":"form:2:0:1","weight":1}]},{"id":"gear_pool_map9_mob0_elite","name":"一般裝備（菁英覺醒・劇毒蛙）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map9_mob0"],"pool":[{"key":"form:0:0:1","weight":1},{"key":"form:2:0:1","weight":1}]},{"id":"gear_pool_map9_mob1_normal","name":"一般裝備（覺醒・幽光飛蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map9_mob1"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:3:0","weight":1}]},{"id":"gear_pool_map9_mob1_elite","name":"一般裝備（菁英覺醒・幽光飛蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map9_mob1"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:3:0","weight":1}]},{"id":"gear_pool_map9_mob2_normal","name":"一般裝備（覺醒・沼地亡魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map9_mob2"],"pool":[{"key":"form:3:2:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map9_mob2_elite","name":"一般裝備（菁英覺醒・沼地亡魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map9_mob2"],"pool":[{"key":"form:3:2:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map9_boss","name":"一般裝備（覺醒・泥沼女巫）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map9_boss"],"pool":[{"key":"form:1:2:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map10_mob0_normal","name":"一般裝備（覺醒・霜牙雪狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map10_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map10_mob0_elite","name":"一般裝備（菁英覺醒・霜牙雪狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map10_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map10_mob1_normal","name":"一般裝備（覺醒・冰晶妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map10_mob1"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map10_mob1_elite","name":"一般裝備（菁英覺醒・冰晶妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map10_mob1"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map10_mob2_normal","name":"一般裝備（覺醒・雪原巨熊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map10_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map10_mob2_elite","name":"一般裝備（菁英覺醒・雪原巨熊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map10_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map10_boss","name":"一般裝備（覺醒・凜冬巨獸）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map10_boss"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:3:0:0","weight":1}]},{"id":"gear_pool_map11_mob0_normal","name":"一般裝備（覺醒・熔岩蟲）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map11_mob0"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:2:0","weight":1}]},{"id":"gear_pool_map11_mob0_elite","name":"一般裝備（菁英覺醒・熔岩蟲）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map11_mob0"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:2:0","weight":1}]},{"id":"gear_pool_map11_mob1_normal","name":"一般裝備（覺醒・火羽渡鴉）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map11_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map11_mob1_elite","name":"一般裝備（菁英覺醒・火羽渡鴉）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map11_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map11_mob2_normal","name":"一般裝備（覺醒・失控鎧甲）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map11_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:0","weight":1}]},{"id":"gear_pool_map11_mob2_elite","name":"一般裝備（菁英覺醒・失控鎧甲）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map11_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:0","weight":1}]},{"id":"gear_pool_map11_boss","name":"一般裝備（覺醒・熔爐暴君）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map11_boss"],"pool":[{"key":"form:0:2:0","weight":1},{"key":"form:3:2:0","weight":1}]},{"id":"gear_pool_map12_mob0_normal","name":"一般裝備（覺醒・虛空獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map12_mob0"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map12_mob0_elite","name":"一般裝備（菁英覺醒・虛空獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map12_mob0"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map12_mob1_normal","name":"一般裝備（覺醒・星塵水母）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map12_mob1"],"pool":[{"key":"form:1:3:0","weight":1},{"key":"form:1:0:1","weight":1}]},{"id":"gear_pool_map12_mob1_elite","name":"一般裝備（菁英覺醒・星塵水母）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map12_mob1"],"pool":[{"key":"form:1:3:0","weight":1},{"key":"form:1:0:1","weight":1}]},{"id":"gear_pool_map12_mob2_normal","name":"一般裝備（覺醒・墜星魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map12_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map12_mob2_elite","name":"一般裝備（菁英覺醒・墜星魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map12_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map12_boss","name":"一般裝備（覺醒・星隕監視者）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map12_boss"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map13_mob0_normal","name":"一般裝備（燼翼火蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map13_mob0"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:3:0","weight":1}]},{"id":"gear_pool_map13_mob0_elite","name":"一般裝備（菁英燼翼火蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map13_mob0"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:3:0","weight":1}]},{"id":"gear_pool_map13_mob1_normal","name":"一般裝備（赤鬃山狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map13_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map13_mob1_elite","name":"一般裝備（菁英赤鬃山狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map13_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map13_mob2_normal","name":"一般裝備（焦根樹人）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map13_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map13_mob2_elite","name":"一般裝備（菁英焦根樹人）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map13_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map13_mob3_normal","name":"一般裝備（炭殼魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map13_mob3"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map13_mob3_elite","name":"一般裝備（菁英炭殼魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map13_mob3"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map13_boss","name":"一般裝備（赤楓炎靈）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map13_boss"],"pool":[{"key":"form:1:2:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map14_mob0_normal","name":"一般裝備（潮影蝙蝠）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map14_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map14_mob0_elite","name":"一般裝備（菁英潮影蝙蝠）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map14_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map14_mob1_normal","name":"一般裝備（寒潮蜥蜴）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map14_mob1"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map14_mob1_elite","name":"一般裝備（菁英寒潮蜥蜴）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map14_mob1"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map14_mob2_normal","name":"一般裝備（海霧幽魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map14_mob2"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map14_mob2_elite","name":"一般裝備（菁英海霧幽魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map14_mob2"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map14_mob3_normal","name":"一般裝備（鹽晶魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map14_mob3"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:3:0:0","weight":1}]},{"id":"gear_pool_map14_mob3_elite","name":"一般裝備（菁英鹽晶魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map14_mob3"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:3:0:0","weight":1}]},{"id":"gear_pool_map14_boss","name":"一般裝備（潮汐巨像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map14_boss"],"pool":[{"key":"form:0:2:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map15_mob0_normal","name":"一般裝備（墓園亡魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map15_mob0"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:0:1","weight":1}]},{"id":"gear_pool_map15_mob0_elite","name":"一般裝備（菁英墓園亡魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map15_mob0"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:0:1","weight":1}]},{"id":"gear_pool_map15_mob1_normal","name":"一般裝備（噬骨獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map15_mob1"],"pool":[{"key":"form:0:0:1","weight":1},{"key":"form:0:0:0","weight":1}]},{"id":"gear_pool_map15_mob1_elite","name":"一般裝備（菁英噬骨獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map15_mob1"],"pool":[{"key":"form:0:0:1","weight":1},{"key":"form:0:0:0","weight":1}]},{"id":"gear_pool_map15_mob2_normal","name":"一般裝備（墓火飛蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map15_mob2"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map15_mob2_elite","name":"一般裝備（菁英墓火飛蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map15_mob2"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map15_mob3_normal","name":"一般裝備（腐枝守衛）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map15_mob3"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map15_mob3_elite","name":"一般裝備（菁英腐枝守衛）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map15_mob3"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map15_boss","name":"一般裝備（白骨巫后）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map15_boss"],"pool":[{"key":"form:3:2:0","weight":1},{"key":"form:1:2:0","weight":1}]},{"id":"gear_pool_map16_mob0_normal","name":"一般裝備（雷牙蒼狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map16_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map16_mob0_elite","name":"一般裝備（菁英雷牙蒼狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map16_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map16_mob1_normal","name":"一般裝備（風暴妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map16_mob1"],"pool":[{"key":"form:1:0:1","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map16_mob1_elite","name":"一般裝備（菁英風暴妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map16_mob1"],"pool":[{"key":"form:1:0:1","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map16_mob2_normal","name":"一般裝備（雷殼魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map16_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map16_mob2_elite","name":"一般裝備（菁英雷殼魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map16_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map16_mob3_normal","name":"一般裝備（高地巨熊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map16_mob3"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map16_mob3_elite","name":"一般裝備（菁英高地巨熊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map16_mob3"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map16_boss","name":"一般裝備（雷鳴獸王）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map16_boss"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map17_mob0_normal","name":"一般裝備（聖樹幼靈）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map17_mob0"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map17_mob0_elite","name":"一般裝備（菁英聖樹幼靈）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map17_mob0"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map17_mob1_normal","name":"一般裝備（晶光妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map17_mob1"],"pool":[{"key":"form:1:3:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map17_mob1_elite","name":"一般裝備（菁英晶光妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map17_mob1"],"pool":[{"key":"form:1:3:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map17_mob2_normal","name":"一般裝備（聖羽渡鴉）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map17_mob2"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map17_mob2_elite","name":"一般裝備（菁英聖羽渡鴉）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map17_mob2"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map17_mob3_normal","name":"一般裝備（失序聖鎧）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map17_mob3"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:2:0","weight":1}]},{"id":"gear_pool_map17_mob3_elite","name":"一般裝備（菁英失序聖鎧）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map17_mob3"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:2:0","weight":1}]},{"id":"gear_pool_map17_boss","name":"一般裝備（聖所守護者）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map17_boss"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map18_mob0_normal","name":"一般裝備（冥界獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map18_mob0"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map18_mob0_elite","name":"一般裝備（菁英冥界獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map18_mob0"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map18_mob1_normal","name":"一般裝備（幽影水母）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map18_mob1"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map18_mob1_elite","name":"一般裝備（菁英幽影水母）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map18_mob1"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map18_mob2_normal","name":"一般裝備（黑曜魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map18_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map18_mob2_elite","name":"一般裝備（菁英黑曜魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map18_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map18_mob3_normal","name":"一般裝備（游蕩冤魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map18_mob3"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:2:0","weight":1}]},{"id":"gear_pool_map18_mob3_elite","name":"一般裝備（菁英游蕩冤魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map18_mob3"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:2:0","weight":1}]},{"id":"gear_pool_map18_boss","name":"一般裝備（幽冥觀測者）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map18_boss"],"pool":[{"key":"form:1:2:0","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map19_mob0_normal","name":"一般裝備（上古・燼翼火蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map19_mob0"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:3:0","weight":1}]},{"id":"gear_pool_map19_mob0_elite","name":"一般裝備（菁英上古・燼翼火蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map19_mob0"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:3:0","weight":1}]},{"id":"gear_pool_map19_mob1_normal","name":"一般裝備（上古・赤鬃山狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map19_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map19_mob1_elite","name":"一般裝備（菁英上古・赤鬃山狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map19_mob1"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map19_mob2_normal","name":"一般裝備（上古・焦根樹人）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map19_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map19_mob2_elite","name":"一般裝備（菁英上古・焦根樹人）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map19_mob2"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map19_mob3_normal","name":"一般裝備（上古・炭殼魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map19_mob3"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map19_mob3_elite","name":"一般裝備（菁英上古・炭殼魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map19_mob3"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map19_boss","name":"一般裝備（上古・赤楓炎靈）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map19_boss"],"pool":[{"key":"form:1:2:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map20_mob0_normal","name":"一般裝備（上古・潮影蝙蝠）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map20_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map20_mob0_elite","name":"一般裝備（菁英上古・潮影蝙蝠）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map20_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map20_mob1_normal","name":"一般裝備（上古・寒潮蜥蜴）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map20_mob1"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map20_mob1_elite","name":"一般裝備（菁英上古・寒潮蜥蜴）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map20_mob1"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map20_mob2_normal","name":"一般裝備（上古・海霧幽魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map20_mob2"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map20_mob2_elite","name":"一般裝備（菁英上古・海霧幽魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map20_mob2"],"pool":[{"key":"form:1:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map20_mob3_normal","name":"一般裝備（上古・鹽晶魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map20_mob3"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:3:0:0","weight":1}]},{"id":"gear_pool_map20_mob3_elite","name":"一般裝備（菁英上古・鹽晶魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map20_mob3"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:3:0:0","weight":1}]},{"id":"gear_pool_map20_boss","name":"一般裝備（上古・潮汐巨像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map20_boss"],"pool":[{"key":"form:0:2:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map21_mob0_normal","name":"一般裝備（上古・墓園亡魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map21_mob0"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:0:1","weight":1}]},{"id":"gear_pool_map21_mob0_elite","name":"一般裝備（菁英上古・墓園亡魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map21_mob0"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:0:1","weight":1}]},{"id":"gear_pool_map21_mob1_normal","name":"一般裝備（上古・噬骨獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map21_mob1"],"pool":[{"key":"form:0:0:1","weight":1},{"key":"form:0:0:0","weight":1}]},{"id":"gear_pool_map21_mob1_elite","name":"一般裝備（菁英上古・噬骨獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map21_mob1"],"pool":[{"key":"form:0:0:1","weight":1},{"key":"form:0:0:0","weight":1}]},{"id":"gear_pool_map21_mob2_normal","name":"一般裝備（上古・墓火飛蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map21_mob2"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map21_mob2_elite","name":"一般裝備（菁英上古・墓火飛蛾）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map21_mob2"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gear_pool_map21_mob3_normal","name":"一般裝備（上古・腐枝守衛）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map21_mob3"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map21_mob3_elite","name":"一般裝備（菁英上古・腐枝守衛）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map21_mob3"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map21_boss","name":"一般裝備（上古・白骨巫后）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map21_boss"],"pool":[{"key":"form:3:2:0","weight":1},{"key":"form:1:2:0","weight":1}]},{"id":"gear_pool_map22_mob0_normal","name":"一般裝備（上古・雷牙蒼狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map22_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map22_mob0_elite","name":"一般裝備（菁英上古・雷牙蒼狼）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map22_mob0"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:2:0","weight":1}]},{"id":"gear_pool_map22_mob1_normal","name":"一般裝備（上古・風暴妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map22_mob1"],"pool":[{"key":"form:1:0:1","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map22_mob1_elite","name":"一般裝備（菁英上古・風暴妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map22_mob1"],"pool":[{"key":"form:1:0:1","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map22_mob2_normal","name":"一般裝備（上古・雷殼魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map22_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map22_mob2_elite","name":"一般裝備（菁英上古・雷殼魔偶）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map22_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:3:0","weight":1}]},{"id":"gear_pool_map22_mob3_normal","name":"一般裝備（上古・高地巨熊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map22_mob3"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map22_mob3_elite","name":"一般裝備（菁英上古・高地巨熊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map22_mob3"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:0:1:0","weight":1}]},{"id":"gear_pool_map22_boss","name":"一般裝備（上古・雷鳴獸王）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map22_boss"],"pool":[{"key":"form:0:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map23_mob0_normal","name":"一般裝備（上古・聖樹幼靈）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map23_mob0"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map23_mob0_elite","name":"一般裝備（菁英上古・聖樹幼靈）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map23_mob0"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:3:0","weight":1}]},{"id":"gear_pool_map23_mob1_normal","name":"一般裝備（上古・晶光妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map23_mob1"],"pool":[{"key":"form:1:3:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map23_mob1_elite","name":"一般裝備（菁英上古・晶光妖精）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map23_mob1"],"pool":[{"key":"form:1:3:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map23_mob2_normal","name":"一般裝備（上古・聖羽渡鴉）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map23_mob2"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map23_mob2_elite","name":"一般裝備（菁英上古・聖羽渡鴉）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map23_mob2"],"pool":[{"key":"form:2:0:0","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map23_mob3_normal","name":"一般裝備（上古・失序聖鎧）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map23_mob3"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:2:0","weight":1}]},{"id":"gear_pool_map23_mob3_elite","name":"一般裝備（菁英上古・失序聖鎧）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map23_mob3"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:2:0","weight":1}]},{"id":"gear_pool_map23_boss","name":"一般裝備（上古・聖所守護者）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map23_boss"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:1:1:0","weight":1}]},{"id":"gear_pool_map24_mob0_normal","name":"一般裝備（上古・冥界獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map24_mob0"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map24_mob0_elite","name":"一般裝備（菁英上古・冥界獵犬）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map24_mob0"],"pool":[{"key":"form:2:0:1","weight":1},{"key":"form:2:1:0","weight":1}]},{"id":"gear_pool_map24_mob1_normal","name":"一般裝備（上古・幽影水母）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map24_mob1"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map24_mob1_elite","name":"一般裝備（菁英上古・幽影水母）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map24_mob1"],"pool":[{"key":"form:1:1:0","weight":1},{"key":"form:1:0:0","weight":1}]},{"id":"gear_pool_map24_mob2_normal","name":"一般裝備（上古・黑曜魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map24_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map24_mob2_elite","name":"一般裝備（菁英上古・黑曜魔像）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map24_mob2"],"pool":[{"key":"form:0:1:0","weight":1},{"key":"form:0:0:1","weight":1}]},{"id":"gear_pool_map24_mob3_normal","name":"一般裝備（上古・游蕩冤魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["normal"],"chanceByDifficulty":[0.002,0.0027,0.0034],"sources":["map24_mob3"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:2:0","weight":1}]},{"id":"gear_pool_map24_mob3_elite","name":"一般裝備（菁英上古・游蕩冤魂）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["elite"],"chanceByDifficulty":[0.006,0.008,0.01],"sources":["map24_mob3"],"pool":[{"key":"form:3:0:0","weight":1},{"key":"form:3:2:0","weight":1}]},{"id":"gear_pool_map24_boss","name":"一般裝備（上古・幽冥觀測者）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"monsterGear","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.2,0.25,0.3],"sources":["map24_boss"],"pool":[{"key":"form:1:2:0","weight":1},{"key":"form:2:3:0","weight":1}]},{"id":"gem_map0_normal","name":"地圖寶石（無名密林）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map0_mob0","map0_mob1","map0_mob2"],"pool":[{"key":"1","weight":1}]},{"id":"gem_map0_elite","name":"地圖寶石（菁英，無名密林）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map0_mob0","map0_mob1","map0_mob2"],"pool":[{"key":"1","weight":1}]},{"id":"gem_map0_boss","name":"首領寶石（無名密林）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map0_boss"],"pool":[{"key":"1","weight":2},{"key":"2","weight":1},{"key":"3","weight":1}]},{"id":"gem_map1_normal","name":"地圖寶石（風蝕礦坑）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map1_mob0","map1_mob1","map1_mob2"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map1_elite","name":"地圖寶石（菁英，風蝕礦坑）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map1_mob0","map1_mob1","map1_mob2"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map1_boss","name":"首領寶石（風蝕礦坑）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map1_boss"],"pool":[{"key":"4","weight":2},{"key":"0","weight":1},{"key":"1","weight":1}]},{"id":"gem_map2_normal","name":"地圖寶石（暮色沼澤）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map2_mob0","map2_mob1","map2_mob2"],"pool":[{"key":"2","weight":1}]},{"id":"gem_map2_elite","name":"地圖寶石（菁英，暮色沼澤）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map2_mob0","map2_mob1","map2_mob2"],"pool":[{"key":"2","weight":1}]},{"id":"gem_map2_boss","name":"首領寶石（暮色沼澤）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map2_boss"],"pool":[{"key":"2","weight":2},{"key":"3","weight":1},{"key":"4","weight":1}]},{"id":"gem_map3_normal","name":"地圖寶石（霜眠山脊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map3_mob0","map3_mob1","map3_mob2"],"pool":[{"key":"3","weight":1}]},{"id":"gem_map3_elite","name":"地圖寶石（菁英，霜眠山脊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map3_mob0","map3_mob1","map3_mob2"],"pool":[{"key":"3","weight":1}]},{"id":"gem_map3_boss","name":"首領寶石（霜眠山脊）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map3_boss"],"pool":[{"key":"3","weight":2},{"key":"4","weight":1},{"key":"0","weight":1}]},{"id":"gem_map4_normal","name":"地圖寶石（熔火遺跡）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map4_mob0","map4_mob1","map4_mob2"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map4_elite","name":"地圖寶石（菁英，熔火遺跡）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map4_mob0","map4_mob1","map4_mob2"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map4_boss","name":"首領寶石（熔火遺跡）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map4_boss"],"pool":[{"key":"0","weight":2},{"key":"1","weight":1},{"key":"2","weight":1}]},{"id":"gem_map5_normal","name":"地圖寶石（星隕荒原）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map5_mob0","map5_mob1","map5_mob2"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map5_elite","name":"地圖寶石（菁英，星隕荒原）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map5_mob0","map5_mob1","map5_mob2"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map5_boss","name":"首領寶石（星隕荒原）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map5_boss"],"pool":[{"key":"0","weight":2},{"key":"1","weight":1},{"key":"2","weight":1}]},{"id":"gem_map6_boss","name":"首領寶石（終焉王座）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map6_boss"],"pool":[{"key":"0","weight":1},{"key":"2","weight":1},{"key":"4","weight":1}]},{"id":"gem_map7_normal","name":"地圖寶石（翠影秘境）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map7_mob0","map7_mob1","map7_mob2"],"pool":[{"key":"1","weight":1}]},{"id":"gem_map7_elite","name":"地圖寶石（菁英，翠影秘境）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map7_mob0","map7_mob1","map7_mob2"],"pool":[{"key":"1","weight":1}]},{"id":"gem_map7_boss","name":"首領寶石（翠影秘境）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map7_boss"],"pool":[{"key":"1","weight":2},{"key":"2","weight":1},{"key":"3","weight":1}]},{"id":"gem_map8_normal","name":"地圖寶石（深淵礦脈）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map8_mob0","map8_mob1","map8_mob2"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map8_elite","name":"地圖寶石（菁英，深淵礦脈）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map8_mob0","map8_mob1","map8_mob2"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map8_boss","name":"首領寶石（深淵礦脈）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map8_boss"],"pool":[{"key":"4","weight":2},{"key":"0","weight":1},{"key":"1","weight":1}]},{"id":"gem_map9_normal","name":"地圖寶石（幽冥水澤）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map9_mob0","map9_mob1","map9_mob2"],"pool":[{"key":"2","weight":1}]},{"id":"gem_map9_elite","name":"地圖寶石（菁英，幽冥水澤）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map9_mob0","map9_mob1","map9_mob2"],"pool":[{"key":"2","weight":1}]},{"id":"gem_map9_boss","name":"首領寶石（幽冥水澤）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map9_boss"],"pool":[{"key":"2","weight":2},{"key":"3","weight":1},{"key":"4","weight":1}]},{"id":"gem_map10_normal","name":"地圖寶石（極夜冰川）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map10_mob0","map10_mob1","map10_mob2"],"pool":[{"key":"3","weight":1}]},{"id":"gem_map10_elite","name":"地圖寶石（菁英，極夜冰川）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map10_mob0","map10_mob1","map10_mob2"],"pool":[{"key":"3","weight":1}]},{"id":"gem_map10_boss","name":"首領寶石（極夜冰川）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map10_boss"],"pool":[{"key":"3","weight":2},{"key":"4","weight":1},{"key":"0","weight":1}]},{"id":"gem_map11_normal","name":"地圖寶石（煉獄熔城）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map11_mob0","map11_mob1","map11_mob2"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map11_elite","name":"地圖寶石（菁英，煉獄熔城）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map11_mob0","map11_mob1","map11_mob2"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map11_boss","name":"首領寶石（煉獄熔城）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map11_boss"],"pool":[{"key":"0","weight":2},{"key":"1","weight":1},{"key":"2","weight":1}]},{"id":"gem_map12_normal","name":"地圖寶石（天隕聖域）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map12_mob0","map12_mob1","map12_mob2"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map12_elite","name":"地圖寶石（菁英，天隕聖域）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map12_mob0","map12_mob1","map12_mob2"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map12_boss","name":"首領寶石（天隕聖域）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map12_boss"],"pool":[{"key":"0","weight":2},{"key":"1","weight":1},{"key":"2","weight":1}]},{"id":"gem_map13_normal","name":"地圖寶石（赤楓丘陵）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map13_mob0","map13_mob1","map13_mob2","map13_mob3"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map13_elite","name":"地圖寶石（菁英，赤楓丘陵）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map13_mob0","map13_mob1","map13_mob2","map13_mob3"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map13_boss","name":"首領寶石（赤楓丘陵）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map13_boss"],"pool":[{"key":"0","weight":2},{"key":"1","weight":1},{"key":"2","weight":1}]},{"id":"gem_map14_normal","name":"地圖寶石（潮汐洞窟）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map14_mob0","map14_mob1","map14_mob2","map14_mob3"],"pool":[{"key":"3","weight":1}]},{"id":"gem_map14_elite","name":"地圖寶石（菁英，潮汐洞窟）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map14_mob0","map14_mob1","map14_mob2","map14_mob3"],"pool":[{"key":"3","weight":1}]},{"id":"gem_map14_boss","name":"首領寶石（潮汐洞窟）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map14_boss"],"pool":[{"key":"3","weight":2},{"key":"4","weight":1},{"key":"0","weight":1}]},{"id":"gem_map15_normal","name":"地圖寶石（白骨墓園）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map15_mob0","map15_mob1","map15_mob2","map15_mob3"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map15_elite","name":"地圖寶石（菁英，白骨墓園）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map15_mob0","map15_mob1","map15_mob2","map15_mob3"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map15_boss","name":"首領寶石（白骨墓園）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map15_boss"],"pool":[{"key":"4","weight":2},{"key":"0","weight":1},{"key":"1","weight":1}]},{"id":"gem_map16_normal","name":"地圖寶石（雷鳴高地）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map16_mob0","map16_mob1","map16_mob2","map16_mob3"],"pool":[{"key":"1","weight":1}]},{"id":"gem_map16_elite","name":"地圖寶石（菁英，雷鳴高地）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map16_mob0","map16_mob1","map16_mob2","map16_mob3"],"pool":[{"key":"1","weight":1}]},{"id":"gem_map16_boss","name":"首領寶石（雷鳴高地）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map16_boss"],"pool":[{"key":"1","weight":2},{"key":"2","weight":1},{"key":"3","weight":1}]},{"id":"gem_map17_normal","name":"地圖寶石（蒼翠聖所）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map17_mob0","map17_mob1","map17_mob2","map17_mob3"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map17_elite","name":"地圖寶石（菁英，蒼翠聖所）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map17_mob0","map17_mob1","map17_mob2","map17_mob3"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map17_boss","name":"首領寶石（蒼翠聖所）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map17_boss"],"pool":[{"key":"4","weight":2},{"key":"0","weight":1},{"key":"1","weight":1}]},{"id":"gem_map18_normal","name":"地圖寶石（幽冥邊境）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map18_mob0","map18_mob1","map18_mob2","map18_mob3"],"pool":[{"key":"2","weight":1}]},{"id":"gem_map18_elite","name":"地圖寶石（菁英，幽冥邊境）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map18_mob0","map18_mob1","map18_mob2","map18_mob3"],"pool":[{"key":"2","weight":1}]},{"id":"gem_map18_boss","name":"首領寶石（幽冥邊境）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map18_boss"],"pool":[{"key":"2","weight":2},{"key":"3","weight":1},{"key":"4","weight":1}]},{"id":"gem_map19_normal","name":"地圖寶石（炎晶裂谷）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map19_mob0","map19_mob1","map19_mob2","map19_mob3"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map19_elite","name":"地圖寶石（菁英，炎晶裂谷）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map19_mob0","map19_mob1","map19_mob2","map19_mob3"],"pool":[{"key":"0","weight":1}]},{"id":"gem_map19_boss","name":"首領寶石（炎晶裂谷）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map19_boss"],"pool":[{"key":"0","weight":2},{"key":"1","weight":1},{"key":"2","weight":1}]},{"id":"gem_map20_normal","name":"地圖寶石（深海祭壇）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map20_mob0","map20_mob1","map20_mob2","map20_mob3"],"pool":[{"key":"3","weight":1}]},{"id":"gem_map20_elite","name":"地圖寶石（菁英，深海祭壇）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map20_mob0","map20_mob1","map20_mob2","map20_mob3"],"pool":[{"key":"3","weight":1}]},{"id":"gem_map20_boss","name":"首領寶石（深海祭壇）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map20_boss"],"pool":[{"key":"3","weight":2},{"key":"4","weight":1},{"key":"0","weight":1}]},{"id":"gem_map21_normal","name":"地圖寶石（亡者王庭）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map21_mob0","map21_mob1","map21_mob2","map21_mob3"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map21_elite","name":"地圖寶石（菁英，亡者王庭）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map21_mob0","map21_mob1","map21_mob2","map21_mob3"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map21_boss","name":"首領寶石（亡者王庭）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map21_boss"],"pool":[{"key":"4","weight":2},{"key":"0","weight":1},{"key":"1","weight":1}]},{"id":"gem_map22_normal","name":"地圖寶石（風暴浮島）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map22_mob0","map22_mob1","map22_mob2","map22_mob3"],"pool":[{"key":"1","weight":1}]},{"id":"gem_map22_elite","name":"地圖寶石（菁英，風暴浮島）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map22_mob0","map22_mob1","map22_mob2","map22_mob3"],"pool":[{"key":"1","weight":1}]},{"id":"gem_map22_boss","name":"首領寶石（風暴浮島）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map22_boss"],"pool":[{"key":"1","weight":2},{"key":"2","weight":1},{"key":"3","weight":1}]},{"id":"gem_map23_normal","name":"地圖寶石（聖光禁林）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map23_mob0","map23_mob1","map23_mob2","map23_mob3"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map23_elite","name":"地圖寶石（菁英，聖光禁林）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map23_mob0","map23_mob1","map23_mob2","map23_mob3"],"pool":[{"key":"4","weight":1}]},{"id":"gem_map23_boss","name":"首領寶石（聖光禁林）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map23_boss"],"pool":[{"key":"4","weight":2},{"key":"0","weight":1},{"key":"1","weight":1}]},{"id":"gem_map24_normal","name":"地圖寶石（日蝕深淵）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["normal"],"chanceByDifficulty":[0.033,0.066,0.11],"sources":["map24_mob0","map24_mob1","map24_mob2","map24_mob3"],"pool":[{"key":"2","weight":1}]},{"id":"gem_map24_elite","name":"地圖寶石（菁英，日蝕深淵）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["elite"],"chanceByDifficulty":[0.099,0.187,0.297],"sources":["map24_mob0","map24_mob1","map24_mob2","map24_mob3"],"pool":[{"key":"2","weight":1}]},{"id":"gem_map24_boss","name":"首領寶石（日蝕深淵）","enabled":true,"quantityMin":1,"quantityMax":1,"type":"gemPool","key":"","kinds":["boss","final"],"chanceByDifficulty":[0.297,0.44,0.605],"sources":["map24_boss"],"pool":[{"key":"2","weight":2},{"key":"3","weight":1},{"key":"4","weight":1}]}];
 EmberwildHealingPotions.migrateDrops({monsters:{catalog:DEFAULT_MONSTER_CATALOG},drops:{entries:DEFAULT_DROP_ENTRIES}});
 GAME_BALANCE_DEFAULTS.affixes.extendedValues.dropRateBonus ??= {normal:0,fine:5,rare:10,legendary:20};
 GAME_BALANCE=normalizeRuntimeBalance(GAME_BALANCE);
@@ -6705,12 +7099,12 @@ validateGameplaySettings=function(cfg){
   }
   for(let mi=0;mi<MAPS.length;mi++){const finalMap=cfg.maps?.catalog?.[mi]?.mapType==='final'||(!cfg.maps?.catalog&&mi===6),bosses=cfg.monsters.catalog.filter(m=>m.mapIndex===mi&&(finalMap?m.kind==='final':m.kind==='boss'));if(finalMap?bosses.length!==1:cfg.maps?.catalog?.[mi]?.bossEnabled!==false&&!bosses.length)throw Error(`地圖 ${mi} 必須恰好有 1 個${finalMap?'最終首領':'地圖首領'}`);}
   if(!cfg.drops||!Array.isArray(cfg.drops.entries))throw Error('掉落表必須是陣列');
-  const types=new Set(['sourceMaterial','material','ore','dust','gem','potion','item','gear','gearLegendary','bossGear','equipment','token']),encKinds=new Set(['normal','elite','boss','final']),dropIds=new Set();
+  const types=new Set(['sourceMaterial','material','ore','gem','item','bossGear','equipment','token','monsterGear','gemPool']),encKinds=new Set(['normal','elite','boss','final']),dropIds=new Set();
   for(const [i,d] of cfg.drops.entries.entries()){
     if(!d||typeof d.id!=='string'||!/^[a-zA-Z0-9_-]{1,120}$/.test(d.id)||dropIds.has(d.id))throw Error('掉落規則 ID 無效或重複：'+i);dropIds.add(d.id);
-    if(typeof d.name!=='string'||!d.name.trim()||typeof d.enabled!=='boolean'||!types.has(d.type)||!Array.isArray(d.kinds)||!d.kinds.length||d.kinds.some(k=>!encKinds.has(k))||!Array.isArray(d.chanceByDifficulty)||d.chanceByDifficulty.length!==3||d.chanceByDifficulty.some(v=>!Number.isFinite(v)||v<0||v>1)||!Number.isInteger(d.quantityMin)||!Number.isInteger(d.quantityMax)||d.quantityMin<1||d.quantityMax<d.quantityMin||d.quantityMax>999||!Array.isArray(d.sources)||!d.sources.length||d.sources.some(id=>!monsterIds.has(id)))throw Error('掉落規則資料無效：'+d.id);
+    if(typeof d.name!=='string'||!d.name.trim()||typeof d.enabled!=='boolean'||!types.has(d.type)||!Array.isArray(d.kinds)||!d.kinds.length||d.kinds.some(k=>!encKinds.has(k))||!Array.isArray(d.chanceByDifficulty)||d.chanceByDifficulty.length!==3||d.chanceByDifficulty.some(v=>!Number.isFinite(v)||v<0||v>1)||!Number.isInteger(d.quantityMin)||!Number.isInteger(d.quantityMax)||d.quantityMin<1||d.quantityMax<d.quantityMin||d.quantityMax>999||!Array.isArray(d.sources)||!d.sources.length||d.sources.some(id=>!monsterIds.has(id)))throw Error('掉落規則資料無效：'+d.id);{const poolIssues=EmberwildDropRework.ruleIssues(d,{formExists:ref=>!!(typeof ITEM_FORMS!=='undefined'?ITEM_FORMS:[])[ref.job]?.[ref.slot]?.[ref.index]});if(poolIssues.length)throw Error(poolIssues.join('；'));}
     if(d.type==='material'&&(typeof d.key!=='string'||!d.key.trim()))throw Error('材料掉落需要材料名稱：'+d.id);
-    if(d.type==='gem'&&d.key!=='random'&&![0,1,2,3,4,'0','1','2','3','4'].includes(d.key))throw Error('寶石掉落 key 需為 random/0/1/2：'+d.id);if(d.type==='item'&&!(globalThis.__EMBERWILD_VALIDATE_ITEM_IDS||new Set(SHOP.map(x=>x.id))).has(d.key))throw Error('商店道具掉落 key 無效：'+d.id);
+    if(d.type==='gem'&&![0,1,2,3,4,'0','1','2','3','4'].includes(d.key))throw Error('寶石掉落 key 需為指定寶石 0～4（隨機寶石掉落已移除，請改用地圖寶石池）：'+d.id);if(d.type==='item'&&!(globalThis.__EMBERWILD_VALIDATE_ITEM_IDS||new Set(SHOP.map(x=>x.id))).has(d.key))throw Error('商店道具掉落 key 無效：'+d.id);
   }
   return cfg;
 };
@@ -6745,37 +7139,28 @@ function configuredDropDescription(row,kind,mapIndex){
   const rules=configuredDropRules(e).filter(rule=>effectiveDropChance(rule,e,bonus)>0);
   if(!rules.length)return '掉落表：此難度無啟用中的物品掉落';
   const items=rules.map(rule=>{
-    const name=rule.type==='sourceMaterial'?(kind==='boss'?(e.difficulty?'【'+['普通','困難','地獄'][e.difficulty]+'】':'')+row.material:row.material):rule.type==='material'?rule.key:rule.name;
+    const name=rule.type==='sourceMaterial'?(kind==='boss'?(e.difficulty?'【'+['普通','困難','地獄'][e.difficulty]+'】':'')+row.material:row.material):rule.type==='material'?rule.key:typeof dropRulePoolLabel==='function'&&['monsterGear','gemPool'].includes(rule.type)?dropRulePoolLabel(rule):rule.name;
     const chance=Number((effectiveDropChance(rule,e,bonus)*100).toFixed(2)),qty=rule.quantityMin===rule.quantityMax?rule.quantityMin:rule.quantityMin+'～'+rule.quantityMax;
     return esc(name)+' ×'+qty+'（'+chance+'%）';
   });
   return '掉落表：'+items.join('、')+'；最多 '+Math.max(0,Math.floor(row.maxDrops??99))+' 項';
 }
 function randomQuantity(rule,rng=Math.random){const lo=Math.max(1,Math.floor(rule.quantityMin||1)),hi=Math.max(lo,Math.floor(rule.quantityMax||lo));return lo+Math.floor(rng()*(hi-lo+1));}
-function ensureLegendaryDropAffix(g){
-  // Equipment rarity is determined by affix quality. A "legendary gear" drop therefore
-  // guarantees at least one rank-3 affix instead of relying on the legacy g.rar field.
-  const normal=rollAffixes(g),q=GAME_BALANCE.affixes.qualityChance,saved={...q};
-  let legendary=null;
-  try{
-    q.normal=0;q.fine=0;q.rare=0;q.legendary=1;
-    legendary=rollAffixes(g)[0]||null;
-  }finally{Object.assign(q,saved);}
-  if(legendary)g.affix=[legendary,...normal.slice(1)];else g.affix=normal;
-  return g;
-}
 function grantConfiguredDrop(rule,e,rng=Math.random){
   const qty=randomQuantity(rule,rng),mode=e.difficulty||0,mi=e.region??state.map,tier=regionTier(mi),r=GAMEPLAY_SETTINGS.rewards;
   if(rule.type==='sourceMaterial'||rule.type==='material'){const key=rule.type==='sourceMaterial'?(e.kind==='boss'?(mode?'【'+['普通','困難','地獄'][mode]+'】':'')+e.mat:e.mat):rule.key;state.materials[key]=(state.materials[key]||0)+qty;note('獲得 '+key+' ×'+qty,'item');return {name:key,count:qty};}
   if(rule.type==='ore'){state.ore+=qty;note('獲得 鍛鐵 ×'+qty,'item');return {name:'鍛鐵',count:qty};}
-  if(rule.type==='dust'){state.dust+=qty;note('獲得 寶石粉塵 ×'+qty,'item');return {name:'寶石粉塵',count:qty};}
-  if(rule.type==='potion'){const item=typeof healPotionItems==='function'?(healPotionItems().find(x=>x.id==='heal_standard')||healPotionItems()[0]):null;if(item&&typeof healPotionCount==='function'&&typeof setHealPotionCount==='function')setHealPotionCount(item.id,healPotionCount(item.id)+qty);else state.potions+=qty;note('獲得 '+(item?.name||'治療藥水')+' ×'+qty,'item');return {name:item?.name||'治療藥水',count:qty};}
   if(rule.type==='item'){const item=SHOP.find(x=>x.id===rule.key);if(!item)return null;if(typeof isHealPotion==='function'&&isHealPotion(item)&&typeof healPotionCount==='function'&&typeof setHealPotionCount==='function')setHealPotionCount(item.id,healPotionCount(item.id)+qty);else{state.consumables??={};state.consumables[item.id]=(state.consumables[item.id]||0)+qty;}note('獲得 '+item.name+' ×'+qty,'item');return {name:item.name,count:qty};}
-  if(rule.type==='gem'){for(let q=0;q<qty;q++){const i=rule.key==='random'?Math.floor(rng()*GEM_KINDS):Math.max(0,Math.min(GEMS.length-1,Number(rule.key)||0));state.gems[i]++;note('獲得 '+GEMS[i].name,'item');}return {name:rule.key==='random'?'隨機屬性寶石':GEMS[Number(rule.key)||0].name,count:qty};}
-  if(rule.type==='gear'||rule.type==='gearLegendary'){for(let q=0;q<qty;q++){const rar=rule.type==='gearLegendary'?0:(rng()<r.equipmentQuality.rareChance?2:rng()<r.equipmentQuality.fineConditionalChance?1:0),g=gear(tier,Math.floor(rng()*4),rar);modeAffixes(g,mode);if(rule.type==='gearLegendary')ensureLegendaryDropAffix(g);gearStatBreakdown(g);addGear(g);}return {name:rule.name,count:qty};}
+  if(rule.type==='gem'){const i=Math.max(0,Math.min(GEMS.length-1,Number(rule.key)||0));state.gems[i]+=qty;note('獲得 '+GEMS[i].name+(qty>1?' ×'+qty:''),'item');return {name:GEMS[i].name,count:qty};}
+  // v0.206 map-bound gems: one success picks one gem of the rule's pool (map gem for normal/elite, three-gem pool for bosses).
+  if(rule.type==='gemPool'){const i=Math.max(0,Math.min(GEMS.length-1,Number(EmberwildDropRework.pick(rule.pool,rng).key)||0));state.gems[i]+=qty;note('獲得 '+GEMS[i].name+(qty>1?' ×'+qty:''),'item');return {name:GEMS[i].name,count:qty};}
+  // v0.206 per-monster general equipment: one success picks one form of this monster's pool (1–2 forms) by weight.
+  if(rule.type==='monsterGear'){for(let q=0;q<qty;q++){const ref=EmberwildDropRework.parseForm(EmberwildDropRework.pick(monsterGearPool(rule),rng).key),rar=rng()<r.equipmentQuality.rareChance?2:rng()<r.equipmentQuality.fineConditionalChance?1:0,g=gear(tier,ref.slot,rar,ref.job);g.formJob=ref.job;g.form=ref.index;{const f=typeof itemForm==='function'?itemForm(g):null;if(f?.weaponType)g.weaponType=f.weaponType;}g.name=gearName(g);modeAffixes(g,mode);gearStatBreakdown(g);addGear(g);}return {name:rule.name,count:qty};}
   if(rule.type==='bossGear'){for(let q=0;q<qty;q++)addGear(bossGear(mi,state.job,mode));return {name:rule.name,count:qty};}
   return null;
 }
+// v0.211: the pool as weighted for the player's current class (EmberwildDropRework.classWeightedPool).
+function monsterGearPool(rule){const job=(typeof playerHero==='function'?playerHero():null)?.job??state?.job;return EmberwildDropRework.classWeightedPool(rule.pool,{job:Number(job),formOf:ref=>ITEM_FORMS[ref.job]?.[ref.slot]?.[ref.index]});}
 function rollConfiguredDrops(e,rng=Math.random){
   e.monsterId??=resolveMonsterCatalogId(e);const cfg=monsterCatalogEntry(e.monsterId),maxDrops=Math.max(0,Math.floor(cfg?.maxDrops??e.maxDrops??99));
   const rules=configuredDropRules(e),independent=rules.filter(rule=>rule.independent===true);
@@ -6789,10 +7174,7 @@ function rollConfiguredDrops(e,rng=Math.random){
 // first-BOSS ether claim, which is not a repeatable idle reward.
 function rollEnemyItemLoot(e,{voucher=false}={}){
   const mode=e.difficulty||0,d=MODES[mode],mi=e.region??state.map,tier=regionTier(mi),kindIndex=e.kind==='normal'?0:e.kind==='elite'?1:2,r=GAMEPLAY_SETTINGS.rewards;
-  // v0.180: 鍛鐵 and 粉塵 swapped drop sources. The per-kill base material (settings rewards.ore) now gives 粉塵; the drop
-  // rules that gave 粉塵 now give 鍛鐵 (data/balance/world/drops.json).
-  // v0.180: rewards.ore.chanceFactor (0.7) lowers the chance of the per-kill base material for every kind, elites and bosses included.
-  const oreFactor=Math.max(0,Math.min(1,Number(r.ore.chanceFactor??1)));if(kindIndex>0?(oreFactor>=1||Math.random()<oreFactor):Math.random()<(r.ore.normalChanceByDifficulty?.[mode]??1)*oreFactor)state.dust+=Math.ceil(tier*(kindIndex===0?r.ore.normalKindMultiplier:r.ore.eliteBossKindMultiplier)*d.ore);
+  // v0.206: monsters no longer drop 粉塵 directly. The former per-kill base material (rewards.ore) is not granted.
   rollConfiguredDrops(e);
   const firstBossClaim=(e.kind==='boss'||e.kind==='final')&&!(party?.etherBossClaims||[]).includes((e.region??party?.map)+':'+(e.difficulty||0));
   if(!voucher||!firstBossClaim)awardEther(e);
@@ -6838,7 +7220,7 @@ if(state&&party){resetEncounter();save();render();}
 
 __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERWILD_GAMEPLAY_SETTINGS;__EMBERWILD_VALIDATE_ITEM_IDS=globalThis.__EMBERWILD_VALIDATE_ITEM_IDS??__EMBERWILD_VALIDATE_ITEM_IDS;rollEnemyItemLoot=globalThis.rollEnemyItemLoot??rollEnemyItemLoot;__EMBERWILD_DROP_TEST=globalThis.__EMBERWILD_DROP_TEST??__EMBERWILD_DROP_TEST;
 
-/* js/balance/balance-schema.js?v=20261119-v0169 */
+/* js/balance/balance-schema.js?v=20261124-v0206-drops */
 
 /* Update 16: validation hardening for monster/drop editor round-trip. */
 function validateMonsterDropDynamicInput(input){
@@ -6859,12 +7241,12 @@ function validateMonsterDropDynamicInput(input){
   if(drops!==undefined){
     if(!Array.isArray(drops))throw Error('掉落表必須是陣列');
     if(!Array.isArray(cat)||!cat.length)throw Error('掉落表需要有效怪物設計清單');
-    const monsterById=new Map(cat.map(m=>[m.id,m])),dropIds=new Set(),types=new Set(['sourceMaterial','material','ore','dust','gem','potion','item','gear','gearLegendary','bossGear','equipment','token']),encKinds=new Set(['normal','elite','boss','final']);
+    const monsterById=new Map(cat.map(m=>[m.id,m])),dropIds=new Set(),types=new Set(['sourceMaterial','material','ore','gem','item','bossGear','equipment','token','monsterGear','gemPool']),encKinds=new Set(['normal','elite','boss','final']);
     for(const [i,d] of drops.entries()){
       if(!d||typeof d.id!=='string'||!/^[a-zA-Z0-9_-]{1,120}$/.test(d.id)||dropIds.has(d.id))throw Error('掉落規則 ID 無效或重複：'+i);dropIds.add(d.id);
-      if(typeof d.name!=='string'||!d.name.trim()||typeof d.enabled!=='boolean'||!types.has(d.type)||!Array.isArray(d.kinds)||!d.kinds.length||d.kinds.some(k=>!encKinds.has(k))||!Array.isArray(d.chanceByDifficulty)||d.chanceByDifficulty.length!==3||d.chanceByDifficulty.some(v=>!Number.isFinite(v)||v<0||v>1)||!Number.isInteger(d.quantityMin)||!Number.isInteger(d.quantityMax)||d.quantityMin<1||d.quantityMax<d.quantityMin||d.quantityMax>999||!Array.isArray(d.sources)||!d.sources.length||d.sources.some(id=>!monsterById.has(id)))throw Error('掉落規則資料無效：'+d.id);
+      if(typeof d.name!=='string'||!d.name.trim()||typeof d.enabled!=='boolean'||!types.has(d.type)||!Array.isArray(d.kinds)||!d.kinds.length||d.kinds.some(k=>!encKinds.has(k))||!Array.isArray(d.chanceByDifficulty)||d.chanceByDifficulty.length!==3||d.chanceByDifficulty.some(v=>!Number.isFinite(v)||v<0||v>1)||!Number.isInteger(d.quantityMin)||!Number.isInteger(d.quantityMax)||d.quantityMin<1||d.quantityMax<d.quantityMin||d.quantityMax>999||!Array.isArray(d.sources)||!d.sources.length||d.sources.some(id=>!monsterById.has(id)))throw Error('掉落規則資料無效：'+d.id);{const poolIssues=EmberwildDropRework.ruleIssues(d,{formExists:ref=>!!(typeof ITEM_FORMS!=='undefined'?ITEM_FORMS:[])[ref.job]?.[ref.slot]?.[ref.index]});if(poolIssues.length)throw Error(poolIssues.join('；'));}
       if(d.type==='material'&&(typeof d.key!=='string'||!d.key.trim()))throw Error('材料掉落需要材料名稱：'+d.id);
-      if(d.type==='gem'&&d.key!=='random'&&![0,1,2,'0','1','2'].includes(d.key))throw Error('寶石掉落 key 需為 random/0/1/2：'+d.id);
+      if(d.type==='gem'&&![0,1,2,3,4,'0','1','2','3','4'].includes(d.key))throw Error('寶石掉落 key 需為指定寶石 0～4（隨機寶石掉落已移除，請改用地圖寶石池）：'+d.id);
       if(d.type==='item'&&Array.isArray(input.items)&&!input.items.some(x=>x.id===d.key))throw Error('商店道具掉落 key 無效：'+d.id);
       const ruleKinds=new Set(d.kinds);
       for(const id of d.sources){
@@ -6907,7 +7289,7 @@ balanceReference=function(){
 
 
 
-/* js/balance/balance-runtime.js */
+/* js/balance/balance-runtime.js?v=20261124-v0208-inventory */
 
 /* Update 16b: restore the shared expedition journal after later rewardGroupKill wrappers. */
 const update16bRewardGroupKillBase=rewardGroupKill;
@@ -6925,14 +7307,14 @@ rewardGroupKill=function(e){
     h.gems.forEach((n,i)=>addExpeditionLoot(GEMS[i].name,n-before.gems[i]));
     for(const [name,n] of Object.entries(h.materials))addExpeditionLoot(name,n-(before.materials[name]||0));
     const replaced=replay&&h.bag!==bag?new Set((bag||[]).slice(0,tail).map(g=>g.id)):null;
-    for(const gearItem of replay&&h.bag===bag?h.bag.slice(tail):h.bag)if(replay?(!replaced||!replaced.has(gearItem.id)):!before.gear.has(gearItem.id))addExpeditionLoot(equipmentDisplayName(gearItem),1,typeof gearQualityRank==='function'?gearQualityRank(gearItem):Math.max(0,Math.min(3,Number(gearItem.rar)||0)));
+    for(const gearItem of replay&&h.bag===bag?h.bag.slice(tail):h.bag)if(replay?(!replaced||!replaced.has(gearItem.id)):!before.gear.has(gearItem.id))addExpeditionLoot(equipmentDisplayName(gearItem),1,gearItem.unidentified?0:typeof gearQualityRank==='function'?gearQualityRank(gearItem):Math.max(0,Math.min(3,Number(gearItem.rar)||0)));
   }
   return result;
 };
 
 __EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;
 
-/* js/ui/item-presentation.js?v=20261123-v0194-workshop1 */
+/* js/ui/item-presentation.js?v=20261124-v0206-drops */
 /* Shared SVG item slots. Backpack details use their existing panel/dialog;
    references stay passive and shops expose purchase actions inline. */
 (()=>{
@@ -7009,13 +7391,15 @@ __EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBE
     key=String(key);const g=options.gear;
     if(g)({kind,key}=gearIdentity(g));
     // A shop rule may give its offer a custom display name (商店顯示名稱).
-    const n=options.displayName||name(kind,key,g),label=n+(options.count!==undefined?' ×'+options.count:'');
+    // v0.206: an unidentified item shows its slot only (neutral frame, darkened slot icon with a question mark).
+    const unknown=!!g?.unidentified;
+    const n=unknown?unidentifiedGearName(g):options.displayName||name(kind,key,g),label=n+(options.count!==undefined?' ×'+options.count:'');
     const context=options.context||(options.mailId?'mail':'reference'),quantity=options.detailQuantity??options.count;
     const data=`data-item-kind="${attr(kind)}" data-item-key="${attr(key)}" data-item-context="${attr(context)}"${g?.id?` data-item-gear="${attr(g.id)}"`:''}${options.preview?` data-item-preview="${attr(JSON.stringify(options.preview))}"`:''}${options.mailId?` data-item-mail="${options.mailId}" data-item-index="${options.mailIndex}"`:''}${options.extra?` data-item-extra="${attr(options.extra)}"`:''}${options.displayName?` data-item-display-name="${attr(options.displayName)}"`:''}${quantity!==undefined?` data-item-quantity="${attr(quantity)}"`:''}${options.detailLabel?` data-item-quantity-label="${attr(options.detailLabel)}"`:''}${options.price!==undefined?` data-item-price="${attr(options.price)}"`:''}${options.priceLabel?` data-item-price-label="${attr(options.priceLabel)}"`:''}${options.shopType?` data-item-shop-type="${attr(options.shopType)}"`:''}${options.shopId!==undefined?` data-item-shop-id="${attr(options.shopId)}"`:''}${options.sold?` data-item-sold="true"`:''}${options.soldLabel?` data-item-sold-label="${attr(options.soldLabel)}"`:''}`;
     const token=globalThis.EmberwildTokens?.isToken(g),wearer=g&&typeof gearWearer==='function'?gearWearer(g.id):null;
-    const content=`<span class="item-slot-art" aria-hidden="true">${icon(kind,key,g)}</span><span class="item-slot-name">${attr(n)}${g&&!token?` <span class="gear-tier-chip gear-tier-${Number.isInteger(g.powerTier)?g.powerTier:0}">${Number.isInteger(g.powerTier)?'T'+g.powerTier:'T—'}</span>`:''}${token?` <span class="tag token-job-tag">${attr(companionTokenJobLabel(g))}</span>${wearer?` <span class="token-wearer">${attr(characterName(wearer))} · 已裝備</span>`:''}`:''}</span>${options.count!==undefined?`<span class="item-slot-count" aria-label="數量 ${attr(options.count)}">×${attr(options.count)}</span>`:''}${g?.plus?`<span class="item-slot-plus" aria-hidden="true">+${g.plus}</span>`:''}${g&&typeof gearWearer==='function'&&gearWearer(g.id)?'<span class="item-slot-worn" aria-label="已穿戴"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></span>':''}`;
+    const content=unknown?`<span class="item-slot-art gear-unidentified-art" aria-hidden="true">${icon(kind,key,{slot:g.unidentified.slot??g.slot})}<span class="gear-unidentified-mark">?</span></span><span class="item-slot-name">${attr(n)} <span class="tag gear-unidentified-tag">未鑑定</span></span>`:`<span class="item-slot-art" aria-hidden="true">${icon(kind,key,g)}</span><span class="item-slot-name">${attr(n)}${g&&!token?` <span class="gear-tier-chip gear-tier-${Number.isInteger(g.powerTier)?g.powerTier:0}">${Number.isInteger(g.powerTier)?'T'+g.powerTier:'T—'}</span>`:''}${token?` <span class="tag token-job-tag">${attr(companionTokenJobLabel(g))}</span>${wearer?` <span class="token-wearer">${attr(characterName(wearer))} · 已裝備</span>`:''}`:''}</span>${options.count!==undefined?`<span class="item-slot-count" aria-label="數量 ${attr(options.count)}">×${attr(options.count)}</span>`:''}${g?.plus?`<span class="item-slot-plus" aria-hidden="true">+${g.plus}</span>`:''}${g&&typeof gearWearer==='function'&&gearWearer(g.id)?'<span class="item-slot-worn" aria-label="已穿戴"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></span>':''}`;
     const tag=!options.contentOnly&&(options.onclick||context==='inventory')?'button':'span';
-    const slot=`<${tag} ${tag==='button'?'type="button" ':''}class="item-slot ${options.className||''}${options.selected?' selected':''}${g?' item-quality-'+gearQualityRank(g):''}" ${data} aria-label="${attr(label)}"${tag==='button'?` onclick="${options.onclick||'openItemSlotDetails(this)'}"`:''}${options.selected?' aria-pressed="true"':''}>${content}</${tag}>`;
+    const slot=`<${tag} ${tag==='button'?'type="button" ':''}class="item-slot ${options.className||''}${options.selected?' selected':''}${unknown?' item-unidentified':g?' item-quality-'+gearQualityRank(g):''}" ${data} aria-label="${attr(label)}"${tag==='button'?` onclick="${options.onclick||'openItemSlotDetails(this)'}"`:''}${options.selected?' aria-pressed="true"':''}>${content}</${tag}>`;
     return slot+(context==='shop'&&!options.contentOnly?shopInlineControls(options):'');
   };
   function shopInlineControls(o){
@@ -7028,7 +7412,7 @@ __EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBE
     return `<span class="shop-inline-controls"><span class="small">${attr(o.detailLabel||'商品數量')} ${attr(o.detailQuantity??o.count??1)} · ${price.toLocaleString()} 金幣</span><span class="shop-inline-actions">${action}</span></span>`;
   }
   globalThis.gearSlotHTML=(g,options={})=>itemSlotHTML('equipment','',{...options,gear:g});
-  globalThis.itemCostHTML=function(g){const c=upgradeMaterials(g);return '<span class="item-cost-line">'+[['鍛鐵',c.ore],['粉塵',c.dust],['以太鍛鐵',c.ether]].filter(([,n])=>n>0).map(([key,count])=>itemSlotHTML('material',key,{count,detailLabel:'所需數量'})).join(' ＋ ')+'</span>';};
+  globalThis.itemCostHTML=function(g){const c=upgradeMaterials(g),x=c.exclusive;return '<span class="item-cost-line">'+[['鍛鐵',c.ore],['粉塵',c.dust],['以太鍛鐵',c.ether],...(x?[[x.material,x.quantity]]:[])].filter(([,n])=>n>0).map(([key,count])=>itemSlotHTML('material',key,{count,detailLabel:'所需數量'})).join(' ＋ ')+'</span>'+(x?`<span class="small exclusive-enhance-note">專屬素材「${attr(x.material)}」本次需要 ${x.quantity}，持有 ${state.materials[x.material]||0}；來源：${attr(globalThis.monsterCatalogEntry?.(x.monster)?.name||x.monster)}</span>`:'');};
   globalThis.mailAttachmentSlot=function(mailId,index){
     const a=party.mailbox.messages.find(m=>m.id===mailId)?.attachments[index];if(!a)return '';
     const id=mailIdentity(a);
@@ -7150,7 +7534,7 @@ __EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBE
   document.addEventListener('keydown',e=>{if(e.key==='Escape')hideTooltip();});
 })();
 
-toast=globalThis.toast??toast;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;EmberwildMonsterDesign=globalThis.EmberwildMonsterDesign??EmberwildMonsterDesign;setItemDisplayMode=globalThis.setItemDisplayMode??setItemDisplayMode;itemDisplayOptionsView=globalThis.itemDisplayOptionsView??itemDisplayOptionsView;__EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_VIRTUAL_ITEM=globalThis.__EMBERWILD_VIRTUAL_ITEM??__EMBERWILD_VIRTUAL_ITEM;__EMBERWILD_VIRTUAL_MAIL_KEY=globalThis.__EMBERWILD_VIRTUAL_MAIL_KEY??__EMBERWILD_VIRTUAL_MAIL_KEY;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_GEAR_SKILL_ICON=globalThis.__EMBERWILD_GEAR_SKILL_ICON??__EMBERWILD_GEAR_SKILL_ICON;itemSlotHTML=globalThis.itemSlotHTML??itemSlotHTML;lifeMaterialPurchasePrice=globalThis.lifeMaterialPurchasePrice??lifeMaterialPurchasePrice;gearSlotHTML=globalThis.gearSlotHTML??gearSlotHTML;itemCostHTML=globalThis.itemCostHTML??itemCostHTML;mailAttachmentSlot=globalThis.mailAttachmentSlot??mailAttachmentSlot;mailAttachmentIcon=globalThis.mailAttachmentIcon??mailAttachmentIcon;gearInfoDetailHTML=globalThis.gearInfoDetailHTML??gearInfoDetailHTML;gearInfoHTML=globalThis.gearInfoHTML??gearInfoHTML;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;companionTokenAbilityText=globalThis.companionTokenAbilityText??companionTokenAbilityText;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;openItemSlotDetails=globalThis.openItemSlotDetails??openItemSlotDetails;closeItemDetails=globalThis.closeItemDetails??closeItemDetails;itemDetailsAction=globalThis.itemDetailsAction??itemDetailsAction;
+toast=globalThis.toast??toast;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;EmberwildMonsterDesign=globalThis.EmberwildMonsterDesign??EmberwildMonsterDesign;setItemDisplayMode=globalThis.setItemDisplayMode??setItemDisplayMode;itemDisplayOptionsView=globalThis.itemDisplayOptionsView??itemDisplayOptionsView;__EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_VIRTUAL_ITEM=globalThis.__EMBERWILD_VIRTUAL_ITEM??__EMBERWILD_VIRTUAL_ITEM;__EMBERWILD_VIRTUAL_MAIL_KEY=globalThis.__EMBERWILD_VIRTUAL_MAIL_KEY??__EMBERWILD_VIRTUAL_MAIL_KEY;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_GEAR_SKILL_ICON=globalThis.__EMBERWILD_GEAR_SKILL_ICON??__EMBERWILD_GEAR_SKILL_ICON;itemSlotHTML=globalThis.itemSlotHTML??itemSlotHTML;lifeMaterialPurchasePrice=globalThis.lifeMaterialPurchasePrice??lifeMaterialPurchasePrice;gearSlotHTML=globalThis.gearSlotHTML??gearSlotHTML;itemCostHTML=globalThis.itemCostHTML??itemCostHTML;monsterCatalogEntry=globalThis.monsterCatalogEntry??monsterCatalogEntry;mailAttachmentSlot=globalThis.mailAttachmentSlot??mailAttachmentSlot;mailAttachmentIcon=globalThis.mailAttachmentIcon??mailAttachmentIcon;gearInfoDetailHTML=globalThis.gearInfoDetailHTML??gearInfoDetailHTML;gearInfoHTML=globalThis.gearInfoHTML??gearInfoHTML;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;companionTokenAbilityText=globalThis.companionTokenAbilityText??companionTokenAbilityText;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;openItemSlotDetails=globalThis.openItemSlotDetails??openItemSlotDetails;closeItemDetails=globalThis.closeItemDetails??closeItemDetails;itemDetailsAction=globalThis.itemDetailsAction??itemDetailsAction;
 
 /* js/ui/ui-text-config.js?v=20261119-v0169 */
 
@@ -7815,7 +8199,7 @@ equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSu
 
 __EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_ITEM_DETAILS=globalThis.__EMBERWILD_ITEM_DETAILS??__EMBERWILD_ITEM_DETAILS;equipmentSellPrice=globalThis.equipmentSellPrice??equipmentSellPrice;materialSellPrice=globalThis.materialSellPrice??materialSellPrice;itemSellPrice=globalThis.itemSellPrice??itemSellPrice;materialCount=globalThis.materialCount??materialCount;setMaterialCount=globalThis.setMaterialCount??setMaterialCount;salvageRewardPlan=globalThis.salvageRewardPlan??salvageRewardPlan;grantSalvageRewards=globalThis.grantSalvageRewards??grantSalvageRewards;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;sellGear=globalThis.sellGear??sellGear;sellAllGearByQuality=globalThis.sellAllGearByQuality??sellAllGearByQuality;sellMaterial=globalThis.sellMaterial??sellMaterial;sellMaterialFromControl=globalThis.sellMaterialFromControl??sellMaterialFromControl;sellAllMaterialFromControl=globalThis.sellAllMaterialFromControl??sellAllMaterialFromControl;setCommonMaterialRegion=globalThis.setCommonMaterialRegion??setCommonMaterialRegion;setCommonMaterialSort=globalThis.setCommonMaterialSort??setCommonMaterialSort;inventoryMaterialRegions=globalThis.inventoryMaterialRegions??inventoryMaterialRegions;sellItem=globalThis.sellItem??sellItem;sellItemFromControl=globalThis.sellItemFromControl??sellItemFromControl;sellAllItemFromControl=globalThis.sellAllItemFromControl??sellAllItemFromControl;accountItemsView=globalThis.accountItemsView??accountItemsView;
 
-/* js/world/dynamic-world.js?v=20261119-v0173 */
+/* js/world/dynamic-world.js?v=20261124-v0206-drops */
 
 /* Update 22/24: data-driven maps, reusable final-map type, and dedicated elite/BOSS controls. */
 (function installDynamicWorldMapMonsterSystem(){
@@ -7989,13 +8373,13 @@ __EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBE
     const drops=bs.drops?.entries;
     if(drops!==undefined){
       if(!Array.isArray(drops))throw Error('掉落表必須是陣列');if(!Array.isArray(cat)||!cat.length)throw Error('掉落表需要有效怪物設計清單');
-      const monsterById=new Map(cat.map(m=>[m.id,m])),dropIds=new Set(),types=new Set(['sourceMaterial','material','ore','dust','gem','potion','item','gear','gearLegendary','bossGear','equipment','token']),encKinds=new Set(['normal','elite','boss','final']);
+      const monsterById=new Map(cat.map(m=>[m.id,m])),dropIds=new Set(),types=new Set(['sourceMaterial','material','ore','gem','item','bossGear','equipment','token','monsterGear','gemPool']),encKinds=new Set(['normal','elite','boss','final']);
       for(const [i,d] of drops.entries()){
         const potionIssues=EmberwildHealingPotions.dropIssues(d);if(potionIssues.length)throw Error(potionIssues.join('；'));
         if(!d||typeof d.id!=='string'||!/^[a-zA-Z0-9_-]{1,120}$/.test(d.id)||dropIds.has(d.id))throw Error('掉落規則 ID 無效或重複：'+i);dropIds.add(d.id);
-        if(typeof d.name!=='string'||!d.name.trim()||typeof d.enabled!=='boolean'||!types.has(d.type)||!Array.isArray(d.kinds)||!d.kinds.length||d.kinds.some(k=>!encKinds.has(k))||!Array.isArray(d.chanceByDifficulty)||d.chanceByDifficulty.length!==3||d.chanceByDifficulty.some(v=>!Number.isFinite(v)||v<0||v>1)||!Number.isInteger(d.quantityMin)||!Number.isInteger(d.quantityMax)||d.quantityMin<1||d.quantityMax<d.quantityMin||d.quantityMax>999||!Array.isArray(d.sources)||!d.sources.length||d.sources.some(id=>!monsterById.has(id)))throw Error('掉落規則資料無效：'+d.id);
+        if(typeof d.name!=='string'||!d.name.trim()||typeof d.enabled!=='boolean'||!types.has(d.type)||!Array.isArray(d.kinds)||!d.kinds.length||d.kinds.some(k=>!encKinds.has(k))||!Array.isArray(d.chanceByDifficulty)||d.chanceByDifficulty.length!==3||d.chanceByDifficulty.some(v=>!Number.isFinite(v)||v<0||v>1)||!Number.isInteger(d.quantityMin)||!Number.isInteger(d.quantityMax)||d.quantityMin<1||d.quantityMax<d.quantityMin||d.quantityMax>999||!Array.isArray(d.sources)||!d.sources.length||d.sources.some(id=>!monsterById.has(id)))throw Error('掉落規則資料無效：'+d.id);{const poolIssues=EmberwildDropRework.ruleIssues(d,{formExists:ref=>!!(typeof ITEM_FORMS!=='undefined'?ITEM_FORMS:[])[ref.job]?.[ref.slot]?.[ref.index]});if(poolIssues.length)throw Error(poolIssues.join('；'));}
         if(d.type==='material'&&(typeof d.key!=='string'||!d.key.trim()))throw Error('材料掉落需要材料名稱：'+d.id);
-        if(d.type==='gem'&&d.key!=='random'&&![0,1,2,3,4,'0','1','2','3','4'].includes(d.key))throw Error('寶石掉落 key 需為 random/0/1/2：'+d.id);if(d.type==='item'&&!(globalThis.__EMBERWILD_VALIDATE_ITEM_IDS||new Set(SHOP.map(x=>x.id))).has(d.key))throw Error('商店道具掉落 key 無效：'+d.id);
+        if(d.type==='gem'&&![0,1,2,3,4,'0','1','2','3','4'].includes(d.key))throw Error('寶石掉落 key 需為指定寶石 0～4（隨機寶石掉落已移除，請改用地圖寶石池）：'+d.id);if(d.type==='item'&&!(globalThis.__EMBERWILD_VALIDATE_ITEM_IDS||new Set(SHOP.map(x=>x.id))).has(d.key))throw Error('商店道具掉落 key 無效：'+d.id);
         const ruleKinds=new Set(d.kinds);for(const id of d.sources){const m=monsterById.get(id),compatible=m.kind==='normal'?['normal','elite']:[m.kind];if(!compatible.some(k=>ruleKinds.has(k)))throw Error('掉落規則來源與遭遇種類不相容：'+d.id+' → '+id);}
       }
     }
@@ -8142,7 +8526,7 @@ __EMBERWILD_GAMEPLAY_SETTINGS=globalThis.__EMBERWILD_GAMEPLAY_SETTINGS??__EMBERW
 
 __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;
 
-/* js/world/final-map.js?v=20261120-v0180 */
+/* js/world/final-map.js?v=20261124-v0206-drops */
 
 /* Update 24: reusable boss-only final maps. Index 6 stays the default progression gate; later final maps do not unlock the level cap unless progressionGate is explicitly moved. */
 (function installFinalMapTypeRuntime(){
@@ -8189,9 +8573,7 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
     state.totalKills++;state.kills[e.mat]=(state.kills[e.mat]||0)+1;if(!state.discovered.includes(e.mat))state.discovered.push(e.mat);
     const gold=EmberwildProgression.enemyGold(GAMEPLAY_SETTINGS,e.lv,e.kind,mode);
     state.gold+=gold;
-    const oreFactor=Math.max(0,Math.min(1,Number(r.ore.chanceFactor??1)));/* v0.180: base material chance factor */
-    if(kindIndex>0?(oreFactor>=1||Math.random()<oreFactor):Math.random()<(r.ore.normalChanceByDifficulty?.[mode]??1)*oreFactor)
-      state.dust+=Math.ceil(tier*(kindIndex===0?r.ore.normalKindMultiplier:r.ore.eliteBossKindMultiplier)*d.ore);/* v0.180: per-kill base material is 粉塵 */
+    /* v0.206: no direct 粉塵 from monsters (the former per-kill base material). */
     rollConfiguredDrops(e);awardEther(e);
     if(e.kind==='final'){
       running=false;
@@ -9984,12 +10366,11 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentTotalSummar
 
 EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;triggerFollowupDebuffs=globalThis.triggerFollowupDebuffs??triggerFollowupDebuffs;__EMBERWILD_DEBUFF_MECHANICS=globalThis.__EMBERWILD_DEBUFF_MECHANICS??__EMBERWILD_DEBUFF_MECHANICS;
 
-/* js/equipment/equipment-identity.js?v=20261123-v0196-aspd */
+/* js/equipment/equipment-identity.js?v=20261126-v0211-gear */
 
 /* Equipment identity v2.
-   Normal gear: prefix + suffix + base + internal power tier.
+   Normal gear: base + internal power tier (v0.211: the prefix/suffix system was removed).
    - Player base ratings describe only powerTier; enhancement and effect quality are separate.
-   - Prefix/suffix each carry one explicit gameplay effect.
    Boss gear: one exclusive profile supplies three fixed effects alongside rerollable affixes.
 */
 (()=>{
@@ -10002,41 +10383,12 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   const EFFECT_LABELS={
     flatAttack:'此裝備攻擊力',flatHp:'此裝備最大生命',flatDefense:'此裝備防禦',basicElement:'此武器攻擊屬性',basicAttackSpeedStack:'普攻後疾行',gearAtkPct:'此裝備基底攻擊力',gearHpPct:'此裝備基底生命',gearDefPct:'此裝備基底防禦',hpPct:'角色最大生命',defensePct:'角色總防禦',
     attackPct:'角色總攻擊力',crit:'暴擊率',critDamage:'暴擊傷害',pierce:'防禦穿透',defenseIgnore:'防禦無視',lifesteal:'生命竊取',evasion:'閃避率',elementBonus:'全屬性增傷',bossDamagePct:'對 BOSS 傷害',attackSpeedPct:'攻擊速度',
-    allCooldownReduction:'全主動／輔助技能冷卻',dropRateBonus:'掉寶率',elementDamagePct:'屬性傷害',elementResistPct:'屬性抗性',raceDamagePct:'種族增傷',skillEffectPct:'核心技能效果',skillCooldownReduction:'核心技能冷卻／觸發'
+    allCooldownReduction:'全主動／輔助技能冷卻',dropRateBonus:'掉寶率',elementDamagePct:'屬性傷害',elementResistPct:'屬性抗性',raceDamagePct:'種族增傷',skillEffectPct:'核心技能效果',skillCooldownReduction:'核心技能冷卻／觸發',skillDamagePct:'技能傷害',cooldownPct:'技能冷卻'
   };
   const LEGACY_BOSS_SERIES=['古木誓約','礦脈共鳴','暮沼咒印','永凍之誓','熔核意志','隕星遺產'];
   const PARALLEL_BOSS_SERIES=['赤楓炎靈','潮汐巨像','白骨巫后','雷鳴獸王','聖所守護者','幽冥觀測者'];
 
   function fx(key,value){return {key,value};}
-  const DEFAULT_PREFIXES=[
-    {id:'redmaple',name:'赤楓',tierMin:1,tierMax:10,weight:1,slots:[0],effect:fx('basicElement','fire')},
-    {id:'frostcarved',name:'霜刻',tierMin:1,tierMax:10,weight:1,slots:[0],effect:fx('basicElement','ice')},
-    {id:'verdant',name:'翠影',tierMin:1,tierMax:10,weight:1,slots:[0],effect:fx('basicElement','wind')},
-    {id:'radiant',name:'聖輝',tierMin:1,tierMax:10,weight:1,slots:[0],effect:fx('basicElement','light')},
-    {id:'nether',name:'幽冥',tierMin:1,tierMax:10,weight:1,slots:[0],effect:fx('basicElement','shadow')},
-    {id:'piercing',name:'穿甲',tierMin:1,tierMax:10,weight:1,slots:[0,1,2],effect:fx('pierce',6)},
-    {id:'bloodbound',name:'血契',tierMin:3,tierMax:10,weight:.8,slots:[0],effect:fx('lifesteal',3)},
-    {id:'starfall',name:'星隕',tierMin:3,tierMax:10,weight:.9,slots:[0,2],effect:fx('critDamage',12)},
-    {id:'echoing',name:'回響',tierMin:4,tierMax:10,weight:.65,slots:[0,1,2],effect:fx('allCooldownReduction',1)},
-    {id:'seeker',name:'尋珍',tierMin:4,tierMax:10,weight:.7,slots:[0,1,2],effect:fx('dropRateBonus',8)},
-    {id:'arcane',name:'秘能',tierMin:5,tierMax:10,weight:.7,slots:[0,1,2],effect:fx('elementBonus',8)},
-    {id:'keen',name:'銳眼',tierMin:5,tierMax:10,weight:.7,slots:[0,2],effect:fx('crit',5)}
-  ];
-  const DEFAULT_SUFFIXES=[
-    {id:'traveler',name:'旅人',tierMin:1,tierMax:10,weight:1,slots:[0],effect:fx('basicAttackSpeedStack',3)},
-    {id:'vanguard',name:'先鋒',tierMin:1,tierMax:10,weight:1,slots:[0,1,2],effect:fx('attackPct',4)},
-    {id:'swift',name:'迅捷',tierMin:1,tierMax:10,weight:1,slots:[0,1,2],effect:fx('evasion',5)},
-    {id:'eagleeye',name:'鷹眼',tierMin:2,tierMax:10,weight:1,slots:[0,2],effect:fx('crit',4)},
-    {id:'breaker',name:'破城',tierMin:2,tierMax:10,weight:.9,slots:[0,2],effect:fx('pierce',6)},
-    {id:'leeching',name:'汲血',tierMin:3,tierMax:10,weight:.75,slots:[0],effect:fx('lifesteal',3)},
-    {id:'resonant',name:'共鳴',tierMin:3,tierMax:10,weight:.75,slots:[0,1,2],effect:fx('elementBonus',7)},
-    {id:'quickcast',name:'疾詠',tierMin:4,tierMax:10,weight:.6,slots:[0,1,2],effect:fx('allCooldownReduction',1)},
-    {id:'hunter',name:'獵手',tierMin:4,tierMax:10,weight:.7,slots:[0,1,2],effect:fx('dropRateBonus',7)},
-    {id:'fury',name:'狂擊',tierMin:5,tierMax:10,weight:.7,slots:[0,2],effect:fx('critDamage',12)},
-    {id:'assault',name:'強襲',tierMin:5,tierMax:10,weight:.65,slots:[0,1,2],effect:fx('attackPct',5)},
-    {id:'phantom',name:'幻步',tierMin:5,tierMax:10,weight:.65,slots:[0,1,2],effect:fx('evasion',6)}
-  ];
-
   const FAMILY_BOSS_EFFECTS=[
     [fx('gearAtkPct',10),fx('lifesteal',4),fx('bossDamagePct',8)],
     [fx('gearDefPct',12),fx('pierce',8),fx('allCooldownReduction',1)],
@@ -10068,8 +10420,6 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   ];
   const DEFAULT_POWER={
     schemaVersion:4,
-    prefixes:DEFAULT_PREFIXES,
-    suffixes:DEFAULT_SUFFIXES,
     bossAffixes:DEFAULT_BOSS_AFFIXES,
     strength:{
       multipliers:[.8,.85,.9,.95,1,1.04,1.08,1.12,1.16,1.2],
@@ -10085,11 +10435,6 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   };
 
   function finite(v,d,min=-Infinity,max=Infinity){v=Number(v);return Number.isFinite(v)?Math.max(min,Math.min(max,v)):d;}
-  function normalizeSlots(v,def=[0,1,2,3],legacy=false){
-    const out=Array.isArray(v)?[...new Set(v.map(Number).filter(x=>Number.isInteger(x)&&x>=0&&x<=3))]:clone(def);
-    if(legacy&&out.includes(2)&&!out.includes(3))out.push(3);
-    return out.length?out:clone(def);
-  }
   function normalizeEffect(src,allowed,def){
     const fallback=clone(def);
     // v0.196: 旅人 used to advance the next action one step; it is now 疾行 (+3% attack speed per stack).
@@ -10106,35 +10451,6 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     if(key==='allCooldownReduction'){min=0;max=5;}
     if(key==='dropRateBonus'||key==='bossDamagePct'){min=0;max=500;}
     return {key,value:finite(src.value,fallback.value,min,max)};
-  }
-  function normalizeAffixChances(src,legacyWeight,tierMin,tierMax){
-    const fallback=finite(legacyWeight,0,0,100),has=Array.isArray(src);
-    return Array.from({length:10},(_,i)=>{
-      const tier=i+1,def=tier>=tierMin&&tier<=tierMax?fallback:0;
-      return finite(has?src[i]:def,def,0,100);
-    });
-  }
-  function affixChanceAtTier(x,tier){
-    if(!x||tier<1||tier>10)return 0;
-    const v=Array.isArray(x.chanceByTier)?x.chanceByTier[tier-1]:x.weight;
-    return finite(v,0,0,100);
-  }
-  function normalizeAffixRows(rows,defaults,legacySlots=false){
-    if(!Array.isArray(rows)||!rows.some(x=>x&&x.effect))rows=clone(defaults);
-    const seen=new Set();
-    const out=[];
-    for(let i=0;i<rows.length;i++){
-      const x=rows[i]&&typeof rows[i]==='object'?rows[i]:{};
-      const d=defaults[i%defaults.length];
-      let id=typeof x.id==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(x.id)?x.id:d.id+'_'+(i+1);
-      if(seen.has(id))id=id+'_'+(i+1);seen.add(id);
-      const tierMin=Math.max(1,Math.min(10,Math.round(finite(x.tierMin,d.tierMin,1,10))));
-      const tierMax=Math.max(tierMin,Math.min(10,Math.round(finite(x.tierMax,d.tierMax,tierMin,10))));
-      const weight=finite(x.weight,d.weight,0,100);
-      const chanceByTier=normalizeAffixChances(x.chanceByTier,weight,tierMin,tierMax);
-      out.push({id,name:typeof x.name==='string'&&x.name.trim()?x.name.trim():d.name,tierMin,tierMax,weight,chanceByTier,slots:normalizeSlots(x.slots,d.slots,legacySlots),effect:normalizeEffect(x.effect,REGULAR_EFFECT_KEYS,d.effect)});
-    }
-    return out.length?out:clone(defaults);
   }
   function normalizeBossAffixes(rows,legacySeries){
     const byId=new Map((Array.isArray(rows)?rows:[]).filter(Boolean).map(x=>[x.id,x]));
@@ -10158,10 +10474,9 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   }
   function normalizePower(src){
     src=src&&typeof src==='object'&&!Array.isArray(src)?src:{};
-    const legacySlots=Number(src.schemaVersion||0)<4,out=clone(DEFAULT_POWER);
+    const out=clone(DEFAULT_POWER);
     out.schemaVersion=4;
-    out.prefixes=normalizeAffixRows(src.prefixes,DEFAULT_PREFIXES,legacySlots);
-    out.suffixes=normalizeAffixRows(src.suffixes,DEFAULT_SUFFIXES,legacySlots);
+    // v0.211: prefixes / suffixes of older documents are dropped.
     out.bossAffixes=normalizeBossAffixes(src.bossAffixes,src.seriesPrefixes);
     const st=src.strength&&typeof src.strength==='object'?src.strength:{};
     out.strength.multipliers=Array.from({length:10},(_,i)=>finite(st.multipliers?.[i],DEFAULT_POWER.strength.multipliers[i],.01,100));
@@ -10223,19 +10538,6 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     for(const key of ['multipliers','bossMultipliers','legacyMultipliers'])if(st?.[key]!==undefined&&(!Array.isArray(st[key])||st[key].length!==10||st[key].some(v=>!Number.isFinite(v)||v<=0||v>100)))throw Error('T 級倍率無效：'+key);
     if(st?.weightsByDifficulty!==undefined&&(!Array.isArray(st.weightsByDifficulty)||st.weightsByDifficulty.length!==3||st.weightsByDifficulty.some(row=>!Array.isArray(row)||row.length!==10||row.some(v=>!Number.isFinite(v)||v<0)||!row.some(v=>v>0))))throw Error('T 級權重無效');
     const p=normalizePower(raw);
-    const checkRows=(rows,label)=>{
-      const ids=new Set();
-      for(const x of rows){
-        if(ids.has(x.id))throw Error(label+' ID 重複：'+x.id);ids.add(x.id);
-        if(!x.name||!x.slots.length||x.tierMin<1||x.tierMax>10||x.tierMax<x.tierMin||!Array.isArray(x.chanceByTier)||x.chanceByTier.length!==10||x.chanceByTier.some(v=>!Number.isFinite(v)||v<0||v>100))throw Error(label+'資料無效：'+x.id);
-        if(!REGULAR_EFFECT_KEYS.has(x.effect.key))throw Error(label+'效果無效：'+x.id);
-      }
-      for(let tier=1;tier<=10;tier++)for(let slot=0;slot<4;slot++){
-        const total=rows.filter(x=>tier>=x.tierMin&&tier<=x.tierMax&&x.slots.includes(slot)).reduce((n,x)=>n+affixChanceAtTier(x,tier),0);
-        if(total>100+1e-9)throw Error(label+' T'+tier+' '+['武器','護甲','副手','飾品'][slot]+'機率合計超過 100%');
-      }
-    };
-    checkRows(p.prefixes,'前綴');checkRows(p.suffixes,'後綴');
     if(p.bossAffixes.length!==DEFAULT_BOSS_AFFIXES.length)throw Error('BOSS 專屬詞綴資料不完整');
     for(const x of p.bossAffixes){
       if(!Array.isArray(x.effects)||x.effects.length!==3)throw Error('BOSS 專屬詞綴必須正好 3 條：'+x.id);
@@ -10253,13 +10555,12 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
       out.equipmentPowerSystem=clone(EQUIPMENT_POWER);
       if(Array.isArray(out.items)&&!out.items.some(x=>x.id===POWER_ITEM_ID))out.items.push(rerollItemData());
       out._reference??={};out._reference.equipmentIdentity={
-        naming:'一般裝備名稱 = 前綴 + 後綴 + 基底；前綴或後綴可為空；BOSS 裝備只使用 BOSS 專屬名稱。',
-        stats:'一般裝備 ATK/HP/DEF 只由基底、T1~T10 與既有 +N 強化計算；前後綴不提供 raw ATK/HP/DEF。',
-        affixChance:'prefixes / suffixes 的 chanceByTier[0..9] 分別代表 T1～T10 的實際百分比機率（0~100）；同一 T 級與部位合計不足 100% 時，剩餘機率為無該類詞綴。舊版 weight 只作匯入相容。',
-        boss:'BOSS 裝備不抽前後綴，保留三條專屬效果及兩個可洗鍊隨機詞綴。',
+        naming:'一般裝備名稱 = 基底名稱；BOSS 裝備只使用 BOSS 專屬名稱。v0.211 起沒有前綴／後綴。',
+        stats:'一般裝備 ATK/HP/DEF 只由基底、T1~T10 與既有 +N 強化計算。',
+        boss:'BOSS 裝備保留三條專屬效果及兩個可洗鍊隨機詞綴。',
         effects:[...BOSS_EFFECT_KEYS]
       };
-      out.notes=[...(out.notes||[]),'equipmentPowerSystem schemaVersion=4：prefixes / suffixes 各一條效果；chanceByTier[0..9] 分別控制 T1～T10 實際百分比機率，舊版 weight 會自動轉入有效 T 級。','同一 T 級與部位的前綴／後綴機率池各自以 100% 為上限；不足 100% 的剩餘機率會生成無前綴／無後綴裝備。','一般裝備 raw ATK/HP/DEF 不受前後綴影響；由 equipmentForms 基底、T 階級與既有強化計算。','BOSS 專屬裝備不抽前後綴；三條專屬效果保留，隨機詞綴可洗鍊。'];
+      out.notes=[...(out.notes||[]),'equipmentPowerSystem schemaVersion=4：v0.211 起沒有 prefixes / suffixes（前後綴系統已移除，舊文件的這兩個欄位會被忽略）。']; 
       return out;
     };
   }
@@ -10289,12 +10590,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     validateBalanceConfig=function(input){const copy=clone(input);copy.equipmentPowerSystem=validatePowerInput(copy.equipmentPowerSystem);return identityValidateBalanceBase(copy);};
   }
 
-  function prefixById(id){return EQUIPMENT_POWER.prefixes.find(x=>x.id===id)||null;}
-  function suffixById(id){return EQUIPMENT_POWER.suffixes.find(x=>x.id===id)||null;}
-  function eligibleRows(rows,tier,slot){return rows.filter(x=>tier>=x.tierMin&&tier<=x.tierMax&&affixChanceAtTier(x,tier)>0&&x.slots.includes(slot));}
-  function deterministicRow(rows,tier,slot,offset=0){const eligible=eligibleRows(rows,tier,slot);return eligible.length?eligible[(Math.max(1,Number(tier)||1)+slot+offset)%eligible.length]:null;}
   function rollWeighted(rows){const total=rows.reduce((n,x)=>n+Math.max(0,Number(x.weight)||0),0);if(total<=0)return rows[0]||null;let r=Math.random()*total;for(const x of rows){r-=Math.max(0,Number(x.weight)||0);if(r<=0)return x;}return rows.at(-1)||null;}
-  function rollNamedAffix(rows,tier,slot){const eligible=eligibleRows(rows,tier,slot);let r=Math.random()*100;for(const x of eligible){r-=affixChanceAtTier(x,tier);if(r<0)return x;}return null;}
   function bossProfileId(g){const group=MAPS[g?.region]?.parallel?'parallel':'legacy',family=Math.max(0,Math.min(5,Number(g?.boss)||0)),high=(Number(g?.tier)||1)>6;return group+'_'+(high?'high':'low')+'_'+family;}
   function bossProfileForGear(g){if(!g||g.boss===undefined)return null;const id=bossProfileId(g);return EQUIPMENT_POWER.bossAffixes.find(x=>x.id===id)||DEFAULT_BOSS_AFFIXES.find(x=>x.id===id)||null;}
   function strengthAnchor(mode){return mode===2?10:mode===1?5:1;}
@@ -10318,13 +10614,10 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     if(!g||typeof g!=='object'||g.slot===undefined)return g;
     const sourceMode=mode===null?Math.max(0,Math.min(2,Number(g.difficulty)||0)):Math.max(0,Math.min(2,Number(mode)||0));
     if(freshPower||!Number.isInteger(g.powerTier)||g.powerTier<1||g.powerTier>10)g.powerTier=freshPower?rollStrengthTier(sourceMode):strengthAnchor(sourceMode);
-    const tier=Math.max(1,Math.min(10,Number(g.powerTier)||strengthAnchor(sourceMode))),slot=Math.max(0,Math.min(2,Number(g.slot)||0));
-    if(g.boss===undefined){
-      const hasPrefix=Object.prototype.hasOwnProperty.call(g,'prefixId'),hasSuffix=Object.prototype.hasOwnProperty.call(g,'suffixId');
-      if(freshNames||!hasPrefix||(g.prefixId!==''&&(!prefixById(g.prefixId)||!prefixById(g.prefixId).slots.includes(slot))))g.prefixId=(freshNames?rollNamedAffix(EQUIPMENT_POWER.prefixes,tier,slot):deterministicRow(EQUIPMENT_POWER.prefixes,tier,slot,0))?.id||'';
-      if(freshNames||!hasSuffix||(g.suffixId!==''&&(!suffixById(g.suffixId)||!suffixById(g.suffixId).slots.includes(slot))))g.suffixId=(freshNames?rollNamedAffix(EQUIPMENT_POWER.suffixes,tier,slot):deterministicRow(EQUIPMENT_POWER.suffixes,tier,slot,3))?.id||'';
-    }else{
-      g.prefixId='';g.suffixId='';if(!Array.isArray(g.affix))g.affix=[];
+    // v0.211: the prefix/suffix system was removed; owned gear drops its old names and effects.
+    delete g.prefixId;delete g.suffixId;
+    if(g.boss!==undefined){
+      if(!Array.isArray(g.affix))g.affix=[];
       g.bossQualityRank=Math.max(2,Math.min(3,Number(GS('equipment.boss.affixRankByDifficulty',[2,2,3])[g.difficulty||0])||2));
     }
     return g;
@@ -10348,10 +10641,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
       if(g.baseRuleVersion===1&&key)return {key:{atk:'flatAttack',hp:'flatHp',def:'flatDefense'}[key],value:Math.round((g.baseSnapshot?.base[key]||0)*e.value/100),ruleEffect:e,source:'boss'};
       return {...e,source:'boss'};
     });
-    const out=baseEffectEntries(g),p=prefixById(g.prefixId),s=suffixById(g.suffixId);
-    if(p?.effect)out.push({...p.effect,source:'prefix'});
-    if(s?.effect)out.push({...s.effect,source:'suffix'});
-    return out;
+    return baseEffectEntries(g);
   }
   function identityEffectsForHero(h){return equipment(h).flatMap(identityEffectEntriesForGear);}
   function effectNumberForHero(h,key){return identityEffectsForHero(h).filter(e=>e.key===key).reduce((n,e)=>n+(Number(e.value)||0),0);}
@@ -10366,6 +10656,10 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     if(key==='elementDamagePct')return (ELEMENTS[effect.element]||effect.element)+' '+label+' '+(Number(value)>=0?'+':'')+Number(value)+'%';
     if(key==='elementResistPct')return (ELEMENTS[effect.element]||effect.element)+' '+label+' '+(Number(value)>=0?'+':'')+Number(value)+'%';
     if(key==='raceDamagePct')return '對'+(RACES[effect.race]||effect.race)+' '+label+' '+(Number(value)>=0?'+':'')+Number(value)+'%';
+    // v0.211 weapon base effects use the weapon wording: 技能傷害＋5%、技能冷卻－5%、防禦力＋5%.
+    if(key==='skillDamagePct')return '技能傷害'+(Number(value)>=0?'＋':'－')+Math.abs(Number(value))+'%';
+    if(key==='cooldownPct')return '技能冷卻'+(Number(value)>=0?'－':'＋')+Math.abs(Number(value))+'%';
+    if(key==='defensePct'&&effect.source==='base')return '防禦力'+(Number(value)>=0?'＋':'－')+Math.abs(Number(value))+'%';
     if(key==='skillEffectPct')return '核心技能 '+((effect.skill??0)+1)+' '+label+' '+(Number(value)>=0?'+':'')+Number(value)+'%';
     return label+' '+(Number(value)>=0?'+':'')+Number(value)+'%';
   }
@@ -10386,7 +10680,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     ensureGearIdentityMeta(g);
     const body=g.boss===undefined?(baseFormForGear(g)?.name||CLASS_GEAR[g.job??state?.job??0]?.[g.slot]||'裝備'):(CLASS_GEAR[g.job??state?.job??0]?.[g.slot]||'裝備');
     if(g.boss!==undefined)return (bossProfileForGear(g)?.name||'BOSS專屬')+body;
-    return (prefixById(g.prefixId)?.name||'')+(suffixById(g.suffixId)?.name||'')+body;
+    return body;
   };
   equipmentDisplayName=function(g){if(!g||g.slot===undefined)return identityEquipmentDisplayBase(g);ensureGearIdentityMeta(g);return '+'+(g.plus||0)+' '+gearName(g);};
   const identityNameHTMLBase=equipmentNameHTML;
@@ -10405,7 +10699,13 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   gearQualityRank=function(g){return EmberwildTokens.isToken(g)?g.rar:tokenQualityBase(g);};
 
   bossPower=function(){return 1;};
-  function rawTierStats(g){if(g?.baseSnapshot&&!g.starterPack)return {...g.baseSnapshot.raw};const tier=(Number.isInteger(g?.equipmentLevel)?1+(g.equipmentLevel-GS('equipment.requiredLevel.base',1))/GS('equipment.requiredLevel.perTier',5):Math.max(1,Number(g?.tier)||1))+(g?.boss!==undefined&&g.baseRuleVersion!==1?EQUIPMENT_POWER.strength.legacyBossLevelBonus/GS('equipment.requiredLevel.perTier',5):0),atkPer=g.slot===2?GS('equipment.baseStats.offhandAttackPerTier',GS('equipment.baseStats.accessoryAttackPerTier',4)):GS('equipment.baseStats.accessoryAttackPerTier',4),hpPer=g.slot===2?GS('equipment.baseStats.offhandHpPerTier',GS('equipment.baseStats.accessoryHpPerTier',20)):GS('equipment.baseStats.accessoryHpPerTier',20);const raw={atk:g.slot===0?(Number.isFinite(g.starterPack?.baseAttack)?g.starterPack.baseAttack:tier*GS('equipment.baseStats.weaponAttackPerTier',11)):[2,3].includes(g.slot)?tier*atkPer:0,hp:g.slot===1?tier*GS('equipment.baseStats.armorHpPerTier',45):[2,3].includes(g.slot)?tier*hpPer:0,def:g.slot===1?tier*GS('equipment.baseStats.armorDefensePerTier',4):0};if(g.boss!==undefined&&g.baseRuleVersion===1){const form=ITEM_FORMS[g.job]?.[g.slot]?.[0];for(const [key,fx] of [['atk','gearAtkPct'],['hp','gearHpPct'],['def','gearDefPct']])raw[key]=Math.round(raw[key]*(1+(form?.fixedEffects||[]).filter(e=>e.key===fx).reduce((n,e)=>n+Number(e.value||0),0)/100));}return raw;}
+  /* BOSS bases (baseRuleVersion 1) used to read the base percents of the class's first standard form of the slot. v0.211
+     slimmed and changed those forms, so the percents they had then are kept here and BOSS equipment keeps its base. */
+  const BOSS_BASE_FORM_PCT=[[{"atk":5},{"hp":15,"def":25},{"atk":20},{"hp":30}],[{"atk":15},{},{"atk":15},{"hp":10}],[{"atk":15},{"def":10},{},{"atk":10}],[{"atk":10},{"hp":15},{"atk":10},{"hp":25}]];
+  function rawTierStats(g){if(g?.baseSnapshot&&!g.starterPack)return {...g.baseSnapshot.raw};const tier=(Number.isInteger(g?.equipmentLevel)?1+(g.equipmentLevel-GS('equipment.requiredLevel.base',1))/GS('equipment.requiredLevel.perTier',5):Math.max(1,Number(g?.tier)||1))+(g?.boss!==undefined&&g.baseRuleVersion!==1?EQUIPMENT_POWER.strength.legacyBossLevelBonus/GS('equipment.requiredLevel.perTier',5):0),atkPer=g.slot===2?GS('equipment.baseStats.offhandAttackPerTier',GS('equipment.baseStats.accessoryAttackPerTier',4)):GS('equipment.baseStats.accessoryAttackPerTier',4),hpPer=g.slot===2?GS('equipment.baseStats.offhandHpPerTier',GS('equipment.baseStats.accessoryHpPerTier',20)):GS('equipment.baseStats.accessoryHpPerTier',20);const raw={atk:g.slot===0?(Number.isFinite(g.starterPack?.baseAttack)?g.starterPack.baseAttack:tier*GS('equipment.baseStats.weaponAttackPerTier',11)):[2,3].includes(g.slot)?tier*atkPer:0,hp:g.slot===1?tier*GS('equipment.baseStats.armorHpPerTier',45):[2,3].includes(g.slot)?tier*hpPer:0,def:g.slot===1?tier*GS('equipment.baseStats.armorDefensePerTier',4):0};
+    // v0.211: an off-hand template with baseStat 'defense' (皮盾) has the armor defense per tier instead of attack.
+    if(g.boss===undefined&&g.slot===2&&baseFormForGear(g)?.baseStat==='defense'){raw.atk=0;raw.def=tier*GS('equipment.baseStats.armorDefensePerTier',4);}
+    if(g.boss!==undefined&&g.baseRuleVersion===1){const pct=BOSS_BASE_FORM_PCT[g.job]?.[g.slot]||{};for(const key of ['atk','hp','def'])raw[key]=Math.round(raw[key]*(1+(Number(pct[key])||0)/100));}return raw;}
   function baseStatPct(g,key){
     const effects=identityEffectEntriesForGear(g);
     return effects.filter(e=>e.key===key).reduce((n,e)=>n+(Number(e.value)||0),0);
@@ -10416,8 +10716,8 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   }
   function gearStatBreakdown(g){
     const cache=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE,rows=cache?(cache.gearStats??=new WeakMap()):null,hit=rows?.get(g);
-    if(hit&&hit.plus===g.plus&&hit.base===g.baseSnapshot&&hit.power===g.powerTier&&hit.prefix===g.prefixId&&hit.suffix===g.suffixId)return hit.value;
-    if(EmberwildTokens.isToken(g)){const zero={atk:0,hp:0,def:0};return {raw:{...zero},body:{...zero},grade:{...zero},enhance:{...zero},total:{...zero},mult:g.qualityMultipliers[g.rar],powerTier:1,prefix:null,suffix:null,bossProfile:null};}
+    if(hit&&hit.plus===g.plus&&hit.base===g.baseSnapshot&&hit.power===g.powerTier)return hit.value;
+    if(EmberwildTokens.isToken(g)){const zero={atk:0,hp:0,def:0};return {raw:{...zero},body:{...zero},grade:{...zero},enhance:{...zero},total:{...zero},mult:g.qualityMultipliers[g.rar],powerTier:1,bossProfile:null};}
     ensureGearIdentityMeta(g);
     const mult=g.starterPack?Number(EQUIPMENT_POWER.strength.legacyMultipliers[(g.powerTier||1)-1])||1:strengthMultiplier(g);
     const raw=rawTierStats(g);
@@ -10430,8 +10730,8 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
       const b=g.baseSnapshot,total=enhancedBaseStats(g,b.base);
       integers={raw:{...b.raw},body:{...b.body},grade:Object.fromEntries(['hp','atk','def'].map(k=>[k,b.base[k]-b.body[k]])),enhance:Object.fromEntries(['hp','atk','def'].map(k=>[k,total[k]-b.base[k]])),total};
     }
-    const value={...integers,mult,powerTier:g.powerTier||1,prefix:prefixById(g.prefixId),suffix:suffixById(g.suffixId),bossProfile:bossProfileForGear(g)};
-    rows?.set(g,{plus:g.plus,base:g.baseSnapshot,power:g.powerTier,prefix:g.prefixId,suffix:g.suffixId,value});return value;
+    const value={...integers,mult,powerTier:g.powerTier||1,bossProfile:bossProfileForGear(g)};
+    rows?.set(g,{plus:g.plus,base:g.baseSnapshot,power:g.powerTier,value});return value;
   }
   globalThis.gearStatBreakdown=gearStatBreakdown;
   // v0.094: take the base snapshot when a drop enters the bag, as wishing-lake rewards already do. Before, it was taken on
@@ -10476,7 +10776,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
         else if(e.key==='elementDamagePct'&&e.element)v.elementDamage[e.element]=(v.elementDamage[e.element]||0)+n/100;
         else if(e.key==='elementResistPct'&&e.element)v.resist[e.element]=(v.resist[e.element]||0)+n/100;
         else if(e.key==='raceDamagePct'&&e.race)v.raceDamage[e.race]=(v.raceDamage[e.race]||0)+n/100;
-        else if(!['gearAtkPct','gearHpPct','gearDefPct','basicElement','basicAttackSpeedStack','allCooldownReduction','dropRateBonus','skillEffectPct','skillCooldownReduction'].includes(e.key))applyIdentityStatEffect(v,e,attackBox);
+        else if(!['gearAtkPct','gearHpPct','gearDefPct','basicElement','basicAttackSpeedStack','allCooldownReduction','dropRateBonus','skillEffectPct','skillCooldownReduction','skillDamagePct','cooldownPct'].includes(e.key))applyIdentityStatEffect(v,e,attackBox);
       }
       for(const a0 of g.affix||[]){
         const a=convertLegacyManaAffix(a0,g);
@@ -10595,7 +10895,6 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
         add('成長加成 '+(i+1),effectText(e)+'／級 · '+growth.range+' · 已成長 '+growth.levels+' 級',active);
       });
     }
-    for(const [label,named] of [['前綴加成',b.prefix],['後綴加成',b.suffix]])add(label,named?named.name+' · '+effectText(named.effect):'',named?.effect);
     const affixes=Array.isArray(g.affix)?g.affix:[];
     for(let i=0;i<Math.max(2,affixes.length);i++){
       const a=affixes[i]?convertLegacyManaAffix(affixes[i],g):null;
@@ -10657,9 +10956,29 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   };
   // Equipment-owned bonuses are totals in their own units, never an estimate of
   // character attack or combat power. Keep random-affix rules available above.
+  /* v0.211 weapon base: every general weapon template states its base in one block, in this order and wording:
+     攻擊力：<this item's attack> / 攻擊速度：<attacks per second of the wearing class with this weapon's base speed> 次／秒
+     / 技能傷害＋X% / 技能冷卻－X% / 防禦力＋X% (only the ones the template has). */
+  const WEAPON_BASE_TEXT_KEYS=['skillDamagePct','cooldownPct','defensePct'];
+  const WEAPON_BASE_SUMMARY_KEYS=new Set(['attackSpeedPct','skillDamagePct','cooldownPct']);
+  function weaponBaseForm(g){
+    if(!g||g.boss!==undefined||EmberwildTokens.isToken(g)||Number(g.slot)!==0)return null;
+    const form=baseFormForGear(g);return form&&equipmentFormGroup(g)<CLASSES.length?form:null;
+  }
+  globalThis.weaponBaseLines=function(g){
+    const form=weaponBaseForm(g);if(!form)return [];
+    const effects=baseEffectEntries(g),sum=key=>effects.filter(e=>e.key===key).reduce((n,e)=>n+(Number(e.value)||0),0);
+    const job=(form.wearableJobs||[])[0]??Number(g.job)??0;
+    const sec=globalThis.EmberwildSecondsCombat?.config?.()||GAMEPLAY_SETTINGS.combat?.seconds;
+    const base=sec?.classes?.find(c=>c.job===job)?.baseIntervalSeconds??EmberwildAttackSpeed.CLASS_INTERVALS[job]??2;
+    const rate=EmberwildAttackSpeed.attacksPerSecond(base,sum('attackSpeedPct'),sec?.attackSpeed);
+    const lines=['攻擊力：'+globalThis.equipmentStatContributions(g).total.atk,'攻擊速度：'+Number(rate.toFixed(3))+' 次／秒'];
+    for(const key of WEAPON_BASE_TEXT_KEYS){const n=sum(key);if(n)lines.push(effectText({key,value:n,source:'base'}));}
+    return lines;
+  };
   globalThis.equipmentAbilitySummary=function(g){
-    const ledger=globalThis.equipmentStatContributions(g),effects=new Map();
-    const addEffect=(effect,random=false)=>{
+    const ledger=globalThis.equipmentStatContributions(g),effects=new Map(),weapon=!!weaponBaseForm(g);
+    const addEffect=(effect,random=false,base=false)=>{
       if(!effect||CHARACTER_EFFECT_KEYS.has(effect.key)||PCT_PANEL_KEYS[effect.key]||FLAT_PANEL_KEYS[effect.key])return;
       const e={...effect};
       if(e.key==='skillCooldownReduction'&&CLASSES[g.job??0]?.skills?.[e.skill??0]?.[1]==='proc'){
@@ -10671,11 +10990,11 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
         if(!effects.has('basicElement'))effects.set('basicElement',e);
         return;
       }
-      if(!effects.has(id))effects.set(id,{...e,value:0,fixedValue:0,affixValue:0});
+      if(!effects.has(id))effects.set(id,{...e,value:0,fixedValue:0,affixValue:0,baseValue:0});
       const total=effects.get(id),n=Number(e.value)||0;
-      total.value+=n;total[random?'affixValue':'fixedValue']+=n;
+      total.value+=n;total[random?'affixValue':'fixedValue']+=n;if(base)total.baseValue+=n;
     };
-    for(const row of ledger.rows)if(row.effect)addEffect(row.effect);
+    for(const row of ledger.rows)if(row.effect)addEffect(row.effect,false,weapon&&row.label.startsWith('基底效果'));
     for(const row of ledger.rows){
       const a=row.affix;if(!a)continue;
       const key=AFFIX_EFFECT_KEYS[a.type]||(a.type===4?'skillEffectPct':a.type===5?'skillCooldownReduction':'');
@@ -10683,7 +11002,8 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     }
     const numeric={...ledger.total};
     for(const row of ledger.rows){const e=row.effect||(row.affix?.type===15?{key:'attackPct',value:row.affix.value}:null);if(e&&CHARACTER_EFFECT_KEYS.has(e.key))numeric[e.key]=(numeric[e.key]||0)+(Number(e.value)||0);}
-    const values=statText(ledger.total)==='—'?[]:statText(ledger.total).split(' / ');
+    // A weapon states its attack in the weapon base block (攻擊力：N), so the panel attack is not listed again.
+    const values=(statText(ledger.total)==='—'?[]:statText(ledger.total).split(' / ')).filter(v=>!(weapon&&/^攻擊 /.test(v)));
     for(const e of effects.values()){
       // The existing skill formula multiplies its fixed and random bonus groups.
       if(e.key==='skillEffectPct')e.value=((1+e.fixedValue/100)*(1+e.affixValue/100)-1)*100;
@@ -10693,6 +11013,8 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
         if(!e.value)continue;
       }
       if(e.key!=='basicElement')numeric[numericKey(e)]=e.value;
+      // The weapon base block already states these base values; list only what other sources add.
+      if(weapon&&WEAPON_BASE_SUMMARY_KEYS.has(e.key)&&e.baseValue){const rest=Number((e.value-e.baseValue).toFixed(2));if(!rest)continue;values.push(effectText({...e,value:rest}));continue;}
       values.push(e.key==='skillProcChance'?'核心技能 '+((e.skill??0)+1)+' 觸發率 '+(e.value>=0?'+':'')+e.value+'%':e.key==='skillCooldownReduction'?'核心技能 '+((e.skill??0)+1)+' 冷卻 '+cdSummary({fixedSkill:Math.max(0,Math.round(e.fixedValue)),affixSkill:e.affixValue},e.value):e.key==='allCooldownReduction'?'全主動／輔助技能冷卻 '+cdSummary({fixedAll:Math.max(0,Math.round(e.fixedValue)),affixAll:e.affixValue},e.value):effectText(e));
     }
     const affixes=ledger.rows.filter(row=>row.affix).map(row=>({label:row.label.replace(' 加成',''),rule:row.rule,rank:row.affix.rank??0}));
@@ -10713,12 +11035,13 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     }
     return fields;
   };
-  globalThis.equipmentTotalSummaryText=function(g){return globalThis.equipmentAbilitySummary(g).values.join(' / ')||'—';};
+  globalThis.equipmentTotalSummaryText=function(g){return [...globalThis.weaponBaseLines(g),...globalThis.equipmentAbilitySummary(g).values].join(' / ')||'—';};
   globalThis.equipmentTotalSummaryHTML=function(g){
-    const summary=globalThis.equipmentAbilitySummary(g);
-    const values='<span class="equipment-summary-values">'+(summary.values.length?summary.values.map(value=>'<span>'+esc(value)+'</span>').join(''):'—')+'</span>';
+    const summary=globalThis.equipmentAbilitySummary(g),base=globalThis.weaponBaseLines(g);
+    const weaponBase=base.length?'<span class="equipment-weapon-base">'+base.map(line=>'<span>'+esc(line)+'</span>').join('')+'</span>':'';
+    const values=weaponBase&&!summary.values.length?'':'<span class="equipment-summary-values">'+(summary.values.length?summary.values.map(value=>'<span>'+esc(value)+'</span>').join(''):'—')+'</span>';
     const affixes=summary.affixes.length?'<span class="equipment-summary-affixes">'+summary.affixes.map(a=>'<span class="equipment-summary-affix effect-quality-'+a.rank+'"><b>'+esc(a.label)+'</b> '+esc(a.rule)+'</span>').join('')+'</span>':'';
-    return values+affixes;
+    return weaponBase+values+affixes;
   };
   globalThis.equipmentAttributeDetailsHTML=function(g,options={}){
     if(!g)return '';
@@ -10745,7 +11068,6 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     const out=[];if(!g)return out;
     if(g.boss!==undefined){for(const e of bossProfileForGear(g)?.effects||[])out.push(effectText(e));return out;}
     for(const e of baseEffectEntries(g))out.push(effectText(e));
-    const p=prefixById(g.prefixId),s=suffixById(g.suffixId);if(p)out.push('前綴 '+p.name+'：'+effectText(p.effect));if(s)out.push('後綴 '+s.name+'：'+effectText(s.effect));
     return out;
   };
   gearDesc=function(g){return globalThis.equipmentTotalSummaryText(g);};
@@ -10787,7 +11109,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
   try{
     const raw=balanceSourceText();
     if(raw){const saved=JSON.parse(raw);if(saved?.equipmentPowerSystem)applyBalanceConfig(saved,{persist:false});}
-  }catch(e){console.warn('裝備前綴／後綴設定載入失敗，使用內建設定',e);}
+  }catch(e){console.warn('裝備強度設定載入失敗，使用內建設定',e);}
 
   syncRerollItem();normalizeAllGearIdentity();
   // Rehydrate the original bytes once all save validators and migrations exist.
@@ -10803,11 +11125,11 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
     for(const candidate of candidates){try{loadParty(migrateWorldSave(JSON.parse(candidate.raw)));normalizeAllGearIdentity();normalizeEquippedWearability();globalThis.__EMBERWILD_PRE_CONTROL_SAVE_RAW=candidate.raw;if(candidate.label==='備份存檔'){globalThis.__EMBERWILD_RECOVERED_BACKUP_SESSION=true;if(candidates[0]?.label==='主要存檔')globalThis.__EMBERWILD_UNREADABLE_PRIMARY_RAW=candidates[0].raw;}if(candidate.label==='備份存檔'&&(!globalThis.__EMBERWILD_BALANCE_SOURCE||globalThis.__EMBERWILD_BALANCE_READY))toast('主要存檔無法載入，已自動恢復上一份備份');break;}catch(e){state=null;party=null;console.warn(candidate.label+'最終載入失敗',e);if(candidate.label==='主要存檔'&&String(e?.message||e).startsWith('裝備類型無效：'))break;}}
   }
   saveReady=true;
-  window.__EMBERWILD_EQUIPMENT_IDENTITY={schemaVersion:2,effectKeys:[...BOSS_EFFECT_KEYS],prefixes:()=>clone(EQUIPMENT_POWER.prefixes),suffixes:()=>clone(EQUIPMENT_POWER.suffixes),bossAffixes:()=>clone(EQUIPMENT_POWER.bossAffixes),effectText};
+  window.__EMBERWILD_EQUIPMENT_IDENTITY={schemaVersion:2,effectKeys:[...BOSS_EFFECT_KEYS],bossAffixes:()=>clone(EQUIPMENT_POWER.bossAffixes),effectText};
   if(state){save();render();}
 })();
 
-__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_RECOVERED_BACKUP_SESSION=globalThis.__EMBERWILD_RECOVERED_BACKUP_SESSION??__EMBERWILD_RECOVERED_BACKUP_SESSION;__EMBERWILD_UNREADABLE_PRIMARY_RAW=globalThis.__EMBERWILD_UNREADABLE_PRIMARY_RAW??__EMBERWILD_UNREADABLE_PRIMARY_RAW;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;equipmentPowerRerollHTML=globalThis.equipmentPowerRerollHTML??equipmentPowerRerollHTML;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentBaseRatingHTML=globalThis.equipmentBaseRatingHTML??equipmentBaseRatingHTML;equipmentPlayerItemDescription=globalThis.equipmentPlayerItemDescription??equipmentPlayerItemDescription;equipmentIdentityEffectText=globalThis.equipmentIdentityEffectText??equipmentIdentityEffectText;equipmentIdentityEffectNumber=globalThis.equipmentIdentityEffectNumber??equipmentIdentityEffectNumber;classInitialStats=globalThis.classInitialStats??classInitialStats;classMasteryBonus=globalThis.classMasteryBonus??classMasteryBonus;companionPassiveStatEffects=globalThis.companionPassiveStatEffects??companionPassiveStatEffects;equipmentStatContributions=globalThis.equipmentStatContributions??equipmentStatContributions;equipmentStarterGrowthSources=globalThis.equipmentStarterGrowthSources??equipmentStarterGrowthSources;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;equipmentNumericFields=globalThis.equipmentNumericFields??equipmentNumericFields;rerollEquipmentPowerTier=globalThis.rerollEquipmentPowerTier??rerollEquipmentPowerTier;useInventoryItem=globalThis.useInventoryItem??useInventoryItem;__EMBERWILD_PRE_CONTROL_SAVE_RAW=globalThis.__EMBERWILD_PRE_CONTROL_SAVE_RAW??__EMBERWILD_PRE_CONTROL_SAVE_RAW;
+__EMBERWILD_EQUIPMENT_IDENTITY=globalThis.__EMBERWILD_EQUIPMENT_IDENTITY??__EMBERWILD_EQUIPMENT_IDENTITY;EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;equipmentTotalSummaryHTML=globalThis.equipmentTotalSummaryHTML??equipmentTotalSummaryHTML;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;equipmentTotalSummaryText=globalThis.equipmentTotalSummaryText??equipmentTotalSummaryText;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;gearStatBreakdown=globalThis.gearStatBreakdown??gearStatBreakdown;equipmentBaseRating=globalThis.equipmentBaseRating??equipmentBaseRating;__EMBERWILD_BALANCE_READY=globalThis.__EMBERWILD_BALANCE_READY??__EMBERWILD_BALANCE_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;__EMBERWILD_RECOVERED_BACKUP_SESSION=globalThis.__EMBERWILD_RECOVERED_BACKUP_SESSION??__EMBERWILD_RECOVERED_BACKUP_SESSION;__EMBERWILD_UNREADABLE_PRIMARY_RAW=globalThis.__EMBERWILD_UNREADABLE_PRIMARY_RAW??__EMBERWILD_UNREADABLE_PRIMARY_RAW;equipmentAffixComparison=globalThis.equipmentAffixComparison??equipmentAffixComparison;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;equipmentPowerRerollHTML=globalThis.equipmentPowerRerollHTML??equipmentPowerRerollHTML;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentBaseRatingHTML=globalThis.equipmentBaseRatingHTML??equipmentBaseRatingHTML;equipmentPlayerItemDescription=globalThis.equipmentPlayerItemDescription??equipmentPlayerItemDescription;equipmentIdentityEffectText=globalThis.equipmentIdentityEffectText??equipmentIdentityEffectText;equipmentIdentityEffectNumber=globalThis.equipmentIdentityEffectNumber??equipmentIdentityEffectNumber;classInitialStats=globalThis.classInitialStats??classInitialStats;classMasteryBonus=globalThis.classMasteryBonus??classMasteryBonus;companionPassiveStatEffects=globalThis.companionPassiveStatEffects??companionPassiveStatEffects;equipmentStatContributions=globalThis.equipmentStatContributions??equipmentStatContributions;equipmentStarterGrowthSources=globalThis.equipmentStarterGrowthSources??equipmentStarterGrowthSources;weaponBaseLines=globalThis.weaponBaseLines??weaponBaseLines;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;equipmentNumericFields=globalThis.equipmentNumericFields??equipmentNumericFields;rerollEquipmentPowerTier=globalThis.rerollEquipmentPowerTier??rerollEquipmentPowerTier;useInventoryItem=globalThis.useInventoryItem??useInventoryItem;__EMBERWILD_PRE_CONTROL_SAVE_RAW=globalThis.__EMBERWILD_PRE_CONTROL_SAVE_RAW??__EMBERWILD_PRE_CONTROL_SAVE_RAW;
 
 /* js/ui/journal-split.js?v=20261015-loot-fold1 */
 
@@ -10901,7 +11223,7 @@ journalLootOpen=globalThis.journalLootOpen??journalLootOpen;journalLootHeight=gl
 
 inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldOpen;inventoryDisposeFoldOpen=globalThis.inventoryDisposeFoldOpen??inventoryDisposeFoldOpen;setInventoryFoldState=globalThis.setInventoryFoldState??setInventoryFoldState;
 
-/* js/balance/numeric-compression-formula.js?v=20261123-v0196-aspd */
+/* js/balance/numeric-compression-formula.js?v=20261126-v0211-gear */
 
 /* Numeric compression v1:
    - Low-number baseline for characters, monsters, equipment and skills.
@@ -10982,7 +11304,6 @@ inventoryFilterFoldOpen=globalThis.inventoryFilterFoldOpen??inventoryFilterFoldO
         (cls.skills||[]).forEach((sk,i)=>{if(Number.isFinite(powers[job]?.[i]))sk.power=powers[job][i];});
       });
       if(out.equipmentPowerSystem?.strength?.multipliers)out.equipmentPowerSystem.strength.multipliers=clone(EmberwildProgression.defaults.powerMultipliers);
-      for(const list of [out.equipmentPowerSystem?.prefixes,out.equipmentPowerSystem?.suffixes])for(const x of list||[])if(x?.effect?.key==='pierce')x.effect.value=Math.max(1,Number((Number(x.effect.value||0)*.6).toFixed(2)));
       for(const x of out.equipmentPowerSystem?.bossAffixes||[])for(const e of x.effects||[])if(e?.key==='pierce')e.value=Math.max(1,Number((Number(e.value||0)*.6).toFixed(2)));
     }else{
       out.balanceSettings.meta??={};out.balanceSettings.meta.numericCompressionVersion=COMPRESSION_VERSION;
@@ -13322,7 +13643,7 @@ __EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;
 
 EmberwildIconColors=globalThis.EmberwildIconColors??EmberwildIconColors;__EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;
 
-/* js/skills/mastery-core.js?v=20261120-v0179 */
+/* js/skills/mastery-core.js?v=20261126-v0211-gear */
 
 (()=>{
 const clone=v=>JSON.parse(JSON.stringify(v));
@@ -13371,7 +13692,9 @@ const LEGACY_WEAPON_BY_NAME={
   '闊刃劍':'sword','穿甲槍':'sword','汲血斧':'axe',
   '狙擊長弓':'bow','穿雲弩':'crossbow','風羽短弓':'bow',
   '炎晶杖':'staff','霜紋杖':'staff','疾風法器':'grimoire',
-  '晨光權杖':'holyStaff','淨化槌':'holyStaff','祈禱法杖':'holyStaff'
+  '晨光權杖':'holyStaff','淨化槌':'holyStaff','祈禱法杖':'holyStaff',
+  // v0.211 weapon templates
+  '長劍':'sword','巨斧':'axe','木杖':'staff','水晶球':'grimoire','長弓':'bow','手弩':'crossbow','權杖':'holyStaff'
 };
 const CORE_PLAN=[
   [
@@ -15884,7 +16207,7 @@ __EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BA
 
 isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;__EMBERWILD_NAVIGATION_DRAGGING=globalThis.__EMBERWILD_NAVIGATION_DRAGGING??__EMBERWILD_NAVIGATION_DRAGGING;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;
 
-/* js/character/starter-pack.js?v=20261119-v0169 */
+/* js/character/starter-pack.js?v=20261126-v0211-gear */
 (function starterModule(){
   const clone=value=>JSON.parse(JSON.stringify(value));
   const SLOT_BY_POSITION=[0];
@@ -15933,8 +16256,6 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
       powerTier:1,
       plus:0,
       fixedEffects:null,
-      prefixId:'',
-      suffixId:'',
       affixes:[null,null],
       growth:defaultGrowth()
     };
@@ -15974,18 +16295,6 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
     const stopLevel=Number.isInteger(Number(src.maxLevel))?Number(src.maxLevel):maxLevel;
     if(startLevel<1||startLevel>maxLevel||stopLevel<startLevel||stopLevel>maxLevel)throw Error('新手禮包成長等級範圍無效');
     return {enabled,startLevel,maxLevel:stopLevel,effects:normalizeStarterEffects(src.effects,job,{growth:true})};
-  }
-
-  function namedAffixRows(power,kind){
-    return Array.isArray(power?.[kind==='prefix'?'prefixes':'suffixes'])?power[kind==='prefix'?'prefixes':'suffixes']:[];
-  }
-
-  function normalizeNamedAffix(id,kind,slot,power){
-    if(id===undefined||id===null||id==='')return '';
-    if(typeof id!=='string')throw Error(`新手禮包${kind==='prefix'?'前綴':'後綴'} ID 無效`);
-    const row=namedAffixRows(power,kind).find(x=>x?.id===id);
-    if(!row||!Array.isArray(row.slots)||!row.slots.includes(slot))throw Error(`新手禮包${kind==='prefix'?'前綴':'後綴'}無效：${id}`);
-    return id;
   }
 
   function affixPoolRow(balance,slot,rank,type){
@@ -16047,8 +16356,6 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
       powerTier,
       plus,
       fixedEffects:normalizeStarterEffects(raw?.fixedEffects,job,{allowNull:true}),
-      prefixId:normalizeNamedAffix(raw?.prefixId,'prefix',slot,data?.equipmentPowerSystem||globalThis.__EMBERWILD_EQUIPMENT_POWER),
-      suffixId:normalizeNamedAffix(raw?.suffixId,'suffix',slot,data?.equipmentPowerSystem||globalThis.__EMBERWILD_EQUIPMENT_POWER),
       affixes:normalizeStarterAffixes(raw?.affixes,job,slot,data?.balance||GAME_BALANCE),
       growth:normalizeGrowth(raw?.growth,job)
     };
@@ -16108,8 +16415,8 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
     data.starterPacks=clone(starterPacks);
     data.starterPackItems=clone(starterPackItems);
     data.notes=[...(data.notes||[]),
-      'starterPacks 只在建立第一名初始職業時寄至信箱；後續招募角色不會取得此禮包。',
-      'starterPacks 每件可設定固定 T 階、初始 plus、fixedEffects、prefixId、suffixId 與兩條固定 affixes。',
+      'starterPacks 是序章中女神交付的新手武器（每職業 1 件），連同 starterPackItems 直接放入背包；建立角色時不另外給予裝備或禮包。',
+      'starterPacks 每件可設定固定 T 階、初始 plus、fixedEffects 與兩條固定 affixes（v0.211 起沒有前綴／後綴，舊文件的 prefixId、suffixId 會被忽略）。',
       '新手武器可強化，不可洗鍊或重鑄 T 階；growth 只允許依角色等級增加固定屬性。'
     ];
     return data;
@@ -16216,12 +16523,7 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
     style.id='starter-pack-runtime-style';
     style.textContent=`
       .starter-equipment-name{color:#55ff73!important;text-shadow:0 0 8px rgba(85,255,115,.22)}
-      .starter-pack-choice-notice{margin:10px 0;padding:10px 12px;border:1px solid rgba(85,255,115,.45);border-radius:8px;background:rgba(85,255,115,.07);color:#baffc4}
       .starter-growth-details{margin-top:8px;border-top:1px solid rgba(85,255,115,.22)}
-      .starter-gift-list{display:grid;gap:8px;max-height:min(54vh,520px);overflow:auto;margin:12px 0;padding-right:4px}
-      .starter-gift-item{padding:10px;border:1px solid var(--line);border-radius:8px}
-      .starter-gift-item>.row{gap:8px;align-items:baseline}
-      .starter-gift-item .equipment-attribute-details{margin-top:6px}
     `;
     document.head.appendChild(style);
   }
@@ -16281,8 +16583,6 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
     g.affix=(entry.affixes||[]).filter(Boolean).map(clone);
     g.difficulty=0;
     g.powerTier=entry.powerTier;
-    g.prefixId=entry.prefixId||'';
-    g.suffixId=entry.suffixId||'';
     g.starterPack={
       version:3,
       job,
@@ -16299,61 +16599,14 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
     return g;
   }
 
-  function prepareStarterPack(hero,job,options={}){
-    // Initial white gear is ordinary equipment, independent of the gift settings.
-    const oldEquipped=new Set((hero.equipped||[]).filter(Boolean));
-    hero.bag=(hero.bag||[]).filter(g=>!oldEquipped.has(g.id));
-    hero.equipped=[null,null,null,null,null];
-    for(const [position,slot] of [0,1,2,3,3].entries()){
-      const entry=defaultStarterEntry(job,slot,position);
-      // Prologue creation: no weapon and no second accessory. The goddess hands over the starter weapon and the charm (the story
-      // reward) in the gear lesson, so the player never holds an old and a new weapon at the same time.
-      if(options.prologue&&(position===0||position===4))continue;
-      const g=createStarterGear(job,position,{...entry,baseAttack:undefined});
-      delete g.starterPack;g.affix=[];
-      hero.bag.push(g);hero.equipped[position]=g.id;
-    }
-    hero.hp=stats(hero).hp;hero.shield=0;
-    if(options.prologue)return;
-    sendStarterPackMail(job,starterPackRows(job));
-  }
-  // The same contents the starter mail carries; the prologue delivers them directly as a quest gift.
+  // v0.206: the only starter equipment is the weapon (plus starterPackItems) the goddess hands over in the prologue.
+  // Characters no longer receive gear or a starter mail when they are created.
   function starterPackRows(job){
     const g=createStarterGear(job,0,starterPacks[job][0]);
     const names=new Map(EmberwildInventoryIcons.entries(exportableBalance()).map(r=>[r.id,r.name]));
     return [{type:'gear',gear:g,name:equipmentDisplayName(g),quantity:1},...starterPackItems[job].map(row=>({type:'catalogue',...clone(row),name:names.get(row.kind+':'+row.key)||row.key}))];
   }
-  let prologueCreation=false;
-  globalThis.__EMBERWILD_STARTER_PACK={rows:starterPackRows,asPrologue(action){prologueCreation=true;try{return action();}finally{prologueCreation=false;}}};
-
-  if(typeof requestHeroName==='function'){
-    const starterRequestHeroNameBase=requestHeroName;
-    requestHeroName=function(job,first=false){
-      const result=starterRequestHeroNameBase(job,first);
-      if(first){
-        const modal=$('modal'),input=modal?.querySelector?.('#new-hero-name');
-        if(input){
-          const notice=document.createElement('div');
-          notice.className='starter-pack-choice-notice';
-          notice.innerHTML=`<b>初始職業獎勵</b><br>角色內建最初級白板裝備；專屬新手武器與禮包道具會寄到信箱，請自行領取。`;
-          input.parentNode.insertBefore(notice,input);
-        }
-      }
-      return result;
-    };
-  }
-
-  const starterStartBase=start;
-  start=function(job){
-    const result=starterStartBase(job);
-    if(state&&party&&party.members?.length===1&&state.job===job){
-      prepareStarterPack(state,job,{prologue:prologueCreation});
-      save();
-      render();
-
-    }
-    return result;
-  };
+  globalThis.__EMBERWILD_STARTER_PACK={rows:starterPackRows,asPrologue(action){return action();}};
 
   for(const h of party?.members||[]){
     for(const g of h?.bag||[])if(g?.starterPack)normalizeExistingStarterMeta(g);
@@ -17259,7 +17512,7 @@ EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;
 
 __EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;accountItemsView=globalThis.accountItemsView??accountItemsView;buyHealingPotion=globalThis.buyHealingPotion??buyHealingPotion;healingPotionShopLock=globalThis.healingPotionShopLock??healingPotionShopLock;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;useInventoryItem=globalThis.useInventoryItem??useInventoryItem;EmberwildShopCatalog=globalThis.EmberwildShopCatalog??EmberwildShopCatalog;__EMBERWILD_SHOP_SETTINGS=globalThis.__EMBERWILD_SHOP_SETTINGS??__EMBERWILD_SHOP_SETTINGS;currentRefreshCost=globalThis.currentRefreshCost??currentRefreshCost;hasCompanionRecruitmentOffers=globalThis.hasCompanionRecruitmentOffers??hasCompanionRecruitmentOffers;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;createEquipmentShopGear=globalThis.createEquipmentShopGear??createEquipmentShopGear;purchaseShopOffer=globalThis.purchaseShopOffer??purchaseShopOffer;buyFixedShopOffer=globalThis.buyFixedShopOffer??buyFixedShopOffer;setShopCategory=globalThis.setShopCategory??setShopCategory;equipmentShopView=globalThis.equipmentShopView??equipmentShopView;lifeShopMaterialsView=globalThis.lifeShopMaterialsView??lifeShopMaterialsView;sellInventoryItem=globalThis.sellInventoryItem??sellInventoryItem;sellInventoryItemFromButton=globalThis.sellInventoryItemFromButton??sellInventoryItemFromButton;inventoryMaterialIcon=globalThis.inventoryMaterialIcon??inventoryMaterialIcon;inventoryMaterialDescription=globalThis.inventoryMaterialDescription??inventoryMaterialDescription;inventoryItemIcon=globalThis.inventoryItemIcon??inventoryItemIcon;inventoryShopOfferIcon=globalThis.inventoryShopOfferIcon??inventoryShopOfferIcon;inventoryGemIcon=globalThis.inventoryGemIcon??inventoryGemIcon;EmberwildRegionVouchers=globalThis.EmberwildRegionVouchers??EmberwildRegionVouchers;
 
-/* js/equipment/equipment-shop.js?v=20261020-equipment1 */
+/* js/equipment/equipment-shop.js?v=20261126-v0211-gear */
 /* Standard equipment reuses global forms, the shop transaction and boss progress. */
 (()=>{
   const C=EmberwildShopCatalog,copy=x=>JSON.parse(JSON.stringify(x));
@@ -17296,7 +17549,7 @@ __EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_
     const found=offer(stageId+'/'+entryId);if(!found)return null;
     const {stage:s,entry:e}=found,ref=C.equipmentForms(ITEM_FORMS).find(r=>r.form.id===e.formId);if(!ref)return null;
     const g=gear(Math.max(1,Math.min(12,Math.ceil(s.level/5))),ref.slot,0,e.job);
-    Object.assign(g,{formJob:ref.group,form:ref.index,powerTier:s.powerTier,equipmentLevel:s.level,equipmentSource:'shop',acquiredAt:Date.now(),baseRuleVersion:1,prefixId:'',suffixId:'',affix:[],plus:0,canEnhance:e.canEnhance,canReroll:e.canReroll});
+    Object.assign(g,{formJob:ref.group,form:ref.index,powerTier:s.powerTier,equipmentLevel:s.level,equipmentSource:'shop',acquiredAt:Date.now(),baseRuleVersion:1,affix:[],plus:0,canEnhance:e.canEnhance,canReroll:e.canReroll});
     delete g.baseSnapshot;
     // A fixed shop base is exactly 100%, regardless of the stage's displayed T.
     const baseline=gearStatBreakdown(g);g.baseSnapshot.base={...baseline.body};g.baseSnapshot.mult=1;
@@ -17318,7 +17571,7 @@ __EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_
       const open=!folded.get(s.id),content=open?s.entries.map(e=>{
         const g=createEquipmentShopGear(s.id,e.id,{preview:true});if(!g)return '';
         const key=s.id+'/'+e.id,price=globalThis.shopPayablePrice?.(e.unitPrice*e.quantity)??e.unitPrice*e.quantity;
-        return '<article class="shop-product-row icon-product fixed-shop-row">'+gearSlotHTML(g,{preview:g,count:e.quantity,context:'shop',shopType:'equipment',shopId:key,price,detailLabel:'每份件數'})+'<small class="shop-product-label">'+esc(CLASSES[e.job].name)+' · '+esc(SLOTS[g.slot])+' · '+price.toLocaleString()+' 金幣</small></article>';
+        return '<article class="shop-product-row icon-product fixed-shop-row">'+gearSlotHTML(g,{preview:g,count:e.quantity,context:'shop',shopType:'equipment',shopId:key,price,detailLabel:'每份件數'})+'<small class="shop-product-label">'+esc(typeof gearWearableJobsText==='function'?gearWearableJobsText(g):CLASSES[e.job].name)+' · '+esc(SLOTS[g.slot])+' · '+price.toLocaleString()+' 金幣</small></article>';
       }).join(''):'';
       return '<section class="equipment-shop-stage" data-equipment-stage="'+esc(s.id)+'"><button type="button" class="equipment-stage-toggle" aria-expanded="'+open+'" onclick="setEquipmentShopFold(\''+s.id+'\','+!open+')">'+(open?'▼ ':'▶ ')+esc(s.name)+' · LV '+s.level+'</button>'+(open?'<div class="shop-product-grid">'+content+'</div>':'')+'</section>';
     }).join('')+'</section>';
@@ -17805,7 +18058,7 @@ EmberwildInduction=globalThis.EmberwildInduction??EmberwildInduction;
 
 __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildInductionRuntime=globalThis.EmberwildInductionRuntime??EmberwildInductionRuntime;castEnemySharedSkill=globalThis.castEnemySharedSkill??castEnemySharedSkill;__EMBERWILD_BALANCE_FINAL_APPLY_PENDING=globalThis.__EMBERWILD_BALANCE_FINAL_APPLY_PENDING??__EMBERWILD_BALANCE_FINAL_APPLY_PENDING;EmberwildInduction=globalThis.EmberwildInduction??EmberwildInduction;
 
-/* js/items/companion-tokens.js?v=20261123-v0196-aspd */
+/* js/items/companion-tokens.js?v=20261124-v0208-inventory */
 /* Single companion slot, existing stat/loot/save paths, bounded combat events. */
 (()=>{
   'use strict';
@@ -17879,7 +18132,7 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;Emberwil
   function tokenDropChance(e){
     // Match ordinary equipment rules for this monster/kind/difficulty, including
     // timed boosts and level-gap attenuation; keep token pool eligibility below.
-    const rules=configuredDropRules(e).filter(r=>['gear','equipment'].includes(r.type));
+    const rules=configuredDropRules(e).filter(r=>['gear','equipment','monsterGear'].includes(r.type));
     return 1-rules.reduce((miss,r)=>miss*(1-effectiveDropChance(r,e)),1);
   }
   function rollTokens(e,rng=Math.random){
@@ -18369,7 +18622,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
   }catch(e){globalThis.__EMBERWILD_TEAM_READY=true;globalThis.__EMBERWILD_BOOT_SAVE_ERROR=e.message;console.warn('隊伍方案載入失敗；原始存檔保留',e);if(boot){state=null;party=null;globalThis.__EMBERWILD_BOOT_SAVE_RAW=boot;}render();}
 })();
 
-EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;changePlayerClass=globalThis.changePlayerClass??changePlayerClass;addTeamPlan=globalThis.addTeamPlan??addTeamPlan;copyTeamPlan=globalThis.copyTeamPlan??copyTeamPlan;renameTeamPlan=globalThis.renameTeamPlan??renameTeamPlan;switchTeamPlan=globalThis.switchTeamPlan??switchTeamPlan;clearTeamPlan=globalThis.clearTeamPlan??clearTeamPlan;deleteTeamPlan=globalThis.deleteTeamPlan??deleteTeamPlan;resetSkills=globalThis.resetSkills??resetSkills;unlockTeamSkill=globalThis.unlockTeamSkill??unlockTeamSkill;stopTeamExploration=globalThis.stopTeamExploration??stopTeamExploration;
+EmberwildInventory=globalThis.EmberwildInventory??EmberwildInventory;EmberwildInventoryIcons=globalThis.EmberwildInventoryIcons??EmberwildInventoryIcons;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_TEAM_BOOT_RAW=globalThis.__EMBERWILD_TEAM_BOOT_RAW??__EMBERWILD_TEAM_BOOT_RAW;__EMBERWILD_TEAM_READY=globalThis.__EMBERWILD_TEAM_READY??__EMBERWILD_TEAM_READY;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_BOOT_SAVE_ERROR=globalThis.__EMBERWILD_BOOT_SAVE_ERROR??__EMBERWILD_BOOT_SAVE_ERROR;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;__EMBERWILD_TEAM_GAIN=globalThis.__EMBERWILD_TEAM_GAIN??__EMBERWILD_TEAM_GAIN;changePlayerClass=globalThis.changePlayerClass??changePlayerClass;addTeamPlan=globalThis.addTeamPlan??addTeamPlan;copyTeamPlan=globalThis.copyTeamPlan??copyTeamPlan;renameTeamPlan=globalThis.renameTeamPlan??renameTeamPlan;switchTeamPlan=globalThis.switchTeamPlan??switchTeamPlan;clearTeamPlan=globalThis.clearTeamPlan??clearTeamPlan;deleteTeamPlan=globalThis.deleteTeamPlan??deleteTeamPlan;resetSkills=globalThis.resetSkills??resetSkills;unlockTeamSkill=globalThis.unlockTeamSkill??unlockTeamSkill;stopTeamExploration=globalThis.stopTeamExploration??stopTeamExploration;
 
 /* js/equipment/team-references.js?v=20261121-v0186 */
 /* All manual disposal paths share the existing prices/reward functions and the
@@ -19014,7 +19267,7 @@ isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInter
 
 lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThis.gatheringView??gatheringView;alchemyView=globalThis.alchemyView??alchemyView;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;lifeMaterialPurchasePrice=globalThis.lifeMaterialPurchasePrice??lifeMaterialPurchasePrice;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;returnToTitle=globalThis.returnToTitle??returnToTitle;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;lifeShopMaterialsView=globalThis.lifeShopMaterialsView??lifeShopMaterialsView;lifeMaterialDescription=globalThis.lifeMaterialDescription??lifeMaterialDescription;setLifeStockFilter=globalThis.setLifeStockFilter??setLifeStockFilter;setLifeStockSort=globalThis.setLifeStockSort??setLifeStockSort;setLifeStockOpen=globalThis.setLifeStockOpen??setLifeStockOpen;__DEBUG_GEM_ALCHEMY=globalThis.__DEBUG_GEM_ALCHEMY??__DEBUG_GEM_ALCHEMY;hasShopVIP=globalThis.hasShopVIP??hasShopVIP;buyLifeMaterial=globalThis.buyLifeMaterial??buyLifeMaterial;selectLifeGatheringTarget=globalThis.selectLifeGatheringTarget??selectLifeGatheringTarget;startLifeGathering=globalThis.startLifeGathering??startLifeGathering;stopLifeGathering=globalThis.stopLifeGathering??stopLifeGathering;startLifeWork=globalThis.startLifeWork??startLifeWork;stopLifeWork=globalThis.stopLifeWork??stopLifeWork;recordLifeProgress=globalThis.recordLifeProgress??recordLifeProgress;recordStoryAcquisition=globalThis.recordStoryAcquisition??recordStoryAcquisition;recordGatheredItem=globalThis.recordGatheredItem??recordGatheredItem;tickLifeSkills=globalThis.tickLifeSkills??tickLifeSkills;alchemyVIPView=globalThis.alchemyVIPView??alchemyVIPView;emberwildLifeHeartbeat=globalThis.emberwildLifeHeartbeat??emberwildLifeHeartbeat;__EMBERWILD_LIFE_SKILLS=globalThis.__EMBERWILD_LIFE_SKILLS??__EMBERWILD_LIFE_SKILLS;
 
-/* js/character/companion-unlocks.js?v=20261120-v0179 */
+/* js/character/companion-unlocks.js?v=20261126-v0211-gear */
 /* Catalog rules are global; achievements, tickets and unlocks belong to one player save. */
 (()=>{
   const model=EmberwildCompanionSkills,A=EmberwildAchievements,copy=A.copy||((x)=>JSON.parse(JSON.stringify(x)));
@@ -19067,6 +19320,7 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
   const baseValidate=validateParty;
   validateParty=function(raw){const progress=validateProgress(raw?.companionUnlocks),achievements=A.migrate(raw?.achievements,progress),out=baseValidate(raw);out.companionUnlocks=progress;out.achievements=achievements;out.mailbox=A.validateMailbox(raw?.mailbox);
     for(const m of out.mailbox.messages)for(const item of m.attachments)if(item.type==='gear'){
+      globalThis.migrateSlimEquipmentForms?.([item.gear]);
       solo.validateSave({...copy(out.members[0]),bag:[copy(item.gear)],equipped:Array(5).fill(null)},{companion:true});
       const meta=item.gear.starterPack;
       if(meta&&(meta.baseAttack!==undefined&&(!Number.isFinite(meta.baseAttack)||meta.baseAttack<0||meta.baseAttack>10000)))throw Error('信箱武器基礎攻擊無效');
@@ -19137,7 +19391,7 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
       else {
         const jobs=gearWearableJobs({job:ref.job,formJob:ref.job,slot:ref.slot,form:ref.index});
         g=gear(1,ref.slot,0,jobs.includes(job)?job:jobs[0]??0);
-        Object.assign(g,{formJob:ref.job,form:ref.index,powerTier:1,prefixId:'',suffixId:'',affix:[],plus:0});
+        Object.assign(g,{formJob:ref.job,form:ref.index,powerTier:1,affix:[],plus:0});
         if(ref.form.weaponType)g.weaponType=ref.form.weaponType;
         g.name=gearName(g);
       }
@@ -19150,14 +19404,7 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
     if(row.kind==='item'&&row.key.startsWith('companion-ticket-'))return {type:'companionTicket',companionId:Number(row.key.slice(17)),quantity:row.quantity,name:row.name};
     return copy(row);
   }
-  globalThis.sendStarterPackMail=function(job,rows){
-    syncUnlocks();const mailbox=party.mailbox;
-    if(mailbox.messages.some(m=>m.rewardKey.startsWith('starter-')))return false;
-    const doc=exportableBalance(),attachments=rows.map(row=>row.type==='catalogue'?catalogueAttachment(row,job,doc):copy(row));
-    const parts=Math.ceil(attachments.length/6);
-    for(let i=0;i<parts;i++)mailbox.messages.push({id:++mailbox.serial,rewardKey:`starter-${job}-${i+1}`,subject:CLASSES[job].name+'新手禮包'+(parts>1?`（${i+1}/${parts}）`:''),body:'歡迎來到夢淵！初始裝已穿戴；領取附件後，可到背包自行換上新手武器。新手武器可強化，不可洗鍊詞綴或重鑄基底。',at:Date.now(),read:false,claimed:false,attachments:attachments.slice(i*6,i*6+6)});
-    return true;
-  };
+
   // `direct` delivers a list of attachments without a mail: no message, no save, and a failure throws so the caller's
   // transaction rolls back (the prologue hands over the starter pack this way).
   function claimMail(ids,direct=null){
@@ -19185,12 +19432,12 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
         }
       }
     }catch(error){if(direct)throw error;toast(error.message);return false;}
-    const before={tickets:party.achievements.tickets,bag:state.bag,materials:state.materials,consumables:state.consumables,gems:state.gems,potions:party.members[0].healingPotions,ore:state.ore,dust:state.dust,mailbox:copy(party.mailbox)};
+    const before={tickets:party.achievements.tickets,bag:state.bag,materials:copy(state.materials),consumables:copy(state.consumables),gems:[...state.gems],potions:copy(party.members[0].healingPotions),ore:state.ore,dust:state.dust,mailbox:copy(party.mailbox),inventory:globalThis.EmberwildItems?.snapshot()};
     party.achievements.tickets=tickets;state.bag=bag;state.materials=materials;state.consumables=consumables;state.gems=gems;state.ore=ore;state.dust=dust;party.members[0].healingPotions=potions;
     if(direct)return true;
     for(const m of messages){m.claimed=true;m.read=true;}
     let saved=false;try{saved=save()===true;}catch(error){toast('儲存失敗，附件保留在信箱');}
-    if(!saved){party.achievements.tickets=before.tickets;state.bag=before.bag;state.materials=before.materials;state.consumables=before.consumables;state.gems=before.gems;state.ore=before.ore;state.dust=before.dust;party.members[0].healingPotions=before.potions;party.mailbox=before.mailbox;return false;}
+    if(!saved){party.achievements.tickets=before.tickets;state.bag=before.bag;state.materials=before.materials;state.consumables=before.consumables;state.gems=before.gems;state.ore=before.ore;state.dust=before.dust;party.members[0].healingPotions=before.potions;party.mailbox=before.mailbox;if(before.inventory)globalThis.EmberwildItems.restore(before.inventory);return false;}
     render();toast('已領取 '+messages.length+' 封郵件的附件，道具已放入背包');return true;
   }
   globalThis.claimMailboxAttachments=id=>claimMail([id]);
@@ -19207,7 +19454,7 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
   globalThis.deleteReadClaimedMail=function(){syncUnlocks();const list=party.mailbox.messages,doomed=list.filter(deletable);if(!doomed.length)return false;if(!confirm('刪除 '+doomed.length+' 封已讀且已領取的信件？未讀、附件未領取或已鎖定的信件不會被刪除。'))return false;const before=[...list],locks=[...lockedIds()];party.mailbox.messages=list.filter(m=>!deletable(m));{const kept=new Set(party.mailbox.messages.map(m=>m.id)),ids=lockedIds();ids.splice(0,ids.length,...ids.filter(id=>kept.has(id)));}if(save()===false){party.mailbox.messages=before;lockedIds().splice(0,lockedIds().length,...locks);toast('儲存失敗，信件未刪除');return false;}if(!party.mailbox.messages.some(m=>m.id===selectedMail))selectedMail=null;render();toast('已刪除 '+doomed.length+' 封信件');return true;};
   globalThis.mailboxView=function(){
     syncUnlocks();const messages=[...party.mailbox.messages].reverse(),pending=unclaimedMail().length,m=messages.find(m=>m.id===selectedMail)||messages[0];
-    return heading('MAILBOX / 玩家信箱','信箱',`<span class="tag">未領取 ${pending}</span>`)+`<section class="panel"><div class="row"><p class="small">新手禮包與成就獎勵會寄到此處。每封最多六格附件；領取後存入背包。</p><span class="actions mailbox-actions"><button onclick="claimAllMailboxAttachments()" ${pending?'':'disabled'}>全部領取</button><button onclick="markAllMailRead()" ${party.mailbox.messages.some(m=>!m.read)?'':'disabled'}>已讀全部</button><button onclick="deleteReadClaimedMail()" ${party.mailbox.messages.some(deletable)?'':'disabled'}>刪除已讀及已領取信件</button></span></div><div class="mailbox-layout"><div class="mailbox-list">${messages.map(mail=>`<button class="mailbox-list-item ${mail.id===m?.id?'selected':''}" data-mail-id="${mail.id}" aria-pressed="${mail.id===m?.id}" onclick="openMailboxMail(${mail.id})">${!mail.read?'<span class="mail-dot" aria-label="未讀"></span>':''}<b>${mail.attachments?.length&&typeof mailAttachmentIcon==='function'?mailAttachmentIcon(mail.id,0):''}${esc(mail.subject)}</b><time class="small">${esc(new Date(mail.at).toLocaleString('zh-TW'))}</time></button>`).join('')||'<p class="empty">尚無郵件。</p>'}</div>${m?`<article class="mailbox-detail" data-mail-detail="${m.id}"><h2>${esc(m.subject)}</h2><p class="small">${esc(new Date(m.at).toLocaleString('zh-TW'))} · ${m.claimed?'附件已領取':'附件待領取'}${mailLocked(m.id)?' · 已鎖定（不會被刪除）':''}</p><button type="button" class="mail-lock" onclick="toggleMailLock(${m.id})" aria-pressed="${mailLocked(m.id)}">${mailLocked(m.id)?'解除鎖定':'鎖定信件'}</button><p class="mailbox-body">${esc(m.body)}</p><h3>附件</h3><div class="mailbox-attachments">${Array.from({length:6},(_,i)=>m.attachments[i]?mailAttachmentSlot(m.id,i):'<span class="item-slot item-slot-empty" aria-hidden="true"></span>').join('')}</div><button class="primary" onclick="claimMailboxAttachments(${m.id})" ${m.claimed?'disabled':''}>${m.claimed?'已領取':'領取附件'}</button></article>`:'<div class="mailbox-detail"><p class="small">達成綁定夥伴的成就後，獎勵郵件會出現在這裡。</p></div>'}</div></section>`;
+    return heading('MAILBOX / 玩家信箱','信箱',`<span class="tag">未領取 ${pending}</span>`)+`<section class="panel"><div class="row"><p class="small">成就獎勵與收益券收益會寄到此處。每封最多六格附件；領取後存入背包。</p><span class="actions mailbox-actions"><button onclick="claimAllMailboxAttachments()" ${pending?'':'disabled'}>全部領取</button><button onclick="markAllMailRead()" ${party.mailbox.messages.some(m=>!m.read)?'':'disabled'}>已讀全部</button><button onclick="deleteReadClaimedMail()" ${party.mailbox.messages.some(deletable)?'':'disabled'}>刪除已讀及已領取信件</button></span></div><div class="mailbox-layout"><div class="mailbox-list">${messages.map(mail=>`<button class="mailbox-list-item ${mail.id===m?.id?'selected':''}" data-mail-id="${mail.id}" aria-pressed="${mail.id===m?.id}" onclick="openMailboxMail(${mail.id})">${!mail.read?'<span class="mail-dot" aria-label="未讀"></span>':''}<b>${mail.attachments?.length&&typeof mailAttachmentIcon==='function'?mailAttachmentIcon(mail.id,0):''}${esc(mail.subject)}</b><time class="small">${esc(new Date(mail.at).toLocaleString('zh-TW'))}</time></button>`).join('')||'<p class="empty">尚無郵件。</p>'}</div>${m?`<article class="mailbox-detail" data-mail-detail="${m.id}"><h2>${esc(m.subject)}</h2><p class="small">${esc(new Date(m.at).toLocaleString('zh-TW'))} · ${m.claimed?'附件已領取':'附件待領取'}${mailLocked(m.id)?' · 已鎖定（不會被刪除）':''}</p><button type="button" class="mail-lock" onclick="toggleMailLock(${m.id})" aria-pressed="${mailLocked(m.id)}">${mailLocked(m.id)?'解除鎖定':'鎖定信件'}</button><p class="mailbox-body">${esc(m.body)}</p><h3>附件</h3><div class="mailbox-attachments">${Array.from({length:6},(_,i)=>m.attachments[i]?mailAttachmentSlot(m.id,i):'<span class="item-slot item-slot-empty" aria-hidden="true"></span>').join('')}</div><button class="primary" onclick="claimMailboxAttachments(${m.id})" ${m.claimed?'disabled':''}>${m.claimed?'已領取':'領取附件'}</button></article>`:'<div class="mailbox-detail"><p class="small">達成綁定夥伴的成就後，獎勵郵件會出現在這裡。</p></div>'}</div></section>`;
   };
   let regionFilter=String(party?.map??0),kindFilter='all',statusFilter='all';
   globalThis.setAchievementFilter=function(key,value){if(key==='region'&&(value==='all'||/^\d+$/.test(value)&&MAPS[Number(value)]))regionFilter=value;else if(key==='kind'&&['all','open','elite','boss'].includes(value))kindFilter=value;else if(key==='status'&&['all','done','pending'].includes(value))statusFilter=value;else return false;render();return true;};
@@ -19222,7 +19469,7 @@ lifeSkillsView=globalThis.lifeSkillsView??lifeSkillsView;gatheringView=globalThi
   globalThis.__EMBERWILD_COMPANION_UNLOCK_TEST={validateProgress,syncUnlocks,ticketPlan,catalog};
 })();
 
-achievementsView=globalThis.achievementsView??achievementsView;mailboxView=globalThis.mailboxView??mailboxView;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;accountItemsView=globalThis.accountItemsView??accountItemsView;companionUnlocked=globalThis.companionUnlocked??companionUnlocked;hasCompanionRecruitmentOffers=globalThis.hasCompanionRecruitmentOffers??hasCompanionRecruitmentOffers;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;__EMBERWILD_SET_EXTRA_TICKET_SOURCES=globalThis.__EMBERWILD_SET_EXTRA_TICKET_SOURCES??__EMBERWILD_SET_EXTRA_TICKET_SOURCES;isUtilityDialogOpen=globalThis.isUtilityDialogOpen??isUtilityDialogOpen;companionPendingMail=globalThis.companionPendingMail??companionPendingMail;companionTicketCount=globalThis.companionTicketCount??companionTicketCount;__EMBERWILD_EXTRA_TICKET_SOURCES=globalThis.__EMBERWILD_EXTRA_TICKET_SOURCES??__EMBERWILD_EXTRA_TICKET_SOURCES;companionUnlockText=globalThis.companionUnlockText??companionUnlockText;companionTicketName=globalThis.companionTicketName??companionTicketName;grantCompanionTicket=globalThis.grantCompanionTicket??grantCompanionTicket;useCompanionRecruitmentTicket=globalThis.useCompanionRecruitmentTicket??useCompanionRecruitmentTicket;mailboxLabel=globalThis.mailboxLabel??mailboxLabel;openMailboxMail=globalThis.openMailboxMail??openMailboxMail;sendStarterPackMail=globalThis.sendStarterPackMail??sendStarterPackMail;claimMailboxAttachments=globalThis.claimMailboxAttachments??claimMailboxAttachments;grantStarterPackDirect=globalThis.grantStarterPackDirect??grantStarterPackDirect;claimAllMailboxAttachments=globalThis.claimAllMailboxAttachments??claimAllMailboxAttachments;markAllMailRead=globalThis.markAllMailRead??markAllMailRead;toggleMailLock=globalThis.toggleMailLock??toggleMailLock;deleteReadClaimedMail=globalThis.deleteReadClaimedMail??deleteReadClaimedMail;setAchievementFilter=globalThis.setAchievementFilter??setAchievementFilter;__EMBERWILD_COMPANION_UNLOCK_TEST=globalThis.__EMBERWILD_COMPANION_UNLOCK_TEST??__EMBERWILD_COMPANION_UNLOCK_TEST;
+migrateSlimEquipmentForms=globalThis.migrateSlimEquipmentForms??migrateSlimEquipmentForms;achievementsView=globalThis.achievementsView??achievementsView;mailboxView=globalThis.mailboxView??mailboxView;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_TEAMS=globalThis.__EMBERWILD_TEAMS??__EMBERWILD_TEAMS;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;accountItemsView=globalThis.accountItemsView??accountItemsView;companionUnlocked=globalThis.companionUnlocked??companionUnlocked;hasCompanionRecruitmentOffers=globalThis.hasCompanionRecruitmentOffers??hasCompanionRecruitmentOffers;shopPayablePrice=globalThis.shopPayablePrice??shopPayablePrice;__EMBERWILD_SET_EXTRA_TICKET_SOURCES=globalThis.__EMBERWILD_SET_EXTRA_TICKET_SOURCES??__EMBERWILD_SET_EXTRA_TICKET_SOURCES;isUtilityDialogOpen=globalThis.isUtilityDialogOpen??isUtilityDialogOpen;companionPendingMail=globalThis.companionPendingMail??companionPendingMail;companionTicketCount=globalThis.companionTicketCount??companionTicketCount;__EMBERWILD_EXTRA_TICKET_SOURCES=globalThis.__EMBERWILD_EXTRA_TICKET_SOURCES??__EMBERWILD_EXTRA_TICKET_SOURCES;companionUnlockText=globalThis.companionUnlockText??companionUnlockText;companionTicketName=globalThis.companionTicketName??companionTicketName;grantCompanionTicket=globalThis.grantCompanionTicket??grantCompanionTicket;useCompanionRecruitmentTicket=globalThis.useCompanionRecruitmentTicket??useCompanionRecruitmentTicket;mailboxLabel=globalThis.mailboxLabel??mailboxLabel;openMailboxMail=globalThis.openMailboxMail??openMailboxMail;EmberwildItems=globalThis.EmberwildItems??EmberwildItems;claimMailboxAttachments=globalThis.claimMailboxAttachments??claimMailboxAttachments;grantStarterPackDirect=globalThis.grantStarterPackDirect??grantStarterPackDirect;claimAllMailboxAttachments=globalThis.claimAllMailboxAttachments??claimAllMailboxAttachments;markAllMailRead=globalThis.markAllMailRead??markAllMailRead;toggleMailLock=globalThis.toggleMailLock??toggleMailLock;deleteReadClaimedMail=globalThis.deleteReadClaimedMail??deleteReadClaimedMail;setAchievementFilter=globalThis.setAchievementFilter??setAchievementFilter;__EMBERWILD_COMPANION_UNLOCK_TEST=globalThis.__EMBERWILD_COMPANION_UNLOCK_TEST??__EMBERWILD_COMPANION_UNLOCK_TEST;
 
 /* js/world/quest-design-settings.js?v=20261019-daily-speed2 */
 /* Retain the complete quest design document through legacy balance normalizers. */
@@ -19728,7 +19975,249 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;gameNavigationHTML=g
 
 EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;equipmentAttributeDetailsHTML=globalThis.equipmentAttributeDetailsHTML??equipmentAttributeDetailsHTML;__EMBERWILD_BALANCE_SOURCE=globalThis.__EMBERWILD_BALANCE_SOURCE??__EMBERWILD_BALANCE_SOURCE;__EMBERWILD_GEAR_CATALOGUE_KEY=globalThis.__EMBERWILD_GEAR_CATALOGUE_KEY??__EMBERWILD_GEAR_CATALOGUE_KEY;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;__EMBERWILD_INVENTORY_ICON=globalThis.__EMBERWILD_INVENTORY_ICON??__EMBERWILD_INVENTORY_ICON;__EMBERWILD_GEAR_SKILL_ICON=globalThis.__EMBERWILD_GEAR_SKILL_ICON??__EMBERWILD_GEAR_SKILL_ICON;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_ITEM_DETAILS=globalThis.__EMBERWILD_ITEM_DETAILS??__EMBERWILD_ITEM_DETAILS;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;__EMBERWILD_ICON_COLOR=globalThis.__EMBERWILD_ICON_COLOR??__EMBERWILD_ICON_COLOR;inventoryMaterialDescription=globalThis.inventoryMaterialDescription??inventoryMaterialDescription;lifeMaterialDescription=globalThis.lifeMaterialDescription??lifeMaterialDescription;__EMBERWILD_PUBLISHED_BALANCE=globalThis.__EMBERWILD_PUBLISHED_BALANCE??__EMBERWILD_PUBLISHED_BALANCE;inventoryGemSellPrice=globalThis.inventoryGemSellPrice??inventoryGemSellPrice;sellCatalogueGem=globalThis.sellCatalogueGem??sellCatalogueGem;sellCatalogueRecruitTicket=globalThis.sellCatalogueRecruitTicket??sellCatalogueRecruitTicket;__EMBERWILD_INVENTORY_ICONS=globalThis.__EMBERWILD_INVENTORY_ICONS??__EMBERWILD_INVENTORY_ICONS;
 
-/* js/world/monster-design-runtime.js?v=20261028-inventory-inspector1 */
+/* js/items/inventory-runtime.js?v=20261124-v0209-inventory */
+/* v0.204 inventory foundation runtime.
+   One stack store per party holds every stackable item: materials (鍛鐵 = state.ore, 粉塵 = state.dust), gems,
+   consumables and healing potions. The fields older code reads and writes (state.ore, state.dust, state.gems[i],
+   state.materials[k], state.consumables[k], party.members[0].healingPotions[k]) are facades over that store: a read
+   returns the store total and a write goes through the stack rules (fill partial stacks, open new stacks, all-or-nothing
+   removal). No other copy of these quantities exists at runtime, so nothing can change a count without the stack rules.
+   Equipment and companion tokens remain individual instances in the shared gear bag (party.sharedGear).
+   Companion recruit tickets remain in party.achievements.tickets (quest items, no bag slot) and are reached through
+   the same API. The save keeps the existing per-item totals (old-save validation) plus `inventory`, the stack layout. */
+(()=>{
+  'use strict';
+  const M=EmberwildInventory,parties=new WeakMap(),heroes=new WeakSet();
+  const ORE='material:鍛鐵',DUST='material:粉塵',TICKET=/^item:companion-ticket-(\d{1,10})$/;
+  let defCache=new Map(),ctxCache=null;
+
+  /* ---------- definitions ---------- */
+  const gameplaySettingsRef=()=>typeof GAMEPLAY_SETTINGS!=='undefined'?GAMEPLAY_SETTINGS:null;
+  function settings(){return M.normalizeSettings(gameplaySettingsRef()?.inventory);}
+  function context(){
+    if(ctxCache)return ctxCache;
+    const monsters=gameplaySettingsRef()?.monsters?.catalog||[];
+    ctxCache={bossMaterials:new Set(monsters.filter(m=>m.kind==='boss'&&m.material).map(m=>m.material)),monsterMaterials:new Set(monsters.filter(m=>m.material).map(m=>m.material))};
+    return ctxCache;
+  }
+  const details=(kind,key)=>globalThis.__EMBERWILD_ITEM_DETAILS?.(kind,key);
+  function healIds(){try{return new Set((typeof healPotionItems==='function'?healPotionItems():[]).map(x=>x.id));}catch{return new Set();}}
+  function itemName(p){
+    if(p.kind==='gem')return GEMS?.[Number(p.key)]?.name||('寶石 '+p.key);
+    if(p.kind==='material')return p.key==='粉塵'?'寶石粉塵':p.key;
+    const shop=(typeof SHOP!=='undefined'?SHOP:[]).find(x=>x.id===p.key);if(shop)return shop.name;
+    const t=p.key.match(/^companion-ticket-(\d+)$/);return t?'夥伴招募券':p.key;
+  }
+  function definition(id){
+    if(defCache.has(id))return defCache.get(id);
+    const p=M.parseId(id);if(!p)throw Error('物品識別碼無效：'+id);
+    const name=globalThis.__EMBERWILD_ITEM_NAME?.(p.kind,p.key,itemName(p))||itemName(p);
+    let canSell;try{canSell=globalThis.__EMBERWILD_CAN_SELL?.(p.kind,p.key);}catch{}
+    const d=Object.freeze(M.definition(id,{settings:gameplaySettingsRef()?.inventory,ctx:context(),details,name,
+      description:globalThis.__EMBERWILD_ITEM_DESCRIPTION?.(p.kind,p.key)||'',rarity:p.kind==='gem'?Math.floor(Number(p.key)/5):null,canSell:typeof canSell==='boolean'?canSell:undefined}));
+    defCache.set(id,d);return d;
+  }
+  const capOf=id=>definition(id).maxStack;
+  const occupies=id=>definition(id).occupiesSlot;
+  function gearDefinition(g){const token=!!globalThis.EmberwildTokens?.isToken(g);return M.instanceDefinition(g,{isToken:token,details,name:typeof equipmentDisplayName==='function'?equipmentDisplayName(g):g.name});}
+  function invalidate(){defCache=new Map();ctxCache=null;}
+
+  /* ---------- store and facades ---------- */
+  function rt(){
+    if(!party)return null;let r=parties.get(party);
+    if(!r){r={store:M.createStore(),layout:null,account:null,shared:null,owner:null,views:{}};parties.set(party,r);}
+    if(Object.hasOwn(party,'inventory')){const raw=party.inventory;delete party.inventory;try{r.layout=M.validateLayout(raw);}catch(e){console.warn('背包堆疊資料無效，依物品總量重建',e);r.layout=null;}}
+    return r;
+  }
+  function checkCount(v,id){if(!Number.isSafeInteger(v)||v<0)throw TypeError('物品數量必須是非負整數：'+id+' = '+v);return v;}
+  function setCount(r,id,v){checkCount(v,id);const before=M.total(r.store,id);if(before===v)return;M.setTotal(r.store,id,v,capOf);refresh(r,id);}
+  function viewOf(id){
+    const p=M.parseId(id);if(!p)return null;
+    if(p.kind==='gem')return 'gems';
+    if(p.kind==='material')return id===ORE||id===DUST?null:'materials';
+    if(TICKET.test(id))return null;
+    return healIds().has(p.key)?'healingPotions':'consumables';
+  }
+  function refresh(r,id){
+    const p=M.parseId(id),n=M.total(r.store,id);
+    for(const name of ['materials','consumables','healingPotions']){const v=r.views[name];if(!v)continue;if(viewOf(id)===name&&n>0)v.target[p.key]=n;else delete v.target[p.key];}
+    if(p.kind==='gem'&&r.views.gems){const i=Number(p.key);if(i<r.views.gems.target.length)r.views.gems.target[i]=n;}
+  }
+  function refreshAll(r){
+    for(const name of ['materials','consumables','healingPotions'])if(r.views[name])for(const k of Object.keys(r.views[name].target))delete r.views[name].target[k];
+    if(r.views.gems)r.views.gems.target.fill(0);
+    for(const id of M.items(r.store))refresh(r,id);
+  }
+  function objectView(r,name,kind){
+    const target={},toId=k=>{const id=kind+':'+k;if(!M.validId(id))throw TypeError('物品名稱無效：'+k);return id;};
+    const proxy=new Proxy(target,{
+      set(t,k,v){if(typeof k==='symbol')return Reflect.set(t,k,v);setCount(r,toId(k),v);return true;},
+      deleteProperty(t,k){if(typeof k==='symbol')return Reflect.deleteProperty(t,k);const id=kind+':'+k;if(M.validId(id)&&viewOf(id)===name)setCount(r,id,0);return true;},
+      defineProperty(t,k,desc){if(typeof k==='symbol'||!('value' in desc))return Reflect.defineProperty(t,k,desc);setCount(r,toId(k),desc.value);return true;}
+    });
+    r.views[name]={target,proxy};return proxy;
+  }
+  function gemsView(r){
+    const target=Array(GEMS.length).fill(0);
+    const proxy=new Proxy(target,{
+      set(t,k,v){if(typeof k==='string'&&/^\d+$/.test(k)){const i=Number(k);if(i>=t.length)return true;setCount(r,'gem:'+i,v);return true;}return Reflect.set(t,k,v);},
+      deleteProperty(t,k){if(typeof k==='string'&&/^\d+$/.test(k)&&Number(k)<t.length){setCount(r,'gem:'+k,0);return true;}return Reflect.deleteProperty(t,k);}
+    });
+    r.views.gems={target,proxy};return proxy;
+  }
+  /* Replace every count of one view at once (snapshot restores, `materials = {...}`). Validates before changing anything. */
+  function replaceView(r,name,kind,value){
+    if(!value||typeof value!=='object')throw TypeError('物品資料必須是物件');
+    const next=new Map();
+    if(name==='gems'){for(let i=0;i<GEMS.length;i++)next.set('gem:'+i,checkCount(Number(value[i]??0),'gem:'+i));}
+    else{
+      for(const k of Object.keys(r.views[name].target))next.set(kind+':'+k,0);
+      for(const [k,v] of Object.entries(value)){const id=kind+':'+k;if(!M.validId(id))throw TypeError('物品名稱無效：'+k);if(v===undefined)continue;next.set(id,checkCount(v,id));}
+    }
+    for(const [id,v] of next)setCount(r,id,v);
+  }
+  function seed(r,id,qty){if(!qty)return;M.reconcile(r.store,r.layout,id,M.total(r.store,id)+qty,capOf);refresh(r,id);}
+  function installAccount(r){
+    const a=party.accountResources;if(!a||r.account===a)return;
+    const plain={ore:a.ore||0,dust:a.dust||0,gems:[...(a.gems||[])],materials:{...(a.materials||{})}};
+    seed(r,ORE,checkCount(plain.ore,ORE));seed(r,DUST,checkCount(plain.dust,DUST));
+    plain.gems.forEach((n,i)=>{if(i<GEMS.length)seed(r,'gem:'+i,checkCount(n||0,'gem:'+i));});
+    for(const [k,n] of Object.entries(plain.materials))seed(r,M.itemId('material',k),checkCount(n||0,'material:'+k));
+    const gems=r.views.gems?.proxy||gemsView(r),materials=r.views.materials?.proxy||objectView(r,'materials','material');
+    Object.defineProperty(a,'ore',{enumerable:true,configurable:true,get:()=>M.total(r.store,ORE),set:v=>setCount(r,ORE,v)});
+    Object.defineProperty(a,'dust',{enumerable:true,configurable:true,get:()=>M.total(r.store,DUST),set:v=>setCount(r,DUST,v)});
+    Object.defineProperty(a,'gems',{enumerable:true,configurable:true,get:()=>gems,set:v=>{if(v!==gems)replaceView(r,'gems','gem',v);}});
+    Object.defineProperty(a,'materials',{enumerable:true,configurable:true,get:()=>materials,set:v=>{if(v!==materials)replaceView(r,'materials','material',v);}});
+    r.account=a;refreshAll(r);
+  }
+  function installShared(r){
+    const s=party.sharedItems;if(!s||r.shared===s)return;
+    for(const [k,n] of Object.entries(s.consumables||{}))seed(r,M.itemId('item',k),checkCount(n||0,'item:'+k));
+    const consumables=r.views.consumables?.proxy||objectView(r,'consumables','item');
+    Object.defineProperty(s,'consumables',{enumerable:true,configurable:true,get:()=>consumables,set:v=>{if(v!==consumables)replaceView(r,'consumables','item',v);}});
+    r.shared=s;refreshAll(r);
+  }
+  function installOwner(r){
+    const h=party.members?.[0];if(!h||r.owner===h)return;
+    const raw=h.healingPotions&&typeof h.healingPotions==='object'&&!Array.isArray(h.healingPotions)?{...h.healingPotions}:{};
+    for(const [k,n] of Object.entries(raw))if(Number.isSafeInteger(n)&&n>0&&M.validId('item:'+k))seed(r,'item:'+k,n);
+    const heal=r.views.healingPotions?.proxy||objectView(r,'healingPotions','item');
+    Object.defineProperty(h,'healingPotions',{enumerable:true,configurable:true,get:()=>heal,set:v=>{if(v!==heal)replaceView(r,'healingPotions','item',v);}});
+    r.owner=h;heroes.add(h);refreshAll(r);
+  }
+  function ensureInventory(){
+    const r=rt();if(!r)return null;
+    installAccount(r);installShared(r);installOwner(r);
+    if(r.layout&&r.account&&r.shared&&r.owner){M.sortBySavedOrder(r.store,r.layout);r.layout=null;}
+    return r;
+  }
+  if(typeof ensureAccountResources==='function'){const base=ensureAccountResources;ensureAccountResources=function(...args){const out=base.apply(this,args);ensureInventory();return out;};}
+  if(typeof ensureSharedItems==='function'){const base=ensureSharedItems;ensureSharedItems=function(...args){const out=base.apply(this,args);ensureInventory();return out;};}
+
+  /* ---------- save ---------- */
+  const basePack=packParty;
+  /* Saved data must be plain (structuredClone cannot copy the facades): the per-item totals are written as plain copies. */
+  const plain=v=>Array.isArray(v)?[...v]:v&&typeof v==='object'?{...v}:v;
+  packParty=function(...args){
+    const out=basePack.apply(this,args);const r=party&&ensureInventory();
+    if(out&&r){
+      if(Array.isArray(out.members))out.members=out.members.map(h=>{if(!h||typeof h!=='object')return h;const row={...h};for(const k of ['materials','gems','consumables','healingPotions'])if(k in row)row[k]=plain(row[k]);return row;});
+      out.inventory=M.serialize(r.store,capOf);
+    }
+    return out;
+  };
+  const baseValidate=validateParty;
+  validateParty=function(data,...args){
+    const out=baseValidate.call(this,data,...args);
+    if(out&&data&&typeof data==='object'&&data.inventory!==undefined){
+      // A damaged layout never blocks a load: item totals stay authoritative and the stacks are rebuilt from them.
+      try{const layout=M.validateLayout(data.inventory);if(layout)Object.defineProperty(out,'inventory',{value:M.serialize(layout),enumerable:true,configurable:true,writable:true});}
+      catch(e){console.warn('背包堆疊資料無效，依物品總量重建',e);}
+    }
+    return out;
+  };
+  const baseLoad=loadParty;
+  loadParty=function(...args){const out=baseLoad.apply(this,args);ensureInventory();return out;};
+  if(typeof applyBalanceConfig==='function'){
+    const baseApply=applyBalanceConfig;
+    applyBalanceConfig=function(...args){const out=baseApply.apply(this,args);invalidate();const r=party&&parties.get(party);if(r){M.normalize(r.store,capOf);refreshAll(r);}return out;};
+  }
+
+  /* ---------- unified API ---------- */
+  function store(){const r=ensureInventory();if(!r)throw Error('尚未載入隊伍');return r;}
+  function ticketId(id){const m=String(id).match(TICKET);return m?Number(m[1]):null;}
+  function tickets(){if(typeof companionTicketCount==='function')companionTicketCount(0);return party?.achievements?.tickets||{};}
+  function count(id){
+    const t=ticketId(id);if(t!==null)return tickets()[t]||0;
+    if(!M.validId(id))throw Error('物品識別碼無效：'+id);return M.total(store().store,id);
+  }
+  function has(id,qty=1){return count(id)>=qty;}
+  function add(id,qty=1){
+    checkCount(qty,id);if(!qty)return 0;const t=ticketId(id);
+    if(t!==null){const map=tickets();map[t]=(map[t]||0)+qty;return qty;}
+    const r=store();M.add(r.store,id,qty,capOf);refresh(r,id);return qty;
+  }
+  function remove(id,qty=1){
+    checkCount(qty,id);const t=ticketId(id);
+    if(t!==null){const map=tickets();if((map[t]||0)<qty)return false;map[t]-=qty;if(!map[t])delete map[t];return true;}
+    const r=store();if(!M.remove(r.store,id,qty))return false;refresh(r,id);return true;
+  }
+  /* Several costs at once; nothing is deducted unless every item is available. */
+  function removeMany(cost){
+    const rows=Object.entries(cost||{}).filter(([,n])=>n>0);for(const [id,n] of rows)if(count(id)<checkCount(n,id))return false;
+    for(const [id,n] of rows)remove(id,n);return true;
+  }
+  function merge(fromUid,toUid){const r=store();const st=M.stackByUid(r.store,fromUid),moved=M.merge(r.store,fromUid,toUid,capOf);if(st)refresh(r,st.item);return moved;}
+  function split(uid,qty){const r=store();return M.split(r.store,uid,qty);}
+  function stacks(){return store().store.stacks.map(st=>({...st,definition:definition(st.item)}));}
+  // Transaction snapshots retain every stack's uid, order and split, including standard layouts omitted from saves.
+  function snapshot(){return M.serialize(store().store);}
+  function restore(snapshot){const next=M.validateLayout(snapshot);if(!next)throw Error('背包快照無效');const r=store();r.store=next;refreshAll(r);}
+  function wearer(g){return typeof gearWearer==='function'?gearWearer(g.id):null;}
+  function gearBag(){if(typeof ensureSharedGear==='function')ensureSharedGear();return party?.sharedGear?.items||state?.bag||[];}
+  function getGear(id){return gearBag().find(g=>g.id===id)||null;}
+  function createGear(...args){return gear(...args);}
+  function addGearInstance(g){if(!g||typeof g.id!=='string')throw Error('裝備資料無效');if(getGear(g.id))throw Error('裝備識別碼重複：'+g.id);return addGear(g);}
+  /* Region vouchers keep their own ledger: each voucher stack carries locked snapshot values, so only identical
+     vouchers merge. Every ledger stack takes ceil(count / cap) slots of item:region-voucher's tab (消耗品). */
+  function ledgerSlots(id,counts){const d=definition(id);if(!d.occupiesSlot)return [d.tab,0];return [d.tab,counts.reduce((n,c)=>n+(Number.isSafeInteger(c)&&c>0?Math.ceil(c/d.maxStack):0),0)];}
+  /* Six tabs, each with its own capacity (balanceSettings.inventory.capacities, default 100). Not enforced yet. */
+  function slots(){
+    const r=store(),loose=gearBag().filter(g=>!wearer(g)),tokens=loose.filter(g=>globalThis.EmberwildTokens?.isToken(g)).length,extra={};
+    const add=([tab,n])=>{if(n)extra[tab]=(extra[tab]||0)+n;};
+    add(ledgerSlots('item:region-voucher',(party?.regionVouchers?.stacks||[]).map(v=>v?.count)));
+    for(const [t,n] of Object.entries(tickets()))add(ledgerSlots('item:companion-ticket-'+t,[n]));
+    const usage=M.slotUsage(r.store,{tabOf:id=>{const d=definition(id);return d.occupiesSlot?d.tab:null;},instances:{equipment:loose.length-tokens,token:tokens},extra,settings:gameplaySettingsRef()?.inventory});
+    return {...usage,enforced:false};
+  }
+  function byCategory(category){
+    if(!M.CATEGORIES[category])throw Error('未知的物品分類：'+category);
+    if(category==='equipment'||category==='token')return gearBag().filter(g=>!wearer(g)&&!!globalThis.EmberwildTokens?.isToken(g)===(category==='token')).map(g=>({instance:g,definition:gearDefinition(g)}));
+    const out=[];for(const id of M.items(store().store)){const d=definition(id);if(d.category===category)out.push({id,definition:d,quantity:M.total(store().store,id),stacks:M.stacksOf(store().store,id).map(st=>({...st}))});}
+    if(category==='special')for(const [t,n] of Object.entries(tickets()))if(n>0){const id='item:companion-ticket-'+t;out.push({id,definition:definition(id),quantity:n,stacks:[]});}
+    return out;
+  }
+  /* Consistency report used by tests and the developer console: stack sizes, caps, uids and facade totals. */
+  function audit(){
+    const r=store(),problems=[],uids=new Set(),h=party.members[0];
+    for(const st of r.store.stacks){if(uids.has(st.uid))problems.push('重複堆疊 '+st.uid);uids.add(st.uid);if(!(st.qty>0))problems.push('空堆疊 '+st.uid);if(st.qty>capOf(st.item))problems.push('超過堆疊上限 '+st.item+' '+st.qty);}
+    const expect=(id,v)=>{if(M.total(r.store,id)!==(v||0))problems.push('數量不一致 '+id+' '+M.total(r.store,id)+' ≠ '+v);};
+    expect(ORE,h.ore);expect(DUST,h.dust);for(let i=0;i<GEMS.length;i++)expect('gem:'+i,h.gems[i]);
+    for(const [k,v] of Object.entries(h.materials))expect('material:'+k,v);for(const [k,v] of Object.entries(h.consumables))expect('item:'+k,v);for(const [k,v] of Object.entries(h.healingPotions||{}))expect('item:'+k,v);
+    for(const id of M.items(r.store)){const p=M.parseId(id),view=viewOf(id),n=M.total(r.store,id);if(view==='materials'&&h.materials[p.key]!==n||view==='consumables'&&h.consumables[p.key]!==n||view==='healingPotions'&&h.healingPotions[p.key]!==n)problems.push('介面未同步 '+id);}
+    const ids=new Set();for(const g of gearBag()){if(ids.has(g.id))problems.push('裝備識別碼重複 '+g.id);ids.add(g.id);}
+    return problems;
+  }
+  const api={VERSION:M.VERSION,audit,model:M,definition,gearDefinition,count,has,add,remove,removeMany,merge,split,stacks,snapshot,restore,getGear,createGear,addGear:addGearInstance,slots,byCategory,settings,
+    ensure:ensureInventory,_debug:()=>parties.get(party)};
+  globalThis.EmberwildItems=api;
+  /* Existing bag page: show the computed slot usage next to the category tabs. Capacity is not enforced yet. */
+  if(typeof inventoryTabs==='function'){const baseTabs=inventoryTabs;inventoryTabs=function(...args){const html=baseTabs.apply(this,args);let note='';try{const s=slots();note=`<p class="small inventory-slot-usage">背包格數（目前不限制）：${Object.entries(s.tabs).map(([k,t])=>`<span data-inventory-tab="${k}" data-inventory-slots="${t.used}">${t.label} ${t.used} / ${t.capacity}</span>`).join('、')}</p>`;}catch{}return html+note;};}
+})();
+
+EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_ITEM_NAME=globalThis.__EMBERWILD_ITEM_NAME??__EMBERWILD_ITEM_NAME;__EMBERWILD_ITEM_DESCRIPTION=globalThis.__EMBERWILD_ITEM_DESCRIPTION??__EMBERWILD_ITEM_DESCRIPTION;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_ITEM_DETAILS=globalThis.__EMBERWILD_ITEM_DETAILS??__EMBERWILD_ITEM_DETAILS;EmberwildItems=globalThis.EmberwildItems??EmberwildItems;
+
+/* js/world/monster-design-runtime.js?v=20261124-v0206-drops */
 /* Resolve explicit catalogue drops against the existing item definitions. */
 (function(){
   const M=EmberwildMonsterDesign,baseValidate=validateBalanceConfig;
@@ -19754,7 +20243,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=g
       else{
         const quality=GAMEPLAY_SETTINGS.rewards.equipmentQuality,rar=rng()<quality.rareChance?2:rng()<quality.fineConditionalChance?1:0;
         const jobs=(ref.form.wearableJobs||[ref.job]).filter(j=>Number.isInteger(j)&&CLASSES[j]),owner=jobs.includes(state.job)?state.job:jobs[0]??0;
-        g=gear(regionTier(e.region??state.map),ref.slot,rar,owner);g.formJob=ref.job;g.form=ref.index;g.name=gearName(g);modeAffixes(g,e.difficulty||0);
+        g=gear(regionTier(e.region??state.map),ref.slot,rar,owner);g.formJob=ref.job;g.form=ref.index;{const f=typeof itemForm==='function'?itemForm(g):null;if(f?.weaponType)g.weaponType=f.weaponType;}g.name=gearName(g);modeAffixes(g,e.difficulty||0);
       }
       addGear(g);
     }
@@ -19764,7 +20253,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=g
 
 __EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_VALIDATE_ITEM_IDS=globalThis.__EMBERWILD_VALIDATE_ITEM_IDS??__EMBERWILD_VALIDATE_ITEM_IDS;grantConfiguredToken=globalThis.grantConfiguredToken??grantConfiguredToken;
 
-/* js/story/story-runtime.js?v=20261123-v0196-aspd */
+/* js/story/story-runtime.js?v=20261126-v0211-gear */
 /* Story orchestration reads existing account stores; only missing lifetime metrics live in progressStats. */
 (()=>{
  const M=EmberwildStory,copy=M.copy;
@@ -19822,7 +20311,7 @@ __EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_VA
  function sync(){ensureTracking();const linked=linkedIds();for(const q of design.quests)if(!linked.has(q.id)||ensure().unlocks['quest_'+q.id])activate(q);}
  // Named applyEffects: the quest-encounter spawn below assigns the core's battle `effects` array, which would otherwise replace this function.
  function applyEffects(list){for(const e of list){if(e.type==='vip'){ensure().vip=Math.max(ensure().vip,e.value);ensure().unlocks.shop_vip_bronze=true;}else ensure()[e.type==='flag'?'flags':'unlocks'][e.key]=e.value;}}
- function grantGear(key){if(ownedGear(key).length)return;const spec=design.gearRewards.find(x=>x.id===key),h=playerHero();if(h.bag.length>=RULES.bagCapacity)throw Error('請先清出一個背包空位');let ref;ITEM_FORMS.forEach((slots,job)=>slots.forEach((rows,slot)=>rows.forEach((f,form)=>{if(f.id===spec.formId)ref={job,slot,form};})));if(!ref)throw Error('獎勵裝備不存在');const g=gear(spec.powerTier,ref.slot,spec.rarity,h.job);Object.assign(g,{formJob:ref.job,form:ref.form,powerTier:spec.powerTier,equipmentLevel:spec.level,plus:0,affix:[],prefixId:'',suffixId:'',skillId:spec.skillId,storyRewardKey:key,acquiredAt:Date.now(),skillSockets:{version:1,count:spec.socketCount,gems:Array(spec.socketCount).fill(null)}});delete g.baseSnapshot;g.name=gearName(g);h.bag.push(g);}
+ function grantGear(key){if(ownedGear(key).length)return;const spec=design.gearRewards.find(x=>x.id===key),h=playerHero();if(h.bag.length>=RULES.bagCapacity)throw Error('請先清出一個背包空位');let ref;ITEM_FORMS.forEach((slots,job)=>slots.forEach((rows,slot)=>rows.forEach((f,form)=>{if(f.id===spec.formId)ref={job,slot,form};})));if(!ref)throw Error('獎勵裝備不存在');const g=gear(spec.powerTier,ref.slot,spec.rarity,h.job);Object.assign(g,{formJob:ref.job,form:ref.form,powerTier:spec.powerTier,equipmentLevel:spec.level,plus:0,affix:[],skillId:spec.skillId,storyRewardKey:key,acquiredAt:Date.now(),skillSockets:{version:1,count:spec.socketCount,gems:Array(spec.socketCount).fill(null)}});delete g.baseSnapshot;g.name=gearName(g);h.bag.push(g);}
  function reward(r){const h=playerHero();if(h.gold+r.gold>1e12||h.ore+r.ore>1e12)throw Error('獎勵超出庫存上限');h.gold+=r.gold;h.ore+=r.ore;for(const x of r.items){if(x.job!==undefined&&x.job!==h.job)continue;if(x.type==='gear'){grantGear(x.key);continue;}if(x.type==='gem'){if((h.gems[Number(x.key)]||0)+x.quantity>1e9)throw Error('寶石超出庫存上限');h.gems[Number(x.key)]=(h.gems[Number(x.key)]||0)+x.quantity;continue;}if(x.type==='skill'){__EMBERWILD_SKILLS.grantSkill(h,x.key);continue;}const c={itemType:x.type,key:x.key},n=countStock(c)+x.quantity;if(n>1e9)throw Error('獎勵超出庫存上限');if(x.type==='material')setMaterialCount(x.key,n);else if(!globalThis.__EMBERWILD_INVENTORY_STOCK.set(x.key,n))throw Error('道具不存在');}}
  function recoverable(q,r){return !!q?.recovery&&!!r&&!r.done&&r.completed.includes(q.recovery.afterStage)&&!ownedGear(q.recovery.gearKey).length&&(r.recoveryUses||0)<q.recovery.limit;}
  globalThis.recoverStoryRewards=function(id){sync();const q=design.quests.find(q=>q.id===id),r=record(id);if(!recoverable(q,r))return false;const ok=transaction(()=>{const x=q.recovery;grantGear(x.gearKey);const h=playerHero(),type=Number(x.gemKey),owned=(h.gems[type]||0)+party.members.flatMap(h=>h.bag).reduce((n,g)=>n+(g.skillSockets?.gems.filter(i=>i===type).length||0),0);h.gems[type]+=Math.max(0,Math.min(x.gemQuantity,q.stages.filter(s=>r.completed.includes(s.id)).flatMap(s=>s.rewards.items).filter(i=>i.type==='gem'&&i.key===x.gemKey).reduce((n,i)=>n+i.quantity,0))-owned);r.recoveryUses=(r.recoveryUses||0)+1;});if(ok)render();return ok;};
@@ -20085,7 +20574,7 @@ numberBadgeHTML=globalThis.numberBadgeHTML??numberBadgeHTML;storyView=globalThis
 
 __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_AFTER_RENDER=globalThis.__EMBERWILD_AFTER_RENDER??__EMBERWILD_AFTER_RENDER;EmberwildNavigation=globalThis.EmberwildNavigation??EmberwildNavigation;toggleMobileJournal=globalThis.toggleMobileJournal??toggleMobileJournal;toggleMobileLoot=globalThis.toggleMobileLoot??toggleMobileLoot;toggleMobileReport=globalThis.toggleMobileReport??toggleMobileReport;
 
-/* js/equipment/gear-inventory.js?v=20261123-v0196-aspd */
+/* js/equipment/gear-inventory.js?v=20261124-v0206-drops */
 /* Bag presentation uses immutable item identities and the existing stat ledger,
    sale transaction and salvage reward plan. No generated-stat cache is persisted. */
 (()=>{
@@ -20111,7 +20600,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
     return null;
   }
   const owned=g=>!!gearWearer(g.id)||!!T()?.references(g.id).length;
-  const actionable=(g,mode)=>!!g&&!g.locked&&!owned(g)&&!inlineAffixDrafts.has(affixDraftKey(g))&&(mode!=='sell'||globalThis.__EMBERWILD_CAN_SELL_GEAR?.(g)!==false);
+  const actionable=(g,mode)=>!!g&&!g.unidentified&&!g.locked&&!owned(g)&&!inlineAffixDrafts.has(affixDraftKey(g))&&(mode!=='sell'||globalThis.__EMBERWILD_CAN_SELL_GEAR?.(g)!==false);
   const bound=(value,limit,lower)=>limit===''||Number.isFinite(Number(limit))&&(lower?value>=Number(limit):value<=Number(limit));
   function acquiredTime(g){
     if(g.acquiredAt!==undefined)return g.acquiredAt;
@@ -20127,17 +20616,20 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
     state.bag.forEach((g,index)=>{
       if(EmberwildTokens.isToken(g))return;
       const t=Number.isInteger(g.powerTier)?g.powerTier:null,level=gearRequiredLevel(g),worn=wearers.has(g.id);
-      if(filter.job!=='all'&&!gearWearableJobs(g).includes(Number(filter.job))||filter.slot!=='all'&&g.slot!==Number(filter.slot)||filter.quality!=='all'&&gearQualityRank(g)!==Number(filter.quality)||filter.locked!=='all'&&!!g.locked!==(filter.locked==='yes')||worn)return;
+      // v0.206: unidentified gear shows only its slot and level; quality, affix and stat filters never match it and it sorts last.
+      const hidden=!!g.unidentified;
+      if(hidden&&(filter.job!=='all'||filter.quality!=='all'||filter.affixType||filter.stat&&filter.value!==''||filter.tMin!==''||filter.tMax!==''))return;
+      if(!hidden&&filter.job!=='all'&&!gearWearableJobs(g).includes(Number(filter.job))||filter.slot!=='all'&&g.slot!==Number(filter.slot)||!hidden&&filter.quality!=='all'&&gearQualityRank(g)!==Number(filter.quality)||filter.locked!=='all'&&!!g.locked!==(filter.locked==='yes')||worn)return;
       if((filter.tMin!==''||filter.tMax!=='')&&t===null||!bound(t,filter.tMin,true)||!bound(t,filter.tMax,false)||!bound(level,filter.levelMin,true)||!bound(level,filter.levelMax,false))return;
       if(filter.affixType){const affixes=matchingAffixes(g);if(!affixes.length||filter.affixValue!==''&&!affixes.some(a=>compare(Number(a.value),Number(filter.affixValue),filter.affixOp)))return;}
-      const stats=numeric(g);
+      const stats=hidden?{}:numeric(g);
       if(filter.stat&&keys.has(filter.stat)&&filter.value!==''){
         const n=stats[filter.stat],v=Number(filter.value),u=Number(filter.upper);
         if(!Number.isFinite(n)||n===0||!Number.isFinite(v))return;
         const ok={gt:()=>n>v,gte:()=>n>=v,eq:()=>n===v,lte:()=>n<=v,lt:()=>n<v,range:()=>filter.upper!==''&&Number.isFinite(u)&&n>=v&&n<=u}[filter.op];
         if(!ok||!ok())return;
       }
-      const value=sort==='acquired'?acquiredTime(g):sort==='level'?level:sort==='tier'?t:sort==='quality'?gearQualityRank(g):sort==='price'?equipmentSellPrice(g):stats[sort]===0?null:stats[sort];
+      const value=hidden&&!['acquired','level'].includes(sort)?null:sort==='acquired'?acquiredTime(g):sort==='level'?level:sort==='tier'?t:sort==='quality'?gearQualityRank(g):sort==='price'?equipmentSellPrice(g):stats[sort]===0?null:stats[sort];
       result.push({g,index,stats,value});
     });
     result.sort((a,b)=>{
@@ -20196,7 +20688,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   globalThis.setGearInventoryAdvanced=value=>{advanced=!!value;};
   function item(row){
     const g=row.g,worn=gearWearer(g.id),can=actionable(g),stats=Object.entries(row.stats).filter(([key,n])=>['atk','def','hp','attackSpeedPct'].includes(key)&&n).map(([key,n])=>key==='attackSpeedPct'?'攻速 +'+n+'%':({atk:'攻',def:'防',hp:'生命'}[key])+' '+n).join(' · ');
-    return `<article class="gear-management-row" data-gear-id="${g.id}">${multi?`<label class="gear-selection"><input type="checkbox" aria-label="選取 ${esc(equipmentDisplayName(g))}" ${selected.has(g.id)?'checked':''} ${can?'':'disabled'} onchange="toggleGearInventorySelected('${g.id}',this.checked)"></label>`:''}<div class="gear-management-item">${gearSlotHTML(g,{selected:g.id===inventorySelectedGearId,className:'inventory-list-item',onclick:`selectInventoryGear('${g.id}')`})}<div class="gear-management-meta"><span class="effect-quality-${gearQualityRank(g)}">${esc(AFFIX_RANK[gearQualityRank(g)])}</span> · 裝等 ${gearRequiredLevel(g)} · ${esc(gearWearableJobsText(g))}${worn?' · '+esc(characterName(worn))+'已裝備':''}<br>${esc(stats||'無面板屬性')}</div></div><button class="gear-lock" onclick="toggleGearLock('${g.id}')" aria-pressed="${!!g.locked}" aria-label="${g.locked?'解除鎖定':'鎖定'} ${esc(equipmentDisplayName(g))}">${g.locked?'已鎖定':'鎖定'}</button></article>`;
+    return `<article class="gear-management-row" data-gear-id="${g.id}">${multi?`<label class="gear-selection"><input type="checkbox" aria-label="選取 ${esc(equipmentDisplayName(g))}" ${selected.has(g.id)?'checked':''} ${can?'':'disabled'} onchange="toggleGearInventorySelected('${g.id}',this.checked)"></label>`:''}<div class="gear-management-item">${gearSlotHTML(g,{selected:g.id===inventorySelectedGearId,className:'inventory-list-item',onclick:`selectInventoryGear('${g.id}')`})}<div class="gear-management-meta">${g.unidentified?`未鑑定 · ${esc(['武器','護甲','副手','飾品'][g.unidentified.slot]||'裝備')} · 裝等 ${esc(g.unidentified.level??'—')}`:`<span class="effect-quality-${gearQualityRank(g)}">${esc(AFFIX_RANK[gearQualityRank(g)])}</span> · 裝等 ${gearRequiredLevel(g)} · ${esc(gearWearableJobsText(g))}${worn?' · '+esc(characterName(worn))+'已裝備':''}<br>${esc(stats||'無面板屬性')}`}</div></div><button class="gear-lock" onclick="toggleGearLock('${g.id}')" aria-pressed="${!!g.locked}" aria-label="${g.locked?'解除鎖定':'鎖定'} ${esc(equipmentDisplayName(g))}">${g.locked?'已鎖定':'鎖定'}</button></article>`;
   }
   function quote(items,mode){
     if(mode==='sell'){const gold=items.reduce((n,g)=>n+equipmentSellPrice(g),0);return {count:items.length,gold,text:'保證獲得 '+gold.toLocaleString()+' 金幣'};}
@@ -20251,7 +20743,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_TEAM_EQUIPMENT=globalThis.__EMBERWILD_TEAM_EQUIPMENT??__EMBERWILD_TEAM_EQUIPMENT;__EMBERWILD_CAN_SELL=globalThis.__EMBERWILD_CAN_SELL??__EMBERWILD_CAN_SELL;__EMBERWILD_CAN_SELL_GEAR=globalThis.__EMBERWILD_CAN_SELL_GEAR??__EMBERWILD_CAN_SELL_GEAR;__EMBERWILD_EQUIPMENT_POWER=globalThis.__EMBERWILD_EQUIPMENT_POWER??__EMBERWILD_EQUIPMENT_POWER;equipmentAbilitySummary=globalThis.equipmentAbilitySummary??equipmentAbilitySummary;equipmentNumericFields=globalThis.equipmentNumericFields??equipmentNumericFields;setGearInventoryFilter=globalThis.setGearInventoryFilter??setGearInventoryFilter;clearGearInventoryFilters=globalThis.clearGearInventoryFilters??clearGearInventoryFilters;setGearInventorySort=globalThis.setGearInventorySort??setGearInventorySort;setGearInventoryFold=globalThis.setGearInventoryFold??setGearInventoryFold;toggleGearInventoryDirection=globalThis.toggleGearInventoryDirection??toggleGearInventoryDirection;toggleGearInventoryMulti=globalThis.toggleGearInventoryMulti??toggleGearInventoryMulti;toggleGearInventorySelected=globalThis.toggleGearInventorySelected??toggleGearInventorySelected;selectVisibleGear=globalThis.selectVisibleGear??selectVisibleGear;clearSelectedGear=globalThis.clearSelectedGear??clearSelectedGear;openGearInventoryFilters=globalThis.openGearInventoryFilters??openGearInventoryFilters;finishGearInventoryFilters=globalThis.finishGearInventoryFilters??finishGearInventoryFilters;setGearInventoryAdvanced=globalThis.setGearInventoryAdvanced??setGearInventoryAdvanced;requestGearInventoryBatch=globalThis.requestGearInventoryBatch??requestGearInventoryBatch;confirmGearInventoryBatch=globalThis.confirmGearInventoryBatch??confirmGearInventoryBatch;openInventoryWear=globalThis.openInventoryWear??openInventoryWear;openWornWearHelp=globalThis.openWornWearHelp??openWornWearHelp;__EMBERWILD_GEAR_INVENTORY=globalThis.__EMBERWILD_GEAR_INVENTORY??__EMBERWILD_GEAR_INVENTORY;
 
-/* js/combat/offline-exploration.js?v=20261123-v0196-aspd */
+/* js/combat/offline-exploration.js?v=20261126-v0211-gear */
 /* One event timeline for visible play, background throttling and cold saves.
    Party, combat cursor and pending receipt are committed by one KEY setItem. */
 (()=>{
@@ -20333,7 +20825,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
   function finite(v){if(typeof v==='number'&&!Number.isFinite(v))throw Error('離線存檔包含無效數值');if(v&&typeof v==='object')for(const x of Object.values(v))finite(x);}finite(c);
   return migrate(c);
  }
- validateParty=function(raw){const c=validate(raw?.offlineExploration,raw?.members),p=baseValidate(raw);if(c)p.offlineExploration=c;return p;};
+ validateParty=function(raw){const c=validate(raw?.offlineExploration,raw?.members),p=baseValidate(raw);if(c){for(const r of [c.receipt,c.pendingReceipt])if(Array.isArray(r?.gear))globalThis.migrateSlimEquipmentForms?.(r.gear);p.offlineExploration=c;}return p;};
  loadParty=function(raw){
   if(job&&!restoring)throw Error('離線結算進行中，請完成後再讀取存檔');
   restoring=true;try{const out=baseLoad(raw);const c=ensure();hydrate(c);failed=false;lastCheck=nowReal();renderedReceipt=null;return out;}finally{restoring=false;}
@@ -20687,7 +21179,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
  }
  globalThis.changeOfflineGearPage=function(delta){renderedReceipt=null;gearPage=Math.max(0,Math.min(Math.ceil((clock()?.receipt?.gear.length||1)/30)-1,gearPage+delta));showReceipt();};
  // v0.115: the receipt shows the same gear detail as the backpack (stats and abilities, not only the source breakdown).
- globalThis.showOfflineGear=function(i){const g=clock()?.receipt?.gear[i];if(!g)return;$('modal').innerHTML='<h2>'+equipmentNameHTML(g)+'</h2><div class="offline-gear-detail">'+(globalThis.gearInfoHTML?.(g).replace(/^<h3>[\s\S]*?<\/h3>/,'')||equipmentAttributeDetailsHTML(g))+'</div><button onclick="closeModal()">關閉</button>';$('modal').showModal();};
+ globalThis.showOfflineGear=function(i){const g=clock()?.receipt?.gear[i];if(!g)return;$('modal').innerHTML='<h2>'+equipmentNameHTML(g)+'</h2><div class="offline-gear-detail">'+(g.unidentified&&globalThis.unidentifiedGearDetailHTML?globalThis.unidentifiedGearDetailHTML(g):(globalThis.gearInfoHTML?.(g).replace(/^<h3>[\s\S]*?<\/h3>/,'')||equipmentAttributeDetailsHTML(g)))+'</div><button onclick="closeModal()">關閉</button>';$('modal').showModal();};
  globalThis.acknowledgeOfflineExploration=function(){
   const c=clock();if(job||failed||!c?.receipt?.complete||globalThis.__EMBERWILD_SAVE_OWNER===false)return false;
   const previous=copy(c);c.receipt=null;promote();
@@ -20799,7 +21291,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
  globalThis.EmberwildOffline={get metrics(){return copy(metrics);},sync,settle,advance,snapshot,hydrate,validate,get busy(){return !!job;},get replaying(){return !!job&&jobOffline;},get failed(){return failed;},get active(){return lastMode;}};
 })();
 
-__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;__EMBERWILD_SIMULATION_MODAL=globalThis.__EMBERWILD_SIMULATION_MODAL??__EMBERWILD_SIMULATION_MODAL;__EMBERWILD_SAVE_ERROR=globalThis.__EMBERWILD_SAVE_ERROR??__EMBERWILD_SAVE_ERROR;__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_MASTERY_LISTENERS=globalThis.__EMBERWILD_MASTERY_LISTENERS??__EMBERWILD_MASTERY_LISTENERS;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;gearInfoHTML=globalThis.gearInfoHTML??gearInfoHTML;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;__EMBERWILD_RESUMING_ROUND=globalThis.__EMBERWILD_RESUMING_ROUND??__EMBERWILD_RESUMING_ROUND;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;EmberwildRegionVouchers=globalThis.EmberwildRegionVouchers??EmberwildRegionVouchers;emberwildLifeHeartbeat=globalThis.emberwildLifeHeartbeat??emberwildLifeHeartbeat;EmberwildIdleStatistics=globalThis.EmberwildIdleStatistics??EmberwildIdleStatistics;offerOfflineVouchers=globalThis.offerOfflineVouchers??offerOfflineVouchers;changeOfflineGearPage=globalThis.changeOfflineGearPage??changeOfflineGearPage;showOfflineGear=globalThis.showOfflineGear??showOfflineGear;acknowledgeOfflineExploration=globalThis.acknowledgeOfflineExploration??acknowledgeOfflineExploration;__EMBERWILD_OFFLINE_FULL_ONLY=globalThis.__EMBERWILD_OFFLINE_FULL_ONLY??__EMBERWILD_OFFLINE_FULL_ONLY;retryOfflineExploration=globalThis.retryOfflineExploration??retryOfflineExploration;
+migrateSlimEquipmentForms=globalThis.migrateSlimEquipmentForms??migrateSlimEquipmentForms;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;__EMBERWILD_SIMULATION_MODAL=globalThis.__EMBERWILD_SIMULATION_MODAL??__EMBERWILD_SIMULATION_MODAL;__EMBERWILD_SAVE_ERROR=globalThis.__EMBERWILD_SAVE_ERROR??__EMBERWILD_SAVE_ERROR;__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_BOOT_SAVE_RAW=globalThis.__EMBERWILD_BOOT_SAVE_RAW??__EMBERWILD_BOOT_SAVE_RAW;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;__EMBERWILD_OFFLINE_RULE_CACHE=globalThis.__EMBERWILD_OFFLINE_RULE_CACHE??__EMBERWILD_OFFLINE_RULE_CACHE;__EMBERWILD_MASTERY_LISTENERS=globalThis.__EMBERWILD_MASTERY_LISTENERS??__EMBERWILD_MASTERY_LISTENERS;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;gearInfoHTML=globalThis.gearInfoHTML??gearInfoHTML;expeditionChallengeResult=globalThis.expeditionChallengeResult??expeditionChallengeResult;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;__EMBERWILD_RESUMING_ROUND=globalThis.__EMBERWILD_RESUMING_ROUND??__EMBERWILD_RESUMING_ROUND;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;EmberwildRegionVouchers=globalThis.EmberwildRegionVouchers??EmberwildRegionVouchers;emberwildLifeHeartbeat=globalThis.emberwildLifeHeartbeat??emberwildLifeHeartbeat;EmberwildIdleStatistics=globalThis.EmberwildIdleStatistics??EmberwildIdleStatistics;offerOfflineVouchers=globalThis.offerOfflineVouchers??offerOfflineVouchers;changeOfflineGearPage=globalThis.changeOfflineGearPage??changeOfflineGearPage;showOfflineGear=globalThis.showOfflineGear??showOfflineGear;unidentifiedGearDetailHTML=globalThis.unidentifiedGearDetailHTML??unidentifiedGearDetailHTML;acknowledgeOfflineExploration=globalThis.acknowledgeOfflineExploration??acknowledgeOfflineExploration;__EMBERWILD_OFFLINE_FULL_ONLY=globalThis.__EMBERWILD_OFFLINE_FULL_ONLY??__EMBERWILD_OFFLINE_FULL_ONLY;retryOfflineExploration=globalThis.retryOfflineExploration??retryOfflineExploration;
 
 /* js/skills/skill-system-runtime.js?v=20261119-v0172 */
 /* Stable-ID configuration projected into the existing shared combat runtime. */
@@ -21641,12 +22133,555 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
 
 __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_ICONS;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat;EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;__EMBERWILD_OFFLINE_SILENT=globalThis.__EMBERWILD_OFFLINE_SILENT??__EMBERWILD_OFFLINE_SILENT;isEmberwildUIInteracting=globalThis.isEmberwildUIInteracting??isEmberwildUIInteracting;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_LUCIDE=globalThis.__EMBERWILD_LUCIDE??__EMBERWILD_LUCIDE;__EMBERWILD_COMPANION_TEST_API=globalThis.__EMBERWILD_COMPANION_TEST_API??__EMBERWILD_COMPANION_TEST_API;__EMBERWILD_MASTERY_BATTLE_NOTE=globalThis.__EMBERWILD_MASTERY_BATTLE_NOTE??__EMBERWILD_MASTERY_BATTLE_NOTE;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;EmberwildEnemyCombatState=globalThis.EmberwildEnemyCombatState??EmberwildEnemyCombatState;__EMBERWILD_COMPANION_BATTLE_MASTERY=globalThis.__EMBERWILD_COMPANION_BATTLE_MASTERY??__EMBERWILD_COMPANION_BATTLE_MASTERY;querySelector=globalThis.querySelector??querySelector;classList=globalThis.classList??classList;querySelectorAll=globalThis.querySelectorAll??querySelectorAll;children=globalThis.children??children;insertBefore=globalThis.insertBefore??insertBefore;
 
-/* js/ui/battle-effects.js?v=20261119-v0173 */
+/* js/ui/battle-effect-templates.js?v=20261123-v0200-attackfx */
+/* Reusable visual effect templates for class basic attacks and skill casts.
+   Pure presentation data and pure resolvers: never mutates combat state or RNG. */
+(()=>{
+ 'use strict';
+ const hexToRgb=hex=>{
+  const clean=String(hex||'').replace('#','');
+  if(clean.length!==6)return '255,121,111';
+  return [0,2,4].map(i=>parseInt(clean.slice(i,i+2),16)).join(',');
+ };
+ const tone=(color,accent)=>Object.freeze({color,rgb:hexToRgb(color),accent:accent||color,accentRgb:hexToRgb(accent||color)});
+
+ // Semantic category fallbacks (used by persistent layers and neutral status events).
+ const CATEGORY_PALETTES=Object.freeze({
+  damage:tone('#ff796f','#b8c2cf'),
+  buff:tone('#f4d58b','#fff4cc'),
+  shield:tone('#f2f5ff','#b8ccf8'),
+  recovery:tone('#87efad','#e2ffef'),
+  debuff:tone('#c495f0','#ecd8ff')
+ });
+
+ // Element palettes shared by Mage basic attacks and elemental skills.
+ const ELEMENT_PALETTES=Object.freeze({
+  physical:tone('#ff796f','#b8c2cf'),
+  fire:tone('#ff6a3d','#ffd166'),
+  ice:tone('#5cc8ff','#dff6ff'),
+  lightning:tone('#ffd94a','#c5a3ff'),
+  wind:tone('#48e0b8','#c9fff0'),
+  light:tone('#f7cf52','#fff7d1'),
+  shadow:tone('#b980ff','#e8ccff'),
+  arcane:tone('#8b80ff','#d6d0ff')
+ });
+
+ // Class signature visual themes:
+ // 0 戰士: 紅、灰 | 1 法師: 依元素著色 | 2 弓箭手: 鮮綠色 | 3 牧師: 金色聖光
+ const CLASS_PALETTES=Object.freeze({
+  0:tone('#ff796f','#b8c2cf'),
+  1:ELEMENT_PALETTES.arcane,
+  2:tone('#39e56d','#c8ffa8'),
+  3:tone('#f7cf52','#fff7d1')
+ });
+
+ function normalizeElement(element){
+  if(!element)return null;
+  const key=String(element).toLowerCase();
+  if(key==='thunder')return 'lightning';
+  return Object.prototype.hasOwnProperty.call(ELEMENT_PALETTES,key)?key:null;
+ }
+
+ function elementPalette(element,fallback='arcane'){
+  const key=normalizeElement(element);
+  return ELEMENT_PALETTES[key]||ELEMENT_PALETTES[fallback]||CATEGORY_PALETTES.damage;
+ }
+
+ function classPalette(job,element){
+  if(job===0){
+   const el=normalizeElement(element);
+   if(el&&el!=='physical')return tone(ELEMENT_PALETTES[el].color,CLASS_PALETTES[0].accent);
+   return CLASS_PALETTES[0];
+  }
+  if(job===1){
+   const el=normalizeElement(element);
+   return elementPalette(el&&el!=='physical'?el:'arcane','arcane');
+  }
+  if(job===2){
+   const el=normalizeElement(element);
+   if(el&&el!=='physical'&&el!=='wind')return tone(CLASS_PALETTES[2].color,ELEMENT_PALETTES[el].accent);
+   return CLASS_PALETTES[2];
+  }
+  if(job===3){
+   const el=normalizeElement(element);
+   if(el==='shadow')return ELEMENT_PALETTES.shadow;
+   return CLASS_PALETTES[3];
+  }
+  return elementPalette(element,'physical');
+ }
+
+ // Shared 64x64 luminous SVG glyph artwork (consistent stroke-width/caps/glow language).
+ const ELEMENT_ART=Object.freeze({
+  fire:{
+   basic:'<path d="M32 6C42 23 52 25 48 43C44 57 19 59 15 43C10 29 25 28 25 16L32 27Z" fill="currentColor" fill-opacity=".35" stroke="currentColor" stroke-width="2"/><path d="M32 28Q44 45 31 53Q20 46 32 28Z" fill="var(--fx-accent)" fill-opacity=".8" stroke="var(--fx-accent)" stroke-width="1.4"/><path d="M11 16L6 8M52 15L58 7M54 42L61 46" stroke="var(--fx-accent)" stroke-width="1.8"/>',
+   blast:'<circle cx="32" cy="34" r="22" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4"/><path d="M32 4C44 21 56 26 51 45C46 60 18 60 13 45C8 27 22 24 23 12L32 25Z" fill="currentColor" fill-opacity=".38" stroke="currentColor" stroke-width="2"/><path d="M32 24Q47 44 32 54Q17 44 32 24Z" fill="var(--fx-accent)" fill-opacity=".85" stroke="var(--fx-accent)" stroke-width="1.4"/><path d="M8 14L4 6M56 14L60 6M7 48L2 52M57 48L62 52" stroke="var(--fx-accent)" stroke-width="2"/>'
+  },
+  ice:{
+   basic:'<path d="M32 5L43 24L32 58L21 24Z" fill="currentColor" fill-opacity=".28" stroke="currentColor" stroke-width="2"/><path d="M32 12L38 25L32 48L26 25Z" fill="var(--fx-accent)" fill-opacity=".65" stroke="var(--fx-accent)" stroke-width="1.2"/><path d="M6 28L20 38L11 54ZM52 26L60 41L46 54Z" stroke="currentColor" stroke-width="1.8"/><path d="M6 15L16 20M51 9L46 18" stroke="var(--fx-accent)" stroke-width="1.7"/>',
+   blast:'<path d="M32 4V60M8 18L56 46M56 18L8 46" stroke="currentColor" stroke-width="2"/><path d="M32 14L46 23V41L32 50L18 41V23Z" fill="currentColor" fill-opacity=".24" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M26 9L32 15L38 9M26 55L32 49L38 55M10 25L18 24L15 16M54 39L46 40L49 48" stroke="var(--fx-accent)" stroke-width="1.7"/>'
+  },
+  lightning:{
+   basic:'<path d="M41 4L16 33L32 30L22 60L51 23L34 26Z" fill="currentColor" fill-opacity=".42" stroke="currentColor" stroke-width="2"/><path d="M37 11L23 30L35 28L27 51" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M9 10L15 19M51 47L59 55M8 46L15 41" stroke="var(--fx-accent)" stroke-width="1.8"/>',
+   blast:'<circle cx="32" cy="32" r="24" stroke="var(--fx-accent)" stroke-width="1.5" stroke-dasharray="5 5"/><path d="M42 3L14 33L31 30L20 61L52 23L34 26Z" fill="currentColor" fill-opacity=".48" stroke="currentColor" stroke-width="2"/><path d="M10 14L20 20L14 28M54 38L44 43L50 53" stroke="var(--fx-accent)" stroke-width="1.9"/>'
+  },
+  wind:{
+   basic:'<path d="M8 22Q28 8 52 18Q36 25 18 28" stroke="currentColor" stroke-width="2.4"/><path d="M6 38Q30 22 57 34Q38 43 16 45" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="2.2"/><path d="M15 52Q36 42 54 50" stroke="var(--fx-accent)" stroke-width="1.9"/><path d="M44 12L55 17L47 24M48 28L58 34L49 40" stroke="var(--fx-accent)" stroke-width="1.6"/>',
+   blast:'<path d="M12 42Q6 20 28 11Q52 6 56 28Q58 50 34 54Q16 56 16 37Q16 22 33 22Q45 22 43 34" stroke="currentColor" stroke-width="2.4"/><path d="M6 26Q28 10 56 18M9 50Q34 40 58 46" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M28 6L35 12L27 16M35 58L28 53L36 48" stroke="var(--fx-accent)" stroke-width="1.6"/>'
+  },
+  light:{
+   basic:'<circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="1.8" opacity=".75"/><path d="M32 5L37 26L58 32L37 38L32 59L27 38L6 32L27 26Z" fill="currentColor" fill-opacity=".3" stroke="currentColor" stroke-width="2"/><path d="M32 14L35 29L50 32L35 35L32 50L29 35L14 32L29 29Z" fill="var(--fx-accent)" stroke="var(--fx-accent)" stroke-width="1.2"/>',
+   blast:'<circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="2"/><path d="M32 3L38 25L61 32L38 39L32 61L26 39L3 32L26 25Z" fill="currentColor" fill-opacity=".36" stroke="var(--fx-accent)" stroke-width="1.8"/><circle cx="32" cy="32" r="9" fill="var(--fx-accent)" fill-opacity=".65" stroke="currentColor" stroke-width="1.5"/>'
+  },
+  shadow:{
+   basic:'<path d="M44 12A22 22 0 1 0 48 50A17 17 0 1 1 44 12Z" fill="currentColor" fill-opacity=".38" stroke="currentColor" stroke-width="2"/><path d="M18 46Q34 32 52 16" stroke="var(--fx-accent)" stroke-width="2"/><path d="M11 19L19 25M48 44L56 51M24 56L28 48" stroke="var(--fx-accent)" stroke-width="1.7"/>',
+   blast:'<circle cx="32" cy="32" r="22" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="2" stroke-dasharray="8 4"/><path d="M44 11A22 22 0 1 0 48 51A16 16 0 1 1 44 11Z" fill="currentColor" fill-opacity=".42" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M14 50L50 14M16 18L26 28M38 36L50 48" stroke="var(--fx-accent)" stroke-width="1.8"/>'
+  },
+  arcane:{
+   basic:'<circle cx="32" cy="32" r="21" stroke="currentColor" stroke-width="1.8"/><path d="M32 6L37 26L58 32L37 38L32 58L27 38L6 32L27 26Z" fill="currentColor" fill-opacity=".28" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="7" fill="var(--fx-accent)" fill-opacity=".55" stroke="var(--fx-accent)" stroke-width="1.5"/><path d="M15 15L20 20M49 15L44 20M15 49L20 44M49 49L44 44" stroke="var(--fx-accent)" stroke-width="1.6"/>',
+   blast:'<circle cx="32" cy="32" r="25" stroke="currentColor" stroke-width="1.8" stroke-dasharray="6 3"/><polygon points="32,7 54,45 10,45" fill="currentColor" fill-opacity=".14" stroke="var(--fx-accent)" stroke-width="1.6"/><polygon points="32,57 54,19 10,19" fill="currentColor" fill-opacity=".14" stroke="currentColor" stroke-width="1.6"/><circle cx="32" cy="32" r="8" fill="var(--fx-accent)" fill-opacity=".65" stroke="var(--fx-accent)" stroke-width="1.4"/>'
+  }
+ });
+
+ const ELEMENT_GLYPH=Object.freeze({
+  fire:'fx-flame',
+  ice:'fx-shatter',
+  lightning:'fx-electric',
+  wind:'fx-gale',
+  light:'fx-holy',
+  shadow:'fx-void',
+  arcane:'fx-arcane'
+ });
+
+ // Built-in universal skill & attack effect templates.
+ const registry=new Map();
+
+ function registerTemplate(id,spec){
+  if(!id||typeof id!=='string'||!spec||typeof spec!=='object')throw TypeError('Invalid battle effect template');
+  const normalized={
+   id,
+   name:spec.name||id,
+   description:spec.description||'',
+   defaultCategory:spec.defaultCategory||'damage',
+   variants:Object.freeze([...(spec.variants||['basic'])]),
+   projectile:spec.projectile||'none',
+   motion:spec.motion||'fx-ring',
+   glyph:spec.glyph||'fx-impact',
+   palette:typeof spec.palette==='function'?spec.palette:()=>CATEGORY_PALETTES[spec.defaultCategory||'damage'],
+   svg:typeof spec.svg==='function'?spec.svg:()=>'',
+   castSvg:typeof spec.castSvg==='function'?spec.castSvg:null,
+   attackSvg:typeof spec.attackSvg==='function'?spec.attackSvg:null
+  };
+  registry.set(id,Object.freeze(normalized));
+  return normalized;
+ }
+
+ // 1. 斬擊技能模板（亦為戰士普攻基準：紅＋鋼鐵灰）
+ registerTemplate('slash',{
+  name:'斬擊技能',
+  description:'戰士普通攻擊與近戰斬擊／重劈／橫掃技能模板，以紅色弧光與鋼鐵灰劍鋒呈現。',
+  defaultCategory:'damage',
+  variants:['basic','heavy','aoe'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:v=>v==='heavy'||v==='aoe'?'fx-slash-heavy':'fx-slash',
+  palette:ctx=>classPalette(0,ctx?.element),
+  svg:(variant)=>{
+   if(variant==='aoe'){
+    return '<path d="M5 42Q32 8 59 38Q32 23 5 42Z" fill="currentColor" stroke="currentColor" stroke-width="2"/><path d="M7 48Q32 22 57 45" stroke="var(--fx-accent)" stroke-width="2.4"/><path d="M14 54Q32 35 50 52" stroke="var(--fx-accent)" stroke-width="1.6" opacity=".8"/><path d="M32 10V4M13 18L8 12M51 18L56 12" stroke="var(--fx-accent)" stroke-width="1.8"/>';
+   }
+   if(variant==='heavy'){
+    return '<path d="M8 50Q19 10 55 11Q31 21 8 50Z" fill="currentColor" stroke="currentColor" stroke-width="2"/><path d="M13 13Q36 22 54 51Q33 34 13 13Z" fill="var(--fx-accent)" fill-opacity=".42" stroke="var(--fx-accent)" stroke-width="2"/><path d="M9 54L55 9" stroke="var(--fx-accent)" stroke-width="2.4"/><path d="M15 56L56 17M42 7L49 3M57 24L62 21" stroke="var(--fx-accent)" stroke-width="1.6"/>';
+   }
+   // Default warrior basic attack: original iconic slash crescent enhanced with steel-gray edge & glints.
+   return '<path d="M9 49Q20 9 55 12Q30 20 9 49Z" fill="currentColor" stroke="currentColor" stroke-width="2"/><path d="M10 53L53 10" stroke="var(--fx-accent)" stroke-width="2.4"/><path d="M16 55Q32 28 57 18" stroke="var(--fx-accent)" stroke-width="1.5" opacity=".85"/><path d="M46 8L52 4M55 21L61 19M7 42L3 45" stroke="var(--fx-accent)" stroke-width="1.7"/>';
+  },
+  attackSvg:()=>'<path d="M12 46Q24 14 52 15" stroke="currentColor" stroke-width="3"/><path d="M15 51L53 13" stroke="var(--fx-accent)" stroke-width="2.2"/><path d="M43 10L54 11L53 22" stroke="var(--fx-accent)" stroke-width="2"/>',
+  castSvg:()=>'<path d="M10 47Q24 12 54 14" stroke="currentColor" stroke-width="2.6"/><path d="M14 52L54 12" stroke="var(--fx-accent)" stroke-width="2"/><circle cx="32" cy="32" r="24" stroke="var(--fx-accent)" stroke-width="1.4" stroke-dasharray="6 4"/>'
+ });
+
+ // 2. 箭矢技能模板（弓箭手普攻與箭術技能：鮮綠色）
+ registerTemplate('arrow',{
+  name:'箭矢技能',
+  description:'弓箭手普通攻擊與穿刺／狙擊／連射／箭雨技能模板，以鮮綠色疾風箭矢與箭形彈道呈現。',
+  defaultCategory:'damage',
+  variants:['basic','snipe','multi'],
+  projectile:'arrow',
+  motion:'fx-ring',
+  glyph:v=>v==='multi'?'fx-volley':'fx-pierce',
+  palette:ctx=>classPalette(2,ctx?.element),
+  svg:(variant)=>{
+   if(variant==='multi'){
+    return '<path d="M6 40L39 11M14 52L49 21M24 58L57 29" stroke="currentColor" stroke-width="2.2"/><path d="M30 11L41 9L39 20Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.3"/><path d="M40 21L51 19L49 30Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.3"/><path d="M48 29L59 27L57 38Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.3"/><path d="M6 34L12 36L11 42M14 46L20 48L19 54M24 52L30 54L29 60" stroke="var(--fx-accent)" stroke-width="1.5"/>';
+   }
+   if(variant==='snipe'){
+    return '<circle cx="38" cy="24" r="14" stroke="var(--fx-accent)" stroke-width="1.5" stroke-dasharray="5 3"/><path d="M38 6V12M38 36V42M20 24H26M50 24H56" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M6 55L53 10" stroke="currentColor" stroke-width="2.8"/><path d="M39 10L56 7L52 24L46 17Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.6"/><path d="M8 45L17 47L15 56" stroke="var(--fx-accent)" stroke-width="1.8"/>';
+   }
+   return '<path d="M8 52L51 13" stroke="currentColor" stroke-width="2.4"/><path d="M37 12L54 10L51 27L45 19Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.6"/><path d="M7 42L17 44L15 54M13 37L23 39L21 49" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M22 25Q34 17 44 13M26 43Q39 34 49 23" stroke="var(--fx-accent)" stroke-width="1.4" opacity=".8"/>';
+  },
+  attackSvg:()=>'<path d="M18 11Q48 32 18 53" stroke="currentColor" stroke-width="2.6"/><path d="M18 11L12 32L18 53" stroke="var(--fx-accent)" stroke-width="1.5"/><path d="M12 32H54M44 25L55 32L44 39" stroke="var(--fx-accent)" stroke-width="2.2"/>',
+  castSvg:()=>'<path d="M18 11Q48 32 18 53" stroke="currentColor" stroke-width="2.4"/><circle cx="34" cy="32" r="20" stroke="var(--fx-accent)" stroke-width="1.5" stroke-dasharray="5 4"/><path d="M14 32H54M45 26L55 32L45 38" stroke="var(--fx-accent)" stroke-width="2"/>'
+ });
+
+ // 3. 聖光技能模板（牧師普攻與神聖攻擊／審判／光牢技能：金色聖光）
+ registerTemplate('holy',{
+  name:'聖光技能',
+  description:'牧師普通攻擊與聖光／審判／光牢技能模板，以金色聖光星芒與降臨光柱呈現。',
+  defaultCategory:'damage',
+  variants:['basic','smite','prison'],
+  projectile:'holy',
+  motion:'fx-ring',
+  glyph:'fx-holy',
+  palette:()=>CLASS_PALETTES[3],
+  svg:(variant)=>{
+   if(variant==='prison'){
+    return '<ellipse cx="32" cy="14" rx="21" ry="6" stroke="currentColor" stroke-width="2"/><ellipse cx="32" cy="51" rx="21" ry="6" stroke="currentColor" stroke-width="2"/><path d="M14 16V49M26 19V54M38 19V54M50 16V49" stroke="var(--fx-accent)" stroke-width="2.2"/><path d="M32 23L35 32L44 35L35 38L32 47L29 38L20 35L29 32Z" fill="var(--fx-accent)" fill-opacity=".5" stroke="currentColor" stroke-width="1.4"/>';
+   }
+   if(variant==='smite'){
+    return '<path d="M23 4H41L38 56H26Z" fill="currentColor" fill-opacity=".22" stroke="none"/><path d="M26 4V52M38 4V52M32 3V59" stroke="var(--fx-accent)" stroke-width="2"/><ellipse cx="32" cy="49" rx="22" ry="8" stroke="currentColor" stroke-width="2"/><path d="M32 14L37 27L51 31L37 35L32 48L27 35L13 31L27 27Z" fill="var(--fx-accent)" fill-opacity=".5" stroke="currentColor" stroke-width="1.8"/>';
+   }
+   return '<circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="1.8" opacity=".78"/><path d="M32 5L37 26L58 32L37 38L32 59L27 38L6 32L27 26Z" fill="currentColor" fill-opacity=".3" stroke="currentColor" stroke-width="2"/><path d="M32 14L35 29L50 32L35 35L32 50L29 35L14 32L29 29Z" fill="var(--fx-accent)" stroke="var(--fx-accent)" stroke-width="1.2"/><path d="M16 16L22 22M48 16L42 22M16 48L22 42M48 48L42 42" stroke="var(--fx-accent)" stroke-width="1.6"/>';
+  },
+  attackSvg:()=>'<circle cx="32" cy="32" r="22" stroke="currentColor" stroke-width="2"/><path d="M32 8V56M12 32H52" stroke="var(--fx-accent)" stroke-width="2.2"/><circle cx="32" cy="32" r="7" fill="var(--fx-accent)" fill-opacity=".5" stroke="currentColor" stroke-width="1.8"/>',
+  castSvg:()=>'<circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="2"/><path d="M32 6L36 27L57 32L36 37L32 58L28 37L7 32L28 27Z" fill="var(--fx-accent)" fill-opacity=".3" stroke="var(--fx-accent)" stroke-width="1.6"/>'
+ });
+
+ // 4. 元素技能模板（法師普攻與所有火／冰／雷／風／光／暗／奧術元素技能）
+ registerTemplate('elemental',{
+  name:'元素技能',
+  description:'法師普通攻擊與各類元素法術通用模板，依元素（火／冰／雷／風／光／暗／奧術）自動切換色盤、紋樣與動畫。',
+  defaultCategory:'damage',
+  variants:['basic','blast'],
+  projectile:'orb',
+  motion:'fx-ring',
+  glyph:(_v,ctx)=>{
+   const el=normalizeElement(ctx?.element);
+   return ELEMENT_GLYPH[el&&el!=='physical'?el:'arcane']||'fx-arcane';
+  },
+  palette:ctx=>{
+   const el=normalizeElement(ctx?.element);
+   return elementPalette(el&&el!=='physical'?el:'arcane','arcane');
+  },
+  svg:(variant,ctx)=>{
+   const el=normalizeElement(ctx?.element);
+   const set=ELEMENT_ART[el&&el!=='physical'?el:'arcane']||ELEMENT_ART.arcane;
+   return variant==='blast'?set.blast:set.basic;
+  },
+  attackSvg:()=>'<circle cx="32" cy="32" r="22" stroke="currentColor" stroke-width="1.8"/><path d="M32 7L38 26L57 32L38 38L32 57L26 38L7 32L26 26Z" fill="var(--fx-accent)" fill-opacity=".35" stroke="var(--fx-accent)" stroke-width="1.6"/><circle cx="32" cy="32" r="6" fill="currentColor"/>',
+  castSvg:()=>'<circle cx="32" cy="32" r="25" stroke="currentColor" stroke-width="2" stroke-dasharray="7 3"/><circle cx="32" cy="32" r="15" stroke="var(--fx-accent)" stroke-width="1.6"/><path d="M32 5V14M32 50V59M5 32H14M50 32H59" stroke="var(--fx-accent)" stroke-width="2"/>'
+ });
+
+ // 5. 護盾技能模板
+ registerTemplate('shield',{
+  name:'護盾技能',
+  description:'護盾、壁壘、冰霜護幕與神聖庇護等防禦技能模板，保留晶白護盾主色並融入元素／職業邊緣高光。',
+  defaultCategory:'shield',
+  variants:['basic','barrier'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:'fx-shield',
+  palette:ctx=>{
+   const el=normalizeElement(ctx?.element);
+   if(el&&el!=='physical')return tone(CATEGORY_PALETTES.shield.color,ELEMENT_PALETTES[el].color);
+   if(ctx?.job===0)return tone(CATEGORY_PALETTES.shield.color,CLASS_PALETTES[0].accent);
+   if(ctx?.job===3)return tone(CATEGORY_PALETTES.shield.color,CLASS_PALETTES[3].color);
+   return CATEGORY_PALETTES.shield;
+  },
+  svg:(variant)=>{
+   if(variant==='barrier'){
+    return '<path d="M32 4L55 13V32Q53 50 32 60Q11 50 9 32V13Z" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-width="2.2"/><path d="M32 11L48 18V32Q46 45 32 52Q18 45 16 32V18Z" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M32 19V44M21 31H43" stroke="var(--fx-accent)" stroke-width="1.8"/>';
+   }
+   return '<path d="M32 5L54 13V31Q53 49 32 59Q11 49 10 31V13Z" fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-width="2"/><path d="M32 12L46 18V31Q45 43 32 51" stroke="var(--fx-accent)" stroke-width="2"/>';
+  },
+  castSvg:()=>'<path d="M32 6L53 14V32Q51 49 32 58Q13 49 11 32V14Z" fill="currentColor" fill-opacity=".14" stroke="var(--fx-accent)" stroke-width="2"/>'
+ });
+
+ // 6. 重擊／衝擊技能模板
+ registerTemplate('impact',{
+  name:'重擊／衝擊技能',
+  description:'物理重擊、震盪衝擊與嘲諷震波技能模板，以紅灰雙層震波表現打擊力道。',
+  defaultCategory:'damage',
+  variants:['basic','heavy'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:'fx-impact-heavy',
+  palette:ctx=>classPalette(ctx?.job??0,ctx?.element),
+  svg:(variant)=>{
+   if(variant==='heavy'){
+    return '<circle cx="32" cy="32" r="22" stroke="var(--fx-accent)" stroke-width="2" stroke-dasharray="7 4"/><path d="M32 6L38 22L56 17L43 31L57 46L39 41L32 58L25 41L7 46L21 31L8 17L26 22Z" fill="currentColor" fill-opacity=".38" stroke="currentColor" stroke-width="1.9"/><circle cx="32" cy="32" r="8" fill="var(--fx-accent)" fill-opacity=".65" stroke="var(--fx-accent)" stroke-width="1.5"/>';
+   }
+   return '<path d="M32 10L37 24L53 20L42 32L53 45L37 40L32 54L27 40L11 45L22 32L11 20L27 24Z" fill="currentColor" fill-opacity=".32" stroke="currentColor" stroke-width="2"/><circle cx="32" cy="32" r="19" stroke="var(--fx-accent)" stroke-width="1.6" opacity=".8"/>';
+  }
+ });
+
+ // 7. 治療／恢復技能模板
+ registerTemplate('heal',{
+  name:'治療技能',
+  description:'單體與群體治療、持續恢復、生命汲取與藥水恢復模板，牧師與光屬治療會融合金色聖光高光。',
+  defaultCategory:'recovery',
+  variants:['basic','aoe','regen','drain'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:v=>v==='regen'?'fx-pulse':'fx-rise',
+  palette:ctx=>{
+   if(ctx?.job===3||normalizeElement(ctx?.element)==='light')return tone(CATEGORY_PALETTES.recovery.color,CLASS_PALETTES[3].color);
+   return CATEGORY_PALETTES.recovery;
+  },
+  svg:(variant)=>{
+   if(variant==='aoe'){
+    return '<circle cx="32" cy="32" r="26" stroke="var(--fx-accent)" stroke-width="1.8" opacity=".75"/><path d="M28 15H36V25H46V33H36V43H28V33H18V25H28Z" fill="currentColor" stroke="var(--fx-accent)" stroke-width="1.4"/><path d="M12 49V40M52 49V40M22 57V50M42 57V50" stroke="var(--fx-accent)" stroke-width="1.9"/>';
+   }
+   return '<path d="M28 17H36V26H45V34H36V43H28V34H19V26H28Z" fill="currentColor" stroke="none"/><path d="M10 49V42M52 47V37M21 58V52M43 57V51" stroke="var(--fx-accent)" stroke-width="1.8"/><circle cx="32" cy="32" r="27" stroke="var(--fx-accent)" opacity=".55"/>';
+  },
+  castSvg:()=>'<circle cx="32" cy="32" r="24" stroke="var(--fx-accent)" stroke-width="1.8"/><path d="M29 19H35V29H45V35H35V45H29V35H19V29H29Z" fill="currentColor" fill-opacity=".45" stroke="currentColor" stroke-width="1.5"/>'
+ });
+
+ // 8. 陷阱／控制技能模板
+ registerTemplate('trap',{
+  name:'陷阱／控制技能',
+  description:'繩索陷阱、冰凍陷阱、變形術與各類控制技模板，依職業或元素切換捕縛與符文樣式。',
+  defaultCategory:'debuff',
+  variants:['basic','snare','freeze','polymorph'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:v=>v==='freeze'?'fx-shatter':'fx-contract',
+  palette:ctx=>{
+   const el=normalizeElement(ctx?.element);
+   if(el==='ice')return ELEMENT_PALETTES.ice;
+   if(ctx?.job===2&&(!el||el==='physical'||el==='wind'))return CLASS_PALETTES[2];
+   if(ctx?.job===3&&el==='light')return CLASS_PALETTES[3];
+   return CATEGORY_PALETTES.debuff;
+  },
+  svg:(variant)=>{
+   if(variant==='polymorph'){
+    return '<path d="M12 42Q4 23 23 14Q44 4 53 26Q61 48 39 53Q21 57 20 38Q19 22 35 24Q47 26 40 37Q36 43 31 37" stroke="currentColor" stroke-width="2.2"/><path d="M8 10V20M3 15H13M50 48V60M44 54H56" stroke="var(--fx-accent)" stroke-width="1.8"/>';
+   }
+   if(variant==='freeze')return ELEMENT_ART.ice.blast;
+   return '<circle cx="32" cy="32" r="22" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/><path d="M14 20L24 28L18 39M50 20L40 28L46 39M22 49L32 41L42 49M22 15L32 23L42 15" stroke="var(--fx-accent)" stroke-width="2"/><circle cx="32" cy="32" r="5" fill="currentColor"/>';
+  }
+ });
+
+ // 9. 增益／戰吼技能模板
+ registerTemplate('buff',{
+  name:'增益技能',
+  description:'戰吼、守護誓言、奧術共鳴、鷹眼指引與光明祈願等隊伍增益技能模板。',
+  defaultCategory:'buff',
+  variants:['basic'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:'fx-rise',
+  palette:()=>CATEGORY_PALETTES.buff,
+  svg:()=>'<path d="M13 48V23M7 29L13 22L19 29M32 54V9M25 17L32 9L39 17M51 48V23M45 29L51 22L57 29" stroke="currentColor" stroke-width="2.1"/><circle cx="23" cy="38" r="2.2" fill="var(--fx-accent)" stroke="none"/><circle cx="42" cy="35" r="2.2" fill="var(--fx-accent)" stroke="none"/>'
+ });
+
+ // 10. 減益／削弱技能模板
+ registerTemplate('debuff',{
+  name:'減益技能',
+  description:'破甲怒吼、獵手標記、時間凝滯與苦痛蔓延等減益削弱技能模板。',
+  defaultCategory:'debuff',
+  variants:['basic'],
+  projectile:'none',
+  motion:'fx-ring',
+  glyph:'fx-sink',
+  palette:()=>CATEGORY_PALETTES.debuff,
+  svg:()=>'<path d="M6 16Q32 4 58 16M12 30Q32 18 52 30M20 44Q32 36 44 44" stroke="currentColor" stroke-width="2"/><path d="M32 31V55M25 47L32 55L39 47" stroke="var(--fx-accent)" stroke-width="2.2"/>'
+ });
+
+ // Auxiliary feedback glyphs (status/shield/evade/resist/cast).
+ const FEEDBACK_SVG=Object.freeze({
+  absorb:'<ellipse cx="32" cy="32" rx="27" ry="23"/><circle cx="32" cy="32" r="15" stroke="var(--fx-accent)"/><path d="M23 32H41M32 23V41" stroke="var(--fx-accent)"/>',
+  break:'<path d="M22 8L28 23L12 21ZM39 7L53 19L36 24ZM8 34L24 30L18 51ZM39 31L57 39L45 55ZM28 43L36 47L30 61Z" fill="currentColor" fill-opacity=".6"/>',
+  evade:'<path d="M7 18H30M3 32H23M7 46H30"/><path d="M35 14L51 32L35 50" stroke="var(--fx-accent)" stroke-width="2.4"/>',
+  resist:'<path d="M32 5L53 13V32Q50 48 32 58Q14 48 11 32V13Z"/><path d="M21 31L29 39L44 23" stroke="var(--fx-accent)" stroke-width="2.4"/>',
+  cast:'<circle cx="32" cy="32" r="25"/><path d="M13 13L20 20M51 13L44 20M13 51L20 44M51 51L44 44" stroke="var(--fx-accent)"/>'
+ });
+
+ function resolveSkillTemplate(ctx={}){
+  const explicit=ctx.fxTemplate||ctx.template||ctx.skill?.fxTemplate||ctx.skill?.meta?.fxTemplate;
+  const el=normalizeElement(ctx.element);
+  const job=Number.isInteger(ctx.job)?ctx.job:Number.isInteger(ctx.source?.job)?ctx.source.job:null;
+  const name=String(ctx.skillName||ctx.skill?.name||ctx.skill?.[0]||'');
+  const effect=String(ctx.effect||ctx.skill?.effect||ctx.skill?.kind||ctx.skill?.[5]||'');
+  const target=String(ctx.targetMode||ctx.skill?.target||ctx.skill?.meta?.target||'');
+  const isAoE=target==='enemies'||target==='allies'||/魔爆|火球|隕星|新星|箭雨|裂地|光牢|癒合|橫掃/.test(name);
+
+  if(explicit&&registry.has(explicit)){
+   return {template:explicit,variant:ctx.variant||(isAoE?'aoe':'basic'),element:el,job};
+  }
+
+  // Effect-first resolution for non-damage utility skills.
+  if(effect==='shield'||effect==='shieldLowest')return {template:'shield',variant:ctx.actionKind==='skill'?'barrier':'basic',element:el,job};
+  if(effect==='heal'||effect==='regen'||effect==='revive')return {template:'heal',variant:effect==='regen'?'regen':isAoE?'aoe':'basic',element:el,job};
+  if(effect==='polymorph'||effect==='summonMorphTrap')return {template:'trap',variant:'polymorph',element:el,job};
+  if(effect==='summonFreezeTrap'||effect==='freeze'||effect==='frost')return {template:'trap',variant:'freeze',element:el||'ice',job};
+  if(/陷阱/.test(name))return {template:'trap',variant:'snare',element:el,job};
+  if(effect==='tauntRage')return {template:'impact',variant:'heavy',element:el||'physical',job};
+  if(effect==='fear')return {template:'debuff',variant:'basic',element:el||'shadow',job};
+
+  // Offensive / skill attack templates.
+  if(job===2||ctx.ranged||/箭|射|狙擊/.test(name)){
+   const variant=/雨|連射/.test(name)||isAoE?'multi':/狙擊|穿透/.test(name)?'snipe':'basic';
+   return {template:'arrow',variant,element:el,job:job??2};
+  }
+  if(job===0&&(/斬|刃|劈|劍|裁決|追擊/.test(name)||el==='physical'||!el)){
+   if(/重擊/.test(name)&&!/浴血/.test(name))return {template:'impact',variant:'heavy',element:el||'physical',job:0};
+   const variant=isAoE?'aoe':ctx.actionKind==='skill'?'heavy':'basic';
+   return {template:'slash',variant,element:el||'physical',job:0};
+  }
+  if(/斬|刃|劈|劍/.test(name)){
+   return {template:'slash',variant:isAoE?'aoe':'heavy',element:el||'physical',job};
+  }
+  if((job===3&&el!=='shadow')||el==='light'||/聖光|聖印|黎明|光牢|神聖/.test(name)){
+   const variant=/光牢/.test(name)?'prison':ctx.actionKind==='skill'||/審判|聖印|黎明|聖光/.test(name)?'smite':'basic';
+   return {template:'holy',variant,element:'light',job:job??3};
+  }
+  if(/重擊|撞擊|震盪/.test(name)){
+   return {template:'impact',variant:'heavy',element:el||'physical',job};
+  }
+  if(job===1||(el&&el!=='physical')){
+   return {template:'elemental',variant:isAoE?'blast':'basic',element:el&&el!=='physical'?el:'arcane',job};
+  }
+  if(['attack','power','guard','critical','nextActiveDamage','advanceNextRound'].includes(effect))return {template:'buff',variant:'basic',element:el,job};
+  if(['weaken','fracture','vulnerable','damageAmp','followup','dotAttack','dotMaxHp','slow','skillSlow','dispel'].includes(effect))return {template:'debuff',variant:'basic',element:el,job};
+  return {template:el==='physical'?'slash':'impact',variant:'basic',element:el,job};
+ }
+
+ function resolveAttack(ctx={}){
+  const el=normalizeElement(ctx.element);
+  const job=Number.isInteger(ctx.job)?ctx.job:Number.isInteger(ctx.source?.job)?ctx.source.job:null;
+
+  // 1. Hero basic attacks: distinct signature per class.
+  if(ctx.actionKind==='basic'&&job!==null){
+   if(job===0){
+    const type=el&&el!=='physical'?el:'slash';
+    return {type,template:'slash',variant:'basic',element:el||'physical',job:0};
+   }
+   if(job===1){
+    const activeEl=el&&el!=='physical'?el:'arcane';
+    const type=activeEl==='arcane'?'magic':activeEl;
+    return {type,template:'elemental',variant:'basic',element:activeEl,job:1};
+   }
+   if(job===2){
+    const type=el&&el!=='physical'?el:'ranged';
+    return {type,template:'arrow',variant:'basic',element:el||'physical',job:2};
+   }
+   if(job===3){
+    const type=el&&el!=='physical'?el:'light';
+    const tpl=el&&el!=='physical'&&el!=='light'?'elemental':'holy';
+    return {type,template:tpl,variant:'basic',element:el&&el!=='physical'?el:'light',job:3};
+   }
+  }
+
+  // 2. Skill attacks: route through the universal skill template resolver.
+  if(ctx.actionKind==='skill'||ctx.actionKind==='support'||ctx.fxTemplate||ctx.template){
+   const resolved=resolveSkillTemplate(ctx);
+   let type;
+   if(el&&el!=='physical')type=el;
+   else if(resolved.template==='arrow')type='ranged';
+   else if(resolved.template==='holy')type='light';
+   else if(resolved.template==='elemental')type=resolved.element&&resolved.element!=='arcane'?resolved.element:'magic';
+   else if(resolved.template==='impact')type='impact';
+   else type=el==='physical'?'slash':'impact';
+   return {type,...resolved};
+  }
+
+  // 3. Direct damage hits (e.g. enemy basics, procs without skill wrapper, direct resolveHit calls).
+  if(el&&el!=='physical'){
+   if(el==='light')return {type:'light',template:'holy',variant:'basic',element:'light',job};
+   return {type:el,template:'elemental',variant:'basic',element:el,job};
+  }
+  if(ctx.ranged)return {type:'ranged',template:'arrow',variant:'basic',element:'physical',job:job??2};
+  if(el==='physical')return {type:'slash',template:'slash',variant:'basic',element:'physical',job};
+  return {type:'impact',template:'impact',variant:'basic',element:null,job};
+ }
+
+ function resolveVisual(event={}){
+  const type=event.type||'magic';
+  const category=event.category||'damage';
+  const el=normalizeElement(event.element||(ELEMENT_PALETTES[type]?type:null));
+  const job=Number.isInteger(event.job)?event.job:null;
+
+  // Persistent/feedback non-template types.
+  if(type==='hit')return {template:'hit',variant:'basic',element:el,job,...CATEGORY_PALETTES.damage,svg:'',glyph:'fx-impact',motion:'fx-hit',projectile:'none'};
+  if(type==='absorb'||type==='shield-impact')return {template:'shield',variant:'absorb',element:el,job,...CATEGORY_PALETTES.shield,svg:FEEDBACK_SVG.absorb,glyph:'fx-ripple',motion:'fx-ring',projectile:'none'};
+  if(type==='break')return {template:'shield',variant:'break',element:el,job,...CATEGORY_PALETTES.shield,svg:FEEDBACK_SVG.break,glyph:'fx-shatter',motion:'fx-ring',projectile:'none'};
+  if(type==='dissolve')return {template:'shield',variant:'dissolve',element:el,job,...CATEGORY_PALETTES.shield,svg:registry.get('shield').svg('basic',event),glyph:'fx-dissolve',motion:'fx-ring',projectile:'none'};
+  if(type==='evade')return {template:'evade',variant:'basic',element:el,job,...CATEGORY_PALETTES.shield,svg:FEEDBACK_SVG.evade,glyph:'fx-evade',motion:'fx-ring',projectile:'none'};
+  if(type==='resist')return {template:'resist',variant:'basic',element:el,job,...CATEGORY_PALETTES.shield,svg:FEEDBACK_SVG.resist,glyph:'fx-impact',motion:'fx-ring',projectile:'none'};
+  if(type==='critical')return {template:'impact',variant:'heavy',element:el,job,...(job!==null?classPalette(job,el):CATEGORY_PALETTES.damage),svg:registry.get('impact').svg('heavy',event),glyph:'fx-shatter',motion:'fx-ring',projectile:'none'};
+  if(type==='dot')return {template:'elemental',variant:'basic',element:el||'arcane',job,...CATEGORY_PALETTES.damage,svg:ELEMENT_ART.arcane.basic,glyph:'fx-pulse',motion:'fx-ring',projectile:'none'};
+
+  // Cast / basic attack wind-up on the acting unit.
+  if(type==='attack'||type==='cast'){
+   const tplId=event.template&&(registry.has(event.template)?event.template:null)||(job===0?'slash':job===1?'elemental':job===2?'arrow':job===3?'holy':null);
+   const tpl=tplId?registry.get(tplId):null;
+   let colors;
+   if(type==='attack'){
+    colors=tpl?tpl.palette({element:el,job}):(job!==null?classPalette(job,el):CATEGORY_PALETTES.damage);
+   }else{
+    // Cast glow respects utility categories (recovery/shield/buff/debuff) while damage casts showcase class/element identity.
+    colors=category==='damage'&&tpl?tpl.palette({element:el,job}):CATEGORY_PALETTES[category]||CATEGORY_PALETTES.buff;
+   }
+   const svg=type==='attack'
+    ?(tpl?.attackSvg?.({element:el,job})||tpl?.svg?.('basic',{element:el,job})||FEEDBACK_SVG.cast)
+    :(tpl?.castSvg?.({element:el,job})||FEEDBACK_SVG.cast);
+   const glyph=type==='attack'?(tplId==='slash'?'fx-slash':tplId==='arrow'?'fx-pierce':tplId==='holy'?'fx-holy':'fx-pulse'):'fx-pulse';
+   return {template:tplId||type,variant:event.variant||'basic',element:el,job,...colors,svg,glyph,motion:'fx-ring',projectile:'none'};
+  }
+
+  // Standard template lookup.
+  let tplId=event.template&&registry.has(event.template)?event.template:null;
+  if(!tplId){
+   if(type==='slash')tplId='slash';
+   else if(type==='ranged')tplId='arrow';
+   else if(type==='light')tplId='holy';
+   else if(['fire','ice','lightning','wind','shadow','magic'].includes(type))tplId='elemental';
+   else if(type==='impact')tplId='impact';
+   else if(type==='shield')tplId='shield';
+   else if(['heal','regen','potion','drain'].includes(type))tplId='heal';
+   else if(['polymorph','freeze','frost'].includes(type))tplId='trap';
+   else if(['buff','rage'].includes(type))tplId='buff';
+   else if(['debuff','skip','fear','tauntRage'].includes(type))tplId='debuff';
+   else tplId='elemental';
+  }
+  const tpl=registry.get(tplId);
+  const variant=event.variant||(type==='regen'?'regen':type==='drain'?'drain':type==='polymorph'?'polymorph':type==='freeze'||type==='frost'?'freeze':'basic');
+  const ctx={element:el||(type==='magic'?'arcane':ELEMENT_PALETTES[type]?type:null),job,category,type,variant};
+  const colors=tpl.palette(ctx);
+  const glyph=typeof tpl.glyph==='function'?tpl.glyph(variant,ctx):tpl.glyph;
+  const svg=tpl.svg(variant,ctx);
+  const projectile=typeof tpl.projectile==='function'?tpl.projectile(variant,ctx):tpl.projectile;
+  return {template:tpl.id,variant,element:ctx.element,job,...colors,svg,glyph,motion:tpl.motion,projectile};
+ }
+
+ function listTemplates(){
+  return [...registry.values()].map(t=>({id:t.id,name:t.name,description:t.description,defaultCategory:t.defaultCategory,variants:[...t.variants],projectile:t.projectile}));
+ }
+
+ globalThis.EmberwildBattleEffectTemplates=Object.freeze({
+  CATEGORY_PALETTES,
+  ELEMENT_PALETTES,
+  CLASS_PALETTES,
+  normalizeElement,
+  elementPalette,
+  classPalette,
+  resolveSkillTemplate,
+  resolveAttack,
+  resolveVisual,
+  registerTemplate,
+  getTemplate:id=>registry.get(id)||null,
+  listTemplates,
+  get ids(){return Object.freeze([...registry.keys()]);}
+ });
+})();
+EmberwildBattleEffectTemplates=globalThis.EmberwildBattleEffectTemplates??EmberwildBattleEffectTemplates;
+
+/* js/ui/battle-effects.js?v=20261123-v0200-attackfx */
 /* Read-only presentation of the existing live timeline. No timers schedule combat.
    Nested scopes checkpoint actual HP/shield/status writes exactly once, including
    heals and procs inside damage resolvers. Offline events never open a frame. */
 (()=>{
  'use strict';
+ const T=globalThis.EmberwildBattleEffectTemplates;
  const storageKey='emberwild-battle-effects',choices=['full','simple','off'];
  let preference='full',frame=null,pending=null,owner=null,encounter=null,sequence=0,staged=null,held=null;
  const timers=new Set(),numberNodes=new Map();
@@ -21693,31 +22728,34 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   if(frame.events.size>=256)frame.events.delete(frame.events.keys().next().value);
   frame.events.set(key,{type,target:String(target),critical:!!frame.context.critical,periodic:!!frame.context.periodic,source:frame.context.source?String(id(frame.context.source)):null,category:eventCategory(type),...extra});
  }
- function attackType(ctx){
+ function attackMeta(ctx){
+  if(T)return T.resolveAttack(ctx);
   const element=ctx.element;
-  if(element&&element!=='physical')return ['fire','ice','lightning','thunder','wind','light','shadow'].includes(element)?(element==='thunder'?'lightning':element):'magic';
-  return ctx.ranged?'ranged':element==='physical'?'slash':'impact';
+  if(element&&element!=='physical')return {type:['fire','ice','lightning','thunder','wind','light','shadow'].includes(element)?(element==='thunder'?'lightning':element):'magic',template:'elemental',variant:'basic',element,job:ctx.job??null};
+  return {type:ctx.ranged?'ranged':element==='physical'?'slash':'impact',template:ctx.ranged?'arrow':element==='physical'?'slash':'impact',variant:'basic',element:element||null,job:ctx.job??null};
  }
  function checkpoint(){
   if(!frame)return;
   const ctx=frame.context;
+  const sourceJob=Number.isInteger(ctx.job)?ctx.job:Number.isInteger(ctx.source?.job)?ctx.source.job:null;
+  const atk=attackMeta(ctx);
   for(const u of units()){
    const before=frame.vitals.get(u),after={hp:u.hp,shield:shields(u)};frame.vitals.set(u,after);if(!before||ctx.mode==='settlement')continue;
    const target=id(u);if(!target)continue;
-   if(after.shield>before.shield){enqueue('shield',target);number('shield',target,after.shield-before.shield);}
+   if(after.shield>before.shield){enqueue('shield',target,{template:'shield',variant:ctx.actionKind==='skill'?'barrier':'basic',element:ctx.element||null,job:sourceJob});number('shield',target,after.shield-before.shield);}
    if(after.shield<before.shield){
-    const hit=ctx.mode==='damage';enqueue(hit?'absorb':'dissolve',target);if(hit)number('absorb',target,before.shield-after.shield);
+    const hit=ctx.mode==='damage';enqueue(hit?'absorb':'dissolve',target,hit?{attackTemplate:atk.template,attackElement:atk.element,attackJob:sourceJob}:{});if(hit)number('absorb',target,before.shield-after.shield);
     if(hit&&after.shield<=0)enqueue('break',target);
    }
-   if(after.hp<before.hp){number(ctx.periodic?'dot':'damage',target,before.hp-after.hp,{lethal:after.hp<=0});enqueue(ctx.periodic?'dot':attackType(ctx),target);enqueue('hit',target);}
-   else if(after.hp>before.hp){number('heal',target,after.hp-before.hp,{critical:false});const kind=ctx.mode==='potion'?'potion':ctx.mode==='damage'||ctx.effect==='drain'?'drain':ctx.mode==='regen'?'regen':'heal';enqueue(kind,target,kind==='regen'?{label:'+'+Math.max(1,Math.round(after.hp-before.hp))+' HP'}:{});}
+   if(after.hp<before.hp){number(ctx.periodic?'dot':'damage',target,before.hp-after.hp,{lethal:after.hp<=0});enqueue(ctx.periodic?'dot':atk.type,target,ctx.periodic?{element:ctx.element||null}:{template:atk.template,variant:atk.variant,element:atk.element,job:atk.job});enqueue('hit',target);}
+   else if(after.hp>before.hp){number('heal',target,after.hp-before.hp,{critical:false});const kind=ctx.mode==='potion'?'potion':ctx.mode==='damage'||ctx.effect==='drain'?'drain':ctx.mode==='regen'?'regen':'heal';enqueue(kind,target,{template:'heal',variant:kind==='regen'?'regen':kind==='drain'?'drain':ctx.targetMode==='allies'?'aoe':'basic',element:ctx.element||null,job:sourceJob,...(kind==='regen'?{label:'+'+Math.max(1,Math.round(after.hp-before.hp))+' HP'}:{})});}
    // A shield-only attack has an impact on the shield, never a red HP hit.
 
   }
   const next=statuses();
   for(const [key,row] of next)if(frame.statuses.get(key)?.ref!==row.ref&&row.polarity!=='neutral'){
    const unit=units().find(u=>String(id(u))===String(row.target));
-   if(unit?.hp>0)enqueue(row.polarity,row.target);
+   if(unit?.hp>0)enqueue(row.polarity,row.target,{element:ctx.element||null,job:sourceJob});
   }
   frame.statuses=next;
  }
@@ -21751,12 +22789,14 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
    return;
   }
   if(['evade','resist','miss','immune','block'].includes(type))number('text',id(target),null,{label:details.label||({evade:'閃避',resist:'抵抗',miss:'未命中',immune:'免疫',block:'格擋'}[type]),critical:false});
-  enqueue(type,id(target),{...details,source:source?id(source):null});
+  const extra={...details,source:source?id(source):null};
+  if(type==='evade'){const atk=attackMeta({...frame.context,source:source||frame.context.source,job:Number.isInteger(source?.job)?source.job:frame.context.job});extra.attackTemplate=atk.template;extra.attackElement=atk.element;extra.attackJob=atk.job;}
+  enqueue(type,id(target),extra);
  }
  function cleanNode(node){const entries=activeNodes.get(node);if(entries)for(const row of entries.values()){clearTimeout(row.timer);row.element.remove();}activeNodes.delete(node);}
  function clearNumbers(node){const entries=numberNodes.get(node);if(entries)for(const row of entries.values())row.remove();numberNodes.delete(node);node.querySelector(':scope > .battle-number-layer')?.remove();}
  function clear(){for(const node of numberNodes.keys())clearNumbers(node);frame=null;pending=null;staged=null;held=null;for(const t of timers)clearTimeout(t);timers.clear();for(const node of activeNodes.keys())cleanNode(node);for(const node of markedNodes){node.querySelector(':scope > .battle-fx-status')?.remove();delete node.dataset.fxShield;}markedNodes.clear();owner=null;encounter=null;}
- const palette={damage:{color:'#ff796f',rgb:'255,121,111'},buff:{color:'#f4d58b',rgb:'244,213,139'},shield:{color:'#f2f5ff',rgb:'242,245,255'},recovery:{color:'#87efad',rgb:'135,239,173'},debuff:{color:'#c495f0',rgb:'196,149,240'}};
+ const palette=T?.CATEGORY_PALETTES||{damage:{color:'#ff796f',rgb:'255,121,111'},buff:{color:'#f4d58b',rgb:'244,213,139'},shield:{color:'#f2f5ff',rgb:'242,245,255'},recovery:{color:'#87efad',rgb:'135,239,173'},debuff:{color:'#c495f0',rgb:'196,149,240'}};
  function eventCategory(type){
   if(['shield','absorb','break','dissolve','shield-impact','evade','resist'].includes(type))return 'shield';
   if(['heal','regen','potion','drain'].includes(type))return 'recovery';
@@ -21790,6 +22830,10 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   cast:'<circle cx="32" cy="32" r="25"/><path d="M13 13L20 20M51 13L44 20M13 51L20 44M51 51L44 44"/>'
  };
  function art(type){return graphics[type]||graphics[{critical:'magic',dot:'magic',skip:'debuff',hit:'magic',impact:'slash',wind:'magic',light:'magic',shadow:'magic',regen:'heal',potion:'heal',drain:'heal',dissolve:'shield','shield-impact':'absorb'}[type]]||graphics.magic;}
+ function persistentArt(tag){
+  if(T)return T.resolveVisual({type:tag,category:tag==='shield'?'shield':tag==='buff'||tag==='rage'?'buff':'debuff'}).svg;
+  return '<circle cx="32" cy="32" r="23"/>';
+ }
  function play(node,event,sourceNode){
   let entries=activeNodes.get(node);if(!entries){entries=new Map();activeNodes.set(node,entries);}
   const type=event.type,channel=type==='skip'?'control':type==='critical'?'critical':type==='dot'?'dot':type==='break'?'break':['heal','regen','potion','drain'].includes(type)?'recovery':['shield','absorb','break','dissolve','shield-impact'].includes(type)?'shield':type==='hit'?'hit':['buff','debuff'].includes(type)?type:type==='cast'?'cast':'action';
@@ -21797,21 +22841,31 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   const peers=[...entries].filter(([,row])=>row.channel===channel);
   if(peers.length>=2){const [key,old]=peers[0];clearTimeout(old.timer);old.element.remove();entries.delete(key);}
   const eventKey=++sequence;
-  const element=document.createElement('span');element.className='battle-fx battle-fx-'+type+(node.dataset.combatId?' battle-fx-health':'');
-  const category=event.category||eventCategory(type),color=palette[category];
-  element.dataset.fx=type;element.dataset.fxCategory=category;element.dataset.event=event.eventId||'';element.dataset.critical=String(!!event.critical);if(event.label)element.dataset.skill=event.label;element.dataset.detail=mode();element.setAttribute('aria-hidden','true');
+  const category=event.category||eventCategory(type);
+  const visual=T?T.resolveVisual({...event,type,category}):{template:type,variant:'basic',element:event.element||null,job:event.job??null,...palette[category],svg:persistentArt(type),glyph:'fx-impact',motion:'fx-ring',projectile:'none'};
+  const element=document.createElement('span');
+  element.className='battle-fx battle-fx-'+type+' battle-fx-tpl-'+visual.template+(visual.variant&&visual.variant!=='basic'?' battle-fx-var-'+visual.variant:'')+(node.dataset.combatId?' battle-fx-health':'');
+  element.dataset.fx=type;element.dataset.fxCategory=category;element.dataset.fxTemplate=visual.template;element.dataset.fxVariant=visual.variant||'basic';
+  if(visual.element)element.dataset.fxElement=visual.element;
+  if(Number.isInteger(visual.job))element.dataset.fxJob=String(visual.job);
+  element.dataset.event=event.eventId||'';element.dataset.critical=String(!!event.critical);if(event.label)element.dataset.skill=event.label;element.dataset.detail=mode();element.setAttribute('aria-hidden','true');
   const base=type==='cast'?(event.important?850:650):['buff','debuff'].includes(type)?750:['heal','regen','potion','drain','shield'].includes(type)?650:['slash','ranged','impact','hit','evade','resist','absorb','dot','critical'].includes(type)?500:600;
   const duration=Math.round(base*(battleRate===1?1.5:battleRate===2?.82:1));
   if(type==='hit'||type==='evade')node.style.setProperty('--fx-portrait-time',duration+'ms');
-  element.style.setProperty('--fx-time',duration+'ms');element.style.setProperty('--fx-color',color.color);element.style.setProperty('--fx-rgb',color.rgb);
+  element.style.setProperty('--fx-time',duration+'ms');
+  element.style.setProperty('--fx-color',visual.color);element.style.setProperty('--fx-rgb',visual.rgb);
+  element.style.setProperty('--fx-accent',visual.accent||visual.color);element.style.setProperty('--fx-accent-rgb',visual.accentRgb||visual.rgb);
   element.style.setProperty('--fx-direction',String(++sequence%2?-1:1));
-  element.innerHTML='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+art(type)+'</svg>';
+  if(visual.glyph&&mode()==='full')element.style.setProperty('--fx-glyph',visual.glyph);
+  element.innerHTML='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+visual.svg+'</svg>';
   const label=event.label||({critical:'暴擊',evade:'閃避',resist:'抵抗',skip:'無法行動',absorb:'格擋',heal:'治療',shield:'護盾',buff:'增益',debuff:'減益',dot:'持續傷害'}[type])||(event.critical?'暴擊':'');
   if(label){const text=document.createElement('b');text.textContent=label;element.append(text);}
-  if(mode()==='full'&&sourceNode&&sourceNode!==node&&['fire','ice','lightning','wind','light','shadow','magic','ranged'].includes(type)){
+  const hasProjectile=visual.projectile&&visual.projectile!=='none'||['fire','ice','lightning','wind','light','shadow','magic','ranged'].includes(type);
+  if(mode()==='full'&&sourceNode&&sourceNode!==node&&hasProjectile&&type!=='cast'&&type!=='attack'){
    const a=sourceNode.getBoundingClientRect(),b=node.getBoundingClientRect(),dx=a.x-b.x,dy=a.y-b.y,length=Math.hypot(dx,dy)||1;
    element.style.setProperty('--fx-from-x',Math.round(dx/length*24)+'px');element.style.setProperty('--fx-from-y',Math.round(dy/length*24)+'px');
-   const trail=document.createElement('i');trail.className='battle-fx-projectile';element.append(trail);
+   element.style.setProperty('--fx-angle',Math.round(Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI)+'deg');
+   const trail=document.createElement('i');trail.className='battle-fx-projectile';trail.dataset.projectile=visual.projectile&&visual.projectile!=='none'?visual.projectile:'orb';element.append(trail);
   }
   node.append(element);
   const row={element,timer:null,channel},remove=()=>{if(entries.get(eventKey)!==row)return;clearTimeout(row.timer);element.remove();entries.delete(eventKey);if(!entries.size)activeNodes.delete(node);};
@@ -21882,7 +22936,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
     const existing=new Map([...badge.children].map(n=>[n.dataset.fxPersistent,n]));
     for(const tag of labels){
      let layer=existing.get(tag);existing.delete(tag);
-     if(!layer){layer=document.createElement('i');layer.className='fx-status-'+tag;layer.dataset.fxPersistent=tag;layer.dataset.fxLayer=tag==='shield'?'protection':tag==='buff'?'enhancement':tag==='debuff'?'affliction':'control';layer.title=statusNames[tag]||tag;layer.innerHTML='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+art(tag)+'</svg>';badge.append(layer);}
+     if(!layer){layer=document.createElement('i');layer.className='fx-status-'+tag;layer.dataset.fxPersistent=tag;layer.dataset.fxLayer=tag==='shield'?'protection':tag==='buff'?'enhancement':tag==='debuff'?'affliction':'control';layer.title=statusNames[tag]||tag;layer.innerHTML='<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+persistentArt(tag)+'</svg>';badge.append(layer);}
      const category=tag==='shield'?'shield':tag==='buff'||tag==='rage'?'buff':'debuff';layer.dataset.fxCategory=category;layer.style.setProperty('--fx-color',palette[category].color);layer.style.setProperty('--fx-rgb',palette[category].rgb);
     }
     for(const layer of existing.values())layer.remove();
@@ -21894,7 +22948,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   const playEvent=event=>playUnit(event.target,event,event.source);
   const events=[...batch.events.values()],sources=new Set(events.filter(e=>e.type==='cast').map(e=>e.target));
   for(const event of events)if(!sources.has(event.source)&&nodes.has(event.source)&&event.source!==event.target&&(event.category==='damage'&&!['critical','dot'].includes(event.type)||['evade','absorb','shield-impact'].includes(event.type))){
-   sources.add(event.source);playEvent({target:event.source,type:'attack',category:'damage',eventId:batch.eventId});
+   sources.add(event.source);playEvent({target:event.source,type:'attack',category:'damage',template:event.attackTemplate||event.template,variant:event.variant||'basic',element:event.attackElement||event.element,job:event.attackJob??event.job,eventId:batch.eventId});
   }
   for(const event of events){event.eventId=batch.eventId;if(event.type==='cast')playEvent(event);}
   const impact=()=>{if(staged!==batch||!visible())return;batch.impacted=true;
@@ -21941,19 +22995,34 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   }
  }
 
+ function skillScope(h,kind,i){
+  const def=globalThis.__EMBERWILD_SKILLS?.byPosition?.(h?.job,kind,i)||null;
+  const raw=kind==='core'?CLASSES[h?.job]?.skills?.[i]:SUPPORT[h?.job]?.[i];
+  const effect=def?.effect||def?.kind||(kind==='core'?raw?.[5]:raw?.kind)||'';
+  const element=kind==='core'?coreSkillElement(h.job,i):(def?.element||raw?.element||null);
+  const targetMode=def?.target||def?.meta?.target||(kind==='support'?raw?.target:'')||'';
+  return {
+   source:h,job:h?.job,actionKind:kind==='core'?'skill':'support',skill:def||raw,
+   skillName:def?.name||(kind==='core'?raw?.[0]:raw?.name)||'',skillId:def?.id||'',targetMode,
+   fxTemplate:def?.fxTemplate||def?.meta?.fxTemplate||null,
+   mode:kind==='core'&&['damage','drain'].includes(effect)?'damage':'skill',
+   element,effect,ranged:h?.job===2
+  };
+ }
+
  function wrap(name,context){const base=globalThis[name];if(typeof base!=='function')return;globalThis[name]=function(...args){if(!frame)return base.apply(this,args);return scope(context(...args),()=>base.apply(this,args));};}
- wrap('performHeroBasic',h=>({source:h,mode:'damage',element:weaponElement(h),ranged:h.job===2}));
- wrap('performEnemyBasic',e=>({source:e,mode:'damage',element:e.element}));
- wrap('resolveHit',(e,amount,h,element,critical)=>({source:h,mode:'damage',element,critical}));
- wrap('sharedEnemySkillDamage',(e,h,amount,element)=>({source:e,mode:'damage',element}));
- wrap('castPartySkill',(h,i)=>{const effect=CLASSES[h.job]?.skills?.[i]?.[5];return {source:h,mode:['damage','drain'].includes(effect)?'damage':'skill',element:coreSkillElement(h.job,i),effect,ranged:h.job===2};});
- wrap('castEnemySharedSkill',(e,sk)=>({source:e,mode:['damage','drain'].includes(sk.effect)?'damage':'skill',element:sk.element,effect:sk.effect}));
- wrap('castSupport',h=>({source:h,mode:'skill',element:null}));
+ wrap('performHeroBasic',h=>({source:h,job:h?.job,actionKind:'basic',skill:null,skillName:'',skillId:'',fxTemplate:null,targetMode:'enemy',mode:'damage',element:weaponElement(h),ranged:h?.job===2}));
+ wrap('performEnemyBasic',e=>({source:e,job:null,actionKind:'basic',skill:null,skillName:'',skillId:'',fxTemplate:null,mode:'damage',element:e?.element}));
+ wrap('resolveHit',(e,amount,h,element,critical)=>({source:h,...(Number.isInteger(h?.job)?{job:h.job}:{}),mode:'damage',element,critical}));
+ wrap('sharedEnemySkillDamage',(e,h,amount,element)=>({source:e,job:null,mode:'damage',element}));
+ wrap('castPartySkill',(h,i)=>skillScope(h,'core',i));
+ wrap('castEnemySharedSkill',(e,sk)=>({source:e,job:null,actionKind:'skill',skill:sk,skillName:sk?.name||'',skillId:sk?.id||'',targetMode:sk?.maxTargets>1?'enemies':'enemy',fxTemplate:sk?.fxTemplate||sk?.meta?.fxTemplate||null,mode:['damage','drain'].includes(sk?.effect)?'damage':'skill',element:sk?.element,effect:sk?.effect}));
+ wrap('castSupport',(h,i)=>skillScope(h,'support',i));
  wrap('potion',()=>({source:state,mode:'potion',element:null}));
  wrap('refillParty',()=>({mode:'settlement'}));
  wrap('applyPureShield',()=>({mode:'shield'}));
  // Cast glows are derived only from successful casts, never attempted cooldowns.
- for(const name of ['castPartySkill','castEnemySharedSkill','castSupport']){const base=globalThis[name];globalThis[name]=function(...args){const out=base.apply(this,args);if(frame&&out!==false){const source=args[0],sk=name==='castPartySkill'?CLASSES[source.job]?.skills?.[args[1]]:name==='castSupport'?SUPPORT[source.job]?.[args[1]]:args[1];enqueue('cast',id(source),{category:castCategory(sk),label:sk?.name||sk?.[0]||'技能',important:name==='castPartySkill'&&source.job===1&&(sk?.[0]==='魔爆'||sk?.name==='魔爆')});}return out;};}
+ for(const name of ['castPartySkill','castEnemySharedSkill','castSupport']){const base=globalThis[name];globalThis[name]=function(...args){const out=base.apply(this,args);if(frame&&out!==false){const source=args[0],sk=name==='castPartySkill'?CLASSES[source.job]?.skills?.[args[1]]:name==='castSupport'?SUPPORT[source.job]?.[args[1]]:args[1];const ctx=name==='castPartySkill'?skillScope(source,'core',args[1]):name==='castSupport'?skillScope(source,'support',args[1]):{source,job:null,actionKind:'skill',skill:sk,skillName:sk?.name||'',effect:sk?.effect,element:sk?.element,targetMode:sk?.maxTargets>1?'enemies':'enemy',fxTemplate:sk?.fxTemplate||sk?.meta?.fxTemplate||null};const resolved=T?T.resolveSkillTemplate(ctx):null;enqueue('cast',id(source),{category:castCategory(sk),label:ctx.skillName||sk?.name||sk?.[0]||'技能',template:resolved?.template||null,variant:resolved?.variant||'basic',element:resolved?.element||ctx.element||null,job:resolved?.job??ctx.job??null,important:name==='castPartySkill'&&source.job===1&&(sk?.[0]==='魔爆'||sk?.name==='魔爆')});}return out;};}
  for(const name of ['resetEncounter','resetSession','loadParty','stopTeamExploration']){const base=globalThis[name];if(typeof base==='function')globalThis[name]=function(...args){clear();return base.apply(this,args);};}
  // The seconds timeline spawns the next group and may cast an instant skill in the same step.
  // A frame that has not recorded anything yet belongs to the new encounter: rebind it and take
@@ -21963,7 +23032,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
   if(frame&&!frame.events.size&&!frame.numbers.length&&frame.encounter!==foes&&frame.owner===party){frame.encounter=foes;encounter=foes;frame.initial=sample();frame.vitals=sample();frame.statuses=statuses();}
   return out;
  };
- globalThis.EmberwildBattleEffects={begin,end,scope,quiet,result,sync,clear,present,get holdingEncounter(){return !!held&&held.encounter!==foes&&performance.now()<held.until;},get capturing(){return !!frame;},get preference(){return preference;},get pendingEvents(){return pending?[...pending.events.values()].map(e=>({...e})):[];},get pendingNumbers(){return pending?pending.numbers.map(e=>({...e})):[];},get numberCount(){return [...numberNodes.values()].reduce((n,m)=>n+m.size,0);},get activeCount(){return [...activeNodes.values()].reduce((n,m)=>n+m.size,0);}};
+ globalThis.EmberwildBattleEffects={begin,end,scope,quiet,result,sync,clear,present,templates:T,resolveTemplate:ctx=>T?.resolveSkillTemplate(ctx)||null,registerTemplate:(key,spec)=>T?.registerTemplate(key,spec)||null,listTemplates:()=>T?.listTemplates()||[],get holdingEncounter(){return !!held&&held.encounter!==foes&&performance.now()<held.until;},get capturing(){return !!frame;},get preference(){return preference;},get pendingEvents(){return pending?[...pending.events.values()].map(e=>({...e})):[];},get pendingNumbers(){return pending?pending.numbers.map(e=>({...e})):[];},get numberCount(){return [...numberNodes.values()].reduce((n,m)=>n+m.size,0);},get activeCount(){return [...activeNodes.values()].reduce((n,m)=>n+m.size,0);}};
  globalThis.setBattleEffects=function(value){if(!choices.includes(value))return false;preference=value;clear();try{localStorage.setItem(storageKey,value);}catch{toast('特效已套用，但瀏覽器無法保存設定。');}document.querySelectorAll('[data-battle-effects]').forEach(select=>select.value=value);EmberwildBattleSummary.sync({animate:false});return true;};
  globalThis.setBattleNumberSize=function(value){if(!Object.hasOwn(NUMBER_SIZES,value))return false;numberSize=value;try{localStorage.setItem(numberSizeKey,value);}catch{toast('數字大小已套用，但瀏覽器無法保存設定。');}document.querySelectorAll('[data-battle-number-size]').forEach(select=>select.value=value);return true;};
  globalThis.battleNumberSize=()=>numberSize;
@@ -21977,7 +23046,7 @@ __EMBERWILD_SKILL_ICONS=globalThis.__EMBERWILD_SKILL_ICONS??__EMBERWILD_SKILL_IC
  const renderBase=render;render=function(...args){if(!visible()||!running&&!frame&&!pending&&!held)clear();return renderBase.apply(this,args);};
 })();
 
-EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;battleEffectsOptionsView=globalThis.battleEffectsOptionsView??battleEffectsOptionsView;setBattleEffects=globalThis.setBattleEffects??setBattleEffects;setBattleNumberSize=globalThis.setBattleNumberSize??setBattleNumberSize;battleNumberSize=globalThis.battleNumberSize??battleNumberSize;
+__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildControlState=globalThis.EmberwildControlState??EmberwildControlState;EmberwildBattleEffects=globalThis.EmberwildBattleEffects??EmberwildBattleEffects;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;EmberwildStatusCombatState=globalThis.EmberwildStatusCombatState??EmberwildStatusCombatState;__EMBERWILD_STATUS_TEST_API=globalThis.__EMBERWILD_STATUS_TEST_API??__EMBERWILD_STATUS_TEST_API;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;battleEffectsOptionsView=globalThis.battleEffectsOptionsView??battleEffectsOptionsView;EmberwildBattleEffectTemplates=globalThis.EmberwildBattleEffectTemplates??EmberwildBattleEffectTemplates;setBattleEffects=globalThis.setBattleEffects??setBattleEffects;setBattleNumberSize=globalThis.setBattleNumberSize??setBattleNumberSize;battleNumberSize=globalThis.battleNumberSize??battleNumberSize;
 
 /* js/world/wishing-lake.js?v=20261104-v0062-bottom1 */
 /* Permanent place; consumes and grants through the existing account stores. */
@@ -22309,7 +23378,7 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;EmberwildSe
 
 EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildBattleConfiguration;
 
-/* js/combat/seconds-runtime.js?v=20261123-v0196-aspd */
+/* js/combat/seconds-runtime.js?v=20261126-v0211-gear */
 /* The shared live/offline seconds driver. Existing damage, targeting, equipment,
    death-chain and reward handlers remain authoritative. No round generator runs. */
 (()=>{
@@ -22330,7 +23399,9 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
  function cdrPoints(h,s){
   const a=adapter(h,s),core=a?.kind==='core',i=a?.index,fixed=globalThis.equipmentIdentityEffectNumber;
   return {affixAll:equipment(h).filter(g=>g.job===h.job||g.slot===1).flatMap(g=>g.affix||[]).filter(a=>a.type===16).reduce((n,a)=>n+(Number(a.value)||0),0),
-   affixSkill:core?bonusFor(i,5,h):0,fixedAll:Math.max(0,Math.round(fixed?.(h,'allCooldownReduction')||0)),fixedSkill:core?Math.max(0,Math.round(fixed?.(h,'skillCooldownReduction',i)||0)):0};
+   affixSkill:core?bonusFor(i,5,h):0,fixedAll:Math.max(0,Math.round(fixed?.(h,'allCooldownReduction')||0)),fixedSkill:core?Math.max(0,Math.round(fixed?.(h,'skillCooldownReduction',i)||0)):0,
+   // v0.211 weapon base 技能冷卻 −X%: percent points added directly to the percent part (no per-point source rule).
+   directPercent:Math.max(0,Number(fixed?.(h,'cooldownPct'))||0)};
  }
  function reducedCooldown(h,s,extra={}){return Schema.applyCooldownReduction(timing(s).cooldownSeconds,{...cdrPoints(h,s),...extra},cdr(),config().minimumActionIntervalSeconds);}
  const mono=()=>engine?engine.now/1e6:partyClock;
@@ -22924,7 +23995,7 @@ EmberwildSecondsCombat=globalThis.EmberwildSecondsCombat??EmberwildSecondsCombat
 
 EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;EmberwildTimedBoosts=globalThis.EmberwildTimedBoosts??EmberwildTimedBoosts;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;EmberwildIdleStatistics=globalThis.EmberwildIdleStatistics??EmberwildIdleStatistics;
 
-/* js/world/region-vouchers.js?v=20261119-v0169 */
+/* js/world/region-vouchers.js?v=20261124-v0209-inventory */
 /* Region vouchers: settled offline exploration time turned into earnings tickets of one region.
    Ticket length, sample length, sample gap tolerance and potion charging are balance settings
    (balanceSettings.rewards.regionVouchers, defaults 30 / 30 / 10 minutes and charged).
@@ -23119,13 +24190,13 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;EmberwildTimedBoosts
  // Rolls loot of the locked enemies with the existing rules into a scratch copy of the inventory, so the
  // results can be mailed instead of granted. The real inventory, bag and journal are restored untouched.
  function rollLoot(rolls){
-  const h=party.members[0],saved={ore:h.ore,dust:h.dust,potions:h.potions,gems:h.gems,materials:h.materials,healingPotions:h.healingPotions,consumables:h.consumables,bag:h.bag},claims=party.etherBossClaims,noteBase=note;
+  const h=party.members[0],saved={ore:h.ore,dust:h.dust,potions:h.potions,gems:[...h.gems],materials:{...h.materials},healingPotions:{...h.healingPotions},consumables:{...h.consumables},bag:h.bag},inventory=globalThis.EmberwildItems?.snapshot(),claims=party.etherBossClaims,noteBase=note;
   h.gems=[...h.gems];h.materials={...h.materials};h.healingPotions={...h.healingPotions};h.consumables={...h.consumables};h.bag=[];party.etherBossClaims=[...(claims||[])];
   const before=stock(h),items={};
   try{note=()=>{};withHero(h,()=>{for(const stack of rolls)for(const e of enemies(stack))rollEnemyItemLoot(e,{voucher:true});});
    const after=stock(h);for(const k in after){const d=(after[k]||0)-(before[k]||0);if(d>0)items[k]=d;}
    return {items,gear:h.bag.slice()};
-  }finally{note=noteBase;Object.assign(h,saved);party.etherBossClaims=claims;}
+  }finally{note=noteBase;Object.assign(h,saved);if(inventory)globalThis.EmberwildItems.restore(inventory);party.etherBossClaims=claims;}
  }
  // Per-ticket plan. v0.161: vouchers give no XP (character levels were removed) and have no over-level rule.
  function plan(requests){
@@ -23219,7 +24290,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;EmberwildTimedBoosts
  globalThis.EmberwildRegionVouchers={RULES,inventorySlots,normalize,ticketFor,available,quote,issue,redeem,preview,unitPrice,ledger:()=>party?copy(ledger()):null};
 })();
 
-__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_VIRTUAL_ITEM=globalThis.__EMBERWILD_VIRTUAL_ITEM??__EMBERWILD_VIRTUAL_ITEM;__EMBERWILD_VIRTUAL_MAIL_KEY=globalThis.__EMBERWILD_VIRTUAL_MAIL_KEY??__EMBERWILD_VIRTUAL_MAIL_KEY;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;EmberwildRegionVouchers=globalThis.EmberwildRegionVouchers??EmberwildRegionVouchers;claimMailboxAttachments=globalThis.claimMailboxAttachments??claimMailboxAttachments;claimAllMailboxAttachments=globalThis.claimAllMailboxAttachments??claimAllMailboxAttachments;EmberwildIdleStatistics=globalThis.EmberwildIdleStatistics??EmberwildIdleStatistics;useRegionVouchers=globalThis.useRegionVouchers??useRegionVouchers;confirmRegionVouchers=globalThis.confirmRegionVouchers??confirmRegionVouchers;
+__EMBERWILD_SAVE_OWNER=globalThis.__EMBERWILD_SAVE_OWNER??__EMBERWILD_SAVE_OWNER;__EMBERWILD_INVENTORY_STOCK=globalThis.__EMBERWILD_INVENTORY_STOCK??__EMBERWILD_INVENTORY_STOCK;__EMBERWILD_VIRTUAL_ITEM=globalThis.__EMBERWILD_VIRTUAL_ITEM??__EMBERWILD_VIRTUAL_ITEM;__EMBERWILD_VIRTUAL_MAIL_KEY=globalThis.__EMBERWILD_VIRTUAL_MAIL_KEY??__EMBERWILD_VIRTUAL_MAIL_KEY;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;__EMBERWILD_TEAM_MASTERY=globalThis.__EMBERWILD_TEAM_MASTERY??__EMBERWILD_TEAM_MASTERY;EmberwildRegionVouchers=globalThis.EmberwildRegionVouchers??EmberwildRegionVouchers;EmberwildItems=globalThis.EmberwildItems??EmberwildItems;claimMailboxAttachments=globalThis.claimMailboxAttachments??claimMailboxAttachments;claimAllMailboxAttachments=globalThis.claimAllMailboxAttachments??claimAllMailboxAttachments;EmberwildIdleStatistics=globalThis.EmberwildIdleStatistics??EmberwildIdleStatistics;useRegionVouchers=globalThis.useRegionVouchers??useRegionVouchers;confirmRegionVouchers=globalThis.confirmRegionVouchers??confirmRegionVouchers;
 
 /* js/character/level-removal.js?v=20261120-v0179 */
 /* v0.161: character levels and character XP were removed. This module holds the save compatibility for that change
@@ -24386,7 +25457,7 @@ EmberwildBattleConfiguration=globalThis.EmberwildBattleConfiguration??EmberwildB
 
 __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;__EMBERWILD_TITLE=globalThis.__EMBERWILD_TITLE??__EMBERWILD_TITLE;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;__EMBERWILD_TUTORIAL=globalThis.__EMBERWILD_TUTORIAL??__EMBERWILD_TUTORIAL;questLessonReport=globalThis.questLessonReport??questLessonReport;__EMBERWILD_QUEST_LESSON=globalThis.__EMBERWILD_QUEST_LESSON??__EMBERWILD_QUEST_LESSON;
 
-/* js/skills/mastery-damage.js?v=20261120-v0179 */
+/* js/skills/mastery-damage.js?v=20261126-v0211-gear */
 /* v0.179 mastery damage. Masteries give damage only, never HP or defense (class mastery no longer adds stats; it still
    unlocks skills):
    - weapon mastery (劍／斧／槌／弓／弩): total damage +1% per level while a weapon of that type is equipped;
@@ -24403,7 +25474,9 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
   function weaponBonus(h){if(!h||h.companionId!==undefined)return 0;const type=M().currentWeaponType(h);return WEAPONS.includes(type)?level(h,type)*PER_LEVEL:0;}
   function elementBonus(h,element){if(!h||h.companionId!==undefined||!ELEMENTS.includes(element))return 0;return level(h,element)*PER_LEVEL;}
   // The multiplier for one hit of hero h: weapon always (when held), element only for a spell of that element.
-  function multiplier(h,element,{basic=false}={}){return (1+weaponBonus(h))*(1+(basic?0:elementBonus(h,element)));}
+  // v0.211: weapon base 技能傷害 (fixed effect skillDamagePct, percent points) applies to spells only, like element mastery.
+  function skillDamageBonus(h){if(!h)return 0;const n=Number(globalThis.equipmentIdentityEffectNumber?.(h,'skillDamagePct'))||0;return n/100;}
+  function multiplier(h,element,{basic=false}={}){return (1+weaponBonus(h))*(1+(basic?0:elementBonus(h,element)))*(1+(basic?0:skillDamageBonus(h)));}
   const isHero=h=>!!h&&Array.isArray(party?.members)&&party.members.includes(h);
   const baseHit=resolveHit;
   resolveHit=function(e,amount,h,element,crit,options={},...rest){
@@ -24420,12 +25493,12 @@ __EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD
     for(const k of ELEMENTS){const lv=level(h,k);if(lv>0)out.push({key:k,kind:'element',level:lv,bonus:lv*PER_LEVEL,active:true});}
     return out;
   }
-  globalThis.__EMBERWILD_MASTERY_DAMAGE={PER_LEVEL,weaponBonus,elementBonus,multiplier,summary};
+  globalThis.__EMBERWILD_MASTERY_DAMAGE={PER_LEVEL,weaponBonus,elementBonus,skillDamageBonus,multiplier,summary};
 })();
 
-__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERWILD_MASTERY_DAMAGE=globalThis.__EMBERWILD_MASTERY_DAMAGE??__EMBERWILD_MASTERY_DAMAGE;
+__EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;equipmentIdentityEffectNumber=globalThis.equipmentIdentityEffectNumber??equipmentIdentityEffectNumber;__EMBERWILD_MASTERY_DAMAGE=globalThis.__EMBERWILD_MASTERY_DAMAGE??__EMBERWILD_MASTERY_DAMAGE;
 
-/* js/story/tutorial-runtime.js?v=20261123-v0198-gear */
+/* js/story/tutorial-runtime.js?v=20261124-v0206-drops */
 /* Tutorial manager. Plays the modules of the `tutorials` balance data (rules: js/story/tutorial-model.js) on top of the
    ordinary game screens: it highlights a control, explains it and waits for the game's own handler to report success.
    It never changes values, items, costs or unlocks. Player progress lives in party.tutorials, apart from the story. */
@@ -24497,7 +25570,8 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERW
 
  // ---------- conditions ----------
  const hero=()=>party?.members?.[0]||null;
- const normalGear=g=>!!g&&!g.starterPack&&!g.storyRewardKey&&!globalThis.EmberwildTokens?.isToken?.(g);
+ // v0.206: unidentified gear counts once it is identified (it cannot be inspected or worn before).
+ const normalGear=g=>!!g&&!g.unidentified&&!g.starterPack&&!g.storyRewardKey&&!globalThis.EmberwildTokens?.isToken?.(g);
  const allGear=()=>party?.sharedGear?.items||hero()?.bag||[];
  const prologueRunning=()=>!!STORY()?.prologueRunning?.()||!!PRO()?.active?.();
  // v0.173: only the name and class screens hold tutorials back; the onboarding tasks after them play their own guides.
@@ -24743,7 +25817,7 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERW
  function trackGear(){
   if(!party)return false;const ids=allGear().map(g=>g.id);
   if(knownOwner!==party||!known){known=new Set(ids);knownOwner=party;return false;}
-  let n=0;for(const g of allGear())if(!known.has(g.id)){known.add(g.id);if(normalGear(g)&&g.acquiredAt!==undefined)n++;}
+  let n=0;for(const g of allGear())if(!known.has(g.id)&&!g.unidentified){known.add(g.id);if(normalGear(g)&&g.acquiredAt!==undefined)n++;}
   if(n){const t=ensure();t.events.gearAcquired=Math.min(1e9,(t.events.gearAcquired||0)+n);}return n>0;
  }
  // v0.198: count gear when it enters the bag, so the counter is part of the same save as the gear (an offline checkpoint
@@ -24951,7 +26025,7 @@ __EMBERWILD_MASTERY=globalThis.__EMBERWILD_MASTERY??__EMBERWILD_MASTERY;__EMBERW
 
 EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=globalThis.__EMBERWILD_SKILLS??__EMBERWILD_SKILLS;__EMBERWILD_STORY=globalThis.__EMBERWILD_STORY??__EMBERWILD_STORY;EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;__EMBERWILD_STARTER_PACK=globalThis.__EMBERWILD_STARTER_PACK??__EMBERWILD_STARTER_PACK;__EMBERWILD_PROLOGUE=globalThis.__EMBERWILD_PROLOGUE??__EMBERWILD_PROLOGUE;tutorialReviewView=globalThis.tutorialReviewView??tutorialReviewView;companionTicketCount=globalThis.companionTicketCount??companionTicketCount;querySelector=globalThis.querySelector??querySelector;__EMBERWILD_TUTORIAL=globalThis.__EMBERWILD_TUTORIAL??__EMBERWILD_TUTORIAL;running=globalThis.running??running;CSS=globalThis.CSS??CSS;tutorialCloseTip=globalThis.tutorialCloseTip??tutorialCloseTip;tutorialControl=globalThis.tutorialControl??tutorialControl;tutorialNotice=globalThis.tutorialNotice??tutorialNotice;replayTutorial=globalThis.replayTutorial??replayTutorial;toggleTutorialReview=globalThis.toggleTutorialReview??toggleTutorialReview;
 
-/* js/ui/bestiary.js?v=20261121-v0186 */
+/* js/ui/bestiary.js?v=20261124-v0206-drops */
 /* v0.185: 怪物圖鑑 page (探索 → 怪物圖鑑). One region at a time: each monster with the artwork it has in battle and a
    short, plain drop list grouped as 常見 / 少見 / 稀有 at the current difficulty. Replaces the 地區圖鑑 dialog that sat
    on the exploration page. */
@@ -24967,8 +26041,11 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=g
   const chance=(rule,kind)=>effectiveDropChance(rule,{difficulty:party.difficulty||0,kind},0);
   const tier=c=>c>=.1?'常見':c>=.01?'少見':'稀有';
   function ruleName(r){
-    if(r.type==='gem')return r.key==='random'?'技能寶石':(GEMS[Number(r.key)]?.name||'技能寶石');
-    if(r.type==='ore')return '鍛鐵';if(r.type==='dust')return '粉塵';
+    if(r.type==='gem')return GEMS[Number(r.key)]?.name||'技能寶石';
+    if(r.type==='ore')return '鍛鐵';
+    // v0.206: the bestiary names the actual equipment of the monster's pool so players can look up sources.
+    if(r.type==='monsterGear')return (r.pool||[]).map(p=>{const k=String(p.key).split(':');return ITEM_FORMS?.[Number(k[1])]?.[Number(k[2])]?.[Number(k[3])]?.name;}).filter(Boolean);
+    if(r.type==='gemPool')return (r.pool||[]).map(p=>GEMS[Number(p.key)]?.name).filter(Boolean);
     if(r.type==='equipment'){const k=String(r.key||'').split(':');const f=ITEM_FORMS?.[Number(k[1])]?.[Number(k[2])]?.[Number(k[3])];return f?.name||r.name;}
     return String(r.name||r.key||'').replace(/（[^）]*）$/,'');
   }
@@ -24976,10 +26053,8 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=g
     const foe={monsterId:m.id,kind,lv:Number(MAPS[m.mapIndex]?.max)||1,region:m.mapIndex,difficulty:party.difficulty||0,mat:m.material||m.mat};
     const groups={常見:[],少見:[],稀有:[]};
     const material=foe.mat;if(material&&kind!=='boss')groups['常見'].push(material);
-    const ore=GAMEPLAY_SETTINGS.rewards?.ore||{},factor=Math.max(0,Math.min(1,Number(ore.chanceFactor??1)));
-    const dustChance=(kind==='normal'?(ore.normalChanceByDifficulty?.[foe.difficulty]??1):1)*factor;
-    if(dustChance>0)groups[tier(dustChance)].push('粉塵');
-    for(const r of configuredDropRules(foe)){const c=chance(r,kind);if(c>0)groups[tier(c)].push(ruleName(r));}
+    // v0.206: monsters no longer drop 粉塵 directly.
+    for(const r of configuredDropRules(foe)){const c=chance(r,kind);if(c>0)groups[tier(c)].push(...[ruleName(r)].flat());}
     // Each item is listed once, in its most likely group.
     const seen=new Set();return Object.fromEntries(Object.entries(groups).map(([k,v])=>[k,unique(v).filter(x=>!seen.has(x)&&seen.add(x))]));
   }
@@ -25012,7 +26087,7 @@ EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;__EMBERWILD_SKILLS=g
 
 gameSubtabsHTML=globalThis.gameSubtabsHTML??gameSubtabsHTML;EmberwildBattleSummary=globalThis.EmberwildBattleSummary??EmberwildBattleSummary;explorationMapChoices=globalThis.explorationMapChoices??explorationMapChoices;setBestiaryRegion=globalThis.setBestiaryRegion??setBestiaryRegion;bestiaryView=globalThis.bestiaryView??bestiaryView;showRegionBestiary=globalThis.showRegionBestiary??showRegionBestiary;
 
-/* js/ui/loot-effects.js?v=20261120-v0182-size */
+/* js/ui/loot-effects.js?v=20261124-v0206-drops */
 /* v0.182: read-only victory presentation. Inventory is already committed by rewardGroupKill.
    Never awaited by the combat timeline; offline replay never takes a snapshot or queues an effect. */
 (()=>{
@@ -25067,12 +26142,12 @@ gameSubtabsHTML=globalThis.gameSubtabsHTML??gameSubtabsHTML;EmberwildBattleSumma
   for(const node of nodes){if(node.dataset.page!=='equipment'&&(!group||node.dataset.navGroup!==group))continue;const r=rect(node);if(r)return {x:Math.max(18,Math.min(innerWidth-18,r.left+r.width/2)),y:Math.max(18,Math.min(innerHeight-18,r.top+r.height/2)),node};}
   return {x:innerWidth-28,y:Math.max(50,innerHeight-85),node:null};
  }
- function itemRank(item){return item.gear?gearQualityRank(item.gear):item.kind==='material'&&(item.key==='以太鍛鐵'||item.key==='光輝碎塊')?3:0;}
+ function itemRank(item){return item.gear?(item.gear.unidentified?0:gearQualityRank(item.gear)):item.kind==='material'&&(item.key==='以太鍛鐵'||item.key==='光輝碎塊')?3:0;}
  function palette(item){
   const g=item.gear,rank=itemRank(item);
   // These are the existing rare crafting material inventory keys, not matches on display names.
   const rare=item.kind==='material'&&(item.key==='以太鍛鐵'||item.key==='光輝碎塊');
-  const sample=document.createElement('span');sample.className=g?equipmentNameClass(g):'loot-rarity-'+(rare?3:0);
+  const sample=document.createElement('span');sample.className=g?(g.unidentified?'loot-rarity-0':equipmentNameClass(g)):'loot-rarity-'+(rare?3:0);
   if(g)sample.innerHTML=equipmentNameHTML(g);
   const definition=item.kind==='item'?__EMBERWILD_INVENTORY_STOCK.item(item.key):null;
   const style=textRarityStyleById(definition?.textStyleId);
@@ -25180,6 +26255,172 @@ EmberwildOffline=globalThis.EmberwildOffline??EmberwildOffline;isEmberwildTitleO
 })();
 
 isEmberwildTitleOpen=globalThis.isEmberwildTitleOpen??isEmberwildTitleOpen;EmberwildEnhancementEffects=globalThis.EmberwildEnhancementEffects??EmberwildEnhancementEffects;
+
+/* js/world/drop-rework.js?v=20261124-v0206-drops */
+/* v0.206 monster drop rework runtime (rules in js/world/drop-rework-model.js).
+   - Old balance documents are migrated before validation: shared random gear, legendary gear, random gem, potion and
+     dust drop rules are removed.
+   - Every equipment granted by a monster's drop rules enters the bag unidentified. The item is fully generated at the drop
+     (form, level, quality, stats, affixes, sockets, skills); identification only removes the flag, keeps the instance id
+     and never rolls anything. Unidentified gear shows only its slot and level and cannot be worn, enhanced, rerolled,
+     socketed, sold or salvaged.
+   - Gem upgrade with dust replaces the dust gem craft: one gem of the chosen stack goes up one tier.
+   Loaded late (after the reward, inventory and forge wrappers) so these wrappers are the outermost ones. */
+(()=>{
+  'use strict';
+  const D=EmberwildDropRework,SLOT_NAMES=['武器','護甲','副手','飾品'];
+  const clone=v=>JSON.parse(JSON.stringify(v));
+  const isToken=g=>!!globalThis.EmberwildTokens?.isToken(g);
+  const hidden=g=>!!g?.unidentified;
+  const unidentifiedName=g=>'未鑑定'+(SLOT_NAMES[g?.unidentified?.slot??g?.slot]||'裝備');
+  globalThis.isUnidentifiedGear=hidden;globalThis.unidentifiedGearName=unidentifiedName;
+
+  /* ---------- balance documents ---------- */
+  const settingsDefaults=()=>GAMEPLAY_SETTINGS_DEFAULTS.equipment.exclusiveEnhance;
+  if(typeof normalizeGameplaySettings==='function'){
+    const base=normalizeGameplaySettings;
+    normalizeGameplaySettings=function(input,...args){
+      const src=D.migrateDocument(input);
+      const out=base.call(this,src,...args);
+      // The binding list is a free-length list of objects; the shape merge keeps only default rows, so it is copied here.
+      const raw=src?.equipment?.exclusiveEnhance;
+      out.equipment.exclusiveEnhance={quantityByLevel:[...out.equipment.exclusiveEnhance.quantityByLevel],bindings:clone(Array.isArray(raw?.bindings)?raw.bindings:settingsDefaults().bindings)};
+      const errors=[...D.exclusiveIssues(out.equipment.exclusiveEnhance),...D.gemUpgradeIssues(out.skills?.gems?.dustUpgrade)];
+      if(errors.length)throw Error(errors.join('\n'));
+      return out;
+    };
+  }
+  for(const name of ['validateBalanceConfig','applyBalanceConfig']){
+    if(typeof globalThis[name]!=='function')continue;
+    const base=globalThis[name];
+    globalThis[name]=function(input,...args){return base.call(this,D.migrateDocument(input),...args);};
+  }
+
+  /* ---------- labels for drop tables and the bestiary ---------- */
+  function formName(key){const r=D.parseForm(key),f=r&&(typeof ITEM_FORMS!=='undefined'?ITEM_FORMS:[])[r.job]?.[r.slot]?.[r.index];return f?.name||key;}
+  globalThis.dropRulePoolLabel=function(rule){
+    if(rule?.type==='monsterGear')return (rule.pool||[]).map(p=>formName(p.key)).join('／')+'（未鑑定）';
+    if(rule?.type==='gemPool'){const total=(rule.pool||[]).reduce((n,p)=>n+p.weight,0);return (rule.pool||[]).map(p=>GEMS[Number(p.key)]?.name+(rule.pool.length>1?' '+Math.round(p.weight/total*100)+'%':'')).join('／');}
+    return rule?.name||'';
+  };
+
+  /* ---------- unidentified monster loot ---------- */
+  let lootContext=null;
+  if(typeof rollConfiguredDrops==='function'){
+    const base=rollConfiguredDrops;
+    rollConfiguredDrops=function(e,...args){
+      const previous=lootContext;
+      lootContext={monsterId:e?.monsterId||(typeof resolveMonsterCatalogId==='function'?resolveMonsterCatalogId(e):null)||null,kind:e?.kind||'normal',difficulty:e?.difficulty||0,region:e?.region??party?.map??0,level:e?.lv??null};
+      try{return base.call(this,e,...args);}finally{lootContext=previous;}
+    };
+  }
+  const baseAddGear=addGear;
+  addGear=function(g,...args){
+    if(!lootContext||!g||hidden(g)||isToken(g))return baseAddGear.call(this,g,...args);
+    g.unidentified={version:1,slot:g.slot,level:typeof gearRequiredLevel==='function'?gearRequiredLevel(g):g.equipmentLevel??null,source:{...lootContext},at:Date.now()};
+    // Journal lines written while the item is added name only the slot, never the quality or the item.
+    const realNote=note;note=function(text,...rest){return realNote.call(this,/背包已滿/.test(String(text))?text:'獲得 '+unidentifiedName(g),...rest);};
+    try{return baseAddGear.call(this,g,...args);}finally{note=realNote;}
+  };
+
+  /* ---------- presentation: slot and level only ---------- */
+  const baseDisplay=equipmentDisplayName;equipmentDisplayName=function(g,...args){return hidden(g)?unidentifiedName(g):baseDisplay.call(this,g,...args);};
+  if(typeof equipmentNameHTML==='function'){const base=equipmentNameHTML;equipmentNameHTML=function(g,...args){return hidden(g)?`<span class="gear-unidentified-name">${esc(unidentifiedName(g))}</span>`:base.call(this,g,...args);};}
+  if(typeof equipmentNameClass==='function'){const base=equipmentNameClass;equipmentNameClass=function(g,...args){return hidden(g)?'gear-unidentified-name':base.call(this,g,...args);};}
+  if(typeof gearDesc==='function'){const base=gearDesc;gearDesc=function(g,...args){return hidden(g)?'尚未鑑定':base.call(this,g,...args);};}
+  for(const name of ['equipmentTotalSummaryHTML','equipmentAttributeDetailsHTML']){const base=globalThis[name];if(typeof base==='function')globalThis[name]=function(g,...args){return hidden(g)?'':base.call(this,g,...args);};}
+  function unidentifiedDetail(g){
+    const u=g.unidentified;
+    return `<div class="gear-unidentified-detail" data-unidentified-gear="${esc(g.id)}"><p><b>${esc(unidentifiedName(g))}</b> · <span class="tag">未鑑定</span></p><p>部位：${esc(SLOT_NAMES[u.slot]||'—')} · 裝等 ${esc(u.level??'—')}</p><p class="small">鑑定後才會顯示名稱、品質、能力、詞條、孔位與技能。鑑定免費，必定成功，不會改變裝備內容。</p><div class="actions"><button type="button" class="primary" onclick="identifyGear('${esc(g.id)}')">鑑定</button></div></div>`;
+  }
+  globalThis.unidentifiedGearDetailHTML=unidentifiedDetail;
+  if(typeof globalThis.gearInfoDetailHTML==='function'){const base=globalThis.gearInfoDetailHTML;globalThis.gearInfoDetailHTML=function(g,...args){return hidden(g)?unidentifiedDetail(g):base.call(this,g,...args);};}
+  if(typeof inventoryGearDetail==='function'){const base=inventoryGearDetail;inventoryGearDetail=function(g,...args){return hidden(g)?unidentifiedDetail(g):base.call(this,g,...args);};}
+  if(typeof inlineInventoryView==='function'){
+    const base=inlineInventoryView;
+    inlineInventoryView=function(...args){
+      const n=(state?.bag||[]).filter(hidden).length;
+      return `<div class="identify-bar"><span class="small">未鑑定裝備 ${n} 件</span><button type="button" class="${n?'primary':''}" onclick="identifyAllGear()" ${n?'':'disabled'}>一鍵鑑定</button></div>`+base.apply(this,args);
+    };
+  }
+
+  /* ---------- actions blocked before identification ---------- */
+  const refuse=()=>{toast('請先鑑定這件裝備');return false;};
+  const byId=id=>typeof findGear==='function'?findGear(id):null;
+  if(typeof eligibleWearers==='function'){const base=eligibleWearers;eligibleWearers=function(g,...args){return hidden(g)?[]:base.call(this,g,...args);};}
+  const guard=(name,pick=args=>byId(args[0]))=>{const base=globalThis[name];if(typeof base!=='function')return;globalThis[name]=function(...args){return hidden(pick(args))?refuse():base.apply(this,args);};};
+  for(const name of ['equipSharedGear','previewEquip','enhance','reroll','salvage','sellGear','moveToWorkshop','socketEquipmentGem','rerollEquipmentPowerTier','openInventoryWear','extractGearSkill'])guard(name);
+  if(typeof canEnhance==='function'){const base=canEnhance;canEnhance=function(g,...args){return !hidden(g)&&base.call(this,g,...args);};globalThis.canEnhance=canEnhance;}
+  /* Bulk sale and salvage never include unidentified gear: they are set aside for the call and put back in place. */
+  function withoutUnidentified(fn){
+    const all=state.bag,keep=all.filter(hidden);if(!keep.length)return fn();
+    const positions=new Map(all.map((g,i)=>[g.id,i]));state.bag=all.filter(g=>!hidden(g));
+    try{return fn();}finally{const rest=state.bag.slice();for(const g of keep)rest.push(g);rest.sort((a,b)=>(positions.get(a.id)??1e9)-(positions.get(b.id)??1e9));state.bag=rest;}
+  }
+  for(const name of ['salvageAll','sellAllGearByQuality']){const base=globalThis[name];if(typeof base==='function')globalThis[name]=function(...args){return withoutUnidentified(()=>base.apply(this,args));};}
+
+  /* ---------- identification (single and all share one function) ---------- */
+  function identify(ids){
+    const list=[...new Set(ids)].map(byId).filter(hidden);
+    if(!list.length)return {count:0,byQuality:[0,0,0,0],exclusive:0};
+    const saved=list.map(g=>[g,g.unidentified]);
+    for(const g of list){delete g.unidentified;g.identifiedAt=Date.now();}
+    if(save()===false){for(const [g,u] of saved){g.unidentified=u;delete g.identifiedAt;}toast(typeof saveFailureText==='function'?saveFailureText():'無法儲存，未鑑定');return null;}
+    const byQuality=[0,0,0,0];let exclusive=0;
+    for(const g of list){byQuality[Math.max(0,Math.min(3,gearQualityRank(g)))]++;if(g.boss!==undefined||g.formJob===4)exclusive++;}
+    return {count:list.length,byQuality,exclusive};
+  }
+  function summary(r){
+    const parts=r.byQuality.map((n,i)=>n?`${AFFIX_RANK[i]} ${n} 件`:'').filter(Boolean);
+    return `鑑定完成，共鑑定 ${r.count} 件裝備。`+(parts.length?parts.join('、'):'')+(r.exclusive?`；怪物專屬裝備 ${r.exclusive} 件`:'');
+  }
+  globalThis.identifyGear=function(id){
+    const r=identify([id]);if(!r||!r.count)return r?.count?r:false;
+    render();if($('modal')?.open&&typeof refreshInventoryItemDetail==='function')refreshInventoryItemDetail();toast(summary(r));return r;
+  };
+  globalThis.identifyAllGear=function(){
+    const ids=(state?.bag||[]).filter(hidden).map(g=>g.id);if(!ids.length){toast('沒有未鑑定的裝備');return {count:0};}
+    const r=identify(ids);if(!r)return null;render();toast(summary(r));return r;
+  };
+  globalThis.__EMBERWILD_IDENTIFY={identify,summary,hidden,name:unidentifiedName};
+
+  /* ---------- gem upgrade with dust (replaces the dust gem craft) ---------- */
+  const upgradeSettings=()=>GAMEPLAY_SETTINGS.skills?.gems?.dustUpgrade;
+  function gemUpgradeQuote(i){
+    const g=GEMS[i];if(!g)return null;
+    if(g.tier>=3)return {gem:i,max:true};
+    const target=i+GEM_KINDS,cost=D.gemUpgradeCost(upgradeSettings(),g.tier+1);
+    return {gem:i,target,cost,have:state.dust,count:state.gems[i]||0,max:false,ok:cost!==null&&(state.gems[i]||0)>0&&state.dust>=cost};
+  }
+  globalThis.gemUpgradeQuote=gemUpgradeQuote;
+  globalThis.upgradeGemWithDust=function(i){
+    i=Number(i);const q=gemUpgradeQuote(i);if(!q)return false;
+    if(q.max){toast('已是最高等級的寶石');return false;}
+    if(!q.ok){toast(q.count<1?'沒有這種寶石':'需要 '+q.cost+' 寶石粉塵');return false;}
+    // All or nothing: one gem of the stack and the dust leave together, then the higher-tier gem joins its own stack.
+    const items=globalThis.EmberwildItems;
+    if(!items.removeMany({['gem:'+i]:1,'material:粉塵':q.cost})){toast('材料不足');return false;}
+    items.add('gem:'+q.target,1);
+    if(save()===false){items.remove('gem:'+q.target,1);items.add('gem:'+i,1);items.add('material:粉塵',q.cost);toast('無法儲存，升級未完成');return false;}
+    closeModal();render();toast(`${GEMS[i].name} 升級為 ${GEMS[q.target].name}（消耗 ${q.cost} 粉塵）`);return true;
+  };
+  globalThis.openGemUpgrade=function(i){
+    i=Number(i);const q=gemUpgradeQuote(i);if(!q)return false;
+    const g=GEMS[i],next=q.max?null:GEMS[q.target];
+    $('modal').innerHTML=`<h2>粉塵升級 · ${esc(g.name)}</h2>${q.max?'<p>已是最高等級，無法再升級。</p>':`<table class="gem-upgrade-table"><tbody><tr><th>等級</th><td>${g.tier} 階 → ${next.tier} 階</td></tr><tr><th>效果</th><td>${esc(g.desc)} → ${esc(next.desc)}</td></tr><tr><th>所需寶石粉塵</th><td>${q.cost}</td></tr><tr><th>目前持有粉塵</th><td>${q.have}</td></tr><tr><th>持有此寶石</th><td>${q.count}</td></tr></tbody></table><p class="small">每次只升級 1 顆寶石；升級後的寶石放入對應等級的堆疊。</p>`}<div class="actions">${q.max?'':`<button class="primary" onclick="upgradeGemWithDust(${i})" ${q.ok?'':'disabled'}>升級</button>`}<button onclick="closeModal()">取消</button></div>`;
+    if(!$('modal').open)$('modal').showModal();return true;
+  };
+  if(typeof accountGemsView==='function'){
+    const base=accountGemsView;
+    accountGemsView=function(...args){
+      const html=base.apply(this,args);
+      const rows=GEMS.map((g,i)=>({g,i})).filter(({i})=>(state.gems[i]||0)>0).map(({g,i})=>{const q=gemUpgradeQuote(i);return `<li data-gem-upgrade="${i}"><span>${esc(g.name)} ×${state.gems[i]}</span>${q.max?'<span class="small">最高等級</span>':`<button type="button" onclick="openGemUpgrade(${i})">粉塵升級 · ${q.cost} 粉塵</button>`}</li>`;}).join('');
+      return html+`<section class="panel gem-dust-upgrade"><h3>寶石粉塵升級</h3><p class="small">消耗寶石粉塵，將 1 顆寶石直接提升一個等級。同類寶石合成仍在煉金進行。</p><ul class="gem-upgrade-list">${rows||'<li class="empty">目前沒有可升級的寶石。</li>'}</ul></section>`;
+    };
+  }
+})();
+
+EmberwildTokens=globalThis.EmberwildTokens??EmberwildTokens;canEnhance=globalThis.canEnhance??canEnhance;gearInfoDetailHTML=globalThis.gearInfoDetailHTML??gearInfoDetailHTML;EmberwildItems=globalThis.EmberwildItems??EmberwildItems;unidentifiedGearDetailHTML=globalThis.unidentifiedGearDetailHTML??unidentifiedGearDetailHTML;isUnidentifiedGear=globalThis.isUnidentifiedGear??isUnidentifiedGear;unidentifiedGearName=globalThis.unidentifiedGearName??unidentifiedGearName;dropRulePoolLabel=globalThis.dropRulePoolLabel??dropRulePoolLabel;identifyGear=globalThis.identifyGear??identifyGear;identifyAllGear=globalThis.identifyAllGear??identifyAllGear;__EMBERWILD_IDENTIFY=globalThis.__EMBERWILD_IDENTIFY??__EMBERWILD_IDENTIFY;gemUpgradeQuote=globalThis.gemUpgradeQuote??gemUpgradeQuote;upgradeGemWithDust=globalThis.upgradeGemWithDust??upgradeGemWithDust;openGemUpgrade=globalThis.openGemUpgrade??openGemUpgrade;
 
 /* js/balance/apply-guard.js?v=20261113-v0137-prologue3 */
 /* Loaded last. A balance update that is turned down (the team is exploring or fighting) must change nothing.

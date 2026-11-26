@@ -112,7 +112,7 @@
  const COOLDOWN_REDUCTION_SOURCES=['affixAll','affixSkill','fixedAll','fixedSkill','enemyDeath'];
  const COOLDOWN_REDUCTION_LABELS={affixAll:'裝備詞條：全技能冷卻（每點）',affixSkill:'裝備詞條：指定技能冷卻（每點）',fixedAll:'裝備固定效果／信物：全技能冷卻（每點）',fixedSkill:'裝備固定效果：指定技能冷卻（每點）',enemyDeath:'敵人死亡被動：縮減目前冷卻（每點）'};
  function defaultCooldownReduction(){return {diminishing:{thresholdSeconds:5,factor:.5,minimumSeconds:2},sources:Object.fromEntries(COOLDOWN_REDUCTION_SOURCES.map(k=>[k,{mode:'flat',value:3}]))};}
- function cooldownReductionTotals(points,cfg){let percent=0,flat=0;for(const k of COOLDOWN_REDUCTION_SOURCES){const n=Number(points?.[k])||0,r=cfg.sources[k];if(!n||!r)continue;if(r.mode==='percent')percent+=n*r.value;else flat+=n*r.value;}return {percent,flat};}
+ function cooldownReductionTotals(points,cfg){let percent=0,flat=0;for(const k of COOLDOWN_REDUCTION_SOURCES){const n=Number(points?.[k])||0,r=cfg.sources[k];if(!n||!r)continue;if(r.mode==='percent')percent+=n*r.value;else flat+=n*r.value;}percent+=Math.max(0,Number(points?.directPercent)||0);return {percent,flat};}
  function finalizeCooldown(base,raw,cfg,minimumInterval=0){if(!(raw<base))return base;const d=cfg.diminishing,start=Math.min(base,d.thresholdSeconds),diminished=raw>=start?raw:start-(start-raw)*d.factor;return round(Math.max(diminished,Math.min(base,d.minimumSeconds),Math.min(base,minimumInterval)));}
  function applyCooldownReduction(base,points,cfg,minimumInterval=0){const {percent,flat}=cooldownReductionTotals(points,cfg);return finalizeCooldown(base,base*(1-Math.min(100,percent)/100)-flat,cfg,minimumInterval);}
  function cooldownReductionText(source,points,cfg){const r=cfg.sources[source],n=round((Number(points)||0)*r.value);return r.mode==='percent'?'−'+n+'%':'−'+n+' 秒';}
@@ -597,7 +597,7 @@ root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,
   seconds:[{path:'balanceSettings.meta'},{path:'balanceSettings.combat'},{path:'balanceSettings.rewards'},{path:'balanceSettings.monsters.catalog',fields:['id','kind','timing']},{path:'skillSystem.definitions'},{path:'statusDefinitions'},{path:'items'},{path:'companionTokens'},{path:'equipmentForms'},{path:'timeUnits'}],
   skillSystem:[{path:'skillSystem'}],
   statuses:[{path:'statusDefinitions'}],
-  power:[{path:'equipmentPowerSystem.prefixes'},{path:'equipmentPowerSystem.suffixes'},{path:'equipmentPowerSystem.bossAffixes'}],
+  power:[{path:'equipmentPowerSystem.bossAffixes'}],
   drops:[{path:'balanceSettings.drops.entries'},{path:'items',keys:true},{path:'balanceSettings.monsters.catalog',keys:true}],
   unlocks:[{path:'classes'},{path:'balanceSettings.quests.design.side',keys:true},{path:'balanceSettings.quests.side',keys:true},{path:'balanceSettings.quests.design',shallow:true},{path:'balanceSettings.maps.catalog',shallow:true}],
   wishingLake:[{path:'wishingLake'},{path:'items',keys:true},{path:'inventoryIcons'},{path:'companions',keys:true},{path:'balanceSettings.equipment'},{path:'balanceSettings.monsters.catalog',keys:true},{path:'balanceSettings.progression'},{path:'balanceSettings.maps.catalog',keys:true}],
@@ -677,7 +677,7 @@ root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,
   });
   run('power',()=>{
   const livePowerKeys=root.__EMBERWILD_EQUIPMENT_IDENTITY?.effectKeys;
-  if(livePowerKeys)for(const kind of ['prefixes','suffixes','bossAffixes'])for(const [i,row] of array(d.equipmentPowerSystem?.[kind]).entries()){
+  if(livePowerKeys)for(const kind of ['bossAffixes'])for(const [i,row] of array(d.equipmentPowerSystem?.[kind]).entries()){
    const allowed=kind==='bossAffixes'?livePowerKeys:livePowerKeys.filter(k=>!['gearAtkPct','bossDamagePct'].includes(k));
    for(const effect of kind==='bossAffixes'?row.effects||[]:[row.effect])if(!effect||!allowed.includes(effect.key)||(effect.key==='basicElement'?!['physical','fire','ice','wind','light','shadow'].includes(effect.value):!Number.isFinite(effect.value)))add('equipmentPowerSystem.'+kind+'.'+i+'.effect','未知裝備效果或效果值型別錯誤',row);
   }
