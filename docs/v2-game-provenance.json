@@ -1,5 +1,5 @@
 {
-  "gameCommit": "9d8380c4b88ad3bfc46911495c9456a3fd6f563a",
+  "gameCommit": "0228a8bd98333b5534afb5f37e6ca97287e21495",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -207,7 +207,7 @@
     },
     {
       "path": "js/equipment/equipment-stat-source.js",
-      "sha256": "230236a24c9dd9b68ba9d1f53e7d03245c03c53688b114625024e812ffc99fef"
+      "sha256": "7c0b7ae1f90a467356049aa5ad0277d378d3af384e32bd2ffa734ef1d8483dc6"
     },
     {
       "path": "js/equipment/forge-navigation.js",
@@ -455,7 +455,7 @@
     },
     {
       "path": "js/ui/item-presentation.js",
-      "sha256": "c39cffb0103313d90eedcd68c2d57e703375f23a1c09c0fc64215db1d866c83a"
+      "sha256": "1e0140ff3fd77d74baa7fcf1bd8e6f5b0b69c266889fb0ca4e537103cbb6fbd1"
     },
     {
       "path": "js/ui/journal-split.js",
@@ -987,11 +987,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "0eadc98bff71aee433ba897fbf813201a2ae746e1d946b8d9fbacdc6a2c15614"
+      "sha256": "d9eff42b3ad48567371f2fc7f81843c1bdba45e3c4f877ee6dae95cc88f337b9"
     },
     {
       "path": "index.html",
-      "sha256": "d028e85b0f52d7ba3581c0f1850591f56ac141102b4ad40c26494764ff1096ab"
+      "sha256": "5d55dbf3be4db597e60611046043e58c409632d482c4fd2d056c2d838f847731"
     }
   ],
   "gameBridgeSha256": "5d41121bc4ecd0a746a13f35d72fe05549f01a5a4e8e996b134885231ed2cb87",

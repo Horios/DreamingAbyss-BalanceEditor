@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "9d8380c4b88ad3bfc46911495c9456a3fd6f563a",
+  "sourceCommit": "0228a8bd98333b5534afb5f37e6ca97287e21495",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -163,8 +163,8 @@
       "sha256": "eb3736d0c0ce5c486de6f4ad4c280800b1b68acbf2df09d80ffbdacd93056733"
     },
     {
-      "path": "js/equipment/equipment-stat-source.js?v=20261126-v0216-material-economy",
-      "sha256": "230236a24c9dd9b68ba9d1f53e7d03245c03c53688b114625024e812ffc99fef"
+      "path": "js/equipment/equipment-stat-source.js?v=20261126-v0219-crafting-help",
+      "sha256": "7c0b7ae1f90a467356049aa5ad0277d378d3af384e32bd2ffa734ef1d8483dc6"
     },
     {
       "path": "js/equipment/enhancement-rules.js?v=20261124-v0206-drops",
@@ -195,8 +195,8 @@
       "sha256": "48c09cca9549214209816538049fb7983320351ae90b6f1501581719d5745c4f"
     },
     {
-      "path": "js/ui/item-presentation.js?v=20261126-v0216-material-economy",
-      "sha256": "c39cffb0103313d90eedcd68c2d57e703375f23a1c09c0fc64215db1d866c83a"
+      "path": "js/ui/item-presentation.js?v=20261126-v0219-crafting-help",
+      "sha256": "1e0140ff3fd77d74baa7fcf1bd8e6f5b0b69c266889fb0ca4e537103cbb6fbd1"
     },
     {
       "path": "js/ui/ui-text-config.js?v=20261119-v0169",
