@@ -7,3 +7,10 @@ test('crafting page edits immediate recipe values, recalibrates map dust, and ex
  assert.equal(r.run('Math.round(EmberwildMaterialEconomy.expected(data,0).dust)'),200);
  r.run('data.lifeSkills={obsolete:true}');const out=r.run('__EMBERWILD_RELEASE_EDITOR.current()');assert.deepEqual(JSON.parse(JSON.stringify(out.crafting)),{etherIron:{dust:120,ore:4,quantity:2}});assert.equal(out.lifeSkills,undefined);assert.doesNotThrow(()=>r.run('__EMBERWILD_VALIDATE_DOCUMENT(data)'));assert.deepEqual(r.errors,[]);
 });
+
+test('crafting data cannot be published to a target without the current crafting runtime',async()=>{
+ const assert=require('node:assert/strict'),{ReleaseService}=require('../server/release-service.cjs');let supported=false;
+ const s=new ReleaseService({api:async()=>({type:'file',encoding:'base64',content:Buffer.from(supported?'const api={craftingVersion:1};':'const api={};').toString('base64')})});
+ for(const branch of ['main','chatgpt-dev'])await assert.rejects(s.requireRuntimeCapabilities({branch,commit:'a'.repeat(40)},{crafting:source.crafting}),/即時製作/);
+ supported=true;for(const branch of ['main','chatgpt-dev'])await s.requireRuntimeCapabilities({branch,commit:'a'.repeat(40)},{crafting:source.crafting});
+});

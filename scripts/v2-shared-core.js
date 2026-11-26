@@ -47,7 +47,6 @@
  return Object.freeze({SCALE,FIELD,DEFAULTS,CLASS_INTERVALS,settings,validate,checkPct,sum,effectivePct,minimumIntervalSeconds,minimumIntervalMicros,rawIntervalSeconds,intervalSeconds,intervalMicros,attacksPerSecond,capped,requiredPctForCap,summary,formatPct,label});
 });
 
-
 /* EmberwildSecondsSchema */
 
 /* Canonical seconds/MP extension. Legacy positional timing is a derived adapter,
@@ -198,7 +197,6 @@
  }
  return {DEFAULT_TEAM_ENCOUNTERS,encounterCount,encounterRange,validateTeamEncounters,VERSION,copy,assertJSON,defaults,timing,normalize,validate,validateImport,legacy,attach,INITIAL_ROLES,initialCooldownRole,defaultInitialCooldownSeconds,initialCooldownSeconds,COOLDOWN_REDUCTION_SOURCES,COOLDOWN_REDUCTION_LABELS,defaultCooldownReduction,cooldownReductionTotals,finalizeCooldown,applyCooldownReduction,cooldownReductionText};
 });
-
 
 /* EmberwildSkillSystem */
 

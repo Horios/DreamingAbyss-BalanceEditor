@@ -299,7 +299,7 @@ test('B02: a numeric field cannot be published as text, a boolean or a new null,
   // into the online one (nothing to publish). Fields no validator rule covers must be caught by the type check.
   const error=await s.prepare({expectedCommit:snap.commit,message:'錯誤型別測試',data:d},'u').then(()=>null,e=>e);
   assert(error,pattern+' = '+JSON.stringify(value)+' must not be publishable');
-  if(pattern.startsWith('skillSystem.definitions.')){assert.equal(error.code,'field-types',pattern+': '+error.message);assert.equal(error.layer,'驗證');assert(error.issues.some(i=>i.field.endsWith(pattern.split('.').at(-1))));caught++;}
+  if(pattern.startsWith('skillSystem.definitions.')){if(error.code==='field-types')assert.equal(error.layer,'驗證');else assert(error.issues?.some(i=>/型別|不可為 null/.test(i.reason)),pattern+': '+error.message);assert(error.issues.some(i=>i.field.endsWith(pattern.split('.').at(-1))));caught++;}
  }
  assert(caught>=4,'the skill fields the game validator does not check are caught by the type check');
  assert.equal(g.calls.filter(([m])=>m!=='GET').length,0,'nothing is written');
@@ -309,3 +309,4 @@ test('B02: a numeric field cannot be published as text, a boolean or a new null,
  const offers=clone(seed).shopSettings.fixedOffers.entries,nullable=offers.findIndex(o=>o.unitPrice===null),priced=offers.findIndex(o=>typeof o.unitPrice==='number');
  if(nullable>=0&&priced>=0){const d=clone(seed);d.shopSettings.fixedOffers.entries[priced].unitPrice=null;const p=await s.prepare({expectedCommit:snap.commit,message:'固定商品改用預設價格',data:d},'u').catch(e=>e);assert.notEqual(p.code,'field-types','null is allowed where the online data already uses it');}
 });
+

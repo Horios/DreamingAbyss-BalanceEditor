@@ -13484,6 +13484,22 @@ function newRowSecondsTiming(kind,row){
 
 
 
+
+
+<script id="published-schema-export-guard">
+(()=>{
+ const base=__EMBERWILD_MASTERY_EDITOR.cleanExport;
+ __EMBERWILD_MASTERY_EDITOR.cleanExport=function(){
+  const out=base();
+  if(out.equipmentPowerSystem?.schemaVersion>=4){
+   delete out.equipmentPowerSystem.prefixes;delete out.equipmentPowerSystem.suffixes;
+   for(const rows of out.starterPacks||[])for(const row of rows){if(row.prefixId==='')delete row.prefixId;if(row.suffixId==='')delete row.suffixId;}
+  }
+  return out;
+ };
+})();
+</script>
+
 <script id="combat-migration-editor">
 /* Edit the canonical timing objects in place; existing skill/mechanism IDs stay authoritative. */
 (()=>{
