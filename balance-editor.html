@@ -10637,6 +10637,7 @@ ${doc().daily.materialRewards.map((x,i)=>`<div class="quest-editor-row"><label>�
   return errors;
  }
  function migrate(input,defaults){
+  if(input&&Object.hasOwn(input,'lifeSkills')){input=copy(input);delete input.lifeSkills;} // Discard the retired root when importing older documents.
   const errors=inspect(input,{complete:input?.schemaVersion!==undefined});if(errors.length)throw Object.assign(Error(errors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:errors});
   const d=root.EmberwildHealingPotions?root.EmberwildHealingPotions.migrate(copy(input)):copy(input);if(d.schemaVersion===undefined){if(!defaults)throw Error('舊 JSON 需要有效的遷移基準');for(const k of REQUIRED)if(d[k]===undefined)d[k]=copy(defaults[k]);d.schemaVersion=VERSION;}
   if(root.EmberwildInventoryIcons)Object.assign(d, root.EmberwildInventoryIcons.migrateDescriptions(d,{hydrate:true}));
@@ -10662,7 +10663,7 @@ if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Err
  const file=document.getElementById('fileInput');
  file.onchange=async ev=>{const f=ev.target.files?.[0];ev.target.value='';if(!f)return;try{if(f.size>4000000)throw Error('檔案過大');const original=JSON.parse(await f.text()),candidate=checked(original);__EMBERWILD_WORKSPACE_IMPORT(candidate,f.name,original);}catch(e){alert('無法匯入平衡 JSON：'+e.message);}};
  const exportBase=__EMBERWILD_MASTERY_EDITOR.cleanExport;
- __EMBERWILD_MASTERY_EDITOR.cleanExport=()=>({...exportBase(),schemaVersion:1,crafting:structuredClone(data.crafting)});
+ __EMBERWILD_MASTERY_EDITOR.cleanExport=()=>{const out={...exportBase(),schemaVersion:1,crafting:structuredClone(data.crafting)};delete out.lifeSkills;return out;};
 })();
 
 </script>
@@ -13454,6 +13455,8 @@ function newRowSecondsTiming(kind,row){
  const innerDirty=markDirty;markDirty=function(...args){if(row&&row===current()&&JSON.stringify(row)!==snapshot){sync.writeRow(data,row,snapshot);snapshot=JSON.stringify(row);}return innerDirty(...args);};
 })();
 </script>
+
+
 
 
 

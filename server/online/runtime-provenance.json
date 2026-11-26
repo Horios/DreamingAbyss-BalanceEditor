@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "0228a8bd98333b5534afb5f37e6ca97287e21495",
+  "sourceCommit": "c24d136752cbe975b19f1ce5c649f83a1f70d822",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -47,8 +47,8 @@
       "sha256": "2790f072e3fa1d98995193718a2a42b9bdcf9412ee7c684199438bb5de7f9ac2"
     },
     {
-      "path": "js/balance/balance-document.js?v=20261126-v0216-material-economy",
-      "sha256": "c7fb0457108d7479f3c0aed88196081d48669eaf2efe79095f1eef27ca257759"
+      "path": "js/balance/balance-document.js?v=20261126-v0221-retired-root",
+      "sha256": "219b4a4df3c7974e4fdfde7b64f739a3a393d5fe588ba92204364f175bfb8872"
     },
     {
       "path": "inline",
@@ -131,8 +131,8 @@
       "sha256": "53692db491a0e1b7722208e2589dd10bf6d2b601de1b3326293c46841c26586c"
     },
     {
-      "path": "js/core/save-validation.js?v=20261126-v0217-retired-save",
-      "sha256": "0eb73fda075095ca92d954ff53e5e42ab5ee892350fc77bfb78da238da214001"
+      "path": "js/core/save-validation.js?v=20261126-v0220-upstream-fix",
+      "sha256": "3a5345cd98960a66d9549f79629549f60946fcdc04d8e2bef0fde807958dbe1b"
     },
     {
       "path": "js/skills/skill-presentation-metadata.js?v=20261022-core-services1",
@@ -383,8 +383,8 @@
       "sha256": "054a3d3129a155f6b67a859811db8a4aad8d716859cea21520ac71368d24a047"
     },
     {
-      "path": "js/character/team-runtime.js?v=20261124-v0212-skills",
-      "sha256": "5a521a1d37737c8986d706aaf03d46af3ec4e04cdde34f9e7c4f44607d52a4ca"
+      "path": "js/character/team-runtime.js?v=20261126-v0220-upstream-fix",
+      "sha256": "249347fe7c9d6d5c6baf5ef8f1b8b230745d9f4605a36aa594e61f3b290da037"
     },
     {
       "path": "js/equipment/team-references.js?v=20261121-v0186",
@@ -579,8 +579,8 @@
       "sha256": "04899ad16028bf3238322cfda9079146a2b882afbaed56ffc45f3512df361d86"
     },
     {
-      "path": "js/ui/skill-page.js?v=20261124-v0214-skillpage",
-      "sha256": "9e2b45867b080f775b03b85265b32c6e9342aa25088cb908c202eac4026f2fa2"
+      "path": "js/ui/skill-page.js?v=20261126-v0220-upstream-fix",
+      "sha256": "5c14b3aab3db4066cab0d14d34a03e30a8540a020ffbe4422972aefbff7776c4"
     },
     {
       "path": "js/ui/inventory-grid.js?v=20261126-v0217-gem-dust",
@@ -622,7 +622,7 @@
     },
     {
       "path": "js/balance/balance-document.js",
-      "gitBlob": "bee23ec015fb2fc70f41c1bdf13ad9455fb54326"
+      "gitBlob": "a8b0eab36152f9031097176d6963980fffb092f8"
     }
   ]
 }

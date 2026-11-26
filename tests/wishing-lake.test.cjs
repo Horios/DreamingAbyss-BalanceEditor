@@ -25,5 +25,6 @@ test('online load/compare preserves lake settings and changing a weight survives
 });
 test('publication blocks a lake document on a runtime without the matching capability',async()=>{
  const {ReleaseService}=require('../server/release-service.cjs');let capability='';const service=new ReleaseService({validate:x=>x,api:async()=>({type:'file',encoding:'base64',content:Buffer.from(capability).toString('base64')})});
- await assert.rejects(service.requireLifeRuntime({commit:'a'.repeat(40),branch:'main'},{wishingLake:{version:1}}),/尚未支援許願湖/);capability='wishingLakeVersion:1';await service.requireLifeRuntime({commit:'a'.repeat(40),branch:'chatgpt-dev'},{wishingLake:{version:1}});
+ await assert.rejects(service.requireRuntimeCapabilities({commit:'a'.repeat(40),branch:'main'},{wishingLake:{version:1}}),/尚未支援許願湖/);capability='wishingLakeVersion:1';await service.requireRuntimeCapabilities({commit:'a'.repeat(40),branch:'chatgpt-dev'},{wishingLake:{version:1}});
 });
+

@@ -19,5 +19,6 @@ test('compiled online validator retains stages and rejects malformed weights; ma
  const bad=structuredClone(seed);bad.shopSettings.equipmentStages[1].unlockMapIds=['missing-map'];assert.throws(()=>v.validate(bad),/通關條件/);
  const {ReleaseService}=require('../server/release-service.cjs');let supported=false;const service=new ReleaseService({validate:x=>x,api:async()=>({type:'file',encoding:'base64',content:Buffer.from(supported?'const api={equipmentAcquisitionVersion:1}':'const api={}').toString('base64')})});
  const candidate={shopSettings:{equipmentStages:[seed.shopSettings.equipmentStages[0]]}};
- await assert.rejects(service.requireLifeRuntime({branch:'main',commit:'a'.repeat(40)},candidate),/裝備取得/);supported=true;await service.requireLifeRuntime({branch:'main',commit:'a'.repeat(40)},candidate);
+ await assert.rejects(service.requireRuntimeCapabilities({branch:'main',commit:'a'.repeat(40)},candidate),/裝備取得/);supported=true;await service.requireRuntimeCapabilities({branch:'main',commit:'a'.repeat(40)},candidate);
 });
+

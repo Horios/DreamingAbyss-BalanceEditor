@@ -1,5 +1,5 @@
 {
-  "gameCommit": "0228a8bd98333b5534afb5f37e6ca97287e21495",
+  "gameCommit": "c24d136752cbe975b19f1ce5c649f83a1f70d822",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -11,7 +11,7 @@
     },
     {
       "path": "js/balance/balance-document.js",
-      "sha256": "c7fb0457108d7479f3c0aed88196081d48669eaf2efe79095f1eef27ca257759"
+      "sha256": "219b4a4df3c7974e4fdfde7b64f739a3a393d5fe588ba92204364f175bfb8872"
     },
     {
       "path": "js/balance/balance-modules.js",
@@ -91,7 +91,7 @@
     },
     {
       "path": "js/character/team-runtime.js",
-      "sha256": "5a521a1d37737c8986d706aaf03d46af3ec4e04cdde34f9e7c4f44607d52a4ca"
+      "sha256": "249347fe7c9d6d5c6baf5ef8f1b8b230745d9f4605a36aa594e61f3b290da037"
     },
     {
       "path": "js/combat/action-turn-cooldown.js",
@@ -171,7 +171,7 @@
     },
     {
       "path": "js/core/save-validation.js",
-      "sha256": "0eb73fda075095ca92d954ff53e5e42ab5ee892350fc77bfb78da238da214001"
+      "sha256": "3a5345cd98960a66d9549f79629549f60946fcdc04d8e2bef0fde807958dbe1b"
     },
     {
       "path": "js/core/startup-guard.js",
@@ -511,7 +511,7 @@
     },
     {
       "path": "js/ui/skill-page.js",
-      "sha256": "9e2b45867b080f775b03b85265b32c6e9342aa25088cb908c202eac4026f2fa2"
+      "sha256": "5c14b3aab3db4066cab0d14d34a03e30a8540a020ffbe4422972aefbff7776c4"
     },
     {
       "path": "js/ui/skill-system-ui.js",
@@ -987,11 +987,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "d9eff42b3ad48567371f2fc7f81843c1bdba45e3c4f877ee6dae95cc88f337b9"
+      "sha256": "c222222750c5e58947758fd0f87568a926618fe95d88523d92e171febcb35605"
     },
     {
       "path": "index.html",
-      "sha256": "5d55dbf3be4db597e60611046043e58c409632d482c4fd2d056c2d838f847731"
+      "sha256": "0ad8b9d3cb84c26d67218300eb8c0a47fee96388fb326e8c94e8fcd15ce62df3"
     }
   ],
   "gameBridgeSha256": "5d41121bc4ecd0a746a13f35d72fe05549f01a5a4e8e996b134885231ed2cb87",

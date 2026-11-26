@@ -21,7 +21,7 @@ test('new seconds and MP markers are rejected; legacy values and real-time items
   {classes:[{baseMp:100}]},{statusDefinitions:[{durationSeconds:null}]},{statusDefinitions:[{durationClock:'seconds'}]},
   {balanceSettings:{meta:{combatTimingVersion:1}}},{balanceSettings:{combat:{model:'seconds'}}}
  ])assert.throws(()=>M.assertSupported(d),/秒數／MP/);
- const old={timeUnits:{supportDuration:'battleRounds',elementPotionDuration:'realMinutes'},supportSkills:[[{cooldown:3}]],items:[{duration:18},{durationMinutes:30}],lifeSkills:{gathering:{periodMs:1000}}};
+ const old={timeUnits:{supportDuration:'battleRounds',elementPotionDuration:'realMinutes'},supportSkills:[[{cooldown:3}]],items:[{duration:18},{durationMinutes:30}]};
  assert.equal(M.assertSupported(old),old);assert.deepEqual(M.unsupportedPaths(old),[]);
 });
 test('backend validation and prepare reject unsupported documents before domain conversion or ticket creation',async()=>{
@@ -36,4 +36,5 @@ test('a retained old ticket cannot bypass the new-format guard at commit',async(
  service.tickets.set('old',{session:'owner',expires:Date.now()+10000,candidate:{timeUnits:{cooldown:'seconds'}}});
  await assert.rejects(service.commit({ticket:'old',confirmed:true},'owner'),/秒數／MP/);assert.equal(writes,0);assert(service.tickets.has('old'));
 });
-test('publication checks both independent actions and continuous recovery on the actual target commit',async()=>{let text='combatTimingVersion:1';const service=new ReleaseService({validate:d=>d,api:async()=>({type:'file',encoding:'base64',content:Buffer.from(text).toString('base64')})}),target={branch:'chatgpt-dev',commit:'a'.repeat(40)},candidate={balanceSettings:{meta:{combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1},combat:{seconds:{actionModel:'independent',recovery:{}}}}};await assert.rejects(service.requireLifeRuntime(target,candidate),/獨立普攻/);text+=',independentActionsVersion:1';await assert.rejects(service.requireLifeRuntime(target,candidate),/連續探索/);text+=',continuousExplorationVersion:1';await service.requireLifeRuntime(target,candidate);});
+test('publication checks both independent actions and continuous recovery on the actual target commit',async()=>{let text='combatTimingVersion:1';const service=new ReleaseService({validate:d=>d,api:async()=>({type:'file',encoding:'base64',content:Buffer.from(text).toString('base64')})}),target={branch:'chatgpt-dev',commit:'a'.repeat(40)},candidate={balanceSettings:{meta:{combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1},combat:{seconds:{actionModel:'independent',recovery:{}}}}};await assert.rejects(service.requireRuntimeCapabilities(target,candidate),/獨立普攻/);text+=',independentActionsVersion:1';await assert.rejects(service.requireRuntimeCapabilities(target,candidate),/連續探索/);text+=',continuousExplorationVersion:1';await service.requireRuntimeCapabilities(target,candidate);});
+
