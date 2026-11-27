@@ -18,7 +18,8 @@ class ReleaseService{
   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
   if(!/monsterDesignVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援怪物個別設定、物品連結或多種 BOSS 陣容。請先升級該分支遊戲程式，再發布平衡 JSON。');
  }
- async requireLifeRuntime(target,candidate){
+ async requireRuntimeCapabilities(target,candidate){
+  if(candidate.crafting){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/craftingVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援即時製作，請先更新該分支程式。');}
   // Game v0.119: on-screen text overrides. Older game code keeps the field but never applies it, so publishing would change nothing.
   if(candidate.textOverrides?.entries?.length){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/textOverridesVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲程式尚未支援文字覆寫（textOverrides）；請先將遊戲程式升級至 v0.119 以上，再發布這份平衡 JSON。');}
   if(candidate.balanceSettings?.meta?.combatTimingVersion===1){const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit),text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';if(!/combatTimingVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援秒數／MP 戰鬥；請先升級該分支程式，禁止把新資料寫入舊回合制正式版。');const c=candidate.balanceSettings.combat?.seconds,m=candidate.balanceSettings.meta;if((m.independentActionsVersion===1||c?.actionModel==='independent')&&!/independentActionsVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援獨立普攻與瞬發技能；請先升級該分支程式。');if((m.continuousExplorationVersion===1||c?.recovery)&&!/continuousExplorationVersion\s*:\s*1\b/.test(text))throw Error('目標遊戲尚未支援連續探索與脫戰恢復；請先升級該分支程式。');}
@@ -59,14 +60,11 @@ class ReleaseService{
    if(candidate.timeUnits?.consumableClock==='exploration'&&!/consumableClockVersion\s*:\s*1\b/.test(text))throw Error('目標版本尚未支援有效探索時間增益，請先升級該分支遊戲程式。');
   }
   await this.requireMonsterRuntime(target,candidate);
-  const life=candidate.lifeSkills?.gathering!==undefined,icons=Boolean(candidate.inventoryIcons?.length),palette=Boolean(candidate.iconColorTemplates?.length);
-  if(target.branch!=='main'||(!life&&!icons&&!palette))return;
+  const icons=Boolean(candidate.inventoryIcons?.length),palette=Boolean(candidate.iconColorTemplates?.length);
+  if(target.branch!=='main'||(!icons&&!palette))return;
   const source=await this.api(this.base+'/contents/js/balance/balance-document.js?ref='+target.commit);
   const text=source.type==='file'&&source.encoding==='base64'?Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'):'';
-  if(life&&!/lifeProductsVersion\s*:\s*1\b/.test(text))
-   throw Error('正式版程式尚未支援採集與煉金產物設定。請先將已測試的遊戲程式升級至 main，再發布這份平衡 JSON。');
   if(palette&&!/iconColorTemplatesVersion\s*:\s*1\b/.test(text))throw Error('正式版程式尚未支援色彩模板。請先升級正式版程式，再發布這份平衡 JSON。');
-  if(Object.keys(candidate.lifeSkills?.materialBuyPrices||{}).some(k=>!['清水','藥水瓶'].includes(k))&&!/lifeShopMaterialsVersion\s*:\s*1/.test(text))throw Error('目標版本尚未支援自訂商店材料；請先升級遊戲程式。');
   if((candidate.inventoryIcons||[]).some(r=>r.sellPrice!==undefined||r.saleEnabled!==undefined||r.salvageRewards!==undefined||r.displayName!==undefined)&&!/itemDetailsVersion\s*:\s*2/.test(text))throw Error('目標版本尚未支援全域道具個別售價；請先升級遊戲程式。');
   const iconVersion=Number(text.match(/inventoryIconsVersion\s*:\s*(\d+)/)?.[1]||0),needsV2=(candidate.inventoryIcons||[]).some(r=>r.color!==undefined||r.description!==undefined||r.kind==='equipment');
   if(icons&&(iconVersion<1||needsV2&&iconVersion<2))
@@ -259,7 +257,7 @@ class ReleaseService{
    // A module whose file changes only through the game's normalization still counts; its rows may be empty.
    diff={rows,total:rows.length||plan.changed.length,added:rows.filter(r=>r.type==='新增').length,modified:rows.filter(r=>r.type==='修改').length,deleted:rows.filter(r=>r.type==='刪除').length,modules:plan.changed,formatOnly};
   }else{diff=D.diff(baseline,after);if(!diff.total)throw Error('沒有有效設定差異，禁止建立空白發布 commit');}
-  await this.requireLifeRuntime(target,candidate);
+  await this.requireRuntimeCapabilities(target,candidate);
   const version=await this.nextPreviewVersion(target);
   const ticket=crypto.randomBytes(32).toString('hex'),nextVersion=crypto.createHash('sha256').update(D.stable(candidate)).digest('hex').slice(0,12);
   if(this.tickets.prune)await this.tickets.prune();else for(const [id,t] of this.tickets)if(t.expires<Date.now())this.tickets.delete(id);
@@ -279,7 +277,7 @@ class ReleaseService{
    const source=await this.read({branch:'chatgpt-dev'});if(source.commit!==t.sourceCommit||D.stable(source.data)!==D.stable(t.candidate))throw Object.assign(Error('測試版已更新，請重新取得並重新比較。'),{status:409});
   }
   this.validateDocument(t.candidate);
-  await this.requireLifeRuntime(current,t.candidate);
+  await this.requireRuntimeCapabilities(current,t.candidate);
   const base=await this.api(this.base+'/git/commits/'+current.commit),entries=[],blob=async content=>(await this.api(this.base+'/git/blobs',{method:'POST',body:{encoding:'utf-8',content}})).sha;
   let integratedText=JSON.stringify(t.candidate,null,2)+'\n',plan=null;
   if(current.layout==='modular'){
@@ -368,4 +366,5 @@ class ReleaseService{
  }
 }
 module.exports={ReleaseService};
+
 

@@ -16,7 +16,7 @@
   companions:['characters/companions','characters/companion-settings','combat/skills'],companionUnlocks:['characters/companions'],companionBalance:['characters/companions','characters/companion-settings'],
   companionTokens:['characters/companion-settings'],passives:['characters/passives','characters/companions'],equipmentPower:['equipment/power-system'],affixPools:['equipment/affix-pools'],
   equipment:['equipment/forms'],starterPacks:['items/starter-packs'],uiText:['interface/presentation'],textRarity:['interface/presentation'],teamSettings:['meta/document'],
-  materialPrices:['systems/economy'],dailyQuests:['systems/quests'],sideQuests:['systems/quests'],gatheringProducts:['systems/life-skills'],alchemyRecipes:['systems/life-skills'],
+  materialPrices:['systems/economy'],dailyQuests:['systems/quests'],sideQuests:['systems/quests'],crafting:['systems/crafting'],
   skillSystem:['combat/skills','combat/skill-system','characters/classes','characters/support-skills'],skills:['combat/skills','characters/classes','characters/support-skills'],classes:['characters/classes','combat/skills'],
   combatMigration:['combat/rules','combat/skills','world/monsters','combat/statuses','items/items']
  };
@@ -170,3 +170,4 @@
  const later=()=>{if(typeof requestIdleCallback==='function')requestIdleCallback(settle,{timeout:1500});else setTimeout(settle,0);};
  if(document.readyState==='complete')later();else addEventListener('load',later,{once:true});setTimeout(settle,3000);
 })();
+

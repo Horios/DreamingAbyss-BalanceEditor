@@ -12,7 +12,8 @@ test('starter configuration exposes only a weapon per class, while all inventory
  const exported=r.run('__EMBERWILD_RELEASE_EDITOR.current()'),canonical=createGameValidator().canonicalize(exported);assert.deepEqual(JSON.parse(JSON.stringify(canonical.starterPackItems)),JSON.parse(JSON.stringify(exported.starterPackItems)));assert.equal(canonical.starterPacks[0][0].baseAttack,4);assert.deepEqual(r.errors,[]);
 });
 test('gift validation catches missing references, quantities and non-weapon starter slots',()=>{
- const r=editor();for(const change of ['data.starterPackItems[0]=[{kind:"item",key:"missing",quantity:1}]','data.starterPackItems[0]=[{kind:"material",key:"紅色草",quantity:0}]','data.starterPacks[0][0].slot=1']){
+ const r=editor();for(const change of ['data.starterPackItems[0]=[{kind:"item",key:"missing",quantity:1}]','data.starterPackItems[0]=[{kind:"material",key:"光輝碎塊",quantity:0}]','data.starterPacks[0][0].slot=1']){
   r.run('data=structuredClone(doc);ensureArrays();'+change);assert(r.run('validateData().length')>0);assert.throws(()=>createGameValidator().validate(r.run('__EMBERWILD_MASTERY_EDITOR.cleanExport()')));
  }
 });
+

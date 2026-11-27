@@ -10,7 +10,7 @@ function editor(){const r=loadRuntime(process.cwd());r.ctx.doc=doc;r.run('data=_
 test('selecting existing items keeps the catalogue intact and local shared-drop edits preserve other monsters',()=>{
  const r=editor(),D=r.ctx.__EMBERWILD_MONSTER_DESIGNER,E=r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR,before=E.entries().length;
  const rule=D.attach('map0_mob0','item:heal_small');assert.equal(E.entries().length,before);assert.equal(rule.key,'heal_small');assert.equal(D.attach('map0_mob0','item:heal_small').id,rule.id);
- r.run('data.balanceSettings.drops.entries.push({id:"shared_fixture",name:"材料",enabled:true,type:"material",key:"清水",sources:["map0_mob0","map0_mob1"],kinds:["normal","elite"],chanceByDifficulty:[.2,.3,.4],quantityMin:1,quantityMax:2});markDirty();');
+ r.run('data.balanceSettings.drops.entries.push({id:"shared_fixture",name:"材料",enabled:true,type:"material",key:"古木年輪",sources:["map0_mob0","map0_mob1"],kinds:["normal","elite"],chanceByDifficulty:[.2,.3,.4],quantityMin:1,quantityMax:2});markDirty();');
  const isolated=D.localRule('shared_fixture','map0_mob0');isolated.chanceByDifficulty[0]=.9;
  assert.deepEqual(plain(r.run('data.balanceSettings.drops.entries.find(d=>d.id==="shared_fixture").sources')),['map0_mob1']);assert.equal(r.run('data.balanceSettings.drops.entries.find(d=>d.id==="shared_fixture").chanceByDifficulty[0]'),.2);
  assert.throws(()=>D.attach('map0_mob0','item:nonexistent'),/不存在/);assert.deepEqual(plain(r.run('validateData()')),[]);assert.doesNotThrow(()=>createGameValidator().validate(r.run('__EMBERWILD_RELEASE_EDITOR.current()')));
@@ -35,4 +35,5 @@ test('monster roles can change; kinds split shared sources, and multiple BOSS va
  const normalized=validator.canonicalize(r.run('__EMBERWILD_RELEASE_EDITOR.current()'));assert.equal(normalized.balanceSettings.maps.catalog[0].bossStageMode,'random');assert.equal(normalized.balanceSettings.maps.catalog[0].bossStageRandomCount,1);
  r.run('data.balanceSettings.maps.catalog[0].bossStageRandomCount=99;');assert(r.run('validateData()').some(x=>x.includes('BOSS 出場數')));assert.throws(()=>validator.validate(r.run('__EMBERWILD_RELEASE_EDITOR.current()')),/BOSS 出場數/);
 });
+
 

@@ -47,7 +47,6 @@
  return Object.freeze({SCALE,FIELD,DEFAULTS,CLASS_INTERVALS,settings,validate,checkPct,sum,effectivePct,minimumIntervalSeconds,minimumIntervalMicros,rawIntervalSeconds,intervalSeconds,intervalMicros,attacksPerSecond,capped,requiredPctForCap,summary,formatPct,label});
 });
 
-
 /* EmberwildSecondsSchema */
 
 /* Canonical seconds/MP extension. Legacy positional timing is a derived adapter,
@@ -68,8 +67,24 @@
    advanceStepSeconds:(p.actionIntervalMs||1500)/1000,encounterDelaySeconds:(p.actionIntervalMs||1500)/1000,healThreshold:.75,
    mana:{maxMp:100,regenPerSecond:round(100/(reference*10)),costMultiplier:1},
    classes:[0,1,2,3].map(job=>({job,baseIntervalSeconds:actionReference})),attackSpeed:{...AS().DEFAULTS},
-   groupWeights:[6,3,1],finalBoss:{enrageAfterSeconds:(combat.finalBoss?.enrageAfterTurn??45)*actionReference,specialIntervalSeconds:(combat.finalBoss?.specialEveryTurns||5)*actionReference},migration:{version:1,source:'actor-turns',resourceBudget:100,recoveryReferencePeriods:10}};
+   encounterByTeamSize:copy(DEFAULT_TEAM_ENCOUNTERS),finalBoss:{enrageAfterSeconds:(combat.finalBoss?.enrageAfterTurn??45)*actionReference,specialIntervalSeconds:(combat.finalBoss?.specialEveryTurns||5)*actionReference},migration:{version:1,source:'actor-turns',resourceBudget:100,recoveryReferencePeriods:10}};
  }
+ // v0.215: the number of monsters of a normal encounter depends on the number of deployed characters (1–3).
+ // Each team size lists {count, weight}; one encounter draws one count by weight. Replaces groupWeights (3／4／5 for every team).
+ const DEFAULT_TEAM_ENCOUNTERS={'1':[{count:1,weight:100}],'2':[{count:2,weight:90},{count:3,weight:10}],'3':[{count:3,weight:50},{count:4,weight:30},{count:5,weight:20}]};
+ const MAX_ENCOUNTER_SIZE=5;
+ function validateTeamEncounters(t){
+  if(!t||typeof t!=='object'||Array.isArray(t)||Object.keys(t).sort().join()!=='1,2,3')fail('遇敵數量設定必須包含 1／2／3 人隊伍');
+  for(const size of ['1','2','3']){const rows=t[size],seen=new Set();
+   if(!Array.isArray(rows)||!rows.length||rows.length>MAX_ENCOUNTER_SIZE)fail(size+' 人隊伍的遇敵數量設定無效');
+   for(const r of rows){if(!r||!Number.isInteger(r.count)||r.count<1||r.count>MAX_ENCOUNTER_SIZE||seen.has(r.count)||!finite(r.weight,0,1e9))fail(size+' 人隊伍的遇敵數量或權重無效');seen.add(r.count);}
+   if(!rows.some(r=>r.weight>0))fail(size+' 人隊伍至少要有一個大於 0 的權重');}
+ }
+ function encounterCount(table,teamSize,random=Math.random){
+  const rows=(table||DEFAULT_TEAM_ENCOUNTERS)[String(Math.max(1,Math.min(3,Math.round(Number(teamSize)||1))))]||DEFAULT_TEAM_ENCOUNTERS['1'],total=rows.reduce((n,r)=>n+Math.max(0,r.weight),0);
+  let pick=random()*total;for(const r of rows){if((pick-=Math.max(0,r.weight))<0)return r.count;}return rows[rows.length-1].count;
+ }
+ function encounterRange(table,teamSize){const rows=(table||DEFAULT_TEAM_ENCOUNTERS)[String(Math.max(1,Math.min(3,Math.round(Number(teamSize)||1))))]||[],counts=rows.filter(r=>r.weight>0).map(r=>r.count);return counts.length?{min:Math.min(...counts),max:Math.max(...counts)}:{min:1,max:1};}
  function timing(skill,job,config){
   const interval=config.classes.find(c=>c.job===job)?.baseIntervalSeconds||config.actionReferenceSeconds;
   const active=isActive(skill),power=Math.abs(Number(skill.power??skill.value)||1),area=skill.target==='enemies'||skill.target==='allies'||Number(skill.maxTargets)>1;
@@ -112,7 +127,7 @@
  const COOLDOWN_REDUCTION_SOURCES=['affixAll','affixSkill','fixedAll','fixedSkill','enemyDeath'];
  const COOLDOWN_REDUCTION_LABELS={affixAll:'裝備詞條：全技能冷卻（每點）',affixSkill:'裝備詞條：指定技能冷卻（每點）',fixedAll:'裝備固定效果／信物：全技能冷卻（每點）',fixedSkill:'裝備固定效果：指定技能冷卻（每點）',enemyDeath:'敵人死亡被動：縮減目前冷卻（每點）'};
  function defaultCooldownReduction(){return {diminishing:{thresholdSeconds:5,factor:.5,minimumSeconds:2},sources:Object.fromEntries(COOLDOWN_REDUCTION_SOURCES.map(k=>[k,{mode:'flat',value:3}]))};}
- function cooldownReductionTotals(points,cfg){let percent=0,flat=0;for(const k of COOLDOWN_REDUCTION_SOURCES){const n=Number(points?.[k])||0,r=cfg.sources[k];if(!n||!r)continue;if(r.mode==='percent')percent+=n*r.value;else flat+=n*r.value;}return {percent,flat};}
+ function cooldownReductionTotals(points,cfg){let percent=0,flat=0;for(const k of COOLDOWN_REDUCTION_SOURCES){const n=Number(points?.[k])||0,r=cfg.sources[k];if(!n||!r)continue;if(r.mode==='percent')percent+=n*r.value;else flat+=n*r.value;}percent+=Math.max(0,Number(points?.directPercent)||0);return {percent,flat};}
  function finalizeCooldown(base,raw,cfg,minimumInterval=0){if(!(raw<base))return base;const d=cfg.diminishing,start=Math.min(base,d.thresholdSeconds),diminished=raw>=start?raw:start-(start-raw)*d.factor;return round(Math.max(diminished,Math.min(base,d.minimumSeconds),Math.min(base,minimumInterval)));}
  function applyCooldownReduction(base,points,cfg,minimumInterval=0){const {percent,flat}=cooldownReductionTotals(points,cfg);return finalizeCooldown(base,base*(1-Math.min(100,percent)/100)-flat,cfg,minimumInterval);}
  function cooldownReductionText(source,points,cfg){const r=cfg.sources[source],n=round((Number(points)||0)*r.value);return r.mode==='percent'?'−'+n+'%':'−'+n+' 秒';}
@@ -126,6 +141,7 @@
   // v0.196: player characters and companions use attack speed percent; the shared cap and the lowest effective bonus.
   c.attackSpeed??={...AS().DEFAULTS};
   c.cooldownReduction??=defaultCooldownReduction();
+  c.encounterByTeamSize??=copy(DEFAULT_TEAM_ENCOUNTERS);delete c.groupWeights;
   delete c.cooldownReduction.sources?.onCast;
   c.recovery??={hpFractionPerSecond:round((doc.balanceSettings.rewards?.postVictoryHeal??.12)/c.durationReferenceSeconds),mpRegenMultiplier:1,minimumHpRatio:1,minimumMpRatio:0};
   doc.balanceSettings.combat.seconds=c;doc.balanceSettings.meta.combatTimingVersion=VERSION;doc.balanceSettings.meta.independentActionsVersion=1;doc.balanceSettings.meta.continuousExplorationVersion=1;
@@ -149,7 +165,7 @@
   if(!c.attackSpeed||typeof c.attackSpeed!=='object'||Array.isArray(c.attackSpeed)||Object.keys(c.attackSpeed).some(k=>!['maxAttacksPerSecond','minimumBonusPct'].includes(k)))fail('攻擊速度設定無效');
   try{AS().validate(c.attackSpeed);}catch(e){fail(e.message);}
   if(!Array.isArray(c.classes)||c.classes.length!==4||new Set(c.classes.map(x=>x.job)).size!==4||c.classes.some(x=>!Number.isInteger(x.job)||x.job<0||x.job>3||!finite(x.baseIntervalSeconds,.000001,3600)))fail('職業間隔需各一筆');
-  if(!Array.isArray(c.groupWeights)||c.groupWeights.length!==3||c.groupWeights.some(x=>!finite(x))||!c.groupWeights.some(x=>x>0))fail('群怪 3／4／5 隻權重無效');
+  validateTeamEncounters(c.encounterByTeamSize);
   for(const s of doc.skillSystem?.definitions||[]){if(['mpCost','manaCost','cooldownSeconds','castSeconds','actionCostSeconds'].some(k=>Object.hasOwn(s,k)))fail(s.id+' 秒數／MP 欄位必須放在 timing');const t=s.timing;if(!t)fail(s.id+' 缺少時間設定');for(const k of ['cooldownSeconds','mpCost','castSeconds','actionCostSeconds','durationSeconds','bossDurationSeconds'])if(!finite(t[k]))fail(s.id+' '+k+' 無效');if(!finite(t.tickIntervalSeconds,.000001)||!Number.isSafeInteger(t.priority)||t.priority<0||t.priority>99||!['always','injured','missingEffect'].includes(t.condition))fail(s.id+' 條件／優先級無效');if(t.initialCooldownSeconds!==undefined&&!finite(t.initialCooldownSeconds,0,86400))fail(s.id+' initialCooldownSeconds 無效');if(t.minTargets!==undefined&&(!Number.isSafeInteger(t.minTargets)||t.minTargets<1||t.minTargets>99))fail(s.id+' 目標數門檻無效');if(t.requiredTargetStatusId!=null&&!doc.statusDefinitions?.some(x=>x.id===t.requiredTargetStatusId))fail(s.id+' 連動狀態不存在');if(!isActive(s)&&t.mpCost!==0)fail(s.id+' 被動／觸發技能不能新增耗魔');}
   for(const s of doc.statusDefinitions||[]){const t=s.timing;if(!t||(t.durationSeconds!==null&&!finite(t.durationSeconds,.000001))||!finite(t.periodicIntervalSeconds,.000001)||!finite(t.triggerIntervalSeconds,.000001))fail(s.id+' 狀態秒數無效');if(t.bossControlDurationSeconds!==undefined&&!finite(t.bossControlDurationSeconds))fail(s.id+' BOSS 控制秒數無效');}
   for(const m of doc.balanceSettings.monsters?.catalog||[]){const t=m.timing;if(!finite(t?.baseIntervalSeconds,.000001,3600))fail(m.id+' 怪物間隔無效');for(const [k,min] of [['maxMp',1],['regenPerSecond',0],['costMultiplier',0]])if(t[k]!==undefined&&!finite(t[k],min))fail(m.id+' 怪物魔力設定無效');}
@@ -179,9 +195,8 @@
   for(const t of out.companionTokens?.catalog||[]){const v=d.companionTokens.catalog.find(x=>x.id===t.id);if(v?.ability?.timing)t.ability.timing=copy(v.ability.timing);}
   return out;
  }
- return {VERSION,copy,assertJSON,defaults,timing,normalize,validate,validateImport,legacy,attach,INITIAL_ROLES,initialCooldownRole,defaultInitialCooldownSeconds,initialCooldownSeconds,COOLDOWN_REDUCTION_SOURCES,COOLDOWN_REDUCTION_LABELS,defaultCooldownReduction,cooldownReductionTotals,finalizeCooldown,applyCooldownReduction,cooldownReductionText};
+ return {DEFAULT_TEAM_ENCOUNTERS,encounterCount,encounterRange,validateTeamEncounters,VERSION,copy,assertJSON,defaults,timing,normalize,validate,validateImport,legacy,attach,INITIAL_ROLES,initialCooldownRole,defaultInitialCooldownSeconds,initialCooldownSeconds,COOLDOWN_REDUCTION_SOURCES,COOLDOWN_REDUCTION_LABELS,defaultCooldownReduction,cooldownReductionTotals,finalizeCooldown,applyCooldownReduction,cooldownReductionText};
 });
-
 
 /* EmberwildSkillSystem */
 
@@ -534,60 +549,9 @@ root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,
 /* Shared document preflight. Runtime/editor validators remain the domain authorities. */
 (function(root){
  const VERSION=1,SCHEMA='emberwild-balance-v1';
- const REQUIRED=['balance','classes','supportSkills','equipmentForms','items','balanceSettings','equipmentPowerSystem','statusDefinitions','companions','passiveDefinitions','companionSettings','shopSettings','companionTokens','teamSettings','lifeSkills'];
+ const REQUIRED=['balance','classes','supportSkills','equipmentForms','items','balanceSettings','equipmentPowerSystem','statusDefinitions','companions','passiveDefinitions','companionSettings','shopSettings','companionTokens','teamSettings','crafting'];
  const copy=x=>structuredClone(x),array=x=>Array.isArray(x)?x:[];
- // Extend the existing lifeSkills document; legacy timings migrate once into each job.
- function lifeDefaults(){return {materialBuyPrices:{'清水':1,'藥水瓶':1},gathering:[{id:'herb',name:'紅色草',periodMs:5000,chance:1,quantity:1,output:'紅色草',outputType:'material',bonusDrops:[{output:'小蟲',outputType:'material',quantity:1,chance:.05}]}],recipes:{alchemy:{name:'煉製簡易治療藥水',inputs:[['清水',1],['藥水瓶',1],['紅色草',1]],output:'heal_small',outputType:'item',periodMs:5000,chance:1,quantity:1}}};}
- function normalizeLife(life,items=[]){
-  const d=copy(life),ids=new Set(items.map(x=>x.id)),period=d.periodMs??5000;
-  if(d.gathering===undefined){d.gathering=lifeDefaults().gathering;d.gathering[0].periodMs=period;d.gathering[0].bonusDrops[0].chance=d.bugChance??.05;}
-  for(const r of Object.values(d.recipes||{})){r.periodMs??=period;r.chance??=1;r.quantity??=1;r.outputType??=ids.has(r.output)||r.output==='heal_small'?'item':'material';}
-  delete d.periodMs;delete d.bugChance;return d;
- }
- function lifeIssues(life,items=[]){
-  const errors=[],add=(p,r,o)=>errors.push(issue('lifeSkills.'+p,r,o)),ids=new Set(items.map(x=>x.id));
-  const name=x=>typeof x==='string'&&x.trim()===x&&x.length>0&&x.length<=80&&!['__proto__','constructor','prototype'].includes(x);
-  if(!life||typeof life!=='object'||Array.isArray(life)){add('','必須為物件');return errors;}
-  if(life.periodMs!==undefined&&(!Number.isSafeInteger(life.periodMs)||life.periodMs<50))add('periodMs','必須為至少 50 毫秒的安全整數');
-  if(life.bugChance!==undefined&&(!Number.isFinite(life.bugChance)||life.bugChance<0||life.bugChance>1))add('bugChance','必須介於 0～1');
-  if(!life.materialBuyPrices||typeof life.materialBuyPrices!=='object'||Array.isArray(life.materialBuyPrices))add('materialBuyPrices','商店材料價格必須為物件');
-  else for(const [k,v]of Object.entries(life.materialBuyPrices))if(!name(k)||!Number.isSafeInteger(v)||v<0||v>1e9)add('materialBuyPrices.'+k,'材料名稱無效或價格必須為 0～1000000000 的整數');
-  for(const k of ['清水','藥水瓶'])if(!Number.isFinite(life.materialBuyPrices?.[k])||life.materialBuyPrices[k]<0)add('materialBuyPrices.'+k,'購買價格必須為非負數');
-  function product(r,p,legacy=false,bonus=false){
-   if(!r||typeof r!=='object'||Array.isArray(r)){add(p,'必須為物件');return;}
-   if(!bonus&&(!name(r.name)))add(p+'.name','名稱不可空白，最多 80 字',r);
-   if(!bonus&&!(legacy&&r.periodMs===undefined)&&(!Number.isSafeInteger(r.periodMs)||r.periodMs<50))add(p+'.periodMs','必須為至少 50 毫秒的安全整數',r);
-   if(!(legacy&&r.chance===undefined)&&(!Number.isFinite(r.chance)||r.chance<0||r.chance>1))add(p+'.chance','機率必須介於 0～1',r);
-   if(!(legacy&&r.quantity===undefined)&&(!Number.isSafeInteger(r.quantity)||r.quantity<1||r.quantity>1e9))add(p+'.quantity','產物數量必須為 1～1000000000 的整數',r);
-   const type=r.outputType??(legacy?(ids.has(r.output)?'item':'material'):undefined);
-   if(!['item','material'].includes(type))add(p+'.outputType','必須選擇材料或消耗道具',r);
-   if(!name(r.output)||type==='item'&&!ids.has(r.output))add(p+'.output','產物名稱無效或引用不存在的道具',r);
-  }
-  if(life.gathering!==undefined){
-   if(!Array.isArray(life.gathering))add('gathering','必須為陣列');
-   else for(const [i,r] of life.gathering.entries()){
-    const p='gathering.'+i;product(r,p);if(!r)continue;
-    if(typeof r.id!=='string'||!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(r.id)||!name(r.id))add(p+'.id','ID 無效',r);
-    if(r.bonusDrops!==undefined&&!Array.isArray(r.bonusDrops))add(p+'.bonusDrops','必須為陣列',r);
-    else for(const [j,b] of array(r.bonusDrops).entries())product(b,p+'.bonusDrops.'+j,false,true);
-   }
-  }
-  if(!life.recipes||typeof life.recipes!=='object'||Array.isArray(life.recipes))add('recipes','必須為配方物件');
-  else for(const [id,r] of Object.entries(life.recipes)){
-   const p='recipes.'+id;product(r,p,life.gathering===undefined);if(!r)continue;
-   if(!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(id)||!name(id))add(p,'配方 ID 無效',r);
-   if(!Array.isArray(r.inputs)||r.inputs.length<1||r.inputs.length>5){add(p+'.inputs','材料最少 1 種、最多 5 種',r);continue;}
-   const seen=new Set();for(const [i,row] of r.inputs.entries()){
-    if(!Array.isArray(row)||![2,3].includes(row.length)){add(p+'.inputs.'+i,'材料格式無效',r);continue;}
-    const [key,n,type='material']=row,identity=type+':'+key;
-    if(!name(key)||!['material','item'].includes(type)||type==='item'&&!ids.has(key))add(p+'.inputs.'+i,'材料名稱無效或引用不存在的道具',r);
-    if(!Number.isSafeInteger(n)||n<1||n>1e9)add(p+'.inputs.'+i,'材料數量必須為 1～1000000000 的整數',r);
-    if(seen.has(identity))add(p+'.inputs.'+i,'同一材料請合併數量，不可重複',r);seen.add(identity);
-   }
-  }
-  return errors;
- }
- function issue(path,reason,object){path=path.replace(/^\$\./,'');if(path.includes('.quests.'))reason='委託／支線：'+reason;return {system:({textStyles:'文字稀有度',skillIcons:'技能圖示',classes:'職業',companions:'夥伴',companionSettings:'夥伴',teamSettings:'隊伍',statusDefinitions:'自訂狀態',passiveDefinitions:'被動',items:'道具',equipmentPowerSystem:'裝備',equipmentForms:'裝備',balanceSettings:'平衡設定',lifeSkills:'生活技能',tutorials:'教學'})[path.split('.')[0]]||(path.includes('.quests.')?'委託／支線':path.split('.')[0]),object:object?.name||object?.title||object?.id||'',field:path,reason};}
+ function issue(path,reason,object){path=path.replace(/^\$\./,'');if(path.includes('.quests.'))reason='委託／支線：'+reason;return {system:({textStyles:'文字稀有度',skillIcons:'技能圖示',classes:'職業',companions:'夥伴',companionSettings:'夥伴',teamSettings:'隊伍',statusDefinitions:'自訂狀態',passiveDefinitions:'被動',items:'道具',equipmentPowerSystem:'裝備',equipmentForms:'裝備',balanceSettings:'平衡設定',crafting:'製作',tutorials:'教學'})[path.split('.')[0]]||(path.includes('.quests.')?'委託／支線':path.split('.')[0]),object:object?.name||object?.title||object?.id||'',field:path,reason};}
  // Each block declares the data it reads. inspect(d,{scope}) runs only the blocks a change can affect and walks only
  // the changed records; without a scope every block runs, exactly as before. The rules themselves are unchanged.
  const READS={
@@ -597,14 +561,14 @@ root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,
   seconds:[{path:'balanceSettings.meta'},{path:'balanceSettings.combat'},{path:'balanceSettings.rewards'},{path:'balanceSettings.monsters.catalog',fields:['id','kind','timing']},{path:'skillSystem.definitions'},{path:'statusDefinitions'},{path:'items'},{path:'companionTokens'},{path:'equipmentForms'},{path:'timeUnits'}],
   skillSystem:[{path:'skillSystem'}],
   statuses:[{path:'statusDefinitions'}],
-  power:[{path:'equipmentPowerSystem.prefixes'},{path:'equipmentPowerSystem.suffixes'},{path:'equipmentPowerSystem.bossAffixes'}],
+  power:[{path:'equipmentPowerSystem.bossAffixes'}],
   drops:[{path:'balanceSettings.drops.entries'},{path:'items',keys:true},{path:'balanceSettings.monsters.catalog',keys:true}],
   unlocks:[{path:'classes'},{path:'balanceSettings.quests.design.side',keys:true},{path:'balanceSettings.quests.side',keys:true},{path:'balanceSettings.quests.design',shallow:true},{path:'balanceSettings.maps.catalog',shallow:true}],
   wishingLake:[{path:'wishingLake'},{path:'items',keys:true},{path:'inventoryIcons'},{path:'companions',keys:true},{path:'balanceSettings.equipment'},{path:'balanceSettings.monsters.catalog',keys:true},{path:'balanceSettings.progression'},{path:'balanceSettings.maps.catalog',keys:true}],
-  life:[{path:'lifeSkills'},{path:'items',keys:true}],
+  crafting:[{path:'crafting'}],
   tutorials:[{path:'tutorials'},{path:'story.quests',keys:true},{path:'items',keys:true}],
-  story:[{path:'story'},{path:'balanceSettings.maps.catalog',keys:true},{path:'balanceSettings.monsters.catalog',keys:true},{path:'items',keys:true},{path:'lifeSkills.recipes'},{path:'skillSystem.definitions',keys:true},{path:'equipmentForms'}],
-  catalogue:[{path:'inventoryIcons'},{path:'items'},{path:'shopSettings'},{path:'lifeSkills'},{path:'companionTokens'},{path:'equipmentPowerSystem'},{path:'companions',keys:true},{path:'classes'},{path:'equipmentForms'},{path:'supportSkills'},{path:'starterPacks'},{path:'starterPackItems'},{path:'skillIcons'},{path:'balanceSettings.drops.entries'},{path:'balanceSettings.economy'},{path:'balanceSettings.equipment'},{path:'balanceSettings.maps.catalog',keys:true},{path:'balanceSettings.monsters.catalog',keys:true},{path:'balanceSettings.progression'},{path:'balanceSettings.quests'},{path:'balanceSettings.skills'}]
+  story:[{path:'story'},{path:'balanceSettings.maps.catalog',keys:true},{path:'balanceSettings.monsters.catalog',keys:true},{path:'items',keys:true},{path:'skillSystem.definitions',keys:true},{path:'equipmentForms'}],
+  catalogue:[{path:'inventoryIcons'},{path:'items'},{path:'shopSettings'},{path:'crafting'},{path:'companionTokens'},{path:'equipmentPowerSystem'},{path:'companions',keys:true},{path:'classes'},{path:'equipmentForms'},{path:'supportSkills'},{path:'starterPacks'},{path:'starterPackItems'},{path:'skillIcons'},{path:'balanceSettings.drops.entries'},{path:'balanceSettings.economy'},{path:'balanceSettings.equipment'},{path:'balanceSettings.maps.catalog',keys:true},{path:'balanceSettings.monsters.catalog',keys:true},{path:'balanceSettings.progression'},{path:'balanceSettings.quests'},{path:'balanceSettings.skills'}]
  };
  function inspect(d,{complete=true,scope=null,report=null}={}){
   const errors=[],add=(p,r,o)=>errors.push(issue(p,r,o));
@@ -677,7 +641,7 @@ root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,
   });
   run('power',()=>{
   const livePowerKeys=root.__EMBERWILD_EQUIPMENT_IDENTITY?.effectKeys;
-  if(livePowerKeys)for(const kind of ['prefixes','suffixes','bossAffixes'])for(const [i,row] of array(d.equipmentPowerSystem?.[kind]).entries()){
+  if(livePowerKeys)for(const kind of ['bossAffixes'])for(const [i,row] of array(d.equipmentPowerSystem?.[kind]).entries()){
    const allowed=kind==='bossAffixes'?livePowerKeys:livePowerKeys.filter(k=>!['gearAtkPct','bossDamagePct'].includes(k));
    for(const effect of kind==='bossAffixes'?row.effects||[]:[row.effect])if(!effect||!allowed.includes(effect.key)||(effect.key==='basicElement'?!['physical','fire','ice','wind','light','shadow'].includes(effect.value):!Number.isFinite(effect.value)))add('equipmentPowerSystem.'+kind+'.'+i+'.effect','未知裝備效果或效果值型別錯誤',row);
   }
@@ -699,17 +663,17 @@ root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,
   }
   });
   run('wishingLake',()=>{if(d.wishingLake!==undefined&&root.EmberwildWishingLake)for(const reason of root.EmberwildWishingLake.issues(d.wishingLake,d))errors.push(issue('wishingLake',reason));});
-  run('life',()=>{if(d.lifeSkills!==undefined)errors.push(...lifeIssues(d.lifeSkills,array(d.items)));});
-  run('story',()=>{if(d.story!==undefined&&root.EmberwildStory)for(const reason of root.EmberwildStory.issues(d.story,{maps:d.balanceSettings?.maps?.catalog,monsters:d.balanceSettings?.monsters?.catalog,items:array(d.items),recipes:d.lifeSkills?.recipes,skills:d.skillSystem?.definitions,forms:d.equipmentForms}))errors.push(issue('story',reason));});
+  run('crafting',()=>{if(d.crafting===undefined&&!complete)return;const r=d.crafting?.etherIron;if(!r||['dust','ore','quantity'].some(k=>!Number.isSafeInteger(r[k])||r[k]<1||r[k]>1e9)||Object.keys(r).some(k=>!['dust','ore','quantity'].includes(k)))add('crafting.etherIron','配方僅接受正整數的粉塵、鍛鐵及產出數量');});
+  run('story',()=>{if(d.story!==undefined&&root.EmberwildStory)for(const reason of root.EmberwildStory.issues(d.story,{maps:d.balanceSettings?.maps?.catalog,monsters:d.balanceSettings?.monsters?.catalog,items:array(d.items),skills:d.skillSystem?.definitions,forms:d.equipmentForms}))errors.push(issue('story',reason));});
   run('tutorials',()=>{if(d.tutorials!==undefined&&root.EmberwildTutorial)for(const reason of root.EmberwildTutorial.issues(root.EmberwildTutorial.normalize(d.tutorials),{quests:d.story?.quests,items:array(d.items)}))errors.push(issue('tutorials',reason));});
   run('catalogue',()=>{if(root.EmberwildInventoryIcons)errors.push(...root.EmberwildInventoryIcons.issues(d).map(reason=>issue('inventoryIcons',reason)));});
   if(report)report.blocks=ran;
   return errors;
  }
  function migrate(input,defaults){
+  if(input&&Object.hasOwn(input,'lifeSkills')){input=copy(input);delete input.lifeSkills;} // Discard the retired root when importing older documents.
   const errors=inspect(input,{complete:input?.schemaVersion!==undefined});if(errors.length)throw Object.assign(Error(errors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:errors});
   const d=root.EmberwildHealingPotions?root.EmberwildHealingPotions.migrate(copy(input)):copy(input);if(d.schemaVersion===undefined){if(!defaults)throw Error('舊 JSON 需要有效的遷移基準');for(const k of REQUIRED)if(d[k]===undefined)d[k]=copy(defaults[k]);d.schemaVersion=VERSION;}
-  d.lifeSkills=normalizeLife(d.lifeSkills,array(d.items));
   if(root.EmberwildInventoryIcons)Object.assign(d, root.EmberwildInventoryIcons.migrateDescriptions(d,{hydrate:true}));
   const full=inspect(d);if(full.length)throw Object.assign(Error(full.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:full});return d;
  }
@@ -718,6 +682,6 @@ root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,
   function types(v,b,p){if(b===null||b===undefined||v===undefined)return;if(v===null){if(['mastery','requiredMastery','partnerId','unitPrice','control','durationSeconds'].includes(p.split('.').at(-1)))return;typeErrors.push(issue(p,'此欄位不可為 null'));return;}if(Array.isArray(b)){if(!Array.isArray(v)){typeErrors.push(issue(p,'必須為陣列'));return;}for(let i=0;i<v.length;i++)types(v[i],b[i]??b[0],p+'.'+i);return;}if(typeof b==='object'){if(!v||typeof v!=='object'||Array.isArray(v)){typeErrors.push(issue(p,'必須為物件'));return;}for(const k of Object.keys(v))types(v[k],b[k],p+'.'+k);return;}if(!/\.(key|value)$/.test(p)&&typeof v!==typeof b)typeErrors.push(issue(p,'型別必須為 '+typeof b));}
   if(defaults)types(d,defaults,'$');if(typeErrors.length)throw Object.assign(Error(typeErrors.map(x=>x.system+' '+x.object+' '+x.field+'：'+x.reason).join('\n')),{issues:typeErrors});
 if(domainValidate){try{domainValidate(copy(d));}catch(e){throw Object.assign(Error(e.message),{issues:e.issues||[issue('domain',e.message)]});}}return d;}
- const api={READS,balanceModulesVersion:1,tutorialsVersion:1,textOverridesVersion:1,combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1,wishingLakeVersion:1,healingPotionVersion:1,attributeGemsVersion:1,storyEquipmentLessonsVersion:1,skillSystemVersion:1,questEncountersVersion:1,consumableClockVersion:1,equipmentAcquisitionVersion:1,storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,lifeDefaults,normalizeLife,lifeIssues,itemDetailsVersion:2,lifeShopMaterialsVersion:1,lifeProductsVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
+ const api={READS,balanceModulesVersion:1,tutorialsVersion:1,textOverridesVersion:1,combatTimingVersion:1,independentActionsVersion:1,continuousExplorationVersion:1,wishingLakeVersion:1,healingPotionVersion:1,attributeGemsVersion:1,storyEquipmentLessonsVersion:1,skillSystemVersion:1,questEncountersVersion:1,consumableClockVersion:1,equipmentAcquisitionVersion:1,storyVersion:1,starterMailVersion:1,monsterDesignVersion:1,iconColorTemplatesVersion:1,inventoryIconsVersion:2,VERSION,SCHEMA,REQUIRED,copy,inspect,migrate,validate,itemDetailsVersion:2,craftingVersion:1};root.EmberwildBalanceDocument=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(globalThis);
 

@@ -52,7 +52,7 @@
   markDirty();return M.issues(c,data);
  }
  function id(rows,prefix){let n=1;while(rows.some(r=>r.id===prefix+n))n++;return prefix+n;}
- function add(type,index=0){const c=config();if(type==='input')c.inputs.push({id:id(c.inputs,'offering'),kind:'material',key:'紅色草',enabled:false,quantityMode:'fixed',min:20,max:20,poolId:c.pools[0]?.id||'',specialTrigger:''});
+ function add(type,index=0){const c=config();if(type==='input')c.inputs.push({id:id(c.inputs,'offering'),kind:'material',key:'黏稠凝膠',enabled:false,quantityMode:'fixed',min:20,max:20,poolId:c.pools[0]?.id||'',specialTrigger:''});
   else if(type==='pool'){const p=copy(M.defaults().pools[0]);p.id=id(c.pools,'pool');p.name='新回贈池';c.pools.push(p);selectedPool=p.id;}
   else if(type==='reward')c.pools[index].rewards.push({id:id(c.pools[index].rewards,'reward'),type:'item',kind:'item',key:'heal_small',min:1,max:1,weight:1,minMapId:c.unlock.mapId,enabled:false,allowAhead:false});
   else if(type==='band')c.gold.bands.push({min:500,max:1999,weight:1});
@@ -68,3 +68,4 @@
  globalThis.__EMBERWILD_LAKE_EDITOR={config,update,add,remove,simulate:options=>M.simulate(config(),data,options),issues:()=>M.issues(config(),data),open:()=>{currentSection='wishingLake';render();}};
  requestEditorInitialRender();
 })();
+

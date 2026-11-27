@@ -14,8 +14,8 @@ test('all original and canonical pages remain reachable; common controls do not 
  assert.equal(r.run('JSON.stringify(__EMBERWILD_RELEASE_EDITOR.current())'),before);assert.deepEqual(r.errors,[]);
 });
 test('search locates pages, a specific item and skill; back restores the original class selection',()=>{
- const r=editor(),X=r.ctx.__EMBERWILD_EXPERIENCE;assert(X.search('發布').some(x=>x.section==='releases'));const item=X.search('紅色草').find(x=>x.id==='material:紅色草');assert(item);
- r.run('currentSection="classes";selected.class=2;render();');X.go(item);assert.equal(r.run('currentSection'),'inventoryIcons');assert.equal(r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR.state.selectedId,'material:紅色草');X.back();assert.equal(r.run('currentSection'),'classes');assert.equal(r.run('selected.class'),2);
+ const r=editor(),X=r.ctx.__EMBERWILD_EXPERIENCE;assert(X.search('發布').some(x=>x.section==='releases'));const item=X.search('光輝碎塊').find(x=>x.id==='material:光輝碎塊');assert(item);
+ r.run('currentSection="classes";selected.class=2;render();');X.go(item);assert.equal(r.run('currentSection'),'inventoryIcons');assert.equal(r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR.state.selectedId,'material:光輝碎塊');X.back();assert.equal(r.run('currentSection'),'classes');assert.equal(r.run('selected.class'),2);
  const skillName=r.run('data.classes[1].skills[1].name');const skill=X.search(skillName).find(x=>x.selection?.skillClass===1);assert(skill);X.go(skill);assert.equal(r.run('selected.skillClass'),1);assert.equal(r.run('selected.skill'),1);assert.equal(r.run('currentSection'),'skillSystem');
 });
 test('invalid raw text survives navigation and reload, does not change data, and blocks publishing/export',async()=>{
@@ -36,3 +36,4 @@ test('view and version message survive reload outside the game JSON; unknown pag
 test('semantic diff IDs locate the intended skill and item without editing data',()=>{
  const r=editor(),X=r.ctx.__EMBERWILD_EXPERIENCE,before=r.run('JSON.stringify(data)'),id=r.run('data.classes[2].skills[1].id');X.jumpPath('classes.2.skills.'+id+'.power');assert.equal(r.run('currentSection'),'skillSystem');assert.equal(r.run('selected.skillClass'),2);assert.equal(r.run('selected.skill'),1);X.jumpPath('items.heal_supreme.cooldown');assert.equal(r.ctx.__EMBERWILD_INVENTORY_ICON_EDITOR.state.selectedId,'item:heal_supreme');assert.equal(r.run('JSON.stringify(data)'),before);
 });
+

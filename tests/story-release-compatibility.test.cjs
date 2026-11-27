@@ -9,10 +9,11 @@ test('story publication requires target runtime and compiled validator preserves
  const s=new ReleaseService({validate:x=>x,api:async p=>{
   if(p.includes('/git/ref/heads/'))return {object:{sha:p.endsWith('main')?head:source}};
   if(p.includes('/compare/'))return {status:'ahead'};
-  if(p.includes('/contents/js/'))return {type:'file',encoding:'base64',content:Buffer.from(supported?'const api={storyVersion:1,questEncountersVersion:1,attributeGemsVersion:1,storyEquipmentLessonsVersion:1};':'const api={version:1};').toString('base64')};
+  if(p.includes('/contents/js/'))return {type:'file',encoding:'base64',content:Buffer.from(supported?'const api={storyVersion:1,questEncountersVersion:1,attributeGemsVersion:1,equipmentGemModeVersion:2,storyEquipmentLessonsVersion:1};':'const api={version:1};').toString('base64')};
   return {type:'file',encoding:'base64',sha:head,content:Buffer.from(JSON.stringify(p.endsWith('ref='+head)?{}:candidate)).toString('base64')};
  }});
  const args={kind:'promote',sourceCommit:source,expectedCommit:head,message:'發布任務設定'};
- await assert.rejects(s.prepare(args,'s'),/尚未支援屬性寶石/);assert.equal(s.tickets.size,0);
+ await assert.rejects(s.prepare(args,'s'),/尚未支援(?:屬性寶石|第一孔規則與裝備教學任務)/);assert.equal(s.tickets.size,0);
  supported=true;assert.equal((await s.prepare(args,'s')).branch,'main');
 });
+
