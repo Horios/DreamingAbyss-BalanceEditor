@@ -137,6 +137,8 @@ function valueHint(k,v){
  const R=base?._reference||{};if(typeof v!=='string')return '';
  const tables={element:R.elements,race:R.races,activation:R.activations,effect:R.effects,quality:R.qualities,type:R.itemTypes};
  const t=tables[k];if(t&&t[v])return t[v];
+ if(k==='stat'&&{atk:1,attackSpeedPct:1,crit:1,hp:1,def:1}[v])return {atk:'攻擊',attackSpeedPct:'攻擊速度',crit:'暴擊率',hp:'生命',def:'防禦'}[v]+'（寶石可用：atk、attackSpeedPct、crit、hp、def）';
+ if(k==='unit'&&{flat:1,percent:1,ratio:1}[v])return {flat:'固定值',percent:'百分比（1＝1%，攻擊速度用）',ratio:'比例（0.01＝1%）'}[v];
  for(const t2 of [R.elements,R.races,R.activations,R.effects,R.qualities])if(t2&&typeof t2[v]==='string'&&(k===undefined))return t2[v];
  if(R.equipmentExclusive?.[v])return R.equipmentExclusive[v];
  return '';
@@ -723,7 +725,7 @@ function renderData(){
  if(tableable&&ui.table)return h+renderTable(cat,rows);
  h+=`<div class="hint">${rows.length}／${entries.length} 筆 · 點選開啟編輯</div><div class="list">`;
  for(const [k,v] of rows.slice(0,400)){const p=cat.path.concat(k);const changed=JSON.stringify(getAt(base,p))!==JSON.stringify(v);
-  h+=`<div class="item" data-open="${esc(JSON.stringify(p))}"><span>${changed?'<b style="color:#f5b942">● </b>':''}${esc(labelOf(v,k))}</span><small>${esc(Array.isArray(coll)?'#'+k:k)}</small></div>`;}
+  h+=`<div class="item" data-open="${esc(JSON.stringify(p))}"><span>${changed?'<b style="color:#f5b942">● </b>':''}${esc(friendlyLabel(p,v)||labelOf(v,k))}</span><small>${esc(Array.isArray(coll)?'#'+k:k)}</small></div>`;}
  h+='</div>';
  if(rows.length>400)h+=`<p class="hint">僅顯示前 400 筆，請用篩選縮小範圍。</p>`;
  if(tableable)h+=`<div class="row" style="margin-top:8px"><button data-act="dup-last" data-path="${esc(JSON.stringify(cat.path))}">＋ 複製最後一筆新增</button></div>`;
@@ -804,7 +806,7 @@ function renderEditor(path){
  let h=crumbs(path);
  if(v===undefined)return h+'<p class="hint">此路徑已不存在。</p>';
  const ps=esc(JSON.stringify(path)),pinned=(ui.pins||[]).includes(JSON.stringify(path));
- h+=`<div class="card"><b>${esc(labelOf(v,path[path.length-1]))}</b><div class="hint">${esc(pathText(path))}</div>`;
+ h+=`<div class="card"><b>${esc(friendlyLabel(path,v)||labelOf(v,path[path.length-1]))}</b><div class="hint">${esc(pathText(path))}</div>`;
  const iconFocus=imFocusFor(path);
  h+=`<div class="row"><button data-act="pin" data-path="${ps}">${pinned?'取消釘選':'📌 釘選'}</button>${iconFocus?`<button data-act="icon-design" data-focus="${esc(JSON.stringify(iconFocus))}">🎨 設計圖示</button>`:''}<button data-act="raw" data-path="${ps}">以 JSON 編輯</button>`;
  const parent=getAt(draft,path.slice(0,-1));
@@ -812,7 +814,8 @@ function renderEditor(path){
  if(JSON.stringify(getAt(base,path))!==JSON.stringify(v)&&getAt(base,path)!==undefined)h+=`<button data-act="revert" data-path="${ps}">還原此項</button>`;
  h+='</div>'+preview(v,path)+'</div>';
  if(ui.raw===pathText(path))return h+`<textarea data-raw style="min-height:50vh">${esc(JSON.stringify(v,null,2))}</textarea><div class="row" style="margin-top:6px"><button class="primary" data-act="raw-save" data-path="${ps}">儲存 JSON</button><button data-act="raw-cancel">取消</button></div>`;
- return h+renderFields(v,path,0);
+ const isGem=path.length===3&&path[0]==='skillSystem'&&path[1]==='gems';
+ return h+(isGem?gemCard(path):'')+renderFields(v,path,0);
 }
 // 戰鬥數值預覽
 function preview(v,path){
@@ -1161,6 +1164,51 @@ function onPanelInput(e){
   const T=globalThis.EmberwildTextOverrides;if(T?.preview){const list=overrides().filter(x=>x.source!==pendingText.source);if(t.value&&t.value!==pendingText.source)list.push({source:pendingText.source,text:t.value});try{T.preview({version:1,entries:list});}catch{}}}
 }
 
+// ---------- 清單標示 ----------
+// 以索引或代碼為鍵的資料（依職業分組的陣列、設定物件、背包圖示）改用職業名稱、中文鍵名或物品名稱顯示。
+const SLOT_ZH=['武器','防具','副手','飾品'];
+const KIND_ZH={equipment:'裝備',item:'道具',material:'素材',gem:'寶石',token:'信物',skill:'技能'};
+function jobName(j){const c=draft.classes?.[j];return c?.name||('第 '+j+' 組');}
+let itemNameCache=null;
+function itemName(kind,key){
+ if(!itemNameCache||itemNameCache.doc!==draft){itemNameCache={doc:draft,map:new Map()};try{for(const r of globalThis.EmberwildInventoryIcons.entries(draft))itemNameCache.map.set(r.kind+':'+r.key,r.baseName||r.name);}catch{}}
+ return itemNameCache.map.get(kind+':'+key)||'';
+}
+function friendlyLabel(path,v){
+ const k=path[path.length-1],parent=path.slice(0,-1),at=(...p)=>parent.length===p.length&&p.every((x,i)=>parent[i]===x);
+ const n=a=>Array.isArray(a)?a.length:0;
+ if(at('skillSystem','gems'))return gemLabel(v);
+ if(at('skillSystem','classRules')&&v&&typeof v==='object')return jobName(v.job)+' · 技能規則（初始 '+n(v.initial)+'、進階 '+n(v.advanced)+'）';
+ if(at('supportSkills'))return jobName(k)+' · 輔助技能 '+n(v)+' 筆';
+ if(at('starterPacks'))return jobName(k)+' · 新手包 '+n(v)+' 件';
+ if(at('equipmentForms')){const names=(v||[]).map((s,i)=>(SLOT_ZH[i]||'部位'+i)+' '+n(s));return (draft.classes?.[k]?jobName(k):'第 '+k+' 組（特殊／掉落）')+' · 裝備類型 '+names.join('、');}
+ if(parent.length===2&&parent[0]==='equipmentForms')return jobName(parent[1])+' · '+(SLOT_ZH[k]||'部位 '+k)+' '+n(v)+' 種';
+ if(at('inventoryIcons')&&v&&typeof v==='object'){const name=v.displayName||itemName(v.kind,String(v.key))||String(v.key);return (KIND_ZH[v.kind]||v.kind)+' · '+name+(v.displayName?'':' · '+v.key);}
+ if(typeof k==='string'&&v&&typeof v==='object'){const zh=zhKey(k);if(zh&&zh!==k){const inner=labelOf(v,k);return zh+' · '+k+(inner&&inner!==k?' · '+inner:'');}}
+ if(typeof k==='string'&&(v===null||typeof v!=='object')){const zh=zhKey(k);if(zh&&zh!==k)return zh+'：'+String(v).slice(0,40);}
+ return '';
+}
+// ---------- 寶石 ----------
+// skillSystem.gems 只有 5 種效果（kind 0～4），各 3 階數值；名稱、說明、顏色、圖示在 inventoryIcons 的 gem 列，
+// 識別碼 = (階級-1)×5 + kind（與遊戲 GEMS 編號相同）。
+const GEM_STAT={atk:'攻擊',attackSpeedPct:'攻擊速度',crit:'暴擊率',hp:'生命',def:'防禦'};
+const GEM_UNIT={flat:'固定值',percent:'百分比（1＝1%）',ratio:'比例（0.01＝1%）'};
+function gemRows(kind){const rows=Array.isArray(draft.inventoryIcons)?draft.inventoryIcons:[];return [0,1,2].map(t=>{const key=String(t*5+kind),i=rows.findIndex(r=>r.kind==='gem'&&String(r.key)===key);return {tier:t+1,key,index:i,row:rows[i]};});}
+function gemValue(g,v){return g.base?.unit==='ratio'?Math.round(v*1000)/10+'%':g.base?.unit==='percent'?v+'%':String(v);}
+function gemLabel(g){if(!g||typeof g!=='object')return '';const n=gemRows(g.kind)[0].row?.displayName||'';return (n?n.replace(/・?1階$/,'')+' · ':'')+(GEM_STAT[g.base?.stat]||g.base?.stat||'')+' '+(g.base?.values||[]).map(v=>'+'+gemValue(g,v)).join('／');}
+function gemCard(path){
+ const g=getAt(draft,path);if(!g||typeof g!=='object')return '';
+ let h=`<div class="card"><b>寶石名稱與說明（3 階）</b><div class="hint">這是第 ${esc(g.kind)} 種寶石效果：${esc(GEM_STAT[g.base?.stat]||g.base?.stat)}，單位為${esc(GEM_UNIT[g.base?.unit]||g.base?.unit)}。下方「數值表」依序是 1、2、3 階的加成。名稱與說明存在「背包圖示」的寶石資料；改數值後說明不會自動更新，請一併修改。</div>`;
+ for(const r of gemRows(g.kind)){
+  const v=g.base?.values?.[r.tier-1];
+  if(r.index<0){h+=`<div class="hint">${r.tier} 階（寶石 ${r.key}）：背包圖示中沒有這筆資料。</div>`;continue;}
+  const fp=k=>esc(JSON.stringify(['inventoryIcons',r.index,k]));
+  h+=`<div class="field"><label><span class="zh">${r.tier} 階名稱</span><span class="en">寶石 ${r.key} · 加成 +${esc(gemValue(g,v))}</span></label><input data-field="${fp('displayName')}" value="${esc(r.row.displayName||'')}"></div>`;
+  h+=`<div class="field"><label><span class="zh">${r.tier} 階說明</span><span class="en">description</span></label><input data-field="${fp('description')}" value="${esc(r.row.description||'')}"></div>`;
+  h+=`<div class="row" style="margin:2px 0 6px"><button class="fit mini" data-open="${esc(JSON.stringify(['inventoryIcons',r.index]))}">顏色、售價等完整資料</button><button class="fit mini" data-act="icon-design" data-focus="${esc(JSON.stringify({type:'item',kind:'gem',key:r.key}))}">🎨 設計圖示</button></div>`;
+ }
+ return h+'</div>';
+}
 // ---------- 圖示製作器 ----------
 // 自製 SVG 圖示存在 draft.skillIcons；技能以 skillSystem.definitions[].iconType（及舊版 classes／supportSkills 對應列）、
 // 道具與裝備以 inventoryIcons[].iconType 引用 'custom:<id>'。繪製一律使用遊戲的 __EMBERWILD_SKILL_ICONS，畫布與遊戲顯示相同。

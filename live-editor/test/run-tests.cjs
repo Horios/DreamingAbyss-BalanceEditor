@@ -150,6 +150,15 @@ function startServer(game,port){
    cp.execFileSync(process.execPath,[path.join(GAME,'scripts','balance-modules.cjs'),'check'],{cwd:GAME,stdio:'pipe'});
    const doc=JSON.parse(fs.readFileSync(path.join(GAME,'data','balance.json'),'utf8'));assert(doc.items[0].cost===777,'提交內容錯誤');});
 
+  await test('寶石顯示名稱並可修改各階名稱',async()=>{
+   await host.locator('[data-tab=data]').click();await host.locator('[data-cat=gems]').click();
+   assert((await host.locator('.list').innerText()).includes('攻擊 +2'),'清單沒有顯示寶石效果');
+   await host.locator('.list .item').first().click();
+   const f=host.locator('input[data-field*="displayName"]').first();await f.fill('測試寶石・1階');await f.dispatchEvent('change');await E(()=>DreamingAbyssLiveEditor.apply());
+   assert(await E(()=>GEMS[0].name)==='測試寶石・1階','遊戲寶石名稱未更新');
+   await host.locator('.foot [data-act=undo]').click();await E(()=>DreamingAbyssLiveEditor.apply());
+  });
+
   await test('圖示製作器：繪製 SVG 並套用到技能與裝備',async()=>{
    if(!(await host.locator('.panel').count()))await host.locator('button.fab').click();
    await host.locator('[data-tab=icons]').click();
