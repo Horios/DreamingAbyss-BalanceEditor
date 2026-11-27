@@ -389,7 +389,7 @@ async function exportModules(onlyChanged){
 }
 // 由本機伺服器寫入遊戲 repository 並建立分支提交
 let serverInfo=null;
-async function probeServer(){try{const r=await fetch('/__live-editor/status',{cache:'no-store'});serverInfo=r.ok?await r.json():null;}catch{serverInfo=null;}}
+async function probeServer(){if(globalThis.__DA_BUNDLED__){serverInfo=null;return;}try{const r=await fetch('/__live-editor/status',{cache:'no-store'});serverInfo=r.ok?await r.json():null;}catch{serverInfo=null;}}
 async function publishToGame(){
  if(!serverInfo?.git){setStatus(false,'本機伺服器沒有遊戲 git repository，無法直接提交');return;}
  const branch=root.querySelector('[data-pub-branch]')?.value.trim(),message=root.querySelector('[data-pub-msg]')?.value.trim(),push=root.querySelector('[data-pub-push]')?.checked;
@@ -1025,7 +1025,7 @@ function renderExport(){
   <div class="row"><input data-pub-branch value="balance/${stamp()}" placeholder="新分支名稱"></div>
   <div class="row"><input data-pub-msg placeholder="提交說明" value="平衡調整（即時平衡器）"></div>
   <label class="hint" style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-pub-push>提交後推送到遠端（需本機已有推送權限）</label>
-  <button class="primary" data-act="publish" ${sv.dirty?'disabled':''}>建立分支並提交</button>`:`<p class="hint">需要用 <code>npm run live</code> 啟動本機伺服器，且遊戲資料夾是 git repository。${sv?'目前遊戲資料夾不是 git repository。':'目前沒有連到本機伺服器。'}</p>`}</div>
+  <button class="primary" data-act="publish" ${sv.dirty?'disabled':''}>建立分支並提交</button>`:`<p class="hint">需要用 <code>npm run live</code> 啟動本機伺服器，且遊戲資料夾是 git repository。${sv?'目前遊戲資料夾不是 git repository。':'目前沒有連到本機伺服器（單檔 HTML 模式請改用上方「輸出遊戲模組檔」）。'}</p>`}</div>
  <div class="card"><b>匯入</b><p class="hint">讀入先前匯出的 JSON 繼續編輯。</p><input type="file" accept=".json,application/json" data-import></div>
  <div class="card"><b>重設</b><p class="hint">捨棄所有修改，回到遊戲目前發布的版本。草稿自動保存在此瀏覽器，重新整理後會自動套用。</p><button class="danger" data-act="reset">回到發布版本</button></div>
  <p class="hint">即時平衡器 v${VERSION} · 遊戲資料修訂 ${esc(globalThis.__EMBERWILD_BALANCE_MODULES?.dataRevision??'—')}</p>`;

@@ -21,6 +21,15 @@ node live-editor/server.cjs /path/to/DreamingAbyss --port 9000
 
 伺服器只在遊戲 `index.html` 結尾注入 `live-editor/live-editor.js`，不修改遊戲任何檔案（除非使用「直接提交到遊戲分支」）。伺服器只聽本機 127.0.0.1。
 
+## 單檔 HTML（不需伺服器）
+
+```bash
+npm run build:html
+```
+
+產生 `live-editor/dist/dreaming-abyss-live-editor.html`，內含遊戲與平衡器，雙擊即可用瀏覽器開啟。遊戲程式、樣式與 `data/` 全部內嵌，以遊戲資料夾當下的版本為準。
+單檔模式沒有本機伺服器，「直接提交到遊戲分支」不可用；請改用「輸出遊戲模組檔」ZIP。其餘功能相同。CI 每次也會打包一份，可在 Actions 的 artifact 下載。
+
 ## 功能
 
 ### 找資料

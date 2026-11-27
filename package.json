@@ -9,6 +9,7 @@
     "build": "bash scripts/build.sh",
     "test": "node live-editor/test/run-tests.cjs",
     "validate": "node scripts/validate-artifact.mjs",
-    "live": "node live-editor/server.cjs"
+    "live": "node live-editor/server.cjs",
+    "build:html": "node live-editor/build-html.cjs"
   }
 }

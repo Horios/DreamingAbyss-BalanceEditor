@@ -48,3 +48,12 @@ jobs:
       - name: 整合測試
         working-directory: DreamingAbyss-BalanceEditor
         run: node live-editor/test/run-tests.cjs ../DreamingAbyss
+      - name: 打包單檔 HTML
+        if: always()
+        working-directory: DreamingAbyss-BalanceEditor
+        run: node live-editor/build-html.cjs ../DreamingAbyss
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dreaming-abyss-live-editor-html
+          path: DreamingAbyss-BalanceEditor/live-editor/dist/dreaming-abyss-live-editor.html

@@ -38,7 +38,8 @@ async function publish(req,res){
  const files=body.files&&typeof body.files==='object'?body.files:{};
  const names=Object.keys(files);if(!names.length)return json(res,400,{ok:false,error:'沒有檔案'});
  for(const n of names){const full=path.resolve(GAME,n);if(!n.startsWith('data/')||!full.startsWith(path.join(GAME,'data')+path.sep)||typeof files[n]!=='string')return json(res,400,{ok:false,error:'不允許的檔案路徑：'+n});}
- const start=st.branch;
+ // 原本位置：分支名稱，或 detached HEAD 時的 commit
+ const start=st.branch==='HEAD'?st.head:st.branch,back=()=>st.branch==='HEAD'?git('switch','--detach',start):git('switch',start);
  try{
   git('switch','-c',branch);
   for(const n of names){const full=path.resolve(GAME,n);fs.mkdirSync(path.dirname(full),{recursive:true});fs.writeFileSync(full,files[n]);}
@@ -53,13 +54,13 @@ async function publish(req,res){
   const commit=git('rev-parse','HEAD');
   let pushed=false;
   if(body.push){try{git('push','-u','origin',branch);pushed=true;}catch(e){note+='推送失敗：'+String(e.stderr||e.message).trim()+'（已在本機提交）';}}
-  git('switch',start);
-  return json(res,200,{ok:true,branch,commit,pushed,note:note+'遊戲資料夾已切回 '+start+'。'});
+  back();
+  return json(res,200,{ok:true,branch,commit,pushed,note:note+'遊戲資料夾已切回 '+(st.branch==='HEAD'?start.slice(0,7):start)+'。'});
  }catch(e){
   // 失敗時還原：丟棄寫入、回到原分支並刪除新分支
   try{git('checkout','--','.');}catch{}
   try{git('clean','-fd','--','data');}catch{}
-  try{git('switch',start);}catch{}
+  try{back();}catch{}
   try{git('branch','-D',branch);}catch{}
   return json(res,500,{ok:false,error:String(e.message||e).slice(0,2000)});
  }
