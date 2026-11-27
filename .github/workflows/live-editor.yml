@@ -1,0 +1,50 @@
+# 即時平衡器 CI：取得遊戲最新測試版，在 headless Chromium 中跑即時平衡器整合測試。
+name: Live balance editor
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      game_ref:
+        description: Horios/DreamingAbyss 要測試的分支、標籤或 commit
+        required: false
+        default: chatgpt-dev
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-editor-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: 即時平衡器整合測試
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: DreamingAbyss-BalanceEditor
+      - uses: actions/checkout@v4
+        with:
+          repository: Horios/DreamingAbyss
+          ref: ${{ github.event.inputs.game_ref || 'chatgpt-dev' }}
+          path: DreamingAbyss
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: 安裝 Playwright
+        working-directory: DreamingAbyss-BalanceEditor
+        run: |
+          npm install --no-save --no-package-lock playwright@1.49.1
+          npx playwright install --with-deps chromium
+      - name: 語法檢查
+        working-directory: DreamingAbyss-BalanceEditor
+        run: |
+          node --check live-editor/live-editor.js
+          node --check live-editor/server.cjs
+      - name: 整合測試
+        working-directory: DreamingAbyss-BalanceEditor
+        run: node live-editor/test/run-tests.cjs ../DreamingAbyss
