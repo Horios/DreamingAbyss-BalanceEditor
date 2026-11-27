@@ -1,3 +1,11 @@
+# 夢淵 平衡器
+
+## 即時平衡器（建議使用）
+
+`npm run live` 後開啟 http://localhost:8787/ ，在遊戲畫面上直接修改文字、道具、技能、夥伴等全部設定，並一鍵匯出完整 JSON。說明見 [live-editor/README.md](live-editor/README.md)。
+
+---
+
 # Sites Worker ESM starter
 
 Use this starter for a static microsite, click counter, or simple internal UI whose state is browser-scoped. It has no dependencies and needs no install.
