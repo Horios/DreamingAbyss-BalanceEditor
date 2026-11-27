@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "8b78cdae448ec6b5c382889451bb46779ee3bc88",
+  "sourceCommit": "847e2ab8c6da8fb4d1c4f82803a164e1199a9e22",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -100,7 +100,7 @@
     },
     {
       "path": "js/world/quest-design-model.js?v=20261126-v0216-material-economy",
-      "sha256": "d7602583e1d820fea02bf4e39b817d573d6fc65e02639c49a798865b392f6e33"
+      "sha256": "46daeba91b509d5c5751095f57aa5b7b657085d46a42d596fbba2c0d4faa645f"
     },
     {
       "path": "js/world/commission-model.js?v=20261126-v0216-material-economy",
@@ -120,7 +120,7 @@
     },
     {
       "path": "js/core/game-catalog.js?v=20261126-v0215-merge",
-      "sha256": "e3714970d1e3bc26f3660fb1e05607643d41573d9c38cb8c2ecbfcb7d0fe6324"
+      "sha256": "a1540381fc09d42f0e22e1433b85744d2ed6b95c3ca27855e8c5dddb14dc7ffd"
     },
     {
       "path": "js/balance/game-balance-defaults.js?v=20261022-core-catalog1",
@@ -128,7 +128,7 @@
     },
     {
       "path": "js/balance/gameplay-defaults.js?v=20261126-v0217-gem-dust",
-      "sha256": "53692db491a0e1b7722208e2589dd10bf6d2b601de1b3326293c46841c26586c"
+      "sha256": "f112228f391a0ae03fee5506b34502a40d9fa83a9224107ce61b727b1727f991"
     },
     {
       "path": "js/core/save-validation.js?v=20261126-v0223-retired-board",
@@ -316,7 +316,7 @@
     },
     {
       "path": "js/skills/status-maker.js?v=20261112-v0131-numbers7",
-      "sha256": "b0adde69a7e63332e57a52621d20e7ed656b5f7649866b3ff6e59a28bcb7de03"
+      "sha256": "82e762d710480ad8d7fafb13aaf64b3b93d3d0637d24d3aed6171b03f52af1fb"
     },
     {
       "path": "js/combat/shared-skill-runtime.js?v=20261112-v0131-numbers7",
@@ -340,7 +340,7 @@
     },
     {
       "path": "js/character/companions.js?v=20261124-v0211-grid",
-      "sha256": "6c8c6152dfe63e698cb94425cb77b96db01b1bab9d9454cc8549c6e349aa97f2"
+      "sha256": "fd4a424e7fec76ef4d3f9927e5dca6373f6fd25e92f6f808add3a3c57ebee551"
     },
     {
       "path": "js/balance/progression-runtime.js?v=20261123-v0192-floor",
@@ -467,8 +467,8 @@
       "sha256": "163eaffad9a5e8aeac7679394d1521f5f0ea0fc5db3bc7b5158587169c6cc179"
     },
     {
-      "path": "js/story/story-runtime.js?v=20261126-v0222-save-cleanup",
-      "sha256": "6e32dec183c2183c6822402df2d82a345cc6d4a49c1fa1d707f81d51a6d0352a"
+      "path": "js/story/story-runtime.js?v=20261127-v0226-story-cleanup",
+      "sha256": "d73dc75595091630cefd8ebcd2fb1b3455a1fc5d5d644d93c4484ae7ddcc6e43"
     },
     {
       "path": "js/ui/mobile-layout.js?v=20261118-v0158-merge1",
@@ -496,7 +496,7 @@
     },
     {
       "path": "js/ui/skill-system-ui.js?v=20261124-v0214-skillpage",
-      "sha256": "91677a19cad78a3230f4a26faa4bea2548ad6b05f1b17a867c701606d53f243f"
+      "sha256": "87484fbf79d225039af9714e0e91bb93d22074a3e420cb1a074563ccdac23495"
     },
     {
       "path": "js/ui/class-mastery-tree.js?v=20261124-v0212-skills",
@@ -580,7 +580,7 @@
     },
     {
       "path": "js/ui/skill-page.js?v=20261126-v0220-upstream-fix",
-      "sha256": "5c14b3aab3db4066cab0d14d34a03e30a8540a020ffbe4422972aefbff7776c4"
+      "sha256": "e5d4a4ac0c77b0fc12345dd5b0a83f1a56fa1908c079325b656f49c624831278"
     },
     {
       "path": "js/ui/inventory-grid.js?v=20261126-v0217-gem-dust",

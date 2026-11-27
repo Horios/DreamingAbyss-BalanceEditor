@@ -1,5 +1,5 @@
 {
-  "gameCommit": "8b78cdae448ec6b5c382889451bb46779ee3bc88",
+  "gameCommit": "847e2ab8c6da8fb4d1c4f82803a164e1199a9e22",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -31,7 +31,7 @@
     },
     {
       "path": "js/balance/gameplay-defaults.js",
-      "sha256": "53692db491a0e1b7722208e2589dd10bf6d2b601de1b3326293c46841c26586c"
+      "sha256": "f112228f391a0ae03fee5506b34502a40d9fa83a9224107ce61b727b1727f991"
     },
     {
       "path": "js/balance/gameplay-settings-schema.js",
@@ -75,7 +75,7 @@
     },
     {
       "path": "js/character/companions.js",
-      "sha256": "6c8c6152dfe63e698cb94425cb77b96db01b1bab9d9454cc8549c6e349aa97f2"
+      "sha256": "fd4a424e7fec76ef4d3f9927e5dca6373f6fd25e92f6f808add3a3c57ebee551"
     },
     {
       "path": "js/character/level-removal.js",
@@ -167,7 +167,7 @@
     },
     {
       "path": "js/core/game-catalog.js",
-      "sha256": "e3714970d1e3bc26f3660fb1e05607643d41573d9c38cb8c2ecbfcb7d0fe6324"
+      "sha256": "a1540381fc09d42f0e22e1433b85744d2ed6b95c3ca27855e8c5dddb14dc7ffd"
     },
     {
       "path": "js/core/save-validation.js",
@@ -335,7 +335,7 @@
     },
     {
       "path": "js/skills/status-maker.js",
-      "sha256": "b0adde69a7e63332e57a52621d20e7ed656b5f7649866b3ff6e59a28bcb7de03"
+      "sha256": "82e762d710480ad8d7fafb13aaf64b3b93d3d0637d24d3aed6171b03f52af1fb"
     },
     {
       "path": "js/skills/support-debuff.js",
@@ -359,7 +359,7 @@
     },
     {
       "path": "js/story/story-runtime.js",
-      "sha256": "6e32dec183c2183c6822402df2d82a345cc6d4a49c1fa1d707f81d51a6d0352a"
+      "sha256": "d73dc75595091630cefd8ebcd2fb1b3455a1fc5d5d644d93c4484ae7ddcc6e43"
     },
     {
       "path": "js/story/story-window.js",
@@ -511,11 +511,11 @@
     },
     {
       "path": "js/ui/skill-page.js",
-      "sha256": "5c14b3aab3db4066cab0d14d34a03e30a8540a020ffbe4422972aefbff7776c4"
+      "sha256": "e5d4a4ac0c77b0fc12345dd5b0a83f1a56fa1908c079325b656f49c624831278"
     },
     {
       "path": "js/ui/skill-system-ui.js",
-      "sha256": "91677a19cad78a3230f4a26faa4bea2548ad6b05f1b17a867c701606d53f243f"
+      "sha256": "87484fbf79d225039af9714e0e91bb93d22074a3e420cb1a074563ccdac23495"
     },
     {
       "path": "js/ui/team-builds.js",
@@ -599,7 +599,7 @@
     },
     {
       "path": "js/world/quest-design-model.js",
-      "sha256": "d7602583e1d820fea02bf4e39b817d573d6fc65e02639c49a798865b392f6e33"
+      "sha256": "46daeba91b509d5c5751095f57aa5b7b657085d46a42d596fbba2c0d4faa645f"
     },
     {
       "path": "js/world/quest-design-settings.js",
@@ -667,7 +667,7 @@
     },
     {
       "path": "css/companions.css",
-      "sha256": "52c2629d86e9e6ea4b95b1190715e98d36fa3a3ee52f89465950a6511543b836"
+      "sha256": "e33b656d10c98866648ca22e2addeb477983ea080a0d4aeccb5002fd81fa9eb6"
     },
     {
       "path": "css/economy-inventory.css",
@@ -767,11 +767,11 @@
     },
     {
       "path": "css/skill-icons.css",
-      "sha256": "6b828892683a61543798b128270532e04555446668e0cc743ef617e9254f392b"
+      "sha256": "141310eec6a596f4e36e5909a178459895be21b0eea30fba81f08da6b4ddad16"
     },
     {
       "path": "css/skill-page.css",
-      "sha256": "f50c4cd72e9add45210f323689e1da65c335448cac1a31c5bd01851abe67ff1a"
+      "sha256": "205dee5529ca9a5d07cb7b42fd4f5bd731519bf2c8a8a976cb200dee5fe53164"
     },
     {
       "path": "css/skill-rules-help.css",
@@ -911,7 +911,7 @@
     },
     {
       "path": "data/balance/manifest.json",
-      "sha256": "3312dc966d585bd9e011e594c9401ac1aa2d3f8a6153f00f8496c1f5fb713bf5"
+      "sha256": "ef5d832d293e979a959cc1cc3bb693ebd60378356e862702bb5d5f007a3cc0cc"
     },
     {
       "path": "data/balance/meta/balance-settings.json",
@@ -939,7 +939,7 @@
     },
     {
       "path": "data/balance/systems/quests.json",
-      "sha256": "5af239fb5ef7a61d7a92a84cc05ce5668a41482fe1f6cd37370e9e50fece12e9"
+      "sha256": "fe7a52751df2a4b2728acbc1c7484415736b1a73cf7d3a17c072addf66793be0"
     },
     {
       "path": "data/balance/systems/rewards.json",
@@ -951,7 +951,7 @@
     },
     {
       "path": "data/balance/systems/story.json",
-      "sha256": "e4ea8fedb5221a299151e0f15f08d2fde6592d743b67b5cbf0984c2920b1cad7"
+      "sha256": "f1d1cce55a92ae8475c2d9acd5ebe0ead95059d06f7165f8114e7fb0eaaa3f26"
     },
     {
       "path": "data/balance/systems/tutorials.json",
@@ -979,7 +979,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "c31b8505eaa917ad67e61e40c1319ac759f3c8e0a2f982809157897e72f41b8a"
+      "sha256": "831a89ff4f5214795854f5196785aa990ab7f0e78aef54d8e136a61481eacea8"
     },
     {
       "path": "data/build.json",
@@ -987,11 +987,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "0eadc98bff71aee433ba897fbf813201a2ae746e1d946b8d9fbacdc6a2c15614"
+      "sha256": "d9eff42b3ad48567371f2fc7f81843c1bdba45e3c4f877ee6dae95cc88f337b9"
     },
     {
       "path": "index.html",
-      "sha256": "86a82c9890f2859222c160dfbde435913fa1d3ad3cf96a2ddde44f6902b6786d"
+      "sha256": "197688b5dd1f92d9d15f15c8e32260f27cca32c162fde92f708f482e8b90fbd7"
     }
   ],
   "gameBridgeSha256": "8cab379ca8192c20775bc5328d0e0309e83100028ac963a49b53976f079a6d5c",
