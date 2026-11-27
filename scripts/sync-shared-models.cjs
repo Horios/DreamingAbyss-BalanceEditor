@@ -14,6 +14,14 @@ for(const [tag,id,rel] of MODELS){
  const b=html.indexOf(`</${tag}>`,a+open.length);if(b<0)throw Error('內嵌模型沒有結尾：'+id);
  html=html.slice(0,a+open.length)+src.replace(/\n?$/,'\n')+html.slice(b);
 }
+// Keep automatic skill previews on the same name-to-icon mapping as the game.
+const named=fs.readFileSync(path.join(game,'js/ui/skill-system-ui.js'),'utf8').match(/const NAMED_ICONS=(.*);/);
+if(!named)throw Error('遊戲缺少 NAMED_ICONS');
+if(/const NAMED_ICONS=.*;/.test(html))html=html.replace(/const NAMED_ICONS=.*;/,()=> 'const NAMED_ICONS='+named[1]+';');
+else html=html.replace('const AUTO_CORE_ICON={',()=> 'const NAMED_ICONS='+named[1]+';\nconst AUTO_CORE_ICON={');
+const namedPreview="  if(NAMED_ICONS[sk.name])return 'lucide:'+NAMED_ICONS[sk.name];\n";
+if(!html.includes(namedPreview))html=html.replace("  const job=selected.skillTab==='support'?selected.supportClass:selected.skillClass;",namedPreview+"  const job=selected.skillTab==='support'?selected.supportClass:selected.skillClass;");
 fs.writeFileSync(file,html);
 // The online build and the combat migration read the seconds schema from scripts/seconds-schema.cjs; keep it the game file.
 fs.writeFileSync(path.join(__dirname,'seconds-schema.cjs'),fs.readFileSync(path.join(game,'js/combat/seconds-schema.js'),'utf8'));fs.writeFileSync(path.join(__dirname,'attack-speed.cjs'),fs.readFileSync(path.join(game,'js/combat/attack-speed.js'),'utf8'));console.log('Synchronized shared models: '+MODELS.map(m=>m[1]).join(', '));
+
