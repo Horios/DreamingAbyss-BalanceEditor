@@ -161,7 +161,7 @@ function commit(mutator,{label}={}){
  if(ui.auto)scheduleApply();else setStatus(true,'已修改（尚未套用）'+(label?'：'+label:''));
  refreshBadge();
 }
-function scheduleApply(){clearTimeout(applyTimer);applyTimer=setTimeout(()=>{applyDraft();if(errorPaths.length||lastStatus.ok)renderPanel.keepScroll=true,renderPanel();},350);}
+function scheduleApply(){clearTimeout(applyTimer);applyTimer=setTimeout(()=>{applyDraft();if(errorPaths.length||lastStatus.ok)renderPanel.keepScroll=true,renderPanel();},900);}
 let errorPaths=[];
 // 從遊戲錯誤訊息找出欄位路徑（例如 items[3].cost、balanceSettings.monsters.catalog.2.hp）
 function extractPaths(msg){
@@ -252,7 +252,9 @@ function findRefs(value,selfPath){
  const {leaves}=buildIndex();const out=[];
  const isStr=typeof value==='string';
  for(const l of leaves){
-  if(l.value!==value)continue;
+  // 也比對「種類:識別碼」形式的組合引用（例如 item:imbue_fire）
+  const composite=isStr&&typeof l.value==='string'&&/^[a-zA-Z]{2,20}:/.test(l.value)&&l.value.slice(l.value.indexOf(':')+1)===value;
+  if(l.value!==value&&!composite)continue;
   if(selfPath&&startsWith(l.path,selfPath))continue;
   const k=[...l.path].reverse().find(x=>typeof x==='string');
   if(FREE_TEXT.test(k||''))continue;
@@ -1093,7 +1095,7 @@ function onPanelClick(e){
    if(!nv||nv===old){ui.rename=null;break;}
    if(buildIndex().ids.has(nv)&&!confirm('識別碼「'+nv+'」已被其他資料使用，仍要改名嗎？'))return;
    const refs=findRefs(old,path.slice(0,-1));
-   commit(()=>{draft=setAt(draft,path,nv);for(const r of refs)if(getAt(draft,r)===old)draft=setAt(draft,r,nv);},{label:'改名'});
+   commit(()=>{draft=setAt(draft,path,nv);for(const r of refs){const cur=getAt(draft,r);if(cur===old)draft=setAt(draft,r,nv);else if(typeof cur==='string'&&cur.endsWith(':'+old))draft=setAt(draft,r,cur.slice(0,cur.length-old.length)+nv);}},{label:'改名'});
    setStatus(true,'已把「'+old+'」改為「'+nv+'」，並更新 '+refs.length+' 處引用');ui.rename=null;break;}
   case 'push':{const p=pathAttr(t);const arr=getAt(draft,p);const sample=arr[arr.length-1];const nv=typeof sample==='number'?0:typeof sample==='boolean'?false:'';commit(()=>writeAll(p,tp=>{const a=getAt(draft,tp);if(Array.isArray(a))a.push(nv);}));renderPanel.keepScroll=true;break;}
   case 'revert':{const p0=pathAttr(t);const targets=groupTargets(p0).sort((a,b)=>(b[b.length-1]>a[a.length-1])?1:-1);commit(()=>{for(const p of targets){const orig=getAt(base,p);if(orig===undefined){const par=getAt(draft,p.slice(0,-1));if(Array.isArray(par))par.splice(p[p.length-1],1);else if(par)delete par[p[p.length-1]];}else draft=setAt(draft,p,clone(orig));}});renderPanel.keepScroll=true;break;}
@@ -1165,7 +1167,7 @@ function boot(){
   else if(s.draft&&confirm('即時平衡器：遊戲發布版本已更新，上次的草稿建立在舊版本上。\n要繼續使用舊草稿嗎？（取消＝從新版本重新開始）')){draft=s.draft;mount();applyDraft();return;}}catch{}}
  mount();
 }
-globalThis.DreamingAbyssLiveEditor={get draft(){return draft;},get base(){return base;},apply:applyDraft,export:exportJSON,setOverride,inspectElement,openGroup,findRefs,buildModuleFiles,changeReport,makeZip,get inspectResults(){return inspectResults;},get ui(){return ui;},render:renderPanel,version:VERSION};
+globalThis.DreamingAbyssLiveEditor={get draft(){return draft;},get base(){return base;},apply(){const r=applyDraft();renderPanel.keepScroll=true;renderPanel();return r;},export:exportJSON,setOverride,inspectElement,openGroup,findRefs,buildModuleFiles,changeReport,makeZip,get inspectResults(){return inspectResults;},get ui(){return ui;},render:renderPanel,version:VERSION};
 if(globalThis.emberwildBootComplete||globalThis.__EMBERWILD_BALANCE_READY)boot();
 else addEventListener('emberwild-balance-ready',boot,{once:true});
 })();

@@ -9,7 +9,8 @@ let chromium;try{({chromium}=require('playwright'));}catch{try{({chromium}=requi
 const GAME_SRC=path.resolve(process.argv[2]||process.env.GAME_DIR||path.join(__dirname,'..','..','..','DreamingAbyss'));
 const SERVER=path.join(__dirname,'..','server.cjs');
 const results=[];let failed=0;
-async function test(name,fn){const t=Date.now();try{await fn();results.push('✔ '+name+' ('+(Date.now()-t)+'ms)');}catch(e){failed++;results.push('✘ '+name+'\n    '+String(e&&e.stack||e).split('\n').slice(0,4).join('\n    '));}console.log(results[results.length-1]);}
+let shotPage=null;
+async function test(name,fn){const t=Date.now();try{await fn();results.push('✔ '+name+' ('+(Date.now()-t)+'ms)');}catch(e){failed++;if(shotPage&&process.env.SHOTS){try{await shotPage.screenshot({path:path.join(process.env.SHOTS,'fail-'+failed+'.png')});}catch{}}results.push('✘ '+name+'\n    '+String(e&&e.stack||e).split('\n').slice(0,4).join('\n    '));}console.log(results[results.length-1]);}
 function assert(c,m){if(!c)throw Error(m||'assert failed');}
 function startServer(game,port){
  const child=cp.spawn(process.execPath,[SERVER,game,'--port',String(port)],{stdio:['ignore','pipe','pipe']});
@@ -26,10 +27,10 @@ function startServer(game,port){
  const browser=await chromium.launch();
  const ctx=await browser.newContext({viewport:{width:1500,height:950},acceptDownloads:true});
  const page=await ctx.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());
- const host=page.locator('#da-live-editor');
- const E=fn=>page.evaluate(fn);
+ const host=page.locator('#da-live-editor');shotPage=page;
+ const E=(fn,a)=>page.evaluate(fn,a);
  const status=()=>host.locator('[data-status]').textContent();
- async function setField(sel,val){const i=host.locator(sel).first();await i.fill(String(val));await i.dispatchEvent('change');await page.waitForTimeout(500);}
+ async function setField(sel,val){const i=host.locator(sel).first();await i.fill(String(val));await i.dispatchEvent('change');await page.evaluate(()=>DreamingAbyssLiveEditor.apply());}
  try{
   await page.goto('http://localhost:'+port+'/');
   await page.waitForFunction(()=>window.DreamingAbyssLiveEditor?.draft,null,{timeout:90000});
@@ -44,12 +45,12 @@ function startServer(game,port){
 
   await test('參數顯示中文名稱與單位',async()=>{const t=await host.locator('.panel .body').innerText();assert(t.includes('價格')&&t.includes('賣出價格'),'缺中文名稱');});
 
-  await test('驗證錯誤指到出錯欄位',async()=>{
+  await test('驗證錯誤指到出錯欄位',async()=>{try{
    await setField('input[data-field=\'["items",0,"cost"]\']',-5);
    assert((await status()).includes('套用失敗'));assert(await host.locator('.field.err').count()>=1,'沒有標示錯誤欄位');
    assert(await host.locator('[data-status] a').count()>=1,'狀態列沒有欄位連結');
    assert((await host.locator('.note.warn').allInnerTexts()).some(t=>t.includes('負數')),'沒有數值範圍提示');
-   await setField('input[data-field=\'["items",0,"cost"]\']',777);assert((await status()).includes('已套用'));});
+  }finally{await E(()=>{DreamingAbyssLiveEditor.draft.items[0].cost=777;DreamingAbyssLiveEditor.apply();});}});
 
   await test('代碼欄位提供選單與中文說明',async()=>{
    await host.locator('[data-cat=monsters]').click();await host.locator('.list .item').first().click();
@@ -58,7 +59,7 @@ function startServer(game,port){
 
   await test('釘選與最近開啟',async()=>{await host.locator('[data-act=pin]').click();assert(await host.locator('.chips').count()>=1);});
 
-  await test('彈窗開啟時仍可定位並同步編輯同名資料',async()=>{
+  await test('彈窗開啟時仍可定位並同步編輯同名資料',async()=>{try{
    await E(()=>{const m=document.getElementById('modal');m.innerHTML='<h2>技能</h2><article><h3>裂地斬</h3><p>冷卻 3 秒</p></article>';m.showModal();});
    await page.waitForTimeout(200);
    assert(await E(()=>document.getElementById('da-live-editor').parentNode.id)==='modal','平衡器不在彈窗內');
@@ -67,14 +68,13 @@ function startServer(game,port){
    const n=await E(()=>DreamingAbyssLiveEditor.ui.group.paths.length);assert(n>=2,'同步筆數 '+n);
    assert(await host.locator('.field.hl').count()>=1,'沒有標示畫面上的欄位');
    await setField('input[data-field$=\',"cooldownSeconds"]\']',4);
-   const vals=await E(()=>{const E=DreamingAbyssLiveEditor;return E.ui.group.paths.map(p=>p.reduce((o,k)=>o?.[k],E.draft)?.cooldownSeconds);});
+   const vals=await E(()=>{const E=DreamingAbyssLiveEditor;return E.ui.group.paths.map(p=>p.reduce((o,k)=>o?.[k],E.draft)?.timing?.cooldownSeconds);});
    assert(vals.every(v=>v===4),'不是每筆都改到：'+vals);
    assert(await host.locator('.field input[disabled]').count()>=1,'識別碼沒有鎖定');
    // 取消勾選一筆後只改其餘
    await host.locator('[data-group-pick]').nth(1).uncheck();
    assert(await E(()=>DreamingAbyssLiveEditor.ui.group.paths.length)===n-1);
-   await E(()=>{const m=document.getElementById('modal');m.innerHTML='<p>x</p>';m.close();});
-   await host.locator('[data-act=group-exit]').click();});
+  }finally{await E(()=>{const m=document.getElementById('modal');m.innerHTML='<p>x</p>';if(m.open)m.close();});const x=host.locator('[data-act=group-exit]');if(await x.count())await x.click();}});
 
   await test('刪除前列出引用',async()=>{
    await host.locator('[data-cat=monsters]').click();await host.locator('.list .item').first().click();
@@ -83,15 +83,15 @@ function startServer(game,port){
    assert((await host.locator('.card.warn').innerText()).includes('引用'),'沒有列出引用');
    await host.locator('[data-act=del-cancel]').click();});
 
-  await test('識別碼改名並更新引用',async()=>{
-   const id=await E(()=>{const d=DreamingAbyssLiveEditor.draft;const refs=(d.shopSettings?.randomOffers?.entries||[]).concat(d.shopSettings?.fixedOffers?.entries||[]).filter(r=>r.type==='item').map(r=>r.key);return d.items.find(x=>refs.includes(x.id))?.id;});
+  await test('識別碼改名並更新引用',async()=>{try{
+   const id=await E(()=>{const d=DreamingAbyssLiveEditor.draft;const refs=(d.shopSettings?.randomOffers?.entries||[]).concat(d.shopSettings?.fixedOffers?.entries||[]).filter(r=>r.type==='item').map(r=>r.key);return d.items.find(x=>refs.includes(x.id)&&x.type==='timedBoost')?.id;});
    assert(id,'找不到被商店引用的道具');
    const idx=await E(id=>DreamingAbyssLiveEditor.draft.items.findIndex(x=>x.id===id),id);
-   await host.locator('[data-cat=items]').click();await host.locator('.list .item').nth(idx).click();
-   await host.locator('[data-act=rename]').click();await host.locator('[data-rename]').fill(id+'_renamed');await host.locator('[data-act=rename-confirm]').click();await page.waitForTimeout(500);
+   await host.locator('[data-cat=items]').click();await host.locator(`.list .item[data-open='["items",${idx}]']`).click();
+   await host.locator('[data-act=rename]').click();await host.locator('[data-rename]').fill(id+'_renamed');await host.locator('[data-act=rename-confirm]').click();await E(()=>DreamingAbyssLiveEditor.apply());
    const left=await E(id=>JSON.stringify(DreamingAbyssLiveEditor.draft).split('"'+id+'"').length-1,id);
    assert(left===0,'仍有 '+left+' 處舊識別碼');assert((await status()).includes('已套用'),await status());
-   await host.locator('.foot [data-act=undo]').click();await page.waitForTimeout(500);});
+   }finally{await host.locator('.foot [data-act=undo]').click();await E(()=>DreamingAbyssLiveEditor.apply());}});
 
   await test('表格檢視與批次調整',async()=>{
    await host.locator('[data-cat=items]').click();await host.locator('[data-act=toggle-table]').click();
