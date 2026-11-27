@@ -58,6 +58,20 @@ npm run build:html
 | 自動套用 | 每次修改先經遊戲 `validateBalanceConfig` 驗證，再以 `applyBalanceConfig` 套用並重繪。 |
 | 復原／重做 | 最多 80 步（Ctrl+Z／Ctrl+Shift+Z）。 |
 
+### 圖示製作器（「圖示」分頁）
+由舊版工作台的圖示製作器重製。繪製技能、裝備、道具的 SVG 圖示，存在平衡資料的 `skillIcons`，以 `custom:<id>` 引用；繪製使用遊戲的 `__EMBERWILD_SKILL_ICONS`，畫面與遊戲一致。
+
+| 功能 | 說明 |
+|---|---|
+| 圖示清單 | 新增空白、範例（劍＋血滴）、複製內建圖示、可編輯範本（劍、斧、槌、火）、複製、刪除。最多 100 個。 |
+| 畫布工具 | 移動、旋轉、填色、橡皮擦（只擦選取圖層）、畫直線、畫曲線（拖藍點調整彎曲）；筆刷色調與筆寬。 |
+| 圖層 | 最多 8 層，類型為圖標、直線、曲線、矩形、橢圓、圓弧、多邊形；可調整位置、尺寸、旋轉、線粗、色調、填色、排序、複製、刪除。 |
+| 外觀與動畫 | 圖標顏色、尺寸、線條粗細、整體旋轉、透明度、發光、共用動畫（呼吸、閃爍、浮動、震動、彩色變化、旋轉等）與節奏。 |
+| Lucide 圖庫 | 依英文名稱搜尋或用途分類，點選套用到目前圖層。 |
+| 套用 | 搜尋技能、裝備、道具、素材、寶石、信物後套用或改回自動圖示。技能同時寫入 `skillSystem.definitions` 與舊版 `classes`／`supportSkills` 對應列；道具寫入 `inventoryIcons`。資料頁開啟技能或背包圖示時有「🎨 設計圖示」按鈕。 |
+
+所有圖示修改都進入變更清單與復原歷史，並立即套用到遊戲。刪除圖示時，使用它的技能與道具改回自動圖示。
+
 ### 測試
 「測試」頁可增加金幣、給予道具與素材、回滿生命。只改目前存檔，不寫進平衡資料。
 
@@ -92,6 +106,8 @@ npm test
 
 在 headless Chromium 開啟真正的遊戲，逐項驗證上述功能；提交測試在遊戲的暫存 clone 上進行。需要 Playwright。
 CI（`.github/workflows/live-editor.yml`）取得 `Horios/DreamingAbyss` 的 `chatgpt-dev` 並執行同一套測試。
+
+推送到 `main`（或在 Actions 手動執行）且測試通過後，CI 以 `chatgpt-dev` 打包單檔 HTML 並部署到 GitHub Pages：https://horios.github.io/DreamingAbyss-BalanceEditor/ 。第一次使用前需在 Settings → Pages 把 Source 設為「GitHub Actions」。
 
 ## 使用的遊戲介面
 

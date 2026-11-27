@@ -150,6 +150,36 @@ function startServer(game,port){
    cp.execFileSync(process.execPath,[path.join(GAME,'scripts','balance-modules.cjs'),'check'],{cwd:GAME,stdio:'pipe'});
    const doc=JSON.parse(fs.readFileSync(path.join(GAME,'data','balance.json'),'utf8'));assert(doc.items[0].cost===777,'提交內容錯誤');});
 
+  await test('圖示製作器：繪製 SVG 並套用到技能與裝備',async()=>{
+   if(!(await host.locator('.panel').count()))await host.locator('button.fab').click();
+   await host.locator('[data-tab=icons]').click();
+   const before=await E(()=>(DreamingAbyssLiveEditor.draft.skillIcons||[]).length);
+   await host.locator('[data-im-act=example]').click();
+   assert(await E(()=>DreamingAbyssLiveEditor.draft.skillIcons.length)===before+1,'沒有新增圖示');
+   const box=await host.locator('[data-im-canvas]').boundingBox(),at=(x,y)=>[box.x+box.width*x,box.y+box.height*y];
+   const drag=async(a,b)=>{await page.mouse.move(...a);await page.mouse.down();await page.mouse.move(...b,{steps:5});await page.mouse.up();};
+   await host.locator('[data-im-tool=line]').click();await drag(at(.2,.2),at(.7,.8));
+   await host.locator('[data-im-tool=curve]').click();await drag(at(.15,.85),at(.85,.85));
+   await host.locator('[data-im-tool=erase]').click();await drag(at(.3,.85),at(.6,.85));
+   await host.locator('[data-im-add=rect]').click();await host.locator('[data-im-tool=fill]').click();await page.mouse.click(...at(.5,.5));
+   const layers=await E(()=>DreamingAbyssLiveEditor.draft.skillIcons.at(-1).layers);
+   assert(layers.length===5,'圖層數 '+layers.length);assert(layers[2].kind==='line'&&layers[3].kind==='curve','直線／曲線');
+   assert(layers[3].eraseStrokes?.length===1,'沒有擦除');assert(layers[4].filled===true,'沒有填色');
+   await host.locator('[data-im-lucide]').first().click();
+   assert((await E(()=>DreamingAbyssLiveEditor.draft.skillIcons.at(-1).layers[4].icon)).startsWith('lucide:'),'Lucide 沒有套用');
+   const id=await E(()=>DreamingAbyssLiveEditor.draft.skillIcons.at(-1).id),skill=await E(()=>DreamingAbyssLiveEditor.draft.skillSystem.definitions.find(s=>!s.deleted&&s.adapter?.kind==='core').name);
+   await host.locator('[data-im-tsearch]').fill(skill);await host.locator('[data-im-target]').first().click();await host.locator('[data-im-act=assign]').click();
+   await host.locator('[data-im-tsearch]').fill('裝備');await host.locator('[data-im-target]').first().click();await host.locator('[data-im-act=assign]').click();
+   await E(()=>DreamingAbyssLiveEditor.apply());
+   const r=await E(({id,skill})=>{const d=DreamingAbyssLiveEditor.draft,s=d.skillSystem.definitions.find(x=>x.name===skill),g=exportableBalance();
+    return {skill:s.iconType,legacy:d.classes[s.adapter.job].skills[s.adapter.index].iconType,inv:d.inventoryIcons.filter(x=>x.iconType==='custom:'+id).length,game:(g.skillIcons||[]).some(x=>x.id===id),gameInv:(g.inventoryIcons||[]).some(x=>x.iconType==='custom:'+id)};},{id,skill});
+   assert(r.skill==='custom:'+id&&r.legacy==='custom:'+id,'技能沒有套用 '+JSON.stringify(r));assert(r.inv===1&&r.gameInv,'裝備沒有套用');assert(r.game,'遊戲沒有收到圖示');
+   await host.locator('[data-im-act=delete]').click();await host.locator('[data-im-act=delete]').click();
+   const after=await E(({id,skill})=>{const d=DreamingAbyssLiveEditor.draft;return {gone:!d.skillIcons.some(x=>x.id===id),skill:d.skillSystem.definitions.find(x=>x.name===skill).iconType,inv:d.inventoryIcons.filter(x=>x.iconType==='custom:'+id).length};},{id,skill});
+   assert(after.gone&&after.skill==='auto'&&after.inv===0,'刪除後引用未清除 '+JSON.stringify(after));
+   await E(()=>DreamingAbyssLiveEditor.apply());
+  });
+
   await test('測試工具（存檔外操作）在未進遊戲時提示',async()=>{await host.locator('[data-tab=test]').click();assert((await host.locator('.body').innerText()).length>0);});
 
   await test('快捷鍵 Alt+B 開關面板',async()=>{await page.keyboard.press('Alt+KeyB');assert(await host.locator('.panel').count()===0);await page.keyboard.press('Alt+KeyB');assert(await host.locator('.panel').count()===1);});

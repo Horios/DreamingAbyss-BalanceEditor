@@ -50,6 +50,7 @@ const CATEGORIES=[
  {sys:'戰鬥與系統',id:'uiText',name:'介面標題',path:['uiText']},
  {sys:'戰鬥與系統',id:'navigation',name:'選單',path:['navigation']},
  {sys:'道具與裝備',id:'icons',name:'背包圖示',path:['inventoryIcons']},
+ {sys:'道具與裝備',id:'skillIcons',name:'自製圖示',path:['skillIcons']},
  {sys:'戰鬥與系統',id:'root',name:'全部資料',path:[]}
 ];
 const SYSTEMS=["職業與技能", "夥伴", "道具與裝備", "怪物與地圖", "任務與劇情", "商店與經濟", "戰鬥與系統"];
@@ -652,8 +653,8 @@ function renderPanelNow(){
  let html='';const box=root.querySelector('.ui');
  if(pickMode)html+=`<div class="picking">${pickMode==='text'?'點選畫面上要修改的文字':'點選畫面上的道具、技能、夥伴、怪物等'}<button data-act="cancel-pick">取消（Esc）</button></div>`;
  if(!ui.open){box.innerHTML=html+`<button class="fab" data-act="open" title="Alt+B">平衡器<b data-badge>${diff}</b></button>`;return;}
- const tabs=[['data','資料'],['inspect','點選定位'],['text','文字'],['changes','變更 '+diff],['test','測試'],['export','匯出']];
- const wide=ui.tab==='data'&&ui.table&&!ui.path&&!ui.group;
+ const tabs=[['data','資料'],['inspect','點選定位'],['text','文字'],['changes','變更 '+diff],['test','測試'],['icons','圖示'],['export','匯出']];
+ const wide=ui.tab==='icons'||ui.tab==='data'&&ui.table&&!ui.path&&!ui.group;
  html+=`<section class="panel${ui.left?' left':''}${wide?' wide':''}">
  <div class="head"><h1>夢淵 即時平衡器</h1>
   <button data-act="pick-inspect" title="點畫面元素找出資料（Alt+F）">🎯 定位</button>
@@ -677,6 +678,7 @@ function renderPanelNow(){
  if(nb&&renderPanel.keepScroll)nb.scrollTop=scroll;
  else if(nb&&renderPanel.scrollTo){const el=root.querySelector(renderPanel.scrollTo);if(el)el.scrollIntoView({block:'center'});}
  renderPanel.keepScroll=false;renderPanel.scrollTo=null;
+ if(ui.tab==='icons'){try{imBind();}catch(e){console.warn('[即時平衡器] 圖示製作器',e);}}
  const f=root.querySelector('[data-autofocus]');if(f){f.focus();f.select?.();}
 }
 function renderTab(){
@@ -686,6 +688,7 @@ function renderTab(){
   case 'text':return renderText();
   case 'changes':return renderChanges();
   case 'test':return renderTest();
+  case 'icons':return renderIcons();
   case 'export':return renderExport();
  }return '';
 }
@@ -802,7 +805,8 @@ function renderEditor(path){
  if(v===undefined)return h+'<p class="hint">此路徑已不存在。</p>';
  const ps=esc(JSON.stringify(path)),pinned=(ui.pins||[]).includes(JSON.stringify(path));
  h+=`<div class="card"><b>${esc(labelOf(v,path[path.length-1]))}</b><div class="hint">${esc(pathText(path))}</div>`;
- h+=`<div class="row"><button data-act="pin" data-path="${ps}">${pinned?'取消釘選':'📌 釘選'}</button><button data-act="raw" data-path="${ps}">以 JSON 編輯</button>`;
+ const iconFocus=imFocusFor(path);
+ h+=`<div class="row"><button data-act="pin" data-path="${ps}">${pinned?'取消釘選':'📌 釘選'}</button>${iconFocus?`<button data-act="icon-design" data-focus="${esc(JSON.stringify(iconFocus))}">🎨 設計圖示</button>`:''}<button data-act="raw" data-path="${ps}">以 JSON 編輯</button>`;
  const parent=getAt(draft,path.slice(0,-1));
  if(Array.isArray(parent)){h+=`<button data-act="dup" data-path="${ps}">複製一筆</button><button class="danger" data-act="del" data-path="${ps}">刪除</button>`;}
  if(JSON.stringify(getAt(base,path))!==JSON.stringify(v)&&getAt(base,path)!==undefined)h+=`<button data-act="revert" data-path="${ps}">還原此項</button>`;
@@ -1036,6 +1040,7 @@ function pathAttr(el,name='data-path'){return JSON.parse(el.getAttribute(name));
 function onPanelClick(e){
  const t=e.target.closest('[data-act],[data-tab],[data-cat],[data-open],[data-sort]');if(!t)return;
  if(t.matches('input[type=checkbox]'))return;
+ if(t.dataset.act==='icon-design'){try{openIconMaker(JSON.parse(t.dataset.focus||'null'));}catch{openIconMaker(null);}return;}
  if(t.dataset.tab){ui.tab=t.dataset.tab;if(ui.tab==='export')probeServer().then(()=>renderPanel());return renderPanel();}
  if(t.dataset.cat){ui.cat=t.dataset.cat;ui.path=null;ui.group=null;ui.filter='';ui.raw=null;ui.confirmDel=null;ui.rename=null;ui.gsearch='';ui.sort=null;return renderPanel();}
  if(t.dataset.sort){const k=t.dataset.sort;ui.sort={key:k,dir:ui.sort?.key===k?-ui.sort.dir:1};renderPanel.keepScroll=true;return renderPanel();}
@@ -1156,6 +1161,276 @@ function onPanelInput(e){
   const T=globalThis.EmberwildTextOverrides;if(T?.preview){const list=overrides().filter(x=>x.source!==pendingText.source);if(t.value&&t.value!==pendingText.source)list.push({source:pendingText.source,text:t.value});try{T.preview({version:1,entries:list});}catch{}}}
 }
 
+// ---------- 圖示製作器 ----------
+// 自製 SVG 圖示存在 draft.skillIcons；技能以 skillSystem.definitions[].iconType（及舊版 classes／supportSkills 對應列）、
+// 道具與裝備以 inventoryIcons[].iconType 引用 'custom:<id>'。繪製一律使用遊戲的 __EMBERWILD_SKILL_ICONS，畫布與遊戲顯示相同。
+const IM={id:'',layer:0,tool:'move',tone:'neutral',width:3,target:null,tsearch:'',lsearch:'',lcat:'all',lpage:0,error:''};
+const IM_KIND={icon:'圖標',line:'直線',rect:'矩形',ellipse:'橢圓',arc:'圓弧',polygon:'多邊形',curve:'曲線'};
+const IM_TONE={steel:'金屬',ember:'火',blood:'血液',frost:'冰',wind:'風',light:'光',shadow:'暗',arcane:'魔法',aim:'弓箭',neutral:'中性'};
+const IM_CAT={all:'全部圖標',combat:'戰鬥與武器',defense:'防禦與護盾',magic:'魔法與元素',healing:'治療與輔助',characters:'角色與職業',equipment:'裝備與道具',status:'狀態效果',exploration:'地圖與探索',system:'系統與介面'};
+const IM_TOOLS=[['move','移動'],['rotate','旋轉'],['fill','填色'],['erase','橡皮擦'],['line','畫直線'],['curve','畫曲線']];
+const IM_GROUP={equipment:'裝備',item:'道具',material:'素材',gem:'寶石',token:'信物'};
+const imLib=()=>globalThis.__EMBERWILD_SKILL_ICONS;
+const imClamp=(n,a,b,f=0)=>Number.isFinite(n)?Math.max(a,Math.min(b,n)):f;
+const imRound=n=>Math.round(n*2)/2;
+const imIcons=()=>Array.isArray(draft.skillIcons)?draft.skillIcons:[];
+const imCur=()=>imIcons().find(x=>x.id===IM.id);
+function imNorm(l){const n=imLib().normalizeLayer(l);return n&&Object.fromEntries(Object.entries(n).filter(([,v])=>v!==undefined));}
+function imLayer(kind,seed={}){
+ const b={icon:{kind:'icon',icon:'sword',x:0,y:0,scale:1,rotation:0},line:{kind:'line',x:0,y:0,length:18,rotation:0,strokeWidth:2.7,tone:'neutral'},
+  curve:{kind:'curve',x:0,y:0,x1:-12,y1:0,cx:0,cy:-16,x2:12,y2:0,rotation:0,strokeWidth:2.7,tone:'neutral'},
+  rect:{kind:'rect',x:0,y:0,w:16,h:16,radius:2,rotation:0,strokeWidth:2.4,strokeTone:'neutral',filled:false,fillTone:'neutral'},
+  ellipse:{kind:'ellipse',x:0,y:0,rx:8,ry:8,rotation:0,strokeWidth:2.4,strokeTone:'neutral',filled:false,fillTone:'neutral'},
+  arc:{kind:'arc',x:0,y:0,r:10,start:-120,end:120,rotation:0,strokeWidth:2.4,tone:'neutral'},
+  polygon:{kind:'polygon',x:0,y:0,points:'-6,-10 8,0 -6,10',scale:1,rotation:0,strokeWidth:2.4,strokeTone:'neutral',filled:true,fillTone:'neutral'}};
+ return imNorm({...b[kind],...seed});
+}
+function imPreset(key){
+ const E=imLayer,name=(imLib().labels[key]||key)+' 範本';
+ if(key==='sword')return {name,layers:[E('polygon',{points:'0,-18 4,-13 2,9 0,18 -2,9 -4,-13',y:-2,rotation:-25,strokeTone:'steel',fillTone:'steel',strokeWidth:1.3}),E('line',{y:12,length:10,rotation:65,strokeWidth:2.5,tone:'steel'}),E('line',{x:-4,y:17,length:7,rotation:-25,strokeWidth:2.3,tone:'steel'})]};
+ if(key==='axe')return {name,layers:[E('line',{x:-1,y:2,length:30,rotation:18,strokeWidth:3.1,tone:'steel'}),E('polygon',{points:'-8,-8 4,-11 9,-4 8,3 2,8 -6,7 -10,0',x:7,y:-8,rotation:16,strokeTone:'steel',fillTone:'steel',strokeWidth:1.4}),E('line',{x:-7,y:16,length:6,rotation:18,strokeWidth:2.2,tone:'steel'})]};
+ if(key==='hammer')return {name,layers:[E('rect',{y:-10,w:25,h:12,radius:1,strokeTone:'steel'}),E('line',{y:10,length:24,rotation:90,strokeWidth:3,tone:'steel'}),E('line',{y:20,length:7,strokeWidth:2.2,tone:'steel'})]};
+ if(key==='fire')return {name,layers:[E('polygon',{points:'0,-18 7,-8 10,1 7,11 0,18 -6,11 -10,2 -6,-8',strokeTone:'ember',fillTone:'ember',strokeWidth:1.4}),E('polygon',{points:'0,-10 5,-3 4,5 0,11 -4,5 -5,-3',x:2,y:6,rotation:-10,strokeTone:'ember',filled:false,fillTone:'ember',strokeWidth:1.5})]};
+ return null;
+}
+function imCheck(list){
+ const L=imLib(),kinds=new Set(L.shapeKinds||Object.keys(IM_KIND)),seen=new Set();
+ if(list.length>100)return '自訂圖示最多 100 個';
+ for(const ic of list){
+  if(!/^[-_a-z0-9]{1,40}$/.test(ic.id||'')||seen.has(ic.id))return '圖示 ID 無效或重複：'+ic.id;seen.add(ic.id);
+  if(!String(ic.name||'').trim()||ic.name.length>40)return '圖示名稱需為 1～40 字';
+  if(!Array.isArray(ic.layers)||!ic.layers.length||ic.layers.length>8)return '「'+ic.name+'」圖層需為 1～8 層';
+  for(const [j,l] of ic.layers.entries())if(!L.normalizeLayer(l)||!kinds.has(l.kind)||!L.validEditing(l))return '「'+ic.name+'」第 '+(j+1)+' 層無效';
+  if(ic.appearance!==undefined&&!L.validAppearance(ic.appearance))return '「'+ic.name+'」外觀無效';
+ }
+ return '';
+}
+// 所有圖示修改都經過 commit：進入復原歷史、草稿與變更清單，並立即套用到遊戲。
+function imEdit(mutator,label){
+ const before=JSON.stringify(draft.skillIcons);
+ const trial=clone(imIcons());mutator(trial);
+ const err=imCheck(trial);if(err){IM.error='無法儲存：'+err;renderPanel.keepScroll=true;renderPanel();return false;}
+ if(JSON.stringify(trial)===before){renderPanel.keepScroll=true;renderPanel();return true;}
+ IM.error='';commit(()=>{draft.skillIcons=trial;},{label});
+ if(ui.auto)applyDraft();renderPanel.keepScroll=true;renderPanel();return true;
+}
+function imNextId(list=imIcons()){let n=1;while(list.some(x=>x.id==='icon_'+n))n++;return 'icon_'+n;}
+function imCreate(seed){
+ if(imIcons().length>=100){IM.error='最多可建立 100 個自訂圖示。';renderPanel();return;}
+ const id=imNextId();
+ if(imEdit(list=>list.push({id,name:seed?.name||'新圖示',layers:seed?.layers||[imLayer('icon',{icon:'sword'})],...(seed?.appearance?{appearance:seed.appearance}:{})}),'新增圖示')){IM.id=id;IM.layer=0;renderPanel();}
+}
+function imEditCur(fn,label){const id=IM.id;return imEdit(list=>{const ic=list.find(x=>x.id===id);if(ic)fn(ic);},label);}
+function imTargets(){
+ const skills=(draft.skillSystem?.definitions||[]).map((s,i)=>s&&!s.deleted?{type:'skill',id:s.id,index:i,name:s.name||s.id,group:'技能',iconType:s.iconType||'auto',fallback:'magic'}:null).filter(Boolean);
+ let items=[];try{const M=globalThis.EmberwildInventoryIcons,rows=Array.isArray(draft.inventoryIcons)?draft.inventoryIcons:[];
+  items=M.entries(draft).filter(r=>r.kind!=='skill').map(r=>({type:'item',kind:r.kind,key:String(r.key),name:r.name||r.key,group:IM_GROUP[r.kind]||r.kind,fallback:r.fallback||'magic',iconType:rows.find(x=>x.kind===r.kind&&String(x.key)===String(r.key))?.iconType||'auto'}));}catch(e){console.warn('[即時平衡器] 無法列出道具',e);}
+ return skills.concat(items);
+}
+const imSame=(a,b)=>!!a&&!!b&&a.type===b.type&&(a.type==='skill'?a.id===b.id:a.kind===b.kind&&String(a.key)===String(b.key));
+function imAssign(t,type){
+ const L=imLib();
+ if(!(type==='auto'||L.validReference(type)||type.startsWith('custom:')&&imIcons().some(x=>x.id===type.slice(7)))){IM.error='圖示不存在：'+type;return renderPanel();}
+ commit(()=>imWrite(draft,t,type),{label:'套用圖示'});
+ IM.target={...t,iconType:type};IM.error='';if(ui.auto)applyDraft();
+ setStatus(lastStatus.ok,(type==='auto'?'已改回自動圖示：':'已套用圖示至 ')+t.name+(lastStatus.ok?'，已套用到遊戲':''));renderPanel.keepScroll=true;renderPanel();
+}
+function imWrite(doc,t,type){
+ if(t.type==='skill'){
+  const s=(doc.skillSystem?.definitions||[]).find(x=>x.id===t.id);if(!s)return;s.iconType=type;
+  const a=s.adapter,row=a?.kind==='core'?doc.classes?.[a.job]?.skills?.[a.index]:a?.kind==='support'?doc.supportSkills?.[a.job]?.[a.index]:null;if(row)row.iconType=type;
+ }else{
+  if(!Array.isArray(doc.inventoryIcons))doc.inventoryIcons=[];
+  const row=doc.inventoryIcons.find(x=>x.kind===t.kind&&String(x.key)===String(t.key));
+  if(row)row.iconType=type;else doc.inventoryIcons.push({kind:t.kind,key:t.kind==='gem'?Number(t.key):t.key,iconType:type});
+ }
+}
+function imDelete(){
+ const ic=imCur();if(!ic)return;const type='custom:'+ic.id,users=imTargets().filter(t=>t.iconType===type);
+ commit(()=>{for(const t of users)imWrite(draft,t,'auto');for(const cls of draft.classes||[])for(const sk of cls.skills||[])if(sk.iconType===type)sk.iconType='auto';for(const g of draft.supportSkills||[])for(const sk of g||[])if(sk.iconType===type)sk.iconType='auto';draft.skillIcons=imIcons().filter(x=>x.id!==ic.id);},{label:'刪除圖示'});
+ IM.id=imIcons()[0]?.id||'';IM.layer=0;IM.confirm=false;if(IM.target)IM.target=imTargets().find(t=>imSame(t,IM.target))||null;
+ if(ui.auto)applyDraft();setStatus(lastStatus.ok,'已刪除圖示「'+ic.name+'」'+(users.length?'，'+users.length+' 個項目改回自動圖示':''));renderPanel();
+}
+// 從資料頁或外部開啟：focus 為 {type:'skill',id} 或 {type:'item',kind,key}
+// 資料頁目前開啟的資料若有圖示，回傳圖示製作器的對象
+function imFocusFor(path){
+ if(!Array.isArray(path)||path.length!==3)return null;
+ if(path[0]==='skillSystem'&&path[1]==='definitions'){const s=getAt(draft,path);return s?.id?{type:'skill',id:s.id}:null;}
+ if(path[0]==='inventoryIcons'){const r=getAt(draft,path);return r?.kind&&r.kind!=='skill'?{type:'item',kind:r.kind,key:String(r.key)}:null;}
+ return null;
+}
+function openIconMaker(focus){
+ ui.open=true;ui.tab='icons';IM.error='';
+ if(focus){IM.target=imTargets().find(t=>imSame(t,focus))||null;const cur=IM.target?.iconType;if(cur?.startsWith('custom:')&&imIcons().some(x=>x.id===cur.slice(7)))IM.id=cur.slice(7);}
+ renderPanel();
+}
+const imTones=(sel,blank)=>[...(blank?[['','預設']]:[]),...Object.keys(imLib().colors).map(k=>[k,IM_TONE[k]||k])].map(([v,n])=>`<option value="${v}" ${sel===v?'selected':''}>${esc(n)}</option>`).join('');
+const imNum=(k,label,min,max,step,v)=>`<label>${label}<input type="number" data-im-lf="${k}" min="${min}" max="${max}" step="${step}" value="${esc(v)}"></label>`;
+function imLayerFields(l){
+ const L=imLib(),pos=imNum('x','水平 X',-24,24,.5,l.x)+imNum('y','垂直 Y',-24,24,.5,l.y),rot=imNum('rotation','旋轉',-180,180,1,l.rotation||0),sw=imNum('strokeWidth','線粗',.4,10,.1,l.strokeWidth);
+ const head=`<label>類型<select data-im-lf="kind">${Object.entries(IM_KIND).map(([v,n])=>`<option value="${v}" ${l.kind===v?'selected':''}>${n}</option>`).join('')}</select></label>`;
+ const closed=`<label>描邊色<select data-im-lf="strokeTone">${imTones(l.strokeTone||'neutral')}</select></label><label class="ck"><input type="checkbox" data-im-lf="filled" ${l.filled?'checked':''}>填色</label><label>填滿色<select data-im-lf="fillTone">${imTones(l.fillTone||l.strokeTone||'neutral')}</select></label>`;
+ const tone=`<label>色調<select data-im-lf="tone">${imTones(l.tone||'neutral')}</select></label>`;
+ if(l.kind==='icon')return head+`<label>圖案<select data-im-lf="icon"><option value="none" ${l.icon==='none'?'selected':''}>未選擇</option>${L.keys.map(k=>`<option value="${k}" ${l.icon===k?'selected':''}>${esc(L.labels[k]||k)}</option>`).join('')}${L.isLucideReference(l.icon)?`<option selected value="${esc(l.icon)}">${esc(l.icon)}</option>`:''}</select></label>`+pos+imNum('scale','比例',.25,2.5,.05,l.scale)+rot+`<label>色調<select data-im-lf="tone">${imTones(l.tone||'',true)}</select></label>`;
+ if(l.kind==='line')return head+pos+imNum('length','長度',2,64,.5,l.length)+rot+sw+tone;
+ if(l.kind==='curve')return head+pos+imNum('x1','起點 X',-48,48,.5,l.x1)+imNum('y1','起點 Y',-48,48,.5,l.y1)+imNum('cx','控制點 X',-48,48,.5,l.cx)+imNum('cy','控制點 Y',-48,48,.5,l.cy)+imNum('x2','終點 X',-48,48,.5,l.x2)+imNum('y2','終點 Y',-48,48,.5,l.y2)+rot+sw+tone;
+ if(l.kind==='rect')return head+pos+imNum('w','寬度',1,64,.5,l.w)+imNum('h','高度',1,64,.5,l.h)+imNum('radius','圓角',0,24,.5,l.radius)+rot+sw+closed;
+ if(l.kind==='ellipse')return head+pos+imNum('rx','半徑 X',.5,32,.5,l.rx)+imNum('ry','半徑 Y',.5,32,.5,l.ry)+rot+sw+closed;
+ if(l.kind==='arc')return head+pos+imNum('r','半徑',.5,32,.5,l.r)+imNum('start','起始角',-360,360,1,l.start)+imNum('end','結束角',-360,360,1,l.end)+rot+sw+tone;
+ return head+pos+imNum('scale','比例',.2,4,.05,l.scale)+rot+sw+closed+`<label class="wide">點位（x,y 以空白分隔）<input type="text" data-im-lf="points" value="${esc(l.points)}"></label>`;
+}
+function imAppearance(ic){
+ const L=imLib(),a=L.normalizeAppearance(ic.appearance??{}),n=(k,label,min,max,step)=>`<label>${label}<input type="number" data-im-ap="${k}" min="${min}" max="${max}" step="${step}" value="${a[k]}"></label>`;
+ return `<label class="ck"><input type="checkbox" data-im-coloron ${a.color?'checked':''}>自訂圖標顏色</label><label>圖標顏色<input type="color" data-im-ap="color" value="${a.color||'#d8ded5'}" ${a.color?'':'disabled'}></label>${n('size','尺寸（px）',8,128,1)}${n('strokeWidth','線條粗細',.4,10,.1)}${n('rotation','整體旋轉',-180,180,1)}${n('opacity','透明度',0,1,.05)}<label>發光顏色<input type="color" data-im-ap="glowColor" value="${a.glowColor}"></label>${n('glowStrength','發光強度',0,24,.5)}<label>動畫<select data-im-ap="effect">${Object.entries(L.effects).map(([k,e])=>`<option value="${k}" ${a.effect===k?'selected':''}>${esc(e.label)}</option>`).join('')}</select></label>${n('effectDuration','動畫週期（秒）',.15,30,.05)}<label>節奏<select data-im-ap="effectTiming">${[['linear','等速'],['ease','緩動'],['ease-in-out','平滑'],['steps(1,end)','分段']].map(([k,t])=>`<option value="${k}" ${a.effectTiming===k?'selected':''} ${k==='steps(1,end)'&&['spin','hue'].includes(a.effect)?'disabled':''}>${t}</option>`).join('')}</select></label>`;
+}
+function imToCanvas(l,px,py){const r=(l.rotation||0)*Math.PI/180,c=Math.cos(r),s=Math.sin(r);return [24+l.x+px*c-py*s,24+l.y+px*s+py*c];}
+function imToLocal(l,x,y){const dx=x-24-l.x,dy=y-24-l.y,r=-(l.rotation||0)*Math.PI/180,c=Math.cos(r),s=Math.sin(r),k=l.scale||1;return [(dx*c-dy*s)/k,(dx*s+dy*c)/k];}
+function imCanvas(ic){
+ const L=imLib(),l=imNorm(ic.layers[IM.layer]);
+ const layers=ic.layers.map((x,i)=>`<g data-im-cl="${i}" opacity="${i===IM.layer?1:.55}">${L.layerMarkup(x)}</g>`).join('');
+ let box='';try{const b=L.layerBounds(l);if(b)box=`<rect x="${b.x-1}" y="${b.y-1}" width="${b.w+2}" height="${b.h+2}" fill="none" stroke="#58a6ff" stroke-width=".35" stroke-dasharray="1 1" pointer-events="none"/>`;}catch{}
+ let handle='';if(l?.kind==='curve'){const p=imToCanvas(l,l.cx,l.cy),s=imToCanvas(l,l.x1,l.y1);handle=`<line x1="${s[0]}" y1="${s[1]}" x2="${p[0]}" y2="${p[1]}" stroke="#58a6ff" stroke-width=".3" pointer-events="none"/><circle data-im-handle cx="${p[0]}" cy="${p[1]}" r="1.6" fill="#58a6ff"/>`;}
+ const grid=Array.from({length:7},(_,i)=>`<line x1="${i*8}" y1="0" x2="${i*8}" y2="48"/><line x1="0" y1="${i*8}" x2="48" y2="${i*8}"/>`).join('');
+ return `<svg data-im-canvas viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><g stroke="#ffffff14" stroke-width=".15">${grid}</g><g>${layers}</g>${box}${handle}<g data-im-draft></g></svg>`;
+}
+function imTargetList(){
+ const all=imTargets(),q=IM.tsearch.trim().toLowerCase(),hits=all.filter(r=>!q||String(r.name).toLowerCase().includes(q)||r.group.includes(q)).slice(0,40);
+ IM.hits=hits;const using=all.filter(r=>r.iconType==='custom:'+IM.id),t=IM.target&&all.find(r=>imSame(r,IM.target));IM.target=t||null;
+ const svg=r=>imLib().svgFor(!r.iconType||r.iconType==='auto'?r.fallback:r.iconType,imIcons(),{size:20,animate:false});
+ return `<div class="hint" style="margin:0">目前對象：<b data-im-target-label>${t?esc(t.group+' · '+t.name):'未選擇'}</b> ${t?`<span class="im-mini">${svg(t)}</span>`:''}</div>
+ <div class="row"><button class="fit primary" data-im-act="assign" ${t&&imCur()?'':'disabled'}>套用目前圖示</button><button class="fit" data-im-act="unassign" ${t&&t.iconType!=='auto'?'':'disabled'}>改回自動圖示</button></div>
+ <input data-im-tsearch placeholder="搜尋技能、裝備或道具（名稱或分類）" value="${esc(IM.tsearch)}">
+ <div class="im-targets">${hits.map((r,i)=>`<button data-im-target="${i}" class="${t&&imSame(r,t)?'on':''}"><span class="im-mini">${svg(r)}</span>${esc(r.group)} · ${esc(r.name)}</button>`).join('')||'<div class="hint">沒有符合的項目。</div>'}</div>
+ ${imCur()?`<div class="hint">使用此圖示：${using.length?using.map(r=>esc(r.group+' · '+r.name)).join('、'):'無'}</div>`:''}`;
+}
+function imLucide(){
+ const lib=globalThis.__EMBERWILD_LUCIDE;if(!lib)return '<div class="hint">Lucide 圖庫尚未載入。</div>';
+ const names=(IM.lcat==='all'?lib.names:lib.categories?.[IM.lcat]||[]).filter(n=>n.includes(IM.lsearch.trim().toLowerCase())),pages=Math.max(1,Math.ceil(names.length/40));IM.lpage=imClamp(IM.lpage,0,pages-1);
+ const sel=imCur()?.layers[IM.layer]?.icon;
+ return `<div class="row"><input data-im-lsearch placeholder="英文名稱：flame, shield…" value="${esc(IM.lsearch)}"><select class="fit" style="width:auto" data-im-lcat>${Object.entries(IM_CAT).map(([k,n])=>`<option value="${k}" ${IM.lcat===k?'selected':''}>${n}</option>`).join('')}</select></div>
+ <div class="im-lucide">${names.slice(IM.lpage*40,IM.lpage*40+40).map(n=>`<button data-im-lucide="${n}" title="${n}" class="${sel==='lucide:'+n?'on':''}">${imLib().svgFor('lucide:'+n,[],{size:22,animate:false})}<span>${n}</span></button>`).join('')||'<div class="hint">找不到圖標。</div>'}</div>
+ <div class="row"><button class="fit" data-im-act="lprev" ${IM.lpage?'':'disabled'}>上一頁</button><span class="hint" style="margin:0">${names.length} 個 · 第 ${IM.lpage+1}／${pages} 頁</span><button class="fit" data-im-act="lnext" ${IM.lpage>=pages-1?'disabled':''}>下一頁</button></div>`;
+}
+function renderIcons(){
+ const L=imLib();if(!L)return '<div class="hint">遊戲的圖示程式庫尚未載入。</div>';
+ const list=imIcons();if(!list.some(x=>x.id===IM.id))IM.id=list[0]?.id||'';
+ const ic=imCur();if(ic)IM.layer=imClamp(IM.layer,0,ic.layers.length-1);
+ let h=`<div class="hint">繪製技能、裝備、道具的 SVG 圖示。修改會寫入草稿、列入變更並立即套用到遊戲，匯出 JSON／模組檔時一併輸出（<code>skillIcons</code>）。</div>`;
+ if(IM.error)h+=`<div class="card warn" data-im-error>${esc(IM.error)}</div>`;
+ h+=`<div class="im-layout"><div class="im-side"><div class="sec" style="margin-top:0">自製圖示 ${list.length}/100</div>
+ <div class="row"><button data-im-act="new">新增空白</button><button data-im-act="example">範例：劍＋血滴</button></div>
+ <div class="row"><select data-im-seed>${L.keys.map(k=>`<option value="${k}">${esc(L.labels[k]||k)}</option>`).join('')}</select></div>
+ <div class="row"><button data-im-act="copy-builtin">複製內建</button><button data-im-act="preset">可編輯範本</button></div>
+ <div class="im-list">${list.map(x=>`<button data-im-icon="${esc(x.id)}" class="${x.id===IM.id?'on':''}">${L.svgFor('custom:'+x.id,list,{size:28,animate:false})}<span>${esc(x.name)}<small>${esc(x.id)}</small></span></button>`).join('')||'<div class="hint">尚未製作圖示。</div>'}</div></div><div class="im-main">`;
+ if(ic){
+  h+=`<div class="row"><input data-im-name maxlength="40" value="${esc(ic.name)}" aria-label="圖示名稱"><button class="fit" data-im-act="dup">複製圖示</button><button class="fit danger" data-im-act="delete">${IM.confirm?'確認刪除':'刪除圖示'}</button></div>`;
+  if(IM.confirm)h+=`<div class="card warn">刪除「${esc(ic.name)}」？使用此圖示的技能與道具會改回自動圖示。再按一次「確認刪除」。</div>`;
+  h+=`<div class="im-tools">${IM_TOOLS.map(([k,n])=>`<button data-im-tool="${k}" class="${IM.tool===k?'on':''}">${n}</button>`).join('')}<label>筆刷色調<select data-im-brushtone>${imTones(IM.tone)}</select></label><label>筆寬<input type="number" data-im-brushwidth min="0.4" max="10" step="0.2" value="${IM.width}"></label></div>
+  <div class="im-work"><div><div class="im-canvas">${imCanvas(ic)}</div><div class="hint">移動：拖曳選取圖層，點其他圖層可切換。旋轉：繞中心拖曳。填色：封閉圖形填滿、線條改色。橡皮擦：只擦選取圖層。畫直線／曲線：拖出起終點，曲線可再拖藍點調整彎曲。復原用下方 ↶。</div>
+  <div class="im-preview">${[96,48,24].map(s=>`<div>${L.svgFor('custom:'+ic.id,list,{size:s})}<small>${s}px</small></div>`).join('')}</div></div>
+  <div><div class="hint" style="margin-top:0">圖層 ${ic.layers.length}/8，由後到前繪製。</div>${ic.layers.map((raw,i)=>{const l=imNorm(raw);return `<div class="im-layer ${i===IM.layer?'on':''}" data-im-layer="${i}"><div class="im-lh"><b>第 ${i+1} 層 · ${IM_KIND[l.kind]||l.kind}${l.kind==='icon'?' / '+esc(L.labels[l.icon]||l.icon):''}${l.eraseStrokes?.length?' · 擦除 '+l.eraseStrokes.length:''}</b><button class="mini" data-im-move="-1" data-i="${i}" ${i?'':'disabled'}>↑</button><button class="mini" data-im-move="1" data-i="${i}" ${i<ic.layers.length-1?'':'disabled'}>↓</button><button class="mini" data-im-dupl="${i}" ${ic.layers.length>=8?'disabled':''}>複製</button><button class="mini danger" data-im-dell="${i}" ${ic.layers.length>1?'':'disabled'}>刪</button></div>${i===IM.layer?`<div class="im-fields">${imLayerFields(l)}${l.eraseStrokes?.length?'<button class="mini" data-im-act="clear-erase">清除擦除</button>':''}</div>`:''}</div>`;}).join('')}
+  <div class="im-pal">${['line','curve','rect','ellipse','arc','polygon'].map(k=>`<button class="mini" data-im-add="${k}" ${ic.layers.length>=8?'disabled':''}>＋${IM_KIND[k]}</button>`).join('')}<select data-im-addicon ${ic.layers.length>=8?'disabled':''}><option value="">＋內建圖示…</option>${L.keys.map(k=>`<option value="${k}">${esc(L.labels[k]||k)}</option>`).join('')}</select></div></div></div>
+  <details><summary>整體外觀與動畫</summary><div class="im-fields">${imAppearance(ic)}</div></details>`;
+ }else h+=`<div class="card">請新增圖示，或在下方 Lucide 圖庫點選圖標建立。</div>`;
+ h+=`<div class="sec">套用至技能／裝備／道具</div>${imTargetList()}<div class="sec">Lucide SVG 圖庫</div><div class="hint" style="margin:0 0 4px">點選即套用至目前圖層；尚無圖示時自動建立。</div>${imLucide()}</div></div>`;
+ return h;
+}
+const IM_CSS=`.im-layout{display:grid;grid-template-columns:190px minmax(0,1fr);gap:10px}.im-list{display:flex;flex-direction:column;gap:3px;max-height:60vh;overflow:auto}.im-list button,.im-targets button{display:flex;gap:6px;align-items:center;text-align:left}.im-list span{display:flex;flex-direction:column;font-size:12px}.im-list small{color:#a99cc4;font-size:10px}.im-list svg{color:#e3d9bd}
+.im-tools{display:flex;flex-wrap:wrap;gap:4px;align-items:end;margin-bottom:6px}.im-tools label{display:flex;flex-direction:column;font-size:11px;color:#a99cc4}.im-tools input{width:64px}.im-tools select{width:auto}
+.im-work{display:grid;grid-template-columns:minmax(200px,290px) minmax(0,1fr);gap:10px}.im-canvas svg{width:100%;aspect-ratio:1;display:block;background:repeating-conic-gradient(#ffffff08 0 25%,transparent 0 50%) 0 0/12.5% 12.5%,#120e1b;border:1px solid #4a3d66;border-radius:8px;color:#e3d9bd;touch-action:none;cursor:crosshair}
+.im-preview{display:flex;gap:12px;align-items:flex-end;color:#e3d9bd}.im-preview div{display:flex;flex-direction:column;align-items:center}.im-preview small{color:#a99cc4;font-size:10px}
+.im-layer{border:1px solid #3a2e55;border-radius:6px;padding:4px 6px;margin-bottom:4px;cursor:pointer}.im-layer.on{border-color:#f5b942}.im-lh{display:flex;gap:3px;align-items:center}.im-lh b{flex:1;font-size:12px;font-weight:600}
+.im-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 6px;margin-top:4px}.im-fields label{display:flex;flex-direction:column;font-size:11px;color:#a99cc4}.im-fields label.ck{flex-direction:row;align-items:center;gap:4px}.im-fields .wide{grid-column:1/-1}.im-fields input[type=color]{height:28px;padding:1px}
+.im-pal{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}.im-pal select{width:auto;font-size:11px;padding:1px 4px}
+.im-targets{display:flex;flex-direction:column;gap:2px;max-height:180px;overflow:auto;margin:4px 0}.im-targets button{font-size:12px;padding:2px 6px}.im-mini{color:#e3d9bd;display:inline-flex;vertical-align:middle}
+.im-lucide{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:3px;max-height:260px;overflow:auto}.im-lucide button{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9px;padding:4px 2px;overflow-wrap:anywhere;color:#dde6ef}
+@media(max-width:760px){.im-layout,.im-work{grid-template-columns:1fr}.im-list{max-height:160px}.im-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}`;
+// 動畫關鍵影格來自遊戲頁面的樣式表；shadow DOM 內需另外複製一份。
+function imKeyframes(){
+ if(imKeyframes.css!=null)return imKeyframes.css;let css='';
+ for(const sheet of document.styleSheets){let rules;try{rules=sheet.cssRules;}catch{continue;}for(const r of rules||[]){if(r.type===CSSRule.KEYFRAMES_RULE&&/^(tr-|ew-icon)/.test(r.name))css+=r.cssText+'\n';else if(r.selectorText&&/emberwild-icon|ew-icon-/.test(r.selectorText))css+=r.cssText+'\n';}}
+ return imKeyframes.css=css;
+}
+function imBind(){
+ const q=s=>root.querySelector(s),all=s=>[...root.querySelectorAll(s)],ic=imCur();
+ if(!q('style[data-im]')){const st=document.createElement('style');st.dataset.im='';st.textContent=IM_CSS+imKeyframes();root.prepend(st);}
+ const act=(name,fn)=>{for(const b of all(`[data-im-act="${name}"]`))b.onclick=fn;};
+ act('new',()=>imCreate(null));
+ act('example',()=>imCreate({name:'劍與血滴',layers:[imLayer('icon',{icon:'sword',x:-5,y:-4,scale:.8}),imLayer('icon',{icon:'blood',x:14,y:13,scale:.48,tone:'blood'})]}));
+ act('copy-builtin',()=>{const k=q('[data-im-seed]').value;imCreate({name:(imLib().labels[k]||k)+' 副本',layers:[imLayer('icon',{icon:k})]});});
+ act('preset',()=>{const k=q('[data-im-seed]').value,p=imPreset(k);if(p)return imCreate(p);imCreate({name:(imLib().labels[k]||k)+' 副本',layers:[imLayer('icon',{icon:k})]});IM.error='「'+(imLib().labels[k]||k)+'」沒有可編輯範本（劍、斧、槌、火有範本），已改為複製內建圖示。';renderPanel();});
+ act('lprev',()=>{IM.lpage--;renderPanel.keepScroll=true;renderPanel();});act('lnext',()=>{IM.lpage++;renderPanel.keepScroll=true;renderPanel();});
+ act('assign',()=>IM.target&&imAssign(IM.target,'custom:'+IM.id));act('unassign',()=>IM.target&&imAssign(IM.target,'auto'));
+ for(const b of all('[data-im-icon]'))b.onclick=()=>{IM.id=b.dataset.imIcon;IM.layer=0;IM.confirm=false;renderPanel.keepScroll=true;renderPanel();};
+ for(const b of all('[data-im-target]'))b.onclick=()=>{IM.target=IM.hits[Number(b.dataset.imTarget)];renderPanel.keepScroll=true;renderPanel();};
+ const live=(sel,key,after)=>{const el=q(sel);if(el)el.oninput=()=>{IM[key]=el.value;if(key==='lsearch')IM.lpage=0;const pos=el.selectionStart;renderPanel.keepScroll=true;renderPanel();const n=q(sel);if(n){n.focus();n.setSelectionRange(pos,pos);}};};
+ live('[data-im-tsearch]','tsearch');live('[data-im-lsearch]','lsearch');
+ const lc=q('[data-im-lcat]');if(lc)lc.onchange=()=>{IM.lcat=lc.value;IM.lpage=0;renderPanel.keepScroll=true;renderPanel();};
+ for(const b of all('[data-im-lucide]'))b.onclick=()=>{const name='lucide:'+b.dataset.imLucide;
+  if(!imCur())return imCreate({name:b.dataset.imLucide,layers:[imLayer('icon',{icon:name})],appearance:imLib().normalizeAppearance()});
+  const i=IM.layer;imEditCur(c=>{const l=imNorm(c.layers[i]);c.layers[i]=imLayer('icon',{x:l.x,y:l.y,scale:l.scale??1,rotation:l.rotation||0,icon:name});c.appearance??=imLib().normalizeAppearance();},'套用 Lucide 圖標');};
+ if(!ic)return;
+ const name=q('[data-im-name]');name.onchange=()=>{const v=name.value.trim();if(!v){IM.error='圖示名稱不可空白';return renderPanel();}imEditCur(c=>{c.name=v.slice(0,40);},'圖示名稱');};
+ act('dup',()=>{if(imIcons().length>=100){IM.error='最多可建立 100 個自訂圖示。';return renderPanel();}const id=imNextId(),src=ic;if(imEdit(list=>{const c=clone(src);c.id=id;c.name=(src.name+' 複製').slice(0,40);list.push(c);},'複製圖示')){IM.id=id;renderPanel();}});
+ act('delete',()=>{if(!IM.confirm){IM.confirm=true;return renderPanel();}imDelete();});
+ act('clear-erase',()=>{const i=IM.layer;imEditCur(c=>{const l=imNorm(c.layers[i]);delete l.eraseStrokes;c.layers[i]=imNorm(l);},'清除擦除');});
+ for(const b of all('[data-im-tool]'))b.onclick=()=>{IM.tool=b.dataset.imTool;renderPanel.keepScroll=true;renderPanel();};
+ q('[data-im-brushtone]').onchange=e=>{IM.tone=e.target.value;};q('[data-im-brushwidth]').onchange=e=>{IM.width=imClamp(Number(e.target.value),.4,10,3);};
+ const co=q('[data-im-coloron]');if(co)co.onchange=()=>imEditCur(c=>{const a=imLib().normalizeAppearance(c.appearance??{});a.color=co.checked?'#d8ded5':'';c.appearance=a;},'圖示外觀');
+ for(const el of all('[data-im-ap]'))el.onchange=()=>{const k=el.dataset.imAp;imEditCur(c=>{const L=imLib(),a=L.normalizeAppearance(c.appearance??{});a[k]=['color','glowColor','effect','effectTiming'].includes(k)?el.value:Number(el.value);if(k==='effect'&&L.effects[el.value]){a.effectDuration=L.effects[el.value].duration;a.effectTiming=L.effects[el.value].timing;}c.appearance=L.normalizeAppearance(a);},'圖示外觀');};
+ for(const row of all('[data-im-layer]'))row.onclick=e=>{if(e.composedPath().some(n=>n!==row&&n instanceof Element&&n.closest?.('[data-im-layer]')===row&&/^(INPUT|SELECT|BUTTON|LABEL|OPTION)$/.test(n.tagName)))return;IM.layer=Number(row.dataset.imLayer);renderPanel.keepScroll=true;renderPanel();};
+ for(const b of all('[data-im-move]'))b.onclick=()=>{const i=Number(b.dataset.i),j=i+Number(b.dataset.imMove);if(imEditCur(c=>{[c.layers[i],c.layers[j]]=[c.layers[j],c.layers[i]];},'圖層順序'))IM.layer=j,renderPanel();};
+ for(const b of all('[data-im-dupl]'))b.onclick=()=>{const i=Number(b.dataset.imDupl);if(imEditCur(c=>{c.layers.splice(i+1,0,clone(c.layers[i]));},'複製圖層'))IM.layer=i+1,renderPanel();};
+ for(const b of all('[data-im-dell]'))b.onclick=()=>{const i=Number(b.dataset.imDell);if(imEditCur(c=>{c.layers.splice(i,1);},'刪除圖層'))IM.layer=Math.max(0,Math.min(IM.layer,ic.layers.length-2)),renderPanel();};
+ const add=layer=>{if(imEditCur(c=>{c.layers.push(layer);},'加入圖層'))IM.layer=imCur().layers.length-1,renderPanel();};
+ for(const b of all('[data-im-add]'))b.onclick=()=>{const k=b.dataset.imAdd;add(imLayer(k,['line','curve','arc'].includes(k)?{tone:IM.tone}:{strokeTone:IM.tone,fillTone:IM.tone}));};
+ q('[data-im-addicon]').onchange=e=>{if(e.target.value)add(imLayer('icon',{icon:e.target.value,scale:.6}));};
+ for(const el of all('[data-im-lf]'))el.onchange=()=>{const k=el.dataset.imLf,i=IM.layer;imEditCur(c=>{const l=imNorm(c.layers[i]);
+  if(k==='kind'){c.layers[i]=imLayer(el.value,{x:l.x||0,y:l.y||0});return;}
+  if(k==='icon'){if(imLib().validReference(el.value))l.icon=el.value;}
+  else if(['tone','strokeTone','fillTone'].includes(k)){if(el.value)l[k]=el.value;else delete l[k];}
+  else if(k==='filled')l.filled=el.checked;else if(k==='points')l.points=el.value;else l[k]=Number(el.value);
+  c.layers[i]=imNorm(l);},'圖層');};
+ imBindCanvas(ic);
+}
+function imBindCanvas(ic){
+ const svg=root.querySelector('[data-im-canvas]');if(!svg)return;let drag=null;
+ const pt=e=>{const r=svg.getBoundingClientRect();return [imClamp((e.clientX-r.left)/r.width*48,-8,56),imClamp((e.clientY-r.top)/r.height*48,-8,56)];};
+ const local=()=>imNorm(imCur().layers[IM.layer]);
+ const redraw=l=>{const c=imCur();c.layers[IM.layer]=imNorm(l);const g=svg.querySelector('g:nth-of-type(2)');const L=imLib();if(g)g.innerHTML=c.layers.map((x,i)=>`<g data-im-cl="${i}" opacity="${i===IM.layer?1:.55}">${L.layerMarkup(x)}</g>`).join('');};
+ const draftG=()=>svg.querySelector('[data-im-draft]');
+ svg.onpointerdown=e=>{
+  const p=pt(e);svg.setPointerCapture?.(e.pointerId);const l=local();
+  const hit=e.composedPath().find(n=>n instanceof Element&&n.hasAttribute?.('data-im-cl'));
+  if(e.target.hasAttribute?.('data-im-handle')){drag={type:'handle',l,orig:clone(imCur().layers[IM.layer])};return;}
+  if(IM.tool==='move'&&hit&&Number(hit.getAttribute('data-im-cl'))!==IM.layer){IM.layer=Number(hit.getAttribute('data-im-cl'));renderPanel.keepScroll=true;renderPanel();return;}
+  const orig=clone(imCur().layers[IM.layer]);
+  if(IM.tool==='move')drag={type:'move',l,orig,start:p,origin:[l.x,l.y]};
+  else if(IM.tool==='rotate')drag={type:'rotate',l,orig,start:Math.atan2(p[1]-24-l.y,p[0]-24-l.x),origin:l.rotation||0};
+  else if(IM.tool==='fill'){const i=IM.layer;imEditCur(c=>{const x=imNorm(c.layers[i]);if(['rect','ellipse','polygon'].includes(x.kind)){x.filled=true;x.fillTone=IM.tone;}else x.tone=IM.tone;c.layers[i]=imNorm(x);},'填色');}
+  else if(IM.tool==='erase')drag={type:'erase',l,points:[imToLocal(l,...p).map(imRound)]};
+  else{if(ic.layers.length>=8){IM.error='圖層已達 8 層上限。';return renderPanel();}drag={type:IM.tool,start:p,end:p};}
+ };
+ svg.onpointermove=e=>{if(!drag)return;const p=pt(e),l=drag.l;
+  if(drag.type==='move'){l.x=imClamp(imRound(drag.origin[0]+p[0]-drag.start[0]),-24,24);l.y=imClamp(imRound(drag.origin[1]+p[1]-drag.start[1]),-24,24);redraw(l);}
+  else if(drag.type==='rotate'){let d=Math.round(drag.origin+(Math.atan2(p[1]-24-l.y,p[0]-24-l.x)-drag.start)*180/Math.PI);while(d>180)d-=360;while(d<-180)d+=360;l.rotation=d;redraw(l);}
+  else if(drag.type==='handle'){const q=imToLocal({...l,scale:1},...p);l.cx=imClamp(imRound(q[0]),-48,48);l.cy=imClamp(imRound(q[1]),-48,48);redraw(l);}
+  else if(drag.type==='erase'){const q=imToLocal(l,...p).map(imRound),last=drag.points.at(-1);if(drag.points.length<128&&(q[0]!==last[0]||q[1]!==last[1]))drag.points.push(q);const k=l.scale||1;draftG().innerHTML=`<polyline points="${drag.points.map(x=>imToCanvas(l,x[0]*k,x[1]*k).join(',')).join(' ')}" stroke="#ff6b6b" stroke-width="${IM.width}" opacity=".6"/>`;}
+  else{drag.end=p;draftG().innerHTML=`<line x1="${drag.start[0]}" y1="${drag.start[1]}" x2="${p[0]}" y2="${p[1]}" stroke="#58a6ff" stroke-width="${IM.width}" opacity=".7"/>`;}
+ };
+ svg.onpointerup=svg.onpointercancel=()=>{if(!drag)return;const d=drag;drag=null;const i=IM.layer;
+  if(d.type==='move'||d.type==='rotate'||d.type==='handle'){const saved=clone(d.l),orig=d.orig;
+   // 拖曳中只改了畫面上的暫存值；以 commit 寫回草稿，使復原能回到拖曳前。
+   const c=imCur();c.layers[i]=orig;imEditCur(x=>{x.layers[i]=imNorm(saved);},d.type==='rotate'?'旋轉圖層':'移動圖層');return;}
+  if(d.type==='erase'){imEditCur(c=>{const l=imNorm(c.layers[i]);l.eraseStrokes=[...(l.eraseStrokes||[]),{width:imClamp(IM.width/(l.scale||1),.1,40,3),points:d.points}].slice(-32);c.layers[i]=imNorm(l);},'擦除');return;}
+  const [a,b]=[d.start,d.end],len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(len<1.5){draftG().innerHTML='';return;}
+  const mx=imClamp(imRound((a[0]+b[0])/2-24),-24,24),my=imClamp(imRound((a[1]+b[1])/2-24),-24,24);let layer;
+  if(d.type==='line')layer=imLayer('line',{x:mx,y:my,length:imClamp(imRound(len),2,64),rotation:Math.round(Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI),strokeWidth:IM.width,tone:IM.tone});
+  else{const hx=(a[0]-b[0])/2,hy=(a[1]-b[1])/2;layer=imLayer('curve',{x:mx,y:my,x1:imRound(hx),y1:imRound(hy),x2:imRound(-hx),y2:imRound(-hy),cx:imRound(hy*.8),cy:imRound(-hx*.8),strokeWidth:IM.width,tone:IM.tone});}
+  if(imEditCur(c=>{c.layers.push(layer);},d.type==='line'?'畫直線':'畫曲線')){IM.layer=imCur().layers.length-1;renderPanel.keepScroll=true;renderPanel();}
+ };
+}
+
 // ---------- 啟動 ----------
 function boot(){
  if(typeof applyBalanceConfig!=='function'||typeof exportableBalance!=='function'){console.warn('[即時平衡器] 找不到遊戲平衡 API');return;}
@@ -1167,7 +1442,7 @@ function boot(){
   else if(s.draft&&confirm('即時平衡器：遊戲發布版本已更新，上次的草稿建立在舊版本上。\n要繼續使用舊草稿嗎？（取消＝從新版本重新開始）')){draft=s.draft;mount();applyDraft();return;}}catch{}}
  mount();
 }
-globalThis.DreamingAbyssLiveEditor={get draft(){return draft;},get base(){return base;},apply(){const r=applyDraft();renderPanel.keepScroll=true;renderPanel();return r;},export:exportJSON,setOverride,inspectElement,openGroup,findRefs,buildModuleFiles,changeReport,makeZip,get inspectResults(){return inspectResults;},get ui(){return ui;},render:renderPanel,version:VERSION};
+globalThis.DreamingAbyssLiveEditor={get draft(){return draft;},get base(){return base;},apply(){const r=applyDraft();renderPanel.keepScroll=true;renderPanel();return r;},export:exportJSON,setOverride,inspectElement,openGroup,findRefs,buildModuleFiles,changeReport,makeZip,get inspectResults(){return inspectResults;},get ui(){return ui;},render:renderPanel,openIconMaker,get iconMaker(){return {...IM,hits:undefined};},version:VERSION};
 if(globalThis.emberwildBootComplete||globalThis.__EMBERWILD_BALANCE_READY)boot();
 else addEventListener('emberwild-balance-ready',boot,{once:true});
 })();
