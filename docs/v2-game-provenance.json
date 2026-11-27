@@ -1,5 +1,5 @@
 {
-  "gameCommit": "847e2ab8c6da8fb4d1c4f82803a164e1199a9e22",
+  "gameCommit": "cbf7e7b45bc7038e8895ec65366aba486d14176b",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -31,7 +31,7 @@
     },
     {
       "path": "js/balance/gameplay-defaults.js",
-      "sha256": "f112228f391a0ae03fee5506b34502a40d9fa83a9224107ce61b727b1727f991"
+      "sha256": "cd754f24185e86e2c2f611abd0f4f157b3b742fc2df827a1bcf7b54586900636"
     },
     {
       "path": "js/balance/gameplay-settings-schema.js",
@@ -163,11 +163,11 @@
     },
     {
       "path": "js/core/core-game.js",
-      "sha256": "942e27e4db88d080b4f5cf188cec0d5a394c7547c57287811de86d07f56b04a3"
+      "sha256": "7f781a9b6ea7501ca13cdeb5b2487b244040bd3e20b715eb84e1a313683cd29a"
     },
     {
       "path": "js/core/game-catalog.js",
-      "sha256": "a1540381fc09d42f0e22e1433b85744d2ed6b95c3ca27855e8c5dddb14dc7ffd"
+      "sha256": "d0bb357c4938d29237f8d8f7fa82d3756a863256738b7ee076fc547be2e906e2"
     },
     {
       "path": "js/core/save-validation.js",
@@ -579,7 +579,7 @@
     },
     {
       "path": "js/world/dynamic-world.js",
-      "sha256": "fb86a92d45b1fd665f04b637aba22701b1d930254941fcc5e33b653574c12cf4"
+      "sha256": "0e5c57eb621399a57a37183d9fc41a89622e9e596d9b6df03bed7d5672d0370f"
     },
     {
       "path": "js/world/final-map.js",
@@ -595,7 +595,7 @@
     },
     {
       "path": "js/world/monster-drop-tables.js",
-      "sha256": "4ffc4c451b95999ce0f4255dc98bc3b13314abbfc52eadb2264e630d8eb2ebf1"
+      "sha256": "0d9d4fad26ccf9b50b64c14fcb7a6e21bb6d5e2eff8e29733f0d2e6790130914"
     },
     {
       "path": "js/world/quest-design-model.js",
@@ -831,19 +831,19 @@
     },
     {
       "path": "data/balance/characters/classes.json",
-      "sha256": "17a4cc32cf4bcb29bfe7d04f69e8513d99e506ab1861a72c99988d3a5b24933c"
+      "sha256": "253842c27046a0761354c147bfd42a97a9715c2aa889e21812eb70aa2adb37c5"
     },
     {
       "path": "data/balance/characters/companion-settings.json",
-      "sha256": "61220ad13e3f1c1845c12d31cbd05d4308e242e46eb9c8edcb0ee8cb6f9dac7d"
+      "sha256": "2e23088ad1bdb503ae3f5f141bbd347f30bc6c000f7254db607a4ef73daf2d9c"
     },
     {
       "path": "data/balance/characters/companions.json",
-      "sha256": "8205187374f76412a2083d89f1d6022c4cc8744a4c94947c643722c316053181"
+      "sha256": "335a0b364465256e3590344293f7bbc80dcb7ba4c3482e488b917d9ab59dc811"
     },
     {
       "path": "data/balance/characters/passives.json",
-      "sha256": "2b9787bb0585c5c855b5c05ba9d29ca472be9e3ba722ed9f294a60e27d92b4b4"
+      "sha256": "8781aaf017ed9e2ab5a3a4a0bfd5982fe9de6fb241551a1ef61038a5c74a2530"
     },
     {
       "path": "data/balance/characters/progression.json",
@@ -851,7 +851,7 @@
     },
     {
       "path": "data/balance/characters/support-skills.json",
-      "sha256": "a7f8d1155e27307729c06f72080a48b6588bc1f379f126f0b439a20a88efa483"
+      "sha256": "df2b32d1b4af2dfc8f16ccc7df7c619e2b6d78649cd1137d8db0183a754fdbfb"
     },
     {
       "path": "data/balance/combat/rules.json",
@@ -863,15 +863,15 @@
     },
     {
       "path": "data/balance/combat/skill-system.json",
-      "sha256": "5a22647948f9bb547e8264a0bb2de504c69629449a43a1846886a072ef557fce"
+      "sha256": "e620f0a22ad0c1df8c9a67b474429b2a1df859760f8f359641bde7ecf5711270"
     },
     {
       "path": "data/balance/combat/skills.json",
-      "sha256": "b6fce3b3d9e358dba17fd1160cb6bd8422eea4c4ec15db6db95fafaf61165cdb"
+      "sha256": "78f62ec93c885d334809e0e06242fb7f9f6fd4caa68fbd6bc603d3a4915c554b"
     },
     {
       "path": "data/balance/combat/statuses.json",
-      "sha256": "2a14c7b9e6c7d1f3fb925b6e0bffdf0712e848663b54e79ae0c87086a595b38e"
+      "sha256": "56aeb3fd0f93330a3069f445bb69712e73d848563b634d867526dfb39d3a22d2"
     },
     {
       "path": "data/balance/equipment/affix-pools.json",
@@ -879,15 +879,15 @@
     },
     {
       "path": "data/balance/equipment/forms.json",
-      "sha256": "97419db12b453a4079c79a912d1669da74ff6c64db96a2f941d210410f7f1be2"
+      "sha256": "6ed7668a9b01562fbfe8311bb5d6845d78feb1ec85d9fc8a85bfa3108c605f37"
     },
     {
       "path": "data/balance/equipment/power-system.json",
-      "sha256": "505dc3e778a81959e425fcec9885eea13999fbb746b4497d164772a3179e8e1e"
+      "sha256": "54f0e1cefd4540940896e0bb0c9256a5f2cff8f0ed92a2c8cbbc94b018aae130"
     },
     {
       "path": "data/balance/equipment/settings.json",
-      "sha256": "032bfcfcd78eb760b9b1200689dfc9f11abb0f36f456e680eaf0c8c9a8819033"
+      "sha256": "841d60623fca5d110a56b1c0c990f126f012c24d60156a93bc13d6112939236f"
     },
     {
       "path": "data/balance/interface/navigation.json",
@@ -895,39 +895,39 @@
     },
     {
       "path": "data/balance/interface/presentation.json",
-      "sha256": "a044f10b3342a0e850585f85a27e50c536840dfdfa5932b512d0e4e824e54a1b"
+      "sha256": "e3ef26bfd2c1b5b6067fc3439e7592babc0b349312b8ee475471d4f5ec93c45e"
     },
     {
       "path": "data/balance/items/inventory-icons.json",
-      "sha256": "2bf0bb38cc9d50f38320f21037452472789235235227034622335add4e033f3e"
+      "sha256": "c650d75204fbda61ea57d593871bacffb8441a2b36225d1b2caacf82af339bf6"
     },
     {
       "path": "data/balance/items/items.json",
-      "sha256": "587522797e73379ed106e30fd2dc02a0947c2f2478591d1218650deb60806ac5"
+      "sha256": "c8b7ef4d96b7da460d5570f002371b0a83bd20cd4be7c7231f03b64a99915c5c"
     },
     {
       "path": "data/balance/items/starter-packs.json",
-      "sha256": "14858d56a98f793011aa8690ee42b819f35974ee6fd36f51e95bce28cb3151fe"
+      "sha256": "68547337bd1b039cdcc91f9f3a19a8eeccc7ab0471d4d1edfb33403a4e73aa81"
     },
     {
       "path": "data/balance/manifest.json",
-      "sha256": "ef5d832d293e979a959cc1cc3bb693ebd60378356e862702bb5d5f007a3cc0cc"
+      "sha256": "6d9f7807d646ab14c9e9d2ed8da0adf17568bf7ed43cf5cd443b7d496086b61b"
     },
     {
       "path": "data/balance/meta/balance-settings.json",
-      "sha256": "237fdb204e0579c161578c78de60b1f8143c48fb96f54f10326f084713e7570a"
+      "sha256": "9956e4329dc12ea7c4fb3b3a3f1c413dab1ad76d342e2642f6e5f83cd1c69c34"
     },
     {
       "path": "data/balance/meta/document.json",
-      "sha256": "4da7cf2cc09e90cc46421db58fbf87295d615f6b71f90b2621d7f167f319217a"
+      "sha256": "e5d1c1bcbe80fcc2dd2ceef0e7c2bc688e8634ffceec7eb45f1a1ed312ac5860"
     },
     {
       "path": "data/balance/meta/notes.json",
-      "sha256": "9ed61ff89413f1afbb2a08608b508a0904367dec048f33e62b1b744df3f13431"
+      "sha256": "be5e76808efb0b27377e5da9bdb5518834c817484f344590efbf41d51fec382d"
     },
     {
       "path": "data/balance/meta/reference.json",
-      "sha256": "df815942bcc1c4e5776558f779cfe1f398e2fb28745814bb91321533784c1b2f"
+      "sha256": "8643275d4862c581217eaff334ee63573528dc669e356edbd1727f3840f0eef6"
     },
     {
       "path": "data/balance/systems/crafting.json",
@@ -935,7 +935,7 @@
     },
     {
       "path": "data/balance/systems/economy.json",
-      "sha256": "b31ec5703dc47e489693c10073a8b462931499fc2e379b5fcc8e66ab0efc5cb4"
+      "sha256": "b91b5fd5a94649b2d7c2f1198fe1c4b5c2f65698e2f5ecb35974e2301a997296"
     },
     {
       "path": "data/balance/systems/quests.json",
@@ -943,11 +943,11 @@
     },
     {
       "path": "data/balance/systems/rewards.json",
-      "sha256": "b43ead484ca81128dc4051627da2d23113bc8a3e9c406df6f27efd023aa6c441"
+      "sha256": "ce5a770b6b7a6200b599bea214d780ddf8452df27cf63ac4883441b87f5ec633"
     },
     {
       "path": "data/balance/systems/shop.json",
-      "sha256": "6e3586fe694039924531770323f19ccdb267aae81a85b0648c42ede7d33ee0ed"
+      "sha256": "092516b4559f695eb4a01c75170ecb03bf4eb04fd4e04eefb098d2c2a8beb5d7"
     },
     {
       "path": "data/balance/systems/story.json",
@@ -967,19 +967,19 @@
     },
     {
       "path": "data/balance/world/drops.json",
-      "sha256": "b9e95dc1ba81c160bc4cc2445b9ad7e0d8449cd780e9000eeea874e4a86d9330"
+      "sha256": "9528f794b81e5d5d455ebb61db212a60a9ae31fdce1bc16edeea76b6cd0ec05f"
     },
     {
       "path": "data/balance/world/maps.json",
-      "sha256": "2003832bea1699c0e2fa4e39c19bef48fa1173850e3958c7fb857abff554afc2"
+      "sha256": "7434c2e5eae1e038e51f271c1f51db7f9af0dd2f777b18ec1d229d6bebdb5cb8"
     },
     {
       "path": "data/balance/world/monsters.json",
-      "sha256": "ac9ee203a7c53d5d47906e28e4754c5e705e2a7874ef6b893d3ee8a1370807ea"
+      "sha256": "69677e64b0fe8f7f3e988f0417ecac5ca66ae903769a381167d13496e000b770"
     },
     {
       "path": "data/balance.json",
-      "sha256": "831a89ff4f5214795854f5196785aa990ab7f0e78aef54d8e136a61481eacea8"
+      "sha256": "87a579088e008145b075fb6f4fbcabdf9b37cfb3210e36abcbb013ef68aced82"
     },
     {
       "path": "data/build.json",
@@ -987,7 +987,7 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "d9eff42b3ad48567371f2fc7f81843c1bdba45e3c4f877ee6dae95cc88f337b9"
+      "sha256": "c222222750c5e58947758fd0f87568a926618fe95d88523d92e171febcb35605"
     },
     {
       "path": "index.html",

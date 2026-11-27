@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "847e2ab8c6da8fb4d1c4f82803a164e1199a9e22",
+  "sourceCommit": "cbf7e7b45bc7038e8895ec65366aba486d14176b",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -120,7 +120,7 @@
     },
     {
       "path": "js/core/game-catalog.js?v=20261126-v0215-merge",
-      "sha256": "a1540381fc09d42f0e22e1433b85744d2ed6b95c3ca27855e8c5dddb14dc7ffd"
+      "sha256": "d0bb357c4938d29237f8d8f7fa82d3756a863256738b7ee076fc547be2e906e2"
     },
     {
       "path": "js/balance/game-balance-defaults.js?v=20261022-core-catalog1",
@@ -128,7 +128,7 @@
     },
     {
       "path": "js/balance/gameplay-defaults.js?v=20261126-v0217-gem-dust",
-      "sha256": "f112228f391a0ae03fee5506b34502a40d9fa83a9224107ce61b727b1727f991"
+      "sha256": "cd754f24185e86e2c2f611abd0f4f157b3b742fc2df827a1bcf7b54586900636"
     },
     {
       "path": "js/core/save-validation.js?v=20261126-v0223-retired-board",
@@ -156,7 +156,7 @@
     },
     {
       "path": "js/core/core-game.js?v=20261126-v0217-gem-dust",
-      "sha256": "942e27e4db88d080b4f5cf188cec0d5a394c7547c57287811de86d07f56b04a3"
+      "sha256": "7f781a9b6ea7501ca13cdeb5b2487b244040bd3e20b715eb84e1a313683cd29a"
     },
     {
       "path": "js/ui/text-rarity-style.js",
@@ -184,7 +184,7 @@
     },
     {
       "path": "js/world/monster-drop-tables.js?v=20261126-v0216-material-economy",
-      "sha256": "4ffc4c451b95999ce0f4255dc98bc3b13314abbfc52eadb2264e630d8eb2ebf1"
+      "sha256": "0d9d4fad26ccf9b50b64c14fcb7a6e21bb6d5e2eff8e29733f0d2e6790130914"
     },
     {
       "path": "js/balance/balance-schema.js?v=20261124-v0206-drops",
@@ -208,7 +208,7 @@
     },
     {
       "path": "js/world/dynamic-world.js?v=20261124-v0206-drops",
-      "sha256": "fb86a92d45b1fd665f04b637aba22701b1d930254941fcc5e33b653574c12cf4"
+      "sha256": "0e5c57eb621399a57a37183d9fc41a89622e9e596d9b6df03bed7d5672d0370f"
     },
     {
       "path": "js/world/world-followup.js?v=20261019-daily-speed2",
