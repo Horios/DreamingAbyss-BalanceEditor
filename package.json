@@ -7,7 +7,9 @@
     "sync:game": "node scripts/sync-game.cjs",
     "check:game-sync": "node scripts/check-game-sync.cjs",
     "build": "bash scripts/build.sh",
-    "test": "node scripts/build-online.cjs && node --test tests/*.test.mjs tests/*.test.cjs",
-    "validate": "node scripts/validate-artifact.mjs"
+    "test": "node live-editor/test/run-tests.cjs",
+    "validate": "node scripts/validate-artifact.mjs",
+    "live": "node live-editor/server.cjs",
+    "build:html": "node live-editor/build-html.cjs"
   }
 }

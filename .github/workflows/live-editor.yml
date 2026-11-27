@@ -1,0 +1,100 @@
+# 即時平衡器 CI：取得遊戲最新測試版，在 headless Chromium 中跑即時平衡器整合測試。
+name: Live balance editor
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      game_ref:
+        description: Horios/DreamingAbyss 要測試的分支、標籤或 commit
+        required: false
+        default: chatgpt-dev
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-editor-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: 即時平衡器整合測試
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: DreamingAbyss-BalanceEditor
+      - uses: actions/checkout@v4
+        with:
+          repository: Horios/DreamingAbyss
+          ref: ${{ github.event.inputs.game_ref || 'chatgpt-dev' }}
+          path: DreamingAbyss
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: 安裝 Playwright
+        working-directory: DreamingAbyss-BalanceEditor
+        run: |
+          npm install --no-save --no-package-lock playwright@1.49.1
+          npx playwright install --with-deps chromium
+      - name: 語法檢查
+        working-directory: DreamingAbyss-BalanceEditor
+        run: |
+          node --check live-editor/live-editor.js
+          node --check live-editor/server.cjs
+      - name: 整合測試
+        working-directory: DreamingAbyss-BalanceEditor
+        run: node live-editor/test/run-tests.cjs ../DreamingAbyss
+      - name: 打包單檔 HTML
+        if: always()
+        working-directory: DreamingAbyss-BalanceEditor
+        run: node live-editor/build-html.cjs ../DreamingAbyss
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dreaming-abyss-live-editor-html
+          path: DreamingAbyss-BalanceEditor/live-editor/dist/dreaming-abyss-live-editor.html
+
+  # 公開部署：把單檔 HTML 發布到 GitHub Pages（只在預設分支 main 或手動觸發時執行）。
+  # 第一次使用前需在 Settings → Pages 將 Source 設為「GitHub Actions」。
+  deploy:
+    name: 部署到 GitHub Pages
+    needs: test
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: DreamingAbyss-BalanceEditor
+      - uses: actions/checkout@v4
+        with:
+          repository: Horios/DreamingAbyss
+          ref: ${{ github.event.inputs.game_ref || 'chatgpt-dev' }}
+          path: DreamingAbyss
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: 打包單檔 HTML
+        working-directory: DreamingAbyss-BalanceEditor
+        run: |
+          node live-editor/build-html.cjs ../DreamingAbyss
+          mkdir -p site
+          cp live-editor/dist/dreaming-abyss-live-editor.html site/index.html
+          touch site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: DreamingAbyss-BalanceEditor/site
+      - id: deployment
+        uses: actions/deploy-pages@v4
