@@ -20,38 +20,39 @@ const store={get(k){try{return localStorage.getItem(k);}catch{return null;}},set
 
 // 資料分類：path 指向陣列或物件；label 決定清單顯示名稱
 const CATEGORIES=[
- {id:'items',name:'道具',path:['items']},
- {id:'skills',name:'技能',path:['skillSystem','definitions']},
- {id:'gems',name:'寶石',path:['skillSystem','gems']},
- {id:'classRules',name:'職業技能規則',path:['skillSystem','classRules']},
- {id:'skillEquip',name:'裝備技能池',path:['skillSystem','equipment']},
- {id:'classes',name:'職業',path:['classes']},
- {id:'support',name:'輔助技能',path:['supportSkills']},
- {id:'companions',name:'夥伴',path:['companions']},
- {id:'passives',name:'被動',path:['passiveDefinitions']},
- {id:'companionSettings',name:'夥伴設定',path:['companionSettings']},
- {id:'tokens',name:'信物',path:['companionTokens','catalog']},
- {id:'monsters',name:'怪物',path:['balanceSettings','monsters','catalog']},
- {id:'monsterRules',name:'怪物規則',path:['balanceSettings','monsters']},
- {id:'maps',name:'地圖',path:['balanceSettings','maps']},
- {id:'drops',name:'掉落',path:['balanceSettings','drops']},
- {id:'statuses',name:'狀態',path:['statusDefinitions']},
- {id:'forms',name:'裝備類型',path:['equipmentForms']},
- {id:'power',name:'裝備強度',path:['equipmentPowerSystem']},
- {id:'shop',name:'商店',path:['shopSettings']},
- {id:'story',name:'劇情任務',path:['story','quests']},
- {id:'quests',name:'委託',path:['balanceSettings','quests']},
- {id:'tutorials',name:'教學',path:['tutorials','modules']},
- {id:'wishing',name:'許願池',path:['wishingLake']},
- {id:'crafting',name:'製作',path:['crafting']},
- {id:'starter',name:'新手包',path:['starterPacks']},
- {id:'settings',name:'遊戲設定',path:['balanceSettings']},
- {id:'combat',name:'戰鬥公式',path:['balance']},
- {id:'uiText',name:'介面標題',path:['uiText']},
- {id:'navigation',name:'選單',path:['navigation']},
- {id:'icons',name:'背包圖示',path:['inventoryIcons']},
- {id:'root',name:'全部資料',path:[]}
+ {sys:'道具與裝備',id:'items',name:'道具',path:['items']},
+ {sys:'職業與技能',id:'skills',name:'技能',path:['skillSystem','definitions']},
+ {sys:'道具與裝備',id:'gems',name:'寶石',path:['skillSystem','gems']},
+ {sys:'職業與技能',id:'classRules',name:'職業技能規則',path:['skillSystem','classRules']},
+ {sys:'道具與裝備',id:'skillEquip',name:'裝備技能池',path:['skillSystem','equipment']},
+ {sys:'職業與技能',id:'classes',name:'職業',path:['classes']},
+ {sys:'職業與技能',id:'support',name:'輔助技能',path:['supportSkills']},
+ {sys:'夥伴',id:'companions',name:'夥伴',path:['companions']},
+ {sys:'職業與技能',id:'passives',name:'被動',path:['passiveDefinitions']},
+ {sys:'夥伴',id:'companionSettings',name:'夥伴設定',path:['companionSettings']},
+ {sys:'夥伴',id:'tokens',name:'信物',path:['companionTokens','catalog']},
+ {sys:'怪物與地圖',id:'monsters',name:'怪物',path:['balanceSettings','monsters','catalog']},
+ {sys:'怪物與地圖',id:'monsterRules',name:'怪物規則',path:['balanceSettings','monsters']},
+ {sys:'怪物與地圖',id:'maps',name:'地圖',path:['balanceSettings','maps']},
+ {sys:'怪物與地圖',id:'drops',name:'掉落',path:['balanceSettings','drops']},
+ {sys:'職業與技能',id:'statuses',name:'狀態',path:['statusDefinitions']},
+ {sys:'道具與裝備',id:'forms',name:'裝備類型',path:['equipmentForms']},
+ {sys:'道具與裝備',id:'power',name:'裝備強度',path:['equipmentPowerSystem']},
+ {sys:'商店與經濟',id:'shop',name:'商店',path:['shopSettings']},
+ {sys:'任務與劇情',id:'story',name:'劇情任務',path:['story','quests']},
+ {sys:'任務與劇情',id:'quests',name:'委託',path:['balanceSettings','quests']},
+ {sys:'任務與劇情',id:'tutorials',name:'教學',path:['tutorials','modules']},
+ {sys:'商店與經濟',id:'wishing',name:'許願池',path:['wishingLake']},
+ {sys:'道具與裝備',id:'crafting',name:'製作',path:['crafting']},
+ {sys:'道具與裝備',id:'starter',name:'新手包',path:['starterPacks']},
+ {sys:'戰鬥與系統',id:'settings',name:'遊戲設定',path:['balanceSettings']},
+ {sys:'戰鬥與系統',id:'combat',name:'戰鬥公式',path:['balance']},
+ {sys:'戰鬥與系統',id:'uiText',name:'介面標題',path:['uiText']},
+ {sys:'戰鬥與系統',id:'navigation',name:'選單',path:['navigation']},
+ {sys:'道具與裝備',id:'icons',name:'背包圖示',path:['inventoryIcons']},
+ {sys:'戰鬥與系統',id:'root',name:'全部資料',path:[]}
 ];
+const SYSTEMS=["職業與技能", "夥伴", "道具與裝備", "怪物與地圖", "任務與劇情", "商店與經濟", "戰鬥與系統"];
 const LABEL_KEYS=['name','title','label','text','id','key','type'];
 
 let base=null;          // 遊戲啟動時的發布資料
@@ -326,7 +327,8 @@ button:disabled{opacity:.4;cursor:default}
 input,textarea,select{font:inherit;color:#ece6f5;background:#120e1b;border:1px solid #4a3d66;border-radius:5px;padding:4px 6px;width:100%}
 textarea{resize:vertical;min-height:54px;font-family:ui-monospace,Consolas,monospace;font-size:12px}
 .row{display:flex;gap:6px;align-items:center;margin-bottom:6px}.row>*{flex:1}.row>.fit{flex:0 0 auto}
-.cats{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}.cats button{padding:3px 7px;font-size:12px}
+.systems{margin-bottom:8px;border:1px solid #3a2e55;border-radius:8px;overflow:hidden}.sysrow{display:grid;grid-template-columns:76px 1fr;gap:6px;align-items:start;padding:5px 6px;border-bottom:1px solid #2f2644}.sysrow:last-child{border-bottom:0}.sysrow.cur{background:#2a2140}.sysname{font-size:12px;color:#f5d98a;font-weight:700;padding-top:4px}
+.cats{display:flex;flex-wrap:wrap;gap:4px}.cats button{padding:3px 7px;font-size:12px}
 .list{display:flex;flex-direction:column;gap:2px}
 .item{display:flex;justify-content:space-between;gap:8px;padding:5px 8px;border-radius:5px;background:#241d34;cursor:pointer;text-align:left;border:1px solid transparent}
 .item:hover{border-color:#6b4fd8}.item small{color:#a99cc4;white-space:nowrap}
@@ -443,7 +445,8 @@ function renderTab(){
 // 資料頁
 function renderData(){
  const cat=CATEGORIES.find(c=>c.id===ui.cat)||CATEGORIES[0];
- let h=`<div class="cats">${CATEGORIES.map(c=>getAt(draft,c.path)===undefined?'':`<button class="${c.id===cat.id&&!ui.path?'on':''}" data-cat="${c.id}">${c.name}</button>`).join('')}</div>`;
+ let h='<div class="systems">'+SYSTEMS.map(sys=>{const list=CATEGORIES.filter(c=>c.sys===sys&&getAt(draft,c.path)!==undefined);if(!list.length)return '';
+  return `<div class="sysrow${list.some(c=>c.id===cat.id)?' cur':''}"><span class="sysname">${sys}</span><div class="cats">${list.map(c=>`<button class="${c.id===cat.id&&!ui.path&&!ui.group?'on':''}" data-cat="${c.id}">${c.name}</button>`).join('')}</div></div>`;}).join('')+'</div>';
  if(ui.group)return h+renderGroup();
  if(ui.path)return h+renderEditor(ui.path);
  const coll=getAt(draft,cat.path);
