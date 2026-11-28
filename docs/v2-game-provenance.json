@@ -1,5 +1,5 @@
 {
-  "gameCommit": "b30c7f6a4357c292605cfa6129f6413ade5aa47e",
+  "gameCommit": "77946addf80e2a768602820fbf8dcac4af03616b",
   "files": [
     {
       "path": "js/balance/apply-guard.js",
@@ -31,11 +31,11 @@
     },
     {
       "path": "js/balance/gameplay-defaults.js",
-      "sha256": "cd754f24185e86e2c2f611abd0f4f157b3b742fc2df827a1bcf7b54586900636"
+      "sha256": "21527e5c24b41ff8eb3cdce18b14ed24c452ff446eb35edadf03f711c2cdfef3"
     },
     {
       "path": "js/balance/gameplay-settings-schema.js",
-      "sha256": "39db827f40a0aac5fa39498818917f112f6fc3ececfb1120f8c72195b5d0bba0"
+      "sha256": "2858cfc23dd06d2de42f922e6f8d8ab863edec052ecec5261a71ec78598d33c0"
     },
     {
       "path": "js/balance/numeric-compression-formula.js",
@@ -71,7 +71,7 @@
     },
     {
       "path": "js/character/companion-unlocks.js",
-      "sha256": "0babf76e4d7f76c14b48f525ba215e27be7412778bb977322867dc94c7b57332"
+      "sha256": "13026cc34670d5ea1b963b9c66624ca3eb01032129f1eff4e378d718cf01a67f"
     },
     {
       "path": "js/character/companions.js",
@@ -247,11 +247,15 @@
     },
     {
       "path": "js/items/inventory-model.js",
-      "sha256": "79d0539fcd3f14f6cbad927c2a3b45062a5fe4b9e1e5390d5233ac6e70bf70a9"
+      "sha256": "52dd1bdea5e05e3a16c1d389b03211f2239e86b417755d1f4d462106292954ff"
+    },
+    {
+      "path": "js/items/inventory-overflow.js",
+      "sha256": "7569bc0bc48170dc0c695ce3d0558a33eb4b7f454454197ceecfecdc92bd9850"
     },
     {
       "path": "js/items/inventory-runtime.js",
-      "sha256": "bb7739adb5139764b261c0dc74588a7d5388b46abe64edba2e4b0b36b1ec3b6e"
+      "sha256": "f52d2f816594d9e5a64fb15d44f36e7a12f8cd92e6742127a6dc09b9570b0f4e"
     },
     {
       "path": "js/items/material-economy-model.js",
@@ -263,7 +267,7 @@
     },
     {
       "path": "js/items/shop-inventory.js",
-      "sha256": "b54de7f0faf847fdf34d0f3f4af896a9db581966d9a8232d53b8295a4b548f59"
+      "sha256": "60403d2ed5b04c13e7b856a6d6f20033a44c087a1dd5b35b545733dbb1f82bd5"
     },
     {
       "path": "js/items/skill-extraction.js",
@@ -279,7 +283,7 @@
     },
     {
       "path": "js/skills/companion-skill-model.js",
-      "sha256": "b1ac530947a66fcde7328a840cc6ab85af42d51d07b174d10411535209d5edee"
+      "sha256": "adcd94dfd481fa3d9a1699f61c2b07f7f1ce37044b4315873696f33737e8f5e1"
     },
     {
       "path": "js/skills/companion-skill-runtime.js",
@@ -443,7 +447,7 @@
     },
     {
       "path": "js/ui/inventory-grid.js",
-      "sha256": "ee04a628e1f296d70e8fffa099f239af9e212e0aca6c8adb03b4324d3692b96f"
+      "sha256": "d2d9475a0cae2c0e33998964fd01199ea627750604290889c11db46d4e1347c6"
     },
     {
       "path": "js/ui/inventory-icon-model.js",
@@ -911,11 +915,11 @@
     },
     {
       "path": "data/balance/manifest.json",
-      "sha256": "408a2d24e2cdb9b48035f836e8beda414e3eb14b228121ac45fe0f16c6b2fc1e"
+      "sha256": "2d351797bfed24faef076d8712b0ea42fc6f800e67fa74f76564455810c03ae2"
     },
     {
       "path": "data/balance/meta/balance-settings.json",
-      "sha256": "9956e4329dc12ea7c4fb3b3a3f1c413dab1ad76d342e2642f6e5f83cd1c69c34"
+      "sha256": "ffff24469a9c007224335dbb499de54caef5019d8023130d0eb9f77496bf53d0"
     },
     {
       "path": "data/balance/meta/document.json",
@@ -979,7 +983,7 @@
     },
     {
       "path": "data/balance.json",
-      "sha256": "f7a856a84fe447d0fa269d46a4b8b52c2954725a80151349df80bd575cd82e46"
+      "sha256": "0ba8e8682e8a13d494c0af24d5e794193b5f8032a8508cf549730701de9cff6c"
     },
     {
       "path": "data/build.json",
@@ -987,11 +991,11 @@
     },
     {
       "path": "data/preview-version.json",
-      "sha256": "1eeb079b500738b27aeeadd3c5dc977ed734fa7030e7f1edea2dc36174386db8"
+      "sha256": "43e06537a5c3cd0ca274d3b46b9b6e8b23c67f933dab300cca78f744415d0df4"
     },
     {
       "path": "index.html",
-      "sha256": "197688b5dd1f92d9d15f15c8e32260f27cca32c162fde92f708f482e8b90fbd7"
+      "sha256": "9f044ab3e2d307478b2b82aa6531000d6b1121120cba9910f99a57f1ce80f5e4"
     }
   ],
   "gameBridgeSha256": "8cab379ca8192c20775bc5328d0e0309e83100028ac963a49b53976f079a6d5c",

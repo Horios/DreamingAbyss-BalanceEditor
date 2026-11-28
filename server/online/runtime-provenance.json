@@ -1,6 +1,6 @@
 {
   "sourceRepository": "Horios/DreamingAbyss",
-  "sourceCommit": "b30c7f6a4357c292605cfa6129f6413ade5aa47e",
+  "sourceCommit": "77946addf80e2a768602820fbf8dcac4af03616b",
   "files": [
     {
       "path": "js/ui/themes.js?v=20261016-themes1",
@@ -79,8 +79,8 @@
       "sha256": "5011855751208a9c0eb184e795e3998467e4c686ed5725398386bd7481223099"
     },
     {
-      "path": "js/skills/companion-skill-model.js?v=20261120-v0179",
-      "sha256": "b1ac530947a66fcde7328a840cc6ab85af42d51d07b174d10411535209d5edee"
+      "path": "js/skills/companion-skill-model.js?v=20261128-v0228-split-skills",
+      "sha256": "adcd94dfd481fa3d9a1699f61c2b07f7f1ce37044b4315873696f33737e8f5e1"
     },
     {
       "path": "js/character/team-model.js?v=20261119-v0169",
@@ -111,8 +111,8 @@
       "sha256": "a263da9fdd89e31a992a90f03f96bd2e283f26f7c8cf74e18ed3a7555299bae1"
     },
     {
-      "path": "js/items/inventory-model.js?v=20261124-v0205-inventory-fix",
-      "sha256": "79d0539fcd3f14f6cbad927c2a3b45062a5fe4b9e1e5390d5233ac6e70bf70a9"
+      "path": "js/items/inventory-model.js?v=20261128-v0228-bag-capacity",
+      "sha256": "52dd1bdea5e05e3a16c1d389b03211f2239e86b417755d1f4d462106292954ff"
     },
     {
       "path": "js/world/drop-rework-model.js?v=20261126-v0215-merge",
@@ -127,8 +127,8 @@
       "sha256": "c51e799656f4a9b38dc7e686237c94973db69e39f91d7d75399e5c70221309a9"
     },
     {
-      "path": "js/balance/gameplay-defaults.js?v=20261126-v0217-gem-dust",
-      "sha256": "cd754f24185e86e2c2f611abd0f4f157b3b742fc2df827a1bcf7b54586900636"
+      "path": "js/balance/gameplay-defaults.js?v=20261128-v0228-bag-capacity",
+      "sha256": "21527e5c24b41ff8eb3cdce18b14ed24c452ff446eb35edadf03f711c2cdfef3"
     },
     {
       "path": "js/core/save-validation.js?v=20261126-v0223-retired-board",
@@ -139,8 +139,8 @@
       "sha256": "37fcb064723c4e4be763df2cc1b01f952637cedae72fed9d9751d06e111c8869"
     },
     {
-      "path": "js/balance/gameplay-settings-schema.js?v=20261124-v0204-inventory",
-      "sha256": "39db827f40a0aac5fa39498818917f112f6fc3ececfb1120f8c72195b5d0bba0"
+      "path": "js/balance/gameplay-settings-schema.js?v=20261128-v0228-bag-capacity",
+      "sha256": "2858cfc23dd06d2de42f922e6f8d8ab863edec052ecec5261a71ec78598d33c0"
     },
     {
       "path": "js/ui/core-screen-views.js?v=20261126-v0216-material-economy",
@@ -351,8 +351,8 @@
       "sha256": "57bcf1e2827f655b5c705a3d53f610e2e18cfa0f480eeb13d653abca31503aac"
     },
     {
-      "path": "js/items/shop-inventory.js?v=20261126-v0216-material-economy",
-      "sha256": "b54de7f0faf847fdf34d0f3f4af896a9db581966d9a8232d53b8295a4b548f59"
+      "path": "js/items/shop-inventory.js?v=20261128-v0228-bag-capacity",
+      "sha256": "60403d2ed5b04c13e7b856a6d6f20033a44c087a1dd5b35b545733dbb1f82bd5"
     },
     {
       "path": "js/equipment/equipment-shop.js?v=20261126-v0211-gear",
@@ -427,8 +427,8 @@
       "sha256": "3dd49193c9289845dd713fe7f0a83faeca04b3f1b4c6c8b065ca191f8919bf10"
     },
     {
-      "path": "js/character/companion-unlocks.js?v=20261126-v0215-merge",
-      "sha256": "0babf76e4d7f76c14b48f525ba215e27be7412778bb977322867dc94c7b57332"
+      "path": "js/character/companion-unlocks.js?v=20261128-v0228-bag-capacity",
+      "sha256": "13026cc34670d5ea1b963b9c66624ca3eb01032129f1eff4e378d718cf01a67f"
     },
     {
       "path": "js/world/quest-design-settings.js?v=20261019-daily-speed2",
@@ -459,8 +459,8 @@
       "sha256": "408075181157c229a1e31977969ae9ce587fdeecbee5b7d984b45c049b96a325"
     },
     {
-      "path": "js/items/inventory-runtime.js?v=20261126-v0217-gem-dust",
-      "sha256": "bb7739adb5139764b261c0dc74588a7d5388b46abe64edba2e4b0b36b1ec3b6e"
+      "path": "js/items/inventory-runtime.js?v=20261128-v0228-bag-capacity",
+      "sha256": "f52d2f816594d9e5a64fb15d44f36e7a12f8cd92e6742127a6dc09b9570b0f4e"
     },
     {
       "path": "js/world/monster-design-runtime.js?v=20261124-v0206-drops",
@@ -583,8 +583,8 @@
       "sha256": "e5d4a4ac0c77b0fc12345dd5b0a83f1a56fa1908c079325b656f49c624831278"
     },
     {
-      "path": "js/ui/inventory-grid.js?v=20261126-v0217-gem-dust",
-      "sha256": "ee04a628e1f296d70e8fffa099f239af9e212e0aca6c8adb03b4324d3692b96f"
+      "path": "js/ui/inventory-grid.js?v=20261128-v0228-bag-capacity",
+      "sha256": "d2d9475a0cae2c0e33998964fd01199ea627750604290889c11db46d4e1347c6"
     },
     {
       "path": "js/story/tutorial-runtime.js?v=20261126-v0217-retired-save",
@@ -605,6 +605,10 @@
     {
       "path": "js/world/drop-rework.js?v=20261126-v0217-gem-dust",
       "sha256": "d8ef5ef338d3fc56fe81bc948ff409b11be24f6f6811ec58e2e7273b64837ecc"
+    },
+    {
+      "path": "js/items/inventory-overflow.js?v=20261128-v0228-bag-capacity",
+      "sha256": "7569bc0bc48170dc0c695ce3d0558a33eb4b7f454454197ceecfecdc92bd9850"
     },
     {
       "path": "js/balance/apply-guard.js?v=20261113-v0137-prologue3",
