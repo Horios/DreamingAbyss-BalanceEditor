@@ -13354,12 +13354,13 @@ function newRowSecondsTiming(kind,row){
 // row of the selected skill; the edit made since the page last rendered is written back to the
 // canonical skill definition before markDirty re-projects, so it is not discarded.
 (function(){
- const sync=globalThis.__EMBERWILD_SKILL_ROW_SYNC;let row=null,snapshot=null;
+ // The canonical skill system block that provides writeRow is embedded later in the page, so it is looked up per call.
+ let row=null,snapshot=null;
  const current=()=>{if(currentSection!=='companions'||selected.companionTab!=='skills'||selected.skillTab==='passive')return null;return selected.skillTab==='support'?data.supportSkills?.[selected.supportClass]?.[selected.support]:data.classes?.[selected.skillClass]?.skills?.[selected.skill];};
  // Keep the last companion row while another page (such as the icon maker) is open, so an edit applied from there is kept.
  const take=()=>{const next=current();if(next){row=next;snapshot=JSON.stringify(row);}};
  const innerRender=render;render=function(...args){const out=innerRender(...args);take();return out;};
- const innerDirty=markDirty;markDirty=function(...args){if(row&&row===current()&&JSON.stringify(row)!==snapshot){sync.writeRow(data,row,snapshot);snapshot=JSON.stringify(row);}return innerDirty(...args);};
+ const innerDirty=markDirty;markDirty=function(...args){if(row&&row===current()&&JSON.stringify(row)!==snapshot){globalThis.__EMBERWILD_SKILL_ROW_SYNC?.writeRow(data,row,snapshot);snapshot=JSON.stringify(row);}return innerDirty(...args);};
 })();
 </script>
 
@@ -13463,6 +13464,370 @@ function newRowSecondsTiming(kind,row){
 })();
 
 </script>
+
+
+<!-- wishing-lake:start -->
+<style>.lake-editor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:12px 0}.lake-editor-grid label,.lake-editor-table label{display:flex;flex-direction:column;gap:5px}.lake-editor-table{overflow:auto}.lake-editor-table table{min-width:760px;width:100%}.lake-editor-table td{vertical-align:top;padding:10px}.lake-editor-table input,.lake-editor-table select{max-width:260px;width:100%}.lake-editor-grid textarea{min-width:0}.lake-editor-grid input[type=checkbox],.lake-editor-table input[type=checkbox]{width:auto;align-self:start}</style>
+<script id="wishing-lake-model">
+/* Shared, side-effect-free lake rules. The editor simulator calls this same draw. */
+(function(root){
+ 'use strict';
+ const copy=x=>JSON.parse(JSON.stringify(x)),types=['gold','item','equipment'];
+ const DEFAULTS={version:1,enabled:true,unlock:{source:'mapClears',mapId:'map0'},dailyLimit:1,reset:{timezone:'Asia/Taipei',hour:0},allowEquipment:false,allowTokens:false,allowSpecial:false,
+  typeWeights:{gold:50,item:30,equipment:20},
+  gold:{min:500,max:20000,bands:[{min:500,max:1999,weight:50},{min:2000,max:4999,weight:30},{min:5000,max:9999,weight:15},{min:10000,max:20000,weight:5}]},
+  equipment:{progressSource:'mapClears',rangeSource:'regionTier',aheadChance:.1,aheadLevels:5,qualitySource:'normalDrops',tierSource:'normalDrops'},
+  inputs:[['gel','黏稠凝膠',50],['fang','完整狼牙',50]].map(([id,key,n])=>({id,kind:'material',key,enabled:true,quantityMode:'fixed',min:n,max:n,poolId:'daily',specialTrigger:''})),
+  pools:[{id:'daily',name:'每日湖泊回贈',rewards:[{id:'gold',type:'gold',enabled:true,weight:1,minMapId:'map0',allowAhead:false},{id:'heal',type:'item',kind:'item',key:'heal_small',min:2,max:5,enabled:true,weight:50,minMapId:'map0',allowAhead:false},{id:'iron',type:'item',kind:'material',key:'鍛鐵',min:5,max:12,enabled:true,weight:30,minMapId:'map0',allowAhead:false},{id:'gear',type:'equipment',enabled:true,weight:1,minMapId:'map0',allowAhead:true}]}],
+  future:{fairyEvents:[],companionQuests:[],festivals:[],stateFields:{festivalClaims:'object',fairyEvents:'object',companionTriggers:'object',questCompletions:'object'}}};
+ const maps=d=>d.balanceSettings?.maps?.catalog||[];
+ function catalog(d){return root.EmberwildInventoryIcons.entries(d);}
+ function safe(d,kind,key,rows=catalog(d)){
+  const row=rows.find(r=>r.kind===kind&&r.key===key);if(!row)return false;
+  const meta=d.inventoryIcons?.find(r=>r.kind===kind&&r.key===key),item=d.items?.find(r=>r.id===key);
+  if(meta?.locked||meta?.questItem||meta?.unique||meta?.saleEnabled===false||item?.questItem||item?.unique||item?.special||item?.locked||item?.consumable===false)return false;
+  if(kind==='item'&&!['healPotion','imbue','ward','elementTonic','timedBoost','gearTierReroll'].includes(item?.type))return false;
+  return !['日蝕王冠','升級卷軸'].includes(key)&&!key.startsWith('companion-ticket-');
+ }
+ function region(d,clears){return maps(d).map((m,i)=>({...m,index:i})).filter(m=>clears?.[m.id]===true).sort((a,b)=>b.max-a.max||b.min-a.min||a.index-b.index)[0]||null;}
+ function range(d,m){
+  if(!m)throw Error('尚無通關地區');
+  const e=d.balanceSettings.equipment,cap=Math.max(1,Math.floor(Number(e.maxLevel)||60));
+  // Ordinary drops use regionTier and have one required level per region.
+  const tier=m.index===6?6:Math.ceil(m.min/5);
+  const level=Math.min(cap,Math.max(1,Math.round(e.requiredLevel.base+(tier-1)*e.requiredLevel.perTier)));
+  return {min:level,max:level,cap,tier};
+ }
+ function issues(c,d){
+  const out=[],fail=s=>out.push(s),obj=x=>x&&typeof x==='object'&&!Array.isArray(x),num=(x,a,b)=>Number.isFinite(x)&&x>=a&&x<=b,int=(x,a,b)=>Number.isSafeInteger(x)&&x>=a&&x<=b;
+  if(!obj(c))return ['許願湖設定必須為物件'];
+  // The document does not change during one check: build its item catalogue once, on first use.
+  let catalogRows;const rows=()=>catalogRows??=catalog(d);
+  if(c.version!==1)fail('許願湖版本必須為 1');
+  const ids=new Set(maps(d).map(m=>m.id)),map=id=>typeof id==='string'&&ids.has(id);
+  if(c.unlock?.source!=='mapClears'||!map(c.unlock?.mapId))fail('解鎖必須引用正式地區通關紀錄');
+  if(!int(c.dailyLimit,0,100)||typeof c.enabled!=='boolean')fail('每日次數必須為 0～100 整數');
+  if(c.reset?.timezone!=='Asia/Taipei'||c.reset?.hour!==0)fail('第一階段只支援台灣時間 00:00 重置');
+  for(const k of ['allowEquipment','allowTokens','allowSpecial'])if(typeof c[k]!=='boolean')fail(k+' 必須為布林值');
+  if(!types.every(t=>num(c.typeWeights?.[t],0,1e9))||!types.some(t=>c.typeWeights?.[t]>0))fail('獎勵類型權重無效');
+  const g=c.gold;
+  if(!int(g?.min,500,20000)||!int(g?.max,g?.min,20000)||!Array.isArray(g?.bands)||!g.bands.length||!g.bands.some(b=>b.weight>0))fail('金幣範圍限 500～20000，且需設定分段權重');
+  else for(const b of g.bands)if(!int(b.min,g.min,g.max)||!int(b.max,b.min,g.max)||!num(b.weight,0,1e9))fail('金幣分段無效');
+  const e=c.equipment;
+  if(e?.progressSource!=='mapClears'||e?.rangeSource!=='regionTier'||e?.qualitySource!=='normalDrops'||e?.tierSource!=='normalDrops'||!num(e?.aheadChance,0,1)||!int(e?.aheadLevels,0,5))fail('裝備須沿用通關地區、普通掉落品質／T 級，超前最多 5 級');
+  function unique(rows,label){if(!Array.isArray(rows)||rows.length>1000){fail(label+' 必須為至多 1000 筆陣列');return [];}const seen=new Set();for(const r of rows){if(!obj(r)||typeof r.id!=='string'||!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(r.id)||seen.has(r.id))fail(label+' ID 無效或重複');seen.add(r?.id);}return rows.filter(obj);}
+  const pools=unique(c.pools,'回贈池'),poolIds=new Set(pools.map(p=>p.id));
+  for(const p of pools){const rewards=unique(p.rewards,'回贈列'),weights=p.typeWeights??c.typeWeights;
+   if(p.enabled!==undefined&&typeof p.enabled!=='boolean')fail(p.id+' 啟用狀態無效');
+   if(!types.every(t=>num(weights?.[t],0,1e9))||!types.some(t=>weights?.[t]>0))fail(p.id+' 類型權重無效');
+   for(const r of rewards){
+   if(!types.includes(r.type)||typeof r.enabled!=='boolean'||!num(r.weight,0,1e9)||!map(r.minMapId)||typeof r.allowAhead!=='boolean')fail(p.id+'/'+r.id+' 回贈設定無效');
+   if(r.type==='item'&&(!['material','item'].includes(r.kind)||!safe(d,r.kind,r.key,rows())||!int(r.min,1,1e6)||!int(r.max,r.min,1e6)))fail(p.id+'/'+r.id+' 引用不存在、特殊或無法正常入包的道具／數量');
+  }if(p.enabled!==false&&!rewards.some(r=>r.enabled&&r.weight>0&&weights?.[r.type]>0))fail(p.id+' 沒有有效回贈');}
+  const triggers=new Set((c.future?.companionQuests||[]).map(r=>r.triggerItemId).filter(Boolean));
+  for(const r of unique(c.inputs,'投入規則')){
+   if(!['material','item','equipment','token'].includes(r.kind)||!rows().some(x=>x.kind===r.kind&&x.key===r.key))fail(r.id+' 投入引用不存在');
+   if(['material','item'].includes(r.kind)&&!safe(d,r.kind,r.key,rows()))fail(r.id+' 不可投入特殊或任務關鍵道具');
+   if(typeof r.enabled!=='boolean'||!['fixed','range'].includes(r.quantityMode)||!int(r.min,1,1e6)||!int(r.max,r.min,1e6)||r.quantityMode==='fixed'&&r.min!==r.max||['equipment','token'].includes(r.kind)&&r.max!==1||!poolIds.has(r.poolId)||typeof r.specialTrigger!=='string')fail(r.id+' 投入數量／回贈池無效');
+   if(r.enabled&&(r.specialTrigger||triggers.has(r.key)))fail(r.id+' 尚未實作的特殊觸發道具不可啟用');
+  }
+  if(!obj(c.future)||!obj(c.future.stateFields))fail('缺少未來事件與存檔欄位定義');
+  else for(const k of ['fairyEvents','companionQuests','festivals'])for(const r of unique(c.future[k],k)){
+   if(r.enabled!==false)fail(k+'/'+r.id+' 第一階段必須停用');
+   if(r.poolId&&!poolIds.has(r.poolId))fail(k+'/'+r.id+' 回贈池引用不存在');
+   if(r.triggerItemId&&!rows().some(x=>x.kind==='item'&&x.key===r.triggerItemId))fail(k+'/'+r.id+' 觸發道具引用不存在');
+   if(k==='companionQuests'&&r.companionId!==null&&!d.companions?.some(x=>x.id===r.companionId))fail(k+'/'+r.id+' 夥伴引用不存在');
+  }
+  return [...new Set(out)];
+ }
+ function normalize(raw,d){const c=raw===undefined?copy(DEFAULTS):copy(raw),errors=issues(c,d);if(errors.length)throw Error(errors.join('\n'));return c;}
+ function eligible(c,d,poolId,clears){
+  const highest=region(d,clears);if(!highest)return [];
+  if(c.pools.find(p=>p.id===poolId)?.enabled===false)return [];
+  return (c.pools.find(p=>p.id===poolId)?.rewards||[]).filter(r=>r.enabled&&r.weight>0&&(clears?.[r.minMapId]||maps(d).find(m=>m.id===r.minMapId)?.max<=highest.max)&&!(r.type==='item'&&!r.allowAhead&&r.kind==='material'&&(d.balanceSettings.monsters.catalog||[]).some(m=>m.material===r.key&&maps(d)[m.mapIndex]?.min>highest.max)));
+ }
+ function pick(rows,rng){const total=rows.reduce((n,r)=>n+r.weight,0);if(!(total>0))throw Error('沒有可用回贈');let n=rng()*total;for(const r of rows)if((n-=r.weight)<0)return r;return rows.at(-1);}
+ const integer=(a,b,rng)=>a+Math.min(b-a,Math.floor(rng()*(b-a+1)));
+ function probabilities(c,d,poolId,clears){const rows=eligible(c,d,poolId,clears),weights=c.pools.find(p=>p.id===poolId)?.typeWeights??c.typeWeights,ts=types.filter(t=>rows.some(r=>r.type===t)&&weights[t]>0),total=ts.reduce((n,t)=>n+weights[t],0);return rows.map(r=>({...r,probability:ts.includes(r.type)?weights[r.type]/total*r.weight/rows.filter(x=>x.type===r.type).reduce((n,x)=>n+x.weight,0):0}));}
+ function draw(c,d,poolId,clears,rng=Math.random){
+  const rows=eligible(c,d,poolId,clears),weights=c.pools.find(p=>p.id===poolId)?.typeWeights??c.typeWeights,type=pick(types.filter(t=>rows.some(r=>r.type===t)).map(type=>({type,weight:weights[type]})),rng).type,r=pick(rows.filter(r=>r.type===type),rng),result={type,ruleId:r.id};
+  if(type==='gold'){const b=pick(c.gold.bands,rng);return {...result,amount:integer(b.min,b.max,rng)};}
+  if(type==='item')return {...result,kind:r.kind,key:r.key,quantity:integer(r.min,r.max,rng)};
+  const m=region(d,clears),limits=range(d,m),top=Math.min(limits.cap,limits.max+c.equipment.aheadLevels),ahead=r.allowAhead&&top>limits.max&&rng()<c.equipment.aheadChance;
+  const level=ahead?integer(limits.max+1,top,rng):integer(limits.min,limits.max,rng),e=d.balanceSettings.equipment.requiredLevel;
+  return {...result,mapId:m.id,mapIndex:m.index,level,ahead:!!ahead,tier:Math.max(1,Math.min(12,1+Math.floor((level-e.base)/e.perTier)))};
+ }
+ function simulate(c,d,{mapId,inputId,quantity,count=1000},rng=Math.random){
+  normalize(c,d);const m=maps(d).find(m=>m.id===mapId),input=c.inputs.find(r=>r.id===inputId&&r.enabled&&!r.specialTrigger);
+  if(!m||!input||c.pools.find(p=>p.id===input.poolId)?.enabled===false||!Number.isInteger(quantity)||quantity<input.min||quantity>input.max||![100,1000,10000].includes(count))throw Error('模擬地區、投入或次數無效，或回贈池已停用');
+  const clears=Object.fromEntries(maps(d).filter(x=>x.max<=m.max).map(x=>[x.id,true]));clears[c.unlock.mapId]=true;
+  const out={count,types:{gold:0,item:0,equipment:0},goldTotal:0,goldMin:null,goldMax:null,items:{},levels:{},ahead:0,invalid:0};
+  for(let i=0;i<count;i++)try{const r=draw(c,d,input.poolId,clears,rng);out.types[r.type]++;if(r.type==='gold'){out.goldTotal+=r.amount;out.goldMin=Math.min(out.goldMin??Infinity,r.amount);out.goldMax=Math.max(out.goldMax??0,r.amount);}else if(r.type==='item'){const id=r.kind+':'+r.key;out.items[id]=(out.items[id]||0)+r.quantity;}else{out.levels[r.level]=(out.levels[r.level]||0)+1;out.ahead+=Number(r.ahead);}}catch{out.invalid++;}
+  out.goldAverage=out.types.gold?out.goldTotal/out.types.gold:0;out.goldPerOffering=out.goldTotal/count;out.aheadRatio=out.types.equipment?out.ahead/out.types.equipment:0;return out;
+ }
+ const day=(now=Date.now())=>new Date(now+8*3600000).toISOString().slice(0,10);
+ const defaults=()=>copy(DEFAULTS);
+ root.EmberwildWishingLake={VERSION:1,defaults,normalize,issues,catalog,safe,region,range,eligible,probabilities,draw,simulate,day};
+ if(typeof module==='object'&&module.exports)module.exports=root.EmberwildWishingLake;
+})(globalThis);
+
+</script>
+<script id="wishing-lake-editor">
+/* Lake editor: all mutations remain in the ordinary draft/export document. */
+(()=>{
+ const M=EmberwildWishingLake,copy=x=>JSON.parse(JSON.stringify(x)),e=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ let search='',filter='all',sort='id',selectedPool='daily',simulation=null;
+ const config=()=>data.wishingLake??=M.defaults(),maps=()=>data.balanceSettings.maps.catalog;
+ const beforeEnsure=ensureArrays;ensureArrays=function(...args){const out=beforeEnsure(...args);config();return out;};
+ ORIGINAL_DATA.wishingLake??=M.defaults();config();
+ const refRows=()=>M.catalog(data).filter(x=>['item','material','equipment','token'].includes(x.kind));
+ const label=r=>{const meta=data.inventoryIcons?.find(x=>x.kind===r.kind&&x.key===r.key);return meta?.displayName||r.name||r.key;};
+ const refLabel=r=>{const row=refRows().find(x=>x.kind===r.kind&&x.key===r.key);return row?label(row):'⚠ 引用不存在：'+r.kind+':'+r.key;};
+ const refs=()=>refRows().map(r=>[r.kind+':'+r.key,label(r)+' ('+r.kind+':'+r.key+')']);
+ const mapOptions=()=>maps().map(m=>[m.id,m.name+' ('+m.id+')']);
+ const val=(o,path)=>path.split('.').reduce((x,k)=>x?.[k],o);
+ function put(o,path,value){const parts=path.split('.'),key=parts.pop();for(const p of parts)o=o[p];o[key]=value;}
+ function control(path,title,value,kind='text',options=[]){
+  const attr='data-lake-path="'+e(path)+'"',disabled=kind==='readonly'?' disabled':'';
+  return '<label>'+e(title)+(kind==='select'?'<select '+attr+'>'+(!options.some(([v])=>String(v)===String(value))?'<option value="'+e(value)+'">⚠ '+e(value)+'</option>':'')+options.map(([v,n])=>'<option value="'+e(v)+'" '+(String(v)===String(value)?'selected':'')+'>'+e(n)+'</option>').join('')+'</select>':kind==='checkbox'?'<input '+attr+' type="checkbox" '+(value?'checked':'')+'>':kind==='json'?'<textarea '+attr+' data-json="true" rows="3">'+e(JSON.stringify(value,null,2))+'</textarea>':'<input '+attr+' type="'+(kind==='number'?'number':'text')+'" '+(kind==='number'?'step="any"':'')+' value="'+e(value??'')+'"'+disabled+'>')+'</label>';
+ }
+ const num=(p,t,v)=>control(p,t,v,'number'),check=(p,t,v)=>control(p,t,v,'checkbox'),select=(p,t,v,o)=>control(p,t,v,'select',o);
+ function fields(prefix,r,defs){return defs.map(([key,title,kind,options])=>control(prefix+'.'+key,title,r[key],kind,options)).join('');}
+ const errorHTML=()=>{const errors=M.issues(config(),data);return '<div id="lakeValidation" role="status">'+(errors.length?errors.map(x=>'<p class="bad">'+e(x)+'</p>').join(''):'<p class="good">許願湖設定有效</p>')+'</div>';};
+ function inputRows(){return config().inputs.map((r,i)=>({r,i})).filter(({r})=>(filter==='all'||(filter==='enabled')===r.enabled)&&(refLabel(r)+' '+r.id+' '+r.key).toLowerCase().includes(search.toLowerCase())).sort((a,b)=>sort==='quantity'?a.r.min-b.r.min:String(sort==='name'?refLabel(a.r):a.r.id).localeCompare(String(sort==='name'?refLabel(b.r):b.r.id),'zh-Hant'));}
+ function basic(){const c=config();return '<section class="card"><h2>基本設定</h2><div class="lake-editor-grid">'+check('enabled','每日回贈啟用',c.enabled)+num('dailyLimit','每日成功投入次數',c.dailyLimit)+select('unlock.mapId','解鎖地區（正式通關旗標）',c.unlock.mapId,mapOptions())+control('unlock.source','通關來源',c.unlock.source,'readonly')+control('reset.timezone','重置時區',c.reset.timezone,'readonly')+control('reset.hour','每日重置時間',c.reset.hour,'readonly')+check('allowEquipment','允許規則明確指定的未鎖定／未穿戴裝備',c.allowEquipment)+check('allowTokens','允許規則明確指定的信物',c.allowTokens)+check('allowSpecial','保留：特殊道具許可（任務觸發仍停用）',c.allowSpecial)+['gold','item','equipment'].map((k,i)=>num('typeWeights.'+k,['金幣','一般道具／素材','裝備'][i]+' 類型權重',c.typeWeights[k])).join('')+'</div><p>獎勵先抽類型，再抽該類型的有效列。權重只在符合地區條件的列之間正規化。</p></section>';}
+ function inputs(){const c=config(),pools=c.pools.map(p=>[p.id,p.name]);return '<section class="card"><h2>投入規則</h2><div class="toolbar"><input id="lakeSearch" placeholder="搜尋名稱、ID" value="'+e(search)+'"><select id="lakeFilter">'+[['all','全部'],['enabled','啟用'],['disabled','停用']].map(([v,n])=>'<option value="'+v+'" '+(v===filter?'selected':'')+'>'+n+'</option>').join('')+'</select><select id="lakeSort">'+[['id','依 ID'],['name','依名稱'],['quantity','依最低數量']].map(([v,n])=>'<option value="'+v+'" '+(v===sort?'selected':'')+'>'+n+'</option>').join('')+'</select><button data-lake-add="input">新增投入規則</button></div><div class="lake-editor-table"><table><thead><tr><th>道具／引用</th><th>啟用</th><th>數量與回贈池</th><th>特殊觸發</th></tr></thead><tbody>'+inputRows().map(({r,i})=>{const p='inputs.'+i;return '<tr><td>'+e(refLabel(r))+control(p+'.id','ID',r.id)+select(p+'.ref','全域道具',r.kind+':'+r.key,refs())+'</td><td>'+check(p+'.enabled','可投入',r.enabled)+'<button data-lake-delete="'+p+'">刪除</button></td><td>'+select(p+'.quantityMode','投入方式',r.quantityMode,[['fixed','固定'],['range','區間']])+num(p+'.min','最低數量',r.min)+num(p+'.max','最高數量',r.max)+select(p+'.poolId','回贈池',r.poolId,pools)+'</td><td>'+control(p+'.specialTrigger','特殊事件／任務 ID（預留）',r.specialTrigger)+'</td></tr>';}).join('')+'</tbody></table></div><p>只引用全域清單，不建立新道具。裝備與信物一件一次；已穿戴、鎖定、教學獎勵、已鑲寶石與不可出售物品一律排除。固定數量修改最低值時會同步最高值。</p></section>';}
+ function pools(){const c=config();if(!c.pools.some(p=>p.id===selectedPool))selectedPool=c.pools[0]?.id;const i=c.pools.findIndex(p=>p.id===selectedPool),p=c.pools[i];
+  const allClears=Object.fromEntries(maps().map(m=>[m.id,true])),prob=p?M.probabilities(c,data,p.id,allClears):[];
+  return '<section class="card"><h2>回贈池</h2><div class="toolbar"><select id="lakePool">'+c.pools.map(p=>'<option value="'+e(p.id)+'" '+(p.id===selectedPool?'selected':'')+'>'+e(p.name)+' ('+e(p.id)+')</option>').join('')+'</select><button data-lake-add="pool">新增回贈池</button></div>'+(p?'<div class="lake-editor-grid">'+control('pools.'+i+'.id','回贈池 ID',p.id)+control('pools.'+i+'.name','名稱',p.name)+check('pools.'+i+'.enabled','啟用此池',p.enabled!==false)+check('pools.'+i+'.useOwnWeights','使用此池獨立類型權重',!!p.typeWeights)+(p.typeWeights?['gold','item','equipment'].map((k,n)=>num('pools.'+i+'.typeWeights.'+k,['金幣','道具／素材','裝備'][n]+' 類型權重',p.typeWeights[k])).join(''):'<p>沿用基本設定的類型權重；未包含的類型會排除後重新正規化。</p>')+'</div><button data-lake-delete="pools.'+i+'">刪除此池</button><button data-lake-add="reward" data-pool-index="'+i+'">新增回贈列</button><div class="lake-editor-table"><table><thead><tr><th>類型／內容</th><th>數量／啟用</th><th>權重／機率</th><th>地區限制</th></tr></thead><tbody>'+p.rewards.map((r,j)=>{const path='pools.'+i+'.rewards.'+j;return '<tr><td>'+control(path+'.id','ID',r.id)+select(path+'.type','獎勵類型',r.type,[['gold','金幣'],['item','道具／素材'],['equipment','正式裝備生成']])+(r.type==='item'?select(path+'.ref','全域道具',r.kind+':'+r.key,refs().filter(([id])=>/^(item|material):/.test(id)))+'<small>'+e(refLabel(r))+'</small>':'<small>'+e(r.type==='gold'?'使用下方金幣分段':'使用已通關地區與正式生成規則')+'</small>')+'</td><td>'+check(path+'.enabled','啟用',r.enabled)+(r.type==='item'?num(path+'.min','最少數量',r.min)+num(path+'.max','最多數量',r.max):'')+'<button data-lake-delete="'+path+'">刪除</button></td><td>'+num(path+'.weight','類型內權重',r.weight)+'<strong data-lake-prob="'+r.id+'">'+((prob.find(x=>x.id===r.id)?.probability||0)*100).toFixed(3)+'%</strong></td><td>'+select(path+'.minMapId','最低通關地區',r.minMapId,mapOptions())+check(path+'.allowAhead','允許超前（裝備仍受 +5 級限制）',r.allowAhead)+'</td></tr>';}).join('')+'</tbody></table></div><p>機率預覽以全地區已通關計算；指定進度的有效機率請見模擬器。未符合地區的列會排除再正規化。</p>':'')+'</section>';
+ }
+ function goldAndGear(){const c=config(),g=c.gold,q=c.equipment;return '<section class="card"><h2>金幣回贈</h2><div class="lake-editor-grid">'+num('gold.min','最低金幣（至少 500）',g.min)+num('gold.max','最高金幣（至多 20000）',g.max)+'</div>'+g.bands.map((b,i)=>'<div class="lake-editor-grid">'+num('gold.bands.'+i+'.min','區段最低',b.min)+num('gold.bands.'+i+'.max','區段最高',b.max)+num('gold.bands.'+i+'.weight','區段權重',b.weight)+'<span data-lake-band-prob="'+i+'">'+((b.weight/g.bands.reduce((n,b)=>n+b.weight,0)||0)*100).toFixed(2)+'%</span><button data-lake-delete="gold.bands.'+i+'">刪除區段</button></div>').join('')+'<button data-lake-add="band">新增金幣區段</button></section><section class="card"><h2>裝備回贈</h2><div class="lake-editor-grid">'+control('equipment.progressSource','地區進度來源',q.progressSource,'readonly')+control('equipment.rangeSource','等級範圍來源',q.rangeSource,'readonly')+num('equipment.aheadChance','超前裝備機率（0～1）',q.aheadChance)+num('equipment.aheadLevels','最多超出等級（0～5）',q.aheadLevels)+control('equipment.qualitySource','品質權重來源',q.qualitySource,'readonly')+control('equipment.tierSource','T 級來源',q.tierSource,'readonly')+'</div><p>一般掉落的需求等級 = 裝備基礎等級 +（地區階級 − 1）× 每階級等級。本遊戲每個地區目前只對應一個需求等級。品質、詞綴、T 級、技能與孔位沿用普通難度生成，沒有額外稀有度加成。</p></section>';}
+ function future(){const c=config();return '<section class="card"><h2>未實裝事件預留</h2><p>以下設定均強制未啟用。任務與特殊觸發道具不參與每日投入或回贈。</p>'+[['fairyEvents','仙子專屬事件'],['companionQuests','一般特殊夥伴任務'],['festivals','節日事件']].map(([k,title])=>'<h3>'+title+'</h3><button data-lake-add="'+k+'">新增'+title+'</button>'+c.future[k].map((r,i)=>{const p='future.'+k+'.'+i;return '<details><summary>'+e(r.name||r.id)+' · 未實裝</summary><div class="lake-editor-grid">'+fields(p,r,[['id','ID'],['name','名稱'],['enabled','啟用（第一階段禁止）','checkbox'],...(k==='fairyEvents'?[['eventType','事件類型'],['chance','出現機率（0～1）','number'],['weight','出現權重','number'],['conditions','觸發條件','json'],['dialogue','對話','json'],['questlineId','任務線 ID'],['poolId','關聯回贈池','select',[['','無'],...c.pools.map(p=>[p.id,p.name])]]]:k==='companionQuests'?[['companionId','特殊夥伴 ID（null 表示未指定）','json'],['questlineId','任務線 ID'],['triggerItemId','旅行商人觸發道具','select',[['','未指定'],...refs().filter(([id])=>id.startsWith('item:')).map(([id,n])=>[id.slice(5),n])]],['chance','每日造訪觸發機率（0～1）','number'],['guaranteedByItem','指定道具保證觸發','checkbox'],['conditions','前置條件','json'],['completionField','完成狀態欄位']]:[['dateRule','日期規則','json'],['poolId','特殊贈禮池','select',[['','無'],...c.pools.map(p=>[p.id,p.name])]],['claimField','領取狀態欄位'],['dialogueConditions','仙子特殊對話條件','json']])])+'</div><button data-lake-delete="'+p+'">刪除設定</button></details>';}).join('')).join('')+control('future.stateFields','預留存檔欄位定義',c.future.stateFields,'json')+'</section>';}
+ function sim(){const c=config();return '<section class="card"><h2>回贈模擬器</h2><p>與遊戲共用同一抽選函式；不讀寫玩家存檔或庫存。金幣平均分別列出每次金幣回贈與每次投入。</p><div class="lake-editor-grid"><label>最高已通關地區<select id="lakeSimMap">'+mapOptions().map(([id,n])=>'<option value="'+id+'">'+e(n)+'</option>').join('')+'</select></label><label>投入規則<select id="lakeSimInput">'+c.inputs.filter(r=>r.enabled).map(r=>'<option value="'+r.id+'">'+e(refLabel(r))+' ('+r.id+')</option>').join('')+'</select></label><label>投入數量<input id="lakeSimQuantity" type="number" value="'+(c.inputs.find(r=>r.enabled)?.min||1)+'"></label><label>模擬次數<select id="lakeSimCount"><option>100</option><option selected>1000</option><option>10000</option></select></label><button id="lakeSimRun">執行模擬</button></div><div id="lakeSimResult">'+(simulation?simulationHTML(simulation):'')+'</div></section>';}
+ function simulationHTML(s){return '<p>金幣平均回贈 '+s.goldAverage.toFixed(2)+' G · 每次投入平均 '+s.goldPerOffering.toFixed(2)+' G · 最低 '+(s.goldMin??'—')+' · 最高 '+(s.goldMax??'—')+'</p><p>'+Object.entries(s.types).map(([k,n])=>e(k)+' '+n+' 次（'+(n/s.count*100).toFixed(2)+'%）').join(' · ')+'</p><p>超前裝備 '+s.ahead+' 件／'+(s.aheadRatio*100).toFixed(2)+'% · 非法／無效 '+s.invalid+'</p><h3>道具產出總量</h3><table>'+Object.entries(s.items).map(([id,n])=>'<tr><td>'+e(id)+'</td><td>'+n+'</td></tr>').join('')+'</table><h3>裝備等級分布</h3><table>'+Object.entries(s.levels).map(([lv,n])=>'<tr><td>LV '+lv+'</td><td>'+n+'</td></tr>').join('')+'</table>';}
+ function page(){
+  document.getElementById('app').innerHTML=sectionHead('許願湖','永久特殊地點 · 每日投入與回贈 · 未來事件預留')+errorHTML()+basic()+inputs()+pools()+goldAndGear()+future()+sim();
+  const app=document.getElementById('app');
+  app.querySelectorAll('[data-lake-path]').forEach(el=>el.onchange=()=>{try{const path=el.dataset.lakePath,value=el.dataset.json?JSON.parse(el.value):el.type==='checkbox'?el.checked:el.type==='number'?Number(el.value):el.value;update(path,value);render();}catch(error){alert(error.message);render();}});
+  // Keep the field focused while the probability preview follows each keystroke.
+  app.querySelectorAll('[data-lake-path]').forEach(el=>{if(el.type==='number')el.oninput=()=>{try{update(el.dataset.lakePath,Number(el.value));const c=config(),prob=M.probabilities(c,data,selectedPool,Object.fromEntries(maps().map(m=>[m.id,true])));app.querySelectorAll('[data-lake-prob]').forEach(row=>{row.textContent=((prob.find(x=>x.id===row.dataset.lakeProb)?.probability||0)*100).toFixed(3)+'%';});app.querySelectorAll('[data-lake-band-prob]').forEach(row=>{row.textContent=((c.gold.bands[Number(row.dataset.lakeBandProb)].weight/c.gold.bands.reduce((n,b)=>n+b.weight,0)||0)*100).toFixed(2)+'%';});document.getElementById('lakeValidation').outerHTML=errorHTML();}catch{}};});
+  app.querySelectorAll('[data-lake-add]').forEach(el=>el.onclick=()=>{add(el.dataset.lakeAdd,Number(el.dataset.poolIndex||0));render();});
+  app.querySelectorAll('[data-lake-delete]').forEach(el=>el.onclick=()=>{try{remove(el.dataset.lakeDelete);}catch(error){alert(error.message);}render();});
+  document.getElementById('lakeSearch').onchange=ev=>{search=ev.target.value;render();};document.getElementById('lakeFilter').onchange=ev=>{filter=ev.target.value;render();};document.getElementById('lakeSort').onchange=ev=>{sort=ev.target.value;render();};document.getElementById('lakePool').onchange=ev=>{selectedPool=ev.target.value;render();};
+  document.getElementById('lakeSimInput').onchange=ev=>{document.getElementById('lakeSimQuantity').value=config().inputs.find(r=>r.id===ev.target.value)?.min||1;};
+  document.getElementById('lakeSimRun').onclick=()=>{try{simulation=M.simulate(config(),data,{mapId:document.getElementById('lakeSimMap').value,inputId:document.getElementById('lakeSimInput').value,quantity:Number(document.getElementById('lakeSimQuantity').value),count:Number(document.getElementById('lakeSimCount').value)});document.getElementById('lakeSimResult').innerHTML=simulationHTML(simulation);}catch(err){alert(err.message);}};
+ }
+ function update(path,value){const c=config();
+  if(/^pools\.\d+\.useOwnWeights$/.test(path)){const pool=c.pools[Number(path.split('.')[1])];if(value)pool.typeWeights=copy(c.typeWeights);else delete pool.typeWeights;markDirty();return M.issues(c,data);}
+  if(path.endsWith('.ref')){const base=path.slice(0,-4),i=value.indexOf(':');put(c,base+'.kind',value.slice(0,i));put(c,base+'.key',value.slice(i+1));}
+  else{const old=val(c,path);put(c,path,value);if(/^pools\.\d+\.id$/.test(path)){for(const r of c.inputs)if(r.poolId===old)r.poolId=value;for(const rows of Object.values(c.future))if(Array.isArray(rows))for(const r of rows)if(r.poolId===old)r.poolId=value;selectedPool=value;}
+   if(/^inputs\.\d+\.(min|quantityMode)$/.test(path)){const r=c.inputs[Number(path.split('.')[1])];if(r.quantityMode==='fixed')r.max=r.min;}
+   if(path.endsWith('.type')&&value==='item'){const r=val(c,path.slice(0,-5));r.kind??='item';r.key??='heal_small';r.min??=1;r.max??=1;}
+  }
+  markDirty();return M.issues(c,data);
+ }
+ function id(rows,prefix){let n=1;while(rows.some(r=>r.id===prefix+n))n++;return prefix+n;}
+ function add(type,index=0){const c=config();if(type==='input')c.inputs.push({id:id(c.inputs,'offering'),kind:'material',key:'黏稠凝膠',enabled:false,quantityMode:'fixed',min:20,max:20,poolId:c.pools[0]?.id||'',specialTrigger:''});
+  else if(type==='pool'){const p=copy(M.defaults().pools[0]);p.id=id(c.pools,'pool');p.name='新回贈池';c.pools.push(p);selectedPool=p.id;}
+  else if(type==='reward')c.pools[index].rewards.push({id:id(c.pools[index].rewards,'reward'),type:'item',kind:'item',key:'heal_small',min:1,max:1,weight:1,minMapId:c.unlock.mapId,enabled:false,allowAhead:false});
+  else if(type==='band')c.gold.bands.push({min:500,max:1999,weight:1});
+  else if(['fairyEvents','companionQuests','festivals'].includes(type)){const rows=c.future[type],r={id:id(rows,'event'),name:'未實裝設定',enabled:false};Object.assign(r,type==='fairyEvents'?{eventType:'visit',chance:0,weight:0,conditions:{},dialogue:[],questlineId:'',poolId:''}:type==='companionQuests'?{companionId:null,questlineId:'',triggerItemId:'',chance:0,guaranteedByItem:false,conditions:{},completionField:'questCompletions'}:{dateRule:{timezone:'Asia/Taipei',start:'',end:''},poolId:'',claimField:'festivalClaims',dialogueConditions:{}});rows.push(r);}
+  markDirty();return c;
+ }
+ function remove(path){const parts=path.split('.'),i=Number(parts.pop()),rows=val(config(),parts.join('.'));if(!Array.isArray(rows)||!rows[i])return false;if(parts.join('.')==='pools'&&config().inputs.some(r=>r.poolId===rows[i].id))throw Error('仍有投入規則引用此回贈池，請先改用其他池');rows.splice(i,1);markDirty();return true;}
+ SECTION_META.push(['wishingLake','許願湖']);NAV_GROUPS.push(['wishingLake','許願湖',['wishingLake']]);
+ const renderBase=render;render=function(...args){if(currentSection!=='wishingLake')return renderBase(...args);ensureArrays();renderNav(true);page();globalThis.__EMBERWILD_EXPERIENCE?.afterPage();};
+ const countBase=count;count=function(section,...args){return section==='wishingLake'?config().inputs.length:countBase(section,...args);};
+ const validateDataBase=validateData;validateData=function(){return [...validateDataBase(),...M.issues(config(),data).map(x=>'許願湖：'+x)];};
+ const exportBase=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=function(){const out=exportBase();out.wishingLake=M.normalize(config(),out);return out;};
+ globalThis.__EMBERWILD_LAKE_EDITOR={config,update,add,remove,simulate:options=>M.simulate(config(),data,options),issues:()=>M.issues(config(),data),open:()=>{currentSection='wishingLake';render();}};
+ requestEditorInitialRender();
+})();
+
+
+</script>
+<!-- wishing-lake:end -->
+
+<!-- balance-modules:start -->
+<script id="incremental-editing">
+/* Incremental editing: tracks which balance modules, records and fields a draft changed, validates only those
+   changes (field → module → cross-module) and sends only changed modules when publishing.
+   Installed last, after every markDirty wrapper. Shares EmberwildBalanceModules with the game. */
+(function installIncrementalEditing(){
+ 'use strict';
+ const M=globalThis.EmberwildBalanceModules,DOC=()=>globalThis.EmberwildBalanceDocument;
+ if(!M){console.warn('EmberwildBalanceModules 未載入，增量編輯停用');return;}
+ const now=()=>(globalThis.performance?.now?.()??Date.now());
+ const ALL=M.MODULES.map(m=>m.id);
+ // Pages edit these modules. A page not listed, or a change found outside its modules, falls back to a sweep of
+ // every module (change detection only; validation still follows the actual changes).
+ const SECTION_MODULES={
+  world:['world/maps','world/monsters','world/drops'],items:['items/items','items/inventory-icons'],potions:['items/items','items/inventory-icons'],
+  shopSettings:['systems/shop'],inventoryIcons:['items/inventory-icons','items/items','interface/presentation'],iconColors:['interface/presentation','items/inventory-icons'],iconMaker:['interface/presentation','items/inventory-icons'],
+  story:['systems/story'],navigation:['interface/navigation'],wishingLake:['systems/wishing-lake'],statuses:['combat/statuses'],
+  companions:['characters/companions','characters/companion-settings','combat/skills'],companionUnlocks:['characters/companions'],companionBalance:['characters/companions','characters/companion-settings'],
+  companionTokens:['characters/companion-settings'],passives:['characters/passives','characters/companions'],equipmentPower:['equipment/power-system'],affixPools:['equipment/affix-pools'],
+  equipment:['equipment/forms'],starterPacks:['items/starter-packs'],uiText:['interface/presentation'],textRarity:['interface/presentation'],teamSettings:['meta/document'],
+  materialPrices:['systems/economy'],dailyQuests:['systems/quests'],sideQuests:['systems/quests'],crafting:['systems/crafting'],
+  skillSystem:['combat/skills','combat/skill-system','characters/classes','characters/support-skills'],skills:['combat/skills','characters/classes','characters/support-skills'],classes:['characters/classes','combat/skills'],
+  combatMigration:['combat/rules','combat/skills','world/monsters','combat/statuses','items/items']
+ };
+ const sectionModules=section=>{if(SECTION_MODULES[section])return SECTION_MODULES[section];const m=/^balanceSettings:(\w+)$/.exec(section||'');if(m){const id=M.moduleForPath('balanceSettings.'+m[1]);return Array.isArray(id)?id:[id];}return null;};
+
+ const state={
+  tracked:null,          // the data object the baseline was taken from
+  base:new Map(),        // module id -> serialized text when the session started (or after loading another version)
+  baseValue:new Map(),   // module id -> parsed baseline value (for change paths)
+  current:new Map(),     // module id -> last serialized text seen
+  candidates:new Set(),  // modules possibly written since the last refresh
+  modules:new Map(),     // module id -> {changes, records, issues, ms}
+  source:null,           // online snapshot this draft started from {branch, commit, modules}
+  lastRefresh:null,stats:{refreshes:0,sweeps:0,serialized:0,validated:0},timer:0,sweepTimer:0
+ };
+ const moduleText=(doc,id)=>{const v=M.split(doc).modules[id];return v===undefined?null:M.serialize(v);};
+ // Split once, then serialize only the requested modules.
+ function texts(doc,ids){const parts=M.split(doc).modules,out=new Map();for(const id of ids){const v=parts[id];out.set(id,v===undefined?null:M.serialize(v));state.stats.serialized++;}return out;}
+ function rebase(reason){
+  state.tracked=data;state.base.clear();state.baseValue.clear();state.current.clear();state.modules.clear();state.candidates.clear();
+  for(const [id,t] of texts(data,ALL)){state.base.set(id,t);state.current.set(id,t);state.baseValue.set(id,t===null?undefined:JSON.parse(t));}
+  state.orphanIssues=[];state.baseReason=reason;publishState();
+ }
+ // Field rules for one input, immediately: only that path is checked.
+ function validateField(path){
+  const D=DOC();if(!D?.inspect||!path)return [];
+  try{return D.inspect(data,{scope:M.scope([M.toPath(path)])});}catch(e){return [{field:path,reason:e.message}];}
+ }
+ function changesFor(id){
+  const before=state.baseValue.get(id),after=M.split(data).modules[id],paths=[];
+  const def=M.module(id),prefix=def.container?[def.container]:[];
+  if(def.key)paths.push(...M.changes(before,after,[...prefix,def.key]));
+  else{const a=before||{},b=after||{};for(const k of new Set([...Object.keys(a),...Object.keys(b)]))paths.push(...M.changes(a[k],b[k],[...prefix,k]));}
+  return paths;
+ }
+ // Module and cross-module validation for the modules that actually changed.
+ function refresh({sweep=false}={}){
+  clearTimeout(state.timer);state.timer=0;
+  if(state.tracked!==data)rebase('載入其他版本');
+  const t0=now(),ids=sweep||!state.candidates.size?ALL:[...state.candidates];state.candidates.clear();if(sweep||ids===ALL)state.stats.sweeps++;
+  const seen=texts(data,ids),touched=[];
+  for(const [id,t] of seen){if(t!==state.current.get(id)){state.current.set(id,t);touched.push(id);}}
+  // markDirty fired but the page's modules did not change: the write went elsewhere, so look everywhere once.
+  if(!touched.length&&!sweep&&ids!==ALL&&state.pendingDirty){state.pendingDirty=false;return refresh({sweep:true});}
+  state.pendingDirty=false;
+  const D=DOC(),paths=[];
+  for(const id of touched){
+   if(state.current.get(id)===state.base.get(id)){state.modules.delete(id);continue;}
+   const p=changesFor(id);paths.push(...p);
+   const classified=M.classify(p,{before:null,after:data});
+   const records=new Map();for(const c of classified){const key=c.record?c.record.collection+'#'+(c.record.id??c.record.index):c.path;if(!records.has(key))records.set(key,{label:c.record?.label||M.module(id).title,id:c.record?.id??c.record?.index??null,fields:new Set(),kinds:new Set()});const r=records.get(key);if(c.record?.field)r.fields.add(c.record.field);r.kinds.add(c.kind);}
+   state.modules.set(id,{id,title:M.module(id).title,changes:p.map(x=>x.join('.')),kinds:[...new Set(classified.map(c=>c.kind))],records:[...records.values()].map(r=>({...r,fields:[...r.fields],kinds:[...r.kinds]})),issues:[]});
+  }
+  // Validate every currently changed module together, so a fix in one module clears an error it caused in another.
+  const changedIds=[...state.modules.keys()],allPaths=[];for(const id of changedIds)allPaths.push(...(touched.includes(id)?[]:changesFor(id)));allPaths.push(...paths);
+  let issues=[],blocks=[];
+  if(allPaths.length&&D?.inspect){const report={};try{issues=D.inspect(data,{scope:M.scope(allPaths),report});}catch(e){issues=[{field:'',reason:e.message}];}blocks=report.blocks||[];state.stats.validated++;}
+  const keyed=new Set(changedIds.filter(id=>state.modules.get(id).kinds.some(k=>k!=='value')));
+  const rules=M.REFERENCES.filter(r=>changedIds.includes(r.from)||keyed.has(r.to));
+  const located=new Set(issues.map(x=>x.field));
+  for(const r of rules.length?M.referenceIndex(data,{rules}).broken():[])if(!located.has(r.path)&&!located.has(r.path.replace(/\.\d+$/,'')))issues.push({system:M.module(r.module).title,object:r.owner||'',field:r.path,reason:r.label+'引用不存在的 '+r.kind+'：'+r.id});
+  for(const m of state.modules.values())m.issues=[];
+  const orphan=[];
+  for(const x of issues){const owner=M.moduleForPath(x.field),id=Array.isArray(owner)?owner[0]:owner;(state.modules.get(id)?.issues||orphan).push({...x,module:id});}
+  state.orphanIssues=orphan;state.blocks=blocks;state.references=rules.map(r=>r.id);
+  state.lastRefresh={ms:+(now()-t0).toFixed(2),inspected:ids.length,changedModules:changedIds.length,paths:allPaths.length,blocks,at:new Date().toISOString(),sweep:ids===ALL};
+  state.stats.refreshes++;publishState();return summary();
+ }
+ function summary(){
+  const modules=[...state.modules.values()],issues=modules.flatMap(m=>m.issues).concat(state.orphanIssues||[]);
+  return {dirty:modules.length>0,modules:modules.map(m=>({id:m.id,title:m.title,kinds:m.kinds,records:m.records,changes:m.changes.length,issues:m.issues})),issues,orphanIssues:state.orphanIssues||[],
+   canSave:true,canPublish:modules.length>0&&issues.length===0,crossModule:modules.some(m=>m.kinds.some(k=>k!=='value')),source:state.source,base:state.baseReason,last:state.lastRefresh,stats:{...state.stats}};
+ }
+ function schedule(){if(state.timer)return;const run=()=>refresh();state.timer=setTimeout(()=>{if(typeof requestIdleCallback==='function')requestIdleCallback(run,{timeout:400});else run();},180);}
+ // ---- chrome -------------------------------------------------------------------------------------------
+ const esc=globalThis.esc||(v=>String(v??'').replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])));
+ function ensureChip(){
+  let chip=document.getElementById('moduleStateChip');if(chip)return chip;
+  const top=document.querySelector('.topbar');if(!top)return null;
+  chip=document.createElement('button');chip.type='button';chip.id='moduleStateChip';chip.className='workspace-chip module-state-chip';chip.onclick=()=>{const p=document.getElementById('moduleStatePanel');if(p)p.hidden=!p.hidden;};
+  top.appendChild(chip);
+  const panel=document.createElement('div');panel.id='moduleStatePanel';panel.className='module-state-panel';panel.hidden=true;document.body.appendChild(panel);
+  return chip;
+ }
+ function render(){
+  const s=summary(),chip=ensureChip(),panel=document.getElementById('moduleStatePanel');
+  if(chip){chip.textContent=s.dirty?'已修改模組 '+s.modules.length+(s.issues.length?' · '+s.issues.length+' 個問題':' · 驗證通過'):'模組未修改';chip.classList.toggle('has-issues',s.issues.length>0);chip.classList.toggle('is-dirty',s.dirty);}
+  if(panel)panel.innerHTML=panelHTML(s);
+ }
+ function panelHTML(s){
+  const rows=s.modules.map(m=>'<details open><summary><b>'+esc(m.title)+'</b> <code>'+esc(m.id)+'</code> · '+m.records.length+' 筆 · '+(m.kinds.includes('structure')?'結構變更':m.kinds.includes('key')?'引用欄位變更（跨模組驗證）':'一般欄位')+'</summary><ul>'+
+   m.records.slice(0,30).map(r=>'<li>'+esc(r.label)+(r.id!==null&&r.id!==undefined?' <code>'+esc(r.id)+'</code>':'')+(r.fields.length?'：'+r.fields.map(esc).join('、'):'')+'</li>').join('')+(m.records.length>30?'<li>…另 '+(m.records.length-30)+' 筆</li>':'')+'</ul>'+
+   (m.issues.length?'<ul class="module-state-issues">'+m.issues.map(x=>'<li>'+esc(x.object?x.object+' · ':'')+'<code>'+esc(x.field)+'</code>：'+esc(x.reason)+'</li>').join('')+'</ul>':'')+'</details>').join('');
+  const last=s.last?'<p class="mini-note">上次檢查：'+s.last.ms+' ms，序列化 '+s.last.inspected+' 個模組、'+s.last.paths+' 個變更路徑；規則 '+esc((s.last.blocks||[]).join('、')||'無')+(s.last.sweep?'（全模組掃描）':'')+'</p>':'';
+  return '<div class="module-state-head"><strong>模組變更與驗證</strong><span>'+(s.canPublish?'可儲存、可發布':s.dirty?'可儲存；修正問題後才能發布':'沒有變更')+'</span></div>'+
+   '<p class="mini-note">比較基準：'+esc(s.base||'工作階段開始時')+(s.source?' · 線上 '+esc(s.source.branch)+' '+esc(String(s.source.commit).slice(0,7)):'')+'</p>'+(rows||'<p>目前沒有已修改的模組。</p>')+
+   ((s.orphanIssues||[]).length?'<ul class="module-state-issues">'+s.orphanIssues.map(x=>'<li><code>'+esc(x.field)+'</code>：'+esc(x.reason)+'</li>').join('')+'</ul>':'')+last;
+ }
+ function publishState(){try{render();}catch{}const s=summary();try{if(parent!==globalThis)parent.postMessage({kind:'dreaming-abyss-dev-modules',state:{dirty:s.dirty,modules:s.modules.map(m=>({id:m.id,title:m.title,records:m.records.length,issues:m.issues.length})),issues:s.issues.length,canPublish:s.canPublish,ms:s.last?.ms}},location.origin);}catch{}}
+ const style=document.createElement('style');style.id='incremental-editing-style';style.textContent='.module-state-chip.is-dirty{border-color:#c49a4a;color:#f0d79c}.module-state-chip.has-issues{border-color:#b0503c;color:#ffb3a3}.module-state-panel{position:fixed;right:12px;top:52px;z-index:60;max-width:min(560px,calc(100vw - 24px));max-height:70vh;overflow:auto;background:var(--panel,#1c272a);border:1px solid var(--line,#354348);border-radius:8px;padding:10px 12px;box-shadow:0 6px 20px #0008}.module-state-panel details{margin:6px 0}.module-state-panel ul{margin:4px 0 4px 18px;padding:0}.module-state-head{display:flex;justify-content:space-between;gap:10px}.module-state-issues li{color:#ffb3a3}[data-field-invalid]{outline:2px solid #b0503c;outline-offset:1px}';
+ document.head.appendChild(style);
+
+ // ---- hooks --------------------------------------------------------------------------------------------
+ const dirtyBase=globalThis.markDirty;
+ globalThis.markDirty=markDirty=function(...args){
+  const out=dirtyBase.apply(this,args);
+  for(const id of sectionModules(currentSection)||ALL)state.candidates.add(id);
+  state.pendingDirty=true;schedule();return out;
+ };
+ // Level 1: a field input is checked on its own as soon as it changes.
+ document.addEventListener('change',ev=>{
+  const el=ev.target?.closest?.('[data-path]');if(!el)return;
+  const issues=validateField(el.dataset.path);
+  if(issues.length){el.setAttribute('data-field-invalid','');el.title=issues.map(x=>x.reason).join('；');}else{el.removeAttribute('data-field-invalid');if(el.title&&el.hasAttribute('data-had-issue'))el.title='';}
+  if(issues.length)el.setAttribute('data-had-issue','');
+ },true);
+ const setBase=globalThis.__EMBERWILD_SET_ONLINE_BASELINE;
+ if(typeof setBase==='function')globalThis.__EMBERWILD_SET_ONLINE_BASELINE=function(snapshot,...rest){
+  if(snapshot&&snapshot.commit)state.source={branch:snapshot.branch,commit:snapshot.commit,layout:snapshot.layout||'legacy',modules:snapshot.modules||null};
+  const out=setBase.call(this,snapshot,...rest);publishState();return out;
+ };
+ // Periodic safety sweep while idle: catches writes no page announced. Detection only.
+ state.sweepTimer=setInterval(()=>{if(document.visibilityState!=='hidden'&&!state.timer)refresh({sweep:true});},30000);
+
+ // ---- publishing -----------------------------------------------------------------------------------------
+ const onlineCache=new Map();
+ function onlineTexts(snapshot){const key=snapshot.commit||'';if(!onlineCache.has(key)){onlineCache.clear();onlineCache.set(key,texts(snapshot.data,ALL));}return onlineCache.get(key);}
+ // Only modules whose exported text differs from the online snapshot are sent, with the hash each change was based on.
+ function payload(doc,snapshot){
+  if(!snapshot||snapshot.layout!=='modular'||!snapshot.modules)return {data:doc};
+  const base=onlineTexts(snapshot),mine=texts(doc,ALL),modules={},baseModules={};
+  for(const id of ALL)if(mine.get(id)!==base.get(id)){modules[id]=mine.get(id)===null?undefined:JSON.parse(mine.get(id));baseModules[id]=snapshot.modules[id]?.sha256||null;}
+  const parts=M.split(doc);if(JSON.stringify(parts.layout)!==JSON.stringify(M.split(snapshot.data).layout))return {data:doc};
+  return Object.keys(modules).length?{modules,baseModules}:{data:doc};
+ }
+ // Differences by module: unchanged modules (identical text) are skipped instead of deep-compared.
+ function diff(before,after){
+  const D=globalThis.EmberwildBalanceDiff,a=texts(before,ALL),b=texts(after,ALL),rows=[];
+  for(const id of ALL){if(a.get(id)===b.get(id))continue;for(const p of new Set(M.modulePaths(id,before).concat(M.modulePaths(id,after)))){const d=D.diff({[p]:M.get(before,p)},{[p]:M.get(after,p)});rows.push(...d.rows.map(r=>({...r,module:id})));}}
+  return {rows,total:rows.length,added:rows.filter(r=>r.type==='新增').length,modified:rows.filter(r=>r.type==='修改').length,deleted:rows.filter(r=>r.type==='刪除').length};
+ }
+ globalThis.__EMBERWILD_INCREMENTAL=Object.freeze({state:summary,refresh,sweep:()=>refresh({sweep:true}),rebase,validateField,payload,diff,sectionModules,
+  // For tests and the performance report.
+  _internal:state});
+ // The baseline is taken now, before any edit: one serialization of every module per session (or per loaded version).
+ // Editor start-up finishes some migrations after the first render; until the person first touches the page the
+ // baseline follows them, so start-up normalization is not reported as an edit.
+ let touched=false;for(const type of ['pointerdown','keydown','input','change'])document.addEventListener(type,()=>{touched=true;},{capture:true,once:true});
+ const settle=()=>{if(touched)return;try{rebase('工作階段開始時');}catch(e){console.warn('增量編輯初始化失敗',e);}};
+ settle();
+ const later=()=>{if(typeof requestIdleCallback==='function')requestIdleCallback(settle,{timeout:1500});else setTimeout(settle,0);};
+ if(document.readyState==='complete')later();else addEventListener('load',later,{once:true});setTimeout(settle,3000);
+})();
+
+
+</script>
+<!-- balance-modules:end -->
+
+
 
 <!-- canonical-skill-system:start -->
 <style>#canonicalSkillCheck.bad{color:#e49a8a}.canonical-editor-layout{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,3fr);gap:16px}.canonical-skill-list{display:grid;gap:6px;margin-top:12px;max-height:65vh;overflow:auto}.canonical-skill-list button{text-align:left;white-space:normal}.canonical-skill-list small{display:block}.canonical-json{width:100%;min-height:420px;font-family:monospace;resize:vertical}.mechanism-card{border:1px solid var(--border,#3b4654);border-radius:10px;padding:12px;margin:10px 0}.mechanism-card pre,.mechanism-dialog pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:280px;overflow:auto}.mechanism-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:16px 0}.mechanism-grid small,.mechanism-dialog small{display:block;overflow-wrap:anywhere}.canonical-list-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px}.mechanism-dialog{width:min(900px,94vw);max-height:90vh;overflow:auto;background:var(--panel,#17202c);color:inherit;border:1px solid #64748b;border-radius:12px;padding:24px}.mechanism-dialog::backdrop{background:#0009}.mechanism-dialog label{display:block;margin:10px 0}.mechanism-dialog select{max-width:100%}.mechanism-section code{overflow-wrap:anywhere}#canonicalError{color:#f7aa84;white-space:pre-wrap}@media(max-width:800px){.canonical-editor-layout{grid-template-columns:1fr}.canonical-skill-list{max-height:220px}}</style>
@@ -13827,7 +14192,38 @@ root.EmberwildMechanisms={definitions:defs,compatible,instances,index,duplicate,
  function requireApplied(id){if(drafts.has(id))throw Error('請先套用或捨棄該技能的未儲存修改，再複製或取用。');}
 
  let section='skills',selection='',query='';
- function ensure(d){if(!d.skillSystem)d.skillSystem=M.fromLegacy(d);M.project(d);return d.skillSystem;}
+ // Older pages (companion skills, support skills, passives, common effects) edit the projected legacy rows directly.
+ // Before projecting again, fold those edits back into their definitions: a value that differs from what the definition
+ // projects to was edited there, and a key the definition projects but the row lost was deleted there. Rows projected
+ // from several adapters are skipped (their ids carry a -job suffix).
+ function projectedRow(sk,kind){
+  const {adapters:unused,adapter:primary,type,jobs,sources,disabled,...row}=copy(sk);
+  if(kind==='core'){row.activation=type;row.requiredLevel??=0;row.requiresAdvanced=false;row.powerPerLevel??=0;if(type==='proc'){row.procChancePerLevel??=0;row.procBaseChance??=.245;}}
+  else if(kind!=='passive')row.level??=0;
+  return row;
+ }
+ function foldRow(sk,row){
+  const kind=sk.adapter.kind,want=projectedRow(sk,kind),same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+  for(const [k,v] of Object.entries(row)){if(same(v,want[k]))continue;if(k==='activation'&&kind==='core')sk.type=v;else sk[k]=copy(v);}
+  for(const k of Object.keys(want))if(!(k in row)&&k!=='activation')delete sk[k];
+ }
+ function absorbLegacyEdits(d){
+  for(const sk of d.skillSystem?.definitions||[]){
+   if(sk.adapters||!sk.adapter)continue;const {job,index,kind}=sk.adapter;
+   const row=kind==='passive'?d.passiveDefinitions?.[index]:kind==='core'?d.classes?.[job]?.skills?.[index]:d.supportSkills?.[job]?.[index];
+   if(row&&row.id===sk.id)foldRow(sk,row);
+  }
+ }
+ // Used by the skill-row-sync block: writes the selected companion row back to its definition before markDirty re-projects.
+ globalThis.__EMBERWILD_SKILL_ROW_SYNC={writeRow(d,row){const sk=d.skillSystem?.definitions?.find(x=>x.id===row?.id&&!x.adapters&&x.adapter);if(sk)foldRow(sk,row);return !!sk;}};
+ // project() writes new row objects. Pages that are already open keep references to the old rows, so after projecting the
+ // new content is copied into the old objects (same id, same position) to keep those references live.
+ function keepRowIdentity(d,project){
+  const lists=d2=>[...(d2.classes||[]).map(c=>c.skills||[]),...(d2.supportSkills||[]).map(pool=>pool||[]),d2.passiveDefinitions||[]];
+  const before=lists(d).map(list=>list.slice());project();
+  lists(d).forEach((list,n)=>list.forEach((row,i)=>{const old=before[n]?.[i];if(!old||old===row||!row||old.id!==row.id)return;for(const k of Object.keys(old))delete old[k];Object.assign(old,row);list[i]=old;}));
+ }
+ function ensure(d){if(!d.skillSystem)d.skillSystem=M.fromLegacy(d);else absorbLegacyEdits(d);keepRowIdentity(d,()=>M.project(d));return d.skillSystem;}
  ensure(ORIGINAL_DATA);ensure(data);
  const ensureBase=ensureArrays;ensureArrays=function(...args){const out=ensureBase(...args);ensure(data);return out;};
  function issueList(){try{M.project(copy(data));return [];}catch(e){return [e.message];}}
@@ -14096,364 +14492,3 @@ const previous=render;render=function(...args){const out=previous(...args);if(!a
   globalThis.__EMBERWILD_SKILL_UNLOCK_FORM={draw};
 })();
 </script>
-
-<!-- wishing-lake:start -->
-<style>.lake-editor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:12px 0}.lake-editor-grid label,.lake-editor-table label{display:flex;flex-direction:column;gap:5px}.lake-editor-table{overflow:auto}.lake-editor-table table{min-width:760px;width:100%}.lake-editor-table td{vertical-align:top;padding:10px}.lake-editor-table input,.lake-editor-table select{max-width:260px;width:100%}.lake-editor-grid textarea{min-width:0}.lake-editor-grid input[type=checkbox],.lake-editor-table input[type=checkbox]{width:auto;align-self:start}</style>
-<script id="wishing-lake-model">
-/* Shared, side-effect-free lake rules. The editor simulator calls this same draw. */
-(function(root){
- 'use strict';
- const copy=x=>JSON.parse(JSON.stringify(x)),types=['gold','item','equipment'];
- const DEFAULTS={version:1,enabled:true,unlock:{source:'mapClears',mapId:'map0'},dailyLimit:1,reset:{timezone:'Asia/Taipei',hour:0},allowEquipment:false,allowTokens:false,allowSpecial:false,
-  typeWeights:{gold:50,item:30,equipment:20},
-  gold:{min:500,max:20000,bands:[{min:500,max:1999,weight:50},{min:2000,max:4999,weight:30},{min:5000,max:9999,weight:15},{min:10000,max:20000,weight:5}]},
-  equipment:{progressSource:'mapClears',rangeSource:'regionTier',aheadChance:.1,aheadLevels:5,qualitySource:'normalDrops',tierSource:'normalDrops'},
-  inputs:[['gel','黏稠凝膠',50],['fang','完整狼牙',50]].map(([id,key,n])=>({id,kind:'material',key,enabled:true,quantityMode:'fixed',min:n,max:n,poolId:'daily',specialTrigger:''})),
-  pools:[{id:'daily',name:'每日湖泊回贈',rewards:[{id:'gold',type:'gold',enabled:true,weight:1,minMapId:'map0',allowAhead:false},{id:'heal',type:'item',kind:'item',key:'heal_small',min:2,max:5,enabled:true,weight:50,minMapId:'map0',allowAhead:false},{id:'iron',type:'item',kind:'material',key:'鍛鐵',min:5,max:12,enabled:true,weight:30,minMapId:'map0',allowAhead:false},{id:'gear',type:'equipment',enabled:true,weight:1,minMapId:'map0',allowAhead:true}]}],
-  future:{fairyEvents:[],companionQuests:[],festivals:[],stateFields:{festivalClaims:'object',fairyEvents:'object',companionTriggers:'object',questCompletions:'object'}}};
- const maps=d=>d.balanceSettings?.maps?.catalog||[];
- function catalog(d){return root.EmberwildInventoryIcons.entries(d);}
- function safe(d,kind,key,rows=catalog(d)){
-  const row=rows.find(r=>r.kind===kind&&r.key===key);if(!row)return false;
-  const meta=d.inventoryIcons?.find(r=>r.kind===kind&&r.key===key),item=d.items?.find(r=>r.id===key);
-  if(meta?.locked||meta?.questItem||meta?.unique||meta?.saleEnabled===false||item?.questItem||item?.unique||item?.special||item?.locked||item?.consumable===false)return false;
-  if(kind==='item'&&!['healPotion','imbue','ward','elementTonic','timedBoost','gearTierReroll'].includes(item?.type))return false;
-  return !['日蝕王冠','升級卷軸'].includes(key)&&!key.startsWith('companion-ticket-');
- }
- function region(d,clears){return maps(d).map((m,i)=>({...m,index:i})).filter(m=>clears?.[m.id]===true).sort((a,b)=>b.max-a.max||b.min-a.min||a.index-b.index)[0]||null;}
- function range(d,m){
-  if(!m)throw Error('尚無通關地區');
-  const e=d.balanceSettings.equipment,cap=Math.max(1,Math.floor(Number(e.maxLevel)||60));
-  // Ordinary drops use regionTier and have one required level per region.
-  const tier=m.index===6?6:Math.ceil(m.min/5);
-  const level=Math.min(cap,Math.max(1,Math.round(e.requiredLevel.base+(tier-1)*e.requiredLevel.perTier)));
-  return {min:level,max:level,cap,tier};
- }
- function issues(c,d){
-  const out=[],fail=s=>out.push(s),obj=x=>x&&typeof x==='object'&&!Array.isArray(x),num=(x,a,b)=>Number.isFinite(x)&&x>=a&&x<=b,int=(x,a,b)=>Number.isSafeInteger(x)&&x>=a&&x<=b;
-  if(!obj(c))return ['許願湖設定必須為物件'];
-  // The document does not change during one check: build its item catalogue once, on first use.
-  let catalogRows;const rows=()=>catalogRows??=catalog(d);
-  if(c.version!==1)fail('許願湖版本必須為 1');
-  const ids=new Set(maps(d).map(m=>m.id)),map=id=>typeof id==='string'&&ids.has(id);
-  if(c.unlock?.source!=='mapClears'||!map(c.unlock?.mapId))fail('解鎖必須引用正式地區通關紀錄');
-  if(!int(c.dailyLimit,0,100)||typeof c.enabled!=='boolean')fail('每日次數必須為 0～100 整數');
-  if(c.reset?.timezone!=='Asia/Taipei'||c.reset?.hour!==0)fail('第一階段只支援台灣時間 00:00 重置');
-  for(const k of ['allowEquipment','allowTokens','allowSpecial'])if(typeof c[k]!=='boolean')fail(k+' 必須為布林值');
-  if(!types.every(t=>num(c.typeWeights?.[t],0,1e9))||!types.some(t=>c.typeWeights?.[t]>0))fail('獎勵類型權重無效');
-  const g=c.gold;
-  if(!int(g?.min,500,20000)||!int(g?.max,g?.min,20000)||!Array.isArray(g?.bands)||!g.bands.length||!g.bands.some(b=>b.weight>0))fail('金幣範圍限 500～20000，且需設定分段權重');
-  else for(const b of g.bands)if(!int(b.min,g.min,g.max)||!int(b.max,b.min,g.max)||!num(b.weight,0,1e9))fail('金幣分段無效');
-  const e=c.equipment;
-  if(e?.progressSource!=='mapClears'||e?.rangeSource!=='regionTier'||e?.qualitySource!=='normalDrops'||e?.tierSource!=='normalDrops'||!num(e?.aheadChance,0,1)||!int(e?.aheadLevels,0,5))fail('裝備須沿用通關地區、普通掉落品質／T 級，超前最多 5 級');
-  function unique(rows,label){if(!Array.isArray(rows)||rows.length>1000){fail(label+' 必須為至多 1000 筆陣列');return [];}const seen=new Set();for(const r of rows){if(!obj(r)||typeof r.id!=='string'||!/^[A-Za-z][A-Za-z0-9_-]{0,79}$/.test(r.id)||seen.has(r.id))fail(label+' ID 無效或重複');seen.add(r?.id);}return rows.filter(obj);}
-  const pools=unique(c.pools,'回贈池'),poolIds=new Set(pools.map(p=>p.id));
-  for(const p of pools){const rewards=unique(p.rewards,'回贈列'),weights=p.typeWeights??c.typeWeights;
-   if(p.enabled!==undefined&&typeof p.enabled!=='boolean')fail(p.id+' 啟用狀態無效');
-   if(!types.every(t=>num(weights?.[t],0,1e9))||!types.some(t=>weights?.[t]>0))fail(p.id+' 類型權重無效');
-   for(const r of rewards){
-   if(!types.includes(r.type)||typeof r.enabled!=='boolean'||!num(r.weight,0,1e9)||!map(r.minMapId)||typeof r.allowAhead!=='boolean')fail(p.id+'/'+r.id+' 回贈設定無效');
-   if(r.type==='item'&&(!['material','item'].includes(r.kind)||!safe(d,r.kind,r.key,rows())||!int(r.min,1,1e6)||!int(r.max,r.min,1e6)))fail(p.id+'/'+r.id+' 引用不存在、特殊或無法正常入包的道具／數量');
-  }if(p.enabled!==false&&!rewards.some(r=>r.enabled&&r.weight>0&&weights?.[r.type]>0))fail(p.id+' 沒有有效回贈');}
-  const triggers=new Set((c.future?.companionQuests||[]).map(r=>r.triggerItemId).filter(Boolean));
-  for(const r of unique(c.inputs,'投入規則')){
-   if(!['material','item','equipment','token'].includes(r.kind)||!rows().some(x=>x.kind===r.kind&&x.key===r.key))fail(r.id+' 投入引用不存在');
-   if(['material','item'].includes(r.kind)&&!safe(d,r.kind,r.key,rows()))fail(r.id+' 不可投入特殊或任務關鍵道具');
-   if(typeof r.enabled!=='boolean'||!['fixed','range'].includes(r.quantityMode)||!int(r.min,1,1e6)||!int(r.max,r.min,1e6)||r.quantityMode==='fixed'&&r.min!==r.max||['equipment','token'].includes(r.kind)&&r.max!==1||!poolIds.has(r.poolId)||typeof r.specialTrigger!=='string')fail(r.id+' 投入數量／回贈池無效');
-   if(r.enabled&&(r.specialTrigger||triggers.has(r.key)))fail(r.id+' 尚未實作的特殊觸發道具不可啟用');
-  }
-  if(!obj(c.future)||!obj(c.future.stateFields))fail('缺少未來事件與存檔欄位定義');
-  else for(const k of ['fairyEvents','companionQuests','festivals'])for(const r of unique(c.future[k],k)){
-   if(r.enabled!==false)fail(k+'/'+r.id+' 第一階段必須停用');
-   if(r.poolId&&!poolIds.has(r.poolId))fail(k+'/'+r.id+' 回贈池引用不存在');
-   if(r.triggerItemId&&!rows().some(x=>x.kind==='item'&&x.key===r.triggerItemId))fail(k+'/'+r.id+' 觸發道具引用不存在');
-   if(k==='companionQuests'&&r.companionId!==null&&!d.companions?.some(x=>x.id===r.companionId))fail(k+'/'+r.id+' 夥伴引用不存在');
-  }
-  return [...new Set(out)];
- }
- function normalize(raw,d){const c=raw===undefined?copy(DEFAULTS):copy(raw),errors=issues(c,d);if(errors.length)throw Error(errors.join('\n'));return c;}
- function eligible(c,d,poolId,clears){
-  const highest=region(d,clears);if(!highest)return [];
-  if(c.pools.find(p=>p.id===poolId)?.enabled===false)return [];
-  return (c.pools.find(p=>p.id===poolId)?.rewards||[]).filter(r=>r.enabled&&r.weight>0&&(clears?.[r.minMapId]||maps(d).find(m=>m.id===r.minMapId)?.max<=highest.max)&&!(r.type==='item'&&!r.allowAhead&&r.kind==='material'&&(d.balanceSettings.monsters.catalog||[]).some(m=>m.material===r.key&&maps(d)[m.mapIndex]?.min>highest.max)));
- }
- function pick(rows,rng){const total=rows.reduce((n,r)=>n+r.weight,0);if(!(total>0))throw Error('沒有可用回贈');let n=rng()*total;for(const r of rows)if((n-=r.weight)<0)return r;return rows.at(-1);}
- const integer=(a,b,rng)=>a+Math.min(b-a,Math.floor(rng()*(b-a+1)));
- function probabilities(c,d,poolId,clears){const rows=eligible(c,d,poolId,clears),weights=c.pools.find(p=>p.id===poolId)?.typeWeights??c.typeWeights,ts=types.filter(t=>rows.some(r=>r.type===t)&&weights[t]>0),total=ts.reduce((n,t)=>n+weights[t],0);return rows.map(r=>({...r,probability:ts.includes(r.type)?weights[r.type]/total*r.weight/rows.filter(x=>x.type===r.type).reduce((n,x)=>n+x.weight,0):0}));}
- function draw(c,d,poolId,clears,rng=Math.random){
-  const rows=eligible(c,d,poolId,clears),weights=c.pools.find(p=>p.id===poolId)?.typeWeights??c.typeWeights,type=pick(types.filter(t=>rows.some(r=>r.type===t)).map(type=>({type,weight:weights[type]})),rng).type,r=pick(rows.filter(r=>r.type===type),rng),result={type,ruleId:r.id};
-  if(type==='gold'){const b=pick(c.gold.bands,rng);return {...result,amount:integer(b.min,b.max,rng)};}
-  if(type==='item')return {...result,kind:r.kind,key:r.key,quantity:integer(r.min,r.max,rng)};
-  const m=region(d,clears),limits=range(d,m),top=Math.min(limits.cap,limits.max+c.equipment.aheadLevels),ahead=r.allowAhead&&top>limits.max&&rng()<c.equipment.aheadChance;
-  const level=ahead?integer(limits.max+1,top,rng):integer(limits.min,limits.max,rng),e=d.balanceSettings.equipment.requiredLevel;
-  return {...result,mapId:m.id,mapIndex:m.index,level,ahead:!!ahead,tier:Math.max(1,Math.min(12,1+Math.floor((level-e.base)/e.perTier)))};
- }
- function simulate(c,d,{mapId,inputId,quantity,count=1000},rng=Math.random){
-  normalize(c,d);const m=maps(d).find(m=>m.id===mapId),input=c.inputs.find(r=>r.id===inputId&&r.enabled&&!r.specialTrigger);
-  if(!m||!input||c.pools.find(p=>p.id===input.poolId)?.enabled===false||!Number.isInteger(quantity)||quantity<input.min||quantity>input.max||![100,1000,10000].includes(count))throw Error('模擬地區、投入或次數無效，或回贈池已停用');
-  const clears=Object.fromEntries(maps(d).filter(x=>x.max<=m.max).map(x=>[x.id,true]));clears[c.unlock.mapId]=true;
-  const out={count,types:{gold:0,item:0,equipment:0},goldTotal:0,goldMin:null,goldMax:null,items:{},levels:{},ahead:0,invalid:0};
-  for(let i=0;i<count;i++)try{const r=draw(c,d,input.poolId,clears,rng);out.types[r.type]++;if(r.type==='gold'){out.goldTotal+=r.amount;out.goldMin=Math.min(out.goldMin??Infinity,r.amount);out.goldMax=Math.max(out.goldMax??0,r.amount);}else if(r.type==='item'){const id=r.kind+':'+r.key;out.items[id]=(out.items[id]||0)+r.quantity;}else{out.levels[r.level]=(out.levels[r.level]||0)+1;out.ahead+=Number(r.ahead);}}catch{out.invalid++;}
-  out.goldAverage=out.types.gold?out.goldTotal/out.types.gold:0;out.goldPerOffering=out.goldTotal/count;out.aheadRatio=out.types.equipment?out.ahead/out.types.equipment:0;return out;
- }
- const day=(now=Date.now())=>new Date(now+8*3600000).toISOString().slice(0,10);
- const defaults=()=>copy(DEFAULTS);
- root.EmberwildWishingLake={VERSION:1,defaults,normalize,issues,catalog,safe,region,range,eligible,probabilities,draw,simulate,day};
- if(typeof module==='object'&&module.exports)module.exports=root.EmberwildWishingLake;
-})(globalThis);
-
-</script>
-<script id="wishing-lake-editor">
-/* Lake editor: all mutations remain in the ordinary draft/export document. */
-(()=>{
- const M=EmberwildWishingLake,copy=x=>JSON.parse(JSON.stringify(x)),e=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- let search='',filter='all',sort='id',selectedPool='daily',simulation=null;
- const config=()=>data.wishingLake??=M.defaults(),maps=()=>data.balanceSettings.maps.catalog;
- const beforeEnsure=ensureArrays;ensureArrays=function(...args){const out=beforeEnsure(...args);config();return out;};
- ORIGINAL_DATA.wishingLake??=M.defaults();config();
- const refRows=()=>M.catalog(data).filter(x=>['item','material','equipment','token'].includes(x.kind));
- const label=r=>{const meta=data.inventoryIcons?.find(x=>x.kind===r.kind&&x.key===r.key);return meta?.displayName||r.name||r.key;};
- const refLabel=r=>{const row=refRows().find(x=>x.kind===r.kind&&x.key===r.key);return row?label(row):'⚠ 引用不存在：'+r.kind+':'+r.key;};
- const refs=()=>refRows().map(r=>[r.kind+':'+r.key,label(r)+' ('+r.kind+':'+r.key+')']);
- const mapOptions=()=>maps().map(m=>[m.id,m.name+' ('+m.id+')']);
- const val=(o,path)=>path.split('.').reduce((x,k)=>x?.[k],o);
- function put(o,path,value){const parts=path.split('.'),key=parts.pop();for(const p of parts)o=o[p];o[key]=value;}
- function control(path,title,value,kind='text',options=[]){
-  const attr='data-lake-path="'+e(path)+'"',disabled=kind==='readonly'?' disabled':'';
-  return '<label>'+e(title)+(kind==='select'?'<select '+attr+'>'+(!options.some(([v])=>String(v)===String(value))?'<option value="'+e(value)+'">⚠ '+e(value)+'</option>':'')+options.map(([v,n])=>'<option value="'+e(v)+'" '+(String(v)===String(value)?'selected':'')+'>'+e(n)+'</option>').join('')+'</select>':kind==='checkbox'?'<input '+attr+' type="checkbox" '+(value?'checked':'')+'>':kind==='json'?'<textarea '+attr+' data-json="true" rows="3">'+e(JSON.stringify(value,null,2))+'</textarea>':'<input '+attr+' type="'+(kind==='number'?'number':'text')+'" '+(kind==='number'?'step="any"':'')+' value="'+e(value??'')+'"'+disabled+'>')+'</label>';
- }
- const num=(p,t,v)=>control(p,t,v,'number'),check=(p,t,v)=>control(p,t,v,'checkbox'),select=(p,t,v,o)=>control(p,t,v,'select',o);
- function fields(prefix,r,defs){return defs.map(([key,title,kind,options])=>control(prefix+'.'+key,title,r[key],kind,options)).join('');}
- const errorHTML=()=>{const errors=M.issues(config(),data);return '<div id="lakeValidation" role="status">'+(errors.length?errors.map(x=>'<p class="bad">'+e(x)+'</p>').join(''):'<p class="good">許願湖設定有效</p>')+'</div>';};
- function inputRows(){return config().inputs.map((r,i)=>({r,i})).filter(({r})=>(filter==='all'||(filter==='enabled')===r.enabled)&&(refLabel(r)+' '+r.id+' '+r.key).toLowerCase().includes(search.toLowerCase())).sort((a,b)=>sort==='quantity'?a.r.min-b.r.min:String(sort==='name'?refLabel(a.r):a.r.id).localeCompare(String(sort==='name'?refLabel(b.r):b.r.id),'zh-Hant'));}
- function basic(){const c=config();return '<section class="card"><h2>基本設定</h2><div class="lake-editor-grid">'+check('enabled','每日回贈啟用',c.enabled)+num('dailyLimit','每日成功投入次數',c.dailyLimit)+select('unlock.mapId','解鎖地區（正式通關旗標）',c.unlock.mapId,mapOptions())+control('unlock.source','通關來源',c.unlock.source,'readonly')+control('reset.timezone','重置時區',c.reset.timezone,'readonly')+control('reset.hour','每日重置時間',c.reset.hour,'readonly')+check('allowEquipment','允許規則明確指定的未鎖定／未穿戴裝備',c.allowEquipment)+check('allowTokens','允許規則明確指定的信物',c.allowTokens)+check('allowSpecial','保留：特殊道具許可（任務觸發仍停用）',c.allowSpecial)+['gold','item','equipment'].map((k,i)=>num('typeWeights.'+k,['金幣','一般道具／素材','裝備'][i]+' 類型權重',c.typeWeights[k])).join('')+'</div><p>獎勵先抽類型，再抽該類型的有效列。權重只在符合地區條件的列之間正規化。</p></section>';}
- function inputs(){const c=config(),pools=c.pools.map(p=>[p.id,p.name]);return '<section class="card"><h2>投入規則</h2><div class="toolbar"><input id="lakeSearch" placeholder="搜尋名稱、ID" value="'+e(search)+'"><select id="lakeFilter">'+[['all','全部'],['enabled','啟用'],['disabled','停用']].map(([v,n])=>'<option value="'+v+'" '+(v===filter?'selected':'')+'>'+n+'</option>').join('')+'</select><select id="lakeSort">'+[['id','依 ID'],['name','依名稱'],['quantity','依最低數量']].map(([v,n])=>'<option value="'+v+'" '+(v===sort?'selected':'')+'>'+n+'</option>').join('')+'</select><button data-lake-add="input">新增投入規則</button></div><div class="lake-editor-table"><table><thead><tr><th>道具／引用</th><th>啟用</th><th>數量與回贈池</th><th>特殊觸發</th></tr></thead><tbody>'+inputRows().map(({r,i})=>{const p='inputs.'+i;return '<tr><td>'+e(refLabel(r))+control(p+'.id','ID',r.id)+select(p+'.ref','全域道具',r.kind+':'+r.key,refs())+'</td><td>'+check(p+'.enabled','可投入',r.enabled)+'<button data-lake-delete="'+p+'">刪除</button></td><td>'+select(p+'.quantityMode','投入方式',r.quantityMode,[['fixed','固定'],['range','區間']])+num(p+'.min','最低數量',r.min)+num(p+'.max','最高數量',r.max)+select(p+'.poolId','回贈池',r.poolId,pools)+'</td><td>'+control(p+'.specialTrigger','特殊事件／任務 ID（預留）',r.specialTrigger)+'</td></tr>';}).join('')+'</tbody></table></div><p>只引用全域清單，不建立新道具。裝備與信物一件一次；已穿戴、鎖定、教學獎勵、已鑲寶石與不可出售物品一律排除。固定數量修改最低值時會同步最高值。</p></section>';}
- function pools(){const c=config();if(!c.pools.some(p=>p.id===selectedPool))selectedPool=c.pools[0]?.id;const i=c.pools.findIndex(p=>p.id===selectedPool),p=c.pools[i];
-  const allClears=Object.fromEntries(maps().map(m=>[m.id,true])),prob=p?M.probabilities(c,data,p.id,allClears):[];
-  return '<section class="card"><h2>回贈池</h2><div class="toolbar"><select id="lakePool">'+c.pools.map(p=>'<option value="'+e(p.id)+'" '+(p.id===selectedPool?'selected':'')+'>'+e(p.name)+' ('+e(p.id)+')</option>').join('')+'</select><button data-lake-add="pool">新增回贈池</button></div>'+(p?'<div class="lake-editor-grid">'+control('pools.'+i+'.id','回贈池 ID',p.id)+control('pools.'+i+'.name','名稱',p.name)+check('pools.'+i+'.enabled','啟用此池',p.enabled!==false)+check('pools.'+i+'.useOwnWeights','使用此池獨立類型權重',!!p.typeWeights)+(p.typeWeights?['gold','item','equipment'].map((k,n)=>num('pools.'+i+'.typeWeights.'+k,['金幣','道具／素材','裝備'][n]+' 類型權重',p.typeWeights[k])).join(''):'<p>沿用基本設定的類型權重；未包含的類型會排除後重新正規化。</p>')+'</div><button data-lake-delete="pools.'+i+'">刪除此池</button><button data-lake-add="reward" data-pool-index="'+i+'">新增回贈列</button><div class="lake-editor-table"><table><thead><tr><th>類型／內容</th><th>數量／啟用</th><th>權重／機率</th><th>地區限制</th></tr></thead><tbody>'+p.rewards.map((r,j)=>{const path='pools.'+i+'.rewards.'+j;return '<tr><td>'+control(path+'.id','ID',r.id)+select(path+'.type','獎勵類型',r.type,[['gold','金幣'],['item','道具／素材'],['equipment','正式裝備生成']])+(r.type==='item'?select(path+'.ref','全域道具',r.kind+':'+r.key,refs().filter(([id])=>/^(item|material):/.test(id)))+'<small>'+e(refLabel(r))+'</small>':'<small>'+e(r.type==='gold'?'使用下方金幣分段':'使用已通關地區與正式生成規則')+'</small>')+'</td><td>'+check(path+'.enabled','啟用',r.enabled)+(r.type==='item'?num(path+'.min','最少數量',r.min)+num(path+'.max','最多數量',r.max):'')+'<button data-lake-delete="'+path+'">刪除</button></td><td>'+num(path+'.weight','類型內權重',r.weight)+'<strong data-lake-prob="'+r.id+'">'+((prob.find(x=>x.id===r.id)?.probability||0)*100).toFixed(3)+'%</strong></td><td>'+select(path+'.minMapId','最低通關地區',r.minMapId,mapOptions())+check(path+'.allowAhead','允許超前（裝備仍受 +5 級限制）',r.allowAhead)+'</td></tr>';}).join('')+'</tbody></table></div><p>機率預覽以全地區已通關計算；指定進度的有效機率請見模擬器。未符合地區的列會排除再正規化。</p>':'')+'</section>';
- }
- function goldAndGear(){const c=config(),g=c.gold,q=c.equipment;return '<section class="card"><h2>金幣回贈</h2><div class="lake-editor-grid">'+num('gold.min','最低金幣（至少 500）',g.min)+num('gold.max','最高金幣（至多 20000）',g.max)+'</div>'+g.bands.map((b,i)=>'<div class="lake-editor-grid">'+num('gold.bands.'+i+'.min','區段最低',b.min)+num('gold.bands.'+i+'.max','區段最高',b.max)+num('gold.bands.'+i+'.weight','區段權重',b.weight)+'<span data-lake-band-prob="'+i+'">'+((b.weight/g.bands.reduce((n,b)=>n+b.weight,0)||0)*100).toFixed(2)+'%</span><button data-lake-delete="gold.bands.'+i+'">刪除區段</button></div>').join('')+'<button data-lake-add="band">新增金幣區段</button></section><section class="card"><h2>裝備回贈</h2><div class="lake-editor-grid">'+control('equipment.progressSource','地區進度來源',q.progressSource,'readonly')+control('equipment.rangeSource','等級範圍來源',q.rangeSource,'readonly')+num('equipment.aheadChance','超前裝備機率（0～1）',q.aheadChance)+num('equipment.aheadLevels','最多超出等級（0～5）',q.aheadLevels)+control('equipment.qualitySource','品質權重來源',q.qualitySource,'readonly')+control('equipment.tierSource','T 級來源',q.tierSource,'readonly')+'</div><p>一般掉落的需求等級 = 裝備基礎等級 +（地區階級 − 1）× 每階級等級。本遊戲每個地區目前只對應一個需求等級。品質、詞綴、T 級、技能與孔位沿用普通難度生成，沒有額外稀有度加成。</p></section>';}
- function future(){const c=config();return '<section class="card"><h2>未實裝事件預留</h2><p>以下設定均強制未啟用。任務與特殊觸發道具不參與每日投入或回贈。</p>'+[['fairyEvents','仙子專屬事件'],['companionQuests','一般特殊夥伴任務'],['festivals','節日事件']].map(([k,title])=>'<h3>'+title+'</h3><button data-lake-add="'+k+'">新增'+title+'</button>'+c.future[k].map((r,i)=>{const p='future.'+k+'.'+i;return '<details><summary>'+e(r.name||r.id)+' · 未實裝</summary><div class="lake-editor-grid">'+fields(p,r,[['id','ID'],['name','名稱'],['enabled','啟用（第一階段禁止）','checkbox'],...(k==='fairyEvents'?[['eventType','事件類型'],['chance','出現機率（0～1）','number'],['weight','出現權重','number'],['conditions','觸發條件','json'],['dialogue','對話','json'],['questlineId','任務線 ID'],['poolId','關聯回贈池','select',[['','無'],...c.pools.map(p=>[p.id,p.name])]]]:k==='companionQuests'?[['companionId','特殊夥伴 ID（null 表示未指定）','json'],['questlineId','任務線 ID'],['triggerItemId','旅行商人觸發道具','select',[['','未指定'],...refs().filter(([id])=>id.startsWith('item:')).map(([id,n])=>[id.slice(5),n])]],['chance','每日造訪觸發機率（0～1）','number'],['guaranteedByItem','指定道具保證觸發','checkbox'],['conditions','前置條件','json'],['completionField','完成狀態欄位']]:[['dateRule','日期規則','json'],['poolId','特殊贈禮池','select',[['','無'],...c.pools.map(p=>[p.id,p.name])]],['claimField','領取狀態欄位'],['dialogueConditions','仙子特殊對話條件','json']])])+'</div><button data-lake-delete="'+p+'">刪除設定</button></details>';}).join('')).join('')+control('future.stateFields','預留存檔欄位定義',c.future.stateFields,'json')+'</section>';}
- function sim(){const c=config();return '<section class="card"><h2>回贈模擬器</h2><p>與遊戲共用同一抽選函式；不讀寫玩家存檔或庫存。金幣平均分別列出每次金幣回贈與每次投入。</p><div class="lake-editor-grid"><label>最高已通關地區<select id="lakeSimMap">'+mapOptions().map(([id,n])=>'<option value="'+id+'">'+e(n)+'</option>').join('')+'</select></label><label>投入規則<select id="lakeSimInput">'+c.inputs.filter(r=>r.enabled).map(r=>'<option value="'+r.id+'">'+e(refLabel(r))+' ('+r.id+')</option>').join('')+'</select></label><label>投入數量<input id="lakeSimQuantity" type="number" value="'+(c.inputs.find(r=>r.enabled)?.min||1)+'"></label><label>模擬次數<select id="lakeSimCount"><option>100</option><option selected>1000</option><option>10000</option></select></label><button id="lakeSimRun">執行模擬</button></div><div id="lakeSimResult">'+(simulation?simulationHTML(simulation):'')+'</div></section>';}
- function simulationHTML(s){return '<p>金幣平均回贈 '+s.goldAverage.toFixed(2)+' G · 每次投入平均 '+s.goldPerOffering.toFixed(2)+' G · 最低 '+(s.goldMin??'—')+' · 最高 '+(s.goldMax??'—')+'</p><p>'+Object.entries(s.types).map(([k,n])=>e(k)+' '+n+' 次（'+(n/s.count*100).toFixed(2)+'%）').join(' · ')+'</p><p>超前裝備 '+s.ahead+' 件／'+(s.aheadRatio*100).toFixed(2)+'% · 非法／無效 '+s.invalid+'</p><h3>道具產出總量</h3><table>'+Object.entries(s.items).map(([id,n])=>'<tr><td>'+e(id)+'</td><td>'+n+'</td></tr>').join('')+'</table><h3>裝備等級分布</h3><table>'+Object.entries(s.levels).map(([lv,n])=>'<tr><td>LV '+lv+'</td><td>'+n+'</td></tr>').join('')+'</table>';}
- function page(){
-  document.getElementById('app').innerHTML=sectionHead('許願湖','永久特殊地點 · 每日投入與回贈 · 未來事件預留')+errorHTML()+basic()+inputs()+pools()+goldAndGear()+future()+sim();
-  const app=document.getElementById('app');
-  app.querySelectorAll('[data-lake-path]').forEach(el=>el.onchange=()=>{try{const path=el.dataset.lakePath,value=el.dataset.json?JSON.parse(el.value):el.type==='checkbox'?el.checked:el.type==='number'?Number(el.value):el.value;update(path,value);render();}catch(error){alert(error.message);render();}});
-  // Keep the field focused while the probability preview follows each keystroke.
-  app.querySelectorAll('[data-lake-path]').forEach(el=>{if(el.type==='number')el.oninput=()=>{try{update(el.dataset.lakePath,Number(el.value));const c=config(),prob=M.probabilities(c,data,selectedPool,Object.fromEntries(maps().map(m=>[m.id,true])));app.querySelectorAll('[data-lake-prob]').forEach(row=>{row.textContent=((prob.find(x=>x.id===row.dataset.lakeProb)?.probability||0)*100).toFixed(3)+'%';});app.querySelectorAll('[data-lake-band-prob]').forEach(row=>{row.textContent=((c.gold.bands[Number(row.dataset.lakeBandProb)].weight/c.gold.bands.reduce((n,b)=>n+b.weight,0)||0)*100).toFixed(2)+'%';});document.getElementById('lakeValidation').outerHTML=errorHTML();}catch{}};});
-  app.querySelectorAll('[data-lake-add]').forEach(el=>el.onclick=()=>{add(el.dataset.lakeAdd,Number(el.dataset.poolIndex||0));render();});
-  app.querySelectorAll('[data-lake-delete]').forEach(el=>el.onclick=()=>{try{remove(el.dataset.lakeDelete);}catch(error){alert(error.message);}render();});
-  document.getElementById('lakeSearch').onchange=ev=>{search=ev.target.value;render();};document.getElementById('lakeFilter').onchange=ev=>{filter=ev.target.value;render();};document.getElementById('lakeSort').onchange=ev=>{sort=ev.target.value;render();};document.getElementById('lakePool').onchange=ev=>{selectedPool=ev.target.value;render();};
-  document.getElementById('lakeSimInput').onchange=ev=>{document.getElementById('lakeSimQuantity').value=config().inputs.find(r=>r.id===ev.target.value)?.min||1;};
-  document.getElementById('lakeSimRun').onclick=()=>{try{simulation=M.simulate(config(),data,{mapId:document.getElementById('lakeSimMap').value,inputId:document.getElementById('lakeSimInput').value,quantity:Number(document.getElementById('lakeSimQuantity').value),count:Number(document.getElementById('lakeSimCount').value)});document.getElementById('lakeSimResult').innerHTML=simulationHTML(simulation);}catch(err){alert(err.message);}};
- }
- function update(path,value){const c=config();
-  if(/^pools\.\d+\.useOwnWeights$/.test(path)){const pool=c.pools[Number(path.split('.')[1])];if(value)pool.typeWeights=copy(c.typeWeights);else delete pool.typeWeights;markDirty();return M.issues(c,data);}
-  if(path.endsWith('.ref')){const base=path.slice(0,-4),i=value.indexOf(':');put(c,base+'.kind',value.slice(0,i));put(c,base+'.key',value.slice(i+1));}
-  else{const old=val(c,path);put(c,path,value);if(/^pools\.\d+\.id$/.test(path)){for(const r of c.inputs)if(r.poolId===old)r.poolId=value;for(const rows of Object.values(c.future))if(Array.isArray(rows))for(const r of rows)if(r.poolId===old)r.poolId=value;selectedPool=value;}
-   if(/^inputs\.\d+\.(min|quantityMode)$/.test(path)){const r=c.inputs[Number(path.split('.')[1])];if(r.quantityMode==='fixed')r.max=r.min;}
-   if(path.endsWith('.type')&&value==='item'){const r=val(c,path.slice(0,-5));r.kind??='item';r.key??='heal_small';r.min??=1;r.max??=1;}
-  }
-  markDirty();return M.issues(c,data);
- }
- function id(rows,prefix){let n=1;while(rows.some(r=>r.id===prefix+n))n++;return prefix+n;}
- function add(type,index=0){const c=config();if(type==='input')c.inputs.push({id:id(c.inputs,'offering'),kind:'material',key:'黏稠凝膠',enabled:false,quantityMode:'fixed',min:20,max:20,poolId:c.pools[0]?.id||'',specialTrigger:''});
-  else if(type==='pool'){const p=copy(M.defaults().pools[0]);p.id=id(c.pools,'pool');p.name='新回贈池';c.pools.push(p);selectedPool=p.id;}
-  else if(type==='reward')c.pools[index].rewards.push({id:id(c.pools[index].rewards,'reward'),type:'item',kind:'item',key:'heal_small',min:1,max:1,weight:1,minMapId:c.unlock.mapId,enabled:false,allowAhead:false});
-  else if(type==='band')c.gold.bands.push({min:500,max:1999,weight:1});
-  else if(['fairyEvents','companionQuests','festivals'].includes(type)){const rows=c.future[type],r={id:id(rows,'event'),name:'未實裝設定',enabled:false};Object.assign(r,type==='fairyEvents'?{eventType:'visit',chance:0,weight:0,conditions:{},dialogue:[],questlineId:'',poolId:''}:type==='companionQuests'?{companionId:null,questlineId:'',triggerItemId:'',chance:0,guaranteedByItem:false,conditions:{},completionField:'questCompletions'}:{dateRule:{timezone:'Asia/Taipei',start:'',end:''},poolId:'',claimField:'festivalClaims',dialogueConditions:{}});rows.push(r);}
-  markDirty();return c;
- }
- function remove(path){const parts=path.split('.'),i=Number(parts.pop()),rows=val(config(),parts.join('.'));if(!Array.isArray(rows)||!rows[i])return false;if(parts.join('.')==='pools'&&config().inputs.some(r=>r.poolId===rows[i].id))throw Error('仍有投入規則引用此回贈池，請先改用其他池');rows.splice(i,1);markDirty();return true;}
- SECTION_META.push(['wishingLake','許願湖']);NAV_GROUPS.push(['wishingLake','許願湖',['wishingLake']]);
- const renderBase=render;render=function(...args){if(currentSection!=='wishingLake')return renderBase(...args);ensureArrays();renderNav(true);page();globalThis.__EMBERWILD_EXPERIENCE?.afterPage();};
- const countBase=count;count=function(section,...args){return section==='wishingLake'?config().inputs.length:countBase(section,...args);};
- const validateDataBase=validateData;validateData=function(){return [...validateDataBase(),...M.issues(config(),data).map(x=>'許願湖：'+x)];};
- const exportBase=__EMBERWILD_MASTERY_EDITOR.cleanExport;__EMBERWILD_MASTERY_EDITOR.cleanExport=function(){const out=exportBase();out.wishingLake=M.normalize(config(),out);return out;};
- globalThis.__EMBERWILD_LAKE_EDITOR={config,update,add,remove,simulate:options=>M.simulate(config(),data,options),issues:()=>M.issues(config(),data),open:()=>{currentSection='wishingLake';render();}};
- requestEditorInitialRender();
-})();
-
-
-</script>
-<!-- wishing-lake:end -->
-
-<!-- balance-modules:start -->
-<script id="incremental-editing">
-/* Incremental editing: tracks which balance modules, records and fields a draft changed, validates only those
-   changes (field → module → cross-module) and sends only changed modules when publishing.
-   Installed last, after every markDirty wrapper. Shares EmberwildBalanceModules with the game. */
-(function installIncrementalEditing(){
- 'use strict';
- const M=globalThis.EmberwildBalanceModules,DOC=()=>globalThis.EmberwildBalanceDocument;
- if(!M){console.warn('EmberwildBalanceModules 未載入，增量編輯停用');return;}
- const now=()=>(globalThis.performance?.now?.()??Date.now());
- const ALL=M.MODULES.map(m=>m.id);
- // Pages edit these modules. A page not listed, or a change found outside its modules, falls back to a sweep of
- // every module (change detection only; validation still follows the actual changes).
- const SECTION_MODULES={
-  world:['world/maps','world/monsters','world/drops'],items:['items/items','items/inventory-icons'],potions:['items/items','items/inventory-icons'],
-  shopSettings:['systems/shop'],inventoryIcons:['items/inventory-icons','items/items','interface/presentation'],iconColors:['interface/presentation','items/inventory-icons'],iconMaker:['interface/presentation','items/inventory-icons'],
-  story:['systems/story'],navigation:['interface/navigation'],wishingLake:['systems/wishing-lake'],statuses:['combat/statuses'],
-  companions:['characters/companions','characters/companion-settings','combat/skills'],companionUnlocks:['characters/companions'],companionBalance:['characters/companions','characters/companion-settings'],
-  companionTokens:['characters/companion-settings'],passives:['characters/passives','characters/companions'],equipmentPower:['equipment/power-system'],affixPools:['equipment/affix-pools'],
-  equipment:['equipment/forms'],starterPacks:['items/starter-packs'],uiText:['interface/presentation'],textRarity:['interface/presentation'],teamSettings:['meta/document'],
-  materialPrices:['systems/economy'],dailyQuests:['systems/quests'],sideQuests:['systems/quests'],crafting:['systems/crafting'],
-  skillSystem:['combat/skills','combat/skill-system','characters/classes','characters/support-skills'],skills:['combat/skills','characters/classes','characters/support-skills'],classes:['characters/classes','combat/skills'],
-  combatMigration:['combat/rules','combat/skills','world/monsters','combat/statuses','items/items']
- };
- const sectionModules=section=>{if(SECTION_MODULES[section])return SECTION_MODULES[section];const m=/^balanceSettings:(\w+)$/.exec(section||'');if(m){const id=M.moduleForPath('balanceSettings.'+m[1]);return Array.isArray(id)?id:[id];}return null;};
-
- const state={
-  tracked:null,          // the data object the baseline was taken from
-  base:new Map(),        // module id -> serialized text when the session started (or after loading another version)
-  baseValue:new Map(),   // module id -> parsed baseline value (for change paths)
-  current:new Map(),     // module id -> last serialized text seen
-  candidates:new Set(),  // modules possibly written since the last refresh
-  modules:new Map(),     // module id -> {changes, records, issues, ms}
-  source:null,           // online snapshot this draft started from {branch, commit, modules}
-  lastRefresh:null,stats:{refreshes:0,sweeps:0,serialized:0,validated:0},timer:0,sweepTimer:0
- };
- const moduleText=(doc,id)=>{const v=M.split(doc).modules[id];return v===undefined?null:M.serialize(v);};
- // Split once, then serialize only the requested modules.
- function texts(doc,ids){const parts=M.split(doc).modules,out=new Map();for(const id of ids){const v=parts[id];out.set(id,v===undefined?null:M.serialize(v));state.stats.serialized++;}return out;}
- function rebase(reason){
-  state.tracked=data;state.base.clear();state.baseValue.clear();state.current.clear();state.modules.clear();state.candidates.clear();
-  for(const [id,t] of texts(data,ALL)){state.base.set(id,t);state.current.set(id,t);state.baseValue.set(id,t===null?undefined:JSON.parse(t));}
-  state.orphanIssues=[];state.baseReason=reason;publishState();
- }
- // Field rules for one input, immediately: only that path is checked.
- function validateField(path){
-  const D=DOC();if(!D?.inspect||!path)return [];
-  try{return D.inspect(data,{scope:M.scope([M.toPath(path)])});}catch(e){return [{field:path,reason:e.message}];}
- }
- function changesFor(id){
-  const before=state.baseValue.get(id),after=M.split(data).modules[id],paths=[];
-  const def=M.module(id),prefix=def.container?[def.container]:[];
-  if(def.key)paths.push(...M.changes(before,after,[...prefix,def.key]));
-  else{const a=before||{},b=after||{};for(const k of new Set([...Object.keys(a),...Object.keys(b)]))paths.push(...M.changes(a[k],b[k],[...prefix,k]));}
-  return paths;
- }
- // Module and cross-module validation for the modules that actually changed.
- function refresh({sweep=false}={}){
-  clearTimeout(state.timer);state.timer=0;
-  if(state.tracked!==data)rebase('載入其他版本');
-  const t0=now(),ids=sweep||!state.candidates.size?ALL:[...state.candidates];state.candidates.clear();if(sweep||ids===ALL)state.stats.sweeps++;
-  const seen=texts(data,ids),touched=[];
-  for(const [id,t] of seen){if(t!==state.current.get(id)){state.current.set(id,t);touched.push(id);}}
-  // markDirty fired but the page's modules did not change: the write went elsewhere, so look everywhere once.
-  if(!touched.length&&!sweep&&ids!==ALL&&state.pendingDirty){state.pendingDirty=false;return refresh({sweep:true});}
-  state.pendingDirty=false;
-  const D=DOC(),paths=[];
-  for(const id of touched){
-   if(state.current.get(id)===state.base.get(id)){state.modules.delete(id);continue;}
-   const p=changesFor(id);paths.push(...p);
-   const classified=M.classify(p,{before:null,after:data});
-   const records=new Map();for(const c of classified){const key=c.record?c.record.collection+'#'+(c.record.id??c.record.index):c.path;if(!records.has(key))records.set(key,{label:c.record?.label||M.module(id).title,id:c.record?.id??c.record?.index??null,fields:new Set(),kinds:new Set()});const r=records.get(key);if(c.record?.field)r.fields.add(c.record.field);r.kinds.add(c.kind);}
-   state.modules.set(id,{id,title:M.module(id).title,changes:p.map(x=>x.join('.')),kinds:[...new Set(classified.map(c=>c.kind))],records:[...records.values()].map(r=>({...r,fields:[...r.fields],kinds:[...r.kinds]})),issues:[]});
-  }
-  // Validate every currently changed module together, so a fix in one module clears an error it caused in another.
-  const changedIds=[...state.modules.keys()],allPaths=[];for(const id of changedIds)allPaths.push(...(touched.includes(id)?[]:changesFor(id)));allPaths.push(...paths);
-  let issues=[],blocks=[];
-  if(allPaths.length&&D?.inspect){const report={};try{issues=D.inspect(data,{scope:M.scope(allPaths),report});}catch(e){issues=[{field:'',reason:e.message}];}blocks=report.blocks||[];state.stats.validated++;}
-  const keyed=new Set(changedIds.filter(id=>state.modules.get(id).kinds.some(k=>k!=='value')));
-  const rules=M.REFERENCES.filter(r=>changedIds.includes(r.from)||keyed.has(r.to));
-  const located=new Set(issues.map(x=>x.field));
-  for(const r of rules.length?M.referenceIndex(data,{rules}).broken():[])if(!located.has(r.path)&&!located.has(r.path.replace(/\.\d+$/,'')))issues.push({system:M.module(r.module).title,object:r.owner||'',field:r.path,reason:r.label+'引用不存在的 '+r.kind+'：'+r.id});
-  for(const m of state.modules.values())m.issues=[];
-  const orphan=[];
-  for(const x of issues){const owner=M.moduleForPath(x.field),id=Array.isArray(owner)?owner[0]:owner;(state.modules.get(id)?.issues||orphan).push({...x,module:id});}
-  state.orphanIssues=orphan;state.blocks=blocks;state.references=rules.map(r=>r.id);
-  state.lastRefresh={ms:+(now()-t0).toFixed(2),inspected:ids.length,changedModules:changedIds.length,paths:allPaths.length,blocks,at:new Date().toISOString(),sweep:ids===ALL};
-  state.stats.refreshes++;publishState();return summary();
- }
- function summary(){
-  const modules=[...state.modules.values()],issues=modules.flatMap(m=>m.issues).concat(state.orphanIssues||[]);
-  return {dirty:modules.length>0,modules:modules.map(m=>({id:m.id,title:m.title,kinds:m.kinds,records:m.records,changes:m.changes.length,issues:m.issues})),issues,orphanIssues:state.orphanIssues||[],
-   canSave:true,canPublish:modules.length>0&&issues.length===0,crossModule:modules.some(m=>m.kinds.some(k=>k!=='value')),source:state.source,base:state.baseReason,last:state.lastRefresh,stats:{...state.stats}};
- }
- function schedule(){if(state.timer)return;const run=()=>refresh();state.timer=setTimeout(()=>{if(typeof requestIdleCallback==='function')requestIdleCallback(run,{timeout:400});else run();},180);}
- // ---- chrome -------------------------------------------------------------------------------------------
- const esc=globalThis.esc||(v=>String(v??'').replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])));
- function ensureChip(){
-  let chip=document.getElementById('moduleStateChip');if(chip)return chip;
-  const top=document.querySelector('.topbar');if(!top)return null;
-  chip=document.createElement('button');chip.type='button';chip.id='moduleStateChip';chip.className='workspace-chip module-state-chip';chip.onclick=()=>{const p=document.getElementById('moduleStatePanel');if(p)p.hidden=!p.hidden;};
-  top.appendChild(chip);
-  const panel=document.createElement('div');panel.id='moduleStatePanel';panel.className='module-state-panel';panel.hidden=true;document.body.appendChild(panel);
-  return chip;
- }
- function render(){
-  const s=summary(),chip=ensureChip(),panel=document.getElementById('moduleStatePanel');
-  if(chip){chip.textContent=s.dirty?'已修改模組 '+s.modules.length+(s.issues.length?' · '+s.issues.length+' 個問題':' · 驗證通過'):'模組未修改';chip.classList.toggle('has-issues',s.issues.length>0);chip.classList.toggle('is-dirty',s.dirty);}
-  if(panel)panel.innerHTML=panelHTML(s);
- }
- function panelHTML(s){
-  const rows=s.modules.map(m=>'<details open><summary><b>'+esc(m.title)+'</b> <code>'+esc(m.id)+'</code> · '+m.records.length+' 筆 · '+(m.kinds.includes('structure')?'結構變更':m.kinds.includes('key')?'引用欄位變更（跨模組驗證）':'一般欄位')+'</summary><ul>'+
-   m.records.slice(0,30).map(r=>'<li>'+esc(r.label)+(r.id!==null&&r.id!==undefined?' <code>'+esc(r.id)+'</code>':'')+(r.fields.length?'：'+r.fields.map(esc).join('、'):'')+'</li>').join('')+(m.records.length>30?'<li>…另 '+(m.records.length-30)+' 筆</li>':'')+'</ul>'+
-   (m.issues.length?'<ul class="module-state-issues">'+m.issues.map(x=>'<li>'+esc(x.object?x.object+' · ':'')+'<code>'+esc(x.field)+'</code>：'+esc(x.reason)+'</li>').join('')+'</ul>':'')+'</details>').join('');
-  const last=s.last?'<p class="mini-note">上次檢查：'+s.last.ms+' ms，序列化 '+s.last.inspected+' 個模組、'+s.last.paths+' 個變更路徑；規則 '+esc((s.last.blocks||[]).join('、')||'無')+(s.last.sweep?'（全模組掃描）':'')+'</p>':'';
-  return '<div class="module-state-head"><strong>模組變更與驗證</strong><span>'+(s.canPublish?'可儲存、可發布':s.dirty?'可儲存；修正問題後才能發布':'沒有變更')+'</span></div>'+
-   '<p class="mini-note">比較基準：'+esc(s.base||'工作階段開始時')+(s.source?' · 線上 '+esc(s.source.branch)+' '+esc(String(s.source.commit).slice(0,7)):'')+'</p>'+(rows||'<p>目前沒有已修改的模組。</p>')+
-   ((s.orphanIssues||[]).length?'<ul class="module-state-issues">'+s.orphanIssues.map(x=>'<li><code>'+esc(x.field)+'</code>：'+esc(x.reason)+'</li>').join('')+'</ul>':'')+last;
- }
- function publishState(){try{render();}catch{}const s=summary();try{if(parent!==globalThis)parent.postMessage({kind:'dreaming-abyss-dev-modules',state:{dirty:s.dirty,modules:s.modules.map(m=>({id:m.id,title:m.title,records:m.records.length,issues:m.issues.length})),issues:s.issues.length,canPublish:s.canPublish,ms:s.last?.ms}},location.origin);}catch{}}
- const style=document.createElement('style');style.id='incremental-editing-style';style.textContent='.module-state-chip.is-dirty{border-color:#c49a4a;color:#f0d79c}.module-state-chip.has-issues{border-color:#b0503c;color:#ffb3a3}.module-state-panel{position:fixed;right:12px;top:52px;z-index:60;max-width:min(560px,calc(100vw - 24px));max-height:70vh;overflow:auto;background:var(--panel,#1c272a);border:1px solid var(--line,#354348);border-radius:8px;padding:10px 12px;box-shadow:0 6px 20px #0008}.module-state-panel details{margin:6px 0}.module-state-panel ul{margin:4px 0 4px 18px;padding:0}.module-state-head{display:flex;justify-content:space-between;gap:10px}.module-state-issues li{color:#ffb3a3}[data-field-invalid]{outline:2px solid #b0503c;outline-offset:1px}';
- document.head.appendChild(style);
-
- // ---- hooks --------------------------------------------------------------------------------------------
- const dirtyBase=globalThis.markDirty;
- globalThis.markDirty=markDirty=function(...args){
-  const out=dirtyBase.apply(this,args);
-  for(const id of sectionModules(currentSection)||ALL)state.candidates.add(id);
-  state.pendingDirty=true;schedule();return out;
- };
- // Level 1: a field input is checked on its own as soon as it changes.
- document.addEventListener('change',ev=>{
-  const el=ev.target?.closest?.('[data-path]');if(!el)return;
-  const issues=validateField(el.dataset.path);
-  if(issues.length){el.setAttribute('data-field-invalid','');el.title=issues.map(x=>x.reason).join('；');}else{el.removeAttribute('data-field-invalid');if(el.title&&el.hasAttribute('data-had-issue'))el.title='';}
-  if(issues.length)el.setAttribute('data-had-issue','');
- },true);
- const setBase=globalThis.__EMBERWILD_SET_ONLINE_BASELINE;
- if(typeof setBase==='function')globalThis.__EMBERWILD_SET_ONLINE_BASELINE=function(snapshot,...rest){
-  if(snapshot&&snapshot.commit)state.source={branch:snapshot.branch,commit:snapshot.commit,layout:snapshot.layout||'legacy',modules:snapshot.modules||null};
-  const out=setBase.call(this,snapshot,...rest);publishState();return out;
- };
- // Periodic safety sweep while idle: catches writes no page announced. Detection only.
- state.sweepTimer=setInterval(()=>{if(document.visibilityState!=='hidden'&&!state.timer)refresh({sweep:true});},30000);
-
- // ---- publishing -----------------------------------------------------------------------------------------
- const onlineCache=new Map();
- function onlineTexts(snapshot){const key=snapshot.commit||'';if(!onlineCache.has(key)){onlineCache.clear();onlineCache.set(key,texts(snapshot.data,ALL));}return onlineCache.get(key);}
- // Only modules whose exported text differs from the online snapshot are sent, with the hash each change was based on.
- function payload(doc,snapshot){
-  if(!snapshot||snapshot.layout!=='modular'||!snapshot.modules)return {data:doc};
-  const base=onlineTexts(snapshot),mine=texts(doc,ALL),modules={},baseModules={};
-  for(const id of ALL)if(mine.get(id)!==base.get(id)){modules[id]=mine.get(id)===null?undefined:JSON.parse(mine.get(id));baseModules[id]=snapshot.modules[id]?.sha256||null;}
-  const parts=M.split(doc);if(JSON.stringify(parts.layout)!==JSON.stringify(M.split(snapshot.data).layout))return {data:doc};
-  return Object.keys(modules).length?{modules,baseModules}:{data:doc};
- }
- // Differences by module: unchanged modules (identical text) are skipped instead of deep-compared.
- function diff(before,after){
-  const D=globalThis.EmberwildBalanceDiff,a=texts(before,ALL),b=texts(after,ALL),rows=[];
-  for(const id of ALL){if(a.get(id)===b.get(id))continue;for(const p of new Set(M.modulePaths(id,before).concat(M.modulePaths(id,after)))){const d=D.diff({[p]:M.get(before,p)},{[p]:M.get(after,p)});rows.push(...d.rows.map(r=>({...r,module:id})));}}
-  return {rows,total:rows.length,added:rows.filter(r=>r.type==='新增').length,modified:rows.filter(r=>r.type==='修改').length,deleted:rows.filter(r=>r.type==='刪除').length};
- }
- globalThis.__EMBERWILD_INCREMENTAL=Object.freeze({state:summary,refresh,sweep:()=>refresh({sweep:true}),rebase,validateField,payload,diff,sectionModules,
-  // For tests and the performance report.
-  _internal:state});
- // The baseline is taken now, before any edit: one serialization of every module per session (or per loaded version).
- // Editor start-up finishes some migrations after the first render; until the person first touches the page the
- // baseline follows them, so start-up normalization is not reported as an edit.
- let touched=false;for(const type of ['pointerdown','keydown','input','change'])document.addEventListener(type,()=>{touched=true;},{capture:true,once:true});
- const settle=()=>{if(touched)return;try{rebase('工作階段開始時');}catch(e){console.warn('增量編輯初始化失敗',e);}};
- settle();
- const later=()=>{if(typeof requestIdleCallback==='function')requestIdleCallback(settle,{timeout:1500});else setTimeout(settle,0);};
- if(document.readyState==='complete')later();else addEventListener('load',later,{once:true});setTimeout(settle,3000);
-})();
-
-
-</script>
-<!-- balance-modules:end -->

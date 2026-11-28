@@ -14,7 +14,38 @@
  function requireApplied(id){if(drafts.has(id))throw Error('請先套用或捨棄該技能的未儲存修改，再複製或取用。');}
 
  let section='skills',selection='',query='';
- function ensure(d){if(!d.skillSystem)d.skillSystem=M.fromLegacy(d);M.project(d);return d.skillSystem;}
+ // Older pages (companion skills, support skills, passives, common effects) edit the projected legacy rows directly.
+ // Before projecting again, fold those edits back into their definitions: a value that differs from what the definition
+ // projects to was edited there, and a key the definition projects but the row lost was deleted there. Rows projected
+ // from several adapters are skipped (their ids carry a -job suffix).
+ function projectedRow(sk,kind){
+  const {adapters:unused,adapter:primary,type,jobs,sources,disabled,...row}=copy(sk);
+  if(kind==='core'){row.activation=type;row.requiredLevel??=0;row.requiresAdvanced=false;row.powerPerLevel??=0;if(type==='proc'){row.procChancePerLevel??=0;row.procBaseChance??=.245;}}
+  else if(kind!=='passive')row.level??=0;
+  return row;
+ }
+ function foldRow(sk,row){
+  const kind=sk.adapter.kind,want=projectedRow(sk,kind),same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+  for(const [k,v] of Object.entries(row)){if(same(v,want[k]))continue;if(k==='activation'&&kind==='core')sk.type=v;else sk[k]=copy(v);}
+  for(const k of Object.keys(want))if(!(k in row)&&k!=='activation')delete sk[k];
+ }
+ function absorbLegacyEdits(d){
+  for(const sk of d.skillSystem?.definitions||[]){
+   if(sk.adapters||!sk.adapter)continue;const {job,index,kind}=sk.adapter;
+   const row=kind==='passive'?d.passiveDefinitions?.[index]:kind==='core'?d.classes?.[job]?.skills?.[index]:d.supportSkills?.[job]?.[index];
+   if(row&&row.id===sk.id)foldRow(sk,row);
+  }
+ }
+ // Used by the skill-row-sync block: writes the selected companion row back to its definition before markDirty re-projects.
+ globalThis.__EMBERWILD_SKILL_ROW_SYNC={writeRow(d,row){const sk=d.skillSystem?.definitions?.find(x=>x.id===row?.id&&!x.adapters&&x.adapter);if(sk)foldRow(sk,row);return !!sk;}};
+ // project() writes new row objects. Pages that are already open keep references to the old rows, so after projecting the
+ // new content is copied into the old objects (same id, same position) to keep those references live.
+ function keepRowIdentity(d,project){
+  const lists=d2=>[...(d2.classes||[]).map(c=>c.skills||[]),...(d2.supportSkills||[]).map(pool=>pool||[]),d2.passiveDefinitions||[]];
+  const before=lists(d).map(list=>list.slice());project();
+  lists(d).forEach((list,n)=>list.forEach((row,i)=>{const old=before[n]?.[i];if(!old||old===row||!row||old.id!==row.id)return;for(const k of Object.keys(old))delete old[k];Object.assign(old,row);list[i]=old;}));
+ }
+ function ensure(d){if(!d.skillSystem)d.skillSystem=M.fromLegacy(d);else absorbLegacyEdits(d);keepRowIdentity(d,()=>M.project(d));return d.skillSystem;}
  ensure(ORIGINAL_DATA);ensure(data);
  const ensureBase=ensureArrays;ensureArrays=function(...args){const out=ensureBase(...args);ensure(data);return out;};
  function issueList(){try{M.project(copy(data));return [];}catch(e){return [e.message];}}
